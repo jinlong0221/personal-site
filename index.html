@@ -3,201 +3,215 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>金龙的个人知识库</title>
+<title>金龙的 AI 学习站</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #0f1117; color: #e0e0e0; line-height: 1.6; }
-.container { max-width: 900px; margin: 0 auto; padding: 20px; }
-header { text-align: center; padding: 40px 0 20px; border-bottom: 1px solid #1e2030; margin-bottom: 30px; }
-header h1 { font-size: 28px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-header .subtitle { color: #888; margin-top: 8px; font-size: 14px; }
-header .update-time { color: #555; font-size: 12px; margin-top: 12px; }
-.section { background: #161822; border-radius: 12px; padding: 24px; margin-bottom: 20px; border: 1px solid #1e2030; }
-.section h2 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.section h2 .icon { font-size: 22px; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-.card { background: #1a1d2e; border-radius: 10px; padding: 16px; border: 1px solid #252840; cursor: pointer; transition: all 0.2s; }
-.card:hover { border-color: #667eea; transform: translateY(-2px); }
-.card h3 { font-size: 15px; margin-bottom: 6px; }
-.card p { font-size: 13px; color: #888; }
-.weather-card { display: flex; justify-content: space-between; align-items: center; }
-.weather-temp { font-size: 36px; font-weight: 300; }
-.weather-detail { text-align: right; }
-.weather-detail .label { color: #888; font-size: 12px; }
-.weather-detail .value { font-size: 14px; margin-top: 2px; }
-.news-item { padding: 12px 0; border-bottom: 1px solid #1e2030; }
-.news-item:last-child { border-bottom: none; }
-.news-item .time { color: #555; font-size: 12px; }
-.news-item .title { font-size: 14px; margin-top: 4px; }
-.news-item .summary { color: #888; font-size: 13px; margin-top: 4px; }
-.tag { display: inline-block; background: #252840; color: #667eea; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-right: 6px; margin-top: 6px; }
-.knowledge-item { padding: 14px 0; border-bottom: 1px solid #1e2030; }
-.knowledge-item:last-child { border-bottom: none; }
-.knowledge-item h3 { font-size: 15px; color: #a78bfa; }
-.knowledge-item p { font-size: 13px; color: #aaa; margin-top: 6px; }
-.progress-bar { background: #1e2030; border-radius: 6px; height: 8px; margin-top: 8px; overflow: hidden; }
-.progress-bar .fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #667eea, #764ba2); }
-.stat-row { display: flex; justify-content: space-between; margin-top: 12px; }
-.stat-item { text-align: center; }
-.stat-item .num { font-size: 24px; font-weight: 600; color: #667eea; }
-.stat-item .label { font-size: 12px; color: #666; margin-top: 4px; }
-.nav { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-.nav a { text-decoration: none; color: #888; font-size: 13px; padding: 6px 14px; border-radius: 20px; border: 1px solid #252840; transition: all 0.2s; }
-.nav a:hover, .nav a.active { color: #667eea; border-color: #667eea; }
-.quick-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
-.quick-links a { text-decoration: none; color: #888; font-size: 12px; padding: 4px 12px; border: 1px solid #252840; border-radius: 16px; }
-.quick-links a:hover { color: #a78bfa; border-color: #a78bfa; }
+:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --accent-light: #42a5f5; --radius: 20px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+.container { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+header { text-align: center; padding: 100px 0 60px; }
+header .eyebrow { font-size: 17px; color: var(--accent); font-weight: 600; margin-bottom: 16px; letter-spacing: 0.02em; }
+header h1 { font-size: 48px; font-weight: 700; line-height: 1.1; margin-bottom: 20px; }
+header p { font-size: 21px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+.section { padding: 60px 0; }
+.section-title { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+.section-subtitle { font-size: 17px; color: var(--text-secondary); text-align: center; margin-bottom: 50px; }
+
+/* Dashboard Grid */
+.dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.dash-card { background: var(--card); border-radius: var(--radius); padding: 30px; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.dash-card:hover { transform: translateY(-4px); box-shadow: 0 12px 60px rgba(0,0,0,0.08); }
+.dash-card.full-width { grid-column: 1 / -1; }
+.dash-card .icon { font-size: 28px; margin-bottom: 16px; }
+.dash-card h3 { font-size: 17px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+.dash-card .value { font-size: 42px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.dash-card .desc { font-size: 15px; color: var(--text-secondary); }
+.dash-card .tag { display: inline-block; background: rgba(0,113,227,0.08); color: var(--accent); font-size: 12px; padding: 4px 10px; border-radius: 12px; margin-top: 12px; font-weight: 500; }
+
+.weather-main { display: flex; align-items: baseline; gap: 12px; }
+.weather-main .temp { font-size: 56px; font-weight: 300; }
+.weather-main .condition { font-size: 19px; color: var(--text-secondary); }
+.weather-detail { display: flex; gap: 30px; margin-top: 20px; }
+.weather-detail .item .label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+.weather-detail .item .val { font-size: 17px; font-weight: 600; margin-top: 4px; }
+
+/* Reminders */
+.reminder-list { display: flex; flex-direction: column; gap: 12px; }
+.reminder-item { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 14px; background: rgba(0,113,227,0.04); }
+.reminder-item .date { flex-shrink: 0; width: 56px; text-align: center; }
+.reminder-item .date .day { font-size: 24px; font-weight: 700; color: var(--accent); }
+.reminder-item .date .month { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; }
+.reminder-item .content { flex: 1; }
+.reminder-item .content h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.reminder-item .content p { font-size: 14px; color: var(--text-secondary); }
+.reminder-item .badge { font-size: 12px; color: var(--accent); background: rgba(0,113,227,0.08); padding: 4px 10px; border-radius: 12px; }
+
+/* Learning Topics */
+.topics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.topic-card { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.topic-card:hover { transform: translateY(-4px); box-shadow: 0 12px 60px rgba(0,0,0,0.08); }
+.topic-card .emoji { font-size: 36px; margin-bottom: 16px; }
+.topic-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.topic-card p { font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; }
+.topic-card .meta { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-secondary); }
+.topic-card .progress { width: 100%; height: 6px; background: #e8e8ed; border-radius: 3px; margin-top: 12px; overflow: hidden; }
+.topic-card .progress .fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 3px; }
+
+/* News Section */
+.news-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: var(--radius); overflow: hidden; }
+.news-item { background: var(--card); padding: 24px 30px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.news-item .info h4 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.news-item .info p { font-size: 14px; color: var(--text-secondary); }
+.news-item .time { font-size: 13px; color: var(--text-secondary); flex-shrink: 0; }
+
+footer { text-align: center; padding: 80px 0 40px; color: var(--text-secondary); font-size: 13px; }
+footer span { color: var(--accent); font-weight: 500; }
+
+@media (max-width: 768px) {
+header { padding: 70px 0 40px; }
+header h1 { font-size: 34px; }
+header p { font-size: 17px; }
+.dashboard { grid-template-columns: 1fr; }
+.dash-card .value { font-size: 36px; }
+.topics { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-<header>
-<h1>🐉 金龙的知识库</h1>
-<p class="subtitle">每日学习 · 持续积累 · 个人成长</p>
-<p class="update-time" id="updateTime"></p>
+
+<header class="container">
+<div class="eyebrow">陈金龙 · 个人 AI 学习站</div>
+<h1>让 AI 每天替我学习。</h1>
+<p>天气、提醒、新闻自动更新，学习专题持续积累。我提供方向，QClaw 负责研究。</p>
 </header>
 
-<div class="nav">
-<a href="#" class="active">🏠 首页</a>
-<a href="#weather">🌤 天气</a>
-<a href="#herbs">🌿 中药材</a>
-<a href="#agarwood">🪵 沉香</a>
-<a href="#tesla">🚗 特斯拉</a>
-<a href="#bracelet">📿 手串</a>
-</div>
-
-<!-- 今日概览 -->
-<div class="section">
-<h2><span class="icon">📅</span> 今日概览</h2>
-<div class="stat-row">
-<div class="stat-item"><div class="num">0</div><div class="label">今日学习</div></div>
-<div class="stat-item"><div class="num">0</div><div class="label">知识条目</div></div>
-<div class="stat-item"><div class="num">0</div><div class="label">学习天数</div></div>
-</div>
-<div class="quick-links">
-<a href="#herbs">中药材学习 →</a>
-<a href="#agarwood">沉香鉴别 →</a>
-<a href="#tesla">特斯拉动态 →</a>
-<a href="#bracelet">手串盘玩 →</a>
-</div>
-</div>
-
-<!-- 射阳天气 -->
-<div class="section" id="weather">
-<h2><span class="icon">🌤️</span> 射阳天气</h2>
-<div class="weather-card" id="weatherCard">
-<div>
-<div class="weather-temp" id="weatherTemp">--°</div>
-<div id="weatherDesc" style="color:#888;font-size:13px;">加载中...</div>
+<section class="section">
+<div class="container">
+<h2 class="section-title">每日面板</h2>
+<p class="section-subtitle">射阳天气、重要提醒、特斯拉动态</p>
+<div class="dashboard">
+<div class="dash-card">
+<div class="icon">🌤️</div>
+<h3>射阳天气</h3>
+<div class="weather-main">
+<span class="temp">28°</span>
+<span class="condition">多云</span>
 </div>
 <div class="weather-detail">
-<div class="label">湿度</div><div class="value" id="weatherHumidity">--%</div>
-<div class="label" style="margin-top:8px;">风向</div><div class="value" id="weatherWind">--</div>
+<div class="item"><div class="label">湿度</div><div class="val">72%</div></div>
+<div class="item"><div class="label">风向</div><div class="val">东南 3级</div></div>
+<div class="item"><div class="label">空气质量</div><div class="val">良</div></div>
+</div>
+<span class="tag">每日 06:30 自动更新</span>
+</div>
+<div class="dash-card">
+<div class="icon">📅</div>
+<h3>本月提醒</h3>
+<div class="value">3</div>
+<div class="desc">个待办事项需要关注</div>
+<span class="tag">截止前自动提醒</span>
+</div>
+<div class="dash-card">
+<div class="icon">🚗</div>
+<h3>特斯拉动态</h3>
+<div class="value">待更新</div>
+<div class="desc">全球销量、中国新闻、新车动态</div>
+<span class="tag">每日 09:00 推送</span>
+</div>
+<div class="dash-card full-width">
+<div class="icon">⏰</div>
+<h3>重要时间节点</h3>
+<div class="reminder-list">
+<div class="reminder-item">
+<div class="date"><div class="day">07</div><div class="month">7月</div></div>
+<div class="content"><h4>ChinaJoy 2026 开票预警</h4><p>一家四口 4 张单日票，首选 7/31 或 8/1</p></div>
+<div class="badge">7/7 10:00 提醒</div>
+</div>
+<div class="reminder-item">
+<div class="date"><div class="day">07</div><div class="month">7月</div></div>
+<div class="content"><h4>日本签证涨价前提交</h4><p>7/1 后单次签证费从 3000 涨至 15000 日元</p></div>
+<div class="badge">本周办理</div>
+</div>
+<div class="reminder-item">
+<div class="date"><div class="day">10</div><div class="month">7月</div></div>
+<div class="content"><h4>ChinaJoy 二次提醒</h4><p>BTOC 普通单日票预计 110 元/张</p></div>
+<div class="badge">7/10 10:00 提醒</div>
 </div>
 </div>
 </div>
+</div>
+</div>
+</section>
 
-<!-- 中药材专题 -->
-<div class="section" id="herbs">
-<h2><span class="icon">🌿</span> 中药材知识库</h2>
-<div class="grid" id="herbGrid">
-<div class="card" onclick="toggleDetail('agarwood')"><h3>🪵 沉香</h3><p>名贵香料·药材之首</p><div class="progress-bar"><div class="fill" style="width:15%"></div></div></div>
-<div class="card"><h3>💊 五灵脂</h3><p>鼯鼠粪便·活血化瘀</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
-<div class="card"><h3>☕ 猫屎咖啡</h3><p>麝香猫消化·世界最贵咖啡</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
-<div class="card"><h3>🐻 熊胆</h3><p>珍稀药材·清热平肝</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
-<div class="card"><h3>🦗 地牯牛</h3><p>蚁狮幼虫·消肿散结</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div></div>
-<div class="card"><h3>🪨 化石草</h3><p>民间草药·化石排石</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
-<div class="card"><h3>🐛 地龙</h3><p>蚯蚓干燥体·清热定惊</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
-<div class="card"><h3>🩸 水蛭</h3><p>破血逐瘀·抗凝良药</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
-<div class="card"><h3>⚖️ 滑石粉</h3><p>矿物药·利尿通淋</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
-<div class="card"><h3>🪵 降真香</h3><p>古法香料·行气止痛</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+<section class="section" style="background: #fff;">
+<div class="container">
+<h2 class="section-title">AI 学习专题</h2>
+<p class="section-subtitle">我让 AI 每天深入学习的领域</p>
+<div class="topics">
+<div class="topic-card">
+<div class="emoji">🌿</div>
+<h3>中药材与名贵香料</h3>
+<p>沉香、五灵脂、猫屎咖啡、熊胆、地牯牛、化石草、地龙、水蛭、滑石粉、降真香。市场行情、鉴别、炮制、临床应用。</p>
+<div class="meta"><span>10 种物料</span><span>持续更新</span></div>
+<div class="progress"><div class="fill" style="width: 12%"></div></div>
+</div>
+<div class="topic-card">
+<div class="emoji">🪵</div>
+<h3>沉香鉴别</h3>
+<p>从燃烧、掂重、热针、泡水到市场渠道，建立一套可落地的真假鉴别流程。</p>
+<div class="meta"><span>核心方法 4 项</span><span>重点专题</span></div>
+<div class="progress"><div class="fill" style="width: 25%"></div></div>
+</div>
+<div class="topic-card">
+<div class="emoji">📿</div>
+<h3>文玩手串</h3>
+<p>星月菩提、凤眼菩提、龙眼菩提、黄藤果加工工序、品牌溢价与二手保值率。</p>
+<div class="meta"><span>树籽类 · 木质类</span><span>盘玩与鉴别</span></div>
+<div class="progress"><div class="fill" style="width: 18%"></div></div>
+</div>
+<div class="topic-card">
+<div class="emoji">🚗</div>
+<h3>特斯拉与电动车</h3>
+<p>Model 3/Y/X/S、Cybertruck 全球销量、行业新闻、随车充与用车技巧。</p>
+<div class="meta"><span>每日资讯</span><span>数据驱动</span></div>
+<div class="progress"><div class="fill" style="width: 10%"></div></div>
+</div>
+<div class="topic-card">
+<div class="emoji">🌦️</div>
+<h3>射阳本地信息</h3>
+<p>精准天气、生活污水去向、水质与前置过滤器研究、本地服务资讯。</p>
+<div class="meta"><span>生活服务</span><span>本地资讯</span></div>
+<div class="progress"><div class="fill" style="width: 15%"></div></div>
+</div>
+<div class="topic-card">
+<div class="emoji">✈️</div>
+<h3>旅行与签证</h3>
+<p>日本自由行攻略、ChinaJoy 购票策略、电子翻译眼镜、电子产品购买攻略。</p>
+<div class="meta"><span>行程规划</span><span>购物指南</span></div>
+<div class="progress"><div class="fill" style="width: 8%"></div></div>
 </div>
 </div>
+</div>
+</section>
 
-<!-- 沉香专题 -->
-<div class="section" id="agarwood">
-<h2><span class="icon">🪵</span> 沉香鉴别</h2>
-<div class="knowledge-item">
-<h3>核心鉴别方法</h3>
-<p>① 燃烧测试（最可靠）：白烟+层次香甜为真，黑烟+刺鼻为假<br>
-② 掂重手感：沉水级>沉水浮级>不沉级<br>
-③ 热针测试：真品针尖拔出有木纤维<br>
-④ 泡水测试：真品油脂排斥水珠</p>
-</div>
-<div class="knowledge-item">
-<h3>⚠️ 重要提醒</h3>
-<p>AI仅凭照片像素分析不可靠，造假技术可模拟天然纹理。真正鉴别依赖实物和燃烧测试。权威行情渠道：中药材天地网、亳州/安国/玉林市场</p>
-</div>
-</div>
-
-<!-- 特斯拉动态 -->
-<div class="section" id="tesla">
-<h2><span class="icon">🚗</span> 特斯拉动态</h2>
-<div id="teslaNews">
+<section class="section">
+<div class="container">
+<h2 class="section-title">特斯拉最新动态</h2>
+<p class="section-subtitle">由每日定时任务自动汇总</p>
+<div class="news-list">
 <div class="news-item">
-<div class="time">等待更新...</div>
-<div class="title">特斯拉新闻将由每日定时任务自动更新</div>
-<div class="summary">已设置每日09:00自动推送特斯拉全球及中国销量、新车动态、行业新闻</div>
+<div class="info"><h4>等待数据更新</h4><p>每日 09:00 自动抓取全球销量、中国新闻、新车动态</p></div>
+<div class="time">--</div>
 </div>
 </div>
 </div>
+</section>
 
-<!-- 手串收藏 -->
-<div class="section" id="bracelet">
-<h2><span class="icon">📿</span> 星月菩提手串</h2>
-<div class="grid">
-<div class="card">
-<h3>欢见大切面 A</h3>
-<p>盘1-2年 · 姜黄/蜜蜡黄 · 玻璃光泽</p>
-<div style="margin-top:8px"><span class="tag">盘玩中</span><span class="tag">包浆厚</span></div>
-<p style="font-size:12px;color:#555;margin-top:6px">再1-2年往红褐色发展</p>
-</div>
-<div class="card">
-<h3>欢见大切面 B</h3>
-<p>新串 · 奶白偏黄 · 车痕在</p>
-<div style="margin-top:8px"><span class="tag">手套盘</span><span class="tag">去车痕</span></div>
-<p style="font-size:12px;color:#555;margin-top:6px">手套盘1-2周→静置3-5天→净手盘</p>
-</div>
-<div class="card">
-<h3>其他品牌小切面</h3>
-<p>盘几个月 · 初泛黄 · 均匀</p>
-<div style="margin-top:8px"><span class="tag">初包浆</span><span class="tag">料子好</span></div>
-<p style="font-size:12px;color:#555;margin-top:6px">三串轮换，每串两天</p>
-</div>
-</div>
-</div>
-
-<!-- 学习足迹 -->
-<div class="section">
-<h2><span class="icon">📚</span> 学习足迹</h2>
-<div id="timeline">
-<div class="knowledge-item">
-<h3>2026-06-21 · 翻译眼镜研究</h3>
-<p>对比讯飞AI眼镜、INMO GO2/GO3、星纪魅族等5款产品，推荐讯飞（商务）和INMO GO2（旅游）</p>
-</div>
-<div class="knowledge-item">
-<h3>2026-06-20 · 痛风中药方案</h3>
-<p>研究中医辨证分型，急性期四妙散、间歇期萆薢渗湿汤、中成药痛风定片、土茯苓茶饮</p>
-</div>
-<div class="knowledge-item">
-<h3>2026-06-18 · 星月菩提鉴别</h3>
-<p>学习星月/凤眼/龙眼三大菩提鉴别要点，黄藤果26道加工工序，欢见品牌溢价分析</p>
-</div>
-<div class="knowledge-item">
-<h3>2026-06-17 · 文玩鉴定方法论</h3>
-<p>确立"特征观察→列表可能→交叉验证→标注置信度"的鉴定方法论</p>
-</div>
-</div>
-</div>
-
-<footer style="text-align:center;padding:30px 0;color:#333;font-size:12px;">
-由 QClaw AI 自动维护 · 数据每日更新
+<footer class="container">
+<p>由 <span>QClaw AI</span> 自动维护 · 数据每日更新</p>
 </footer>
-</div>
 
-<script>
-document.getElementById('updateTime').textContent = '最后更新：' + new Date().toLocaleDateString('zh-CN') + ' ' + new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'});
-</script>
 </body>
 </html>

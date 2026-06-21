@@ -1,82 +1,75 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
 <title>化石草 - 龙兄知识库</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0;
-  --blue: #0078d4; --green: #107c10; --orange: #ff8c00;
-  --red: #e81123; --purple: #6b69d6; --teal: #008272; --border: #333;
-}
-body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-.navbar { position: sticky; top: 0; z-index: 200; background: #000; border-bottom: 1px solid var(--border); }
-.navbar-inner { max-width: 1000px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
-.navbar-logo { font-family: 'Ma Shan Zheng', cursive; font-size: 28px; color: #fff; text-decoration: none; }
-.navbar-back { color: var(--blue); text-decoration: none; font-weight: 600; }
-.page-header { padding: 40px 0; border-bottom: 1px solid var(--border); }
-.page-header .emoji { font-size: 48px; margin-bottom: 12px; }
-.page-header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
-.page-header p { font-size: 16px; color: var(--text-secondary); }
-.content-section { background: #1a1a1a; border: 1px solid var(--border); padding: 30px; margin: 24px 0; }
-.content-section h2 { font-size: 22px; font-weight: 900; margin-bottom: 16px; color: var(--teal); }
-.content-section h3 { font-size: 18px; font-weight: 700; margin: 20px 0 10px; }
-.content-section p, .content-section li { font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
-.content-section ul { padding-left: 20px; }
-.warning-box { background: rgba(255,140,0,0.1); border: 1px solid var(--orange); padding: 20px; margin: 16px 0; }
-footer { text-align: center; padding: 40px 0; color: #666; font-size: 13px; }
+<style>* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0a0a0a; --text: #ffffff; --text2: #b0b0b0; --text3: #888; --border: #333; --card: #141414; }
+body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+.navbar { position: sticky; top: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--border); }
+.navbar-inner { max-width: 900px; margin: 0 auto; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Ma Shan Zheng', cursive; font-size: 26px; color: #fff; text-decoration: none; }
+.back { color: var(--text3); text-decoration: none; font-size: 14px; font-weight: 600; }
+.back:hover { color: #fff; }
+header { padding: 36px 0 28px; border-bottom: 1px solid var(--border); }
+header .emoji { font-size: 52px; margin-bottom: 10px; }
+header h1 { font-size: 34px; font-weight: 900; margin-bottom: 10px; }
+header p { font-size: 15px; color: var(--text2); }
+.card { background: var(--card); border: 1px solid var(--border); padding: 24px; margin: 16px 0; }
+.card h2 { font-size: 18px; font-weight: 900; margin-bottom: 14px; color: var(--text); border-left: 4px solid var(--accent, #6b69d6); padding-left: 12px; }
+.card p, .card li { font-size: 14px; color: var(--text2); margin-bottom: 8px; }
+.card ul { padding-left: 20px; }
+.card li { margin-bottom: 6px; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.tag { font-size: 11px; font-weight: 700; padding: 4px 10px; background: rgba(107,105,214,0.15); color: #9b99e0; }
+.warning { background: rgba(232,17,35,0.1); border-color: rgba(232,17,35,0.3); padding: 12px 16px; margin: 12px 0; font-size: 13px; color: #ff6b6b; }
+footer { text-align: center; padding: 40px 0 30px; color: var(--text3); font-size: 12px; border-top: 1px solid var(--border); margin-top: 20px; }
 </style>
 </head>
 <body>
 <nav class="navbar"><div class="navbar-inner">
-<a href="index.html" class="navbar-logo">龙兄知识库</a>
-<a href="herbs.html" class="navbar-back">← 中药材</a>
+<a href="index.html" class="logo">龙兄知识库</a>
+<a href="herbs.html" class="back">&larr; 中药材</a>
 </div></nav>
 <div class="container">
-<div class="page-header">
-<div class="emoji">🪨</div>
+<header>
+<div class="emoji">🌿</div>
 <h1>化石草</h1>
-<p>民间草药，传说化石排石。疗效争议大，需理性看待。</p>
-</div>
-
-<div class="content-section">
+<p>过路黄 · 利水通淋 · 化石排石 · 传统中草药</p>
+</header>
+<div class="card">
 <h2>基本信息</h2>
-<p><strong>来源：</strong>唇形科植物化石草（或多科属植物统称）</p>
-<p><strong>别名：</strong>猫须草、肾茶（部分品种）</p>
-<p><strong>性味：</strong>甘、淡、微寒</p>
-<p><strong>民间功效：</strong>清热利湿，排石通淋。用于肾结石、胆结石、尿路结石。</p>
+<div class="tag-row"><span class="tag">植物类</span><span class="tag">利尿通淋</span><span class="tag">化石</span></div>
+<ul><li><strong>来源:</strong> 报春花科植物过路黄（Lysimachia christinae）的干燥全草</li><li><strong>别名:</strong> 过路黄、真金草、路边黄、对座草</li><li><strong>产地:</strong> 主产四川、云南、贵州；全国各地均有分布</li><li><strong>性味:</strong> 甘、淡，微寒；归肝、胆、肾、膀胱经</li><li><strong>功效核心:</strong> 利水通淋、除湿退黄、解毒消肿</li></ul>
 </div>
-
-<div class="warning-box">
-<h3>⚠️ 疗效争议</h3>
-<p>化石草为民间草药，"化石"之名多为民间说法。现代医学证据有限，不能替代正规治疗。结石患者请遵医嘱，切勿盲目依赖草药。</p>
+<div class="card">
+<h2>主要功效</h2>
+<div class="tag-row"><span class="tag">化石</span><span class="tag">利尿</span><span class="tag">解毒</span><span class="tag">退黄</span></div>
+<ul><li>利水通淋：治热淋、石淋（泌尿系结石）</li><li>化石排石：民间称化石草，用于肾结石、输尿管结石</li><li>除湿退黄：治肝胆湿热黄疸</li><li>解毒消肿：治毒蛇咬伤、疮疡肿毒</li><li>清热解暑：夏季暑湿烦渴</li></ul>
 </div>
-
-<div class="content-section">
-<h2>常见品种</h2>
-<ul>
-<li><strong>猫须草（肾茶）：</strong> Orthosiphon aristatus，主产东南亚，利尿作用较明确</li>
-<li><strong>广金钱草：</strong> Desmodium styracifolium，广东习用，利湿通淋</li>
-<li><strong>金钱草：</strong> Lysimachia christinae，正品药典收载，利胆排石</li>
-</ul>
-<p><strong>注意：</strong>"化石草"非正规药名，各地品种不一，需辨别具体品种</p>
+<div class="card">
+<h2>鉴别要点</h2>
+<div class="tag-row"><span class="tag">外观</span><span class="tag">鉴别</span></div>
+<ul><li><strong>茎:</strong> 细长圆柱形，表面红棕色，有纵纹</li><li><strong>叶:</strong> 对生，心形或圆形，绿色带紫斑</li><li><strong>花:</strong> 黄色，单生于叶腋</li><li><strong>气味:</strong> 气微香，味淡；以茎叶色绿、完整者为佳</li></ul>
 </div>
-
-<div class="content-section">
-<h2>市场行情</h2>
-<p><strong>价格区间：</strong>干货 30-80元/kg（品种不一，价格差异大）</p>
-<p><strong>购买渠道：</strong>民间草药市场、部分地区药店</p>
-<p><strong>建议：</strong>购买前确认具体品种，选择正规渠道</p>
+<div class="card">
+<h2>化石名方</h2>
+<div class="tag-row"><span class="tag">经典方剂</span><span class="tag">民间验方</span></div>
+<p>化石草为民间传统化石要药，常与鸡内金、海金沙、金钱草等配伍用于泌尿系结石。四川民间以新鲜化石草捣汁服用，用于排石。</p>
+<p><strong>化石草 + 鸡内金</strong> 化石排石常用组合</p>
+<p><strong>化石草 + 金钱草 + 海金沙</strong> 三金排石汤（治肾结石）</p>
+<p><strong>新鲜化石草汁</strong> 民间排石土方，应在医师指导下用</p>
 </div>
-
-<div class="content-section">
+<div class="card">
+<h2>市场行情（参考）</h2>
+<div class="tag-row"><span class="tag">价格</span></div>
+<p><strong>干货（统货）</strong> 约 10~25 元/kg</p>
+<p><strong>特点</strong> 来源广泛，价格低廉，资源丰富</p>
 </div>
-
+<footer>由 QClaw AI 整理 &middot; 数据持续更新 &middot; 最后更新：2026年6月</footer>
 </div>
-<footer>由 QClaw AI 整理 · 数据持续更新</footer>
 </body>
 </html>

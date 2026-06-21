@@ -356,6 +356,25 @@ footer {
 
 [data-theme="light"] .tile:hover { filter: none !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
 
+
+/* === 亮色模式 最终白色文字修复 === */
+[data-theme="light"] .logo { color: var(--text) !important; }
+[data-theme="light"] header h1,
+[data-theme="light"] .header h1,
+[data-theme="light"] h1:not(.tile-blue):not(.tile-green):not(.tile-orange):not(.tile-red):not(.tile-purple) { color: var(--text) !important; }
+[data-theme="light"] a { color: #0078d4 !important; }
+[data-theme="light"] a:hover { color: #005a9e !important; text-decoration: underline; }
+[data-theme="light"] .navbar { background: rgba(255,255,255,0.92) !important; border-bottom-color: #e0e0e0 !important; }
+[data-theme="light"] .navbar .logo { color: var(--text) !important; }
+[data-theme="light"] .navbar .back-link { color: var(--text-secondary) !important; }
+[data-theme="light"] .metro-nav,
+[data-theme="light"] .metro-tabs { background: rgba(255,255,255,0.95) !important; border-bottom-color: #e0e0e0 !important; }
+[data-theme="light"] .metro-nav a,
+[data-theme="light"] .metro-tabs button { color: var(--text) !important; }
+[data-theme="light"] .metro-tabs button.active { 
+  background: var(--text) !important; color: var(--bg) !important; 
+}
+
 </style>
 </head>
 <body>

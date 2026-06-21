@@ -49,10 +49,22 @@
  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
 }
 
+/* [BUG-FIX:二-2] 深色模式独立配色：确保文字/卡片/导航栏全部同步 */
 [data-theme="dark"] {
- --card: #2d2d2d;
- --border: #8b6914;
+ --card: #1e1e1e;
+ --card-hover: #2a2a2a;
+ --border: #3a3a3a;
+ --border-light: #444444;
+ --text: #f0f0f0;
+ --text-secondary: #c0c0c0;
+ --text-muted: #888888;
  --gold: #d4af37;
+ --gold-light: #e0c97a;
+ --blue-light: #4da6e8;
+ --nav-bg: rgba(10, 10, 10, 0.96);
+ --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+ --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+ --shadow-lg: 0 8px 24px rgba(0,0,0,0.6);
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -170,9 +182,11 @@ strong,b { font-weight:700; color:var(--text); }
  padding:12px 20px; flex-direction:column; gap:4px;
 }
 .mobile-nav.open { display:flex; }
+/* [BUG-FIX:三-2] 移动端汉堡菜单：放大触屏点击区域，文字不溢出 */
 .mobile-nav a {
  display:block; color:var(--text-secondary); font-size:1rem;
- padding:12px 8px; border-radius:var(--radius-sm); min-height:44px; line-height:44px;
+ padding:12px 16px; border-radius:var(--radius-sm); min-height:44px; line-height:1.4;
+ white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
  transition:background var(--transition), color var(--transition);
 }
 .mobile-nav a:hover, .mobile-nav a.active { background:var(--card); color:var(--gold); }
@@ -273,15 +287,24 @@ strong,b { font-weight:700; color:var(--text); }
  background:transparent; border:none; color:var(--text); outline:none;
 }
 .home-search-input::placeholder { color:var(--text-muted); }
+/* [BUG-FIX:一-1] 搜索按钮：实体button，适配手机触屏 */
 .home-search-btn {
- display:inline-flex; align-items:center; gap:6px;
+ display:inline-flex; align-items:center; justify-content:center; gap:6px;
  padding:12px 24px; font-size:1rem; font-family:inherit;
  background:var(--gold); color:#0a0a0a; border:none; border-radius:8px;
  cursor:pointer; font-weight:600; white-space:nowrap;
+ min-height:44px; min-width:44px;
  transition:background 0.2s, transform 0.15s;
 }
 .home-search-btn:hover { background:var(--gold-light); transform:translateY(-1px); }
 [data-theme="light"] .home-search-btn { color:#fff; }
+/* [BUG-FIX:一-3] 搜索框清空按钮(X) */
+.home-search-clear {
+ background:none; border:none; font-size:1.2rem; color:var(--text-muted);
+ cursor:pointer; padding:4px 8px; min-height:44px; min-width:44px;
+ border-radius:var(--radius-sm); transition:color 0.2s, background 0.2s;
+}
+.home-search-clear:hover { color:var(--text); background:var(--card-hover); }
 
 .page-header { padding:32px 0 16px; position:relative; padding-top:24px; }
 .page-header::before {
@@ -334,12 +357,14 @@ strong,b { font-weight:700; color:var(--text); }
  -webkit-line-clamp:2; -webkit-box-orient:vertical;
 }
 
+/* [BUG-FIX:三-1] 一键复制按钮：放大点击区域，显示成功提示 */
 .copy-btn {
- display:inline-flex; align-items:center; gap:4px;
+ display:inline-flex; align-items:center; justify-content:center; gap:4px;
  padding:6px 12px; font-size:0.8rem; font-family:inherit;
  background:var(--card); border:1px solid var(--border);
  border-radius:var(--radius-sm); color:var(--text-muted);
  cursor:pointer; min-height:44px; min-width:44px;
+ touch-action:manipulation;
  transition:background var(--transition), color var(--transition), border-color var(--transition);
 }
 .copy-btn:hover { background:var(--card-hover); color:var(--gold); border-color:var(--gold); }
@@ -521,8 +546,11 @@ footer a:hover { color:var(--gold-light); }
  .hero-slogan { font-size:0.9rem; letter-spacing:1px; }
  .search-modal { padding-top:3vh; }
  .search-modal-content { width:98%; border-radius:8px; }
- .home-search-box { flex-direction:column; padding:8px; }
- .home-search-btn { justify-content:center; padding:10px 16px; }
+/* [BUG-FIX:一-3] 移动端搜索框布局 */
+ .home-search-box { flex-direction:column; padding:8px; gap:8px; }
+ .home-search-btn { justify-content:center; padding:10px 16px; width:100%; }
+ .home-search-clear { position:absolute; right:60px; top:50%; transform:translateY(-50%); }
+ .home-search-box { position:relative; }
 }
 
 button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {

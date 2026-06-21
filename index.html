@@ -6,6 +6,8 @@
 <title>龙兄知识库</title>
 <meta name="description" content="AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、新能源汽车、旅行攻略等实用内容。">
 <meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
+<!-- [BUG-FIX:二-4] 消除主题切换闪白：在DOM渲染前读取localStorage设置data-theme -->
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/app.js"></script>
 </head>
@@ -57,11 +59,12 @@
     <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
   </div>
 
-  <!-- 搜索入口 -->
+  <!-- [BUG-FIX:一-1+一-3] 搜索入口：原生input+button，增加清空按钮 -->
   <div class="home-search">
     <div class="home-search-box">
       <input type="text" id="homeSearchInput" class="home-search-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">
-      <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">🔍 搜索</button>
+      <button id="homeSearchClear" class="home-search-clear" aria-label="清空" style="display:none;">✕</button>
+      <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">搜索</button>
     </div>
   </div>
 

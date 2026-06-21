@@ -3,94 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <title>中药材与名贵香料 - 龙兄知识库</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --radius: 16px; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+:root {
+  --bg: #0a0a0a;
+  --text: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-muted: #7a7a7a;
+  --card: #1a1a1a;
+  --border: #333;
+  --accent: #0078d4;
+  --metro-blue: #0078d4;
+  --metro-green: #107c10;
+  --metro-orange: #ff8c00;
+  --metro-red: #e81123;
+  --metro-purple: #6b69d6;
+  --metro-teal: #008272;
+  --metro-pink: #c30052;
+  --metro-yellow: #ffb900;
+  --metro-dark: #1a1a1a;
+  --gap: 4px;
+}
+body { font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-/* Back link */
-.back-link { display: inline-block; margin: 20px 0 0; color: var(--accent); text-decoration: none; font-size: 14px; }
-.back-link:hover { text-decoration: underline; }
+/* Navigation */
+.navbar { position: sticky; top: 0; z-index: 200; background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+.navbar-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.navbar-logo { font-family: 'Ma Shan Zheng', cursive; font-size: 28px; color: var(--text); text-decoration: none; letter-spacing: 2px; }
+.navbar-home { color: var(--text); font-size: 14px; font-weight: 700; text-decoration: none; padding: 8px 16px; background: var(--metro-blue); transition: transform 0.15s, filter 0.15s; }
+.navbar-home:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-/* Header - compact like Tesla */
-header { padding: 48px 0 0; }
-header .emoji { font-size: 40px; margin-bottom: 12px; }
-header h1 { font-size: 36px; font-weight: 700; line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.02em; }
-header p { font-size: 17px; color: var(--text-secondary); max-width: 700px; }
+/* Header */
+header { padding: 40px 0 0; }
+header .emoji { font-size: 48px; margin-bottom: 12px; }
+header h1 { font-size: 36px; font-weight: 900; line-height: 1.1; margin-bottom: 10px; text-transform: uppercase; }
+header p { font-size: 16px; color: var(--text-secondary); max-width: 700px; font-weight: 400; }
 
-/* Sticky Tab Navigation */
-.tab-nav { position: sticky; top: 0; z-index: 100; background: rgba(251,251,253,0.85); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); margin-top: 24px; }
-.tab-nav-inner { display: flex; gap: 0; max-width: 960px; margin: 0 auto; padding: 0 24px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+/* Metro Tab Navigation */
+.tab-nav { position: sticky; top: 56px; z-index: 100; background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); margin-top: 24px; }
+.tab-nav-inner { display: flex; gap: 0; max-width: 1100px; margin: 0 auto; padding: 0 24px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 .tab-nav-inner::-webkit-scrollbar { display: none; }
-.tab-btn { padding: 14px 20px; font-size: 14px; font-weight: 500; color: var(--text-secondary); background: none; border: none; cursor: pointer; white-space: nowrap; position: relative; transition: color 0.2s; }
-.tab-btn::after { content: ''; position: absolute; bottom: 0; left: 20px; right: 20px; height: 2px; background: var(--accent); border-radius: 1px; transform: scaleX(0); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-.tab-btn:hover { color: var(--text); }
-.tab-btn.active { color: var(--accent); }
-.tab-btn.active::after { transform: scaleX(1); }
+.tab-btn { padding: 14px 20px; font-size: 14px; font-weight: 700; color: var(--text-secondary); background: none; border: none; cursor: pointer; white-space: nowrap; position: relative; transition: color 0.2s, background 0.2s; font-family: 'Noto Sans SC', sans-serif; text-transform: uppercase; }
+.tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.tab-btn.active { color: var(--text); background: var(--metro-blue); }
 
 /* Progress section */
-.progress-section { background: var(--card); border-radius: var(--radius); padding: 24px 28px; margin: 28px 0 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.progress-section h2 { font-size: 18px; font-weight: 600; margin-bottom: 14px; }
-.progress-bar { width: 100%; height: 6px; background: #e8e8ed; border-radius: 3px; overflow: hidden; }
-.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), #42a5f5); border-radius: 3px; transition: width 0.6s ease; }
-.progress-stats { display: flex; gap: 36px; margin-top: 16px; }
-.progress-stats .stat .label { font-size: 12px; color: var(--text-secondary); }
-.progress-stats .stat .val { font-size: 24px; font-weight: 700; color: var(--accent); }
+.progress-section { background: var(--card); border: 1px solid var(--border); padding: 24px 28px; margin: 28px 0 20px; }
+.progress-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 16px; text-transform: uppercase; }
+.progress-bar { width: 100%; height: 8px; background: #0a0a0a; border: 1px solid var(--border); overflow: hidden; }
+.progress-bar .fill { height: 100%; background: var(--metro-blue); transition: width 0.6s ease; }
+.progress-stats { display: flex; gap: 36px; margin-top: 18px; }
+.progress-stats .stat .label { font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; }
+.progress-stats .stat .val { font-size: 28px; font-weight: 900; color: var(--text); margin-top: 4px; }
 
-/* Herb grid */
-.herb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin: 16px 0; }
-.herb-card { background: var(--card); border-radius: 14px; padding: 22px; box-shadow: 0 1px 8px rgba(0,0,0,0.03); border: 1px solid rgba(210,210,215,0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.herb-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
-.herb-card .emoji { font-size: 30px; margin-bottom: 10px; }
-.herb-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-.herb-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
-.herb-card .status { font-size: 11px; padding: 3px 10px; border-radius: 12px; display: inline-block; }
-.status.learned { background: rgba(52,199,89,0.1); color: #34c759; }
-.status.learning { background: rgba(0,113,227,0.1); color: var(--accent); }
-.status.todo { background: rgba(134,134,139,0.1); color: var(--text-secondary); }
+/* Metro Tile Grid */
+.tile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); margin: 16px 0; }
+.tile { aspect-ratio: 1; padding: 20px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.15s ease, filter 0.15s ease; position: relative; overflow: hidden; }
+.tile:hover { transform: scale(1.02); filter: brightness(1.1); z-index: 10; }
+.tile .emoji { font-size: 36px; line-height: 1; }
+.tile h3 { font-size: 16px; font-weight: 900; color: #fff; text-transform: uppercase; line-height: 1.2; }
+.tile p { font-size: 12px; color: rgba(255,255,255,0.85); font-weight: 400; line-height: 1.4; margin-top: 8px; }
+.tile .status { font-size: 11px; font-weight: 700; color: #fff; padding: 4px 10px; background: rgba(0,0,0,0.25); display: inline-block; align-self: flex-start; margin-top: auto; text-transform: uppercase; }
+.tile .status.learning { background: rgba(255,255,255,0.2); }
+.tile .status.todo { background: rgba(0,0,0,0.35); }
+
+.tile-blue { background: var(--metro-blue); }
+.tile-green { background: var(--metro-green); }
+.tile-orange { background: var(--metro-orange); }
+.tile-red { background: var(--metro-red); }
+.tile-purple { background: var(--metro-purple); }
+.tile-teal { background: var(--metro-teal); }
+.tile-pink { background: var(--metro-pink); }
+.tile-yellow { background: var(--metro-yellow); color: #0a0a0a; }
+.tile-yellow h3 { color: #0a0a0a; }
+.tile-yellow p { color: rgba(10,10,10,0.85); }
+.tile-yellow .status { color: #0a0a0a; background: rgba(0,0,0,0.15); }
+.tile-dark { background: var(--metro-dark); border: 1px solid var(--border); }
+
+.tile-double { grid-column: span 2; aspect-ratio: 2 / 1; }
+.tile-tall { grid-row: span 2; aspect-ratio: 1 / 2; }
 
 /* Content sections */
-.panel { scroll-margin-top: 56px; }
-.content-section { background: var(--card); border-radius: var(--radius); padding: 36px; margin: 20px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.content-section h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); letter-spacing: -0.01em; }
-.content-section h3 { font-size: 18px; font-weight: 600; margin: 28px 0 14px; color: var(--accent); }
-.content-section p { font-size: 15px; margin-bottom: 14px; color: #424245; }
+.panel { scroll-margin-top: 112px; }
+.content-section { background: var(--card); border: 1px solid var(--border); padding: 36px; margin: 20px 0; }
+.content-section h2 { font-size: 24px; font-weight: 900; margin-bottom: 24px; text-transform: uppercase; }
+.content-section h3 { font-size: 18px; font-weight: 900; margin: 28px 0 14px; color: var(--metro-blue); text-transform: uppercase; }
+.content-section p { font-size: 15px; margin-bottom: 14px; color: var(--text-secondary); }
 .content-section ul, .content-section ol { margin: 14px 0; padding-left: 22px; }
-.content-section li { font-size: 15px; margin-bottom: 10px; color: #424245; }
+.content-section li { font-size: 15px; margin-bottom: 10px; color: var(--text-secondary); }
+.content-section li strong { color: var(--text); }
 
 /* Placeholder for future tabs */
 .placeholder-section { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 15px; }
-.placeholder-section .icon { font-size: 40px; margin-bottom: 12px; }
+.placeholder-section .icon { font-size: 48px; margin-bottom: 12px; }
 
 /* Update log */
-.update-log { background: var(--card); border-radius: var(--radius); padding: 24px 28px; margin: 20px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.update-log h3 { font-size: 17px; font-weight: 600; margin-bottom: 14px; }
-.update-log .log-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
+.update-log { background: var(--card); border: 1px solid var(--border); padding: 24px 28px; margin: 20px 0; }
+.update-log h3 { font-size: 17px; font-weight: 900; margin-bottom: 18px; text-transform: uppercase; }
+.update-log .log-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
 .update-log .log-item:last-child { border-bottom: none; }
-.update-log .log-item .date { font-size: 12px; color: var(--text-secondary); }
-.update-log .log-item .text { font-size: 14px; margin-top: 3px; color: #424245; }
+.update-log .log-item .date { font-size: 12px; color: var(--metro-blue); font-weight: 700; text-transform: uppercase; }
+.update-log .log-item .text { font-size: 14px; margin-top: 6px; color: var(--text-secondary); }
 
-footer { text-align: center; padding: 50px 0 30px; color: var(--text-secondary); font-size: 13px; }
+footer { text-align: center; padding: 50px 0 30px; color: var(--text-muted); font-size: 13px; }
+footer span { color: var(--metro-blue); font-weight: 700; }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .tile-grid { grid-template-columns: repeat(3, 1fr); }
+  .tile-double { grid-column: span 2; }
+}
 
 @media (max-width: 768px) {
-header h1 { font-size: 28px; }
-header p { font-size: 15px; }
-.content-section { padding: 24px; }
-.herb-grid { grid-template-columns: 1fr; }
-.progress-stats { gap: 24px; }
+  header h1 { font-size: 28px; }
+  header p { font-size: 15px; }
+  .content-section { padding: 24px; }
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .tile-double { grid-column: span 2; }
+  .tile-tall { grid-row: span 1; aspect-ratio: 1; }
+  .progress-stats { gap: 24px; }
+}
+
+@media (max-width: 480px) {
+  .navbar-logo { font-size: 22px; }
+  .navbar-home { padding: 6px 12px; font-size: 13px; }
+  .container { padding: 0 16px; }
+  .navbar-inner, .tab-nav-inner { padding: 0 16px; }
+  .tile { padding: 16px; }
+  .tile h3 { font-size: 14px; }
+  .tile p { font-size: 11px; }
 }
 </style>
 </head>
 <body>
-<div style="background:#fff;border-bottom:1px solid #e8e8ed;padding:12px 0;position:sticky;top:0;z-index:200;backdrop-filter:blur(10px);background:rgba(255,255,255,0.9)">
-  <div style="max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between">
-    <a href="index.html" style="font-family:'Ma Shan Zheng',cursive;font-size:28px;color:#1d1d1f;text-decoration:none;letter-spacing:2px">龙兄知识库</a>
-    <a href="index.html" style="color:#0071e3;font-size:14px;text-decoration:none">← 首页</a>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">龙兄知识库</a>
+    <a href="index.html" class="navbar-home">← 首页</a>
   </div>
-</div>
+</nav>
 
 <div class="container">
 
@@ -110,7 +166,7 @@ header p { font-size: 15px; }
 </div>
 </nav>
 
-<!-- 全部 view -->
+<!-- All view -->
 <div class="panel" id="panel-all">
 
 <div class="progress-section">
@@ -125,65 +181,85 @@ header p { font-size: 15px; }
 
 <div class="content-section" id="panel-checklist">
 <h2>学习清单</h2>
-<div class="herb-grid">
-<div class="herb-card" data-scroll="agarwood-detail">
+<div class="tile-grid">
+<div class="tile tile-blue tile-tall" data-scroll="agarwood-detail">
+<div class="tile-top">
 <div class="emoji">🪵</div>
 <h3>沉香</h3>
 <p>名贵香料之首，药材之上品。燃烧测试为核心鉴别方法。</p>
+</div>
 <span class="status learning">学习中</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-green" data-herb="五灵脂">
+<div class="tile-top">
 <div class="emoji">💊</div>
 <h3>五灵脂</h3>
 <p>鼯鼠粪便，活血化瘀。市场鱼龙混杂，需重点鉴别。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-orange" data-herb="猫屎咖啡">
+<div class="tile-top">
 <div class="emoji">☕</div>
 <h3>猫屎咖啡</h3>
 <p>麝香猫消化后排泄，世界最贵咖啡。真假鉴别有讲究。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-red" data-herb="熊胆">
+<div class="tile-top">
 <div class="emoji">🐻</div>
 <h3>熊胆</h3>
 <p>珍稀药材，清热平肝。国家重点保护，替代品研究重要。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-purple" data-herb="地牯牛">
+<div class="tile-top">
 <div class="emoji">🦗</div>
 <h3>地牯牛</h3>
 <p>蚁狮幼虫，消肿散结。民间用法多样，需系统整理。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-teal" data-herb="化石草">
+<div class="tile-top">
 <div class="emoji">🪨</div>
 <h3>化石草</h3>
 <p>民间草药，化石排石。疗效争议大，需理性看待。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-pink" data-herb="地龙">
+<div class="tile-top">
 <div class="emoji">🐛</div>
 <h3>地龙</h3>
 <p>蚯蚓干燥体，清热定惊。临床应用广泛，炮制方法多。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-yellow" data-herb="水蛭">
+<div class="tile-top">
 <div class="emoji">🩸</div>
 <h3>水蛭</h3>
 <p>破血逐瘀，抗凝良药。活体水蛭疗法复兴，市场新动向。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-dark" data-herb="滑石粉">
+<div class="tile-top">
 <div class="emoji">⚖️</div>
 <h3>滑石粉</h3>
 <p>矿物药，利尿通淋。工业用途广泛，需区分药用级。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
-<div class="herb-card">
+<div class="tile tile-blue" data-herb="降真香">
+<div class="tile-top">
 <div class="emoji">🪵</div>
 <h3>降真香</h3>
 <p>古法香料，行气止痛。与沉香易混淆，鉴别要点需掌握。</p>
+</div>
 <span class="status todo">待学习</span>
 </div>
 </div>
@@ -246,13 +322,12 @@ header p { font-size: 15px; }
 </div>
 
 <footer class="container">
-<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 整理 · 数据持续更新</p>
+<p>由 <span>QClaw AI</span> 整理 · 数据持续更新</p>
 </footer>
 
 <script>
 (function() {
   const tabs = document.querySelectorAll('.tab-btn');
-  const scrollCard = document.querySelector('.herb-card[data-scroll="agarwood-detail"]');
 
   tabs.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -262,21 +337,23 @@ header p { font-size: 15px; }
       const target = btn.dataset.tab;
       const panel = document.getElementById('panel-' + target);
       if (panel) {
+        window._tabClicking = true;
         panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => { window._tabClicking = false; }, 600);
       }
     });
   });
 
-  //所有卡片点击事件
-  document.querySelectorAll('.herb-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const target = card.dataset.scroll;
+  // All tile click events
+  document.querySelectorAll('.tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const target = tile.dataset.scroll;
       if (target) {
-        // 沉香卡片：跳转到详情
+        // Agarwood tile: jump to detail
         document.getElementById(target).scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        // 其他卡片：提示待学习
-        const name = card.querySelector('h3')?.textContent || '该物料';
+        // Other tiles: show pending notice
+        const name = tile.dataset.herb || tile.querySelector('h3')?.textContent || '该物料';
         alert(name + ' 的深入学习内容正在整理中，敬请期待！');
       }
     });
@@ -287,7 +364,8 @@ header p { font-size: 15px; }
   const tabMap = { 'panel-checklist': 'checklist', 'panel-notes': 'notes', 'panel-craft': 'craft', 'panel-market': 'market' };
 
   function onScroll() {
-    const scrollY = window.scrollY + 80;
+    if (window._tabClicking) return;
+    const scrollY = window.scrollY + 120;
     let activeTab = 'all';
     for (const id of sections) {
       const el = document.getElementById(id);
@@ -295,21 +373,10 @@ header p { font-size: 15px; }
         activeTab = tabMap[id];
       }
     }
-    // Only update if not clicking (to avoid flicker)
-    if (!window._tabClicking) {
-      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === activeTab));
-    }
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === activeTab));
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-
-  // Prevent scroll spy during click transitions
-  tabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      window._tabClicking = true;
-      setTimeout(() => { window._tabClicking = false; }, 600);
-    });
-  });
 })();
 </script>
 

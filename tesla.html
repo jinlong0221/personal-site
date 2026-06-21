@@ -51,12 +51,12 @@ body {
 .logo {
   font-family: 'Ma Shan Zheng', cursive;
   font-size: 28px;
-  color: #ffffff;
+  color: var(--text);
   text-decoration: none;
   letter-spacing: 2px;
 }
 .home-link {
-  color: #ffffff;
+  color: var(--text);
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
@@ -82,11 +82,11 @@ header p { font-size: 15px; color: var(--text-muted); font-weight: 700; }
   z-index: 200;
 }
 .tab-btn {
-  border: none;
+  border: 1px solid var(--border);
   padding: 12px 8px;
   font-size: 13px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   cursor: pointer;
   transition: transform 0.15s ease, filter 0.15s ease;
   text-align: center;
@@ -494,6 +494,30 @@ footer { text-align: center; padding: 50px 0 30px; color: var(--text-muted); fon
 [data-theme="light"] .log-item .text { color: var(--text-secondary) !important; }
 [data-theme="light"] footer { background: var(--card) !important; color: var(--text-muted) !important; }
 [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] b, [data-theme="light"] strong { color: var(--text) !important; }
+
+
+/* === 特斯拉页面 亮色模式专用 === */
+[data-theme="light"] .top-nav { background: var(--card) !important; border-bottom-color: var(--border) !important; }
+[data-theme="light"] .logo, [data-theme="light"] .home-link { color: var(--text) !important; }
+[data-theme="light"] header { border-bottom-color: var(--border) !important; }
+[data-theme="light"] header h1 { color: var(--text) !important; }
+[data-theme="light"] header p { color: var(--text-secondary) !important; }
+[data-theme="light"] .eyebrow { color: var(--metro-blue) !important; }
+[data-theme="light"] .tab-nav { background: var(--card) !important; border-bottom-color: var(--border) !important; }
+[data-theme="light"] .tab-btn { background: var(--card) !important; color: var(--text) !important; border-color: var(--border) !important; }
+[data-theme="light"] .tab-btn.active { background: var(--metro-blue) !important; color: #fff !important; }
+[data-theme="light"] .model-section { border-bottom-color: var(--border) !important; }
+[data-theme="light"] .section-label { color: var(--text-muted) !important; }
+[data-theme="light"] .model-chip { background: var(--card) !important; border-color: var(--border) !important; }
+[data-theme="light"] .model-chip .name { color: var(--text) !important; }
+[data-theme="light"] .model-chip .price, [data-theme="light"] .model-chip .label { color: var(--text-muted) !important; }
+[data-theme="light"] .news-date { color: var(--text-muted) !important; border-top-color: var(--border) !important; }
+[data-theme="light"] .news-card { background: var(--card) !important; border-color: var(--border) !important; }
+[data-theme="light"] .news-title { color: var(--text) !important; }
+[data-theme="light"] .news-summary { color: var(--text-secondary) !important; }
+[data-theme="light"] .news-time { color: var(--text-muted) !important; }
+[data-theme="light"] .news-tag { border: 1px solid var(--border); }
+[data-theme="light"] footer { background: var(--card) !important; color: var(--text-muted) !important; border-top-color: var(--border) !important; }
 
 </style>
 </head>

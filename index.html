@@ -84,16 +84,22 @@ header {
 .tile-1x2 { grid-column: span 1; grid-row: span 2; }
 .tile-2x2 { grid-column: span 2; grid-row: span 2; }
 
-/* Tile Colors (Metro accent colors) */
-.tile-blue { background: #0078d4; }
-.tile-green { background: #107c10; }
-.tile-orange { background: #ff8c00; }
-.tile-red { background: #e81123; }
-.tile-purple { background: #6b69d6; }
-.tile-teal { background: #008272; }
-.tile-pink { background: #c30052; }
+/* Tile Colors (Metro accent colors) - 统一深色背景+左边框 */
+.tile-blue, .tile-green, .tile-orange, .tile-red, .tile-purple, .tile-teal, .tile-pink, .tile-yellow {
+  background: #1a1a1a;
+  border-left: 4px solid #0078d4;
+  border-top: 1px solid #333;
+  border-right: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+.tile-green { border-left-color: #107c10; }
+.tile-orange { border-left-color: #ff8c00; }
+.tile-red { border-left-color: #e81123; }
+.tile-purple { border-left-color: #6b69d6; }
+.tile-teal { border-left-color: #008272; }
+.tile-pink { border-left-color: #c30052; }
+.tile-yellow { border-left-color: #ffb900; }
 .tile-dark { background: #1a1a1a; border: 1px solid #333; }
-.tile-yellow { background: #ffb900; color: #000; }
 
 /* Tile Content */
 .tile .emoji {

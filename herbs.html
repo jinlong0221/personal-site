@@ -29,7 +29,660 @@
 body { font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-);
+/* Navigation */
+.navbar { position: sticky; top: 0; z-index: 200; background: var(--nav-bg, rgba(10,10,10,0.95)); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+.navbar-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.navbar-logo { font-family: 'Ma Shan Zheng', cursive; font-size: 28px; color: var(--text); text-decoration: none; letter-spacing: 2px; }
+.navbar-home { color: var(--text); font-size: 14px; font-weight: 700; text-decoration: none; padding: 8px 16px; background: var(--metro-blue); transition: transform 0.15s, filter 0.15s; }
+.navbar-home:hover { transform: scale(1.02); filter: brightness(1.1); }
+
+/* Header */
+header { padding: 40px 0 0; }
+header .emoji { font-size: 48px; margin-bottom: 12px; }
+header h1 { font-size: 36px; font-weight: 900; line-height: 1.1; margin-bottom: 10px; text-transform: uppercase; }
+header p { font-size: 16px; color: var(--text-secondary); max-width: 700px; font-weight: 400; }
+
+/* Metro Tab Navigation */
+.tab-nav { position: sticky; top: 56px; z-index: 100; background: var(--nav-bg, rgba(10,10,10,0.95)); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); margin-top: 24px; }
+.tab-nav-inner { display: flex; gap: 0; max-width: 1100px; margin: 0 auto; padding: 0 24px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-nav-inner::-webkit-scrollbar { display: none; }
+.tab-btn { padding: 14px 20px; font-size: 14px; font-weight: 700; color: var(--text-secondary); background: none; border: none; cursor: pointer; white-space: nowrap; position: relative; transition: color 0.2s, background 0.2s; font-family: 'Noto Sans SC', sans-serif; text-transform: uppercase; }
+.tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.tab-btn.active { color: var(--text); background: var(--metro-blue); }
+
+/* Metro Tile Grid */
+.tile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); margin: 16px 0; }
+.tile { aspect-ratio: 1; padding: 20px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.15s ease, filter 0.15s ease; position: relative; overflow: hidden; text-decoration: none; }
+.tile:hover { transform: scale(1.02); filter: brightness(1.1); z-index: 10; }
+.tile .emoji { font-size: 36px; line-height: 1; }
+.tile h3 { font-size: 16px; font-weight: 900; color: #fff; text-transform: uppercase; line-height: 1.2; margin: 0 0 8px 0; }
+.tile p { font-size: 12px; color: rgba(255,255,255,0.85); font-weight: 400; line-height: 1.4; margin: 0; }
+
+/* 统一深色背景+左边彩色边框 */
+.tile-blue, .tile-green, .tile-orange, .tile-red, .tile-purple, .tile-teal, .tile-pink, .tile-yellow {
+  background: var(--metro-dark);
+  border-left: 4px solid var(--metro-blue);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.tile-green { border-left-color: var(--metro-green); }
+.tile-orange { border-left-color: var(--metro-orange); }
+.tile-red { border-left-color: var(--metro-red); }
+.tile-purple { border-left-color: var(--metro-purple); }
+.tile-teal { border-left-color: var(--metro-teal); }
+.tile-pink { border-left-color: var(--metro-pink); }
+.tile-yellow { border-left-color: var(--metro-yellow); }
+.tile-dark { background: var(--metro-dark); border: 1px solid var(--border); }
+
+.tile-double { grid-column: span 2; aspect-ratio: 2 / 1; }
+.tile-tall { grid-row: span 2; aspect-ratio: 1 / 2; }
+
+/* Content sections */
+.panel { scroll-margin-top: 112px; }
+.content-section { background: var(--card); border: 1px solid var(--border); padding: 36px; margin: 20px 0; }
+.content-section h2 { font-size: 24px; font-weight: 900; margin-bottom: 24px; text-transform: uppercase; }
+.content-section h3 { font-size: 18px; font-weight: 900; margin: 28px 0 14px; color: var(--metro-blue); text-transform: uppercase; }
+.content-section p { font-size: 15px; margin-bottom: 14px; color: var(--text-secondary); }
+.content-section ul, .content-section ol { margin: 14px 0; padding-left: 22px; }
+.content-section li { font-size: 15px; margin-bottom: 10px; color: var(--text-secondary); }
+.content-section li strong { color: var(--text); }
+
+/* Placeholder for future tabs */
+.placeholder-section { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 15px; }
+.placeholder-section .icon { font-size: 48px; margin-bottom: 12px; }
+
+/* Update log */
+.update-log { background: var(--card); border: 1px solid var(--border); padding: 24px 28px; margin: 20px 0; }
+.update-log h3 { font-size: 17px; font-weight: 900; margin-bottom: 18px; text-transform: uppercase; }
+.update-log .log-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.update-log .log-item:last-child { border-bottom: none; }
+.update-log .log-item .date { font-size: 12px; color: var(--metro-blue); font-weight: 700; text-transform: uppercase; }
+.update-log .log-item .text { font-size: 14px; margin-top: 6px; color: var(--text-secondary); }
+
+footer { text-align: center; padding: 50px 0 30px; color: var(--text-muted); font-size: 13px; }
+footer span { color: var(--metro-blue); font-weight: 700; }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .tile-grid { grid-template-columns: repeat(3, 1fr); }
+  .tile-double { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+  header h1 { font-size: 28px; }
+  header p { font-size: 15px; }
+  .content-section { padding: 24px; }
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .tile-double { grid-column: span 2; }
+  .tile-tall { grid-row: span 1; aspect-ratio: 1; }
+}
+
+@media (max-width: 480px) {
+  .navbar-logo { font-size: 22px; }
+  .navbar-home { padding: 6px 12px; font-size: 13px; }
+  .container { padding: 0 16px; }
+  .navbar-inner, .tab-nav-inner { padding: 0 16px; }
+  .tile { padding: 16px; }
+  .tile h3 { font-size: 14px; }
+  .tile p { font-size: 11px; }
+}
+
+
+/* ===== Theme ===== */
+
+
+
+
+
+
+
+
+
+
+.theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s; background: #333; color: #fff; }
+
+
+
+
+/* ===== Theme Switch ===== */
+:root { --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0; --text-muted: #7a7a7a; --card: #1a1a1a; --border: #333; --nav-bg: rgba(10,10,10,0.95); }
+
+
+
+
+
+
+
+
+
+.theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s, background 0.3s; background: #333; color: #fff; }
+
+
+
+
+/* === Theme Toggle Button === */
+.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.theme-toggle:hover{transform:scale(1.15);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+
+
+
+
+[data-theme="light"] {
+  --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
+  --card: #ffffff; --border: #e0e0e0; --nav-bg: rgba(245,245,245,0.95);
+}
+[data-theme="light"] .tile { box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+[data-theme="light"] .tile h3, [data-theme="light"] .tile .title, [data-theme="light"] .tile .desc, [data-theme="light"] .tile .meta, [data-theme="light"] .tile p { color: var(--text); }
+[data-theme="light"] .tile .unit, [data-theme="light"] .tile .big-number { color: var(--text); }
+[data-theme="light"] .card { box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+[data-theme="light"] .card h2, [data-theme="light"] .card p, [data-theme="light"] .card li { color: var(--text-secondary); }
+[data-theme="light"] .section-label { color: var(--text-muted); }
+[data-theme="light"] .warning { background: rgba(232,17,35,0.08); color: #c00; }
+[data-theme="light"] .tag { background: rgba(107,105,214,0.1); color: #6b69d6; }
+[data-theme="light"] footer, [data-theme="light"] .subtitle, [data-theme="light"] header p, [data-theme="light"] .back { color: var(--text-muted); }
+[data-theme="light"] .bodhi-card h3 { color: #fff !important; }
+[data-theme="light"] .bodhi-card { filter: brightness(0.85) saturate(1.1); }
+[data-theme="light"] .bodhi-card:hover { filter: brightness(0.9) saturate(1.1); }
+[data-theme="light"] .phase-tile { background: #e8e8e8; border-color: #ccc; }
+[data-theme="light"] .phase-tile .phase-num { color: #0050a0; }
+[data-theme="light"] .phase-tile .phase-name { color: #1a1a1a; }
+[data-theme="light"] .phase-tile .phase-desc { color: #555; }
+[data-theme="light"] .phase-tile .phase-time { color: #777; }
+[data-theme="light"] .step-tile { background: #f0f0f0; border-color: #ddd; }
+[data-theme="light"] .step-tile .step-num { color: #0050a0; }
+[data-theme="light"] .step-tile .step-name { color: #1a1a1a; }
+[data-theme="light"] .step-tile .step-desc { color: #555; }
+[data-theme="light"] .taboo-tile { opacity: 1; }
+[data-theme="light"] .log-item { background: #f5f5f5; }
+[data-theme="light"] .warn-box { background: rgba(255,200,0,0.1); color: #7a5000; border-color: rgba(255,200,0,0.3); }
+[data-theme="light"] .tip-box { background: #e8f4f8; color: #1a4a5a; }
+
+
+[data-theme="light"] {
+  --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
+  --card: #ffffff; --border: #e0e0e0; --nav-bg: rgba(245,245,245,0.95);
+}
+[data-theme="light"] .tile { box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+[data-theme="light"] .tile h3, [data-theme="light"] .tile .title, [data-theme="light"] .tile .desc, [data-theme="light"] .tile .meta, [data-theme="light"] .tile p { color: var(--text); }
+[data-theme="light"] .tile .unit, [data-theme="light"] .tile .big-number { color: var(--text); }
+[data-theme="light"] .card { box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+[data-theme="light"] .card h2, [data-theme="light"] .card p, [data-theme="light"] .card li { color: var(--text-secondary); }
+[data-theme="light"] .section-label { color: var(--text-muted); }
+[data-theme="light"] .warning { background: rgba(232,17,35,0.08); color: #c00; }
+[data-theme="light"] .tag { background: rgba(107,105,214,0.1); color: #6b69d6; }
+[data-theme="light"] footer, [data-theme="light"] .subtitle, [data-theme="light"] header p, [data-theme="light"] .back { color: var(--text-muted); }
+[data-theme="light"] .bodhi-card h3 { color: #fff !important; }
+[data-theme="light"] .bodhi-card { filter: brightness(0.85) saturate(1.1); }
+[data-theme="light"] .bodhi-card:hover { filter: brightness(0.9) saturate(1.1); }
+[data-theme="light"] .phase-tile { background: #e8e8e8; border-color: #ccc; }
+[data-theme="light"] .phase-tile .phase-num { color: #0050a0; }
+[data-theme="light"] .phase-tile .phase-name { color: #1a1a1a; }
+[data-theme="light"] .phase-tile .phase-desc { color: #555; }
+[data-theme="light"] .phase-tile .phase-time { color: #777; }
+[data-theme="light"] .step-tile { background: #f0f0f0; border-color: #ddd; }
+[data-theme="light"] .step-tile .step-num { color: #0050a0; }
+[data-theme="light"] .step-tile .step-name { color: #1a1a1a; }
+[data-theme="light"] .step-tile .step-desc { color: #555; }
+[data-theme="light"] .taboo-tile { opacity: 1; }
+[data-theme="light"] .log-item { background: #f5f5f5; }
+[data-theme="light"] .warn-box { background: rgba(255,200,0,0.1); color: #7a5000; border-color: rgba(255,200,0,0.3); }
+[data-theme="light"] .tip-box { background: #e8f4f8; color: #1a4a5a; }
+.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.theme-toggle:hover{transform:scale(1.15)}
+[data-theme="light"] .theme-toggle{background:#fff;color:#333;border:1px solid #ddd;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+[data-theme="light"] .theme-toggle:hover{background:#f0f0f0}
+
+
+/* === 亮色模式文字颜色全覆盖 === */
+[data-theme="light"] body,
+[data-theme="light"] p,
+[data-theme="light"] li,
+[data-theme="light"] td,
+[data-theme="light"] th,
+[data-theme="light"] .desc,
+[data-theme="light"] .meta,
+[data-theme="light"] .text,
+[data-theme="light"] .subtitle,
+[data-theme="light"] .section-label { color: var(--text) !important; }
+
+[data-theme="light"] strong,
+[data-theme="light"] b { color: var(--text) !important; font-weight: 700; }
+
+[data-theme="light"] .tile,
+[data-theme="light"] .tile h3,
+[data-theme="light"] .tile .title,
+[data-theme="light"] .tile .desc,
+[data-theme="light"] .tile .meta,
+[data-theme="light"] .tile p { color: var(--text) !important; }
+
+[data-theme="light"] .card,
+[data-theme="light"] .card h2,
+[data-theme="light"] .card p,
+[data-theme="light"] .card li { color: var(--text-secondary) !important; }
+
+[data-theme="light"] .m-table td,
+[data-theme="light"] .m-table th,
+[data-theme="light"] .m-table strong { color: var(--text) !important; }
+
+/* 深色背景卡片保持白字 */
+[data-theme="light"] .bodhi-card,
+[data-theme="light"] .bodhi-star,
+[data-theme="light"] .bodhi-feng,
+[data-theme="light"] .bodhi-long { color: #fff !important; }
+[data-theme="light"] .bodhi-card h3,
+[data-theme="light"] .bodhi-card p,
+[data-theme="light"] .bodhi-card .tag { color: #fff !important; }
+
+
+/* === 亮色模式 Metro Tile 卡片 === */
+[data-theme="light"] .tile-blue,
+[data-theme="light"] .tile-green,
+[data-theme="light"] .tile-orange,
+[data-theme="light"] .tile-red,
+[data-theme="light"] .tile-purple,
+[data-theme="light"] .tile-teal,
+[data-theme="light"] .tile-pink,
+[data-theme="light"] .tile-yellow,
+[data-theme="light"] .tile-dark {
+  background: #ffffff !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+[data-theme="light"] .tile-blue { border-left: 4px solid #0078d4 !important; }
+[data-theme="light"] .tile-green { border-left: 4px solid #107c10 !important; }
+[data-theme="light"] .tile-orange { border-left: 4px solid #ff8c00 !important; }
+[data-theme="light"] .tile-red { border-left: 4px solid #e81123 !important; }
+[data-theme="light"] .tile-purple { border-left: 4px solid #6b69d6 !important; }
+[data-theme="light"] .tile-teal { border-left: 4px solid #008272 !important; }
+[data-theme="light"] .tile-pink { border-left: 4px solid #e91e63 !important; }
+[data-theme="light"] .tile-yellow { border-left: 4px solid #ffc107 !important; }
+[data-theme="light"] .tile h3 { color: var(--text) !important; }
+[data-theme="light"] .tile p { color: var(--text-secondary) !important; }
+[data-theme="light"] .tile:hover { transform: scale(1.02); filter: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important; }
+
+
+/* === 亮色模式 深色背景元素修复 === */
+[data-theme="light"] { --dark: #f0f0f0; }
+[data-theme="light"] .phase-tile { background: #ffffff !important; border-color: #e0e0e0 !important; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+[data-theme="light"] .phase-num { color: #0078d4 !important; }
+[data-theme="light"] .phase-name { color: var(--text) !important; font-weight: 700; }
+[data-theme="light"] .phase-desc { color: var(--text-secondary) !important; }
+[data-theme="light"] .phase-goal { color: var(--teal) !important; font-weight: 600; }
+[data-theme="light"] .m-table th { background: #e8e8e8 !important; color: var(--text) !important; }
+[data-theme="light"] .m-table td { background: #fff !important; color: var(--text) !important; border-color: #ddd !important; }
+[data-theme="light"] .m-table tr:nth-child(even) td { background: #f9f9f9 !important; }
+/* 导航栏保持深色 */
+
+
+/* === 亮色模式 Metro 彩色瓷砖 === */
+[data-theme="light"] .page-header h1 { color: var(--text) !important; }
+[data-theme="light"] .page-header .subtitle { color: var(--text-muted) !important; }
+
+[data-theme="light"] .tile-blue { background: #e3f2fd !important; }
+[data-theme="light"] .tile-blue .temp,
+[data-theme="light"] .tile-blue .desc,
+[data-theme="light"] .tile-blue .details,
+[data-theme="light"] .tile-blue .update-time,
+[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
+
+[data-theme="light"] .tile-green { background: #e8f5e9 !important; }
+[data-theme="light"] .tile-green .day,
+[data-theme="light"] .tile-green .forecast-desc,
+[data-theme="light"] .tile-green .forecast-temp,
+[data-theme="light"] .tile-green .forecast-rain,
+[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
+
+[data-theme="light"] .tile-orange { background: #fff3e0 !important; }
+[data-theme="light"] .tile-orange * { color: #e65100 !important; }
+
+[data-theme="light"] .tile-red { background: #ffebee !important; }
+[data-theme="light"] .tile-red * { color: #b71c1c !important; }
+
+[data-theme="light"] .tile-purple { background: #ede7f6 !important; }
+[data-theme="light"] .tile-purple * { color: #4a148c !important; }
+
+[data-theme="light"] .tile-cyan { background: #e0f7fa !important; }
+[data-theme="light"] .tile-cyan * { color: #006064 !important; }
+
+[data-theme="light"] .tile-pink { background: #fce4ec !important; }
+[data-theme="light"] .tile-pink * { color: #880e4f !important; }
+
+[data-theme="light"] .tile-yellow { background: #fffde7 !important; }
+[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
+
+[data-theme="light"] .tile:hover { filter: none !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
+
+
+/* === 亮色模式 最终白色文字修复 === */
+[data-theme="light"] .logo { color: var(--text) !important; }
+[data-theme="light"] header h1,
+[data-theme="light"] .header h1,
+[data-theme="light"] h1:not(.tile-blue):not(.tile-green):not(.tile-orange):not(.tile-red):not(.tile-purple) { color: var(--text) !important; }
+[data-theme="light"] a { color: #0078d4 !important; }
+[data-theme="light"] a:hover { color: #005a9e !important; text-decoration: underline; }
+[data-theme="light"] .navbar { background: rgba(255,255,255,0.92) !important; border-bottom-color: #e0e0e0 !important; }
+[data-theme="light"] .navbar .logo { color: var(--text) !important; }
+[data-theme="light"] .navbar .back-link { color: var(--text-secondary) !important; }
+[data-theme="light"] .metro-nav,
+[data-theme="light"] .metro-tabs { background: rgba(255,255,255,0.95) !important; border-bottom-color: #e0e0e0 !important; }
+[data-theme="light"] .metro-nav a,
+[data-theme="light"] .metro-tabs button { color: var(--text) !important; }
+[data-theme="light"] .metro-tabs button.active { 
+  background: var(--text) !important; color: var(--bg) !important; 
+}
+
+
+/* === 亮色模式 Warning/Tip框 === */
+[data-theme="light"] .warning-box { background: #fff; border-left-color: var(--red); border-color: #e0e0e0; }
+[data-theme="light"] .warning-box, [data-theme="light"] .warning-box p, [data-theme="light"] .warning-box li { color: #333; }
+[data-theme="light"] .warning-box strong { color: #c00; }
+[data-theme="light"] .tip-box { background: #f8f9fa; border-color: #e0e0e0; }
+[data-theme="light"] .tip-box p, [data-theme="light"] .tip-box li { color: #333; }
+/* === 亮色模式 其他深底元素 === */
+[data-theme="light"] .dark-tile, [data-theme="light"] [style*="background:var(--dark)"], [data-theme="light"] [style*="background: var(--dark)"] { background: #f5f5f5 !important; color: #222 !important; }
+
+
+/* === 亮色模式 所有Metro彩色瓷砖（含天气预报） === */
+[data-theme="light"] .tile-blue { background: #e3f2fd !important; color: #0d47a1 !important; }
+[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
+[data-theme="light"] .tile-green { background: #e8f5e9 !important; color: #1b5e20 !important; }
+[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
+[data-theme="light"] .tile-orange { background: #fff3e0 !important; color: #e65100 !important; }
+[data-theme="light"] .tile-orange * { color: #e65100 !important; }
+[data-theme="light"] .tile-purple { background: #f3e5f5 !important; color: #6a1b9a !important; }
+[data-theme="light"] .tile-purple * { color: #6a1b9a !important; }
+[data-theme="light"] .tile-cyan { background: #e0f7fa !important; #006064 !important; }
+[data-theme="light"] .tile-cyan * { color: #006064 !important; }
+[data-theme="light"] .tile-pink { background: #fce4ec !important; color: #880e4f !important; }
+[data-theme="light"] .tile-pink * { color: #880e4f !important; }
+[data-theme="light"] .tile-yellow { background: #fffde7 !important; color: #f57f17 !important; }
+[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
+[data-theme="light"] .tile-red { background: #ffebee !important; color: #b71c1c !important; }
+[data-theme="light"] .tile-red * { color: #b71c1c !important; }
+/* 亮色模式 forecast-tile 内文字 */
+[data-theme="light"] .forecast-tile .day,
+[data-theme="light"] .forecast-tile .forecast-desc,
+[data-theme="light"] .forecast-tile .forecast-temp,
+[data-theme="light"] .forecast-tile .forecast-rain { color: inherit !important; }
+
+
+[data-theme="light"] { --bg: #f0f0f0; --text: #1a1a1a; --text-secondary: #444; --text-muted: #666; --card: #ffffff; --border: #ddd; --nav-bg: rgba(240,240,240,0.95); --dark-tile: #f5f5f5; }
+[data-theme="light"] .tile { background: var(--card) !important; border-color: var(--border) !important; }
+[data-theme="light"] body { background: var(--bg); color: var(--text); }
+
+
+/* ========== 亮色模式完整修复 ========== */
+[data-theme="light"] {
+  --bg: #f5f5f5 !important;
+  --text: #1a1a1a !important;
+  --text-secondary: #333 !important;
+  --text-muted: #666 !important;
+  --card: #ffffff !important;
+  --border: #ddd !important;
+  --nav-bg: rgba(255,255,255,0.95) !important;
+  --dark-tile: #f8f8f8 !important;
+}
+[data-theme="light"] body { background: var(--bg) !important; color: var(--text) !important; }
+[data-theme="light"] .tile, [data-theme="light"] .tile-wide { background: var(--card) !important; border-color: var(--border) !important; color: var(--text) !important; }
+[data-theme="light"] .tile h2, [data-theme="light"] .tile h3, [data-theme="light"] .tile h4, [data-theme="light"] .tile p, [data-theme="light"] .tile li, [data-theme="light"] .tile span, [data-theme="light"] .tile strong { color: var(--text) !important; }
+[data-theme="light"] .warning-box { background: #fff3cd !important; border-color: #ffc107 !important; color: #856404 !important; }
+[data-theme="light"] .warning-box strong { color: #856404 !important; }
+[data-theme="light"] .tip-box { background: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+[data-theme="light"] .method-tile { background: var(--card) !important; color: var(--text) !important; }
+[data-theme="light"] .method-tile h4, [data-theme="light"] .method-tile p { color: var(--text) !important; }
+[data-theme="light"] .reliability { color: #fff !important; }
+[data-theme="light"] .m-table th { background: #e9ecef !important; color: var(--text) !important; }
+[data-theme="light"] .m-table td { background: var(--card) !important; color: var(--text) !important; border-color: var(--border) !important; }
+[data-theme="light"] .metro-tabs button { color: var(--text) !important; border-color: var(--border) !important; }
+[data-theme="light"] .metro-tabs button.active { background: var(--text) !important; color: var(--bg) !important; }
+[data-theme="light"] .navbar { background: var(--nav-bg) !important; }
+[data-theme="light"] .navbar a, [data-theme="light"] .logo, [data-theme="light"] .back-link { color: var(--text) !important; }
+[data-theme="light"] .page-header h1 { color: var(--text) !important; }
+[data-theme="light"] .page-header .subtitle { color: var(--text-muted) !important; }
+[data-theme="light"] .tile-blue { background: #e3f2fd !important; color: #0d47a1 !important; }
+[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
+[data-theme="light"] .tile-green { background: #e8f5e9 !important; color: #1b5e20 !important; }
+[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
+[data-theme="light"] .tile-orange { background: #fff3e0 !important; color: #e65100 !important; }
+[data-theme="light"] .tile-orange * { color: #e65100 !important; }
+[data-theme="light"] .tile-purple { background: #f3e5f5 !important; color: #6a1b9a !important; }
+[data-theme="light"] .tile-purple * { color: #6a1b9a !important; }
+[data-theme="light"] .tile-cyan { background: #e0f7fa !important; color: #006064 !important; }
+[data-theme="light"] .tile-cyan * { color: #006064 !important; }
+[data-theme="light"] .tile-pink { background: #fce4ec !important; color: #880e4f !important; }
+[data-theme="light"] .tile-pink * { color: #880e4f !important; }
+[data-theme="light"] .tile-yellow { background: #fffde7 !important; color: #f57f17 !important; }
+[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
+[data-theme="light"] .tile-red { background: #ffebee !important; color: #b71c1c !important; }
+[data-theme="light"] .tile-red * { color: #b71c1c !important; }
+[data-theme="light"] .update-tile { background: var(--card) !important; color: var(--text) !important; }
+[data-theme="light"] .log-item .date { color: var(--text-muted) !important; }
+[data-theme="light"] .log-item .text { color: var(--text-secondary) !important; }
+[data-theme="light"] footer { background: var(--card) !important; color: var(--text-muted) !important; }
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] b, [data-theme="light"] strong { color: var(--text) !important; }
+
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">龙兄知识库</a>
+    <a href="index.html" class="navbar-home">← 首页</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<header>
+<div class="emoji">🌿</div>
+<h1>中药材与名贵香料</h1>
+<p>系统学习 10 种中药材与名贵香料的鉴别、炮制、市场行情与临床应用。</p>
+</header>
+
+<nav class="tab-nav">
+<div class="tab-nav-inner">
+<button class="tab-btn active" data-tab="all">全部</button>
+<button class="tab-btn" data-tab="notes">沉香笔记</button>
+<button class="tab-btn" data-tab="craft">炮制工艺</button>
+<button class="tab-btn" data-tab="market">市场行情</button>
+</div>
+</nav>
+
+<!-- All view -->
+<div class="panel" id="panel-all">
+
+<div class="content-section" id="panel-all">
+<h2>中药材与名贵香料</h2>
+<div class="tile-grid">
+<a class="tile tile-blue tile-tall" href="agarwood.html">
+<div class="emoji">🪵</div>
+<h3>沉香</h3>
+<p>名贵香料之首，药材之上品。燃烧测试为核心鉴别方法。</p>
+</a>
+<a class="tile tile-green" href="wulingzhi.html">
+<div class="emoji">💊</div>
+<h3>五灵脂</h3>
+<p>鼯鼠粪便，活血化瘀。市场鱼龙混杂，需重点鉴别。</p>
+</a>
+<a class="tile tile-orange" href="kopi-luwak.html">
+<div class="emoji">☕</div>
+<h3>猫屎咖啡</h3>
+<p>麝香猫消化后排泄，世界最贵咖啡。真假鉴别有讲究。</p>
+</a>
+<a class="tile tile-red" href="xiongdan.html">
+<div class="emoji">🐻</div>
+<h3>熊胆</h3>
+<p>珍稀药材，清热平肝。国家重点保护，替代品研究重要。</p>
+</a>
+<a class="tile tile-purple" href="diguniu.html">
+<div class="emoji">🦗</div>
+<h3>地牯牛</h3>
+<p>蚁狮幼虫，消肿散结。民间用法多样，需系统整理。</p>
+</a>
+<a class="tile tile-teal" href="huashicao.html">
+<div class="emoji">🪨</div>
+<h3>化石草</h3>
+<p>民间草药，化石排石。疗效争议大，需理性看待。</p>
+</a>
+<a class="tile tile-pink" href="dilong.html">
+<div class="emoji">🐛</div>
+<h3>地龙</h3>
+<p>蚯蚓干燥体，清热定惊。临床应用广泛，炮制方法多。</p>
+</a>
+<a class="tile tile-yellow" href="shuizhi.html">
+<div class="emoji">🩸</div>
+<h3>水蛭</h3>
+<p>破血逐瘀，抗凝良药。活体水蛭疗法复兴，市场新动向。</p>
+</a>
+<a class="tile tile-dark" href="huashifen.html">
+<div class="emoji">⚖️</div>
+<h3>滑石粉</h3>
+<p>矿物药，利尿通淋。工业用途广泛，需区分药用级。</p>
+</a>
+<a class="tile tile-blue" href="jiangzhenxiang.html">
+<div class="emoji">🪵</div>
+<h3>降真香</h3>
+<p>古法香料，行气止痛。与沉香易混淆，鉴别要点需掌握。</p>
+</a>
+</div>
+</div>
+
+<div class="content-section" id="panel-notes">
+<h2>🪵 沉香 - 深入学习笔记</h2>
+
+<h3>核心鉴别方法</h3>
+<ol>
+<li><strong>燃烧测试（最可靠）：</strong>真品白烟+层次香甜，假货黑烟+刺鼻化学味。</li>
+<li><strong>掂重手感：</strong>沉水级 > 沉水浮级 > 不沉级。</li>
+<li><strong>热针测试：</strong>真品针尖带木纤维，假货针尖干净或带胶状物。</li>
+<li><strong>泡水测试：</strong>真品油脂排斥水珠，假货水迅速渗透。</li>
+</ol>
+
+<h3>重要提醒</h3>
+<ul>
+<li>AI 仅凭照片像素分析不可靠，造假技术可模拟天然纹理。</li>
+<li>真正鉴别依赖实物——燃烧测试 > 掂重手感 > 热针/泡水测试。</li>
+<li>权威行情渠道：中药材天地网、亳州/安国/玉林市场。</li>
+</ul>
+
+<h3>下一步学习计划</h3>
+<ul>
+<li>研究沉香不同产地的香气差异（越南 vs 印尼 vs 马来西亚）</li>
+<li>学习沉香炮制工艺（生结 vs 熟结 vs 虫漏）</li>
+<li>了解沉香在中医临床的应用（配伍、剂量、禁忌）</li>
+</ul>
+</div>
+
+<div class="content-section" id="panel-craft">
+<div class="placeholder-section">
+<div class="icon">🔧</div>
+<p>炮制工艺内容整理中，敬请期待</p>
+</div>
+</div>
+
+<div class="content-section" id="panel-market">
+<div class="placeholder-section">
+<div class="icon">📈</div>
+<p>市场行情内容整理中，敬请期待</p>
+</div>
+</div>
+
+</div>
+
+<div class="update-log">
+<h3>更新记录</h3>
+<div class="log-item">
+<div class="date">2026-06-21</div>
+<div class="text">创建中药材与名贵香料专题，完成 10 种物料清单，沉香部分完成初步深入学习笔记。</div>
+</div>
+<div class="log-item">
+<div class="date">2026-06-18</div>
+<div class="text">初步学习沉香基础知识，建立学习方法论。</div>
+</div>
+</div>
+
+</div>
+
+<footer class="container">
+<p>由 <span>QClaw AI</span> 整理 · 数据持续更新</p>
+</footer>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.tab-btn');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      const target = btn.dataset.tab;
+      const panel = document.getElementById('panel-' + target);
+      if (panel) {
+        window._tabClicking = true;
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => { window._tabClicking = false; }, 600);
+      }
+    });
+  });
+
+  // Scroll spy: update active tab on scroll
+  const sections = ['panel-notes', 'panel-craft', 'panel-market'];
+  const tabMap = { 'panel-notes': 'notes', 'panel-craft': 'craft', 'panel-market': 'market' };
+
+  function onScroll() {
+    if (window._tabClicking) return;
+    const scrollY = window.scrollY + 120;
+    let activeTab = 'all';
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) {
+        activeTab = tabMap[id];
+      }
+    }
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === activeTab));
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<button class="theme-toggle" id="tb">🌙</button>
+<script>
+(function(){
+  function getTheme(){var h=new Date().getHours();return h>=6&&h<18?'light':'dark';}
+  function apply(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);}
+  var saved=localStorage.getItem('theme');
+  if(saved){apply(saved);}else{apply(getTheme());}
+  var btn=document.getElementById('tb');
+  if(!btn){console.error('theme btn not found');return;}
+  btn.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    apply(cur==='dark'?'light':'dark');
+  });
+  function updateIcon(){btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';}
+  updateIcon();
+  new MutationObserver(updateIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 })();
 </script>
 </body>

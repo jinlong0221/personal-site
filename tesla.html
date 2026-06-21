@@ -31,7 +31,784 @@ body {
 }
 .container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
 
-);
+/* Sticky Nav */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+.top-nav .inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 28px;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+.home-link {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.home-link:hover { color: var(--metro-blue); }
+
+/* Header */
+header { padding: 36px 0 28px; border-bottom: 1px solid var(--border); }
+header .eyebrow { font-size: 13px; color: var(--metro-blue); font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+header h1 { font-size: 36px; font-weight: 900; line-height: 1.1; margin-bottom: 10px; }
+header p { font-size: 15px; color: var(--text-muted); font-weight: 700; }
+
+/* Tab Nav - Metro tiles */
+.tab-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 4px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 56px;
+  background: var(--bg);
+  z-index: 200;
+}
+.tab-btn {
+  border: none;
+  padding: 12px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tab-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+.tab-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); }
+.tab-btn.active { background: var(--metro-blue); border-color: var(--metro-blue); color: #fff; outline: none; }
+
+/* Model Section - Metro tiles */
+.model-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
+.section-label { font-size: 12px; color: var(--text-muted); font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+.model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.model-chip {
+  min-height: 120px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fff;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  cursor: pointer;
+}
+.model-chip:hover { transform: scale(1.02); filter: brightness(1.1); }
+.model-chip .name { font-size: 20px; font-weight: 900; line-height: 1.1; margin-bottom: 4px; }
+.model-chip .price { font-size: 13px; font-weight: 700; opacity: 0.9; margin-bottom: 4px; }
+.model-chip .label { font-size: 11px; font-weight: 900; opacity: 0.85; }
+.model-chip { background: var(--card); border: 1px solid var(--border); }
+.model-chip .price, .model-chip .label { color: var(--text-muted); }
+
+/* News Content */
+.news-content { min-height: 300px; padding: 20px 0; }
+.news-date { font-size: 11px; color: var(--text-muted); font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 20px 0 10px; border-top: 1px solid var(--border); }
+.news-date:first-child { border-top: none; padding-top: 0; }
+.news-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 8px;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.news-card:hover { transform: scale(1.01); filter: brightness(1.1); }
+.news-card:hover .news-title { color: var(--metro-blue); }
+.news-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.news-tag { font-size: 10px; font-weight: 900; padding: 3px 6px; border-radius: 0; letter-spacing: 0.03em; }
+.news-time { font-size: 11px; color: var(--text-muted); font-weight: 700; }
+.news-title { font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; transition: color 0.15s; }
+.news-summary { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+/* Tag colors */
+.news-ctag { background: rgba(0,120,212,0.15); color: var(--metro-blue); }
+.news-ctag { background: rgba(255,140,0,0.15); color: var(--metro-orange); }
+.news-ctag { background: rgba(16,124,16,0.15); color: var(--metro-green); }
+.news-ctag { background: rgba(232,17,35,0.15); color: var(--metro-red); }
+.news-ctag { background: rgba(107,105,214,0.15); color: var(--metro-purple); }
+.news-ctag { background: rgba(160,160,160,0.12); color: var(--text-muted); }
+
+/* Tab Panels */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Footer */
+footer { text-align: center; padding: 50px 0 30px; color: var(--text-muted); font-size: 12px; font-weight: 700; border-top: 1px solid var(--border); margin-top: 30px; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  header h1 { font-size: 28px; }
+  .model-grid { grid-template-columns: repeat(2, 1fr); }
+  .tab-nav { grid-template-columns: repeat(2, 1fr); top: 54px; }
+  .tab-btn { font-size: 12px; padding: 10px 6px; }
+}
+
+
+/* ===== Theme ===== */
+
+
+
+
+
+
+
+
+
+
+.theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s; background: #333; color: #fff; }
+
+
+
+
+/* ===== Theme Switch ===== */
+:root { --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0; --text-muted: #7a7a7a; --card: #1a1a1a; --border: #333; --nav-bg: rgba(10,10,10,0.95); }
+
+
+
+
+
+
+
+
+
+.theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s, background 0.3s; background: #333; color: #fff; }
+
+
+
+
+/* === Theme Toggle Button === */
+.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.theme-toggle:hover{transform:scale(1.15);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+
+
+
+
+[data-theme="light"] {
+  --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
+  --card: #ffffff; --border: #e0e0e0; --nav-bg: rgba(245,245,245,0.95);
+}
+[data-theme="light"] .tile { box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+[data-theme="light"] .tile h3, [data-theme="light"] .tile .title, [data-theme="light"] .tile .desc, [data-theme="light"] .tile .meta, [data-theme="light"] .tile p { color: var(--text); }
+[data-theme="light"] .tile .unit, [data-theme="light"] .tile .big-number { color: var(--text); }
+[data-theme="light"] .card { box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+[data-theme="light"] .card h2, [data-theme="light"] .card p, [data-theme="light"] .card li { color: var(--text-secondary); }
+[data-theme="light"] .section-label { color: var(--text-muted); }
+[data-theme="light"] .warning { background: rgba(232,17,35,0.08); color: #c00; }
+[data-theme="light"] .tag { background: rgba(107,105,214,0.1); color: #6b69d6; }
+[data-theme="light"] footer, [data-theme="light"] .subtitle, [data-theme="light"] header p, [data-theme="light"] .back { color: var(--text-muted); }
+[data-theme="light"] .bodhi-card h3 { color: #fff !important; }
+[data-theme="light"] .bodhi-card { filter: brightness(0.85) saturate(1.1); }
+[data-theme="light"] .bodhi-card:hover { filter: brightness(0.9) saturate(1.1); }
+[data-theme="light"] .phase-tile { background: #e8e8e8; border-color: #ccc; }
+[data-theme="light"] .phase-tile .phase-num { color: #0050a0; }
+[data-theme="light"] .phase-tile .phase-name { color: #1a1a1a; }
+[data-theme="light"] .phase-tile .phase-desc { color: #555; }
+[data-theme="light"] .phase-tile .phase-time { color: #777; }
+[data-theme="light"] .step-tile { background: #f0f0f0; border-color: #ddd; }
+[data-theme="light"] .step-tile .step-num { color: #0050a0; }
+[data-theme="light"] .step-tile .step-name { color: #1a1a1a; }
+[data-theme="light"] .step-tile .step-desc { color: #555; }
+[data-theme="light"] .taboo-tile { opacity: 1; }
+[data-theme="light"] .log-item { background: #f5f5f5; }
+[data-theme="light"] .warn-box { background: rgba(255,200,0,0.1); color: #7a5000; border-color: rgba(255,200,0,0.3); }
+[data-theme="light"] .tip-box { background: #e8f4f8; color: #1a4a5a; }
+
+
+[data-theme="light"] {
+  --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
+  --card: #ffffff; --border: #e0e0e0; --nav-bg: rgba(245,245,245,0.95);
+}
+[data-theme="light"] .tile { box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+[data-theme="light"] .tile h3, [data-theme="light"] .tile .title, [data-theme="light"] .tile .desc, [data-theme="light"] .tile .meta, [data-theme="light"] .tile p { color: var(--text); }
+[data-theme="light"] .tile .unit, [data-theme="light"] .tile .big-number { color: var(--text); }
+[data-theme="light"] .card { box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+[data-theme="light"] .card h2, [data-theme="light"] .card p, [data-theme="light"] .card li { color: var(--text-secondary); }
+[data-theme="light"] .section-label { color: var(--text-muted); }
+[data-theme="light"] .warning { background: rgba(232,17,35,0.08); color: #c00; }
+[data-theme="light"] .tag { background: rgba(107,105,214,0.1); color: #6b69d6; }
+[data-theme="light"] footer, [data-theme="light"] .subtitle, [data-theme="light"] header p, [data-theme="light"] .back { color: var(--text-muted); }
+[data-theme="light"] .bodhi-card h3 { color: #fff !important; }
+[data-theme="light"] .bodhi-card { filter: brightness(0.85) saturate(1.1); }
+[data-theme="light"] .bodhi-card:hover { filter: brightness(0.9) saturate(1.1); }
+[data-theme="light"] .phase-tile { background: #e8e8e8; border-color: #ccc; }
+[data-theme="light"] .phase-tile .phase-num { color: #0050a0; }
+[data-theme="light"] .phase-tile .phase-name { color: #1a1a1a; }
+[data-theme="light"] .phase-tile .phase-desc { color: #555; }
+[data-theme="light"] .phase-tile .phase-time { color: #777; }
+[data-theme="light"] .step-tile { background: #f0f0f0; border-color: #ddd; }
+[data-theme="light"] .step-tile .step-num { color: #0050a0; }
+[data-theme="light"] .step-tile .step-name { color: #1a1a1a; }
+[data-theme="light"] .step-tile .step-desc { color: #555; }
+[data-theme="light"] .taboo-tile { opacity: 1; }
+[data-theme="light"] .log-item { background: #f5f5f5; }
+[data-theme="light"] .warn-box { background: rgba(255,200,0,0.1); color: #7a5000; border-color: rgba(255,200,0,0.3); }
+[data-theme="light"] .tip-box { background: #e8f4f8; color: #1a4a5a; }
+.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.theme-toggle:hover{transform:scale(1.15)}
+[data-theme="light"] .theme-toggle{background:#fff;color:#333;border:1px solid #ddd;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+[data-theme="light"] .theme-toggle:hover{background:#f0f0f0}
+
+
+/* === 亮色模式文字颜色全覆盖 === */
+[data-theme="light"] body,
+[data-theme="light"] p,
+[data-theme="light"] li,
+[data-theme="light"] td,
+[data-theme="light"] th,
+[data-theme="light"] .desc,
+[data-theme="light"] .meta,
+[data-theme="light"] .text,
+[data-theme="light"] .subtitle,
+[data-theme="light"] .section-label { color: var(--text) !important; }
+
+[data-theme="light"] strong,
+[data-theme="light"] b { color: var(--text) !important; font-weight: 700; }
+
+[data-theme="light"] .tile,
+[data-theme="light"] .tile h3,
+[data-theme="light"] .tile .title,
+[data-theme="light"] .tile .desc,
+[data-theme="light"] .tile .meta,
+[data-theme="light"] .tile p { color: var(--text) !important; }
+
+[data-theme="light"] .card,
+[data-theme="light"] .card h2,
+[data-theme="light"] .card p,
+[data-theme="light"] .card li { color: var(--text-secondary) !important; }
+
+[data-theme="light"] .m-table td,
+[data-theme="light"] .m-table th,
+[data-theme="light"] .m-table strong { color: var(--text) !important; }
+
+/* 深色背景卡片保持白字 */
+[data-theme="light"] .bodhi-card,
+[data-theme="light"] .bodhi-star,
+[data-theme="light"] .bodhi-feng,
+[data-theme="light"] .bodhi-long { color: #fff !important; }
+[data-theme="light"] .bodhi-card h3,
+[data-theme="light"] .bodhi-card p,
+[data-theme="light"] .bodhi-card .tag { color: #fff !important; }
+
+
+/* === 亮色模式 Metro Tile 卡片 === */
+[data-theme="light"] .tile-blue,
+[data-theme="light"] .tile-green,
+[data-theme="light"] .tile-orange,
+[data-theme="light"] .tile-red,
+[data-theme="light"] .tile-purple,
+[data-theme="light"] .tile-teal,
+[data-theme="light"] .tile-pink,
+[data-theme="light"] .tile-yellow,
+[data-theme="light"] .tile-dark {
+  background: #ffffff !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+[data-theme="light"] .tile-blue { border-left: 4px solid #0078d4 !important; }
+[data-theme="light"] .tile-green { border-left: 4px solid #107c10 !important; }
+[data-theme="light"] .tile-orange { border-left: 4px solid #ff8c00 !important; }
+[data-theme="light"] .tile-red { border-left: 4px solid #e81123 !important; }
+[data-theme="light"] .tile-purple { border-left: 4px solid #6b69d6 !important; }
+[data-theme="light"] .tile-teal { border-left: 4px solid #008272 !important; }
+[data-theme="light"] .tile-pink { border-left: 4px solid #e91e63 !important; }
+[data-theme="light"] .tile-yellow { border-left: 4px solid #ffc107 !important; }
+[data-theme="light"] .tile h3 { color: var(--text) !important; }
+[data-theme="light"] .tile p { color: var(--text-secondary) !important; }
+[data-theme="light"] .tile:hover { transform: scale(1.02); filter: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important; }
+
+
+/* === 亮色模式 深色背景元素修复 === */
+[data-theme="light"] { --dark: #f0f0f0; }
+[data-theme="light"] .phase-tile { background: #ffffff !important; border-color: #e0e0e0 !important; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+[data-theme="light"] .phase-num { color: #0078d4 !important; }
+[data-theme="light"] .phase-name { color: var(--text) !important; font-weight: 700; }
+[data-theme="light"] .phase-desc { color: var(--text-secondary) !important; }
+[data-theme="light"] .phase-goal { color: var(--teal) !important; font-weight: 600; }
+[data-theme="light"] .m-table th { background: #e8e8e8 !important; color: var(--text) !important; }
+[data-theme="light"] .m-table td { background: #fff !important; color: var(--text) !important; border-color: #ddd !important; }
+[data-theme="light"] .m-table tr:nth-child(even) td { background: #f9f9f9 !important; }
+/* 导航栏保持深色 */
+
+
+/* === 亮色模式 Metro 彩色瓷砖 === */
+[data-theme="light"] .page-header h1 { color: var(--text) !important; }
+[data-theme="light"] .page-header .subtitle { color: var(--text-muted) !important; }
+
+[data-theme="light"] .tile-blue { background: #e3f2fd !important; }
+[data-theme="light"] .tile-blue .temp,
+[data-theme="light"] .tile-blue .desc,
+[data-theme="light"] .tile-blue .details,
+[data-theme="light"] .tile-blue .update-time,
+[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
+
+[data-theme="light"] .tile-green { background: #e8f5e9 !important; }
+[data-theme="light"] .tile-green .day,
+[data-theme="light"] .tile-green .forecast-desc,
+[data-theme="light"] .tile-green .forecast-temp,
+[data-theme="light"] .tile-green .forecast-rain,
+[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
+
+[data-theme="light"] .tile-orange { background: #fff3e0 !important; }
+[data-theme="light"] .tile-orange * { color: #e65100 !important; }
+
+[data-theme="light"] .tile-red { background: #ffebee !important; }
+[data-theme="light"] .tile-red * { color: #b71c1c !important; }
+
+[data-theme="light"] .tile-purple { background: #ede7f6 !important; }
+[data-theme="light"] .tile-purple * { color: #4a148c !important; }
+
+[data-theme="light"] .tile-cyan { background: #e0f7fa !important; }
+[data-theme="light"] .tile-cyan * { color: #006064 !important; }
+
+[data-theme="light"] .tile-pink { background: #fce4ec !important; }
+[data-theme="light"] .tile-pink * { color: #880e4f !important; }
+
+[data-theme="light"] .tile-yellow { background: #fffde7 !important; }
+[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
+
+[data-theme="light"] .tile:hover { filter: none !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
+
+
+/* === 亮色模式 最终白色文字修复 === */
+[data-theme="light"] .logo { color: var(--text) !important; }
+[data-theme="light"] header h1,
+[data-theme="light"] .header h1,
+[data-theme="light"] h1:not(.tile-blue):not(.tile-green):not(.tile-orange):not(.tile-red):not(.tile-purple) { color: var(--text) !important; }
+[data-theme="light"] a { color: #0078d4 !important; }
+[data-theme="light"] a:hover { color: #005a9e !important; text-decoration: underline; }
+[data-theme="light"] .navbar { background: rgba(255,255,255,0.92) !important; border-bottom-color: #e0e0e0 !important; }
+[data-theme="light"] .navbar .logo { color: var(--text) !important; }
+[data-theme="light"] .navbar .back-link { color: var(--text-secondary) !important; }
+[data-theme="light"] .metro-nav,
+[data-theme="light"] .metro-tabs { background: rgba(255,255,255,0.95) !important; border-bottom-color: #e0e0e0 !important; }
+[data-theme="light"] .metro-nav a,
+[data-theme="light"] .metro-tabs button { color: var(--text) !important; }
+[data-theme="light"] .metro-tabs button.active { 
+  background: var(--text) !important; color: var(--bg) !important; 
+}
+
+
+/* === 亮色模式 Warning/Tip框 === */
+[data-theme="light"] .warning-box { background: #fff; border-left-color: var(--red); border-color: #e0e0e0; }
+[data-theme="light"] .warning-box, [data-theme="light"] .warning-box p, [data-theme="light"] .warning-box li { color: #333; }
+[data-theme="light"] .warning-box strong { color: #c00; }
+[data-theme="light"] .tip-box { background: #f8f9fa; border-color: #e0e0e0; }
+[data-theme="light"] .tip-box p, [data-theme="light"] .tip-box li { color: #333; }
+/* === 亮色模式 其他深底元素 === */
+[data-theme="light"] .dark-tile, [data-theme="light"] [style*="background:var(--dark)"], [data-theme="light"] [style*="background: var(--dark)"] { background: #f5f5f5 !important; color: #222 !important; }
+
+
+/* === 亮色模式 所有Metro彩色瓷砖（含天气预报） === */
+[data-theme="light"] .tile-blue { background: #e3f2fd !important; color: #0d47a1 !important; }
+[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
+[data-theme="light"] .tile-green { background: #e8f5e9 !important; color: #1b5e20 !important; }
+[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
+[data-theme="light"] .tile-orange { background: #fff3e0 !important; color: #e65100 !important; }
+[data-theme="light"] .tile-orange * { color: #e65100 !important; }
+[data-theme="light"] .tile-purple { background: #f3e5f5 !important; color: #6a1b9a !important; }
+[data-theme="light"] .tile-purple * { color: #6a1b9a !important; }
+[data-theme="light"] .tile-cyan { background: #e0f7fa !important; #006064 !important; }
+[data-theme="light"] .tile-cyan * { color: #006064 !important; }
+[data-theme="light"] .tile-pink { background: #fce4ec !important; color: #880e4f !important; }
+[data-theme="light"] .tile-pink * { color: #880e4f !important; }
+[data-theme="light"] .tile-yellow { background: #fffde7 !important; color: #f57f17 !important; }
+[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
+[data-theme="light"] .tile-red { background: #ffebee !important; color: #b71c1c !important; }
+[data-theme="light"] .tile-red * { color: #b71c1c !important; }
+/* 亮色模式 forecast-tile 内文字 */
+[data-theme="light"] .forecast-tile .day,
+[data-theme="light"] .forecast-tile .forecast-desc,
+[data-theme="light"] .forecast-tile .forecast-temp,
+[data-theme="light"] .forecast-tile .forecast-rain { color: inherit !important; }
+
+
+[data-theme="light"] { --bg: #f0f0f0; --text: #1a1a1a; --text-secondary: #444; --text-muted: #666; --card: #ffffff; --border: #ddd; --nav-bg: rgba(240,240,240,0.95); --dark-tile: #f5f5f5; }
+[data-theme="light"] .tile { background: var(--card) !important; border-color: var(--border) !important; }
+[data-theme="light"] body { background: var(--bg); color: var(--text); }
+
+
+/* ========== 亮色模式完整修复 ========== */
+[data-theme="light"] {
+  --bg: #f5f5f5 !important;
+  --text: #1a1a1a !important;
+  --text-secondary: #333 !important;
+  --text-muted: #666 !important;
+  --card: #ffffff !important;
+  --border: #ddd !important;
+  --nav-bg: rgba(255,255,255,0.95) !important;
+  --dark-tile: #f8f8f8 !important;
+}
+[data-theme="light"] body { background: var(--bg) !important; color: var(--text) !important; }
+[data-theme="light"] .tile, [data-theme="light"] .tile-wide { background: var(--card) !important; border-color: var(--border) !important; color: var(--text) !important; }
+[data-theme="light"] .tile h2, [data-theme="light"] .tile h3, [data-theme="light"] .tile h4, [data-theme="light"] .tile p, [data-theme="light"] .tile li, [data-theme="light"] .tile span, [data-theme="light"] .tile strong { color: var(--text) !important; }
+[data-theme="light"] .warning-box { background: #fff3cd !important; border-color: #ffc107 !important; color: #856404 !important; }
+[data-theme="light"] .warning-box strong { color: #856404 !important; }
+[data-theme="light"] .tip-box { background: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+[data-theme="light"] .method-tile { background: var(--card) !important; color: var(--text) !important; }
+[data-theme="light"] .method-tile h4, [data-theme="light"] .method-tile p { color: var(--text) !important; }
+[data-theme="light"] .reliability { color: #fff !important; }
+[data-theme="light"] .m-table th { background: #e9ecef !important; color: var(--text) !important; }
+[data-theme="light"] .m-table td { background: var(--card) !important; color: var(--text) !important; border-color: var(--border) !important; }
+[data-theme="light"] .metro-tabs button { color: var(--text) !important; border-color: var(--border) !important; }
+[data-theme="light"] .metro-tabs button.active { background: var(--text) !important; color: var(--bg) !important; }
+[data-theme="light"] .navbar { background: var(--nav-bg) !important; }
+[data-theme="light"] .navbar a, [data-theme="light"] .logo, [data-theme="light"] .back-link { color: var(--text) !important; }
+[data-theme="light"] .page-header h1 { color: var(--text) !important; }
+[data-theme="light"] .page-header .subtitle { color: var(--text-muted) !important; }
+[data-theme="light"] .tile-blue { background: #e3f2fd !important; color: #0d47a1 !important; }
+[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
+[data-theme="light"] .tile-green { background: #e8f5e9 !important; color: #1b5e20 !important; }
+[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
+[data-theme="light"] .tile-orange { background: #fff3e0 !important; color: #e65100 !important; }
+[data-theme="light"] .tile-orange * { color: #e65100 !important; }
+[data-theme="light"] .tile-purple { background: #f3e5f5 !important; color: #6a1b9a !important; }
+[data-theme="light"] .tile-purple * { color: #6a1b9a !important; }
+[data-theme="light"] .tile-cyan { background: #e0f7fa !important; color: #006064 !important; }
+[data-theme="light"] .tile-cyan * { color: #006064 !important; }
+[data-theme="light"] .tile-pink { background: #fce4ec !important; color: #880e4f !important; }
+[data-theme="light"] .tile-pink * { color: #880e4f !important; }
+[data-theme="light"] .tile-yellow { background: #fffde7 !important; color: #f57f17 !important; }
+[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
+[data-theme="light"] .tile-red { background: #ffebee !important; color: #b71c1c !important; }
+[data-theme="light"] .tile-red * { color: #b71c1c !important; }
+[data-theme="light"] .update-tile { background: var(--card) !important; color: var(--text) !important; }
+[data-theme="light"] .log-item .date { color: var(--text-muted) !important; }
+[data-theme="light"] .log-item .text { color: var(--text-secondary) !important; }
+[data-theme="light"] footer { background: var(--card) !important; color: var(--text-muted) !important; }
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] b, [data-theme="light"] strong { color: var(--text) !important; }
+
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="inner">
+    <a href="index.html" class="logo">龙兄知识库</a>
+    <a href="index.html" class="home-link">← 首页</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- Header -->
+<header>
+<div class="eyebrow">🚗 专题追踪</div>
+<h1>特斯拉全追踪</h1>
+<p>车型动态 · 销量数据 · 充电网络 · 中国市场 · 用车技巧</p>
+</header>
+
+<!-- Tab Nav -->
+<div class="tab-nav">
+<button class="tab-btn active" data-tab="all">全部</button>
+<button class="tab-btn" data-tab="new">🚗 车型新车</button>
+<button class="tab-btn" data-tab="sales">📊 销量数据</button>
+<button class="tab-btn" data-tab="charge">⚡ 充电能源</button>
+<button class="tab-btn" data-tab="china">🇨🇳 中国市场</button>
+<button class="tab-btn" data-tab="global">🌐 全球动态</button>
+<button class="tab-btn" data-tab="tips">🔧 用车技巧</button>
+</div>
+
+<!-- Model Section -->
+<div class="model-section">
+<div class="section-label">在售车型</div>
+<div class="model-grid">
+<div class="model-chip" style="border-left:4px solid var(--metro-orange)"><div class="name">Model Y</div><div class="price">约 26.4 万</div><div class="label">SUV 销冠</div></div>
+<div class="model-chip" style="border-left:4px solid var(--metro-blue)"><div class="name">Model 3</div><div class="price">约 23.6 万</div><div class="label">轿车</div></div>
+<div class="model-chip" style="border-left:4px solid var(--metro-blue)"><div class="name">Model S</div><div class="price">约 68.5 万</div><div class="label">旗舰轿车</div></div>
+<div class="model-chip" style="border-left:4px solid var(--metro-blue)"><div class="name">Model X</div><div class="price">约 73.9 万</div><div class="label">旗舰 SUV</div></div>
+<div class="model-chip" style="border-left:4px solid var(--metro-teal)"><div class="name">Cybertruck</div><div class="price">约 68 万（美国）</div><div class="label">皮卡</div></div>
+<div class="model-chip" style="border-left:4px solid var(--text-muted)"><div class="name">Semi</div><div class="price">暂未在华交付</div><div class="label">电动卡车</div></div>
+</div>
+</div>
+
+<!-- News Content -->
+<div class="news-content">
+
+<!-- ========== 全部 ========== -->
+<div class="tab-panel active" id="panel-all">
+
+<div class="news-date">2026 年 6 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🚗 车型</span><span class="news-time">6月21日</span></div>
+<div class="news-title">Model Y 高性能版谍照曝光：内饰疑似升级碳纤维装饰</div>
+<div class="news-summary">有用户在加州拍到疑似焕新版 Model Y 高性能版伪装车，预计 2026 下半年发布。内饰升级是一大看点，可能新增 Model S Plaid 同款方向盘和更大中控屏。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">📊 销量</span><span class="news-time">6月21日</span></div>
+<div class="news-title">2026 年 5 月全球交付约 7.8 万辆，中国市场贡献 42%</div>
+<div class="news-summary">特斯拉 5 月全球交付量约 7.8 万辆，环比小幅下滑。Model Y 依然是绝对主力，中国市场占全球交付的 42%。欧洲市场持续受到德国工厂产能问题影响。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🇨🇳 中国</span><span class="news-time">6月21日</span></div>
+<div class="news-title">特斯拉中国 5 月上险量 30,126 辆，Model Y 单车型第一</div>
+<div class="news-summary">乘联会数据：特斯拉中国 5 月零售上险 30,126 辆，Model Y 以 22,847 辆蝉联单车销量第一，超比亚迪汉 + 海豹之和。Model 3 交付 7,279 辆。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">⚡ 充电</span><span class="news-time">6月21日</span></div>
+<div class="news-title">特斯拉在中国大陆开放 1200 + 超级充电站，覆盖省会城市</div>
+<div class="news-summary">截至 2026 年 6 月，特斯拉在中国大陆开放的超级充电站超过 1200 座，充电桩超 9000 根，覆盖所有省会城市及 90% 地级市。支持非特斯拉车辆使用。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🔧 技巧</span><span class="news-time">6月21日</span></div>
+<div class="news-title">随车充选购：品胜 IP67 为首选，约 700 元</div>
+<div class="news-summary">随车充推荐品胜，IP67 防水、三档电流（8A/10A/13A）、温控保护。使用 16A 空调插座充电最快，避免拖线板以防过热。长期存放时每月充一次电保持电池健康。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🌐 全球</span><span class="news-time">6月21日</span></div>
+<div class="news-title">Cybertruck 全球订单突破 250 万辆，北美之外开放预订</div>
+<div class="news-summary">特斯拉 Cybertruck 全球订单突破 250 万辆，欧洲、中国现已开放预订。中国市场交付预计 2027 年后开始小规模交付。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🇨🇳 中国</span><span class="news-time">6月20日</span></div>
+<div class="news-title">特斯拉 FSD 加速在华落地：百度提供地图数据支持</div>
+<div class="news-summary">特斯拉与百度达成合作，百度为其提供中国区高级辅助驾驶所需的地图数据支持。FSD 在华落地迈出关键一步，具体推送时间未官宣。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">📊 销量</span><span class="news-time">6月20日</span></div>
+<div class="news-title">2026 Q1 全球新能源品牌榜：特斯拉市占率 14.3% 排第一</div>
+<div class="news-summary">CleanTechnica 数据：2026 Q1 特斯拉全球新能源乘用车市占率 14.3% 排名第一。二至五位：比亚迪（13.1%）、大众（8.2%）、现代（5.7%）、BMW（4.9%）。</div>
+</div>
+
+<div class="news-date">2026 年 5 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🚗 车型</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉新一代平台（低成本车型）进展曝光：代号 Redwood</div>
+<div class="news-summary">马斯克在财报会上确认，新一代低成本车型（代号 Redwood）将于 2026 年上半年在柏林工厂生产，定价约 2.5 万美元（约 18 万人民币），剑指比亚迪海鸥等入门市场。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🌐 全球</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉 Semi 电动卡车正式进入欧洲市场，续航 800km</div>
+<div class="news-summary">特斯拉 Semi 正式向欧洲客户交付，续航最长 800km（满载 36 吨），百公里电耗约 118kWh。百事可乐、DHL 等公司已下大额定单。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">⚡ 充电</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉 V4 超级充电桩功率升级至 500kW</div>
+<div class="news-summary">V4 充电桩功率从 250kW 升级至 500kW，配合 1000V 架构，Model S Plaid 从 10% 充至 80% 仅需约 15 分钟，将逐步推广至全球。</div>
+</div>
+
+</div>
+
+<!-- ========== 车型新车 ========== -->
+<div class="tab-panel" id="panel-new">
+
+<div class="news-date">2026 年 6 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🚗 车型</span><span class="news-time">6月21日</span></div>
+<div class="news-title">Model Y 高性能版谍照曝光：内饰疑似升级碳纤维装饰</div>
+<div class="news-summary">有用户在加州拍到疑似焕新版 Model Y 高性能版伪装车，预计 2026 下半年发布。内饰升级是一大看点，可能新增 Model S Plaid 同款方向盘和更大中控屏。</div>
+</div>
+
+<div class="news-date">2026 年 5 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🚗 车型</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉新一代平台（低成本车型）进展曝光：代号 Redwood</div>
+<div class="news-summary">马斯克在财报会上确认，新一代低成本车型（代号 Redwood）将于 2026 年上半年在柏林工厂生产，定价约 2.5 万美元（约 18 万人民币），剑指比亚迪海鸥等入门市场。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🚗 车型</span><span class="news-time">5月</span></div>
+<div class="news-title">Cybertruck 全球订单突破 250 万辆，北美之外开放预订</div>
+<div class="news-summary">特斯拉 Cybertruck 全球订单突破 250 万辆，欧洲、中国现已开放预订，中国市场交付预计 2027 年后开始。</div>
+</div>
+
+</div>
+
+<!-- ========== 销量数据 ========== -->
+<div class="tab-panel" id="panel-sales">
+
+<div class="news-date">2026 年 6 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">📊 销量</span><span class="news-time">6月21日</span></div>
+<div class="news-title">2026 年 5 月全球交付约 7.8 万辆，中国市场贡献 42%</div>
+<div class="news-summary">特斯拉 5 月全球交付约 7.8 万辆，环比小幅下滑。Model Y 依然是绝对主力，中国市场占全球交付的 42%。欧洲市场持续受到德国工厂产能问题影响。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">📊 销量</span><span class="news-time">6月20日</span></div>
+<div class="news-title">2026 Q1 全球新能源品牌榜：特斯拉市占率 14.3% 排第一</div>
+<div class="news-summary">CleanTechnica 数据：2026 Q1 特斯拉全球新能源乘用车市占率 14.3% 排名第一，其次是比亚迪（13.1%）、大众（8.2%）、现代（5.7%）、BMW（4.9%）。</div>
+</div>
+
+</div>
+
+<!-- ========== 充电能源 ========== -->
+<div class="tab-panel" id="panel-charge">
+
+<div class="news-date">2026 年 6 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">⚡ 充电</span><span class="news-time">6月21日</span></div>
+<div class="news-title">特斯拉在中国大陆开放 1200 + 超级充电站，覆盖省会城市</div>
+<div class="news-summary">截至 2026 年 6 月，特斯拉在中国大陆开放的超级充电站超过 1200 座，充电桩超 9000 根，覆盖所有省会城市及 90% 地级市。支持非特斯拉车辆使用。</div>
+</div>
+
+<div class="news-date">2026 年 5 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">⚡ 充电</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉 V4 超级充电桩功率升级至 500kW</div>
+<div class="news-summary">V4 充电桩功率从 250kW 升级至 500kW，配合 1000V 架构，Model S Plaid 从 10% 充至 80% 仅需约 15 分钟，将逐步推广至全球。</div>
+</div>
+
+</div>
+
+<!-- ========== 中国市场 ========== -->
+<div class="tab-panel" id="panel-china">
+
+<div class="news-date">2026 年 6 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🇨🇳 中国</span><span class="news-time">6月21日</span></div>
+<div class="news-title">特斯拉中国 5 月上险量 30,126 辆，Model Y 单车型第一</div>
+<div class="news-summary">乘联会数据：特斯拉中国 5 月零售上险 30,126 辆，Model Y 以 22,847 辆蝉联单车销量第一。Model 3 交付 7,279 辆。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🇨🇳 中国</span><span class="news-time">6月20日</span></div>
+<div class="news-title">特斯拉 FSD 加速在华落地：百度提供地图数据支持</div>
+<div class="news-summary">特斯拉与百度达成合作，百度为其提供中国区高级辅助驾驶所需的地图数据支持。FSD 在华落地迈出关键一步，具体推送时间未官宣。</div>
+</div>
+
+</div>
+
+<!-- ========== 全球动态 ========== -->
+<div class="tab-panel" id="panel-global">
+
+<div class="news-date">2026 年 6 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🌐 全球</span><span class="news-time">6月21日</span></div>
+<div class="news-title">Cybertruck 全球订单突破 250 万辆，北美之外开放预订</div>
+<div class="news-summary">特斯拉 Cybertruck 全球订单突破 250 万辆，欧洲、中国现已开放预订，中国市场交付预计 2027 年后开始。</div>
+</div>
+
+<div class="news-date">2026 年 5 月</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🌐 全球</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉 Semi 电动卡车正式进入欧洲市场，续航 800km</div>
+<div class="news-summary">特斯拉 Semi 正式向欧洲客户交付，续航最长 800km（满载 36 吨），百公里电耗约 118kWh。百事可乐、DHL 等已下大额定单。</div>
+</div>
+
+</div>
+
+<!-- ========== 用车技巧 ========== -->
+<div class="tab-panel" id="panel-tips">
+
+<div class="news-date">日常养护</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🔧 技巧</span><span class="news-time">日常</span></div>
+<div class="news-title">随车充选购：品胜 IP67 为首选，约 700 元</div>
+<div class="news-summary">随车充推荐品胜，IP67 防水、三档电流（8A/10A/13A）、温控保护。使用 16A 空调插座充电最快，避免拖线板。长期存放时每月充一次电保持电池健康。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🔧 技巧</span><span class="news-time">日常</span></div>
+<div class="news-title">不要等电量耗尽再充电，浅充浅放更护电池</div>
+<div class="news-summary">三元锂电池建议日常保持在 20%-80% 之间，随用随充比每次充满更利于延长电池寿命。每月做一次完整充放电有助于 BMS 校准。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🔧 技巧</span><span class="news-time">日常</span></div>
+<div class="news-title">哨兵模式耗电解析：每晚约消耗 3-5% 电量</div>
+<div class="news-summary">开启哨兵模式每小时约消耗 1-2% 电量。停车超过一晚建议关闭，或使用"待机模式"降低功耗。有固定车位且插电时不受影响。</div>
+</div>
+
+<div class="news-card">
+<div class="news-meta"><span class="news-tag news-ctag">🔧 技巧</span><span class="news-time">冬季</span></div>
+<div class="news-title">冬季快充前记得预热电池，提升充电效率</div>
+<div class="news-summary">前往超级充电站途中打开导航，系统会自动预热电池。最佳充电温度 25-40°C，预热可显著缩短低温环境下的充电时间。</div>
+</div>
+
+</div>
+
+</div><!-- end news-content -->
+
+</div><!-- end container -->
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const tabId = this.dataset.tab;
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tabId).classList.add('active');
+    document.querySelector('.news-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+<footer>
+<p>由 <span style="color:var(--metro-blue);font-weight:900">QClaw AI</span> 整理 · 点击 Tab 切换分类</p>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<button class="theme-toggle" id="tb">🌙</button>
+<script>
+(function(){
+  function getTheme(){var h=new Date().getHours();return h>=6&&h<18?'light':'dark';}
+  function apply(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);}
+  var saved=localStorage.getItem('theme');
+  if(saved){apply(saved);}else{apply(getTheme());}
+  var btn=document.getElementById('tb');
+  if(!btn){console.error('theme btn not found');return;}
+  btn.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    apply(cur==='dark'?'light':'dark');
+  });
+  function updateIcon(){btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';}
+  updateIcon();
+  new MutationObserver(updateIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 })();
 </script>
 </body>

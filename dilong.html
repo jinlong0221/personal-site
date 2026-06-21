@@ -201,6 +201,19 @@ footer { text-align: center; padding: 40px 0 30px; color: var(--text3); font-siz
 [data-theme="light"] .tile p { color: var(--text-secondary) !important; }
 [data-theme="light"] .tile:hover { transform: scale(1.02); filter: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important; }
 
+
+/* === 亮色模式 深色背景元素修复 === */
+[data-theme="light"] { --dark: #f0f0f0; }
+[data-theme="light"] .phase-tile { background: #ffffff !important; border-color: #e0e0e0 !important; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+[data-theme="light"] .phase-num { color: #0078d4 !important; }
+[data-theme="light"] .phase-name { color: var(--text) !important; font-weight: 700; }
+[data-theme="light"] .phase-desc { color: var(--text-secondary) !important; }
+[data-theme="light"] .phase-goal { color: var(--teal) !important; font-weight: 600; }
+[data-theme="light"] .m-table th { background: #e8e8e8 !important; color: var(--text) !important; }
+[data-theme="light"] .m-table td { background: #fff !important; color: var(--text) !important; border-color: #ddd !important; }
+[data-theme="light"] .m-table tr:nth-child(even) td { background: #f9f9f9 !important; }
+/* 导航栏保持深色 */
+
 </style>
 </head>
 <body>

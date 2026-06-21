@@ -3,80 +3,182 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
 <title>特斯拉全追踪 - 龙兄知识库</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #e8e8ed; --accent: #0071e3; --radius: 20px; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+:root {
+  --bg: #0a0a0a;
+  --card: #1a1a1a;
+  --border: #333333;
+  --text: #ffffff;
+  --text-muted: #a0a0a0;
+  --metro-blue: #0078d4;
+  --metro-green: #107c10;
+  --metro-orange: #ff8c00;
+  --metro-red: #e81123;
+  --metro-purple: #6b69d6;
+  --metro-teal: #008272;
+  --metro-pink: #c30052;
+  --metro-yellow: #ffb900;
+}
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
 
-/* Header - 紧凑 */
-header { padding: 40px 0 30px; border-bottom: 1px solid var(--border); }
-header .eyebrow { font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
-header h1 { font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 10px; }
-header p { font-size: 16px; color: var(--text-secondary); }
+/* Sticky Nav */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+.top-nav .inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 28px;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+.home-link {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.home-link:hover { color: var(--metro-blue); }
 
-/* Tab Nav - Sticky */
-.tab-nav { display: flex; gap: 6px; flex-wrap: wrap; padding: 16px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
-.tab-btn { padding: 8px 16px; border-radius: 980px; border: none; background: #f5f5f7; color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-.tab-btn:hover { background: #e8e8ed; color: var(--text); }
-.tab-btn.active { background: var(--text); color: #fff; }
+/* Header */
+header { padding: 36px 0 28px; border-bottom: 1px solid var(--border); }
+header .eyebrow { font-size: 13px; color: var(--metro-blue); font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+header h1 { font-size: 36px; font-weight: 900; line-height: 1.1; margin-bottom: 10px; }
+header p { font-size: 15px; color: var(--text-muted); font-weight: 700; }
 
-/* Model Grid - 紧凑 */
+/* Tab Nav - Metro tiles */
+.tab-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 4px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 56px;
+  background: var(--bg);
+  z-index: 200;
+}
+.tab-btn {
+  border: none;
+  padding: 12px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tab-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+.tab-btn.active { outline: 2px solid #fff; outline-offset: -2px; }
+.tab-all { background: var(--card); border: 1px solid var(--border); }
+.tab-new { background: var(--metro-blue); }
+.tab-sales { background: var(--metro-orange); }
+.tab-charge { background: var(--metro-green); }
+.tab-china { background: var(--metro-red); }
+.tab-global { background: var(--metro-purple); }
+.tab-tips { background: var(--metro-teal); }
+
+/* Model Section - Metro tiles */
 .model-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
-.model-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-.model-chip { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
-.model-chip .name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-.model-chip .price { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
-.model-chip .label { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 5px; }
-.tag-blue { background: rgba(0,113,227,0.1); color: var(--accent); }
-.tag-orange { background: rgba(255,149,0,0.1); color: #ff9500; }
-.tag-gray { background: rgba(134,134,139,0.1); color: var(--text-secondary); }
+.section-label { font-size: 12px; color: var(--text-muted); font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+.model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.model-chip {
+  min-height: 120px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fff;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  cursor: pointer;
+}
+.model-chip:hover { transform: scale(1.02); filter: brightness(1.1); }
+.model-chip .name { font-size: 20px; font-weight: 900; line-height: 1.1; margin-bottom: 4px; }
+.model-chip .price { font-size: 13px; font-weight: 700; opacity: 0.9; margin-bottom: 4px; }
+.model-chip .label { font-size: 11px; font-weight: 900; opacity: 0.85; }
+.tile-orange { background: var(--metro-orange); }
+.tile-blue { background: var(--metro-blue); }
+.tile-gray { background: var(--card); border: 1px solid var(--border); }
+.tile-gray .price, .tile-gray .label { color: var(--text-muted); }
 
 /* News Content */
 .news-content { min-height: 300px; padding: 20px 0; }
-.news-date { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 20px 0 10px; border-top: 1px solid var(--border); }
+.news-date { font-size: 11px; color: var(--text-muted); font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 20px 0 10px; border-top: 1px solid var(--border); }
 .news-date:first-child { border-top: none; padding-top: 0; }
-.news-card { padding: 18px 0; border-bottom: 1px solid var(--border); }
-.news-card:last-child { border-bottom: none; }
-.news-card:hover .news-title { color: var(--accent); }
-.news-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.news-tag { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 5px; letter-spacing: 0.03em; }
-.tag-red { background: rgba(255,59,48,0.1); color: #ff3b30; }
-.tag-blue { background: rgba(0,113,227,0.1); color: var(--accent); }
-.tag-green { background: rgba(52,199,89,0.1); color: #34c759; }
-.tag-orange { background: rgba(255,149,0,0.1); color: #ff9500; }
-.tag-purple { background: rgba(142,82,255,0.1); color: #8b52ff; }
-.tag-gray { background: rgba(134,134,139,0.1); color: var(--text-secondary); }
-.news-time { font-size: 11px; color: var(--text-secondary); }
-.news-title { font-size: 16px; font-weight: 600; line-height: 1.4; margin-bottom: 5px; transition: color 0.2s; }
-.news-summary { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+.news-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 8px;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.news-card:hover { transform: scale(1.01); filter: brightness(1.1); }
+.news-card:hover .news-title { color: var(--metro-blue); }
+.news-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.news-tag { font-size: 10px; font-weight: 900; padding: 3px 6px; border-radius: 0; letter-spacing: 0.03em; }
+.news-time { font-size: 11px; color: var(--text-muted); font-weight: 700; }
+.news-title { font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; transition: color 0.15s; }
+.news-summary { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+/* Tag colors */
+.tag-blue { background: rgba(0,120,212,0.15); color: var(--metro-blue); }
+.tag-orange { background: rgba(255,140,0,0.15); color: var(--metro-orange); }
+.tag-green { background: rgba(16,124,16,0.15); color: var(--metro-green); }
+.tag-red { background: rgba(232,17,35,0.15); color: var(--metro-red); }
+.tag-purple { background: rgba(107,105,214,0.15); color: var(--metro-purple); }
+.tag-gray { background: rgba(160,160,160,0.12); color: var(--text-muted); }
 
 /* Tab Panels */
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
 /* Footer */
-footer { text-align: center; padding: 50px 0 30px; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--border); margin-top: 30px; }
+footer { text-align: center; padding: 50px 0 30px; color: var(--text-muted); font-size: 12px; font-weight: 700; border-top: 1px solid var(--border); margin-top: 30px; }
 
 /* Mobile */
 @media (max-width: 768px) {
-header h1 { font-size: 28px; }
-.tab-nav { gap: 4px; }
-.tab-btn { padding: 6px 12px; font-size: 13px; }
-.news-title { font-size: 15px; }
-.model-grid { grid-template-columns: repeat(2, 1fr); }
+  header h1 { font-size: 28px; }
+  .model-grid { grid-template-columns: repeat(2, 1fr); }
+  .tab-nav { grid-template-columns: repeat(2, 1fr); top: 54px; }
+  .tab-btn { font-size: 12px; padding: 10px 6px; }
 }
 </style>
 </head>
 <body>
-<div style="background:#fff;border-bottom:1px solid #e8e8ed;padding:12px 0;position:sticky;top:0;z-index:200;backdrop-filter:blur(10px);background:rgba(255,255,255,0.9)">
-  <div style="max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between">
-    <a href="index.html" style="font-family:'Ma Shan Zheng',cursive;font-size:28px;color:#1d1d1f;text-decoration:none;letter-spacing:2px">龙兄知识库</a>
-    <a href="index.html" style="color:#0071e3;font-size:14px;text-decoration:none">← 首页</a>
+
+<nav class="top-nav">
+  <div class="inner">
+    <a href="index.html" class="logo">龙兄知识库</a>
+    <a href="index.html" class="home-link">← 首页</a>
   </div>
-</div>
+</nav>
+
 <div class="container">
 
 <!-- Header -->
@@ -88,25 +190,25 @@ header h1 { font-size: 28px; }
 
 <!-- Tab Nav -->
 <div class="tab-nav">
-<button class="tab-btn active" data-tab="all">全部</button>
-<button class="tab-btn" data-tab="new">🚗 车型新车</button>
-<button class="tab-btn" data-tab="sales">📊 销量数据</button>
-<button class="tab-btn" data-tab="charge">⚡ 充电能源</button>
-<button class="tab-btn" data-tab="china">🇨🇳 中国市场</button>
-<button class="tab-btn" data-tab="global">🌐 全球动态</button>
-<button class="tab-btn" data-tab="tips">🔧 用车技巧</button>
+<button class="tab-btn tab-all active" data-tab="all">全部</button>
+<button class="tab-btn tab-new" data-tab="new">🚗 车型新车</button>
+<button class="tab-btn tab-sales" data-tab="sales">📊 销量数据</button>
+<button class="tab-btn tab-charge" data-tab="charge">⚡ 充电能源</button>
+<button class="tab-btn tab-china" data-tab="china">🇨🇳 中国市场</button>
+<button class="tab-btn tab-global" data-tab="global">🌐 全球动态</button>
+<button class="tab-btn tab-tips" data-tab="tips">🔧 用车技巧</button>
 </div>
 
 <!-- Model Section -->
 <div class="model-section">
-<div style="font-size:13px;color:var(--text-secondary);font-weight:600;margin-bottom:10px;">在售车型</div>
+<div class="section-label">在售车型</div>
 <div class="model-grid">
-<div class="model-chip"><div class="name">Model Y</div><div class="price">约 26.4 万</div><div class="label tag-orange">SUV 销冠</div></div>
-<div class="model-chip"><div class="name">Model 3</div><div class="price">约 23.6 万</div><div class="label tag-gray">轿车</div></div>
-<div class="model-chip"><div class="name">Model S</div><div class="price">约 68.5 万</div><div class="label tag-gray">旗舰轿车</div></div>
-<div class="model-chip"><div class="name">Model X</div><div class="price">约 73.9 万</div><div class="label tag-gray">旗舰 SUV</div></div>
-<div class="model-chip"><div class="name">Cybertruck</div><div class="price">约 68 万（美国）</div><div class="label tag-blue">皮卡</div></div>
-<div class="model-chip"><div class="name">Semi</div><div class="price">暂未在华交付</div><div class="label tag-gray">电动卡车</div></div>
+<div class="model-chip tile-orange"><div class="name">Model Y</div><div class="price">约 26.4 万</div><div class="label">SUV 销冠</div></div>
+<div class="model-chip tile-blue"><div class="name">Model 3</div><div class="price">约 23.6 万</div><div class="label">轿车</div></div>
+<div class="model-chip tile-gray"><div class="name">Model S</div><div class="price">约 68.5 万</div><div class="label">旗舰轿车</div></div>
+<div class="model-chip tile-gray"><div class="name">Model X</div><div class="price">约 73.9 万</div><div class="label">旗舰 SUV</div></div>
+<div class="model-chip tile-blue"><div class="name">Cybertruck</div><div class="price">约 68 万（美国）</div><div class="label">皮卡</div></div>
+<div class="model-chip tile-gray"><div class="name">Semi</div><div class="price">暂未在华交付</div><div class="label">电动卡车</div></div>
 </div>
 </div>
 
@@ -333,23 +435,18 @@ header h1 { font-size: 28px; }
 <script>
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
-    // Update buttons
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
-    
-    // Show panel
     const tabId = this.dataset.tab;
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tabId).classList.add('active');
-    
-    // Scroll to content
     document.querySelector('.news-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 </script>
 
 <footer>
-<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 整理 · 点击 Tab 切换分类</p>
+<p>由 <span style="color:var(--metro-blue);font-weight:900">QClaw AI</span> 整理 · 点击 Tab 切换分类</p>
 </footer>
 
 </body>

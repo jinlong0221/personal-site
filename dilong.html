@@ -1,99 +1,80 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
 <title>地龙 - 龙兄知识库</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0;
-  --blue: #0078d4; --green: #107c10; --orange: #ff8c00;
-  --red: #e81123; --purple: #6b69d6; --pink: #c30052; --border: #333;
-}
-body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-.navbar { position: sticky; top: 0; z-index: 200; background: #000; border-bottom: 1px solid var(--border); }
-.navbar-inner { max-width: 1000px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
-.navbar-logo { font-family: 'Ma Shan Zheng', cursive; font-size: 28px; color: #fff; text-decoration: none; }
-.navbar-back { color: var(--blue); text-decoration: none; font-weight: 600; }
-.page-header { padding: 40px 0; border-bottom: 1px solid var(--border); }
-.page-header .emoji { font-size: 48px; margin-bottom: 12px; }
-.page-header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
-.page-header p { font-size: 16px; color: var(--text-secondary); }
-.content-section { background: #1a1a1a; border: 1px solid var(--border); padding: 30px; margin: 24px 0; }
-.content-section h2 { font-size: 22px; font-weight: 900; margin-bottom: 16px; color: var(--pink); }
-.content-section h3 { font-size: 18px; font-weight: 700; margin: 20px 0 10px; }
-.content-section p, .content-section li { font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
-.content-section ul { padding-left: 20px; }
-footer { text-align: center; padding: 40px 0; color: #666; font-size: 13px; }
+<style>* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0a0a0a; --text: #ffffff; --text2: #b0b0b0; --text3: #888; --border: #333; --card: #141414; }
+body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+.navbar { position: sticky; top: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--border); }
+.navbar-inner { max-width: 900px; margin: 0 auto; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Ma Shan Zheng', cursive; font-size: 26px; color: #fff; text-decoration: none; }
+.back { color: var(--text3); text-decoration: none; font-size: 14px; font-weight: 600; }
+.back:hover { color: #fff; }
+header { padding: 36px 0 28px; border-bottom: 1px solid var(--border); }
+header .emoji { font-size: 52px; margin-bottom: 10px; }
+header h1 { font-size: 34px; font-weight: 900; margin-bottom: 10px; }
+header p { font-size: 15px; color: var(--text2); }
+.card { background: var(--card); border: 1px solid var(--border); padding: 24px; margin: 16px 0; }
+.card h2 { font-size: 18px; font-weight: 900; margin-bottom: 14px; color: var(--text); border-left: 4px solid var(--accent, #6b69d6); padding-left: 12px; }
+.card p, .card li { font-size: 14px; color: var(--text2); margin-bottom: 8px; }
+.card ul { padding-left: 20px; }
+.card li { margin-bottom: 6px; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.tag { font-size: 11px; font-weight: 700; padding: 4px 10px; background: rgba(107,105,214,0.15); color: #9b99e0; }
+.warning { background: rgba(232,17,35,0.1); border-color: rgba(232,17,35,0.3); padding: 12px 16px; margin: 12px 0; font-size: 13px; color: #ff6b6b; }
+footer { text-align: center; padding: 40px 0 30px; color: var(--text3); font-size: 12px; border-top: 1px solid var(--border); margin-top: 20px; }
 </style>
 </head>
 <body>
 <nav class="navbar"><div class="navbar-inner">
-<a href="index.html" class="navbar-logo">龙兄知识库</a>
-<a href="herbs.html" class="navbar-back">← 中药材</a>
+<a href="index.html" class="logo">龙兄知识库</a>
+<a href="herbs.html" class="back">&larr; 中药材</a>
 </div></nav>
 <div class="container">
-<div class="page-header">
-<div class="emoji">🐛</div>
+<header>
+<div class="emoji">🪱</div>
 <h1>地龙</h1>
-<p>蚯蚓干燥体入药，清热定惊、通络利尿。临床应用广泛，现代研究活跃。</p>
-</div>
-
-<div class="content-section">
+<p>蚯蚓干燥体 · 清热定惊 · 通络平喘 · 药食两用</p>
+</header>
+<div class="card">
 <h2>基本信息</h2>
-<p><strong>来源：</strong>钜蚓科动物参环毛蚓、通俗环毛蚓等的干燥体</p>
-<p><strong>别名：</strong>蚯蚓、曲蟮、土龙</p>
-<p><strong>性味归经：</strong>咸、寒。归肝、脾、膀胱经。</p>
-<p><strong>功效：</strong>清热定惊，通络，平喘，利尿。用于高热惊痫，关节痹痛，肢体麻木，肺热喘咳，水肿尿少。</p>
+<div class="tag-row"><span class="tag">动物药</span><span class="tag">虫类药</span><span class="tag">药典品种</span></div>
+<ul><li><strong>来源:</strong> 钜蚓科动物参环毛蚓（广地龙）或缟蚯蚓（土地龙）的干燥体</li><li><strong>产地:</strong> 广地龙主产广东、广西、福建；土地龙全国广布</li><li><strong>性味:</strong> 咸，寒；归肝、脾、膀胱经</li><li><strong>入药:</strong> 夏秋季捕捉，开膛去内脏，晒干或烘干</li></ul>
 </div>
-
-<div class="content-section">
+<div class="card">
+<h2>主要功效</h2>
+<div class="tag-row"><span class="tag">清热</span><span class="tag">通络</span><span class="tag">平喘</span><span class="tag">利尿</span><span class="tag">降压</span></div>
+<ul><li>清热定惊：高热神昏、惊痫抽搐</li><li>通络止痛：热痹关节红肿疼痛、中风后遗症偏瘫</li><li>平喘止咳：肺热咳喘、支气管哮喘</li><li>利尿通淋：小便不利、水肿</li><li>降压：用于原发性高血压</li></ul>
+</div>
+<div class="card">
 <h2>鉴别要点</h2>
-<h3>正品特征</h3>
-<ul>
-<li><strong>广地龙：</strong>长条状薄片，长15-20cm，宽1-2cm。具环节，背部棕褐色，腹部黄褐色</li>
-<li><strong>沪地龙：</strong>较小，长8-15cm。全体灰褐色或棕褐色</li>
-<li><strong>质地：</strong>脆，易折断</li>
-<li><strong>气味：</strong>气腥，味微咸</li>
-</ul>
-<h3>炮制方法</h3>
-<ul>
-<li><strong>生用：</strong>洗净，切段，干燥</li>
-<li><strong>酒制：</strong>黄酒拌匀，闷润后炒干，增强通络作用</li>
-</ul>
+<div class="tag-row"><span class="tag">广地龙</span><span class="tag">土地龙</span><span class="tag">品质</span></div>
+<p><strong>广地龙（优）</strong> 条大肉厚，色棕黄，断面有弹性，有腥臭味</p>
+<p><strong>土地龙（次）</strong> 条小体瘦，色灰，质较松，断面纤维性</p>
+<p><strong>优质特征</strong> 干燥完整、条大肉厚、腥臭味浓、无霉变</p>
+<p><strong>劣质特征</strong> 条碎、断面暗淡、有霉味</p>
 </div>
-
-<div class="content-section">
-<h2>现代研究</h2>
-<p><strong>活性成分：</strong>蚓激酶（纤溶酶）、地龙蛋白、氨基酸、核苷酸等</p>
-<p><strong>药理作用：</strong></p>
-<ul>
-<li>抗血栓、溶栓作用（蚓激酶）</li>
-<li>降血压、改善微循环</li>
-<li>抗炎、解热</li>
-<li>免疫调节</li>
-</ul>
-<p><strong>常见制剂：</strong>蚓激酶肠溶胶囊、地龙注射液等</p>
+<div class="card">
+<h2>现代应用</h2>
+<div class="tag-row"><span class="tag">心脑血管</span><span class="tag">平喘</span><span class="tag">降压</span></div>
+<ul><li><strong>心脑血管:</strong> 地龙蛋白、蚓激酶，抗血小板聚集，辅助溶栓</li><li><strong>咳喘:</strong> 地龙注射液，治支气管哮喘</li><li><strong>高血压:</strong> 地龙降压片，配合常规降压药使用</li><li><strong>外用:</strong> 治下肢溃疡、湿疹、烧烫伤（研末调敷）</li></ul>
 </div>
-
-<div class="content-section">
-<h2>市场行情</h2>
-<p><strong>价格区间：</strong></p>
-<ul>
-<li>广地龙：150-300元/kg</li>
-<li>沪地龙：100-200元/kg</li>
-<li>地龙粉、提取物：价格不等</li>
-</ul>
-<p><strong>主产区：</strong>广东、广西、江苏、浙江等</p>
+<div class="card">
+<h2>市场行情（2025~2026）</h2>
+<div class="tag-row"><span class="tag">价格</span><span class="tag">行情</span></div>
+<p><strong>广地龙（药用级）</strong> 约 120~160 元/kg</p>
+<p><strong>土地龙（统货）</strong> 约 30~60 元/kg</p>
+<p><strong>药市行情</strong> 近年稳中有升，2024年底约120元/kg</p>
 </div>
-
-<div class="content-section">
+<div class="card">
+<h2>使用注意</h2>
+<div class="warning">&#x26A0; 脾胃虚寒者慎用；孕妇忌服；有过敏史者先试敏；地龙有抗凝作用，服用抗凝药者须遵医嘱。</div>
 </div>
-
+<footer>由 QClaw AI 整理 &middot; 数据持续更新 &middot; 最后更新：2026年6月</footer>
 </div>
-<footer>由 QClaw AI 整理 · 数据持续更新</footer>
 </body>
 </html>

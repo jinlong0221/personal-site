@@ -7,6 +7,16 @@
   'use strict';
 
   // ============================================================
+  // 0. XSS Protection - HTML Escape Utility
+  // ============================================================
+  function escapeHtml(text) {
+    if (!text) return '';
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // ============================================================
   // 1. Theme Toggle (深浅主题切换)
   //    规则：6:00-18:00 自动亮色，localStorage 记忆，按钮切换
   // ============================================================
@@ -160,10 +170,10 @@
     for (var k = 0; k < crumbs.length; k++) {
       var isLast = k === crumbs.length - 1;
       if (!isLast) {
-        html += '<a href="' + crumbs[k].url + '">' + crumbs[k].label + '</a>';
+        html += '<a href="' + escapeHtml(crumbs[k].url) + '">' + escapeHtml(crumbs[k].label) + '</a>';
         html += '<span class="sep">›</span>';
       } else {
-        html += '<span class="current">' + crumbs[k].label + '</span>';
+        html += '<span class="current">' + escapeHtml(crumbs[k].label) + '</span>';
       }
     }
     container.innerHTML = html;
@@ -290,10 +300,10 @@
     var html = '<div class="search-results-list">';
     results.forEach(function (item) {
       var desc = item.description ? item.description : (item.keywords ? item.keywords.substring(0, 50) + '...' : '');
-      html += '<a href="' + item.url + '" class="search-result-item">';
-      html += '<div class="search-result-title">' + item.title + '</div>';
+      html += '<a href="' + escapeHtml(item.url) + '" class="search-result-item">';
+      html += '<div class="search-result-title">' + escapeHtml(item.title) + '</div>';
       if (desc) {
-        html += '<div class="search-result-desc">' + desc + '</div>';
+        html += '<div class="search-result-desc">' + escapeHtml(desc) + '</div>';
       }
       html += '</a>';
     });

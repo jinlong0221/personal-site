@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>特斯拉与电动车 - 金龙的 AI 学习站</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --radius: 20px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.back-link { display: inline-block; margin: 30px 0; color: var(--accent); text-decoration: none; font-size: 15px; }
+.back-link:hover { text-decoration: underline; }
+header { padding: 40px 0 50px; }
+header .emoji { font-size: 48px; margin-bottom: 20px; }
+header h1 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+header p { font-size: 19px; color: var(--text-secondary); max-width: 700px; }
+.progress-section { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 30px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.progress-section h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+.progress-bar { width: 100%; height: 8px; background: #e8e8ed; border-radius: 4px; overflow: hidden; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), #42a5f5); border-radius: 4px; }
+.progress-stats { display: flex; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
+.progress-stats .stat .label { font-size: 13px; color: var(--text-secondary); }
+.progress-stats .stat .val { font-size: 28px; font-weight: 700; color: var(--accent); }
+.content-section { background: var(--card); border-radius: var(--radius); padding: 40px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.content-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.content-section h3 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; color: var(--accent); }
+.content-section p { font-size: 16px; margin-bottom: 16px; }
+.content-section ul, .content-section ol { margin: 16px 0; padding-left: 24px; }
+.content-section li { font-size: 16px; margin-bottom: 12px; }
+.model-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+.model-card { background: #f5f5f7; border-radius: 14px; padding: 22px; text-align: center; }
+.model-card .name { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.model-card .price { font-size: 15px; color: var(--text-secondary); margin-bottom: 8px; }
+.model-card .tag { display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 12px; }
+.tag.hot { background: rgba(255,59,48,0.1); color: #ff3b30; }
+.tag.new { background: rgba(0,113,227,0.1); color: var(--accent); }
+.tag.normal { background: rgba(134,134,139,0.1); color: var(--text-secondary); }
+.tip-box { background: #d1ecf1; border-left: 4px solid var(--accent); padding: 16px 20px; border-radius: 8px; margin: 20px 0; }
+.tip-box strong { color: var(--accent); }
+.news-section { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.news-section h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+.news-item { padding: 16px 0; border-bottom: 1px solid var(--border); }
+.news-item:last-child { border-bottom: none; }
+.news-item .title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.news-item .meta { font-size: 13px; color: var(--text-secondary); }
+.news-placeholder { padding: 40px; text-align: center; color: var(--text-secondary); font-size: 15px; }
+.update-log { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.update-log h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+.update-log .log-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
+.update-log .log-item:last-child { border-bottom: none; }
+.update-log .log-item .date { font-size: 13px; color: var(--text-secondary); }
+.update-log .log-item .text { font-size: 15px; margin-top: 4px; }
+footer { text-align: center; padding: 60px 0 40px; color: var(--text-secondary); font-size: 13px; }
+@media (max-width: 768px) {
+header h1 { font-size: 32px; }
+.content-section { padding: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<a href="index.html" class="back-link">← 返回首页</a>
+<header>
+<div class="emoji">🚗</div>
+<h1>特斯拉与电动车</h1>
+<p>Model 3/Y/X/S、Cybertruck 全球销量数据、行业动态、用车技巧、随车充推荐。</p>
+</header>
+
+<div class="progress-section">
+<h2>学习进度</h2>
+<div class="progress-bar"><div class="fill" style="width: 10%"></div></div>
+<div class="progress-stats">
+<div class="stat"><div class="label">关注车型</div><div class="val">5</div></div>
+<div class="stat"><div class="label">每日资讯</div><div class="val">自动</div></div>
+<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)">2026-06-21</div></div>
+</div>
+</div>
+
+<div class="content-section">
+<h2>特斯拉全系车型</h2>
+<div class="model-grid">
+<div class="model-card">
+<div class="name">Model 3</div>
+<div class="price">约 23.6 万起</div>
+<div class="tag normal">轿车 · 走量</div>
+</div>
+<div class="model-card">
+<div class="name">Model Y</div>
+<div class="price">约 26.4 万起</div>
+<div class="tag hot">SUV · 全球销冠</div>
+</div>
+<div class="model-card">
+<div class="name">Model X</div>
+<div class="price">约 73.9 万起</div>
+<div class="tag normal">SUV · 旗舰</div>
+</div>
+<div class="model-card">
+<div class="name">Model S</div>
+<div class="price">约 68.5 万起</div>
+<div class="tag normal">轿车 · 旗舰</div>
+</div>
+<div class="model-card">
+<div class="name">Cybertruck</div>
+<div class="price">约 68万起（美国）</div>
+<div class="tag new">皮卡 · 限量</div>
+</div>
+</div>
+<div class="tip-box"><strong>💡 销量说明：</strong>Model Y 是全球最畅销的电动车之一，2024年全球交付量超过100万辆。Cybertruck 在美国市场热度很高，但在中国尚未大规模交付。</div>
+</div>
+
+<div class="content-section">
+<h2>随车充推荐</h2>
+<h3>为什么需要随车充？</h3>
+<p>随车充可以在没有专用充电桩的情况下，利用普通家用插座为电动车充电。虽然速度比家用壁挂桩慢，但出门在外是救命保障。</p>
+<h3>推荐选择</h3>
+<ul>
+<li><strong>首选：品胜随车充</strong>（约 700 元）
+<ul>
+<li>IP67 防水等级，可在室外使用</li>
+<li>兼容性强，适配特斯拉等多种车型</li>
+<li>有过温保护、漏电保护</li>
+<li>8A/10A/13A 三档电流可调</li>
+</ul>
+</li>
+</ul>
+<h3>使用注意事项</h3>
+<ul>
+<li>使用 16A 大三孔插座（空调插座），充电速度更快</li>
+<li>避免使用拖线板，可能过热</li>
+<li>长期存放时每月充一次电，保持电池健康</li>
+</ul>
+</div>
+
+<div class="news-section">
+<h3>📰 最新动态</h3>
+<div class="news-placeholder">每日 09:00 自动汇总特斯拉全球销量与中国新闻</div>
+</div>
+
+<div class="update-log">
+<h3>更新记录</h3>
+<div class="log-item"><div class="date">2026-06-21</div><div class="text">创建特斯拉专题，完成车型概览和随车充推荐。</div></div>
+<div class="log-item"><div class="date">2026-06-19</div><div class="text">用户设置了特斯拉每日推送任务，每日09:00汇总全球销量与中国新闻。</div></div>
+</div>
+</div>
+
+<footer class="container">
+<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 自动维护 · 每日资讯更新</p>
+</footer>
+</body>
+</html>

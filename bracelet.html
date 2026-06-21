@@ -153,7 +153,7 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
 footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
 
 /* panel-all 显示全部 */
-.panel-all .section{display:block!important}
+.panel-all .section{display:block}
 
 @media(max-width:768px){
   body{padding-top:116px}
@@ -536,6 +536,98 @@ footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
 [data-theme="light"] footer { background: var(--card) !important; color: var(--text-muted) !important; }
 [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] b, [data-theme="light"] strong { color: var(--text) !important; }
 
+
+/* === 新板块样式 === */
+.bone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin:var(--gap) 0}
+.bone-card{border-radius:2px;padding:20px;transition:transform .15s,filter .15s;border-left:4px solid var(--blue)}
+.bone-card:hover{transform:scale(1.02);filter:brightness(1.1)}
+.bone-card h4{font-size:16px;font-weight:700;margin-bottom:8px;color:#fff}
+.bone-card p,.bone-card li{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6}
+.bone-card ul{margin:8px 0 0 16px}
+.bone-card li{margin-bottom:4px}
+.bone-magu{background:linear-gradient(135deg,#4a3728 0%,#6b5038 100%)}
+.bone-dye{background:linear-gradient(135deg,#6b3030 0%,#8a4040 100%)}
+.bone-expert{background:linear-gradient(135deg,#30603a 0%,#408050 100%)}
+
+.zijin-card{background:linear-gradient(135deg,#2d1b69 0%,#4a2580 100%);border-radius:2px;padding:24px;border-left:4px solid #7c53c0;margin-bottom:var(--gap)}
+.zijin-card h3{font-size:18px;font-weight:900;margin-bottom:10px}
+.zijin-card p{font-size:14px;color:rgba(255,255,255,.9);line-height:1.7}
+.zijin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:16px 0}
+.zijin-grid .point{border-radius:2px;padding:18px;background:rgba(255,255,255,.08);text-align:center}
+.zijin-grid .point .num{font-size:28px;font-weight:700;color:#9c6ede;line-height:1}
+.zijin-grid .point .label{font-size:13px;color:rgba(255,255,255,.8);margin-top:6px}
+
+.mammoth-card{background:linear-gradient(135deg,#2a3750 0%,#3a4e70 100%);border-radius:2px;padding:24px;border-left:4px solid #5a7db5;margin-bottom:var(--gap)}
+.mammoth-card h3{font-size:18px;font-weight:900;margin-bottom:10px}
+.mammoth-card p,.mammoth-card li{font-size:14px;color:rgba(255,255,255,.9);line-height:1.7}
+.mammoth-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin:16px 0}
+.mammoth-grid .feature{border-radius:2px;padding:18px;background:rgba(255,255,255,.08)}
+.mammoth-grid .feature h4{font-size:14px;font-weight:700;margin-bottom:6px}
+.mammoth-grid .feature p{font-size:13px;color:rgba(255,255,255,.8)}
+.mammoth-legal{background:#1d3d2d;border-left:4px solid #2ecc71;border-radius:2px;padding:18px;margin:16px 0}
+.mammoth-legal strong{color:#2ecc71}
+
+.star-guide{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin:16px 0}
+.star-guide .step{border-radius:2px;padding:18px;background:var(--dark);border:1px solid var(--border);transition:transform .15s}
+.star-guide .step:hover{transform:scale(1.02)}
+.star-guide .step .icon{font-size:28px;margin-bottom:8px}
+.star-guide .step .title{font-size:14px;font-weight:700;margin-bottom:4px}
+.star-guide .step .desc{font-size:12px;color:var(--text2)}
+.star-season{background:#1d2d3d;border-left:4px solid var(--teal);border-radius:2px;padding:18px;margin:16px 0}
+.star-season strong{color:var(--teal)}
+
+.grade-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:16px 0}
+.grade-card{border-radius:2px;padding:20px;text-align:center;transition:transform .15s,filter .15s}
+.grade-card:hover{transform:scale(1.02);filter:brightness(1.1)}
+.grade-card h4{font-size:14px;font-weight:700;margin-bottom:6px}
+.grade-card p{font-size:12px;color:rgba(255,255,255,.85)}
+.grade-card .score{font-size:32px;font-weight:700;line-height:1.2}
+.grade-high{background:linear-gradient(135deg,#1a4a1a 0%,#2a6a2a 100%)}
+.grade-mid{background:linear-gradient(135deg,#5a4a00 0%,#7a6a00 100%)}
+.grade-low{background:linear-gradient(135deg,#4a1a1a 0%,#6a2a2a 100%)}
+
+.wuxing-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap);margin:16px 0}
+.wuxing-card{border-radius:2px;padding:20px;text-align:center;transition:transform .15s}
+.wuxing-card:hover{transform:scale(1.05)}
+.wuxing-card .elem{font-size:32px;font-weight:700;margin-bottom:6px}
+.wuxing-card .ename{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:4px}
+.wuxing-card .color-info{font-size:12px;color:rgba(255,255,255,.85);line-height:1.5}
+.wuxing-wood{background:linear-gradient(135deg,#1a5a1a 0%,#2d8a2d 100%)}
+.wuxing-fire{background:linear-gradient(135deg,#8a2020 0%,#c03333 100%)}
+.wuxing-earth{background:linear-gradient(135deg,#8a6a20 0%,#c09a33 100%)}
+.wuxing-metal{background:linear-gradient(135deg,#5a5a6a 0%,#8a8a9a 100%)}
+.wuxing-water{background:linear-gradient(135deg,#1a2d5a 0%,#2d4a8a 100%)}
+.wuxing-match{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin:16px 0}
+.wuxing-match .pair{border-radius:2px;padding:18px;background:var(--dark);border:1px solid var(--border)}
+.wuxing-match .pair h4{font-size:14px;font-weight:700;margin-bottom:6px}
+.wuxing-match .pair p{font-size:13px;color:#aaa}
+.wuxing-tip{background:#3d2d0d;border-left:4px solid var(--yellow);border-radius:2px;padding:18px;margin:16px 0}
+.wuxing-tip strong{color:var(--yellow)}
+
+@media(max-width:768px){
+  .bone-grid{grid-template-columns:1fr}
+  .zijin-grid,.star-guide,.grade-grid,.wuxing-grid{margin-top:8px}
+  .mammoth-grid{grid-template-columns:1fr}
+  .wuxing-match{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .zijin-grid,.grade-grid{grid-template-columns:1fr}
+  .star-guide{grid-template-columns:1fr 1fr}
+  .wuxing-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+/* 亮色模式新板块 */
+[data-theme="light"] .bone-card h4,[data-theme="light"] .bone-card p,[data-theme="light"] .bone-card li{color:#fff!important}
+[data-theme="light"] .zijin-card,[data-theme="light"] .mammoth-card{filter:brightness(0.9)}
+[data-theme="light"] .star-guide .step{background:#f0f0f0;border-color:#ddd}
+[data-theme="light"] .star-guide .step .title{color:#1a1a1a}
+[data-theme="light"] .star-guide .step .desc{color:#555}
+[data-theme="light"] .star-season{background:rgba(0,130,114,.08);color:#004a40}
+[data-theme="light"] .mammoth-legal{background:rgba(46,204,113,.08);color:#004d00}
+[data-theme="light"] .wuxing-match .pair{background:#f5f5f5}
+[data-theme="light"] .wuxing-match .pair p{color:#555}
+[data-theme="light"] .wuxing-tip{background:rgba(255,200,0,.1);color:#7a5000}
+
 </style>
 </head>
 <body>
@@ -554,6 +646,12 @@ footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
   <button class="tab-btn" data-tab="panwan">盘玩方法</button>
   <button class="tab-btn" data-tab="diy">DIY加工</button>
   <button class="tab-btn" data-tab="brand">品牌与市场</button>
+  <button class="tab-btn" data-tab="bone">马骨</button>
+  <button class="tab-btn" data-tab="zijin">紫金钵盂菩提</button>
+  <button class="tab-btn" data-tab="mammoth">猛犸</button>
+  <button class="tab-btn" data-tab="xingyue-all">星月全套</button>
+  <button class="tab-btn" data-tab="grade">品相辨别</button>
+  <button class="tab-btn" data-tab="wuxing">五行搭配</button>
 </div>
 
 <div class="container">
@@ -747,13 +845,363 @@ footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
     <div class="warn-box"><strong>⚠️ 购买建议：</strong>如果是新手，建议先买第二梯队（菩悦东方、吾文玩）练手，等熟悉后再考虑欢见等溢价品牌。二手市场淘货也是好选择，但需要注意辨别真假和品相。</div>
   </div>
 
+
+  <!-- 马骨 -->
+  <div class="section" id="section-bone">
+    <h2>马骨手串</h2>
+    <p>马骨近年来热度攀升，属于骨料文玩中的新星。价格亲民，纹理独特，盘玩变化快。但市场上染色仿冒多，需要火眼金睛。</p>
+    
+    <h3>马骨vs其他骨料</h3>
+    <table class="m-table">
+      <tr><th>骨料</th><th>密度</th><th>油性</th><th>纹理</th><th>盘玩变化</th><th>价格带</th></tr>
+      <tr><td><strong>马骨</strong></td><td>中等偏硬</td><td>油性大</td><td>纵向纤维纹清晰</td><td>快，3-6个月包浆</td><td>50-300元</td></tr>
+      <tr><td><strong>驼骨</strong></td><td>高</td><td>油性大</td><td>不规则绞丝纹</td><td>快，油润感强</td><td>80-500元</td></tr>
+      <tr><td><strong>牦牛骨</strong></td><td>高</td><td>油性中等</td><td>粗犷纵纹</td><td>中等，1-2年</td><td>50-200元</td></tr>
+      <tr><td><strong>象骨/猛犸</strong></td><td>高</td><td>油性低</td><td>交叉线（雷纹）</td><td>慢，需耐心</td><td>200-2000元</td></tr>
+    </table>
+    
+    <h3>马骨鉴别要点</h3>
+    <div class="bone-grid">
+      <div class="bone-card bone-magu">
+        <h4>🦴 看纹理</h4>
+        <p>真马骨：纵向平行纤维纹，自然流畅，像木纹。放大镜下可见天然血管孔（骨小孔），分布不规则。</p>
+        <p>假货：无纹理或人造压纹，太规则太均匀。</p>
+      </div>
+      <div class="bone-card bone-dye">
+        <h4>🎨 辨染色</h4>
+        <p>市场上"红马骨"多是染色。辨别方法：</p>
+        <ul>
+          <li>棉签蘸酒精擦拭——掉色则染</li>
+          <li>看孔道内侧——染色品孔道内颜色与表面不一致</li>
+          <li>紫外线灯——天然骨有柔和荧光，染色骨荧光异常</li>
+        </ul>
+      </div>
+      <div class="bone-card bone-expert">
+        <h4>🔥 烧灼测试（慎用）</h4>
+        <p>热针点刺不明显处：真骨有焦糊味（类似烧头发），无黑烟。塑料/树脂仿品有化学刺鼻味+黑烟。</p>
+      </div>
+      <div class="bone-card bone-expert">
+        <h4>⚖️ 掂重量</h4>
+        <p>真马骨密度中等，有压手感但不过重。塑料仿品太轻，树脂仿品过重。手感经验最重要。</p>
+      </div>
+    </div>
+
+    <h3>盘玩与保养</h3>
+    <ul>
+      <li><strong>上手直接盘</strong>——马骨油性大，净手盘即可，无需手套打底</li>
+      <li><strong>前期忌水忌汗</strong>——沾水后用软布擦干</li>
+      <li><strong>注意干裂</strong>——北方冬天远离暖气，涂薄层硅油可防裂</li>
+      <li><strong>包浆后变深红褐色</strong>——越盘越亮，近似琥珀质感</li>
+      <li>如需上油，用骨油或婴儿油，少量多次</li>
+    </ul>
+    <div class="tip-box"><strong>💡 购买建议：</strong>马骨入门门槛低，新手花50-100元就能买到一串不错的素串。建议买前问清：是否脱脂脱油、产地（内蒙古/新疆马骨为佳）、是否染色。推荐先入手鸡油黄（天然色）素串练手。</div>
+  </div>
+
+  <!-- 紫金钵盂菩提 -->
+  <div class="section" id="section-zijin">
+    <h2>紫金钵盂菩提</h2>
+    <div class="zijin-card">
+      <h3>什么是紫金钵盂菩提？</h3>
+      <p>紫金钵盂菩提并非金属"紫金"，也不是钵盂（和尚化缘的碗），而是一种<strong>热带棕榈科植物的种子</strong>。因形状像倒扣的钵盂、颜色紫褐而得名。属于菩提籽中的小众品类。</p>
+      <p>核心特征：半圆形（像切开的椰子壳侧面）、表面有天然凹凸纹路、紫褐至棕红色、质地坚硬致密。</p>
+    </div>
+
+    <h3>三大特征</h3>
+    <div class="zijin-grid">
+      <div class="point">
+        <div class="num">1</div>
+        <div class="label">🔄 天然钵盂形<br>半圆如碗倒扣</div>
+      </div>
+      <div class="point">
+        <div class="num">2</div>
+        <div class="label">🎨 紫褐色<br>越盘越润</div>
+      </div>
+      <div class="point">
+        <div class="num">3</div>
+        <div class="label">💪 密度高<br>入水即沉</div>
+      </div>
+    </div>
+
+    <h3>鉴别要点</h3>
+    <ul>
+      <li><strong>看形状：</strong>紫金钵盂菩提是天然的半圆空心结构（种子壳的一半），带孔的一面空心。并非实心珠子。</li>
+      <li><strong>看纹理：</strong>表面有天然凹凸和气孔纹路，不是光滑平面。假货常做成全圆形或表面过于光滑。</li>
+      <li><strong>听声音：</strong>互相碰撞声音清脆，类似陶瓷片。塑料仿品声音沉闷。</li>
+      <li><strong>掂重量：</strong>密度高，有压手感。太轻的可能是未成熟籽或仿品。</li>
+    </ul>
+
+    <h3>盘玩与价值</h3>
+    <ul>
+      <li>干净手直接盘，前期净手为主</li>
+      <li>盘玩后颜色由紫褐转深红棕，光泽如玉</li>
+      <li>天然凹凸纹理盘玩时会有轻微的手感按摩效果</li>
+      <li>市场价约50-200元/串，属于入门级菩提籽</li>
+      <li>真正的收藏级紫金钵盂：籽形饱满、厚度均匀、紫红色正、无虫蛀裂痕</li>
+    </ul>
+    <div class="warn-box"><strong>⚠️ 注意：</strong>市场上有些商家将"紫金钵盂"吹成佛教圣物高价售卖。实际上它只是一种普通菩提籽，不要被"开光""加持"等话术忽悠。合理价格在百元以内。</div>
+  </div>
+
+  <!-- 猛犸 -->
+  <div class="section" id="section-mammoth">
+    <h2>猛犸象牙手串</h2>
+    <div class="mammoth-card">
+      <h3>合法象牙替代品</h3>
+      <p>猛犸象牙是<strong>合法</strong>的文玩材料——来自已灭绝的猛犸象化石（西伯利亚冻土层中出土），不是现代象牙。联合国CITES公约允许合法交易。购买时务必确认商家有合法来源证明。</p>
+      <p>猛犸象牙因长期埋在冻土中，部分已呈"牙笑"（表面细微裂纹），正是岁月留下的天然印记。</p>
+    </div>
+
+    <h3>牙纹鉴别（裂帛纹）</h3>
+    <div class="mammoth-grid">
+      <div class="feature">
+        <h4>🦷 勒兹纹</h4>
+        <p>猛犸象牙独有的纹理，横截面呈<strong>交叉菱形</strong>（类似鱼网或格纹），被称为"裂帛纹"或"雷纹"。线条夹角一般为&lt;90度。</p>
+      </div>
+      <div class="feature">
+        <h4>🦷 现代象牙</h4>
+        <p>现代象牙勒兹纹夹角呈钝角（&gt;90度），纹路更圆润柔和，呈弧形伸展。与猛犸的尖锐菱形交叉明显不同。</p>
+      </div>
+      <div class="feature">
+        <h4>🦷 骨料仿冒</h4>
+        <p>骨料（牛/马/驼骨）没有勒兹纹，只有纵向纤维纹。猛犸的交叉菱形纹是"身份ID"，不可仿造。</p>
+      </div>
+      <div class="feature">
+        <h4>🦷 树脂仿品</h4>
+        <p>树脂/poly仿品无纹路或纹路死板均匀。用热针测试——树脂冒黑烟+化学气味，猛犸有焦蛋白质味。</p>
+      </div>
+    </div>
+
+    <div class="mammoth-legal">
+      <strong>✅ 合法来源确认：</strong>正规商家会提供《CITES证明》或《猛犸象牙来源声明》。日本、欧美市场对猛犸牙政策最宽松。国内购买时选择正规商店，要求出具合法来源文件。绝对不要购买现代象牙制品。
+    </div>
+
+    <h3>盘玩与保养</h3>
+    <ul>
+      <li>猛犸牙质地较干（与骨料比油性不足），需耐心盘玩</li>
+      <li>前期建议手套盘1-2周打底，避免直接上手太快变黄</li>
+      <li>盘玩过程中颜色会逐渐变深——从奶白→米黄→蜜蜡黄</li>
+      <li>极度怕干裂：北方冬季需用保湿袋/涂婴儿油保存</li>
+      <li>忌暴晒、忌暖气片、忌温差剧烈变化</li>
+      <li>"牙笑"（表面细微裂纹）是自然现象，反而增添岁月感，不必纠结</li>
+    </ul>
+    <div class="tip-box"><strong>💡 选购建议：</strong>新手入门建议买小规格珠串（6-8mm），价格约200-500元。注意选"冰淇淋料"（纯白微黄）品相，带皮的"蓝皮料"价格更高但盘玩难度大。最贵的"血牙"多为染色，不推荐新手碰。</div>
+  </div>
+
+  <!-- 星月全套攻略 -->
+  <div class="section" id="section-xingyue-all">
+    <h2>星月菩提全套攻略</h2>
+    <p>从选料→上手→包浆→保养，一篇讲透。</p>
+
+    <h3>选料四看</h3>
+    <table class="m-table">
+      <tr><th>指标</th><th>好</th><th>中</th><th>差</th></tr>
+      <tr><td><strong>密度</strong>（最重要）</td><td>入水即沉，敲击声清脆</td><td>半沉半浮</td><td>浮于水面，声音沉闷</td></tr>
+      <tr><td><strong>星点</strong></td><td>细密均匀，星点如针尖</td><td>星点清晰但有粗有细</td><td>星点粗大、连成线（连星）</td></tr>
+      <tr><td><strong>油性</strong></td><td>表面油润有光泽，上手发腻</td><td>光泽一般</td><td>干涩无光，像枯柴</td></tr>
+      <tr><td><strong>色差</strong></td><td>整串颜色均匀一致</td><td>少量色差</td><td>白一颗黄一颗，差异明显</td></tr>
+    </table>
+
+    <h3>盘玩时间线</h3>
+    <div class="star-guide">
+      <div class="step">
+        <div class="icon">🧤</div>
+        <div class="title">抛光期</div>
+        <div class="desc">1-2周<br>棉手套盘30分/天<br>去车痕+基础光泽</div>
+      </div>
+      <div class="step">
+        <div class="icon">⏸️</div>
+        <div class="title">静置期</div>
+        <div class="desc">3-5天<br>自然放置<br>油脂氧化形成软包浆</div>
+      </div>
+      <div class="step">
+        <div class="icon">✋</div>
+        <div class="title">手盘期</div>
+        <div class="desc">长期<br>净手盘5天休2天<br>逐步包浆上色</div>
+      </div>
+      <div class="step">
+        <div class="icon">📿</div>
+        <div class="title">日常期</div>
+        <div class="desc">中后期<br>正常佩戴+手盘<br>深沉包浆</div>
+      </div>
+    </div>
+
+    <div class="star-season">
+      <strong>🌡️ 季节建议：</strong>最佳盘玩季节是春秋（温度20-25℃，湿度40-60%）。夏季汗多容易让星月发黄发暗，夏季可减少手盘时间，多静置。冬季干燥注意保湿，远离暖气。
+    </div>
+
+    <h3>色差急救法</h3>
+    <ul>
+      <li><strong>色差隔离：</strong>深色珠子挑出来单穿一串，集中多盘</li>
+      <li><strong>"追色"法：</strong>浅色珠子单独放在手心里搓热再盘，加快颜色</li>
+      <li><strong>重新排序：</strong>打散重穿，深浅交替，盘玩一段时间后色差会模糊</li>
+      <li><strong>终极方案：</strong>实在救不回，考虑初期的色差串改做配珠或隔片</li>
+    </ul>
+    <div class="warn-box"><strong>⚠️ 色差是常态：</strong>99%的手串前期都会出现色差，这是籽与籽之间密度差异导致的。正常盘玩1年左右，色差自然缩小。不要焦虑。</div>
+
+    <h3>包浆阶段图谱</h3>
+    <table class="m-table">
+      <tr><th>阶段</th><th>时间</th><th>颜色</th><th>手感</th></tr>
+      <tr><td>新生</td><td>0-2周</td><td>奶白/原色</td><td>涩，有车痕</td></tr>
+      <tr><td>初浆</td><td>1-3个月</td><td>米黄</td><td>滑中带涩，开始挂瓷</td></tr>
+      <tr><td>包浆</td><td>6-12个月</td><td>姜黄/蜜蜡黄</td><td>光滑莹润，有玻璃感</td></tr>
+      <tr><td>深包浆</td><td>2-3年</td><td>红褐/琥珀色</td><td>温润如玉，钟声清脆</td></tr>
+      <tr><td>老串</td><td>5年以上</td><td>深红褐/枣红</td><td>厚实凝润，开片见岁月</td></tr>
+    </table>
+  </div>
+
+  <!-- 品相辨别 -->
+  <div class="section" id="section-grade">
+    <h2>文玩手串品相辨别</h2>
+    <p>品相是手串价值的核心判断标准。以下是通用评判维度，适用于大部分树籽类和骨质类手串。</p>
+
+    <h3>品相六维评分</h3>
+    <div class="grade-grid">
+      <div class="grade-card grade-high">
+        <div class="score">A+</div>
+        <h4>密度</h4>
+        <p>入水即沉，敲声清脆<br>高密度=耐盘+变色慢+质感好</p>
+      </div>
+      <div class="grade-card grade-mid">
+        <div class="score">B</div>
+        <h4>均匀度</h4>
+        <p>同串籽之间尺寸/颜色/纹路一致性<br>越均匀品相越高</p>
+      </div>
+      <div class="grade-card grade-low">
+        <div class="score">C</div>
+        <h4>瑕疵</h4>
+        <p>虫蛀、裂纹、缺肉、孔道歪<br>一颗瑕疵毁全串</p>
+      </div>
+    </div>
+    <div class="grade-grid">
+      <div class="grade-card grade-high">
+        <div class="score">A</div>
+        <h4>油性</h4>
+        <p>表面自然油润，上手发涩发腻<br>油性足=包浆快+颜色正</p>
+      </div>
+      <div class="grade-card grade-mid">
+        <div class="score">B</div>
+        <h4>做工</h4>
+        <p>孔道顺滑无崩、切面平整<br>精工+细工=高溢价</p>
+      </div>
+      <div class="grade-card grade-low">
+        <div class="score">C</div>
+        <h4>品相完整性</h4>
+        <p>无补胶、无修补、无染色<br>原生态纯天然最值钱</p>
+      </div>
+    </div>
+
+    <h3>常见品相陷阱</h3>
+    <ul>
+      <li><strong>"水煮脱脂"</strong>：把低密度籽煮了冒充高密度。辨别：煮过的籽颜色发死（统一惨白），入口尝有苦味</li>
+      <li><strong>"微油"</strong>（泡油籽）：珠子表面油光锃亮，上手粘手。用纸巾擦一下，看有无油脂残留</li>
+      <li><strong>"补胶遮瑕"</strong>：用胶水填补虫蛀孔或裂纹，紫外线灯下可见荧光反应</li>
+      <li><strong>"通货精选"</strong>：商家从一批通货中挑出几十颗品相好的串成一串，但每颗密度油性不一致，后期色差大</li>
+      <li><strong>"老串新做"</strong>：用化学方法加速变色冒充老串。真老串包浆均匀，孔道内侧也有包浆</li>
+    </ul>
+    <div class="tip-box"><strong>💡 终极法则：</strong>所有品相指标中，密度排第一。宁愿密度高但有小瑕，也不要密度低但表面完美的。密度是一切盘玩变化的基础。</div>
+  </div>
+
+  <!-- 五行搭配 -->
+  <div class="section" id="section-wuxing">
+    <h2>五行搭配思路</h2>
+    <p>手串不止看材质，还可以根据五行来选择适合自己的。这不是封建迷信，而是传统文化中的美学体系——色彩、材质、能量的和谐。</p>
+
+    <h3>五行生克对应表</h3>
+    <div class="wuxing-grid">
+      <div class="wuxing-card wuxing-wood">
+        <div class="elem">木</div>
+        <div class="ename">木</div>
+        <div class="color-info">🟢 绿/青<br>菩提类、竹木类</div>
+      </div>
+      <div class="wuxing-card wuxing-fire">
+        <div class="elem">火</div>
+        <div class="ename">火</div>
+        <div class="color-info">🔴 红/紫<br>南红玛瑙、红珊瑚、红檀</div>
+      </div>
+      <div class="wuxing-card wuxing-earth">
+        <div class="elem">土</div>
+        <div class="ename">土</div>
+        <div class="color-info">🟡 黄/褐<br>蜜蜡、黄水晶、骨料</div>
+      </div>
+      <div class="wuxing-card wuxing-metal">
+        <div class="elem">金</div>
+        <div class="ename">金</div>
+        <div class="color-info">⚪ 白/金<br>猛犸牙、白水晶、银饰</div>
+      </div>
+      <div class="wuxing-card wuxing-water">
+        <div class="elem">水</div>
+        <div class="ename">水</div>
+        <div class="color-info">🔵 蓝/黑<br>青金石、黑曜石、煤精</div>
+      </div>
+    </div>
+
+    <h3>材质与五行对应</h3>
+    <div class="wuxing-match">
+      <div class="pair">
+        <h4>🟢 木属性（菩提类）</h4>
+        <p>星月菩提、凤眼菩提、龙眼菩提、金刚菩提、紫金钵盂菩提、黄藤果、无患子。适合生发、创新、求成长的人。五行缺木首选。</p>
+      </div>
+      <div class="pair">
+        <h4>🔴 火属性（红系材质）</h4>
+        <p>南红玛瑙、红珊瑚、红檀木、血珀、朱砂。适合热情、表现、求名气的人。五行缺火者旺运。</p>
+      </div>
+      <div class="pair">
+        <h4>🟡 土属性（黄褐系）</h4>
+        <p>蜜蜡、黄水晶、琥珀、马骨、驼骨、黄杨木、黄檀。适合稳重、求稳定、守成的人。脾胃不好的也适合。</p>
+      </div>
+      <div class="pair">
+        <h4>⚪ 金属性（白系）</h4>
+        <p>猛犸牙、白水晶、白玉、砗磲、银饰、白金。适合决断、求财运的人。缺金者戴白色最旺。</p>
+      </div>
+      <div class="pair">
+        <h4>🔵 水属性（蓝黑系）</h4>
+        <p>青金石、海蓝宝、黑曜石、煤精、黑玛瑙、黑檀。适合智慧、求人缘、求沟通顺畅的人。缺水果断入黑色系。</p>
+      </div>
+      <div class="pair">
+        <h4>🎨 混搭（多种材质）</h4>
+        <p>最常见的是"木+土"或"金+水"组合。主串选一种属性，配珠选相生属性。比如星月菩提（木）配蜜蜡（土）——木克土？不，是木生火、火生土。按相生关系搭配最和顺。</p>
+      </div>
+    </div>
+
+    <h3>相生搭配建议</h3>
+    <table class="m-table">
+      <tr><th>主材质</th><th>属性</th><th>推荐配珠</th><th>相生关系</th></tr>
+      <tr><td>星月菩提</td><td>木</td><td>蜜蜡/黄水晶（土）</td><td>木生火→火生土</td></tr>
+      <tr><td>南红玛瑙</td><td>火</td><td>黄水晶/蜜蜡（土）</td><td>火生土（火土一家）</td></tr>
+      <tr><td>猛犸牙</td><td>金</td><td>黑曜石/青金石（水）</td><td>金生水（金水相生）</td></tr>
+      <tr><td>蜜蜡/琥珀</td><td>土</td><td>白水晶（金）</td><td>土生金</td></tr>
+      <tr><td>黑曜石/青金石</td><td>水</td><td>星月菩提（木）</td><td>水生木</td></tr>
+    </table>
+
+    <div class="wuxing-tip"><strong>💡 搭配原则：</strong>不要搞得太杂。一串手串最多两种材质（主串+配珠），避免"五行大乱炖"。浓淡对比要出来——主串颜色>配珠颜色>隔片颜色。简单即是高级。</div>
+  </div>
 </div><!-- panel-all -->
+
+<!-- Tab切换JS -->
+<script>
+var panel=document.getElementById('panel-all');
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var tab=this.getAttribute('data-tab');
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+    this.classList.add('active');
+    if(tab==='all'){
+      panel.classList.add('panel-all');
+      document.querySelectorAll('.section').forEach(function(s){s.style.display=''});
+    }else{
+      panel.classList.remove('panel-all');
+      document.querySelectorAll('.section').forEach(function(s){s.style.display='none'});
+      document.getElementById('section-'+tab).style.display='block';
+    }
+  });
+});
+</script>
 
 <!-- 更新日志 -->
 <div class="update-tile" id="panel-update">
   <h3>更新记录</h3>
   <div class="log-item"><div class="date">2026-06-21</div><div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div></div>
   <div class="log-item"><div class="date">2026-06-20</div><div class="text">完成欢见品牌研究，用户持有3串星月菩提（欢见大切面×2 + 其他品牌小切面×1）盘玩方案确定。</div></div>
+  <div class="log-item"><div class="date">2026-06-22</div><div class="text">新增马骨、紫金钵盂菩提、猛犸、星月全套攻略、品相辨别、五行搭配六大板块，增加Tab切换功能。</div></div>
 </div>
 
 </div><!-- container -->

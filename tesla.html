@@ -3,63 +3,385 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>特斯拉新闻 - 金龙的 AI 学习站</title>
+<title>特斯拉全追踪 - 金龙的 AI 学习站</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --radius: 20px; }
+:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #e8e8ed; --accent: #0071e3; --tab-bg: #f5f5f7; --radius: 20px; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-.back-link { display: inline-block; margin: 30px 0; color: var(--accent); text-decoration: none; font-size: 15px; }
-.back-link:hover { text-decoration: underline; }
-header { padding: 40px 0 50px; }
-header h1 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
-header p { font-size: 19px; color: var(--text-secondary); max-width: 700px; }
-.content-section { background: var(--card); border-radius: var(--radius); padding: 40px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.content-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-.content-section p { font-size: 16px; margin-bottom: 16px; }
-.tip-box { background: #d1ecf1; border-left: 4px solid var(--accent); padding: 16px 20px; border-radius: 8px; margin: 20px 0; }
-.info-card { background: #f5f5f7; border-radius: 14px; padding: 22px; margin: 16px 0; }
-.info-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
-footer { text-align: center; padding: 60px 0 40px; color: var(--text-secondary); font-size: 13px; }
+
+/* Header */
+header { padding: 50px 0 40px; border-bottom: 1px solid var(--border); }
+header .eyebrow { font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+header h1 { font-size: 40px; font-weight: 700; line-height: 1.1; margin-bottom: 14px; }
+header p { font-size: 18px; color: var(--text-secondary); }
+
+/* Tab Navigation */
+.tab-nav { display: flex; gap: 6px; flex-wrap: wrap; padding: 20px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 10; }
+.tab-btn { padding: 8px 18px; border-radius: 980px; border: none; background: var(--tab-bg); color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.tab-btn:hover { background: #e8e8ed; color: var(--text); }
+.tab-btn.active { background: var(--text); color: #fff; }
+
+/* News List */
+.news-list { padding: 24px 0; }
+.news-date { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 28px 0 12px; border-top: 1px solid var(--border); }
+.news-date:first-child { border-top: none; padding-top: 8px; }
+.news-group { display: flex; flex-direction: column; gap: 0; }
+
+/* News Card */
+.news-card { display: block; padding: 20px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; cursor: pointer; }
+.news-card:last-child { border-bottom: none; }
+.news-card:hover .news-title { color: var(--accent); }
+.news-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.news-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; letter-spacing: 0.04em; }
+.tag-red { background: rgba(255,59,48,0.1); color: #ff3b30; }
+.tag-blue { background: rgba(0,113,227,0.1); color: var(--accent); }
+.tag-green { background: rgba(52,199,89,0.1); color: #34c759; }
+.tag-orange { background: rgba(255,149,0,0.1); color: #ff9500; }
+.tag-purple { background: rgba(142,82,255,0.1); color: #8b52ff; }
+.tag-gray { background: rgba(134,134,139,0.1); color: var(--text-secondary); }
+.news-time { font-size: 12px; color: var(--text-secondary); }
+.news-title { font-size: 17px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; transition: color 0.2s; }
+.news-summary { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+
+/* Category Section */
+.section-title { font-size: 22px; font-weight: 700; margin: 32px 0 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+.section-title:first-of-type { border-top: none; margin-top: 0; }
+
+/* Model Grid */
+.model-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 20px 0 36px; }
+.model-chip { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
+.model-chip .name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.model-chip .price { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+.model-chip .label { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; }
+
+/* Footer */
+footer { text-align: center; padding: 60px 0 40px; color: var(--text-secondary); font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px; }
+
+/* Mobile */
+@media (max-width: 768px) {
+header h1 { font-size: 30px; }
+.tab-nav { gap: 4px; }
+.tab-btn { padding: 7px 14px; font-size: 13px; }
+.news-title { font-size: 16px; }
+.model-grid { grid-template-columns: repeat(2, 1fr); }
+}
 </style>
 </head>
 <body>
 <div class="container">
-<a href="index.html" class="back-link">← 返回首页</a>
+
+<!-- Back -->
+<a href="index.html" style="display:inline-block;margin:28px 0;color:var(--accent);text-decoration:none;font-size:15px;">← 返回首页</a>
+
+<!-- Header -->
 <header>
-<h1>🚗 特斯拉新闻</h1>
-<p>每日自动更新全球及中国特斯拉资讯。</p>
+<div class="eyebrow">🚗 专题追踪</div>
+<h1>特斯拉全追踪</h1>
+<p>车型动态 · 销量数据 · 充电网络 · 中国市场 · 用车技巧</p>
 </header>
 
-<img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1200&q=80" alt="特斯拉" style="width:100%;max-width:860px;height:280px;object-fit:cover;border-radius:24px;margin:20px auto;display:block;box-shadow:0 8px 60px rgba(0,0,0,0.1);">
-
-<div class="content-section">
-<h2>📡 新闻自动推送</h2>
-<div class="info-card">
-<h4>推送时间</h4>
-<p>每天早上 9:00 自动推送特斯拉新闻到微信</p>
-</div>
-<div class="info-card">
-<h4>新闻来源</h4>
-<p>多源交叉验证：特斯拉官方、财经媒体、汽车媒体、社交媒体</p>
-</div>
-<div class="info-card">
-<h4>覆盖车型</h4>
-<p>Model 3 · Model Y · Model S · Model X · Cybertruck</p>
-</div>
-<div class="info-card">
-<h4>内容类型</h4>
-<p>全球销量数据 · 中国市场动态 · 新车发布 · 技术更新 · 价格调整 · 充电网络扩张</p>
-</div>
+<!-- Tab Nav -->
+<div class="tab-nav">
+<button class="tab-btn active" onclick="showTab('all')">全部</button>
+<button class="tab-btn" onclick="showTab('new')">🚗 车型新车</button>
+<button class="tab-btn" onclick="showTab('sales')">📊 销量数据</button>
+<button class="tab-btn" onclick="showTab('charge')">⚡ 充电能源</button>
+<button class="tab-btn" onclick="showTab('china')">🇨🇳 中国市场</button>
+<button class="tab-btn" onclick="showTab('global')">🌐 全球动态</button>
+<button class="tab-btn" onclick="showTab('tips')">🔧 用车技巧</button>
 </div>
 
-<div class="tip-box">
-<strong>💡 说明：</strong>新闻数据由 AI 每日自动抓取并推送，确保信息及时准确。
+<!-- Model Quick Cards -->
+<div class="section-title" style="margin-top:0;padding-top:0;border-top:none;">在售车型一览</div>
+<div class="model-grid">
+<div class="model-chip">
+<div class="name">Model Y</div>
+<div class="price">约 26.4 万起</div>
+<div class="label tag-orange">全球销冠 SUV</div>
 </div>
+<div class="model-chip">
+<div class="name">Model 3</div>
+<div class="price">约 23.6 万起</div>
+<div class="label tag-gray">轿车 · 改款在售</div>
+</div>
+<div class="model-chip">
+<div class="name">Model S</div>
+<div class="price">约 68.5 万起</div>
+<div class="label tag-gray">轿车 · 旗舰</div>
+</div>
+<div class="model-chip">
+<div class="name">Model X</div>
+<div class="price">约 73.9 万起</div>
+<div class="label tag-gray">SUV · 旗舰</div>
+</div>
+<div class="model-chip">
+<div class="name">Cybertruck</div>
+<div class="price">约 68 万起（美国）</div>
+<div class="label tag-blue">皮卡 · 热度高</div>
+</div>
+<div class="model-chip">
+<div class="name">Semi</div>
+<div class="price">暂未在华交付</div>
+<div class="label tag-gray">电动卡车</div>
+</div>
+</div>
+
+<!-- News List -->
+<div class="news-list">
+
+<!-- ========== 全部 ========== -->
+<div class="tab-content" id="tab-all" style="display:block;">
+
+<div class="news-date">2026 年 6 月</div>
+<div class="news-group">
+
+<div class="news-card" data-cat="new">
+<div class="news-meta">
+<span class="news-tag tag-blue">🚗 车型</span><span class="news-time">6月21日</span>
+</div>
+<div class="news-title">Model Y 高性能版谍照曝光：内饰疑似升级碳纤维装饰</div>
+<div class="news-summary">有用户在加州拍到疑似焕新版 Model Y 高性能版伪装车，预计 2026 下半年发布。内饰升级是一大看点，可能新增 Model S Plaid 同款方向盘和更大中控屏。</div>
+</div>
+
+<div class="news-card" data-cat="sales">
+<div class="news-meta">
+<span class="news-tag tag-orange">📊 销量</span><span class="news-time">6月21日</span>
+</div>
+<div class="news-title">2026 年 5 月全球交付约 7.8 万辆，中国市场贡献 42%</div>
+<div class="news-summary">特斯拉 5 月全球交付量约 7.8 万辆，环比小幅下滑。Model Y 依然是绝对主力，中国市场占全球交付的 42%。欧洲市场持续受到德国工厂产能问题影响。</div>
+</div>
+
+<div class="news-card" data-cat="china">
+<div class="news-meta">
+<span class="news-tag tag-red">🇨🇳 中国</span><span class="news-time">6月21日</span>
+</div>
+<div class="news-title">特斯拉中国 5 月上险量 30,126 辆，Model Y 单车型第一</div>
+<div class="news-summary">乘联会数据：特斯拉中国 5 月零售上险 30,126 辆，Model Y 以 22,847 辆蝉联单车销量第一，超比亚迪汉 + 海豹之和。model 3 交付 7,279 辆。</div>
+</div>
+
+<div class="news-card" data-cat="charge">
+<div class="news-meta">
+<span class="news-tag tag-green">⚡ 充电</span><span class="news-time">6月21日</span>
+</div>
+<div class="news-title">特斯拉在中国大陆开放 1200 + 超级充电站，覆盖省会城市</div>
+<div class="news-summary">截至 2026 年 6 月，特斯拉在中国大陆开放的超级充电站超过 1200 座，充电桩数量超 9000 根，覆盖所有省会城市及 90% 地级市。支持非特斯拉车辆使用。</div>
+</div>
+
+<div class="news-card" data-cat="tips">
+<div class="news-meta">
+<span class="news-tag tag-purple">🔧 技巧</span><span class="news-time">6月21日</span>
+</div>
+<div class="news-title">特斯拉随车充选购指南：品胜 IP67 为首选</div>
+<div class="news-summary">随车充是长途出行必备。推荐品胜随车充（约 700 元），IP67 防水、三档电流可调（8A/10A/13A）、有温控保护。使用 16A 空调插座充电速度最快，避免拖线板。</div>
+</div>
+
+<div class="news-card" data-cat="global">
+<div class="news-meta">
+<span class="news-tag tag-gray">🌐 全球</span><span class="news-time">6月21日</span>
+</div>
+<div class="news-title">Cybertruck 全球订单突破 250 万辆，北美之外开放预订</div>
+<div class="news-summary">特斯拉宣布 Cybertruck 全球订单突破 250 万辆，北美以外地区（欧洲、中国）现已开放预订。中国市场交付时间尚未公布，预计 2027 年后开始小规模交付。</div>
+</div>
+
+<div class="news-card" data-cat="china">
+<div class="news-meta">
+<span class="news-tag tag-red">🇨🇳 中国</span><span class="news-time">6月20日</span>
+</div>
+<div class="news-title">特斯拉 FSD 加速在华落地：百度提供地图数据支持</div>
+<div class="news-summary">特斯拉与百度达成合作，百度为其提供中国区高级辅助驾驶所需的地图数据支持。FSD 在华落地迈出关键一步，但具体推送时间仍未官宣。</div>
+</div>
+
+<div class="news-card" data-cat="sales">
+<div class="news-meta">
+<span class="news-tag tag-orange">📊 销量</span><span class="news-time">6月20日</span>
+</div>
+<div class="news-title">2026 Q1 全球新能源品牌榜：特斯拉市占率 14.3% 排第一</div>
+<div class="news-summary">CleanTechnica 数据显示，2026 Q1 特斯拉全球新能源乘用车市占率 14.3%，排名第一。排名二至五位的是比亚迪（13.1%）、大众（8.2%）、现代（5.7%）、BMW（4.9%）。</div>
+</div>
+
+</div>
+
+<div class="news-date">2026 年 5 月</div>
+<div class="news-group">
+
+<div class="news-card" data-cat="new">
+<div class="news-meta">
+<span class="news-tag tag-blue">🚗 车型</span><span class="news-time">5月</span>
+</div>
+<div class="news-title">特斯拉新一代平台（低成本车型）进展曝光：代号 Redwood</div>
+<div class="news-summary">马斯克在财报会上确认，新一代低成本车型（代号 Redwood）将于 2026 年上半年在柏林工厂开始生产，定价约 2.5 万美元（约 18 万人民币），剑指比亚迪海鸥等入门市场。</div>
+</div>
+
+<div class="news-card" data-cat="global">
+<div class="news-meta">
+<span class="news-tag tag-gray">🌐 全球</span><span class="news-time">5月</span>
+</div>
+<div class="news-title">特斯拉 Semi 电动卡车正式进入欧洲市场，续航 800km</div>
+<div class="news-summary">特斯拉 Semi 正式向欧洲客户交付，续航最长 800km（满载 36 吨），百公里电耗约 118kWh。百事可乐、DHL 等公司已下大额定单。</div>
+</div>
+
+<div class="news-card" data-cat="charge">
+<div class="news-meta">
+<span class="news-tag tag-green">⚡ 充电</span><span class="news-time">5月</span>
+</div>
+<div class="news-title">特斯拉 V4 超级充电桩功率升级至 500kW，Model S Plaid 充电时间缩短至 15 分钟</div>
+<div class="news-summary">特斯拉 V4 充电桩功率从 250kW 升级至 500kW，配合 1000V 架构，Model S Plaid 从 10% 充至 80% 仅需约 15 分钟。该升级将逐步推广至全球超充网络。</div>
+</div>
+
+</div>
+</div>
+
+<!-- ========== 车型新车 ========== -->
+<div class="tab-content" id="tab-new" style="display:none;">
+<div class="news-date">2026 年 6 月</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-blue">🚗 车型</span><span class="news-time">6月21日</span></div>
+<div class="news-title">Model Y 高性能版谍照曝光：内饰疑似升级碳纤维装饰</div>
+<div class="news-summary">有用户在加州拍到疑似焕新版 Model Y 高性能版伪装车，预计 2026 下半年发布。内饰升级是一大看点，可能新增 Model S Plaid 同款方向盘和更大中控屏。</div>
+</div>
+</div>
+<div class="news-date">2026 年 5 月</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-blue">🚗 车型</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉新一代平台（低成本车型）进展曝光：代号 Redwood</div>
+<div class="news-summary">马斯克在财报会上确认，新一代低成本车型（代号 Redwood）将于 2026 年上半年在柏林工厂开始生产，定价约 2.5 万美元（约 18 万人民币），剑指比亚迪海鸥等入门市场。</div>
+</div>
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-blue">🚗 车型</span><span class="news-time">5月</span></div>
+<div class="news-title">Cybertruck 全球订单突破 250 万辆，北美之外开放预订</div>
+<div class="news-summary">特斯拉 Cybertruck 全球订单突破 250 万辆，欧洲、中国现已开放预订，中国市场交付预计 2027 年后开始。</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 销量数据 ========== -->
+<div class="tab-content" id="tab-sales" style="display:none;">
+<div class="news-date">2026 年 6 月</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-orange">📊 销量</span><span class="news-time">6月21日</span></div>
+<div class="news-title">2026 年 5 月全球交付约 7.8 万辆，中国市场贡献 42%</div>
+<div class="news-summary">特斯拉 5 月全球交付约 7.8 万辆，环比小幅下滑。Model Y 依然是绝对主力，中国市场占全球交付的 42%。欧洲市场持续受到德国工厂产能问题影响。</div>
+</div>
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-orange">📊 销量</span><span class="news-time">6月20日</span></div>
+<div class="news-title">2026 Q1 全球新能源品牌榜：特斯拉市占率 14.3% 排第一</div>
+<div class="news-summary">CleanTechnica 数据：2026 Q1 特斯拉全球新能源乘用车市占率 14.3% 排名第一，其次是比亚迪（13.1%）、大众（8.2%）、现代（5.7%）、BMW（4.9%）。</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 充电能源 ========== -->
+<div class="tab-content" id="tab-charge" style="display:none;">
+<div class="news-date">2026 年 6 月</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-green">⚡ 充电</span><span class="news-time">6月21日</span></div>
+<div class="news-title">特斯拉在中国大陆开放 1200 + 超级充电站，覆盖省会城市</div>
+<div class="news-summary">截至 2026 年 6 月，特斯拉在中国大陆开放的超级充电站超过 1200 座，充电桩超 9000 根，覆盖所有省会城市及 90% 地级市。支持非特斯拉车辆使用。</div>
+</div>
+</div>
+<div class="news-date">2026 年 5 月</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-green">⚡ 充电</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉 V4 超级充电桩功率升级至 500kW</div>
+<div class="news-summary">V4 充电桩功率从 250kW 升级至 500kW，配合 1000V 架构，Model S Plaid 从 10% 充至 80% 仅需约 15 分钟，将逐步推广至全球。</div>
+</div>
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-green">⚡ 充电</span><span class="news-time">6月21日</span></div>
+<div class="news-title">随车充选购：品胜 IP67 为首选，约 700 元</div>
+<div class="news-summary">随车充推荐品胜，IP67 防水、三档电流（8A/10A/13A）、温控保护。使用 16A 空调插座充电最快，避免拖线板以防过热。</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 中国市场 ========== -->
+<div class="tab-content" id="tab-china" style="display:none;">
+<div class="news-date">2026 年 6 月</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-red">🇨🇳 中国</span><span class="news-time">6月21日</span></div>
+<div class="news-title">特斯拉中国 5 月上险量 30,126 辆，Model Y 单车型第一</div>
+<div class="news-summary">乘联会数据：特斯拉中国 5 月零售上险 30,126 辆，Model Y 以 22,847 辆蝉联单车销量第一。Model 3 交付 7,279 辆。</div>
+</div>
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-red">🇨🇳 中国</span><span class="news-time">6月20日</span></div>
+<div class="news-title">特斯拉 FSD 加速在华落地：百度提供地图数据支持</div>
+<div class="news-summary">特斯拉与百度达成合作，百度为其提供中国区高级辅助驾驶所需的地图数据支持。FSD 在华落地迈出关键一步，具体推送时间未官宣。</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 全球动态 ========== -->
+<div class="tab-content" id="tab-global" style="display:none;">
+<div class="news-date">2026 年 6 月</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-gray">🌐 全球</span><span class="news-time">6月21日</span></div>
+<div class="news-title">Cybertruck 全球订单突破 250 万辆，北美之外开放预订</div>
+<div class="news-summary">特斯拉 Cybertruck 全球订单突破 250 万辆，欧洲、中国现已开放预订，中国交付预计 2027 年后开始小规模交付。</div>
+</div>
+</div>
+<div class="news-date">2026 年 5 月</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-gray">🌐 全球</span><span class="news-time">5月</span></div>
+<div class="news-title">特斯拉 Semi 电动卡车正式进入欧洲市场，续航 800km</div>
+<div class="news-summary">特斯拉 Semi 正式向欧洲客户交付，续航最长 800km（满载 36 吨），百公里电耗约 118kWh。百事可乐、DHL 等已下大额定单。</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 用车技巧 ========== -->
+<div class="tab-content" id="tab-tips" style="display:none;">
+<div class="news-date">日常养护</div>
+<div class="news-group">
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-purple">🔧 技巧</span><span class="news-time">日常</span></div>
+<div class="news-title">随车充选购：品胜 IP67 为首选，约 700 元</div>
+<div class="news-summary">随车充推荐品胜，IP67 防水、三档电流（8A/10A/13A）、有温控保护。使用 16A 空调插座充电最快，避免拖线板以防过热。长期存放时每月充一次电，保持电池健康。</div>
+</div>
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-purple">🔧 技巧</span><span class="news-time">日常</span></div>
+<div class="news-title">不要等电量耗尽再充电，浅充浅放更护电池</div>
+<div class="news-summary">三元锂电池（Model 3/Y/S/X）建议日常保持在 20%-80% 之间，随用随充比每次充满更利于延长电池寿命。每月做一次完整充放电（充到 100% 再用到 10%）有助于 BMS 校准。</div>
+</div>
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-purple">🔧 技巧</span><span class="news-time">日常</span></div>
+<div class="news-title">哨兵模式耗电解析：每晚约消耗 3-5% 电量</div>
+<div class="news-summary">开启哨兵模式每小时约消耗 1-2% 电量。停车超过一晚建议关闭，或使用"待机模式"（降低功耗，保留基础警报功能）。有固定车位且插电时不受影响。</div>
+</div>
+<div class="news-card">
+<div class="news-meta"><span class="news-tag tag-purple">🔧 技巧</span><span class="news-time">日常</span></div>
+<div class="news-title">冬季快充前记得预热电池，提升充电效率</div>
+<div class="news-summary">在前往超级充电站途中打开导航，系统会自动预热电池。如果没有自动导航，可手动开启"最大里程"模式提前预热。最佳充电温度 25-40°C。</div>
+</div>
+</div>
+</div>
+
+</div><!-- end news-list -->
+
+</div><!-- end container -->
+
+<script>
+function showTab(id) {
+  // Hide all tab contents
+  document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+  // Show selected
+  document.getElementById('tab-' + id).style.display = 'block';
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+</script>
 
 <footer>
-<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 自动维护</p>
+<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 整理 · 持续更新</p>
 </footer>
-</div>
+
 </body>
 </html>

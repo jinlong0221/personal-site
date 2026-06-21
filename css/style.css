@@ -1631,3 +1631,19 @@ body::before {
     font-size: 0.75rem !important;
   }
 }
+
+
+/* === Phase 5: Mobile Optimization === */
+button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {
+  touch-action: manipulation;
+  min-height: var(--touch-target, 44px);
+  min-width: var(--touch-target, 44px);
+}
+
+/* Prevent iOS zoom on focus */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select, textarea, input[type="text"], input[type="password"], input[type="email"] {
+    font-size: 16px !important;
+  }
+}
+

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中药材与名贵香料 - 金龙的 AI 学习站</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --radius: 20px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+.back-link { display: inline-block; margin: 30px 0; color: var(--accent); text-decoration: none; font-size: 15px; }
+.back-link:hover { text-decoration: underline; }
+
+header { padding: 40px 0 50px; }
+header .emoji { font-size: 48px; margin-bottom: 20px; }
+header h1 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+header p { font-size: 19px; color: var(--text-secondary); max-width: 700px; }
+
+.progress-section { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 30px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.progress-section h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+.progress-bar { width: 100%; height: 8px; background: #e8e8ed; border-radius: 4px; overflow: hidden; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), #42a5f5); border-radius: 4px; }
+.progress-stats { display: flex; gap: 40px; margin-top: 20px; }
+.progress-stats .stat .label { font-size: 13px; color: var(--text-secondary); }
+.progress-stats .stat .val { font-size: 28px; font-weight: 700; color: var(--accent); }
+
+.herb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
+.herb-card { background: var(--card); border-radius: 14px; padding: 24px; box-shadow: 0 2px 20px rgba(0,0,0,0.03); border: 1px solid rgba(210,210,215,0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.herb-card:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,0.06); }
+.herb-card .emoji { font-size: 32px; margin-bottom: 12px; }
+.herb-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+.herb-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; }
+.herb-card .status { font-size: 12px; padding: 4px 10px; border-radius: 12px; display: inline-block; }
+.status.learned { background: rgba(52,199,89,0.1); color: #34c759; }
+.status.learning { background: rgba(0,113,227,0.1); color: var(--accent); }
+.status.todo { background: rgba(134,134,139,0.1); color: var(--text-secondary); }
+
+.content-section { background: var(--card); border-radius: var(--radius); padding: 40px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.content-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.content-section h3 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; color: var(--accent); }
+.content-section p { font-size: 16px; margin-bottom: 16px; }
+.content-section ul, .content-section ol { margin: 16px 0; padding-left: 24px; }
+.content-section li { font-size: 16px; margin-bottom: 12px; }
+
+.update-log { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.update-log h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+.update-log .log-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
+.update-log .log-item:last-child { border-bottom: none; }
+.update-log .log-item .date { font-size: 13px; color: var(--text-secondary); }
+.update-log .log-item .text { font-size: 15px; margin-top: 4px; }
+
+footer { text-align: center; padding: 60px 0 40px; color: var(--text-secondary); font-size: 13px; }
+
+@media (max-width: 768px) {
+header h1 { font-size: 32px; }
+.content-section { padding: 24px; }
+.herb-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<a href="index.html" class="back-link">← 返回首页</a>
+
+<header>
+<div class="emoji">🌿</div>
+<h1>中药材与名贵香料</h1>
+<p>系统学习 10 种中药材与名贵香料的鉴别、炮制、市场行情与临床应用。点击卡片查看详情。</p>
+</header>
+
+<div class="progress-section">
+<h2>学习进度</h2>
+<div class="progress-bar"><div class="fill" style="width: 12%"></div></div>
+<div class="progress-stats">
+<div class="stat"><div class="label">物料总数</div><div class="val">10</div></div>
+<div class="stat"><div class="label">已深入学习</div><div class="val">1</div></div>
+<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)">2026-06-21</div></div>
+</div>
+</div>
+
+<div class="content-section">
+<h2>学习清单</h2>
+<div class="herb-grid">
+<div class="herb-card" onclick="location.href='#agarwood-detail'">
+<div class="emoji">🪵</div>
+<h3>沉香</h3>
+<p>名贵香料之首，药材之上品。燃烧测试为核心鉴别方法。</p>
+<span class="status learning">学习中</span>
+</div>
+<div class="herb-card">
+<div class="emoji">💊</div>
+<h3>五灵脂</h3>
+<p>鼯鼠粪便，活血化瘀。市场鱼龙混杂，需重点鉴别。</p>
+<span class="status todo">待学习</span>
+</div>
+<div class="herb-card">
+<div class="emoji">☕</div>
+<h3>猫屎咖啡</h3>
+<p>麝香猫消化后排泄，世界最贵咖啡。真假鉴别有讲究。</p>
+<span class="status todo">待学习</span>
+</div>
+<div class="herb-card">
+<div class="emoji">🐻</div>
+<h3>熊胆</h3>
+<p>珍稀药材，清热平肝。国家重点保护，替代品研究重要。</p>
+<span class="status todo">待学习</span>
+</div>
+<div class="herb-card">
+<div class="emoji">🦗</div>
+<h3>地牯牛</h3>
+<p>蚁狮幼虫，消肿散结。民间用法多样，需系统整理。</p>
+<span class="status todo">待学习</span>
+</div>
+<div class="herb-card">
+<div class="emoji">🪨</div>
+<h3>化石草</h3>
+<p>民间草药，化石排石。疗效争议大，需理性看待。</p>
+<span class="status todo">待学习</span>
+</div>
+<div class="herb-card">
+<div class="emoji">🐛</div>
+<h3>地龙</h3>
+<p>蚯蚓干燥体，清热定惊。临床应用广泛，炮制方法多。</p>
+<span class="status todo">待学习</span>
+</div>
+<div class="herb-card">
+<div class="emoji">🩸</div>
+<h3>水蛭</h3>
+<p>破血逐瘀，抗凝良药。活体水蛭疗法复兴，市场新动向。</p>
+<span class="status todo">待学习</span>
+</div>
+<div class="herb-card">
+<div class="emoji">⚖️</div>
+<h3>滑石粉</h3>
+<p>矿物药，利尿通淋。工业用途广泛，需区分药用级。</p>
+<span class="status todo">待学习</span>
+</div>
+<div class="herb-card">
+<div class="emoji">🪵</div>
+<h3>降真香</h3>
+<p>古法香料，行气止痛。与沉香易混淆，鉴别要点需掌握。</p>
+<span class="status todo">待学习</span>
+</div>
+</div>
+</div>
+
+<div class="content-section" id="agarwood-detail">
+<h2>🪵 沉香 - 深入学习笔记</h2>
+
+<h3>核心鉴别方法</h3>
+<ol>
+<li><strong>燃烧测试（最可靠）：</strong>真品白烟+层次香甜，假货黑烟+刺鼻化学味。</li>
+<li><strong>掂重手感：</strong>沉水级 > 沉水浮级 > 不沉级。</li>
+<li><strong>热针测试：</strong>真品针尖带木纤维，假货针尖干净或带胶状物。</li>
+<li><strong>泡水测试：</strong>真品油脂排斥水珠，假货水迅速渗透。</li>
+</ol>
+
+<h3>重要提醒</h3>
+<ul>
+<li>AI 仅凭照片像素分析不可靠，造假技术可模拟天然纹理。</li>
+<li>真正鉴别依赖实物——燃烧测试 > 掂重手感 > 热针/泡水测试。</li>
+<li>权威行情渠道：中药材天地网、亳州/安国/玉林市场。</li>
+</ul>
+
+<h3>下一步学习计划</h3>
+<ul>
+<li>研究沉香不同产地的香气差异（越南 vs 印尼 vs 马来西亚）</li>
+<li>学习沉香炮制工艺（生结 vs 熟结 vs 虫漏）</li>
+<li>了解沉香在中医临床的应用（配伍、剂量、禁忌）</li>
+</ul>
+</div>
+
+<div class="update-log">
+<h3>更新记录</h3>
+<div class="log-item">
+<div class="date">2026-06-21</div>
+<div class="text">创建中药材与名贵香料专题，完成 10 种物料清单，沉香部分完成初步深入学习笔记。</div>
+</div>
+<div class="log-item">
+<div class="date">2026-06-18</div>
+<div class="text">初步学习沉香基础知识，建立学习方法论。</div>
+</div>
+</div>
+
+</div>
+
+<footer class="container">
+<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 自动维护 · 数据持续更新</p>
+</footer>
+
+</body>
+</html>

@@ -10,19 +10,16 @@
 body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
-/* Header - 紧凑 */
 header { padding: 40px 0 30px; border-bottom: 1px solid var(--border); }
-header .eyebrow { font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
+header .eyebrow { font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 10px; }
 header h1 { font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 10px; }
 header p { font-size: 16px; color: var(--text-secondary); }
 
-/* Tab Nav - Sticky */
 .tab-nav { display: flex; gap: 6px; flex-wrap: wrap; padding: 16px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
 .tab-btn { padding: 8px 16px; border-radius: 980px; border: none; background: #f5f5f7; color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
 .tab-btn:hover { background: #e8e8ed; color: var(--text); }
 .tab-btn.active { background: var(--text); color: #fff; }
 
-/* Progress Section */
 .progress-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
 .progress-section h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
 .progress-bar { width: 100%; height: 8px; background: #e8e8ed; border-radius: 4px; overflow: hidden; }
@@ -31,7 +28,6 @@ header p { font-size: 16px; color: var(--text-secondary); }
 .progress-stats .stat .label { font-size: 13px; color: var(--text-secondary); }
 .progress-stats .stat .val { font-size: 28px; font-weight: 700; color: var(--accent); }
 
-/* Content Sections */
 .content-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
 .content-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 20px; }
 .content-section h3 { font-size: 20px; font-weight: 600; margin: 28px 0 14px; color: var(--accent); }
@@ -39,19 +35,31 @@ header p { font-size: 16px; color: var(--text-secondary); }
 .content-section ul, .content-section ol { margin: 14px 0; padding-left: 24px; }
 .content-section li { font-size: 16px; margin-bottom: 10px; }
 
-/* Cards */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin: 20px 0; }
 .info-card { background: #f5f5f7; border-radius: 14px; padding: 22px; }
 .info-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
-.info-card p { font-size: 14px; color: var(--text-secondary); }
+.info-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
 
-/* Tip & Warn Boxes */
+/* 天气大卡片 */
+.weather-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; padding: 28px; color: white; margin: 20px 0; }
+.weather-hero .temp { font-size: 56px; font-weight: 700; line-height: 1; }
+.weather-hero .desc { font-size: 20px; margin-top: 6px; opacity: 0.9; }
+.weather-hero .details { display: flex; gap: 24px; margin-top: 16px; font-size: 15px; opacity: 0.85; }
+.weather-hero .update-time { font-size: 12px; opacity: 0.6; margin-top: 12px; }
+
+.forecast-card { background: #f5f5f7; border-radius: 14px; padding: 18px; }
+.forecast-card .day { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.forecast-card .detail { font-size: 14px; color: var(--text-secondary); }
+
+.advice-box { background: rgba(0,113,227,0.08); border-radius: 14px; padding: 20px; margin: 16px 0; }
+.advice-box h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--accent); }
+.advice-box p { font-size: 15px; color: var(--text); }
+
 .tip-box { background: #d1ecf1; border-left: 4px solid var(--accent); padding: 16px 20px; border-radius: 8px; margin: 20px 0; }
 .tip-box strong { color: var(--accent); }
 .warn-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 16px 20px; border-radius: 8px; margin: 20px 0; }
 .warn-box strong { color: #856404; }
 
-/* Update Log */
 .update-log { padding: 24px 0; border-bottom: 1px solid var(--border); }
 .update-log h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
 .update-log .log-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
@@ -59,37 +67,37 @@ header p { font-size: 16px; color: var(--text-secondary); }
 .update-log .log-item .date { font-size: 13px; color: var(--text-secondary); }
 .update-log .log-item .text { font-size: 15px; margin-top: 4px; }
 
-/* Tab Panels */
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-/* Footer */
 footer { text-align: center; padding: 50px 0 30px; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--border); margin-top: 30px; }
 
-/* Mobile */
+.loading { text-align: center; padding: 40px; color: var(--text-secondary); }
+.loading::after { content: ''; display: inline-block; width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; margin-left: 8px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
 @media (max-width: 768px) {
 header h1 { font-size: 28px; }
 .tab-nav { gap: 4px; }
 .tab-btn { padding: 6px 12px; font-size: 13px; }
 .content-section h2 { font-size: 22px; }
 .card-grid { grid-template-columns: 1fr; }
+.weather-hero .temp { font-size: 44px; }
+.weather-hero .details { flex-direction: column; gap: 6px; }
 }
 </style>
 </head>
 <body>
 <div class="container">
 
-<!-- Back -->
 <a href="index.html" style="display:inline-block;margin:24px 0;color:var(--accent);text-decoration:none;font-size:15px;">← 返回首页</a>
 
-<!-- Header -->
 <header>
 <div class="eyebrow">🌦️ 本地服务</div>
 <h1>射阳本地信息</h1>
-<p>精准天气预报、生活污水去向、饮水安全、前置过滤器研究</p>
+<p>实时天气预报、生活污水去向、饮水安全</p>
 </header>
 
-<!-- Tab Nav -->
 <div class="tab-nav">
 <button class="tab-btn active" data-tab="all">全部</button>
 <button class="tab-btn" data-tab="weather">🌤️ 天气预报</button>
@@ -97,43 +105,30 @@ header h1 { font-size: 28px; }
 <button class="tab-btn" data-tab="water">💧 饮水安全</button>
 </div>
 
-<!-- Content Area -->
 <div class="content-area">
 
-<!-- ========== 全部 ========== -->
+<!-- 全部 -->
 <div class="tab-panel active" id="panel-all">
 
-<!-- Progress -->
 <div class="progress-section">
-<h2>学习进度</h2>
-<div class="progress-bar"><div class="fill" style="width: 15%"></div></div>
+<h2>信息覆盖</h2>
+<div class="progress-bar"><div class="fill" style="width: 60%"></div></div>
 <div class="progress-stats">
 <div class="stat"><div class="label">已覆盖领域</div><div class="val">4</div></div>
-<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)">2026-06-21</div></div>
+<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)" id="last-update-all">加载中…</div></div>
 </div>
 </div>
 
-<!-- Weather -->
+<div id="weather-section-all">
 <div class="content-section">
-<h2>🌤️ 射阳天气预报</h2>
-<div class="card-grid">
-<div class="info-card">
-<h4>今日天气</h4>
-<p>温度：28°C · 多云</p>
-<p>湿度：72%</p>
-<p>风向：东南风 3级</p>
-<p>空气质量：良</p>
+<h2>🌤️ 射阳实时天气</h2>
+<div id="weather-hero-all" class="loading">正在获取天气数据</div>
+<div id="forecast-grid-all" class="card-grid"></div>
+<div id="advice-all" class="advice-box" style="display:none"></div>
+<div class="tip-box"><strong>💡 说明：</strong>天气数据来自 Open-Meteo 开放气象 API，每次打开页面自动获取最新数据。</div>
 </div>
-<div class="info-card">
-<h4>穿衣建议</h4>
-<p>天气闷热，建议穿透气衣物</p>
-<p>午后可能有阵雨，随身带伞</p>
-</div>
-</div>
-<div class="tip-box"><strong>💡 说明：</strong>天气数据来自多源交叉验证，仅供参考。</div>
 </div>
 
-<!-- Sewage -->
 <div class="content-section">
 <h2>🏭 射阳生活污水去向</h2>
 <h3>城区（射阳县城）</h3>
@@ -148,79 +143,45 @@ header h1 { font-size: 28px; }
 <li>老城区雨污分流改造尚未全覆盖，暴雨时可能存在溢流</li>
 <li>相关整治工程已列入计划</li>
 </ul>
-<div class="warn-box"><strong>⚠️ 注意事项：</strong>暴雨天气后，射阳河下游水质可能暂时下降。建议关注水质公告，必要时使用净水设备。</div>
+<div class="warn-box"><strong>⚠️ 注意：</strong>暴雨天气后，射阳河下游水质可能暂时下降。建议关注水质公告，必要时使用净水设备。</div>
 </div>
 
-<!-- Water Safety -->
 <div class="content-section">
 <h2>💧 前置过滤器研究</h2>
-<h3>为什么需要前置过滤器？</h3>
-<p>城市自来水在管道运输过程中会携带泥沙、铁锈、虫卵等大颗粒杂质。前置过滤器安装在入户水管处，是全屋用水的第一道防线。</p>
 <h3>推荐方案</h3>
 <ul>
-<li><strong>惠尔顿 P0038MAX</strong>（不锈钢滤网，正冲洗）
-<ul><li>过滤精度 40μm，滤除泥沙铁锈</li><li>无需换芯，拧开冲洗即可</li><li>价格约 300-500 元</li></ul>
-</li>
-<li><strong>滨特尔大蓝瓶</strong>（PP棉滤芯）
-<ul><li>过滤精度 1-5μm，效果更好</li><li>需定期更换滤芯（约 6-12 个月）</li><li>滤瓶需防锤（7层以上楼层建议加装）</li><li>价格约 400-800 元（含滤芯）</li></ul>
-</li>
+<li><strong>惠尔顿 P0038MAX</strong>（不锈钢滤网，40μm，约300-500元）</li>
+<li><strong>滨特尔大蓝瓶</strong>（PP棉滤芯，1-5μm，约400-800元）</li>
 </ul>
 <h3>组合方案（推荐）</h3>
-<p><strong>惠尔顿 P0038MAX（粗滤）+ 滨特尔大蓝瓶PP棉（精滤）</strong></p>
-<p>第一道拦截泥沙，第二道进一步净化，保护洗衣机、热水器、净水器等所有用水设备。</p>
-<div class="tip-box"><strong>💡 安装提示：</strong>前置过滤器需要安装在水表后、入户主管道上。如果动手能力不强，建议找水电工安装，通常加收 100-200 元人工费。</div>
+<p><strong>惠尔顿（粗滤）+ 滨特尔大蓝瓶（精滤）</strong>，保护全屋用水设备。</p>
+<div class="tip-box"><strong>💡 安装提示：</strong>安装在水表后入户主管道上，动手能力不强建议找水电工（100-200元人工费）。</div>
 </div>
 
-<!-- Update Log -->
 <div class="update-log">
 <h3>更新记录</h3>
-<div class="log-item"><div class="date">2026-06-21</div><div class="text">创建射阳本地信息专题，完成天气说明、污水去向、前置过滤器推荐方案。</div></div>
-<div class="log-item"><div class="date">2026-06-19</div><div class="text">完成射阳天气 cron 任务设置，每日 06:30 推送精准天气+出行建议。</div></div>
-<div class="log-item"><div class="date">2026-06-18</div><div class="text">研究射阳生活污水去向：城区经污水处理厂处理后排入射阳河入黄海。</div></div>
+<div class="log-item"><div class="date">2026-06-21</div><div class="text">天气改为实时获取（Open-Meteo API），页面打开即刷新，穿衣建议根据温湿度自动生成。</div></div>
+<div class="log-item"><div class="date">2026-06-21</div><div class="text">创建射阳本地信息专题。</div></div>
 </div>
 
 </div>
 
-<!-- ========== 天气预报 ========== -->
+<!-- 天气预报 -->
 <div class="tab-panel" id="panel-weather">
 
-<!-- Progress -->
-<div class="progress-section">
-<h2>学习进度</h2>
-<div class="progress-bar"><div class="fill" style="width: 15%"></div></div>
-<div class="progress-stats">
-<div class="stat"><div class="label">已覆盖领域</div><div class="val">4</div></div>
-<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)">2026-06-21</div></div>
-</div>
-</div>
-
-<!-- Weather -->
-<div class="content-section">
-<h2>🌤️ 射阳天气预报</h2>
-<div class="card-grid">
-<div class="info-card">
-<h4>今日天气</h4>
-<p>温度：28°C · 多云</p>
-<p>湿度：72%</p>
-<p>风向：东南风 3级</p>
-<p>空气质量：良</p>
-</div>
-<div class="info-card">
-<h4>穿衣建议</h4>
-<p>天气闷热，建议穿透气衣物</p>
-<p>午后可能有阵雨，随身带伞</p>
-</div>
-</div>
-<div class="tip-box"><strong>💡 说明：</strong>天气数据来自多源交叉验证，仅供参考。</div>
+<div class="content-section" style="padding-top:0">
+<h2>🌤️ 射阳实时天气</h2>
+<div id="weather-hero-weather" class="loading">正在获取天气数据</div>
+<div id="forecast-grid-weather" class="card-grid"></div>
+<div id="advice-weather" class="advice-box" style="display:none"></div>
+<div class="tip-box"><strong>💡 说明：</strong>天气数据来自 Open-Meteo 开放气象 API，每次打开页面自动获取最新数据，无需手动刷新。</div>
 </div>
 
 </div>
 
-<!-- ========== 污水去向 ========== -->
+<!-- 污水去向 -->
 <div class="tab-panel" id="panel-sewage">
-
-<!-- Sewage -->
-<div class="content-section" style="border-bottom: none; padding-top: 0;">
+<div class="content-section" style="border-bottom:none;padding-top:0">
 <h2>🏭 射阳生活污水去向</h2>
 <h3>城区（射阳县城）</h3>
 <ul>
@@ -234,16 +195,13 @@ header h1 { font-size: 28px; }
 <li>老城区雨污分流改造尚未全覆盖，暴雨时可能存在溢流</li>
 <li>相关整治工程已列入计划</li>
 </ul>
-<div class="warn-box"><strong>⚠️ 注意事项：</strong>暴雨天气后，射阳河下游水质可能暂时下降。建议关注水质公告，必要时使用净水设备。</div>
+<div class="warn-box"><strong>⚠️ 注意：</strong>暴雨天气后，射阳河下游水质可能暂时下降。建议关注水质公告，必要时使用净水设备。</div>
+</div>
 </div>
 
-</div>
-
-<!-- ========== 饮水安全 ========== -->
+<!-- 饮水安全 -->
 <div class="tab-panel" id="panel-water">
-
-<!-- Water Safety -->
-<div class="content-section" style="border-bottom: none; padding-top: 0;">
+<div class="content-section" style="border-bottom:none;padding-top:0">
 <h2>💧 前置过滤器研究</h2>
 <h3>为什么需要前置过滤器？</h3>
 <p>城市自来水在管道运输过程中会携带泥沙、铁锈、虫卵等大颗粒杂质。前置过滤器安装在入户水管处，是全屋用水的第一道防线。</p>
@@ -261,34 +219,130 @@ header h1 { font-size: 28px; }
 <p>第一道拦截泥沙，第二道进一步净化，保护洗衣机、热水器、净水器等所有用水设备。</p>
 <div class="tip-box"><strong>💡 安装提示：</strong>前置过滤器需要安装在水表后、入户主管道上。如果动手能力不强，建议找水电工安装，通常加收 100-200 元人工费。</div>
 </div>
+</div>
 
 </div>
 
-</div><!-- end content-area -->
-
-</div><!-- end container -->
+</div>
 
 <script>
+const LAT = 33.77, LON = 120.26;
+
+const WMO = {0:"晴",1:"晴",2:"多云",3:"阴",45:"雾",48:"雾凇",51:"小毛毛雨",53:"中毛毛雨",55:"大毛毛雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",80:"小阵雨",81:"中阵雨",82:"大阵雨",95:"雷暴",96:"雷暴+冰雹",99:"雷暴+大冰雹"};
+const WIND = ["北风","东北风","东风","东南风","南风","西南风","西风","西北风"];
+
+function weatherDesc(code) { return WMO[code] || "未知"; }
+function windDir(deg) { return WIND[Math.round(deg/45)%8]; }
+
+function dressAdvice(temp, hum, code) {
+  let tips = [];
+  if (temp >= 35) tips.push("高温酷热，减少外出，注意防暑");
+  else if (temp >= 30) tips.push("炎热，室外注意防晒补水");
+  else if (temp >= 25) tips.push("较热，适合短袖");
+  else if (temp >= 18) tips.push("舒适，适宜户外活动");
+  else if (temp >= 10) tips.push("微凉，建议加件外套");
+  else if (temp >= 0) tips.push("较冷，注意保暖");
+  else tips.push("严寒，尽量减少外出");
+
+  if (hum >= 90) tips.push("湿度极高，体感闷热，注意防潮");
+  else if (hum >= 75) tips.push("湿度偏高，略闷");
+  else if (hum <= 30) tips.push("空气干燥，注意保湿");
+
+  if ([61,63,65,80,81,82,95,96,99].includes(code)) tips.push("有雨/雷暴，外出带伞");
+  if ([71,73,75,85,86].includes(code)) tips.push("有雪，注意路滑");
+  return tips.join("；");
+}
+
+function renderWeather(containerId, forecastId, adviceId, data) {
+  const c = data.current;
+  const temp = c.temperature_2m;
+  const hum = c.relative_humidity_2m;
+  const code = c.weather_code;
+  const ws = c.wind_speed_10m;
+  const wd = windDir(c.wind_direction_10m);
+  const desc = weatherDesc(code);
+  const advice = dressAdvice(temp, hum, code);
+  const now = new Date();
+  const timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+  // 天气大卡片
+  const container = document.getElementById(containerId);
+  container.className = 'weather-hero';
+  container.innerHTML = `
+    <div class="temp">${temp}°C</div>
+    <div class="desc">${desc}</div>
+    <div class="details">
+      <span>💧 湿度 ${hum}%</span>
+      <span>🌬️ ${wd} ${ws.toFixed(1)} km/h</span>
+    </div>
+    <div class="update-time">更新于 ${timeStr}</div>
+  `;
+
+  // 预报
+  if (data.daily) {
+    const fg = document.getElementById(forecastId);
+    const days = data.daily;
+    const weekday = ["周日","周一","周二","周三","周四","周五","周六"];
+    let html = '';
+    for (let i = 1; i < Math.min(4, days.time.length); i++) {
+      const d = new Date(days.time[i]);
+      const dn = weekday[d.getDay()];
+      const hi = days.temperature_2m_max[i];
+      const lo = days.temperature_2m_min[i];
+      const wd2 = weatherDesc(days.weather_code[i]);
+      const rain = days.precipitation_sum[i];
+      const rainStr = rain > 0 ? ` · 降水${rain}mm` : '';
+      html += `<div class="forecast-card"><div class="day">${dn}</div><div class="detail">${wd2} ${lo}~${hi}°C${rainStr}</div></div>`;
+    }
+    fg.innerHTML = html;
+  }
+
+  // 穿衣建议
+  const adv = document.getElementById(adviceId);
+  adv.style.display = 'block';
+  adv.innerHTML = `<h4>👔 出行建议</h4><p>${advice}</p>`;
+
+  // 更新时间
+  const lu = document.getElementById('last-update-all');
+  if (lu) lu.textContent = timeStr;
+}
+
+async function loadWeather() {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum&timezone=Asia/Shanghai&forecast_days=4`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    renderWeather('weather-hero-all', 'forecast-grid-all', 'advice-all', data);
+    renderWeather('weather-hero-weather', 'forecast-grid-weather', 'advice-weather', data);
+  } catch(e) {
+    ['weather-hero-all','weather-hero-weather'].forEach(id => {
+      const el = document.getElementById(id);
+      el.className = '';
+      el.innerHTML = '<p style="color:var(--text-secondary)">⚠️ 天气数据获取失败，请稍后刷新页面重试</p>';
+    });
+  }
+}
+
+// Tab 切换
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
-    // Update buttons
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
-    
-    // Show panel
     const tabId = this.dataset.tab;
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tabId).classList.add('active');
-    
-    // Scroll to content
     document.querySelector('.content-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+// 加载天气
+loadWeather();
+// 每10分钟自动刷新
+setInterval(loadWeather, 10 * 60 * 1000);
 </script>
 
 <footer>
 <p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 整理 · 天气信息仅供参考</p>
 </footer>
-
 </body>
 </html>

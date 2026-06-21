@@ -3,87 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
 <title>射阳天气 - 龙兄知识库</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #e8e8ed; --accent: #0071e3; --radius: 20px; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+:root {
+  --bg: #0a0a0a;
+  --text: #ffffff;
+  --metro-blue: #0078d4;
+  --metro-green: #107c10;
+  --metro-orange: #ff8c00;
+  --metro-red: #e81123;
+  --metro-purple: #6b69d6;
+  --metro-cyan: #008272;
+  --metro-pink: #c30052;
+  --metro-yellow: #ffb900;
+  --metro-dark: #1a1a1a;
+  --tile-gap: 4px;
+}
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-weight: 700;
+}
+a { color: white; text-decoration: none; }
 
-header { padding: 40px 0 30px; border-bottom: 1px solid var(--border); }
-header .eyebrow { font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 10px; }
-header h1 { font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 10px; }
-header p { font-size: 16px; color: var(--text-secondary); }
+/* 导航栏 */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #000000;
+  border-bottom: 1px solid #222;
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.85);
+}
+.navbar .logo {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 32px;
+  color: #ffffff;
+  letter-spacing: 3px;
+  font-weight: 400;
+}
+.navbar .back-link {
+  font-size: 15px;
+  color: #ffffff;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.navbar .back-link:hover { opacity: 1; }
 
-.content-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
-.content-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 20px; }
+/* 主容器 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
 
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin: 20px 0; }
+/* 页面标题区 */
+.page-header {
+  margin-bottom: 24px;
+}
+.page-header h1 {
+  font-size: 48px;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.page-header .subtitle {
+  font-size: 18px;
+  color: #888;
+  font-weight: 400;
+}
 
-.weather-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; padding: 28px; color: white; margin: 20px 0; }
-.weather-hero .temp { font-size: 56px; font-weight: 700; line-height: 1; }
-.weather-hero .desc { font-size: 20px; margin-top: 6px; opacity: 0.9; }
-.weather-hero .details { display: flex; gap: 24px; margin-top: 16px; font-size: 15px; opacity: 0.85; flex-wrap: wrap; }
-.weather-hero .update-time { font-size: 12px; opacity: 0.6; margin-top: 12px; }
+/* 瓷砖网格 */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--tile-gap);
+  margin-bottom: 24px;
+}
 
-.forecast-card { background: #f5f5f7; border-radius: 14px; padding: 18px; }
-.forecast-card .day { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-.forecast-card .detail { font-size: 14px; color: var(--text-secondary); }
+/* 瓷砖基础样式 */
+.tile {
+  border: none;
+  overflow: hidden;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  cursor: default;
+  position: relative;
+}
+.tile:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
 
-.advice-box { background: rgba(0,113,227,0.08); border-radius: 14px; padding: 20px; margin: 16px 0; }
-.advice-box h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--accent); }
-.advice-box p { font-size: 15px; color: var(--text); }
+/* 大瓷砖 (2x2) */
+.tile-large {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.tile-blue { background: var(--metro-blue); }
+.tile-dark { background: var(--metro-dark); border: 1px solid #333; }
 
-.tip-box { background: #d1ecf1; border-left: 4px solid var(--accent); padding: 16px 20px; border-radius: 8px; margin: 20px 0; }
-.tip-box strong { color: var(--accent); }
+/* 小瓷砖 (1x1) */
+.tile-small {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.tile-green { background: var(--metro-green); }
+.tile-orange { background: var(--metro-orange); }
+.tile-red { background: var(--metro-red); }
+.tile-purple { background: var(--metro-purple); }
+.tile-cyan { background: var(--metro-cyan); }
+.tile-pink { background: var(--metro-pink); }
+.tile-yellow { background: var(--metro-yellow); }
 
-.loading { text-align: center; padding: 40px; color: var(--text-secondary); }
-.loading::after { content: ''; display: inline-block; width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; margin-left: 8px; }
+/* 天气主瓷砖 */
+.weather-main .temp {
+  font-size: 120px;
+  font-weight: 900;
+  line-height: 1;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+.weather-main .desc {
+  font-size: 32px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 24px;
+}
+.weather-main .details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.85);
+}
+.weather-main .update-time {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  margin-top: 20px;
+}
+
+/* 预报瓷砖 */
+.forecast-tile .day {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+.forecast-tile .forecast-desc {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  opacity: 0.95;
+}
+.forecast-tile .forecast-temp {
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+.forecast-tile .forecast-rain {
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* 建议瓷砖 */
+.advice-tile {
+  grid-column: span 4;
+  padding: 24px 32px;
+}
+.advice-tile h4 {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+.advice-tile p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.8;
+  opacity: 0.95;
+}
+
+/* 说明瓷砖 */
+.tip-tile {
+  grid-column: span 4;
+  padding: 20px 28px;
+  border-left: 4px solid var(--metro-blue);
+}
+.tip-tile strong {
+  font-size: 18px;
+  font-weight: 900;
+}
+.tip-tile p {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+/* 加载状态 */
+.loading-tile {
+  grid-column: span 4;
+  padding: 60px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  color: #666;
+}
+.loading-tile::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #333;
+  border-top-color: var(--metro-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 12px;
+  vertical-align: middle;
+}
 @keyframes spin { to { transform: rotate(360deg); } }
 
-footer { text-align: center; padding: 50px 0 30px; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--border); margin-top: 30px; }
+/* 错误状态 */
+.error-tile {
+  grid-column: span 4;
+  padding: 60px;
+  text-align: center;
+  font-size: 18px;
+  color: var(--metro-red);
+  font-weight: 400;
+}
 
+footer {
+  text-align: center;
+  padding: 40px 0;
+  color: #444;
+  font-size: 14px;
+  font-weight: 400;
+}
+footer span { color: var(--metro-blue); font-weight: 700; }
+
+/* 响应式 */
+@media (max-width: 1024px) {
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .tile-large { grid-column: span 2; grid-row: span 2; }
+  .advice-tile { grid-column: span 2; }
+  .tip-tile { grid-column: span 2; }
+}
 @media (max-width: 768px) {
-header h1 { font-size: 28px; }
-.card-grid { grid-template-columns: 1fr; }
-.weather-hero .temp { font-size: 44px; }
-.weather-hero .details { flex-direction: column; gap: 6px; }
+  .page-header h1 { font-size: 36px; }
+  .weather-main .temp { font-size: 80px; }
+  .weather-main .desc { font-size: 24px; }
+  .tile-large { grid-column: span 2; grid-row: span 1; }
+  .forecast-tile .forecast-temp { font-size: 28px; }
+}
+@media (max-width: 480px) {
+  .tile-grid { grid-template-columns: 1fr; }
+  .tile-large { grid-column: span 1; }
+  .advice-tile { grid-column: span 1; }
+  .tip-tile { grid-column: span 1; }
+  .navbar .logo { font-size: 24px; }
 }
 </style>
 </head>
 <body>
-<div style="background:#fff;border-bottom:1px solid #e8e8ed;padding:12px 0;position:sticky;top:0;z-index:200;backdrop-filter:blur(10px);background:rgba(255,255,255,0.9)">
-  <div style="max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between">
-    <a href="index.html" style="font-family:'Ma Shan Zheng',cursive;font-size:28px;color:#1d1d1f;text-decoration:none;letter-spacing:2px">龙兄知识库</a>
-    <a href="index.html" style="color:#0071e3;font-size:14px;text-decoration:none">← 首页</a>
-  </div>
-</div>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <a href="index.html" class="logo">龙兄知识库</a>
+  <a href="index.html" class="back-link">← 首页</a>
+</nav>
+
 <div class="container">
 
-<header>
-<div class="eyebrow">🌦️ 实时天气</div>
-<h1>射阳天气</h1>
-<p>每次打开自动获取最新气象数据</p>
-</header>
+  <!-- 页面标题 -->
+  <div class="page-header">
+    <h1>射阳天气</h1>
+    <div class="subtitle">🌦️ 实时气象数据 · Open-Meteo API</div>
+  </div>
 
-<div class="content-section">
-<div id="weather-hero" class="loading">正在获取天气数据</div>
-<div id="forecast-grid" class="card-grid"></div>
-<div id="advice" class="advice-box" style="display:none"></div>
-<div class="tip-box"><strong>💡 说明：</strong>天气数据来自 Open-Meteo 开放气象 API，每次打开页面自动获取最新数据，每10分钟自动刷新。</div>
-</div>
+  <!-- 瓷砖网格 -->
+  <div class="tile-grid" id="tile-grid">
+
+    <!-- 加载状态 -->
+    <div class="loading-tile" id="loading">正在获取天气数据</div>
+
+  </div>
 
 </div>
 
 <script>
+// ========== 配置 ==========
 const LAT = 33.77, LON = 120.26;
-const WMO = {0:"晴",1:"晴",2:"多云",3:"阴",45:"雾",48:"雾凇",51:"小毛毛雨",53:"中毛毛雨",55:"大毛毛雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",80:"小阵雨",81:"中阵雨",82:"大阵雨",95:"雷暴",96:"雷暴+冰雹",99:"雷暴+大冰雹"};
-const WIND = ["北风","东北风","东风","东南风","南风","西南风","西风","西北风"];
+
+// ========== WMO 天气代码映射 ==========
+const WMO = {
+  0: "晴", 1: "晴", 2: "多云", 3: "阴",
+  45: "雾", 48: "雾凇",
+  51: "小毛毛雨", 53: "中毛毛雨", 55: "大毛毛雨",
+  61: "小雨", 63: "中雨", 65: "大雨",
+  71: "小雪", 73: "中雪", 75: "大雪",
+  80: "小阵雨", 81: "中阵雨", 82: "大阵雨",
+  95: "雷暴", 96: "雷暴+冰雹", 99: "雷暴+大冰雹"
+};
+
+// ========== 风向映射 ==========
+const WIND = ["北风", "东北风", "东风", "东南风", "南风", "西南风", "西风", "西北风"];
 
 function weatherDesc(code) { return WMO[code] || "未知"; }
-function windDir(deg) { return WIND[Math.round(deg/45)%8]; }
+function windDir(deg) { return WIND[Math.round(deg / 45) % 8]; }
 
+// ========== 出行建议函数 ==========
 function dressAdvice(temp, hum, code) {
   let tips = [];
   if (temp >= 35) tips.push("高温酷热，减少外出，注意防暑");
@@ -93,62 +341,120 @@ function dressAdvice(temp, hum, code) {
   else if (temp >= 10) tips.push("微凉，建议加件外套");
   else if (temp >= 0) tips.push("较冷，注意保暖");
   else tips.push("严寒，尽量减少外出");
+
   if (hum >= 90) tips.push("湿度极高，体感闷热，注意防潮");
   else if (hum >= 75) tips.push("湿度偏高，略闷");
   else if (hum <= 30) tips.push("空气干燥，注意保湿");
-  if ([61,63,65,80,81,82,95,96,99].includes(code)) tips.push("有雨/雷暴，外出带伞");
-  if ([71,73,75,85,86].includes(code)) tips.push("有雪，注意路滑");
+
+  if ([61, 63, 65, 80, 81, 82, 95, 96, 99].includes(code)) tips.push("有雨/雷暴，外出带伞");
+  if ([71, 73, 75, 85, 86].includes(code)) tips.push("有雪，注意路滑");
+
   return tips.join("；");
 }
 
+// ========== 获取星期几 ==========
+function getWeekDay(dateStr) {
+  const days = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  const d = new Date(dateStr);
+  return days[d.getDay()];
+}
+
+// ========== 瓷砖颜色轮换 ==========
+const tileColors = ["tile-green", "tile-orange", "tile-purple", "tile-cyan", "tile-pink", "tile-yellow"];
+let colorIndex = 0;
+function nextColor() {
+  const color = tileColors[colorIndex % tileColors.length];
+  colorIndex++;
+  return color;
+}
+
+// ========== 加载天气数据 ==========
 async function loadWeather() {
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum&timezone=Asia/Shanghai&forecast_days=4`;
     const resp = await fetch(url);
     const data = await resp.json();
+
     const c = data.current;
-    const temp = c.temperature_2m, hum = c.relative_humidity_2m, code = c.weather_code;
-    const ws = c.wind_speed_10m, wd = windDir(c.wind_direction_10m);
+    const temp = c.temperature_2m;
+    const hum = c.relative_humidity_2m;
+    const code = c.weather_code;
+    const ws = c.wind_speed_10m;
+    const wd = windDir(c.wind_direction_10m);
     const desc = weatherDesc(code);
     const advice = dressAdvice(temp, hum, code);
+
     const now = new Date();
-    const ts = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    const ts = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-    const el = document.getElementById('weather-hero');
-    el.className = 'weather-hero';
-    el.innerHTML = `<div class="temp">${temp}°C</div><div class="desc">${desc}</div><div class="details"><span>💧 湿度 ${hum}%</span><span>🌬️ ${wd} ${ws.toFixed(1)} km/h</span></div><div class="update-time">更新于 ${ts}</div>`;
+    // 构建瓷砖 HTML
+    let html = '';
 
+    // 1. 大蓝色瓷砖 - 当前天气
+    html += `
+    <div class="tile tile-large tile-blue weather-main">
+      <div class="temp">${temp}°</div>
+      <div class="desc">${desc}</div>
+      <div class="details">
+        <span>💧 湿度 ${hum}%</span>
+        <span>🌬️ ${wd} ${ws.toFixed(1)} km/h</span>
+      </div>
+      <div class="update-time">更新于 ${ts}</div>
+    </div>`;
+
+    // 2. 3个预报小瓷砖
     if (data.daily) {
-      const fg = document.getElementById('forecast-grid');
       const days = data.daily;
-      const wk = ["周日","周一","周二","周三","周四","周五","周六"];
-      let html = '';
       for (let i = 1; i < Math.min(4, days.time.length); i++) {
-        const d = new Date(days.time[i]);
-        const dn = wk[d.getDay()];
-        const hi = days.temperature_2m_max[i], lo = days.temperature_2m_min[i];
+        const dayName = getWeekDay(days.time[i]);
+        const hi = days.temperature_2m_max[i];
+        const lo = days.temperature_2m_min[i];
         const wd2 = weatherDesc(days.weather_code[i]);
         const rain = days.precipitation_sum[i];
-        const rs = rain > 0 ? ` · 降水${rain}mm` : '';
-        html += `<div class="forecast-card"><div class="day">${dn}</div><div class="detail">${wd2} ${lo}~${hi}°C${rs}</div></div>`;
+        const rainStr = rain > 0 ? ` · 降水 ${rain}mm` : '';
+        const colorClass = nextColor();
+
+        html += `
+        <div class="tile tile-small ${colorClass} forecast-tile">
+          <div class="day">${dayName}</div>
+          <div class="forecast-desc">${wd2}</div>
+          <div class="forecast-temp">${lo}~${hi}°</div>
+          <div class="forecast-rain">${rainStr}</div>
+        </div>`;
       }
-      fg.innerHTML = html;
     }
 
-    const adv = document.getElementById('advice');
-    adv.style.display = 'block';
-    adv.innerHTML = `<h4>👔 出行建议</h4><p>${advice}</p>`;
-  } catch(e) {
-    document.getElementById('weather-hero').innerHTML = '<p style="color:var(--text-secondary);padding:40px 0">⚠️ 天气数据获取失败，请稍后刷新</p>';
+    // 3. 出行建议瓷砖 (accent色)
+    html += `
+    <div class="tile tile-dark advice-tile">
+      <h4>👔 出行建议</h4>
+      <p>${advice}</p>
+    </div>`;
+
+    // 4. 说明瓷砖
+    html += `
+    <div class="tile tile-dark tip-tile">
+      <strong>💡 说明</strong>
+      <p>天气数据来自 Open-Meteo 开放气象 API，每次打开页面自动获取最新数据，每10分钟自动刷新。</p>
+    </div>`;
+
+    // 更新DOM
+    document.getElementById('tile-grid').innerHTML = html;
+
+  } catch (e) {
+    document.getElementById('tile-grid').innerHTML = `<div class="error-tile">⚠️ 天气数据获取失败，请稍后刷新</div>`;
+    console.error('Weather load error:', e);
   }
 }
 
+// ========== 初始化 ==========
 loadWeather();
 setInterval(loadWeather, 10 * 60 * 1000);
 </script>
 
 <footer>
-<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 整理 · 天气信息仅供参考</p>
+  <p>由 <span>QClaw AI</span> 整理 · 天气信息仅供参考</p>
 </footer>
+
 </body>
 </html>

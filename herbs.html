@@ -50,15 +50,6 @@ header p { font-size: 16px; color: var(--text-secondary); max-width: 700px; font
 .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
 .tab-btn.active { color: var(--text); background: var(--metro-blue); }
 
-/* Progress section */
-.progress-section { background: var(--card); border: 1px solid var(--border); padding: 24px 28px; margin: 28px 0 20px; }
-.progress-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 16px; text-transform: uppercase; }
-.progress-bar { width: 100%; height: 8px; background: #0a0a0a; border: 1px solid var(--border); overflow: hidden; }
-.progress-bar .fill { height: 100%; background: var(--metro-blue); transition: width 0.6s ease; }
-.progress-stats { display: flex; gap: 36px; margin-top: 18px; }
-.progress-stats .stat .label { font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; }
-.progress-stats .stat .val { font-size: 28px; font-weight: 900; color: var(--text); margin-top: 4px; }
-
 /* Metro Tile Grid */
 .tile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); margin: 16px 0; }
 .tile { aspect-ratio: 1; padding: 20px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.15s ease, filter 0.15s ease; position: relative; overflow: hidden; text-decoration: none; }
@@ -125,7 +116,6 @@ footer span { color: var(--metro-blue); font-weight: 700; }
   .tile-grid { grid-template-columns: repeat(2, 1fr); }
   .tile-double { grid-column: span 2; }
   .tile-tall { grid-row: span 1; aspect-ratio: 1; }
-  .progress-stats { gap: 24px; }
 }
 
 @media (max-width: 480px) {
@@ -160,7 +150,6 @@ footer span { color: var(--metro-blue); font-weight: 700; }
 <nav class="tab-nav">
 <div class="tab-nav-inner">
 <button class="tab-btn active" data-tab="all">全部</button>
-<button class="tab-btn" data-tab="checklist">学习清单</button>
 <button class="tab-btn" data-tab="notes">沉香笔记</button>
 <button class="tab-btn" data-tab="craft">炮制工艺</button>
 <button class="tab-btn" data-tab="market">市场行情</button>
@@ -170,18 +159,8 @@ footer span { color: var(--metro-blue); font-weight: 700; }
 <!-- All view -->
 <div class="panel" id="panel-all">
 
-<div class="progress-section">
-<h2>学习进度</h2>
-<div class="progress-bar"><div class="fill" style="width: 12%"></div></div>
-<div class="progress-stats">
-<div class="stat"><div class="label">物料总数</div><div class="val">10</div></div>
-<div class="stat"><div class="label">已深入学习</div><div class="val">1</div></div>
-<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:14px;color:var(--text-secondary)">2026-06-21</div></div>
-</div>
-</div>
-
-<div class="content-section" id="panel-checklist">
-<h2>学习清单</h2>
+<div class="content-section" id="panel-all">
+<h2>中药材与名贵香料</h2>
 <div class="tile-grid">
 <a class="tile tile-blue tile-tall" href="agarwood.html">
 <div class="emoji">🪵</div>
@@ -316,8 +295,8 @@ footer span { color: var(--metro-blue); font-weight: 700; }
   });
 
   // Scroll spy: update active tab on scroll
-  const sections = ['panel-checklist', 'panel-notes', 'panel-craft', 'panel-market'];
-  const tabMap = { 'panel-checklist': 'checklist', 'panel-notes': 'notes', 'panel-craft': 'craft', 'panel-market': 'market' };
+  const sections = ['panel-notes', 'panel-craft', 'panel-market'];
+  const tabMap = { 'panel-notes': 'notes', 'panel-craft': 'craft', 'panel-market': 'market' };
 
   function onScroll() {
     if (window._tabClicking) return;

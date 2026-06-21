@@ -96,54 +96,6 @@ h1, h2, h3, h4, strong, .bold { font-weight: 900; }
   max-width: 600px;
 }
 
-/* ========== 学习进度瓷砖 ========== */
-.progress-tile {
-  background: var(--dark-tile);
-  border: 1px solid var(--border);
-  padding: 24px;
-  margin: 24px 0;
-  transition: transform 0.2s, filter 0.2s;
-}
-.progress-tile:hover {
-  transform: scale(1.02);
-  filter: brightness(1.1);
-}
-.progress-tile h2 {
-  font-size: 18px;
-  font-weight: 900;
-  margin-bottom: 16px;
-  color: #ffffff;
-}
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background: #333333;
-  overflow: hidden;
-}
-.progress-bar .fill {
-  height: 100%;
-  background: var(--blue);
-}
-.progress-stats {
-  display: flex;
-  gap: 40px;
-  margin-top: 16px;
-  flex-wrap: wrap;
-}
-.progress-stats .stat .label {
-  font-size: 12px;
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-.progress-stats .stat .val {
-  font-size: 28px;
-  font-weight: 900;
-  color: var(--blue);
-}
-.progress-stats .stat .val.muted {
-  font-size: 16px;
-  color: var(--text-secondary);
-}
 
 /* ========== Tab 导航（Metro风格） ========== */
 .tab-nav {
@@ -359,8 +311,7 @@ footer span { color: var(--blue); font-weight: 600; }
   .tile-grid {
     grid-template-columns: 1fr;
   }
-  .progress-stats { gap: 20px; }
-  .navbar-logo { font-size: 26px; }
+    .navbar-logo { font-size: 26px; }
 }
 </style>
 </head>
@@ -382,26 +333,6 @@ footer span { color: var(--blue); font-weight: 600; }
   <h1>沉香鉴别</h1>
   <p>从燃烧、掂重、热针、泡水到市场渠道，建立一套可落地的真假鉴别流程。持续学习，不断更新。</p>
 </header>
-
-<!-- ========== 学习进度 ========== -->
-<div class="progress-tile">
-  <h2>📊 学习进度</h2>
-  <div class="progress-bar"><div class="fill" style="width: 25%"></div></div>
-  <div class="progress-stats">
-    <div class="stat">
-      <div class="label">已完成章节</div>
-      <div class="val">2/8</div>
-    </div>
-    <div class="stat">
-      <div class="label">核心方法</div>
-      <div class="val">4</div>
-    </div>
-    <div class="stat">
-      <div class="label">最后更新</div>
-      <div class="val muted">2026-06-21</div>
-    </div>
-  </div>
-</div>
 
 <!-- ========== Tab 导航 ========== -->
 <div class="tab-nav">

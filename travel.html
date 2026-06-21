@@ -39,6 +39,31 @@ footer { text-align: center; padding: 60px 0 40px; color: var(--text-secondary);
 header h1 { font-size: 32px; }
 .content-section { padding: 24px; }
 }
+
+/* ===== 白天主题增强 ===== */
+[data-theme="light"] .tile h3,
+[data-theme="light"] .tile .title,
+[data-theme="light"] .tile .desc,
+[data-theme="light"] .tile .meta { color: var(--text); }
+[data-theme="light"] .tile p { color: var(--text-secondary); }
+[data-theme="light"] .site-title { color: var(--text); }
+[data-theme="light"] .subtitle { color: var(--text-muted); }
+[data-theme="light"] .section-label { color: var(--text-muted); }
+[data-theme="light"] footer { color: var(--text-muted); }
+[data-theme="light"] .card h2 { color: var(--text); }
+[data-theme="light"] .card p,
+[data-theme="light"] .card li { color: var(--text-secondary); }
+[data-theme="light"] header p { color: var(--text-secondary); }
+[data-theme="light"] .navbar-logo { color: var(--text); }
+[data-theme="light"] .navbar-home { color: #fff; }
+[data-theme="light"] .back { color: var(--text-muted); }
+[data-theme="light"] .tag { background: rgba(107,105,214,0.12); color: #6b69d6; }
+[data-theme="light"] .warning { background: rgba(232,17,35,0.08); color: #c00; }
+[data-theme="light"] .tab-btn { color: var(--text-secondary); }
+[data-theme="light"] .tab-btn:hover { color: var(--text); }
+/* Light tile shadow for depth */
+[data-theme="light"] .tile { box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+[data-theme="light"] .card { box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 </style>
 </head>
 <body>

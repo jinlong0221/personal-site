@@ -282,6 +282,60 @@ footer span { color: var(--metro-blue); font-weight: 700; }
   .tip-tile { grid-column: span 1; }
   .navbar .logo { font-size: 24px; }
 }
+
+/* ===== 明暗主题切换 ===== */
+[data-theme="light"] {
+  --bg: #f5f5f5;
+  --text: #1a1a1a;
+  --text-secondary: #555;
+  --text-muted: #999;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --nav-bg: rgba(245,245,245,0.95);
+  --tab-bg: rgba(245,245,245,0.95);
+}
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --text: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-muted: #7a7a7a;
+  --card: #1a1a1a;
+  --border: #333;
+  --nav-bg: rgba(10,10,10,0.95);
+  --tab-bg: rgba(10,10,10,0.95);
+}
+/* Theme transition */
+body, .navbar, .tab-nav, .card, header, footer, .tile, section, .nav { transition: background 0.3s, color 0.3s, border-color 0.3s; }
+/* Toggle button */
+.theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s; }
+.theme-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+[data-theme="dark"] .theme-toggle { background: #333; color: #fff; }
+[data-theme="light"] .theme-toggle { background: #fff; color: #333; border: 1px solid #ddd; }
+
+/* ===== 白天主题增强 ===== */
+[data-theme="light"] .tile h3,
+[data-theme="light"] .tile .title,
+[data-theme="light"] .tile .desc,
+[data-theme="light"] .tile .meta { color: var(--text); }
+[data-theme="light"] .tile p { color: var(--text-secondary); }
+[data-theme="light"] .site-title { color: var(--text); }
+[data-theme="light"] .subtitle { color: var(--text-muted); }
+[data-theme="light"] .section-label { color: var(--text-muted); }
+[data-theme="light"] footer { color: var(--text-muted); }
+[data-theme="light"] .card h2 { color: var(--text); }
+[data-theme="light"] .card p,
+[data-theme="light"] .card li { color: var(--text-secondary); }
+[data-theme="light"] header p { color: var(--text-secondary); }
+[data-theme="light"] .navbar-logo { color: var(--text); }
+[data-theme="light"] .navbar-home { color: #fff; }
+[data-theme="light"] .back { color: var(--text-muted); }
+[data-theme="light"] .tag { background: rgba(107,105,214,0.12); color: #6b69d6; }
+[data-theme="light"] .warning { background: rgba(232,17,35,0.08); color: #c00; }
+[data-theme="light"] .tab-btn { color: var(--text-secondary); }
+[data-theme="light"] .tab-btn:hover { color: var(--text); }
+/* Light tile shadow for depth */
+[data-theme="light"] .tile { box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+[data-theme="light"] .card { box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 </style>
 </head>
 <body>
@@ -456,5 +510,36 @@ setInterval(loadWeather, 10 * 60 * 1000);
   <p>由 <span>QClaw AI</span> 整理 · 天气信息仅供参考</p>
 </footer>
 
+
+// 明暗主题自动切换（6:00白日 18:00暗夜）
+(function(){
+  function getTheme(){
+    const h = new Date().getHours();
+    return (h >= 6 && h < 18) ? 'light' : 'dark';
+  }
+  function apply(t){
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('theme', t);
+  }
+  // 用户手动选择优先
+  var saved = localStorage.getItem('theme');
+  if(saved){ apply(saved); }
+  else { apply(getTheme()); }
+  // 手动切换按钮
+  var btn = document.getElementById('theme-toggle');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme');
+      apply(cur === 'dark' ? 'light' : 'dark');
+    });
+    btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    // 更新图标
+    var observer = new MutationObserver(function(){
+      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    });
+    observer.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+  }
+})();
+<button class="theme-toggle" id="theme-toggle">🌙</button>
 </body>
 </html>

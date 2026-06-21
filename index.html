@@ -9,11 +9,18 @@
 :root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --radius: 20px; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-header { padding: 50px 0 60px; text-align: center; }
-header h1 { font-size: 48px; font-weight: 700; background: linear-gradient(135deg, #1d1d1f 0%, #0071e3 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 14px; }
-header p { font-size: 20px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
-header .date { font-size: 13px; color: var(--text-secondary); margin-top: 12px; opacity: 0.7; }
-.hero-img { width: 100%; max-width: 860px; height: 340px; object-fit: cover; border-radius: 24px; margin: 0 auto 16px; display: block; box-shadow: 0 8px 60px rgba(0,0,0,0.1); }
+header { padding: 50px 0 30px; text-align: center; }
+header h1 { font-size: 48px; font-weight: 700; background: linear-gradient(135deg, #1d1d1f 0%, #0071e3 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+header p { font-size: 18px; color: var(--text-secondary); }
+/* 天气卡片 - 最顶部 */
+.weather-panel { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 24px; padding: 32px; margin: 20px 0 40px; color: white; box-shadow: 0 12px 60px rgba(102,126,234,0.3); }
+.weather-panel h2 { font-size: 16px; font-weight: 500; opacity: 0.9; margin-bottom: 8px; }
+.weather-main { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; }
+.weather-temp { font-size: 56px; font-weight: 700; line-height: 1; }
+.weather-info { font-size: 18px; opacity: 0.95; }
+.weather-info span { display: block; margin-bottom: 4px; }
+.weather-suggest { background: rgba(255,255,255,0.2); border-radius: 12px; padding: 14px 18px; font-size: 15px; }
+/* 学习专题 */
 .panel { background: var(--card); border-radius: var(--radius); padding: 32px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
 .panel h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
@@ -27,7 +34,7 @@ header .date { font-size: 13px; color: var(--text-secondary); margin-top: 12px; 
 footer { text-align: center; padding: 60px 0 50px; color: var(--text-secondary); font-size: 13px; }
 @media (max-width: 768px) {
 header h1 { font-size: 34px; }
-.hero-img { height: 220px; }
+.weather-temp { font-size: 42px; }
 }
 </style>
 </head>
@@ -36,11 +43,22 @@ header h1 { font-size: 34px; }
 <header>
 <h1>金龙的 AI 学习站</h1>
 <p>每天学一点，积累成专家</p>
-<div class="date">2026-06-21</div>
 </header>
 
-<img class="hero-img" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80" alt="星空">
+<!-- 射阳天气 - 最顶部 -->
+<div class="weather-panel">
+<h2>📍 射阳天气 · 06月21日 19:45</h2>
+<div class="weather-main">
+<div class="weather-temp">23.2°</div>
+<div class="weather-info">
+<span>阴</span>
+<span>湿度 93% · 东北风 10.4km/h</span>
+</div>
+</div>
+<div class="weather-suggest">👔 凉爽，适宜出行；湿度极高，闷热感强</div>
+</div>
 
+<!-- 学习专题 -->
 <div class="panel">
 <h2>📖 学习专题</h2>
 <div class="card-grid">
@@ -68,14 +86,6 @@ header h1 { font-size: 34px; }
 <p>盘玩方法、品牌溢价、鉴别技巧、DIY手串入门。</p>
 </div>
 </a>
-<a class="card" href="sheyang.html">
-<img class="card-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75" alt="射阳">
-<div class="card-body">
-<div class="tag">家乡</div>
-<h3>射阳本地</h3>
-<p>实时天气预报、生活污水去向、前置过滤器研究。</p>
-</div>
-</a>
 <a class="card" href="tesla.html">
 <img class="card-img" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&q=75" alt="特斯拉">
 <div class="card-body">
@@ -84,6 +94,7 @@ header h1 { font-size: 34px; }
 <p>每天9点自动推送全球及中国特斯拉资讯。</p>
 </div>
 </a>
+</div>
 </div>
 
 <footer>

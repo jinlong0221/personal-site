@@ -6,71 +6,106 @@
 <title>中药材与名贵香料 - 金龙的 AI 学习站</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --radius: 20px; }
+:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --radius: 16px; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
-.back-link { display: inline-block; margin: 30px 0; color: var(--accent); text-decoration: none; font-size: 15px; }
+/* Back link */
+.back-link { display: inline-block; margin: 20px 0 0; color: var(--accent); text-decoration: none; font-size: 14px; }
 .back-link:hover { text-decoration: underline; }
 
-header { padding: 40px 0 50px; }
-header .emoji { font-size: 48px; margin-bottom: 20px; }
-header h1 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
-header p { font-size: 19px; color: var(--text-secondary); max-width: 700px; }
+/* Header - compact like Tesla */
+header { padding: 32px 0 0; }
+header .emoji { font-size: 40px; margin-bottom: 12px; }
+header h1 { font-size: 36px; font-weight: 700; line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.02em; }
+header p { font-size: 17px; color: var(--text-secondary); max-width: 700px; }
 
-.progress-section { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 30px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.progress-section h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
-.progress-bar { width: 100%; height: 8px; background: #e8e8ed; border-radius: 4px; overflow: hidden; }
-.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), #42a5f5); border-radius: 4px; }
-.progress-stats { display: flex; gap: 40px; margin-top: 20px; }
-.progress-stats .stat .label { font-size: 13px; color: var(--text-secondary); }
-.progress-stats .stat .val { font-size: 28px; font-weight: 700; color: var(--accent); }
+/* Sticky Tab Navigation */
+.tab-nav { position: sticky; top: 0; z-index: 100; background: rgba(251,251,253,0.85); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); margin-top: 24px; }
+.tab-nav-inner { display: flex; gap: 0; max-width: 960px; margin: 0 auto; padding: 0 24px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-nav-inner::-webkit-scrollbar { display: none; }
+.tab-btn { padding: 14px 20px; font-size: 14px; font-weight: 500; color: var(--text-secondary); background: none; border: none; cursor: pointer; white-space: nowrap; position: relative; transition: color 0.2s; }
+.tab-btn::after { content: ''; position: absolute; bottom: 0; left: 20px; right: 20px; height: 2px; background: var(--accent); border-radius: 1px; transform: scaleX(0); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); }
+.tab-btn.active::after { transform: scaleX(1); }
 
-.herb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
-.herb-card { background: var(--card); border-radius: 14px; padding: 24px; box-shadow: 0 2px 20px rgba(0,0,0,0.03); border: 1px solid rgba(210,210,215,0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.herb-card:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,0.06); }
-.herb-card .emoji { font-size: 32px; margin-bottom: 12px; }
-.herb-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
-.herb-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; }
-.herb-card .status { font-size: 12px; padding: 4px 10px; border-radius: 12px; display: inline-block; }
+/* Progress section */
+.progress-section { background: var(--card); border-radius: var(--radius); padding: 24px 28px; margin: 28px 0 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.progress-section h2 { font-size: 18px; font-weight: 600; margin-bottom: 14px; }
+.progress-bar { width: 100%; height: 6px; background: #e8e8ed; border-radius: 3px; overflow: hidden; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), #42a5f5); border-radius: 3px; transition: width 0.6s ease; }
+.progress-stats { display: flex; gap: 36px; margin-top: 16px; }
+.progress-stats .stat .label { font-size: 12px; color: var(--text-secondary); }
+.progress-stats .stat .val { font-size: 24px; font-weight: 700; color: var(--accent); }
+
+/* Herb grid */
+.herb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin: 16px 0; }
+.herb-card { background: var(--card); border-radius: 14px; padding: 22px; box-shadow: 0 1px 8px rgba(0,0,0,0.03); border: 1px solid rgba(210,210,215,0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.herb-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+.herb-card .emoji { font-size: 30px; margin-bottom: 10px; }
+.herb-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.herb-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+.herb-card .status { font-size: 11px; padding: 3px 10px; border-radius: 12px; display: inline-block; }
 .status.learned { background: rgba(52,199,89,0.1); color: #34c759; }
 .status.learning { background: rgba(0,113,227,0.1); color: var(--accent); }
 .status.todo { background: rgba(134,134,139,0.1); color: var(--text-secondary); }
 
-.content-section { background: var(--card); border-radius: var(--radius); padding: 40px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.content-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-.content-section h3 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; color: var(--accent); }
-.content-section p { font-size: 16px; margin-bottom: 16px; }
-.content-section ul, .content-section ol { margin: 16px 0; padding-left: 24px; }
-.content-section li { font-size: 16px; margin-bottom: 12px; }
+/* Content sections */
+.panel { scroll-margin-top: 56px; }
+.content-section { background: var(--card); border-radius: var(--radius); padding: 36px; margin: 20px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.content-section h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); letter-spacing: -0.01em; }
+.content-section h3 { font-size: 18px; font-weight: 600; margin: 28px 0 14px; color: var(--accent); }
+.content-section p { font-size: 15px; margin-bottom: 14px; color: #424245; }
+.content-section ul, .content-section ol { margin: 14px 0; padding-left: 22px; }
+.content-section li { font-size: 15px; margin-bottom: 10px; color: #424245; }
 
-.update-log { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.update-log h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
-.update-log .log-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
+/* Placeholder for future tabs */
+.placeholder-section { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 15px; }
+.placeholder-section .icon { font-size: 40px; margin-bottom: 12px; }
+
+/* Update log */
+.update-log { background: var(--card); border-radius: var(--radius); padding: 24px 28px; margin: 20px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
+.update-log h3 { font-size: 17px; font-weight: 600; margin-bottom: 14px; }
+.update-log .log-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
 .update-log .log-item:last-child { border-bottom: none; }
-.update-log .log-item .date { font-size: 13px; color: var(--text-secondary); }
-.update-log .log-item .text { font-size: 15px; margin-top: 4px; }
+.update-log .log-item .date { font-size: 12px; color: var(--text-secondary); }
+.update-log .log-item .text { font-size: 14px; margin-top: 3px; color: #424245; }
 
-footer { text-align: center; padding: 60px 0 40px; color: var(--text-secondary); font-size: 13px; }
+footer { text-align: center; padding: 50px 0 30px; color: var(--text-secondary); font-size: 13px; }
 
 @media (max-width: 768px) {
-header h1 { font-size: 32px; }
+header h1 { font-size: 28px; }
+header p { font-size: 15px; }
 .content-section { padding: 24px; }
 .herb-grid { grid-template-columns: 1fr; }
+.progress-stats { gap: 24px; }
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-<img src="images/herbs.png?w=1200&q=80" alt="" style="width:100%;max-width:860px;height:280px;object-fit:cover;border-radius:24px;margin:20px auto;display:block;box-shadow:0 8px 60px rgba(0,0,0,0.1);">
 <a href="index.html" class="back-link">← 返回首页</a>
 
 <header>
 <div class="emoji">🌿</div>
 <h1>中药材与名贵香料</h1>
-<p>系统学习 10 种中药材与名贵香料的鉴别、炮制、市场行情与临床应用。点击卡片查看详情。</p>
+<p>系统学习 10 种中药材与名贵香料的鉴别、炮制、市场行情与临床应用。</p>
 </header>
+
+<nav class="tab-nav">
+<div class="tab-nav-inner">
+<button class="tab-btn active" data-tab="all">全部</button>
+<button class="tab-btn" data-tab="checklist">学习清单</button>
+<button class="tab-btn" data-tab="notes">沉香笔记</button>
+<button class="tab-btn" data-tab="craft">炮制工艺</button>
+<button class="tab-btn" data-tab="market">市场行情</button>
+</div>
+</nav>
+
+<!-- 全部 view -->
+<div class="panel" id="panel-all">
 
 <div class="progress-section">
 <h2>学习进度</h2>
@@ -78,14 +113,14 @@ header h1 { font-size: 32px; }
 <div class="progress-stats">
 <div class="stat"><div class="label">物料总数</div><div class="val">10</div></div>
 <div class="stat"><div class="label">已深入学习</div><div class="val">1</div></div>
-<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)">2026-06-21</div></div>
+<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:14px;color:var(--text-secondary)">2026-06-21</div></div>
 </div>
 </div>
 
-<div class="content-section">
+<div class="content-section" id="panel-checklist">
 <h2>学习清单</h2>
 <div class="herb-grid">
-<div class="herb-card" onclick="location.href='#agarwood-detail'">
+<div class="herb-card" data-scroll="agarwood-detail">
 <div class="emoji">🪵</div>
 <h3>沉香</h3>
 <p>名贵香料之首，药材之上品。燃烧测试为核心鉴别方法。</p>
@@ -148,7 +183,7 @@ header h1 { font-size: 32px; }
 </div>
 </div>
 
-<div class="content-section" id="agarwood-detail">
+<div class="content-section" id="panel-notes">
 <h2>🪵 沉香 - 深入学习笔记</h2>
 
 <h3>核心鉴别方法</h3>
@@ -174,6 +209,22 @@ header h1 { font-size: 32px; }
 </ul>
 </div>
 
+<div class="content-section" id="panel-craft">
+<div class="placeholder-section">
+<div class="icon">🔧</div>
+<p>炮制工艺内容整理中，敬请期待</p>
+</div>
+</div>
+
+<div class="content-section" id="panel-market">
+<div class="placeholder-section">
+<div class="icon">📈</div>
+<p>市场行情内容整理中，敬请期待</p>
+</div>
+</div>
+
+</div>
+
 <div class="update-log">
 <h3>更新记录</h3>
 <div class="log-item">
@@ -189,8 +240,64 @@ header h1 { font-size: 32px; }
 </div>
 
 <footer class="container">
-<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 自动维护 · 数据持续更新</p>
+<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 整理 · 数据持续更新</p>
 </footer>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.tab-btn');
+  const scrollCard = document.querySelector('.herb-card[data-scroll="agarwood-detail"]');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      const target = btn.dataset.tab;
+      const panel = document.getElementById('panel-' + target);
+      if (panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  //沉香卡点击跳到笔记
+  if (scrollCard) {
+    scrollCard.addEventListener('click', () => {
+      document.getElementById('agarwood-detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  // Scroll spy: update active tab on scroll
+  const sections = ['panel-checklist', 'panel-notes', 'panel-craft', 'panel-market'];
+  const tabMap = { 'panel-checklist': 'checklist', 'panel-notes': 'notes', 'panel-craft': 'craft', 'panel-market': 'market' };
+
+  function onScroll() {
+    const scrollY = window.scrollY + 80;
+    let activeTab = 'all';
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) {
+        activeTab = tabMap[id];
+      }
+    }
+    // Only update if not clicking (to avoid flicker)
+    if (!window._tabClicking) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === activeTab));
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Prevent scroll spy during click transitions
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      window._tabClicking = true;
+      setTimeout(() => { window._tabClicking = false; }, 600);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

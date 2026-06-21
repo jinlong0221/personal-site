@@ -1,107 +1,80 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
 <title>滑石粉 - 龙兄知识库</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0;
-  --blue: #0078d4; --green: #107c10; --orange: #ff8c00;
-  --red: #e81123; --purple: #6b69d6; --border: #333;
-}
-body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-.navbar { position: sticky; top: 0; z-index: 200; background: #000; border-bottom: 1px solid var(--border); }
-.navbar-inner { max-width: 1000px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
-.navbar-logo { font-family: 'Ma Shan Zheng', cursive; font-size: 28px; color: #fff; text-decoration: none; }
-.navbar-back { color: var(--blue); text-decoration: none; font-weight: 600; }
-.page-header { padding: 40px 0; border-bottom: 1px solid var(--border); }
-.page-header .emoji { font-size: 48px; margin-bottom: 12px; }
-.page-header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
-.page-header p { font-size: 16px; color: var(--text-secondary); }
-.content-section { background: #1a1a1a; border: 1px solid var(--border); padding: 30px; margin: 24px 0; }
-.content-section h2 { font-size: 22px; font-weight: 900; margin-bottom: 16px; color: #888; }
-.content-section h3 { font-size: 18px; font-weight: 700; margin: 20px 0 10px; }
-.content-section p, .content-section li { font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
-.content-section ul { padding-left: 20px; }
-.warning-box { background: rgba(0,120,212,0.1); border: 1px solid var(--blue); padding: 20px; margin: 16px 0; }
-footer { text-align: center; padding: 40px 0; color: #666; font-size: 13px; }
+<style>* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0a0a0a; --text: #ffffff; --text2: #b0b0b0; --text3: #888; --border: #333; --card: #141414; }
+body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+.navbar { position: sticky; top: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--border); }
+.navbar-inner { max-width: 900px; margin: 0 auto; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Ma Shan Zheng', cursive; font-size: 26px; color: #fff; text-decoration: none; }
+.back { color: var(--text3); text-decoration: none; font-size: 14px; font-weight: 600; }
+.back:hover { color: #fff; }
+header { padding: 36px 0 28px; border-bottom: 1px solid var(--border); }
+header .emoji { font-size: 52px; margin-bottom: 10px; }
+header h1 { font-size: 34px; font-weight: 900; margin-bottom: 10px; }
+header p { font-size: 15px; color: var(--text2); }
+.card { background: var(--card); border: 1px solid var(--border); padding: 24px; margin: 16px 0; }
+.card h2 { font-size: 18px; font-weight: 900; margin-bottom: 14px; color: var(--text); border-left: 4px solid var(--accent, #6b69d6); padding-left: 12px; }
+.card p, .card li { font-size: 14px; color: var(--text2); margin-bottom: 8px; }
+.card ul { padding-left: 20px; }
+.card li { margin-bottom: 6px; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.tag { font-size: 11px; font-weight: 700; padding: 4px 10px; background: rgba(107,105,214,0.15); color: #9b99e0; }
+.warning { background: rgba(232,17,35,0.1); border-color: rgba(232,17,35,0.3); padding: 12px 16px; margin: 12px 0; font-size: 13px; color: #ff6b6b; }
+footer { text-align: center; padding: 40px 0 30px; color: var(--text3); font-size: 12px; border-top: 1px solid var(--border); margin-top: 20px; }
 </style>
 </head>
 <body>
 <nav class="navbar"><div class="navbar-inner">
-<a href="index.html" class="navbar-logo">龙兄知识库</a>
-<a href="herbs.html" class="navbar-back">← 中药材</a>
+<a href="index.html" class="logo">龙兄知识库</a>
+<a href="herbs.html" class="back">&larr; 中药材</a>
 </div></nav>
 <div class="container">
-<div class="page-header">
-<div class="emoji">⚖️</div>
+<header>
+<div class="emoji">🧂</div>
 <h1>滑石粉</h1>
-<p>矿物药，利尿通淋、清热解暑。工业用途广泛，需区分药用级。</p>
-</div>
-
-<div class="content-section">
+<p>硅酸镁矿物 · 利尿通淋 · 清热解暑 · 外用祛湿</p>
+</header>
+<div class="card">
 <h2>基本信息</h2>
-<p><strong>来源：</strong>硅酸盐类矿物滑石的粉末</p>
-<p><strong>主要成分：</strong>含水硅酸镁 [Mg₃(Si₄O₁₀)(OH)₂]</p>
-<p><strong>性味归经：</strong>甘、淡、寒。归膀胱、肺、胃经。</p>
-<p><strong>功效：</strong>利尿通淋，清热解暑，祛湿敛疮。用于热淋，石淋，尿热涩痛，暑湿烦渴，湿热水泻；外治湿疹，湿疮，痱子。</p>
+<div class="tag-row"><span class="tag">矿物类</span><span class="tag">利尿</span><span class="tag">外用</span><span class="tag">药食两用</span></div>
+<ul><li><strong>来源:</strong> 硅酸盐类矿物滑石（Talcum）的粉末，主含硅酸镁</li><li><strong>产地:</strong> 主产山东、江西、四川；辽宁、河北也有</li><li><strong>性味:</strong> 甘、淡，寒；归膀胱、肺、胃经</li><li><strong>品质:</strong> 以色白、细腻、滑润、无杂质者为佳</li></ul>
 </div>
-
-<div class="content-section">
+<div class="card">
+<h2>主要功效</h2>
+<div class="tag-row"><span class="tag">利尿</span><span class="tag">解暑</span><span class="tag">敛疮</span><span class="tag">清热</span></div>
+<ul><li>利尿通淋：治热淋、石淋（泌尿系结石）、小便涩痛</li><li>清热解暑：夏季暑热烦渴，暑湿泄泻</li><li>祛湿敛疮：外敷治湿疹、湿疮、痱子</li><li>外用护肤：吸湿止痒，治尿布皮炎</li><li>保护肠道：吸附收敛，治消化不良、腹泻</li></ul>
+</div>
+<div class="card">
 <h2>鉴别要点</h2>
-<h3>药用滑石粉</h3>
-<ul>
-<li><strong>外观：</strong>白色或类白色微细粉末，无砂性</li>
-<li><strong>手感：</strong>滑腻，易粘附皮肤</li>
-<li><strong>气味：</strong>无臭，无味</li>
-<li><strong>水试：</strong>在水、稀盐酸中不溶解</li>
-</ul>
-<h3>工业滑石粉</h3>
-<ul>
-<li>含石棉等杂质，严禁药用</li>
-<li>需检测重金属、砷盐等限量</li>
-<li>购买时认准《中国药典》标准</li>
-</ul>
+<div class="tag-row"><span class="tag">鉴别</span><span class="tag">优劣</span></div>
+<ul><li><strong>颜色:</strong> 白色或淡青色，有蜡样光泽为佳</li><li><strong>手感:</strong> 质滑腻细腻，手触有滑润感</li><li><strong>灼烧:</strong> 置火焰中灼烧不变色，不熔融</li><li><strong>酸试:</strong> 不溶于酸（区别于碳酸钙类）</li><li><strong>禁忌:</strong> 工业滑石粉含石棉，强致癌，严禁药用</li></ul>
 </div>
-
-<div class="warning-box">
-<h3>⚠️ 安全提示</h3>
-<p>滑石粉有工业级和药用级之分。工业级可能含石棉、重金属等有害物质，不可内服。购买时务必确认符合《中国药典》标准。</p>
+<div class="card">
+<h2>药食两用</h2>
+<div class="tag-row"><span class="tag">食品添加剂</span><span class="tag">药用</span><span class="tag">化妆品</span></div>
+<p>滑石粉是常见食品添加剂（GB 2760），用于药片包衣、食品抗结块。药用级须符合《中国药典》标准，工业级严禁用于食品药品。</p>
+<p><strong>药用级</strong> 符合药典，用于中药配方、制痱子粉</p>
+<p><strong>食品级</strong> 作为抗结块剂，用于面粉、调味品</p>
+<p><strong>化妆品级</strong> 用于粉饼、爽身粉，须符合化妆品标准</p>
+<p><strong>工业级</strong> 含石棉等有害杂质，严禁入口</p>
 </div>
-
-<div class="content-section">
-<h2>常见应用</h2>
-<p><strong>内服：</strong></p>
-<ul>
-<li>六一散：滑石粉+甘草，清热解暑</li>
-<li>八正散：配伍用于热淋涩痛</li>
-</ul>
-<p><strong>外用：</strong></p>
-<ul>
-<li>痱子粉主要成分</li>
-<li>湿疹、湿疮外敷</li>
-</ul>
-</div>
-
-<div class="content-section">
+<div class="card">
 <h2>市场行情</h2>
-<p><strong>价格区间：</strong></p>
-<ul>
-<li>药用滑石粉：10-30元/kg</li>
-<li>化妆品级：30-80元/kg</li>
-<li>工业级：5-15元/kg（不可药用）</li>
-</ul>
-<p><strong>产地：</strong>山东、辽宁、广西等地</p>
+<div class="tag-row"><span class="tag">价格</span></div>
+<p><strong>药用滑石粉</strong> 约 5~20 元/kg，价格低廉，来源充足</p>
+<p><strong>特点</strong> 矿物资源丰富，供应稳定，价格长期平稳</p>
 </div>
-
-<div class="content-section">
+<div class="card">
+<h2>使用注意</h2>
+<div class="warning">&#x26A0; 脾胃虚寒、滑精、热病津伤者忌服；孕妇慎用；必须使用药用或食品级滑石粉，严禁使用工业级产品（含石棉致癌）。</div>
 </div>
-
+<footer>由 QClaw AI 整理 &middot; 数据持续更新 &middot; 最后更新：2026年6月</footer>
 </div>
-<footer>由 QClaw AI 整理 · 数据持续更新</footer>
 </body>
 </html>

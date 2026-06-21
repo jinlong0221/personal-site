@@ -1,119 +1,81 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
 <title>降真香 - 龙兄知识库</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0;
-  --blue: #0078d4; --green: #107c10; --orange: #ff8c00;
-  --red: #e81123; --purple: #6b69d6; --border: #333;
-}
-body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-.navbar { position: sticky; top: 0; z-index: 200; background: #000; border-bottom: 1px solid var(--border); }
-.navbar-inner { max-width: 1000px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
-.navbar-logo { font-family: 'Ma Shan Zheng', cursive; font-size: 28px; color: #fff; text-decoration: none; }
-.navbar-back { color: var(--blue); text-decoration: none; font-weight: 600; }
-.page-header { padding: 40px 0; border-bottom: 1px solid var(--border); }
-.page-header .emoji { font-size: 48px; margin-bottom: 12px; }
-.page-header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
-.page-header p { font-size: 16px; color: var(--text-secondary); }
-.content-section { background: #1a1a1a; border: 1px solid var(--border); padding: 30px; margin: 24px 0; }
-.content-section h2 { font-size: 22px; font-weight: 900; margin-bottom: 16px; color: var(--blue); }
-.content-section h3 { font-size: 18px; font-weight: 700; margin: 20px 0 10px; }
-.content-section p, .content-section li { font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
-.content-section ul { padding-left: 20px; }
-footer { text-align: center; padding: 40px 0; color: #666; font-size: 13px; }
+<style>* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0a0a0a; --text: #ffffff; --text2: #b0b0b0; --text3: #888; --border: #333; --card: #141414; }
+body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+.navbar { position: sticky; top: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--border); }
+.navbar-inner { max-width: 900px; margin: 0 auto; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Ma Shan Zheng', cursive; font-size: 26px; color: #fff; text-decoration: none; }
+.back { color: var(--text3); text-decoration: none; font-size: 14px; font-weight: 600; }
+.back:hover { color: #fff; }
+header { padding: 36px 0 28px; border-bottom: 1px solid var(--border); }
+header .emoji { font-size: 52px; margin-bottom: 10px; }
+header h1 { font-size: 34px; font-weight: 900; margin-bottom: 10px; }
+header p { font-size: 15px; color: var(--text2); }
+.card { background: var(--card); border: 1px solid var(--border); padding: 24px; margin: 16px 0; }
+.card h2 { font-size: 18px; font-weight: 900; margin-bottom: 14px; color: var(--text); border-left: 4px solid var(--accent, #6b69d6); padding-left: 12px; }
+.card p, .card li { font-size: 14px; color: var(--text2); margin-bottom: 8px; }
+.card ul { padding-left: 20px; }
+.card li { margin-bottom: 6px; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.tag { font-size: 11px; font-weight: 700; padding: 4px 10px; background: rgba(107,105,214,0.15); color: #9b99e0; }
+.warning { background: rgba(232,17,35,0.1); border-color: rgba(232,17,35,0.3); padding: 12px 16px; margin: 12px 0; font-size: 13px; color: #ff6b6b; }
+footer { text-align: center; padding: 40px 0 30px; color: var(--text3); font-size: 12px; border-top: 1px solid var(--border); margin-top: 20px; }
 </style>
 </head>
 <body>
 <nav class="navbar"><div class="navbar-inner">
-<a href="index.html" class="navbar-logo">龙兄知识库</a>
-<a href="herbs.html" class="navbar-back">← 中药材</a>
+<a href="index.html" class="logo">龙兄知识库</a>
+<a href="herbs.html" class="back">&larr; 中药材</a>
 </div></nav>
 <div class="container">
-<div class="page-header">
-<div class="emoji">🪵</div>
+<header>
+<div class="emoji">🌲</div>
 <h1>降真香</h1>
-<p>古法香料，行气止痛。与沉香易混淆，鉴别要点需掌握。</p>
-</div>
-
-<div class="content-section">
+<p>紫藤香根部心材 · 活血止血 · 抗菌消炎 · 名贵香料</p>
+</header>
+<div class="card">
 <h2>基本信息</h2>
-<p><strong>来源：</strong>豆科植物降香檀树干和根的干燥心材</p>
-<p><strong>别名：</strong>降香、紫藤香、降真</p>
-<p><strong>性味归经：</strong>辛、温。归肝、脾经。</p>
-<p><strong>功效：</strong>行气活血，止痛，止血。用于脘腹疼痛，肝郁胁痛，胸痹刺痛，跌打损伤，外伤出血。</p>
+<div class="tag-row"><span class="tag">植物药</span><span class="tag">香料</span><span class="tag">活血</span><span class="tag">名贵</span></div>
+<ul><li><strong>来源:</strong> 豆科黄檀属植物降香檀（Dalbergia odorifera）树干和根的心材</li><li><strong>别名:</strong> 紫藤香、降香、紫真香</li><li><strong>产地:</strong> 主产海南（五指山）；广东、福建有分布</li><li><strong>性味:</strong> 辛，温；归肝、脾经</li><li><strong>功效核心:</strong> 行气活血、止血定痛、消肿生肌</li></ul>
 </div>
-
-<div class="content-section">
-<h2>与沉香的区别</h2>
-<table style="width:100%;border-collapse:collapse;margin:16px 0;">
-<tr style="border-bottom:1px solid #333;">
-<th style="padding:10px;text-align:left;color:var(--text);">特征</th>
-<th style="padding:10px;text-align:left;color:var(--blue);">降真香</th>
-<th style="padding:10px;text-align:left;color:var(--orange);">沉香</th>
-</tr>
-<tr style="border-bottom:1px solid #333;">
-<td style="padding:10px;color:var(--text-secondary);">植物来源</td>
-<td style="padding:10px;color:var(--text-secondary);">豆科降香檀</td>
-<td style="padding:10px;color:var(--text-secondary);">瑞香科白木香等</td>
-</tr>
-<tr style="border-bottom:1px solid #333;">
-<td style="padding:10px;color:var(--text-secondary);">形成方式</td>
-<td style="padding:10px;color:var(--text-secondary);">心材直接取用</td>
-<td style="padding:10px;color:var(--text-secondary);">树脂+木质结合</td>
-</tr>
-<tr style="border-bottom:1px solid #333;">
-<td style="padding:10px;color:var(--text-secondary);">燃烧气味</td>
-<td style="padding:10px;color:var(--text-secondary);">辛辣香，较单一</td>
-<td style="padding:10px;color:var(--text-secondary);">层次丰富，奶香甜凉</td>
-</tr>
-<tr>
-<td style="padding:10px;color:var(--text-secondary);">市场价格</td>
-<td style="padding:10px;color:var(--text-secondary);">较低（几百-数千/kg）</td>
-<td style="padding:10px;color:var(--text-secondary);">极高（数千-数万/g）</td>
-</tr>
-</table>
+<div class="card">
+<h2>主要功效</h2>
+<div class="tag-row"><span class="tag">行气</span><span class="tag">活血</span><span class="tag">止血</span><span class="tag">镇痛</span><span class="tag">抗菌</span></div>
+<ul><li>行气活血：胸胁刺痛、心腹血气诸痛</li><li>止血定痛：刀伤、跌打损伤出血，能止血不留瘀</li><li>消肿生肌：疮疡肿毒，促进伤口愈合</li><li>镇痛抗菌：含肉桂醛等化合物，有镇痛、消炎作用</li><li>辟秽：民间用于驱虫、辟邪气</li></ul>
 </div>
-
-<div class="content-section">
+<div class="card">
 <h2>鉴别要点</h2>
-<h3>外观特征</h3>
-<ul>
-<li><strong>颜色：</strong>紫红色或红褐色，有光泽</li>
-<li><strong>纹理：</strong>纹理细腻，可见年轮</li>
-<li><strong>质地：</strong>坚硬，沉重</li>
-<li><strong>气味：</strong>气香，味微苦</li>
-</ul>
-<h3>燃烧测试</h3>
-<ul>
-<li>真品燃烧有浓郁辛香，烟气较少</li>
-<li>香气较沉香单一，无层次感</li>
-<li>燃烧后灰烬灰白色</li>
-</ul>
+<div class="tag-row"><span class="tag">鉴别</span><span class="tag">优劣</span><span class="tag">心材</span></div>
+<ul><li><strong>外观:</strong> 心材紫红色或红褐色，有致密纹理，质硬重</li><li><strong>香气:</strong> 有浓郁持久的香气，假品无香或异味</li><li><strong>火烧:</strong> 真品燃烧冒白烟，有甜香；假品冒黑烟、刺鼻</li><li><strong>浸水:</strong> 水浸无色素溶出（染色剂假品会有颜色）</li><li><strong>产地:</strong> 海南产为道地药材，尤以五指山产最佳</li></ul>
 </div>
-
-<div class="content-section">
-<h2>市场行情</h2>
-<p><strong>价格区间：</strong></p>
-<ul>
-<li>普通降真香：300-800元/kg</li>
-<li>老料/优质料：1000-3000元/kg</li>
-<li>远低于沉香价格</li>
-</ul>
-<p><strong>产地：</strong>海南、广东、广西、云南等地</p>
-<p><strong>用途：</strong>香料、雕刻、入药、把玩件</p>
+<div class="card">
+<h2>与沉香的区别</h2>
+<div class="tag-row"><span class="tag">沉香</span><span class="tag">对比</span><span class="tag">区别</span></div>
+<p><strong>来源</strong> 降真香=黄檀属心材；沉香=瑞香科沉香属含树脂心材</p>
+<p><strong>香气</strong> 降真香=清凉甜香；沉香=层次丰富（甜凉奶果香）</p>
+<p><strong>价格</strong> 降真香<沉香，沉香更名贵</p>
+<p><strong>功效侧重</strong> 降真香偏行气止血；沉香偏温肾纳气</p>
+<p><strong>共同点</strong> 均为名贵香料+药材，均可燃烧品香</p>
 </div>
-
-<div class="content-section">
+<div class="card">
+<h2>市场行情（参考）</h2>
+<div class="tag-row"><span class="tag">价格</span><span class="tag">行情</span></div>
+<p><strong>海南降真香（优质心材）</strong> 约 300~1500 元/kg</p>
+<p><strong>普通降真香</strong> 约 50~200 元/kg</p>
+<p><strong>特点</strong> 野生资源减少，优质大料价格持续上涨</p>
 </div>
-
+<div class="card">
+<h2>使用注意</h2>
+<div class="warning">&#x26A0; 阴虚火旺、血热妄行所致出血者慎用；孕妇慎服；香料用须注意过敏测试。</div>
 </div>
-<footer>由 QClaw AI 整理 · 数据持续更新</footer>
+<footer>由 QClaw AI 整理 &middot; 数据持续更新 &middot; 最后更新：2026年6月</footer>
+</div>
 </body>
 </html>

@@ -193,24 +193,29 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function () {
           showCopied(btn);
+        }).catch(function () {
+          fallbackCopy(text, btn);
         });
       } else {
-        // Fallback
-        var ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.left = '-9999px';
-        document.body.appendChild(ta);
-        ta.select();
-        try {
-          document.execCommand('copy');
-          showCopied(btn);
-        } catch (err) {
-          // silently fail
-        }
-        document.body.removeChild(ta);
+        fallbackCopy(text, btn);
       }
     });
+
+    function fallbackCopy(text, btn) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showCopied(btn);
+      } catch (err) {
+        // silently fail
+      }
+      document.body.removeChild(ta);
+    }
 
     function showCopied(btn) {
       var original = btn.textContent;
@@ -219,12 +224,12 @@
       setTimeout(function () {
         btn.textContent = original;
         btn.classList.remove('copied');
-      }, 1500);
+      }, 2000);
     }
   })();
 
   // ============================================================
-  // 5. Site Search (站内搜索)
+  // 5. Site Search (站内搜索 + Modal)
   // ============================================================
   var searchIndex = [];
 
@@ -250,12 +255,20 @@
     var terms = q.split(/\s+/);
 
     return searchIndex.map(function (item) {
-      var pool = (item.title + ' ' + (item.keywords || '')).toLowerCase();
+      var title = (item.title || '').toLowerCase();
+      var keywords = (item.keywords || '').toLowerCase();
+      var desc = (item.description || '').toLowerCase();
+      var pool = title + ' ' + keywords + ' ' + desc;
       var score = 0;
 
       terms.forEach(function (term) {
         if (pool.indexOf(term) !== -1) {
-          score += pool.indexOf(term) === 0 ? 2 : 1; // title match bonus
+          // title match gets higher score
+          if (title.indexOf(term) !== -1) score += 3;
+          // description match
+          else if (desc.indexOf(term) !== -1) score += 2;
+          // keywords match
+          else score += 1;
         }
       });
 
@@ -270,83 +283,193 @@
     if (!container) return;
 
     if (results.length === 0) {
-      container.innerHTML = '<div class="no-results">没有找到相关内容</div>';
-      container.classList.add('has-results');
+      container.innerHTML = '<div class="search-no-results">没有找到相关内容</div>';
       return;
     }
 
-    var html = '';
+    var html = '<div class="search-results-list">';
     results.forEach(function (item) {
-      html += '<a href="' + item.url + '">' + item.title + '</a>';
+      var desc = item.description ? item.description : (item.keywords ? item.keywords.substring(0, 50) + '...' : '');
+      html += '<a href="' + item.url + '" class="search-result-item">';
+      html += '<div class="search-result-title">' + item.title + '</div>';
+      if (desc) {
+        html += '<div class="search-result-desc">' + desc + '</div>';
+      }
+      html += '</a>';
     });
+    html += '</div>';
     container.innerHTML = html;
-    container.classList.add('has-results');
+  }
+
+  // Create search modal if not exists
+  function ensureSearchModal() {
+    var existing = document.getElementById('searchModal');
+    if (existing) return existing;
+
+    var modal = document.createElement('div');
+    modal.id = 'searchModal';
+    modal.className = 'search-modal';
+    modal.innerHTML =
+      '<div class="search-modal-content">' +
+        '<div class="search-modal-header">' +
+          '<input type="text" class="search-modal-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">' +
+          '<button class="search-modal-close" aria-label="关闭搜索">&times;</button>' +
+        '</div>' +
+        '<div class="search-modal-results"></div>' +
+      '</div>';
+
+    document.body.appendChild(modal);
+    return modal;
   }
 
   (function initSearch() {
-    var input = document.querySelector('.search-box input');
-    var resultsContainer = document.querySelector('.search-results');
-
-    if (!input) return;
-
+    // Load search index
     loadSearchIndex();
 
+    // Ensure modal exists
+    var modal = ensureSearchModal();
+    var input = modal.querySelector('.search-modal-input');
+    var resultsContainer = modal.querySelector('.search-modal-results');
+    var closeBtn = modal.querySelector('.search-modal-close');
+
+    // Search button in navbar
+    var searchBtn = document.getElementById('searchBtn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openSearchModal();
+      });
+    }
+
+    // Also handle home page search entry
+    var homeSearchInput = document.getElementById('homeSearchInput');
+    var homeSearchBtn = document.getElementById('homeSearchBtn');
+    if (homeSearchInput && homeSearchBtn) {
+      homeSearchBtn.addEventListener('click', function () {
+        openSearchModal(homeSearchInput.value);
+      });
+      homeSearchInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          openSearchModal(homeSearchInput.value);
+        }
+      });
+    }
+
+    function openSearchModal(initialQuery) {
+      modal.classList.add('active');
+      setTimeout(function () {
+        input.focus();
+        if (initialQuery) {
+          input.value = initialQuery;
+          handleSearch(input.value);
+        }
+      }, 50);
+    }
+
+    function closeSearchModal() {
+      modal.classList.remove('active');
+      input.value = '';
+      resultsContainer.innerHTML = '';
+    }
+
+    function handleSearch(query) {
+      if (query.length < 1) {
+        resultsContainer.innerHTML = '<div class="search-hint">输入关键词开始搜索</div>';
+        return;
+      }
+      var results = performSearch(query);
+      renderSearchResults(results, resultsContainer);
+    }
+
+    // Live search on input
     var debounceTimer = null;
     input.addEventListener('input', function () {
       clearTimeout(debounceTimer);
-      var query = input.value;
-
       debounceTimer = setTimeout(function () {
-        if (query.length < 1) {
-          if (resultsContainer) {
-            resultsContainer.innerHTML = '';
-            resultsContainer.classList.remove('has-results');
-          }
-          return;
-        }
-        var results = performSearch(query);
-        renderSearchResults(results, resultsContainer);
-      }, 200);
+        handleSearch(input.value);
+      }, 150);
     });
 
-    // Close results on click outside
-    document.addEventListener('click', function (e) {
-      if (resultsContainer && !e.target.closest('.search-box')) {
-        resultsContainer.classList.remove('has-results');
+    // Close button
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeSearchModal();
+      });
+    }
+
+    // Close on overlay click
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) {
+        closeSearchModal();
       }
     });
 
     // ESC to close
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && resultsContainer) {
-        resultsContainer.classList.remove('has-results');
-        input.blur();
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeSearchModal();
       }
     });
+
+    // Initial hint
+    resultsContainer.innerHTML = '<div class="search-hint">输入关键词开始搜索</div>';
   })();
 
   // ============================================================
-  // 6. Utility: Add copy buttons to code/pre blocks
+  // 6. Auto Copy Buttons (自动添加复制按钮)
   // ============================================================
   (function autoAddCopyButtons() {
-    var blocks = document.querySelectorAll('pre, .code-block');
-    blocks.forEach(function (block) {
-      var wrapper = document.createElement('div');
-      wrapper.style.position = 'relative';
+    // Wait for DOM ready
+    function init() {
+      // 1. Add copy button to pre code blocks (top-right corner)
+      var codeBlocks = document.querySelectorAll('pre');
+      codeBlocks.forEach(function (block) {
+        // Check if already wrapped
+        if (block.parentElement.classList.contains('code-block-wrapper')) return;
 
-      block.parentNode.insertBefore(wrapper, block);
-      wrapper.appendChild(block);
+        var wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        wrapper.style.position = 'relative';
 
-      var btn = document.createElement('button');
-      btn.className = 'copy-btn';
-      btn.textContent = '复制';
-      btn.setAttribute('data-copy-target', block.tagName.toLowerCase() === 'pre' ? 'pre' : '.code-block');
-      btn.style.position = 'absolute';
-      btn.style.top = '4px';
-      btn.style.right = '4px';
+        block.parentNode.insertBefore(wrapper, block);
+        wrapper.appendChild(block);
 
-      wrapper.appendChild(btn);
-    });
+        var btn = document.createElement('button');
+        btn.className = 'copy-btn code-copy-btn';
+        btn.innerHTML = '📋 复制';
+        btn.setAttribute('data-copy-text', block.textContent || block.innerText || '');
+        btn.style.position = 'absolute';
+        btn.style.top = '8px';
+        btn.style.right = '8px';
+        btn.style.zIndex = '10';
+
+        wrapper.appendChild(btn);
+      });
+
+      // 2. Add copy button to .tip-box and .warning-box (bottom-right)
+      var infoBoxes = document.querySelectorAll('.tip-box, .warning-box');
+      infoBoxes.forEach(function (box) {
+        if (box.querySelector('.copy-btn')) return; // already has button
+
+        var btn = document.createElement('button');
+        btn.className = 'copy-btn box-copy-btn';
+        btn.textContent = '复制';
+        btn.setAttribute('data-copy-text', box.textContent || box.innerText || '');
+        btn.style.cssText = 'position:absolute;bottom:8px;right:8px;z-index:10;font-size:0.75rem;padding:4px 10px;';
+
+        box.style.position = 'relative';
+        box.appendChild(btn);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
   })();
 
 })();

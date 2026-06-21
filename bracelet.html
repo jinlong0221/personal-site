@@ -97,12 +97,13 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
 .bodhi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:var(--gap) 0}
 .bodhi-card{border-radius:2px;padding:24px;transition:transform .15s,filter .15s}
 .bodhi-card:hover{transform:scale(1.02);filter:brightness(1.1)}
-.bodhi-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
-.bodhi-card p{font-size:13px;color:rgba(255,255,255,.85);margin-bottom:6px}
+.bodhi-card h3{font-size:18px;font-weight:900;margin-bottom:10px;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.bodhi-card p{font-size:14px;color:rgba(255,255,255,.95);margin-bottom:6px;font-weight:500}
 .bodhi-card .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:2px;margin-top:6px}
-.bodhi-star{background:var(--green);color:#fff}
-.bodhi-feng{background:var(--orange);color:#fff}
-.bodhi-long{background:var(--purple);color:#fff}
+/* 深色调背景，减轻晃眼感 */
+.bodhi-star{background:linear-gradient(135deg,#0a4a0a 0%,#0d6d0d 100%);color:#fff;border-left:4px solid #107c10}
+.bodhi-feng{background:linear-gradient(135deg,#6b4200 0%,#8a5a00 100%);color:#fff;border-left:4px solid #ff8c00}
+.bodhi-long{background:linear-gradient(135deg,#3d3a7a 0%,#5a57a0 100%);color:#fff;border-left:4px solid #6b69d6}
 
 /* 盘玩步骤瓷砖 */
 .phase-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin:var(--gap) 0}

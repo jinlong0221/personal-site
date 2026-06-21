@@ -144,7 +144,7 @@ footer span { color: var(--metro-blue); font-weight: 700; }
 [data-theme="light"] .tag { background: rgba(107,105,214,0.1); color: #6b69d6; }
 [data-theme="light"] footer, [data-theme="light"] .subtitle, [data-theme="light"] header p { color: var(--text-muted); }
 .theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s; background: #333; color: #fff; }
-.theme-toggle:hover { transform: scale(1.15); }
+
 [data-theme="light"] .theme-toggle { background: #fff; color: #333; border: 1px solid #ddd; }
 
 
@@ -160,8 +160,15 @@ footer span { color: var(--metro-blue); font-weight: 700; }
 [data-theme="light"] .tag { background: rgba(107,105,214,0.1); color: #6b69d6; }
 [data-theme="light"] footer, [data-theme="light"] .subtitle, [data-theme="light"] header p, [data-theme="light"] .back { color: var(--text-muted); }
 .theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s, background 0.3s; background: #333; color: #fff; }
-.theme-toggle:hover { transform: scale(1.15); }
+
 [data-theme="light"] .theme-toggle { background: #fff; color: #333; border: 1px solid #ddd; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+
+
+/* === Theme Toggle Button === */
+.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.theme-toggle:hover{transform:scale(1.15);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+[data-theme="light"] .theme-toggle{background:#fff;color:#333;border:1px solid #ddd;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+[data-theme="light"] .theme-toggle:hover{background:#f0f0f0}
 
 </style>
 </head>
@@ -354,16 +361,37 @@ footer span { color: var(--metro-blue); font-weight: 700; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 <script>
-(function(){function g(){var h=new Date().getHours();return(h>=6&&h<18)?"light":"dark";}function a(t){document.documentElement.setAttribute("data-theme",t);localStorage.setItem("theme",t);}var s=localStorage.getItem("theme");if(s){a(s);}else{a(g());}var b=document.getElementById("tb");if(b){b.onclick=function(){var c=document.documentElement.getAttribute("data-theme");a(c==="dark"?"light":"dark");};function u(){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"\u2600\ufe0f":"\ud83c\udf19";}u();new MutationObserver(u).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});}})();
-</script>
-
-
-
-<script>
-(function(){function g(){var h=new Date().getHours();return(h>=6&&h<18)?'light':'dark';}function a(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);}var s=localStorage.getItem('theme');if(s){a(s);}else{a(g());}var b=document.getElementById('tb');if(b){b.addEventListener('click',function(){var c=document.documentElement.getAttribute('data-theme');a(c==='dark'?'light':'dark');});function u(){b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';}u();new MutationObserver(u).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+(function(){
+  function getTheme(){var h=new Date().getHours();return h>=6&&h<18?'light':'dark';}
+  function apply(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);}
+  var saved=localStorage.getItem('theme');
+  if(saved){apply(saved);}else{apply(getTheme());}
+  var btn=document.getElementById('tb');
+  if(btn){
+    btn.addEventListener('click',function(){
+      var cur=document.documentElement.getAttribute('data-theme');
+      apply(cur==='dark'?'light':'dark');
+    });
+    function updateIcon(){
+      btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';
+    }
+    updateIcon();
+    new MutationObserver(updateIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  }
+})();
 </script>
 <button class="theme-toggle" id="tb">🌙</button>
-
 </body>
 </html>

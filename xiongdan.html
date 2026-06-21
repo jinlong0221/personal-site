@@ -1,92 +1,85 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
 <title>熊胆 - 龙兄知识库</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0;
-  --blue: #0078d4; --green: #107c10; --orange: #ff8c00;
-  --red: #e81123; --purple: #6b69d6; --border: #333;
-}
-body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-.navbar { position: sticky; top: 0; z-index: 200; background: #000; border-bottom: 1px solid var(--border); }
-.navbar-inner { max-width: 1000px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
-.navbar-logo { font-family: 'Ma Shan Zheng', cursive; font-size: 28px; color: #fff; text-decoration: none; }
-.navbar-back { color: var(--blue); text-decoration: none; font-weight: 600; }
-.page-header { padding: 40px 0; border-bottom: 1px solid var(--border); }
-.page-header .emoji { font-size: 48px; margin-bottom: 12px; }
-.page-header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
-.page-header p { font-size: 16px; color: var(--text-secondary); }
-.content-section { background: #1a1a1a; border: 1px solid var(--border); padding: 30px; margin: 24px 0; }
-.content-section h2 { font-size: 22px; font-weight: 900; margin-bottom: 16px; color: var(--red); }
-.content-section h3 { font-size: 18px; font-weight: 700; margin: 20px 0 10px; }
-.content-section p, .content-section li { font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
-.content-section ul { padding-left: 20px; }
-.warning-box { background: rgba(232,17,35,0.1); border: 1px solid var(--red); padding: 20px; margin: 16px 0; }
-.warning-box h3 { color: var(--red); margin-bottom: 10px; }
-footer { text-align: center; padding: 40px 0; color: #666; font-size: 13px; }
+<style>* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0a0a0a; --text: #ffffff; --text2: #b0b0b0; --text3: #888; --border: #333; --card: #141414; }
+body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+.navbar { position: sticky; top: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--border); }
+.navbar-inner { max-width: 900px; margin: 0 auto; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Ma Shan Zheng', cursive; font-size: 26px; color: #fff; text-decoration: none; }
+.back { color: var(--text3); text-decoration: none; font-size: 14px; font-weight: 600; }
+.back:hover { color: #fff; }
+header { padding: 36px 0 28px; border-bottom: 1px solid var(--border); }
+header .emoji { font-size: 52px; margin-bottom: 10px; }
+header h1 { font-size: 34px; font-weight: 900; margin-bottom: 10px; }
+header p { font-size: 15px; color: var(--text2); }
+.card { background: var(--card); border: 1px solid var(--border); padding: 24px; margin: 16px 0; }
+.card h2 { font-size: 18px; font-weight: 900; margin-bottom: 14px; color: var(--text); border-left: 4px solid var(--accent, #6b69d6); padding-left: 12px; }
+.card p, .card li { font-size: 14px; color: var(--text2); margin-bottom: 8px; }
+.card ul { padding-left: 20px; }
+.card li { margin-bottom: 6px; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.tag { font-size: 11px; font-weight: 700; padding: 4px 10px; background: rgba(107,105,214,0.15); color: #9b99e0; }
+.warning { background: rgba(232,17,35,0.1); border-color: rgba(232,17,35,0.3); padding: 12px 16px; margin: 12px 0; font-size: 13px; color: #ff6b6b; }
+footer { text-align: center; padding: 40px 0 30px; color: var(--text3); font-size: 12px; border-top: 1px solid var(--border); margin-top: 20px; }
 </style>
 </head>
 <body>
 <nav class="navbar"><div class="navbar-inner">
-<a href="index.html" class="navbar-logo">龙兄知识库</a>
-<a href="herbs.html" class="navbar-back">← 中药材</a>
+<a href="index.html" class="logo">龙兄知识库</a>
+<a href="herbs.html" class="back">&larr; 中药材</a>
 </div></nav>
 <div class="container">
-<div class="page-header">
+<header>
 <div class="emoji">🐻</div>
 <h1>熊胆</h1>
-<p>珍稀动物药材，清热平肝、明目解毒。国家重点保护野生动物，使用受限。</p>
-</div>
-
-<div class="content-section">
+<p>黑熊/棕熊胆囊 · 清热解毒 · 名贵动物药材（慎用）</p>
+</header>
+<div class="card">
 <h2>基本信息</h2>
-<p><strong>来源：</strong>熊科动物黑熊或棕熊的干燥胆囊</p>
-<p><strong>性味归经：</strong>苦、寒。归肝、胆、心经。</p>
-<p><strong>功效：</strong>清热解毒，平肝明目，杀虫止血。用于肝热惊痫，目赤肿痛，黄疸，咽喉肿痛。</p>
+<div class="tag-row"><span class="tag">动物性药材</span><span class="tag">国家保护</span><span class="tag">传统名贵</span></div>
+<ul><li><strong>来源:</strong> 熊科动物黑熊或棕熊的干燥胆囊</li><li><strong>主产地:</strong> 四川、云南、黑龙江</li><li><strong>性味:</strong> 苦，寒；归肝、胆、心经</li><li><strong>入药部位:</strong> 干燥胆汁，胆囊完整者为佳（金胆 > 墨胆 > 菜花胆 > 铁胆）</li></ul>
 </div>
-
-<div class="warning-box">
-<h3>⚠️ 重要提醒</h3>
-<p>熊属于国家重点保护野生动物，野生熊胆获取违法。目前市场以人工养殖熊引流取胆或人工合成品（熊去氧胆酸）为主。购买请认准合法渠道和人工养殖证明。</p>
+<div class="card">
+<h2>主要功效</h2>
+<div class="tag-row"><span class="tag">清热解毒</span><span class="tag">明目</span><span class="tag">息风</span><span class="tag">利胆</span></div>
+<ul><li>清热解毒：治热毒疮痈、咽喉肿痛、口舌生疮</li><li>清肝明目：肝火上炎所致目赤肿痛、视力模糊</li><li>息风止痉：高热惊厥、癫痫抽搐</li><li>利胆退黄：促进胆汁分泌，辅助治黄疸、胆囊炎</li><li>平喘：痰热咳喘</li></ul>
 </div>
-
-<div class="content-section">
-<h2>鉴别要点</h2>
-<h3>正品特征</h3>
-<ul>
-<li><strong>性状：</strong>呈长扁卵形，上部狭细，下部膨大。长10-20cm，宽5-10cm</li>
-<li><strong>表面：</strong>黑色、棕黑色或黄绿色，有皱褶</li>
-<li><strong>质地：</strong>薄如纸，对光透视半透明</li>
-<li><strong>气味：</strong>气清香，味苦回甘</li>
-</ul>
-<h3>现代替代品</h3>
-<ul>
-<li><strong>熊去氧胆酸（UDCA）：</strong>人工合成，用于利胆、溶解胆结石</li>
-<li><strong>引流熊胆粉：</strong>人工养殖熊胆汁干燥品，含量差异大</li>
-</ul>
+<div class="card">
+<h2>质量分级</h2>
+<div class="tag-row"><span class="tag">品级</span><span class="tag">鉴别</span><span class="tag">金胆</span><span class="tag">墨胆</span></div>
+<p><strong>金胆（铜胆）</strong> 金黄色、半透明、光泽好，为上品</p>
+<p><strong>墨胆（铁胆）</strong> 黑色、质硬、药用价值次之</p>
+<p><strong>菜花胆</strong> 黄绿色或青褐色，品质中等</p>
+<p><strong>铁胆</strong> 灰褐色或黑色，质次</p>
+<p><strong>鉴别</strong> 胆囊皮薄而紧、胆仁金黄明亮为佳；胆仁暗淡、有异味者次</p>
 </div>
-
-<div class="content-section">
-<h2>市场行情</h2>
-<p><strong>价格区间：</strong></p>
-<ul>
-<li>天然熊胆：极罕见，黑市价格极高，不推荐购买</li>
-<li>引流熊胆粉：500-2000元/g（含量不一）</li>
-<li>熊去氧胆酸制剂：50-200元/盒（药品）</li>
-</ul>
-<p><strong>合法渠道：</strong>仅限持有《国家重点保护野生动物驯养繁殖许可证》的养殖场</p>
+<div class="card">
+<h2>现代替代品</h2>
+<div class="tag-row"><span class="tag">人工熊胆</span><span class="tag">替代</span><span class="tag">动物保护</span></div>
+<p>现代医学证明，熊胆的药理作用完全可以被更廉价、更易获取的药物替代。人工熊胆粉已可规模化生产，疗效与天然熊胆相当。</p>
+<p><strong>人工熊胆粉</strong> 含胆红素、熊去氧胆酸等核心成分，可替代</p>
+<p><strong>熊去氧胆酸胶囊</strong> 西药制剂，用于胆汁淤积、肝胆疾病</p>
+<p><strong>猪胆</strong> 也有清热解毒作用，来源广泛，伦理问题小</p>
 </div>
-
-<div class="content-section">
+<div class="card">
+<h2>市场行情（参考）</h2>
+<div class="tag-row"><span class="tag">价格</span><span class="tag">行情</span></div>
+<p><strong>天然熊胆（优质）</strong> 数千元至万元/kg，极为昂贵</p>
+<p><strong>人工熊胆粉</strong> 约 200~400 元/kg，经济实惠</p>
+<p><strong>熊去氧胆酸片</strong> 医院药房有售，价格低廉</p>
+<p><strong>提示</strong> 天然熊胆因野生动物保护已基本退出合法市场</p>
 </div>
-
+<div class="card">
+<h2>重要提醒</h2>
+<div class="warning">&#x26A0; 猎熊取胆属违法行为。保护黑熊，人人有责。建议使用人工熊胆或其他合法替代品。</div>
 </div>
-<footer>由 QClaw AI 整理 · 数据持续更新</footer>
+<footer>由 QClaw AI 整理 &middot; 数据持续更新 &middot; 最后更新：2026年6月</footer>
+</div>
 </body>
 </html>

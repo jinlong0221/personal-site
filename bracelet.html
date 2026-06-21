@@ -64,14 +64,14 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
 .tile-grid .tile-full{grid-column:span 3}
 
 /* 进度条 */
-.tile-progress{background:var(--dark);border:1px solid var(--border);padding:28px;margin-bottom:var(--gap)}
-.tile-progress h2{font-size:20px;font-weight:700;margin-bottom:16px}
-.progress-bar{width:100%;height:6px;background:#222;border-radius:3px;overflow:hidden}
-.progress-bar .fill{height:100%;background:var(--blue);border-radius:3px;transition:width .3s}
-.progress-stats{display:flex;gap:40px;margin-top:18px;flex-wrap:wrap}
-.progress-stats .stat .label{font-size:12px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.progress-stats .stat .val{font-size:28px;font-weight:700;color:var(--blue)}
-.progress-stats .stat .val.small{font-size:15px;color:var(--text2)}
+
+
+
+
+
+
+
+
 
 /* 内容区块 */
 .section{display:none;animation:fadeIn .25s ease}
@@ -165,7 +165,7 @@ footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
 @media(max-width:480px){
   .bodhi-grid,.taboo-grid,.phase-grid{grid-template-columns:1fr}
   .process-grid{grid-template-columns:repeat(2,1fr)}
-  .progress-stats{gap:20px}
+  
 }
 </style>
 </head>
@@ -188,17 +188,6 @@ footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
 </div>
 
 <div class="container">
-
-<!-- 学习进度 -->
-<div class="tile-progress" id="panel-progress">
-  <h2>学习进度</h2>
-  <div class="progress-bar"><div class="fill" style="width:18%"></div></div>
-  <div class="progress-stats">
-    <div class="stat"><div class="label">学习专题</div><div class="val">5</div></div>
-    <div class="stat"><div class="label">盘玩指南</div><div class="val">完整</div></div>
-    <div class="stat"><div class="label">最后更新</div><div class="val small">2026-06-21</div></div>
-  </div>
-</div>
 
 <!-- 全部面板 -->
 <div class="panel-all" id="panel-all">
@@ -409,7 +398,6 @@ footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
   'use strict';
   var tabBtns=document.querySelectorAll('.tab-btn');
   var allPanel=document.getElementById('panel-all');
-  var progressSection=document.getElementById('panel-progress');
   var updateLog=document.getElementById('panel-update');
   var container=document.querySelector('.container');
   var sectionIds=['section-identify','section-xingyue','section-panwan','section-diy','section-brand'];
@@ -422,7 +410,6 @@ footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
         var s=document.getElementById(id);
         if(s){s.style.display='block';if(s.parentElement!==allPanel)allPanel.appendChild(s)}
       });
-      container.insertBefore(progressSection,allPanel);
       container.appendChild(updateLog);
     }else{
       allPanel.style.display='none';

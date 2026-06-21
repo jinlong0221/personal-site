@@ -3,509 +3,439 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <title>文玩手串 - 龙兄知识库</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root { 
-  --text: #1d1d1f; 
-  --text-secondary: #86868b; 
-  --bg: #fbfbfd; 
-  --card: #ffffff; 
-  --border: #d2d2d7; 
-  --accent: #0071e3; 
-  --radius: 20px;
-  --header-height: 64px;
-  --tab-height: 52px;
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0a;--text:#fff;--text2:#aaa;
+  --blue:#0078d4;--green:#107c10;--orange:#ff8c00;--red:#e81123;
+  --purple:#6b69d6;--teal:#008272;--pink:#c30052;--yellow:#ffb900;
+  --dark:#1a1a1a;--border:#333;--gap:4px;
 }
-body { 
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; 
-  background: var(--bg); 
-  color: var(--text); 
-  line-height: 1.6; 
-  -webkit-font-smoothing: antialiased;
-  padding-top: calc(var(--header-height) + var(--tab-height) + 20px);
-}
-.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;padding-top:110px}
+.container{max-width:960px;margin:0 auto;padding:0 12px}
 
-/* 紧凑头部 */
-.compact-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--header-height);
-  background: rgba(251,251,253,0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  z-index: 100;
-  border-bottom: 1px solid rgba(210,210,215,0.5);
+/* 导航栏 */
+.metro-nav{
+  position:fixed;top:0;left:0;right:0;height:56px;
+  background:#111;z-index:200;
+  border-bottom:1px solid #222;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
 }
-.compact-header .container {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  gap: 16px;
-}
-.compact-header .back-link {
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 14px;
-  white-space: nowrap;
-}
-.compact-header .back-link:hover { text-decoration: underline; }
-.compact-header h1 {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0;
-  white-space: nowrap;
-}
-.compact-header .emoji {
-  font-size: 24px;
-  margin: 0;
-}
+.metro-nav .logo{font-family:'Ma Shan Zheng',cursive;font-size:26px;color:#fff;text-decoration:none;letter-spacing:2px}
+.metro-nav .home{color:var(--blue);font-size:14px;text-decoration:none;font-weight:700}
+.metro-nav .home:hover{color:#4ca3e8}
 
-/* Sticky Tab 导航 */
-.tab-nav {
-  position: fixed;
-  top: var(--header-height);
-  left: 0;
-  right: 0;
-  height: var(--tab-height);
-  background: rgba(251,251,253,0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  z-index: 99;
-  border-bottom: 1px solid rgba(210,210,215,0.5);
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
+/* Metro Tab */
+.metro-tabs{
+  position:fixed;top:56px;left:0;right:0;height:48px;
+  background:#111;z-index:199;
+  border-bottom:1px solid #222;
+  display:flex;align-items:stretch;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
 }
-.tab-nav::-webkit-scrollbar { display: none; }
-.tab-nav .container {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  gap: 0;
+.metro-tabs::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex-shrink:0;padding:0 20px;height:100%;
+  display:flex;align-items:center;
+  background:none;border:none;
+  font-size:14px;font-weight:700;
+  color:var(--text2);cursor:pointer;
+  font-family:inherit;
+  border-bottom:3px solid transparent;
+  transition:color .15s,border-color .15s;
+  white-space:nowrap;
 }
-.tab-btn {
-  flex-shrink: 0;
-  padding: 0 20px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  background: none;
-  border: none;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
-  white-space: nowrap;
-  font-family: inherit;
-}
-.tab-btn:hover {
-  color: var(--text);
-}
-.tab-btn.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
 
-/* 进度条区域 */
-.progress-section {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 30px;
-  margin: 20px 0;
-  box-shadow: 0 4px 40px rgba(0,0,0,0.04);
-  border: 1px solid rgba(210,210,215,0.4);
+/* 瓷砖基础 */
+.tile{
+  border-radius:2px;
+  padding:24px;
+  transition:transform .15s,filter .15s;
+  cursor:default;
 }
-.progress-section h2 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background: #e8e8ed;
-  border-radius: 4px;
-  overflow: hidden;
-}
-.progress-bar .fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), #42a5f5);
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-.progress-stats {
-  display: flex;
-  gap: 40px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-.progress-stats .stat .label {
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-.progress-stats .stat .val {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--accent);
-}
+.tile:hover{transform:scale(1.02);filter:brightness(1.1)}
+.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:var(--gap)}
+.tile-grid .tile-wide{grid-column:span 2}
+.tile-grid .tile-full{grid-column:span 3}
 
-/* 内容面板 */
-.content-section {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 40px;
-  margin: 20px 0;
-  box-shadow: 0 4px 40px rgba(0,0,0,0.04);
-  border: 1px solid rgba(210,210,215,0.4);
-  display: none;
-}
-.content-section.active {
-  display: block;
-  animation: fadeIn 0.3s ease;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.content-section h2 {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-}
-.content-section h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 32px 0 16px;
-  color: var(--accent);
-}
-.content-section p {
-  font-size: 16px;
-  margin-bottom: 16px;
-}
-.content-section ul, .content-section ol {
-  margin: 16px 0;
-  padding-left: 24px;
-}
-.content-section li {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-.tip-box {
-  background: #d1ecf1;
-  border-left: 4px solid var(--accent);
-  padding: 16px 20px;
-  border-radius: 8px;
-  margin: 20px 0;
-}
-.tip-box strong { color: var(--accent); }
-.warn-box {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 16px 20px;
-  border-radius: 8px;
-  margin: 20px 0;
-}
-.warn-box strong { color: #856404; }
-.phase-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
-.phase-table th, .phase-table td {
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 15px;
-  border-bottom: 1px solid var(--border);
-}
-.phase-table th {
-  font-weight: 600;
-  color: var(--text-secondary);
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.phase-table tr:last-child td {
-  border-bottom: none;
-}
+/* 进度条 */
+.tile-progress{background:var(--dark);border:1px solid var(--border);padding:28px;margin-bottom:var(--gap)}
+.tile-progress h2{font-size:20px;font-weight:700;margin-bottom:16px}
+.progress-bar{width:100%;height:6px;background:#222;border-radius:3px;overflow:hidden}
+.progress-bar .fill{height:100%;background:var(--blue);border-radius:3px;transition:width .3s}
+.progress-stats{display:flex;gap:40px;margin-top:18px;flex-wrap:wrap}
+.progress-stats .stat .label{font-size:12px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.progress-stats .stat .val{font-size:28px;font-weight:700;color:var(--blue)}
+.progress-stats .stat .val.small{font-size:15px;color:var(--text2)}
+
+/* 内容区块 */
+.section{display:none;animation:fadeIn .25s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* 内容面板内标题 */
+.section h2{font-size:22px;font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #222}
+.section h3{font-size:17px;font-weight:700;margin:28px 0 12px;color:var(--blue)}
+.section p,.section li{font-size:14px;line-height:1.7;color:#ddd;margin-bottom:8px}
+.section ul,.section ol{margin:12px 0;padding-left:20px}
+.section li{margin-bottom:6px}
+
+/* Metro表格 */
+.m-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+.m-table th,.m-table td{padding:12px 14px;text-align:left;border-bottom:1px solid #222}
+.m-table th{background:var(--dark);color:var(--text2);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.m-table td{color:#ddd}
+.m-table tr:last-child td{border-bottom:none}
+.m-table strong{color:#fff}
+
+/* 三大菩提瓷砖 */
+.bodhi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:var(--gap) 0}
+.bodhi-card{border-radius:2px;padding:24px;transition:transform .15s,filter .15s}
+.bodhi-card:hover{transform:scale(1.02);filter:brightness(1.1)}
+.bodhi-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
+.bodhi-card p{font-size:13px;color:rgba(255,255,255,.85);margin-bottom:6px}
+.bodhi-card .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:2px;margin-top:6px}
+.bodhi-star{background:var(--green);color:#fff}
+.bodhi-feng{background:var(--orange);color:#fff}
+.bodhi-long{background:var(--purple);color:#fff}
+
+/* 盘玩步骤瓷砖 */
+.phase-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin:var(--gap) 0}
+.phase-tile{border-radius:2px;padding:20px;background:var(--dark);border:1px solid var(--border);transition:transform .15s,filter .15s}
+.phase-tile:hover{transform:scale(1.02);filter:brightness(1.1)}
+.phase-tile .phase-num{font-size:32px;font-weight:700;color:var(--blue);line-height:1}
+.phase-tile .phase-name{font-size:15px;font-weight:700;margin:8px 0 4px}
+.phase-tile .phase-time{font-size:11px;color:var(--text2);margin-bottom:6px}
+.phase-tile .phase-desc{font-size:12px;color:#aaa}
+.phase-tile .phase-goal{font-size:12px;color:var(--teal);margin-top:6px;font-weight:700}
+
+/* Metro tip/warn boxes */
+.tip-box{background:#0d2d3d;border-left:4px solid var(--blue);padding:14px 18px;border-radius:2px;margin:16px 0;font-size:14px;color:#ddd}
+.tip-box strong{color:var(--blue)}
+.warn-box{background:#3d2d0d;border-left:4px solid var(--yellow);padding:14px 18px;border-radius:2px;margin:16px 0;font-size:14px;color:#ddd}
+.warn-box strong{color:var(--yellow)}
+
+/* 禁忌瓷砖 */
+.taboo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:16px 0}
+.taboo-tile{border-radius:2px;padding:20px;transition:transform .15s,filter .15s}
+.taboo-tile:hover{transform:scale(1.02);filter:brightness(1.1)}
+.taboo-tile h4{font-size:15px;font-weight:700;margin-bottom:6px}
+.taboo-tile p{font-size:13px;color:rgba(255,255,255,.85)}
+
+/* 加工工序 */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin:16px 0}
+.step-tile{border-radius:2px;padding:14px 16px;background:var(--dark);border:1px solid var(--border);transition:transform .15s,filter .15s;text-align:center}
+.step-tile:hover{transform:scale(1.02);filter:brightness(1.1)}
+.step-tile .step-num{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:2px}
+.step-tile .step-name{font-size:12px;font-weight:700;color:#ddd}
+
+/* 品牌梯队 */
+.brand-tile{border-radius:2px;padding:20px;transition:transform .15s,filter .15s}
+.brand-tile:hover{transform:scale(1.02);filter:brightness(1.1)}
+.brand-tile h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.brand-tile .tier{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:6px}
+.brand-tile p{font-size:13px;color:rgba(255,255,255,.85)}
 
 /* 更新日志 */
-.update-log {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 30px;
-  margin: 20px 0;
-  box-shadow: 0 4px 40px rgba(0,0,0,0.04);
-  border: 1px solid rgba(210,210,215,0.4);
-}
-.update-log h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-.update-log .log-item {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-}
-.update-log .log-item:last-child {
-  border-bottom: none;
-}
-.update-log .log-item .date {
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-.update-log .log-item .text {
-  font-size: 15px;
-  margin-top: 4px;
-}
+.update-tile{background:var(--dark);border:1px solid var(--border);padding:20px;margin-top:var(--gap);border-radius:2px}
+.update-tile h3{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--text2)}
+.log-item{padding:10px 0;border-bottom:1px solid #222}
+.log-item:last-child{border-bottom:none}
+.log-item .date{font-size:12px;color:var(--blue);font-weight:700}
+.log-item .text{font-size:13px;color:#aaa;margin-top:4px}
 
-footer {
-  text-align: center;
-  padding: 60px 0 40px;
-  color: var(--text-secondary);
-  font-size: 13px;
-}
+footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
 
-/* 全部面板显示所有内容 */
-.panel-all .content-section {
-  display: block !important;
-}
+/* panel-all 显示全部 */
+.panel-all .section{display:block!important}
 
-@media (max-width: 768px) {
-  body { padding-top: calc(var(--header-height) + var(--tab-height) + 10px); }
-  .compact-header h1 { font-size: 18px; }
-  .tab-btn { padding: 0 14px; font-size: 14px; }
-  .content-section { padding: 24px; }
-  .content-section h2 { font-size: 22px; }
-  .progress-stats { gap: 20px; }
-  .progress-stats .stat .val { font-size: 22px; }
+@media(max-width:768px){
+  body{padding-top:116px}
+  .bodhi-grid,.phase-grid,.taboo-grid{grid-template-columns:1fr 1fr}
+  .process-grid{grid-template-columns:repeat(4,1fr)}
+  .tile-grid{grid-template-columns:1fr 1fr}
+  .tile-grid .tile-wide,.tile-grid .tile-full{grid-column:span 2}
+  .tab-btn{padding:0 14px;font-size:13px}
+}
+@media(max-width:480px){
+  .bodhi-grid,.taboo-grid,.phase-grid{grid-template-columns:1fr}
+  .process-grid{grid-template-columns:repeat(2,1fr)}
+  .progress-stats{gap:20px}
 }
 </style>
 </head>
 <body>
-<div style="background:#fff;border-bottom:1px solid #e8e8ed;padding:12px 0;position:sticky;top:0;z-index:200;backdrop-filter:blur(10px);background:rgba(255,255,255,0.9)">
-  <div style="max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between">
-    <a href="index.html" style="font-family:'Ma Shan Zheng',cursive;font-size:28px;color:#1d1d1f;text-decoration:none;letter-spacing:2px">龙兄知识库</a>
-    <a href="index.html" style="color:#0071e3;font-size:14px;text-decoration:none">← 首页</a>
-  </div>
-</div>
 
-<!-- 紧凑头部 -->
-<header class="compact-header">
-  <div class="container">
-    <span class="emoji">📿</span>
-    <h1>文玩手串</h1>
-  </div>
-</header>
-
-<!-- Sticky Tab 导航 -->
-<nav class="tab-nav">
-  <div class="container">
-    <button class="tab-btn active" data-tab="all">全部</button>
-    <button class="tab-btn" data-tab="identify">菩提鉴别</button>
-    <button class="tab-btn" data-tab="xingyue">星月详解</button>
-    <button class="tab-btn" data-tab="panwan">盘玩方法</button>
-    <button class="tab-btn" data-tab="diy">DIY加工</button>
-    <button class="tab-btn" data-tab="brand">品牌与市场</button>
-  </div>
+<!-- 导航栏 -->
+<nav class="metro-nav">
+  <a href="index.html" class="logo">龙兄知识库</a>
+  <a href="index.html" class="home">← 首页</a>
 </nav>
 
+<!-- Metro Tab -->
+<div class="metro-tabs">
+  <button class="tab-btn active" data-tab="all">全部</button>
+  <button class="tab-btn" data-tab="identify">菩提鉴别</button>
+  <button class="tab-btn" data-tab="xingyue">星月详解</button>
+  <button class="tab-btn" data-tab="panwan">盘玩方法</button>
+  <button class="tab-btn" data-tab="diy">DIY加工</button>
+  <button class="tab-btn" data-tab="brand">品牌与市场</button>
+</div>
+
 <div class="container">
-  <!-- 学习进度 -->
-  <div class="progress-section" id="panel-progress">
-    <h2>学习进度</h2>
-    <div class="progress-bar"><div class="fill" style="width: 18%"></div></div>
-    <div class="progress-stats">
-      <div class="stat"><div class="label">学习专题</div><div class="val">5</div></div>
-      <div class="stat"><div class="label">盘玩指南</div><div class="val">完整</div></div>
-      <div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)">2026-06-21</div></div>
-    </div>
-  </div>
 
-  <!-- 全部：显示所有内容 -->
-  <div class="panel-all" id="panel-all">
-    <!-- 三大菩提鉴别 -->
-    <div class="content-section" id="section-identify">
-      <h2>三大菩提鉴别</h2>
-      <table class="phase-table">
-        <tr><th>品种</th><th>外观特征</th><th>星点形状</th><th>市场价位</th></tr>
-        <tr><td><strong>星月菩提</strong></td><td>白底 + 黑色星点，像星月</td><td>均匀黑点，分布规则</td><td>入门到高端（品牌溢价大）</td></tr>
-        <tr><td><strong>凤眼菩提</strong></td><td>深褐底 + 深棕眼，像凤凰眼睛</td><td>椭圆形棕眼，1条眼线</td><td>最贵，尺寸越小越贵</td></tr>
-        <tr><td><strong>龙眼菩提</strong></td><td>浅褐底 + 棕色眼，像龙眼核</td><td>圆形眼，2条眼线交叉</td><td>中高端，稀缺</td></tr>
-      </table>
-      <div class="tip-box"><strong>💡 鉴别要点：</strong>星月看星点分布均匀度；凤眼看眼形圆润无畸形；龙眼看眼的线条（两条线交叉为龙眼，一条线为凤眼）。</div>
-    </div>
-
-    <!-- 星月菩提详解 -->
-    <div class="content-section" id="section-xingyue">
-      <h2>星月菩提详解</h2>
-      <h3>产地与品质</h3>
-      <ul>
-        <li><strong>海南毛感料：</strong>公认品质最优，星点细密均匀，密度高，盘玩后颜色漂亮。</li>
-        <li><strong>广西料：</strong>星点较粗，密度一般，性价比高。</li>
-        <li><strong>越南料：</strong>星点发红，品质参差不齐。</li>
-        <li><strong>五星帝王料：</strong>星点呈五星状分布，稀少，价格高。</li>
-      </ul>
-      <h3>形状分类</h3>
-      <ul>
-        <li><strong>正月：</strong>星点在正月位置（正中），最规整，价格最高。</li>
-        <li><strong>玄月（偏月）：</strong>星点偏，价格较低。</li>
-        <li><strong>无相：</strong>不规则多面切，每颗形状不同，盘玩挑战大但独一无二。</li>
-        <li><strong>原生态：</strong>保留黄藤果原始色泽，颜色多样（绿/粉/紫），近年来流行。</li>
-      </ul>
-      <h3>品牌与溢价</h3>
-      <ul>
-        <li><strong>欢见：</strong>文玩潮牌化代表，营销能力强，溢价率高达 360-600%。</li>
-        <li><strong>知行堂、琼珠工艺：</strong>口碑第一梯队，品质扎实。</li>
-        <li><strong>菩悦东方、吾文玩：</strong>第二梯队，性价比好。</li>
-      </ul>
-      <div class="warn-box"><strong>⚠️ 二手保值提醒：</strong>树籽类文玩二手市场折价 3-5 折，品牌溢价清零。一串原价 1799 元的欢见星月，闲鱼估价约 400-700 元。</div>
-    </div>
-
-    <!-- 盘玩方法 -->
-    <div class="content-section" id="section-panwan">
-      <h2>盘玩方法（星月菩提）</h2>
-      <table class="phase-table">
-        <tr><th>阶段</th><th>时间</th><th>方法</th><th>目标</th></tr>
-        <tr><td>抛光</td><td>7-14天</td><td>棉手套每日盘30分钟</td><td>去除车痕，形成基础光泽</td></tr>
-        <tr><td>静置</td><td>7天</td><td>自然放置，不盘不戴</td><td>让油脂自然氧化，形成软包浆</td></tr>
-        <tr><td>手盘</td><td>长期</td><td>净手盘5天，休息2天</td><td>逐步包浆上色</td></tr>
-        <tr><td>日常佩戴</td><td>中后期</td><td>正常佩戴，配合手盘</td><td>加速变色，深沉包浆</td></tr>
-      </table>
-      <h3>无相特别注意点</h3>
-      <ul>
-        <li>形状不规则，每颗转着盘，确保所有面都盘到。</li>
-        <li>孔道两侧重点盘，容易忽略但变色最快。</li>
-        <li>大切面防色差：每颗转方向，色差珠集中多盘。</li>
-      </ul>
-      <h3>三大禁忌</h3>
-      <ul>
-        <li><strong>水：</strong>星月菩提怕水，沾水后立即擦干，否则容易发霉开裂。</li>
-        <li><strong>大汗：</strong>汗液过多会让星月发黄发黑，前期一定要净手。</li>
-        <li><strong>干燥/暴晒：</strong>冷热交替易开裂，冬天远离暖气，夏天避免阳光直射。</li>
-      </ul>
-    </div>
-
-    <!-- DIY加工 -->
-    <div class="content-section" id="section-diy">
-      <h2>黄藤果加工工序（26步）</h2>
-      <ol>
-        <li>采摘黄藤果 → ②清洗去皮 → ③晾干 → ④储藏陈化 → ⑤去壳取籽 → ⑥筛选分级 → ⑦打孔定位 → ⑧干磨去皮 → ⑨粗磨去车痕 → ⑩细磨抛光 → ⑪精抛上光 → ⑫筛选形状 → ⑬配串定规 → ⑭打孔穿串 → ⑮定型校准 → ⑯静置氧化 → ⑰初盘上光 → ⑱静置氧化 → ⑲包浆固化 → ⑳保养护理 → ㉑配饰搭配 → ㉒包装入库</li>
-      </ol>
-      <div class="tip-box"><strong>💡 自制手串入门：</strong>如果想自己在家做手串，推荐方案：购买黄藤果原籽（海南产最佳）→ 用手钻打孔 → 砂纸从320目逐步打磨到2000目 → 弹力绳穿串。工具：手钻+砂纸组合（320/600/1000/2000目）+ 穿珠针 + 弹力绳。</div>
-    </div>
-
-    <!-- 品牌与市场 -->
-    <div class="content-section" id="section-brand">
-      <h2>品牌溢价与二手市场</h2>
-      <h3>主要品牌梯队</h3>
-      <ul>
-        <li><strong>欢见：</strong>文玩潮牌化代表，营销能力强，溢价率高达 360-600%。</li>
-        <li><strong>知行堂、琼珠工艺：</strong>口碑第一梯队，品质扎实，溢价率相对合理。</li>
-        <li><strong>菩悦东方、吾文玩：</strong>第二梯队，性价比好，适合入门。</li>
-      </ul>
-      <h3>二手保值率分析</h3>
-      <table class="phase-table">
-        <tr><th>品牌</th><th>原价区间</th><th>二手折价率</th><th>备注</th></tr>
-        <tr><td>欢见</td><td>800-2000元</td><td>3-5折</td><td>品牌溢价清零最快</td></tr>
-        <tr><td>知行堂</td><td>500-1500元</td><td>5-7折</td><td>品质认可度高，保值较好</td></tr>
-        <tr><td>无品牌/散珠</td><td>100-500元</td><td>1-3折</td><td>基本按料质计价</td></tr>
-      </table>
-      <div class="warn-box"><strong>⚠️ 购买建议：</strong>如果是新手，建议先买第二梯队（菩悦东方、吾文玩）练手，等熟悉后再考虑欢见等溢价品牌。二手市场淘货也是好选择，但需要注意辨别真假和品相。</div>
-    </div>
-  </div>
-
-  <!-- 更新日志 -->
-  <div class="update-log" id="panel-update">
-    <h3>更新记录</h3>
-    <div class="log-item"><div class="date">2026-06-21</div><div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div></div>
-    <div class="log-item"><div class="date">2026-06-20</div><div class="text">完成欢见品牌研究，用户持有3串星月菩提（欢见大切面×2 + 其他品牌小切面×1）盘玩方案确定。</div></div>
+<!-- 学习进度 -->
+<div class="tile-progress" id="panel-progress">
+  <h2>学习进度</h2>
+  <div class="progress-bar"><div class="fill" style="width:18%"></div></div>
+  <div class="progress-stats">
+    <div class="stat"><div class="label">学习专题</div><div class="val">5</div></div>
+    <div class="stat"><div class="label">盘玩指南</div><div class="val">完整</div></div>
+    <div class="stat"><div class="label">最后更新</div><div class="val small">2026-06-21</div></div>
   </div>
 </div>
 
+<!-- 全部面板 -->
+<div class="panel-all" id="panel-all">
+
+  <!-- 菩提鉴别 -->
+  <div class="section" id="section-identify">
+    <h2>三大菩提鉴别</h2>
+    <!-- 三大菩提瓷砖卡片 -->
+    <div class="bodhi-grid">
+      <div class="bodhi-card bodhi-star">
+        <h3>星月菩提</h3>
+        <p>白底 + 黑色星点，像星月</p>
+        <p>星点：均匀黑点，分布规则</p>
+        <span class="tag" style="background:rgba(255,255,255,.2)">入门到高端</span>
+      </div>
+      <div class="bodhi-card bodhi-feng">
+        <h3>凤眼菩提</h3>
+        <p>深褐底 + 深棕眼，像凤凰眼睛</p>
+        <p>星点：椭圆形棕眼，1条眼线</p>
+        <span class="tag" style="background:rgba(255,255,255,.2)">最贵</span>
+      </div>
+      <div class="bodhi-card bodhi-long">
+        <h3>龙眼菩提</h3>
+        <p>浅褐底 + 棕色眼，像龙眼核</p>
+        <p>星点：圆形眼，2条眼线交叉</p>
+        <span class="tag" style="background:rgba(255,255,255,.2)">中高端</span>
+      </div>
+    </div>
+    <!-- 鉴别表 -->
+    <table class="m-table">
+      <tr><th>品种</th><th>外观特征</th><th>星点形状</th><th>市场价位</th></tr>
+      <tr><td><strong>星月菩提</strong></td><td>白底 + 黑色星点，像星月</td><td>均匀黑点，分布规则</td><td>入门到高端（品牌溢价大）</td></tr>
+      <tr><td><strong>凤眼菩提</strong></td><td>深褐底 + 深棕眼，像凤凰眼睛</td><td>椭圆形棕眼，1条眼线</td><td>最贵，尺寸越小越贵</td></tr>
+      <tr><td><strong>龙眼菩提</strong></td><td>浅褐底 + 棕色眼，像龙眼核</td><td>圆形眼，2条眼线交叉</td><td>中高端，稀缺</td></tr>
+    </table>
+    <div class="tip-box"><strong>💡 鉴别要点：</strong>星月看星点分布均匀度；凤眼看眼形圆润无畸形；龙眼看眼的线条（两条线交叉为龙眼，一条线为凤眼）。</div>
+  </div>
+
+  <!-- 星月详解 -->
+  <div class="section" id="section-xingyue">
+    <h2>星月菩提详解</h2>
+    <h3>产地与品质</h3>
+    <ul>
+      <li><strong>海南毛感料：</strong>公认品质最优，星点细密均匀，密度高，盘玩后颜色漂亮。</li>
+      <li><strong>广西料：</strong>星点较粗，密度一般，性价比高。</li>
+      <li><strong>越南料：</strong>星点发红，品质参差不齐。</li>
+      <li><strong>五星帝王料：</strong>星点呈五星状分布，稀少，价格高。</li>
+    </ul>
+    <h3>形状分类</h3>
+    <ul>
+      <li><strong>正月：</strong>星点在正月位置（正中），最规整，价格最高。</li>
+      <li><strong>玄月（偏月）：</strong>星点偏，价格较低。</li>
+      <li><strong>无相：</strong>不规则多面切，每颗形状不同，盘玩挑战大但独一无二。</li>
+      <li><strong>原生态：</strong>保留黄藤果原始色泽，颜色多样（绿/粉/紫），近年来流行。</li>
+    </ul>
+    <h3>品牌与溢价</h3>
+    <ul>
+      <li><strong>欢见：</strong>文玩潮牌化代表，营销能力强，溢价率高达 360-600%。</li>
+      <li><strong>知行堂、琼珠工艺：</strong>口碑第一梯队，品质扎实。</li>
+      <li><strong>菩悦东方、吾文玩：</strong>第二梯队，性价比好。</li>
+    </ul>
+    <div class="warn-box"><strong>⚠️ 二手保值提醒：</strong>树籽类文玩二手市场折价 3-5 折，品牌溢价清零。一串原价 1799 元的欢见星月，闲鱼估价约 400-700 元。</div>
+  </div>
+
+  <!-- 盘玩方法 -->
+  <div class="section" id="section-panwan">
+    <h2>盘玩方法（星月菩提）</h2>
+    <!-- 步骤瓷砖 -->
+    <div class="phase-grid">
+      <div class="phase-tile">
+        <div class="phase-num">01</div>
+        <div class="phase-name">抛光</div>
+        <div class="phase-time">7-14天</div>
+        <div class="phase-desc">棉手套每日盘30分钟</div>
+        <div class="phase-goal">目标：去除车痕，形成基础光泽</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">02</div>
+        <div class="phase-name">静置</div>
+        <div class="phase-time">7天</div>
+        <div class="phase-desc">自然放置，不盘不戴</div>
+        <div class="phase-goal">目标：让油脂自然氧化，形成软包浆</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">03</div>
+        <div class="phase-name">手盘</div>
+        <div class="phase-time">长期</div>
+        <div class="phase-desc">净手盘5天，休息2天</div>
+        <div class="phase-goal">目标：逐步包浆上色</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">04</div>
+        <div class="phase-name">日常佩戴</div>
+        <div class="phase-time">中后期</div>
+        <div class="phase-desc">正常佩戴，配合手盘</div>
+        <div class="phase-goal">目标：加速变色，深沉包浆</div>
+      </div>
+    </div>
+    <!-- 盘玩表格 -->
+    <table class="m-table">
+      <tr><th>阶段</th><th>时间</th><th>方法</th><th>目标</th></tr>
+      <tr><td><strong>抛光</strong></td><td>7-14天</td><td>棉手套每日盘30分钟</td><td>去除车痕，形成基础光泽</td></tr>
+      <tr><td><strong>静置</strong></td><td>7天</td><td>自然放置，不盘不戴</td><td>让油脂自然氧化，形成软包浆</td></tr>
+      <tr><td><strong>手盘</strong></td><td>长期</td><td>净手盘5天，休息2天</td><td>逐步包浆上色</td></tr>
+      <tr><td><strong>日常佩戴</strong></td><td>中后期</td><td>正常佩戴，配合手盘</td><td>加速变色，深沉包浆</td></tr>
+    </table>
+    <h3>无相特别注意点</h3>
+    <ul>
+      <li>形状不规则，每颗转着盘，确保所有面都盘到。</li>
+      <li>孔道两侧重点盘，容易忽略但变色最快。</li>
+      <li>大切面防色差：每颗转方向，色差珠集中多盘。</li>
+    </ul>
+    <h3>三大禁忌</h3>
+    <div class="taboo-grid">
+      <div class="taboo-tile" style="background:var(--teal)">
+        <h4>💧 水</h4>
+        <p>星月菩提怕水，沾水后立即擦干，否则容易发霉开裂。</p>
+      </div>
+      <div class="taboo-tile" style="background:var(--red)">
+        <h4>💦 大汗</h4>
+        <p>汗液过多会让星月发黄发黑，前期一定要净手。</p>
+      </div>
+      <div class="taboo-tile" style="background:var(--orange)">
+        <h4>☀️ 干燥/暴晒</h4>
+        <p>冷热交替易开裂，冬天远离暖气，夏天避免阳光直射。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIY加工 -->
+  <div class="section" id="section-diy">
+    <h2>黄藤果加工工序（26步）</h2>
+    <div class="process-grid">
+      <div class="step-tile"><div class="step-num">①</div><div class="step-name">采摘黄藤果</div></div>
+      <div class="step-tile"><div class="step-num">②</div><div class="step-name">清洗去皮</div></div>
+      <div class="step-tile"><div class="step-num">③</div><div class="step-name">晾干</div></div>
+      <div class="step-tile"><div class="step-num">④</div><div class="step-name">储藏陈化</div></div>
+      <div class="step-tile"><div class="step-num">⑤</div><div class="step-name">去壳取籽</div></div>
+      <div class="step-tile"><div class="step-num">⑥</div><div class="step-name">筛选分级</div></div>
+      <div class="step-tile"><div class="step-num">⑦</div><div class="step-name">打孔定位</div></div>
+      <div class="step-tile"><div class="step-num">⑧</div><div class="step-name">干磨去皮</div></div>
+      <div class="step-tile"><div class="step-num">⑨</div><div class="step-name">粗磨去车痕</div></div>
+      <div class="step-tile"><div class="step-num">⑩</div><div class="step-name">细磨抛光</div></div>
+      <div class="step-tile"><div class="step-num">⑪</div><div class="step-name">精抛上光</div></div>
+      <div class="step-tile"><div class="step-num">⑫</div><div class="step-name">筛选形状</div></div>
+      <div class="step-tile"><div class="step-num">⑬</div><div class="step-name">配串定规</div></div>
+      <div class="step-tile"><div class="step-num">⑭</div><div class="step-name">打孔穿串</div></div>
+      <div class="step-tile"><div class="step-num">⑮</div><div class="step-name">定型校准</div></div>
+      <div class="step-tile"><div class="step-num">⑯</div><div class="step-name">静置氧化</div></div>
+      <div class="step-tile"><div class="step-num">⑰</div><div class="step-name">初盘上光</div></div>
+      <div class="step-tile"><div class="step-num">⑱</div><div class="step-name">静置氧化</div></div>
+      <div class="step-tile"><div class="step-num">⑲</div><div class="step-name">包浆固化</div></div>
+      <div class="step-tile"><div class="step-num">⑳</div><div class="step-name">保养护理</div></div>
+      <div class="step-tile"><div class="step-num">㉑</div><div class="step-name">配饰搭配</div></div>
+      <div class="step-tile"><div class="step-num">㉒</div><div class="step-name">包装入库</div></div>
+    </div>
+    <div class="tip-box"><strong>💡 自制手串入门：</strong>如果想自己在家做手串，推荐方案：购买黄藤果原籽（海南产最佳）→ 用手钻打孔 → 砂纸从320目逐步打磨到2000目 → 弹力绳穿串。工具：手钻+砂纸组合（320/600/1000/2000目）+ 穿珠针 + 弹力绳。</div>
+  </div>
+
+  <!-- 品牌与市场 -->
+  <div class="section" id="section-brand">
+    <h2>品牌溢价与二手市场</h2>
+    <h3>主要品牌梯队</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:16px 0">
+      <div class="brand-tile" style="background:var(--pink)">
+        <div class="tier">第一梯队 · 潮牌</div>
+        <h4>欢见</h4>
+        <p>文玩潮牌化代表，营销能力强，溢价率高达 360-600%</p>
+      </div>
+      <div class="brand-tile" style="background:var(--blue)">
+        <div class="tier">第一梯队 · 口碑</div>
+        <h4>知行堂 / 琼珠工艺</h4>
+        <p>口碑第一梯队，品质扎实，溢价率相对合理</p>
+      </div>
+      <div class="brand-tile" style="background:var(--teal)">
+        <div class="tier">第二梯队</div>
+        <h4>菩悦东方 / 吾文玩</h4>
+        <p>第二梯队，性价比好，适合入门</p>
+      </div>
+    </div>
+    <h3>二手保值率分析</h3>
+    <table class="m-table">
+      <tr><th>品牌</th><th>原价区间</th><th>二手折价率</th><th>备注</th></tr>
+      <tr><td><strong>欢见</strong></td><td>800-2000元</td><td>3-5折</td><td>品牌溢价清零最快</td></tr>
+      <tr><td><strong>知行堂</strong></td><td>500-1500元</td><td>5-7折</td><td>品质认可度高，保值较好</td></tr>
+      <tr><td><strong>无品牌/散珠</strong></td><td>100-500元</td><td>1-3折</td><td>基本按料质计价</td></tr>
+    </table>
+    <div class="warn-box"><strong>⚠️ 购买建议：</strong>如果是新手，建议先买第二梯队（菩悦东方、吾文玩）练手，等熟悉后再考虑欢见等溢价品牌。二手市场淘货也是好选择，但需要注意辨别真假和品相。</div>
+  </div>
+
+</div><!-- panel-all -->
+
+<!-- 更新日志 -->
+<div class="update-tile" id="panel-update">
+  <h3>更新记录</h3>
+  <div class="log-item"><div class="date">2026-06-21</div><div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div></div>
+  <div class="log-item"><div class="date">2026-06-20</div><div class="text">完成欢见品牌研究，用户持有3串星月菩提（欢见大切面×2 + 其他品牌小切面×1）盘玩方案确定。</div></div>
+</div>
+
+</div><!-- container -->
+
 <footer class="container">
-  <p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 整理 · 数据持续更新</p>
+  <p>由 <span style="color:var(--blue);font-weight:700">QClaw AI</span> 整理 · 数据持续更新</p>
 </footer>
 
 <script>
-(function() {
+(function(){
   'use strict';
-  
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  const allPanel = document.getElementById('panel-all');
-  const progressSection = document.getElementById('panel-progress');
-  const updateLog = document.getElementById('panel-update');
-  const container = document.querySelector('.container');
-  
-  const sectionIds = ['section-identify', 'section-xingyue', 'section-panwan', 'section-diy', 'section-brand'];
-  
-  function switchTab(tabName) {
-    // 更新按钮状态
-    tabBtns.forEach(function(btn) {
-      btn.classList.toggle('active', btn.dataset.tab === tabName);
-    });
-    
-    if (tabName === 'all') {
-      // 显示全部面板
-      allPanel.style.display = 'block';
-      
-      // 确保所有子面板在 allPanel 内且可见
-      sectionIds.forEach(function(id) {
-        var section = document.getElementById(id);
-        if (section) {
-          section.style.display = 'block';
-          if (section.parentElement !== allPanel) {
-            allPanel.appendChild(section);
-          }
-        }
+  var tabBtns=document.querySelectorAll('.tab-btn');
+  var allPanel=document.getElementById('panel-all');
+  var progressSection=document.getElementById('panel-progress');
+  var updateLog=document.getElementById('panel-update');
+  var container=document.querySelector('.container');
+  var sectionIds=['section-identify','section-xingyue','section-panwan','section-diy','section-brand'];
+
+  function switchTab(tabName){
+    tabBtns.forEach(function(b){b.classList.toggle('active',b.dataset.tab===tabName)});
+    if(tabName==='all'){
+      allPanel.style.display='block';
+      sectionIds.forEach(function(id){
+        var s=document.getElementById(id);
+        if(s){s.style.display='block';if(s.parentElement!==allPanel)allPanel.appendChild(s)}
       });
-      
-      // 恢复进度和更新日志位置
-      container.insertBefore(progressSection, allPanel);
+      container.insertBefore(progressSection,allPanel);
       container.appendChild(updateLog);
-    } else {
-      // 隐藏全部面板
-      allPanel.style.display = 'none';
-      
-      // 隐藏所有子面板
-      sectionIds.forEach(function(id) {
-        var section = document.getElementById(id);
-        if (section) {
-          section.style.display = 'none';
-        }
-      });
-      
-      // 显示当前选中的面板
-      var activeSection = document.getElementById('section-' + tabName);
-      if (activeSection) {
-        activeSection.style.display = 'block';
-        // 移到 container 中，在 updateLog 之前
-        container.insertBefore(activeSection, updateLog);
-        
-        // scrollIntoView
-        setTimeout(function() {
-          activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
+    }else{
+      allPanel.style.display='none';
+      sectionIds.forEach(function(id){var s=document.getElementById(id);if(s)s.style.display='none'});
+      var active=document.getElementById('section-'+tabName);
+      if(active){
+        active.style.display='block';
+        container.insertBefore(active,updateLog);
+        setTimeout(function(){active.scrollIntoView({behavior:'smooth',block:'start'})},50);
       }
     }
   }
-  
-  // 绑定 Tab 点击
-  tabBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      switchTab(btn.dataset.tab);
-    });
-  });
-  
-  // 初始状态：显示全部
+  tabBtns.forEach(function(b){b.addEventListener('click',function(){switchTab(b.dataset.tab)})});
   switchTab('all');
 })();
 </script>

@@ -210,6 +210,11 @@ strong,b { font-weight:700; color:var(--text); }
  justify-content:space-between; cursor:pointer;
  position:relative;
  transition:transform 0.3s, box-shadow var(--transition), border-color 0.3s;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+[data-theme="light"] .tile {
+ box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 .tile:hover {
  transform:translateY(-4px) scale(1.02);
@@ -530,8 +535,13 @@ button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {
 }
 
 .card, .tile, .method-tile, .step-tile, .phase-tile, .log-item, .timeline-item {
- opacity:0; transform:translateY(20px);
+ opacity:1; transform:none;
  transition:opacity 0.6s, transform 0.6s, background var(--transition), box-shadow var(--transition);
+}
+/* Scroll-in animation: JS adds .animate class to enable */
+.card.animate, .tile.animate, .method-tile.animate, .step-tile.animate,
+.phase-tile.animate, .log-item.animate, .timeline-item.animate {
+ opacity:0; transform:translateY(20px);
 }
 .card.visible, .tile.visible, .method-tile.visible, .step-tile.visible,
 .phase-tile.visible, .log-item.visible, .timeline-item.visible {

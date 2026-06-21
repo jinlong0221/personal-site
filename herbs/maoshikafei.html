@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
 <title>猫屎咖啡 — 龙兄知识库</title>
+<meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
 <style>
 :root { --bg:#0a0a0a;--text:#fff;--text-secondary:#b0b0b0;--text-muted:#7a7a7a;--card:#1a1a1a;--border:#333;--accent:#2d6a4f;--accent-light:#40916c;--nav-bg:rgba(10,10,10,0.95); }
 [data-theme="light"] { --bg:#f5f5f5;--text:#1a1a1a;--text-secondary:#555;--text-muted:#888;--card:#fff;--border:#e0e0e0;--accent:#2d6a4f;--accent-light:#40916c;--nav-bg:rgba(245,245,245,0.95); }
@@ -46,7 +47,28 @@ footer span{color:var(--accent-light);font-weight:700;}
 </style>
 </head>
 <body>
-<nav class="navbar"><div class="navbar-inner"><a href="../index.html" class="navbar-logo">龙兄知识库</a><a href="../index.html" class="navbar-home">← 首页</a></div></nav>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none"><path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="24" r="2" fill="currentColor"/><path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../agarwood.html">AI学习专区</a></li>
+      <li><a href="../herbs.html">兴趣干货</a></li>
+      <li><a href="../tesla.html">生活实用</a></li>
+      <li><a href="../tools.html">在线小工具</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索">🔍</button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="hamburger" id="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  
+</nav>
+
+<div class="container"><div id="breadcrumb"></div></div>
 <div class="breadcrumb"><a href="../index.html">首页</a><span>›</span><a href="index.html">中药材</a><span>›</span><span>猫屎咖啡</span></div>
 <div class="container">
 <header><div class="emoji">☕</div><h1>猫屎咖啡</h1><p class="intro">麝香猫（Civet）消化后排出的咖啡豆加工而成，曾是世界上最贵的咖啡之一。因暴利驱动，市场假货泛滥，需重点鉴别。</p></header>
@@ -115,11 +137,20 @@ footer span{color:var(--accent-light);font-weight:700;}
 
 <a class="back-link" href="index.html">← 返回中药材香料百科</a>
 </div>
-<footer><p>由 <span>QClaw AI</span> 整理 · 数据持续更新</p></footer>
+<footer><p>由 <span>QClaw AI</span> 整理 · 数据持续更新</p><div class="page-meta">
+    <div class="source">信息来源：待补充</div>
+    <div class="update-time">最后更新时间：2026-06-22</div>
+  </div>
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库</p></div>
+    <div class="footer-col"><p>© 2026 龙兄知识库</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub</a></div>
+  </div>
+</footer>
 <script>
 (function(){var btns=document.querySelectorAll('.tab-btn');var contents=document.querySelectorAll('.tab-content');btns.forEach(function(btn){btn.addEventListener('click',function(){btns.forEach(function(b){b.classList.remove('active')});btn.classList.add('active');contents.forEach(function(c){c.classList.remove('active')});var t=document.getElementById(btn.dataset.tab);if(t)t.classList.add('active')})});var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();
 </script>
-<button class="theme-toggle" id="tb" style="position:fixed;bottom:24px;right:24px;z-index:9999;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.3);transition:transform .2s;" onclick="(function(){var t=document.documentElement.getAttribute('data-theme');var n=t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);})()">☀️</button>
+
 <script src="../js/app.js"></script>
 </body>
 </html>

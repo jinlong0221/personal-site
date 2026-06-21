@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <title>中药材香料百科 - 龙兄知识库</title>
+<meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
 <style>
 :root {
   --herb-accent: #2d6a4f;
@@ -102,12 +103,25 @@
 </head>
 <body>
 
-<nav class="navbar">
+<nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner">
-    <a href="index.html" class="logo">龙兄知识库</a>
-    <a href="index.html" class="back-link">← 返回首页</a>
+    <a href="index.html" class="logo">
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none"><path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="24" r="2" fill="currentColor"/><path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="agarwood.html">AI学习专区</a></li>
+      <li><a href="herbs.html">兴趣干货</a></li>
+      <li><a href="tesla.html">生活实用</a></li>
+      <li><a href="tools.html">在线小工具</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索">🔍</button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="hamburger" id="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
   </div>
-</nav>
+  
 
 <div class="container">
   <div class="breadcrumb" id="breadcrumb">
@@ -179,10 +193,13 @@
 </div>
 
 <footer>
-  <p>由 <span>QClaw AI</span> 整理 · 数据持续更新</p>
+  <div class="container footer-inner">
+    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
+    <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
+  </div>
 </footer>
 
-<button class="theme-toggle" id="themeToggle">☀️</button>
+
 <script src="js/app.js"></script>
 </body>
 </html>

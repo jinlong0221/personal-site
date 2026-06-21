@@ -4,395 +4,225 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>龙兄知识库</title>
-<meta name="description" content="AI驱动的个人知识库，涵盖沉香鉴别、中药材、文玩手串、新能源汽车、旅行攻略等实用内容。">
-<meta name="keywords" content="沉香鉴别,中药材,文玩手串,特斯拉,新能源汽车,旅行攻略,知识库">
+<meta name="description" content="AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、新能源汽车、旅行攻略等实用内容。">
+<meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/app.js"></script>
-<style>
-  /* 卡片网格布局（兼容 index.html） */
-  .card-grid {
-    display: grid;
-    gap: 24px;
-    margin-bottom: 32px;
-  }
-  .card-grid-1 { grid-template-columns: 1fr; }
-  .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
-  .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
-
-  /* 首屏大卡片（AI学习3卡片等宽） */
-  .card-grid-3 .tile {
-    min-height: 180px;
-  }
-
-  /* 移动端：768px 2列 */
-  @media (max-width: 768px) {
-    .card-grid-3 { grid-template-columns: repeat(2, 1fr); }
-    .card-grid-2 { grid-template-columns: 1fr; }
-    .tile-2x1 { grid-column: span 1; }
-  }
-
-  /* 移动端：480px 1列 */
-  @media (max-width: 480px) {
-    .card-grid-3,
-    .card-grid-2,
-    .card-grid-1 { grid-template-columns: 1fr; }
-  }
-
-  /* 小卡片（射阳天气） */
-  .card-small { min-height: 120px; }
-
-  /* 深浅模式下图标颜色同步 */
-  [data-theme="light"] .icon-sun { display: none; }
-  [data-theme="light"] .icon-moon { display: block; }
-
-  /* 首页搜索入口 */
-  .home-search-section {
-    max-width: 600px;
-    margin: 24px auto 32px;
-    padding: 0 16px;
-  }
-
-  .home-search-box {
-    display: flex;
-    gap: 8px;
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 6px;
-    box-shadow: var(--shadow-md);
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .home-search-box:focus-within {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
-  }
-
-  .home-search-input {
-    flex: 1;
-    padding: 12px 16px;
-    font-size: 1rem;
-    font-family: inherit;
-    background: transparent;
-    border: none;
-    color: var(--text);
-    outline: none;
-  }
-
-  .home-search-input::placeholder {
-    color: var(--text-muted);
-  }
-
-  .home-search-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-family: inherit;
-    background: var(--gold);
-    color: #0a0a0a;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.2s, transform 0.15s;
-    white-space: nowrap;
-  }
-
-  .home-search-btn:hover {
-    background: var(--gold-light);
-    transform: translateY(-1px);
-  }
-
-  .home-search-btn:active {
-    transform: translateY(0);
-  }
-
-  [data-theme="light"] .home-search-btn {
-    color: #ffffff;
-  }
-
-  /* 移动端适配 */
-  @media (max-width: 480px) {
-    .home-search-section {
-      margin: 16px auto 24px;
-    }
-
-    .home-search-box {
-      flex-direction: column;
-      padding: 8px;
-    }
-
-    .home-search-input {
-      padding: 10px 12px;
-    }
-
-    .home-search-btn {
-      justify-content: center;
-      padding: 10px 16px;
-    }
-  }
-</style>
-<script>
-  // 确保 #tb 按钮也能触发主题切换（兼容现有 app.js 的 #themeToggle 查找）
-  document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.getElementById('tb');
-    if (btn) {
-      btn.addEventListener('click', function() {
-        var cur = document.documentElement.getAttribute('data-theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
-      });
-    }
-    // 同步深浅图标显示
-    function syncThemeIcon() {
-      var theme = document.documentElement.getAttribute('data-theme') || 'dark';
-      var sun = document.querySelector('.icon-sun');
-      var moon = document.querySelector('.icon-moon');
-      if (sun && moon) {
-        sun.style.display = theme === 'dark' ? 'block' : 'none';
-        moon.style.display = theme === 'dark' ? 'none' : 'block';
-      }
-    }
-    syncThemeIcon();
-    if (typeof MutationObserver !== 'undefined') {
-      new MutationObserver(syncThemeIcon).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    }
-  });
-</script>
 </head>
 <body>
 
-<!-- ========== 全局导航栏（固定顶部56px） ========== -->
+<!-- ========== 全局导航栏 ========== -->
 <nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner">
-    <!-- 左侧：龙形SVG Logo + 站点名 -->
     <a href="index.html" class="logo" aria-label="龙兄知识库首页">
-      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
-        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
-        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="currentColor"/>
+        <path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
       龙兄知识库
     </a>
-
-    <!-- 中间：三大分类按钮（桌面端） -->
     <ul class="nav-links">
-      <li><a href="agarwood.html">AI学习</a></li>
-      <li><a href="tesla.html">生活百科</a></li>
-      <li><a href="travel.html">工具</a></li>
+      <li><a href="agarwood.html" class="nav-ai">AI学习专区</a></li>
+      <li><a href="herbs.html" class="nav-hobby">兴趣干货</a></li>
+      <li><a href="tesla.html" class="nav-life">生活实用</a></li>
+      <li><a href="tools.html" class="nav-tool">在线小工具</a></li>
     </ul>
-
-    <!-- 右侧：搜索图标 + 主题切换 + 汉堡按钮 -->
-    <div style="display:flex;align-items:center;gap:8px;">
-      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition);" onmouseover="this.style.background='var(--card)'" onmouseout="this.style.background='transparent'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
-      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition);" onmouseover="this.style.background='var(--card)'" onmouseout="this.style.background='transparent'">
-        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
       </button>
       <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
-
-  <!-- 移动端下拉菜单 -->
   <div class="mobile-nav" id="mobileNav">
-    <a href="agarwood.html">AI学习</a>
-    <a href="tesla.html">生活百科</a>
-    <a href="travel.html">工具</a>
+    <a href="agarwood.html">AI学习专区</a>
+    <a href="herbs.html">兴趣干货</a>
+    <a href="tesla.html">生活实用</a>
+    <a href="tools.html">在线小工具</a>
   </div>
 </nav>
 
-<!-- ========== 主内容区 ========== -->
 <main class="container">
 
-  <!-- 首页标题（仅首页显示） -->
+  <!-- 首页标题 -->
   <div class="home-header">
     <h1 class="site-title">龙兄知识库</h1>
-    <p class="subtitle">AI驱动的个人知识库</p>
-    <p class="hero-slogan">🐉 龙兄带你玩转文玩药材新能源 🐉</p>
+    <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
   </div>
 
-  <!-- 首页搜索入口 -->
-  <div class="home-search-section">
+  <!-- 搜索入口 -->
+  <div class="home-search">
     <div class="home-search-box">
       <input type="text" id="homeSearchInput" class="home-search-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">
-      <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        搜索
-      </button>
+      <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">🔍 搜索</button>
     </div>
   </div>
 
-  <!-- 首屏：AI学习板块 -->
-  <div class="section-label">AI学习</div>
-  <div class="card-grid card-grid-3">
+  <!-- ===== AI学习专区（首屏核心） ===== -->
+  <section class="section-block">
+    <div class="section-label">
+      <span class="section-icon">🤖</span> AI学习专区
+    </div>
+    <div class="card-grid card-grid-3">
+      <article class="tile tile-gold">
+        <a href="agarwood.html">
+          <div class="tile-svg">
+            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8c0 0-16 8-16 28s16 20 16 20 16 0 16-20S32 8 32 8z"/><path d="M32 8v48M20 24h24M22 36h20"/><circle cx="32" cy="24" r="4" fill="#c9a84c" opacity="0.4"/></svg>
+          </div>
+          <div class="title">沉香鉴别</div>
+          <div class="desc">天然沉香鉴别全攻略，四大鉴别方法详解</div>
+        </a>
+      </article>
+      <article class="tile tile-green">
+        <a href="herbs.html">
+          <div class="tile-svg">
+            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#107c10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 56V28M20 20c0-8 6-14 14-14M44 20c0-8-6-14-14-14"/><path d="M20 40c-6 0-12 4-12 10h48c0-6-6-10-12-10"/><circle cx="32" cy="28" r="4" fill="#107c10" opacity="0.4"/></svg>
+          </div>
+          <div class="title">中药材香料</div>
+          <div class="desc">鉴别·功效·避坑科普</div>
+        </a>
+      </article>
+      <article class="tile tile-purple">
+        <a href="bracelet.html">
+          <div class="tile-svg">
+            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#6b69d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="12" r="3" fill="#6b69d6"/><circle cx="48.97" cy="22" r="3" fill="#6b69d6" opacity="0.7"/><circle cx="48.97" cy="42" r="3" fill="#6b69d6" opacity="0.7"/><circle cx="32" cy="52" r="3" fill="#6b69d6"/><circle cx="15.03" cy="42" r="3" fill="#6b69d6" opacity="0.7"/><circle cx="15.03" cy="22" r="3" fill="#6b69d6" opacity="0.7"/></svg>
+          </div>
+          <div class="title">文玩手串</div>
+          <div class="desc">材质养护·真假分辨·尺寸参考</div>
+        </a>
+      </article>
+    </div>
+  </section>
 
-    <!-- 沉香鉴别 - 金色边框 -->
-    <article class="tile tile-gold" style="text-decoration:none;color:inherit;">
-      <a href="agarwood.html" style="display:block;height:100%;text-decoration:none;color:inherit;">
-        <div style="font-size:36px;line-height:1;margin-bottom:10px;">
-          <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M32 8c0 0-16 8-16 28s16 20 16 20 16 0 16-20S32 8 32 8z"/>
-            <path d="M32 8v48M20 24h24M22 36h20"/>
-            <circle cx="32" cy="24" r="4" fill="#c9a84c" opacity="0.4"/>
-          </svg>
-        </div>
-        <div class="title" style="font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text);">沉香鉴别</div>
-        <div class="desc" style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">天然沉香鉴别全攻略</div>
-        <span class="card-icon">🔥</span>
-      </a>
-    </article>
+  <!-- ===== 兴趣干货 ===== -->
+  <section class="section-block">
+    <div class="section-label">
+      <span class="section-icon">🎨</span> 兴趣干货
+    </div>
+    <div class="card-grid card-grid-3">
+      <article class="tile tile-blue">
+        <a href="tesla.html">
+          <div class="tile-svg">
+            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#0078d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="24" width="48" height="22" rx="6"/><path d="M16 24v-6a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v6"/><circle cx="20" cy="46" r="4" fill="#0078d4" opacity="0.3" stroke="#0078d4"/><circle cx="44" cy="46" r="4" fill="#0078d4" opacity="0.3" stroke="#0078d4"/></svg>
+          </div>
+          <div class="title">新能源汽车</div>
+          <div class="desc">车载配件·充电指南·用车科普</div>
+        </a>
+      </article>
+      <article class="tile tile-orange">
+        <a href="travel.html">
+          <div class="tile-svg">
+            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#ff8c00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8l6 12h14l-11 9 4 14-13-9-13 9 4-14L12 20h14z"/><circle cx="32" cy="32" r="4" fill="#ff8c00" opacity="0.4"/></svg>
+          </div>
+          <div class="title">旅行攻略</div>
+          <div class="desc">出行攻略与签证指南</div>
+        </a>
+      </article>
+      <article class="tile tile-teal">
+        <a href="sheyang.html">
+          <div class="tile-svg">
+            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#008272" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 12a14 14 0 0 0-14 28h28a14 14 0 0 0 0-28z"/><path d="M20 20a6 6 0 0 0 0 12"/><path d="M18 48h28M22 54h20"/></svg>
+          </div>
+          <div class="title">射阳天气</div>
+          <div class="desc">实时天气小工具</div>
+        </a>
+      </article>
+    </div>
+  </section>
 
-    <!-- 中药材香料 - 绿色边框 -->
-    <article class="tile tile-green" style="text-decoration:none;color:inherit;">
-      <a href="herbs.html" style="display:block;height:100%;text-decoration:none;color:inherit;">
-        <div style="font-size:36px;line-height:1;margin-bottom:10px;">
-          <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#107c10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M32 56V28M20 20c0-8 6-14 14-14M44 20c0-8-6-14-14-14"/>
-            <path d="M20 40c-6 0-12 4-12 10h48c0-6-6-10-12-10"/>
-            <circle cx="32" cy="28" r="4" fill="#107c10" opacity="0.4"/>
-          </svg>
-        </div>
-        <div class="title" style="font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text);">中药材香料</div>
-        <div class="desc" style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">十种中药材深度科普</div>
-        <span class="card-icon">🌿</span>
-      </a>
-    </article>
+  <!-- ===== 生活实用 ===== -->
+  <section class="section-block">
+    <div class="section-label">
+      <span class="section-icon">🛠️</span> 生活实用
+    </div>
+    <div class="card-grid card-grid-2">
+      <article class="tile tile-orange">
+        <a href="tools.html">
+          <div class="tile-svg">
+            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="48" height="48" rx="8"/><path d="M20 32h24M32 20v24" stroke-width="3" opacity="0.6"/><circle cx="32" cy="32" r="8" opacity="0.4"/></svg>
+          </div>
+          <div class="title">龙兄工具箱</div>
+          <div class="desc">手串尺寸计算器·行程备忘录·BMI计算</div>
+        </a>
+      </article>
+      <article class="tile tile-gold">
+        <a href="changelog.html">
+          <div class="tile-svg">
+            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="8" width="40" height="48" rx="4"/><line x1="20" y1="20" x2="44" y2="20"/><line x1="20" y1="28" x2="44" y2="28"/><line x1="20" y1="36" x2="36" y2="36"/><circle cx="40" cy="44" r="6" fill="#c9a84c" opacity="0.3"/></svg>
+          </div>
+          <div class="title">更新日志</div>
+          <div class="desc">站点迭代记录</div>
+        </a>
+      </article>
+    </div>
+  </section>
 
-    <!-- 文玩手串 - 紫色边框 -->
-    <article class="tile tile-purple" style="text-decoration:none;color:inherit;">
-      <a href="bracelet.html" style="display:block;height:100%;text-decoration:none;color:inherit;">
-        <div style="font-size:36px;line-height:1;margin-bottom:10px;">
-          <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#6b69d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="32" cy="32" r="20"/>
-            <circle cx="32" cy="32" r="12"/>
-            <circle cx="32" cy="12" r="3" fill="#6b69d6"/>
-            <circle cx="48.97" cy="22" r="3" fill="#6b69d6" opacity="0.7"/>
-            <circle cx="48.97" cy="42" r="3" fill="#6b69d6" opacity="0.7"/>
-            <circle cx="32" cy="52" r="3" fill="#6b69d6"/>
-            <circle cx="15.03" cy="42" r="3" fill="#6b69d6" opacity="0.7"/>
-            <circle cx="15.03" cy="22" r="3" fill="#6b69d6" opacity="0.7"/>
-          </svg>
-        </div>
-        <div class="title" style="font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text);">文玩手串</div>
-        <div class="desc" style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">菩提·骨料·五行搭配</div>
-        <span class="card-icon">📿</span>
-      </a>
-    </article>
+  <!-- ===== 在线小工具 ===== -->
+  <section class="section-block">
+    <div class="section-label">
+      <span class="section-icon">⚡</span> 在线小工具
+    </div>
+    <div class="card-grid card-grid-3">
+      <article class="tile tile-blue tool-mini">
+        <a href="tools.html#bracelet-calc">
+          <div class="title">📿 手串尺寸计算</div>
+          <div class="desc">输入腕围，计算适合的珠径与颗数</div>
+        </a>
+      </article>
+      <article class="tile tile-green tool-mini">
+        <a href="tools.html#trip-memo">
+          <div class="title">📝 行程备忘录</div>
+          <div class="desc">出行清单一键生成</div>
+        </a>
+      </article>
+      <article class="tile tile-purple tool-mini">
+        <a href="tools.html#bmi-calc">
+          <div class="title">💪 BMI计算器</div>
+          <div class="desc">体质指数速算</div>
+        </a>
+      </article>
+    </div>
+  </section>
 
-  </div>
-
-  <!-- 工具板块：实用工具 -->
-  <div class="section-label">实用工具</div>
-  <div class="card-grid card-grid-3">
-
-    <!-- 龙兄工具箱 - 橙色边框 -->
-    <article class="tile tile-orange" style="text-decoration:none;color:inherit;">
-      <a href="tools.html" style="display:block;height:100%;text-decoration:none;color:inherit;">
-        <div style="font-size:36px;line-height:1;margin-bottom:10px;">
-          <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="8" y="8" width="48" height="48" rx="8"/>
-            <path d="M20 32h24M32 20v24" stroke="#e67e22" stroke-width="3" opacity="0.6"/>
-            <circle cx="32" cy="32" r="8" stroke="#e67e22" stroke-width="2" fill="none" opacity="0.4"/>
-          </svg>
-        </div>
-        <div class="title" style="font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text);">实用工具</div>
-        <div class="desc" style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">手串尺寸计算、行程备忘、BMI计算</div>
-      </a>
-    </article>
-
-  </div>
-
-  <!-- 第二屏：生活百科板块 -->
-  <div class="section-label">生活百科</div>
-  <div class="card-grid card-grid-2">
-
-    <!-- 新能源汽车 - 蓝色边框 -->
-    <article class="tile tile-blue tile-2x1" style="text-decoration:none;color:inherit;">
-      <a href="tesla.html" style="display:block;height:100%;text-decoration:none;color:inherit;">
-        <div style="font-size:36px;line-height:1;margin-bottom:10px;">
-          <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="#0078d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="8" y="24" width="48" height="22" rx="6"/>
-            <path d="M16 24v-6a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v6"/>
-            <circle cx="20" cy="46" r="4" fill="#0078d4" opacity="0.3" stroke="#0078d4"/>
-            <circle cx="44" cy="46" r="4" fill="#0078d4" opacity="0.3" stroke="#0078d4"/>
-            <path d="M24 32h6M28 36l-4 4 4 4M34 36l4 4-4 4"/>
-          </svg>
-        </div>
-        <div class="title" style="font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text);">新能源汽车</div>
-        <div class="desc" style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">特斯拉用车百科</div>
-        <span class="card-icon">⚡</span>
-      </a>
-    </article>
-
-    <!-- 射阳天气 - 青色边框小卡片 -->
-    <article class="tile tile-teal card-small" style="text-decoration:none;color:inherit;">
-      <a href="sheyang.html" style="display:block;height:100%;text-decoration:none;color:inherit;">
-        <div style="font-size:36px;line-height:1;margin-bottom:10px;">
-          <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#008272" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M32 12a14 14 0 0 0-14 28h28a14 14 0 0 0 0-28z"/>
-            <path d="M20 20a6 6 0 0 0 0 12"/>
-            <path d="M18 48h28M22 54h20"/>
-          </svg>
-        </div>
-        <div class="title" style="font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text);">射阳天气</div>
-        <div class="desc" style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">射阳实时天气</div>
-        <span class="card-icon">🌤️</span>
-      </a>
-    </article>
-
-  </div>
-
-  <!-- 工具板块 -->
-  <div class="section-label">工具</div>
-  <div class="card-grid card-grid-1">
-
-    <!-- 旅行攻略 - 橙色边框 -->
-    <article class="tile tile-orange" style="text-decoration:none;color:inherit;">
-      <a href="travel.html" style="display:block;height:100%;text-decoration:none;color:inherit;">
-        <div style="font-size:36px;line-height:1;margin-bottom:10px;">
-          <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#ff8c00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M32 8l6 12h14l-11 9 4 14-13-9-13 9 4-14L12 20h14z"/>
-            <circle cx="32" cy="32" r="4" fill="#ff8c00" opacity="0.4"/>
-          </svg>
-        </div>
-        <div class="title" style="font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text);">旅行攻略</div>
-        <div class="desc" style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">出行攻略与签证</div>
-        <span class="card-icon">🧳</span>
-      </a>
-    </article>
-
-  </div>
+  <!-- ===== 访客留言 ===== -->
+  <section class="section-block">
+    <div class="section-label">
+      <span class="section-icon">💬</span> 访客留言
+    </div>
+    <div class="guestbook card">
+      <form id="guestbookForm" class="guestbook-form">
+        <input type="text" id="guestName" placeholder="昵称（选填）" maxlength="20" class="guest-input" aria-label="昵称">
+        <textarea id="guestMsg" placeholder="留下你的想法..." maxlength="500" rows="3" class="guest-textarea" aria-label="留言内容"></textarea>
+        <button type="submit" class="guest-submit">发表留言</button>
+      </form>
+      <div id="guestbookList" class="guestbook-list"></div>
+    </div>
+  </section>
 
 </main>
 
-<!-- ========== 页脚 ========== -->
 <footer>
-  <div class="container">
-    <p>© 2026 龙兄知识库</p>
-    <p style="margin-top:4px;">AI驱动的个人知识库</p>
-    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-      </svg>
-      GitHub 仓库
-    </a>
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <p class="footer-brand">🐉 龙兄知识库</p>
+      <p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p>
+    </div>
+    <div class="footer-col">
+      <p>© 2026 龙兄知识库 · 保留所有权利</p>
+      <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub 开源仓库
+      </a>
+    </div>
   </div>
 </footer>
 
 </body>
 </html>
-<!-- Force rebuild at Mon Jun 22 05:50:46 CST 2026 -->

@@ -6,149 +6,502 @@
 <title>文玩手串 - 金龙的 AI 学习站</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --text: #1d1d1f; --text-secondary: #86868b; --bg: #fbfbfd; --card: #ffffff; --border: #d2d2d7; --accent: #0071e3; --radius: 20px; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+:root { 
+  --text: #1d1d1f; 
+  --text-secondary: #86868b; 
+  --bg: #fbfbfd; 
+  --card: #ffffff; 
+  --border: #d2d2d7; 
+  --accent: #0071e3; 
+  --radius: 20px;
+  --header-height: 64px;
+  --tab-height: 52px;
+}
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif; 
+  background: var(--bg); 
+  color: var(--text); 
+  line-height: 1.6; 
+  -webkit-font-smoothing: antialiased;
+  padding-top: calc(var(--header-height) + var(--tab-height) + 20px);
+}
 .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-.back-link { display: inline-block; margin: 30px 0; color: var(--accent); text-decoration: none; font-size: 15px; }
-.back-link:hover { text-decoration: underline; }
-header { padding: 40px 0 50px; }
-header .emoji { font-size: 48px; margin-bottom: 20px; }
-header h1 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
-header p { font-size: 19px; color: var(--text-secondary); max-width: 700px; }
-.progress-section { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 30px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.progress-section h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
-.progress-bar { width: 100%; height: 8px; background: #e8e8ed; border-radius: 4px; overflow: hidden; }
-.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), #42a5f5); border-radius: 4px; }
-.progress-stats { display: flex; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
-.progress-stats .stat .label { font-size: 13px; color: var(--text-secondary); }
-.progress-stats .stat .val { font-size: 28px; font-weight: 700; color: var(--accent); }
-.content-section { background: var(--card); border-radius: var(--radius); padding: 40px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.content-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-.content-section h3 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; color: var(--accent); }
-.content-section p { font-size: 16px; margin-bottom: 16px; }
-.content-section ul, .content-section ol { margin: 16px 0; padding-left: 24px; }
-.content-section li { font-size: 16px; margin-bottom: 12px; }
-.tip-box { background: #d1ecf1; border-left: 4px solid var(--accent); padding: 16px 20px; border-radius: 8px; margin: 20px 0; }
+
+/* 紧凑头部 */
+.compact-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: rgba(251,251,253,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 100;
+  border-bottom: 1px solid rgba(210,210,215,0.5);
+}
+.compact-header .container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 16px;
+}
+.compact-header .back-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.compact-header .back-link:hover { text-decoration: underline; }
+.compact-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+}
+.compact-header .emoji {
+  font-size: 24px;
+  margin: 0;
+}
+
+/* Sticky Tab 导航 */
+.tab-nav {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  height: var(--tab-height);
+  background: rgba(251,251,253,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 99;
+  border-bottom: 1px solid rgba(210,210,215,0.5);
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-nav .container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 0;
+}
+.tab-btn {
+  flex-shrink: 0;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.tab-btn:hover {
+  color: var(--text);
+}
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* 进度条区域 */
+.progress-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.04);
+  border: 1px solid rgba(210,210,215,0.4);
+}
+.progress-section h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e8e8ed;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar .fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #42a5f5);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+.progress-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.progress-stats .stat .label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.progress-stats .stat .val {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* 内容面板 */
+.content-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 40px;
+  margin: 20px 0;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.04);
+  border: 1px solid rgba(210,210,215,0.4);
+  display: none;
+}
+.content-section.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.content-section h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.content-section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 32px 0 16px;
+  color: var(--accent);
+}
+.content-section p {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+.content-section ul, .content-section ol {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+.content-section li {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.tip-box {
+  background: #d1ecf1;
+  border-left: 4px solid var(--accent);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
 .tip-box strong { color: var(--accent); }
-.warn-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 16px 20px; border-radius: 8px; margin: 20px 0; }
+.warn-box {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
 .warn-box strong { color: #856404; }
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin: 20px 0; }
-.info-card { background: #f5f5f7; border-radius: 14px; padding: 22px; }
-.info-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
-.info-card p, .info-card li { font-size: 14px; color: var(--text-secondary); }
-.phase-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-.phase-table th, .phase-table td { padding: 14px 16px; text-align: left; font-size: 15px; border-bottom: 1px solid var(--border); }
-.phase-table th { font-weight: 600; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
-.phase-table tr:last-child td { border-bottom: none; }
-.update-log { background: var(--card); border-radius: var(--radius); padding: 30px; margin: 20px 0; box-shadow: 0 4px 40px rgba(0,0,0,0.04); border: 1px solid rgba(210,210,215,0.4); }
-.update-log h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
-.update-log .log-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
-.update-log .log-item:last-child { border-bottom: none; }
-.update-log .log-item .date { font-size: 13px; color: var(--text-secondary); }
-.update-log .log-item .text { font-size: 15px; margin-top: 4px; }
-footer { text-align: center; padding: 60px 0 40px; color: var(--text-secondary); font-size: 13px; }
+.phase-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+.phase-table th, .phase-table td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 15px;
+  border-bottom: 1px solid var(--border);
+}
+.phase-table th {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.phase-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* 更新日志 */
+.update-log {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.04);
+  border: 1px solid rgba(210,210,215,0.4);
+}
+.update-log h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.update-log .log-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.update-log .log-item:last-child {
+  border-bottom: none;
+}
+.update-log .log-item .date {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.update-log .log-item .text {
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+footer {
+  text-align: center;
+  padding: 60px 0 40px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+/* 全部面板显示所有内容 */
+.panel-all .content-section {
+  display: block !important;
+}
+
 @media (max-width: 768px) {
-header h1 { font-size: 32px; }
-.content-section { padding: 24px; }
+  body { padding-top: calc(var(--header-height) + var(--tab-height) + 10px); }
+  .compact-header h1 { font-size: 18px; }
+  .tab-btn { padding: 0 14px; font-size: 14px; }
+  .content-section { padding: 24px; }
+  .content-section h2 { font-size: 22px; }
+  .progress-stats { gap: 20px; }
+  .progress-stats .stat .val { font-size: 22px; }
 }
 </style>
 </head>
 <body>
-<div class="container">
-<img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&q=80" alt="" style="width:100%;max-width:860px;height:280px;object-fit:cover;border-radius:24px;margin:20px auto;display:block;box-shadow:0 8px 60px rgba(0,0,0,0.1);">
-<a href="index.html" class="back-link">← 返回首页</a>
-<header>
-<div class="emoji">📿</div>
-<h1>文玩手串</h1>
-<p>星月菩提、凤眼菩提、龙眼菩提、黄藤果加工、品牌溢价与二手保值率、DIY手串入门指南。</p>
+
+<!-- 紧凑头部 -->
+<header class="compact-header">
+  <div class="container">
+    <a href="index.html" class="back-link">← 返回</a>
+    <span class="emoji">📿</span>
+    <h1>文玩手串</h1>
+  </div>
 </header>
 
-<div class="progress-section">
-<h2>学习进度</h2>
-<div class="progress-bar"><div class="fill" style="width: 18%"></div></div>
-<div class="progress-stats">
-<div class="stat"><div class="label">学习专题</div><div class="val">5</div></div>
-<div class="stat"><div class="label">盘玩指南</div><div class="val">完整</div></div>
-<div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)">2026-06-21</div></div>
-</div>
-</div>
+<!-- Sticky Tab 导航 -->
+<nav class="tab-nav">
+  <div class="container">
+    <button class="tab-btn active" data-tab="all">全部</button>
+    <button class="tab-btn" data-tab="identify">菩提鉴别</button>
+    <button class="tab-btn" data-tab="xingyue">星月详解</button>
+    <button class="tab-btn" data-tab="panwan">盘玩方法</button>
+    <button class="tab-btn" data-tab="diy">DIY加工</button>
+    <button class="tab-btn" data-tab="brand">品牌与市场</button>
+  </div>
+</nav>
 
-<div class="content-section">
-<h2>三大菩提鉴别</h2>
-<table class="phase-table">
-<tr><th>品种</th><th>外观特征</th><th>星点形状</th><th>市场价位</th></tr>
-<tr><td><strong>星月菩提</strong></td><td>白底 + 黑色星点，像星月</td><td>均匀黑点，分布规则</td><td>入门到高端（品牌溢价大）</td></tr>
-<tr><td><strong>凤眼菩提</strong></td><td>深褐底 + 深棕眼，像凤凰眼睛</td><td>椭圆形棕眼，1条眼线</td><td>最贵，尺寸越小越贵</td></tr>
-<tr><td><strong>龙眼菩提</strong></td><td>浅褐底 + 棕色眼，像龙眼核</td><td>圆形眼，2条眼线交叉</td><td>中高端，稀缺</td></tr>
-</table>
-<div class="tip-box"><strong>💡 鉴别要点：</strong>星月看星点分布均匀度；凤眼看眼形圆润无畸形；龙眼看眼的线条（两条线交叉为龙眼，一条线为凤眼）。</div>
-</div>
+<div class="container">
+  <!-- 学习进度 -->
+  <div class="progress-section" id="panel-progress">
+    <h2>学习进度</h2>
+    <div class="progress-bar"><div class="fill" style="width: 18%"></div></div>
+    <div class="progress-stats">
+      <div class="stat"><div class="label">学习专题</div><div class="val">5</div></div>
+      <div class="stat"><div class="label">盘玩指南</div><div class="val">完整</div></div>
+      <div class="stat"><div class="label">最后更新</div><div class="val" style="font-size:16px;color:var(--text-secondary)">2026-06-21</div></div>
+    </div>
+  </div>
 
-<div class="content-section">
-<h2>星月菩提详解</h2>
-<h3>产地与品质</h3>
-<ul>
-<li><strong>海南毛感料：</strong>公认品质最优，星点细密均匀，密度高，盘玩后颜色漂亮。</li>
-<li><strong>广西料：</strong>星点较粗，密度一般，性价比高。</li>
-<li><strong>越南料：</strong>星点发红，品质参差不齐。</li>
-<li><strong>五星帝王料：</strong>星点呈五星状分布，稀少，价格高。</li>
-</ul>
-<h3>形状分类</h3>
-<ul>
-<li><strong>正月：</strong>星点在正月位置（正中），最规整，价格最高。</li>
-<li><strong>玄月（偏月）：</strong>星点偏，价格较低。</li>
-<li><strong>无相：</strong>不规则多面切，每颗形状不同，盘玩挑战大但独一无二。</li>
-<li><strong>原生态：</strong>保留黄藤果原始色泽，颜色多样（绿/粉/紫），近年来流行。</li>
-</ul>
-<h3>品牌与溢价</h3>
-<ul>
-<li><strong>欢见：</strong>文玩潮牌化代表，营销能力强，溢价率高达 360-600%。</li>
-<li><strong>知行堂、琼珠工艺：</strong>口碑第一梯队，品质扎实。</li>
-<li><strong>菩悦东方、吾文玩：</strong>第二梯队，性价比好。</li>
-</ul>
-<div class="warn-box"><strong>⚠️ 二手保值提醒：</strong>树籽类文玩二手市场折价 3-5 折，品牌溢价清零。一串原价 1799 元的欢见星月，闲鱼估价约 400-700 元。</div>
-</div>
+  <!-- 全部：显示所有内容 -->
+  <div class="panel-all" id="panel-all">
+    <!-- 三大菩提鉴别 -->
+    <div class="content-section" id="section-identify">
+      <h2>三大菩提鉴别</h2>
+      <table class="phase-table">
+        <tr><th>品种</th><th>外观特征</th><th>星点形状</th><th>市场价位</th></tr>
+        <tr><td><strong>星月菩提</strong></td><td>白底 + 黑色星点，像星月</td><td>均匀黑点，分布规则</td><td>入门到高端（品牌溢价大）</td></tr>
+        <tr><td><strong>凤眼菩提</strong></td><td>深褐底 + 深棕眼，像凤凰眼睛</td><td>椭圆形棕眼，1条眼线</td><td>最贵，尺寸越小越贵</td></tr>
+        <tr><td><strong>龙眼菩提</strong></td><td>浅褐底 + 棕色眼，像龙眼核</td><td>圆形眼，2条眼线交叉</td><td>中高端，稀缺</td></tr>
+      </table>
+      <div class="tip-box"><strong>💡 鉴别要点：</strong>星月看星点分布均匀度；凤眼看眼形圆润无畸形；龙眼看眼的线条（两条线交叉为龙眼，一条线为凤眼）。</div>
+    </div>
 
-<div class="content-section">
-<h2>盘玩方法（星月菩提）</h2>
-<table class="phase-table">
-<tr><th>阶段</th><th>时间</th><th>方法</th><th>目标</th></tr>
-<tr><td>抛光</td><td>7-14天</td><td>棉手套每日盘30分钟</td><td>去除车痕，形成基础光泽</td></tr>
-<tr><td>静置</td><td>7天</td><td>自然放置，不盘不戴</td><td>让油脂自然氧化，形成软包浆</td></tr>
-<tr><td>手盘</td><td>长期</td><td>净手盘5天，休息2天</td><td>逐步包浆上色</td></tr>
-<tr><td>日常佩戴</td><td>中后期</td><td>正常佩戴，配合手盘</td><td>加速变色，深沉包浆</td></tr>
-</table>
-<h3>无相特别注意点</h3>
-<ul>
-<li>形状不规则，每颗转着盘，确保所有面都盘到。</li>
-<li>孔道两侧重点盘，容易忽略但变色最快。</li>
-<li>大切面防色差：每颗转方向，色差珠集中多盘。</li>
-</ul>
-<h3>三大禁忌</h3>
-<ul>
-<li><strong>水：</strong>星月菩提怕水，沾水后立即擦干，否则容易发霉开裂。</li>
-<li><strong>大汗：</strong>汗液过多会让星月发黄发黑，前期一定要净手。</li>
-<li><strong>干燥/暴晒：</strong>冷热交替易开裂，冬天远离暖气，夏天避免阳光直射。</li>
-</ul>
-</div>
+    <!-- 星月菩提详解 -->
+    <div class="content-section" id="section-xingyue">
+      <h2>星月菩提详解</h2>
+      <h3>产地与品质</h3>
+      <ul>
+        <li><strong>海南毛感料：</strong>公认品质最优，星点细密均匀，密度高，盘玩后颜色漂亮。</li>
+        <li><strong>广西料：</strong>星点较粗，密度一般，性价比高。</li>
+        <li><strong>越南料：</strong>星点发红，品质参差不齐。</li>
+        <li><strong>五星帝王料：</strong>星点呈五星状分布，稀少，价格高。</li>
+      </ul>
+      <h3>形状分类</h3>
+      <ul>
+        <li><strong>正月：</strong>星点在正月位置（正中），最规整，价格最高。</li>
+        <li><strong>玄月（偏月）：</strong>星点偏，价格较低。</li>
+        <li><strong>无相：</strong>不规则多面切，每颗形状不同，盘玩挑战大但独一无二。</li>
+        <li><strong>原生态：</strong>保留黄藤果原始色泽，颜色多样（绿/粉/紫），近年来流行。</li>
+      </ul>
+      <h3>品牌与溢价</h3>
+      <ul>
+        <li><strong>欢见：</strong>文玩潮牌化代表，营销能力强，溢价率高达 360-600%。</li>
+        <li><strong>知行堂、琼珠工艺：</strong>口碑第一梯队，品质扎实。</li>
+        <li><strong>菩悦东方、吾文玩：</strong>第二梯队，性价比好。</li>
+      </ul>
+      <div class="warn-box"><strong>⚠️ 二手保值提醒：</strong>树籽类文玩二手市场折价 3-5 折，品牌溢价清零。一串原价 1799 元的欢见星月，闲鱼估价约 400-700 元。</div>
+    </div>
 
-<div class="content-section">
-<h2>黄藤果加工工序（26步）</h2>
-<ol>
-<li>采摘黄藤果 → ②清洗去皮 → ③晾干 → ④储藏陈化 → ⑤去壳取籽 → ⑥筛选分级 → ⑦打孔定位 → ⑧干磨去皮 → ⑨粗磨去车痕 → ⑩细磨抛光 → ⑪精抛上光 → ⑫筛选形状 → ⑬配串定规 → ⑭打孔穿串 → ⑮定型校准 → ⑯静置氧化 → ⑰初盘上光 → ⑱静置氧化 → ⑲包浆固化 → ⑳保养护理 → ㉑配饰搭配 → ㉒包装入库</li>
-</ol>
-<div class="tip-box"><strong>💡 自制手串入门：</strong>如果想自己在家做手串，推荐方案：购买黄藤果原籽（海南产最佳）→ 用手钻打孔 → 砂纸从320目逐步打磨到2000目 → 弹力绳穿串。工具：手钻+砂纸组合（320/600/1000/2000目）+ 穿珠针 + 弹力绳。</div>
-</div>
+    <!-- 盘玩方法 -->
+    <div class="content-section" id="section-panwan">
+      <h2>盘玩方法（星月菩提）</h2>
+      <table class="phase-table">
+        <tr><th>阶段</th><th>时间</th><th>方法</th><th>目标</th></tr>
+        <tr><td>抛光</td><td>7-14天</td><td>棉手套每日盘30分钟</td><td>去除车痕，形成基础光泽</td></tr>
+        <tr><td>静置</td><td>7天</td><td>自然放置，不盘不戴</td><td>让油脂自然氧化，形成软包浆</td></tr>
+        <tr><td>手盘</td><td>长期</td><td>净手盘5天，休息2天</td><td>逐步包浆上色</td></tr>
+        <tr><td>日常佩戴</td><td>中后期</td><td>正常佩戴，配合手盘</td><td>加速变色，深沉包浆</td></tr>
+      </table>
+      <h3>无相特别注意点</h3>
+      <ul>
+        <li>形状不规则，每颗转着盘，确保所有面都盘到。</li>
+        <li>孔道两侧重点盘，容易忽略但变色最快。</li>
+        <li>大切面防色差：每颗转方向，色差珠集中多盘。</li>
+      </ul>
+      <h3>三大禁忌</h3>
+      <ul>
+        <li><strong>水：</strong>星月菩提怕水，沾水后立即擦干，否则容易发霉开裂。</li>
+        <li><strong>大汗：</strong>汗液过多会让星月发黄发黑，前期一定要净手。</li>
+        <li><strong>干燥/暴晒：</strong>冷热交替易开裂，冬天远离暖气，夏天避免阳光直射。</li>
+      </ul>
+    </div>
 
-<div class="update-log">
-<h3>更新记录</h3>
-<div class="log-item"><div class="date">2026-06-21</div><div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div></div>
-<div class="log-item"><div class="date">2026-06-20</div><div class="text">完成欢见品牌研究，用户持有3串星月菩提（欢见大切面×2 + 其他品牌小切面×1）盘玩方案确定。</div></div>
-</div>
+    <!-- DIY加工 -->
+    <div class="content-section" id="section-diy">
+      <h2>黄藤果加工工序（26步）</h2>
+      <ol>
+        <li>采摘黄藤果 → ②清洗去皮 → ③晾干 → ④储藏陈化 → ⑤去壳取籽 → ⑥筛选分级 → ⑦打孔定位 → ⑧干磨去皮 → ⑨粗磨去车痕 → ⑩细磨抛光 → ⑪精抛上光 → ⑫筛选形状 → ⑬配串定规 → ⑭打孔穿串 → ⑮定型校准 → ⑯静置氧化 → ⑰初盘上光 → ⑱静置氧化 → ⑲包浆固化 → ⑳保养护理 → ㉑配饰搭配 → ㉒包装入库</li>
+      </ol>
+      <div class="tip-box"><strong>💡 自制手串入门：</strong>如果想自己在家做手串，推荐方案：购买黄藤果原籽（海南产最佳）→ 用手钻打孔 → 砂纸从320目逐步打磨到2000目 → 弹力绳穿串。工具：手钻+砂纸组合（320/600/1000/2000目）+ 穿珠针 + 弹力绳。</div>
+    </div>
+
+    <!-- 品牌与市场 -->
+    <div class="content-section" id="section-brand">
+      <h2>品牌溢价与二手市场</h2>
+      <h3>主要品牌梯队</h3>
+      <ul>
+        <li><strong>欢见：</strong>文玩潮牌化代表，营销能力强，溢价率高达 360-600%。</li>
+        <li><strong>知行堂、琼珠工艺：</strong>口碑第一梯队，品质扎实，溢价率相对合理。</li>
+        <li><strong>菩悦东方、吾文玩：</strong>第二梯队，性价比好，适合入门。</li>
+      </ul>
+      <h3>二手保值率分析</h3>
+      <table class="phase-table">
+        <tr><th>品牌</th><th>原价区间</th><th>二手折价率</th><th>备注</th></tr>
+        <tr><td>欢见</td><td>800-2000元</td><td>3-5折</td><td>品牌溢价清零最快</td></tr>
+        <tr><td>知行堂</td><td>500-1500元</td><td>5-7折</td><td>品质认可度高，保值较好</td></tr>
+        <tr><td>无品牌/散珠</td><td>100-500元</td><td>1-3折</td><td>基本按料质计价</td></tr>
+      </table>
+      <div class="warn-box"><strong>⚠️ 购买建议：</strong>如果是新手，建议先买第二梯队（菩悦东方、吾文玩）练手，等熟悉后再考虑欢见等溢价品牌。二手市场淘货也是好选择，但需要注意辨别真假和品相。</div>
+    </div>
+  </div>
+
+  <!-- 更新日志 -->
+  <div class="update-log" id="panel-update">
+    <h3>更新记录</h3>
+    <div class="log-item"><div class="date">2026-06-21</div><div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div></div>
+    <div class="log-item"><div class="date">2026-06-20</div><div class="text">完成欢见品牌研究，用户持有3串星月菩提（欢见大切面×2 + 其他品牌小切面×1）盘玩方案确定。</div></div>
+  </div>
 </div>
 
 <footer class="container">
-<p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 自动维护 · 数据持续更新</p>
+  <p>由 <span style="color:var(--accent);font-weight:500">QClaw AI</span> 整理 · 数据持续更新</p>
 </footer>
+
+<script>
+(function() {
+  'use strict';
+  
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const allPanel = document.getElementById('panel-all');
+  const progressSection = document.getElementById('panel-progress');
+  const updateLog = document.getElementById('panel-update');
+  const container = document.querySelector('.container');
+  
+  const sectionIds = ['section-identify', 'section-xingyue', 'section-panwan', 'section-diy', 'section-brand'];
+  
+  function switchTab(tabName) {
+    // 更新按钮状态
+    tabBtns.forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+    
+    if (tabName === 'all') {
+      // 显示全部面板
+      allPanel.style.display = 'block';
+      
+      // 确保所有子面板在 allPanel 内且可见
+      sectionIds.forEach(function(id) {
+        var section = document.getElementById(id);
+        if (section) {
+          section.style.display = 'block';
+          if (section.parentElement !== allPanel) {
+            allPanel.appendChild(section);
+          }
+        }
+      });
+      
+      // 恢复进度和更新日志位置
+      container.insertBefore(progressSection, allPanel);
+      container.appendChild(updateLog);
+    } else {
+      // 隐藏全部面板
+      allPanel.style.display = 'none';
+      
+      // 隐藏所有子面板
+      sectionIds.forEach(function(id) {
+        var section = document.getElementById(id);
+        if (section) {
+          section.style.display = 'none';
+        }
+      });
+      
+      // 显示当前选中的面板
+      var activeSection = document.getElementById('section-' + tabName);
+      if (activeSection) {
+        activeSection.style.display = 'block';
+        // 移到 container 中，在 updateLog 之前
+        container.insertBefore(activeSection, updateLog);
+        
+        // scrollIntoView
+        setTimeout(function() {
+          activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      }
+    }
+  }
+  
+  // 绑定 Tab 点击
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      switchTab(btn.dataset.tab);
+    });
+  });
+  
+  // 初始状态：显示全部
+  switchTab('all');
+})();
+</script>
 </body>
 </html>

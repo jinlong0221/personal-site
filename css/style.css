@@ -1,0 +1,1089 @@
+/* ============================================================
+   龙兄知识库 · 全局样式
+   色系：黑金 + 浅蓝国风科技
+   ============================================================ */
+
+/* --- CSS Variables --- */
+:root {
+  --bg: #0a0a0a;
+  --bg-secondary: #111111;
+  --card: #1a1a1a;
+  --card-hover: #222222;
+  --border: #2a2a2a;
+  --border-light: #333333;
+  --text: #f0f0f0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #666666;
+  --gold: #c9a84c;
+  --gold-light: #e0c97a;
+  --blue: #0078d4;
+  --blue-light: #4da6e8;
+  --green: #107c10;
+  --orange: #ff8c00;
+  --red: #e81123;
+  --purple: #6b69d6;
+  --teal: #008272;
+  --pink: #c30052;
+  --yellow: #ffb900;
+  --nav-bg: rgba(10, 10, 10, 0.96);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --radius: 8px;
+  --radius-sm: 4px;
+  --max-width: 1200px;
+  --nav-height: 56px;
+  --transition: 0.25s ease;
+  /* Metro tile gap */
+  --tile-gap: 4px;
+}
+
+/* --- Light Theme --- */
+[data-theme="light"] {
+  --bg: #f5f5f0;
+  --bg-secondary: #eeeeea;
+  --card: #ffffff;
+  --card-hover: #f9f9f7;
+  --border: #e0ddd5;
+  --border-light: #d5d2ca;
+  --text: #1a1a1a;
+  --text-secondary: #444444;
+  --text-muted: #777777;
+  --gold: #a68a3c;
+  --gold-light: #c9a84c;
+  --nav-bg: rgba(255, 255, 255, 0.96);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition), color var(--transition);
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--blue-light);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.1rem; }
+
+p {
+  margin-bottom: 1em;
+  color: var(--text-secondary);
+}
+
+strong, b {
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* --- Layout --- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --- Card Component --- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card h2 {
+  color: var(--text);
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   Navigation Bar
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: var(--nav-height);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.navbar-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar .logo {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 1.4rem;
+  color: var(--gold);
+  text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: 2px;
+}
+
+.navbar .logo:hover {
+  color: var(--gold-light);
+}
+
+.navbar .back-link {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.navbar .back-link:hover {
+  color: var(--gold);
+}
+
+/* Main nav links (three categories) */
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 8px 4px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* Hamburger menu (mobile) */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 1px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile nav menu */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 199;
+  padding: 12px 20px;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav.open {
+  display: flex;
+}
+
+.mobile-nav a {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  padding: 12px 8px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+  min-height: 44px;
+  line-height: 44px;
+}
+
+.mobile-nav a:hover,
+.mobile-nav a.active {
+  background: var(--card);
+  color: var(--gold);
+}
+
+/* Body offset for fixed navbar */
+body {
+  padding-top: var(--nav-height);
+}
+
+/* ============================================================
+   Breadcrumb
+   ============================================================ */
+.breadcrumb {
+  padding: 12px 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.breadcrumb a {
+  color: var(--text-muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--gold);
+}
+
+.breadcrumb .sep {
+  margin: 0 8px;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.breadcrumb .current {
+  color: var(--gold);
+}
+
+/* ============================================================
+   Search Box
+   ============================================================ */
+.search-box {
+  position: relative;
+  margin: 16px 0;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  min-height: 44px;
+}
+
+.search-box input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-box .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.search-results {
+  margin-top: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: none;
+}
+
+.search-results.has-results {
+  display: block;
+}
+
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: background var(--transition);
+}
+
+.search-results a:last-child {
+  border-bottom: none;
+}
+
+.search-results a:hover {
+  background: var(--card-hover);
+  color: var(--gold);
+}
+
+.search-results .no-results {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   Copy Button
+   ============================================================ */
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.copy-btn:hover {
+  background: var(--card-hover);
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.copy-btn.copied {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+/* ============================================================
+   Metro Tile Grid (首页 Metro 瓷砖)
+   ============================================================ */
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 30px 0 15px;
+  padding-left: 5px;
+}
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--tile-gap);
+}
+
+/* Base Tile */
+.tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.15s, filter 0.15s, background var(--transition), box-shadow var(--transition);
+  text-decoration: none;
+  color: var(--text);
+}
+
+.tile:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+/* Tile sizes */
+.tile-1x1 { grid-column: span 1; grid-row: span 1; }
+.tile-2x1 { grid-column: span 2; grid-row: span 1; }
+.tile-1x2 { grid-column: span 1; grid-row: span 2; }
+.tile-2x2 { grid-column: span 2; grid-row: span 2; }
+
+/* Tile accent colors */
+.tile-blue { border-left: 4px solid var(--blue); }
+.tile-green { border-left: 4px solid var(--green); }
+.tile-orange { border-left: 4px solid var(--orange); }
+.tile-red { border-left: 4px solid var(--red); }
+.tile-purple { border-left: 4px solid var(--purple); }
+.tile-teal { border-left: 4px solid var(--teal); }
+.tile-pink { border-left: 4px solid var(--pink); }
+.tile-yellow { border-left: 4px solid var(--yellow); }
+.tile-gold { border-left: 4px solid var(--gold); }
+.tile-dark { border-left: 4px solid var(--border-light); }
+
+/* Light theme: colored tile backgrounds */
+[data-theme="light"] .tile-blue { background: #e3f2fd; }
+[data-theme="light"] .tile-blue * { color: #0d47a1; }
+[data-theme="light"] .tile-green { background: #e8f5e9; }
+[data-theme="light"] .tile-green * { color: #1b5e20; }
+[data-theme="light"] .tile-orange { background: #fff3e0; }
+[data-theme="light"] .tile-orange * { color: #e65100; }
+[data-theme="light"] .tile-red { background: #ffebee; }
+[data-theme="light"] .tile-red * { color: #b71c1c; }
+[data-theme="light"] .tile-purple { background: #f3e5f5; }
+[data-theme="light"] .tile-purple * { color: #6a1b9a; }
+[data-theme="light"] .tile-teal { background: #e0f2f1; }
+[data-theme="light"] .tile-teal * { color: #00695c; }
+[data-theme="light"] .tile-pink { background: #fce4ec; }
+[data-theme="light"] .tile-pink * { color: #880e4f; }
+[data-theme="light"] .tile-yellow { background: #fffde7; }
+[data-theme="light"] .tile-yellow * { color: #f57f17; }
+[data-theme="light"] .tile-gold { background: #fff8e1; }
+[data-theme="light"] .tile-gold * { color: #a68a3c; }
+[data-theme="light"] .tile:hover {
+  filter: none;
+  box-shadow: var(--shadow-md);
+}
+
+/* Tile internals */
+.tile .emoji { font-size: 36px; line-height: 1; margin-bottom: 10px; }
+.tile .title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.tile .desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+.tile .meta { font-size: 0.7rem; color: var(--text-muted); margin-top: auto; }
+.tile .big-number { font-size: 3.2rem; font-weight: 100; line-height: 1; }
+.tile .unit { font-size: 1.5rem; font-weight: 400; opacity: 0.7; }
+
+/* ============================================================
+   Page Header (子页面顶部)
+   ============================================================ */
+.page-header {
+  padding: 32px 0 16px;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.page-header .subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   Content Sections (子页面内容区)
+   ============================================================ */
+.section {
+  margin: 24px 0;
+}
+
+.section h2 {
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ============================================================
+   Warning / Tip Boxes
+   ============================================================ */
+.warning-box {
+  background: rgba(232, 17, 35, 0.08);
+  border-left: 4px solid var(--red);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+  color: var(--red);
+  font-size: 0.9rem;
+}
+
+[data-theme="light"] .warning-box {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.tip-box {
+  background: rgba(0, 120, 212, 0.06);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+  color: var(--blue-light);
+  font-size: 0.9rem;
+}
+
+[data-theme="light"] .tip-box {
+  background: #d4edda;
+  color: #155724;
+  border-left-color: var(--green);
+}
+
+/* ============================================================
+   Table
+   ============================================================ */
+.m-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+
+.m-table th,
+.m-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid var(--border);
+}
+
+.m-table th {
+  background: var(--card);
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.m-table td {
+  color: var(--text-secondary);
+}
+
+.m-table tr:nth-child(even) td {
+  background: var(--bg-secondary);
+}
+
+[data-theme="light"] .m-table th {
+  background: #f0ede5;
+  color: var(--gold);
+}
+
+[data-theme="light"] .m-table td {
+  background: var(--card);
+  color: var(--text);
+}
+
+[data-theme="light"] .m-table tr:nth-child(even) td {
+  background: var(--bg-secondary);
+}
+
+/* ============================================================
+   Tags
+   ============================================================ */
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  background: rgba(201, 168, 76, 0.1);
+  color: var(--gold);
+  margin: 2px 4px 2px 0;
+}
+
+[data-theme="light"] .tag {
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--gold);
+}
+
+/* ============================================================
+   Phase / Step Tiles (文玩页面)
+   ============================================================ */
+.phase-tile,
+.step-tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin: 8px 0;
+  transition: background var(--transition);
+}
+
+.phase-num,
+.step-num {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--blue);
+}
+
+.phase-name,
+.step-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 4px 0;
+}
+
+.phase-desc,
+.step-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.phase-time,
+.step-time {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+[data-theme="light"] .phase-tile,
+[data-theme="light"] .step-tile {
+  background: var(--card);
+  border-color: var(--border-light);
+}
+
+/* ============================================================
+   Theme Toggle Button
+   ============================================================ */
+.theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s, background var(--transition), box-shadow var(--transition);
+  background: var(--card);
+  color: var(--text);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15);
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="light"] .theme-toggle {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+footer a {
+  color: var(--gold);
+}
+
+footer a:hover {
+  color: var(--gold-light);
+}
+
+/* ============================================================
+   Home Page Header (Metro Style)
+   ============================================================ */
+.home-header {
+  padding: 32px 0 8px;
+  text-align: center;
+}
+
+.home-header .site-title {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 3rem;
+  color: var(--text);
+  letter-spacing: 4px;
+  line-height: 1.2;
+}
+
+.home-header .subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   Method Tiles (鉴别方法卡片)
+   ============================================================ */
+.method-tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 12px 0;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.method-tile:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.method-tile h4 {
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.method-tile p {
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   Log Item (更新日志)
+   ============================================================ */
+.log-item {
+  background: var(--card);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+
+.log-item .date {
+  font-size: 0.8rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.log-item .text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Changelog Timeline
+   ============================================================ */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+  margin: 24px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--bg);
+}
+
+.timeline-item .timeline-date {
+  font-size: 0.8rem;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.timeline-item .timeline-content {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+}
+
+.timeline-item .timeline-content h3 {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.timeline-item .timeline-content p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   404 Page
+   ============================================================ */
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--nav-height) - 200px);
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.error-page .error-code {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 8rem;
+  color: var(--gold);
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(201, 168, 76, 0.3);
+}
+
+.error-page .error-message {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin: 16px 0 32px;
+}
+
+.error-page .error-decoration {
+  margin-bottom: 32px;
+}
+
+.btn-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--gold);
+  color: #0a0a0a;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 700;
+  transition: background var(--transition), transform 0.2s;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.btn-home:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+[data-theme="light"] .btn-home {
+  color: #fff;
+}
+
+/* ============================================================
+   Responsive: 768px
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .tile-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .tile-2x2 {
+    grid-column: span 2;
+  }
+
+  .home-header .site-title {
+    font-size: 2.4rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  footer {
+    padding: 24px 16px;
+  }
+}
+
+/* ============================================================
+   Responsive: 480px
+   ============================================================ */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .tile-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tile-2x1,
+  .tile-2x2 {
+    grid-column: span 2;
+  }
+
+  .tile {
+    padding: 16px;
+    min-height: 100px;
+  }
+
+  .tile .emoji {
+    font-size: 28px;
+  }
+
+  .home-header .site-title {
+    font-size: 2rem;
+  }
+
+  .page-header {
+    padding: 24px 0 12px;
+  }
+
+  .page-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .section h2 {
+    font-size: 1.1rem;
+  }
+
+  .theme-toggle {
+    bottom: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
+  .error-page .error-code {
+    font-size: 5rem;
+  }
+}
+
+/* ============================================================
+   Light theme: global overrides
+   ============================================================ */
+[data-theme="light"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] strong,
+[data-theme="light"] b {
+  color: var(--text);
+}
+
+[data-theme="light"] p,
+[data-theme="light"] li,
+[data-theme="light"] td,
+[data-theme="light"] th {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] a {
+  color: var(--blue);
+}
+
+[data-theme="light"] a:hover {
+  color: var(--gold);
+}
+
+[data-theme="light"] .navbar .logo {
+  color: var(--text);
+}
+
+[data-theme="light"] .home-header .site-title {
+  color: var(--text);
+}

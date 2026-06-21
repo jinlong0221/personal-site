@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<title>地龙 — 龙兄知识库</title>
+<style>
+:root {
+  --bg: #0a0a0a; --text: #fff; --text-secondary: #b0b0b0; --text-muted: #7a7a7a;
+  --card: #1a1a1a; --border: #333; --accent: #2d6a4f; --accent-light: #40916c;
+  --nav-bg: rgba(10,10,10,0.95);
+}
+[data-theme="light"] {
+  --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
+  --card: #fff; --border: #e0e0e0; --accent: #2d6a4f; --accent-light: #40916c;
+  --nav-bg: rgba(245,245,245,0.95);
+}
+body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.navbar { position: sticky; top: 0; z-index: 200; background: var(--nav-bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+.navbar-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 52px; }
+.navbar-logo { font-family: 'Ma Shan Zheng', cursive; font-size: 26px; color: var(--text); text-decoration: none; letter-spacing: 2px; }
+.navbar-home { color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; padding: 6px 14px; background: var(--accent); border-radius: 4px; }
+.breadcrumb { max-width: 900px; margin: 20px auto 0; padding: 0 24px; font-size: 13px; color: var(--text-muted); }
+.breadcrumb a { color: var(--accent-light); text-decoration: none; }
+.breadcrumb span { margin: 0 6px; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; }
+header { padding: 32px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+header .emoji { font-size: 52px; margin-bottom: 8px; }
+header h1 { font-size: 32px; font-weight: 900; margin-bottom: 8px; color: var(--text); }
+header .intro { font-size: 15px; color: var(--text-secondary); max-width: 600px; }
+.tab-nav { position: sticky; top: 52px; z-index: 100; background: var(--nav-bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+.tab-nav-inner { display: flex; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.tab-btn { padding: 13px 24px; font-size: 14px; font-weight: 700; color: var(--text-secondary); background: none; border: none; cursor: pointer; position: relative; transition: color 0.2s, background 0.2s; font-family: 'Noto Sans SC', sans-serif; }
+.tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.tab-btn.active { color: #fff; background: var(--accent); }
+.tab-content { display: none; padding: 36px 0; }
+.tab-content.active { display: block; }
+.section-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 28px 32px; margin-bottom: 20px; }
+.section-card h2 { font-size: 18px; font-weight: 900; color: var(--accent-light); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
+.section-card h3 { font-size: 15px; font-weight: 700; color: var(--text); margin: 20px 0 10px; }
+.section-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.7; }
+.section-card ul, .section-card ol { padding-left: 20px; margin: 10px 0 14px; }
+.section-card li { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+.section-card li strong { color: var(--text); }
+.warn-box { background: rgba(45,106,79,0.12); border-left: 4px solid var(--accent); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+.warn-box p, .warn-box li { color: var(--text-secondary) !important; }
+.tip-box { background: rgba(64,145,108,0.1); border-left: 4px solid var(--accent-light); padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 10px 0; }
+.tip-box p, .tip-box li { color: var(--text-secondary) !important; }
+.back-link { display: inline-block; margin: 32px 0 0; color: var(--accent-light); text-decoration: none; font-size: 14px; font-weight: 700; }
+.back-link:hover { text-decoration: underline; }
+footer { text-align: center; padding: 40px 0 30px; color: var(--text-muted); font-size: 12px; }
+footer span { color: var(--accent-light); font-weight: 700; }
+@media (max-width: 768px) {
+  header h1 { font-size: 26px; }
+  .section-card { padding: 20px; }
+  .tab-btn { padding: 11px 16px; font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="../index.html" class="navbar-logo">龙兄知识库</a>
+    <a href="../index.html" class="navbar-home">← 首页</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../index.html">首页</a><span>›</span>
+  <a href="index.html">中药材</a><span>›</span>
+  <span>地龙</span>
+</div>
+
+<div class="container">
+<header>
+  <div class="emoji">🐛</div>
+  <h1>地龙</h1>
+  <p class="intro">蚯蚓干燥体，中医称为"地龙"，清热定惊、通络平喘。药材市场以广地龙、沪地龙为主，规格与品质差异较大。</p>
+</header>
+
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="jianbie">鉴别</button>
+    <button class="tab-btn" data-tab="gongxiao">功效</button>
+    <button class="tab-btn" data-tab="bipeng">避坑</button>
+  </div>
+</nav>
+
+<!-- 鉴别 -->
+<div class="tab-content active" id="jianbie">
+  <div class="section-card">
+    <h2>🔍 鉴别</h2>
+
+    <h3>外观特征</h3>
+    <p>地龙为钜蚓科动物参环毛蚓、通俗环毛蚓等的干燥体。广地龙呈长条状薄片，弯曲，边缘略卷，表面棕褐色或灰褐色，具环节，前端有环带（生殖带）。体轻，质脆，易折断，具土腥气。</p>
+
+    <h3>真假辨别</h3>
+    <ul>
+      <li><strong>看环节：</strong>真品环节明显，背部有刚毛痕迹；伪品（如其他环节动物或伪制）环节模糊或过于规则。</li>
+      <li><strong>看断面：</strong>真品折断后可见体腔与肌肉层，断面不整齐；伪品断面均匀或呈粉质。</li>
+      <li><strong>闻气味：</strong>真品有特异土腥气；伪品气味淡、有霉味或化学异味。</li>
+    </ul>
+
+    <h3>优质标准</h3>
+    <ul>
+      <li>条大、完整、肉厚，无泥沙杂质</li>
+      <li>色泽棕褐或灰褐，有光泽，无虫蛀霉变</li>
+      <li>广地龙优于沪地龙，以广东、广西产者为佳</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 功效 -->
+<div class="tab-content" id="gongxiao">
+  <div class="section-card">
+    <h2>💚 功效</h2>
+
+    <h3>主要功效</h3>
+    <ul>
+      <li><strong>清热定惊：</strong>用于高热神昏、惊痫抽搐，常与石膏、钩藤等配伍。</li>
+      <li><strong>通络止痛：</strong>用于风湿痹痛、关节不利，以及中风后肢体麻木。</li>
+      <li><strong>平喘利尿：</strong>用于肺热咳喘、水肿尿少，有平喘利水作用。</li>
+      <li><strong>活血化瘀：</strong>现代研究认为其提取物具有一定抗凝、改善微循环作用。</li>
+    </ul>
+
+    <h3>使用方法</h3>
+    <ul>
+      <li><strong>煎服：</strong>常用量 5～10g，可研末吞服或入丸散。</li>
+      <li><strong>外用：</strong>研末调敷可用于局部热毒肿痛。</li>
+      <li><strong>配伍：</strong>与黄芪、当归配伍用于气虚血瘀；与僵蚕、全蝎配伍用于惊痫。</li>
+    </ul>
+
+    <div class="warn-box">
+      <p><strong>⚠️ 禁忌提示：</strong></p>
+      <ul>
+        <li>脾胃虚寒、便溏者慎用</li>
+        <li>孕妇慎用</li>
+        <li>非实热、非瘀滞者不宜久服</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 避坑 -->
+<div class="tab-content" id="bipeng">
+  <div class="section-card">
+    <h2>⚠️ 避坑</h2>
+
+    <h3>常见误区</h3>
+    <ul>
+      <li><strong>误区一：</strong>认为地龙"越细越好"。实际上广地龙以条大肉厚为佳，过细可能为未长成或伪品。</li>
+      <li><strong>误区二：</strong>自行捕捉蚯蚓晒干使用。野生蚯蚓可能含重金属、寄生虫，且不同品种功效差异大。</li>
+      <li><strong>误区三：</strong>把"地龙蛋白"保健品当作药材替代。保健品与中药饮片标准不同，不能混用。</li>
+    </ul>
+
+    <h3>购买注意事项</h3>
+    <ul>
+      <li>优先选择正规药店或中药饮片厂家的"地龙"饮片</li>
+      <li>注意产地标注：广地龙（参环毛蚓）品质较佳</li>
+      <li>检查是否含大量泥沙、杂质或虫蛀</li>
+      <li>慎买价格异常低廉或来源不明的散装货</li>
+    </ul>
+
+    <div class="tip-box">
+      <p><strong>💡 价格参考（参考行情，非实时）：</strong></p>
+      <ul>
+        <li>广地龙统货：约 120～200 元/kg</li>
+        <li>沪地龙统货：约 80～150 元/kg</li>
+        <li>精选地龙段：约 200～350 元/kg</li>
+      </ul>
+      <p>价格受产地、规格、含泥量影响，购买前建议查询中药材天地网实时行情。</p>
+    </div>
+  </div>
+</div>
+
+<a class="back-link" href="index.html">← 返回中药材香料百科</a>
+</div>
+
+<footer>
+  <p>由 <span>QClaw AI</span> 整理 · 数据持续更新</p>
+</footer>
+
+<script>
+(function(){
+  const btns = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      contents.forEach(c => c.classList.remove('active'));
+      const tab = document.getElementById(btn.dataset.tab);
+      if(tab) tab.classList.add('active');
+    });
+  });
+})();
+</script>
+<button class="theme-toggle" id="themeToggle">☀️</button>
+<script src="../js/app.js"></script>
+</body>
+</html>

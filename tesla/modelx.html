@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model X · 参数与科普 - 龙兄知识库</title>
+<meta name="description" content="特斯拉 Model X 全面解析：鹰翼门旗舰SUV、7座布局、性能与实用性兼顾。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-list .label { color: var(--text-muted); flex-shrink: 0; }
+.spec-list .value { color: var(--text); text-align: right; font-weight: 600; }
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.pros, .cons { padding: 16px; border-radius: var(--radius-sm); }
+.pros { background: rgba(16,124,16,0.08); border-left: 4px solid var(--green); }
+.cons { background: rgba(232,17,35,0.06); border-left: 4px solid var(--red); }
+.pros h3 { color: var(--green); margin-bottom: 8px; font-size: 1rem; }
+.cons h3 { color: var(--red); margin-bottom: 8px; font-size: 1rem; }
+.pros ul, .cons ul { padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+.people-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.people-box p { font-size: 0.9rem; color: var(--text-secondary); }
+.highlight { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
+.highlight-item { flex: 1; min-width: 140px; text-align: center; }
+.highlight-item .num { font-size: 1.6rem; font-weight: 900; color: var(--purple); }
+.highlight-item .desc { font-size: 0.8rem; color: var(--text-muted); }
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } .spec-list li { flex-direction: column; gap: 4px; } .spec-list .value { text-align: left; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../agarwood.html">AI学习</a></li>
+      <li><a href="../tesla.html">生活百科</a></li>
+      <li><a href="../travel.html">工具</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../agarwood.html">AI学习</a>
+    <a href="../tesla.html">生活百科</a>
+    <a href="../travel.html">工具</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div id="breadcrumb"></div>
+
+  <div class="page-header">
+    <h1>🦅 Tesla Model X</h1>
+    <p class="subtitle">鹰翼门旗舰 SUV · 7 座布局 · 性能与格调并重</p>
+  </div>
+
+  <!-- 1. 车型概览 -->
+  <div class="section">
+    <h2>📋 车型概览</h2>
+    <p>Model X 是特斯拉推出的全尺寸纯电动 SUV，最标志性的特征就是后门采用鹰翼门设计（Falcon Wing Doors）。自 2015 年交付以来，Model X 一直是高端电动 SUV 市场的标杆之一，兼顾了未来感设计、超强性能和真正的 7 座实用性。</p>
+    <div class="highlight">
+      <div class="highlight-item"><div class="num">2.6 s</div><div class="desc">Plaid 0-100 km/h</div></div>
+      <div class="highlight-item"><div class="num">约 74 万起</div><div class="desc">中国区起售价</div></div>
+      <div class="highlight-item"><div class="num">7 座</div><div class="desc">可选布局</div></div>
+    </div>
+    <ul class="spec-list">
+      <li><span class="label">车型定位</span><span class="value">全尺寸纯电动 SUV</span></li>
+      <li><span class="label">中国版本</span><span class="value">双电机全驱版 / Plaid 三电机版</span></li>
+      <li><span class="label">生产地</span><span class="value">美国弗里蒙特工厂</span></li>
+      <li><span class="label">指导价区间</span><span class="value">约 73.89 万 – 105.99 万</span></li>
+    </ul>
+  </div>
+
+  <!-- 2. 核心参数 -->
+  <div class="section">
+    <h2>📊 核心参数</h2>
+    <table class="m-table">
+      <thead><tr><th>参数</th><th>双电机全驱版</th><th>Plaid 三电机版</th></tr></thead>
+      <tbody>
+        <tr><td>CLTC续航</td><td>664 km</td><td>613 km</td></tr>
+        <tr><td>电机型式</td><td>双电机全驱</td><td>三电机全驱</td></tr>
+        <tr><td>最大功率</td><td>500 kW</td><td>760 kW（约 1,020 hp）</td></tr>
+        <tr><td>0-100 km/h</td><td>3.9 s</td><td>2.6 s</td></tr>
+        <tr><td>最高时速</td><td>250 km/h</td><td>290 km/h</td></tr>
+        <tr><td>电池容量</td><td>约 100 kWh</td><td>约 100 kWh</td></tr>
+        <tr><td>整备质量</td><td>约 2,455 kg</td><td>约 2,539 kg</td></tr>
+        <tr><td>座椅布局</td><td>5/6/7 座可选</td><td>5/6 座可选</td></tr>
+        <tr><td>拖挂能力</td><td>2,268 kg</td><td>2,268 kg</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3. 鹰翼门与空间 -->
+  <div class="section">
+    <h2>🦅 鹰翼门与空间</h2>
+    <p>鹰翼门是 Model X 最具辨识度的设计，采用双铰链结构，在狭窄停车位也能打开：</p>
+    <ul style="padding-left:20px;font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">
+      <li>上方传感器检测障碍物高度（如车库顶），自动调节开门角度</li>
+      <li>侧方传感器防止碰擦相邻车辆</li>
+      <li>支持手机 App 远程开启/关闭</li>
+      <li>第二排和第三排带有独立空调出风口和 USB 接口</li>
+      <li>尾门为电动掀背式，开口巨大，适合搬运大件</li>
+    </ul>
+    <div class="warning-box">
+      <p>⚠️ 鹰翼门机构复杂，<strong>维修成本较高</strong>。二手车建议仔细检查鹰翼门的运动是否顺畅，购买延保服务。</p>
+    </div>
+  </div>
+
+  <!-- 4. 优缺点 -->
+  <div class="section">
+    <h2>👍👎 优缺点</h2>
+    <div class="pros-cons">
+      <div class="pros">
+        <h3>✅ 优点</h3>
+        <ul>
+          <li>鹰翼门设计极具未来感，实用性强</li>
+          <li>Plaid 版 2.6 秒 0-100，SUV 中无敌</li>
+          <li>7 座布局可选，空间利用率高</li>
+          <li>前挡风玻璃视野极佳（直升机座舱感）</li>
+          <li>空气悬架舒适性出色</li>
+          <li>超充网络配套成熟</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h3>❌ 缺点</h3>
+        <ul>
+          <li>售价高昂，性价比一般</li>
+          <li>鹰翼门维护成本高</li>
+          <li>底盘较高对小孩上下车不便</li>
+          <li>后排空间不如同等尺寸的燃油 SUV</li>
+          <li>内饰工艺仍有提升空间</li>
+          <li>不在国内生产，配件等待时间长</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 适合人群 -->
+  <div class="section">
+    <h2>👥 适合人群</h2>
+    <div class="people-box">
+      <p><strong>🌟 推荐给：</strong>需要 6-7 座大空间电动 SUV 的高预算家庭、追求科技与个性设计的高端用户、喜欢高性能 SUV 的驾驶爱好者。</p>
+    </div>
+    <div class="people-box" style="border-left-color:var(--orange);">
+      <p><strong>⚠️ 慎选人群：</strong>用车预算有限、对维修便利性要求苛刻的用户、需要经常出入低矮地库（部分车库可能限制鹰翼门开启）。</p>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回新能源汽车首页</a>
+  </div>
+
+</main>
+
+<button class="theme-toggle" id="themeToggle">🌙</button>
+<script>
+(function(){
+  var btn = document.getElementById('tb');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>充电指南 · 特斯拉 - 龙兄知识库</title>
+<meta name="description" content="特斯拉充电指南：家充安装、超充使用技巧、第三方充电、电池健康保养全攻略。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+.method-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin: 12px 0; }
+.method-box h3 { font-size: 1rem; color: var(--blue); margin-bottom: 8px; }
+.method-box p, .method-box li { font-size: 0.9rem; color: var(--text-secondary); }
+.method-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin: 16px 0; }
+.tip-card { background: var(--card); border-left: 4px solid var(--gold); padding: 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.tip-card h4 { font-size: 0.95rem; color: var(--gold); margin-bottom: 6px; }
+.tip-card p { font-size: 0.85rem; color: var(--text-secondary); }
+.battery-tip { background: rgba(0,130,114,0.06); border-left: 4px solid var(--teal); padding: 16px 20px; margin: 12px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.battery-tip h4 { color: var(--teal); font-size: 0.95rem; margin-bottom: 6px; }
+.battery-tip p { font-size: 0.85rem; color: var(--text-secondary); }
+@media (max-width: 600px) { .method-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../agarwood.html">AI学习</a></li>
+      <li><a href="../tesla.html">生活百科</a></li>
+      <li><a href="../travel.html">工具</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../agarwood.html">AI学习</a>
+    <a href="../tesla.html">生活百科</a>
+    <a href="../travel.html">工具</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div id="breadcrumb"></div>
+
+  <div class="page-header">
+    <h1>⚡ 特斯拉充电指南</h1>
+    <p class="subtitle">家充安装 · 超充使用技巧 · 第三方充电 · 电池健康全攻略</p>
+  </div>
+
+  <!-- 1. 充电方式对比 -->
+  <div class="section">
+    <h2>🔌 充电方式概览</h2>
+    <p>特斯拉支持多种充电方式，根据你的用车场景选择合适的方案，既能省钱又能提升使用体验。</p>
+    <table class="m-table">
+      <thead><tr><th>充电方式</th><th>功率</th><th>充满时间（60kWh）</th><th>适合场景</th><th>费用参考</th></tr></thead>
+      <tbody>
+        <tr><td>家充（壁挂式）</td><td>7-11 kW</td><td>5-10 h</td><td>日常过夜</td><td>约 0.3-0.6 元/kWh（家用电）</td></tr>
+        <tr><td>随车充</td><td>2-3 kW（10A）/ 3.5 kW（16A）</td><td>15-25 h</td><td>临时/应急/旅行</td><td>与家用电同价</td></tr>
+        <tr><td>特斯拉超充 V3</td><td>250 kW</td><td>≈ 25 min（10→80%）</td><td>长途补能</td><td>约 1.5-2.5 元/kWh</td></tr>
+        <tr><td>特斯拉超充 V4</td><td>500 kW</td><td>≈ 15 min（10→80%）</td><td>极速补能</td><td>约 2.0-3.0 元/kWh</td></tr>
+        <tr><td>第三方快充</td><td>60-180 kW</td><td>30-60 min</td><td>无超充时备用</td><td>约 0.8-1.5 元/kWh</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. 家充安装指南 -->
+  <div class="section">
+    <h2>🏠 家充安装指南</h2>
+    <p>家充是所有充电方式中最方便、最经济的。以下是安装要点：</p>
+    <div class="method-grid">
+      <div class="method-box">
+        <h3>⚡ 特斯拉壁挂式充电桩</h3>
+        <p>推荐使用特斯拉第三代壁挂式充电桩（约 8,000 元含安装）。支持 7kW 单相（220V）或 11kW 三相（380V）。最大优势：即插即充、预约充电、OTA 升级。</p>
+      </div>
+      <div class="method-box">
+        <h3>🔌 国标通用充电桩</h3>
+        <p>第三方品牌如挚达、星星充电等，价格低至 2,000-4,000 元。兼容性良好，同样支持预约充电。建议选购带有「特斯拉认证」或明确标注兼容特斯拉的产品。</p>
+      </div>
+      <div class="method-box">
+        <h3>🗒️ 安装前准备</h3>
+        <p>① 确认车位产权（物业同意书）<br>
+        ② 申请新能源电表（国家电网 App 免费申请）<br>
+        ③ 确认电表容量（建议 7kW 需≥40A，11kW 需≥60A）<br>
+        ④ 测量电表到车位距离（超出 30 米需额外付线缆费）</p>
+      </div>
+      <div class="method-box">
+        <h3>💰 成本预估</h3>
+        <p>特斯拉原装壁挂充（含 30 米安装）：约 8,000 元<br>
+        第三方品牌（含安装）：约 2,000-4,000 元<br>
+        电表申请：免费<br>
+        电费：约 0.3-0.6 元/kWh（各地峰谷电价不同）</p>
+      </div>
+    </div>
+    <div class="tip-box">
+      <p>💡 <strong>省钱技巧：</strong>申请「峰谷电价」，夜间 0:00-8:00 充电可享受谷电价（约 0.3 元/kWh），充满一次 Model 3 后驱版仅需约 18 元。</p>
+    </div>
+  </div>
+
+  <!-- 3. 超充使用技巧 -->
+  <div class="section">
+    <h2>🏎️ 超级充电站使用技巧</h2>
+    <ul style="padding-left:20px;font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">
+      <li><strong>导航前往超充：</strong>在特斯拉导航中设定超充站，车辆会自动预热电池，显著缩短充电时间（尤其在冬季）</li>
+      <li><strong>最佳充电区间：</strong>从 10% 充到 80% 是最经济的策略，80% 后充电速度大幅下降</li>
+      <li><strong>避免占位费：</strong>超充站充满后 5 分钟不挪车开始收取占位费（最高 6.4 元/分钟）</li>
+      <li><strong>V3/V4 与 V2 区别：</strong>V3 最大 250kW，V4 最大 500kW；V2 共享功率（相邻车位会分流）</li>
+      <li><strong>避开高峰：</strong>节假日高速服务区超充站排队长（30-60 分钟），建议下高速 5 km 内的市区超充站</li>
+      <li><strong>非特斯拉车辆：</strong>国内超充站已开放给其他品牌使用（需下载 Tesla App 充电）</li>
+    </ul>
+    <div class="warning-box">
+      <p>⚠️ <strong>避免频繁超充：</strong>长期频繁使用大功率快充会加速电池衰减。日常尽量用家充慢充，长途旅行再用超充。</p>
+    </div>
+  </div>
+
+  <!-- 4. 第三方充电 -->
+  <div class="section">
+    <h2>🔋 第三方充电网络</h2>
+    <table class="m-table">
+      <thead><tr><th>运营商</th><th>数量</th><th>功率</th><th>使用方式</th><th>兼容性</th></tr></thead>
+      <tbody>
+        <tr><td>国家电网（e充电）</td><td>超 30 万根</td><td>60-120 kW</td><td>国网 App / 扫码</td><td>良好</td></tr>
+        <tr><td>特来电</td><td>超 20 万根</td><td>60-180 kW</td><td>特来电 App / 扫码</td><td>优秀</td></tr>
+        <tr><td>星星充电</td><td>超 15 万根</td><td>60-120 kW</td><td>星星充电 App</td><td>良好</td></tr>
+        <tr><td>小桔充电</td><td>超 10 万根</td><td>60-120 kW</td><td>滴滴 App 内</td><td>良好</td></tr>
+        <tr><td>特斯拉超充</td><td>超 9,000 根</td><td>250-500 kW</td><td>即插即充/Tesla App</td><td>最佳</td></tr>
+      </tbody>
+    </table>
+    <div class="tip-box">
+      <p>💡 <strong>使用技巧：</strong>通过「特斯拉 App → 地点 → 充电」可以查看第三方充电站信息。部分第三方快充桩握手成功率和功率可能低于超充，属正常现象。</p>
+    </div>
+  </div>
+
+  <!-- 5. 电池健康保养 -->
+  <div class="section">
+    <h2>🔋 电池健康保养（Battery 101）</h2>
+
+    <div class="battery-tip">
+      <h4>📐 三元锂电池（NCA / NCM）</h4>
+      <p>用于 Model 3/Y 长续航/高性能版、Model S/X<br>
+        ✅ 日常建议：保持 20%-80% 电量<br>
+        ✅ 长途前：充满至 90% 或 100%（出发时再用）<br>
+        ✅ 避免：长时间停在 100% 或 0%<br>
+        ✅ 每月做 1 次完整充放电（10%→100%）用于 BMS 校准</p>
+    </div>
+
+    <div class="battery-tip" style="border-left-color:var(--green);">
+      <h4>🧪 磷酸铁锂电池（LFP）</h4>
+      <p>用于 Model 3/Y 后驱标准续航版<br>
+        ✅ 日常建议：可随时充满至 100%（厂家推荐）<br>
+        ✅ 注意：LFP 的 SOC 估算不如三元锂精确<br>
+        ✅ 每周至少充满 1 次以校准 BMS（尤其冬季）<br>
+        ✅ 耐低温性能比三元锂差（东北用户注意）</p>
+    </div>
+
+    <div class="battery-tip" style="border-left-color:var(--orange);">
+      <h4>🌡️ 温度管理</h4>
+      <p>✅ 最佳工作温度：25-40°C<br>
+        ✅ 冬季充电前预热：导航到超充即可自动预热<br>
+        ✅ 夏季注意：避免长时间暴晒（尤其是 LFP 车型）<br>
+        ✅ 长时间停车：建议插着充电枪（即使不充），BMS 会自动管理温度</p>
+    </div>
+
+    <div class="battery-tip" style="border-left-color:var(--red);">
+      <h4>🚫 避免的坏习惯</h4>
+      <p>❌ 经常用到 5% 以下再充<br>
+        ❌ 长期停在 100% 不移动（尤其是高温天）<br>
+        ❌ 寒冬室外长期停放不充电<br>
+        ❌ 频繁使用 250kW+ 超充（仅长途需要时再用）<br>
+        ❌ 盲目相信第三方「电池修复」服务</p>
+    </div>
+
+    <div class="tip-box">
+      <p>💡 <strong>电池衰减预期：</strong>特斯拉电池设计寿命约 30 万-80 万公里（取决于车型和使用习惯）。多数车主 3 年衰减约 5-10%，第 4-5 年后衰减速度放缓。电池保修：8 年/16 万-24 万公里（根据车型不同），保维修或更换。</p>
+    </div>
+  </div>
+
+  <!-- 6. 充电策略总结 -->
+  <div class="section">
+    <h2>📝 日常充电策略总结</h2>
+    <table class="m-table">
+      <thead><tr><th>场景</th><th>推荐策略</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>日常通勤（有家充）</td><td>随用随充，保持 20-80%</td><td>设置预约充电到低谷电价时段</td></tr>
+        <tr><td>日常通勤（LFP 版本）</td><td>每周充满 1 次，其余随用随充</td><td>充满校准 BMS</td></tr>
+        <tr><td>长途旅行</td><td>出发前充满，规划超充站</td><td>导航中设定超充自动预热电池</td></tr>
+        <tr><td>长期停放（>1 周）</td><td>保持 50% 电量，插充电枪</td><td>关闭哨兵模式降低自放电</td></tr>
+        <tr><td>长期停放（>1 月）</td><td>保持 50% 电量，连接电源</td><td>每月检查一次电量</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 底部 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回新能源汽车首页</a>
+  </div>
+
+</main>
+
+<button class="theme-toggle" id="themeToggle">🌙</button>
+<script>
+(function(){
+  var btn = document.getElementById('tb');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>
+</body>
+</html>

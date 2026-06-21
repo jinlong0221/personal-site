@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>马骨手串 - 龙兄知识库</title>
+<meta name="description" content="马骨手串鉴别、盘玩、保养全攻略。马骨纹理、染色辨别、骨料对比，入门到精通。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+  .bone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
+  .bone-card{border-radius:var(--radius-sm);padding:16px;transition:transform .15s}
+  .bone-card:hover{transform:scale(1.02)}
+  .bone-card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:#fff!important}
+  .bone-card p,.bone-card li{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6}
+  .bone-card ul{margin:6px 0 0 16px}
+  .bone-card li{margin-bottom:3px}
+  .bone-texture{background:linear-gradient(135deg,#4a3728,#6b5038);border-left:4px solid var(--blue)}
+  .bone-dye{background:linear-gradient(135deg,#6b3030,#8a4040);border-left:4px solid var(--red)}
+  .bone-burn{background:linear-gradient(135deg,#30603a,#408050);border-left:4px solid var(--green)}
+  .bone-weight{background:linear-gradient(135deg,#2a3a5a,#3a4e70);border-left:4px solid var(--purple)}
+  .compare-full{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
+  .compare-item{border-radius:var(--radius-sm);padding:14px;background:var(--card);border:1px solid var(--border);text-align:center}
+  .compare-item .name{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--gold)}
+  .compare-item .detail{font-size:12px;color:var(--text-secondary)}
+  @media(max-width:768px){.bone-grid{grid-template-columns:1fr}.compare-full{grid-template-columns:repeat(2,1fr)}}
+  [data-theme="light"] .bone-card{filter:brightness(.9)}[data-theme="light"] .bone-card h4,[data-theme="light"] .bone-card p,[data-theme="light"] .bone-card li{color:#fff!important}
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../bracelet.html" style="color:var(--gold);">文玩手串</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../index.html">首页</a>
+    <a href="../bracelet.html">文玩手串</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="breadcrumb">
+    <a href="../index.html">首页</a>
+    <span class="sep">›</span>
+    <a href="../bracelet.html">文玩手串</a>
+    <span class="sep">›</span>
+    <span class="current">马骨手串</span>
+  </div>
+
+  <div class="page-header">
+    <h1>马骨手串</h1>
+    <p class="subtitle">骨料文玩新星，价格亲民纹理独特，盘玩变化快，但染色仿冒多</p>
+  </div>
+
+  <div class="section">
+    <h2>什么是马骨手串？</h2>
+    <p>马骨手串是近年来热度攀升的文玩品类，属于骨料文玩中的新星。以马的小腿骨（马骨管）为原料，经脱脂脱油处理后加工成珠子。价格亲民（50-300元），纹理独特（纵向纤维纹），盘玩变化快（3-6个月包浆），适合新手入门。</p>
+    <p>优质马骨多产自内蒙古、新疆等地区。马骨密度中等偏硬，油性较大，上手后润度提升快。</p>
+  </div>
+
+  <div class="section">
+    <h2>马骨 vs 其他骨料</h2>
+    <table class="m-table">
+      <tr><th>骨料</th><th>密度</th><th>油性</th><th>纹理</th><th>盘玩变化</th><th>价格带</th></tr>
+      <tr><td><strong>马骨</strong></td><td>中等偏硬</td><td>油性大</td><td>纵向纤维纹清晰</td><td>快，3-6个月包浆</td><td>50-300元</td></tr>
+      <tr><td><strong>驼骨</strong></td><td>高</td><td>油性大</td><td>不规则绞丝纹</td><td>快，油润感强</td><td>80-500元</td></tr>
+      <tr><td><strong>牦牛骨</strong></td><td>高</td><td>油性中等</td><td>粗犷纵纹</td><td>中等，1-2年</td><td>50-200元</td></tr>
+      <tr><td><strong>象骨/猛犸</strong></td><td>高</td><td>油性低</td><td>交叉线（雷纹）</td><td>慢，需耐心</td><td>200-2000元</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>鉴别要点</h2>
+    <div class="bone-grid">
+      <div class="bone-card bone-texture">
+        <h4>🦴 看纹理</h4>
+        <p>真马骨：纵向平行纤维纹，自然流畅类似木纹。放大镜下可见天然血管孔（骨小孔），分布不规则。假货无纹理或人造压纹太规则太均匀。</p>
+      </div>
+      <div class="bone-card bone-dye">
+        <h4>🎨 辨染色</h4>
+        <p>市场上"红马骨"多是染色。辨别方法：</p>
+        <ul>
+          <li>棉签蘸酒精擦拭——掉色则染</li>
+          <li>看孔道内侧——染色品孔道内颜色与表面不一致</li>
+          <li>紫外线灯——天然骨有柔和荧光，染色骨荧光异常</li>
+        </ul>
+      </div>
+      <div class="bone-card bone-burn">
+        <h4>🔥 烧灼测试（慎用）</h4>
+        <p>热针点刺不明显处：真骨有焦糊味（类似烧头发），无黑烟。塑料/树脂仿品有化学刺鼻味+黑烟。</p>
+      </div>
+      <div class="bone-card bone-weight">
+        <h4>⚖️ 掂重量</h4>
+        <p>真马骨密度中等，有压手感但不过重。塑料仿品太轻，树脂仿品过重。手感经验最重要。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>盘玩与保养</h2>
+    <ul>
+      <li><strong>上手直接盘：</strong>马骨油性大，净手盘即可，无需手套打底</li>
+      <li><strong>前期忌水忌汗：</strong>沾水后用软布擦干</li>
+      <li><strong>注意干裂：</strong>北方冬天远离暖气，涂薄层硅油可防裂</li>
+      <li><strong>包浆后变深红褐色：</strong>越盘越亮，近似琥珀质感</li>
+      <li>如需上油，用骨油或婴儿油，少量多次</li>
+    </ul>
+    <div class="tip-box"><strong>💡 购买建议：</strong>马骨入门门槛低，新手花50-100元就能买到一串不错的素串。建议买前问清：是否脱脂脱油、产地（内蒙古/新疆马骨为佳）、是否染色。推荐先入手鸡油黄（天然色）素串练手。</div>
+  </div>
+
+  <!-- 尺寸参考 -->
+  <div class="section">
+    <h2>尺寸参考</h2>
+    <table class="m-table">
+      <tr><th>手围（mm）</th><th>适合长度（mm）</th><th>推荐颗数（8mm）</th><th>推荐颗数（10mm）</th><th>推荐颗数（12mm）</th></tr>
+      <tr><td>150-155</td><td>160-170</td><td>20-21</td><td>16-17</td><td>13-14</td></tr>
+      <tr><td>155-160</td><td>170-175</td><td>21-22</td><td>17-18</td><td>14-15</td></tr>
+      <tr><td>160-165</td><td>175-180</td><td>22-23</td><td>18-19</td><td>15-16</td></tr>
+      <tr><td>165-170</td><td>180-185</td><td>23-24</td><td>19-20</td><td>16-17</td></tr>
+      <tr><td>170-175</td><td>185-190</td><td>24-25</td><td>20-21</td><td>17-18</td></tr>
+      <tr><td>175-180</td><td>190-195</td><td>25-26</td><td>21-22</td><td>18-19</td></tr>
+      <tr><td>180-185</td><td>195-200</td><td>26-27</td><td>22-23</td><td>19-20</td></tr>
+      <tr><td>185-190</td><td>200-205</td><td>27-28</td><td>23-24</td><td>20-21</td></tr>
+    </table>
+    <div class="tip-box"><strong>💡 建议：</strong>马骨手串通常做弹力绳短串，8-10mm是最常见尺寸。12mm以上的大尺寸马骨较少见。</div>
+  </div>
+
+  <div style="margin:32px 0;text-align:center;">
+    <a href="../bracelet.html" style="color:var(--gold);font-weight:700;font-size:15px;">← 返回文玩手串首页</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 龙兄知识库</p>
+    <p style="margin-top:4px;">AI驱动的个人知识库</p>
+  </div>
+</footer>
+
+<script>
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+</script>
+
+</body>
+</html>

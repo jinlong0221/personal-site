@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星月菩提 - 龙兄知识库</title>
+<meta name="description" content="星月菩提鉴别、产地、盘玩方法与保养全攻略。海南毛感料、五星帝王料、无相星月等知识详解。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+  .variety-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
+  .variety-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;border-left:4px solid var(--purple)}
+  .variety-card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--gold)}
+  .variety-card p{font-size:13px;color:var(--text-secondary);line-height:1.6}
+  .phase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--tile-gap);margin:16px 0}
+  .phase-tile{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;transition:transform .15s}
+  .phase-tile:hover{transform:scale(1.02)}
+  .phase-tile .phase-num{font-size:28px;font-weight:700;color:var(--blue);line-height:1}
+  .phase-tile .phase-name{font-size:15px;font-weight:700;margin:8px 0 4px;color:var(--text)}
+  .phase-tile .phase-time{font-size:11px;color:var(--text-muted)}
+  .phase-tile .phase-desc{font-size:13px;color:var(--text-secondary)}
+  .taboo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--tile-gap);margin:16px 0}
+  .taboo-tile{border-radius:var(--radius-sm);padding:16px;transition:transform .15s}
+  .taboo-tile:hover{transform:scale(1.02)}
+  .taboo-tile h4{font-size:14px;font-weight:700;margin-bottom:4px;color:#fff!important}
+  .taboo-tile p{font-size:13px;color:rgba(255,255,255,.85)}
+  .taboo-water{background:linear-gradient(135deg,#004d40,#00695c);border-left:4px solid #008272}
+  .taboo-sweat{background:linear-gradient(135deg,#4a1a1a,#6b2727);border-left:4px solid #e81123}
+  .taboo-dry{background:linear-gradient(135deg,#4a3a00,#6b5500);border-left:4px solid #ff8c00}
+  @media(max-width:768px){.variety-grid{grid-template-columns:1fr}.phase-grid{grid-template-columns:1fr}.taboo-grid{grid-template-columns:1fr}}
+  [data-theme="light"] .taboo-tile{filter:brightness(.85)}[data-theme="light"] .taboo-tile h4,[data-theme="light"] .taboo-tile p{color:#fff!important}
+</style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../bracelet.html" style="color:var(--gold);">文玩手串</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../index.html">首页</a>
+    <a href="../bracelet.html">文玩手串</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- 面包屑 -->
+  <div class="breadcrumb">
+    <a href="../index.html">首页</a>
+    <span class="sep">›</span>
+    <a href="../bracelet.html">文玩手串</a>
+    <span class="sep">›</span>
+    <span class="current">星月菩提</span>
+  </div>
+
+  <!-- 页面标题 -->
+  <div class="page-header">
+    <h1>星月菩提</h1>
+    <p class="subtitle">白底星点如繁星伴月，文玩入门首选，盘玩变化丰富</p>
+  </div>
+
+  <!-- 概述 -->
+  <div class="section">
+    <h2>什么是星月菩提？</h2>
+    <p>星月菩提是黄藤（棕榈科黄藤属）的种子，因其表面布满黑色星点、中间有月形芽眼，形如"众星捧月"而得名。属于三大菩提之首，也是最受欢迎的文玩手串材质之一。</p>
+    <p>核心特征：白底或浅黄底上分布黑色细密星点，中央有圆形或月牙形芽眼。密度高、油性足的星月，盘玩后颜色变化丰富，从奶白→米黄→蜜蜡黄→红褐，可玩性极强。</p>
+  </div>
+
+  <!-- 产地 -->
+  <div class="section">
+    <h2>产地与品质分级</h2>
+    <div class="variety-grid">
+      <div class="variety-card">
+        <h4>海南毛感料（顶级）</h4>
+        <p>公认品质最优。星点细密均匀，密度极高，油性充足，盘玩后颜色漂亮，红润透亮。产量有限，价格最高。</p>
+      </div>
+      <div class="variety-card">
+        <h4>广西料（中端）</h4>
+        <p>星点较粗，密度一般。性价比高，适合入门练手。盘玩效果不如海南料但价格亲民。</p>
+      </div>
+      <div class="variety-card">
+        <h4>越南料（中低端）</h4>
+        <p>星点发红偏粗，密度偏低，品质参差不齐。价格最低，但盘玩过程中容易色差大。</p>
+      </div>
+      <div class="variety-card">
+        <h4>五星帝王料（稀缺）</h4>
+        <p>星点呈五星状分布，属于天然变异，非常稀少。价格昂贵，具有收藏价值，但盘玩效果与普通毛感料差异不大。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 形状分类 -->
+  <div class="section">
+    <h2>形状与加工形态</h2>
+    <table class="m-table">
+      <tr><th>形态</th><th>特征</th><th>价格</th><th>盘玩难度</th></tr>
+      <tr><td><strong>正月</strong></td><td>月孔位于珠子正中央，最规整</td><td>高</td><td>低</td></tr>
+      <tr><td><strong>玄月（偏月）</strong></td><td>月孔偏一侧，不居中</td><td>中</td><td>低</td></tr>
+      <tr><td><strong>无相</strong></td><td>不规则多面切，每颗形状不同</td><td>中高</td><td>高（需逐颗盘到每个面）</td></tr>
+      <tr><td><strong>原生态</strong></td><td>保留黄藤果原始色泽（绿/粉/紫）</td><td>中高</td><td>中</td></tr>
+      <tr><td><strong>老型桶/苹果圆</strong></td><td>经典形状，两端平中间鼓</td><td>中</td><td>低</td></tr>
+      <tr><td><strong>直切/藏式</strong></td><td>两端垂直切平，偏藏传风格</td><td>中</td><td>低</td></tr>
+    </table>
+  </div>
+
+  <!-- 盘玩方法 -->
+  <div class="section">
+    <h2>盘玩方法</h2>
+    <div class="phase-grid">
+      <div class="phase-tile">
+        <div class="phase-num">01</div>
+        <div class="phase-name">抛光打底</div>
+        <div class="phase-time">7-14天</div>
+        <div class="phase-desc">棉手套每日盘30分钟，去除车痕，形成基础光泽</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">02</div>
+        <div class="phase-name">静置氧化</div>
+        <div class="phase-time">7天</div>
+        <div class="phase-desc">自然放置不盘不戴，让油脂自然氧化，形成软包浆</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">03</div>
+        <div class="phase-name">手盘上色</div>
+        <div class="phase-time">长期</div>
+        <div class="phase-desc">净手盘5天休息2天，逐步包浆上色。前期净手，后期可正常佩戴</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">04</div>
+        <div class="phase-name">日常佩戴</div>
+        <div class="phase-time">中后期</div>
+        <div class="phase-desc">正常佩戴配合手盘，加速变色，深沉包浆。注意避免大汗</div>
+      </div>
+    </div>
+
+    <h3>盘玩时间线速查</h3>
+    <table class="m-table">
+      <tr><th>阶段</th><th>时间</th><th>颜色</th><th>手感</th></tr>
+      <tr><td>新生</td><td>0-2周</td><td>奶白/原色</td><td>涩，有车痕</td></tr>
+      <tr><td>初浆</td><td>1-3个月</td><td>米黄</td><td>滑中带涩，开始挂瓷</td></tr>
+      <tr><td>包浆</td><td>6-12个月</td><td>姜黄/蜜蜡黄</td><td>光滑莹润，有玻璃感</td></tr>
+      <tr><td>深包浆</td><td>2-3年</td><td>红褐/琥珀色</td><td>温润如玉，钟声清脆</td></tr>
+      <tr><td>老串</td><td>5年以上</td><td>深红褐/枣红</td><td>厚实凝润，开片见岁月</td></tr>
+    </table>
+
+    <h3>无相特别注意点</h3>
+    <ul>
+      <li><strong>转着盘：</strong>形状不规则，每颗都要转着盘，确保所有切面都盘到</li>
+      <li><strong>孔道重点：</strong>孔道两侧容易被忽略但变色最快，需要重点盘</li>
+      <li><strong>大切面防色差：</strong>每颗经常转方向，色差严重的大切面集中多盘</li>
+    </ul>
+  </div>
+
+  <!-- 色差处理 -->
+  <div class="section">
+    <h2>色差急救法</h2>
+    <div class="warning-box">
+      <strong>⚠️ 色差是常态：</strong>99%的手串前期都会出现色差，这是籽与籽之间密度差异导致的。正常盘玩1年左右，色差自然缩小。不要焦虑。
+    </div>
+    <ul>
+      <li><strong>色差隔离：</strong>深色珠子挑出来单穿一串，集中多盘</li>
+      <li><strong>"追色"法：</strong>浅色珠子单独放在手心里搓热再盘，加快颜色均匀</li>
+      <li><strong>重新排序：</strong>打散重穿，深浅交替排列，盘玩一段时间后色差会模糊</li>
+      <li><strong>终极方案：</strong>实在救不回的通透，改做配珠或隔片，废物利用</li>
+    </ul>
+  </div>
+
+  <!-- 禁忌 -->
+  <div class="section">
+    <h2>三大禁忌</h2>
+    <div class="taboo-grid">
+      <div class="taboo-tile taboo-water">
+        <h4>💧 水</h4>
+        <p>星月菩提怕水，沾水后立即擦干，否则容易发霉开裂。洗手洗澡不要佩戴。</p>
+      </div>
+      <div class="taboo-tile taboo-sweat">
+        <h4>💦 大汗</h4>
+        <p>汗液过多会让星月发黄发暗发黑，前期一定要净手盘玩。夏季减少手盘时间。</p>
+      </div>
+      <div class="taboo-tile taboo-dry">
+        <h4>☀️ 干燥/暴晒</h4>
+        <p>冷热交替易开裂，冬天远离暖气，夏天避免阳光直射。温差过大是大忌。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 鉴别 -->
+  <div class="section">
+    <h2>鉴别要点</h2>
+    <table class="m-table">
+      <tr><th>指标</th><th>好</th><th>中</th><th>差</th></tr>
+      <tr><td><strong>密度</strong></td><td>入水即沉，敲击声清脆如瓷</td><td>半沉半浮</td><td>浮于水面，声音沉闷</td></tr>
+      <tr><td><strong>星点</strong></td><td>细密均匀，星点如针尖大小</td><td>星点清晰但有粗有细</td><td>星点粗大、连成线（连星）</td></tr>
+      <tr><td><strong>油性</strong></td><td>表面油润光泽，上手发腻微涩</td><td>光泽一般</td><td>干涩无光，像枯柴</td></tr>
+      <tr><td><strong>色差</strong></td><td>整串颜色均匀一致</td><td>少量色差</td><td>白一颗黄一颗，差异明显</td></tr>
+    </table>
+  </div>
+
+  <!-- 尺寸参考 -->
+  <div class="section">
+    <h2>尺寸参考</h2>
+    <p>手串长度与手围的对应关系，选购时参考：</p>
+    <table class="m-table">
+      <tr><th>手围（mm）</th><th>适合长度（mm）</th><th>推荐颗数（8mm）</th><th>推荐颗数（10mm）</th><th>推荐颗数（12mm）</th></tr>
+      <tr><td>150-155</td><td>160-170</td><td>20-21</td><td>16-17</td><td>13-14</td></tr>
+      <tr><td>155-160</td><td>170-175</td><td>21-22</td><td>17-18</td><td>14-15</td></tr>
+      <tr><td>160-165</td><td>175-180</td><td>22-23</td><td>18-19</td><td>15-16</td></tr>
+      <tr><td>165-170</td><td>180-185</td><td>23-24</td><td>19-20</td><td>16-17</td></tr>
+      <tr><td>170-175</td><td>185-190</td><td>24-25</td><td>20-21</td><td>17-18</td></tr>
+      <tr><td>175-180</td><td>190-195</td><td>25-26</td><td>21-22</td><td>18-19</td></tr>
+      <tr><td>180-185</td><td>195-200</td><td>26-27</td><td>22-23</td><td>19-20</td></tr>
+      <tr><td>185-190</td><td>200-205</td><td>27-28</td><td>23-24</td><td>20-21</td></tr>
+    </table>
+    <div class="tip-box"><strong>💡 建议：</strong>手串长度比手围大10-15mm为宜，太紧勒手，太松甩动。弹力绳款可略紧，无弹力绳（长串）需预留足够活动空间。</div>
+  </div>
+
+  <!-- 返回 -->
+  <div style="margin:32px 0;text-align:center;">
+    <a href="../bracelet.html" style="color:var(--gold);font-weight:700;font-size:15px;">← 返回文玩手串首页</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 龙兄知识库</p>
+    <p style="margin-top:4px;">AI驱动的个人知识库</p>
+  </div>
+</footer>
+
+<script>
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+</script>
+
+</body>
+</html>

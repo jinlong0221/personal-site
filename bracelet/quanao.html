@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星月菩提全套攻略 - 龙兄知识库</title>
+<meta name="description" content="星月菩提从选料到盘玩到保养的完整攻略。选料四看、盘玩时间线、色差急救、包浆图谱、禁忌事项。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+  .guide-step{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--tile-gap);margin:16px 0}
+  .guide-card{border-radius:var(--radius-sm);padding:20px;background:var(--card);border:1px solid var(--border);text-align:center;transition:transform .15s}
+  .guide-card:hover{transform:scale(1.02)}
+  .guide-card .icon{font-size:32px;margin-bottom:8px}
+  .guide-card .title{font-size:15px;font-weight:700;margin-bottom:4px}
+  .guide-card .desc{font-size:13px;color:var(--text-secondary)}
+  .season-box{background:linear-gradient(135deg,#1d2d3d,#2a3d5a);border-left:4px solid var(--teal);border-radius:var(--radius-sm);padding:18px;margin:16px 0}
+  .season-box p{color:rgba(255,255,255,.9);font-size:14px;line-height:1.7}
+  .season-box strong{color:var(--teal)}
+  @media(max-width:768px){.guide-step{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.guide-step{grid-template-columns:1fr}}
+  [data-theme="light"] .season-box{background:rgba(0,130,114,.08);color:#004a40}[data-theme="light"] .season-box p{color:#004a40}[data-theme="light"] .season-box strong{color:#008272}
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../bracelet.html" style="color:var(--gold);">文玩手串</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../index.html">首页</a>
+    <a href="../bracelet.html">文玩手串</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="breadcrumb">
+    <a href="../index.html">首页</a>
+    <span class="sep">›</span>
+    <a href="../bracelet.html">文玩手串</a>
+    <span class="sep">›</span>
+    <span class="current">星月菩提全套攻略</span>
+  </div>
+
+  <div class="page-header">
+    <h1>星月菩提全套攻略</h1>
+    <p class="subtitle">从选料→上手→包浆→保养，一篇讲透星月菩提的完整生命周期</p>
+  </div>
+
+  <!-- 选料 -->
+  <div class="section">
+    <h2>选料四看</h2>
+    <p>挑选星月菩提的核心标准——密度第一，其他次之：</p>
+    <table class="m-table">
+      <tr><th>指标</th><th>好 ✅</th><th>中 ⭐</th><th>差 ❌</th></tr>
+      <tr><td><strong>密度</strong>（最重要）</td><td>入水即沉，敲击声清脆如瓷</td><td>半沉半浮</td><td>浮于水面，声音沉闷</td></tr>
+      <tr><td><strong>星点</strong></td><td>细密均匀，星点如针尖</td><td>星点清晰但有粗有细</td><td>星点粗大、连成线（连星）</td></tr>
+      <tr><td><strong>油性</strong></td><td>表面油润有光泽，上手发腻微涩</td><td>光泽一般</td><td>干涩无光，像枯柴</td></tr>
+      <tr><td><strong>色差</strong></td><td>整串颜色均匀一致</td><td>少量色差</td><td>白一颗黄一颗，差异明显</td></tr>
+    </table>
+    <div class="tip-box"><strong>💡 终极法则：</strong>所有品相指标中，密度排第一。宁愿密度高但有小瑕，也不要密度低但表面完美的。密度是一切盘玩变化的基础。</div>
+  </div>
+
+  <!-- 盘玩时间线 -->
+  <div class="section">
+    <h2>盘玩时间线</h2>
+    <div class="guide-step">
+      <div class="guide-card">
+        <div class="icon">🧤</div>
+        <div class="title">抛光期</div>
+        <div class="desc">1-2周<br>棉手套盘30分/天<br>去车痕+基础光泽</div>
+      </div>
+      <div class="guide-card">
+        <div class="icon">⏸️</div>
+        <div class="title">静置期</div>
+        <div class="desc">3-5天<br>自然放置不盘不戴<br>油脂氧化形成软包浆</div>
+      </div>
+      <div class="guide-card">
+        <div class="icon">✋</div>
+        <div class="title">手盘期</div>
+        <div class="desc">长期<br>净手盘5天休2天<br>逐步包浆上色</div>
+      </div>
+      <div class="guide-card">
+        <div class="icon">📿</div>
+        <div class="title">日常期</div>
+        <div class="desc">中后期<br>正常佩戴+手盘<br>深沉包浆</div>
+      </div>
+    </div>
+
+    <div class="season-box">
+      <strong>🌡️ 季节建议：</strong>最佳盘玩季节是春秋（温度20-25℃，湿度40-60%）。夏季汗多容易让星月发黄发暗，夏季可减少手盘时间，多静置。冬季干燥注意保湿，远离暖气。
+    </div>
+  </div>
+
+  <!-- 包浆图谱 -->
+  <div class="section">
+    <h2>包浆阶段图谱</h2>
+    <table class="m-table">
+      <tr><th>阶段</th><th>时间</th><th>颜色</th><th>手感</th></tr>
+      <tr><td>新生</td><td>0-2周</td><td>奶白/原色</td><td>涩，有车痕</td></tr>
+      <tr><td>初浆</td><td>1-3个月</td><td>米黄</td><td>滑中带涩，开始挂瓷</td></tr>
+      <tr><td>包浆</td><td>6-12个月</td><td>姜黄/蜜蜡黄</td><td>光滑莹润，有玻璃感</td></tr>
+      <tr><td>深包浆</td><td>2-3年</td><td>红褐/琥珀色</td><td>温润如玉，钟声清脆</td></tr>
+      <tr><td>老串</td><td>5年以上</td><td>深红褐/枣红</td><td>厚实凝润，开片见岁月</td></tr>
+    </table>
+  </div>
+
+  <!-- 色差急救 -->
+  <div class="section">
+    <h2>色差急救法</h2>
+    <div class="warning-box">
+      <strong>⚠️ 色差是常态：</strong>99%的手串前期都会出现色差，这是籽与籽之间密度差异导致的。正常盘玩1年左右，色差自然缩小。不要焦虑。
+    </div>
+    <ul>
+      <li><strong>色差隔离：</strong>深色珠子挑出来单穿一串，集中多盘</li>
+      <li><strong>"追色"法：</strong>浅色珠子单独放在手心里搓热再盘，加快颜色均匀</li>
+      <li><strong>重新排序：</strong>打散重穿，深浅交替排列，盘玩一段时间后色差会模糊</li>
+      <li><strong>终极方案：</strong>实在救不回的通透，改做配珠或隔片，废物利用</li>
+    </ul>
+  </div>
+
+  <!-- 问题处理 -->
+  <div class="section">
+    <h2>常见问题处理</h2>
+    <table class="m-table">
+      <tr><th>问题</th><th>原因</th><th>解决方法</th></tr>
+      <tr><td><strong>发黄发暗</strong></td><td>汗液过多浸入</td><td>停止手盘改手套盘1-2周，静置恢复</td></tr>
+      <tr><td><strong>发霉</strong></td><td>沾水未及时擦干</td><td>干布擦干，阴凉处自然风干，不可暴晒</td></tr>
+      <tr><td><strong>开裂</strong></td><td>温差过大/过于干燥</td><td>密封袋加湿保存（放半湿棉球），缓慢恢复</td></tr>
+      <tr><td><strong>星点发黑</strong></td><td>星点材质自然氧化</td><td>正常现象，不可逆。继续盘玩后整体颜色加深后会不明显</td></tr>
+      <tr><td><strong>盘花（阴阳脸）</strong></td><td>盘玩不匀导致颜色不均</td><td>拆散重新排序，集中盘偏白珠子</td></tr>
+      <tr><td><strong>油污沾上</strong></td><td>接触油脂类物质</td><td>温水净手沾湿布快速擦拭，立即干布吸干，静置</td></tr>
+    </table>
+  </div>
+
+  <!-- 品牌溢价 -->
+  <div class="section">
+    <h2>品牌溢价与购买建议</h2>
+    <table class="m-table">
+      <tr><th>品牌</th><th>定位</th><th>价格带</th><th>溢价率</th><th>二手折价</th></tr>
+      <tr><td><strong>欢见</strong></td><td>文玩潮牌</td><td>800-2000元</td><td>360-600%</td><td>3-5折</td></tr>
+      <tr><td><strong>知行堂</strong></td><td>口碑品质</td><td>500-1500元</td><td>合理</td><td>5-7折</td></tr>
+      <tr><td><strong>琼珠工艺</strong></td><td>口碑品质</td><td>300-800元</td><td>合理</td><td>5-6折</td></tr>
+      <tr><td><strong>菩悦东方</strong></td><td>第二梯队</td><td>200-500元</td><td>较低</td><td>4-5折</td></tr>
+      <tr><td><strong>吾文玩</strong></td><td>第二梯队</td><td>150-400元</td><td>较低</td><td>4-5折</td></tr>
+      <tr><td><strong>无品牌/散珠</strong></td><td>按料质定价</td><td>100-500元</td><td>无溢价</td><td>1-3折</td></tr>
+    </table>
+    <div class="warn-box"><strong>⚠️ 购买建议：</strong>如果是新手，建议先买第二梯队（菩悦东方、吾文玩）练手，等熟悉后再考虑欢见等溢价品牌。二手市场淘货也是好选择，但需要注意辨别真假和品相。</div>
+  </div>
+
+  <!-- 尺寸参考 -->
+  <div class="section">
+    <h2>尺寸参考</h2>
+    <table class="m-table">
+      <tr><th>手围（mm）</th><th>适合长度（mm）</th><th>推荐颗数（8mm）</th><th>推荐颗数（10mm）</th><th>推荐颗数（12mm）</th></tr>
+      <tr><td>150-155</td><td>160-170</td><td>20-21</td><td>16-17</td><td>13-14</td></tr>
+      <tr><td>155-160</td><td>170-175</td><td>21-22</td><td>17-18</td><td>14-15</td></tr>
+      <tr><td>160-165</td><td>175-180</td><td>22-23</td><td>18-19</td><td>15-16</td></tr>
+      <tr><td>165-170</td><td>180-185</td><td>23-24</td><td>19-20</td><td>16-17</td></tr>
+      <tr><td>170-175</td><td>185-190</td><td>24-25</td><td>20-21</td><td>17-18</td></tr>
+      <tr><td>175-180</td><td>190-195</td><td>25-26</td><td>21-22</td><td>18-19</td></tr>
+      <tr><td>180-185</td><td>195-200</td><td>26-27</td><td>22-23</td><td>19-20</td></tr>
+      <tr><td>185-190</td><td>200-205</td><td>27-28</td><td>23-24</td><td>20-21</td></tr>
+    </table>
+    <div class="tip-box"><strong>💡 建议：</strong>星月菩提常见5-12mm。8mm适合女士，10mm是经典尺寸男女皆宜，12mm以上适合男性佩戴。</div>
+  </div>
+
+  <div style="margin:32px 0;text-align:center;">
+    <a href="../bracelet.html" style="color:var(--gold);font-weight:700;font-size:15px;">← 返回文玩手串首页</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 龙兄知识库</p>
+    <p style="margin-top:4px;">AI驱动的个人知识库</p>
+  </div>
+</footer>
+
+<script>
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+</script>
+
+</body>
+</html>

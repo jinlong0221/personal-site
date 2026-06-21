@@ -3,1234 +3,327 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
-<title>文玩手串 - 龙兄知识库</title>
+<title>文玩手串百科 - 龙兄知识库</title>
+<meta name="description" content="文玩手串百科全书，星月菩提、凤眼菩提、龙眼菩提、骨料手串鉴别与盘玩全攻略。">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/app.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#0a0a0a;--text:#fff;--text2:#aaa;
-  --blue:#0078d4;--green:#107c10;--orange:#ff8c00;--red:#e81123;
-  --purple:#6b69d6;--teal:#008272;--pink:#c30052;--yellow:#ffb900;
-  --dark:#1a1a1a;--border:#333;--gap:4px;
-}
-body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;padding-top:110px}
-.container{max-width:960px;margin:0 auto;padding:0 12px}
-
-/* 导航栏 */
-.metro-nav{
-  position:fixed;top:0;left:0;right:0;height:56px;
-  background:#111;z-index:200;
-  border-bottom:1px solid #222;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;
-}
-.metro-nav .logo{font-family:'Ma Shan Zheng',cursive;font-size:26px;color:#fff;text-decoration:none;letter-spacing:2px}
-.metro-nav .home{color:var(--blue);font-size:14px;text-decoration:none;font-weight:700}
-.metro-nav .home:hover{color:#4ca3e8}
-
-/* Metro Tab */
-.metro-tabs{
-  position:fixed;top:56px;left:0;right:0;height:48px;
-  background:#111;z-index:199;
-  border-bottom:1px solid #222;
-  display:flex;align-items:stretch;overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-}
-.metro-tabs::-webkit-scrollbar{display:none}
-.tab-btn{
-  flex-shrink:0;padding:0 20px;height:100%;
-  display:flex;align-items:center;
-  background:none;border:none;
-  font-size:14px;font-weight:700;
-  color:var(--text2);cursor:pointer;
-  font-family:inherit;
-  border-bottom:3px solid transparent;
-  transition:color .15s,border-color .15s;
-  white-space:nowrap;
-}
-.tab-btn:hover{color:var(--text)}
-.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
-
-/* 瓷砖基础 */
-.tile{
-  border-radius:2px;
-  padding:24px;
-  transition:transform .15s,filter .15s;
-  cursor:default;
-}
-.tile:hover{transform:scale(1.02);filter:brightness(1.1)}
-.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:var(--gap)}
-.tile-grid .tile-wide{grid-column:span 2}
-.tile-grid .tile-full{grid-column:span 3}
-
-/* 进度条 */
-
-
-
-
-
-
-
-
-
-/* 内容区块 */
-.section{display:none;animation:fadeIn .25s ease}
-.section.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* 内容面板内标题 */
-.section h2{font-size:22px;font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #222}
-.section h3{font-size:17px;font-weight:700;margin:28px 0 12px;color:var(--blue)}
-.section p,.section li{font-size:14px;line-height:1.7;color:#ddd;margin-bottom:8px}
-.section ul,.section ol{margin:12px 0;padding-left:20px}
-.section li{margin-bottom:6px}
-
-/* Metro表格 */
-.m-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
-.m-table th,.m-table td{padding:12px 14px;text-align:left;border-bottom:1px solid #222}
-.m-table th{background:var(--dark);color:var(--text2);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
-.m-table td{color:#ddd}
-.m-table tr:last-child td{border-bottom:none}
-.m-table strong{color:#fff}
-
-/* 三大菩提瓷砖 */
-.bodhi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:var(--gap) 0}
-.bodhi-card{border-radius:2px;padding:24px;transition:transform .15s,filter .15s}
-.bodhi-card:hover{transform:scale(1.02);filter:brightness(1.1)}
-.bodhi-card h3{font-size:18px;font-weight:900;margin-bottom:10px;text-shadow:0 1px 2px rgba(0,0,0,.3)}
-.bodhi-card p{font-size:14px;color:rgba(255,255,255,.95);margin-bottom:6px;font-weight:500}
-.bodhi-card .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:2px;margin-top:6px}
-/* 深色调背景，减轻晃眼感 */
-.bodhi-star{background:linear-gradient(135deg,#0a4a0a 0%,#0d6d0d 100%);color:#fff;border-left:4px solid #107c10}
-.bodhi-feng{background:linear-gradient(135deg,#6b4200 0%,#8a5a00 100%);color:#fff;border-left:4px solid #ff8c00}
-.bodhi-long{background:linear-gradient(135deg,#3d3a7a 0%,#5a57a0 100%);color:#fff;border-left:4px solid #6b69d6}
-
-/* 盘玩步骤瓷砖 */
-.phase-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin:var(--gap) 0}
-.phase-tile{border-radius:2px;padding:20px;background:var(--dark);border:1px solid var(--border);transition:transform .15s,filter .15s}
-.phase-tile:hover{transform:scale(1.02);filter:brightness(1.1)}
-.phase-tile .phase-num{font-size:32px;font-weight:700;color:var(--blue);line-height:1}
-.phase-tile .phase-name{font-size:15px;font-weight:700;margin:8px 0 4px}
-.phase-tile .phase-time{font-size:11px;color:var(--text2);margin-bottom:6px}
-.phase-tile .phase-desc{font-size:12px;color:#aaa}
-.phase-tile .phase-goal{font-size:12px;color:var(--teal);margin-top:6px;font-weight:700}
-
-/* Metro tip/warn boxes */
-.tip-box{background:#0d2d3d;border-left:4px solid var(--blue);padding:14px 18px;border-radius:2px;margin:16px 0;font-size:14px;color:#ddd}
-.tip-box strong{color:var(--blue)}
-.warn-box{background:#3d2d0d;border-left:4px solid var(--yellow);padding:14px 18px;border-radius:2px;margin:16px 0;font-size:14px;color:#ddd}
-.warn-box strong{color:var(--yellow)}
-
-/* 禁忌瓷砖 */
-.taboo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:16px 0}
-.taboo-tile{border-radius:2px;padding:20px;transition:transform .15s,filter .15s}
-.taboo-tile:hover{transform:scale(1.02);filter:brightness(1.1)}
-.taboo-tile h4{font-size:15px;font-weight:700;margin-bottom:6px}
-.taboo-tile p{font-size:13px;color:rgba(255,255,255,.85)}
-
-/* 加工工序 */
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin:16px 0}
-.step-tile{border-radius:2px;padding:14px 16px;background:var(--dark);border:1px solid var(--border);transition:transform .15s,filter .15s;text-align:center}
-.step-tile:hover{transform:scale(1.02);filter:brightness(1.1)}
-.step-tile .step-num{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:2px}
-.step-tile .step-name{font-size:12px;font-weight:700;color:#ddd}
-
-/* 品牌梯队 */
-.brand-tile{border-radius:2px;padding:20px;transition:transform .15s,filter .15s}
-.brand-tile:hover{transform:scale(1.02);filter:brightness(1.1)}
-.brand-tile h4{font-size:15px;font-weight:700;margin-bottom:4px}
-.brand-tile .tier{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:6px}
-.brand-tile p{font-size:13px;color:rgba(255,255,255,.85)}
-
-/* 更新日志 */
-.update-tile{background:var(--dark);border:1px solid var(--border);padding:20px;margin-top:var(--gap);border-radius:2px}
-.update-tile h3{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--text2)}
-.log-item{padding:10px 0;border-bottom:1px solid #222}
-.log-item:last-child{border-bottom:none}
-.log-item .date{font-size:12px;color:var(--blue);font-weight:700}
-.log-item .text{font-size:13px;color:#aaa;margin-top:4px}
-
-footer{text-align:center;padding:50px 0 30px;color:#555;font-size:12px}
-
-/* panel-all 显示全部 */
-.panel-all .section{display:block}
-
-@media(max-width:768px){
-  body{padding-top:116px}
-  .bodhi-grid,.phase-grid,.taboo-grid{grid-template-columns:1fr 1fr}
-  .process-grid{grid-template-columns:repeat(4,1fr)}
-  .tile-grid{grid-template-columns:1fr 1fr}
-  .tile-grid .tile-wide,.tile-grid .tile-full{grid-column:span 2}
-  .tab-btn{padding:0 14px;font-size:13px}
-}
-@media(max-width:480px){
-  .bodhi-grid,.taboo-grid,.phase-grid{grid-template-columns:1fr}
-  .process-grid{grid-template-columns:repeat(2,1fr)}
-  
-}
-
-
-/* ===== Theme ===== */
-
-
-
-
-
-
-
-
-
-
-.theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s; background: #333; color: #fff; }
-
-
-
-
-/* ===== Theme Switch ===== */
-:root { --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0; --text-muted: #7a7a7a; --card: #1a1a1a; --border: #333; --nav-bg: rgba(10,10,10,0.95); }
-
-
-
-
-
-
-
-
-
-.theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s, background 0.3s; background: #333; color: #fff; }
-
-
-
-
-/* Light mode for dark tiles */
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Light mode: force readable text on dark cards */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* === Theme Toggle Button === */
-.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
-.theme-toggle:hover{transform:scale(1.15);box-shadow:0 4px 20px rgba(0,0,0,.4)}
-
-
-
-
-[data-theme="light"] {
-  --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
-  --card: #ffffff; --border: #e0e0e0; --nav-bg: rgba(245,245,245,0.95);
-}
-[data-theme="light"] .tile { box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-[data-theme="light"] .tile h3, [data-theme="light"] .tile .title, [data-theme="light"] .tile .desc, [data-theme="light"] .tile .meta, [data-theme="light"] .tile p { color: var(--text); }
-[data-theme="light"] .tile .unit, [data-theme="light"] .tile .big-number { color: var(--text); }
-[data-theme="light"] .card { box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-[data-theme="light"] .card h2, [data-theme="light"] .card p, [data-theme="light"] .card li { color: var(--text-secondary); }
-[data-theme="light"] .section-label { color: var(--text-muted); }
-[data-theme="light"] .warning { background: rgba(232,17,35,0.08); color: #c00; }
-[data-theme="light"] .tag { background: rgba(107,105,214,0.1); color: #6b69d6; }
-[data-theme="light"] footer, [data-theme="light"] .subtitle, [data-theme="light"] header p, [data-theme="light"] .back { color: var(--text-muted); }
-[data-theme="light"] .bodhi-card h3 { color: #fff !important; }
-[data-theme="light"] .bodhi-card { filter: brightness(0.85) saturate(1.1); }
-[data-theme="light"] .bodhi-card:hover { filter: brightness(0.9) saturate(1.1); }
-[data-theme="light"] .phase-tile { background: #e8e8e8; border-color: #ccc; }
-[data-theme="light"] .phase-tile .phase-num { color: #0050a0; }
-[data-theme="light"] .phase-tile .phase-name { color: #1a1a1a; }
-[data-theme="light"] .phase-tile .phase-desc { color: #555; }
-[data-theme="light"] .phase-tile .phase-time { color: #777; }
-[data-theme="light"] .step-tile { background: #f0f0f0; border-color: #ddd; }
-[data-theme="light"] .step-tile .step-num { color: #0050a0; }
-[data-theme="light"] .step-tile .step-name { color: #1a1a1a; }
-[data-theme="light"] .step-tile .step-desc { color: #555; }
-[data-theme="light"] .taboo-tile { opacity: 1; }
-[data-theme="light"] .log-item { background: #f5f5f5; }
-[data-theme="light"] .warn-box { background: rgba(255,200,0,0.1); color: #7a5000; border-color: rgba(255,200,0,0.3); }
-[data-theme="light"] .tip-box { background: #e8f4f8; color: #1a4a5a; }
-
-
-[data-theme="light"] {
-  --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
-  --card: #ffffff; --border: #e0e0e0; --nav-bg: rgba(245,245,245,0.95);
-}
-[data-theme="light"] .tile { box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-[data-theme="light"] .tile h3, [data-theme="light"] .tile .title, [data-theme="light"] .tile .desc, [data-theme="light"] .tile .meta, [data-theme="light"] .tile p { color: var(--text); }
-[data-theme="light"] .tile .unit, [data-theme="light"] .tile .big-number { color: var(--text); }
-[data-theme="light"] .card { box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-[data-theme="light"] .card h2, [data-theme="light"] .card p, [data-theme="light"] .card li { color: var(--text-secondary); }
-[data-theme="light"] .section-label { color: var(--text-muted); }
-[data-theme="light"] .warning { background: rgba(232,17,35,0.08); color: #c00; }
-[data-theme="light"] .tag { background: rgba(107,105,214,0.1); color: #6b69d6; }
-[data-theme="light"] footer, [data-theme="light"] .subtitle, [data-theme="light"] header p, [data-theme="light"] .back { color: var(--text-muted); }
-[data-theme="light"] .bodhi-card h3 { color: #fff !important; }
-[data-theme="light"] .bodhi-card { filter: brightness(0.85) saturate(1.1); }
-[data-theme="light"] .bodhi-card:hover { filter: brightness(0.9) saturate(1.1); }
-[data-theme="light"] .phase-tile { background: #e8e8e8; border-color: #ccc; }
-[data-theme="light"] .phase-tile .phase-num { color: #0050a0; }
-[data-theme="light"] .phase-tile .phase-name { color: #1a1a1a; }
-[data-theme="light"] .phase-tile .phase-desc { color: #555; }
-[data-theme="light"] .phase-tile .phase-time { color: #777; }
-[data-theme="light"] .step-tile { background: #f0f0f0; border-color: #ddd; }
-[data-theme="light"] .step-tile .step-num { color: #0050a0; }
-[data-theme="light"] .step-tile .step-name { color: #1a1a1a; }
-[data-theme="light"] .step-tile .step-desc { color: #555; }
-[data-theme="light"] .taboo-tile { opacity: 1; }
-[data-theme="light"] .log-item { background: #f5f5f5; }
-[data-theme="light"] .warn-box { background: rgba(255,200,0,0.1); color: #7a5000; border-color: rgba(255,200,0,0.3); }
-[data-theme="light"] .tip-box { background: #e8f4f8; color: #1a4a5a; }
-.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
-.theme-toggle:hover{transform:scale(1.15)}
-[data-theme="light"] .theme-toggle{background:#fff;color:#333;border:1px solid #ddd;box-shadow:0 2px 12px rgba(0,0,0,.1)}
-[data-theme="light"] .theme-toggle:hover{background:#f0f0f0}
-
-
-/* === 亮色模式文字颜色全覆盖 === */
-[data-theme="light"] body,
-[data-theme="light"] p,
-[data-theme="light"] li,
-[data-theme="light"] td,
-[data-theme="light"] th,
-[data-theme="light"] .desc,
-[data-theme="light"] .meta,
-[data-theme="light"] .text,
-[data-theme="light"] .subtitle,
-[data-theme="light"] .section-label { color: var(--text) !important; }
-
-[data-theme="light"] strong,
-[data-theme="light"] b { color: var(--text) !important; font-weight: 700; }
-
-[data-theme="light"] .tile,
-[data-theme="light"] .tile h3,
-[data-theme="light"] .tile .title,
-[data-theme="light"] .tile .desc,
-[data-theme="light"] .tile .meta,
-[data-theme="light"] .tile p { color: var(--text) !important; }
-
-[data-theme="light"] .card,
-[data-theme="light"] .card h2,
-[data-theme="light"] .card p,
-[data-theme="light"] .card li { color: var(--text-secondary) !important; }
-
-[data-theme="light"] .m-table td,
-[data-theme="light"] .m-table th,
-[data-theme="light"] .m-table strong { color: var(--text) !important; }
-
-/* 深色背景卡片保持白字 */
-[data-theme="light"] .bodhi-card,
-[data-theme="light"] .bodhi-star,
-[data-theme="light"] .bodhi-feng,
-[data-theme="light"] .bodhi-long { color: #fff !important; }
-[data-theme="light"] .bodhi-card h3,
-[data-theme="light"] .bodhi-card p,
-[data-theme="light"] .bodhi-card .tag { color: #fff !important; }
-
-
-/* === 亮色模式 Metro Tile 卡片 === */
-[data-theme="light"] .tile-blue,
-[data-theme="light"] .tile-green,
-[data-theme="light"] .tile-orange,
-[data-theme="light"] .tile-red,
-[data-theme="light"] .tile-purple,
-[data-theme="light"] .tile-teal,
-[data-theme="light"] .tile-pink,
-[data-theme="light"] .tile-yellow,
-[data-theme="light"] .tile-dark {
-  background: #ffffff !important;
-  border: 1px solid #e0e0e0 !important;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
-}
-[data-theme="light"] .tile-blue { border-left: 4px solid #0078d4 !important; }
-[data-theme="light"] .tile-green { border-left: 4px solid #107c10 !important; }
-[data-theme="light"] .tile-orange { border-left: 4px solid #ff8c00 !important; }
-[data-theme="light"] .tile-red { border-left: 4px solid #e81123 !important; }
-[data-theme="light"] .tile-purple { border-left: 4px solid #6b69d6 !important; }
-[data-theme="light"] .tile-teal { border-left: 4px solid #008272 !important; }
-[data-theme="light"] .tile-pink { border-left: 4px solid #e91e63 !important; }
-[data-theme="light"] .tile-yellow { border-left: 4px solid #ffc107 !important; }
-[data-theme="light"] .tile h3 { color: var(--text) !important; }
-[data-theme="light"] .tile p { color: var(--text-secondary) !important; }
-[data-theme="light"] .tile:hover { transform: scale(1.02); filter: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important; }
-
-
-/* === 亮色模式 深色背景元素修复 === */
-[data-theme="light"] { --dark: #f0f0f0; }
-[data-theme="light"] .phase-tile { background: #ffffff !important; border-color: #e0e0e0 !important; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-[data-theme="light"] .phase-num { color: #0078d4 !important; }
-[data-theme="light"] .phase-name { color: var(--text) !important; font-weight: 700; }
-[data-theme="light"] .phase-desc { color: var(--text-secondary) !important; }
-[data-theme="light"] .phase-goal { color: var(--teal) !important; font-weight: 600; }
-[data-theme="light"] .m-table th { background: #e8e8e8 !important; color: var(--text) !important; }
-[data-theme="light"] .m-table td { background: #fff !important; color: var(--text) !important; border-color: #ddd !important; }
-[data-theme="light"] .m-table tr:nth-child(even) td { background: #f9f9f9 !important; }
-/* 导航栏保持深色 */
-
-
-/* === 亮色模式 Metro 彩色瓷砖 === */
-[data-theme="light"] .page-header h1 { color: var(--text) !important; }
-[data-theme="light"] .page-header .subtitle { color: var(--text-muted) !important; }
-
-[data-theme="light"] .tile-blue { background: #e3f2fd !important; }
-[data-theme="light"] .tile-blue .temp,
-[data-theme="light"] .tile-blue .desc,
-[data-theme="light"] .tile-blue .details,
-[data-theme="light"] .tile-blue .update-time,
-[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
-
-[data-theme="light"] .tile-green { background: #e8f5e9 !important; }
-[data-theme="light"] .tile-green .day,
-[data-theme="light"] .tile-green .forecast-desc,
-[data-theme="light"] .tile-green .forecast-temp,
-[data-theme="light"] .tile-green .forecast-rain,
-[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
-
-[data-theme="light"] .tile-orange { background: #fff3e0 !important; }
-[data-theme="light"] .tile-orange * { color: #e65100 !important; }
-
-[data-theme="light"] .tile-red { background: #ffebee !important; }
-[data-theme="light"] .tile-red * { color: #b71c1c !important; }
-
-[data-theme="light"] .tile-purple { background: #ede7f6 !important; }
-[data-theme="light"] .tile-purple * { color: #4a148c !important; }
-
-[data-theme="light"] .tile-cyan { background: #e0f7fa !important; }
-[data-theme="light"] .tile-cyan * { color: #006064 !important; }
-
-[data-theme="light"] .tile-pink { background: #fce4ec !important; }
-[data-theme="light"] .tile-pink * { color: #880e4f !important; }
-
-[data-theme="light"] .tile-yellow { background: #fffde7 !important; }
-[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
-
-[data-theme="light"] .tile:hover { filter: none !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
-
-
-/* === 亮色模式 最终白色文字修复 === */
-[data-theme="light"] .logo { color: var(--text) !important; }
-[data-theme="light"] header h1,
-[data-theme="light"] .header h1,
-[data-theme="light"] h1:not(.tile-blue):not(.tile-green):not(.tile-orange):not(.tile-red):not(.tile-purple) { color: var(--text) !important; }
-[data-theme="light"] a { color: #0078d4 !important; }
-[data-theme="light"] a:hover { color: #005a9e !important; text-decoration: underline; }
-[data-theme="light"] .navbar { background: rgba(255,255,255,0.92) !important; border-bottom-color: #e0e0e0 !important; }
-[data-theme="light"] .navbar .logo { color: var(--text) !important; }
-[data-theme="light"] .navbar .back-link { color: var(--text-secondary) !important; }
-[data-theme="light"] .metro-nav,
-[data-theme="light"] .metro-tabs { background: rgba(255,255,255,0.95) !important; border-bottom-color: #e0e0e0 !important; }
-[data-theme="light"] .metro-nav a,
-[data-theme="light"] .metro-tabs button { color: var(--text) !important; }
-[data-theme="light"] .metro-tabs button.active { 
-  background: var(--text) !important; color: var(--bg) !important; 
-}
-
-
-/* === 亮色模式 Warning/Tip框 === */
-[data-theme="light"] .warning-box { background: #fff; border-left-color: var(--red); border-color: #e0e0e0; }
-[data-theme="light"] .warning-box, [data-theme="light"] .warning-box p, [data-theme="light"] .warning-box li { color: #333; }
-[data-theme="light"] .warning-box strong { color: #c00; }
-[data-theme="light"] .tip-box { background: #f8f9fa; border-color: #e0e0e0; }
-[data-theme="light"] .tip-box p, [data-theme="light"] .tip-box li { color: #333; }
-/* === 亮色模式 其他深底元素 === */
-[data-theme="light"] .dark-tile, [data-theme="light"] [style*="background:var(--dark)"], [data-theme="light"] [style*="background: var(--dark)"] { background: #f5f5f5 !important; color: #222 !important; }
-
-
-/* === 亮色模式 所有Metro彩色瓷砖（含天气预报） === */
-[data-theme="light"] .tile-blue { background: #e3f2fd !important; color: #0d47a1 !important; }
-[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
-[data-theme="light"] .tile-green { background: #e8f5e9 !important; color: #1b5e20 !important; }
-[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
-[data-theme="light"] .tile-orange { background: #fff3e0 !important; color: #e65100 !important; }
-[data-theme="light"] .tile-orange * { color: #e65100 !important; }
-[data-theme="light"] .tile-purple { background: #f3e5f5 !important; color: #6a1b9a !important; }
-[data-theme="light"] .tile-purple * { color: #6a1b9a !important; }
-[data-theme="light"] .tile-cyan { background: #e0f7fa !important; #006064 !important; }
-[data-theme="light"] .tile-cyan * { color: #006064 !important; }
-[data-theme="light"] .tile-pink { background: #fce4ec !important; color: #880e4f !important; }
-[data-theme="light"] .tile-pink * { color: #880e4f !important; }
-[data-theme="light"] .tile-yellow { background: #fffde7 !important; color: #f57f17 !important; }
-[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
-[data-theme="light"] .tile-red { background: #ffebee !important; color: #b71c1c !important; }
-[data-theme="light"] .tile-red * { color: #b71c1c !important; }
-/* 亮色模式 forecast-tile 内文字 */
-[data-theme="light"] .forecast-tile .day,
-[data-theme="light"] .forecast-tile .forecast-desc,
-[data-theme="light"] .forecast-tile .forecast-temp,
-[data-theme="light"] .forecast-tile .forecast-rain { color: inherit !important; }
-
-
-[data-theme="light"] { --bg: #f0f0f0; --text: #1a1a1a; --text-secondary: #444; --text-muted: #666; --card: #ffffff; --border: #ddd; --nav-bg: rgba(240,240,240,0.95); --dark-tile: #f5f5f5; }
-[data-theme="light"] .tile { background: var(--card) !important; border-color: var(--border) !important; }
-[data-theme="light"] body { background: var(--bg); color: var(--text); }
-
-
-/* ========== 亮色模式完整修复 ========== */
-[data-theme="light"] {
-  --bg: #f5f5f5 !important;
-  --text: #1a1a1a !important;
-  --text-secondary: #333 !important;
-  --text-muted: #666 !important;
-  --card: #ffffff !important;
-  --border: #ddd !important;
-  --nav-bg: rgba(255,255,255,0.95) !important;
-  --dark-tile: #f8f8f8 !important;
-}
-[data-theme="light"] body { background: var(--bg) !important; color: var(--text) !important; }
-[data-theme="light"] .tile, [data-theme="light"] .tile-wide { background: var(--card) !important; border-color: var(--border) !important; color: var(--text) !important; }
-[data-theme="light"] .tile h2, [data-theme="light"] .tile h3, [data-theme="light"] .tile h4, [data-theme="light"] .tile p, [data-theme="light"] .tile li, [data-theme="light"] .tile span, [data-theme="light"] .tile strong { color: var(--text) !important; }
-[data-theme="light"] .warning-box { background: #fff3cd !important; border-color: #ffc107 !important; color: #856404 !important; }
-[data-theme="light"] .warning-box strong { color: #856404 !important; }
-[data-theme="light"] .tip-box { background: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
-[data-theme="light"] .method-tile { background: var(--card) !important; color: var(--text) !important; }
-[data-theme="light"] .method-tile h4, [data-theme="light"] .method-tile p { color: var(--text) !important; }
-[data-theme="light"] .reliability { color: #fff !important; }
-[data-theme="light"] .m-table th { background: #e9ecef !important; color: var(--text) !important; }
-[data-theme="light"] .m-table td { background: var(--card) !important; color: var(--text) !important; border-color: var(--border) !important; }
-[data-theme="light"] .metro-tabs button { color: var(--text) !important; border-color: var(--border) !important; }
-[data-theme="light"] .metro-tabs button.active { background: var(--text) !important; color: var(--bg) !important; }
-[data-theme="light"] .navbar { background: var(--nav-bg) !important; }
-[data-theme="light"] .navbar a, [data-theme="light"] .logo, [data-theme="light"] .back-link { color: var(--text) !important; }
-[data-theme="light"] .page-header h1 { color: var(--text) !important; }
-[data-theme="light"] .page-header .subtitle { color: var(--text-muted) !important; }
-[data-theme="light"] .tile-blue { background: #e3f2fd !important; color: #0d47a1 !important; }
-[data-theme="light"] .tile-blue * { color: #0d47a1 !important; }
-[data-theme="light"] .tile-green { background: #e8f5e9 !important; color: #1b5e20 !important; }
-[data-theme="light"] .tile-green * { color: #1b5e20 !important; }
-[data-theme="light"] .tile-orange { background: #fff3e0 !important; color: #e65100 !important; }
-[data-theme="light"] .tile-orange * { color: #e65100 !important; }
-[data-theme="light"] .tile-purple { background: #f3e5f5 !important; color: #6a1b9a !important; }
-[data-theme="light"] .tile-purple * { color: #6a1b9a !important; }
-[data-theme="light"] .tile-cyan { background: #e0f7fa !important; color: #006064 !important; }
-[data-theme="light"] .tile-cyan * { color: #006064 !important; }
-[data-theme="light"] .tile-pink { background: #fce4ec !important; color: #880e4f !important; }
-[data-theme="light"] .tile-pink * { color: #880e4f !important; }
-[data-theme="light"] .tile-yellow { background: #fffde7 !important; color: #f57f17 !important; }
-[data-theme="light"] .tile-yellow * { color: #f57f17 !important; }
-[data-theme="light"] .tile-red { background: #ffebee !important; color: #b71c1c !important; }
-[data-theme="light"] .tile-red * { color: #b71c1c !important; }
-[data-theme="light"] .update-tile { background: var(--card) !important; color: var(--text) !important; }
-[data-theme="light"] .log-item .date { color: var(--text-muted) !important; }
-[data-theme="light"] .log-item .text { color: var(--text-secondary) !important; }
-[data-theme="light"] footer { background: var(--card) !important; color: var(--text-muted) !important; }
-[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] b, [data-theme="light"] strong { color: var(--text) !important; }
-
-
-/* === 新板块样式 === */
-.bone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin:var(--gap) 0}
-.bone-card{border-radius:2px;padding:20px;transition:transform .15s,filter .15s;border-left:4px solid var(--blue)}
-.bone-card:hover{transform:scale(1.02);filter:brightness(1.1)}
-.bone-card h4{font-size:16px;font-weight:700;margin-bottom:8px;color:#fff}
-.bone-card p,.bone-card li{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6}
-.bone-card ul{margin:8px 0 0 16px}
-.bone-card li{margin-bottom:4px}
-.bone-magu{background:linear-gradient(135deg,#4a3728 0%,#6b5038 100%)}
-.bone-dye{background:linear-gradient(135deg,#6b3030 0%,#8a4040 100%)}
-.bone-expert{background:linear-gradient(135deg,#30603a 0%,#408050 100%)}
-
-.zijin-card{background:linear-gradient(135deg,#2d1b69 0%,#4a2580 100%);border-radius:2px;padding:24px;border-left:4px solid #7c53c0;margin-bottom:var(--gap)}
-.zijin-card h3{font-size:18px;font-weight:900;margin-bottom:10px}
-.zijin-card p{font-size:14px;color:rgba(255,255,255,.9);line-height:1.7}
-.zijin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:16px 0}
-.zijin-grid .point{border-radius:2px;padding:18px;background:rgba(255,255,255,.08);text-align:center}
-.zijin-grid .point .num{font-size:28px;font-weight:700;color:#9c6ede;line-height:1}
-.zijin-grid .point .label{font-size:13px;color:rgba(255,255,255,.8);margin-top:6px}
-
-.mammoth-card{background:linear-gradient(135deg,#2a3750 0%,#3a4e70 100%);border-radius:2px;padding:24px;border-left:4px solid #5a7db5;margin-bottom:var(--gap)}
-.mammoth-card h3{font-size:18px;font-weight:900;margin-bottom:10px}
-.mammoth-card p,.mammoth-card li{font-size:14px;color:rgba(255,255,255,.9);line-height:1.7}
-.mammoth-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin:16px 0}
-.mammoth-grid .feature{border-radius:2px;padding:18px;background:rgba(255,255,255,.08)}
-.mammoth-grid .feature h4{font-size:14px;font-weight:700;margin-bottom:6px}
-.mammoth-grid .feature p{font-size:13px;color:rgba(255,255,255,.8)}
-.mammoth-legal{background:#1d3d2d;border-left:4px solid #2ecc71;border-radius:2px;padding:18px;margin:16px 0}
-.mammoth-legal strong{color:#2ecc71}
-
-.star-guide{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin:16px 0}
-.star-guide .step{border-radius:2px;padding:18px;background:var(--dark);border:1px solid var(--border);transition:transform .15s}
-.star-guide .step:hover{transform:scale(1.02)}
-.star-guide .step .icon{font-size:28px;margin-bottom:8px}
-.star-guide .step .title{font-size:14px;font-weight:700;margin-bottom:4px}
-.star-guide .step .desc{font-size:12px;color:var(--text2)}
-.star-season{background:#1d2d3d;border-left:4px solid var(--teal);border-radius:2px;padding:18px;margin:16px 0}
-.star-season strong{color:var(--teal)}
-
-.grade-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:16px 0}
-.grade-card{border-radius:2px;padding:20px;text-align:center;transition:transform .15s,filter .15s}
-.grade-card:hover{transform:scale(1.02);filter:brightness(1.1)}
-.grade-card h4{font-size:14px;font-weight:700;margin-bottom:6px}
-.grade-card p{font-size:12px;color:rgba(255,255,255,.85)}
-.grade-card .score{font-size:32px;font-weight:700;line-height:1.2}
-.grade-high{background:linear-gradient(135deg,#1a4a1a 0%,#2a6a2a 100%)}
-.grade-mid{background:linear-gradient(135deg,#5a4a00 0%,#7a6a00 100%)}
-.grade-low{background:linear-gradient(135deg,#4a1a1a 0%,#6a2a2a 100%)}
-
-.wuxing-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap);margin:16px 0}
-.wuxing-card{border-radius:2px;padding:20px;text-align:center;transition:transform .15s}
-.wuxing-card:hover{transform:scale(1.05)}
-.wuxing-card .elem{font-size:32px;font-weight:700;margin-bottom:6px}
-.wuxing-card .ename{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:4px}
-.wuxing-card .color-info{font-size:12px;color:rgba(255,255,255,.85);line-height:1.5}
-.wuxing-wood{background:linear-gradient(135deg,#1a5a1a 0%,#2d8a2d 100%)}
-.wuxing-fire{background:linear-gradient(135deg,#8a2020 0%,#c03333 100%)}
-.wuxing-earth{background:linear-gradient(135deg,#8a6a20 0%,#c09a33 100%)}
-.wuxing-metal{background:linear-gradient(135deg,#5a5a6a 0%,#8a8a9a 100%)}
-.wuxing-water{background:linear-gradient(135deg,#1a2d5a 0%,#2d4a8a 100%)}
-.wuxing-match{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin:16px 0}
-.wuxing-match .pair{border-radius:2px;padding:18px;background:var(--dark);border:1px solid var(--border)}
-.wuxing-match .pair h4{font-size:14px;font-weight:700;margin-bottom:6px}
-.wuxing-match .pair p{font-size:13px;color:#aaa}
-.wuxing-tip{background:#3d2d0d;border-left:4px solid var(--yellow);border-radius:2px;padding:18px;margin:16px 0}
-.wuxing-tip strong{color:var(--yellow)}
-
-@media(max-width:768px){
-  .bone-grid{grid-template-columns:1fr}
-  .zijin-grid,.star-guide,.grade-grid,.wuxing-grid{margin-top:8px}
-  .mammoth-grid{grid-template-columns:1fr}
-  .wuxing-match{grid-template-columns:1fr}
-}
-@media(max-width:480px){
-  .zijin-grid,.grade-grid{grid-template-columns:1fr}
-  .star-guide{grid-template-columns:1fr 1fr}
-  .wuxing-grid{grid-template-columns:repeat(3,1fr)}
-}
-
-/* 亮色模式新板块 */
-[data-theme="light"] .bone-card h4,[data-theme="light"] .bone-card p,[data-theme="light"] .bone-card li{color:#fff!important}
-[data-theme="light"] .zijin-card,[data-theme="light"] .mammoth-card{filter:brightness(0.9)}
-[data-theme="light"] .star-guide .step{background:#f0f0f0;border-color:#ddd}
-[data-theme="light"] .star-guide .step .title{color:#1a1a1a}
-[data-theme="light"] .star-guide .step .desc{color:#555}
-[data-theme="light"] .star-season{background:rgba(0,130,114,.08);color:#004a40}
-[data-theme="light"] .mammoth-legal{background:rgba(46,204,113,.08);color:#004d00}
-[data-theme="light"] .wuxing-match .pair{background:#f5f5f5}
-[data-theme="light"] .wuxing-match .pair p{color:#555}
-[data-theme="light"] .wuxing-tip{background:rgba(255,200,0,.1);color:#7a5000}
-
+  /* 文玩手串首页特定样式 */
+  .bracelet-hero {
+    padding: 48px 0 24px;
+    text-align: center;
+  }
+  .bracelet-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .bracelet-hero .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .bracelet-hero .tagline {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  /* 分类标题 */
+  .cat-header {
+    margin: 40px 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cat-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+  .cat-header .badge {
+    background: #5b2c8d;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+
+  /* 卡片网格 */
+  .bracelet-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .bracelet-card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px 20px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s;
+    text-decoration: none;
+    color: var(--text);
+    overflow: hidden;
+  }
+  .bracelet-card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
+  }
+
+  .bracelet-card .emoji {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .bracelet-card .title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .bracelet-card .desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .bracelet-card .tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: fit-content;
+  }
+
+  /* 卡片紫色边框和悬停效果 */
+  .card-purple { border-left: 4px solid #5b2c8d; }
+  .card-purple .tag { background: rgba(91, 44, 141, 0.15); color: #9c6ede; }
+  .card-purple:hover { border-color: #5b2c8d; }
+
+  .card-amber { border-left: 4px solid #c9a84c; }
+  .card-amber .tag { background: rgba(201, 168, 76, 0.15); color: var(--gold); }
+
+  /* 分类背景 */
+  .cat-material .bracelet-card:nth-child(1) .emoji,
+  .cat-material .bracelet-card:nth-child(2) .emoji,
+  .cat-material .bracelet-card:nth-child(3) .emoji,
+  .cat-material .bracelet-card:nth-child(4) .emoji,
+  .cat-material .bracelet-card:nth-child(5) .emoji,
+  .cat-material .bracelet-card:nth-child(6) .emoji { font-size: 34px; }
+
+  /* 更新日志压缩 */
+  .update-compact {
+    margin-top: 32px;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .update-compact h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-muted);
+  }
+  .log-item {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .log-item:last-child { border-bottom: none; }
+  .log-item .date { font-size: 12px; color: var(--blue); font-weight: 700; }
+  .log-item .text { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* 亮色模式卡片 */
+  [data-theme="light"] .bracelet-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+
+  /* 响应式 */
+  @media (max-width: 768px) {
+    .bracelet-grid { grid-template-columns: repeat(2, 1fr); }
+    .bracelet-hero h1 { font-size: 1.8rem; }
+  }
+  @media (max-width: 480px) {
+    .bracelet-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
 <!-- 导航栏 -->
-<nav class="metro-nav">
-  <a href="index.html" class="logo">龙兄知识库</a>
-  <a href="index.html" class="home">← 首页</a>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="bracelet.html" style="color:var(--gold);">文玩手串</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">首页</a>
+    <a href="bracelet.html">文玩手串</a>
+  </div>
 </nav>
 
-<!-- Metro Tab -->
-<div class="metro-tabs">
-  <button class="tab-btn active" data-tab="all">全部</button>
-  <button class="tab-btn" data-tab="identify">菩提鉴别</button>
-  <button class="tab-btn" data-tab="xingyue">星月详解</button>
-  <button class="tab-btn" data-tab="panwan">盘玩方法</button>
-  <button class="tab-btn" data-tab="diy">DIY加工</button>
-  <button class="tab-btn" data-tab="brand">品牌与市场</button>
-  <button class="tab-btn" data-tab="bone">马骨</button>
-  <button class="tab-btn" data-tab="zijin">紫金钵盂菩提</button>
-  <button class="tab-btn" data-tab="mammoth">猛犸</button>
-  <button class="tab-btn" data-tab="xingyue-all">星月全套</button>
-  <button class="tab-btn" data-tab="grade">品相辨别</button>
-  <button class="tab-btn" data-tab="wuxing">五行搭配</button>
-</div>
+<main class="container">
 
-<div class="container">
-
-<!-- 全部面板 -->
-<div class="panel-all" id="panel-all">
-
-  <!-- 菩提鉴别 -->
-  <div class="section" id="section-identify">
-    <h2>三大菩提鉴别</h2>
-    <!-- 三大菩提瓷砖卡片 -->
-    <div class="bodhi-grid">
-      <div class="bodhi-card bodhi-star">
-        <h3>星月菩提</h3>
-        <p>白底 + 黑色星点，像星月</p>
-        <p>星点：均匀黑点，分布规则</p>
-        <span class="tag" style="background:rgba(255,255,255,.2)">入门到高端</span>
-      </div>
-      <div class="bodhi-card bodhi-feng">
-        <h3>凤眼菩提</h3>
-        <p>深褐底 + 深棕眼，像凤凰眼睛</p>
-        <p>星点：椭圆形棕眼，1条眼线</p>
-        <span class="tag" style="background:rgba(255,255,255,.2)">最贵</span>
-      </div>
-      <div class="bodhi-card bodhi-long">
-        <h3>龙眼菩提</h3>
-        <p>浅褐底 + 棕色眼，像龙眼核</p>
-        <p>星点：圆形眼，2条眼线交叉</p>
-        <span class="tag" style="background:rgba(255,255,255,.2)">中高端</span>
-      </div>
-    </div>
-    <!-- 鉴别表 -->
-    <table class="m-table">
-      <tr><th>品种</th><th>外观特征</th><th>星点形状</th><th>市场价位</th></tr>
-      <tr><td><strong>星月菩提</strong></td><td>白底 + 黑色星点，像星月</td><td>均匀黑点，分布规则</td><td>入门到高端（品牌溢价大）</td></tr>
-      <tr><td><strong>凤眼菩提</strong></td><td>深褐底 + 深棕眼，像凤凰眼睛</td><td>椭圆形棕眼，1条眼线</td><td>最贵，尺寸越小越贵</td></tr>
-      <tr><td><strong>龙眼菩提</strong></td><td>浅褐底 + 棕色眼，像龙眼核</td><td>圆形眼，2条眼线交叉</td><td>中高端，稀缺</td></tr>
-    </table>
-    <div class="tip-box"><strong>💡 鉴别要点：</strong>星月看星点分布均匀度；凤眼看眼形圆润无畸形；龙眼看眼的线条（两条线交叉为龙眼，一条线为凤眼）。</div>
+  <!-- 面包屑 -->
+  <div class="breadcrumb">
+    <a href="index.html">首页</a>
+    <span class="sep">›</span>
+    <span class="current">文玩手串</span>
   </div>
 
-  <!-- 星月详解 -->
-  <div class="section" id="section-xingyue">
-    <h2>星月菩提详解</h2>
-    <h3>产地与品质</h3>
-    <ul>
-      <li><strong>海南毛感料：</strong>公认品质最优，星点细密均匀，密度高，盘玩后颜色漂亮。</li>
-      <li><strong>广西料：</strong>星点较粗，密度一般，性价比高。</li>
-      <li><strong>越南料：</strong>星点发红，品质参差不齐。</li>
-      <li><strong>五星帝王料：</strong>星点呈五星状分布，稀少，价格高。</li>
-    </ul>
-    <h3>形状分类</h3>
-    <ul>
-      <li><strong>正月：</strong>星点在正月位置（正中），最规整，价格最高。</li>
-      <li><strong>玄月（偏月）：</strong>星点偏，价格较低。</li>
-      <li><strong>无相：</strong>不规则多面切，每颗形状不同，盘玩挑战大但独一无二。</li>
-      <li><strong>原生态：</strong>保留黄藤果原始色泽，颜色多样（绿/粉/紫），近年来流行。</li>
-    </ul>
-    <h3>品牌与溢价</h3>
-    <ul>
-      <li><strong>欢见：</strong>文玩潮牌化代表，营销能力强，溢价率高达 360-600%。</li>
-      <li><strong>知行堂、琼珠工艺：</strong>口碑第一梯队，品质扎实。</li>
-      <li><strong>菩悦东方、吾文玩：</strong>第二梯队，性价比好。</li>
-    </ul>
-    <div class="warn-box"><strong>⚠️ 二手保值提醒：</strong>树籽类文玩二手市场折价 3-5 折，品牌溢价清零。一串原价 1799 元的欢见星月，闲鱼估价约 400-700 元。</div>
+  <!-- 标题区 -->
+  <div class="bracelet-hero">
+    <h1>文玩手串百科</h1>
+    <p class="subtitle">菩提·骨料·五行，手串材质鉴别与盘玩全攻略</p>
+    <p class="tagline">🌈 紫金配色 · 紫色系（#5b2c8d）</p>
   </div>
 
-  <!-- 盘玩方法 -->
-  <div class="section" id="section-panwan">
-    <h2>盘玩方法（星月菩提）</h2>
-    <!-- 步骤瓷砖 -->
-    <div class="phase-grid">
-      <div class="phase-tile">
-        <div class="phase-num">01</div>
-        <div class="phase-name">抛光</div>
-        <div class="phase-time">7-14天</div>
-        <div class="phase-desc">棉手套每日盘30分钟</div>
-        <div class="phase-goal">目标：去除车痕，形成基础光泽</div>
-      </div>
-      <div class="phase-tile">
-        <div class="phase-num">02</div>
-        <div class="phase-name">静置</div>
-        <div class="phase-time">7天</div>
-        <div class="phase-desc">自然放置，不盘不戴</div>
-        <div class="phase-goal">目标：让油脂自然氧化，形成软包浆</div>
-      </div>
-      <div class="phase-tile">
-        <div class="phase-num">03</div>
-        <div class="phase-name">手盘</div>
-        <div class="phase-time">长期</div>
-        <div class="phase-desc">净手盘5天，休息2天</div>
-        <div class="phase-goal">目标：逐步包浆上色</div>
-      </div>
-      <div class="phase-tile">
-        <div class="phase-num">04</div>
-        <div class="phase-name">日常佩戴</div>
-        <div class="phase-time">中后期</div>
-        <div class="phase-desc">正常佩戴，配合手盘</div>
-        <div class="phase-goal">目标：加速变色，深沉包浆</div>
-      </div>
+  <!-- 材质养护分类 -->
+  <div class="cat-header">
+    <h2>材质养护</h2>
+    <span class="badge">6种材质</span>
+  </div>
+
+  <div class="bracelet-grid">
+    <a href="bracelet/xingyue.html" class="bracelet-card card-purple">
+      <div class="emoji">🌟</div>
+      <div class="title">星月菩提</div>
+      <div class="desc">白底星点如繁星伴月，选料、盘玩、包浆、色差处理全套知识</div>
+      <div class="tag">海南毛感料</div>
+    </a>
+
+    <a href="bracelet/fengyan.html" class="bracelet-card card-purple">
+      <div class="emoji">👁️</div>
+      <div class="title">凤眼菩提</div>
+      <div class="desc">深褐底深棕眼，三大菩提中最珍贵，尺寸越小越贵重</div>
+      <div class="tag">尼泊尔产</div>
+    </a>
+
+    <a href="bracelet/longyan.html" class="bracelet-card card-purple">
+      <div class="emoji">🐉</div>
+      <div class="title">龙眼菩提</div>
+      <div class="desc">浅褐底两条交叉眼线，凤眼变异种，比凤眼更稀缺</div>
+      <div class="tag">变异珍品</div>
+    </a>
+
+    <a href="bracelet/magu.html" class="bracelet-card card-purple">
+      <div class="emoji">🦴</div>
+      <div class="title">马骨手串</div>
+      <div class="desc">骨料新星，价格亲民纹理独特，纵向纤维纹鉴别要点</div>
+      <div class="tag">入门50+</div>
+    </a>
+
+    <a href="bracelet/mengma.html" class="bracelet-card card-purple">
+      <div class="emoji">🦷</div>
+      <div class="title">猛犸牙手串</div>
+      <div class="desc">合法象牙替代品，勒兹纹（裂帛纹/雷纹）鉴别全解析</div>
+      <div class="tag">合法化石</div>
+    </a>
+
+    <a href="bracelet/zijinboyu.html" class="bracelet-card card-purple">
+      <div class="emoji">🏺</div>
+      <div class="title">紫金钵盂菩提</div>
+      <div class="desc">小众菩提籽，半圆钵盂形似倒扣碗，紫褐至棕红色</div>
+      <div class="tag">小众入门</div>
+    </a>
+  </div>
+
+  <!-- 知识指南分类 -->
+  <div class="cat-header">
+    <h2>知识指南</h2>
+    <span class="badge">3个专题</span>
+  </div>
+
+  <div class="bracelet-grid">
+    <a href="bracelet/quanao.html" class="bracelet-card card-amber">
+      <div class="emoji">📖</div>
+      <div class="title">星月全套攻略</div>
+      <div class="desc">选料→上手→包浆→保养，星月菩提完整生命周期，配包浆图谱</div>
+      <div class="tag">完整指南</div>
+    </a>
+
+    <a href="bracelet/pinxiang.html" class="bracelet-card card-amber">
+      <div class="emoji">🔍</div>
+      <div class="title">品相辨别指南</div>
+      <div class="desc">六维评分系统：密度、油性、做工、均匀度、瑕疵、完整性</div>
+      <div class="tag">选购必读</div>
+    </a>
+
+    <a href="bracelet/wuxing.html" class="bracelet-card card-amber">
+      <div class="emoji">🎯</div>
+      <div class="title">五行搭配指南</div>
+      <div class="desc">材质五行属性对照表，相生搭配建议，色彩美学原则</div>
+      <div class="tag">美学体系</div>
+    </a>
+  </div>
+
+  <!-- 更新日志 -->
+  <div class="update-compact">
+    <h3>更新记录</h3>
+    <div class="log-item">
+      <div class="date">2026-06-22</div>
+      <div class="text">拆分文玩手串为独立子页面系统，创建9个专题子页面，首页改为卡片索引。</div>
     </div>
-    <!-- 盘玩表格 -->
-    <table class="m-table">
-      <tr><th>阶段</th><th>时间</th><th>方法</th><th>目标</th></tr>
-      <tr><td><strong>抛光</strong></td><td>7-14天</td><td>棉手套每日盘30分钟</td><td>去除车痕，形成基础光泽</td></tr>
-      <tr><td><strong>静置</strong></td><td>7天</td><td>自然放置，不盘不戴</td><td>让油脂自然氧化，形成软包浆</td></tr>
-      <tr><td><strong>手盘</strong></td><td>长期</td><td>净手盘5天，休息2天</td><td>逐步包浆上色</td></tr>
-      <tr><td><strong>日常佩戴</strong></td><td>中后期</td><td>正常佩戴，配合手盘</td><td>加速变色，深沉包浆</td></tr>
-    </table>
-    <h3>无相特别注意点</h3>
-    <ul>
-      <li>形状不规则，每颗转着盘，确保所有面都盘到。</li>
-      <li>孔道两侧重点盘，容易忽略但变色最快。</li>
-      <li>大切面防色差：每颗转方向，色差珠集中多盘。</li>
-    </ul>
-    <h3>三大禁忌</h3>
-    <div class="taboo-grid">
-      <div class="taboo-tile" style="background:var(--teal)">
-        <h4>💧 水</h4>
-        <p>星月菩提怕水，沾水后立即擦干，否则容易发霉开裂。</p>
-      </div>
-      <div class="taboo-tile" style="background:var(--red)">
-        <h4>💦 大汗</h4>
-        <p>汗液过多会让星月发黄发黑，前期一定要净手。</p>
-      </div>
-      <div class="taboo-tile" style="background:var(--orange)">
-        <h4>☀️ 干燥/暴晒</h4>
-        <p>冷热交替易开裂，冬天远离暖气，夏天避免阳光直射。</p>
-      </div>
+    <div class="log-item">
+      <div class="date">2026-06-21</div>
+      <div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div>
+    </div>
+    <div class="log-item">
+      <div class="date">2026-06-20</div>
+      <div class="text">完成欢见品牌研究，用户持有3串星月菩提盘玩方案确定。</div>
     </div>
   </div>
 
-  <!-- DIY加工 -->
-  <div class="section" id="section-diy">
-    <h2>黄藤果加工工序（26步）</h2>
-    <div class="process-grid">
-      <div class="step-tile"><div class="step-num">①</div><div class="step-name">采摘黄藤果</div></div>
-      <div class="step-tile"><div class="step-num">②</div><div class="step-name">清洗去皮</div></div>
-      <div class="step-tile"><div class="step-num">③</div><div class="step-name">晾干</div></div>
-      <div class="step-tile"><div class="step-num">④</div><div class="step-name">储藏陈化</div></div>
-      <div class="step-tile"><div class="step-num">⑤</div><div class="step-name">去壳取籽</div></div>
-      <div class="step-tile"><div class="step-num">⑥</div><div class="step-name">筛选分级</div></div>
-      <div class="step-tile"><div class="step-num">⑦</div><div class="step-name">打孔定位</div></div>
-      <div class="step-tile"><div class="step-num">⑧</div><div class="step-name">干磨去皮</div></div>
-      <div class="step-tile"><div class="step-num">⑨</div><div class="step-name">粗磨去车痕</div></div>
-      <div class="step-tile"><div class="step-num">⑩</div><div class="step-name">细磨抛光</div></div>
-      <div class="step-tile"><div class="step-num">⑪</div><div class="step-name">精抛上光</div></div>
-      <div class="step-tile"><div class="step-num">⑫</div><div class="step-name">筛选形状</div></div>
-      <div class="step-tile"><div class="step-num">⑬</div><div class="step-name">配串定规</div></div>
-      <div class="step-tile"><div class="step-num">⑭</div><div class="step-name">打孔穿串</div></div>
-      <div class="step-tile"><div class="step-num">⑮</div><div class="step-name">定型校准</div></div>
-      <div class="step-tile"><div class="step-num">⑯</div><div class="step-name">静置氧化</div></div>
-      <div class="step-tile"><div class="step-num">⑰</div><div class="step-name">初盘上光</div></div>
-      <div class="step-tile"><div class="step-num">⑱</div><div class="step-name">静置氧化</div></div>
-      <div class="step-tile"><div class="step-num">⑲</div><div class="step-name">包浆固化</div></div>
-      <div class="step-tile"><div class="step-num">⑳</div><div class="step-name">保养护理</div></div>
-      <div class="step-tile"><div class="step-num">㉑</div><div class="step-name">配饰搭配</div></div>
-      <div class="step-tile"><div class="step-num">㉒</div><div class="step-name">包装入库</div></div>
-    </div>
-    <div class="tip-box"><strong>💡 自制手串入门：</strong>如果想自己在家做手串，推荐方案：购买黄藤果原籽（海南产最佳）→ 用手钻打孔 → 砂纸从320目逐步打磨到2000目 → 弹力绳穿串。工具：手钻+砂纸组合（320/600/1000/2000目）+ 穿珠针 + 弹力绳。</div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 龙兄知识库</p>
+    <p style="margin-top:4px;">AI驱动的个人知识库</p>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+      GitHub 仓库
+    </a>
   </div>
-
-  <!-- 品牌与市场 -->
-  <div class="section" id="section-brand">
-    <h2>品牌溢价与二手市场</h2>
-    <h3>主要品牌梯队</h3>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:16px 0">
-      <div class="brand-tile" style="background:var(--pink)">
-        <div class="tier">第一梯队 · 潮牌</div>
-        <h4>欢见</h4>
-        <p>文玩潮牌化代表，营销能力强，溢价率高达 360-600%</p>
-      </div>
-      <div class="brand-tile" style="background:var(--blue)">
-        <div class="tier">第一梯队 · 口碑</div>
-        <h4>知行堂 / 琼珠工艺</h4>
-        <p>口碑第一梯队，品质扎实，溢价率相对合理</p>
-      </div>
-      <div class="brand-tile" style="background:var(--teal)">
-        <div class="tier">第二梯队</div>
-        <h4>菩悦东方 / 吾文玩</h4>
-        <p>第二梯队，性价比好，适合入门</p>
-      </div>
-    </div>
-    <h3>二手保值率分析</h3>
-    <table class="m-table">
-      <tr><th>品牌</th><th>原价区间</th><th>二手折价率</th><th>备注</th></tr>
-      <tr><td><strong>欢见</strong></td><td>800-2000元</td><td>3-5折</td><td>品牌溢价清零最快</td></tr>
-      <tr><td><strong>知行堂</strong></td><td>500-1500元</td><td>5-7折</td><td>品质认可度高，保值较好</td></tr>
-      <tr><td><strong>无品牌/散珠</strong></td><td>100-500元</td><td>1-3折</td><td>基本按料质计价</td></tr>
-    </table>
-    <div class="warn-box"><strong>⚠️ 购买建议：</strong>如果是新手，建议先买第二梯队（菩悦东方、吾文玩）练手，等熟悉后再考虑欢见等溢价品牌。二手市场淘货也是好选择，但需要注意辨别真假和品相。</div>
-  </div>
-
-
-  <!-- 马骨 -->
-  <div class="section" id="section-bone">
-    <h2>马骨手串</h2>
-    <p>马骨近年来热度攀升，属于骨料文玩中的新星。价格亲民，纹理独特，盘玩变化快。但市场上染色仿冒多，需要火眼金睛。</p>
-    
-    <h3>马骨vs其他骨料</h3>
-    <table class="m-table">
-      <tr><th>骨料</th><th>密度</th><th>油性</th><th>纹理</th><th>盘玩变化</th><th>价格带</th></tr>
-      <tr><td><strong>马骨</strong></td><td>中等偏硬</td><td>油性大</td><td>纵向纤维纹清晰</td><td>快，3-6个月包浆</td><td>50-300元</td></tr>
-      <tr><td><strong>驼骨</strong></td><td>高</td><td>油性大</td><td>不规则绞丝纹</td><td>快，油润感强</td><td>80-500元</td></tr>
-      <tr><td><strong>牦牛骨</strong></td><td>高</td><td>油性中等</td><td>粗犷纵纹</td><td>中等，1-2年</td><td>50-200元</td></tr>
-      <tr><td><strong>象骨/猛犸</strong></td><td>高</td><td>油性低</td><td>交叉线（雷纹）</td><td>慢，需耐心</td><td>200-2000元</td></tr>
-    </table>
-    
-    <h3>马骨鉴别要点</h3>
-    <div class="bone-grid">
-      <div class="bone-card bone-magu">
-        <h4>🦴 看纹理</h4>
-        <p>真马骨：纵向平行纤维纹，自然流畅，像木纹。放大镜下可见天然血管孔（骨小孔），分布不规则。</p>
-        <p>假货：无纹理或人造压纹，太规则太均匀。</p>
-      </div>
-      <div class="bone-card bone-dye">
-        <h4>🎨 辨染色</h4>
-        <p>市场上"红马骨"多是染色。辨别方法：</p>
-        <ul>
-          <li>棉签蘸酒精擦拭——掉色则染</li>
-          <li>看孔道内侧——染色品孔道内颜色与表面不一致</li>
-          <li>紫外线灯——天然骨有柔和荧光，染色骨荧光异常</li>
-        </ul>
-      </div>
-      <div class="bone-card bone-expert">
-        <h4>🔥 烧灼测试（慎用）</h4>
-        <p>热针点刺不明显处：真骨有焦糊味（类似烧头发），无黑烟。塑料/树脂仿品有化学刺鼻味+黑烟。</p>
-      </div>
-      <div class="bone-card bone-expert">
-        <h4>⚖️ 掂重量</h4>
-        <p>真马骨密度中等，有压手感但不过重。塑料仿品太轻，树脂仿品过重。手感经验最重要。</p>
-      </div>
-    </div>
-
-    <h3>盘玩与保养</h3>
-    <ul>
-      <li><strong>上手直接盘</strong>——马骨油性大，净手盘即可，无需手套打底</li>
-      <li><strong>前期忌水忌汗</strong>——沾水后用软布擦干</li>
-      <li><strong>注意干裂</strong>——北方冬天远离暖气，涂薄层硅油可防裂</li>
-      <li><strong>包浆后变深红褐色</strong>——越盘越亮，近似琥珀质感</li>
-      <li>如需上油，用骨油或婴儿油，少量多次</li>
-    </ul>
-    <div class="tip-box"><strong>💡 购买建议：</strong>马骨入门门槛低，新手花50-100元就能买到一串不错的素串。建议买前问清：是否脱脂脱油、产地（内蒙古/新疆马骨为佳）、是否染色。推荐先入手鸡油黄（天然色）素串练手。</div>
-  </div>
-
-  <!-- 紫金钵盂菩提 -->
-  <div class="section" id="section-zijin">
-    <h2>紫金钵盂菩提</h2>
-    <div class="zijin-card">
-      <h3>什么是紫金钵盂菩提？</h3>
-      <p>紫金钵盂菩提并非金属"紫金"，也不是钵盂（和尚化缘的碗），而是一种<strong>热带棕榈科植物的种子</strong>。因形状像倒扣的钵盂、颜色紫褐而得名。属于菩提籽中的小众品类。</p>
-      <p>核心特征：半圆形（像切开的椰子壳侧面）、表面有天然凹凸纹路、紫褐至棕红色、质地坚硬致密。</p>
-    </div>
-
-    <h3>三大特征</h3>
-    <div class="zijin-grid">
-      <div class="point">
-        <div class="num">1</div>
-        <div class="label">🔄 天然钵盂形<br>半圆如碗倒扣</div>
-      </div>
-      <div class="point">
-        <div class="num">2</div>
-        <div class="label">🎨 紫褐色<br>越盘越润</div>
-      </div>
-      <div class="point">
-        <div class="num">3</div>
-        <div class="label">💪 密度高<br>入水即沉</div>
-      </div>
-    </div>
-
-    <h3>鉴别要点</h3>
-    <ul>
-      <li><strong>看形状：</strong>紫金钵盂菩提是天然的半圆空心结构（种子壳的一半），带孔的一面空心。并非实心珠子。</li>
-      <li><strong>看纹理：</strong>表面有天然凹凸和气孔纹路，不是光滑平面。假货常做成全圆形或表面过于光滑。</li>
-      <li><strong>听声音：</strong>互相碰撞声音清脆，类似陶瓷片。塑料仿品声音沉闷。</li>
-      <li><strong>掂重量：</strong>密度高，有压手感。太轻的可能是未成熟籽或仿品。</li>
-    </ul>
-
-    <h3>盘玩与价值</h3>
-    <ul>
-      <li>干净手直接盘，前期净手为主</li>
-      <li>盘玩后颜色由紫褐转深红棕，光泽如玉</li>
-      <li>天然凹凸纹理盘玩时会有轻微的手感按摩效果</li>
-      <li>市场价约50-200元/串，属于入门级菩提籽</li>
-      <li>真正的收藏级紫金钵盂：籽形饱满、厚度均匀、紫红色正、无虫蛀裂痕</li>
-    </ul>
-    <div class="warn-box"><strong>⚠️ 注意：</strong>市场上有些商家将"紫金钵盂"吹成佛教圣物高价售卖。实际上它只是一种普通菩提籽，不要被"开光""加持"等话术忽悠。合理价格在百元以内。</div>
-  </div>
-
-  <!-- 猛犸 -->
-  <div class="section" id="section-mammoth">
-    <h2>猛犸象牙手串</h2>
-    <div class="mammoth-card">
-      <h3>合法象牙替代品</h3>
-      <p>猛犸象牙是<strong>合法</strong>的文玩材料——来自已灭绝的猛犸象化石（西伯利亚冻土层中出土），不是现代象牙。联合国CITES公约允许合法交易。购买时务必确认商家有合法来源证明。</p>
-      <p>猛犸象牙因长期埋在冻土中，部分已呈"牙笑"（表面细微裂纹），正是岁月留下的天然印记。</p>
-    </div>
-
-    <h3>牙纹鉴别（裂帛纹）</h3>
-    <div class="mammoth-grid">
-      <div class="feature">
-        <h4>🦷 勒兹纹</h4>
-        <p>猛犸象牙独有的纹理，横截面呈<strong>交叉菱形</strong>（类似鱼网或格纹），被称为"裂帛纹"或"雷纹"。线条夹角一般为&lt;90度。</p>
-      </div>
-      <div class="feature">
-        <h4>🦷 现代象牙</h4>
-        <p>现代象牙勒兹纹夹角呈钝角（&gt;90度），纹路更圆润柔和，呈弧形伸展。与猛犸的尖锐菱形交叉明显不同。</p>
-      </div>
-      <div class="feature">
-        <h4>🦷 骨料仿冒</h4>
-        <p>骨料（牛/马/驼骨）没有勒兹纹，只有纵向纤维纹。猛犸的交叉菱形纹是"身份ID"，不可仿造。</p>
-      </div>
-      <div class="feature">
-        <h4>🦷 树脂仿品</h4>
-        <p>树脂/poly仿品无纹路或纹路死板均匀。用热针测试——树脂冒黑烟+化学气味，猛犸有焦蛋白质味。</p>
-      </div>
-    </div>
-
-    <div class="mammoth-legal">
-      <strong>✅ 合法来源确认：</strong>正规商家会提供《CITES证明》或《猛犸象牙来源声明》。日本、欧美市场对猛犸牙政策最宽松。国内购买时选择正规商店，要求出具合法来源文件。绝对不要购买现代象牙制品。
-    </div>
-
-    <h3>盘玩与保养</h3>
-    <ul>
-      <li>猛犸牙质地较干（与骨料比油性不足），需耐心盘玩</li>
-      <li>前期建议手套盘1-2周打底，避免直接上手太快变黄</li>
-      <li>盘玩过程中颜色会逐渐变深——从奶白→米黄→蜜蜡黄</li>
-      <li>极度怕干裂：北方冬季需用保湿袋/涂婴儿油保存</li>
-      <li>忌暴晒、忌暖气片、忌温差剧烈变化</li>
-      <li>"牙笑"（表面细微裂纹）是自然现象，反而增添岁月感，不必纠结</li>
-    </ul>
-    <div class="tip-box"><strong>💡 选购建议：</strong>新手入门建议买小规格珠串（6-8mm），价格约200-500元。注意选"冰淇淋料"（纯白微黄）品相，带皮的"蓝皮料"价格更高但盘玩难度大。最贵的"血牙"多为染色，不推荐新手碰。</div>
-  </div>
-
-  <!-- 星月全套攻略 -->
-  <div class="section" id="section-xingyue-all">
-    <h2>星月菩提全套攻略</h2>
-    <p>从选料→上手→包浆→保养，一篇讲透。</p>
-
-    <h3>选料四看</h3>
-    <table class="m-table">
-      <tr><th>指标</th><th>好</th><th>中</th><th>差</th></tr>
-      <tr><td><strong>密度</strong>（最重要）</td><td>入水即沉，敲击声清脆</td><td>半沉半浮</td><td>浮于水面，声音沉闷</td></tr>
-      <tr><td><strong>星点</strong></td><td>细密均匀，星点如针尖</td><td>星点清晰但有粗有细</td><td>星点粗大、连成线（连星）</td></tr>
-      <tr><td><strong>油性</strong></td><td>表面油润有光泽，上手发腻</td><td>光泽一般</td><td>干涩无光，像枯柴</td></tr>
-      <tr><td><strong>色差</strong></td><td>整串颜色均匀一致</td><td>少量色差</td><td>白一颗黄一颗，差异明显</td></tr>
-    </table>
-
-    <h3>盘玩时间线</h3>
-    <div class="star-guide">
-      <div class="step">
-        <div class="icon">🧤</div>
-        <div class="title">抛光期</div>
-        <div class="desc">1-2周<br>棉手套盘30分/天<br>去车痕+基础光泽</div>
-      </div>
-      <div class="step">
-        <div class="icon">⏸️</div>
-        <div class="title">静置期</div>
-        <div class="desc">3-5天<br>自然放置<br>油脂氧化形成软包浆</div>
-      </div>
-      <div class="step">
-        <div class="icon">✋</div>
-        <div class="title">手盘期</div>
-        <div class="desc">长期<br>净手盘5天休2天<br>逐步包浆上色</div>
-      </div>
-      <div class="step">
-        <div class="icon">📿</div>
-        <div class="title">日常期</div>
-        <div class="desc">中后期<br>正常佩戴+手盘<br>深沉包浆</div>
-      </div>
-    </div>
-
-    <div class="star-season">
-      <strong>🌡️ 季节建议：</strong>最佳盘玩季节是春秋（温度20-25℃，湿度40-60%）。夏季汗多容易让星月发黄发暗，夏季可减少手盘时间，多静置。冬季干燥注意保湿，远离暖气。
-    </div>
-
-    <h3>色差急救法</h3>
-    <ul>
-      <li><strong>色差隔离：</strong>深色珠子挑出来单穿一串，集中多盘</li>
-      <li><strong>"追色"法：</strong>浅色珠子单独放在手心里搓热再盘，加快颜色</li>
-      <li><strong>重新排序：</strong>打散重穿，深浅交替，盘玩一段时间后色差会模糊</li>
-      <li><strong>终极方案：</strong>实在救不回，考虑初期的色差串改做配珠或隔片</li>
-    </ul>
-    <div class="warn-box"><strong>⚠️ 色差是常态：</strong>99%的手串前期都会出现色差，这是籽与籽之间密度差异导致的。正常盘玩1年左右，色差自然缩小。不要焦虑。</div>
-
-    <h3>包浆阶段图谱</h3>
-    <table class="m-table">
-      <tr><th>阶段</th><th>时间</th><th>颜色</th><th>手感</th></tr>
-      <tr><td>新生</td><td>0-2周</td><td>奶白/原色</td><td>涩，有车痕</td></tr>
-      <tr><td>初浆</td><td>1-3个月</td><td>米黄</td><td>滑中带涩，开始挂瓷</td></tr>
-      <tr><td>包浆</td><td>6-12个月</td><td>姜黄/蜜蜡黄</td><td>光滑莹润，有玻璃感</td></tr>
-      <tr><td>深包浆</td><td>2-3年</td><td>红褐/琥珀色</td><td>温润如玉，钟声清脆</td></tr>
-      <tr><td>老串</td><td>5年以上</td><td>深红褐/枣红</td><td>厚实凝润，开片见岁月</td></tr>
-    </table>
-  </div>
-
-  <!-- 品相辨别 -->
-  <div class="section" id="section-grade">
-    <h2>文玩手串品相辨别</h2>
-    <p>品相是手串价值的核心判断标准。以下是通用评判维度，适用于大部分树籽类和骨质类手串。</p>
-
-    <h3>品相六维评分</h3>
-    <div class="grade-grid">
-      <div class="grade-card grade-high">
-        <div class="score">A+</div>
-        <h4>密度</h4>
-        <p>入水即沉，敲声清脆<br>高密度=耐盘+变色慢+质感好</p>
-      </div>
-      <div class="grade-card grade-mid">
-        <div class="score">B</div>
-        <h4>均匀度</h4>
-        <p>同串籽之间尺寸/颜色/纹路一致性<br>越均匀品相越高</p>
-      </div>
-      <div class="grade-card grade-low">
-        <div class="score">C</div>
-        <h4>瑕疵</h4>
-        <p>虫蛀、裂纹、缺肉、孔道歪<br>一颗瑕疵毁全串</p>
-      </div>
-    </div>
-    <div class="grade-grid">
-      <div class="grade-card grade-high">
-        <div class="score">A</div>
-        <h4>油性</h4>
-        <p>表面自然油润，上手发涩发腻<br>油性足=包浆快+颜色正</p>
-      </div>
-      <div class="grade-card grade-mid">
-        <div class="score">B</div>
-        <h4>做工</h4>
-        <p>孔道顺滑无崩、切面平整<br>精工+细工=高溢价</p>
-      </div>
-      <div class="grade-card grade-low">
-        <div class="score">C</div>
-        <h4>品相完整性</h4>
-        <p>无补胶、无修补、无染色<br>原生态纯天然最值钱</p>
-      </div>
-    </div>
-
-    <h3>常见品相陷阱</h3>
-    <ul>
-      <li><strong>"水煮脱脂"</strong>：把低密度籽煮了冒充高密度。辨别：煮过的籽颜色发死（统一惨白），入口尝有苦味</li>
-      <li><strong>"微油"</strong>（泡油籽）：珠子表面油光锃亮，上手粘手。用纸巾擦一下，看有无油脂残留</li>
-      <li><strong>"补胶遮瑕"</strong>：用胶水填补虫蛀孔或裂纹，紫外线灯下可见荧光反应</li>
-      <li><strong>"通货精选"</strong>：商家从一批通货中挑出几十颗品相好的串成一串，但每颗密度油性不一致，后期色差大</li>
-      <li><strong>"老串新做"</strong>：用化学方法加速变色冒充老串。真老串包浆均匀，孔道内侧也有包浆</li>
-    </ul>
-    <div class="tip-box"><strong>💡 终极法则：</strong>所有品相指标中，密度排第一。宁愿密度高但有小瑕，也不要密度低但表面完美的。密度是一切盘玩变化的基础。</div>
-  </div>
-
-  <!-- 五行搭配 -->
-  <div class="section" id="section-wuxing">
-    <h2>五行搭配思路</h2>
-    <p>手串不止看材质，还可以根据五行来选择适合自己的。这不是封建迷信，而是传统文化中的美学体系——色彩、材质、能量的和谐。</p>
-
-    <h3>五行生克对应表</h3>
-    <div class="wuxing-grid">
-      <div class="wuxing-card wuxing-wood">
-        <div class="elem">木</div>
-        <div class="ename">木</div>
-        <div class="color-info">🟢 绿/青<br>菩提类、竹木类</div>
-      </div>
-      <div class="wuxing-card wuxing-fire">
-        <div class="elem">火</div>
-        <div class="ename">火</div>
-        <div class="color-info">🔴 红/紫<br>南红玛瑙、红珊瑚、红檀</div>
-      </div>
-      <div class="wuxing-card wuxing-earth">
-        <div class="elem">土</div>
-        <div class="ename">土</div>
-        <div class="color-info">🟡 黄/褐<br>蜜蜡、黄水晶、骨料</div>
-      </div>
-      <div class="wuxing-card wuxing-metal">
-        <div class="elem">金</div>
-        <div class="ename">金</div>
-        <div class="color-info">⚪ 白/金<br>猛犸牙、白水晶、银饰</div>
-      </div>
-      <div class="wuxing-card wuxing-water">
-        <div class="elem">水</div>
-        <div class="ename">水</div>
-        <div class="color-info">🔵 蓝/黑<br>青金石、黑曜石、煤精</div>
-      </div>
-    </div>
-
-    <h3>材质与五行对应</h3>
-    <div class="wuxing-match">
-      <div class="pair">
-        <h4>🟢 木属性（菩提类）</h4>
-        <p>星月菩提、凤眼菩提、龙眼菩提、金刚菩提、紫金钵盂菩提、黄藤果、无患子。适合生发、创新、求成长的人。五行缺木首选。</p>
-      </div>
-      <div class="pair">
-        <h4>🔴 火属性（红系材质）</h4>
-        <p>南红玛瑙、红珊瑚、红檀木、血珀、朱砂。适合热情、表现、求名气的人。五行缺火者旺运。</p>
-      </div>
-      <div class="pair">
-        <h4>🟡 土属性（黄褐系）</h4>
-        <p>蜜蜡、黄水晶、琥珀、马骨、驼骨、黄杨木、黄檀。适合稳重、求稳定、守成的人。脾胃不好的也适合。</p>
-      </div>
-      <div class="pair">
-        <h4>⚪ 金属性（白系）</h4>
-        <p>猛犸牙、白水晶、白玉、砗磲、银饰、白金。适合决断、求财运的人。缺金者戴白色最旺。</p>
-      </div>
-      <div class="pair">
-        <h4>🔵 水属性（蓝黑系）</h4>
-        <p>青金石、海蓝宝、黑曜石、煤精、黑玛瑙、黑檀。适合智慧、求人缘、求沟通顺畅的人。缺水果断入黑色系。</p>
-      </div>
-      <div class="pair">
-        <h4>🎨 混搭（多种材质）</h4>
-        <p>最常见的是"木+土"或"金+水"组合。主串选一种属性，配珠选相生属性。比如星月菩提（木）配蜜蜡（土）——木克土？不，是木生火、火生土。按相生关系搭配最和顺。</p>
-      </div>
-    </div>
-
-    <h3>相生搭配建议</h3>
-    <table class="m-table">
-      <tr><th>主材质</th><th>属性</th><th>推荐配珠</th><th>相生关系</th></tr>
-      <tr><td>星月菩提</td><td>木</td><td>蜜蜡/黄水晶（土）</td><td>木生火→火生土</td></tr>
-      <tr><td>南红玛瑙</td><td>火</td><td>黄水晶/蜜蜡（土）</td><td>火生土（火土一家）</td></tr>
-      <tr><td>猛犸牙</td><td>金</td><td>黑曜石/青金石（水）</td><td>金生水（金水相生）</td></tr>
-      <tr><td>蜜蜡/琥珀</td><td>土</td><td>白水晶（金）</td><td>土生金</td></tr>
-      <tr><td>黑曜石/青金石</td><td>水</td><td>星月菩提（木）</td><td>水生木</td></tr>
-    </table>
-
-    <div class="wuxing-tip"><strong>💡 搭配原则：</strong>不要搞得太杂。一串手串最多两种材质（主串+配珠），避免"五行大乱炖"。浓淡对比要出来——主串颜色>配珠颜色>隔片颜色。简单即是高级。</div>
-  </div>
-</div><!-- panel-all -->
-
-<!-- Tab切换JS -->
-<script>
-var panel=document.getElementById('panel-all');
-document.querySelectorAll('.tab-btn').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    var tab=this.getAttribute('data-tab');
-    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
-    this.classList.add('active');
-    if(tab==='all'){
-      panel.classList.add('panel-all');
-      document.querySelectorAll('.section').forEach(function(s){s.style.display=''});
-    }else{
-      panel.classList.remove('panel-all');
-      document.querySelectorAll('.section').forEach(function(s){s.style.display='none'});
-      document.getElementById('section-'+tab).style.display='block';
-    }
-  });
-});
-</script>
-
-<!-- 更新日志 -->
-<div class="update-tile" id="panel-update">
-  <h3>更新记录</h3>
-  <div class="log-item"><div class="date">2026-06-21</div><div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div></div>
-  <div class="log-item"><div class="date">2026-06-20</div><div class="text">完成欢见品牌研究，用户持有3串星月菩提（欢见大切面×2 + 其他品牌小切面×1）盘玩方案确定。</div></div>
-  <div class="log-item"><div class="date">2026-06-22</div><div class="text">新增马骨、紫金钵盂菩提、猛犸、星月全套攻略、品相辨别、五行搭配六大板块，增加Tab切换功能。</div></div>
-</div>
-
-</div><!-- container -->
-
-<footer class="container">
-  <p>由 <span style="color:var(--blue);font-weight:700">QClaw AI</span> 整理 · 数据持续更新</p>
 </footer>
 
-
-
-
-<button class="theme-toggle" id="tb">🌙</button>
 <script>
-(function(){
-  function getTheme(){var h=new Date().getHours();return h>=6&&h<18?'light':'dark';}
-  function apply(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);}
-  var saved=localStorage.getItem('theme');
-  if(saved){apply(saved);}else{apply(getTheme());}
-  var btn=document.getElementById('tb');
-  if(!btn){console.error('theme btn not found');return;}
-  btn.addEventListener('click',function(){
-    var cur=document.documentElement.getAttribute('data-theme');
-    apply(cur==='dark'?'light':'dark');
-  });
-  function updateIcon(){btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';}
-  updateIcon();
-  new MutationObserver(updateIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-})();
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
 </script>
+
 </body>
-<!-- v6 theme fix -->
 </html>

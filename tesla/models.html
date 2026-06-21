@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model S · 参数与科普 - 龙兄知识库</title>
+<meta name="description" content="特斯拉 Model S 全面解析：电动轿车旗舰、Plaid 动力、豪华内饰、猎装版空间。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-list .label { color: var(--text-muted); flex-shrink: 0; }
+.spec-list .value { color: var(--text); text-align: right; font-weight: 600; }
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.pros, .cons { padding: 16px; border-radius: var(--radius-sm); }
+.pros { background: rgba(16,124,16,0.08); border-left: 4px solid var(--green); }
+.cons { background: rgba(232,17,35,0.06); border-left: 4px solid var(--red); }
+.pros h3 { color: var(--green); margin-bottom: 8px; font-size: 1rem; }
+.cons h3 { color: var(--red); margin-bottom: 8px; font-size: 1rem; }
+.pros ul, .cons ul { padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+.people-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.people-box p { font-size: 0.9rem; color: var(--text-secondary); }
+.highlight { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
+.highlight-item { flex: 1; min-width: 140px; text-align: center; }
+.highlight-item .num { font-size: 1.6rem; font-weight: 900; color: var(--gold); }
+.highlight-item .desc { font-size: 0.8rem; color: var(--text-muted); }
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } .spec-list li { flex-direction: column; gap: 4px; } .spec-list .value { text-align: left; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../agarwood.html">AI学习</a></li>
+      <li><a href="../tesla.html">生活百科</a></li>
+      <li><a href="../travel.html">工具</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../agarwood.html">AI学习</a>
+    <a href="../tesla.html">生活百科</a>
+    <a href="../travel.html">工具</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div id="breadcrumb"></div>
+
+  <div class="page-header">
+    <h1>🏎️ Tesla Model S</h1>
+    <p class="subtitle">电动轿车旗舰 · Plaid 极速 · 豪华与性能的巅峰</p>
+  </div>
+
+  <!-- 1. 车型概览 -->
+  <div class="section">
+    <h2>📋 车型概览</h2>
+    <p>Tesla Model S 是特斯拉的首款量产车型（2012年交付），开创了高性能电动轿车的先河。历经多次改款，现款的 "Plaid" 版以三电机、超强动力和惊人续航重新定义了电动性能车的天花板。Model S 也是特斯拉最新科技（Yoke方向盘、无拨杆设计）的试验场。</p>
+    <div class="highlight">
+      <div class="highlight-item"><div class="num">2.1 s</div><div class="desc">Plaid 0-100 km/h</div></div>
+      <div class="highlight-item"><div class="num">672 km</div><div class="desc">CLTC续航</div></div>
+      <div class="highlight-item"><div class="num">约 69 万起</div><div class="desc">中国区售价区间</div></div>
+    </div>
+    <ul class="spec-list">
+      <li><span class="label">车型定位</span><span class="value">大型纯电动轿车</span></li>
+      <li><span class="label">中国版本</span><span class="value">双电机全驱版 / Plaid 三电机版</span></li>
+      <li><span class="label">生产地</span><span class="value">美国弗里蒙特工厂</span></li>
+      <li><span class="label">指导价区间</span><span class="value">约 68.49 万 – 105.99 万</span></li>
+    </ul>
+  </div>
+
+  <!-- 2. 核心参数 -->
+  <div class="section">
+    <h2>📊 核心参数</h2>
+    <table class="m-table">
+      <thead><tr><th>参数</th><th>双电机全驱版</th><th>Plaid 三电机版</th></tr></thead>
+      <tbody>
+        <tr><td>CLTC续航</td><td>672 km</td><td>620 km</td></tr>
+        <tr><td>电机型式</td><td>双电机全驱</td><td>三电机全驱</td></tr>
+        <tr><td>最大功率</td><td>500 kW</td><td>760 kW（约 1,020 hp）</td></tr>
+        <tr><td>0-100 km/h</td><td>3.2 s</td><td>2.1 s</td></tr>
+        <tr><td>最高时速</td><td>250 km/h</td><td>322 km/h</td></tr>
+        <tr><td>电池容量</td><td>约 100 kWh</td><td>约 100 kWh</td></tr>
+        <tr><td>快充功率</td><td>250 kW（V3）/ 500 kW（V4）</td><td>250 kW（V3）/ 500 kW（V4）</td></tr>
+        <tr><td>0-400米</td><td>约 11.0 s</td><td>约 9.2 s</td></tr>
+        <tr><td>整备质量</td><td>约 2,065 kg</td><td>约 2,195 kg</td></tr>
+        <tr><td>风阻系数</td><td>Cd 0.208</td><td>Cd 0.208</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3. 内饰与科技 -->
+  <div class="section">
+    <h2>💺 内饰与科技亮点</h2>
+    <ul style="padding-left:20px;font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">
+      <li><strong>Yoke 方向盘：</strong>U 形半幅方向盘，无传统转向拨杆</li>
+      <li><strong>17 英寸中控屏：</strong>分辨率 2200×1300，倾斜设计</li>
+      <li><strong>后排 8 英寸屏：</strong>可控制空调、娱乐、座椅</li>
+      <li><strong>三区自动空调：</strong>含 HEPA 过滤与生物武器防御模式</li>
+      <li><strong>22 扬声器音响：</strong>960W 输出，支持 Dolby Atmos</li>
+      <li><strong>自适应悬架：</strong>空气悬架 + 自适应阻尼</li>
+    </ul>
+    <div class="tip-box">
+      <p>💡 <strong>Plaid 版赛道模式：</strong>可自定义前后电机扭矩分配、稳定控制介入程度、电池冷却策略，甚至模拟刹车冷却效果。</p>
+    </div>
+  </div>
+
+  <!-- 4. 优缺点 -->
+  <div class="section">
+    <h2>👍👎 优缺点</h2>
+    <div class="pros-cons">
+      <div class="pros">
+        <h3>✅ 优点</h3>
+        <ul>
+          <li>Plaid 性能王者，加速碾压同级</li>
+          <li>续航表现优秀</li>
+          <li>内饰/配置在特斯体系中最高</li>
+          <li>OTA 持续更新新功能</li>
+          <li>风阻系数低，高速续航出色</li>
+          <li>音响系统体验极佳</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h3>❌ 缺点</h3>
+        <ul>
+          <li>售价高昂</li>
+          <li>Yoke 方向盘需要适应</li>
+          <li>后排空间不如同价位 D 级车</li>
+          <li>内饰工艺不如德系对手细</li>
+          <li>售后服务网点不如 BBA 多</li>
+          <li>不在国内生产，价格受关税影响</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 适合人群 -->
+  <div class="section">
+    <h2>👥 适合人群</h2>
+    <div class="people-box">
+      <p><strong>🏆 推荐给：</strong>追求极致性能的汽车爱好者、认可特斯拉科技理念的高预算用户、希望拥有一台「又快又省」的电动旗舰的消费者。</p>
+    </div>
+    <div class="people-box" style="border-left-color:var(--orange);">
+      <p><strong>⚠️ 慎选人群：</strong>看重后排豪华感与空间的大型行政轿车需求者、对维修便利性要求较高的用户。</p>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回新能源汽车首页</a>
+  </div>
+
+</main>
+
+<button class="theme-toggle" id="themeToggle">🌙</button>
+<script>
+(function(){
+  var btn = document.getElementById('tb');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>
+</body>
+</html>

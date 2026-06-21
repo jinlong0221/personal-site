@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybertruck · 参数与科普 - 龙兄知识库</title>
+<meta name="description" content="特斯拉 Cybertruck（赛博皮卡）全面解析：不锈钢外骨骼、装甲玻璃、野兽模式、参数配置。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-list .label { color: var(--text-muted); flex-shrink: 0; }
+.spec-list .value { color: var(--text); text-align: right; font-weight: 600; }
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.pros, .cons { padding: 16px; border-radius: var(--radius-sm); }
+.pros { background: rgba(16,124,16,0.08); border-left: 4px solid var(--green); }
+.cons { background: rgba(232,17,35,0.06); border-left: 4px solid var(--red); }
+.pros h3 { color: var(--green); margin-bottom: 8px; font-size: 1rem; }
+.cons h3 { color: var(--red); margin-bottom: 8px; font-size: 1rem; }
+.pros ul, .cons ul { padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+.people-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.people-box p { font-size: 0.9rem; color: var(--text-secondary); }
+.highlight { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
+.highlight-item { flex: 1; min-width: 140px; text-align: center; }
+.highlight-item .num { font-size: 1.6rem; font-weight: 900; color: var(--teal); }
+.highlight-item .desc { font-size: 0.8rem; color: var(--text-muted); }
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } .spec-list li { flex-direction: column; gap: 4px; } .spec-list .value { text-align: left; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../agarwood.html">AI学习</a></li>
+      <li><a href="../tesla.html">生活百科</a></li>
+      <li><a href="../travel.html">工具</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../agarwood.html">AI学习</a>
+    <a href="../tesla.html">生活百科</a>
+    <a href="../travel.html">工具</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div id="breadcrumb"></div>
+
+  <div class="page-header">
+    <h1>🚛 Cybertruck（赛博皮卡）</h1>
+    <p class="subtitle">未来已来 · 不锈钢外骨骼 · 装甲玻璃 · 野兽模式</p>
+  </div>
+
+  <!-- 1. 车型概览 -->
+  <div class="section">
+    <h2>📋 车型概览</h2>
+    <p>Cybertruck 是特斯拉推出的一款设计极具争议的纯电动皮卡，2019 年 11 月发布，2023 年底才开始交付。它采用超硬 30X 冷轧不锈钢外骨骼车身和装甲玻璃，造型科幻且功能强悍。尽管发布至今争议不断，但全球预订量已突破 250 万辆。</p>
+    <div class="highlight">
+      <div class="highlight-item"><div class="num">2.6 s</div><div class="desc">野兽版 0-100 km/h</div></div>
+      <div class="highlight-item"><div class="num">超 250 万</div><div class="desc">全球预订量</div></div>
+      <div class="highlight-item"><div class="num">4.9 m 货箱</div><div class="desc">硕大的载货空间</div></div>
+    </div>
+    <ul class="spec-list">
+      <li><span class="label">车型定位</span><span class="value">全尺寸纯电动皮卡</span></li>
+      <li><span class="label">在售版本</span><span class="value">后驱版 / 全驱版 / 野兽版（Cyberbeast）</span></li>
+      <li><span class="label">生产地</span><span class="value">美国德州超级工厂（Giga Texas）</span></li>
+      <li><span class="label">起售价（美国）</span><span class="value">约 60,990 美元 / 中国约 68 万起</span></li>
+      <li><span class="label">中国市场情况</span><span class="value">已开放预订，预计 2027 年起交付</span></li>
+    </ul>
+  </div>
+
+  <!-- 2. 核心参数 -->
+  <div class="section">
+    <h2>📊 核心参数</h2>
+    <table class="m-table">
+      <thead><tr><th>参数</th><th>后驱版</th><th>全驱版</th><th>野兽版（Cyberbeast）</th></tr></thead>
+      <tbody>
+        <tr><td>EPA续航</td><td>约 400 km</td><td>约 547 km</td><td>约 515 km</td></tr>
+        <tr><td>电机型式</td><td>单电机后驱</td><td>双电机全驱</td><td>三电机全驱</td></tr>
+        <tr><td>0-100 km/h</td><td>约 7.5 s</td><td>约 4.1 s</td><td>约 2.6 s</td></tr>
+        <tr><td>牵引能力</td><td>3,402 kg</td><td>4,990 kg</td><td>4,990 kg</td></tr>
+        <tr><td>有效载荷</td><td>约 1,134 kg</td><td>约 1,134 kg</td><td>约 1,134 kg</td></tr>
+        <tr><td>电池容量</td><td>约 60 kWh</td><td>约 123 kWh</td><td>约 123 kWh</td></tr>
+        <tr><td>车身材料</td><td>30X 冷轧不锈钢</td><td>30X 冷轧不锈钢</td><td>30X 冷轧不锈钢</td></tr>
+        <tr><td>装甲玻璃</td><td>✓</td><td>✓</td><td>✓</td></tr>
+        <tr><td>自适应空气悬架</td><td>✓</td><td>✓</td><td>✓</td></tr>
+        <tr><td>后轮转向</td><td>—</td><td>✓</td><td>✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3. 设计亮点 -->
+  <div class="section">
+    <h2>⚡ 设计亮点</h2>
+    <ul style="padding-left:20px;font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">
+      <li><strong>超硬不锈钢外骨骼：</strong>无需车架——不锈钢蒙皮同时充当结构件，子弹都无法穿透</li>
+      <li><strong>装甲玻璃：</strong>多层复合玻璃，可抵御时速 112 km/h 的棒球冲击</li>
+      <li><strong>自适应空气悬架：</strong>离地间隙最高 406 mm，支持 "进入模式" 降下 50 mm</li>
+      <li><strong>后轮转向：</strong>全驱和野兽版标配，转弯半径比 Model S 还小</li>
+      <li><strong>120V/240V 车载供电：</strong>货箱和车内均有插座，可驱动电焊机等设备</li>
+      <li><strong>外接太阳能充电：</strong>未来可选装太阳能货箱盖，每天增加约 20 km 续航</li>
+    </ul>
+    <div class="tip-box">
+      <p>💡 <strong>中国市场特别提示：</strong>Cybertruck 车身宽度约 2.2 米（含后视镜），远超中国标准车位（约 2.5 米），<strong>日常停车会比较困难</strong>。交管部门可能将其归类为大型车辆。</p>
+    </div>
+  </div>
+
+  <!-- 4. 优缺点 -->
+  <div class="section">
+    <h2>👍👎 优缺点</h2>
+    <div class="pros-cons">
+      <div class="pros">
+        <h3>✅ 优点</h3>
+        <ul>
+          <li>设计前卫，回头率爆表</li>
+          <li>车身强度极高，防弹级别</li>
+          <li>牵引/载荷能力出色</li>
+          <li>后轮转向让操控很灵活</li>
+          <li>车载电源实用性极强</li>
+          <li>装甲玻璃防砸防冲击</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h3>❌ 缺点</h3>
+        <ul>
+          <li>造型争议巨大，太多人不接受</li>
+          <li>不锈钢车身一擦就留痕，极难修复</li>
+          <li>车身太宽，中国城市极难停车</li>
+          <li>仪表盘非对称设计让强迫症抓狂</li>
+          <li>后排空间一般（与 F-150 等差距大）</li>
+          <li>中国交付时间未知</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 适合人群 -->
+  <div class="section">
+    <h2>👥 适合人群</h2>
+    <div class="people-box">
+      <p><strong>🤖 推荐给：</strong>追求独一无二的科技先锋、需要皮卡实用功能的户外爱好者、特斯拉死忠粉。</p>
+    </div>
+    <div class="people-box" style="border-left-color:var(--orange);">
+      <p><strong>⚠️ 慎选人群：</strong>主要在城市通勤的用户、没有独立车库/大车位的用户、接受不了超高回头率和路人围观的用户。</p>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回新能源汽车首页</a>
+  </div>
+
+</main>
+
+<button class="theme-toggle" id="themeToggle">🌙</button>
+<script>
+(function(){
+  var btn = document.getElementById('tb');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>
+</body>
+</html>

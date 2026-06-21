@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>保养维修 · 特斯拉 - 龙兄知识库</title>
+<meta name="description" content="特斯拉保养维修指南：保修政策、日常自检清单、常见问题处理技巧、保养周期表。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+.checklist { list-style: none; padding: 0; }
+.checklist li { padding: 8px 12px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-start; font-size: 0.9rem; color: var(--text-secondary); }
+.checklist li:before { content: "☐"; flex-shrink: 0; font-size: 1.1rem; color: var(--text-muted); }
+.checklist li:last-child { border-bottom: none; }
+.faq-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 8px 0; }
+.faq-item h4 { font-size: 0.95rem; color: var(--blue); margin-bottom: 6px; }
+.faq-item p { font-size: 0.85rem; color: var(--text-secondary); }
+.warranty-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin: 12px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.warranty-item { text-align: center; padding: 12px; }
+.warranty-item .period { font-size: 1.5rem; font-weight: 900; color: var(--blue); }
+.warranty-item .desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+@media (max-width: 600px) { .warranty-box { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../agarwood.html">AI学习</a></li>
+      <li><a href="../tesla.html">生活百科</a></li>
+      <li><a href="../travel.html">工具</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../agarwood.html">AI学习</a>
+    <a href="../tesla.html">生活百科</a>
+    <a href="../travel.html">工具</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div id="breadcrumb"></div>
+
+  <div class="page-header">
+    <h1>🔧 特斯拉保养维修指南</h1>
+    <p class="subtitle">保修政策 · 保养周期 · 日常自检 · 常见问题 & 处理方案</p>
+  </div>
+
+  <!-- 1. 保修政策 -->
+  <div class="section">
+    <h2>📜 保修政策（中国大陆）</h2>
+    <p>特斯拉在国内的保修政策分为整车保修、电池保修和驱动单元保修三个部分：</p>
+    <div class="warranty-box">
+      <div class="warranty-item"><div class="period">4 年 / 8 万 km</div><div class="desc">整车基本保修（先到为准）</div></div>
+      <div class="warranty-item"><div class="period">8 年 / 16 万 km</div><div class="desc">Model 3/Y 后驱版电池与驱动单元</div></div>
+      <div class="warranty-item"><div class="period">8 年 / 19 万 km</div><div class="desc">Model 3/Y 长续航/高性能版电池</div></div>
+      <div class="warranty-item"><div class="period">8 年 / 24 万 km</div><div class="desc">Model S/X 电池与驱动单元</div></div>
+    </div>
+    <div class="tip-box">
+      <p>💡 <strong>注意事项：</strong>保修范围不包括易损件（轮胎、刹车片、雨刮片、空调滤芯等）。过户后剩余保修继续有效。建议在临近保修期结束前去服务中心做一次全面检查，发现问题及时索赔。</p>
+    </div>
+  </div>
+
+  <!-- 2. 保养周期 -->
+  <div class="section">
+    <h2>📅 保养周期表</h2>
+    <p>相比燃油车，特斯拉的保养需求少得多，主要保养项目及建议周期如下：</p>
+    <table class="m-table">
+      <thead><tr><th>项目</th><th>建议周期</th><th>预计费用</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>空调滤芯 / HEPA 滤芯</td><td>每 12 个月</td><td>约 200-500 元</td><td>可用第三方替代品，DIY 更换</td></tr>
+        <tr><td>轮胎换位 / 动平衡</td><td>每 1-2 万公里</td><td>约 100-200 元</td><td>纯电车自重更大，轮胎磨损快</td></tr>
+        <tr><td>制动液检测</td><td>每 2 年</td><td>约 200-400 元</td><td>动能回收让刹车片寿命很长</td></tr>
+        <tr><td>空调系统服务</td><td>每 2-3 年</td><td>约 500-800 元</td><td>含干燥剂更换、系统清洗</td></tr>
+        <tr><td>电池冷却液更换</td><td>每 4 年</td><td>约 1,000-2,000 元</td><td>建议回服务中心</td></tr>
+        <tr><td>制动卡钳清洁润滑</td><td>每 12 个月（北方/沿海）</td><td>约 200-400 元</td><td>冬季融雪盐或海边易锈</td></tr>
+        <tr><td>轮胎更换（4 条）</td><td>约 4-6 万公里</td><td>约 2,000-4,000 元</td><td>电动车专用胎更耐磨</td></tr>
+      </tbody>
+    </table>
+    <div class="warning-box">
+      <p>⚠️ <strong>改装有风险：</strong>任何非官方改装（尤其是电路改装）可能导致相关部件保修失效。轮毂轮胎改装可能导致悬架系统保修受影响。</p>
+    </div>
+  </div>
+
+  <!-- 3. 日常自检清单 -->
+  <div class="section">
+    <h2>✅ 日常自检清单</h2>
+    <p>以下检查每月做一遍，或者长途出行前检查一遍，可大幅降低路上出问题的概率：</p>
+    <ul class="checklist">
+      <li>检查轮胎气压（推荐 2.9-3.1 bar，可在中控屏「服务」页面查看）</li>
+      <li>检查轮胎磨损（看花纹深度，至少 1.6 mm）</li>
+      <li>检查雨刮水/玻璃水（特斯拉专用接口，加满即可）</li>
+      <li>检查所有灯光（大灯/转向灯/刹车灯/日行灯）</li>
+      <li>检查充电插头和充电线缆有无破损</li>
+      <li>检查前备箱内盖板下的电池冷却液液位（仅限早期车主）</li>
+      <li>检查空调制冷/制热效果</li>
+      <li>检查门把手收回是否顺畅（感应式门把手偶尔卡滞）</li>
+      <li>检查哨兵模式录制的视频是否正常保存</li>
+      <li>检查 App 控制功能正常（锁车/解锁/空调预热）</li>
+    </ul>
+  </div>
+
+  <!-- 4. 常见问题 -->
+  <div class="section">
+    <h2>❓ 常见问题 & 处理方案</h2>
+
+    <div class="faq-item">
+      <h4>🔊 车辆行驶中有异响</h4>
+      <p>常见原因：① 前备箱拉线松动撞击盖板（去服务中心紧固）② 安全带卡扣蹭到座椅侧面 ③ 手套箱或中控储物盒里有物体滚动。也有可能是底盘护板卡扣脱落，需要升起检查。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🌧️ 天窗/车门有漏水</h4>
+      <p>Model 3/Y 的全景天幕采用粘合工艺，漏水概率很低。如果发生，通常是天幕密封胶条局部脱开或天窗排水孔堵塞。去服务中心免费检查。注意不要自己打胶，可能影响保修。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🔋 续航衰减严重</h4>
+      <p>先确认是否因为天气变冷（暖空调对续航影响约 15-30%）。如果在温和天气下续航明显缩水，可通过「控制 → 服务 → 电池健康」查看电池状态。建议做一次完整充放电（10%→100%）校准 BMS。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🔄 OTA 升级失败</h4>
+      <p>确保车辆停在有良好 Wi-Fi 信号的位置，电量 > 20%。如果升级过程中断，车辆通常会自动回滚到上一个版本。再试一次或联系客服远程推送。升级期间不要强制断电。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🧊 冬季续航大幅下降</h4>
+      <p>正常现象。低温下电池活性降低，加上暖空调消耗大，冬季续航约为标称的 60-75%。建议：① 出发前插着充电枪预热电池和座舱（用 App 开启空调）② 使用座椅加热比加热全车更省电 ③ 保持电池在较高 SOC（例如 50%+）以维持性能。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🎨 车漆划痕 / 石子击伤</h4>
+      <p>特斯拉车漆相对较薄，前保险杠和引擎盖常见石子击伤。建议：① 新车落地做隐形车衣（PPF，约 8,000-20,000 元）② 补漆笔填补小伤（约 30-50 元）③ 深划痕需走保险喷漆（约 800-2,000 元/面）。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🔦 大灯/尾灯起雾</h4>
+      <p>LED 大灯轻微的起雾属于正常现象（呼吸效应），太阳晒晒就消失了。如果积水成滴或持续不消散，属于密封失效，可走保修更换。</p>
+    </div>
+  </div>
+
+  <!-- 5. 服务中心 vs 第三方维修 -->
+  <div class="section">
+    <h2>🏪 服务中心 vs 第三方维修</h2>
+    <table class="m-table">
+      <thead><tr><th>项目</th><th>特斯拉服务中心</th><th>第三方维修</th></tr></thead>
+      <tbody>
+        <tr><td>价格</td><td>偏高</td><td>约 50-70%</td></tr>
+        <tr><td>配件质量</td><td>原厂</td><td>原厂/副厂均有</td></tr>
+        <tr><td>保修影响</td><td>不会影响</td><td>使用非原厂配件可能影响</td></tr>
+        <tr><td>专业性</td><td>极高（经过特斯拉培训）</td><td>良莠不齐</td></tr>
+        <tr><td>预约情况</td><td>繁忙，需提前 1-2 周</td><td>通常快</td></tr>
+        <tr><td>适合项目</td><td>电池/电机/OTA/空调等高难度维修</td><td>轮胎/刹车/钣喷/保养件更换</td></tr>
+      </tbody>
+    </table>
+    <div class="tip-box">
+      <p>💡 <strong>推荐策略：</strong>保修期内尽量去服务中心（避免争议）。出保后，轮胎/刹车/空调滤芯等常规保养可以找可靠的第三方，价格更优。电池/电机故障建议回官方。</p>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回新能源汽车首页</a>
+  </div>
+
+</main>
+
+<button class="theme-toggle" id="themeToggle">🌙</button>
+<script>
+(function(){
+  var btn = document.getElementById('tb');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>
+</body>
+</html>

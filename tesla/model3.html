@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model 3 · 参数与科普 - 龙兄知识库</title>
+<meta name="description" content="特斯拉 Model 3 全面解析：参数配置、续航充电、保养技巧、优缺点分析。">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/app.js"></script>
+<style>
+/* Page-specific overrides */
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-list .label { color: var(--text-muted); flex-shrink: 0; }
+.spec-list .value { color: var(--text); text-align: right; font-weight: 600; }
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.pros, .cons { padding: 16px; border-radius: var(--radius-sm); }
+.pros { background: rgba(16,124,16,0.08); border-left: 4px solid var(--green); }
+.cons { background: rgba(232,17,35,0.06); border-left: 4px solid var(--red); }
+.pros h3 { color: var(--green); margin-bottom: 8px; font-size: 1rem; }
+.cons h3 { color: var(--red); margin-bottom: 8px; font-size: 1rem; }
+.pros ul, .cons ul { padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+.pros ul li { margin-bottom: 4px; }
+.cons ul li { margin-bottom: 4px; }
+.people-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.people-box h3 { font-size: 1rem; margin-bottom: 8px; color: var(--blue); }
+.people-box p { font-size: 0.9rem; color: var(--text-secondary); }
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } .spec-list li { flex-direction: column; gap: 4px; } .spec-list .value { text-align: left; } }
+</style>
+</head>
+<body>
+
+<!-- ========== 导航栏 ========== -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:8px;">
+        <path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="44" cy="24" r="2" fill="#c9a84c"/>
+        <path d="M52 20l-6-10" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../agarwood.html">AI学习</a></li>
+      <li><a href="../tesla.html">生活百科</a></li>
+      <li><a href="../travel.html">工具</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="icon-btn" id="tb" aria-label="切换主题" title="切换主题" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition);">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../agarwood.html">AI学习</a>
+    <a href="../tesla.html">生活百科</a>
+    <a href="../travel.html">工具</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- 面包屑（由 app.js 自动生成，需定义 titleMap） -->
+  <div id="breadcrumb"></div>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>🚗 Tesla Model 3</h1>
+    <p class="subtitle">全能电动轿车 · 参数配置 · 续航测试 · 用车指南</p>
+  </div>
+
+  <!-- ========= 1. 车型概览 ========= -->
+  <div class="section">
+    <h2>📋 车型概览</h2>
+    <p>Tesla Model 3 是特斯拉的中型纯电动轿车，定位"人人都买得起的电动车"。自 2017 年交付以来，已多次改款（Project Highland 焕新版于 2023 年发布），在全球市场取得了巨大的成功。</p>
+
+    <ul class="spec-list">
+      <li><span class="label">车型定位</span><span class="value">中型纯电动轿车</span></li>
+      <li><span class="label">中国版本</span><span class="value">后驱焕新版 / 长续航全驱版 / 高性能版</span></li>
+      <li><span class="label">生产地</span><span class="value">上海超级工厂（Giga Shanghai）</span></li>
+      <li><span class="label">指导价区间</span><span class="value">约 23.19 万 – 33.59 万</span></li>
+      <li><span class="label">2024-2025 热销亮点</span><span class="value">焕新版舒适性大幅提升，新增前排座椅通风</span></li>
+    </ul>
+  </div>
+
+  <!-- ========= 2. 核心参数 ========= -->
+  <div class="section">
+    <h2>📊 核心参数</h2>
+    <table class="m-table">
+      <thead>
+        <tr><th>参数</th><th>后驱焕新版</th><th>长续航全驱版</th><th>高性能版</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CLTC续航</td><td>606 km</td><td>713 km</td><td>623 km</td></tr>
+        <tr><td>电机型式</td><td>单电机后驱</td><td>双电机全驱</td><td>双电机全驱</td></tr>
+        <tr><td>最大功率</td><td>194 kW</td><td>331 kW</td><td>460 kW</td></tr>
+        <tr><td>0-100 km/h</td><td>6.1 s</td><td>4.4 s</td><td>2.9 s（赛道模式）</td></tr>
+        <tr><td>最高时速</td><td>201 km/h</td><td>225 km/h</td><td>262 km/h</td></tr>
+        <tr><td>百公里能耗</td><td>约 12.5 kWh</td><td>约 13.2 kWh</td><td>约 14.8 kWh</td></tr>
+        <tr><td>电池类型</td><td>磷酸铁锂（LFP）</td><td>三元锂（NCA）</td><td>三元锂（NCA）</td></tr>
+        <tr><td>电池容量</td><td>60 kWh</td><td>78 kWh</td><td>82 kWh</td></tr>
+        <tr><td>快充（10-80%）</td><td>约 25 min</td><td>约 30 min</td><td>约 28 min</td></tr>
+        <tr><td>整备质量</td><td>1,760 kg</td><td>1,828 kg</td><td>1,859 kg</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ========= 3. 续航与充电 ========= -->
+  <div class="section">
+    <h2>⚡ 续航与充电</h2>
+    <p>Model 3 是业内能耗效率最高的电动轿车之一。后驱焕新版搭载 LFP 电池，日常通勤绰绰有余；长续航版更适合长途需求。</p>
+
+    <h3 style="font-size:1.1rem; color:var(--blue); margin:12px 0 8px;">🔌 充电建议</h3>
+    <table class="m-table">
+      <thead><tr><th>充电方式</th><th>功率</th><th>充满时间</th><th>适用场景</th></tr></thead>
+      <tbody>
+        <tr><td>家充（7kW 壁挂）</td><td>7 kW</td><td>约 8-10 h</td><td>日常过夜充电</td></tr>
+        <tr><td>家充（11kW 三相）</td><td>11 kW</td><td>约 5-6 h</td><td>有380V电源</td></tr>
+        <tr><td>特斯拉超充 V3</td><td>250 kW</td><td>25-30 min（10→80%）</td><td>长途补能</td></tr>
+        <tr><td>特斯拉超充 V4</td><td>500 kW</td><td>约 15 min（10→80%）</td><td>最新超充站</td></tr>
+        <tr><td>第三方快充</td><td>120-180 kW</td><td>约 35-45 min</td><td>国网/特来电等</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <p>💡 <strong>电池养护贴士：</strong>LFP 电池可每周充满一次以校准 BMS；日常使用建议随用随充，不必等电量极低再充。长途前在导航中设定超充站，车辆会自动预热电池以提升充电速度。</p>
+    </div>
+  </div>
+
+  <!-- ========= 4. 优缺点 ========= -->
+  <div class="section">
+    <h2>👍👎 优缺点</h2>
+    <div class="pros-cons">
+      <div class="pros">
+        <h3>✅ 优点</h3>
+        <ul>
+          <li>能耗效率极高，用车成本低</li>
+          <li>焕新版舒适性大幅提升（悬架/隔音/座椅通风）</li>
+          <li>OTA 持续推送新功能</li>
+          <li>超级充电网络布局完善</li>
+          <li>辅助驾驶（AP/FSD）体验领先</li>
+          <li>储物空间出色（前备箱+后备箱）</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h3>❌ 缺点</h3>
+        <ul>
+          <li>内饰设计极简，部分人觉得简陋</li>
+          <li>全景天幕夏季隔热有限</li>
+          <li>后排空间够用但不如同尺寸燃油车</li>
+          <li>补漆/维修费用偏高</li>
+          <li>无CarPlay/Android Auto</li>
+          <li>FSD 在中国落地受限</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========= 5. 适合人群 ========= -->
+  <div class="section">
+    <h2>👥 适合人群</h2>
+    <div class="people-box">
+      <p><strong>🚀 推荐给：</strong>追求智能科技体验的通勤族、在意用车成本的理性消费者、喜欢 OTA 持续更新的"科技尝鲜派"。</p>
+    </div>
+    <div class="people-box" style="border-left-color:var(--orange);">
+      <p><strong>⚠️ 慎选人群：</strong>对内饰豪华感要求较高的用户、需要最大后排空间的家庭、没有固定充电条件的用户。</p>
+    </div>
+  </div>
+
+  <!-- ========= 6. 保养要点 ========= -->
+  <div class="section">
+    <h2>🔧 保养要点</h2>
+    <table class="m-table">
+      <thead><tr><th>项目</th><th>周期</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>空调滤芯/HEPA</td><td>每 12 个月</td><td>焕新版有 HEPA 滤芯，建议定期更换</td></tr>
+        <tr><td>轮胎换位/动平衡</td><td>每 1-2 万公里</td><td>纯电车自重较大，轮胎磨损比油车快</td></tr>
+        <tr><td>制动液检测</td><td>每 2 年</td><td>因动能回收，刹车片寿命很长</td></tr>
+        <tr><td>空调系统服务</td><td>每 2-3 年</td><td>含干燥剂更换、系统清洗</td></tr>
+        <tr><td>电池冷却液</td><td>每 4 年</td><td>建议回服务中心处理</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 底部链接 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回新能源汽车首页</a>
+  </div>
+
+</main>
+
+<!-- 主题切换按钮 -->
+<button class="theme-toggle" id="themeToggle">🌙</button>
+
+<!-- 主题切换兼容脚本 -->
+<script>
+(function(){
+  var btn = document.getElementById('tb');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    });
+  }
+  // 初始化面包屑的 titleMap 扩展（自动面包屑会覆盖）
+  if(typeof titleMap === 'undefined'){
+    window.titleMap = window.titleMap || {};
+  }
+})();
+</script>
+</body>
+</html>

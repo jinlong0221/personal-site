@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金龙的个人知识库</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #0f1117; color: #e0e0e0; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { text-align: center; padding: 40px 0 20px; border-bottom: 1px solid #1e2030; margin-bottom: 30px; }
+header h1 { font-size: 28px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+header .subtitle { color: #888; margin-top: 8px; font-size: 14px; }
+header .update-time { color: #555; font-size: 12px; margin-top: 12px; }
+.section { background: #161822; border-radius: 12px; padding: 24px; margin-bottom: 20px; border: 1px solid #1e2030; }
+.section h2 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.section h2 .icon { font-size: 22px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+.card { background: #1a1d2e; border-radius: 10px; padding: 16px; border: 1px solid #252840; cursor: pointer; transition: all 0.2s; }
+.card:hover { border-color: #667eea; transform: translateY(-2px); }
+.card h3 { font-size: 15px; margin-bottom: 6px; }
+.card p { font-size: 13px; color: #888; }
+.weather-card { display: flex; justify-content: space-between; align-items: center; }
+.weather-temp { font-size: 36px; font-weight: 300; }
+.weather-detail { text-align: right; }
+.weather-detail .label { color: #888; font-size: 12px; }
+.weather-detail .value { font-size: 14px; margin-top: 2px; }
+.news-item { padding: 12px 0; border-bottom: 1px solid #1e2030; }
+.news-item:last-child { border-bottom: none; }
+.news-item .time { color: #555; font-size: 12px; }
+.news-item .title { font-size: 14px; margin-top: 4px; }
+.news-item .summary { color: #888; font-size: 13px; margin-top: 4px; }
+.tag { display: inline-block; background: #252840; color: #667eea; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-right: 6px; margin-top: 6px; }
+.knowledge-item { padding: 14px 0; border-bottom: 1px solid #1e2030; }
+.knowledge-item:last-child { border-bottom: none; }
+.knowledge-item h3 { font-size: 15px; color: #a78bfa; }
+.knowledge-item p { font-size: 13px; color: #aaa; margin-top: 6px; }
+.progress-bar { background: #1e2030; border-radius: 6px; height: 8px; margin-top: 8px; overflow: hidden; }
+.progress-bar .fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #667eea, #764ba2); }
+.stat-row { display: flex; justify-content: space-between; margin-top: 12px; }
+.stat-item { text-align: center; }
+.stat-item .num { font-size: 24px; font-weight: 600; color: #667eea; }
+.stat-item .label { font-size: 12px; color: #666; margin-top: 4px; }
+.nav { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.nav a { text-decoration: none; color: #888; font-size: 13px; padding: 6px 14px; border-radius: 20px; border: 1px solid #252840; transition: all 0.2s; }
+.nav a:hover, .nav a.active { color: #667eea; border-color: #667eea; }
+.quick-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.quick-links a { text-decoration: none; color: #888; font-size: 12px; padding: 4px 12px; border: 1px solid #252840; border-radius: 16px; }
+.quick-links a:hover { color: #a78bfa; border-color: #a78bfa; }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>🐉 金龙的知识库</h1>
+<p class="subtitle">每日学习 · 持续积累 · 个人成长</p>
+<p class="update-time" id="updateTime"></p>
+</header>
+
+<div class="nav">
+<a href="#" class="active">🏠 首页</a>
+<a href="#weather">🌤 天气</a>
+<a href="#herbs">🌿 中药材</a>
+<a href="#agarwood">🪵 沉香</a>
+<a href="#tesla">🚗 特斯拉</a>
+<a href="#bracelet">📿 手串</a>
+</div>
+
+<!-- 今日概览 -->
+<div class="section">
+<h2><span class="icon">📅</span> 今日概览</h2>
+<div class="stat-row">
+<div class="stat-item"><div class="num">0</div><div class="label">今日学习</div></div>
+<div class="stat-item"><div class="num">0</div><div class="label">知识条目</div></div>
+<div class="stat-item"><div class="num">0</div><div class="label">学习天数</div></div>
+</div>
+<div class="quick-links">
+<a href="#herbs">中药材学习 →</a>
+<a href="#agarwood">沉香鉴别 →</a>
+<a href="#tesla">特斯拉动态 →</a>
+<a href="#bracelet">手串盘玩 →</a>
+</div>
+</div>
+
+<!-- 射阳天气 -->
+<div class="section" id="weather">
+<h2><span class="icon">🌤️</span> 射阳天气</h2>
+<div class="weather-card" id="weatherCard">
+<div>
+<div class="weather-temp" id="weatherTemp">--°</div>
+<div id="weatherDesc" style="color:#888;font-size:13px;">加载中...</div>
+</div>
+<div class="weather-detail">
+<div class="label">湿度</div><div class="value" id="weatherHumidity">--%</div>
+<div class="label" style="margin-top:8px;">风向</div><div class="value" id="weatherWind">--</div>
+</div>
+</div>
+</div>
+
+<!-- 中药材专题 -->
+<div class="section" id="herbs">
+<h2><span class="icon">🌿</span> 中药材知识库</h2>
+<div class="grid" id="herbGrid">
+<div class="card" onclick="toggleDetail('agarwood')"><h3>🪵 沉香</h3><p>名贵香料·药材之首</p><div class="progress-bar"><div class="fill" style="width:15%"></div></div></div>
+<div class="card"><h3>💊 五灵脂</h3><p>鼯鼠粪便·活血化瘀</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+<div class="card"><h3>☕ 猫屎咖啡</h3><p>麝香猫消化·世界最贵咖啡</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+<div class="card"><h3>🐻 熊胆</h3><p>珍稀药材·清热平肝</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+<div class="card"><h3>🦗 地牯牛</h3><p>蚁狮幼虫·消肿散结</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div></div>
+<div class="card"><h3>🪨 化石草</h3><p>民间草药·化石排石</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+<div class="card"><h3>🐛 地龙</h3><p>蚯蚓干燥体·清热定惊</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+<div class="card"><h3>🩸 水蛭</h3><p>破血逐瘀·抗凝良药</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+<div class="card"><h3>⚖️ 滑石粉</h3><p>矿物药·利尿通淋</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+<div class="card"><h3>🪵 降真香</h3><p>古法香料·行气止痛</p><div class="progress-bar"><div class="fill" style="width:5%"></div></div></div>
+</div>
+</div>
+
+<!-- 沉香专题 -->
+<div class="section" id="agarwood">
+<h2><span class="icon">🪵</span> 沉香鉴别</h2>
+<div class="knowledge-item">
+<h3>核心鉴别方法</h3>
+<p>① 燃烧测试（最可靠）：白烟+层次香甜为真，黑烟+刺鼻为假<br>
+② 掂重手感：沉水级>沉水浮级>不沉级<br>
+③ 热针测试：真品针尖拔出有木纤维<br>
+④ 泡水测试：真品油脂排斥水珠</p>
+</div>
+<div class="knowledge-item">
+<h3>⚠️ 重要提醒</h3>
+<p>AI仅凭照片像素分析不可靠，造假技术可模拟天然纹理。真正鉴别依赖实物和燃烧测试。权威行情渠道：中药材天地网、亳州/安国/玉林市场</p>
+</div>
+</div>
+
+<!-- 特斯拉动态 -->
+<div class="section" id="tesla">
+<h2><span class="icon">🚗</span> 特斯拉动态</h2>
+<div id="teslaNews">
+<div class="news-item">
+<div class="time">等待更新...</div>
+<div class="title">特斯拉新闻将由每日定时任务自动更新</div>
+<div class="summary">已设置每日09:00自动推送特斯拉全球及中国销量、新车动态、行业新闻</div>
+</div>
+</div>
+</div>
+
+<!-- 手串收藏 -->
+<div class="section" id="bracelet">
+<h2><span class="icon">📿</span> 星月菩提手串</h2>
+<div class="grid">
+<div class="card">
+<h3>欢见大切面 A</h3>
+<p>盘1-2年 · 姜黄/蜜蜡黄 · 玻璃光泽</p>
+<div style="margin-top:8px"><span class="tag">盘玩中</span><span class="tag">包浆厚</span></div>
+<p style="font-size:12px;color:#555;margin-top:6px">再1-2年往红褐色发展</p>
+</div>
+<div class="card">
+<h3>欢见大切面 B</h3>
+<p>新串 · 奶白偏黄 · 车痕在</p>
+<div style="margin-top:8px"><span class="tag">手套盘</span><span class="tag">去车痕</span></div>
+<p style="font-size:12px;color:#555;margin-top:6px">手套盘1-2周→静置3-5天→净手盘</p>
+</div>
+<div class="card">
+<h3>其他品牌小切面</h3>
+<p>盘几个月 · 初泛黄 · 均匀</p>
+<div style="margin-top:8px"><span class="tag">初包浆</span><span class="tag">料子好</span></div>
+<p style="font-size:12px;color:#555;margin-top:6px">三串轮换，每串两天</p>
+</div>
+</div>
+</div>
+
+<!-- 学习足迹 -->
+<div class="section">
+<h2><span class="icon">📚</span> 学习足迹</h2>
+<div id="timeline">
+<div class="knowledge-item">
+<h3>2026-06-21 · 翻译眼镜研究</h3>
+<p>对比讯飞AI眼镜、INMO GO2/GO3、星纪魅族等5款产品，推荐讯飞（商务）和INMO GO2（旅游）</p>
+</div>
+<div class="knowledge-item">
+<h3>2026-06-20 · 痛风中药方案</h3>
+<p>研究中医辨证分型，急性期四妙散、间歇期萆薢渗湿汤、中成药痛风定片、土茯苓茶饮</p>
+</div>
+<div class="knowledge-item">
+<h3>2026-06-18 · 星月菩提鉴别</h3>
+<p>学习星月/凤眼/龙眼三大菩提鉴别要点，黄藤果26道加工工序，欢见品牌溢价分析</p>
+</div>
+<div class="knowledge-item">
+<h3>2026-06-17 · 文玩鉴定方法论</h3>
+<p>确立"特征观察→列表可能→交叉验证→标注置信度"的鉴定方法论</p>
+</div>
+</div>
+</div>
+
+<footer style="text-align:center;padding:30px 0;color:#333;font-size:12px;">
+由 QClaw AI 自动维护 · 数据每日更新
+</footer>
+</div>
+
+<script>
+document.getElementById('updateTime').textContent = '最后更新：' + new Date().toLocaleDateString('zh-CN') + ' ' + new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'});
+</script>
+</body>
+</html>

@@ -157,19 +157,12 @@
   {
     "title": "射阳天气 - 龙兄知识库",
     "url": "sheyang.html",
-    "description": "",
-    "keywords": "",
-    "content": "射阳天气 - 龙兄知识库 射阳天气 🌦️ 实时气象数据 · Open-Meteo API 正在获取天气数据",
+    "description": "江苏射阳实时天气面板，含射阳、盐城、阜宁、建湖、滨海、响水多城市天气预报。",
+    "keywords": "射阳天气,盐城天气,江苏天气,天气预报,气象,射阳,盐城,阜宁,建湖,滨海,响水",
+    "content": "射阳天气 江苏射阳实时天气面板 多城市天气预报 射阳33.77N 120.52E 盐城 阜宁 建湖 滨海 响水 Open-Meteo气象数据 实时温度 体感温度 湿度 风速 降水 天气状况 自动定位 多城市切换",
     "paragraphs": [
-      "射阳天气 - 龙兄知识库 * { margin: 0; padding: 0; box-sizing: border-box; } :root { --bg: #0a0a0a; --text: #ffffff; --metro-blue: #0078d4; --metro-green: #107c10; --metro-orange: #ff8c00; --metro-red: #e81123; --metro-purple: #6b69d6; --metro-cyan: #008272; --metro-pink: #c30052; --metro-yellow: #ffb900; --metro-dark: #1a1a1a; --tile-gap: 4px; } [data-theme=\"light\"] { --bg: #f5f5f5; --text: #1a1a1a; --metro-dark: #ffffff; } body { font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; font-weight: 700; } .page-wrap { max-width: 1200px; margin: 0 auto; padding: 24px; } .page-header { margin-bottom: 24px; } .page-header h1 { font-size: 48px; font-weight: 900; line-height: 1.1; margin-bottom: 8px; } .page-header .subtitle { font-size: 18px; opacity: 0.7; font-weight: 400; } .tile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--tile-gap); margin-bottom: 24px; } .tile { border: none; overflow: hidden; transition: transform 0.15s ease, filter 0.15s ease; position: relative; } .tile:hover { transform: scale(1.02); filter: brightness(1.1); } .tile-large { grid-column: span 2; grid-row: span 2; padding: 32px; display: flex; flex-direction: column; justify-content: center; min-height: 280px; } .tile-wide { grid-column: span 2; padding: 20px; } .tile-small { padding: 20px; display: flex; flex-direction: column; justify-content: center; min-height: 140px; } .tile-blue { background: var(--metro-blue); color: #fff; } .tile-green { background: var(--metro-green); color: #fff; } .tile-orange { background: var(--metro-orange); color: #fff; } .tile-red { background: var(--metro-red); color: #fff; } .tile-purple { background: var(--metro-purple); color: #fff; } .tile-cyan { background: var(--metro-cyan); color: #fff; } .tile-pink { background: var(--metro-pink); color: #fff; } .tile-yellow { background: var(--metro-yellow); color: #1a1a1a; } .tile-dark { background: var(--metro-dark); border: 1px solid #333; color: #fff; } [data-theme=\"light\"] .tile-dark { border-color: #e0e0e0; } [data-theme=\"light\"] .tile-yellow { color: #1a1a1a; } [data-theme=\"light\"] .tile { box-shadow: 0 1px 4px rgba(0,0,0,0.08); } [data-theme=\"light\"] .tile:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); } .weather-main .temp { font-size: clamp(64px, 12vw, 120px); font-weight: 900; line-height: 1; margin-bottom: 8px; word-break: break-word; } .weather-main .desc { font-size: clamp(20px, 4vw, 32px); font-weight: 700; margin-bottom: 24px; opacity: 0.95; } .weather-main .details { display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 400; opacity: 0.9; } .weather-main .update-time { font-size: 13px; font-weight: 400; opacity: 0.7; margin-top: 20px; } .forecast-tile .day { font-size: 20px; font-weight: 900; margin-bottom: 8px; } .forecast-tile .forecast-desc { font-size: 16px; font-weight: 700; margin-bottom: 8px; opacity: 0.95; } .forecast-tile .forecast-temp { font-size: 28px; font-weight: 900; margin-bottom: 4px; } .forecast-tile .forecast-rain { font-size: 14px; font-weight: 400; opacity: 0.85; } .advice-tile { grid-column: span 4; padding: 24px 32px; } .advice-tile h4 { font-size: 22px; font-weight: 900; margin-bottom: 12px; } .advice-tile p { font-size: 17px; font-weight: 400; line-height: 1.8; opacity: 0.95; } .tip-tile { grid-column: span 4; padding: 20px 28px; border-left: 4px solid var(--metro-blue); } .tip-tile strong { font-size: 18px; font-weight: 900; } .tip-tile p { font-size: 16px; font-weight: 400; margin-top: 4px; opacity: 0.9; } .loading-tile { grid-column: span 4; padding: 60px; text-align: center; font-size: 20px; font-weight: 400; opacity: 0.7; } .loading-tile::after { content: ''; display: inline-block; width: 24px; height: 24px; border: 3px solid #333; border-top-color: var(--metro-blue); border-radius: 50%; animation: spin 0.8s linear infinite; margin-left: 12px; vertical-align: middle; } @keyframes spin { to { transform: rotate(360deg); } } .error-tile { grid-column: span 4; padding: 60px; text-align: center; font-size: 18px; color: var(--metro-red); font-weight: 400; } @media (max-width: 900px) { .tile-grid { grid-template-columns: repeat(2, 1fr); } .tile-large { grid-column: span 2; grid-row: span 2; } .tile-wide { grid-column: span 2; } .tile-small { grid-column: span 1; } .advice-tile, .tip-tile, .loading-tile, .error-tile { grid-column: span 2; } } @media (max-width: 520px) { .page-header h1 { font-size: 36px; } .tile-grid { grid-template-columns: 1fr; } .tile-large, .tile-wide, .tile-small, .advice-tile, .tip-tile, .loading-tile, .error-tile { grid-column: span 1; } .tile-large { grid-row: span 1; } } 龙兄知识库 首页",
-      "射阳天气 🌦️ 实时气象数据 · Open-Meteo API",
-      "🐉 龙兄知识库 AI驱动的个人知识库，专注实用科普与生活百科",
-      "© 2026 龙兄知识库 · 保留所有权利 GitHub 开源仓库",
-      "💧 湿度 ${hum}% 🌬️ ${wd} ${ws.toFixed(1)} km/h",
-      "${lo}~${hi}°",
-      "👔 出行建议 ${advice}",
-      "💡 说明 天气数据来自 Open-Meteo 开放气象 API，每次打开页面自动获取最新数据，每10分钟自动刷新。",
-      "⚠️ 天气数据获取失败，请稍后刷新"
+      "射阳天气面板 射阳盐城阜宁建湖滨海响水 多城市",
+      "Open-Meteo实时气象数据"
     ]
   },
   {
@@ -906,17 +899,24 @@
     "content": "Tesla Megapack 商用储能系统 电网级储能 3.9MWh 积木式扩展 GWh级 Autobidder AI能源交易 电网调峰 调频 可再生能源配套 弃风弃光 集装箱式 快速部署 澳大利亚 维多利亚大电池"
   },
   {
-    "title": "新坍镇农田气象",
+    "title": "新坍镇农田气象 - 龙兄知识库",
     "desc": "江苏射阳新坍镇乡镇级精准农田气象预报，温度/降水/墒情/灾害预警/3日农事预报/田间作业指导",
     "url": "xintan-weather.html",
-    "keywords": "新坍镇,农田气象,射阳,农事,墒情,灾害预警,田间作业,天气预报,乡镇,种植,收割,育秧"
+    "keywords": "新坍镇,射阳,农田气象,农事,天气预报,灾害预警,田间作业,农事日历,水稻,小麦,春播,秋收",
+    "description": "江苏射阳新坍镇农田气象预报，含逐3小时预报、3日预报、灾害预警、田间作业指导、农事日历。",
+    "content": "新坍镇农田气象 江苏射阳新坍镇 33.76N 120.09E 乡镇级精准农业气象预报 逐3小时预报 24小时8个时段 3日天气预报 农事标签 灾害预警 暴雨预警大风预警霜冻预警雷暴预警连续阴雨预警 田间作业指导 按月份季节动态生成农事建议 春播期水稻育秧整地施肥防倒春寒 夏收夏种期小麦收割水稻插秧防汛排涝 夏管期水稻管理防高温病虫害 秋收秋播期水稻收获小麦播种防秋雨 越冬期防寒保温追施腊肥农机检修 农事季节日历 一键复制转发",
+    "paragraphs": [
+      "新坍镇农田气象 江苏射阳 逐3小时预报 3日天气预报",
+      "灾害预警 暴雨大风霜冻雷暴",
+      "田间作业指导 农事日历 春播夏收夏管秋播越冬"
+    ]
   },
   {
     "title": "漫威宇宙观影指南 - 龙兄知识库",
     "url": "marvel.html",
-    "description": "漫威电影宇宙完整观影顺序、超级英雄档案、角色性格特长解析。钢铁侠、美国队长、雷神、蜘蛛侠、黑寡妇、奇异博士等英雄详解。",
-    "keywords": "漫威,MCU,漫威电影宇宙,观影顺序,钢铁侠,美国队长,雷神,蜘蛛侠,黑寡妇,奇异博士,黑豹,绯红女巫,惊奇队长,星爵,灭霸,复仇者联盟",
-    "content": "漫威电影宇宙 MCU 观影顺序 时间线 第一阶段 第二阶段 第三阶段 第四阶段 第五阶段 钢铁侠 托尼·斯塔克 小罗伯特·唐尼 天才 自恋 嘴硬心软 纳米战甲 飞行 激光武器 I am Iron Man 爱你三千遍 美国队长 史蒂夫·罗杰斯 克里斯·埃文斯 正直 领导力 振金盾牌 超级士兵 I can do this all day 复仇者集结 雷神 索尔 克里斯·海姆斯沃斯 豪爽 幽默 雷神之锤 风暴战斧 雷电操控 Bring me Thanos 绿巨人 布鲁斯·班纳 马克·鲁法洛 温和 天才科学家 无限力量 Hulk Smash 黑寡妇 娜塔莎·罗曼诺夫 斯嘉丽·约翰逊 冷静 间谍 顶尖格斗 黑客技术 See you in a minute 鹰眼 克林特·巴顿 杰瑞米·雷纳 务实 顾家 箭术大师 百发百中 蜘蛛侠 彼得·帕克 汤姆·赫兰德 话痨 少年感 蜘蛛感应 爬墙 蛛网发射器 能力越大责任越大 奇异博士 史蒂芬·斯特兰奇 本尼迪克特·康伯巴奇 傲慢 时间宝石 镜像维度 传送门 Dormammu I've come to bargain 黑豹 特查拉 查德维克·博斯曼 沉稳 王者 振金战衣 瓦坎达科技 Wakanda Forever 绯红女巫 旺达·马克西莫夫 伊丽莎白·奥尔森 情感丰富 混沌魔法 现实扭曲 心灵操控 惊奇队长 卡罗尔·丹弗斯 布丽·拉尔森 自信 宇宙守护者 宇宙能量 光速飞行 星爵 彼得·奎尔 克里斯·帕拉特 玩世不恭 80年代流行文化 元素枪 I am Star-Lord 灭霸 Thanos 乔什·布洛林 无限手套 响指 宇宙平衡 奥创 Ultron 詹姆斯·斯派德 人工智能 机械大军 红骷髅 Red Skull 九头蛇 宇宙魔方 纳摩 Namor 塔罗肯 海底变种人 反英雄 旺达幻视 洛基 鹰眼 月光骑士 彩蛋 斯坦·李客串",
+    "description": "漫威电影宇宙完整观影顺序（五阶段34部）、12位核心超级英雄档案、4位反派解析、新手观影建议、剧集推荐。",
+    "keywords": "漫威,MCU,钢铁侠,美国队长,雷神,绿巨人,黑寡妇,鹰眼,蜘蛛侠,奇异博士,黑豹,绯红女巫,惊奇队长,星爵,灭霸,观影顺序,复仇者联盟,终局之战,多元宇宙",
+    "content": "漫威电影宇宙 MCU 观影顺序 时间线 第一阶段 第二阶段 第三阶段 第四阶段 第五阶段 钢铁侠 托尼·斯塔克 小罗伯特·唐尼 天才 自恋 嘴硬心软 纳米战甲 飞行 激光武器 I am Iron Man 爱你三千遍 美国队长 史蒂夫·罗杰斯 克里斯·埃文斯 正直 领导力 振金盾牌 超级士兵 I can do this all day 复仇者集结 雷神 索尔 克里斯·海姆斯沃斯 豪爽 幽默 雷神之锤 风暴战斧 雷电操控 Bring me Thanos 绿巨人 布鲁斯·班纳 马克·鲁法洛 温和 天才科学家 无限力量 Hulk Smash 黑寡妇 娜塔莎·罗曼诺夫 斯嘉丽·约翰逊 冷静 间谍 顶尖格斗 黑客技术 See you in a minute 鹰眼 克林特·巴顿 杰瑞米·雷纳 务实 顾家 箭术大师 百发百中 蜘蛛侠 彼得·帕克 汤姆·赫兰德 话痨 少年感 蜘蛛感应 爬墙 蛛网发射器 能力越大责任越大 奇异博士 史蒂芬·斯特兰奇 本尼迪克特·康伯巴奇 傲慢 时间宝石 镜像维度 传送门 Dormammu I've come to bargain 黑豹 特查拉 查德维克·博斯曼 沉稳 王者 振金战衣 瓦坎达科技 Wakanda Forever 绯红女巫 旺达·马克西莫夫 伊丽莎白·奥尔森 情感丰富 混沌魔法 现实扭曲 心灵操控 惊奇队长 卡罗尔·丹弗斯 布丽·拉尔森 自信 宇宙守护者 宇宙能量 光速飞行 星爵 彼得·奎尔 克里斯·帕拉特 玩世不恭 80年代流行文化 元素枪 I am Star-Lord 灭霸 Thanos 乔什·布洛林 无限手套 响指 宇宙平衡 奥创 Ultron 詹姆斯·斯派德 人工智能 机械大军 红骷髅 Red Skull 九头蛇 宇宙魔方 纳摩 Namor 塔罗肯 海底变种人 反英雄 旺达幻视 洛基 鹰眼 月光骑士 彩蛋 斯坦·李客串 观影顺序第一阶段复仇者集结第二阶段新世界开启第三阶段无限传奇第四阶段多元宇宙传奇第五阶段康之王朝 复仇者联盟1奥创纪元无限战争终局之战 旺达幻视洛基鹰眼月光骑士 彩蛋观看技巧 斯坦李客串 新手最快入门路径",
     "paragraphs": [
       "漫威电影宇宙 MCU 完整观影顺序 时间线版",
       "第一阶段 复仇者集结 美国队长1 惊奇队长 钢铁侠 钢铁侠2 雷神 复仇者联盟",
@@ -931,7 +931,9 @@
       "奇异博士 史蒂芬·斯特兰奇 本尼迪克特·康伯巴奇 时间宝石 镜像维度 传送门 魔法 预知未来",
       "灭霸 Thanos 乔什·布洛林 无限手套 响指 宇宙资源平衡 坚定的理想主义者",
       "新手观影建议 最快入门路径 复联1 复联3 复联4 理解80%剧情主线",
-      "必看剧集推荐 旺达幻视 洛基 鹰眼 月光骑士"
+      "必看剧集推荐 旺达幻视 洛基 鹰眼 月光骑士",
+      "五阶段34部电影完整观影顺序",
+      "新手观影建议 最快入门 必看剧集 彩蛋技巧"
     ]
   }
 ]

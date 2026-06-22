@@ -859,4 +859,37 @@ html, body {
   .weather-temp {
     font-size: 2.6rem;
   }
+  
+  /* 移动端表格横向滚动 */
+  .changelog-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 16px -20px;
+    padding: 0 20px;
+  }
+  .changelog-table table {
+    min-width: 600px;
+  }
+  
+  /* 移动端时间线适配 */
+  .timeline {
+    padding-left: 20px;
+  }
+  .timeline::before {
+    left: 6px;
+  }
+  .timeline-item::before {
+    left: -20px;
+    width: 12px;
+    height: 12px;
+  }
+  .timeline-content {
+    padding: 12px;
+  }
+  .timeline-content h3 {
+    font-size: 0.95rem;
+  }
+  .timeline-content p {
+    font-size: 0.85rem;
+  }
 }

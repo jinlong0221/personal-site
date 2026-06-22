@@ -37,6 +37,35 @@ body {
   min-height: 100vh;
   font-weight: 700;
 }
+/* 浅色模式全局样式修复 */
+[data-theme="light"] .page-header h1 { color: #1a1a1a; }
+[data-theme="light"] .page-header .subtitle { color: #555; }
+[data-theme="light"] .tile-blue { background: #e8f4fd; color: #0a4a7a; }
+[data-theme="light"] .tile-green { background: #e8f5e9; color: #1b5e20; }
+[data-theme="light"] .tile-orange { background: #fff3e0; color: #bf5700; }
+[data-theme="light"] .tile-red { background: #fce4ec; color: #b71c1c; }
+[data-theme="light"] .tile-purple { background: #ede7f6; color: #4a148c; }
+[data-theme="light"] .tile-cyan { background: #e0f7fa; color: #006064; }
+[data-theme="light"] .tile-pink { background: #fce4ec; color: #880e4f; }
+[data-theme="light"] .tile-yellow { background: #fff8e1; color: #5d4037; }
+[data-theme="light"] .tile-dark { background: #ffffff; color: #333; border-color: #ddd; }
+[data-theme="light"] .tile { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+[data-theme="light"] .tile:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+[data-theme="light"] .weather-main .temp { color: #0a4a7a; }
+[data-theme="light"] .weather-main .desc { color: #1565c0; }
+[data-theme="light"] .weather-main .details { color: #455a64; }
+[data-theme="light"] .weather-main .update-time { color: #888; }
+[data-theme="light"] .forecast-tile .day { color: inherit; }
+[data-theme="light"] .forecast-tile .forecast-desc { color: inherit; }
+[data-theme="light"] .forecast-tile .forecast-temp { color: inherit; }
+[data-theme="light"] .forecast-tile .forecast-rain { color: inherit; }
+[data-theme="light"] .advice-tile h4 { color: #1a1a1a; }
+[data-theme="light"] .advice-tile p { color: #444; }
+[data-theme="light"] .tip-tile strong { color: #1a1a1a; }
+[data-theme="light"] .tip-tile p { color: #444; }
+[data-theme="light"] .loading-tile { color: #666; }
+[data-theme="light"] .loading-tile::after { border-color: #ddd; border-top-color: #0078d4; }
+[data-theme="light"] .error-tile { color: #c62828; }
 .page-wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
 .page-header { margin-bottom: 24px; }
 .page-header h1 { font-size: 48px; font-weight: 900; line-height: 1.1; margin-bottom: 8px; }
@@ -85,10 +114,7 @@ body {
 .tile-yellow { background: var(--metro-yellow); color: #1a1a1a; }
 .tile-dark { background: var(--metro-dark); border: 1px solid #333; color: #fff; }
 
-[data-theme="light"] .tile-dark { border-color: #e0e0e0; }
-[data-theme="light"] .tile-yellow { color: #1a1a1a; }
-[data-theme="light"] .tile { box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-[data-theme="light"] .tile:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+
 
 .weather-main .temp {
   font-size: clamp(64px, 12vw, 120px);

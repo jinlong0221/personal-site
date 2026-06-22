@@ -214,8 +214,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     'diguniu':'地牯牛','dilong':'地龙','huashicao':'化石草',
     'huashifen':'滑石粉','jiangzhenxiang':'降真香','maoshikafei':'猫屎咖啡',
     'shuizhi':'水蛭','wulingzhi':'五灵脂','xiongdan':'熊胆',
-    'model3':'Model 3','modely':'Model Y','models':'Model S','modelx':'Model X',
-    'cybertruck':'赛博皮卡','charging':'充电指南','accessories':'车载配件','maintenance':'保养维修',
+    'model3':'Model 3','modely':'Model Y','modelyl':'Model Y L','models':'Model S','modelx':'Model X',
+    'cybertruck':'赛博皮卡','semi':'Semi 电动重卡','roadster':'Roadster 超跑','cybercab':'Cybercab 无人驾驶出租车',
+    'powerwall':'Powerwall 家庭储能','megapack':'Megapack 商用储能',
+    'charging':'充电指南','accessories':'车载配件','maintenance':'保养维修',
     'fengyan':'凤眼菩提','longyan':'龙眼菩提','magu':'麻古菩提',
     'mengma':'猛犸','pinxiang':'品香','quanao':'拳脑','wuxing':'五行','xingyue':'星月菩提','zijinboyu':'紫金钵鱼'
   };

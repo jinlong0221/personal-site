@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Megapack · 商用储能系统 - 龙兄知识库</title>
+<meta name="keywords" content="特斯拉Megapack,Megapack商用储能,储能系统,电网储能,特斯拉储能">
+<meta name="description" content="特斯拉 Megapack 超大型商用储能系统详解：单个3.9MWh模块、积木式扩展至GWh级、电网调峰/可再生能源配套首选。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-list .label { color: var(--text-muted); flex-shrink: 0; }
+.spec-list .value { color: var(--text); text-align: right; font-weight: 600; }
+.people-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.people-box h3 { font-size: 1rem; margin-bottom: 8px; color: var(--blue); }
+.people-box p { font-size: 0.9rem; color: var(--text-secondary); }
+.highlight { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
+.highlight-item { flex: 1; min-width: 140px; text-align: center; }
+.highlight-item .num { font-size: 2rem; font-weight: 900; color: var(--green); }
+.highlight-item .desc { font-size: 0.8rem; color: var(--text-muted); }
+.news-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.news-box .news-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.news-box .news-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+@media (max-width: 600px) { .spec-list li { flex-direction: column; gap: 4px; } .spec-list .value { text-align: left; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none"><path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="24" r="2" fill="currentColor"/><path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="../agarwood.html">AI学习专区</a></li>
+      <li><a href="../herbs.html">兴趣干货</a></li>
+      <li><a href="../health-tea.html">中药养生茶</a></li>
+      <li><a href="../tesla.html">特斯拉动态新闻</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索">🔍</button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="hamburger" id="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../index.html">首页</a>
+    <a href="../agarwood.html">AI学习专区</a>
+    <a href="../herbs.html">兴趣干货</a>
+    <a href="../tesla.html">特斯拉动态新闻</a>
+  </div>
+</nav>
+
+<main class="container">
+  <div id="breadcrumb"></div>
+
+  <div class="page-header">
+    <h1>🏭 Tesla Megapack</h1>
+    <p class="subtitle">超大型商用储能系统 · 单个3.9MWh · 积木式扩展至GWh级</p>
+  </div>
+
+  <div class="section">
+    <h2>📋 产品概览</h2>
+    <p>Megapack 是特斯拉面向电网级储能的大型储能产品，是 Powerwall 的工业级放大版本。与 Powerwall 服务家庭用户不同，Megapack 主要服务于电网公司、独立电力生产商（IPP）、大型工商业用户，以及可再生能源配套项目（如配套光伏/风电）。</p>
+
+    <div class="highlight">
+      <div class="highlight-item"><div class="num">3.9 MWh</div><div class="desc">单个 Megapack 储能容量</div></div>
+      <div class="highlight-item"><div class="num">GWh+</div><div class="desc">可积木式扩展至GWh级</div></div>
+      <div class="highlight-item"><div class="num">更低成本</div><div class="desc">相比传统调峰电站</div></div>
+    </div>
+
+    <ul class="spec-list">
+      <li><span class="label">产品定位</span><span class="value">电网级大型储能系统</span></li>
+      <li><span class="label">单个储能容量</span><span class="value">约 3.9 MWh（新版 XL）</span></li>
+      <li><span class="label">安装方式</span><span class="value">集装箱式模块，可快速部署</span></li>
+      <li><span class="label">扩展方式</span><span class="value">积木式并联，可从 MWh 扩展至 GWh</span></li>
+      <li><span class="label">主要应用</span><span class="value">电网调峰/调频、可再生能源配套、容量市场、应急备用</span></li>
+      <li><span class="label">软件平台</span><span class="value">Autobidder（AI驱动的能源交易与优化）</span></li>
+      <li><span class="label">客户类型</span><span class="value">电网公司/工商业/可再生能源开发商/储能运营商</span></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>⚡ 核心亮点</h2>
+    <ul style="padding-left:20px;font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">
+      <li><strong>快速部署：</strong>Megapack 为预制集装箱式，安装比传统储能电站更快，大幅缩短建设周期</li>
+      <li><strong>积木式扩展：</strong>可从单台扩展到数百台，满足从 MWh 到 GWh 的各种规模需求</li>
+      <li><strong>Autobidder 平台：</strong>特斯拉专有的AI能源交易平台，自动优化储能充放电策略，参与电网竞价，提高收益</li>
+      <li><strong>降低电网调峰成本：</strong>相比建设燃气调峰电站，Megapack 储能系统建设周期更短、运营成本更低</li>
+      <li><strong>配套可再生能源：</strong>与太阳能/风电场配套，解决弃风弃光问题，提高可再生能源消纳率</li>
+      <li><strong>全球大量部署：</strong>澳大利亚维多利亚大电池（300MW/450MWh）、英国等多个GW级项目已投运</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>👥 应用场景</h2>
+    <div class="people-box">
+      <h3>🏭 典型客户</h3>
+      <p><strong>电网公司：</strong>如国家电网、南方电网等，用于调峰、调频、容量备用等电网服务。</p>
+      <p style="margin-top:8px;"><strong>独立储能运营商：</strong>购买或运营 Megapack 参与电力现货市场/辅助服务市场获取收益。</p>
+      <p style="margin-top:8px;"><strong>可再生能源开发商：</strong>配套光伏/风电场，解决弃风弃光问题，提高项目整体经济性。</p>
+      <p style="margin-top:8px;"><strong>大型工商业用户：</strong>如大型工厂、数据中心园区，通过储能进行需量管理、峰谷套利、备用电源。</p>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:24px;">
+    <p>📌 <strong>数据来源：</strong>特斯拉 Megapack 官方页面、Tesla Energy官网（2026年6月）、BloombergNEF、Wood Mackenzie储能报告。本页面为知识科普性质，不构成投资或购买建议。</p>
+  </div>
+
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回特斯拉动态新闻</a>
+  </div>
+</main>
+
+<script src="../js/search.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

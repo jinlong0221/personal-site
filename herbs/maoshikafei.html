@@ -156,6 +156,7 @@ footer span{color:var(--accent-light);font-weight:700;}
 (function(){var btns=document.querySelectorAll('.tab-btn');var contents=document.querySelectorAll('.tab-content');btns.forEach(function(btn){btn.addEventListener('click',function(){btns.forEach(function(b){b.classList.remove('active')});btn.classList.add('active');contents.forEach(function(c){c.classList.remove('active')});var t=document.getElementById(btn.dataset.tab);if(t)t.classList.add('active')})});var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();
 </script>
 
+<script src="../js/search.js"></script>
 <script src="../js/app.js"></script>
 </body>
 </html>

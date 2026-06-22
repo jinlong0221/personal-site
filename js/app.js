@@ -43,6 +43,14 @@ function sanitizeInput(t){
 var THEME_KEY='theme';
 
 function getAutoTheme(){
+  // [优化:二-1] 优先用系统prefers-color-scheme，更准确
+  if(window.matchMedia){
+    try{
+      if(window.matchMedia('(prefers-color-scheme: light)').matches)return'light';
+      if(window.matchMedia('(prefers-color-scheme: dark)').matches)return'dark';
+    }catch(e){}
+  }
+  // 回退：按时间判断
   var h=new Date().getHours();
   return(h>=6&&h<18)?'light':'dark';
 }

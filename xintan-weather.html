@@ -8,27 +8,32 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <link rel="stylesheet" href="css/style.css">
 <style>
+/* ===== 页面基础（老年人友好字体） ===== */
+body { font-size: 17px !important; }
+.container { font-size: 17px !important; }
+.navbar { font-size: 16px !important; }
+
 /* ===== 页面顶部横幅 ===== */
 .xw-banner {
   text-align: center;
-  padding: 28px 16px 20px;
+  padding: 28px 20px 20px;
   border-bottom: 1px solid var(--border);
   background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.02) 100%);
 }
 [data-theme="light"] .xw-banner { background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.01) 100%); }
-.xw-banner-icon { font-size: 3rem; margin-bottom: 8px; }
-.xw-banner-title { font-size: 1.4rem; font-weight: 900; color: var(--gold); letter-spacing: 1px; }
+.xw-banner-icon { font-size: 3.5rem; margin-bottom: 10px; }
+.xw-banner-title { font-size: 1.6rem; font-weight: 900; color: var(--gold); letter-spacing: 1px; }
 [data-theme="light"] .xw-banner-title { color: #6B4F00; }
-.xw-banner-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
-.xw-banner-coord { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; opacity: 0.7; }
+.xw-banner-sub { font-size: 1rem; color: var(--text-muted); margin-top: 6px; }
+.xw-banner-coord { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; opacity: 0.7; }
 
 /* ===== 加载动画 ===== */
 .xw-loading {
-  display: flex; justify-content: center; align-items: center; gap: 8px;
-  padding: 60px 0; color: var(--text-muted);
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  padding: 80px 0; color: var(--text-muted); font-size: 1.1rem;
 }
 .xw-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
+  width: 10px; height: 10px; border-radius: 50%; background: var(--gold);
   animation: xwPulse 1.2s ease-in-out infinite;
 }
 .xw-dot:nth-child(2){ animation-delay: 0.2s; }
@@ -38,146 +43,142 @@
   50% { opacity: 1; transform: scale(1.3); }
 }
 
-/* ===== 当前天气大卡 ===== */
+/* ===== 当前天气大卡（老年人重点阅读区） ===== */
 .xw-current {
-  padding: 20px 16px;
-  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 24px 20px;
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
 }
-.xw-cur-icon { font-size: 4rem; line-height: 1; flex-shrink: 0; }
-.xw-cur-info { flex: 1; min-width: 120px; }
-.xw-cur-name { font-size: 1.2rem; font-weight: 700; color: var(--text); }
-.xw-cur-time { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+.xw-cur-icon { font-size: 5rem; line-height: 1; flex-shrink: 0; }
+.xw-cur-info { flex: 1; min-width: 140px; }
+.xw-cur-name { font-size: 1.6rem; font-weight: 700; color: var(--text); }
+.xw-cur-time { font-size: 0.9rem; color: var(--text-muted); margin-top: 4px; }
 .xw-cur-temp {
-  font-size: 4rem; font-weight: 900; line-height: 1; letter-spacing: -2px; color: var(--text);
+  font-size: 5rem; font-weight: 900; line-height: 1; letter-spacing: -3px; color: var(--text);
 }
-.xw-cur-temp span { font-size: 1.5rem; font-weight: 400; color: var(--text-secondary); }
+.xw-cur-temp span { font-size: 2rem; font-weight: 400; color: var(--text-secondary); }
 
 /* ===== 数据网格 ===== */
 .xw-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-  padding: 0 16px 16px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  padding: 0 20px 20px;
 }
 .xw-item {
-  background: var(--bg); border-radius: 12px; padding: 10px 6px; text-align: center;
+  background: var(--bg); border-radius: 14px; padding: 14px 8px; text-align: center;
   border: 1px solid var(--border);
 }
 [data-theme="light"] .xw-item { background: rgba(0,0,0,0.03); }
-.xw-item-label { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 3px; }
-.xw-item-val { font-size: 0.95rem; font-weight: 700; color: var(--text); }
-.xw-item-sub { font-size: 0.65rem; color: var(--text-secondary); margin-top: 1px; }
+.xw-item-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
+.xw-item-val { font-size: 1.15rem; font-weight: 700; color: var(--text); line-height: 1.2; }
+.xw-item-sub { font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px; }
 
 /* ===== 分区标题 ===== */
 .xw-section {
-  padding: 16px 16px 8px;
-  font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
+  padding: 20px 20px 10px;
+  font-size: 1rem; font-weight: 700; color: var(--text-muted);
   border-top: 1px solid var(--border);
   letter-spacing: 0.5px;
-  display: flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; gap: 8px;
 }
 
 /* ===== 3日预报 ===== */
 .xw-forecast {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-  padding: 0 16px 16px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  padding: 0 20px 20px;
 }
 .xw-day {
-  background: var(--bg); border-radius: 14px; padding: 14px 8px; text-align: center;
-  border: 1px solid var(--border); transition: border-color 0.15s;
+  background: var(--bg); border-radius: 16px; padding: 18px 12px; text-align: center;
+  border: 2px solid var(--border); transition: border-color 0.15s;
 }
 [data-theme="light"] .xw-day { background: rgba(0,0,0,0.03); }
 .xw-day:hover { border-color: var(--gold); }
-.xw-day-label { font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
-.xw-day-icon { font-size: 2rem; margin-bottom: 4px; }
-.xw-day-temp { font-size: 1.3rem; font-weight: 900; color: var(--text); }
-.xw-day-temp span { font-size: 0.85rem; font-weight: 400; color: var(--text-secondary); }
-.xw-day-desc { font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; line-height: 1.4; }
-.xw-day-tags { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+.xw-day-label { font-size: 1rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; }
+.xw-day-icon { font-size: 2.5rem; margin-bottom: 6px; }
+.xw-day-temp { font-size: 1.7rem; font-weight: 900; color: var(--text); line-height: 1.2; }
+.xw-day-temp span { font-size: 1.1rem; font-weight: 400; color: var(--text-secondary); }
+.xw-day-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+.xw-day-tags { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
 .xw-tag {
-  font-size: 0.65rem; padding: 2px 7px; border-radius: 8px;
+  font-size: 0.8rem; padding: 3px 9px; border-radius: 10px;
   background: rgba(201,168,76,0.12); color: var(--gold); font-weight: 700; white-space: nowrap;
 }
 [data-theme="light"] .xw-tag { background: rgba(139,105,20,0.1); color: #6B4F00; }
 
 /* ===== 24小时逐时预报 ===== */
 .xw-hourly {
-  display: flex; gap: 0; overflow-x: auto; padding: 0 16px 16px;
+  display: flex; gap: 0; overflow-x: auto; padding: 0 20px 20px;
   -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
 .xw-hourly::-webkit-scrollbar { display: none; }
 .xw-h-item {
-  flex-shrink: 0; width: 56px; text-align: center; padding: 8px 4px;
-  border-right: 1px solid var(--border); font-size: 0.7rem;
+  flex-shrink: 0; width: 64px; text-align: center; padding: 10px 4px;
+  border-right: 1px solid var(--border); font-size: 0.8rem;
 }
 .xw-h-item:last-child { border-right: none; }
-.xw-h-time { color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
-.xw-h-icon { font-size: 1.2rem; margin-bottom: 3px; }
-.xw-h-temp { font-weight: 700; color: var(--text); }
-.xw-h-rain { color: var(--blue); font-size: 0.6rem; margin-top: 1px; }
+.xw-h-time { color: var(--text-muted); font-weight: 700; margin-bottom: 5px; font-size: 0.85rem; }
+.xw-h-icon { font-size: 1.5rem; margin-bottom: 4px; }
+.xw-h-temp { font-weight: 700; color: var(--text); font-size: 1rem; }
+.xw-h-rain { color: var(--blue); font-size: 0.75rem; margin-top: 2px; }
 
-/* ===== 灾害预警 ===== */
-.xw-alert {
-  margin: 0 16px 16px; border-radius: 12px; overflow: hidden;
-}
+/* ===== 灾害预警（醒目高亮） ===== */
+.xw-alert { margin: 0 20px 20px; border-radius: 14px; overflow: hidden; }
 .xw-alert-item {
-  border-radius: 10px; padding: 10px 14px; margin-bottom: 6px;
-  font-size: 0.8rem; display: flex; flex-direction: column; gap: 3px;
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 8px;
+  font-size: 0.95rem; display: flex; flex-direction: column; gap: 4px;
 }
 .xw-alert-danger {
-  background: rgba(220,50,50,0.12); border-left: 4px solid #dc3232;
+  background: rgba(220,50,50,0.15); border-left: 5px solid #dc3232;
 }
-[data-theme="light"] .xw-alert-danger { background: rgba(220,50,50,0.08); }
+[data-theme="light"] .xw-alert-danger { background: rgba(220,50,50,0.10); }
 .xw-alert-warn {
-  background: rgba(255,140,0,0.10); border-left: 4px solid #ff8c00;
+  background: rgba(255,140,0,0.12); border-left: 5px solid #ff8c00;
 }
 [data-theme="light"] .xw-alert-warn { background: rgba(255,140,0,0.08); }
-.xw-alert-type { font-weight: 700; color: #ff8c00; font-size: 0.85rem; }
+.xw-alert-type { font-weight: 700; color: #ff8c00; font-size: 1.05rem; }
 [data-theme="light"] .xw-alert-type { color: #c05000; }
-.xw-alert-msg { color: var(--text-secondary); font-size: 0.75rem; line-height: 1.5; }
+.xw-alert-msg { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
 
 /* ===== 田间作业指导 ===== */
-.xw-guide {
-  padding: 0 16px 16px;
-}
+.xw-guide { padding: 0 20px 20px; }
 .xw-guide-card {
-  background: var(--bg); border-radius: 14px; padding: 14px 16px;
-  border: 1px solid var(--border); border-left: 4px solid var(--green);
+  background: var(--bg); border-radius: 16px; padding: 18px 20px;
+  border: 2px solid var(--border); border-left: 5px solid var(--green);
 }
 [data-theme="light"] .xw-guide-card { background: rgba(0,0,0,0.03); }
-.xw-guide-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-.xw-guide-text { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 10px; }
+.xw-guide-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.xw-guide-text { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; padding: 12px 14px; background: var(--bg); border-radius: 10px; border-left: 3px solid var(--green); }
 .xw-copy-btn {
-  display: block; width: 100%; padding: 9px; border-radius: 10px;
-  background: rgba(201,168,76,0.10); border: 1px solid rgba(201,168,76,0.25);
-  color: var(--gold); font-size: 0.8rem; font-weight: 700;
+  display: block; width: 100%; padding: 14px; border-radius: 12px;
+  background: rgba(201,168,76,0.12); border: 2px solid rgba(201,168,76,0.30);
+  color: var(--gold); font-size: 1.05rem; font-weight: 700;
   cursor: pointer; transition: background 0.15s; text-align: center;
 }
-.xw-copy-btn:active { background: rgba(201,168,76,0.2); }
+.xw-copy-btn:active { background: rgba(201,168,76,0.22); }
 
 /* ===== 农事日历提示 ===== */
-.xw-calendar {
-  padding: 0 16px 24px;
-}
+.xw-calendar { padding: 0 20px 28px; }
 .xw-cal-card {
-  background: var(--bg); border-radius: 14px; padding: 14px 16px;
+  background: var(--bg); border-radius: 16px; padding: 16px 18px;
   border: 1px solid var(--border);
 }
 [data-theme="light"] .xw-cal-card { background: rgba(0,0,0,0.03); }
-.xw-cal-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.xw-cal-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
 .xw-cal-row {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 6px 0; font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5;
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;
   border-bottom: 1px solid var(--border);
 }
 .xw-cal-row:last-child { border-bottom: none; }
-.xw-cal-icon { flex-shrink: 0; font-size: 1rem; }
-.xw-cal-label { font-weight: 700; color: var(--text); min-width: 60px; }
+.xw-cal-icon { flex-shrink: 0; font-size: 1.2rem; }
+.xw-cal-label { font-weight: 700; color: var(--text); min-width: 70px; }
 
 /* ===== 响应式 ===== */
 @media (max-width: 480px) {
-  .xw-grid { grid-template-columns: repeat(2, 1fr); }
-  .xw-forecast { gap: 6px; }
-  .xw-cur-temp { font-size: 3rem; }
-  .xw-day-temp { font-size: 1.1rem; }
+  .xw-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .xw-forecast { gap: 8px; }
+  .xw-cur-temp { font-size: 4rem; }
+  .xw-cur-icon { font-size: 4rem; }
+  .xw-day-temp { font-size: 1.4rem; }
+  .xw-day-icon { font-size: 2rem; }
 }
 </style>
 </head>

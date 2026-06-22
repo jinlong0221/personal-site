@@ -273,8 +273,20 @@ body { font-size: 17px !important; }
 
   function fetchQWeather(){
     var url='https://'+QW_HOST+'/v7/weather/now?location='+LON.toFixed(2)+','+LAT.toFixed(2);
+    console.log('和风天气请求URL:', url);
     return fetch(url,{headers:{'Authorization':'Bearer '+QW_TOKEN}})
-      .then(function(r){return r.json();});
+      .then(function(r){
+        console.log('和风天气响应状态:', r.status);
+        return r.json();
+      })
+      .then(function(data){
+        console.log('和风天气响应数据:', JSON.stringify(data).substring(0,200));
+        return data;
+      })
+      .catch(function(e){
+        console.error('和风天气API错误:', e);
+        return null;
+      });
   }
 
   /* ---------- 双源主逻辑 ---------- */

@@ -58,6 +58,10 @@
     <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
   </div>
 
+  <!-- ===== 射阳天气小卡片（首页顶部） ===== -->
+  <div class="home-weather" id="homeWeather">
+    <div class="weather-loading">加载天气中…</div>
+  </div>
 
   <!-- [BUG-FIX:一-1+一-3] 搜索入口：原生input+button，增加清空按钮 -->
   <div class="home-search">
@@ -195,6 +199,43 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var codes={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
+  var names={0:'晴',1:'晴间多云',2:'多云',3:'阴',45:'雾',48:'冻雾',51:'小毛毛雨',53:'毛毛雨',55:'大毛毛雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',77:'雨夹雪',80:'阵雨',81:'阵雨中雨',82:'大阵雨',85:'雨夹雪',86:'大阵雪',95:'雷暴',96:'雷阵雨',99:'强雷暴'};
+  var box=document.getElementById('homeWeather');
+  if(!box)return;
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=33.77&longitude=120.52&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia/Shanghai&forecast_days=1')
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var c=d.current;
+    var icon=codes[c.weather_code]||'🌡️';
+    var name=names[c.weather_code]||'未知';
+    var t=Math.round(c.temperature_2m);
+    var fl=Math.round(c.apparent_temperature);
+    box.innerHTML=
+      '<a href="sheyang.html" style="display:flex;align-items:center;justify-content:space-between;width:100%;text-decoration:none;color:inherit;gap:16px;flex-wrap:wrap">'+
+        '<div class="weather-main">'+
+          '<span class="weather-icon">'+icon+'</span>'+
+          '<div class="weather-info">'+
+            '<span class="weather-city">📍 射阳</span>'+
+            '<span class="weather-desc">'+name+'</span>'+
+          '</div>'+
+        '</div>'+
+        '<span class="weather-temp">'+t+'°</span>'+
+        '<div class="weather-extra">'+
+          '<span class="weather-detail">体感 '+fl+'°</span>'+
+          '<span class="weather-detail">💧'+c.relative_humidity_2m+'%</span>'+
+          '<span class="weather-detail">🌬️'+Math.round(c.wind_speed_10m)+'km/h</span>'+
+          '<span class="weather-arrow">→</span>'+
+        '</div>'+
+      '</a>';
+  })
+  .catch(function(){
+    box.innerHTML='<a href="sheyang.html" style="display:block;text-align:center;padding:16px;text-decoration:none;color:var(--text-muted)">📍 射阳天气 · 点击查看详情</a>';
+  });
+})();
+</script>
 
 <script src="js/search.js"></script>
 <script src="js/app.js"></script>

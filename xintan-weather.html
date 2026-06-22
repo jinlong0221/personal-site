@@ -114,6 +114,19 @@ body { font-size: 17px !important; }
   border-right: 1px solid var(--border); font-size: 0.8rem;
 }
 .xw-h-item:last-child { border-right: none; }
+.xw-h-day-start { 
+  position: relative;
+  border-left: 2px solid var(--gold);
+  padding-left: 6px;
+}
+.xw-h-day-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
 .xw-h-time { color: var(--text-muted); font-weight: 700; margin-bottom: 5px; font-size: 0.85rem; }
 .xw-h-icon { font-size: 1.5rem; margin-bottom: 4px; }
 .xw-h-temp { font-weight: 700; color: var(--text); font-size: 1rem; }
@@ -299,17 +312,42 @@ body { font-size: 17px !important; }
         '<div class="xw-day-tags">'+tagsHtml+'</div></div>';
     }
 
-    // ===== 24小时逐时预报 =====
+    // ===== 24小时逐时预报（带日期标签）=====
     var hourlyHtml='';
-    var startH=hourIdx;
+    // 计算今天/明天/后天日期字符串
+    var nowDate=new Date(); nowDate.setHours(0,0,0,0);
+    var todayStr=nowDate.toISOString().slice(0,10);
+    var tomorrowDate=new Date(nowDate); tomorrowDate.setDate(tomorrowDate.getDate()+1);
+    var tomorrowStr=tomorrowDate.toISOString().slice(0,10);
+    var dayAfterDate=new Date(nowDate); dayAfterDate.setDate(dayAfterDate.getDate()+2);
+    var dayAfterStr=dayAfterDate.toISOString().slice(0,10);
+    var lastDateStr=''; // 记录上一个时段的日期
     for(var hi=0;hi<24;hi++){
-      var idx=(startH+hi)%24;
-      var hIcon=codes[h.weather_code[idx]]||'🌡️';
-      var hTemp=Math.round(h.temperature_2m[idx]);
-      var hRain=h.precipitation_probability[idx]||0;
-      var hTime=idx<10?'0'+idx+':00':idx+':00';
+      var realIdx=hourIdx+hi; // 真实索引（API返回96小时数据）
+      var hIcon=codes[h.weather_code[realIdx]]||'🌡️';
+      var hTemp=Math.round(h.temperature_2m[realIdx]);
+      var hRain=h.precipitation_probability[realIdx]||0;
+      // 获取当前时段的日期
+      var currentTimeStr=h.time?h.time[realIdx]:null;
+      var currentDateStr=currentTimeStr?currentTimeStr.slice(0,10):todayStr;
+      // 判断是否是新的一天，生成日期标签
+      var dayLabel='';
+      if(currentDateStr!==lastDateStr){
+        if(currentDateStr===todayStr) dayLabel='今天';
+        else if(currentDateStr===tomorrowStr) dayLabel='明天';
+        else if(currentDateStr===dayAfterStr) dayLabel='后天';
+        else dayLabel=currentDateStr.slice(5);
+      }
+      lastDateStr=currentDateStr;
+      // 时间显示（用当前小时+偏移计算）
+      var displayHour=(hourIdx+hi)%24;
+      var hTime=displayHour<10?'0'+displayHour+':00':displayHour+':00';
       if(hi===0) hTime='现在';
-      hourlyHtml+='<div class="xw-h-item">'+
+      // 生成时段卡片HTML（含日期标签）
+      var dayClass=dayLabel?' xw-h-day-start':'';
+      var dayBadge=dayLabel?'<div class="xw-h-day-badge">'+dayLabel+'</div>':'':'';
+      hourlyHtml+='<div class="xw-h-item'+dayClass+'">'+
+        dayBadge+
         '<div class="xw-h-time">'+hTime+'</div>'+
         '<div class="xw-h-icon">'+hIcon+'</div>'+
         '<div class="xw-h-temp">'+hTemp+'°</div>'+

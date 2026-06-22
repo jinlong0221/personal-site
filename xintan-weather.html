@@ -215,7 +215,7 @@ body { font-size: 17px !important; }
       <a href="tesla.html">特斯拉</a>
       <a href="xintan-weather.html" class="active">农田气象</a>
     </div>
-    <button class="mobile-nav" id="mobileNav" aria-label="菜单">☰</button>
+    <button class="hamburger" id="mobileNav" aria-label="菜单"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -280,8 +280,9 @@ body { font-size: 17px !important; }
   /* ---------- 双源主逻辑 ---------- */
   var now=new Date(), hourIdx=now.getHours(), month=now.getMonth()+1;
 
-  Promise.all([fetchOpenMeteo(), fetchQWeather()]).then(function(results){
-    var om=results[0], qw=results[1];
+  Promise.allSettled([fetchOpenMeteo(), fetchQWeather()]).then(function(results){
+    var om=results[0].status==='fulfilled'?results[0].value:null;
+    var qw=results[1].status==='fulfilled'?results[1].value:null;
     if(!om||!om.current) throw 'Open-Meteo数据无效';
 
     var c=om.current, h=om.hourly, daily=om.daily;
@@ -305,9 +306,9 @@ body { font-size: 17px !important; }
     }
 
     var dualHtml='<div class="xw-dual-banner">'+
-      '<span class="xw-dual-src"><b>Open-Meteo</b> '+curIcon+' '+t+'°/'+fl+'°feels</span>'+
-      '<span class="xw-dual-src"><b>和风天气</b> '+qwIcon+' '+qwTemp+'°/'+qwFeels+'°feels</span>'+
-      '<span class="xw-dual-src" style="opacity:0.8">💧'+hum+'%/'+qwHum+'% | 🌬️'+wind+'/'+qwWind+'km/h</span>'+
+      '<span class="xw-dual-src"><b>Open-Meteo</b> '+curIcon+' '+t+'°/'+fl+'°C</span>'+
+      '<span class="xw-dual-src"><b>和风天气</b> '+qwIcon+' '+(qwTemp!='--'?qwTemp+'°':'--')+'/'+(qwFeels!='--'?qwFeels+'°C':'--')+'</span>'+
+      '<span class="xw-dual-src" style="opacity:0.8">💧'+hum+'%/'+(qwHum!='--'?qwHum+'%':'--')+' | 🌬️'+wind+'/'+(qwWind!='--'?qwWind+'km/h':'--')+'</span>'+
     '</div>';
 
     /* ===== 当前大卡 ===== */

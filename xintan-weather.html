@@ -253,24 +253,19 @@ body { font-size: 17px !important; }
 
   var url='https://api.open-meteo.com/v1/forecast'
     +'?latitude='+LAT+'&longitude='+LON
-    +'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,precipitation,surface_pressure,is_day'
-    +'&hourly=temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,soil_temperature_0cm,relative_humidity_2m,dewpoint_2m'
-    +'&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max,weather_code,sunrise,sunset,uv_index_max,et0_fao_evapotranspiration'
-    +'&timezone=Asia/Shanghai&forecast_days=4';
+    +'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m'
+    +'&hourly=temperature_2m,precipitation_probability,weather_code'
+    +'&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code,sunrise,sunset'
+    +'&timezone=Asia/Shanghai&forecast_days=3';
 
   fetch(url).then(function(r){return r.json();}).then(function(d){
     var c=d.current, h=d.hourly, daily=d.daily;
     var now=new Date(), hourIdx=now.getHours();
     var icon=codes[c.weather_code]||'🌡️', name=names[c.weather_code]||'未知';
     var t=Math.round(c.temperature_2m), fl=Math.round(c.apparent_temperature);
-    var wind=Math.round(c.wind_speed_10m);
-    var windDir=windDirs[Math.round(c.wind_direction_10m/22.5)%16];
-    var hum=c.relative_humidity_2m, rain=c.precipitation||0;
-    var isDay=c.is_day===1, pressure=Math.round(c.surface_pressure||0);
-    var dewpoint=Math.round(h.dewpoint_2m[hourIdx]||0);
-    var soilTemp=Math.round(h.soil_temperature_0cm[hourIdx]||t);
-    var uvMax=daily.uv_index_max?daily.uv_index_max[0].toFixed(1):'--';
-    var et0=daily.et0_fao_evapotranspiration?daily.et0_fao_evapotranspiration[0].toFixed(1):'--';
+    var wind=Math.round(c.wind_speed_10m||0);
+    var hum=c.relative_humidity_2m||0, rain=c.precipitation||0;
+    var isDay=true; // 简化：默认白天
 
     // ===== 灾害检测 =====
     var alerts=[];
@@ -292,7 +287,6 @@ body { font-size: 17px !important; }
       var dmax=Math.round(daily.temperature_2m_max[di]);
       var dmin=Math.round(daily.temperature_2m_min[di]);
       var dwc=daily.weather_code[di], dp=Math.round(daily.precipitation_sum[di]);
-      var dw=Math.round(daily.wind_speed_10m_max[di]);
       var dname=names[dwc]||'未知';
       var tags=[];
       if(dwc>=95) tags.push('防雷');
@@ -308,7 +302,7 @@ body { font-size: 17px !important; }
         '<div class="xw-day-label">'+fcTags[di]+'</div>'+
         '<div class="xw-day-icon">'+(codes[dwc]||'🌡️')+'</div>'+
         '<div class="xw-day-temp">'+dmax+'°<span>/'+dmin+'°</span></div>'+
-        '<div class="xw-day-desc">'+dname+' · 降水'+dp+'mm · 风速'+dw+'km/h</div>'+
+        '<div class="xw-day-desc">'+dname+' · 降水'+dp+'mm</div>'+
         '<div class="xw-day-tags">'+tagsHtml+'</div></div>';
     }
 
@@ -408,26 +402,19 @@ body { font-size: 17px !important; }
         '<div class="xw-cur-icon">'+icon+'</div>'+
         '<div class="xw-cur-info">'+
           '<div class="xw-cur-name">'+name+'</div>'+
-          '<div class="xw-cur-time">'+(isDay?'白':'夜')+'间 · '+now.getHours()+':00更新 · '+windDir+'风</div>'+
+          '<div class="xw-cur-time">'+now.getHours()+':00更新</div>'+
         '</div>'+
         '<div class="xw-cur-temp">'+t+'<span>°C</span></div>'+
       '</div>'+
       '<div class="xw-grid">'+
         '<div class="xw-item"><div class="xw-item-label">🌡️ 体感温度</div><div class="xw-item-val">'+fl+'°C</div></div>'+
         '<div class="xw-item"><div class="xw-item-label">💧 相对湿度</div><div class="xw-item-val">'+hum+'%</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">🌬️ 风速</div><div class="xw-item-val">'+wind+'km/h</div><div class="xw-item-sub">'+windDir+'风</div></div>'+
+        '<div class="xw-item"><div class="xw-item-label">🌬️ 风速</div><div class="xw-item-val">'+wind+'km/h</div></div>'+
         '<div class="xw-item"><div class="xw-item-label">🌧️ 当前降水</div><div class="xw-item-val">'+(rain>0?rain+'mm':'无')+'</div></div>'+
       '</div>'+
       '<div class="xw-grid" style="margin-top:-8px;padding-top:0">'+
         '<div class="xw-item"><div class="xw-item-label">⬆️ 今日最高</div><div class="xw-item-val" style="color:#e65100">'+Math.round(daily.temperature_2m_max[0])+'°C</div></div>'+
         '<div class="xw-item"><div class="xw-item-label">⬇️ 今日最低</div><div class="xw-item-val" style="color:#1565c0">'+Math.round(daily.temperature_2m_min[0])+'°C</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">🌱 地表温度</div><div class="xw-item-val">'+soilTemp+'°C</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">💦 露点温度</div><div class="xw-item-val">'+dewpoint+'°C</div></div>'+
-      '</div>'+
-      '<div class="xw-grid" style="margin-top:-8px;padding-top:0">'+
-        '<div class="xw-item"><div class="xw-item-label">☀️ 紫外线指数</div><div class="xw-item-val">'+uvMax+'</div><div class="xw-item-sub">'+(uvMax>=8?'极强':uvMax>=6?'强':uvMax>=3?'中等':'弱')+'</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">📊 蒸散量ET₀</div><div class="xw-item-val">'+et0+'mm</div><div class="xw-item-sub">参考灌溉量</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">🌡️ 气压</div><div class="xw-item-val">'+pressure+'hPa</div></div>'+
         '<div class="xw-item"><div class="xw-item-label">🌅 日出/日落</div><div class="xw-item-val" style="font-size:0.7rem">'+(daily.sunrise[0]||'').slice(11,16)+'/'+(daily.sunset[0]||'').slice(11,16)+'</div></div>'+
       '</div>'+
 

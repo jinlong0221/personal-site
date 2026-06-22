@@ -70,7 +70,7 @@
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { font-size:16px; overflow-x:hidden; scroll-behavior:smooth; }
 body {
- font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
+ font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
  background: var(--bg);
  color: var(--text);
  line-height: 1.8;
@@ -131,7 +131,7 @@ strong,b { font-weight:700; color:var(--text); }
  height:100%; display:flex; align-items:center; justify-content:space-between;
 }
 .navbar .logo {
- font-family:'Ma Shan Zheng',cursive;
+ font-weight:900;
  font-size:1.4rem; color:var(--gold); text-decoration:none;
  white-space:nowrap; letter-spacing:2px;
  display:flex; align-items:center; gap:8px;
@@ -265,7 +265,7 @@ strong,b { font-weight:700; color:var(--text); }
 
 .home-header { padding:32px 0 8px; text-align:center; }
 .home-header .site-title {
- font-family:'Ma Shan Zheng',cursive;
+ font-weight:900;
  font-size:3rem; color:var(--text); letter-spacing:4px; line-height:1.2;
 }
 .hero-slogan {
@@ -491,7 +491,7 @@ footer a:hover { color:var(--gold-light); }
  text-align:center; padding:40px 20px;
 }
 .error-code {
- font-family:'Ma Shan Zheng',cursive; font-size:8rem; color:var(--gold); line-height:1;
+ font-weight:900; font-size:8rem; color:var(--gold); line-height:1;
  background:linear-gradient(135deg, var(--gold), var(--blue-light));
  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
 }

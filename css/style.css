@@ -904,4 +904,177 @@ html, body {
   .timeline-content p {
     font-size: 0.85rem;
   }
+  
+  /* 漫威页面移动端适配 */
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== 漫威宇宙专用样式 ===== */
+
+.marvel-timeline {
+  margin: 24px 0;
+}
+
+.marvel-timeline .timeline-item {
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+
+.marvel-timeline .timeline-item::before {
+  display: none;
+}
+
+.marvel-timeline .timeline-phase {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 12px;
+  padding: 10px 16px;
+  background: rgba(201,168,76,0.12);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+}
+
+[data-theme="light"] .marvel-timeline .timeline-phase {
+  background: rgba(139,105,20,0.08);
+  color: #6B4F00;
+}
+
+.movie-list {
+  list-style: decimal;
+  padding-left: 24px;
+  margin: 0;
+}
+
+.movie-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.6;
+}
+
+.movie-list li:last-child {
+  border-bottom: none;
+}
+
+.movie-list strong {
+  color: var(--text);
+}
+
+/* 超级英雄卡片网格 */
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.hero-card {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+[data-theme="light"] .hero-card {
+  background: rgba(0,0,0,0.03);
+}
+
+.hero-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.hero-card.villain-card {
+  border-color: #8B0000;
+}
+
+.hero-card.villain-card:hover {
+  box-shadow: 0 8px 24px rgba(139,0,0,0.2);
+}
+
+.hero-avatar {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.hero-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.hero-info {
+  font-size: 0.9rem;
+}
+
+.hero-row {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.6;
+}
+
+.hero-row:last-child {
+  border-bottom: none;
+}
+
+.hero-row .label {
+  font-weight: 700;
+  color: var(--gold);
+}
+
+[data-theme="light"] .hero-row .label {
+  color: #6B4F00;
+}
+
+/* 信息卡片网格 */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.info-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+[data-theme="light"] .info-card {
+  background: rgba(0,0,0,0.03);
+}
+
+.info-card h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.info-card ul,
+.info-card ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.info-card li {
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
+.info-card p {
+  line-height: 1.6;
+}
+
+.text-muted {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 8px;
 }

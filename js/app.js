@@ -209,7 +209,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   var parts=path.replace(/\/$/,'').split('/').filter(Boolean);
   var titleMap={
     'agarwood':'沉香鉴别','bracelet':'文玩手串','herbs':'中药材与香料',
-    'health-tea':'中药养生茶','sheyang':'射阳天气','tesla':'新能源汽车',
+    'health-tea':'中药养生茶','sheyang':'射阳天气','tesla':'特斯拉动态新闻',
     'changelog':'更新日志','index':'首页',
     'diguniu':'地牯牛','dilong':'地龙','huashicao':'化石草',
     'huashifen':'滑石粉','jiangzhenxiang':'降真香','maoshikafei':'猫屎咖啡',

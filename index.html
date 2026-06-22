@@ -9,7 +9,6 @@
 <!-- [BUG-FIX:二-4] 消除主题切换闪白：在DOM渲染前读取localStorage设置data-theme -->
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <link rel="stylesheet" href="css/style.css">
-<script src="js/app.js"></script>
 </head>
 <body>
 
@@ -73,6 +72,7 @@
     <div class="section-label">
       <span class="section-icon">🤖</span> AI学习专区
     </div>
+    <div class="section-subtitle">沉香鉴别 · 中药材 · 文玩手串</div>
     <div class="card-grid card-grid-3">
       <article class="tile tile-gold">
         <a href="agarwood.html">
@@ -109,6 +109,7 @@
     <div class="section-label">
       <span class="section-icon">🎨</span> 兴趣干货
     </div>
+    <div class="section-subtitle">新能源 · 旅行 · 天气</div>
     <div class="card-grid card-grid-3">
       <article class="tile tile-blue">
         <a href="tesla.html">
@@ -128,16 +129,15 @@
           <div class="desc">出行攻略与签证指南</div>
         </a>
       </article>
-      <article class="tile tile-teal">
-        <a href="sheyang.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#008272" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 12a14 14 0 0 0-14 28h28a14 14 0 0 0 0-28z"/><path d="M20 20a6 6 0 0 0 0 12"/><path d="M18 48h28M22 54h20"/></svg>
-          </div>
-          <div class="title">射阳天气</div>
-          <div class="desc">实时天气小工具</div>
-        </a>
-      </article>
     </div>
+    <!-- [BUG-FIX:四-4] 天气模块缩小移至侧边 -->
+    <aside class="weather-sidebar">
+      <a href="sheyang.html" class="weather-mini-card">
+        <span class="weather-icon">🌤️</span>
+        <span class="weather-label">射阳天气</span>
+        <span class="weather-arrow">→</span>
+      </a>
+    </aside>
   </section>
 
   <!-- ===== 生活实用 ===== -->
@@ -145,6 +145,7 @@
     <div class="section-label">
       <span class="section-icon">🛠️</span> 生活实用
     </div>
+    <div class="section-subtitle">在线工具 · 更新日志</div>
     <div class="card-grid card-grid-2">
       <article class="tile tile-orange">
         <a href="tools.html">
@@ -172,6 +173,7 @@
     <div class="section-label">
       <span class="section-icon">⚡</span> 在线小工具
     </div>
+    <div class="section-subtitle">手串计算 · 行程备忘 · BMI计算</div>
     <div class="card-grid card-grid-3">
       <article class="tile tile-blue tool-mini">
         <a href="tools.html#bracelet-calc">
@@ -227,5 +229,6 @@
   </div>
 </footer>
 
+<script src="js/app.js"></script>
 </body>
 </html>

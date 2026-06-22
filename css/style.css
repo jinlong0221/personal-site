@@ -860,15 +860,27 @@ html, body {
     font-size: 2.6rem;
   }
   
-  /* 移动端表格横向滚动 */
+  /* 移动端表格横向滚动 - iOS Safari 兼容 */
   .changelog-table {
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    -webkit-overflow-x: scroll;
     margin: 16px -20px;
-    padding: 0 20px;
+    padding: 0 20px 16px 20px;
+    position: relative;
+  }
+  .changelog-table::after {
+    content: '← 左右滑动查看完整表格 →';
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 8px;
   }
   .changelog-table table {
     min-width: 600px;
+    margin-bottom: 0;
   }
   
   /* 移动端时间线适配 */

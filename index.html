@@ -218,128 +218,44 @@
   var omCodes={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
   var omNames={0:'晴',1:'晴间多云',2:'多云',3:'阴',45:'雾',48:'冻雾',51:'小毛毛雨',53:'毛毛雨',55:'大毛毛雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',77:'雨夹雪',80:'阵雨',81:'阵雨中雨',82:'大阵雨',85:'雨夹雪',86:'大阵雪',95:'雷暴',96:'雷阵雨',99:'强雷暴'};
   
-  // 和风天气代码映射（简化版）
-  var qwIcons={'100':'☀️','101':'☁️','102':'⛅','103':'🌤️','104':'☁️','150':'☀️','151':'⛅','152':'⛅','153':'🌤️','300':'阵雨','301':'强阵雨','302':'雷阵雨','303':'强雷阵雨','304':'雷阵雨冰雹','305':'小雨','306':'中雨','307':'大雨','308':'极端降雨','309':'暴雨','310':'大暴雨','311':'特大暴雨','312':'冻雨','313':'雨夹雪','314':'雨夹雪','315':'强雨夹雪','316':'阵雨','317':'强阵雨','318':'极端降雨','399':'雨','400':'小雪','401':'中雪','402':'大雪','403':'暴雪','404':'雨夹雪','405':'雨夹雪','406':'雨夹雪','407':'阵雪','408':'小阵雪','409':'中阵雪','410':'大阵雪','499':'雪','500':'薄雾','501':'雾','502':'雾','503':'大风','504':'大风','507':'大风','508':'大风','509':'霾','510':'霾','511':'霾','512':'浮尘','513':'扬沙','514':'浮尘','515':'扬沙','510':'霾','900':'热','901':'冷','999':'未知'};
-  
   var box=document.getElementById('homeWeather');
   if(!box)return;
 
-  // 和风天气配置
-  var QW_HOST='pb4ewuxe4w.re.qweatherapi.com';
-  var QW_TOKEN='c8dd86c7607f4a67959f553798d08f72';
-
   // 获取Open-Meteo天气
-  function fetchOpenMeteo(lat, lon){
+  function fetchWeather(lat, lon){
     var url='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia/Shanghai&forecast_days=1';
     return fetch(url).then(function(r){return r.json();});
   }
 
-  // 获取和风天气
-  function fetchQWeather(lat, lon){
-    var url='https://'+QW_HOST+'/v7/weather/now?location='+lon.toFixed(2)+','+lat.toFixed(2);
-    return fetch(url,{
-      headers:{'Authorization':'Bearer '+QW_TOKEN}
-    }).then(function(r){return r.json();});
-  }
-
-  // 渲染双源对比天气
-  function renderDualWeather(lat, lon, cityName){
-    box.innerHTML='<div class="weather-loading">加载双源天气中…</div>';
+  // 渲染天气
+  function renderWeather(lat, lon, cityName){
+    box.innerHTML='<div class="weather-loading">加载天气中…</div>';
     
-    Promise.all([fetchOpenMeteo(lat, lon), fetchQWeather(lat, lon)])
-    .then(function(results){
-      var om=results[0];
-      var qw=results[1];
-      
-      // Open-Meteo数据
-      var omData=null;
-      if(om && om.current){
-        var c=om.current;
-        omData={
-          temp:Math.round(c.temperature_2m),
-          feels:Math.round(c.apparent_temperature),
-          humidity:c.relative_humidity_2m,
-          wind:Math.round(c.wind_speed_10m),
-          icon:omCodes[c.weather_code]||'🌡️',
-          text:omNames[c.weather_code]||'未知',
-          source:'Open-Meteo'
-        };
-      }
-      
-      // 和风天气数据
-      var qwData=null;
-      if(qw && qw.code==='200' && qw.now){
-        var n=qw.now;
-        qwData={
-          temp:parseInt(n.temp),
-          feels:parseInt(n.feelsLike),
-          humidity:parseInt(n.humidity),
-          wind:parseInt(n.windSpeed),
-          icon:qwIcons[n.icon]||'🌡️',
-          text:n.text,
-          source:'和风天气',
-          obsTime:n.obsTime
-        };
-      }
-      
-      // 渲染对比卡片
-      if(omData || qwData){
-        var html='<a href="sheyang.html" class="weather-dual-link">'+
-          '<div class="weather-header"><span class="weather-city">📍 '+cityName+'</span><span class="weather-label">双源对比</span></div>';
+    fetchWeather(lat, lon).then(function(data){
+      if(data && data.current){
+        var c=data.current;
+        var temp=Math.round(c.temperature_2m);
+        var feels=Math.round(c.apparent_temperature);
+        var humidity=c.relative_humidity_2m;
+        var wind=Math.round(c.wind_speed_10m);
+        var icon=omCodes[c.weather_code]||'🌡️';
+        var text=omNames[c.weather_code]||'未知';
         
-        if(omData && qwData){
-          // 双源模式
-          var avgTemp=Math.round((omData.temp+qwData.temp)/2);
-          var diff=Math.abs(omData.temp-qwData.temp);
-          html+='<div class="weather-dual-row">'+
-            '<div class="weather-source-block">'+
-              '<div class="weather-source-name">Open-Meteo</div>'+
-              '<div class="weather-source-main">'+
-                '<span class="weather-icon">'+omData.icon+'</span>'+
-                '<span class="weather-temp-lg">'+omData.temp+'°</span>'+
-              '</div>'+
-              '<div class="weather-source-text">'+omData.text+'</div>'+
-              '<div class="weather-source-detail">体感'+omData.feels+'° · 💧'+omData.humidity+'%</div>'+
-            '</div>'+
-            '<div class="weather-source-divider"></div>'+
-            '<div class="weather-source-block">'+
-              '<div class="weather-source-name">和风天气</div>'+
-              '<div class="weather-source-main">'+
-                '<span class="weather-icon">'+qwData.icon+'</span>'+
-                '<span class="weather-temp-lg">'+qwData.temp+'°</span>'+
-              '</div>'+
-              '<div class="weather-source-text">'+qwData.text+'</div>'+
-              '<div class="weather-source-detail">体感'+qwData.feels+'° · 💧'+qwData.humidity+'%</div>'+
-            '</div>'+
+        var html='<a href="sheyang.html" class="weather-link">'+
+          '<div class="weather-header"><span class="weather-city">📍 '+cityName+'</span><span class="weather-label">实时天气</span></div>'+
+          '<div class="weather-main">'+
+            '<span class="weather-icon">'+icon+'</span>'+
+            '<span class="weather-temp-lg">'+temp+'°</span>'+
+            '<span class="weather-desc">'+text+'</span>'+
           '</div>'+
-          '<div class="weather-diff-bar">温差 '+diff+'° · 平均 '+avgTemp+'°</div>';
-        } else if(omData){
-          // 仅Open-Meteo
-          html+='<div class="weather-single">'+
-            '<span class="weather-icon">'+omData.icon+'</span>'+
-            '<span class="weather-temp-lg">'+omData.temp+'°</span>'+
-            '<span class="weather-desc">'+omData.text+'</span>'+
-            '<span class="weather-detail">体感'+omData.feels+'° · 💧'+omData.humidity+'%</span>'+
-            '<span class="weather-source">'+omData.source+'</span>'+
-          '</div>';
-        } else {
-          // 仅和风天气
-          html+='<div class="weather-single">'+
-            '<span class="weather-icon">'+qwData.icon+'</span>'+
-            '<span class="weather-temp-lg">'+qwData.temp+'°</span>'+
-            '<span class="weather-desc">'+qwData.text+'</span>'+
-            '<span class="weather-detail">体感'+qwData.feels+'° · 💧'+qwData.humidity+'%</span>'+
-            '<span class="weather-source">'+qwData.source+'</span>'+
-          '</div>';
-        }
-        
-        html+='</a>';
+          '<div class="weather-detail">体感 '+feels+'° · 💧 '+humidity+'% · 🌬️ '+wind+'km/h</div>'+
+          '<div class="weather-source">数据来源：Open-Meteo</div>'+
+        '</a>';
         box.innerHTML=html;
       } else {
         fallbackWeather(cityName);
       }
-    })
-    .catch(function(){
+    }).catch(function(){
       fallbackWeather(cityName);
     });
   }
@@ -374,15 +290,15 @@
             break;
           }
         }
-        renderDualWeather(lat, lon, cityName);
+        renderWeather(lat, lon, cityName);
       },
       function(err){
-        renderDualWeather(33.77, 120.52, '射阳');
+        renderWeather(33.77, 120.52, '射阳');
       },
       {enableHighAccuracy:false, timeout:5000, maximumAge:300000}
     );
   } else {
-    renderDualWeather(33.77, 120.52, '射阳');
+    renderWeather(33.77, 120.52, '射阳');
   }
 })();
 </script>

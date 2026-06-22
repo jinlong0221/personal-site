@@ -27,6 +27,13 @@ body { font-size: 17px !important; }
 .xw-banner-sub { font-size: 1rem; color: var(--text-muted); margin-top: 6px; }
 .xw-banner-coord { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; opacity: 0.7; }
 
+/* ===== 双源对比横幅 ===== */
+.xw-dual-banner {
+  display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+  padding: 8px 20px 4px; font-size: 0.8rem; color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
 /* ===== 加载动画 ===== */
 .xw-loading {
   display: flex; justify-content: center; align-items: center; gap: 10px;
@@ -110,7 +117,7 @@ body { font-size: 17px !important; }
 }
 .xw-hourly::-webkit-scrollbar { display: none; }
 .xw-h-item {
-  flex-shrink: 0; width: 64px; text-align: center; padding: 10px 4px;
+  flex-shrink: 0; width: 80px; text-align: center; padding: 10px 4px;
   border-right: 1px solid var(--border); font-size: 0.8rem;
 }
 .xw-h-item:last-child { border-right: none; }
@@ -234,7 +241,7 @@ body { font-size: 17px !important; }
   <div class="container footer-inner">
     <div class="footer-col">
       <p class="footer-brand">🐉 龙兄知识库</p>
-      <p class="footer-desc">数据来源：Open-Meteo（免费气象API）</p>
+      <p class="footer-desc">双源对比：Open-Meteo（全球） + 和风天气（中国气象局数据）</p>
     </div>
     <div class="footer-col">
       <p>© 2026 龙兄知识库</p>
@@ -245,29 +252,87 @@ body { font-size: 17px !important; }
 
 <script>
 (function(){
-  // ===== 新坍镇经纬度 =====
+  // ===== 新坍镇经纬度 & 和风天气配置 =====
   var LAT=33.76, LON=120.09;
+  var QW_HOST='pb4ewuxe4w.re.qweatherapi.com';
+  var QW_TOKEN='c8dd86c7607f4a67959f553798d08f72';
   var codes={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
   var names={0:'晴',1:'晴间多云',2:'多云',3:'阴',45:'雾',48:'冻雾',51:'小毛毛雨',53:'毛毛雨',55:'大毛毛雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',77:'雨夹雪',80:'阵雨',81:'阵雨中雨',82:'大阵雨',85:'雨夹雪',86:'大阵雪',95:'雷暴',96:'雷阵雨',99:'强雷暴'};
-  var windDirs=['北','北偏东','东北','东偏北','东','东偏南','东南','南偏东','南','南偏西','西南','西偏南','西','西偏北','西北','北偏西'];
+  var qwIcons={'100':'☀️','101':'☁️','102':'⛅','103':'🌤️','104':'☁️','300':'小雨','301':'中雨','302':'大雨','303':'雷阵雨','304':'雷阵雨冰雹','305':'暴雨','306':'大暴雨','307':'特大暴雨','400':'小雪','401':'中雪','402':'大雪','403':'暴雪','500':'雾','501':'雾','502':'霾','503':'扬沙','504':'浮尘','507':'霾','508':'霾','509':'霾','900':'热','901':'冷'};
 
-  var url='https://api.open-meteo.com/v1/forecast'
-    +'?latitude='+LAT+'&longitude='+LON
-    +'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m'
-    +'&hourly=temperature_2m,precipitation_probability,weather_code'
-    +'&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code,sunrise,sunset'
-    +'&timezone=Asia/Shanghai&forecast_days=3';
+  /* ---------- 数据获取 ---------- */
+  function fetchOpenMeteo(){
+    var url='https://api.open-meteo.com/v1/forecast'
+      +'?latitude='+LAT+'&longitude='+LON
+      +'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m'
+      +'&hourly=temperature_2m,precipitation_probability,weather_code'
+      +'&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code,sunrise,sunset'
+      +'&timezone=Asia/Shanghai&forecast_days=3';
+    return fetch(url).then(function(r){return r.json();});
+  }
 
-  fetch(url).then(function(r){return r.json();}).then(function(d){
-    var c=d.current, h=d.hourly, daily=d.daily;
-    var now=new Date(), hourIdx=now.getHours();
-    var icon=codes[c.weather_code]||'🌡️', name=names[c.weather_code]||'未知';
+  function fetchQWeather(){
+    var url='https://'+QW_HOST+'/v7/weather/now?location='+LON.toFixed(2)+','+LAT.toFixed(2);
+    return fetch(url,{headers:{'Authorization':'Bearer '+QW_TOKEN}})
+      .then(function(r){return r.json();});
+  }
+
+  /* ---------- 双源主逻辑 ---------- */
+  var now=new Date(), hourIdx=now.getHours(), month=now.getMonth()+1;
+
+  Promise.all([fetchOpenMeteo(), fetchQWeather()]).then(function(results){
+    var om=results[0], qw=results[1];
+    if(!om||!om.current) throw 'Open-Meteo数据无效';
+
+    var c=om.current, h=om.hourly, daily=om.daily;
     var t=Math.round(c.temperature_2m), fl=Math.round(c.apparent_temperature);
     var wind=Math.round(c.wind_speed_10m||0);
     var hum=c.relative_humidity_2m||0, rain=c.precipitation||0;
-    var isDay=true; // 简化：默认白天
 
-    // ===== 灾害检测 =====
+    /* ===== 当前天气（双源对比） ===== */
+    var curIcon=codes[c.weather_code]||'🌡️';
+    var curName=names[c.weather_code]||'未知';
+    // 和风数据
+    var qwTemp='--', qwIcon='🌡️', qwText='加载中', qwFeels='--', qwHum='--', qwWind='--';
+    if(qw&&qw.code==='200'&&qw.now){
+      var n=qw.now;
+      qwTemp=parseInt(n.temp);
+      qwIcon=qwIcons[n.icon]||'🌡️';
+      qwText=n.text;
+      qwFeels=parseInt(n.feelsLike);
+      qwHum=parseInt(n.humidity);
+      qwWind=parseInt(n.windSpeed);
+    }
+
+    var dualHtml='<div class="xw-dual-banner">'+
+      '<span class="xw-dual-src"><b>Open-Meteo</b> '+curIcon+' '+t+'°/'+fl+'°feels</span>'+
+      '<span class="xw-dual-src"><b>和风天气</b> '+qwIcon+' '+qwTemp+'°/'+qwFeels+'°feels</span>'+
+      '<span class="xw-dual-src" style="opacity:0.8">💧'+hum+'%/'+qwHum+'% | 🌬️'+wind+'/'+qwWind+'km/h</span>'+
+    '</div>';
+
+    /* ===== 当前大卡 ===== */
+    var curHtml='<div class="xw-current">'+
+      '<div class="xw-cur-icon">'+curIcon+'</div>'+
+      '<div class="xw-cur-info">'+
+        '<div class="xw-cur-name">'+curName+'</div>'+
+        '<div class="xw-cur-time">'+now.getHours()+':00更新 · 双源交叉</div>'+
+      '</div>'+
+      '<div class="xw-cur-temp">'+t+'<span>°C</span></div>'+
+    '</div>'+
+    dualHtml+
+    '<div class="xw-grid">'+
+      '<div class="xw-item"><div class="xw-item-label">🌡️ 体感温度</div><div class="xw-item-val">'+fl+'/'+qwFeels+'°C</div><div class="xw-item-sub">开垛/和风</div></div>'+
+      '<div class="xw-item"><div class="xw-item-label">💧 相对湿度</div><div class="xw-item-val">'+hum+'/'+qwHum+'%</div><div class="xw-item-sub">两源对比</div></div>'+
+      '<div class="xw-item"><div class="xw-item-label">🌬️ 风速</div><div class="xw-item-val">'+wind+'/'+qwWind+'km/h</div><div class="xw-item-sub">两源对比</div></div>'+
+      '<div class="xw-item"><div class="xw-item-label">🌧️ 降水</div><div class="xw-item-val">'+(rain>0?rain+'mm':'无')+'</div><div class="xw-item-sub">Open-Meteo</div></div>'+
+    '</div>'+
+    '<div class="xw-grid" style="margin-top:-8px;padding-top:0">'+
+      '<div class="xw-item"><div class="xw-item-label">⬆️ 今日最高</div><div class="xw-item-val" style="color:#e65100">'+Math.round(daily.temperature_2m_max[0])+'°C</div></div>'+
+      '<div class="xw-item"><div class="xw-item-label">⬇️ 今日最低</div><div class="xw-item-val" style="color:#1565c0">'+Math.round(daily.temperature_2m_min[0])+'°C</div></div>'+
+      '<div class="xw-item"><div class="xw-item-label">🌅 日出/日落</div><div class="xw-item-val" style="font-size:0.7rem">'+(daily.sunrise[0]||'').slice(11,16)+'/'+(daily.sunset[0]||'').slice(11,16)+'</div></div>'+
+    '</div>';
+
+    /* ===== 灾害检测 ===== */
     var alerts=[];
     if(rain>25) alerts.push({t:'🌧️ 暴雨',m:'当前降水量'+rain+'mm，请检查田间排水通畅，低洼田块及时排涝',l:'danger'});
     else if(rain>=10) alerts.push({t:'🌧️ 中到大雨',m:'注意清沟理墒，防止作物受淹',l:'warn'});
@@ -280,7 +345,7 @@ body { font-size: 17px !important; }
     var rainyDays=0; for(var di=0;di<3;di++) if(daily.precipitation_sum[di]>1) rainyDays++;
     if(rainyDays>=3) alerts.push({t:'🌧️ 连续阴雨',m:'未来3天多阴雨，关注排水，防治纹枯病/白粉病蔓延',l:'warn'});
 
-    // ===== 3日预报HTML =====
+    /* ===== 3日预报 ===== */
     var fcTags=['今天','明天','后天'];
     var fcHtml='';
     for(var di=0;di<3;di++){
@@ -306,54 +371,56 @@ body { font-size: 17px !important; }
         '<div class="xw-day-tags">'+tagsHtml+'</div></div>';
     }
 
-    // ===== 24小时逐时预报（带日期标签）=====
+    /* ===== 逐时预报 · 每3小时一览（共8个时段，覆盖24小时） ===== */
     var hourlyHtml='';
-    var nowDate=new Date(); nowDate.setHours(0,0,0,0);
-    var todayStr=nowDate.toISOString().slice(0,10);
-    var tomorrowDate=new Date(nowDate); tomorrowDate.setDate(tomorrowDate.getDate()+1);
-    var tomorrowStr=tomorrowDate.toISOString().slice(0,10);
-    var dayAfterDate=new Date(nowDate); dayAfterDate.setDate(dayAfterDate.getDate()+2);
-    var dayAfterStr=dayAfterDate.toISOString().slice(0,10);
-    var lastDateStr='';
-    // 确保hourly数组存在且够长
-    if(!h.temperature_2m||!h.weather_code){
-      hourlyHtml='<div style="padding:16px;color:var(--text-muted)">数据加载中...</div>';
+    if(!h.temperature_2m||!h.weather_code||!h.time){
+      hourlyHtml='<div style="padding:16px;color:var(--text-muted)">逐时数据加载中…</div>';
     } else {
-      for(var hi=0;hi<24;hi++){
-        var realIdx=hourIdx+hi;
-        if(realIdx>=h.temperature_2m.length) break;
+      // 找下一个最近的整2-3小时节点：把当前小时对齐到0,3,6,9,12,15,18,21
+      var alignedHour=Math.floor(hourIdx/3)*3;
+      var startIdx=alignedHour;
+      // 如果当前时间已经过了该节点2小时以上，跳到下一个节点
+      if(hourIdx-alignedHour>=2) startIdx=alignedHour+3;
+      
+      var dayTimeMap=[]; // [{label, items}]
+      var currentDay='', currentDayLabel='', currentItems=[];
+      for(var hi=0;hi<24;hi+=3){
+        var realIdx=startIdx+hi;
+        if(realIdx>=h.time.length) break;
+        var rawHour=h.time[realIdx].slice(11,16);
         var hIcon=codes[h.weather_code[realIdx]]||'🌡️';
         var hTemp=Math.round(h.temperature_2m[realIdx]);
         var hRain=h.precipitation_probability[realIdx]||0;
-        var currentDateStr=todayStr;
-        if(h.time&&h.time[realIdx]){
-          var ct=h.time[realIdx];
-          if(ct) currentDateStr=ct.slice(0,10);
+        var dateStr=h.time[realIdx].slice(0,10);
+        
+        var label='';
+        if(dateStr!==currentDay){
+          currentDay=dateStr;
+          var todayStr=new Date(); todayStr.setHours(0,0,0,0);
+          var todayISO=todayStr.toISOString().slice(0,10);
+          var tomorrow=new Date(todayStr); tomorrow.setDate(tomorrow.getDate()+1);
+          var tomorrowISO=tomorrow.toISOString().slice(0,10);
+          var dayAfter=new Date(todayStr); dayAfter.setDate(dayAfter.getDate()+2);
+          var dayAfterISO=dayAfter.toISOString().slice(0,10);
+          if(dateStr===todayISO) currentDayLabel='今天';
+          else if(dateStr===tomorrowISO) currentDayLabel='明天';
+          else if(dateStr===dayAfterISO) currentDayLabel='后天';
+          else currentDayLabel=dateStr.slice(5);
         }
-        var dayLabel='';
-        if(currentDateStr!==lastDateStr){
-          if(currentDateStr===todayStr) dayLabel='今天';
-          else if(currentDateStr===tomorrowStr) dayLabel='明天';
-          else if(currentDateStr===dayAfterStr) dayLabel='后天';
-          else dayLabel=currentDateStr.slice(5);
-        }
-        lastDateStr=currentDateStr;
-        var displayHour=(hourIdx+hi)%24;
-        var hTime=displayHour<10?'0'+displayHour+':00':displayHour+':00';
-        if(hi===0) hTime='现在';
-        var dayClass=dayLabel?' xw-h-day-start':'';
-        var dayBadge=dayLabel?'<div class="xw-h-day-badge">'+dayLabel+'</div>':'';
-        hourlyHtml+='<div class="xw-h-item'+dayClass+'">'+
-          dayBadge+
-          '<div class="xw-h-time">'+hTime+'</div>'+
+        
+        var isNow=(hi===0&&hourIdx===(startIdx<24?startIdx:0));
+        hourlyHtml+='<div class="xw-h-item'+(currentItems.length===0?' xw-h-day-start':'')+'">'+
+          (currentItems.length===0?'<div class="xw-h-day-badge">'+currentDayLabel+'</div>':'')+
+          '<div class="xw-h-time">'+rawHour+'</div>'+
           '<div class="xw-h-icon">'+hIcon+'</div>'+
           '<div class="xw-h-temp">'+hTemp+'°</div>'+
-          (hRain>20?'<div class="xw-h-rain">💧'+hRain+'%</div>':'')+
+          (hRain>15?'<div class="xw-h-rain">💧'+hRain+'%</div>':'')+
         '</div>';
+        currentItems.push(1);
       }
     }
 
-    // ===== 灾害预警HTML =====
+    /* ===== 灾害预警 ===== */
     var alertHtml='';
     if(alerts.length>0){
       alertHtml='<div class="xw-section">⚠️ 风险提示</div><div class="xw-alert">'+
@@ -362,8 +429,7 @@ body { font-size: 17px !important; }
         }).join('')+'</div>';
     }
 
-    // ===== 田间作业指导 =====
-    var month=now.getMonth()+1;
+    /* ===== 田间作业指导 ===== */
     var gt='';
     if(month>=5&&month<=6){
       if(daily.precipitation_sum[0]>5) gt={d:'🌾【小麦收割】今日有雨，不宜收割！提前检查收割机，利用停雨间隙抢收，及时烘干防霉变。',c:'🌾【小麦收割】今日有雨，不宜收割！提前检查收割机，利用停雨间隙抢收，及时烘干防霉变。'};
@@ -384,13 +450,12 @@ body { font-size: 17px !important; }
       gt={d:'🌿【日常管理】加强田间巡查，关注墒情变化，合理追肥打药，晴天及时防治病虫害。',c:'🌿【日常管理】加强田间巡查，关注墒情变化，合理追肥打药，晴天及时防治病虫害。'};
     }
 
-    // ===== 农事日历 =====
+    /* ===== 农事日历 ===== */
     var calHtml='';
-    var seasonName='';
-    var seasonItems=[];
+    var seasonName='', seasonItems=[];
     if(month>=3&&month<=4){ seasonName='🌱 春播期'; seasonItems=[{i:'🌱',l:'水稻育秧',d:'日均温≥12℃播种'},{i:'🚜',l:'整地施肥',d:'提前翻耕施底肥'},{i:'❄️',l:'防倒春寒',d:'关注低温预警'}]; }
     else if(month>=5&&month<=6){ seasonName='🌾 夏收夏种期'; seasonItems=[{i:'🌾',l:'小麦收割',d:'蜡熟末期抢收'},{i:'🌱',l:'水稻插秧',d:'收麦后及时移栽'},{i:'🌧️',l:'防汛排涝',d:'梅雨季清沟理墒'}]; }
-    else if(month>=7&&month<=8){ seasonName:'☀️ 夏管期'; seasonItems=[{i:'🌾',l:'水稻管理',d:'烤田控蘖防病害'},{i:'🌡️',l:'防高温',d:'日灌夜排降温'},{i:'🐛',l:'病虫害',d:'防治稻瘟/纹枯病'}]; }
+    else if(month>=7&&month<=8){ seasonName='☀️ 夏管期'; seasonItems=[{i:'🌾',l:'水稻管理',d:'烤田控蘖防病害'},{i:'🌡️',l:'防高温',d:'日灌夜排降温'},{i:'🐛',l:'病虫害',d:'防治稻瘟/纹枯病'}]; }
     else if(month>=9&&month<=10){ seasonName='🚜 秋收秋播期'; seasonItems=[{i:'🚜',l:'水稻收获',d:'适时收割晾晒'},{i:'🌱',l:'小麦播种',d:'趁墒抢播'},{i:'🌧️',l:'防秋雨',d:'关注连阴雨'}]; }
     else { seasonName='❄️ 越冬期'; seasonItems=[{i:'❄️',l:'防寒保温',d:'覆盖/镇压保墒'},{i:'🌿',l:'追施腊肥',d:'趁晴天施用'},{i:'🚜',l:'农机检修',d:'备春耕物资'}]; }
     calHtml='<div class="xw-section">📅 当前农事季节：'+seasonName+'</div><div class="xw-calendar"><div class="xw-cal-card">';
@@ -400,36 +465,13 @@ body { font-size: 17px !important; }
     }
     calHtml+='</div></div>';
 
-    // ===== 组装页面 =====
-    var html=
-      '<div class="xw-current">'+
-        '<div class="xw-cur-icon">'+icon+'</div>'+
-        '<div class="xw-cur-info">'+
-          '<div class="xw-cur-name">'+name+'</div>'+
-          '<div class="xw-cur-time">'+now.getHours()+':00更新</div>'+
-        '</div>'+
-        '<div class="xw-cur-temp">'+t+'<span>°C</span></div>'+
-      '</div>'+
-      '<div class="xw-grid">'+
-        '<div class="xw-item"><div class="xw-item-label">🌡️ 体感温度</div><div class="xw-item-val">'+fl+'°C</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">💧 相对湿度</div><div class="xw-item-val">'+hum+'%</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">🌬️ 风速</div><div class="xw-item-val">'+wind+'km/h</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">🌧️ 当前降水</div><div class="xw-item-val">'+(rain>0?rain+'mm':'无')+'</div></div>'+
-      '</div>'+
-      '<div class="xw-grid" style="margin-top:-8px;padding-top:0">'+
-        '<div class="xw-item"><div class="xw-item-label">⬆️ 今日最高</div><div class="xw-item-val" style="color:#e65100">'+Math.round(daily.temperature_2m_max[0])+'°C</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">⬇️ 今日最低</div><div class="xw-item-val" style="color:#1565c0">'+Math.round(daily.temperature_2m_min[0])+'°C</div></div>'+
-        '<div class="xw-item"><div class="xw-item-label">🌅 日出/日落</div><div class="xw-item-val" style="font-size:0.7rem">'+(daily.sunrise[0]||'').slice(11,16)+'/'+(daily.sunset[0]||'').slice(11,16)+'</div></div>'+
-      '</div>'+
-
-      '<div class="xw-section">🕐 24小时逐时预报</div>'+
+    /* ===== 组装 ===== */
+    var html=curHtml+
+      '<div class="xw-section">🕐 逐3小时预报（未来24h · 共8个时段）</div>'+
       '<div class="xw-hourly">'+hourlyHtml+'</div>'+
-
       '<div class="xw-section">📅 3日天气预报</div>'+
       '<div class="xw-forecast">'+fcHtml+'</div>'+
-
       alertHtml+
-
       '<div class="xw-section">🚜 今日田间作业指导</div>'+
       '<div class="xw-guide"><div class="xw-guide-card">'+
         '<div class="xw-guide-title">📋 农事建议（点击复制可转发）</div>'+
@@ -437,7 +479,6 @@ body { font-size: 17px !important; }
         '<button class="xw-copy-btn" onclick="xwCopy()">📋 一键复制</button>'+
         '<textarea id="xwCopySrc" style="display:none">'+gt.c+'</textarea>'+
       '</div></div>'+
-
       calHtml;
 
     document.getElementById('xwLoading').style.display='none';

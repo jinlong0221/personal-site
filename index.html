@@ -58,10 +58,7 @@
     <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
   </div>
 
-  <!-- ===== 射阳天气卡片（首页醒目展示） ===== -->
-  <div class="home-weather" id="homeWeather">
-    <div class="weather-loading">加载天气中…</div>
-  </div>
+  <!-- ===== 新坍镇农田气象卡片 ===== -->
 
   <!-- [BUG-FIX:一-1+一-3] 搜索入口：原生input+button，增加清空按钮 -->
   <div class="home-search">
@@ -136,14 +133,30 @@
       </article>
 
     </div>
-    <!-- [BUG-FIX:四-4] 天气模块缩小移至侧边 -->
-    <aside class="weather-sidebar">
-      <a href="sheyang.html" class="weather-mini-card">
-        <span class="weather-icon">🌤️</span>
-        <span class="weather-label">射阳天气</span>
-        <span class="weather-arrow">→</span>
-      </a>
-    </aside>
+    <!-- ===== 新坍镇农田气象卡片 ===== -->
+    <!--
+      板块标题：江苏射阳新坍镇 农田气象
+      数据来源：Open-Meteo API（免费，无需Key）
+      定位方式：固定经纬度（33.76°N, 120.09°E）精确到镇级
+      展示内容：当前温/雨/风/墒情 + 灾害预警 + 3天农事预报 + 田间作业指导
+      -->
+    <div class="farm-weather-card" id="farmWeatherCard">
+      <!-- 乡镇标题 -->
+      <div class="fw-header">
+        <span class="fw-title">🌾 江苏射阳新坍镇 · 农田气象</span>
+        <a href="sheyang.html" class="fw-more" title="查看完整天气">详细 →</a>
+      </div>
+      <!-- 加载状态 -->
+      <div class="fw-loading" id="fwLoading">
+        <span class="fw-dot"></span><span class="fw-dot"></span><span class="fw-dot"></span>
+      </div>
+      <!-- 内容区（JS渲染后填充） -->
+      <div class="fw-body" id="fwBody" style="display:none;"></div>
+      <!-- 灾害预警高亮区 -->
+      <div class="fw-alert" id="fwAlert" style="display:none;"></div>
+      <!-- 田间作业指导 -->
+      <div class="fw-guide" id="fwGuide" style="display:none;"></div>
+    </div>
   </section>
 
   <!-- ===== 特斯拉动态新闻 ===== -->
@@ -200,40 +213,105 @@
 
 <script>
 (function(){
-  var codes={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
-  var names={0:'晴',1:'晴间多云',2:'多云',3:'阴',45:'雾',48:'冻雾',51:'小毛毛雨',53:'毛毛雨',55:'大毛毛雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',80:'阵雨',81:'阵雨',82:'大阵雨',95:'雷暴',96:'雷阵雨',99:'强雷暴'};
-  var box=document.getElementById('homeWeather');
-  if(!box)return;
-  fetch('https://api.open-meteo.com/v1/forecast?latitude=33.77&longitude=120.52&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia/Shanghai&forecast_days=1')
-  .then(function(r){return r.json();})
-  .then(function(d){
-    var c=d.current;
-    var icon=codes[c.weather_code]||'🌡️';
-    var name=names[c.weather_code]||'未知';
-    var t=Math.round(c.temperature_2m);
-    var fl=Math.round(c.apparent_temperature);
-    box.innerHTML=
-      '<a href="sheyang.html" style="display:flex;align-items:center;justify-content:space-between;width:100%;text-decoration:none;color:inherit;gap:16px;flex-wrap:wrap">'+
-        '<div class="weather-main">'+
-          '<span class="weather-icon">'+icon+'</span>'+
-          '<div class="weather-info">'+
-            '<span class="weather-city">📍 射阳</span>'+
-            '<span class="weather-desc">'+name+'</span>'+
-          '</div>'+
-        '</div>'+
-        '<span class="weather-temp">'+t+'°</span>'+
-        '<div class="weather-extra">'+
-          '<span class="weather-detail">体感 '+fl+'°</span>'+
-          '<span class="weather-detail">💧'+c.relative_humidity_2m+'%</span>'+
-          '<span class="weather-detail">🌬️'+Math.round(c.wind_speed_10m)+'km/h</span>'+
-          '<span class="weather-arrow">→</span>'+
-        '</div>'+
-      '</a>';
-  })
-  .catch(function(){
-    box.innerHTML='<a href="sheyang.html" style="display:block;text-align:center;padding:16px;text-decoration:none;color:var(--text-muted)">📍 射阳天气 · 点击查看详情</a>';
+  // ===== 新坍镇农田气象数据 =====
+  // 经纬度：33.76°N, 120.09°E（江苏射阳新坍镇）
+  var LAT=33.76, LON=120.09;
+  var codes={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',77:'雨夹雪',80:'阵雨',81:'阵雨中雨',82:'大阵雨',85:'雨夹雪',86:'大阵雪',95:'雷暴',96:'雷阵雨',99:'强雷暴'};
+  var names={0:'晴',1:'晴间多云',2:'多云',3:'阴',45:'雾',48:'冻雾',51:'小毛毛雨',53:'毛毛雨',55:'大毛毛雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',77:'雨夹雪',80:'阵雨',81:'阵雨中雨',82:'大阵雨',85:'雨夹雪',86:'大阵雪',95:'雷暴',96:'雷阵雨',99:'强雷暴'};
+  var url='https://api.open-meteo.com/v1/forecast'
+    +'?latitude='+LAT+'&longitude='+LON
+    +'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,precipitation,is_day'
+    +'&hourly=temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,soil_temperature_0cm'
+    +'&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max,weather_code,sunrise,sunset'
+    +'&timezone=Asia/Shanghai&forecast_days=4';
+  fetch(url).then(function(r){return r.json();}).then(function(d){
+    var c=d.current, h=d.hourly, daily=d.daily;
+    var icon=codes[c.weather_code]||'🌡️', name=names[c.weather_code]||'未知';
+    var t=Math.round(c.temperature_2m), fl=Math.round(c.apparent_temperature);
+    var wind=Math.round(c.wind_speed_10m);
+    var windDirs=['北','北偏东','东北','东偏北','东','东偏南','东南','南偏东','南','南偏西','西南','西偏南','西','西偏北','西北','北偏西'];
+    var windDir=windDirs[Math.round(c.wind_direction_10m/22.5)%16];
+    var hum=c.relative_humidity_2m, rain=c.precipitation||0, isDay=c.is_day===1;
+    var now=new Date(), hourIdx=now.getHours();
+    var alerts=[];
+    if(rain>25) alerts.push({t:'🌧️ 暴雨',m:'当前降水量'+rain+'mm，请检查田间排水通畅',l:'danger'});
+    else if(rain>=10) alerts.push({t:'🌧️ 中到大雨',m:'注意清沟理墒，防止作物受淹',l:'warn'});
+    if(wind>=50) alerts.push({t:'🌬️ 强风',m:'请固定大棚支架、收拢薄膜，严防作物倒伏',l:'danger'});
+    else if(wind>=25) alerts.push({t:'🌬️ 大风',m:'注意防范大棚薄膜撕裂，露天作物防倒伏',l:'warn'});
+    var todayMin=daily.temperature_2m_min[0];
+    if(todayMin<2) alerts.push({t:'❄️ 霜冻低温',m:'气温接近冰点，覆盖作物保温（加盖草帘），防止冻害',l:'danger'});
+    else if(todayMin<5) alerts.push({t:'❄️ 低温',m:'夜间保温，大棚加盖内膜或保温被',l:'warn'});
+    if(c.weather_code>=95) alerts.push({t:'⛈️ 雷暴',m:'避免户外作业，切断露天地头电源，注意人员安全',l:'danger'});
+    var rainyDays=0; for(var di=0;di<3;di++) if(daily.precipitation_sum[di]>1) rainyDays++;
+    if(rainyDays>=3) alerts.push({t:'🌧️ 连续阴雨',m:'未来3天多阴雨，关注排水，防治纹枯病/白粉病蔓延',l:'warn'});
+    var fcTags=['今天','明天','后天'];
+    var fcHtml='';
+    for(var di=0;di<3;di++){
+      var dmax=Math.round(daily.temperature_2m_max[di]);
+      var dmin=Math.round(daily.temperature_2m_min[di]);
+      var dwc=daily.weather_code[di], dp=Math.round(daily.precipitation_sum[di]);
+      var dw=Math.round(daily.wind_speed_10m_max[di]);
+      var tags=[];
+      if(dwc>=95) tags.push('防雷');
+      if(dp>15) tags.push('防涝');
+      if(dmin<5) tags.push('防霜');
+      if(dwc<=3&&dmax>25) tags.push('打药');
+      if(dwc===0&&dp===0) tags.push('晾晒');
+      if(tags.length===0) tags.push('田间管理');
+      var tagsHtml=tags.slice(0,2).map(function(x){return '<span class="fw-tag">'+x+'</span>';}).join('');
+      var isToday=di===0?'font-weight:700;color:var(--gold);':'';
+      fcHtml+='<div class="fw-day" style="'+isToday+'"><div class="fw-day-label">'+fcTags[di]+'</div><div class="fw-day-icon">'+codes[dwc]+'</div><div class="fw-day-temp">'+dmax+'°<span>/'+dmin+'°</span></div><div class="fw-day-info">'+names[dwc]+' '+dp+'mm '+dw+'km/h</div><div class="fw-day-tags">'+tagsHtml+'</div></div>';
+    }
+    var month=now.getMonth()+1;
+    var gt='';
+    if(month>=5&&month<=6){
+      if(daily.precipitation_sum[0]>5) gt={d:'🌾【小麦收割】今日有雨，不宜收割！提前检查收割机，利用停雨间隙抢收，及时烘干防霉变。',c:'🌾【小麦收割】今日有雨，不宜收割！提前检查收割机，利用停雨间隙抢收，及时烘干防霉变。'};
+      else if(daily.precipitation_sum[0]===0&&hum<70) gt={d:'🌾【小麦收割】今日适宜收割！建议上午10点后开始，露水干透再下地，割茬15-20cm，及时晾晒。',c:'🌾【小麦收割】今日适宜收割！建议上午10点后开始，露水干透再下地，割茬15-20cm，及时晾晒。'};
+      else gt={d:'🌾【小麦收割期】关注天气，抢收抢晒。小麦蜡熟末期为最佳收获期，籽粒含水量≤20%即可机械收割。',c:'🌾【小麦收割期】关注天气，抢收抢晒。小麦蜡熟末期为最佳收获期，籽粒含水量≤20%即可机械收割。'};
+    } else if(month>=3&&month<=4){
+      if(t>=12&&daily.precipitation_sum[0]>0) gt={d:'🌱【水稻育秧】温湿度适宜，抓紧播种！注意秧田水深，晴天勤通风炼苗，防止秧苗徒长。',c:'🌱【水稻育秧】温湿度适宜，抓紧播种！注意秧田水深，晴天勤通风炼苗，防止秧苗徒长。'};
+      else gt={d:'🌱【春播期】日均气温稳定通过12℃即可播种水稻。提前整地施肥，做好种子催芽，关注倒春寒。',c:'🌱【春播期】日均气温稳定通过12℃即可播种水稻。提前整地施肥，做好种子催芽，关注倒春寒。'};
+    } else if(month>=7&&month<=8){
+      if(t>=35) gt={d:'🌾【高温热害】气温'+t+'°C！日灌夜排降低田间温度，增施叶面肥（磷酸二氢钾），防止高温逼熟。',c:'🌾【高温热害】气温'+t+'°C！日灌夜排降低田间温度，增施叶面肥（磷酸二氢钾），防止高温逼熟。'};
+      else gt={d:'🌾【水稻管理】加强田间肥水管理，烤田控蘖，防治稻瘟病、纹枯病。注意高温时段避免下田。',c:'🌾【水稻管理】加强田间肥水管理，烤田控蘖，防治稻瘟病、纹枯病。注意高温时段避免下田。'};
+    } else if(month>=9&&month<=10){
+      gt={d:'🚜【秋收秋播】密切关注天气预报，确保水稻、玉米及时收获。收获后趁墒播种小麦，争取一播全苗。',c:'🚜【秋收秋播】密切关注天气预报，确保水稻、玉米及时收获。收获后趁墒播种小麦，争取一播全苗。'};
+    } else if(month>=11||month<=2){
+      if(todayMin<0) gt={d:'❄️【越冬管理】小麦镇压弥缝保墒，大蒜田覆盖稻草或薄膜防冻，检查果树绑扎防寒，及时清雪排水。',c:'❄️【越冬管理】小麦镇压弥缝保墒，大蒜田覆盖稻草或薄膜防冻，检查果树绑扎防寒，及时清雪排水。'};
+      else gt={d:'❄️【越冬期】做好清沟理墒，趁晴天追施腊肥，提高作物抗寒能力。检查农机具，备足来年春耕物资。',c:'❄️【越冬期】做好清沟理墒，趁晴天追施腊肥，提高作物抗寒能力。检查农机具，备足来年春耕物资。'};
+    } else {
+      gt={d:'🌿【日常管理】加强田间巡查，关注墒情变化，合理追肥打药，晴天及时防治病虫害。',c:'🌿【日常管理】加强田间巡查，关注墒情变化，合理追肥打药，晴天及时防治病虫害。'};
+    }
+    var loadingEl=document.getElementById('fwLoading');
+    var bodyEl=document.getElementById('fwBody');
+    var alertEl=document.getElementById('fwAlert');
+    var guideEl=document.getElementById('fwGuide');
+    loadingEl.style.display='none';
+    bodyEl.style.display='block';
+    bodyEl.innerHTML='<div class="fw-current"><div class="fw-now-icon">'+icon+'</div><div class="fw-now-main"><div class="fw-now-name">'+name+'</div><div class="fw-now-time">'+(isDay?'白':'夜')+'间 · '+now.getHours()+':00更新</div></div><div class="fw-now-temp">'+t+'<span>°C</span></div></div><div class="fw-data-row"><div class="fw-data-item"><span class="fw-data-label">体感</span><span class="fw-data-val">'+fl+'°C</span></div><div class="fw-data-item"><span class="fw-data-label">湿度</span><span class="fw-data-val">'+hum+'%</span></div><div class="fw-data-item"><span class="fw-data-label">风速</span><span class="fw-data-val">'+wind+'km/h</span></div><div class="fw-data-item"><span class="fw-data-label">降水</span><span class="fw-data-val">'+(rain>0?rain+'mm':'无')+'</span></div></div><div class="fw-data-row" style="margin-top:5px"><div class="fw-data-item"><span class="fw-data-label">最高</span><span class="fw-data-val" style="color:var(--orange)">'+Math.round(daily.temperature_2m_max[0])+'°</span></div><div class="fw-data-item"><span class="fw-data-label">最低</span><span class="fw-data-val" style="color:var(--blue)">'+Math.round(daily.temperature_2m_min[0])+'°</span></div><div class="fw-data-item"><span class="fw-data-label">地温</span><span class="fw-data-val">'+Math.round(h.soil_temperature_0cm[hourIdx]||t)+'°</span></div><div class="fw-data-item"><span class="fw-data-label">风向</span><span class="fw-data-val">'+windDir+'</span></div></div><div class="fw-section-label">📅 3日天气预报</div><div class="fw-forecast">'+fcHtml+'</div>';
+    if(alerts.length>0){
+      alertEl.style.display='block';
+      alertEl.innerHTML='<div class="fw-alert-title">⚠️ 风险提示</div>'+alerts.map(function(a){return '<div class="fw-alert-item fw-alert-'+a.l+'"><span class="fw-alert-t">'+a.t+'</span><span>'+a.m+'</span></div>';}).join('');
+    }
+    guideEl.style.display='block';
+    guideEl.innerHTML='<div class="fw-guide-title">🚜 今日田间作业</div><div class="fw-guide-text" id="fwGuideText">'+gt.d+'</div><button class="fw-copy-btn" onclick="fwCopy()">📋 一键复制</button><textarea id="fwCopySrc" style="display:none">'+gt.c+'</textarea>';
+  }).catch(function(){
+    var el=document.getElementById('fwLoading');
+    if(el) el.innerHTML='<div style="text-align:center;color:var(--text-muted);padding:12px;font-size:13px;">天气加载失败<br><a href="sheyang.html" style="color:var(--gold)">点击查看射阳天气 →</a></div>';
   });
 })();
+function fwCopy(){
+  var src=document.getElementById('fwCopySrc');
+  if(!src)return;
+  var text=src.value;
+  var btn=document.querySelector('.fw-copy-btn');
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){btn.textContent='✅ 已复制';setTimeout(function(){btn.textContent='📋 一键复制';},2000);});
+  } else {
+    var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    btn.textContent='✅ 已复制';setTimeout(function(){btn.textContent='📋 一键复制';},2000);
+  }
+}
 </script>
 <script src="js/search.js"></script>
 <script src="js/app.js"></script>

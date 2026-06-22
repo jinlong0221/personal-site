@@ -769,3 +769,245 @@ html, body {
     font-size: 2.6rem;
   }
 }
+
+/* ===== 新坍镇农田气象卡片 ===== */
+.farm-weather-card {
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+/* 深色模式：黑底金边国风 */
+[data-theme="dark"] .farm-weather-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #1e1e1e 100%);
+  border-color: #c9a84c;
+  box-shadow: 0 2px 12px rgba(201,168,76,0.08);
+}
+/* 浅色模式：米白底深字 */
+[data-theme="light"] .farm-weather-card {
+  background: #fffef8;
+  border-color: #c9a84c;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+/* 卡片头部 */
+.fw-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(201,168,76,0.06);
+}
+[data-theme="dark"] .fw-header { background: rgba(201,168,76,0.08); }
+[data-theme="light"] .fw-header { background: rgba(201,168,76,0.05); }
+.fw-title {
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.3px;
+}
+[data-theme="light"] .fw-title { color: #8B6914; }
+.fw-more {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+.fw-more:hover { color: var(--gold); }
+
+/* 加载动画 */
+.fw-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 24px;
+  color: var(--text-muted);
+}
+.fw-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: fwPulse 1.2s ease-in-out infinite;
+}
+.fw-dot:nth-child(2){ animation-delay: 0.2s; }
+.fw-dot:nth-child(3){ animation-delay: 0.4s; }
+@keyframes fwPulse {
+  0%,100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* 主体 */
+.fw-body { padding: 12px 14px 10px; }
+
+/* 当前天气 */
+.fw-current {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.fw-now-icon { font-size: 2.2rem; flex-shrink: 0; line-height: 1; }
+.fw-now-main { flex: 1; }
+.fw-now-name { font-size: 15px; font-weight: 700; color: var(--text); }
+.fw-now-time { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+.fw-now-temp {
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -1px;
+}
+.fw-now-temp span { font-size: 1rem; font-weight: 400; color: var(--text-secondary); }
+
+/* 数据行 */
+.fw-data-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.fw-data-item {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 6px 4px;
+  text-align: center;
+}
+[data-theme="light"] .fw-data-item { background: rgba(0,0,0,0.04); }
+.fw-data-label {
+  display: block;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.fw-data-val { font-size: 12px; font-weight: 700; color: var(--text); }
+
+/* 分区标题 */
+.fw-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 10px 0 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* 3日预报 */
+.fw-forecast {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.fw-day {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 8px 6px;
+  text-align: center;
+}
+[data-theme="light"] .fw-day { background: rgba(0,0,0,0.04); }
+.fw-day-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px; }
+.fw-day-icon { font-size: 1.5rem; margin-bottom: 3px; }
+.fw-day-temp { font-size: 15px; font-weight: 900; color: var(--text); }
+.fw-day-temp span { font-size: 11px; font-weight: 400; color: var(--text-secondary); }
+.fw-day-info { font-size: 10px; color: var(--text-muted); margin-top: 2px; line-height: 1.3; }
+.fw-day-tags { display: flex; gap: 3px; justify-content: center; flex-wrap: wrap; margin-top: 4px; }
+.fw-tag {
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 6px;
+  background: rgba(201,168,76,0.12);
+  color: var(--gold);
+  font-weight: 700;
+  white-space: nowrap;
+}
+[data-theme="light"] .fw-tag { background: rgba(139,105,20,0.1); color: #6B4F00; }
+
+/* 灾害预警 */
+.fw-alert {
+  margin: 0 14px 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.fw-alert-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+.fw-alert-item {
+  border-radius: 8px;
+  padding: 7px 10px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.fw-alert-danger {
+  background: rgba(220,50,50,0.12);
+  border-left: 3px solid #dc3232;
+}
+[data-theme="light"] .fw-alert-danger { background: rgba(220,50,50,0.08); }
+.fw-alert-warn {
+  background: rgba(255,140,0,0.10);
+  border-left: 3px solid #ff8c00;
+}
+[data-theme="light"] .fw-alert-warn { background: rgba(255,140,0,0.08); }
+.fw-alert-t { font-weight: 700; color: #ff8c00; font-size: 12px; }
+[data-theme="light"] .fw-alert-t { color: #c05000; }
+.fw-alert-item span:last-child { color: var(--text-secondary); font-size: 11px; line-height: 1.4; }
+
+/* 田间作业指导 */
+.fw-guide {
+  padding: 10px 14px 14px;
+  border-top: 1px solid var(--border);
+}
+.fw-guide-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+.fw-guide-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  background: var(--bg);
+  border-radius: 8px;
+  border-left: 3px solid var(--green);
+}
+[data-theme="light"] .fw-guide-text { background: rgba(0,0,0,0.04); }
+.fw-copy-btn {
+  width: 100%;
+  padding: 7px;
+  border-radius: 8px;
+  background: rgba(201,168,76,0.10);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.fw-copy-btn:active { background: rgba(201,168,76,0.2); }
+
+/* ===== 响应式：移动端 ===== */
+@media (max-width: 480px) {
+  .fw-data-row { grid-template-columns: repeat(2, 1fr); }
+  .fw-now-temp { font-size: 2rem; }
+  .fw-header { padding: 10px 12px 8px; }
+  .fw-body { padding: 10px 12px 8px; }
+  .fw-alert { margin: 0 12px 8px; }
+  .fw-guide { padding: 8px 12px 12px; }
+  .fw-forecast { gap: 4px; }
+  .fw-day { padding: 7px 4px; }
+  .fw-day-temp { font-size: 13px; }
+}

@@ -308,45 +308,49 @@ body { font-size: 17px !important; }
 
     // ===== 24小时逐时预报（带日期标签）=====
     var hourlyHtml='';
-    // 计算今天/明天/后天日期字符串
     var nowDate=new Date(); nowDate.setHours(0,0,0,0);
     var todayStr=nowDate.toISOString().slice(0,10);
     var tomorrowDate=new Date(nowDate); tomorrowDate.setDate(tomorrowDate.getDate()+1);
     var tomorrowStr=tomorrowDate.toISOString().slice(0,10);
     var dayAfterDate=new Date(nowDate); dayAfterDate.setDate(dayAfterDate.getDate()+2);
     var dayAfterStr=dayAfterDate.toISOString().slice(0,10);
-    var lastDateStr=''; // 记录上一个时段的日期
-    for(var hi=0;hi<24;hi++){
-      var realIdx=hourIdx+hi; // 真实索引（API返回96小时数据）
-      var hIcon=codes[h.weather_code[realIdx]]||'🌡️';
-      var hTemp=Math.round(h.temperature_2m[realIdx]);
-      var hRain=h.precipitation_probability[realIdx]||0;
-      // 获取当前时段的日期
-      var currentTimeStr=h.time?h.time[realIdx]:null;
-      var currentDateStr=currentTimeStr?currentTimeStr.slice(0,10):todayStr;
-      // 判断是否是新的一天，生成日期标签
-      var dayLabel='';
-      if(currentDateStr!==lastDateStr){
-        if(currentDateStr===todayStr) dayLabel='今天';
-        else if(currentDateStr===tomorrowStr) dayLabel='明天';
-        else if(currentDateStr===dayAfterStr) dayLabel='后天';
-        else dayLabel=currentDateStr.slice(5);
+    var lastDateStr='';
+    // 确保hourly数组存在且够长
+    if(!h.temperature_2m||!h.weather_code){
+      hourlyHtml='<div style="padding:16px;color:var(--text-muted)">数据加载中...</div>';
+    } else {
+      for(var hi=0;hi<24;hi++){
+        var realIdx=hourIdx+hi;
+        if(realIdx>=h.temperature_2m.length) break;
+        var hIcon=codes[h.weather_code[realIdx]]||'🌡️';
+        var hTemp=Math.round(h.temperature_2m[realIdx]);
+        var hRain=h.precipitation_probability[realIdx]||0;
+        var currentDateStr=todayStr;
+        if(h.time&&h.time[realIdx]){
+          var ct=h.time[realIdx];
+          if(ct) currentDateStr=ct.slice(0,10);
+        }
+        var dayLabel='';
+        if(currentDateStr!==lastDateStr){
+          if(currentDateStr===todayStr) dayLabel='今天';
+          else if(currentDateStr===tomorrowStr) dayLabel='明天';
+          else if(currentDateStr===dayAfterStr) dayLabel='后天';
+          else dayLabel=currentDateStr.slice(5);
+        }
+        lastDateStr=currentDateStr;
+        var displayHour=(hourIdx+hi)%24;
+        var hTime=displayHour<10?'0'+displayHour+':00':displayHour+':00';
+        if(hi===0) hTime='现在';
+        var dayClass=dayLabel?' xw-h-day-start':'';
+        var dayBadge=dayLabel?'<div class="xw-h-day-badge">'+dayLabel+'</div>':'';
+        hourlyHtml+='<div class="xw-h-item'+dayClass+'">'+
+          dayBadge+
+          '<div class="xw-h-time">'+hTime+'</div>'+
+          '<div class="xw-h-icon">'+hIcon+'</div>'+
+          '<div class="xw-h-temp">'+hTemp+'°</div>'+
+          (hRain>20?'<div class="xw-h-rain">💧'+hRain+'%</div>':'')+
+        '</div>';
       }
-      lastDateStr=currentDateStr;
-      // 时间显示（用当前小时+偏移计算）
-      var displayHour=(hourIdx+hi)%24;
-      var hTime=displayHour<10?'0'+displayHour+':00':displayHour+':00';
-      if(hi===0) hTime='现在';
-      // 生成时段卡片HTML（含日期标签）
-      var dayClass=dayLabel?' xw-h-day-start':'';
-      var dayBadge=dayLabel?'<div class="xw-h-day-badge">'+dayLabel+'</div>':'':'';
-      hourlyHtml+='<div class="xw-h-item'+dayClass+'">'+
-        dayBadge+
-        '<div class="xw-h-time">'+hTime+'</div>'+
-        '<div class="xw-h-icon">'+hIcon+'</div>'+
-        '<div class="xw-h-temp">'+hTemp+'°</div>'+
-        (hRain>20?'<div class="xw-h-rain">💧'+hRain+'%</div>':'')+
-      '</div>';
     }
 
     // ===== 灾害预警HTML =====

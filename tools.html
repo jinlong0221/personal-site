@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>龙兄工具箱 - 龙兄知识库</title>
-<meta name="description" content="实用小工具集合：手串尺寸计算器、行程备忘录、BMI计算器、单位换算器。">
+<meta name="description" content="实用小工具：单位换算器（长度、重量、温度）。">
 <meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <link rel="stylesheet" href="css/style.css">
@@ -28,20 +28,14 @@
     line-height: 1.6;
   }
 
-  /* 工具卡片网格 */
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin: 32px 0;
-  }
-
   /* 工具卡片 */
   .tool-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 24px;
+    max-width: 600px;
+    margin: 32px auto;
     box-shadow: var(--shadow-sm);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background var(--transition);
     border-top: 4px solid var(--orange);
@@ -181,108 +175,19 @@
     color: var(--orange);
   }
 
-  /* 行程备忘录样式 */
-  .memo-list {
-    margin-top: 16px;
-    max-height: 300px;
-    overflow-y: auto;
-  }
-
-  .memo-item {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    transition: background var(--transition);
-  }
-
-  .memo-item:hover {
-    background: var(--card-hover);
-  }
-
-  .memo-item.completed {
-    opacity: 0.6;
-  }
-
-  .memo-item.completed .memo-content {
-    text-decoration: line-through;
-  }
-
-  .memo-checkbox {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    margin-top: 2px;
-  }
-
-  .memo-content {
-    flex: 1;
-  }
-
-  .memo-content .memo-date {
-    font-size: 0.8rem;
-    color: var(--orange);
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-
-  .memo-content .memo-title {
-    font-size: 0.95rem;
-    color: var(--text);
-    font-weight: 600;
-    margin-bottom: 2px;
-  }
-
-  .memo-content .memo-note {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-  }
-
-  .memo-delete {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding: 4px;
-    min-width: 32px;
-    min-height: 32px;
-    transition: color var(--transition);
-  }
-
-  .memo-delete:hover {
-    color: var(--red);
-  }
-
-  .memo-empty {
-    text-align: center;
-    padding: 24px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-
-  /* 响应式：移动端 */
-  @media (max-width: 768px) {
-    .tools-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .tools-header h1 {
-      font-size: 1.6rem;
-    }
-  }
-
+  /* 响应式 */
   @media (max-width: 480px) {
     .tool-card {
       padding: 16px;
+      margin: 24px 16px;
     }
 
     .tools-header {
       padding: 24px 0 12px;
+    }
+
+    .tools-header h1 {
+      font-size: 1.6rem;
     }
   }
 </style>
@@ -315,6 +220,7 @@
     <a href="tools.html">在线小工具</a>
   </div>
 </nav>
+
 <!-- ========== 主内容区 ========== -->
 <main class="container">
 
@@ -331,141 +237,42 @@
     <p class="subtitle">实用小工具，助你更懂文玩、药材、出行</p>
   </div>
 
-  <!-- 工具卡片网格 -->
-  <div class="tools-grid">
+  <!-- 单位换算器 -->
+  <div class="tool-card">
+    <h2><span class="icon">🔄</span> 单位换算器</h2>
+    <p>支持长度、重量、温度单位的快速换算。</p>
 
-    <!-- 工具1：手串尺寸计算器 -->
-    <div class="tool-card">
-      <h2><span class="icon">📿</span> 手串尺寸计算器</h2>
-      <p>输入手腕周长、珠子直径和颗数，自动计算合适手围和佩戴建议。</p>
-
-      <form class="tool-form" id="braceletForm">
-        <div class="form-group">
-          <label for="wristSize">手腕周长 (mm)</label>
-          <input type="number" id="wristSize" placeholder="例如：160" min="100" max="250" step="1" required>
-          <span class="error-msg">请输入 100-250 之间的数值</span>
-        </div>
-
-        <div class="form-group">
-          <label for="beadDiameter">珠子直径 (mm)</label>
-          <input type="number" id="beadDiameter" placeholder="例如：8" min="4" max="20" step="0.5" required>
-          <span class="error-msg">请输入 4-20 之间的数值</span>
-        </div>
-
-        <div class="form-group">
-          <label for="beadCount">珠子颗数</label>
-          <input type="number" id="beadCount" placeholder="例如：108" min="10" max="200" step="1" required>
-          <span class="error-msg">请输入 10-200 之间的整数</span>
-        </div>
-
-        <button type="submit" class="btn-calc">计算手串尺寸</button>
-      </form>
-
-      <div class="result-box" id="braceletResult">
-        <h3>计算结果</h3>
-        <p>手串总长度：<span class="highlight" id="braceletLength">-</span> mm</p>
-        <p>合适手围：<span class="highlight" id="suitableWrist">-</span> mm</p>
-        <p id="braceletAdvice">-</p>
-        <p id="spacerAdvice">-</p>
+    <form class="tool-form" id="convertForm">
+      <div class="form-group">
+        <label for="convertType">换算类型</label>
+        <select id="convertType">
+          <option value="length">长度：寸 ↔ cm</option>
+          <option value="weight">重量：两 ↔ g</option>
+          <option value="temp">温度：℃ ↔ ℉</option>
+        </select>
       </div>
-    </div>
 
-    <!-- 工具2：行程备忘录 -->
-    <div class="tool-card">
-      <h2><span class="icon">📋</span> 行程备忘录</h2>
-      <p>记录出行计划和待办事项，数据保存在本地浏览器中。</p>
-
-      <form class="tool-form" id="memoForm">
-        <div class="form-group">
-          <label for="memoDate">日期</label>
-          <input type="date" id="memoDate" required>
-        </div>
-
-        <div class="form-group">
-          <label for="memoTitle">事项</label>
-          <input type="text" id="memoTitle" placeholder="例如：去三亚旅行" maxlength="100" required>
-        </div>
-
-        <div class="form-group">
-          <label for="memoNote">备注（可选）</label>
-          <input type="text" id="memoNote" placeholder="例如：记得带防晒霜" maxlength="200">
-        </div>
-
-        <button type="submit" class="btn-calc">添加备忘录</button>
-      </form>
-
-      <div class="memo-list" id="memoList">
-        <div class="memo-empty">暂无备忘录，添加一条吧！</div>
+      <div class="form-group">
+        <label for="convertValue">输入数值</label>
+        <input type="number" id="convertValue" placeholder="例如：10" step="any" required>
+        <span class="error-msg">请输入有效数值</span>
       </div>
-    </div>
 
-    <!-- 工具3：BMI计算器 -->
-    <div class="tool-card">
-      <h2><span class="icon">⚖️</span> BMI 计算器</h2>
-      <p>输入身高和体重，快速计算 BMI 值和体型分类。</p>
-
-      <form class="tool-form" id="bmiForm">
-        <div class="form-group">
-          <label for="height">身高 (cm)</label>
-          <input type="number" id="height" placeholder="例如：170" min="50" max="250" step="0.1" required>
-          <span class="error-msg">请输入 50-250 之间的数值</span>
-        </div>
-
-        <div class="form-group">
-          <label for="weight">体重 (kg)</label>
-          <input type="number" id="weight" placeholder="例如：65" min="20" max="300" step="0.1" required>
-          <span class="error-msg">请输入 20-300 之间的数值</span>
-        </div>
-
-        <button type="submit" class="btn-calc">计算 BMI</button>
-      </form>
-
-      <div class="result-box" id="bmiResult">
-        <h3>计算结果</h3>
-        <p>您的 BMI 值：<span class="highlight" id="bmiValue">-</span></p>
-        <p>体型分类：<span class="highlight" id="bmiCategory">-</span></p>
-        <p id="bmiAdvice">-</p>
+      <div class="form-group">
+        <label for="convertDirection">换算方向</label>
+        <select id="convertDirection">
+          <option value="forward">转换为目标单位</option>
+          <option value="backward">反向换算</option>
+        </select>
       </div>
+
+      <button type="submit" class="btn-calc">开始换算</button>
+    </form>
+
+    <div class="result-box" id="convertResult">
+      <h3>换算结果</h3>
+      <p id="convertOutput">-</p>
     </div>
-
-    <!-- 工具4：单位换算器 -->
-    <div class="tool-card">
-      <h2><span class="icon">🔄</span> 单位换算器</h2>
-      <p>支持长度、重量、温度单位的快速换算。</p>
-
-      <form class="tool-form" id="convertForm">
-        <div class="form-group">
-          <label for="convertType">换算类型</label>
-          <select id="convertType">
-            <option value="length">长度：寸 ↔ cm</option>
-            <option value="weight">重量：两 ↔ g</option>
-            <option value="temp">温度：℃ ↔ ℉</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="convertValue">输入数值</label>
-          <input type="number" id="convertValue" placeholder="例如：10" step="any" required>
-          <span class="error-msg">请输入有效数值</span>
-        </div>
-
-        <div class="form-group">
-          <label for="convertDirection">换算方向</label>
-          <select id="convertDirection">
-            <option value="forward">转换为目标单位</option>
-            <option value="backward">反向换算</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn-calc">开始换算</button>
-      </form>
-
-      <div class="result-box" id="convertResult">
-        <h3>换算结果</h3>
-        <p id="convertOutput">-</p>
-      </div>
-    </div>
-
   </div>
 
 </main>
@@ -483,317 +290,7 @@
 (function() {
   'use strict';
 
-  // ============================================================
-  // 工具1：手串尺寸计算器
-  // ============================================================
-  var braceletForm = document.getElementById('braceletForm');
-  var braceletResult = document.getElementById('braceletResult');
-
-  if (braceletForm) {
-    braceletForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      var wristInput = document.getElementById('wristSize');
-      var beadDiameterInput = document.getElementById('beadDiameter');
-      var beadCountInput = document.getElementById('beadCount');
-
-      var wrist = parseFloat(wristInput.value);
-      var diameter = parseFloat(beadDiameterInput.value);
-      var count = parseInt(beadCountInput.value);
-
-      // 表单验证
-      var valid = true;
-
-      if (isNaN(wrist) || wrist < 100 || wrist > 250) {
-        wristInput.classList.add('error');
-        valid = false;
-      } else {
-        wristInput.classList.remove('error');
-      }
-
-      if (isNaN(diameter) || diameter < 4 || diameter > 20) {
-        beadDiameterInput.classList.add('error');
-        valid = false;
-      } else {
-        beadDiameterInput.classList.remove('error');
-      }
-
-      if (isNaN(count) || count < 10 || count > 200) {
-        beadCountInput.classList.add('error');
-        valid = false;
-      } else {
-        beadCountInput.classList.remove('error');
-      }
-
-      if (!valid) return;
-
-      // 计算
-      var braceletLength = diameter * count;
-      var suitableWristMin = braceletLength - 15;
-      var suitableWristMax = braceletLength - 10;
-
-      // 显示结果
-      document.getElementById('braceletLength').textContent = braceletLength.toFixed(1);
-      document.getElementById('suitableWrist').textContent = suitableWristMin.toFixed(0) + ' - ' + suitableWristMax.toFixed(0);
-
-      // 佩戴建议
-      var advice = '';
-      if (wrist < suitableWristMin) {
-        advice = '⚠️ 您的手腕较细，建议减少珠子颗数或选择较小直径。';
-      } else if (wrist > suitableWristMax) {
-        advice = '⚠️ 您的手腕较粗，建议增加珠子颗数或选择较大直径。';
-      } else {
-        advice = '✅ 尺寸合适！这款手串适合您的手腕。';
-      }
-      document.getElementById('braceletAdvice').textContent = advice;
-
-      // 隔珠建议
-      var spacerAdvice = '';
-      if (count <= 18) {
-        spacerAdvice = '💡 建议：颗数较少时，可加入 2-4 颗隔珠增加长度和调整间距。';
-      } else if (count >= 108) {
-        spacerAdvice = '💡 提示：108 颗为佛珠标准数，可加入隔珠分区，每 27 颗一隔。';
-      } else {
-        spacerAdvice = '💡 建议：可适当加入隔珠美化手串。';
-      }
-      document.getElementById('spacerAdvice').textContent = spacerAdvice;
-
-      braceletResult.classList.add('show');
-    });
-
-    // 实时清除错误状态
-    ['wristSize', 'beadDiameter', 'beadCount'].forEach(function(id) {
-      var input = document.getElementById(id);
-      if (input) {
-        input.addEventListener('input', function() {
-          this.classList.remove('error');
-        });
-      }
-    });
-  }
-
-  // ============================================================
-  // 工具2：行程备忘录
-  // ============================================================
-  var memoForm = document.getElementById('memoForm');
-  var memoList = document.getElementById('memoList');
-  var MEMO_STORAGE_KEY = 'longxiong_memos';
-
-  // 加载备忘录
-  function loadMemos() {
-    try {
-      var data = localStorage.getItem(MEMO_STORAGE_KEY);
-      return data ? JSON.parse(data) : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  // 保存备忘录
-  function saveMemos(memos) {
-    try {
-      localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(memos));
-    } catch (e) {
-      console.error('保存备忘录失败:', e);
-    }
-  }
-
-  // 渲染备忘录列表
-  function renderMemos() {
-    var memos = loadMemos();
-
-    if (memos.length === 0) {
-      memoList.innerHTML = '<div class="memo-empty">暂无备忘录，添加一条吧！</div>';
-      return;
-    }
-
-    // 按日期排序（最近的在前面）
-    memos.sort(function(a, b) {
-      return new Date(b.date) - new Date(a.date);
-    });
-
-    var html = '';
-    memos.forEach(function(memo, index) {
-      var completedClass = memo.completed ? ' completed' : '';
-      html += '<div class="memo-item' + completedClass + '" data-index="' + memo.id + '">' +
-                '<input type="checkbox" class="memo-checkbox" ' + (memo.completed ? 'checked' : '') + ' data-id="' + memo.id + '">' +
-                '<div class="memo-content">' +
-                  '<div class="memo-date">' + escapeHtml(memo.date) + '</div>' +
-                  '<div class="memo-title">' + escapeHtml(memo.title) + '</div>' +
-                  (memo.note ? '<div class="memo-note">' + escapeHtml(memo.note) + '</div>' : '') +
-                '</div>' +
-                '<button class="memo-delete" data-id="' + memo.id + '" title="删除">×</button>' +
-              '</div>';
-    });
-
-    memoList.innerHTML = html;
-  }
-
-  // HTML 转义
-  function escapeHtml(text) {
-    var div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  // 生成唯一 ID
-  function generateId() {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
-  }
-
-  // 初始化：渲染已有备忘录
-  renderMemos();
-
-  // 添加备忘录
-  if (memoForm) {
-    memoForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      var dateInput = document.getElementById('memoDate');
-      var titleInput = document.getElementById('memoTitle');
-      var noteInput = document.getElementById('memoNote');
-
-      var date = dateInput.value;
-      var title = titleInput.value.trim();
-      var note = noteInput.value.trim();
-
-      if (!date || !title) {
-        return;
-      }
-
-      var memos = loadMemos();
-      memos.push({
-        id: generateId(),
-        date: date,
-        title: title,
-        note: note,
-        completed: false,
-        createdAt: Date.now()
-      });
-
-      saveMemos(memos);
-      renderMemos();
-
-      // 清空表单
-      titleInput.value = '';
-      noteInput.value = '';
-      dateInput.value = '';
-    });
-  }
-
-  // 委托事件：勾选完成 / 删除
-  if (memoList) {
-    memoList.addEventListener('click', function(e) {
-      var memos = loadMemos();
-
-      // 勾选完成
-      var checkbox = e.target.closest('.memo-checkbox');
-      if (checkbox) {
-        var id = checkbox.getAttribute('data-id');
-        memos = memos.map(function(memo) {
-          if (memo.id === id) {
-            memo.completed = checkbox.checked;
-          }
-          return memo;
-        });
-        saveMemos(memos);
-        renderMemos();
-        return;
-      }
-
-      // 删除
-      var deleteBtn = e.target.closest('.memo-delete');
-      if (deleteBtn) {
-        var id = deleteBtn.getAttribute('data-id');
-        memos = memos.filter(function(memo) {
-          return memo.id !== id;
-        });
-        saveMemos(memos);
-        renderMemos();
-      }
-    });
-  }
-
-  // ============================================================
-  // 工具3：BMI 计算器
-  // ============================================================
-  var bmiForm = document.getElementById('bmiForm');
-  var bmiResult = document.getElementById('bmiResult');
-
-  if (bmiForm) {
-    bmiForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      var heightInput = document.getElementById('height');
-      var weightInput = document.getElementById('weight');
-
-      var height = parseFloat(heightInput.value);
-      var weight = parseFloat(weightInput.value);
-
-      // 表单验证
-      var valid = true;
-
-      if (isNaN(height) || height < 50 || height > 250) {
-        heightInput.classList.add('error');
-        valid = false;
-      } else {
-        heightInput.classList.remove('error');
-      }
-
-      if (isNaN(weight) || weight < 20 || weight > 300) {
-        weightInput.classList.add('error');
-        valid = false;
-      } else {
-        weightInput.classList.remove('error');
-      }
-
-      if (!valid) return;
-
-      // 计算 BMI
-      var heightM = height / 100;
-      var bmi = weight / (heightM * heightM);
-      bmi = Math.round(bmi * 10) / 10;
-
-      // 分类
-      var category = '';
-      var advice = '';
-
-      if (bmi < 18.5) {
-        category = '偏瘦';
-        advice = '💡 建议适当增加营养摄入，进行力量训练增加肌肉量。';
-      } else if (bmi < 24) {
-        category = '正常';
-        advice = '✅ 体型标准！继续保持良好的饮食和运动习惯。';
-      } else if (bmi < 28) {
-        category = '偏胖';
-        advice = '💡 建议适当控制饮食，增加有氧运动。';
-      } else {
-        category = '肥胖';
-        advice = '⚠️ 建议咨询医生或营养师，制定科学的减重计划。';
-      }
-
-      // 显示结果
-      document.getElementById('bmiValue').textContent = bmi;
-      document.getElementById('bmiCategory').textContent = category;
-      document.getElementById('bmiAdvice').textContent = advice;
-
-      bmiResult.classList.add('show');
-    });
-
-    // 实时清除错误状态
-    ['height', 'weight'].forEach(function(id) {
-      var input = document.getElementById(id);
-      if (input) {
-        input.addEventListener('input', function() {
-          this.classList.remove('error');
-        });
-      }
-    });
-  }
-
-  // ============================================================
-  // 工具4：单位换算器
-  // ============================================================
+  // 单位换算器
   var convertForm = document.getElementById('convertForm');
   var convertResult = document.getElementById('convertResult');
 
@@ -820,11 +317,9 @@
         case 'length':
           // 寸 ↔ cm: 1 寸 = 3.333 cm
           if (direction === 'forward') {
-            // 寸 to cm
             var cm = value * 3.333;
             output = value + ' 寸 = ' + cm.toFixed(2) + ' cm';
           } else {
-            // cm to 寸
             var cun = value / 3.333;
             output = value + ' cm = ' + cun.toFixed(2) + ' 寸';
           }
@@ -833,11 +328,9 @@
         case 'weight':
           // 两 ↔ g: 1 两 = 50 g
           if (direction === 'forward') {
-            // 两 to g
             var g = value * 50;
             output = value + ' 两 = ' + g.toFixed(0) + ' g';
           } else {
-            // g to 两
             var liang = value / 50;
             output = value + ' g = ' + liang.toFixed(2) + ' 两';
           }
@@ -846,11 +339,9 @@
         case 'temp':
           // ℃ ↔ ℉: ℉ = ℃ × 9/5 + 32
           if (direction === 'forward') {
-            // ℃ to ℉
             var f = value * 9 / 5 + 32;
             output = value + ' ℃ = ' + f.toFixed(1) + ' ℉';
           } else {
-            // ℉ to ℃
             var c = (value - 32) * 5 / 9;
             output = value + ' ℉ = ' + c.toFixed(1) + ' ℃';
           }

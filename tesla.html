@@ -8,8 +8,6 @@
 <meta name="description" content="特斯拉全系车型解析与用车科普：Model 3/Y/S/X/Cybertruck参数配置、充电指南、配件推荐、保养维修。">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <link rel="stylesheet" href="css/style.css">
-<script src="js/search.js"></script>
-<script src="js/app.js"></script>
 <style>
 /* ===== 特斯拉页面专用样式（卡片索引页） ===== */
 
@@ -383,17 +381,8 @@
 <!-- 主题切换按钮 -->
 
 
-<!-- 主题切换兼容脚本 -->
-<script>
-(function(){
-  var btn = document.getElementById('tb');
-  if(btn){
-    btn.addEventListener('click', function(){
-      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
-    });
-  }
-})();
-</script>
+
+<script src="js/search.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

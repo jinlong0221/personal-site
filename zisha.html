@@ -170,14 +170,6 @@
   font-size: 0.72rem;
   border: 1px solid var(--border);
 }
-.work-card .price-tag {
-  background: linear-gradient(135deg, var(--zisha-warm), var(--zisha-red));
-  color: #fff;
-  padding: 2px 8px;
-  border-radius: 8px;
-  font-size: 0.72rem;
-}
-[data-theme="dark"] .work-card .price-tag { background: linear-gradient(135deg, #4E342E, #5D4037); }
 
 /* Lightbox */
 .lightbox {
@@ -215,50 +207,12 @@
   width: 100%;
 }
 
-/* 文化合作卡 */
-.coop-card {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background: var(--zisha-card);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  margin-bottom: 16px;
-  align-items: center;
-}
-.coop-card img {
-  width: 120px;
-  height: 120px;
-  min-width: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-.coop-card .coop-info { flex: 1; }
-.coop-card .coop-name {
-  font-weight: 600;
-  color: var(--zisha-accent);
-  margin-bottom: 6px;
-}
-.coop-card .coop-desc {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-.coop-card .coop-work {
-  font-size: 0.8rem;
-  color: var(--zisha-gold);
-  margin-top: 6px;
-  font-weight: 500;
-}
-
 /* 响应式 */
 @media (max-width: 768px) {
   .artist-card { flex-direction: column; align-items: center; text-align: center; }
   .artist-card .portrait { width: 140px; min-width: 140px; }
   .artist-card .titles { justify-content: center; }
   .works-grid { grid-template-columns: 1fr; }
-  .coop-card { flex-direction: column; text-align: center; }
-  .coop-card img { width: 100%; height: 200px; }
 }
 </style>
 </head>
@@ -347,49 +301,49 @@
         <img src="img/zisha/zisha_p12_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">五色釉柴烧茶器</div>
-          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span><span class="price-tag">¥288</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/zisha_p13_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">五色釉柴烧茶器</div>
-          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span><span class="price-tag">¥288</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/zisha_p14_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">五色釉柴烧茶器</div>
-          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span><span class="price-tag">¥288</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/zisha_p15_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">五色釉柴烧茶器</div>
-          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">60ml</span><span class="price-tag">¥499</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">60ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/zisha_p16_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">五色釉柴烧茶器</div>
-          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">260ml</span><span class="price-tag">¥600</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">260ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/zisha_p17_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">五色釉柴烧茶器</div>
-          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">280ml</span><span class="price-tag">¥600</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">280ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/zisha_p18_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">五色釉柴烧茶器</div>
-          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">280ml</span><span class="price-tag">¥600</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">280ml</span></div>
         </div>
       </div>
     </div>
@@ -406,21 +360,21 @@
         <img src="img/zisha/zisha_p19_0.jpeg" alt="圆润杯" data-caption="圆润杯" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">圆润杯</div>
-          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">400ml</span><span class="price-tag">¥280</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">400ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/zisha_p20_0.jpeg" alt="菱花如意杯" data-caption="菱花如意杯" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">菱花如意杯</div>
-          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">350ml</span><span class="price-tag">¥280</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">350ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/zisha_p21_0.jpeg" alt="宝葫杯" data-caption="宝葫杯" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">宝葫杯</div>
-          <div class="work-meta"><span class="meta-tag">原矿清水泥</span><span class="meta-tag">280ml</span><span class="price-tag">¥280</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿清水泥</span><span class="meta-tag">280ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -428,7 +382,7 @@
         <div class="card-body">
           <div class="work-name">吉祥如意杯</div>
           <div class="work-desc">此杯设计化镂空灵珠为盖钮，精妙秀巧，腰线贯穿杯身，束出盖杯硬朗挺拔之姿。以佛灯造型点缀杯盖，整体似"吉"字，寓意吉祥如意、时来运转。</div>
-          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">500ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">500ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -436,7 +390,7 @@
         <div class="card-body">
           <div class="work-name">盛世祥龙杯</div>
           <div class="work-desc">设计创意源自新石器时代红山文化玉龙，红山文化与紫砂文化相结合，化国宝玉龙之形为柄。以物言志，君子比德如玉，天行健自强不息。</div>
-          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">500ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">500ml</span></div>
         </div>
       </div>
     </div>
@@ -454,7 +408,7 @@
         <div class="card-body">
           <div class="work-name">🏆 紫气东来</div>
           <div class="work-desc">吴昊天先生原创设计首款生肖作品，荣获"中誉杯"工艺美术创新作品大赛金奖。壶身为汉时瓦缸，壶钮为汉时瓦片浮雕祥云，壶嘴壶把为东方巨龙，象征祥瑞之气出自东方。</div>
-          <div class="work-meta"><span class="meta-tag">原矿黄金段泥</span><span class="meta-tag">430ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿黄金段泥</span><span class="meta-tag">430ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -462,7 +416,7 @@
         <div class="card-body">
           <div class="work-name">过桥扁腹</div>
           <div class="work-desc">清末制壶大家黄玉麟经典之作，由仿古壶演变而来。壶体扁圆不塌，转折弧线优雅精当，短弯流嘴出水有力，玉环圆把飘逸自如，体现紫砂艺术"圆、稳、匀、正"美学意蕴。</div>
-          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">250ml</span><span class="price-tag">¥900</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">250ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -470,7 +424,7 @@
         <div class="card-body">
           <div class="work-name">倒把西施</div>
           <div class="work-desc">壶身圆润，截盖设计、短嘴、倒把把手，构成西施壶特殊审美效果，成为紫砂壶经典。选用宜兴黄龙山珍贵稀有红降坡泥制作。</div>
-          <div class="work-meta"><span class="meta-tag">原矿降坡泥</span><span class="meta-tag">220ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿降坡泥</span><span class="meta-tag">220ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -478,7 +432,7 @@
         <div class="card-body">
           <div class="work-name">平盖莲子</div>
           <div class="work-desc">造型源于莲子，象征纯洁高雅。造型古朴大方，婉约俏丽，壶身浑圆饱满，曲线委婉动人。蕴含"连生贵子"吉祥寓意。</div>
-          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">300ml</span><span class="price-tag">¥900</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">300ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -486,7 +440,7 @@
         <div class="card-body">
           <div class="work-name">容天</div>
           <div class="work-desc">寓意"大肚能容，容天下难容之事"，设计灵感源自佛教大肚罗汉，象征宽容大度和包容一切。壶型饱满圆润，线条流畅，富有哲理。</div>
-          <div class="work-meta"><span class="meta-tag">原矿清水泥</span><span class="meta-tag">200ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿清水泥</span><span class="meta-tag">200ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -494,7 +448,7 @@
         <div class="card-body">
           <div class="work-name">仿古</div>
           <div class="work-desc">模仿古代青铜器造型，形态和功能完美结合，"藏而不泄"是为"宝"。象征对功名事业的追求，一鼓作气奋发向上。</div>
-          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">300ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">300ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -502,7 +456,7 @@
         <div class="card-body">
           <div class="work-name">大亨掇只（小）</div>
           <div class="work-desc">清代制壶名家邵大亨代表作品，被称为"千金壶王"。选用黄龙山三种以上原矿泥料科学配比全手工制作，经柴窑高温烧制，砂粒感强俗称"天星泥"，双重透气性。</div>
-          <div class="work-meta"><span class="meta-tag">原矿天星泥</span><span class="meta-tag">220ml</span><span class="price-tag">¥900</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿天星泥</span><span class="meta-tag">220ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -510,7 +464,7 @@
         <div class="card-body">
           <div class="work-name">大亨掇只（大）</div>
           <div class="work-desc">千金壶王大版，380ml容量。诠释儒家用世、道家清净和佛家圆融，简朴无华、素净端庄。</div>
-          <div class="work-meta"><span class="meta-tag">原矿天星泥</span><span class="meta-tag">380ml</span><span class="price-tag">¥1000</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿天星泥</span><span class="meta-tag">380ml</span></div>
         </div>
       </div>
     </div>
@@ -528,7 +482,7 @@
         <div class="card-body">
           <div class="work-name">菱花套具</div>
           <div class="work-desc">菱花壶盖对称精致，壶体正背面由中国佛教协会副会长心澄法师题写"澄心得妙观""静中观物化"，由辽宁省陶瓷艺术大师王银亮铭刻。配有精美水晶玻璃杯。</div>
-          <div class="work-meta"><span class="meta-tag">原矿红降坡泥</span><span class="meta-tag">350ml</span><span class="price-tag">¥750</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿红降坡泥</span><span class="meta-tag">350ml</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -536,7 +490,7 @@
         <div class="card-body">
           <div class="work-name">💝 和合吉祥套具</div>
           <div class="work-desc">一壶两杯（主人壶+男女主人对杯）。主人壶选用顾景舟大师"石瓢"，寓意"弱水三千，仅饮一瓢"。男主人杯以"山"为印取名君子，女主人杯以"水"为印取名淑女。山水相依，依山傍水，天下之美。</div>
-          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">380ml</span><span class="price-tag">¥750</span></div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">380ml</span></div>
         </div>
       </div>
     </div>
@@ -556,28 +510,28 @@
         <img src="img/zisha/wht2026_p1_0.jpeg" alt="四方传炉" data-caption="四方传炉 | 天星泥 360ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">四方传炉</div>
-          <div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">360ml</span><span class="price-tag">¥1,600</span></div>
+          <div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">360ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p1_1.jpeg" alt="竹韵" data-caption="竹韵 | 天星泥 410ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">竹韵</div>
-          <div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">410ml</span><span class="price-tag">¥1,600</span></div>
+          <div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">410ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p1_2.jpeg" alt="六方宫灯" data-caption="六方宫灯 | 天星泥 430ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">六方宫灯</div>
-          <div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">430ml</span><span class="price-tag">¥1,600</span></div>
+          <div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">430ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p1_3.jpeg" alt="四方青玉" data-caption="四方青玉 | 天星泥 420ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">四方青玉</div>
-          <div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">420ml</span><span class="price-tag">¥1,600</span></div>
+          <div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">420ml</span></div>
         </div>
       </div>
     </div>
@@ -589,35 +543,35 @@
         <img src="img/zisha/wht2026_p1_4.jpeg" alt="思亭" data-caption="思亭 | 朱泥大红袍 180ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">思亭</div>
-          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span><span class="price-tag">¥1,200</span></div>
+          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p1_5.jpeg" alt="容天" data-caption="容天 | 朱泥大红袍 180ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">容天（朱泥版）</div>
-          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span><span class="price-tag">¥1,200</span></div>
+          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p1_6.jpeg" alt="玲珑" data-caption="玲珑 | 朱泥大红袍 180ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">玲珑</div>
-          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span><span class="price-tag">¥1,200</span></div>
+          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p1_7.jpeg" alt="掇只" data-caption="掇只 | 朱泥大红袍 180ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">掇只（朱泥版）</div>
-          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span><span class="price-tag">¥1,200</span></div>
+          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p1_8.jpeg" alt="合欢" data-caption="合欢 | 朱泥大红袍 280ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">合欢</div>
-          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span><span class="price-tag">¥1,500</span></div>
+          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span></div>
         </div>
       </div>
     </div>
@@ -628,14 +582,14 @@
         <img src="img/zisha/wht2026_p2_0.jpeg" alt="景舟双圈" data-caption="景舟双圈 | 朱泥大红袍 280ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">景舟双圈</div>
-          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span><span class="price-tag">¥1,500</span></div>
+          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p2_1.jpeg" alt="一粒珠" data-caption="一粒珠 | 朱泥大红袍 280ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">一粒珠</div>
-          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span><span class="price-tag">¥1,500</span></div>
+          <div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span></div>
         </div>
       </div>
     </div>
@@ -647,21 +601,21 @@
         <img src="img/zisha/wht2026_p2_2.jpeg" alt="景舟石瓢" data-caption="景舟石瓢（雅青）| 本山绿泥 320ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">景舟石瓢（雅青）</div>
-          <div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">320ml</span><span class="price-tag">¥2,000</span></div>
+          <div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">320ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p2_3.jpeg" alt="文人西施" data-caption="文人西施（雅青陶刻）| 本山绿泥 180ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">文人西施（雅青陶刻）</div>
-          <div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">180ml</span><span class="price-tag">¥1,600</span></div>
+          <div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">180ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p2_4.jpeg" alt="文人西施" data-caption="文人西施 | 本山绿泥 180ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">文人西施</div>
-          <div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">180ml</span><span class="price-tag">¥1,600</span></div>
+          <div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">180ml</span></div>
         </div>
       </div>
     </div>
@@ -673,56 +627,56 @@
         <img src="img/zisha/wht2026_p2_5.jpeg" alt="紫气东来特别款" data-caption="紫气东来（特别款）| 黄金段泥 360ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">紫气东来（特别款）</div>
-          <div class="work-meta"><span class="meta-tag">黄金段泥</span><span class="meta-tag">360ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">黄金段泥</span><span class="meta-tag">360ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p2_6.jpeg" alt="如意杯" data-caption="如意杯 | 底槽清 420ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">如意杯</div>
-          <div class="work-meta"><span class="meta-tag">底槽清</span><span class="meta-tag">420ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">底槽清</span><span class="meta-tag">420ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p2_7.jpeg" alt="玉龙杯" data-caption="玉龙杯 | 底槽清 420ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">玉龙杯</div>
-          <div class="work-meta"><span class="meta-tag">底槽清</span><span class="meta-tag">420ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">底槽清</span><span class="meta-tag">420ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p2_8.jpeg" alt="圆融杯瑞红" data-caption="圆融杯（瑞红）| 降坡泥 420ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">圆融杯（瑞红）</div>
-          <div class="work-meta"><span class="meta-tag">降坡泥</span><span class="meta-tag">420ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">降坡泥</span><span class="meta-tag">420ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p3_0.jpeg" alt="圆融杯玄紫" data-caption="圆融杯（玄紫）| 降坡泥 420ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">圆融杯（玄紫）</div>
-          <div class="work-meta"><span class="meta-tag">降坡泥</span><span class="meta-tag">420ml</span><span class="price-tag">¥800</span></div>
+          <div class="work-meta"><span class="meta-tag">降坡泥</span><span class="meta-tag">420ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p3_1.jpeg" alt="铁军杯" data-caption="铁军杯（定制款）| 老紫泥 420ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">铁军杯（定制款）</div>
-          <div class="work-meta"><span class="meta-tag">老紫泥</span><span class="meta-tag">420ml</span><span class="price-tag">¥280</span></div>
+          <div class="work-meta"><span class="meta-tag">老紫泥</span><span class="meta-tag">420ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p3_2.jpeg" alt="丹顶鹤杯" data-caption="丹顶鹤杯（定制款）| 紫泥 260ml" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">丹顶鹤杯（定制款）</div>
-          <div class="work-meta"><span class="meta-tag">紫泥</span><span class="meta-tag">260ml</span><span class="price-tag">¥280</span></div>
+          <div class="work-meta"><span class="meta-tag">紫泥</span><span class="meta-tag">260ml</span></div>
         </div>
       </div>
       <div class="work-card">
         <img src="img/zisha/wht2026_p3_3.jpeg" alt="铁军挂盘" data-caption="铁军挂盘（定制款）| 紫泥" onclick="openLightbox(this)">
         <div class="card-body">
           <div class="work-name">铁军挂盘（定制款）</div>
-          <div class="work-meta"><span class="meta-tag">紫泥</span><span class="price-tag">¥600</span></div>
+          <div class="work-meta"><span class="meta-tag">紫泥</span></div>
         </div>
       </div>
       <div class="work-card">
@@ -730,115 +684,8 @@
         <div class="card-body">
           <div class="work-name">🐎 前程似锦（马年生肖）</div>
           <div class="work-desc">2026马年生肖纪念作品，黄金段泥精制。</div>
-          <div class="work-meta"><span class="meta-tag">黄金段泥</span><span class="meta-tag">380ml</span><span class="price-tag">¥1,200</span></div>
+          <div class="work-meta"><span class="meta-tag">黄金段泥</span><span class="meta-tag">380ml</span></div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 七、产品包装 -->
-  <div class="zisha-section">
-    <div class="zisha-section-header">
-      <span class="section-icon">📦</span>
-      <h2>产品包装</h2>
-    </div>
-    <div class="works-grid">
-      <div class="work-card">
-        <img src="img/zisha/zisha_p34_0.jpeg" alt="和合吉祥包装" data-caption="和合吉祥套组包装" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">和合吉祥套组包装</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p35_0.jpeg" alt="紫砂盖杯包装" data-caption="紫砂盖杯包装" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">紫砂盖杯包装</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p36_0.jpeg" alt="紫砂单壶包装" data-caption="紫砂单壶包装" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">紫砂单壶包装</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p37_0.jpeg" alt="五色釉咖啡杯包装" data-caption="五色釉咖啡杯包装" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">五色釉咖啡杯包装</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p38_0.jpeg" alt="五色釉福禄对杯包装" data-caption="五色釉福禄对杯包装" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">五色釉福禄对杯包装</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p39_0.jpeg" alt="五色釉主人杯包装" data-caption="五色釉主人杯包装" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">五色釉主人杯包装</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 八、文化艺术合作 -->
-  <div class="zisha-section">
-    <div class="zisha-section-header">
-      <span class="section-icon">🤝</span>
-      <h2>文化艺术合作</h2>
-    </div>
-    <div class="coop-card">
-      <img src="img/zisha/zisha_p7_1.jpeg" alt="飨射阳鲜">
-      <div class="coop-info">
-        <div class="coop-name">飨射阳鲜 — 射阳县农产品区域公共品牌</div>
-        <div class="coop-desc">射阳县委、县政府重点打造的农产品区域公共品牌，全面展示射阳乡村振兴和农业发展成果。</div>
-        <div class="coop-work">合作作品：城市文化紫砂作品《后羿射日》</div>
-      </div>
-    </div>
-    <div class="coop-card">
-      <img src="img/zisha/zisha_p8_0.jpeg" alt="洋河股份">
-      <div class="coop-info">
-        <div class="coop-name">江苏洋河集团</div>
-        <div class="coop-desc">始建于1949年，国家大型一类企业，洋河大曲400多年历史，1979年跻身国家八大名酒。</div>
-        <div class="coop-work">合作作品：文化紫砂作品《至尊套组》</div>
-      </div>
-    </div>
-    <div class="coop-card">
-      <img src="img/zisha/zisha_p9_1.jpeg" alt="久大产业">
-      <div class="coop-info">
-        <div class="coop-name">久大产业投资集团</div>
-        <div class="coop-desc">2010年创立于南京，年产值超60亿元，致力于智慧城市与城市一体化建设运营。</div>
-        <div class="coop-work">合作作品：定制五色釉柴烧紫砂套组</div>
-      </div>
-    </div>
-    <div class="coop-card">
-      <img src="img/zisha/zisha_p10_1.jpeg" alt="金贸建设">
-      <div class="coop-info">
-        <div class="coop-name">江苏金贸建设集团</div>
-        <div class="coop-desc">以建筑业为主体，兼有新型建材、房地产开发、投资贸易的集团企业，获"鲁班奖""扬子杯"等荣誉。</div>
-        <div class="coop-work">合作作品：2025蛇年生肖紫砂作品《福星高照》</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 九、礼品搭建案例 -->
-  <div class="zisha-section">
-    <div class="zisha-section-header">
-      <span class="section-icon">🏛️</span>
-      <h2>礼品搭建案例</h2>
-    </div>
-    <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.7;margin-bottom:16px">
-      为您解决礼品搭建布置烦恼 — 布置和搭建都由专业团队全权负责
-    </p>
-    <div class="works-grid">
-      <div class="work-card">
-        <img src="img/zisha/zisha_p40_0.jpeg" alt="搭建案例" data-caption="南京市苏博顾问搭建案例" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">南京市苏博顾问搭建案例</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p40_4.jpeg" alt="搭建案例" data-caption="吴昊天紫砂礼品搭建案例" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">吴昊天紫砂礼品搭建案例</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p40_5.jpeg" alt="搭建案例" data-caption="盐城市飨射阳鲜搭建案例" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">盐城市飨射阳鲜搭建案例</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p40_6.jpeg" alt="搭建案例" data-caption="盐城市邮政储蓄银行搭建案例" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">盐城市邮政储蓄银行搭建案例</div></div>
-      </div>
-      <div class="work-card">
-        <img src="img/zisha/zisha_p40_7.jpeg" alt="搭建案例" data-caption="杭州市瑞泉高端岩茶体验馆搭建案例" onclick="openLightbox(this)">
-        <div class="card-body"><div class="work-name">杭州市瑞泉高端岩茶体验馆搭建案例</div></div>
       </div>
     </div>
   </div>

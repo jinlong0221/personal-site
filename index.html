@@ -24,6 +24,7 @@
       </svg>
       龙兄知识库
     </a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='xintan-weather.html'" style="cursor:pointer;" title="点击查看天气详情"><span class="weather-loading" style="font-size:0.8rem;color:var(--text-muted)">🌤️</span></span>
     <ul class="nav-links">
       <li><a href="agarwood.html" class="nav-ai">沉香鉴别</a></li>
       <li><a href="herbs.html" class="nav-hobby">中药材</a></li>
@@ -68,11 +69,6 @@
   <div class="home-header">
     <h1 class="site-title">龙兄知识库</h1>
     <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
-  </div>
-
-  <!-- ===== 射阳天气小卡片（首页顶部） ===== -->
-  <div class="home-weather" id="homeWeather">
-    <div class="weather-loading">加载天气中…</div>
   </div>
 
   <!-- [BUG-FIX:一-1+一-3] 搜索入口：原生input+button，增加清空按钮 -->
@@ -308,51 +304,31 @@
   var omCodes={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
   var omNames={0:'晴',1:'晴间多云',2:'多云',3:'阴',45:'雾',48:'冻雾',51:'小毛毛雨',53:'毛毛雨',55:'大毛毛雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',77:'雨夹雪',80:'阵雨',81:'阵雨中雨',82:'大阵雨',85:'雨夹雪',86:'大阵雪',95:'雷暴',96:'雷阵雨',99:'强雷暴'};
   
-  var box=document.getElementById('homeWeather');
+  var box=document.getElementById('navWeather');
   if(!box)return;
 
   // 获取Open-Meteo天气
   function fetchWeather(lat, lon){
-    var url='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia/Shanghai&forecast_days=1';
+    var url='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia/Shanghai&forecast_days=1';
     return fetch(url).then(function(r){return r.json();});
   }
 
-  // 渲染天气
+  // 渲染紧凑天气（导航栏款）
   function renderWeather(lat, lon, cityName){
-    box.innerHTML='<div class="weather-loading">加载天气中…</div>';
+    box.innerHTML='<span class="weather-loading" style="font-size:0.8rem;color:var(--text-muted)">🌤️</span>';
     
     fetchWeather(lat, lon).then(function(data){
       if(data && data.current){
         var c=data.current;
         var temp=Math.round(c.temperature_2m);
-        var feels=Math.round(c.apparent_temperature);
-        var humidity=c.relative_humidity_2m;
-        var wind=Math.round(c.wind_speed_10m);
         var icon=omCodes[c.weather_code]||'🌡️';
-        var text=omNames[c.weather_code]||'未知';
-        
-        var html='<a href="sheyang.html" class="weather-link">'+
-          '<div class="weather-header"><span class="weather-city">📍 '+cityName+'</span><span class="weather-label">实时天气</span></div>'+
-          '<div class="weather-main">'+
-            '<span class="weather-icon">'+icon+'</span>'+
-            '<span class="weather-temp-lg">'+temp+'°</span>'+
-            '<span class="weather-desc">'+text+'</span>'+
-          '</div>'+
-          '<div class="weather-detail">体感 '+feels+'° · 💧 '+humidity+'% · 🌬️ '+wind+'km/h</div>'+
-          '<div class="weather-source">数据来源：Open-Meteo</div>'+
-        '</a>';
-        box.innerHTML=html;
+        box.innerHTML=icon+' '+temp+'°';
       } else {
-        fallbackWeather(cityName);
+        box.innerHTML='🌡️--°';
       }
     }).catch(function(){
-      fallbackWeather(cityName);
+      box.innerHTML='🌡️--°';
     });
-  }
-
-  // 降级显示
-  function fallbackWeather(cityName){
-    box.innerHTML='<a href="sheyang.html" style="display:block;text-align:center;padding:16px;text-decoration:none;color:var(--text-muted)">📍 '+cityName+'天气 · 点击查看详情</a>';
   }
 
   // 城市坐标映射

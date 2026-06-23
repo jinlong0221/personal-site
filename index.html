@@ -264,11 +264,14 @@
         </div>
         <article class="tile tile-gold" style="cursor:default;">
           <div class="notice-inner">
-            <div class="tile-svg" style="margin-bottom:10px;"><span style="font-size:28px;">📋</span></div>
+            <div class="tile-svg" style="margin-bottom:8px;"><span style="font-size:28px;">🎊</span></div>
             <div class="notice-text" id="noticeContent">
-              <p>📌 欢迎来到龙兄知识库！本站内容由AI助手与站长陈金龙共同维护，持续更新中 🚀</p>
+              <p>🎉 <strong>龙兄知识库</strong>于2026年6月正式落成！本站由AI独立搭建，记录站长陈金龙的生活、兴趣与折腾 🚀</p>
+              <p style="margin-top:8px;font-size:0.85rem;">🙏 请各位随一下礼 [奸笑]</p>
             </div>
-            <div class="notice-footer">站长：陈金龙<br>AI助手：QClaw</div>
+            <div class="notice-footer">
+              <button onclick="showGuestbook()" style="background:var(--gold);color:#000;border:none;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:0.85rem;font-weight:700;">✏️ 写留言</button>
+            </div>
           </div>
         </article>
       </section>
@@ -378,6 +381,52 @@
 function toggleHomeSection(el){
   var wrap=el.parentElement;
   wrap.classList.toggle('open');
+}
+
+// ===== 留言功能 =====
+function showGuestbook(){
+  var modal=document.getElementById('guestbookModal');
+  if(!modal){
+    var div=document.createElement('div');
+    div.id='guestbookModal';
+    div.style='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    div.innerHTML='<div style="background:var(--card);border:1px solid var(--gold);border-radius:12px;max-width:500px;width:100%;padding:24px;position:relative;">'+
+      '<button onclick="closeGuestbook()" style="position:absolute;top:12px;right:12px;background:none;border:none;color:var(--text-muted);font-size:1.2rem;cursor:pointer;">✕</button>'+
+      '<h2 style="margin:0 0 16px;color:var(--gold);font-size:1.2rem;">✏️ 留言给龙兄</h2>'+
+      '<p style="margin:0 0 16px;font-size:0.8rem;color:var(--text-muted);">昵称和内容随便填，提交后自动跳转到 GitHub Discussion 页面，审核后公开显示。</p>'+
+      '<div style="display:flex;flex-direction:column;gap:12px;">'+
+        '<input id="gbName" placeholder="你的昵称" maxlength="30" style="padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'var(--border)\'">'+
+        '<textarea id="gbMsg" placeholder="想对龙兄说点什么？" maxlength="500" rows="4" style="padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;resize:none;outline:none;line-height:1.6;" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'var(--border)\'"></textarea>'+
+        '<button onclick="submitGuestbook()" style="padding:12px;background:var(--gold);color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:1rem;">🚀 提交留言</button>'+
+        '<div id="gbStatus" style="text-align:center;font-size:0.85rem;min-height:20px;"></div>'+
+      '</div>'+
+    '</div>';
+    document.body.appendChild(div);
+    div.addEventListener('click',function(e){ if(e.target===div) closeGuestbook(); });
+  }
+  document.getElementById('guestbookModal').style.display='flex';
+  document.getElementById('gbName').focus();
+}
+
+function closeGuestbook(){
+  var m=document.getElementById('guestbookModal');
+  if(m) m.style.display='none';
+}
+
+function submitGuestbook(){
+  var name=document.getElementById('gbName').value.trim() || '匿名龙粉';
+  var msg=document.getElementById('gbMsg').value.trim();
+  var status=document.getElementById('gbStatus');
+  if(!msg){ status.style.color='var(--red)'; status.textContent='留言内容不能为空哦'; return; }
+  status.style.color='var(--gold)';
+  status.textContent='正在跳转到 GitHub Discussion 创建页面...';
+  var title=encodeURIComponent('💬 来自 ' + name + ' 的留言');
+  var body=encodeURIComponent('**昵称：** ' + name + '\n\n**留言：**\n' + msg + '\n\n---\n*本留言由访客提交，待站长审核后在此讨论串中公开显示。*');
+  var url='https://github.com/jinlong0221/personal-site/discussions/new?category=general&title='+title+'&body='+body;
+  window.open(url, '_blank');
+  status.style.color='var(--green)';
+  status.textContent='✅ 已打开 GitHub！提交后记得回到这里刷新页面查看留言';
+  setTimeout(closeGuestbook, 2000);
 }
 </script>
 </body>

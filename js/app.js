@@ -239,43 +239,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 // ============================================================
-// 区域G - 访客留言
-// [BUG-FIX:五-2] 留言框XSS过滤
-// ============================================================
-(function(){
-  var form=document.getElementById('guestbookForm');
-  var list=document.getElementById('guestbookList');
-  if(!form||!list)return;
-  var STORAGE_KEY='guestbook_msgs';
-  function loadMsgs(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return[];}}
-  function saveMsgs(msgs){localStorage.setItem(STORAGE_KEY,JSON.stringify(msgs));}
-  function renderMsgs(){
-    var msgs=loadMsgs();
-    if(msgs.length===0){list.innerHTML='<p style="color:var(--text-muted);font-size:0.9rem;text-align:center;padding:20px;">暂无留言，来做第一个留言的访客吧 🐉</p>';return;}
-    var html='';
-    msgs.slice().reverse().forEach(function(m){
-      // [BUG-FIX:五-2] 留言内容XSS过滤：使用escapeHtml
-      html+='<div class="guest-msg"><div class="guest-msg-name">'+escapeHtml(m.name)+'</div><div class="guest-msg-text">'+escapeHtml(m.text)+'</div><div class="guest-msg-time">'+escapeHtml(m.time)+'</div></div>';
-    });
-    list.innerHTML=html;
-  }
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    // [BUG-FIX:五-2] 留言输入过滤
-    var name=(document.getElementById('guestName').value||'').trim().substring(0,20)||'匿名龙友';
-    var text=(document.getElementById('guestMsg').value||'').trim().substring(0,500);
-    if(!text)return;
-    var msgs=loadMsgs();
-    msgs.push({name:escapeHtml(name),text:escapeHtml(text),time:new Date().toLocaleString('zh-CN')});
-    saveMsgs(msgs);
-    document.getElementById('guestName').value='';
-    document.getElementById('guestMsg').value='';
-    renderMsgs();
-  });
-  renderMsgs();
-})();
-
-// ============================================================
 // 区域H - 滚动淡入动画
 // ============================================================
 (function(){

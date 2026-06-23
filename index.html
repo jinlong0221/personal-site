@@ -236,39 +236,39 @@
   </div>
 
 
-  <!-- ===== 站点动态 ===== -->
-  <section class="section-block">
-    <div class="section-label">
-      <span class="section-icon">🐉</span> 进化的龙兄
-    </div>
-    <div class="card-grid card-grid-1">
-      <article class="tile tile-gold">
-        <a href="changelog.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="8" width="40" height="48" rx="4"/><line x1="20" y1="20" x2="44" y2="20"/><line x1="20" y1="28" x2="44" y2="28"/><line x1="20" y1="36" x2="36" y2="36"/><circle cx="40" cy="44" r="6" fill="#c9a84c" opacity="0.3"/></svg>
-          </div>
-          <div class="title">进化的龙兄</div>
-          <div class="desc">站点迭代记录</div>
-        </a>
-      </article>
-    </div>
-  </section>
+  <!-- ===== 底部双栏（居中并排） ===== -->
+  <div class="bottom-duo">
+    <!-- 进化的龙兄 -->
+    <section class="section-block bottom-duo-item">
+      <div class="section-label">
+        <span class="section-icon">🐉</span> 进化的龙兄
+      </div>
+      <div class="card-grid card-grid-1">
+        <article class="tile tile-gold">
+          <a href="changelog.html">
+            <div class="tile-svg">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="8" width="40" height="48" rx="4"/><line x1="20" y1="20" x2="44" y2="20"/><line x1="20" y1="28" x2="44" y2="28"/><line x1="20" y1="36" x2="36" y2="36"/><circle cx="40" cy="44" r="6" fill="#c9a84c" opacity="0.3"/></svg>
+            </div>
+            <div class="title">进化的龙兄</div>
+            <div class="desc">站点迭代记录</div>
+          </a>
+        </article>
+      </div>
+    </section>
 
-
-  <!-- ===== 访客留言 ===== -->
-  <section class="section-block">
-    <div class="section-label">
-      <span class="section-icon">💬</span> 访客留言
-    </div>
-    <div class="guestbook card">
-      <form id="guestbookForm" class="guestbook-form">
-        <input type="text" id="guestName" placeholder="昵称（选填）" maxlength="20" class="guest-input" aria-label="昵称">
-        <textarea id="guestMsg" placeholder="留下你的想法..." maxlength="500" rows="3" class="guest-textarea" aria-label="留言内容"></textarea>
-        <button type="submit" class="guest-submit">发表留言</button>
-      </form>
-      <div id="guestbookList" class="guestbook-list"></div>
-    </div>
-  </section>
+    <!-- 龙兄公示牌 -->
+    <section class="section-block bottom-duo-item">
+      <div class="section-label">
+        <span class="section-icon">📢</span> 龙兄公示牌
+      </div>
+      <div class="notice-board">
+        <div class="notice-content" id="noticeContent">
+          <p>📌 欢迎来到龙兄知识库！本站内容由AI助手与站长陈金龙共同维护，持续更新中 🚀</p>
+        </div>
+        <div class="notice-footer">站长：陈金龙 · AI助手：QClaw</div>
+      </div>
+    </section>
+  </div>
 
 </main>
 

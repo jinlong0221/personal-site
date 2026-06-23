@@ -113,6 +113,7 @@ body {
 .tile-dark { background: var(--metro-dark); border: 1px solid #333; color: #fff; }
 
 
+
 .weather-main .temp {
   font-size: clamp(64px, 12vw, 120px);
   font-weight: 900;
@@ -198,17 +199,8 @@ body {
   .tile-large { grid-row: span 1; }
 }
 </style>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-</head>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </head>
 <body>
 
 <nav class="navbar" role="navigation" aria-label="主导航">
@@ -253,8 +245,95 @@ var _hmt = _hmt || [];
     <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
     <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
   </div>
+    <div class="footer-stat">
+      <span id="busuanzi_container_site_pv" style="font-size:13px;color:var(--text-muted)">
+        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span id="busuanzi_container_site_uv" style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
     </div>
-`;
+</footer>
+
+<script src="js/search.js"></script>
+<script src="js/app.js"></script>
+<script>
+const LAT = 33.77, LON = 120.26;
+
+const WMO = {
+  0: "晴", 1: "晴", 2: "多云", 3: "阴",
+  45: "雾", 48: "雾凇",
+  51: "小毛毛雨", 53: "中毛毛雨", 55: "大毛毛雨",
+  61: "小雨", 63: "中雨", 65: "大雨",
+  71: "小雪", 73: "中雪", 75: "大雪",
+  80: "小阵雨", 81: "中阵雨", 82: "大阵雨",
+  95: "雷暴", 96: "雷暴+冰雹", 99: "雷暴+大冰雹"
+};
+
+const WIND = ["北风", "东北风", "东风", "东南风", "南风", "西南风", "西风", "西北风"];
+
+function weatherDesc(code) { return WMO[code] || "未知"; }
+function windDir(deg) { return WIND[Math.round(deg / 45) % 8]; }
+
+function dressAdvice(temp, hum, code) {
+  let tips = [];
+  if (temp >= 35) tips.push("高温酷热，减少外出，注意防暑");
+  else if (temp >= 30) tips.push("炎热，室外注意防晒补水");
+  else if (temp >= 25) tips.push("较热，适合短袖");
+  else if (temp >= 18) tips.push("舒适，适宜户外活动");
+  else if (temp >= 10) tips.push("微凉，建议加件外套");
+  else if (temp >= 0) tips.push("较冷，注意保暖");
+  else tips.push("严寒，尽量减少外出");
+
+  if (hum >= 90) tips.push("湿度极高，体感闷热，注意防潮");
+  else if (hum >= 75) tips.push("湿度偏高，略闷");
+  else if (hum <= 30) tips.push("空气干燥，注意保湿");
+
+  if ([61, 63, 65, 80, 81, 82, 95, 96, 99].includes(code)) tips.push("有雨/雷暴，外出带伞");
+  if ([71, 73, 75, 85, 86].includes(code)) tips.push("有雪，注意路滑");
+
+  return tips.join("；");
+}
+
+function getWeekDay(dateStr) {
+  const days = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  return days[new Date(dateStr).getDay()];
+}
+
+const tileColors = ["tile-green", "tile-orange", "tile-purple", "tile-cyan", "tile-pink", "tile-yellow"];
+let colorIndex = 0;
+function nextColor() { return tileColors[colorIndex++ % tileColors.length]; }
+
+async function loadWeather() {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum&timezone=Asia/Shanghai&forecast_days=4`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('API ' + resp.status);
+    const data = await resp.json();
+
+    const c = data.current;
+    const temp = c.temperature_2m;
+    const hum = c.relative_humidity_2m;
+    const code = c.weather_code;
+    const ws = c.wind_speed_10m;
+    const wd = windDir(c.wind_direction_10m);
+    const desc = weatherDesc(code);
+    const advice = dressAdvice(temp, hum, code);
+
+    const now = new Date();
+    const ts = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+    let html = `
+    <div class="tile tile-large tile-blue weather-main">
+      <div class="temp">${temp}°</div>
+      <div class="desc">${desc}</div>
+      <div class="details">
+        <span>💧 湿度 ${hum}%</span>
+        <span>🌬️ ${wd} ${ws.toFixed(1)} km/h</span>
+      </div>
+      <div class="update-time">更新于 ${ts}</div>
+    </div>`;
 
     if (data.daily) {
       for (let i = 1; i < Math.min(4, data.daily.time.length); i++) {
@@ -294,16 +373,5 @@ var _hmt = _hmt || [];
 loadWeather();
 setInterval(loadWeather, 10 * 60 * 1000);
 </script>
-
-    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
-      <span style="font-size:13px;color:var(--text-muted)">
-        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
-      </span>
-      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
-        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
-      </span>
-      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
-    </div>
-
 </body>
 </html>

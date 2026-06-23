@@ -81,17 +81,8 @@
 .back2top { position:fixed; bottom:24px; right:20px; width:40px; height:40px; border-radius:50%; background:var(--blue); color:#fff; border:none; font-size:18px; cursor:pointer; z-index:100; display:none; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
 .back2top.show { display:flex; align-items:center; justify-content:center; }
 </style>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-</head>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </head>
 <body>
 
 <nav class="navbar" role="navigation" aria-label="主导航">
@@ -354,8 +345,27 @@ var _hmt = _hmt || [];
     <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
     <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
   </div>
+    <div class="footer-stat">
+      <span id="busuanzi_container_site_pv" style="font-size:13px;color:var(--text-muted)">
+        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span id="busuanzi_container_site_uv" style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
     </div>
-</div>
+</footer>
+
+<!-- 访客留言 -->
+<div class="container guestbook-container">
+  <div class="section">
+    <h2>💬 访客留言</h2>
+    <div class="guestbook">
+      <textarea id="guestInput" placeholder="分享你的养生茶心得..." rows="2"></textarea>
+      <button id="guestSubmit">发表留言</button>
+      <div id="guestList"></div>
+    </div>
+  </div>
 </div>
 
 <button class="back2top" id="back2top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到顶部">↑</button>
@@ -397,16 +407,5 @@ document.querySelectorAll('.tea-nav a').forEach(function(a){
   });
 });
 </script>
-
-    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
-      <span style="font-size:13px;color:var(--text-muted)">
-        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
-      </span>
-      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
-        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
-      </span>
-      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
-    </div>
-
 </body>
 </html>

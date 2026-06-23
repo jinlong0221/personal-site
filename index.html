@@ -269,9 +269,7 @@
               <p>🎉 <strong>龙兄知识库</strong>于2026年6月正式落成！本站由AI独立搭建，记录站长龙兄的生活、兴趣与折腾 🚀</p>
               <p style="margin-top:8px;font-size:0.85rem;">🙏 请各位随一下礼 😏</p>
             </div>
-            <div class="notice-footer">
-              <button onclick="showWeChat()" style="background:var(--gold);color:#000;border:none;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:0.85rem;font-weight:700;">📱 联系龙兄</button>
-            </div>
+
           </div>
         </article>
       </section>
@@ -383,33 +381,7 @@ function toggleHomeSection(el){
   wrap.classList.toggle('open');
 }
 
-// ===== 留言功能 =====
-function showWeChat(){
-  var modal=document.getElementById('wechatModal');
-  if(!modal){
-    var div=document.createElement('div');
-    div.id='wechatModal';
-    div.style='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
-    div.innerHTML='<div style="background:var(--card);border:1px solid var(--gold);border-radius:12px;max-width:400px;width:100%;padding:24px;position:relative;text-align:center;">'+
-      '<button onclick="closeWeChat()" style="position:absolute;top:12px;right:12px;background:none;border:none;color:var(--text-muted);font-size:1.2rem;cursor:pointer;">✕</button>'+
-      '<h2 style="margin:0 0 16px;color:var(--gold);font-size:1.2rem;">📱 联系龙兄</h2>'+
-      '<p style="margin:0 0 16px;font-size:0.85rem;color:var(--text-muted);">扫描下方二维码，添加龙兄微信</p>'+
-      '<div style="margin:16px auto;width:200px;height:200px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;overflow:hidden;position:relative;">'+
-        '<img src="img/wechat-qr.jpg" alt="微信二维码" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">'+
-        '<div style="display:none;position:absolute;top:0;left:0;right:0;bottom:0;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.8rem;text-align:center;padding:10px;">二维码图片未找到<br>请将 wechat-qr.jpg 放入 img/ 目录</div>'+
-      '</div>'+
-      '<p style="margin:16px 0 0;font-size:0.8rem;color:var(--text-muted);">或搜索微信号：<strong style="color:var(--gold);">龙兄</strong></p>'+
-    '</div>';
-    document.body.appendChild(div);
-    div.addEventListener('click',function(e){ if(e.target===div) closeWeChat(); });
-  }
-  document.getElementById('wechatModal').style.display='flex';
-}
 
-function closeWeChat(){
-  var m=document.getElementById('wechatModal');
-  if(m) m.style.display='none';
-}
 </script>
 </body>
 </html>

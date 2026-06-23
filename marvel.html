@@ -11,6 +11,53 @@
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <style>
 
+/* Collapsible sections */
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 14px 20px;
+  margin: 0 -20px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.collapsible-header:hover {
+  background: var(--card-hover, var(--card));
+  border-color: var(--accent, #e74c3c);
+}
+.collapsible-header h2 {
+  margin: 0;
+  border: none;
+  padding: 0;
+  font-size: 1.15rem;
+}
+.collapsible-header .collapse-icon {
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+  color: var(--text-muted);
+}
+.collapsible-header.collapsed .collapse-icon {
+  transform: rotate(-90deg);
+}
+.collapsible-header.collapsed + .collapsible-body {
+  display: none;
+}
+.collapsible-body {
+  padding-top: 16px;
+  animation: fadeSlideDown 0.3s ease;
+}
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section-desc {
+  margin-bottom: 12px;
+}
+
 /* Movie poster thumbnails */
 .movie-poster-thumb {
   width: 32px;
@@ -90,7 +137,11 @@
 
   <!-- 观影顺序 -->
   <section class="section">
-    <h2>🎬 漫威电影观看顺序（时间线版）</h2>
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h2>🎬 漫威电影观看顺序（时间线版）</h2>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="collapsible-body">
     <p class="section-desc">按剧情时间线排列，体验完整故事脉络</p>
     
     <div class="marvel-timeline">
@@ -172,11 +223,16 @@
     <div class="tip-box">
       <p>💡 <strong>观影提示</strong>：以上顺序为剧情时间线，首次观看也可按<strong>上映顺序</strong>体验，彩蛋和惊喜更完整。</p>
     </div>
+    </div>
   </section>
 
   <!-- 超级英雄档案 -->
   <section class="section">
-    <h2>🦸 核心超级英雄档案</h2>
+    <div class="collapsible-header collapsed" onclick="toggleCollapse(this)">
+      <h2>🦸 核心超级英雄档案</h2>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="collapsible-body" style="display:none;">
     <p class="section-desc">MCU主要角色设定、性格与能力解析</p>
 
     <div class="hero-grid">
@@ -372,11 +428,16 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- 反派档案 -->
   <section class="section">
-    <h2>😈 主要反派档案</h2>
+    <div class="collapsible-header collapsed" onclick="toggleCollapse(this)">
+      <h2>😈 主要反派档案</h2>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="collapsible-body" style="display:none;">
     
     <div class="hero-grid">
       <div class="hero-card villain-card">
@@ -434,11 +495,16 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- 观影建议 -->
   <section class="section">
-    <h2>💡 新手观影建议</h2>
+    <div class="collapsible-header collapsed" onclick="toggleCollapse(this)">
+      <h2>💡 新手观影建议</h2>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="collapsible-body" style="display:none;">
     
     <div class="card-grid">
       <div class="info-card">
@@ -472,11 +538,16 @@
         </ul>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- 未来上映 -->
   <section class="section">
-    <h2>🎬 未来上映计划（2026-2028）</h2>
+    <div class="collapsible-header collapsed" onclick="toggleCollapse(this)">
+      <h2>🎬 未来上映计划（2026-2028）</h2>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="collapsible-body" style="display:none;">
     
     <div class="timeline">
       <div class="timeline-item">
@@ -536,6 +607,7 @@
           <li>迪士尼+剧集同步推出，补充电影剧情</li>
         </ul>
       </div>
+    </div>
     </div>
   </section>
 
@@ -697,6 +769,17 @@
       closeLightbox();
     }
   });
+
+  /* Collapsible sections */
+  function toggleCollapse(header) {
+    header.classList.toggle('collapsed');
+    var body = header.nextElementSibling;
+    if (header.classList.contains('collapsed')) {
+      body.style.display = 'none';
+    } else {
+      body.style.display = 'block';
+    }
+  }
 
   /* 页面加载后初始化 Lightbox */
   if (document.readyState === 'loading') {

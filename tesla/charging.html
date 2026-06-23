@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>充电指南 · 特斯拉 - 龙兄知识库</title>
-<meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
-<meta name="description" content="特斯拉充电指南：家充安装、超充使用技巧、第三方充电、电池健康保养全攻略。">
+<meta name="keywords" content="特斯拉充电,Model 3充电,Model Y充电,家充安装,超级充电站,电池保养,LFP磷酸铁锂,三元锂">
+<meta name="description" content="特斯拉充电指南：按车型区分的家充安装、超充使用、LFP/三元锂充电策略、电池健康保养全攻略。">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <link rel="stylesheet" href="../css/style.css">
 <style>
@@ -19,6 +19,8 @@
 .battery-tip { background: rgba(0,130,114,0.06); border-left: 4px solid var(--teal); padding: 16px 20px; margin: 12px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
 .battery-tip h4 { color: var(--teal); font-size: 0.95rem; margin-bottom: 6px; }
 .battery-tip p { font-size: 0.85rem; color: var(--text-secondary); }
+.model-note { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 18px; margin: 10px 0; font-size: 0.85rem; color: var(--text-secondary); }
+.model-note strong { color: var(--blue); }
 @media (max-width: 600px) { .method-grid { grid-template-columns: 1fr; } }
 </style>
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -57,149 +59,216 @@
 
   <div class="page-header">
     <h1>⚡ 特斯拉充电指南</h1>
-    <p class="subtitle">家充安装 · 超充使用技巧 · 第三方充电 · 电池健康全攻略</p>
+    <p class="subtitle">按车型区分 · 家充安装 · 超充使用 · LFP/三元锂充电策略 · 电池健康全攻略</p>
   </div>
 
-  <!-- 1. 充电方式对比 -->
+  <!-- 先搞清你的电池类型 -->
   <div class="section">
-    <h2>🔌 充电方式概览</h2>
-    <p>特斯拉支持多种充电方式，根据你的用车场景选择合适的方案，既能省钱又能提升使用体验。</p>
+    <h2>🔍 先确认你的电池类型</h2>
+    <p>不同电池的充电策略完全不同，搞错会伤电池。查看方法：中控屏「充电」设置页，如果电量限制图标同时显示"50%"和"100%"两条线，就是 LFP；如果显示"日常"和"出行"，就是三元锂。</p>
     <table class="m-table">
-      <thead><tr><th>充电方式</th><th>功率</th><th>充满时间（60kWh）</th><th>适合场景</th><th>费用参考</th></tr></thead>
+      <thead><tr><th>车型</th><th>电池类型</th><th>电池容量</th><th>交流慢充最大功率</th></tr></thead>
       <tbody>
-        <tr><td>家充（壁挂式）</td><td>7-11 kW</td><td>5-10 h</td><td>日常过夜</td><td>约 0.3-0.6 元/kWh（家用电）</td></tr>
-        <tr><td>随车充</td><td>2-3 kW（10A）/ 3.5 kW（16A）</td><td>15-25 h</td><td>临时/应急/旅行</td><td>与家用电同价</td></tr>
-        <tr><td>特斯拉超充 V3</td><td>250 kW</td><td>≈ 25 min（10→80%）</td><td>长途补能</td><td>约 1.5-2.5 元/kWh</td></tr>
-        <tr><td>特斯拉超充 V4</td><td>500 kW</td><td>≈ 15 min（10→80%）</td><td>极速补能</td><td>约 2.0-3.0 元/kWh</td></tr>
-        <tr><td>第三方快充</td><td>60-180 kW</td><td>30-60 min</td><td>无超充时备用</td><td>约 0.8-1.5 元/kWh</td></tr>
+        <tr><td>Model 3 后驱版</td><td>LFP（磷酸铁锂）</td><td>约 60 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+        <tr><td>Model 3 长续航版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+        <tr><td>Model 3 高性能版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+        <tr><td>Model Y 后驱版</td><td>LFP（磷酸铁锂）</td><td>约 60 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+        <tr><td>Model Y 长续航版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+        <tr><td>Model S / X</td><td>NCA（三元锂）</td><td>100 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+        <tr><td>Cybertruck</td><td>NCA（三元锂，800V平台）</td><td>123 kWh</td><td>11 kW</td></tr>
       </tbody>
     </table>
+    <div class="model-note">
+      <strong>💡 关键区别：</strong>LFP 可放心充到 100%，三元锂日常建议只充到 80-90%。下文详细说明。
+    </div>
   </div>
 
-  <!-- 2. 家充安装指南 -->
+  <!-- 充电方式对比 -->
+  <div class="section">
+    <h2>🔌 充电方式概览</h2>
+    <p>特斯拉支持多种充电方式，根据你的用车场景选择。</p>
+    <table class="m-table">
+      <thead><tr><th>充电方式</th><th>功率</th><th>充 10→80% 时间</th><th>适合场景</th><th>费用参考</th></tr></thead>
+      <tbody>
+        <tr><td>家充壁挂桩（220V 单相）</td><td>7 kW（32A）</td><td>约 6-7 h（60kWh 电池）</td><td>日常过夜</td><td>约 0.3-0.6 元/kWh</td></tr>
+        <tr><td>家充壁挂桩（380V 三相）</td><td>11 kW</td><td>约 4-5 h（60kWh 电池）</td><td>日常过夜（更快）</td><td>约 0.3-0.6 元/kWh</td></tr>
+        <tr><td>随车充（16A 空调插座）</td><td>3.5 kW</td><td>约 12-15 h</td><td>临时/应急</td><td>与家用电同价</td></tr>
+        <tr><td>随车充（10A 普通插座）</td><td>2.2 kW</td><td>约 20-25 h</td><td>极端应急</td><td>与家用电同价</td></tr>
+        <tr><td>特斯拉超充 V3</td><td>250 kW 峰值</td><td>约 15-25 min</td><td>长途补能</td><td>约 1.5-2.5 元/kWh</td></tr>
+        <tr><td>特斯拉超充 V4</td><td>500 kW 峰值</td><td>约 10-15 min</td><td>极速补能</td><td>约 2.0-3.0 元/kWh</td></tr>
+        <tr><td>第三方直流快充</td><td>60-180 kW</td><td>约 30-60 min</td><td>无超充时备用</td><td>约 0.8-1.5 元/kWh</td></tr>
+      </tbody>
+    </table>
+    <div class="model-note">
+      <strong>📌 V4 超充现状：</strong>2025年7月中国首批V4超充站上线（上海、甘肃、浙江、重庆等），峰值500kW，对非特斯拉品牌开放。截至目前全国超充站超2500座、超充桩超12000根。
+    </div>
+  </div>
+
+  <!-- 家充安装指南 -->
   <div class="section">
     <h2>🏠 家充安装指南</h2>
-    <p>家充是所有充电方式中最方便、最经济的。以下是安装要点：</p>
+    <p>家充是最方便、最经济的充电方式。一觉醒来满电出发。</p>
     <div class="method-grid">
       <div class="method-box">
-        <h3>⚡ 特斯拉壁挂式充电桩</h3>
-        <p>推荐使用特斯拉第三代壁挂式充电桩（约 8,000 元含安装）。支持 7kW 单相（220V）或 11kW 三相（380V）。最大优势：即插即充、预约充电、OTA 升级。</p>
+        <h3>⚡ 220V 单相（7kW）</h3>
+        <p><strong>适合车型：</strong>所有特斯拉车型<br>
+        <strong>充电速度：</strong>约 50 km/h<br>
+        <strong>满充时间：</strong>Model 3/Y 后驱版约 8-9 小时<br>
+        <strong>申请条件：</strong>普通居民单相电表即可<br>
+        <strong>注意：</strong>32A 电流需 6mm² 铜线</p>
       </div>
       <div class="method-box">
-        <h3>🔌 国标通用充电桩</h3>
-        <p>第三方品牌如挚达、星星充电等，价格低至 2,000-4,000 元。兼容性良好，同样支持预约充电。建议选购带有「特斯拉认证」或明确标注兼容特斯拉的产品。</p>
+        <h3>⚡ 380V 三相（11kW）</h3>
+        <p><strong>适合车型：</strong>所有特斯拉车型（Model 3/Y 交流慢充上限11kW）<br>
+        <strong>充电速度：</strong>约 70-80 km/h<br>
+        <strong>满充时间：</strong>Model 3/Y 后驱版约 5-6 小时<br>
+        <strong>申请条件：</strong>需申请三相电表（需物业配合）<br>
+        <strong>注意：</strong>未来兼容性更好，推荐有条件就上</p>
       </div>
       <div class="method-box">
         <h3>🗒️ 安装前准备</h3>
         <p>① 确认车位产权（物业同意书）<br>
         ② 申请新能源电表（国家电网 App 免费申请）<br>
-        ③ 确认电表容量（建议 7kW 需≥40A，11kW 需≥60A）<br>
-        ④ 测量电表到车位距离（超出 30 米需额外付线缆费）</p>
+        ③ 能申请三相电表就申请（220V 和 380V 电表安装都免费）<br>
+        ④ 测量电表到车位距离（超出 30 米需额外付线缆费）<br>
+        ⑤ 确认线径：7kW 需≥6mm² 铜线，11kW 需≥10mm²</p>
       </div>
       <div class="method-box">
         <h3>💰 成本预估</h3>
         <p>特斯拉原装壁挂充（含 30 米安装）：约 8,000 元<br>
         第三方品牌（含安装）：约 2,000-4,000 元<br>
         电表申请：免费<br>
-        电费：约 0.3-0.6 元/kWh（各地峰谷电价不同）</p>
+        电费：约 0.3-0.6 元/kWh（各地峰谷电价不同）<br>
+        ⚠️ 选第三方11kW桩要注意兼容性：部分品牌11kW桩给其他车型充电时只有3.5kW</p>
       </div>
     </div>
     <div class="tip-box">
-      <p>💡 <strong>省钱技巧：</strong>申请「峰谷电价」，夜间 0:00-8:00 充电可享受谷电价（约 0.3 元/kWh），充满一次 Model 3 后驱版仅需约 18 元。</p>
+      <p>💡 <strong>省钱技巧：</strong>申请「峰谷电价」，夜间低谷时段（各地不同，一般为 22:00-8:00）充电可享受谷电价（约 0.3 元/kWh）。Model 3 后驱版 60kWh 电池充满约 18 元，每公里仅约 5 分钱。</p>
     </div>
   </div>
 
-  <!-- 3. 超充使用技巧 -->
+  <!-- 随车充 -->
+  <div class="section">
+    <h2>🔌 随车充使用</h2>
+    <p>没有家充条件时的首选方案，也是长途出行的应急补能工具。</p>
+    <div class="method-grid">
+      <div class="method-box">
+        <h3>特斯拉原装随车充（已停产）</h3>
+        <p>支持 8A/10A/16A 三档电流调节。16A（空调插座）约充 25 km/h，10A（普通插座）约充 12-15 km/h。原装售价约 2,550 元，目前已停产。</p>
+      </div>
+      <div class="method-box">
+        <h3>第三方随车充推荐</h3>
+        <p><strong>品胜 IP67 防水版（约 700 元）：</strong>支持 8A/10A/13A 三档电流，IP67 防水防尘，温控保护，性价比最高。<br>
+        <strong>使用注意：</strong><br>
+        ① 16A 需空调专用插座（孔距更大），10A 用普通插座<br>
+        ② 10A 转 16A 转接头（约 30 元）务必买铜触点款，劣质转接线可能过热<br>
+        ③ 随车充充电速度有限，只适合夜间补能或应急</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 超充使用技巧 -->
   <div class="section">
     <h2>🏎️ 超级充电站使用技巧</h2>
     <ul style="padding-left:20px;font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">
-      <li><strong>导航前往超充：</strong>在特斯拉导航中设定超充站，车辆会自动预热电池，显著缩短充电时间（尤其在冬季）</li>
-      <li><strong>最佳充电区间：</strong>从 10% 充到 80% 是最经济的策略，80% 后充电速度大幅下降</li>
-      <li><strong>避免占位费：</strong>超充站充满后 5 分钟不挪车开始收取占位费（最高 6.4 元/分钟）</li>
-      <li><strong>V3/V4 与 V2 区别：</strong>V3 最大 250kW，V4 最大 500kW；V2 共享功率（相邻车位会分流）</li>
-      <li><strong>避开高峰：</strong>节假日高速服务区超充站排队长（30-60 分钟），建议下高速 5 km 内的市区超充站</li>
-      <li><strong>非特斯拉车辆：</strong>国内超充站已开放给其他品牌使用（需下载 Tesla App 充电）</li>
+      <li><strong>导航前往超充：</strong>在特斯拉导航中设定超充站，车辆会自动预热电池，显著缩短充电时间（冬季效果尤为明显）</li>
+      <li><strong>最佳充电区间：</strong>10%→80% 是最高效的区间，80% 后充电功率大幅下降（V3 从 250kW 降到 50kW 以下）</li>
+      <li><strong>避免占位费：</strong>超充站充满后 5 分钟不挪车开始收取占位费（最高 6.4 元/分钟），App 可延长 5 分钟</li>
+      <li><strong>V2 / V3 / V4 区别：</strong>V2 峰值 150kW（两桩共享功率，相邻车位分流）；V3 峰值 250kW（独立功率）；V4 峰值 500kW（2025年7月国内首批上线）</li>
+      <li><strong>避开高峰：</strong>节假日高速服务区超充站排队长（30-60 分钟），建议下高速 5km 内的市区超充站</li>
+      <li><strong>非特斯拉车辆：</strong>国内超充站已开放给其他品牌使用（需下载 Tesla App 扫码充电）</li>
+      <li><strong>超充对电池的影响：</strong>偶尔长途用超充不会伤电池，BMS 会自动管理温度和功率。但长期频繁用超充（如每天）会加速衰减，日常优先家充</li>
     </ul>
     <div class="warning-box">
-      <p>⚠️ <strong>避免频繁超充：</strong>长期频繁使用大功率快充会加速电池衰减。日常尽量用家充慢充，长途旅行再用超充。</p>
+      <p>⚠️ <strong>超充站区别说明：</strong>部分 V2 超充站两桩共享一路电，如果相邻车位同时在充，功率会分流到各 75kW 左右。V3/V4 不存在此问题。导航中可查看桩位类型。</p>
     </div>
   </div>
 
-  <!-- 4. 第三方充电 -->
+  <!-- 电池健康保养（核心章节，按车型区分） -->
   <div class="section">
-    <h2>🔋 第三方充电网络</h2>
-    <table class="m-table">
-      <thead><tr><th>运营商</th><th>数量</th><th>功率</th><th>使用方式</th><th>兼容性</th></tr></thead>
-      <tbody>
-        <tr><td>国家电网（e充电）</td><td>超 30 万根</td><td>60-120 kW</td><td>国网 App / 扫码</td><td>良好</td></tr>
-        <tr><td>特来电</td><td>超 20 万根</td><td>60-180 kW</td><td>特来电 App / 扫码</td><td>优秀</td></tr>
-        <tr><td>星星充电</td><td>超 15 万根</td><td>60-120 kW</td><td>星星充电 App</td><td>良好</td></tr>
-        <tr><td>小桔充电</td><td>超 10 万根</td><td>60-120 kW</td><td>滴滴 App 内</td><td>良好</td></tr>
-        <tr><td>特斯拉超充</td><td>超 9,000 根</td><td>250-500 kW</td><td>即插即充/Tesla App</td><td>最佳</td></tr>
-      </tbody>
-    </table>
-    <div class="tip-box">
-      <p>💡 <strong>使用技巧：</strong>通过「特斯拉 App → 地点 → 充电」可以查看第三方充电站信息。部分第三方快充桩握手成功率和功率可能低于超充，属正常现象。</p>
-    </div>
-  </div>
-
-  <!-- 5. 电池健康保养 -->
-  <div class="section">
-    <h2>🔋 电池健康保养（Battery 101）</h2>
-
-    <div class="battery-tip">
-      <h4>📐 三元锂电池（NCA / NCM）</h4>
-      <p>用于 Model 3/Y 长续航/高性能版、Model S/X<br>
-        ✅ 日常建议：保持 20%-80% 电量<br>
-        ✅ 长途前：充满至 90% 或 100%（出发时再用）<br>
-        ✅ 避免：长时间停在 100% 或 0%<br>
-        ✅ 每月做 1 次完整充放电（10%→100%）用于 BMS 校准</p>
-    </div>
+    <h2>🔋 电池健康保养（按车型区分）</h2>
 
     <div class="battery-tip" style="border-left-color:var(--green);">
-      <h4>🧪 磷酸铁锂电池（LFP）</h4>
-      <p>用于 Model 3/Y 后驱标准续航版<br>
-        ✅ 日常建议：可随时充满至 100%（厂家推荐）<br>
-        ✅ 注意：LFP 的 SOC 估算不如三元锂精确<br>
-        ✅ 每周至少充满 1 次以校准 BMS（尤其冬季）<br>
-        ✅ 耐低温性能比三元锂差（东北用户注意）</p>
+      <h4>🧪 LFP 磷酸铁锂电池（Model 3/Y 后驱标准续航版）</h4>
+      <p>
+        ✅ <strong>日常建议：充到 100%</strong>——这是特斯拉官方推荐，不是建议<br>
+        ✅ <strong>每周至少充满 1 次</strong>用于 BMS 校准（LFP 电压平台平，SOC 估算不如三元锂精确）<br>
+        ✅ <strong>停放超过一周不用，也要充满</strong>后再停放<br>
+        ✅ 耐高温性能好（热失控温度 800°C），安全性优于三元锂<br>
+        ✅ 循环寿命 3000+ 次，比三元锂更耐用<br>
+        ⚠️ <strong>耐低温性能差：</strong>-10°C 时容量衰减约 30%，东北/西北冬季续航显著下降<br>
+        ⚠️ 充电功率上限低于三元锂：超充峰值约 170kW（vs 三元锂 250kW）<br>
+        ⚠️ 自重比三元锂版重约 130kg，百公里电耗略高
+      </p>
+    </div>
+
+    <div class="battery-tip">
+      <h4>📐 三元锂电池 NCA/NCM（Model 3/Y 长续航/高性能版、Model S/X）</h4>
+      <p>
+        ✅ <strong>日常建议：保持 20%-80%</strong>电量，这是对三元锂最友好的范围<br>
+        ✅ <strong>长途前充到 90%</strong>即可，极端情况可充 100% 但出发即用，不要长时间停在满电<br>
+        ✅ <strong>每 1-2 个月做 1 次 10%→100% 完整充放电</strong>用于 BMS 校准（不是每周）<br>
+        ✅ 低温性能好于 LFP：-20°C 仍可释放约 70% 电量<br>
+        ✅ 能量密度更高、充电功率上限更高（超充峰值 250kW）<br>
+        ⚠️ 热失控温度约 250°C，低于 LFP，安全性依赖 BMS 热管理<br>
+        ⚠️ 循环寿命约 2000 次，浅充浅放（20-80%）可延长
+      </p>
     </div>
 
     <div class="battery-tip" style="border-left-color:var(--orange);">
-      <h4>🌡️ 温度管理</h4>
-      <p>✅ 最佳工作温度：25-40°C<br>
-        ✅ 冬季充电前预热：导航到超充即可自动预热<br>
-        ✅ 夏季注意：避免长时间暴晒（尤其是 LFP 车型）<br>
-        ✅ 长时间停车：建议插着充电枪（即使不充），BMS 会自动管理温度</p>
+      <h4>🌡️ 温度管理（所有车型通用）</h4>
+      <p>
+        ✅ 最佳工作温度：25-40°C<br>
+        ✅ 冬季充电前预热：导航到超充站即可自动预热电池<br>
+        ✅ 夏季注意：避免长时间暴晒（尤其是 LFP 车型，高温不会失控但影响寿命）<br>
+        ✅ 长时间停车：建议插着充电枪（即使不充），BMS 会自动管理电池温度<br>
+        ✅ 北方冬季：出发前用 App 预热座舱+电池，比上车再开暖风省电得多
+      </p>
     </div>
 
     <div class="battery-tip" style="border-left-color:var(--red);">
-      <h4>🚫 避免的坏习惯</h4>
-      <p>❌ 经常用到 5% 以下再充<br>
-        ❌ 长期停在 100% 不移动（尤其是高温天）<br>
-        ❌ 寒冬室外长期停放不充电<br>
-        ❌ 频繁使用 250kW+ 超充（仅长途需要时再用）<br>
-        ❌ 盲目相信第三方「电池修复」服务</p>
+      <h4>🚫 避免的坏习惯（所有车型）</h4>
+      <p>
+        ❌ 三元锂长期停在 100% 不移动（尤其高温天）<br>
+        ❌ 经常用到 5% 以下再充（深度放电伤电池）<br>
+        ❌ 寒冬室外长期停放不充电不预热<br>
+        ❌ 长期只用超充从不说家充（大功率直流频繁冲击）<br>
+        ❌ 三元锂经常充到 100% 后长时间不用<br>
+        ❌ LFP 长期不充满（BMS 估算偏差越来越大）<br>
+        ❌ 盲信第三方「电池修复」「续航提升」产品
+      </p>
     </div>
 
     <div class="tip-box">
-      <p>💡 <strong>电池衰减预期：</strong>特斯拉电池设计寿命约 30 万-80 万公里（取决于车型和使用习惯）。多数车主 3 年衰减约 5-10%，第 4-5 年后衰减速度放缓。电池保修：8 年/16 万-24 万公里（根据车型不同），保维修或更换。</p>
+      <p>💡 <strong>电池衰减预期：</strong>多数车主 3 年/6 万公里衰减约 5-8%，之后衰减速度放缓。LFP 电池衰减更缓慢（循环寿命 3000+ 次 vs 三元锂 2000 次）。电池保修：Model 3/Y 后驱版 8 年/16 万公里；长续航/高性能版 8 年/19.2 万公里；Model S/X 8 年/24 万公里——保修期内电池容量低于 70% 可免费维修或更换。</p>
     </div>
   </div>
 
-  <!-- 6. 充电策略总结 -->
+  <!-- 充电策略总结 -->
   <div class="section">
     <h2>📝 日常充电策略总结</h2>
     <table class="m-table">
-      <thead><tr><th>场景</th><th>推荐策略</th><th>备注</th></tr></thead>
+      <thead><tr><th>场景</th><th>LFP（后驱版）</th><th>三元锂（长续航/高性能）</th></tr></thead>
       <tbody>
-        <tr><td>日常通勤（有家充）</td><td>随用随充，保持 20-80%</td><td>设置预约充电到低谷电价时段</td></tr>
-        <tr><td>日常通勤（LFP 版本）</td><td>每周充满 1 次，其余随用随充</td><td>充满校准 BMS</td></tr>
-        <tr><td>长途旅行</td><td>出发前充满，规划超充站</td><td>导航中设定超充自动预热电池</td></tr>
-        <tr><td>长期停放（>1 周）</td><td>保持 50% 电量，插充电枪</td><td>关闭哨兵模式降低自放电</td></tr>
-        <tr><td>长期停放（>1 月）</td><td>保持 50% 电量，连接电源</td><td>每月检查一次电量</td></tr>
+        <tr><td>日常通勤（有家充）</td><td>每晚充到 100%，利用低谷电价</td><td>充到 80%，长途前充到 90%</td></tr>
+        <tr><td>日常通勤（无家充）</td><td>每周至少充满 1 次</td><td>每 1-2 月做 1 次完整充放电校准</td></tr>
+        <tr><td>长途旅行</td><td>出发前充满，途中用超充 10→80%</td><td>出发前充到 90-100%，途中超充 10→80%</td></tr>
+        <tr><td>长期停放（1-4 周）</td><td>充满后停放，保持插枪</td><td>保持 50-60%，插枪</td></tr>
+        <tr><td>长期停放（>1 月）</td><td>充满后停放，每月检查</td><td>保持 50%，每月检查一次</td></tr>
+        <tr><td>冬季北方</td><td>预期续航下降 25-35%，出发前预热</td><td>预期续航下降 15-25%，出发前预热</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- 外放电 -->
+  <div class="section">
+    <h2>🔌 外放电功能（V2L）</h2>
+    <p>部分新款特斯拉支持外放电（Vehicle-to-Load），可将车辆电池的直流电转为 220V 交流电供外部设备使用。</p>
+    <div class="model-note">
+      <strong>Model Y L（2025 款）：</strong>首款支持外放电的国产特斯拉，额定功率 2200W，需配合官方适配器使用（车主可免费兑换）。适合露营、户外供电、应急场景。<br>
+      <strong>注意：</strong>电器总功率不超过 2200W，避免极端温度下长时间放电，以保障电池寿命与安全。<br>
+      <strong>其他车型：</strong>目前 Model 3、Model S/X 尚未支持外放电功能。
+    </div>
   </div>
 
   <!-- 底部 -->

@@ -44,7 +44,7 @@ var HOME_SECTIONS = [
     defaultOpen: false,
     cards: [
       {href:'marvel.html',        color:'tile-purple', title:'漫威宇宙',        desc:'观影顺序·英雄档案·角色解析'},
-      {href:'zisha.html',         color:'',            title:'紫砂艺术',        desc:'吴昊天作品·五色釉·经典壶型'}
+      {href:'zisha.html',         color:'tile-orange',   title:'紫砂艺术',        desc:'吴昊天作品·五色釉·经典壶型'}
     ]
   }
 ];
@@ -126,6 +126,31 @@ function closeHomeEditor(){
 function saveHomeToggle(id, open){
   saveSectionOpen(id, open);
   applyHomeSections();
+}
+
+// 重置为代码默认值
+function resetHomeSections(){
+  try{localStorage.removeItem('homeSections');}catch(e){}
+  applyHomeSections();
+  // 刷新开关状态
+  var overlay=document.getElementById('homeEditor');
+  if(!overlay) return;
+  var list=overlay.querySelector('.home-editor-list');
+  if(list){
+    list.innerHTML='';
+    HOME_SECTIONS.forEach(function(sec){
+      var open=sec.defaultOpen;
+      var item=document.createElement('div');
+      item.className='home-editor-item';
+      item.innerHTML='<span class="he-icon">'+sec.icon+'</span>'+
+        '<span class="he-label">'+sec.label+'</span>'+
+        '<label class="toggle-switch">'+
+        '<input type="checkbox" '+(open?'checked':'')+
+        ' onchange="saveHomeToggle(\''+sec.id+'\',this.checked)">'+
+        '<span class="toggle-slider"></span></label>';
+      list.appendChild(item);
+    });
+  }
 }
 
 // 页面加载完成后应用状态
@@ -389,7 +414,10 @@ window.addEventListener('DOMContentLoaded', applyHomeSections);
     </div>
     <p style="font-size:0.85rem;color:var(--text-muted);margin:0 0 16px;">开启的板块将在首页直接展示，关闭的默认折叠。</p>
     <div class="home-editor-list"></div>
-    <button onclick="closeHomeEditor()" class="guest-submit" style="margin-top:20px;width:100%;">保存</button>
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button onclick="resetHomeSections()" style="flex:1;background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-muted);padding:8px;border-radius:8px;cursor:pointer;font-size:0.85rem;">↺ 重置为默认</button>
+      <button onclick="closeHomeEditor()" class="guest-submit" style="flex:2;">保存</button>
+    </div>
   </div>
 </div>
 

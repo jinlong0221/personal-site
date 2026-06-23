@@ -452,27 +452,46 @@ footer {
 footer a { color:var(--gold); }
 footer a:hover { color:var(--gold-light); }
 
-/* ===== 底部双栏（龙兄公示牌 + 进化的龙兄） ===== */
 .bottom-duo {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin: 32px auto;
+  max-width: 100%;
+}
+.bottom-duo-row {
+  display: flex;
+  gap: 24px;
   justify-content: center;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 16px 0;
 }
 .bottom-duo-item {
-  flex: 1;
-  max-width: 380px;
+  flex: 0 0 auto;
+  width: 320px;
+  max-width: 90vw;
   margin: 0 !important;
+}
+.bottom-duo-item .section-label {
+  margin-bottom: 12px;
+}
+
+@media (max-width:700px) {
+  .bottom-duo-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .bottom-duo-item {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .notice-board {
   background: var(--card);
-  border: 1px solid var(--gold);
+  border: 2px solid var(--gold);
   border-radius: var(--radius);
-  padding: 20px;
-  min-height: 120px;
+  padding: 16px 18px;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -480,26 +499,18 @@ footer a:hover { color:var(--gold-light); }
 .notice-content {
   font-size: 0.9rem;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 .notice-content p {
-  margin: 0 0 6px;
-}
-.notice-content p:last-child {
-  margin-bottom: 0;
+  margin: 0;
 }
 .notice-footer {
-  margin-top: 14px;
+  margin-top: 12px;
   font-size: 0.75rem;
   color: var(--text-muted);
   text-align: right;
   border-top: 1px solid var(--border-light);
-  padding-top: 10px;
-}
-
-@media (max-width:640px) {
-  .bottom-duo { flex-direction: column; align-items: center; }
-  .bottom-duo-item { max-width: 100%; width: 100%; }
+  padding-top: 8px;
 }
 
 .timeline { position:relative; padding-left:32px; margin:24px 0; }

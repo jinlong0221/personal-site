@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游戏主机图鉴 - 龙兄知识库</title>
+<meta name="description" content="任天堂、索尼、微软、世嘉等游戏主机完整图鉴，从1977年至今的全部家用主机与掌机">
+<meta name="keywords" content="游戏主机,任天堂,索尼,微软,PlayStation,Xbox,Switch,世嘉,雅达利,Steam Deck">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<style>
+
+/* Brand color scheme */
+.brand-nintendo { --brand-color: #e60012; }
+.brand-sony { --brand-color: #003087; }
+.brand-microsoft { --brand-color: #107c10; }
+.brand-sega { --brand-color: #0055a5; }
+.brand-atari { --brand-color: #e85c18; }
+.brand-other { --brand-color: #6b7280; }
+
+/* Console card */
+.console-card {
+  background: var(--dark-tile);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--brand-color, var(--blue));
+  padding: 16px;
+  transition: transform 0.2s, filter 0.2s;
+}
+.console-card:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.console-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.console-card .year {
+  font-size: 13px;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.console-card .desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.console-card .specs {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.console-card .specs span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Brand section */
+.brand-section {
+  margin: 30px 0;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+.brand-header h2 {
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.brand-header .badge {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--brand-color);
+  color: #fff;
+}
+
+.brand-header .badge.inactive {
+  background: var(--text-muted);
+}
+
+/* Category tabs */
+.category-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.category-tab {
+  padding: 8px 20px;
+  border: 2px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-tab:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.category-tab.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+/* Timeline view */
+.timeline-console {
+  position: relative;
+  padding-left: 30px;
+}
+
+.timeline-console::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid var(--bg);
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.stat-box {
+  background: var(--dark-tile);
+  border: 1px solid var(--border);
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-box .number {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--blue);
+}
+
+.stat-box .label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-brand">
+    <a href="index.html">🐉 龙兄知识库</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+  <div class="nav-links">
+    <a href="agarwood.html">🪵 沉香鉴别</a>
+    <a href="herbs.html">🌿 中药材</a>
+    <a href="health-tea.html">🍵 养生茶</a>
+    <a href="bracelet.html">📿 文玩手串</a>
+    <a href="tesla.html">🚗 特斯拉</a>
+    <a href="marvel.html">🦸 漫威宇宙</a>
+    <a href="console.html" class="active">🎮 游戏主机</a>
+    <a href="xintan-weather.html">🌾 农田气象</a>
+    <a href="travel.html">✈️ 旅行攻略</a>
+    <a href="changelog.html">📜 更新日志</a>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="agarwood.html">🪵 沉香鉴别</a>
+    <a href="herbs.html">🌿 中药材</a>
+    <a href="health-tea.html">🍵 养生茶</a>
+    <a href="bracelet.html">📿 文玩手串</a>
+    <a href="tesla.html">🚗 特斯拉</a>
+    <a href="marvel.html">🦸 漫威宇宙</a>
+    <a href="console.html" class="active">🎮 游戏主机</a>
+    <a href="xintan-weather.html">🌾 农田气象</a>
+    <a href="travel.html">✈️ 旅行攻略</a>
+    <a href="changelog.html">📜 更新日志</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- 页面标题 -->
+  <div class="home-header">
+    <h1 class="site-title">🎮 游戏主机图鉴</h1>
+    <p class="hero-slogan">从1977年至今 · 三大品牌 · 经典与新生</p>
+  </div>
+
+  <!-- 统计概览 -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="number">50+</div>
+      <div class="label">主机型号</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">6</div>
+      <div class="label">品牌收录</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">48</div>
+      <div class="label">年份数据（1977-2025）</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">3</div>
+      <div class="label">现存品牌</div>
+    </div>
+  </div>
+
+  <!-- 分类导航 -->
+  <div class="category-tabs">
+    <button class="category-tab active" data-category="all">全部主机</button>
+    <button class="category-tab" data-category="home">家用主机</button>
+    <button class="category-tab" data-category="handheld">掌机</button>
+    <button class="category-tab" data-category="active">现存品牌</button>
+    <button class="category-tab" data-category="classic">经典已停产</button>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- 任天堂 Nintendo -->
+  <!-- ============================================ -->
+  <section class="brand-section brand-nintendo" data-brand="nintendo">
+    <div class="brand-header">
+      <h2>🔴 任天堂 Nintendo</h2>
+      <span class="badge">现存品牌</span>
+    </div>
+
+    <h3>📺 家用主机（8台）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-nintendo" data-category="home">
+        <h3>Family Computer (FC)</h3>
+        <div class="year">1983年 · 日本</div>
+        <div class="desc">红白机，8位机时代霸主。开创了第三方游戏授权模式，定义了现代游戏产业。全球销量6191万台，经典游戏《超级马里奥兄弟》《魂斗罗》。</div>
+        <div class="specs">
+          <span>🖥️ 8位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 6191万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="home">
+        <h3>Super Famicom (SFC)</h3>
+        <div class="year">1990年 · 日本</div>
+        <div class="desc">超级任天堂，16位机时代巅峰。图形与音效大幅提升，RPG黄金时代。《最终幻想VI》《时空之轮》《塞尔达传说：众神的三角力量》。</div>
+        <div class="specs">
+          <span>🖥️ 16位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 4910万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="home">
+        <h3>Nintendo 64 (N64)</h3>
+        <div class="year">1996年 · 全球</div>
+        <div class="desc">首款摇杆手柄主机，3D游戏革命。《超级马里奥64》定义3D平台游戏，《塞尔达传说：时之笛》被誉为史上最佳游戏之一。</div>
+        <div class="specs">
+          <span>🖥️ 64位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 3293万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="home">
+        <h3>Nintendo GameCube (NGC)</h3>
+        <div class="year">2001年 · 全球</div>
+        <div class="desc">紫色方块，光盘时代开端。性能强于PS2但销量不佳。《阳光马里奥》《塞尔达传说：风之杖》《银河战士Prime》。</div>
+        <div class="specs">
+          <span>🖥️ 128位 CPU</span>
+          <span>💿 8cm光盘</span>
+          <span>🌍 2174万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="home">
+        <h3>Wii</h3>
+        <div class="year">2006年 · 全球</div>
+        <div class="desc">体感革命，蓝海战略成功。吸引非玩家群体，成为家庭娱乐中心。《Wii Sports》史上最畅销游戏之一。</div>
+        <div class="specs">
+          <span>🎯 体感控制</span>
+          <span>💾 光盘介质</span>
+          <span>🌍 1.016亿台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="home">
+        <h3>Wii U</h3>
+        <div class="year">2012年 · 全球</div>
+        <div class="desc">双屏创新，市场失利。GamePad手柄带屏幕，概念超前但营销失败。销量仅1356万台，任天堂最失败主机。</div>
+        <div class="specs">
+          <span>📱 双屏手柄</span>
+          <span>💾 光盘介质</span>
+          <span>🌍 1356万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="home active">
+        <h3>Nintendo Switch</h3>
+        <div class="year">2017年 · 全球</div>
+        <div class="desc">主机掌机合一，革命性设计。可拆卸手柄+底座，自由切换模式。《塞尔达传说：旷野之息》《集合啦！动物森友会》。</div>
+        <div class="specs">
+          <span>🔄 主机/掌机切换</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 1.41亿台+</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="home active">
+        <h3>Nintendo Switch 2</h3>
+        <div class="year">2025年 · 全球</div>
+        <div class="desc">次世代掌机，性能大幅提升。支持4K输出、向下兼容Switch游戏。2025年正式发布。</div>
+        <div class="specs">
+          <span>🖥️ 定制NVIDIA芯片</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 新品上市</span>
+        </div>
+      </div>
+
+    </div>
+
+    <h3>📱 掌机系列（7款）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-nintendo" data-category="handheld">
+        <h3>Game & Watch</h3>
+        <div class="year">1980年 · 全球</div>
+        <div class="desc">便携游戏先驱，横井军平设计。单屏或双屏，每个设备内置一款游戏。奠定了掌机基础形态。</div>
+        <div class="specs">
+          <span>🖥️ LCD屏幕</span>
+          <span>🎮 单游戏</span>
+          <span>🌍 4340万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="handheld">
+        <h3>Game Boy (GB)</h3>
+        <div class="year">1989年 · 全球</div>
+        <div class="desc">开创掌机时代，横井军平代表作。黑白屏幕，续航超强。《俄罗斯方块》《精灵宝可梦》系列。</div>
+        <div class="specs">
+          <span>🖥️ 8位 CPU</span>
+          <span>🔋 4节AA电池</span>
+          <span>🌍 1.18亿台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="handheld">
+        <h3>Game Boy Color (GBC)</h3>
+        <div class="year">1998年 · 全球</div>
+        <div class="desc">彩色掌机，兼容GB游戏。性能小幅提升，专属游戏如《塞尔达传说：梦见岛DX》。</div>
+        <div class="specs">
+          <span>🖥️ 彩色LCD</span>
+          <span>💾 兼容GB</span>
+          <span>🌍 3267万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="handheld">
+        <h3>Game Boy Advance (GBA)</h3>
+        <div class="year">2001年 · 全球</div>
+        <div class="desc">32位掌机巅峰，横版游戏天堂。《黄金太阳》《火焰纹章》《恶魔城》系列。后期推出SP折叠版。</div>
+        <div class="specs">
+          <span>🖥️ 32位 ARM</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 8151万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="handheld">
+        <h3>Nintendo DS</h3>
+        <div class="year">2004年 · 全球</div>
+        <div class="desc">双屏触控，销量之王。下屏触摸，创新玩法。《任天狗》《脑锻炼》《精灵宝可梦》。</div>
+        <div class="specs">
+          <span>📱 双屏设计</span>
+          <span>👆 触摸屏</span>
+          <span>🌍 1.54亿台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="handheld">
+        <h3>Nintendo 3DS</h3>
+        <div class="year">2011年 · 全球</div>
+        <div class="desc">裸眼3D掌机，双屏延续。3D效果无需眼镜，后期推出New 3DS增强版。《塞尔达传说：时之笛3D》。</div>
+        <div class="specs">
+          <span>👓 裸眼3D</span>
+          <span>📱 双屏设计</span>
+          <span>🌍 7594万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-nintendo" data-category="handheld active">
+        <h3>Nintendo Switch Lite</h3>
+        <div class="year">2019年 · 全球</div>
+        <div class="desc">纯掌机版Switch，不可拆卸手柄。价格更低，便携性更强，无法连接电视。</div>
+        <div class="specs">
+          <span>📱 纯掌机形态</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 2500万台+</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 索尼 Sony -->
+  <!-- ============================================ -->
+  <section class="brand-section brand-sony" data-brand="sony">
+    <div class="brand-header">
+      <h2>🔵 索尼 Sony PlayStation</h2>
+      <span class="badge">现存品牌</span>
+    </div>
+
+    <h3>📺 家用主机（6台）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-sony" data-category="home">
+        <h3>PlayStation (PS1)</h3>
+        <div class="year">1994年 · 日本</div>
+        <div class="desc">光盘游戏革命，3D时代开启。与任天堂合作失败后独自推出，CD-ROM容量远超卡带。《最终幻想VII》《生化危机》。</div>
+        <div class="specs">
+          <span>💿 CD-ROM</span>
+          <span>🖥️ 32位 CPU</span>
+          <span>🌍 1.02亿台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sony" data-category="home">
+        <h3>PlayStation 2 (PS2)</h3>
+        <div class="year">2000年 · 全球</div>
+        <div class="desc">史上最畅销主机，1.55亿台。DVD播放器+游戏机二合一，性价比极高。《侠盗猎车手》《战神》《鬼泣》。</div>
+        <div class="specs">
+          <span>💿 DVD-ROM</span>
+          <span>🖥️ 128位 Emotion Engine</span>
+          <span>🌍 1.55亿台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sony" data-category="home">
+        <h3>PlayStation 3 (PS3)</h3>
+        <div class="year">2006年 · 全球</div>
+        <div class="desc">蓝光时代，Cell处理器。首发价格高昂，后期降价后反弹。《神秘海域》《最后生还者》《恶魔之魂》。</div>
+        <div class="specs">
+          <span>💿 蓝光光盘</span>
+          <span>🖥️ Cell处理器</span>
+          <span>🌍 8740万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sony" data-category="home">
+        <h3>PlayStation 4 (PS4)</h3>
+        <div class="year">2013年 · 全球</div>
+        <div class="desc">本世代霸主，AMD架构。Xbox One初期失误让PS4独占优势。《战神4》《地平线：零之曙光》《对马岛之魂》。</div>
+        <div class="specs">
+          <span>💿 蓝光光盘</span>
+          <span>🖥️ x86-64 AMD</span>
+          <span>🌍 1.17亿台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sony" data-category="home active">
+        <h3>PlayStation 5 (PS5)</h3>
+        <div class="year">2020年 · 全球</div>
+        <div class="desc">SSD革命，光追时代。超高速SSD消除加载时间，DualSense手柄触觉反馈。《蜘蛛侠2》《最终幻想XVI》。</div>
+        <div class="specs">
+          <span>💿 蓝光光盘</span>
+          <span>⚡ 自定义SSD</span>
+          <span>🌍 6500万台+</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sony" data-category="home active">
+        <h3>PlayStation 5 Pro</h3>
+        <div class="year">2024年 · 全球</div>
+        <div class="desc">性能增强版，8K游戏支持。GPU性能提升45%，光追更强。面向硬核玩家。</div>
+        <div class="specs">
+          <span>💿 蓝光光盘</span>
+          <span>🖥️ 增强GPU</span>
+          <span>🌍 新品上市</span>
+        </div>
+      </div>
+
+    </div>
+
+    <h3>📱 掌机系列（3款）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-sony" data-category="handheld">
+        <h3>PSP (PlayStation Portable)</h3>
+        <div class="year">2004年 · 全球</div>
+        <div class="desc">掌机多媒体中心，UMD光盘。影音游戏一体，《怪物猎人P3》《最终幻想VII：核心危机》。</div>
+        <div class="specs">
+          <span>💿 UMD光盘</span>
+          <span>📺 4.3英寸屏</span>
+          <span>🌍 8000万台+</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sony" data-category="handheld">
+        <h3>PS Vita</h3>
+        <div class="year">2011年 · 全球</div>
+        <div class="desc">触屏+背触，末期佳作。OLED屏幕，双摇杆，性能强劲。日本独立游戏天堂。销量1500万台。</div>
+        <div class="specs">
+          <span>📱 OLED屏</span>
+          <span>👆 触摸+背触</span>
+          <span>🌍 1500万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sony" data-category="handheld active">
+        <h3>PlayStation Portal</h3>
+        <div class="year">2023年 · 全球</div>
+        <div class="desc">PS5串流掌机，非独立主机。通过Wi-Fi远程游玩PS5游戏，无本地游戏运行能力。</div>
+        <div class="specs">
+          <span>📡 Wi-Fi串流</span>
+          <span>📺 8英寸LCD</span>
+          <span>🌍 配件</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 微软 Microsoft -->
+  <!-- ============================================ -->
+  <section class="brand-section brand-microsoft" data-brand="microsoft">
+    <div class="brand-header">
+      <h2>🟢 微软 Microsoft Xbox</h2>
+      <span class="badge">现存品牌</span>
+    </div>
+
+    <h3>📺 家用主机（5台）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-microsoft" data-category="home">
+        <h3>Xbox</h3>
+        <div class="year">2001年 · 全球</div>
+        <div class="desc">初代大黑盒子，Halo启蒙。首款内置硬盘主机，x86架构。《光环：战斗进化》《忍者龙剑传》。</div>
+        <div class="specs">
+          <span>💿 DVD-ROM</span>
+          <span>🖥️ x86架构</span>
+          <span>🌍 2400万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-microsoft" data-category="home">
+        <h3>Xbox 360</h3>
+        <div class="year">2005年 · 全球</div>
+        <div class="desc">三红事件，Xbox Live成熟。首发过早导致硬件故障，但在线服务领先。《光环3》《战争机器》。</div>
+        <div class="specs">
+          <span>💿 DVD-ROM</span>
+          <span>🌐 Xbox Live</span>
+          <span>🌍 8400万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-microsoft" data-category="home">
+        <h3>Xbox One</h3>
+        <div class="year">2013年 · 全球</div>
+        <div class="desc">全媒体战略，初期失误。强制联网、二手游戏限制引发争议，后期Xbox One X性能领先。</div>
+        <div class="specs">
+          <span>💿 蓝光光盘</span>
+          <span>📺 4K视频</span>
+          <span>🌍 5800万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-microsoft" data-category="home active">
+        <h3>Xbox Series S</h3>
+        <div class="year">2020年 · 全球</div>
+        <div class="desc">数字版入门机，性价比之选。无光驱，1440p输出，512GB SSD。XGP游戏库最佳伴侣。</div>
+        <div class="specs">
+          <span>💾 512GB SSD</span>
+          <span>💿 数字版</span>
+          <span>💰 $299</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-microsoft" data-category="home active">
+        <h3>Xbox Series X</h3>
+        <div class="year">2020年 · 全球</div>
+        <div class="desc">次世代旗舰，最强性能。4K/120fps，快速恢复功能。与PS5竞争本世代。</div>
+        <div class="specs">
+          <span>💾 1TB SSD</span>
+          <span>🖥️ 12TF GPU</span>
+          <span>💰 $499</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 世嘉 SEGA（经典已停产） -->
+  <!-- ============================================ -->
+  <section class="brand-section brand-sega" data-brand="sega">
+    <div class="brand-header">
+      <h2>🔵 世嘉 SEGA</h2>
+      <span class="badge inactive">2001年停产</span>
+    </div>
+
+    <h3>📺 家用主机（5台）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-sega" data-category="home classic">
+        <h3>SG-1000</h3>
+        <div class="year">1983年 · 日本</div>
+        <div class="desc">世嘉首台家用机，与FC同年推出。日本以外地区推出Mark III/Master System。</div>
+        <div class="specs">
+          <span>🖥️ 8位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 区域限量</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sega" data-category="home classic">
+        <h3>Master System</h3>
+        <div class="year">1986年 · 全球</div>
+        <div class="desc">SG-1000改进版，8位机时代FC竞争对手。巴西市场持续畅销至2000年代。</div>
+        <div class="specs">
+          <span>🖥️ 8位 CPU</span>
+          <span>💾 卡带/卡带</span>
+          <span>🌍 1300万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sega" data-category="home classic">
+        <h3>Mega Drive (Genesis)</h3>
+        <div class="year">1988年 · 日本</div>
+        <div class="desc">16位机时代经典，北美称Genesis。《索尼克》系列诞生，与SFC激烈竞争。</div>
+        <div class="specs">
+          <span>🖥️ 16位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 3075万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sega" data-category="home classic">
+        <h3>Saturn</h3>
+        <div class="year">1994年 · 日本</div>
+        <div class="desc">2D游戏巅峰，3D时代失误。双CPU架构复杂，被PS1超越。《梦幻模拟战》《VR战士》。</div>
+        <div class="specs">
+          <span>💿 CD-ROM</span>
+          <span>🖥️ 双CPU架构</span>
+          <span>🌍 926万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sega" data-category="home classic">
+        <h3>Dreamcast</h3>
+        <div class="year">1998年 · 日本</div>
+        <div class="desc">世嘉末代主机，网络先行者。内置调制解调器，VMU记忆卡带屏幕。《莎木》《灵魂能力》。</div>
+        <div class="specs">
+          <span>💿 GD-ROM</span>
+          <span>🌐 内置调制解调器</span>
+          <span>🌍 913万台</span>
+        </div>
+      </div>
+
+    </div>
+
+    <h3>📱 掌机系列（2款）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-sega" data-category="handheld classic">
+        <h3>Game Gear</h3>
+        <div class="year">1990年 · 全球</div>
+        <div class="desc">彩色掌机，续航短。彩色屏幕领先GB，但6节电池仅3小时续航。</div>
+        <div class="specs">
+          <span>🖥️ 彩色LCD</span>
+          <span>🔋 6节AA电池</span>
+          <span>🌍 1062万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-sega" data-category="handheld classic">
+        <h3>Sega Nomad</h3>
+        <div class="year">1995年 · 北美</div>
+        <div class="desc">便携Mega Drive，可玩MD卡带。体积大、续航短，北美独占。</div>
+        <div class="specs">
+          <span>🖥️ 彩色LCD</span>
+          <span>💾 兼容MD卡带</span>
+          <span>🌍 区域限量</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 雅达利 Atari（经典已停产） -->
+  <!-- ============================================ -->
+  <section class="brand-section brand-atari" data-brand="atari">
+    <div class="brand-header">
+      <h2>🟠 雅达利 Atari</h2>
+      <span class="badge inactive">经典品牌</span>
+    </div>
+
+    <h3>📺 家用主机（4台）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-atari" data-category="home classic">
+        <h3>Atari 2600</h3>
+        <div class="year">1977年 · 全球</div>
+        <div class="desc">家用主机鼻祖，卡带交换游戏模式开创者。1983年大崩溃主角，但历史地位不可动摇。</div>
+        <div class="specs">
+          <span>🖥️ 8位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 3000万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-atari" data-category="home classic">
+        <h3>Atari 5200</h3>
+        <div class="year">1982年 · 北美</div>
+        <div class="desc">2600后续机型，手柄设计失败。无自动回中摇杆，兼容性差。</div>
+        <div class="specs">
+          <span>🖥️ 8位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 100万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-atari" data-category="home classic">
+        <h3>Atari 7800</h3>
+        <div class="year">1986年 · 北美</div>
+        <div class="desc">向下兼容2600，性能提升。被NES压制，市场表现平平。</div>
+        <div class="specs">
+          <span>🖥️ 8位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 377万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-atari" data-category="home classic">
+        <h3>Atari Jaguar</h3>
+        <div class="year">1993年 · 全球</div>
+        <div class="desc">"64位"营销噱头，实际双32位架构。市场失败，世嘉土星和PS1碾压。</div>
+        <div class="specs">
+          <span>🖥️ 双32位架构</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 25万台</span>
+        </div>
+      </div>
+
+    </div>
+
+    <h3>📱 掌机系列（1款）</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-atari" data-category="handheld classic">
+        <h3>Atari Lynx</h3>
+        <div class="year">1989年 · 全球</div>
+        <div class="desc">首款彩色掌机，性能强劲。但体积大、续航短，被GB击败。</div>
+        <div class="specs">
+          <span>🖥️ 彩色LCD</span>
+          <span>🔋 6节AA电池</span>
+          <span>🌍 300万台</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 其他品牌 -->
+  <!-- ============================================ -->
+  <section class="brand-section brand-other" data-brand="other">
+    <div class="brand-header">
+      <h2>⚪ 其他品牌</h2>
+      <span class="badge">经典&新兴</span>
+    </div>
+
+    <h3>📺 其他家用主机</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-other" data-category="home classic">
+        <h3>3DO</h3>
+        <div class="year">1993年 · 全球</div>
+        <div class="desc">松下等厂商联合标准，首款32位CD主机。价格高昂（$699），软件质量参差。</div>
+        <div class="specs">
+          <span>💿 CD-ROM</span>
+          <span>🖥️ 32位 CPU</span>
+          <span>💰 $699</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-other" data-category="home classic">
+        <h3>Neo Geo</h3>
+        <div class="year">1990年 · 全球</div>
+        <div class="desc">SNK街机级家用机，天价神机。卡带价格$200+，面向高端玩家。《拳皇》《侍魂》。</div>
+        <div class="specs">
+          <span>🖥️ 16位 CPU</span>
+          <span>💾 天价卡带</span>
+          <span>💰 $649</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-other" data-category="home classic">
+        <h3>Apple Pippin</h3>
+        <div class="year">1996年 · 全球</div>
+        <div class="desc">苹果唯一游戏主机尝试，惨败。基于Mac架构，CD-ROM，销量仅数万台。</div>
+        <div class="specs">
+          <span>💿 CD-ROM</span>
+          <span>🖥️ PowerPC</span>
+          <span>🌍 约4万台</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-other" data-category="home classic">
+        <h3>小霸王</h3>
+        <div class="year">1987-2000s · 中国</div>
+        <div class="desc">中国FC克隆机之王，"其乐无穷"广告词深入人心。学习机外皮，游戏机内核。一代中国玩家启蒙。</div>
+        <div class="specs">
+          <span>🖥️ 8位 CPU</span>
+          <span>💾 卡带介质</span>
+          <span>🌍 中国特供</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-other" data-category="home classic">
+        <h3>战斧 F1</h3>
+        <div class="year">2016年 · 中国</div>
+        <div class="desc">斧子科技国产主机，基于Android。众筹失败，销量惨淡，国产主机尝试挫折。</div>
+        <div class="specs">
+          <span>🖥️ Tegra K1</span>
+          <span>💿 数字版</span>
+          <span>🌍 约1万台</span>
+        </div>
+      </div>
+
+    </div>
+
+    <h3>📱 新兴PC掌机</h3>
+    <div class="tile-grid">
+
+      <div class="console-card brand-other" data-category="handheld active">
+        <h3>Steam Deck</h3>
+        <div class="year">2022年 · 全球</div>
+        <div class="desc">Valve PC掌机革命者，SteamOS系统。可玩PC游戏库，性价比高。2023年推出OLED版。</div>
+        <div class="specs">
+          <span>🖥️ AMD Zen 2</span>
+          <span>💾 64GB-512GB</span>
+          <span>💰 $399起</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-other" data-category="handheld active">
+        <h3>ROG Ally</h3>
+        <div class="year">2023年 · 全球</div>
+        <div class="desc">华硕Windows掌机，性能强于Deck。Windows系统兼容性好，续航一般。2024年推出Ally X增强版。</div>
+        <div class="specs">
+          <span>🖥️ AMD Z1系列</span>
+          <span>💾 512GB-1TB</span>
+          <span>💰 $699起</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-other" data-category="handheld active">
+        <h3>Legion Go</h3>
+        <div class="year">2023年 · 全球</div>
+        <div class="desc">联想Windows掌机，可拆分手柄。8.8英寸大屏，FPS模式支持支架+鼠标。</div>
+        <div class="specs">
+          <span>🖥️ AMD Z1 Extreme</span>
+          <span>📱 8.8英寸屏</span>
+          <span>💰 $699</span>
+        </div>
+      </div>
+
+      <div class="console-card brand-other" data-category="handheld active">
+        <h3>Anbernic 开源掌机</h3>
+        <div class="year">2017-至今 · 中国</div>
+        <div class="desc">复古游戏神器，多款型号。运行街机/FC/SFC/GBA等模拟器，价格亲民。</div>
+        <div class="specs">
+          <span>🖥️ 多型号</span>
+          <span>🎮 模拟器</span>
+          <span>💰 $50-200</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="page-meta">
+    <span>最后更新：2026-06-23</span>
+    <span>数据来源：官方资料、维基百科、游戏媒体</span>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>🐉 龙兄知识库 · AI驱动 · 知识沉淀</p>
+    <p><span id="busuanzi_container_page_pv">本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span></p>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script>
+// Category tab filtering
+document.querySelectorAll('.category-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    // Update active tab
+    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    
+    const category = this.dataset.category;
+    
+    // Filter console cards
+    document.querySelectorAll('.console-card').forEach(card => {
+      if (category === 'all') {
+        card.style.display = 'block';
+      } else if (category === 'active') {
+        card.style.display = card.dataset.category.includes('active') ? 'block' : 'none';
+      } else if (category === 'classic') {
+        card.style.display = card.dataset.category.includes('classic') ? 'block' : 'none';
+      } else {
+        card.style.display = card.dataset.category.includes(category) ? 'block' : 'none';
+      }
+    });
+    
+    // Show/hide brand sections based on visible cards
+    document.querySelectorAll('.brand-section').forEach(section => {
+      const visibleCards = section.querySelectorAll('.console-card[style="display: block"], .console-card:not([style])');
+      let hasVisible = false;
+      visibleCards.forEach(card => {
+        if (!card.style.display || card.style.display === 'block') hasVisible = true;
+      });
+      section.style.display = hasVisible ? 'block' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>

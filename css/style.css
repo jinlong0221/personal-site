@@ -1304,3 +1304,53 @@ p.plot-text {
   max-height: 500px;
   padding: 0 20px 20px;
 }
+
+/* ===== 首页布局编辑器弹窗 ===== */
+.overlay-modal {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+.home-editor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.home-editor-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.he-icon { font-size: 1.2rem; }
+.he-label { flex: 1; font-size: 0.95rem; font-weight: 500; }
+
+/* 开关样式 */
+.toggle-switch {
+  position: relative; display: inline-block;
+  width: 44px; height: 24px; flex-shrink: 0;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--border);
+  transition: 0.25s;
+  border-radius: 24px;
+}
+.toggle-slider::before {
+  content: ''; position: absolute;
+  height: 18px; width: 18px; left: 3px; bottom: 3px;
+  background: #fff; border-radius: 50%;
+  transition: 0.25s;
+}
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--gold);
+}
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}

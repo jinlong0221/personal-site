@@ -8,6 +8,129 @@
 <meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
 <!-- [BUG-FIX:二-4] 消除主题切换闪白：在DOM渲染前读取localStorage设置data-theme -->
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<script>
+// ========== 首页板块配置 ==========
+// defaultOpen: 默认展开（true=展开，false=折叠）
+// 用户每次手动切换后，会保存到 localStorage，覆盖默认值
+var HOME_SECTIONS = [
+  {
+    id: 'life',
+    label: '生活百科',
+    icon: '🌿',
+    count: 3,
+    defaultOpen: false,
+    cards: [
+      {href:'health-tea.html',    color:'tile-teal',   title:'中药养生茶',      desc:'经典配方·体质对应·四季养生'},
+      {href:'xintan-weather.html',color:'tile-orange', title:'新坍镇农田气象',  desc:'乡镇精准预报·农事指导·灾害预警'},
+      {href:'travel.html',        color:'tile-yellow', title:'旅行攻略',        desc:'签证指南·行程规划·景点推荐'}
+    ]
+  },
+  {
+    id: 'tech',
+    label: '数码科技',
+    icon: '🚗',
+    count: 2,
+    defaultOpen: false,
+    cards: [
+      {href:'tesla.html',         color:'tile-blue',   title:'特斯拉动态新闻',  desc:'车载配件·充电指南·用车科普'},
+      {href:'console.html',       color:'tile-teal',   title:'游戏主机',        desc:'任天堂·索尼·微软·经典主机图鉴'}
+    ]
+  },
+  {
+    id: 'pop',
+    label: '流行文化',
+    icon: '🎭',
+    count: 2,
+    defaultOpen: false,
+    cards: [
+      {href:'marvel.html',        color:'tile-purple', title:'漫威宇宙',        desc:'观影顺序·英雄档案·角色解析'},
+      {href:'zisha.html',         color:'',            title:'紫砂艺术',        desc:'吴昊天作品·五色釉·经典壶型'}
+    ]
+  }
+];
+
+// 读取用户偏好（优先）
+function getSectionOpen(id){
+  try{
+    var saved=JSON.parse(localStorage.getItem('homeSections')||'{}');
+    if(id in saved) return saved[id];
+  }catch(e){}
+  var sec=HOME_SECTIONS.find(function(s){return s.id===id;});
+  return sec?sec.defaultOpen:false;
+}
+
+// 保存用户偏好
+function saveSectionOpen(id, open){
+  try{
+    var saved=JSON.parse(localStorage.getItem('homeSections')||'{}');
+    saved[id]=open;
+    localStorage.setItem('homeSections',JSON.stringify(saved));
+  }catch(e){}
+}
+
+// 应用折叠状态
+function applyHomeSections(){
+  HOME_SECTIONS.forEach(function(sec){
+    var el=document.getElementById('hc-'+sec.id);
+    if(!el) return;
+    var open=getSectionOpen(sec.id);
+    el.classList.toggle('open', open);
+    var count=el.querySelector('.hc-count');
+    if(count) count.textContent=(open?sec.count+'个板块':'点击展开');
+  });
+}
+
+// 切换折叠
+function toggleHomeSection(el){
+  var wrap=el.parentElement;
+  var id=wrap.id.replace('hc-','');
+  var nowOpen=wrap.classList.contains('open');
+  wrap.classList.toggle('open',!nowOpen);
+  saveSectionOpen(id,!nowOpen);
+  var sec=HOME_SECTIONS.find(function(s){return s.id===id});
+  var count=wrap.querySelector('.hc-count');
+  if(count&&sec) count.textContent=(!nowOpen?sec.count+'个板块':'点击展开');
+}
+
+// 打开布局编辑弹窗
+function openHomeEditor(){
+  var overlay=document.getElementById('homeEditor');
+  if(!overlay) return;
+  // 渲染开关列表
+  var list=overlay.querySelector('.home-editor-list');
+  if(list){
+    list.innerHTML='';
+    HOME_SECTIONS.forEach(function(sec){
+      var open=getSectionOpen(sec.id);
+      var item=document.createElement('div');
+      item.className='home-editor-item';
+      item.innerHTML='<span class="he-icon">'+sec.icon+'</span>'+
+        '<span class="he-label">'+sec.label+'</span>'+
+        '<label class="toggle-switch">'+
+        '<input type="checkbox" '+(open?'checked':'')+
+        ' onchange="saveHomeToggle(\''+sec.id+'\',this.checked)">'+
+        '<span class="toggle-slider"></span></label>';
+      list.appendChild(item);
+    });
+  }
+  overlay.style.display='flex';
+}
+
+// 关闭布局编辑弹窗
+function closeHomeEditor(){
+  var overlay=document.getElementById('homeEditor');
+  if(overlay) overlay.style.display='none';
+}
+
+// 保存开关并刷新
+function saveHomeToggle(id, open){
+  saveSectionOpen(id, open);
+  applyHomeSections();
+}
+
+// 页面加载完成后应用状态
+window.addEventListener('DOMContentLoaded', applyHomeSections);
+</script>
 <link rel="stylesheet" href="css/style.css">
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   </head>
@@ -257,11 +380,25 @@
 
 </main>
 
+<!-- ===== 首页布局编辑器 ===== -->
+<div id="homeEditor" class="overlay-modal" style="display:none;align-items:center;justify-content:center;">
+  <div class="overlay-content card" style="max-width:400px;width:90%;padding:24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <h3 style="margin:0;font-size:1.1rem;">🎛️ 首页布局</h3>
+      <button onclick="closeHomeEditor()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-muted);line-height:1;">&times;</button>
+    </div>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin:0 0 16px;">开启的板块将在首页直接展示，关闭的默认折叠。</p>
+    <div class="home-editor-list"></div>
+    <button onclick="closeHomeEditor()" class="guest-submit" style="margin-top:20px;width:100%;">保存</button>
+  </div>
+</div>
+
 <footer>
   <div class="container footer-inner">
     <div class="footer-col">
       <p class="footer-brand">🐉 龙兄知识库</p>
       <p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p>
+      <button onclick="openHomeEditor()" style="margin-top:8px;background:none;border:1px solid var(--border);color:var(--text-muted);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:0.8rem;">🎛️ 编辑首页布局</button>
     </div>
     <div class="footer-col">
       <p>© 2026 龙兄知识库 · 保留所有权利</p>

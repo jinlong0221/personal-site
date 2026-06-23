@@ -471,8 +471,16 @@ footer a:hover { color:var(--gold-light); }
   max-width: 90vw;
   margin: 0 !important;
 }
-.bottom-duo-item .section-label {
-  margin-bottom: 12px;
+.bottom-section-header {
+  margin: 0 0 12px;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+}
+.bottom-section-header .hc-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 @media (max-width:700px) {

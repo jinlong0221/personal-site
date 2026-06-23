@@ -121,80 +121,104 @@
     </div>
   </section>
 
-  <!-- ===== 兴趣干货 ===== -->
-  <section class="section-block">
-    <div class="section-label">
-      <span class="section-icon">🎨</span> 兴趣干货
+  <!-- ===== 生活百科（折叠） ===== -->
+  <div class="home-collapsible" id="hc-life">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🌿</span><span class="hc-title">生活百科</span><span class="hc-count">3个板块</span></div>
+      <span class="hc-arrow">▼</span>
     </div>
-    <div class="section-subtitle">养生茶 · 农田气象 · 特斯拉</div>
-    <div class="card-grid card-grid-3">
-      <article class="tile tile-teal">
-        <a href="health-tea.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#038387" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20h24l4 16H16z"/><path d="M28 12h8l2 8H26z"/><ellipse cx="32" cy="38" rx="6" ry="3"/><path d="M14 44c0 4 8 6 18 6s18-2 18-6"/></svg>
-          </div>
-          <div class="title">中药养生茶</div>
-          <div class="desc">经典配方·体质对应·四季养生</div>
-        </a>
-      </article>
-      <article class="tile tile-blue">
-        <a href="tesla.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#0078d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="24" width="48" height="22" rx="6"/><path d="M16 24v-6a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v6"/><circle cx="20" cy="46" r="4" fill="#0078d4" opacity="0.3" stroke="#0078d4"/><circle cx="44" cy="46" r="4" fill="#0078d4" opacity="0.3" stroke="#0078d4"/></svg>
-          </div>
-          <div class="title">特斯拉动态新闻</div>
-          <div class="desc">车载配件·充电指南·用车科普</div>
-        </a>
-      </article>
-
-      <article class="tile tile-purple">
-        <a href="marvel.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#7B1FA2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="12" stroke="#7B1FA2"/><path d="M20 44l12-8 12 8" stroke="#7B1FA2"/><path d="M16 56c0-8 7-16 16-16s16 8 16 16" stroke="#7B1FA2"/><circle cx="28" cy="22" r="2" fill="#7B1FA2"/><circle cx="36" cy="22" r="2" fill="#7B1FA2"/></svg>
-          </div>
-          <div class="title">漫威宇宙</div>
-          <div class="desc">观影顺序·英雄档案·角色解析</div>
-        </a>
-      </article>
-
+    <div class="home-collapsible-body">
+      <div class="card-grid card-grid-3">
+        <article class="tile tile-teal">
+          <a href="health-tea.html">
+            <div class="tile-svg">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#038387" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20h24l4 16H16z"/><path d="M28 12h8l2 8H26z"/><ellipse cx="32" cy="38" rx="6" ry="3"/><path d="M14 44c0 4 8 6 18 6s18-2 18-6"/></svg>
+            </div>
+            <div class="title">中药养生茶</div>
+            <div class="desc">经典配方·体质对应·四季养生</div>
+          </a>
+        </article>
+        <article class="tile tile-orange">
+          <a href="xintan-weather.html">
+            <div class="tile-svg">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#d84315" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v8M32 48v8M12 32H8M56 32h-4M17 17l4 4M43 43l4 4M17 47l4-4M43 21l4-4"/><circle cx="32" cy="32" r="10" fill="#d84315" opacity="0.15" stroke="#d84315"/><path d="M32 22v10l6 4" stroke-linecap="round"/></svg>
+            </div>
+            <div class="title">新坍镇农田气象</div>
+            <div class="desc">乡镇精准预报·农事指导·灾害预警</div>
+          </a>
+        </article>
+        <article class="tile tile-yellow">
+          <a href="travel.html">
+            <div class="tile-svg">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#f57f17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8l6 18H50l-14 10 6 18L32 34 18 36l6-18L10 26h12z"/><path d="M8 56h48"/></svg>
+            </div>
+            <div class="title">旅行攻略</div>
+            <div class="desc">签证指南·行程规划·景点推荐</div>
+          </a>
+        </article>
+      </div>
     </div>
-      <article class="tile tile-teal">
-        <a href="console.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#00796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="16" width="48" height="32" rx="4" fill="#00796b" opacity="0.15" stroke="#00796b"/><circle cx="24" cy="32" r="8" stroke="#00796b"/><circle cx="40" cy="32" r="4" fill="#00796b"/><line x1="32" y1="48" x2="32" y2="56" stroke="#00796b"/><line x1="24" y1="56" x2="40" y2="56" stroke="#00796b"/></svg>
-          </div>
-          <div class="title">游戏主机</div>
-          <div class="desc">任天堂·索尼·微软·经典主机图鉴</div>
-        </a>
-      </article>
-      <article class="tile tile-orange">
-        <a href="xintan-weather.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#d84315" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v8M32 48v8M12 32H8M56 32h-4M17 17l4 4M43 43l4 4M17 47l4-4M43 21l4-4"/><circle cx="32" cy="32" r="10" fill="#d84315" opacity="0.15" stroke="#d84315"/><path d="M32 22v10l6 4" stroke-linecap="round"/></svg>
-          </div>
-          <div class="title">新坍镇农田气象</div>
-          <div class="desc">乡镇精准预报·农事指导·灾害预警</div>
-        </a>
-      </article>
-      <article class="tile tile-yellow">
-        <a href="travel.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#f57f17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8l6 18H50l-14 10 6 18L32 34 18 36l6-18L10 26h12z"/><path d="M8 56h48"/></svg>
-          </div>
-          <div class="title">旅行攻略</div>
-          <div class="desc">签证指南·行程规划·景点推荐</div>
-        </a>
-      </article>
-      <article class="tile" style="background:#8B4513">
-        <a href="zisha.html">
-          <div class="tile-svg">
-            <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#D4A574" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="20" rx="10" ry="4"/><path d="M22 20v12c0 2.2 4.5 4 10 4s10-1.8 10-4V20"/><path d="M22 26c0 2.2 4.5 4 10 4s10-1.8 10-4"/><path d="M22 32c0 2.2 4.5 4 10 4s10-1.8 10-4v8"/><ellipse cx="32" cy="44" rx="10" ry="4"/><path d="M22 44c0 2.2 4.5 4 10 4s10-1.8 10-4"/></svg>
-          </div>
-          <div class="title" style="color:#fff">紫砂艺术</div>
-          <div class="desc" style="color:rgba(255,255,255,0.8)">吴昊天作品·五色釉·经典壶型</div>
-        </a>
-      </article>
-  </section>
+  </div>
+
+  <!-- ===== 数码科技（折叠） ===== -->
+  <div class="home-collapsible" id="hc-tech">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🚗</span><span class="hc-title">数码科技</span><span class="hc-count">2个板块</span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body">
+      <div class="card-grid card-grid-3">
+        <article class="tile tile-blue">
+          <a href="tesla.html">
+            <div class="tile-svg">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#0078d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="24" width="48" height="22" rx="6"/><path d="M16 24v-6a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v6"/><circle cx="20" cy="46" r="4" fill="#0078d4" opacity="0.3" stroke="#0078d4"/><circle cx="44" cy="46" r="4" fill="#0078d4" opacity="0.3" stroke="#0078d4"/></svg>
+            </div>
+            <div class="title">特斯拉动态新闻</div>
+            <div class="desc">车载配件·充电指南·用车科普</div>
+          </a>
+        </article>
+        <article class="tile tile-teal">
+          <a href="console.html">
+            <div class="tile-svg">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#00796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="16" width="48" height="32" rx="4" fill="#00796b" opacity="0.15" stroke="#00796b"/><circle cx="24" cy="32" r="8" stroke="#00796b"/><circle cx="40" cy="32" r="4" fill="#00796b"/><line x1="32" y1="48" x2="32" y2="56" stroke="#00796b"/><line x1="24" y1="56" x2="40" y2="56" stroke="#00796b"/></svg>
+            </div>
+            <div class="title">游戏主机</div>
+            <div class="desc">任天堂·索尼·微软·经典主机图鉴</div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 流行文化（折叠） ===== -->
+  <div class="home-collapsible" id="hc-pop">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🎭</span><span class="hc-title">流行文化</span><span class="hc-count">2个板块</span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body">
+      <div class="card-grid card-grid-3">
+        <article class="tile tile-purple">
+          <a href="marvel.html">
+            <div class="tile-svg">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#7B1FA2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="12" stroke="#7B1FA2"/><path d="M20 44l12-8 12 8" stroke="#7B1FA2"/><path d="M16 56c0-8 7-16 16-16s16 8 16 16" stroke="#7B1FA2"/><circle cx="28" cy="22" r="2" fill="#7B1FA2"/><circle cx="36" cy="22" r="2" fill="#7B1FA2"/></svg>
+            </div>
+            <div class="title">漫威宇宙</div>
+            <div class="desc">观影顺序·英雄档案·角色解析</div>
+          </a>
+        </article>
+        <article class="tile" style="background:#8B4513">
+          <a href="zisha.html">
+            <div class="tile-svg">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#D4A574" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="20" rx="10" ry="4"/><path d="M22 20v12c0 2.2 4.5 4 10 4s10-1.8 10-4V20"/><path d="M22 26c0 2.2 4.5 4 10 4s10-1.8 10-4"/><path d="M22 32c0 2.2 4.5 4 10 4s10-1.8 10-4v8"/><ellipse cx="32" cy="44" rx="10" ry="4"/><path d="M22 44c0 2.2 4.5 4 10 4s10-1.8 10-4"/></svg>
+            </div>
+            <div class="title" style="color:#fff">紫砂艺术</div>
+            <div class="desc" style="color:rgba(255,255,255,0.8)">吴昊天作品·五色釉·经典壶型</div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </div>
 
 
   <!-- ===== 站点动态 ===== -->
@@ -350,5 +374,11 @@
 
 <script src="js/search.js"></script>
 <script src="js/app.js"></script>
+<script>
+function toggleHomeSection(el){
+  var wrap=el.parentElement;
+  wrap.classList.toggle('open');
+}
+</script>
 </body>
 </html>

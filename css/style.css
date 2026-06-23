@@ -1239,3 +1239,62 @@ p.plot-text {
 .movie-poster-thumb:hover {
   transform: scale(1.08);
 }
+
+/* ===== 首页折叠分类 ===== */
+.home-collapsible {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.home-collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.home-collapsible-header:hover {
+  background: var(--bg-secondary);
+}
+.hc-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hc-icon {
+  font-size: 1.3rem;
+}
+.hc-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.hc-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.hc-arrow {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: transform 0.3s;
+}
+.home-collapsible.open .hc-arrow {
+  transform: rotate(180deg);
+}
+.home-collapsible-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  padding: 0 20px;
+}
+.home-collapsible.open .home-collapsible-body {
+  max-height: 500px;
+  padding: 0 20px 20px;
+}

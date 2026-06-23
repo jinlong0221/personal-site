@@ -321,73 +321,25 @@ footer span { color: var(--blue); font-weight: 600; }
 /* ===== Theme ===== */
 
 
-
-
-
-
-
-
-
-
 .theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s; background: #333; color: #fff; }
-
-
 
 
 /* ===== Theme Switch ===== */
 :root { --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0; --text-muted: #7a7a7a; --card: #1a1a1a; --border: #333; --nav-bg: rgba(10,10,10,0.95); }
 
 
-
-
-
-
-
-
-
 .theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s, background 0.3s; background: #333; color: #fff; }
-
-
 
 
 /* Light mode for dark tiles */
 
 
-
-
-
-
-
-
-
-
-
-
-
 /* Light mode: force readable text on dark cards */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* === Theme Toggle Button === */
 .theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
 .theme-toggle:hover{transform:scale(1.15);box-shadow:0 4px 20px rgba(0,0,0,.4)}
-
-
 
 
 [data-theme="light"] {
@@ -685,8 +637,16 @@ footer span { color: var(--blue); font-weight: 600; }
 [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] b, [data-theme="light"] strong { color: var(--text) !important; }
 
 </style>
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  </head>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
 <body>
 
 <!-- ========== 顶部导航 ========== -->
@@ -986,11 +946,7 @@ footer span { color: var(--blue); font-weight: 600; }
     <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
   </div>
     <div class="footer-stat">
-      <span id="busuanzi_container_site_pv" style="font-size:13px;color:var(--text-muted)">
-        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
       </span>
-      <span id="busuanzi_container_site_uv" style="font-size:13px;color:var(--text-muted);margin-left:16px;">
-        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
       </span>
     </div>
 </footer>
@@ -1015,23 +971,6 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
   });
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <script>

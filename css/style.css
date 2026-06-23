@@ -1233,11 +1233,17 @@ p.plot-text {
 
 /* 海报缩略图交互 */
 .movie-poster-thumb {
+  width: 72px;
+  height: 106px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .movie-poster-thumb:hover {
   transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 /* ===== 首页折叠分类 ===== */

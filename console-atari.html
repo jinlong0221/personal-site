@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雅达利 Atari - 游戏主机图鉴 - 龙兄知识库</title>
+<meta name="keywords" content="雅达利,Atari,Atari 2600,家用主机,游戏鼻祖">
+<meta name="description" content="雅达利Atari游戏主机完整图鉴：从1977年Atari 2600到现代Atari VCS，开创电子游戏产业。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.console-hero { text-align: center; padding: 48px 0 32px; background: linear-gradient(135deg, rgba(255,120,0,0.1), rgba(255,120,0,0.05)); border-radius: 16px; margin-bottom: 32px; }
+.console-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
+.console-hero h1 { font-size: 2.2rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+.console-hero p { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+.section-header { display: flex; align-items: center; gap: 12px; margin: 40px 0 20px; padding-bottom: 12px; border-bottom: 2px solid #ff7800; }
+.section-header .icon { font-size: 28px; }
+.section-header h2 { font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 0; }
+.section-header .count { font-size: 0.8rem; color: var(--text-muted); background: var(--card); padding: 2px 10px; border-radius: 12px; font-weight: 600; }
+.card-grid-console { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.card-console { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; text-decoration: none; color: inherit; position: relative; overflow: hidden; }
+.card-console::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #ff7800; }
+.card-console:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(255,120,0,0.15); border-color: #ff7800; }
+.card-console .card-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.card-console .card-year { font-size: 0.75rem; color: #ff7800; font-weight: 600; margin-bottom: 8px; }
+.card-console .card-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+.card-console .card-specs { font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.card-console .tag { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 7px; background: rgba(255,120,0,0.12); color: #ff7800; }
+.card-console .year-badge { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; background: rgba(255,120,0,0.1); color: #ff7800; padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+.key-stats { display: flex; gap: 14px; flex-wrap: wrap; margin: 24px 0; }
+.stat-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 18px; flex: 1; min-width: 130px; text-align: center; }
+.stat-item .stat-num { font-size: 1.5rem; font-weight: 900; color: #ff7800; }
+.stat-item .stat-label { font-size: 0.73rem; color: var(--text-muted); margin-top: 3px; }
+.brand-note { background: var(--card); border: 1px solid var(--border); border-left: 4px solid #ff7800; border-radius: var(--radius-sm); padding: 20px 24px; margin: 32px 0; }
+.brand-note h3 { font-size: 1rem; color: #ff7800; margin-bottom: 8px; }
+.brand-note p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+[data-theme="light"] .card-console { background: #ffffff; border-color: #e0e0e0; }
+[data-theme="light"] .brand-note, [data-theme="light"] .stat-item { background: #ffffff; }
+@media (max-width: 768px) { .console-hero h1 { font-size: 1.6rem; } }
+@media (max-width: 480px) { .card-grid-console { grid-template-columns: 1fr; } }
+</style>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none"><path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="24" r="2" fill="currentColor"/><path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="agarwood.html">AI学习专区</a></li>
+      <li><a href="herbs.html">兴趣干货</a></li>
+      <li><a href="health-tea.html">中药养生茶</a></li>
+      <li><a href="tesla.html">特斯拉动态新闻</a></li>
+      <li><a href="console.html">游戏主机图鉴</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索">🔍</button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="hamburger" id="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">首页</a>
+    <a href="agarwood.html">AI学习专区</a>
+    <a href="herbs.html">兴趣干货</a>
+    <a href="tesla.html">特斯拉动态新闻</a>
+    <a href="console.html">游戏主机图鉴</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="console-hero">
+    <div class="emoji-big">🟠</div>
+    <h1>雅达利 Atari</h1>
+    <p>1972年开创产业 · 游戏鼻祖 · 经典品牌</p>
+  </div>
+
+  <div class="key-stats">
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">主机型号</div></div>
+    <div class="stat-item"><div class="stat-num">1972</div><div class="stat-label">开创产业</div></div>
+    <div class="stat-item"><div class="stat-num">鼻祖</div><div class="stat-label">历史地位</div></div>
+  </div>
+
+  <div class="brand-note">
+    <h3>关于雅达利Atari</h3>
+    <p>1972年推出《Pong》开创电子游戏产业。Atari 2600是首款成功的可更换卡带主机，定义了家用游戏机形态。但1983年因《E.T.》等劣质游戏导致行业崩溃（Atari Shock）。虽然后来尝试复兴，但已失去领先地位。雅达利是游戏产业的奠基者，其历史地位不可磨灭。</p>
+  </div>
+
+  <div class="section-header">
+    <span class="icon">📺</span>
+    <h2>家用主机</h2>
+    <span class="count">3款</span>
+  </div>
+
+  <div class="card-grid-console">
+    <div class="card-console">
+      <span class="year-badge">1977</span>
+      <div class="card-title">Atari 2600</div>
+      <div class="card-year">家用主机鼻祖 · 卡带革命</div>
+      <div class="card-desc">首款成功的可更换卡带主机，定义了手柄（摇杆+单按钮）形态。《Pac-Man》《太空侵略者》推动销量。木质外观经典。</div>
+      <div class="card-specs">
+        <span class="tag">卡带更换</span>
+        <span class="tag">经典手柄</span>
+        <span class="tag">3000万台+</span>
+      </div>
+    </div>
+    <div class="card-console">
+      <span class="year-badge">1982</span>
+      <div class="card-title">Atari 5200</div>
+      <div class="card-year">失败的高端尝试</div>
+      <div class="card-desc">定位高于2600，但手柄设计糟糕（非自 centering 摇杆），游戏兼容性差。市场表现不佳，加速雅达利衰落。</div>
+      <div class="card-specs">
+        <span class="tag">高端定位</span>
+        <span class="tag">手柄失败</span>
+        <span class="tag">约100万台</span>
+      </div>
+    </div>
+    <div class="card-console">
+      <span class="year-badge">1986</span>
+      <div class="card-title">Atari 7800</div>
+      <div class="card-year">背水一战 · 为时已晚</div>
+      <div class="card-desc">原计划1984年发布但因公司变动推迟。向下兼容2600游戏，性能优于NES但第三方支持不足。最终无法挽回颓势。</div>
+      <div class="card-specs">
+        <span class="tag">向下兼容</span>
+        <span class="tag">为时已晚</span>
+        <span class="tag">约100万台</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="icon">📱</span>
+    <h2>掌机系列</h2>
+    <span class="count">1款</span>
+  </div>
+
+  <div class="card-grid-console">
+    <div class="card-console">
+      <span class="year-badge">1982前</span>
+      <div class="card-title">Atari Lynx</div>
+      <div class="card-year">彩色背光 · 技术领先</div>
+      <div class="card-desc">首款彩色背光掌机（早于Game Boy），支持缩放旋转。但体积大、续航短、价格高。被GB和GBC击败。</div>
+      <div class="card-specs">
+        <span class="tag">彩色背光</span>
+        <span class="tag">缩放旋转</span>
+        <span class="tag">约300万台</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-meta" style="text-align:center;padding:40px 0 20px;color:var(--text-muted);font-size:0.8rem;">
+    <p>最后更新：2026-06-23</p>
+    <p>数据来源：官方资料、维基百科、游戏媒体</p>
+    <p><a href="console.html" style="color:var(--blue);;">← 返回游戏主机图鉴</a></p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>🐉 龙兄知识库 · AI驱动 · 知识沉淀</p>
+    <p><span id="busuanzi_container_page_pv">本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span></p>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/theme.js"></script>
+</body>
+</html>

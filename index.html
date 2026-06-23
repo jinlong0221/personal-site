@@ -71,16 +71,6 @@
     <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
   </div>
 
-  <!-- [BUG-FIX:一-1+一-3] 搜索入口：原生input+button，增加清空按钮 -->
-  <div class="home-search">
-    <div class="home-search-box">
-      <input type="text" id="homeSearchInput" class="home-search-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">
-      <button id="homeSearchClear" class="home-search-clear" aria-label="清空" style="display:none;">✕</button>
-      <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">搜索</button>
-    </div>
-  </div>
-
-  <!-- ===== 紫砂艺术（展示区） ===== -->
   <!-- ===== 首页展示区（单卡片居中） ===== -->
   <section class="section-block" style="text-align:center;">
     <div class="section-label" style="justify-content:center;">
@@ -98,6 +88,15 @@
       </article>
     </div>
   </section>
+
+  <!-- [BUG-FIX:一-1+一-3] 搜索入口：原生input+button，增加清空按钮 -->
+  <div class="home-search">
+    <div class="home-search-box">
+      <input type="text" id="homeSearchInput" class="home-search-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">
+      <button id="homeSearchClear" class="home-search-clear" aria-label="清空" style="display:none;">✕</button>
+      <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">搜索</button>
+    </div>
+  </div>
 
   <!-- ===== 药材与手串（折叠） ===== -->
   <div class="home-collapsible" id="hc-herbs">

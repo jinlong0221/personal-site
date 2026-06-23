@@ -255,7 +255,7 @@ strong,b { font-weight:700; color:var(--text); }
  border-color:var(--gold);
 }
 .tile a { display:flex; flex-direction:column; height:100%; text-decoration:none; color:inherit; justify-content:space-between; }
-.tile-link-body { display:flex; flex-direction:column; flex:1; }
+.tile-link-body { display:flex; flex-direction:column; flex:1; justify-content:space-between; }
 .tile-svg { margin-bottom:12px; }
 .tile .title { font-size:1.1rem; font-weight:700; margin-bottom:6px; color:var(--text); }
 .tile .desc { font-size:0.85rem; color:var(--text-secondary); line-height:1.5; }

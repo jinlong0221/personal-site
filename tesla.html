@@ -116,12 +116,13 @@
     <div class="stat-item"><div class="stat-num">2026投产</div><div class="stat-label">Semi / Cybercab</div></div>
   </div>
 
-  <!-- 最新动态 -->
-  <div class="section-header">
-    <span class="icon">📰</span>
-    <h2>最新动态</h2>
-    <span class="count">2026年6月</span>
-  </div>
+  <!-- 最新动态（折叠） -->
+  <div class="home-collapsible" id="hc-tesla-news">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">📰</span><span class="hc-title">最新动态</span><span class="hc-count">7条 · 2026年6月</span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body">
 
   <div class="news-item">
     <div class="news-date">06-23</div>
@@ -173,6 +174,9 @@
     </div>
   </div>
 
+
+    </div>
+  </div>
   <!-- 在售车型 -->
   <div class="section-header">
     <span class="icon">🚙</span>
@@ -357,5 +361,11 @@
 
 <script src="js/search.js"></script>
 <script src="js/app.js"></script>
+<script>
+function toggleHomeSection(el){
+  var wrap=el.parentElement;
+  wrap.classList.toggle("open");
+}
+</script>
 </body>
 </html>

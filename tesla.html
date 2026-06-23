@@ -22,6 +22,7 @@
 .card-tesla::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--blue); }
 .card-tesla:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,120,212,0.15); border-color: var(--blue); }
 .card-tesla .card-emoji { font-size: 36px; line-height: 1; margin-bottom: 12px; }
+.card-tesla .card-img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; margin-bottom: 12px; display: block; }
 .card-tesla .card-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
 .card-tesla .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
 .card-tesla .card-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
@@ -101,7 +102,7 @@
   <div id="breadcrumb"></div>
 
   <div class="tesla-hero">
-    <div class="emoji-big">🚗⚡</div>
+    <img src="img/tesla/cybertruck/side.webp" alt="Tesla" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
     <h1>特斯拉动态新闻</h1>
     <p>车型动态 · FSD进展 · 储能产品 · 产能追踪</p>
   </div>
@@ -167,7 +168,7 @@
 
   <div class="card-grid-tesla">
     <a href="tesla/model3.html" class="card-tesla model-3">
-      <div class="card-emoji">🚗</div>
+      <img class="card-img" src="img/tesla/model3/front.webp" alt="Tesla Model 3">
       <div class="card-title">Tesla Model 3</div>
       <div class="card-subtitle">全能电动轿车 · 2026款</div>
       <div class="card-desc">后驱/长续航后驱(830km)/长续航全驱/高性能四款，4680电池，250kW超充。</div>
@@ -176,7 +177,7 @@
     </a>
 
     <a href="tesla/modely.html" class="card-tesla model-y">
-      <div class="card-emoji">🚙</div>
+      <img class="card-img" src="img/tesla/modely/front.webp" alt="Tesla Model Y">
       <div class="card-title">Tesla Model Y</div>
       <div class="card-subtitle">全球销冠SUV · 2026改款</div>
       <div class="card-desc">后驱/长续航后驱/长续航全驱，2026改款黑标+螺旋轮毂+浅灰内饰，上海工厂。</div>
@@ -185,7 +186,7 @@
     </a>
 
     <a href="tesla/modelyl.html" class="card-tesla model-yl">
-      <div class="card-emoji">🚐</div>
+      <img class="card-img" src="img/tesla/modely-l/exterior.webp" alt="Tesla Model Y L">
       <div class="card-title">Tesla Model Y L</div>
       <div class="card-subtitle">六座旗舰SUV · 独立车型</div>
       <div class="card-desc">全新六座版（2+2+2独立座椅），82kWh三元锂，CLTC 751km，双电机340kW，4.5s破百。</div>
@@ -194,7 +195,7 @@
     </a>
 
     <a href="tesla/cybertruck.html" class="card-tesla cybertruck">
-      <div class="card-emoji">🚛</div>
+      <img class="card-img" src="img/tesla/cybertruck/front.webp" alt="Tesla Cybertruck">
       <div class="card-title">Cybertruck</div>
       <div class="card-subtitle">不锈钢外骨骼 · 装甲玻璃</div>
       <div class="card-desc">AWD版4.1s/野兽版2.6s，EPA 515-547km。中国官网已开放预订（订金1000元）。</div>
@@ -212,7 +213,7 @@
 
   <div class="card-grid-tesla">
     <a href="tesla/models.html" class="card-tesla model-s">
-      <div class="card-emoji">🏎️</div>
+      <img class="card-img" src="img/tesla/models/front.webp" alt="Tesla Model S">
       <div class="card-title">Tesla Model S</div>
       <div class="card-subtitle">旗舰轿车 · 已停产</div>
       <div class="card-desc">已停产！双电机版3.2s/Plaid版2.1s，1020马力，322km/h，限量签名版已交付完毕。</div>
@@ -221,7 +222,7 @@
     </a>
 
     <a href="tesla/modelx.html" class="card-tesla model-x">
-      <div class="card-emoji">🦅</div>
+      <img class="card-img" src="img/tesla/modelx/front.webp" alt="Tesla Model X">
       <div class="card-title">Tesla Model X</div>
       <div class="card-subtitle">鹰翼门旗舰SUV · 已停产</div>
       <div class="card-desc">已停产！鹰翼门+7座，Plaid版2.6s破百。限量签名版已交付，库存现车可售。</div>
@@ -239,7 +240,7 @@
 
   <div class="card-grid-tesla">
     <a href="tesla/semi.html" class="card-tesla semi">
-      <div class="card-emoji">🚚</div>
+      <img class="card-img" src="img/tesla/semi/front.webp" alt="Tesla Semi">
       <div class="card-title">Tesla Semi</div>
       <div class="card-subtitle">电动重卡 · 2026已量产</div>
       <div class="card-desc">满载37吨续航523-803km，3电机，30分钟充至60%，FSD测试中，年产能5万辆。</div>
@@ -248,7 +249,7 @@
     </a>
 
     <a href="tesla/roadster.html" class="card-tesla roadster">
-      <div class="card-emoji">🚀</div>
+      <img class="card-img" src="img/tesla/roadster/front.webp" alt="Tesla Roadster">
       <div class="card-title">Tesla Roadster</div>
       <div class="card-subtitle">电动超跑 · 即将发布</div>
       <div class="card-desc">0-60mph &lt; 1.9s（SpaceX 1.1s），WLTP 992km，200kWh，900V平台，预计2027交付。</div>
@@ -257,7 +258,7 @@
     </a>
 
     <a href="tesla/cybercab.html" class="card-tesla cybercab">
-      <div class="card-emoji">🤖</div>
+      <img class="card-img" src="img/tesla/cybercab/production.webp" alt="Tesla Cybercab">
       <div class="card-title">Tesla Cybercab</div>
       <div class="card-subtitle">无人驾驶出租车 · 2026投产</div>
       <div class="card-desc">无方向盘/踏板，MW级无线充电，约3万美元。预计2026北美试运营，中国待FSD获批。</div>
@@ -275,7 +276,7 @@
 
   <div class="card-grid-tesla">
     <a href="tesla/powerwall.html" class="card-tesla powerwall">
-      <div class="card-emoji">🏠</div>
+      <img class="card-img" src="img/tesla/powerwall/unit.webp" alt="Tesla Powerwall">
       <div class="card-title">Powerwall</div>
       <div class="card-subtitle">家庭储能电池</div>
       <div class="card-desc">13.5kWh储能，配合太阳能或谷电储能，白天供电、夜晚用电，年省电费数千元。</div>
@@ -284,7 +285,7 @@
     </a>
 
     <a href="tesla/megapack.html" class="card-tesla megapack">
-      <div class="card-emoji">🏭</div>
+      <img class="card-img" src="img/tesla/models/rear.webp" alt="Tesla Megapack">
       <div class="card-title">Megapack</div>
       <div class="card-subtitle">超大型商用储能系统</div>
       <div class="card-desc">单个3.9MWh储能模块，积木式拼装可扩展至GWh级，电网调峰/可再生能源配套首选。</div>

@@ -526,7 +526,7 @@
       + (data.rated ? '<span class="plot-badge"> Rated ' + data.rated + '</span>' : '')
       + (data.imdb ? '<span class="plot-badge plot-imdb">⭐ ' + data.imdb + '</span>' : '')
       + '</div>'
-      + '<p class="plot-text">' + data.plot + '</p>'
+      + '<p class="plot-text">' + (data.plot_zh || data.plot) + '</p>'
       + '</div>';
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';

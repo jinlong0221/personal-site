@@ -65,32 +65,64 @@
 
 <main class="container">
 
-  <!-- 首页标题 -->
+  <!-- 首页标题区 -->
   <div class="home-header">
     <h1 class="site-title">龙兄知识库</h1>
     <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
   </div>
 
-  <!-- ===== 首页展示区（单卡片居中） ===== -->
-  <section class="section-block" style="text-align:center;">
-    <div class="section-label" style="justify-content:center;">
-      <span class="section-icon">🏺</span> 紫砂艺术
-    </div>
-    <div style="display:flex;justify-content:center;margin-top:12px;">
-      <article class="tile tile-orange" style="max-width:320px;width:100%;">
-        <a href="zisha.html" style="display:block;padding:28px 20px;">
-          <div style="margin-bottom:16px;">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#8d4e25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="50" rx="14" ry="4" fill="#8d4e25" opacity="0.2"/><path d="M18 50c0-10 6-30 14-30s14 20 14 30" fill="#8d4e25" opacity="0.1"/><path d="M18 50c0 4 6 6 14 6s14-2 14-6"/><ellipse cx="32" cy="20" rx="14" ry="5"/><path d="M18 20v30c0 4 6 6 14 6s14-2 14-6V20"/><ellipse cx="32" cy="12" rx="10" ry="4"/><path d="M22 12c0-4 4-6 10-6s10 2 10 6" fill="#8d4e25" opacity="0.3"/></svg>
+  <!-- ===== 紫砂艺术（展示区） ===== -->
+  <section class="section-block" style="text-align:center;padding-top:8px;">
+    <div style="display:flex;justify-content:center;margin-bottom:4px;">
+      <article class="tile tile-orange" style="max-width:400px;width:100%;">
+        <a href="zisha.html" style="display:block;padding:36px 28px;">
+          <div style="margin-bottom:20px;">
+            <svg width="80" height="80" viewBox="0 0 64 64" fill="none" stroke="#8d4e25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="50" rx="14" ry="4" fill="#8d4e25" opacity="0.2"/><path d="M18 50c0-10 6-30 14-30s14 20 14 30" fill="#8d4e25" opacity="0.1"/><path d="M18 50c0 4 6 6 14 6s14-2 14-6"/><ellipse cx="32" cy="20" rx="14" ry="5"/><path d="M18 20v30c0 4 6 6 14 6s14-2 14-6V20"/><ellipse cx="32" cy="12" rx="10" ry="4"/><path d="M22 12c0-4 4-6 10-6s10 2 10 6" fill="#8d4e25" opacity="0.3"/></svg>
           </div>
-          <div class="title" style="font-size:1.2rem;">吴昊天紫砂艺术</div>
-          <div class="desc" style="font-size:0.95rem;">五色釉柴烧·经典壶型·盖杯套具</div>
+          <div class="title" style="font-size:1.4rem;">🏺 吴昊天紫砂艺术</div>
+          <div class="desc" style="font-size:0.95rem;margin-top:8px;">五色釉柴烧 · 经典壶型 · 盖杯套具</div>
+          <div style="margin-top:14px;font-size:0.85rem;color:var(--gold);font-weight:600;">点击进入 &rarr;</div>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== 快捷分类入口（横排4等分） ===== -->
+  <section class="section-block" style="padding:8px 0 16px;">
+    <div class="card-grid card-grid-4">
+      <article class="tile tile-gold">
+        <a href="#hc-herbs" onclick="openHomeSection('hc-herbs');return false;">
+          <div class="tile-svg"><span style="font-size:2rem;">🔬</span></div>
+          <div class="title">药材与手串</div>
+          <div class="desc">3个板块</div>
+        </a>
+      </article>
+      <article class="tile tile-green">
+        <a href="#hc-life" onclick="openHomeSection('hc-life');return false;">
+          <div class="tile-svg"><span style="font-size:2rem;">🌿</span></div>
+          <div class="title">生活百科</div>
+          <div class="desc">3个板块</div>
+        </a>
+      </article>
+      <article class="tile tile-blue">
+        <a href="#hc-tech" onclick="openHomeSection('hc-tech');return false;">
+          <div class="tile-svg"><span style="font-size:2rem;">🚗</span></div>
+          <div class="title">数码科技</div>
+          <div class="desc">2个板块</div>
+        </a>
+      </article>
+      <article class="tile tile-purple">
+        <a href="#hc-pop" onclick="openHomeSection('hc-pop');return false;">
+          <div class="tile-svg"><span style="font-size:2rem;">🎭</span></div>
+          <div class="title">流行文化</div>
+          <div class="desc">2个板块</div>
         </a>
       </article>
     </div>
   </section>
 
   <!-- [BUG-FIX:一-1+一-3] 搜索入口：原生input+button，增加清空按钮 -->
-  <div class="home-search">
+  <div class="home-search" style="margin:0 auto 8px;">
     <div class="home-search-box">
       <input type="text" id="homeSearchInput" class="home-search-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">
       <button id="homeSearchClear" class="home-search-clear" aria-label="清空" style="display:none;">✕</button>
@@ -375,6 +407,9 @@ function toggleHomeSection(el){
   var wrap=el.parentElement;
   wrap.classList.toggle('open');
 }
-</script>
+function openHomeSection(id){
+  var wrap=document.getElementById(id);
+  if(wrap) wrap.classList.add('open');
+}
 </body>
 </html>

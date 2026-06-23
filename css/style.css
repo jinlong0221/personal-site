@@ -234,6 +234,7 @@ strong,b { font-weight:700; color:var(--text); }
 .card-grid-1 { grid-template-columns:1fr; }
 .card-grid-2 { grid-template-columns:repeat(2,1fr); }
 .card-grid-3 { grid-template-columns:repeat(3,1fr); }
+.card-grid-4 { grid-template-columns:repeat(4,1fr); }
 
 .tile {
  background:var(--card); border:1px solid var(--border);
@@ -555,6 +556,7 @@ footer a:hover { color:var(--gold-light); }
 @media (max-width:480px) {
  html { font-size:14px; }
  .card-grid-3, .card-grid-2, .card-grid-1 { grid-template-columns:1fr; }
+ .card-grid-4 { grid-template-columns:repeat(2,1fr); }
  .tile { padding:16px; min-height:100px; }
  .home-header .site-title { font-size:2rem; }
  .page-header { padding:24px 0 12px; }

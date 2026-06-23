@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Boy Pocket - 游戏主机图鉴 - 龙兄知识库</title>
+<meta name="keywords" content="Game Boy Pocket,任天堂,掌机,轻薄,AAA电池,Game Boy改款">
+<meta name="description" content="任天堂Game Boy Pocket详细图鉴：1996年发布，Game Boy轻薄改款，体积减少30%，使用AAA电池。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.console-detail-hero { display: flex; gap: 40px; align-items: center; padding: 48px 0 32px; flex-wrap: wrap; }
+.console-detail-hero .image-side { flex: 0 0 380px; }
+.console-detail-hero .image-side img { width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); background: var(--card); }
+.console-detail-hero .info-side { flex: 1; min-width: 280px; }
+.console-detail-hero h1 { font-size: 2.4rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.console-detail-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+.console-detail-hero .year-badge { display: inline-block; background: linear-gradient(135deg, #e60012, #ff4757); color: #fff; font-weight: 800; font-size: 0.85rem; padding: 4px 16px; border-radius: 20px; margin-bottom: 16px; }
+.console-detail-hero .quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.console-detail-hero .qs { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 90px; }
+.console-detail-hero .qs .qsv { font-size: 1.2rem; font-weight: 900; color: #e60012; }
+.console-detail-hero .qs .qsl { font-size: 0.7rem; color: var(--text-muted); }
+.detail-section { margin: 40px 0; }
+.detail-section h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); border-left: 4px solid #e60012; padding-left: 12px; margin-bottom: 16px; }
+.detail-section p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+.detail-section ul { list-style: none; padding: 0; }
+.detail-section ul li { font-size: 0.9rem; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 8px; }
+.detail-section ul li::before { content: '▶'; color: #e60012; font-size: 0.7rem; flex-shrink: 0; }
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.spec-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.spec-item .spec-label { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; }
+.spec-item .spec-value { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+.nav-prev-next { display: flex; justify-content: space-between; margin: 48px 0 20px; padding: 20px 0; border-top: 1px solid var(--border); }
+.nav-prev-next a { color: #e60012; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.nav-prev-next a:hover { text-decoration: underline; }
+.nav-prev-next .disabled { color: var(--text-muted); cursor: default; pointer-events: none; }
+[data-theme="light"] .spec-item, [data-theme="light"] .game-card { background: #ffffff; }
+@media (max-width: 768px) { .console-detail-hero { flex-direction: column; } .console-detail-hero .image-side { flex: none; width: 100%; max-width: 320px; margin: 0 auto; } }
+</style>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none"><path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="24" r="2" fill="currentColor"/><path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="agarwood.html">AI学习专区</a></li>
+      <li><a href="herbs.html">兴趣干货</a></li>
+      <li><a href="health-tea.html">中药养生茶</a></li>
+      <li><a href="tesla.html">特斯拉动态新闻</a></li>
+      <li><a href="console.html">游戏主机图鉴</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索">🔍</button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="hamburger" id="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">首页</a>
+    <a href="agarwood.html">AI学习专区</a>
+    <a href="herbs.html">兴趣干货</a>
+    <a href="tesla.html">特斯拉动态新闻</a>
+    <a href="console.html">游戏主机图鉴</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="console-detail-hero">
+    <div class="image-side">
+      <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#e60012,#ff4757);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;font-weight:700;text-align:center;line-height:1.6;">Game Boy Pocket 高清图<br><span style="font-size:0.8rem;font-weight:400;opacity:0.8;">（待补充真实照片）</span></div>
+    </div>
+    <div class="info-side">
+      <div class="year-badge">1996 年发布</div>
+      <h1>Game Boy Pocket</h1>
+      <div class="subtitle">Game Boy轻薄改款 · 体积减小30% · 屏幕提升</div>
+      <div class="quick-stats">
+        <div class="qs"><div class="qsv">轻薄</div><div class="qsl">设计定位</div></div>
+        <div class="qs"><div class="qsv">2节</div><div class="qsl">AAA电池</div></div>
+        <div class="qs"><div class="qsv">1996</div><div class="qsl">发布年份</div></div>
+        <div class="qs"><div class="qsv">黑白</div><div class="qsl">屏幕类型</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>📖 历史与背景</h2>
+    <p>1996年7月21日，任天堂发布Game Boy Pocket，这是Game Boy的轻薄改款版。在Game Boy Color上市之前，任天堂需要对已经推出7年的Game Boy进行一次"焕新"。</p>
+    <p>Game Boy Pocket的体积比原版GB减少了约30%，重量从220g降到了125g，但屏幕尺寸保持不变（2.6寸）。最大的变化是：从4节AA电池改为2节AAA电池（续航约8-12小时），屏幕对比度有了明显提升，黑色更深、白色更白。</p>
+    <p>Game Boy Pocket的发布恰逢《精灵宝可梦 红/绿》在日本爆红的初期——更小巧便携的机身让宝可梦的对战和交易更加方便。Pocket在日本和中国市场尤其受欢迎，后来任天堂还推出了多款限定配色（银色、粉色、冰蓝色等）。</p>
+  </div>
+
+  <div class="detail-section">
+    <h2>⚙️ 硬件规格</h2>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">CPU</div><div class="spec-value">Sharp SM83 定制8位 (4.19MHz)</div></div>
+      <div class="spec-item"><div class="spec-label">屏幕</div><div class="spec-value">2.6寸 160×144 LCD（全兼容GB游戏）</div></div>
+      <div class="spec-item"><div class="spec-label">对比度</div><div class="spec-value">比原版GB提升约30%</div></div>
+      <div class="spec-item"><div class="spec-label">电池</div><div class="spec-value">2节AAA电池（约8-12小时）</div></div>
+      <div class="spec-item"><div class="spec-label">尺寸</div><div class="spec-value">118×79×22mm</div></div>
+      <div class="spec-item"><div class="spec-label">重量</div><div class="spec-value">约125g（含电池）</div></div>
+      <div class="spec-item"><div class="spec-label">连接</div><div class="spec-value">Game Link Cable</div></div>
+      <div class="spec-item"><div class="spec-label">兼容</div><div class="spec-value">Game Boy全部游戏</div></div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>📝 Pocket的意义</h2>
+    <ul>
+      <li><strong>更好的便携性：</strong>体积缩小30%且改用AAA电池，让随身携带真正"口袋"化</li>
+      <li><strong>屏幕升级：</strong>新LCD面板的响应速度和对比度都优于原版，减少了拖影</li>
+      <li><strong>多色可选：</strong>银色、金色、粉色、冰蓝、透明色等多种配色，时尚感更强</li>
+      <li><strong>并非换代：</strong>硬件性能与原版GB完全相同，不能玩GBC专属彩色游戏</li>
+      <li><strong>中国市场热门：</strong>Pocket价格更便宜，在中国水货市场保有量很高</li>
+      <li><strong>Game Boy Light（1998日本）：</strong>仅在日版发行的Pocket改款，首款带EL背光的GB——薄薄一层电致发光面板挂在屏幕下方</li>
+    </ul>
+  </div>
+
+  <div class="nav-prev-next">
+    <a href="console-gameboy.html">← Game Boy（前代）</a>
+    <a href="console-nintendo.html">任天堂主机列表 ↑</a>
+    <a href="console-gameboy-color.html">Game Boy Color（下一代） →</a>
+  </div>
+
+  <div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;">
+    <p>最后更新：2026-06-23 | 数据来源：官方资料、维基百科、游戏媒体</p>
+    <p><a href="console-nintendo.html" style="color:var(--blue);;">← 返回任天堂主机列表</a></p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>🐉 龙兄知识库 · AI驱动 · 知识沉淀</p>
+    <p><span id="busuanzi_container_page_pv">本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span></p>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/theme.js"></script>
+</body>
+</html>

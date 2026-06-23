@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Computer (FC/红白机) - 游戏主机图鉴 - 龙兄知识库</title>
+<meta name="keywords" content="FC,红白机,Family Computer,NES,任天堂,8位机,马里奥,魂斗罗,洛克人,塞尔达">
+<meta name="description" content="任天堂FC红白机详细图鉴：1983年发布，8位机霸主，全球销量6191万台，拯救游戏产业的传奇主机。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.console-detail-hero { display: flex; gap: 40px; align-items: center; padding: 48px 0 32px; flex-wrap: wrap; }
+.console-detail-hero .image-side { flex: 0 0 380px; }
+.console-detail-hero .image-side img { width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); background: var(--card); }
+.console-detail-hero .info-side { flex: 1; min-width: 280px; }
+.console-detail-hero h1 { font-size: 2.4rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.console-detail-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+.console-detail-hero .year-badge { display: inline-block; background: linear-gradient(135deg, #e60012, #ff4757); color: #fff; font-weight: 800; font-size: 0.85rem; padding: 4px 16px; border-radius: 20px; margin-bottom: 16px; }
+.console-detail-hero .quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.console-detail-hero .qs { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 90px; }
+.console-detail-hero .qs .qsv { font-size: 1.2rem; font-weight: 900; color: #e60012; }
+.console-detail-hero .qs .qsl { font-size: 0.7rem; color: var(--text-muted); }
+
+.detail-section { margin: 40px 0; }
+.detail-section h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); border-left: 4px solid #e60012; padding-left: 12px; margin-bottom: 16px; }
+.detail-section p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+.detail-section ul { list-style: none; padding: 0; }
+.detail-section ul li { font-size: 0.9rem; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 8px; }
+.detail-section ul li::before { content: '▶'; color: #e60012; font-size: 0.7rem; flex-shrink: 0; }
+
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.spec-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.spec-item .spec-label { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; }
+.spec-item .spec-value { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.game-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+.game-card .game-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.game-card .game-year { font-size: 0.73rem; color: #e60012; font-weight: 600; }
+.game-card .game-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+
+.nav-prev-next { display: flex; justify-content: space-between; margin: 48px 0 20px; padding: 20px 0; border-top: 1px solid var(--border); }
+.nav-prev-next a { color: #e60012; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.nav-prev-next a:hover { text-decoration: underline; }
+.nav-prev-next .disabled { color: var(--text-muted); cursor: default; pointer-events: none; }
+
+.timeline-bar { display: flex; align-items: center; gap: 0; margin: 20px 0; overflow-x: auto; }
+.timeline-item { display: flex; flex-direction: column; align-items: center; min-width: 80px; cursor: pointer; text-decoration: none; }
+.timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border); border: 2px solid var(--border); margin-bottom: 6px; flex-shrink: 0; }
+.timeline-item.active .timeline-dot { background: #e60012; border-color: #e60012; }
+.timeline-item .tl-year { font-size: 0.68rem; color: var(--text-muted); font-weight: 600; }
+.timeline-item.active .tl-year { color: #e60012; }
+.timeline-line { flex: 1; height: 2px; background: var(--border); min-width: 20px; }
+
+[data-theme="light"] .console-detail-hero .image-side img { background: #f0f0f0; }
+[data-theme="light"] .spec-item, [data-theme="light"] .game-card { background: #ffffff; }
+@media (max-width: 768px) { .console-detail-hero { flex-direction: column; } .console-detail-hero .image-side { flex: none; width: 100%; max-width: 320px; margin: 0 auto; } }
+</style>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none"><path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="24" r="2" fill="currentColor"/><path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="agarwood.html">AI学习专区</a></li>
+      <li><a href="herbs.html">兴趣干货</a></li>
+      <li><a href="health-tea.html">中药养生茶</a></li>
+      <li><a href="tesla.html">特斯拉动态新闻</a></li>
+      <li><a href="console.html">游戏主机图鉴</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索">🔍</button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="hamburger" id="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">首页</a>
+    <a href="agarwood.html">AI学习专区</a>
+    <a href="herbs.html">兴趣干货</a>
+    <a href="tesla.html">特斯拉动态新闻</a>
+    <a href="console.html">游戏主机图鉴</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- 品牌时间线导航 -->
+  <div class="timeline-bar" style="margin-top:24px;">
+    <a class="timeline-item active" href="console-family-computer.html">
+      <div class="timeline-dot"></div><div class="tl-year">FC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-super-famicom.html">
+      <div class="timeline-dot"></div><div class="tl-year">SFC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-nintendo-64.html">
+      <div class="timeline-dot"></div><div class="tl-year">N64</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-gamecube.html">
+      <div class="timeline-dot"></div><div class="tl-year">NGC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-wii.html">
+      <div class="timeline-dot"></div><div class="tl-year">Wii</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-wii-u.html">
+      <div class="timeline-dot"></div><div class="tl-year">Wii U</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-switch.html">
+      <div class="timeline-dot"></div><div class="tl-year">Switch</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-switch-2.html">
+      <div class="timeline-dot"></div><div class="tl-year">S2</div>
+    </a>
+  </div>
+
+  <!-- 主机详情英雄区 -->
+  <div class="console-detail-hero">
+    <div class="image-side">
+      <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#e60012,#ff4757);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;font-weight:700;text-align:center;line-height:1.6;">FC 红白机高清图<br><span style="font-size:0.8rem;font-weight:400;opacity:0.8;">（待补充真实照片）</span></div>
+    </div>
+    <div class="info-side">
+      <div class="year-badge">1983 年发布</div>
+      <h1>Family Computer (FC)</h1>
+      <div class="subtitle">红白机 · 8位机时代霸主 · 拯救游戏产业的传奇</div>
+      <div class="quick-stats">
+        <div class="qs"><div class="qsv">6191万</div><div class="qsl">全球销量</div></div>
+        <div class="qs"><div class="qsv">8位</div><div class="qsl">CPU位数</div></div>
+        <div class="qs"><div class="qsv">¥14,800</div><div class="qsl">首发价格(日元)</div></div>
+        <div class="qs"><div class="qsv">1983</div><div class="qsl">发布年份</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 详细介绍 -->
+  <div class="detail-section">
+    <h2>📖 历史与背景</h2>
+    <p>1983年7月15日，任天堂在日本发布了Family Computer（简称FC），因其红白配色而被中国玩家亲切称为"红白机"。当时正值1983年北美游戏大崩溃（Atari Shock）之后，整个游戏产业濒临崩溃。任天堂以严格的第三方授权制度和"品质认证"标志（Nintendo Seal of Quality）重建了消费者信心。</p>
+    <p>FC的核心竞争力在于创新设计：十字方向键（D-Pad）由横井军平发明，成为此后所有游戏手柄的标配。可拆卸手柄、硬件锁定芯片防止盗版卡带、以及开创性的第三方游戏授权模式，为FC建立了健康的游戏生态。</p>
+    <p>FC在美国以Nintendo Entertainment System（NES）的名称发售，经过重新设计推入北美市场。NES采用灰色方形设计，内置《超级马里奥兄弟》等游戏，成功打入了美国千家万户，最终全球销量高达6191万台。</p>
+  </div>
+
+  <div class="detail-section">
+    <h2>⚙️ 硬件规格</h2>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">CPU</div><div class="spec-value">Ricoh 8位 6502 (1.79MHz)</div></div>
+      <div class="spec-item"><div class="spec-label">GPU</div><div class="spec-value">Ricoh PPU (图像协处理器)</div></div>
+      <div class="spec-item"><div class="spec-label">内存</div><div class="spec-value">2KB RAM + 2KB VRAM</div></div>
+      <div class="spec-item"><div class="spec-label">显色能力</div><div class="spec-value">52色（同屏最多25色）</div></div>
+      <div class="spec-item"><div class="spec-label">分辨率</div><div class="spec-value">256×240像素</div></div>
+      <div class="spec-item"><div class="spec-label">音效</div><div class="spec-value">5通道PSG音频</div></div>
+      <div class="spec-item"><div class="spec-label">存储介质</div><div class="spec-value">游戏卡带（最高512KB）</div></div>
+      <div class="spec-item"><div class="spec-label">手柄</div><div class="spec-value">十字键+AB/Select/Start</div></div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>🎮 经典游戏阵容</h2>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-title">超级马里奥兄弟</div>
+        <div class="game-year">1985 · 平台跳跃</div>
+        <div class="game-note">史上最经典的游戏之一，销量4024万份</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">塞尔达传说</div>
+        <div class="game-year">1986 · 动作冒险</div>
+        <div class="game-note">首创电池存档，开放世界先驱</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">魂斗罗</div>
+        <div class="game-year">1987 · 动作射击</div>
+        <div class="game-note">上上下下左右左右BA，经典30命秘笈</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">俄罗斯方块</div>
+        <div class="game-year">1989 · 益智</div>
+        <div class="game-note">史上最畅销的FC游戏之一</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">洛克人2</div>
+        <div class="game-year">1988 · 动作</div>
+        <div class="game-note">难度极高，关卡设计教科书级别</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">勇者斗恶龙III</div>
+        <div class="game-year">1988 · RPG</div>
+        <div class="game-note">日式RPG奠基之作，日本文化现象</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">最终幻想III</div>
+        <div class="game-year">1990 · RPG</div>
+        <div class="game-note">职业系统开创者</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">双截龙II</div>
+        <div class="game-year">1988 · 清版动作</div>
+        <div class="game-note">街机移植名作，双人合作经典</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>🏆 市场表现与影响</h2>
+    <ul>
+      <li><strong>全球销量：</strong>6191万台（FC/NES合计），日本1935万台，北美3400万台以上</li>
+      <li><strong>游戏销量：</strong>全球FC卡带总销量超过5亿份，《超级马里奥兄弟》单款4024万份</li>
+      <li><strong>游戏数量：</strong>全球发行超过1050款官方游戏（不含盗版）</li>
+      <li><strong>产业拯救：</strong>FC/NES成功挽救了1983年崩溃的北美游戏市场，重建了消费者信任</li>
+      <li><strong>第三方制度：</strong>任天堂开创的"权利金"授权制度、锁码芯片成为行业标准</li>
+      <li><strong>山寨文化：</strong>在中国，小霸王等厂商大量生产FC兼容机，成就了80后90后的集体游戏记忆</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h2>🔧 型号演变</h2>
+    <ul>
+      <li><strong>FC初版（1983）：</strong>红白配色，手柄集成在主板上。推出后发现设计缺陷，因画圈游戏导致手柄布线断裂</li>
+      <li><strong>FC改进版（1983末）：</strong>手柄改为可拆卸设计（与主机分离），解决了布线问题</li>
+      <li><strong>NES（1985北美）：</strong>重新设计为灰色方形，使用VCR式前面插入卡槽（类似录像机，减少家长顾虑）</li>
+      <li><strong>NES 2 / AV-Famicom（1993）：</strong>日版末代机型，体积大幅缩小，直接用AV输出（不再RF射频）</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h2>💡 趣闻与冷知识</h2>
+    <ul>
+      <li>FC的十字键（D-Pad）由横井军平发明——因GAME&WATCH《大金刚》需要精准控制跳跃方向。此后40年，所有游戏手柄都在用这个设计</li>
+      <li>任天堂在FC/NES卡带中加入10NES锁码芯片，绕过该芯片的技术被中国盗版商攻克，导致大量兼容机在中国流行</li>
+      <li>"上上下下左右左右BA"（Konami秘笈）是史上最著名的游戏作弊码，由《魂斗罗》开发者桥本和久为方便测试而引入</li>
+      <li>FC FC游戏卡带右侧的"金手指"是防止静电损坏芯片设计的——玩家玩之前要吹一下是个误解，反而会让卡带受潮</li>
+      <li>《超级马里奥兄弟》的设计稿上，马里奥最初被命名为"Jumpman"（跳跃人），标题画面中的城堡其实是修改了《大金刚》的画板</li>
+      <li>中国很多80后以为红白机是任天堂为中国定制的——实际上"红白"配色是因为日本设计师觉得红白配喜庆，意外契合了中国审美</li>
+    </ul>
+  </div>
+
+  <!-- 上下导航 -->
+  <div class="nav-prev-next">
+    <span class="disabled">← 无上一代（首发主机）</span>
+    <a href="console-nintendo.html">任天堂主机列表 ↑</a>
+    <a href="console-super-famicom.html">SFC（下一代） →</a>
+  </div>
+
+  <div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;">
+    <p>最后更新：2026-06-23 | 数据来源：官方资料、维基百科、游戏媒体</p>
+    <p><a href="console-nintendo.html" style="color:var(--blue);;">← 返回任天堂主机列表</a></p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>🐉 龙兄知识库 · AI驱动 · 知识沉淀</p>
+    <p><span id="busuanzi_container_page_pv">本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span></p>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/theme.js"></script>
+</body>
+</html>

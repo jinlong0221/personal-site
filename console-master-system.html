@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master System - 游戏主机图鉴 - 龙兄知识库</title></head>
+<body>
+<style>.console-detail-hero { display: flex; gap: 40px; align-items: center; padding: 48px 0 32px; flex-wrap: wrap; }
+.console-detail-hero .image-side { flex: 0 0 380px; }
+.console-detail-hero .image-side img { width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); background: var(--card); }
+.console-detail-hero .info-side { flex: 1; min-width: 280px; }
+.console-detail-hero h1 { font-size: 2.4rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.console-detail-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+.console-detail-hero .year-badge { display: inline-block; background: linear-gradient(135deg, #0053a0, #0072c6); color: #fff; font-weight: 800; font-size: 0.85rem; padding: 4px 16px; border-radius: 20px; margin-bottom: 16px; }
+.console-detail-hero .quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.console-detail-hero .qs { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 90px; }
+.console-detail-hero .qs .qsv { font-size: 1.2rem; font-weight: 900; color: #0072c6; }
+.console-detail-hero .qs .qsl { font-size: 0.7rem; color: var(--text-muted); }
+.detail-section { margin: 40px 0; }
+.detail-section h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); border-left: 4px solid #0072c6; padding-left: 12px; margin-bottom: 16px; }
+.detail-section p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+.detail-section ul { list-style: none; padding: 0; }
+.detail-section ul li { font-size: 0.9rem; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 8px; }
+.detail-section ul li::before { content: '▶'; color: #0072c6; font-size: 0.7rem; flex-shrink: 0; }
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.spec-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.spec-item .spec-label { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; }
+.spec-item .spec-value { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+.nav-prev-next { display: flex; justify-content: space-between; margin: 48px 0 20px; padding: 20px 0; border-top: 1px solid var(--border); }
+.nav-prev-next a { color: #0072c6; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.nav-prev-next a:hover { text-decoration: underline; } .nav-prev-next .disabled { color: var(--text-muted); cursor: default; pointer-events: none; }
+[data-theme="light"] .spec-item, [data-theme="light"] .game-card { background: #ffffff; }
+@media (max-width: 768px) { .console-detail-hero { flex-direction: column; } .console-detail-hero .image-side { flex: none; width: 100%; max-width: 320px; margin: 0 auto; } }
+</style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none"><path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="24" r="2" fill="currentColor"/><path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links"><li><a href="agarwood.html">AI学习专区</a></li><li><a href="herbs.html">兴趣干货</a></li><li><a href="health-tea.html">中药养生茶</a></li><li><a href="tesla.html">特斯拉动态新闻</a></li><li><a href="console.html">游戏主机图鉴</a></li></ul>
+    <div class="nav-actions"><button class="icon-btn" id="searchBtn">🔍</button><button class="icon-btn" id="themeToggle"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button></div>
+  </div>
+  <div class="mobile-nav" id="mobileNav"><a href="index.html">首页</a><a href="agarwood.html">AI学习专区</a><a href="herbs.html">兴趣干货</a><a href="tesla.html">特斯拉动态新闻</a><a href="console.html">游戏主机图鉴</a></div>
+</nav>
+<main class="container">
+<div class="console-detail-hero"><div class="image-side"><div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#0053a0,#0072c6);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;font-weight:700;text-align:center;line-height:1.6;">Master System 高清图<br><span style="font-size:0.8rem;font-weight:400;opacity:0.8;">（待补充真实照片）</span></div></div>
+<div class="info-side"><div class="year-badge">1985 年发布</div><h1>Sega Master System</h1><div class="subtitle">世嘉第二代主机 · 欧洲与巴西之王 · 8位机精品</div>
+<div class="quick-stats"><div class="qs"><div class="qsv">1300万</div><div class="qsl">全球销量</div></div><div class="qs"><div class="qsv">8位</div><div class="qsl">CPU</div></div><div class="qs"><div class="qsv">卡带</div><div class="qsl">介质</div></div><div class="qs"><div class="qsv">1985</div><div class="qsl">发布年份</div></div></div></div></div>
+<div class="detail-section"><h2>📖 历史与背景</h2><p>1985年10月20日，世嘉在日本推出Master System——SG-1000的继任者。Master System搭载Z80 CPU（4MHz）和VDP视频处理器，在色彩（64色同时显示）和音效方面优于FC红白机。</p><p>在日本市场，Master System被FC碾压——FC游戏阵容太强。但在欧洲和巴西，Master System有着完全不同的命运：在欧洲（尤其是英国和西班牙），Master System凭借低价格和世嘉街机移植获得了千万级销量；在巴西，Tectoy公司取得授权后一直生产Master System直到2020年代——Master System在巴西拥有极高的市场占有率。</p><p>Master System的最显著特征是"双卡槽"设计——主机顶部的卡带插槽和正面的"卡片"插槽（Sega Card）。Sega Card是类似信用卡大小的薄卡，成本更低但容量有限。</p></div>
+<div class="detail-section"><h2>⚙️ 硬件规格</h2><div class="spec-grid">
+<div class="spec-item"><div class="spec-label">CPU</div><div class="spec-value">Z80A 8位 4MHz</div></div>
+<div class="spec-item"><div class="spec-label">色彩</div><div class="spec-value">同屏64色（库256色）</div></div>
+<div class="spec-item"><div class="spec-label">内存</div><div class="spec-value">8KB RAM + 16KB VRAM</div></div>
+<div class="spec-item"><div class="spec-label">分辨率</div><div class="spec-value">256×192 / 256×224</div></div>
+<div class="spec-item"><div class="spec-label">音效</div><div class="spec-value">SN76489 + YM2413 FM(可选)</div></div>
+<div class="spec-item"><div class="spec-label">介质</div><div class="spec-value">卡带 + Sega Card</div></div>
+<div class="spec-item"><div class="spec-label">手柄</div><div class="spec-value">D-Pad + 2键</div></div>
+<div class="spec-item"><div class="spec-label">3D眼镜</div><div class="spec-value">液晶快门3D（可选配件）</div></div>
+</div></div>
+<div class="detail-section"><h2>🎮 经典游戏</h2><div class="game-grid">
+<div class="game-card"><div class="game-title">索尼克</div><div class="game-year">1991</div><div class="game-note">Sonic首次登场即是MD版，但Master System也有专属索尼克</div></div>
+<div class="game-card"><div class="game-title">幻想空间</div><div class="game-year">1986</div><div class="game-note">Opa Opa冒险，世嘉吉祥物之一</div></div>
+<div class="game-card"><div class="game-title">怒之铁拳</div><div class="game-year">1991</div><div class="game-note">清版动作，Master System版相当出色</div></div>
+<div class="game-card"><div class="game-title">海豹突击队</div><div class="game-year">1990</div><div class="game-note">经典军事题材射击</div></div>
+<div class="game-card"><div class="game-title">Alex Kidd</div><div class="game-year">1986</div><div class="game-note">世嘉早期的吉祥物角色</div></div>
+<div class="game-card"><div class="game-title">Out Run</div><div class="game-year">1987</div><div class="game-note">街机移植，经典横向卷轴赛车</div></div>
+</div></div>
+<div class="nav-prev-next"><a href="console-sg1000.html">← SG-1000（上一代）</a><a href="console-sega.html">世嘉主机列表 ↑</a><a href="console-mega-drive.html">Mega Drive（下一代） →</a></div>
+<div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;"><p>最后更新：2026-06-23</p><p><a href="console-sega.html" style="color:var(--blue);;">← 返回世嘉主机列表</a></p></div>
+</main>
+<footer class="footer"><div class="footer-content"><p>🐉 龙兄知识库 · AI驱动 · 知识沉淀</p><p><span id="busuanzi_container_page_pv">本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span></p></div></footer>
+<script src="js/nav.js"></script><script src="js/theme.js"></script>
+</body>
+</html>

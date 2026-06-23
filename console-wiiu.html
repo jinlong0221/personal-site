@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wii U - 游戏主机图鉴 - 龙兄知识库</title>
+<meta name="keywords" content="Wii U,任天堂Wii U,GamePad,触屏手柄,失败,1356万销量">
+<meta name="description" content="Wii U详细图鉴：2012年发售，全球1356万台，GamePad触屏手柄，因市场混淆成为任天堂最失败主机。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.console-detail-hero { display: flex; gap: 40px; align-items: center; padding: 48px 0 32px; flex-wrap: wrap; }
+.console-detail-hero .image-side { flex: 0 0 380px; }
+.console-detail-hero .image-side img { width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); background: var(--card); }
+.console-detail-hero .info-side { flex: 1; min-width: 280px; }
+.console-detail-hero h1 { font-size: 2.4rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.console-detail-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+.console-detail-hero .year-badge { display: inline-block; background: linear-gradient(135deg, #e60012, #ff4757); color: #fff; font-weight: 800; font-size: 0.85rem; padding: 4px 16px; border-radius: 20px; margin-bottom: 16px; }
+.console-detail-hero .quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.console-detail-hero .qs { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 90px; }
+.console-detail-hero .qs .qsv { font-size: 1.2rem; font-weight: 900; color: #e60012; }
+.console-detail-hero .qs .qsl { font-size: 0.7rem; color: var(--text-muted); }
+
+.detail-section { margin: 40px 0; }
+.detail-section h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); border-left: 4px solid #e60012; padding-left: 12px; margin-bottom: 16px; }
+.detail-section p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+.detail-section ul { list-style: none; padding: 0; }
+.detail-section ul li { font-size: 0.9rem; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 8px; }
+.detail-section ul li::before { content: '▶'; color: #e60012; font-size: 0.7rem; flex-shrink: 0; }
+
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.spec-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.spec-item .spec-label { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; }
+.spec-item .spec-value { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.game-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+.game-card .game-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.game-card .game-year { font-size: 0.73rem; color: #e60012; font-weight: 600; }
+.game-card .game-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+
+.nav-prev-next { display: flex; justify-content: space-between; margin: 48px 0 20px; padding: 20px 0; border-top: 1px solid var(--border); }
+.nav-prev-next a { color: #e60012; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.nav-prev-next a:hover { text-decoration: underline; }
+
+.timeline-bar { display: flex; align-items: center; gap: 0; margin: 20px 0; overflow-x: auto; }
+.timeline-item { display: flex; flex-direction: column; align-items: center; min-width: 80px; cursor: pointer; text-decoration: none; }
+.timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border); border: 2px solid var(--border); margin-bottom: 6px; flex-shrink: 0; }
+.timeline-item.active .timeline-dot { background: #e60012; border-color: #e60012; }
+.timeline-item .tl-year { font-size: 0.68rem; color: var(--text-muted); font-weight: 600; }
+.timeline-item.active .tl-year { color: #e60012; }
+.timeline-line { flex: 1; height: 2px; background: var(--border); min-width: 20px; }
+
+[data-theme="light"] .console-detail-hero .image-side img { background: #f0f0f0; }
+[data-theme="light"] .spec-item, [data-theme="light"] .game-card { background: #ffffff; }
+@media (max-width: 768px) { .console-detail-hero { flex-direction: column; } .console-detail-hero .image-side { flex: none; width: 100%; max-width: 320px; margin: 0 auto; } }
+</style>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-dragon" width="32" height="32" viewBox="0 0 64 64" fill="none"><path d="M52 20c-4-8-14-12-24-8C20 15 16 23 18 30c2 5 7 9 13 9l-3 6c-5 1-9 4-11 9l-1 6h8l2-5c2 2 5 3 8 3h4l2-7c3 1 6-1 7-4l1-6 3-5-1-8z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="24" r="2" fill="currentColor"/><path d="M52 20l-6-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      龙兄知识库
+    </a>
+    <ul class="nav-links">
+      <li><a href="agarwood.html">AI学习专区</a></li>
+      <li><a href="herbs.html">兴趣干货</a></li>
+      <li><a href="health-tea.html">中药养生茶</a></li>
+      <li><a href="tesla.html">特斯拉动态新闻</a></li>
+      <li><a href="console.html">游戏主机图鉴</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索">🔍</button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="hamburger" id="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">首页</a>
+    <a href="agarwood.html">AI学习专区</a>
+    <a href="herbs.html">兴趣干货</a>
+    <a href="tesla.html">特斯拉动态新闻</a>
+    <a href="console.html">游戏主机图鉴</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="timeline-bar" style="margin-top:24px;">
+    <a class="timeline-item" href="console-fc.html">
+      <div class="timeline-dot"></div><div class="tl-year">FC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-sfc.html">
+      <div class="timeline-dot"></div><div class="tl-year">SFC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-n64.html">
+      <div class="timeline-dot"></div><div class="tl-year">N64</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-gc.html">
+      <div class="timeline-dot"></div><div class="tl-year">GC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-wii.html">
+      <div class="timeline-dot"></div><div class="tl-year">Wii</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item active" href="console-wiiu.html">
+      <div class="timeline-dot"></div><div class="tl-year">Wii U</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-switch.html">
+      <div class="timeline-dot"></div><div class="tl-year">Switch</div>
+    </a>
+  </div>
+
+  <div class="console-detail-hero">
+    <div class="image-side">
+      <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#e60012,#ff4757);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;font-weight:700;text-align:center;line-height:1.6;">Wii U<br><span style="font-size:0.8rem;font-weight:400;opacity:0.8;">任天堂Wii U 2012<br>待补充真实照片</span></div>
+    </div>
+    <div class="info-side">
+      <div class="year-badge">2012 年发布</div>
+      <h1>Wii U</h1>
+      <div class="subtitle">任天堂Wii U · GamePad触屏手柄 · 任天堂最失败主机</div>
+      <div class="quick-stats">
+        <div class="qs"><div class="qsv">1356万</div><div class="qsl">全球销量</div></div>
+        <div class="qs"><div class="qsv">失败</div><div class="qsl">市场表现</div></div>
+        <div class="qs"><div class="qsv">GamePad</div><div class="qsl">触屏手柄</div></div>
+        <div class="qs"><div class="qsv">1080p</div><div class="qsl">输出分辨率</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>📖 历史与背景</h2>
+    <p>2012年，任天堂推出Wii U，配备带6.2寸触屏的GamePad手柄。但市场混淆严重——很多消费者以为Wii U是Wii的配件（像Wii Remote一样），而不是全新主机。加上第三方支持不足和缺乏"杀手级"游戏，Wii U销量仅1356万台，成为任天堂最失败的主机。</p>
+    <p>Wii U的GamePad可以同时显示电视画面（通过WiFi流媒体），让玩家在不占用电视时也能玩游戏。但这个功能导致延迟，且GamePad的电池续航仅3-5小时。Wii U是首款支持1080p输出的任天堂主机，但GPU性能仍不如PS3/Xbox 360。</p>
+    <p>Wii U的失败导致任天堂总裁岩田聪在2015年重组管理层，并加速了Switch的开发。Wii U的失败也为Switch的成功铺平了道路——任天堂意识到"主机+掌机"混合形态才是未来。</p>
+  </div>
+
+  <div class="detail-section">
+    <h2>⚙️ 硬件规格</h2>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">CPU</div><div class="spec-value">IBM Espresso 三核 1.24GHz</div></div>
+      <div class="spec-item"><div class="spec-label">GPU</div><div class="spec-value">AMD Radeon 550MHz</div></div>
+      <div class="spec-item"><div class="spec-label">内存</div><div class="spec-value">2GB（1+1GB分层）</div></div>
+      <div class="spec-item"><div class="spec-label">存储</div><div class="spec-value">8GB/32GB闪存</div></div>
+      <div class="spec-item"><div class="spec-label">手柄</div><div class="spec-value">Wii U GamePad（6.2寸触屏）</div></div>
+      <div class="spec-item"><div class="spec-label">输出</div><div class="spec-value">1080p</div></div>
+      <div class="spec-item"><div class="spec-label">向下兼容</div><div class="spec-value">支持Wii游戏和配件</div></div>
+      <div class="spec-item"><div class="spec-label">在线</div><div class="spec-value">Nintendo Network（付费在线多人）</div></div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>🎮 经典游戏阵容</h2>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-title">马里奥卡丁车8</div>
+        <div class="game-year">2014 · 赛车</div>
+        <div class="game-note">847万份，Wii U最畅销游戏</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">任天堂明星大乱斗 for Wii U</div>
+        <div class="game-year">2014 · 格斗</div>
+        <div class="game-note">536万份，支持8人乱斗</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">塞尔达传说：风之杖HD</div>
+        <div class="game-year">2013 · ARPG</div>
+        <div class="game-note">221万份，GC重制版</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">超级马里奥3D世界</div>
+        <div class="game-year">2013 · 平台</div>
+        <div class="game-note">589万份，首款4人合作3D马里奥</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">任天堂乐园</div>
+        <div class="game-year">2012 · 体感聚会</div>
+        <div class="game-note">Wii U首发护航，展示GamePad</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">Splatoon</div>
+        <div class="game-year">2015 · 射击</div>
+        <div class="game-note">490万份，任天堂新IP成功案例</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">塞尔达传说：荒野之息</div>
+        <div class="game-year">2017 · ARPG</div>
+        <div class="game-note">实际是Switch首发游戏，但Wii U也有</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">马里奥制造</div>
+        <div class="game-year">2015 · 创作</div>
+        <div class="game-note">390万份，玩家自制关卡</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>📦 型号演变</h2>
+    <ul>
+      <li><strong>Wii U Basic（2012）：</strong>8GB白色，¥299</li>
+      <li><strong>Wii U Deluxe（2012）：</strong>32GB黑色，¥349，含GamePad支架</li>
+      <li><strong>Wii U Premium（2013）：</strong>日本独有，32GB白色</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h2>💡 趣闻与冷知识</h2>
+    <ul>
+      <li>Wii U是首款支持1080p输出的任天堂主机（Wii仅480p）</li>
+      <li>GamePad的触屏可以镜像电视画面，让玩家在不占用电视时也能玩</li>
+      <li>Wii U的失败导致岩田聪2015年重组管理层，并加速了Switch的开发</li>
+      <li>《马里奥卡丁车8》的DLC是任天堂最成功的DLC，增加了F-Zero赛道</li>
+      <li>Wii U的CPU（IBM Espresso）是三核PowerPC，但性能不如PS3的Cell</li>
+      <li>Wii U的失败让任天堂意识到"主机+掌机"混合形态才是未来，最终诞生了Switch</li>
+    </ul>
+  </div>
+
+  <div class="nav-prev-next">
+    <a href="console-wii.html">← Wii（上一代）</a>
+    <a href="console-nintendo.html">任天堂主机列表 ↑</a>
+    <a href="console-switch.html">Switch（下一代） →</a>
+  </div>
+
+  <div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;">
+    <p>最后更新：2026-06-23 | 数据来源：官方资料、维基百科、游戏媒体</p>
+    <p><a href="console-nintendo.html" style="color:var(--blue);;">← 返回任天堂主机列表</a></p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>🐉 龙兄知识库 · AI驱动 · 知识沉淀</p>
+    <p><span id="busuanzi_container_page_pv">本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span></p>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/theme.js"></script>
+</body>
+</html>

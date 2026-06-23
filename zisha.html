@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吴昊天紫砂艺术 - 龙兄知识库</title>
+<meta name="description" content="中国国礼艺术大师吴昊天紫砂作品展示，五色釉柴烧、经典壶型、生肖系列、套具系列">
+<meta name="keywords" content="吴昊天,紫砂,紫砂壶,五色釉,柴烧,宜兴,国礼艺术,非遗">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<style>
+/* 紫砂板块专属配色 */
+:root { --zisha-warm: #8B4513; --zisha-gold: #D4A574; --zisha-red: #A0522D; }
+[data-theme="light"] { --zisha-bg: #FFF8F0; --zisha-card: #FFFAF5; --zisha-accent: #8B4513; --zisha-text: #3E2723; --zisha-muted: #8D6E63; }
+[data-theme="dark"] { --zisha-bg: #1A1210; --zisha-card: #2C1E18; --zisha-accent: #D4A574; --zisha-text: #EFEBE9; --zisha-muted: #A1887F; }
+
+/* Hero区域 */
+.zisha-hero {
+  text-align: center;
+  padding: 40px 20px 30px;
+  background: linear-gradient(135deg, var(--zisha-bg), var(--card));
+  border-radius: 16px;
+  margin-bottom: 32px;
+  border: 1px solid var(--border);
+}
+.zisha-hero-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--zisha-warm), var(--zisha-red));
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+[data-theme="dark"] .zisha-hero-badge { background: linear-gradient(135deg, #5D4037, #6D4C41); }
+.zisha-hero h1 {
+  font-size: 1.8rem;
+  color: var(--zisha-accent);
+  margin: 0 0 8px;
+}
+.zisha-hero .subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* 艺术家简介 */
+.artist-card {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  background: var(--zisha-card);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  margin-bottom: 32px;
+  align-items: flex-start;
+}
+.artist-card .portrait {
+  width: 160px;
+  min-width: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 3px solid var(--zisha-gold);
+}
+.artist-card .info { flex: 1; }
+.artist-card .titles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+.artist-card .title-tag {
+  background: linear-gradient(135deg, var(--zisha-warm), var(--zisha-red));
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+[data-theme="dark"] .artist-card .title-tag { background: linear-gradient(135deg, #4E342E, #5D4037); }
+.artist-card .bio {
+  color: var(--zisha-text);
+  font-size: 0.88rem;
+  line-height: 1.75;
+  margin-top: 12px;
+}
+
+/* Section标题 */
+.zisha-section {
+  margin-bottom: 36px;
+}
+.zisha-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--zisha-gold);
+}
+.zisha-section-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--zisha-accent);
+}
+.zisha-section-header .section-icon {
+  font-size: 1.4rem;
+}
+
+/* 作品网格 */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* 作品卡片 */
+.work-card {
+  background: var(--zisha-card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.work-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(139, 69, 19, 0.15);
+}
+.work-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.work-card img:hover {
+  transform: scale(1.05);
+}
+.work-card .card-body {
+  padding: 16px;
+}
+.work-card .work-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--zisha-accent);
+  margin-bottom: 8px;
+}
+.work-card .work-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.work-card .work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.work-card .meta-tag {
+  background: var(--bg);
+  color: var(--zisha-muted);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  border: 1px solid var(--border);
+}
+.work-card .price-tag {
+  background: linear-gradient(135deg, var(--zisha-warm), var(--zisha-red));
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+}
+[data-theme="dark"] .work-card .price-tag { background: linear-gradient(135deg, #4E342E, #5D4037); }
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 90%;
+  max-height: 85vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+.lightbox .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10000;
+}
+.lightbox .caption {
+  position: absolute;
+  bottom: 30px;
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+/* 文化合作卡 */
+.coop-card {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: var(--zisha-card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+  align-items: center;
+}
+.coop-card img {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.coop-card .coop-info { flex: 1; }
+.coop-card .coop-name {
+  font-weight: 600;
+  color: var(--zisha-accent);
+  margin-bottom: 6px;
+}
+.coop-card .coop-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.coop-card .coop-work {
+  font-size: 0.8rem;
+  color: var(--zisha-gold);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .artist-card { flex-direction: column; align-items: center; text-align: center; }
+  .artist-card .portrait { width: 140px; min-width: 140px; }
+  .artist-card .titles { justify-content: center; }
+  .works-grid { grid-template-columns: 1fr; }
+  .coop-card { flex-direction: column; text-align: center; }
+  .coop-card img { width: 100%; height: 200px; }
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo">📚 龙兄知识库</a>
+    <ul class="nav-links">
+      <li><a href="agarwood.html" class="nav-ai">沉香鉴别</a></li>
+      <li><a href="herbs.html" class="nav-hobby">中药材</a></li>
+      <li><a href="health-tea.html" class="nav-hobby">养生茶</a></li>
+      <li><a href="bracelet.html" class="nav-hobby">文玩手串</a></li>
+      <li><a href="tesla.html" class="nav-life">特斯拉</a></li>
+      <li><a href="marvel.html" class="nav-life">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html" class="nav-life">农田气象</a></li>
+      <li><a href="travel.html" class="nav-life">旅行攻略</a></li>
+      <li><a href="zisha.html" class="nav-life" style="font-weight:700">紫砂艺术</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="agarwood.html">🪵 沉香鉴别</a>
+    <a href="herbs.html">🌿 中药材</a>
+    <a href="health-tea.html">🍵 养生茶</a>
+    <a href="bracelet.html">📿 文玩手串</a>
+    <a href="tesla.html">🚗 特斯拉</a>
+    <a href="marvel.html">🦸 漫威宇宙</a>
+    <a href="xintan-weather.html">🌾 农田气象</a>
+    <a href="travel.html">✈️ 旅行攻略</a>
+    <a href="zisha.html">🏺 紫砂艺术</a>
+    <a href="changelog.html">📜 更新日志</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- Hero -->
+  <div class="zisha-hero">
+    <div class="zisha-hero-badge">中国国礼艺术大师</div>
+    <h1>🏺 吴昊天紫砂艺术</h1>
+    <p class="subtitle">器以载道 · 物以传情 — 国家级非遗手工技艺传承</p>
+    <img src="img/zisha/zisha_p3_0.jpeg" alt="惠风和畅" style="width:100%;max-width:600px;border-radius:12px;margin-top:16px;border:2px solid var(--zisha-gold)">
+    <p style="color:var(--text-muted);font-size:0.8rem;margin-top:8px">《惠风和畅》· 吴昊天手制</p>
+  </div>
+
+  <!-- 艺术家简介 -->
+  <div class="artist-card">
+    <img src="img/zisha/zisha_p2_0.jpeg" alt="吴昊天" class="portrait">
+    <div class="info">
+      <h2 style="color:var(--zisha-accent);margin:0">吴昊天</h2>
+      <div class="titles">
+        <span class="title-tag">中国国礼艺术大师</span>
+        <span class="title-tag">国家一级·高级技师</span>
+        <span class="title-tag">高级乡村振兴技艺师</span>
+        <span class="title-tag">非遗紫砂技艺传承人</span>
+        <span class="title-tag">中国紫砂文化研究会常务理事</span>
+      </div>
+      <p class="bio">
+        出生于书香门第，早年求学澳大利亚，回国后即置身陶都宜兴，专业从事紫砂艺术品的创作与研发工作。秉承吴门传统制壶技艺，博纳众家之长，创作理念上融合中国传统儒学文化、道教文化、佛教文化的内涵。以泥塑形，以壶传神，从有形到无形，充分展现了各家的文化思想，逐步形成了自己独特的艺术风格。
+      </p>
+      <p class="bio">
+        十多年来，在继承传统的基础上，不断开拓创新，呈现出一系列优秀的原创紫砂作品。近百件作品先后获得国家外观设计专利，发表专业理论文章近20多篇，多件作品荣获国家级展评活动金奖，并被政要名人以及多家国内外知名博物馆所收藏。独创"五色釉柴烧紫砂茶器"，充分发挥紫砂器具的功能性，器物古朴典雅，肌理丰富，茶感醇厚多嗞，茗香独特，颇受当代茶人与专业藏家追捧。
+      </p>
+    </div>
+  </div>
+
+  <!-- 一、五色釉柴烧紫砂茶(酒)器 -->
+  <div class="zisha-section">
+    <div class="zisha-section-header">
+      <span class="section-icon">🎨</span>
+      <h2>五色釉柴烧紫砂茶(酒)器</h2>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.7;margin-bottom:20px">
+      精选陶都宜兴原矿紫砂泥，加以草木灰、土骨等天然元素，通过多年研发探索获取科学配方，采用稀缺传统工艺流程成型，再经1300多度高温柴窑土法烧制，让陶土坯胎的釉料不断流动、交融、渗透，使得窑变、釉变、流变三者合一，形成色彩绚丽、光彩夺目、独树一帜的视觉效果。每件作品无法复制，堪称艺术"绝品"。
+    </p>
+    <div class="works-grid">
+      <div class="work-card">
+        <img src="img/zisha/zisha_p12_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">五色釉柴烧茶器</div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span><span class="price-tag">¥288</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p13_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">五色釉柴烧茶器</div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span><span class="price-tag">¥288</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p14_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">五色釉柴烧茶器</div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span><span class="price-tag">¥288</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p15_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">五色釉柴烧茶器</div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">60ml</span><span class="price-tag">¥499</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p16_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">五色釉柴烧茶器</div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">260ml</span><span class="price-tag">¥600</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p17_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">五色釉柴烧茶器</div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">280ml</span><span class="price-tag">¥600</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p18_0.jpeg" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">五色釉柴烧茶器</div>
+          <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">280ml</span><span class="price-tag">¥600</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二、紫砂盖杯 -->
+  <div class="zisha-section">
+    <div class="zisha-section-header">
+      <span class="section-icon">🍵</span>
+      <h2>紫砂盖杯系列</h2>
+    </div>
+    <div class="works-grid">
+      <div class="work-card">
+        <img src="img/zisha/zisha_p19_0.jpeg" alt="圆润杯" data-caption="圆润杯" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">圆润杯</div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">400ml</span><span class="price-tag">¥280</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p20_0.jpeg" alt="菱花如意杯" data-caption="菱花如意杯" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">菱花如意杯</div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">350ml</span><span class="price-tag">¥280</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p21_0.jpeg" alt="宝葫杯" data-caption="宝葫杯" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">宝葫杯</div>
+          <div class="work-meta"><span class="meta-tag">原矿清水泥</span><span class="meta-tag">280ml</span><span class="price-tag">¥280</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p22_0.jpeg" alt="吉祥如意" data-caption="吉祥如意" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">吉祥如意杯</div>
+          <div class="work-desc">此杯设计化镂空灵珠为盖钮，精妙秀巧，腰线贯穿杯身，束出盖杯硬朗挺拔之姿。以佛灯造型点缀杯盖，整体似"吉"字，寓意吉祥如意、时来运转。</div>
+          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">500ml</span><span class="price-tag">¥800</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p23_0.jpeg" alt="盛世祥龙" data-caption="盛世祥龙" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">盛世祥龙杯</div>
+          <div class="work-desc">设计创意源自新石器时代红山文化玉龙，红山文化与紫砂文化相结合，化国宝玉龙之形为柄。以物言志，君子比德如玉，天行健自强不息。</div>
+          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">500ml</span><span class="price-tag">¥800</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三、经典壶型 -->
+  <div class="zisha-section">
+    <div class="zisha-section-header">
+      <span class="section-icon">🏺</span>
+      <h2>经典壶型系列</h2>
+    </div>
+    <div class="works-grid">
+      <div class="work-card">
+        <img src="img/zisha/zisha_p24_0.jpeg" alt="紫气东来" data-caption="紫气东来" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">🏆 紫气东来</div>
+          <div class="work-desc">吴昊天先生原创设计首款生肖作品，荣获"中誉杯"工艺美术创新作品大赛金奖。壶身为汉时瓦缸，壶钮为汉时瓦片浮雕祥云，壶嘴壶把为东方巨龙，象征祥瑞之气出自东方。</div>
+          <div class="work-meta"><span class="meta-tag">原矿黄金段泥</span><span class="meta-tag">430ml</span><span class="price-tag">¥800</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p25_0.jpeg" alt="过桥扁腹" data-caption="过桥扁腹" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">过桥扁腹</div>
+          <div class="work-desc">清末制壶大家黄玉麟经典之作，由仿古壶演变而来。壶体扁圆不塌，转折弧线优雅精当，短弯流嘴出水有力，玉环圆把飘逸自如，体现紫砂艺术"圆、稳、匀、正"美学意蕴。</div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">250ml</span><span class="price-tag">¥900</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p26_0.jpeg" alt="倒把西施" data-caption="倒把西施" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">倒把西施</div>
+          <div class="work-desc">壶身圆润，截盖设计、短嘴、倒把把手，构成西施壶特殊审美效果，成为紫砂壶经典。选用宜兴黄龙山珍贵稀有红降坡泥制作。</div>
+          <div class="work-meta"><span class="meta-tag">原矿降坡泥</span><span class="meta-tag">220ml</span><span class="price-tag">¥800</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p27_0.jpeg" alt="平盖莲子" data-caption="平盖莲子" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">平盖莲子</div>
+          <div class="work-desc">造型源于莲子，象征纯洁高雅。造型古朴大方，婉约俏丽，壶身浑圆饱满，曲线委婉动人。蕴含"连生贵子"吉祥寓意。</div>
+          <div class="work-meta"><span class="meta-tag">原矿红皮龙</span><span class="meta-tag">300ml</span><span class="price-tag">¥900</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p28_0.jpeg" alt="容天" data-caption="容天" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">容天</div>
+          <div class="work-desc">寓意"大肚能容，容天下难容之事"，设计灵感源自佛教大肚罗汉，象征宽容大度和包容一切。壶型饱满圆润，线条流畅，富有哲理。</div>
+          <div class="work-meta"><span class="meta-tag">原矿清水泥</span><span class="meta-tag">200ml</span><span class="price-tag">¥800</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p29_0.jpeg" alt="仿古" data-caption="仿古" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">仿古</div>
+          <div class="work-desc">模仿古代青铜器造型，形态和功能完美结合，"藏而不泄"是为"宝"。象征对功名事业的追求，一鼓作气奋发向上。</div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">300ml</span><span class="price-tag">¥800</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p30_0.jpeg" alt="大亨掇只(小)" data-caption="大亨掇只(小)" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">大亨掇只（小）</div>
+          <div class="work-desc">清代制壶名家邵大亨代表作品，被称为"千金壶王"。选用黄龙山三种以上原矿泥料科学配比全手工制作，经柴窑高温烧制，砂粒感强俗称"天星泥"，双重透气性。</div>
+          <div class="work-meta"><span class="meta-tag">原矿天星泥</span><span class="meta-tag">220ml</span><span class="price-tag">¥900</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p31_0.jpeg" alt="大亨掇只(大)" data-caption="大亨掇只(大)" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">大亨掇只（大）</div>
+          <div class="work-desc">千金壶王大版，380ml容量。诠释儒家用世、道家清净和佛家圆融，简朴无华、素净端庄。</div>
+          <div class="work-meta"><span class="meta-tag">原矿天星泥</span><span class="meta-tag">380ml</span><span class="price-tag">¥1000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 四、套具系列 -->
+  <div class="zisha-section">
+    <div class="zisha-section-header">
+      <span class="section-icon">🎁</span>
+      <h2>套具系列</h2>
+    </div>
+    <div class="works-grid">
+      <div class="work-card">
+        <img src="img/zisha/zisha_p32_0.jpeg" alt="菱花套具" data-caption="菱花套具" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">菱花套具</div>
+          <div class="work-desc">菱花壶盖对称精致，壶体正背面由中国佛教协会副会长心澄法师题写"澄心得妙观""静中观物化"，由辽宁省陶瓷艺术大师王银亮铭刻。配有精美水晶玻璃杯。</div>
+          <div class="work-meta"><span class="meta-tag">原矿红降坡泥</span><span class="meta-tag">350ml</span><span class="price-tag">¥750</span></div>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p33_0.jpeg" alt="和合吉祥" data-caption="和合吉祥" onclick="openLightbox(this)">
+        <div class="card-body">
+          <div class="work-name">💝 和合吉祥套具</div>
+          <div class="work-desc">一壶两杯（主人壶+男女主人对杯）。主人壶选用顾景舟大师"石瓢"，寓意"弱水三千，仅饮一瓢"。男主人杯以"山"为印取名君子，女主人杯以"水"为印取名淑女。山水相依，依山傍水，天下之美。</div>
+          <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">380ml</span><span class="price-tag">¥750</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 五、产品包装 -->
+  <div class="zisha-section">
+    <div class="zisha-section-header">
+      <span class="section-icon">📦</span>
+      <h2>产品包装</h2>
+    </div>
+    <div class="works-grid">
+      <div class="work-card">
+        <img src="img/zisha/zisha_p34_0.jpeg" alt="和合吉祥包装" data-caption="和合吉祥套组包装" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">和合吉祥套组包装</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p35_0.jpeg" alt="紫砂盖杯包装" data-caption="紫砂盖杯包装" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">紫砂盖杯包装</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p36_0.jpeg" alt="紫砂单壶包装" data-caption="紫砂单壶包装" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">紫砂单壶包装</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p37_0.jpeg" alt="五色釉咖啡杯包装" data-caption="五色釉咖啡杯包装" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">五色釉咖啡杯包装</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p38_0.jpeg" alt="五色釉福禄对杯包装" data-caption="五色釉福禄对杯包装" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">五色釉福禄对杯包装</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p39_0.jpeg" alt="五色釉主人杯包装" data-caption="五色釉主人杯包装" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">五色釉主人杯包装</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 六、文化艺术合作 -->
+  <div class="zisha-section">
+    <div class="zisha-section-header">
+      <span class="section-icon">🤝</span>
+      <h2>文化艺术合作</h2>
+    </div>
+    <div class="coop-card">
+      <img src="img/zisha/zisha_p7_1.jpeg" alt="飨射阳鲜">
+      <div class="coop-info">
+        <div class="coop-name">飨射阳鲜 — 射阳县农产品区域公共品牌</div>
+        <div class="coop-desc">射阳县委、县政府重点打造的农产品区域公共品牌，全面展示射阳乡村振兴和农业发展成果。</div>
+        <div class="coop-work">合作作品：城市文化紫砂作品《后羿射日》</div>
+      </div>
+    </div>
+    <div class="coop-card">
+      <img src="img/zisha/zisha_p8_0.jpeg" alt="洋河股份">
+      <div class="coop-info">
+        <div class="coop-name">江苏洋河集团</div>
+        <div class="coop-desc">始建于1949年，国家大型一类企业，洋河大曲400多年历史，1979年跻身国家八大名酒。</div>
+        <div class="coop-work">合作作品：文化紫砂作品《至尊套组》</div>
+      </div>
+    </div>
+    <div class="coop-card">
+      <img src="img/zisha/zisha_p9_1.jpeg" alt="久大产业">
+      <div class="coop-info">
+        <div class="coop-name">久大产业投资集团</div>
+        <div class="coop-desc">2010年创立于南京，年产值超60亿元，致力于智慧城市与城市一体化建设运营。</div>
+        <div class="coop-work">合作作品：定制五色釉柴烧紫砂套组</div>
+      </div>
+    </div>
+    <div class="coop-card">
+      <img src="img/zisha/zisha_p10_1.jpeg" alt="金贸建设">
+      <div class="coop-info">
+        <div class="coop-name">江苏金贸建设集团</div>
+        <div class="coop-desc">以建筑业为主体，兼有新型建材、房地产开发、投资贸易的集团企业，获"鲁班奖""扬子杯"等荣誉。</div>
+        <div class="coop-work">合作作品：2025蛇年生肖紫砂作品《福星高照》</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 七、礼品搭建案例 -->
+  <div class="zisha-section">
+    <div class="zisha-section-header">
+      <span class="section-icon">🏛️</span>
+      <h2>礼品搭建案例</h2>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.7;margin-bottom:16px">
+      为您解决礼品搭建布置烦恼 — 布置和搭建都由专业团队全权负责
+    </p>
+    <div class="works-grid">
+      <div class="work-card">
+        <img src="img/zisha/zisha_p40_0.jpeg" alt="搭建案例" data-caption="南京市苏博顾问搭建案例" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">南京市苏博顾问搭建案例</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p40_4.jpeg" alt="搭建案例" data-caption="吴昊天紫砂礼品搭建案例" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">吴昊天紫砂礼品搭建案例</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p40_5.jpeg" alt="搭建案例" data-caption="盐城市飨射阳鲜搭建案例" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">盐城市飨射阳鲜搭建案例</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p40_6.jpeg" alt="搭建案例" data-caption="盐城市邮政储蓄银行搭建案例" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">盐城市邮政储蓄银行搭建案例</div></div>
+      </div>
+      <div class="work-card">
+        <img src="img/zisha/zisha_p40_7.jpeg" alt="搭建案例" data-caption="杭州市瑞泉高端岩茶体验馆搭建案例" onclick="openLightbox(this)">
+        <div class="card-body"><div class="work-name">杭州市瑞泉高端岩茶体验馆搭建案例</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="page-meta">
+    <div class="source">信息来源：吴昊天紫砂文化（南京）有限公司 官方画册</div>
+    <div class="update-time">最后更新时间：2026-06-23</div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 龙兄知识库 · 中国国礼艺术大师吴昊天紫砂艺术</p>
+  <p><span id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span></p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="close-btn">✕</span>
+  <img id="lightbox-img" src="" alt="">
+  <div class="caption" id="lightbox-caption"></div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+function openLightbox(imgEl) {
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  var lbCap = document.getElementById('lightbox-caption');
+  lbImg.src = imgEl.src;
+  lbCap.textContent = imgEl.getAttribute('data-caption') || '';
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+</body>
+</html>

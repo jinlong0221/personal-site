@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- 3DO Interactive Multiplayer - 正面视图 -->
+  <!-- 机身主体 - 灰黑色 -->
+  <rect x="50" y="80" width="300" height="160" rx="10" fill="#4a4a4a" stroke="#3a3a3a" stroke-width="2"/>
+  
+  <!-- 光驱盖 -->
+  <rect x="70" y="100" width="200" height="80" rx="6" fill="#3a3a3a"/>
+  <rect x="80" y="110" width="180" height="60" rx="4" fill="#2a2a2a"/>
+  
+  <!-- CD标识 -->
+  <circle cx="170" cy="140" r="25" fill="none" stroke="#555" stroke-width="2"/>
+  <circle cx="170" cy="140" r="8" fill="#444"/>
+  
+  <!-- 手柄接口 -->
+  <rect x="290" y="110" width="40" height="70" rx="4" fill="#3a3a3a"/>
+  <rect x="298" y="120" width="12" height="50" rx="2" fill="#2a2a2a"/>
+  <rect x="315" y="120" width="12" height="50" rx="2" fill="#2a2a2a"/>
+  
+  <!-- 电源按钮 -->
+  <rect x="70" y="200" width="60" height="15" rx="4" fill="#333"/>
+  <rect x="75" y="205" width="25" height="5" fill="#555"/>
+  <text x="100" y="203" text-anchor="middle" fill="#888" font-size="5">POWER</text>
+  
+  <!-- 出仓按钮 -->
+  <rect x="150" y="200" width="60" height="15" rx="4" fill="#333"/>
+  <text x="180" y="203" text-anchor="middle" fill="#888" font-size="5">OPEN</text>
+  
+  <!-- 3DO LOGO -->
+  <text x="200" y="95" text-anchor="middle" fill="#e60012" font-size="16" font-weight="bold">3DO</text>
+  
+  <!-- 阴影效果 -->
+  <ellipse cx="200" cy="255" rx="150" ry="10" fill="rgba(0,0,0,0.12)"/>
+</svg>

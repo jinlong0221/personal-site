@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Sega SG-1000 - 正面视图 -->
+  <!-- 机身主体 - 黑色 -->
+  <rect x="70" y="80" width="260" height="160" rx="8" fill="#1a1a1a" stroke="#0f0f0f" stroke-width="2"/>
+  
+  <!-- 卡带槽区域 -->
+  <rect x="90" y="100" width="140" height="80" rx="4" fill="#333"/>
+  <rect x="100" y="110" width="120" height="60" rx="3" fill="#222"/>
+  <rect x="110" y="120" width="100" height="40" rx="2" fill="#2a2a2a"/>
+  
+  <!-- 手柄接口 -->
+  <rect x="250" y="120" width="60" height="50" rx="4" fill="#333"/>
+  <rect x="260" y="130" width="18" height="30" rx="2" fill="#1a1a1a"/>
+  <rect x="282" y="130" width="18" height="30" rx="2" fill="#1a1a1a"/>
+  
+  <!-- 电源指示灯 -->
+  <circle cx="100" y="100" r="4" fill="#00cc00" opacity="0.8"/>
+  
+  <!-- Sega LOGO -->
+  <text x="200" y="210" text-anchor="middle" fill="#1e5fa8" font-size="14" font-weight="bold">SEGA</text>
+  <text x="200" y="225" text-anchor="middle" fill="#666" font-size="8">SG-1000</text>
+  
+  <!-- 阴影效果 -->
+  <ellipse cx="200" cy="255" rx="130" ry="10" fill="rgba(0,0,0,0.15)"/>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Atari 2600 - 正面视图 -->
+  <!-- 机身主体 - 木纹+黑色 -->
+  <rect x="50" y="80" width="300" height="160" rx="10" fill="#1a1a1a" stroke="#0f0f0f" stroke-width="2"/>
+  
+  <!-- 木纹装饰条 -->
+  <rect x="50" y="80" width="300" height="50" rx="10" fill="#8b4513"/>
+  <rect x="55" y="85" width="290" height="40" fill="#a0522d"/>
+  
+  <!-- 卡带槽 -->
+  <rect x="80" y="145" width="120" height="70" rx="6" fill="#333"/>
+  <rect x="90" y="155" width="100" height="50" rx="4" fill="#222"/>
+  <rect x="100" y="165" width="80" height="30" rx="3" fill="#2a2a2a"/>
+  
+  <!-- 开关面板 -->
+  <rect x="220" y="140" width="110" height="80" rx="4" fill="#333"/>
+  
+  <!-- 开关 -->
+  <rect x="230" y="150" width="40" height="12" rx="2" fill="#666"/>
+  <rect x="230" y="165" width="40" height="12" rx="2" fill="#666"/>
+  <rect x="230" y="180" width="40" height="12" rx="2" fill="#666"/>
+  <rect x="280" y="150" width="40" height="12" rx="2" fill="#666"/>
+  <rect x="280" y="165" width="40" height="12" rx="2" fill="#666"/>
+  <rect x="280" y="180" width="40" height="12" rx="2" fill="#666"/>
+  
+  <!-- 开关标签 -->
+  <text x="250" y="160" text-anchor="middle" fill="#999" font-size="4">SELECT</text>
+  <text x="250" y="175" text-anchor="middle" fill="#999" font-size="4">RESET</text>
+  <text x="250" y="190" text-anchor="middle" fill="#999" font-size="4">DIFF</text>
+  <text x="300" y="160" text-anchor="middle" fill="#999" font-size="4">POWER</text>
+  <text x="300" y="175" text-anchor="middle" fill="#999" font-size="4">TV</text>
+  <text x="300" y="190" text-anchor="middle" fill="#999" font-size="4">GAME</text>
+  
+  <!-- ATARI LOGO -->
+  <text x="200" y="115" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">ATARI</text>
+  
+  <!-- 2600 标识 -->
+  <text x="200" y="235" text-anchor="middle" fill="#888" font-size="10" font-weight="bold">2600</text>
+  
+  <!-- 阴影效果 -->
+  <ellipse cx="200" cy="255" rx="150" ry="10" fill="rgba(0,0,0,0.15)"/>
+</svg>

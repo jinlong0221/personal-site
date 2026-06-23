@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Family Computer (FC) - 红白机正面视图 -->
+  <!-- 机身主体 - 白色底座 -->
+  <rect x="40" y="80" width="320" height="160" rx="8" fill="#f5f5f0" stroke="#ddd" stroke-width="2"/>
+  
+  <!-- 顶部红色装饰条 -->
+  <rect x="40" y="80" width="320" height="40" rx="8" fill="#e60012"/>
+  <rect x="40" y="105" width="320" height="15" fill="#e60012"/>
+  
+  <!-- 卡带槽区域 -->
+  <rect x="80" y="140" width="100" height="80" rx="4" fill="#2a2a2a"/>
+  <rect x="85" y="145" width="90" height="70" rx="3" fill="#1a1a1a"/>
+  <rect x="90" y="150" width="80" height="60" rx="2" fill="#333"/>
+  
+  <!-- 卡带槽内部纹理 -->
+  <line x1="110" y1="155" x2="150" y2="155" stroke="#444" stroke-width="2"/>
+  <line x1="110" y1="165" x2="150" y2="165" stroke="#444" stroke-width="2"/>
+  <line x1="110" y1="175" x2="150" y2="175" stroke="#444" stroke-width="2"/>
+  
+  <!-- 电源按钮 (红色) -->
+  <ellipse cx="260" cy="100" rx="18" ry="12" fill="#c41e3a" stroke="#8b0000" stroke-width="1.5"/>
+  <text x="260" y="104" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">POWER</text>
+  
+  <!-- 重置按钮 (黑色) -->
+  <ellipse cx="310" cy="100" rx="15" ry="10" fill="#2a2a2a" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="310" y="104" text-anchor="middle" fill="#999" font-size="6" font-weight="bold">RESET</text>
+  
+  <!-- 手柄接口区域 -->
+  <rect x="220" y="150" width="120" height="60" rx="6" fill="#e8e8e3"/>
+  
+  <!-- 手柄接口1 -->
+  <ellipse cx="250" cy="175" rx="20" ry="14" fill="#2a2a2a" stroke="#1a1a1a" stroke-width="1"/>
+  <ellipse cx="250" cy="175" rx="14" ry="10" fill="#333"/>
+  <text x="250" y="200" text-anchor="middle" fill="#666" font-size="7" font-weight="bold">I</text>
+  
+  <!-- 手柄接口2 -->
+  <ellipse cx="310" cy="175" rx="20" ry="14" fill="#2a2a2a" stroke="#1a1a1a" stroke-width="1"/>
+  <ellipse cx="310" cy="175" rx="14" ry="10" fill="#333"/>
+  <text x="310" y="200" text-anchor="middle" fill="#666" font-size="7" font-weight="bold">II</text>
+  
+  <!-- 底部装饰线 -->
+  <rect x="50" y="230" width="300" height="3" fill="#ccc"/>
+  
+  <!-- NINTENDO LOGO -->
+  <text x="200" y="220" text-anchor="middle" fill="#e60012" font-size="14" font-weight="bold" font-family="Arial, sans-serif">NINTENDO</text>
+  
+  <!-- FAMILY COMPUTER 文字 -->
+  <text x="130" y="138" text-anchor="middle" fill="#e60012" font-size="11" font-weight="bold" font-family="Arial, sans-serif">FAMILY COMPUTER</text>
+  
+  <!-- 阴影效果 -->
+  <ellipse cx="200" cy="245" rx="140" ry="8" fill="rgba(0,0,0,0.15)"/>
+</svg>

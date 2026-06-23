@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Microsoft Xbox Series X - 正面视图 -->
+  <!-- 机身主体 - 黑色立式盒子 -->
+  <rect x="120" y="30" width="160" height="230" rx="8" fill="#1a1a1a" stroke="#0f0f0f" stroke-width="2"/>
+  
+  <!-- 顶部凹陷 -->
+  <rect x="120" y="30" width="160" height="20" rx="8" fill="#2a2a2a"/>
+  <rect x="130" y="35" width="140" height="10" fill="#333"/>
+  
+  <!-- 光驱（可选） -->
+  <rect x="140" y="60" width="120" height="40" rx="4" fill="#222"/>
+  <rect x="145" y="65" width="110" height="30" rx="3" fill="#1a1a1a"/>
+  <text x="200" y="85" text-anchor="middle" fill="#444" font-size="5">4K UHD Blu-ray</text>
+  
+  <!-- Xbox Logo -->
+  <circle cx="200" cy="140" r="35" fill="#333"/>
+  <circle cx="200" cy="140" r="25" fill="#1a1a1a"/>
+  <text x="200" y="150" text-anchor="middle" fill="#00a651" font-size="30" font-weight="bold">X</text>
+  
+  <!-- 配对按钮 -->
+  <circle cx="200" cy="195" r="8" fill="#333"/>
+  
+  <!-- 底部通风孔 -->
+  <g>
+    <line x1="135" y1="220" x2="265" y2="220" stroke="#333" stroke-width="1"/>
+    <line x1="135" y1="230" x2="265" y2="230" stroke="#333" stroke-width="1"/>
+    <line x1="135" y1="240" x2="265" y2="240" stroke="#333" stroke-width="1"/>
+  </g>
+  
+  <!-- XBOX SERIES X LOGO -->
+  <text x="200" y="270" text-anchor="middle" fill="#666" font-size="7">XBOX SERIES X</text>
+  
+  <!-- 阴影效果 -->
+  <ellipse cx="200" cy="280" rx="80" ry="10" fill="rgba(0,0,0,0.15)"/>
+</svg>

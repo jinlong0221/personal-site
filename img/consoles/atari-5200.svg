@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Atari 5200 - 正面视图 -->
+  <!-- 机身主体 - 黑色大盒子 -->
+  <rect x="50" y="70" width="300" height="180" rx="12" fill="#1a1a1a" stroke="#0f0f0f" stroke-width="2"/>
+  
+  <!-- 顶部凹槽 -->
+  <rect x="70" y="90" width="260" height="80" rx="6" fill="#333"/>
+  <rect x="80" y="100" width="240" height="60" rx="4" fill="#222"/>
+  
+  <!-- 卡带槽 -->
+  <rect x="100" y="110" width="200" height="40" rx="4" fill="#2a2a2a"/>
+  <rect x="110" y="115" width="180" height="30" rx="3" fill="#1a1a1a"/>
+  
+  <!-- 控制面板 -->
+  <rect x="80" y="190" width="240" height="40" rx="4" fill="#333"/>
+  
+  <!-- 电源指示灯 -->
+  <circle cx="100" cy="205" r="5" fill="#00cc00" opacity="0.8"/>
+  
+  <!-- 按钮 -->
+  <rect x="130" y="200" width="50" height="15" rx="3" fill="#444"/>
+  <rect x="200" y="200" width="50" height="15" rx="3" fill="#444"/>
+  <rect x="270" y="200" width="30" height="15" rx="3" fill="#444"/>
+  
+  <text x="155" y="211" text-anchor="middle" fill="#888" font-size="5">START</text>
+  <text x="225" y="211" text-anchor="middle" fill="#888" font-size="5">SELECT</text>
+  <text x="285" y="211" text-anchor="middle" fill="#888" font-size="5">RESET</text>
+  
+  <!-- ATARI LOGO -->
+  <text x="200" y="85" text-anchor="middle" fill="#888" font-size="14" font-weight="bold">ATARI</text>
+  
+  <!-- 5200 标识 -->
+  <text x="200" y="250" text-anchor="middle" fill="#666" font-size="11" font-weight="bold">5200</text>
+  
+  <!-- 阴影效果 -->
+  <ellipse cx="200" cy="265" rx="150" ry="10" fill="rgba(0,0,0,0.15)"/>
+</svg>

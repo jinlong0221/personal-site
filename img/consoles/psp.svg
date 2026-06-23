@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Sony PlayStation Portable (PSP) - 正面视图 -->
+  <!-- 机身主体 -->
+  <rect x="50" y="80" width="300" height="150" rx="12" fill="#1a1a1a" stroke="#0f0f0f" stroke-width="2"/>
+  
+  <!-- 屏幕 -->
+  <rect x="130" y="95" width="160" height="90" rx="6" fill="#111"/>
+  <rect x="135" y="100" width="150" height="80" rx="4" fill="#4a90d9"/>
+  
+  <!-- 屏幕内容 -->
+  <text x="200" y="145" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">PlayStation</text>
+  <text x="200" y="162" text-anchor="middle" fill="#fff" font-size="10">Portable</text>
+  
+  <!-- 左侧控制 -->
+  <!-- 十字键 -->
+  <rect x="65" y="110" width="50" height="15" rx="3" fill="#333"/>
+  <rect x="82" y="93" width="16" height="50" rx="3" fill="#333"/>
+  
+  <!-- 摇杆 -->
+  <circle cx="90" cy="170" r="15" fill="#333"/>
+  <circle cx="90" cy="170" r="10" fill="#222"/>
+  
+  <!-- 右侧控制 -->
+  <!-- 按钮区域 -->
+  <rect x="300" y="100" width="40" height="40" rx="20" fill="#333" opacity="0.3"/>
+  <circle cx="320" cy="120" r="10" fill="#e60012"/>
+  <text x="320" y="124" text-anchor="middle" fill="#fff" font-size="8">△</text>
+  
+  <circle cx="340" cy="140" r="10" fill="#00a651"/>
+  <text x="340" y="144" text-anchor="middle" fill="#fff" font-size="8">○</text>
+  
+  <circle cx="300" cy="140" r="10" fill="#0066cc"/>
+  <text x="300" y="144" text-anchor="middle" fill="#fff" font-size="8">□</text>
+  
+  <circle cx="320" cy="160" r="10" fill="#ffd700"/>
+  <text x="320" y="164" text-anchor="middle" fill="#fff" font-size="8">✕</text>
+  
+  <!-- START/SELECT -->
+  <rect x="175" y="195" width="25" height="6" rx="3" fill="#333"/>
+  <text x="188" y="202" text-anchor="middle" fill="#666" font-size="5">HOME</text>
+  
+  <rect x="210" y="195" width="25" height="6" rx="3" fill="#333"/>
+  <text x="223" y="202" text-anchor="middle" fill="#666" font-size="5">SELECT</text>
+  
+  <!-- 电源指示灯 -->
+  <circle cx="150" y="95" r="3" fill="#00cc00" opacity="0.8"/>
+  
+  <!-- SONY LOGO -->
+  <text x="200" y="240" text-anchor="middle" fill="#888" font-size="8" font-weight="bold">SONY</text>
+  
+  <!-- 阴影效果 -->
+  <ellipse cx="200" cy="250" rx="150" ry="8" fill="rgba(0,0,0,0.12)"/>
+</svg>

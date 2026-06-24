@@ -114,34 +114,7 @@ var _hmt = _hmt || [];
         <div class="channel-info">
           <h3>江苏省教育考试院官网</h3>
           <p>最权威的查分入口，6月24日20:00后开放查询。需考生号+动态口令卡。</p>
-          <a href="https://gkcx.jseea.cn/" target="_blank" rel="noopener noreferrer" class="channel-btn">进入查分</a>
-        </div>
-      </div>
-
-      <div class="channel-card">
-        <div class="channel-icon">💬</div>
-        <div class="channel-info">
-          <h3>微信公众号「江苏招生考试」</h3>
-          <p>关注公众号 jszsksb → 菜单"平安高考" → "高考查分"，手机端最便捷。</p>
-          <a href="weixin://findfriend/gh_jszsksb" class="channel-btn">打开微信</a>
-        </div>
-      </div>
-
-      <div class="channel-card">
-        <div class="channel-icon">📱</div>
-        <div class="channel-info">
-          <h3>苏服办 APP</h3>
-          <p>下载"苏服办"APP → 中高考服务专区 → 高考成绩查询，实名认证后即可查分。</p>
-          <a href="https://www.jszwfw.gov.cn/" target="_blank" rel="noopener noreferrer" class="channel-btn">下载苏服办</a>
-        </div>
-      </div>
-
-      <div class="channel-card">
-        <div class="channel-icon">🖥️</div>
-        <div class="channel-info">
-          <h3>考生服务平台</h3>
-          <p>登录 gk.jseea.cn 可查询成绩、打印成绩通知单（6月25日起可打印）。</p>
-          <a href="https://gk.jseea.cn/" target="_blank" rel="noopener noreferrer" class="channel-btn">进入平台</a>
+          <a href="https://gkcx.jseea.cn/" target="_blank" rel="noopener noreferrer" class="channel-btn">进入官网查分</a>
         </div>
       </div>
 
@@ -157,12 +130,49 @@ var _hmt = _hmt || [];
         <tr><th>批次</th><th>物理等科目类</th><th>历史等科目类</th></tr>
       </thead>
       <tbody id="scorelineBody">
-        <tr><td>本科</td><td>—</td><td>—</td></tr>
-        <tr><td>特殊类型招生</td><td>—</td><td>—</td></tr>
-        <tr><td>专科</td><td>—</td><td>—</td></tr>
+        <tr><td>特殊类型招生控制线</td><td>519分（2025参考）</td><td>537分（2025参考）</td></tr>
+        <tr><td>本科批</td><td>463分（2025参考）</td><td>482分（2025参考）</td></tr>
+        <tr><td>专科批</td><td>220分（2025参考）</td><td>220分（2025参考）</td></tr>
       </tbody>
     </table>
-    <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px">⚠️ 2026年分数线将在6月24日公布后填入，当前为占位数据</p>
+    <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px">⚠️ 2026年分数线将在6月24日20:00公布后填入，当前为2025年参考线</p>
+  </section>
+
+  <!-- 一分一段表 -->
+  <section class="gk-section">
+    <h2>📈 一分一段表（逐分段统计表）</h2>
+    <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:12px">一分一段表是省考试院发布的全省考生分数段统计，可查自己在全省的位次排名，是填志愿的核心依据。</p>
+    <div class="gk-tips" style="margin-top:0">
+      <h3>📖 什么是一分一段表？</h3>
+      <ul style="margin:0;padding-left:20px;line-height:2;font-size:.9rem;color:var(--text-muted)">
+        <li><strong>一分</strong>：以1分为一个区间，统计每个分数段的人数</li>
+        <li><strong>本段人数</strong>：该分数有多少个考生</li>
+        <li><strong>累计人数</strong>：该分数及以上一共有多少考生（即你的位次）</li>
+        <li>填志愿时，比对院校历年录取位次比单纯比对分数更准确</li>
+      </ul>
+    </div>
+    <p style="font-size:.85rem;color:var(--text-muted);margin:12px 0 8px;">📎 2026年一分一段表将于6月24日20:00后在官网发布，以下为2025年数据供参考：</p>
+    <table class="scoreline-table" id="scoreTable">
+      <thead>
+        <tr><th>分数</th><th>物理类本段人数</th><th>物理类累计人数</th><th>历史类本段人数</th><th>历史类累计人数</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>683分及以上</td><td>—</td><td>126</td><td>—</td><td>—</td></tr>
+        <tr><td>658分</td><td>—</td><td>—</td><td>—</td><td>109</td></tr>
+        <tr><td>600分</td><td>约34888人</td><td>约34888</td><td>约5796人</td><td>约5796</td></tr>
+        <tr><td>583分</td><td>—</td><td>约51945</td><td>—</td><td>—</td></tr>
+        <tr><td>558分</td><td>—</td><td>—</td><td>—</td><td>约20075</td></tr>
+        <tr><td>500分</td><td>—</td><td>约162612</td><td>—</td><td>约47639</td></tr>
+        <tr><td>483分</td><td>—</td><td>约187370</td><td>—</td><td>—</td></tr>
+        <tr><td>463分（物理本科线）</td><td colspan="4" style="text-align:center;color:var(--gold);font-weight:600;">本科线对应位次参考</td></tr>
+        <tr><td>482分（历史本科线）</td><td colspan="4" style="text-align:center;color:var(--gold);font-weight:600;">本科线对应位次参考</td></tr>
+        <tr><td>220分（专科线）</td><td colspan="4" style="text-align:center;color:var(--text-muted);">专科线</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px">⚠️ 一分一段表完整版含0~750分每1分的数据，请到官网下载Excel版查看完整逐分段数据</p>
+    <div style="margin-top:12px;">
+      <a href="https://www.jseea.cn/webfile/index/index_zcwj/" target="_blank" rel="noopener noreferrer" class="channel-btn" style="text-decoration:none;">📥 去省考试院官网下载完整一分一段表</a>
+    </div>
   </section>
 
   <!-- 志愿填报时间 -->

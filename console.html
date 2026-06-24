@@ -53,6 +53,20 @@
 [data-theme="light"] .brand-note, [data-theme="light"] .stat-item { background: #ffffff; }
 @media (max-width: 768px) { .console-hero h1 { font-size: 1.6rem; } }
 @media (max-width: 480px) { .card-grid-console { grid-template-columns: 1fr; } }
+
+/* 主机卡片封面图 */
+.card-console-img {
+  width: 100%; height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  display: block;
+  background: transparent;
+}
+@media (max-width: 480px) {
+  .card-console-img { height: 80px; }
+}
+
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -216,7 +230,8 @@ var _hmt = _hmt || [];
   </div>
   <div class="card-grid-console">
     <a href="console-atari-2600.html" class="card-console atari" style="text-decoration:none;">
-      <span class="year-badge">1977</span>
+      <img src="img/consoles/atari-2600.webp" alt="Atari 2600" class="card-console-img" loading="lazy">
+  <span class="year-badge">1977</span>
       <div class="card-title">Atari 2600</div>
       <div class="card-desc">雅达利 · 家用</div>
       <div class="card-specs">
@@ -225,7 +240,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-atari-5200.html" class="card-console atari" style="text-decoration:none;">
-      <span class="year-badge">1982</span>
+      <img src="img/consoles/atari-5200.webp" alt="Atari 5200" class="card-console-img" loading="lazy">
+  <span class="year-badge">1982</span>
       <div class="card-title">Atari 5200</div>
       <div class="card-desc">雅达利 · 家用</div>
       <div class="card-specs">
@@ -234,7 +250,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-family-computer.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1983</span>
+      <img src="img/consoles/family-computer.webp" alt="Family Computer" class="card-console-img" loading="lazy">
+  <span class="year-badge">1983</span>
       <div class="card-title">Family Computer</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -243,7 +260,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-fc.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1983</span>
+      <img src="img/consoles/fc.webp" alt="FC 红白机" class="card-console-img" loading="lazy">
+  <span class="year-badge">1983</span>
       <div class="card-title">FC 红白机</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -252,7 +270,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-sg1000.html" class="card-console sega" style="text-decoration:none;">
-      <span class="year-badge">1983</span>
+      <img src="img/consoles/sg1000.webp" alt="Sega SG-1000" class="card-console-img" loading="lazy">
+  <span class="year-badge">1983</span>
       <div class="card-title">Sega SG-1000</div>
       <div class="card-desc">世嘉 · 家用</div>
       <div class="card-specs">
@@ -261,7 +280,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-master-system.html" class="card-console sega" style="text-decoration:none;">
-      <span class="year-badge">1985</span>
+      <img src="img/consoles/master-system.webp" alt="Sega Master System" class="card-console-img" loading="lazy">
+  <span class="year-badge">1985</span>
       <div class="card-title">Sega Master System</div>
       <div class="card-desc">世嘉 · 家用</div>
       <div class="card-specs">
@@ -270,7 +290,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-xiaobawang.html" class="card-console other" style="text-decoration:none;">
-      <span class="year-badge">1987</span>
+      <img src="img/consoles/xiaobawang.webp" alt="小霸王" class="card-console-img" loading="lazy">
+  <span class="year-badge">1987</span>
       <div class="card-title">小霸王</div>
       <div class="card-desc">其他 · 家用</div>
       <div class="card-specs">
@@ -279,7 +300,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-atari-7800.html" class="card-console atari" style="text-decoration:none;">
-      <span class="year-badge">1988</span>
+      <img src="img/consoles/atari-7800.webp" alt="Atari 7800" class="card-console-img" loading="lazy">
+  <span class="year-badge">1988</span>
       <div class="card-title">Atari 7800</div>
       <div class="card-desc">雅达利 · 家用</div>
       <div class="card-specs">
@@ -288,7 +310,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-mega-drive.html" class="card-console sega" style="text-decoration:none;">
-      <span class="year-badge">1988</span>
+      <img src="img/consoles/mega-drive.webp" alt="Sega Mega Drive" class="card-console-img" loading="lazy">
+  <span class="year-badge">1988</span>
       <div class="card-title">Sega Mega Drive</div>
       <div class="card-desc">世嘉 · 家用</div>
       <div class="card-specs">
@@ -297,7 +320,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-neo-geo.html" class="card-console other" style="text-decoration:none;">
-      <span class="year-badge">1990</span>
+      <img src="img/consoles/neo-geo.webp" alt="Neo Geo" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
       <div class="card-title">Neo Geo</div>
       <div class="card-desc">其他 · 家用</div>
       <div class="card-specs">
@@ -306,7 +330,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-sfc.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1990</span>
+      <img src="img/consoles/sfc.webp" alt="SFC 超级任天堂" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
       <div class="card-title">SFC 超级任天堂</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -315,7 +340,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-super-famicom.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1990</span>
+      <img src="img/consoles/super-famicom.webp" alt="Super Famicom" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
       <div class="card-title">Super Famicom</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -324,7 +350,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-3do.html" class="card-console other" style="text-decoration:none;">
-      <span class="year-badge">1993</span>
+      <img src="img/consoles/3do.webp" alt="3DO Interactive Multiplayer" class="card-console-img" loading="lazy">
+  <span class="year-badge">1993</span>
       <div class="card-title">3DO Interactive Multiplayer</div>
       <div class="card-desc">其他 · 家用</div>
       <div class="card-specs">
@@ -333,7 +360,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-playstation.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">1994</span>
+      <img src="img/consoles/playstation.webp" alt="PlayStation" class="card-console-img" loading="lazy">
+  <span class="year-badge">1994</span>
       <div class="card-title">PlayStation</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -342,7 +370,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-ps2.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">1994</span>
+      <img src="img/consoles/ps2.webp" alt="PlayStation" class="card-console-img" loading="lazy">
+  <span class="year-badge">1994</span>
       <div class="card-title">PlayStation</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -351,7 +380,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-saturn.html" class="card-console sega" style="text-decoration:none;">
-      <span class="year-badge">1994</span>
+      <img src="img/consoles/saturn.webp" alt="Sega Saturn" class="card-console-img" loading="lazy">
+  <span class="year-badge">1994</span>
       <div class="card-title">Sega Saturn</div>
       <div class="card-desc">世嘉 · 家用</div>
       <div class="card-specs">
@@ -360,7 +390,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-n64.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1996</span>
+      <img src="img/consoles/n64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
+  <span class="year-badge">1996</span>
       <div class="card-title">Nintendo 64</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -369,7 +400,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-nintendo-64.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1996</span>
+      <img src="img/consoles/nintendo-64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
+  <span class="year-badge">1996</span>
       <div class="card-title">Nintendo 64</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -378,7 +410,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-dreamcast.html" class="card-console sega" style="text-decoration:none;">
-      <span class="year-badge">1998</span>
+      <img src="img/consoles/dreamcast.webp" alt="Sega Dreamcast" class="card-console-img" loading="lazy">
+  <span class="year-badge">1998</span>
       <div class="card-title">Sega Dreamcast</div>
       <div class="card-desc">世嘉 · 家用</div>
       <div class="card-specs">
@@ -387,7 +420,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-playstation-2.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2000</span>
+      <img src="img/consoles/playstation-2.webp" alt="PlayStation 2" class="card-console-img" loading="lazy">
+  <span class="year-badge">2000</span>
       <div class="card-title">PlayStation 2</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -396,7 +430,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-ps2.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2000</span>
+      <img src="img/consoles/ps2.webp" alt="PlayStation 2" class="card-console-img" loading="lazy">
+  <span class="year-badge">2000</span>
       <div class="card-title">PlayStation 2</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -405,7 +440,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-gamecube.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2001</span>
+      <img src="img/consoles/gamecube.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
       <div class="card-title">Nintendo GameCube</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -414,7 +450,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-gc.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2001</span>
+      <img src="img/consoles/gc.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
       <div class="card-title">Nintendo GameCube</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -423,7 +460,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-xbox.html" class="card-console microsoft" style="text-decoration:none;">
-      <span class="year-badge">2001</span>
+      <img src="img/consoles/xbox.webp" alt="Xbox" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
       <div class="card-title">Xbox</div>
       <div class="card-desc">微软 · 家用</div>
       <div class="card-specs">
@@ -432,7 +470,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-xbox360.html" class="card-console microsoft" style="text-decoration:none;">
-      <span class="year-badge">2005</span>
+      <img src="img/consoles/xbox360.webp" alt="Xbox 360" class="card-console-img" loading="lazy">
+  <span class="year-badge">2005</span>
       <div class="card-title">Xbox 360</div>
       <div class="card-desc">微软 · 家用</div>
       <div class="card-specs">
@@ -441,7 +480,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-playstation-3.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2006</span>
+      <img src="img/consoles/playstation-3.webp" alt="PlayStation 3" class="card-console-img" loading="lazy">
+  <span class="year-badge">2006</span>
       <div class="card-title">PlayStation 3</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -450,7 +490,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-ps3.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2006</span>
+      <img src="img/consoles/ps3.webp" alt="PlayStation 3" class="card-console-img" loading="lazy">
+  <span class="year-badge">2006</span>
       <div class="card-title">PlayStation 3</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -459,7 +500,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-wii.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2006</span>
+      <img src="img/consoles/wii.webp" alt="Wii" class="card-console-img" loading="lazy">
+  <span class="year-badge">2006</span>
       <div class="card-title">Wii</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -468,7 +510,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-wii-u.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2012</span>
+      <img src="img/consoles/wii-u.webp" alt="Wii U" class="card-console-img" loading="lazy">
+  <span class="year-badge">2012</span>
       <div class="card-title">Wii U</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -477,7 +520,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-wiiu.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2012</span>
+      <img src="img/consoles/wiiu.webp" alt="Wii U" class="card-console-img" loading="lazy">
+  <span class="year-badge">2012</span>
       <div class="card-title">Wii U</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -486,7 +530,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-playstation-4.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2013</span>
+      <img src="img/consoles/playstation-4.webp" alt="PlayStation 4" class="card-console-img" loading="lazy">
+  <span class="year-badge">2013</span>
       <div class="card-title">PlayStation 4</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -495,7 +540,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-ps4.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2013</span>
+      <img src="img/consoles/ps4.webp" alt="PlayStation 4" class="card-console-img" loading="lazy">
+  <span class="year-badge">2013</span>
       <div class="card-title">PlayStation 4</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -504,7 +550,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-xbox-one.html" class="card-console microsoft" style="text-decoration:none;">
-      <span class="year-badge">2013</span>
+      <img src="img/consoles/xbox-one.webp" alt="Xbox One" class="card-console-img" loading="lazy">
+  <span class="year-badge">2013</span>
       <div class="card-title">Xbox One</div>
       <div class="card-desc">微软 · 家用</div>
       <div class="card-specs">
@@ -513,7 +560,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-switch.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2017</span>
+      <img src="img/consoles/switch.webp" alt="Nintendo Switch" class="card-console-img" loading="lazy">
+  <span class="year-badge">2017</span>
       <div class="card-title">Nintendo Switch</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -522,7 +570,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-playstation-5.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2020</span>
+      <img src="img/consoles/playstation-5.webp" alt="PlayStation 5" class="card-console-img" loading="lazy">
+  <span class="year-badge">2020</span>
       <div class="card-title">PlayStation 5</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -531,7 +580,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-ps5.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2020</span>
+      <img src="img/consoles/ps5.webp" alt="PlayStation 5" class="card-console-img" loading="lazy">
+  <span class="year-badge">2020</span>
       <div class="card-title">PlayStation 5</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -540,7 +590,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-xbox-series-s.html" class="card-console microsoft" style="text-decoration:none;">
-      <span class="year-badge">2020</span>
+      <img src="img/consoles/xbox-series-s.webp" alt="Xbox Series S" class="card-console-img" loading="lazy">
+  <span class="year-badge">2020</span>
       <div class="card-title">Xbox Series S</div>
       <div class="card-desc">微软 · 家用</div>
       <div class="card-specs">
@@ -549,7 +600,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-xbox-series-x.html" class="card-console microsoft" style="text-decoration:none;">
-      <span class="year-badge">2020</span>
+      <img src="img/consoles/xbox-series-x.webp" alt="Xbox Series X" class="card-console-img" loading="lazy">
+  <span class="year-badge">2020</span>
       <div class="card-title">Xbox Series X</div>
       <div class="card-desc">微软 · 家用</div>
       <div class="card-specs">
@@ -558,7 +610,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-playstation-5-pro.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2024</span>
+      <img src="img/consoles/playstation-5-pro.webp" alt="PlayStation 5 Pro" class="card-console-img" loading="lazy">
+  <span class="year-badge">2024</span>
       <div class="card-title">PlayStation 5 Pro</div>
       <div class="card-desc">索尼 · 家用</div>
       <div class="card-specs">
@@ -567,7 +620,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-switch-2.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2025</span>
+      <img src="img/consoles/switch-2.webp" alt="Nintendo Switch 2" class="card-console-img" loading="lazy">
+  <span class="year-badge">2025</span>
       <div class="card-title">Nintendo Switch 2</div>
       <div class="card-desc">任天堂 · 家用</div>
       <div class="card-specs">
@@ -583,7 +637,8 @@ var _hmt = _hmt || [];
   </div>
   <div class="card-grid-console">
     <a href="console-game-watch.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1980</span>
+      <img src="img/consoles/game-watch.webp" alt="Game & Watch" class="card-console-img" loading="lazy">
+  <span class="year-badge">1980</span>
       <div class="card-title">Game & Watch</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -592,7 +647,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-atari-lynx.html" class="card-console atari" style="text-decoration:none;">
-      <span class="year-badge">1989</span>
+      <img src="img/consoles/atari-lynx.webp" alt="Atari Lynx" class="card-console-img" loading="lazy">
+  <span class="year-badge">1989</span>
       <div class="card-title">Atari Lynx</div>
       <div class="card-desc">雅达利 · 掌机</div>
       <div class="card-specs">
@@ -601,7 +657,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-gameboy.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1989</span>
+      <img src="img/consoles/gameboy.webp" alt="Game Boy" class="card-console-img" loading="lazy">
+  <span class="year-badge">1989</span>
       <div class="card-title">Game Boy</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -610,7 +667,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-game-gear.html" class="card-console sega" style="text-decoration:none;">
-      <span class="year-badge">1990</span>
+      <img src="img/consoles/game-gear.webp" alt="Sega Game Gear" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
       <div class="card-title">Sega Game Gear</div>
       <div class="card-desc">世嘉 · 掌机</div>
       <div class="card-specs">
@@ -619,7 +677,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-gameboy-pocket.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1996</span>
+      <img src="img/consoles/gameboy-pocket.webp" alt="Game Boy Pocket" class="card-console-img" loading="lazy">
+  <span class="year-badge">1996</span>
       <div class="card-title">Game Boy Pocket</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -628,7 +687,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-gameboy-color.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">1998</span>
+      <img src="img/consoles/gameboy-color.webp" alt="Game Boy Color" class="card-console-img" loading="lazy">
+  <span class="year-badge">1998</span>
       <div class="card-title">Game Boy Color</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -637,7 +697,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-gameboy-advance.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2001</span>
+      <img src="img/consoles/gameboy-advance.webp" alt="Game Boy Advance" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
       <div class="card-title">Game Boy Advance</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -646,7 +707,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-gba.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2001</span>
+      <img src="img/consoles/gba.webp" alt="Game Boy Advance" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
       <div class="card-title">Game Boy Advance</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -655,7 +717,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-nintendo-ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2004</span>
+      <img src="img/consoles/nintendo-ds.webp" alt="Nintendo DS" class="card-console-img" loading="lazy">
+  <span class="year-badge">2004</span>
       <div class="card-title">Nintendo DS</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -664,7 +727,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-nintendo-ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2004</span>
+      <img src="img/consoles/nintendo-ds.webp" alt="Nintendo DS" class="card-console-img" loading="lazy">
+  <span class="year-badge">2004</span>
       <div class="card-title">Nintendo DS</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -673,7 +737,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-psp.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2004</span>
+      <img src="img/consoles/psp.webp" alt="PlayStation Portable" class="card-console-img" loading="lazy">
+  <span class="year-badge">2004</span>
       <div class="card-title">PlayStation Portable</div>
       <div class="card-desc">索尼 · 掌机</div>
       <div class="card-specs">
@@ -682,7 +747,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-nintendo-3ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2011</span>
+      <img src="img/consoles/nintendo-3ds.webp" alt="Nintendo 3DS" class="card-console-img" loading="lazy">
+  <span class="year-badge">2011</span>
       <div class="card-title">Nintendo 3DS</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -691,7 +757,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-nintendo-3ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2011</span>
+      <img src="img/consoles/nintendo-3ds.webp" alt="Nintendo 3DS" class="card-console-img" loading="lazy">
+  <span class="year-badge">2011</span>
       <div class="card-title">Nintendo 3DS</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -700,7 +767,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-ps-vita.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2011</span>
+      <img src="img/consoles/ps-vita.webp" alt="PlayStation Vita" class="card-console-img" loading="lazy">
+  <span class="year-badge">2011</span>
       <div class="card-title">PlayStation Vita</div>
       <div class="card-desc">索尼 · 掌机</div>
       <div class="card-specs">
@@ -709,7 +777,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-switch-lite.html" class="card-console nintendo" style="text-decoration:none;">
-      <span class="year-badge">2019</span>
+      <img src="img/consoles/switch-lite.webp" alt="Nintendo Switch Lite" class="card-console-img" loading="lazy">
+  <span class="year-badge">2019</span>
       <div class="card-title">Nintendo Switch Lite</div>
       <div class="card-desc">任天堂 · 掌机</div>
       <div class="card-specs">
@@ -718,7 +787,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-steam-deck.html" class="card-console other" style="text-decoration:none;">
-      <span class="year-badge">2022</span>
+      <img src="img/consoles/steam-deck.webp" alt="Steam Deck" class="card-console-img" loading="lazy">
+  <span class="year-badge">2022</span>
       <div class="card-title">Steam Deck</div>
       <div class="card-desc">其他 · 掌机</div>
       <div class="card-specs">
@@ -727,7 +797,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-legion-go.html" class="card-console other" style="text-decoration:none;">
-      <span class="year-badge">2023</span>
+      <img src="img/consoles/legion-go.webp" alt="Legion Go" class="card-console-img" loading="lazy">
+  <span class="year-badge">2023</span>
       <div class="card-title">Legion Go</div>
       <div class="card-desc">其他 · 掌机</div>
       <div class="card-specs">
@@ -736,7 +807,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-rog-ally.html" class="card-console other" style="text-decoration:none;">
-      <span class="year-badge">2023</span>
+      <img src="img/consoles/rog-ally.webp" alt="ROG Ally" class="card-console-img" loading="lazy">
+  <span class="year-badge">2023</span>
       <div class="card-title">ROG Ally</div>
       <div class="card-desc">其他 · 掌机</div>
       <div class="card-specs">
@@ -745,7 +817,8 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-playstation-portal.html" class="card-console sony" style="text-decoration:none;">
-      <span class="year-badge">2024</span>
+      <img src="img/consoles/playstation-portal.webp" alt="PlayStation Portal" class="card-console-img" loading="lazy">
+  <span class="year-badge">2024</span>
       <div class="card-title">PlayStation Portal</div>
       <div class="card-desc">索尼 · 掌机</div>
       <div class="card-specs">

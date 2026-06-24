@@ -40,11 +40,11 @@
       img: 'https://images.unsplash.com/photo-1635805737707-575885ab0820?w=160&h=160&fit=crop'
     },
     {
-      name: '星月菩提盘玩',
-      desc: '从白富美到深老红，盘玩进阶指南',
-      tag: '📿 文玩手串',
-      url: 'star-moon.html',
-      img: 'https://images.unsplash.com/photo-1573408301185-9519f94c55f4?w=160&h=160&fit=crop'
+      name: '紫砂壶鉴赏',
+      desc: '95件紫砂艺术品，品味东方美学',
+      tag: '🏺 传统文化',
+      url: 'zisha.html',
+      img: 'https://images.unsplash.com/photo-1563195582-4e1ba7e41ae9?w=160&h=160&fit=crop'
     },
     {
       name: '紫砂壶鉴赏',
@@ -127,7 +127,10 @@
     const desc = document.getElementById('pick-desc');
     const tag = document.getElementById('pick-tag');
 
-    if (card) card.href = item.url;
+    if (card) {
+      card.href = item.url;
+      console.log('✅ pick-card href set to:', item.url);
+    }
     if (img) {
       img.src = item.img;
       img.alt = item.name;
@@ -139,6 +142,16 @@
     if (name) name.textContent = item.name;
     if (desc) desc.textContent = item.desc;
     if (tag) tag.textContent = item.tag;
+
+    // 确保卡片可点击：添加 fallback 点击事件
+    if (card) {
+      card.onclick = function(e) {
+        if (!this.href || this.href.endsWith('#')) {
+          e.preventDefault();
+          window.location.href = item.url;
+        }
+      };
+    }
   }
 
   // ===== 热门搜索逻辑 =====

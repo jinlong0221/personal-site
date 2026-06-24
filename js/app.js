@@ -336,3 +336,31 @@ window.initClock=function(){
   tick();
   setInterval(tick, 1000);
 })();
+
+// ── 导航栏天气（新坍镇，33.76°N, 120.09°E） ──
+(function(){
+  var el = document.getElementById('navWeather');
+  if(!el) return;
+  var WX={'0':'☀️','1':'🌤️','2':'⛅','3':'☁️','45':'🌫️','48':'🌫️','51':'🌧️','53':'🌧️','55':'🌧️','61':'🌧️','63':'🌧️','65':'🌧️','71':'🌨️','73':'🌨️','75':'🌨️','77':'🌨️','80':'🌧️','81':'🌧️','82':'🌧️','85':'🌨️','86':'🌨️','95':'⛈️','96':'⛈️','99':'⛈️'};
+  var URL='https://api.open-meteo.com/v1/forecast?latitude=33.76&longitude=120.09&current=temperature_2m,weather_code&timezone=Asia/Shanghai&forecast_days=1';
+  var KEY='t_weather'; var DUR=900000; // 15分钟缓存
+  function apply(t,c){
+    var ico=WX[String(c)]||'🌡️';
+    el.textContent=ico+' '+Math.round(t)+'°C';
+  }
+  function fetch(){
+    fetch(URL).then(function(r){return r.json();}).then(function(d){
+      var t=Math.round(d.current.temperature_2m);
+      var c=d.current.weather_code;
+      apply(t,c);
+      try{window.sessionStorage.setItem(KEY,JSON.stringify({t:t,c:c,ts:Date.now()}));}catch(e){}
+    }).catch(function(){
+      try{var s=JSON.parse(sessionStorage.getItem(KEY)||'null');if(s)apply(s.t,s.c);}catch(e){}
+    });
+  }
+  try{
+    var s=JSON.parse(sessionStorage.getItem(KEY)||'null');
+    if(s&&(Date.now()-s.ts<DUR))apply(s.t,s.c);
+    else fetch();
+  }catch(e){fetch();}
+})();

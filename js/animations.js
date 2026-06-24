@@ -175,35 +175,59 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  console.log('✨ 首页动画效果已加载（含触屏适配）');
-});
+  /* 8. 数字滚动动画 - 从不蒜子获取真实数据 */
+  function animateNumbers(targetValue, el) {
+    const duration = 1500; // 1.5秒
+    const step = targetValue / (duration / 16); // 60fps
+    let current = 0;
 
-  /* 8. 数字滚动动画 */
-  function animateNumbers() {
-    document.querySelectorAll('.stat-number').forEach(function(el) {
-      const target = parseInt(el.dataset.target);
-      if (isNaN(target) || target === 0) return;
-      
-      const duration = 1500; // 1.5秒
-      const step = target / (duration / 16); // 60fps
-      let current = 0;
-
-      const timer = setInterval(function() {
-        current += step;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-        }
-        el.textContent = Math.floor(current);
-      }, 16);
-    });
+    const timer = setInterval(function() {
+      current += step;
+      if (current >= targetValue) {
+        current = targetValue;
+        clearInterval(timer);
+      }
+      el.textContent = Math.floor(current);
+    }, 16);
   }
 
-  // 进入视口时触发一次
+  // 等待不蒜子数据加载
+  function waitForBusuanzi() {
+    const pvEl = document.getElementById('busuanzi_value_site_pv');
+    const uvEl = document.getElementById('busuanzi_value_site_uv');
+    
+    // 检查不蒜子是否已加载数据
+    if (pvEl && pvEl.textContent !== '' && pvEl.textContent !== '0') {
+      // 不蒜子已加载，更新统计数据
+      const statNumbers = document.querySelectorAll('.stat-number');
+      statNumbers.forEach(function(el) {
+        const label = el.nextElementSibling;
+        if (label && label.textContent.includes('访问')) {
+          // 次访问
+          const pv = parseInt(pvEl.textContent.replace(/,/g, ''));
+          if (!isNaN(pv)) {
+            animateNumbers(pv, el);
+          }
+        } else if (label && label.textContent.includes('访客')) {
+          // 位访客
+          const uv = parseInt(uvEl.textContent.replace(/,/g, ''));
+          if (!isNaN(uv)) {
+            animateNumbers(uv, el);
+          }
+        }
+      });
+    } else {
+      // 不蒜子未加载，500ms后重试
+      setTimeout(waitForBusuanzi, 500);
+    }
+  }
+
+  // 进入视口时触发
   const statsObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        animateNumbers();
+        // 开始等待不蒜子数据
+        waitForBusuanzi();
         statsObserver.unobserve(entry.target);
       }
     });
@@ -211,3 +235,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const statsEl = document.querySelector('.site-stats');
   if (statsEl) statsObserver.observe(statsEl);
+
+  console.log('✨ 首页动画效果已加载（含触屏适配）');
+});

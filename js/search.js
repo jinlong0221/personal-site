@@ -175,7 +175,7 @@ function clearHighlights(){
 // ============================================================
 function ensureSearchModal(){
   var ex=document.getElementById('searchModal');if(ex)return ex;
-  var m=document.createElement('div');m.id='searchModal';m.className='search-modal';
+  var m=document.createElement('div');m.id='searchModal';m.className='search-modal'; m.setAttribute('role','dialog'); m.setAttribute('aria-label','搜索');
   m.innerHTML=
     '<div class="search-modal-content">'+
       '<div class="search-modal-header">'+

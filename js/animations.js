@@ -3,6 +3,9 @@
 // 等待 DOM 加载完成
 document.addEventListener('DOMContentLoaded', function() {
 
+  // 存储所有 Observer 引用，用于清理
+  const observers = [];
+
   /* 1. 滚动渐入动画 - 使用 IntersectionObserver */
   const fadeElements = document.querySelectorAll('.tile, .section-block, .home-collapsible');
   
@@ -12,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   const fadeObserver = new IntersectionObserver(function(entries) {
+    observers.push(fadeObserver);
     entries.forEach(function(entry, index) {
       if (entry.isIntersecting) {
         // 添加延迟，让卡片依次出现
@@ -93,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const counters = document.querySelectorAll('#busuanzi_value_site_pv, #busuanzi_value_site_uv');
   
   const counterObserver = new IntersectionObserver(function(entries) {
+    observers.push(counterObserver);
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('animate');
@@ -224,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 进入视口时触发
   const statsObserver = new IntersectionObserver(function(entries) {
+    observers.push(statsObserver);
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         // 开始等待不蒜子数据
@@ -237,4 +243,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if (statsEl) statsObserver.observe(statsEl);
 
   console.log('✨ 首页动画效果已加载（含触屏适配）');
+
+  // 页面卸载时清理所有 Observer（防止内存泄漏）
+  window.addEventListener('pagehide', function() {
+    observers.forEach(function(observer) {
+      if (observer && typeof observer.disconnect === 'function') {
+        observer.disconnect();
+      }
+    });
+    console.log('🧹 Observers 已清理');
+  });
 });

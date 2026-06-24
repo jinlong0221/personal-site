@@ -177,3 +177,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
   console.log('✨ 首页动画效果已加载（含触屏适配）');
 });
+
+  /* 8. 数字滚动动画 */
+  function animateNumbers() {
+    document.querySelectorAll('.stat-number').forEach(function(el) {
+      const target = parseInt(el.dataset.target);
+      if (isNaN(target) || target === 0) return;
+      
+      const duration = 1500; // 1.5秒
+      const step = target / (duration / 16); // 60fps
+      let current = 0;
+
+      const timer = setInterval(function() {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(current);
+      }, 16);
+    });
+  }
+
+  // 进入视口时触发一次
+  const statsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateNumbers();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsEl = document.querySelector('.site-stats');
+  if (statsEl) statsObserver.observe(statsEl);

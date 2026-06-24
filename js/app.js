@@ -275,19 +275,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
 })();
 
-// 3. 在线状态徽章
-(function(){
-  var badge=document.getElementById('statusBadge');
-  if(!badge)return;
-  function updateStatus(){
-    var h=new Date().getHours();
-    var isOnline=(h>=7&&h<23);
-    badge.className='status-badge '+(isOnline?'online':'offline');
-    badge.innerHTML='<span class="status-dot"></span>'+(isOnline?'站长在线':'站长已休息');
-  }
-  updateStatus();
-  setInterval(updateStatus,60000);
-})();
+
 
 // 5. 今日龙兄在干嘛（内嵌到龙兄公示牌）
 (function(){

@@ -142,7 +142,20 @@
     if (name) name.textContent = item.name;
     if (desc) desc.textContent = item.desc;
     if (tag) tag.textContent = item.tag;
-    // 卡片跳转由浏览器默认行为处理，无需 JS 控制
+
+    // 处理卡片点击（<div> 需要 JS 跳转）
+    if (card) {
+      card.onclick = function() {
+        window.location.href = item.url;
+      };
+      // 键盘无障碍访问
+      card.onkeydown = function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          window.location.href = item.url;
+        }
+      };
+    }
   }
 
   // ===== 热门搜索逻辑 =====

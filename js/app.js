@@ -283,7 +283,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     var h=new Date().getHours();
     var isOnline=(h>=7&&h<23);
     badge.className='status-badge '+(isOnline?'online':'offline');
-    badge.innerHTML=(isOnline?'🟢 站长在线':'🌙 站长已休息');
+    badge.innerHTML='<span class="status-dot"></span>'+(isOnline?'站长在线':'站长已休息');
   }
   updateStatus();
   setInterval(updateStatus,60000);

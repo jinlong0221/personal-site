@@ -2261,7 +2261,17 @@ p.plot-text {
   color: #333;
 }
 
+[data-theme="dark"] .bubble-time {
+  color: #666;
+}
+
+[data-theme="dark"] .bubble-date {
+  color: #555;
+}
+
 [data-theme="dark"] .bubble-body {
+  color: #ddd;
+}
   color: #ddd;
 }
 
@@ -2473,11 +2483,19 @@ p.plot-text {
 }
 
 [data-theme="dark"] .pick-tag {
-  background: #3d2817;
-  color: #FFB380;
+  background: var(--card);
+  color: var(--orange);
 }
 
 /* ===== 热门搜索 ===== */
+
+
+
+[data-theme="dark"] .search-hot {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: none;
+}
 
 .search-hot {
   padding: 12px 16px;
@@ -2553,7 +2571,15 @@ p.plot-text {
     font-size: 0.8rem;
   }
 
-  .search-hot {
+  
+
+[data-theme="dark"] .search-hot {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: none;
+}
+
+.search-hot {
     padding: 10px 12px;
   }
 

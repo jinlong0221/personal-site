@@ -299,31 +299,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     });
 })();
 
-// 6. 在线状态徽章（真实联动 status.json）
-(function(){
-  var el = document.getElementById('liveBadge');
-  if(!el) return;
-  function render(hasStatus, text){
-    if(hasStatus){
-      el.className = 'live-badge online';
-      el.innerHTML = '<span class="lb-ring"></span><span class="lb-dot"></span>站长在线<span class="lb-label">' + escapeHtml(text) + '</span>';
-    } else {
-      el.className = 'live-badge offline';
-      el.innerHTML = '<span class="lb-dot dim"></span>站长暂离';
-    }
-  }
-  function escapeHtml(s){ return (s||'').replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];}); }
-  // 首次加载：fetch成功才更新，失败则保留HTML静态内容
-  fetch('status.json?v='+Date.now())
-    .then(function(r){if(!r.ok)throw new Error();return r.json();})
-    .then(function(d){ render(!!(d&&d.status&&d.status.trim()), d.status); })
-    .catch(function(){});
-  // 轮询：同样只在新状态不同时更新
-  setInterval(function(){
-    fetch('status.json?v='+Date.now())
-      .then(function(r){if(!r.ok)throw new Error();return r.json();})
-      .then(function(d){ render(!!(d&&d.status&&d.status.trim()), d.status); })
-      .catch(function(){});
   }, 120000);
 })();
 

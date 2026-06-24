@@ -289,24 +289,25 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   setInterval(updateStatus,60000);
 })();
 
-// 5. 今日龙兄在干嘛
+// 5. 今日龙兄在干嘛（内嵌到龙兄公示牌）
 (function(){
-  var el=document.getElementById('todayStatus');
-  if(!el)return;
+  var inline = document.getElementById('todayStatusInline');
+  var textEl = document.getElementById('todayStatusText');
+  var dateEl = document.getElementById('todayStatusDate');
+  if(!inline || !textEl) return;
   fetch('status.json?v='+Date.now())
     .then(function(r){if(!r.ok)throw new Error('Not found');return r.json();})
     .then(function(data){
-      if(data&&data.message){
-        el.innerHTML='<div class="ts-content">'+data.message+'</div>';
-        if(data.date){
-          el.innerHTML+='<div class="status-refresh-time">更新于 '+data.date+'</div>';
-        }
-      }else{
-        el.innerHTML='<div class="ts-empty">暂无动态</div>';
+      if(data && data.status && data.status.trim() !== ''){
+        textEl.textContent = data.status;
+        if(data.date) dateEl.textContent = '（' + data.date + '）';
+        inline.style.display = 'block';
+      } else {
+        inline.style.display = 'none';
       }
     })
     .catch(function(){
-      el.innerHTML='<div class="ts-empty">暂无动态</div>';
+      if(inline) inline.style.display = 'none';
     });
 })();
 

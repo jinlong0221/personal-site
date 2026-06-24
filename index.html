@@ -77,18 +77,15 @@ var _hmt = _hmt || [];
     <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
   </div>
 
-  <!-- ===== 紫砂艺术（展示区） ===== -->
+    <!-- ===== 高考倒计时（展示区） ===== -->
   <section class="section-block" style="text-align:center;padding-top:8px;">
     <div style="display:flex;justify-content:center;margin-bottom:4px;">
-      <article class="tile tile-orange" style="max-width:400px;width:100%;">
-        <a href="zisha.html" style="display:block;padding:36px 28px;">
-          <div style="margin-bottom:20px;">
-            <svg width="80" height="80" viewBox="0 0 64 64" fill="none" stroke="#8d4e25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="50" rx="14" ry="4" fill="#8d4e25" opacity="0.2"/><path d="M18 50c0-10 6-30 14-30s14 20 14 30" fill="#8d4e25" opacity="0.1"/><path d="M18 50c0 4 6 6 14 6s14-2 14-6"/><ellipse cx="32" cy="20" rx="14" ry="5"/><path d="M18 20v30c0 4 6 6 14 6s14-2 14-6V20"/><ellipse cx="32" cy="12" rx="10" ry="4"/><path d="M22 12c0-4 4-6 10-6s10 2 10 6" fill="#8d4e25" opacity="0.3"/></svg>
-          </div>
-          <div class="title" style="font-size:1.4rem;">🏺 吴昊天紫砂艺术</div>
-          <div class="desc" style="font-size:0.95rem;margin-top:8px;">五色釉柴烧 · 经典壶型 · 盖杯套具</div>
-          <div style="margin-top:14px;font-size:0.85rem;color:var(--gold);font-weight:600;">点击进入 &rarr;</div>
-        </a>
+      <article style="max-width:460px;width:100%;background:linear-gradient(135deg,#7B0000 0%,#C62828 40%,#E65100 100%);border-radius:16px;padding:36px 28px;box-shadow:0 8px 32px rgba(198,40,40,.35);">
+        <div style="font-size:2.4rem;margin-bottom:8px;">🎓</div>
+        <h2 style="color:#fff;margin:0 0 6px;font-size:1.5rem;letter-spacing:2px;">2026 江苏高考查分</h2>
+        <p style="color:rgba(255,255,255,.85);font-size:.95rem;margin:0 0 16px;">成绩查询 · 分数线 · 志愿填报</p>
+        <div id="homeCountdown" style="font-size:1rem;color:rgba(255,255,255,.9);margin-bottom:16px;font-weight:600;"></div>
+        <a href="gaokao.html" style="display:inline-block;padding:10px 28px;background:#fff;color:#C62828;border-radius:8px;text-decoration:none;font-weight:700;font-size:1rem;letter-spacing:1px;box-shadow:0 2px 12px rgba(0,0,0,.15);">查分入口 &rarr;</a>
       </article>
     </div>
   </section>
@@ -419,6 +416,27 @@ function toggleHomeSection(el){
   var wrap=el.parentElement;
   wrap.classList.toggle('open');
 }
+</script>
+<script>
+(function(){
+  var target = new Date('2026-06-24T20:00:00+08:00').getTime();
+  var el = document.getElementById('homeCountdown');
+  if(!el) return;
+  function tick(){
+    var now = Date.now();
+    var diff = target - now;
+    if(diff <= 0){
+      el.innerHTML = '<span style="font-size:1.3rem;color:#fff;">🔥 查分通道已开放！</span>';
+      return;
+    }
+    var h = Math.floor(diff/3600000);
+    var m = Math.floor((diff%3600000)/60000);
+    var s = Math.floor((diff%60000)/1000);
+    el.innerHTML = '距离查分开放还有 <span style="font-size:1.5rem;color:#fff;text-shadow:0 0 12px rgba(255,255,255,.5)">'+h+'</span>时<span style="font-size:1.5rem;color:#fff;text-shadow:0 0 12px rgba(255,255,255,.5)">'+m+'</span>分<span style="font-size:1.5rem;color:#fff;text-shadow:0 0 12px rgba(255,255,255,.5)">'+s+'</span>秒';
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 </script>
 
 

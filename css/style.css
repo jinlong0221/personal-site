@@ -1510,3 +1510,21 @@ p.plot-text {
   padding: 12px 0;
 }
 
+/* ── 导航栏全局时钟 ── */
+.nav-clock {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  opacity: 0.75;
+  white-space: nowrap;
+  padding: 0 6px;
+  user-select: none;
+  transition: color 0.3s;
+}
+[data-theme="light"] .nav-clock {
+  color: #374151;
+  opacity: 0.8;
+}
+

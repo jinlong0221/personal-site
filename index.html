@@ -376,12 +376,32 @@ var _hmt = _hmt || [];
             <div class="notice-text" id="noticeContent">
               <p>🎉 <strong>龙兄知识库</strong>于2026年6月正式落成！本站由AI独立搭建，记录站长龙兄的生活、兴趣与折腾 🚀</p>
               <p style="margin-top:8px;font-size:0.85rem;">🙏 请各位随一下礼 😏</p>
-              <div id="todayStatusInline" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border-color);display:none;">
-                <span style="font-size:0.9rem;">🐉 今日龙兄：<strong id="todayStatusText"></strong></span>
-                <span id="todayStatusDate" style="font-size:0.75rem;color:var(--text-muted);margin-left:8px;"></span>
+              <div class="long-status" id="todayStatusInline" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-color);display:none;">
+                <div class="long-avatar">🐉</div>
+          <div class="long-bubble">
+            <div class="bubble-header">
+              <span class="bubble-name">龙兄</span>
+              <span class="bubble-time" id="bubbleTime">刚刚</span>
+            </div>
+            <div class="bubble-body" id="todayStatusText"></div>
+            <div class="bubble-footer">
+              <span class="bubble-date" id="bubbleDate"></span>
+            </div>
+          </div>
+                
               </div>
             </div>
           </div>
+        </article>
+      </section>
+
+      <!-- 近期动态 -->
+      <section class="section-block bottom-duo-item">
+        <div class="section-label bottom-section-header">
+          <div class="hc-left"><span class="hc-icon">📰</span><span class="hc-title">近期动态</span></div>
+        </div>
+        <article class="tile" style="padding:12px;">
+          <div class="update-list" id="updateLogList"></div>
         </article>
       </section>
     </div>
@@ -503,5 +523,6 @@ function toggleHomeSection(el){
     <script src="js/changelog.js"></script>
     <script src="js/updates.js"></script>
     <script src="js/animations.js"></script>
+<script src="js/status-bubble.js"></script>
   </body>
 </html>

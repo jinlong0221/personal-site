@@ -1814,3 +1814,142 @@ p.plot-text {
   font-size:.95rem;
   color:var(--text-muted);
 }
+
+/* ===== 首页动画效果 ===== */
+
+/* 1. 滚动渐入动画 */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2. 卡片悬停效果增强 */
+.tile {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tile:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  border-color: var(--gold);
+}
+
+.tile::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.tile:hover::after {
+  left: 100%;
+}
+
+/* 3. 点击水波纹效果 */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.3);
+  transform: scale(0);
+  animation: ripple-animation 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* 4. 主题色横条 */
+.theme-color-bar {
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, var(--gold), var(--blue), var(--green), var(--purple));
+  background-size: 300% 100%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* 各板块主题色 */
+.tile-gold .theme-color-bar { background: var(--gold); }
+.tile-green .theme-color-bar { background: var(--green); }
+.tile-purple .theme-color-bar { background: var(--purple); }
+.tile-teal .theme-color-bar { background: var(--teal); }
+.tile-orange .theme-color-bar { background: var(--orange); }
+.tile-red .theme-color-bar { background: var(--red); }
+.tile-blue .theme-color-bar { background: var(--blue); }
+.tile-yellow .theme-color-bar { background: var(--yellow); }
+
+/* 5. 导航栏滚动效果 */
+.navbar.scrolled {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+}
+
+/* 6. 数字动态效果 */
+.counter {
+  font-variant-numeric: tabular-nums;
+  transition: all 0.3s ease;
+}
+
+.counter.animate {
+  animation: counter-pulse 0.3s ease;
+}
+
+@keyframes counter-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* 7. 加载动画 */
+.skeleton {
+  background: linear-gradient(90deg, 
+    var(--card) 25%, 
+    var(--card-hover) 50%, 
+    var(--card) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 8. 响应式优化 */
+@media (max-width: 768px) {
+  .tile:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+  
+  .fade-in-up {
+    transform: translateY(20px);
+  }
+}

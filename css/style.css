@@ -1722,3 +1722,20 @@ p.plot-text {
   color:var(--text);
   line-height:1.5;
 }
+
+/* 难度标签 */
+.tag {
+  display:inline-block;
+  font-size:0.65rem;
+  font-weight:700;
+  padding:2px 6px;
+  border-radius:4px;
+  margin-left:6px;
+  vertical-align:middle;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+.tag-beginner { background:#107c10; color:#fff; }
+.tag-advanced { background:#0078d4; color:#fff; }
+.tag-warning { background:#d13438; color:#fff; }
+.tag-must { background:var(--gold); color:#fff; }

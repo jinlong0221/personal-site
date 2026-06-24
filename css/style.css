@@ -599,7 +599,7 @@ footer a:hover { color:var(--gold-light); }
 @media (max-width:480px) {
  html { font-size:14px; }
  .card-grid-3, .card-grid-2, .card-grid-1 { grid-template-columns:1fr; }
- .card-grid-4 { grid-template-columns:repeat(2,1fr); }
+ .card-grid-4 { grid-template-columns:1fr; }
  .tile { padding:16px; min-height:100px; }
  .home-header .site-title { font-size:2rem; }
  .page-header { padding:24px 0 12px; }
@@ -1398,6 +1398,26 @@ p.plot-text {
   font-size: 0.72rem;
   line-height: 1.3;
   margin: 0;
+}
+
+/* ===== 首页折叠区内板块卡片文字保护 ===== */
+.home-collapsible-body .tile a {
+  min-width: 0;
+  overflow: hidden;
+}
+.home-collapsible-body .tile .title {
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.home-collapsible-body .tile .desc {
+  flex-shrink: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ===== 首页布局编辑器弹窗 ===== */

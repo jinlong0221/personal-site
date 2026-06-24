@@ -299,8 +299,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     });
 })();
 
-  }, 120000);
-})();
 
 // 4. 实时时钟（在天气页面初始化）
 window.initClock=function(){

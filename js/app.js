@@ -354,3 +354,18 @@ window.initClock=function(){
     el.textContent='🌤️--°';
   });
 })();
+
+// ============================================================
+// 区域F - 导航高亮（当前页面）
+// ============================================================
+(function(){
+  var path = window.location.pathname;
+  var page = path.split('/').pop() || 'index.html';
+  var links = document.querySelectorAll('.nav-links a, .mobile-nav a');
+  links.forEach(function(a){
+    var href = a.getAttribute('href') || '';
+    if(href === page || (page === 'index.html' && href === '')){
+      a.classList.add('active');
+    }
+  });
+})();

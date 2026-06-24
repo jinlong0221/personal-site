@@ -313,15 +313,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
   }
   function escapeHtml(s){ return (s||'').replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];}); }
+  // 首次加载：fetch成功才更新，失败则保留HTML静态内容
   fetch('status.json?v='+Date.now())
     .then(function(r){if(!r.ok)throw new Error();return r.json();})
     .then(function(d){ render(!!(d&&d.status&&d.status.trim()), d.status); })
-    .catch(function(){ render(false); });
+    .catch(function(){});
+  // 轮询：同样只在新状态不同时更新
   setInterval(function(){
     fetch('status.json?v='+Date.now())
       .then(function(r){if(!r.ok)throw new Error();return r.json();})
       .then(function(d){ render(!!(d&&d.status&&d.status.trim()), d.status); })
-      .catch(function(){ render(false); });
+      .catch(function(){});
   }, 120000);
 })();
 

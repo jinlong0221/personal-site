@@ -129,8 +129,7 @@
 
     if (card) {
       card.href = item.url;
-      card.setAttribute('data-url', item.url);
-      console.log('✅ pick-card href set to:', item.url);
+      card.target = '_self';
     }
     if (img) {
       img.src = item.img;
@@ -143,22 +142,7 @@
     if (name) name.textContent = item.name;
     if (desc) desc.textContent = item.desc;
     if (tag) tag.textContent = item.tag;
-
-    // 确保卡片可点击：data-url 兜底
-    if (card) {
-      card.addEventListener('click', function(e) {
-        var href = this.getAttribute('href') || '';
-        var dataUrl = this.getAttribute('data-url') || '';
-        // 如果 href 为空 / # / undefined，则强制跳转
-        if (!href || href === '#' || href === window.location.href + '#') {
-          e.preventDefault();
-          var target = dataUrl || href;
-          if (target && target !== '#') {
-            window.location.href = target;
-          }
-        }
-      }, true); // 捕获阶段，确保优先于默认行为
-    }
+    // 卡片跳转由浏览器默认行为处理，无需 JS 控制
   }
 
   // ===== 热门搜索逻辑 =====

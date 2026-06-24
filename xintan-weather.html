@@ -263,6 +263,12 @@ body { font-size: 17px !important; }
     <div class="xw-banner-coord">33.76°N · 120.09°E · 海拔约2m</div>
   </div>
 
+  <!-- 4. 实时时钟 -->
+  <div class="clock-wrap">
+    <div class="clock-display" id="liveClock">--:--:--</div>
+    <div class="clock-date" id="liveDate">加载中...</div>
+  </div>
+
   <!-- 加载动画 -->
   <div class="xw-loading" id="xwLoading">
     <span class="xw-dot"></span><span class="xw-dot"></span><span class="xw-dot"></span>
@@ -292,6 +298,8 @@ body { font-size: 17px !important; }
       </span>
       <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
     </div>
+
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
 </footer>
 
 <script>
@@ -523,6 +531,7 @@ function xwCopy(){
 }
 </script>
 <script src="js/app.js"></script>
+<script>if(window.initClock)initClock();</script>
 <script src="js/search.js"></script>
 </body>
 </html>

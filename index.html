@@ -266,6 +266,23 @@ var _hmt = _hmt || [];
         </article>
       </section>
 
+      <!-- 1. 最近更新滚动条 -->
+      <div class="ticker-wrap">
+        <div class="ticker-track">
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 特斯拉板块全面重构 · 11个产品页面上线</span>
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 中药养生茶板块上线 · 30+配方 · 8大类</span>
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 紫砂艺术板块 · 95件紫砂作品鉴赏</span>
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 游戏主机博物馆 · 6大品牌46个详情页</span>
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 全站103页 · 搜索/主题/导航统一升级</span>
+          <!-- 重复一遍实现无缝滚动 -->
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 特斯拉板块全面重构 · 11个产品页面上线</span>
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 中药养生茶板块上线 · 30+配方 · 8大类</span>
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 紫砂艺术板块 · 95件紫砂作品鉴赏</span>
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 游戏主机博物馆 · 6大品牌46个详情页</span>
+          <span class="ticker-item"><span class="ticker-tag">NEW</span> 全站103页 · 搜索/主题/导航统一升级</span>
+        </div>
+      </div>
+
       <!-- 龙兄公示牌 -->
       <section class="section-block bottom-duo-item">
         <div class="section-label bottom-section-header">
@@ -278,7 +295,11 @@ var _hmt = _hmt || [];
               <p>🎉 <strong>龙兄知识库</strong>于2026年6月正式落成！本站由AI独立搭建，记录站长龙兄的生活、兴趣与折腾 🚀</p>
               <p style="margin-top:8px;font-size:0.85rem;">🙏 请各位随一下礼 😏</p>
             </div>
-
+            <!-- 5. 今日龙兄在干嘛 -->
+            <div class="today-status" id="todayStatus">
+              <div class="ts-header">🐉 今日龙兄</div>
+              <div class="ts-empty">加载中...</div>
+            </div>
           </div>
         </article>
       </section>
@@ -316,7 +337,9 @@ var _hmt = _hmt || [];
       <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
     </div>
 
-  </footer>
+  
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+</footer>
 
 <script>
 (function(){
@@ -399,5 +422,12 @@ function toggleHomeSection(el){
 
 
 </script>
+
+<script src="js/search.js"></script>
+<script src="js/app.js"></script>
+
+<!-- 3. 在线状态徽章 -->
+<div id="statusBadge" class="status-badge"></div>
+
 </body>
 </html>

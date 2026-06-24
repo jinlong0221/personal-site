@@ -250,6 +250,12 @@ body {
     <div class="subtitle">🌦️ 实时气象数据 · Open-Meteo API</div>
   </div>
 
+  <!-- 4. 实时时钟 -->
+  <div class="clock-wrap">
+    <div class="clock-display" id="liveClock">--:--:--</div>
+    <div class="clock-date" id="liveDate">加载中...</div>
+  </div>
+
   <div class="tile-grid" id="tile-grid">
     <div class="loading-tile" id="loading">正在获取天气数据</div>
   </div>
@@ -269,10 +275,13 @@ body {
       </span>
       <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
     </div>
+
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
 </footer>
 
 <script src="js/search.js"></script>
 <script src="js/app.js"></script>
+<script>if(window.initClock)initClock();</script>
 <script>
 const LAT = 33.77, LON = 120.26;
 

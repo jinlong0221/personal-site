@@ -251,4 +251,83 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   items.forEach(function(el){obs.observe(el);});
 })();
 
+// ============================================================
+// 区域I - 活起来功能
+// ============================================================
+
+// 2. 页脚最后更新时间
+(function(){
+  var el=document.getElementById('lastModified');
+  if(!el)return;
+  var lm=document.lastModified;
+  if(lm&&lm!=='01/01/0000'){
+    try{
+      var d=new Date(lm);
+      var y=d.getFullYear();
+      var m=('0'+(d.getMonth()+1)).slice(-2);
+      var day=('0'+d.getDate()).slice(-2);
+      var h=('0'+d.getHours()).slice(-2);
+      var min=('0'+d.getMinutes()).slice(-2);
+      el.textContent=y+'-'+m+'-'+day+' '+h+':'+min;
+    }catch(e){el.textContent=lm;}
+  }else{
+    el.textContent='2026-06-24';
+  }
+})();
+
+// 3. 在线状态徽章
+(function(){
+  var badge=document.getElementById('statusBadge');
+  if(!badge)return;
+  function updateStatus(){
+    var h=new Date().getHours();
+    var isOnline=(h>=7&&h<23);
+    badge.className='status-badge '+(isOnline?'online':'offline');
+    badge.innerHTML=(isOnline?'🟢 站长在线':'🌙 站长已休息');
+  }
+  updateStatus();
+  setInterval(updateStatus,60000);
+})();
+
+// 5. 今日龙兄在干嘛
+(function(){
+  var el=document.getElementById('todayStatus');
+  if(!el)return;
+  fetch('status.json?v='+Date.now())
+    .then(function(r){if(!r.ok)throw new Error('Not found');return r.json();})
+    .then(function(data){
+      if(data&&data.message){
+        el.innerHTML='<div class="ts-content">'+data.message+'</div>';
+        if(data.date){
+          el.innerHTML+='<div class="status-refresh-time">更新于 '+data.date+'</div>';
+        }
+      }else{
+        el.innerHTML='<div class="ts-empty">暂无动态</div>';
+      }
+    })
+    .catch(function(){
+      el.innerHTML='<div class="ts-empty">暂无动态</div>';
+    });
+})();
+
+// 4. 实时时钟（在天气页面初始化）
+window.initClock=function(){
+  var el=document.getElementById('liveClock');
+  if(!el)return;
+  var dateEl=document.getElementById('liveDate');
+  function tick(){
+    var d=new Date();
+    var h=('0'+d.getHours()).slice(-2);
+    var m=('0'+d.getMinutes()).slice(-2);
+    var s=('0'+d.getSeconds()).slice(-2);
+    if(el)el.textContent=h+':'+m+':'+s;
+    if(dateEl){
+      var opts={year:'numeric',month:'long',day:'numeric',weekday:'long'};
+      dateEl.textContent=d.toLocaleDateString('zh-CN',opts);
+    }
+  }
+  tick();
+  setInterval(tick,1000);
+};
+
 })();

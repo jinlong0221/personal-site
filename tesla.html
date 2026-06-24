@@ -206,6 +206,45 @@ var _hmt = _hmt || [];
 
     </div>
   </div>
+
+  <!-- 6. 自动新闻聚合 -->
+  <div class="home-collapsible" id="hc-tesla-auto-news" style="display:none;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🚀</span><span class="hc-title">自动聚合</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <script>
+  // 6. 自动加载特斯拉新闻
+  (function(){
+    fetch('tesla-news.json?v='+Date.now())
+      .then(function(r){if(!r.ok)throw new Error('Not found');return r.json();})
+      .then(function(data){
+        if(!data||!(data.news&&data.news.length)&&!(data.items&&data.items.length))return;
+        var items=data.news||data.items||[];
+        var container=document.getElementById('autoNewsBody');
+        var section=document.getElementById('hc-tesla-auto-news');
+        var countEl=document.getElementById('autoNewsCount');
+        if(!container||!section)return;
+        var html='';
+        items.forEach(function(item){
+          var date=item.date||'近期';
+          var content=item.content||item.title||'';
+          var tags=item.tags||[];
+          var tagHtml=tags.map(function(t){return '<span class="news-tag '+t.class+'">'+t.text+'</span>';}).join(' ');
+          var link=item.url?'<br><a href="'+item.url+'" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);">查看详情 →</a>':'';
+          html+='<div class="news-item"><div class="news-date">'+date+'</div><div class="news-content">'+tagHtml+'<p>'+content+link+'</p></div></div>';
+        });
+        container.innerHTML=html;
+        if(countEl)countEl.textContent=items.length+'条';
+        section.style.display='';
+      })
+      .catch(function(){});
+  })();
+  </script>
+
   <!-- 在售车型 -->
   <div class="section-header">
     <span class="icon">🚙</span>
@@ -407,5 +446,12 @@ function toggleHomeSection(el){
       <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
     </div>
 
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
+    <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+</footer>
 </body>
 </html>

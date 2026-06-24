@@ -1368,6 +1368,30 @@ p.plot-text {
   padding: 0 20px 20px;
 }
 
+/* ===== 首页折叠区内板块卡片缩放 ===== */
+.home-collapsible-body .tile {
+  padding: 14px 12px;
+  min-height: 90px;
+}
+.home-collapsible-body .tile-svg {
+  margin-bottom: 6px;
+}
+.home-collapsible-body .tile-svg svg {
+  width: 28px;
+  height: 28px;
+}
+.home-collapsible-body .tile .title {
+  font-size: 0.92rem;
+  margin-top: 4px;
+}
+.home-collapsible-body .tile .desc {
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+.home-collapsible-body .card-grid {
+  gap: 12px;
+}
+
 /* ===== 首页布局编辑器弹窗 ===== */
 .overlay-modal {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;

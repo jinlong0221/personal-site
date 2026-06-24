@@ -94,6 +94,23 @@ var _hmt = _hmt || [];
     </div>
   </section>
 
+  <!-- ===== 今日推荐 ===== -->
+  <section class="daily-pick" id="daily-pick">
+    <div class="pick-header">
+      <span class="pick-icon">🎲</span>
+      <span class="pick-title">今日推荐</span>
+      <button class="pick-refresh" id="pick-refresh" title="换一个">🔄</button>
+    </div>
+    <a href="#" class="pick-card" id="pick-card">
+      <img class="pick-img" id="pick-img" src="" alt="">
+      <div class="pick-info">
+        <h3 class="pick-name" id="pick-name"></h3>
+        <p class="pick-desc" id="pick-desc"></p>
+        <span class="pick-tag" id="pick-tag"></span>
+      </div>
+    </a>
+  </section>
+
   <!-- ===== 板块列表 ===== -->
   <div id="sections"></div>
 
@@ -147,6 +164,10 @@ var _hmt = _hmt || [];
       <input type="text" id="homeSearchInput" class="home-search-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">
       <button id="homeSearchClear" class="home-search-clear" aria-label="清空" style="display:none;">✕</button>
       <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">搜索</button>
+    </div>
+    <div class="search-hot" id="search-hot">
+      <div class="hot-title">🔥 大家都在搜</div>
+      <div class="hot-tags" id="hot-tags"></div>
     </div>
   </div>
 
@@ -524,5 +545,6 @@ function toggleHomeSection(el){
     <script src="js/updates.js"></script>
     <script src="js/animations.js"></script>
 <script src="js/status-bubble.js"></script>
+<script src="js/daily-pick.js"></script>
   </body>
 </html>

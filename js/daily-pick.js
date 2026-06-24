@@ -129,6 +129,7 @@
 
     if (card) {
       card.href = item.url;
+      card.setAttribute('data-url', item.url);
       console.log('✅ pick-card href set to:', item.url);
     }
     if (img) {
@@ -143,14 +144,20 @@
     if (desc) desc.textContent = item.desc;
     if (tag) tag.textContent = item.tag;
 
-    // 确保卡片可点击：添加 fallback 点击事件
+    // 确保卡片可点击：data-url 兜底
     if (card) {
-      card.onclick = function(e) {
-        if (!this.href || this.href.endsWith('#')) {
+      card.addEventListener('click', function(e) {
+        var href = this.getAttribute('href') || '';
+        var dataUrl = this.getAttribute('data-url') || '';
+        // 如果 href 为空 / # / undefined，则强制跳转
+        if (!href || href === '#' || href === window.location.href + '#') {
           e.preventDefault();
-          window.location.href = item.url;
+          var target = dataUrl || href;
+          if (target && target !== '#') {
+            window.location.href = target;
+          }
         }
-      };
+      }, true); // 捕获阶段，确保优先于默认行为
     }
   }
 

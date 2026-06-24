@@ -28,17 +28,29 @@ document.addEventListener('DOMContentLoaded', function() {
     fadeObserver.observe(el);
   });
 
-  /* 2. 点击水波纹效果 */
-  document.addEventListener('click', function(e) {
+  /* 2. 点击水波纹效果 - 同时支持鼠标和触摸 */
+  function createRipple(e) {
     // 只在卡片和按钮上添加水波纹
     const target = e.target.closest('.tile, .btn, .icon-btn, .nav-links a');
     if (!target) return;
 
+    // 防止重复创建
+    const existingRipple = target.querySelector('.ripple');
+    if (existingRipple) existingRipple.remove();
+
     const ripple = document.createElement('span');
     const rect = target.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
-    const x = e.clientX - rect.left - size / 2;
-    const y = e.clientY - rect.top - size / 2;
+    
+    // 兼容触摸事件
+    let x, y;
+    if (e.touches) {
+      x = e.touches[0].clientX - rect.left - size / 2;
+      y = e.touches[0].clientY - rect.top - size / 2;
+    } else {
+      x = e.clientX - rect.left - size / 2;
+      y = e.clientY - rect.top - size / 2;
+    }
 
     ripple.style.cssText = `
       width: ${size}px;
@@ -55,7 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
       ripple.remove();
     }, 600);
-  });
+  }
+
+  // 同时监听 click 和 touchstart 事件
+  document.addEventListener('click', createRipple);
+  document.addEventListener('touchstart', createRipple, { passive: true });
 
   /* 3. 导航栏滚动效果 */
   const navbar = document.querySelector('.navbar');
@@ -132,15 +148,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  /* 7. 卡片点击反馈 */
+  /* 7. 卡片点击反馈 - 触摸设备优化 */
   document.querySelectorAll('.tile').forEach(function(tile) {
-    tile.addEventListener('click', function() {
-      this.style.transform = 'translateY(-8px) scale(0.98)';
-      setTimeout(function() {
-        tile.style.transform = 'translateY(-8px) scale(1.02)';
-      }, 150);
-    });
+    let isTouchDevice = 'ontouchstart' in window;
+    
+    if (isTouchDevice) {
+      // 触摸设备：使用 touchstart 和 touchend
+      tile.addEventListener('touchstart', function() {
+        this.style.transform = 'translateY(-4px) scale(0.98)';
+      });
+      
+      tile.addEventListener('touchend', function() {
+        setTimeout(function() {
+          tile.style.transform = '';
+        }, 150);
+      });
+    } else {
+      // 桌面设备：保留 hover 效果
+      tile.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+      
+      tile.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+      });
+    }
   });
 
-  console.log('✨ 首页动画效果已加载');
+  console.log('✨ 首页动画效果已加载（含触屏适配）');
 });

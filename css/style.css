@@ -1953,3 +1953,80 @@ p.plot-text {
     transform: translateY(20px);
   }
 }
+
+/* ===== 触屏适配优化 ===== */
+
+/* 移动端 :active 反馈（替代 hover） */
+@media (hover: none) and (pointer: coarse) {
+  /* 卡片点击反馈 */
+  .tile:active {
+    transform: translateY(-4px) scale(0.98) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    border-color: var(--gold) !important;
+    transition: transform 0.1s ease, box-shadow 0.1s ease !important;
+  }
+
+  /* 按钮点击反馈 */
+  .btn:active,
+  .icon-btn:active,
+  .nav-links a:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+    transition: transform 0.1s ease, opacity 0.1s ease;
+  }
+
+  /* 折叠区点击反馈 */
+  .home-collapsible-header:active {
+    background: var(--card-hover);
+    transition: background 0.1s ease;
+  }
+
+  /* 移除桌面端 hover 效果 */
+  .tile:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+
+  .tile::after {
+    display: none;
+  }
+}
+
+/* 桌面端保留 hover */
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--gold);
+  }
+
+  .tile:hover::after {
+    left: 100%;
+  }
+}
+
+/* 触摸设备优化：防止点击延迟 */
+.tile,
+.btn,
+.icon-btn,
+.nav-links a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 滚动渐入动画优化：移动端减少位移 */
+@media (max-width: 768px) {
+  .fade-in-up {
+    transform: translateY(20px);
+  }
+
+  .fade-in-up.visible {
+    transform: translateY(0);
+  }
+
+  /* 卡片间距优化 */
+  .tile {
+    margin-bottom: 12px;
+  }
+}

@@ -242,6 +242,27 @@ document.addEventListener('DOMContentLoaded', function() {
   const statsEl = document.querySelector('.site-stats');
   if (statsEl) statsObserver.observe(statsEl);
 
+  /* 6. 板块/页面计数器动画 - 基于 data-target 属性 */
+  const targetCounters = document.querySelectorAll('.stat-number[data-target]');
+  
+  const targetCounterObserver = new IntersectionObserver(function(entries) {
+    observers.push(targetCounterObserver);
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-target'));
+        if (!isNaN(target) && target > 0) {
+          animateNumbers(target, el);
+        }
+        targetCounterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  targetCounters.forEach(function(counter) {
+    targetCounterObserver.observe(counter);
+  });
+
   console.log('✨ 首页动画效果已加载（含触屏适配）');
 
   // 页面卸载时清理所有 Observer（防止内存泄漏）

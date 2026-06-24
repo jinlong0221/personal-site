@@ -331,7 +331,11 @@ window.initClock=function(){
     var h = ('0'+d.getHours()).slice(-2);
     var m = ('0'+d.getMinutes()).slice(-2);
     var s = ('0'+d.getSeconds()).slice(-2);
-    el.textContent = h+':'+m+':'+s;
+    if(window.innerWidth<=768){
+      el.textContent = h+':'+m;
+    } else {
+      el.textContent = h+':'+m+':'+s;
+    }
   }
   tick();
   setInterval(tick, 1000);

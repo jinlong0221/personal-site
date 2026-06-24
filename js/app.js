@@ -369,3 +369,42 @@ window.initClock=function(){
     }
   });
 })();
+
+// ============================================================
+// 区域G - 回到顶部按钮
+// ============================================================
+(function(){
+  // 动态创建按钮
+  var btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.setAttribute('aria-label', '回到顶部');
+  btn.setAttribute('title', '回到顶部');
+  btn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>';
+  document.body.appendChild(btn);
+
+  // 滚动监听
+  var threshold = 500;
+  var ticking = false;
+  function check() {
+    var y = window.scrollY || window.pageYOffset;
+    if (y > threshold) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(check);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // 点击回到顶部
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  check();
+})();

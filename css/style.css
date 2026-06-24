@@ -1509,3 +1509,94 @@ p.plot-text {
   text-align: center;
   padding: 12px 0;
 }
+
+/* 6. 在线状态徽章（真实联动） */
+.live-badge {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 999;
+  cursor: default;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom right;
+  animation: lb-enter 0.5s 0.3s both;
+}
+.live-badge.online {
+  background: linear-gradient(135deg, rgba(16,185,129,0.95), rgba(5,150,105,0.95));
+  color: #fff;
+  border: 1px solid rgba(52,211,153,0.4);
+  box-shadow: 0 4px 24px rgba(16,185,129,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+.live-badge.offline {
+  background: rgba(107,114,128,0.75);
+  color: #d1d5db;
+  border: 1px solid rgba(156,163,175,0.2);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0.8;
+}
+[data-theme="light"] .live-badge.online {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 4px 20px rgba(5,150,105,0.4);
+}
+[data-theme="light"] .live-badge.offline {
+  background: rgba(156,163,175,0.9);
+  color: #fff;
+}
+.lb-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.live-badge.online .lb-dot {
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+.live-badge.offline .lb-dot.dim {
+  background: #9ca3af;
+}
+.lb-label {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 11px;
+  opacity: 0.85;
+  border-left: 1px solid rgba(255,255,255,0.2);
+  padding-left: 8px;
+}
+.live-badge.offline .lb-label {
+  display: none;
+}
+.lb-ring {
+  position: absolute;
+  left: 17px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4);
+  margin: -9px 0 0 -9px;
+  animation: lb-ping 2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes lb-ping {
+  0% { transform: scale(1); opacity: 0.8; }
+  60% { transform: scale(2.5); opacity: 0; }
+  100% { transform: scale(3); opacity: 0; }
+}
+@keyframes lb-enter {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}

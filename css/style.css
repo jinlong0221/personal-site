@@ -1,6 +1,8 @@
 
 
 :root {
+ --orange: var(--orange);
+ --orange-light: var(--orange-light);
  --bg: #0a0a0a;
  --bg-secondary: #111111;
  --card: #1a1a1a;
@@ -51,6 +53,8 @@
 
 /* [BUG-FIX:二-2] 深色模式独立配色：确保文字/卡片/导航栏全部同步 */
 [data-theme="dark"] {
+ --orange: #FFB380;
+ --orange-light: #3d2817;
  --card: #1e1e1e;
  --card-hover: #2a2a2a;
  --border: #3a3a3a;
@@ -1476,8 +1480,8 @@ p.plot-text {
 .ticker-wrap {
   width: 100%;
   overflow: hidden;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 6px 0;
   margin-bottom: 16px;
@@ -1517,8 +1521,8 @@ p.plot-text {
 .today-status {
   margin-top: 12px;
   padding: 12px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 14px;
   line-height: 1.6;
@@ -2209,7 +2213,7 @@ p.plot-text {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #FF6B35, #FF8C42);
+  background: linear-gradient(135deg, var(--orange), #FF8C42);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2229,7 +2233,7 @@ p.plot-text {
 }
 
 [data-theme="dark"] .long-bubble {
-  background: #2a2a3e;
+  background: var(--card);
   box-shadow: 0 2px 12px rgba(0,0,0,0.3);
 }
 
@@ -2243,7 +2247,7 @@ p.plot-text {
 .bubble-name {
   font-weight: 700;
   font-size: 0.95rem;
-  color: #FF6B35;
+  color: var(--orange);
 }
 
 .bubble-time {
@@ -2308,7 +2312,7 @@ p.plot-text {
   align-items: center;
   gap: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border);
   position: relative;
 }
 
@@ -2332,7 +2336,7 @@ p.plot-text {
 
 .new-badge {
   display: inline-block;
-  background: #FF6B35;
+  background: var(--orange);
   color: #fff;
   font-size: 0.7rem;
   padding: 1px 6px;
@@ -2344,7 +2348,7 @@ p.plot-text {
 .update-text {
   flex: 1;
   font-size: 0.9rem;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .update-time {
@@ -2389,13 +2393,13 @@ p.plot-text {
 .pick-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .pick-refresh {
   margin-left: auto;
   background: none;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -2408,24 +2412,24 @@ p.plot-text {
 }
 
 .pick-refresh:hover {
-  border-color: #FF6B35;
+  border-color: var(--orange);
 }
 
 .pick-card {
   display: flex;
   gap: 14px;
-  background: var(--card-bg);
+  background: var(--card);
   border-radius: 12px;
   padding: 14px;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.25s, box-shadow 0.25s, opacity 0.3s;
 }
 
 .pick-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  box-shadow: var(--shadow-md);
 }
 
 .pick-img {
@@ -2442,7 +2446,7 @@ p.plot-text {
   font-size: 1rem;
   font-weight: 700;
   margin: 0 0 6px;
-  color: var(--text-primary);
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2464,8 +2468,8 @@ p.plot-text {
   font-size: 0.7rem;
   padding: 2px 8px;
   border-radius: 10px;
-  background: #FFF3E0;
-  color: #FF6B35;
+  background: var(--orange-light);
+  color: var(--orange);
 }
 
 [data-theme="dark"] .pick-tag {
@@ -2478,7 +2482,7 @@ p.plot-text {
 .search-hot {
   padding: 12px 16px;
   display: none;
-  background: var(--card-bg);
+  background: var(--card);
   border-radius: 0 0 12px 12px;
   margin-top: -8px;
 }
@@ -2500,7 +2504,7 @@ p.plot-text {
 .hot-tag {
   display: inline-block;
   padding: 6px 14px;
-  background: var(--hover-bg);
+  background: var(--card-hover);
   border-radius: 20px;
   font-size: 0.85rem;
   color: var(--text-secondary);
@@ -2510,12 +2514,12 @@ p.plot-text {
 }
 
 .hot-tag:hover {
-  background: #FFF3E0;
-  color: #FF6B35;
+  background: var(--orange-light);
+  color: var(--orange);
 }
 
 [data-theme="dark"] .hot-tag {
-  background: #2a2a3e;
+  background: var(--card);
   color: #ccc;
 }
 

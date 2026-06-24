@@ -133,12 +133,8 @@ strong,b { font-weight:700; color:var(--text); }
 .navbar .logo {
  font-weight:900;
  font-size:1.4rem; color:var(--gold); text-decoration:none;
- white-space:nowrap; letter-spacing:2px;
- display:flex; align-items:center; gap:8px;
+ white-space:nowrap; letter-spacing:1px;
 }
-.navbar .logo:hover { color:var(--gold-light); }
-.logo-dragon { filter:drop-shadow(0 0 8px rgba(201,168,76,0.4)); transition:filter 0.3s; }
-.navbar .logo:hover .logo-dragon { filter:drop-shadow(0 0 12px rgba(201,168,76,0.7)); }
 
 /* 导航栏紧凑天气 */
 .nav-weather {
@@ -585,7 +581,7 @@ footer a:hover { color:var(--gold-light); }
  .hamburger { display:flex; }
  .nav-clock { display:none; }
  .nav-weather { display:none; }
- .navbar .logo { font-size:1.1rem; letter-spacing:1px; }
+ .navbar .logo { font-size:1.1rem; letter-spacing:0.5px; }
  .nav-actions { gap:0; }
 }
  .card-grid-3 { grid-template-columns:repeat(2,1fr); }

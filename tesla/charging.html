@@ -93,18 +93,20 @@ var _hmt = _hmt || [];
   <div class="section">
     <h2>🔍 先确认你的电池类型</h2>
     <p>不同电池的充电策略完全不同，搞错会伤电池。查看方法：中控屏「充电」设置页，如果电量限制图标同时显示"50%"和"100%"两条线，就是 LFP；如果显示"日常"和"出行"，就是三元锂。</p>
-    <table class="m-table">
-      <thead><tr><th>车型</th><th>电池类型</th><th>电池容量</th><th>交流慢充最大功率</th></tr></thead>
-      <tbody>
-        <tr><td>Model 3 后驱版</td><td>LFP（磷酸铁锂）</td><td>约 60 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
-        <tr><td>Model 3 长续航版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
-        <tr><td>Model 3 高性能版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
-        <tr><td>Model Y 后驱版</td><td>LFP（磷酸铁锂）</td><td>约 60 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
-        <tr><td>Model Y 长续航版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
-        <tr><td>Model S / X</td><td>NCA（三元锂）</td><td>100 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
-        <tr><td>Cybertruck</td><td>NCA（三元锂，800V平台）</td><td>123 kWh</td><td>11 kW</td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>车型</th><th>电池类型</th><th>电池容量</th><th>交流慢充最大功率</th></tr></thead>
+        <tbody>
+          <tr><td>Model 3 后驱版</td><td>LFP（磷酸铁锂）</td><td>约 60 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+          <tr><td>Model 3 长续航版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+          <tr><td>Model 3 高性能版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+          <tr><td>Model Y 后驱版</td><td>LFP（磷酸铁锂）</td><td>约 60 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+          <tr><td>Model Y 长续航版</td><td>NCM（三元锂）</td><td>约 79 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+          <tr><td>Model S / X</td><td>NCA（三元锂）</td><td>100 kWh</td><td>11 kW（380V）/ 7 kW（220V）</td></tr>
+          <tr><td>Cybertruck</td><td>NCA（三元锂，800V平台）</td><td>123 kWh</td><td>11 kW</td></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="model-note">
       <strong>💡 关键区别：</strong>LFP 可放心充到 100%，三元锂日常建议只充到 80-90%。下文详细说明。
     </div>
@@ -114,18 +116,20 @@ var _hmt = _hmt || [];
   <div class="section">
     <h2>🔌 充电方式概览</h2>
     <p>特斯拉支持多种充电方式，根据你的用车场景选择。</p>
-    <table class="m-table">
-      <thead><tr><th>充电方式</th><th>功率</th><th>充 10→80% 时间</th><th>适合场景</th><th>费用参考</th></tr></thead>
-      <tbody>
-        <tr><td>家充壁挂桩（220V 单相）</td><td>7 kW（32A）</td><td>约 6-7 h（60kWh 电池）</td><td>日常过夜</td><td>约 0.3-0.6 元/kWh</td></tr>
-        <tr><td>家充壁挂桩（380V 三相）</td><td>11 kW</td><td>约 4-5 h（60kWh 电池）</td><td>日常过夜（更快）</td><td>约 0.3-0.6 元/kWh</td></tr>
-        <tr><td>随车充（16A 空调插座）</td><td>3.5 kW</td><td>约 12-15 h</td><td>临时/应急</td><td>与家用电同价</td></tr>
-        <tr><td>随车充（10A 普通插座）</td><td>2.2 kW</td><td>约 20-25 h</td><td>极端应急</td><td>与家用电同价</td></tr>
-        <tr><td>特斯拉超充 V3</td><td>250 kW 峰值</td><td>约 15-25 min</td><td>长途补能</td><td>约 1.5-2.5 元/kWh</td></tr>
-        <tr><td>特斯拉超充 V4</td><td>500 kW 峰值</td><td>约 10-15 min</td><td>极速补能</td><td>约 2.0-3.0 元/kWh</td></tr>
-        <tr><td>第三方直流快充</td><td>60-180 kW</td><td>约 30-60 min</td><td>无超充时备用</td><td>约 0.8-1.5 元/kWh</td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>充电方式</th><th>功率</th><th>充 10→80% 时间</th><th>适合场景</th><th>费用参考</th></tr></thead>
+        <tbody>
+          <tr><td>家充壁挂桩（220V 单相）</td><td>7 kW（32A）</td><td>约 6-7 h（60kWh 电池）</td><td>日常过夜</td><td>约 0.3-0.6 元/kWh</td></tr>
+          <tr><td>家充壁挂桩（380V 三相）</td><td>11 kW</td><td>约 4-5 h（60kWh 电池）</td><td>日常过夜（更快）</td><td>约 0.3-0.6 元/kWh</td></tr>
+          <tr><td>随车充（16A 空调插座）</td><td>3.5 kW</td><td>约 12-15 h</td><td>临时/应急</td><td>与家用电同价</td></tr>
+          <tr><td>随车充（10A 普通插座）</td><td>2.2 kW</td><td>约 20-25 h</td><td>极端应急</td><td>与家用电同价</td></tr>
+          <tr><td>特斯拉超充 V3</td><td>250 kW 峰值</td><td>约 15-25 min</td><td>长途补能</td><td>约 1.5-2.5 元/kWh</td></tr>
+          <tr><td>特斯拉超充 V4</td><td>500 kW 峰值</td><td>约 10-15 min</td><td>极速补能</td><td>约 2.0-3.0 元/kWh</td></tr>
+          <tr><td>第三方直流快充</td><td>60-180 kW</td><td>约 30-60 min</td><td>无超充时备用</td><td>约 0.8-1.5 元/kWh</td></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="model-note">
       <strong>📌 V4 超充现状：</strong>2025年7月中国首批V4超充站上线（上海、甘肃、浙江、重庆等），峰值500kW，对非特斯拉品牌开放。截至目前全国超充站超2500座、超充桩超12000根。
     </div>
@@ -274,17 +278,19 @@ var _hmt = _hmt || [];
   <!-- 充电策略总结 -->
   <div class="section">
     <h2>📝 日常充电策略总结</h2>
-    <table class="m-table">
-      <thead><tr><th>场景</th><th>LFP（后驱版）</th><th>三元锂（长续航/高性能）</th></tr></thead>
-      <tbody>
-        <tr><td>日常通勤（有家充）</td><td>每晚充到 100%，利用低谷电价</td><td>充到 80%，长途前充到 90%</td></tr>
-        <tr><td>日常通勤（无家充）</td><td>每周至少充满 1 次</td><td>每 1-2 月做 1 次完整充放电校准</td></tr>
-        <tr><td>长途旅行</td><td>出发前充满，途中用超充 10→80%</td><td>出发前充到 90-100%，途中超充 10→80%</td></tr>
-        <tr><td>长期停放（1-4 周）</td><td>充满后停放，保持插枪</td><td>保持 50-60%，插枪</td></tr>
-        <tr><td>长期停放（>1 月）</td><td>充满后停放，每月检查</td><td>保持 50%，每月检查一次</td></tr>
-        <tr><td>冬季北方</td><td>预期续航下降 25-35%，出发前预热</td><td>预期续航下降 15-25%，出发前预热</td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>场景</th><th>LFP（后驱版）</th><th>三元锂（长续航/高性能）</th></tr></thead>
+        <tbody>
+          <tr><td>日常通勤（有家充）</td><td>每晚充到 100%，利用低谷电价</td><td>充到 80%，长途前充到 90%</td></tr>
+          <tr><td>日常通勤（无家充）</td><td>每周至少充满 1 次</td><td>每 1-2 月做 1 次完整充放电校准</td></tr>
+          <tr><td>长途旅行</td><td>出发前充满，途中用超充 10→80%</td><td>出发前充到 90-100%，途中超充 10→80%</td></tr>
+          <tr><td>长期停放（1-4 周）</td><td>充满后停放，保持插枪</td><td>保持 50-60%，插枪</td></tr>
+          <tr><td>长期停放（>1 月）</td><td>充满后停放，每月检查</td><td>保持 50%，每月检查一次</td></tr>
+          <tr><td>冬季北方</td><td>预期续航下降 25-35%，出发前预热</td><td>预期续航下降 15-25%，出发前预热</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- 外放电 -->

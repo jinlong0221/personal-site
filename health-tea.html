@@ -422,5 +422,51 @@ document.querySelectorAll('.tea-nav a').forEach(function(a){
 });
 </script>
     <script src="js/share.js"></script>
-  </body>
+  
+<script>
+// 养生茶页面折叠功能
+document.addEventListener('DOMContentLoaded', function() {
+  // 找到所有 cat-header（h2和h3）
+  var headers = document.querySelectorAll('.cat-header');
+  headers.forEach(function(h) {
+    // 跳过"什么是中药养生茶"的header（它是介绍，不需要折叠）
+    if (h.textContent.indexOf('什么是') === 0) return;
+    
+    // 创建折叠按钮
+    h.style.cursor = 'pointer';
+    
+    // 找到要折叠的内容（header后面的第一个grid或下一个header前的所有内容）
+    var content = h.nextElementSibling;
+    if (!content) return;
+    
+    // 给内容加包装
+    var wrapper = document.createElement('div');
+    wrapper.className = 'collapsible-content';
+    h.parentNode.insertBefore(wrapper, h);
+    wrapper.appendChild(h);
+    
+    // 把所有后续内容（直到下一个cat-header或section结束）移入wrapper
+    var next = wrapper.nextSibling;
+    while (next) {
+      if (next.classList && (next.classList.contains('cat-header') || next.classList.contains('section'))) break;
+      var toMove = next;
+      next = next.nextSibling;
+      wrapper.appendChild(toMove);
+    }
+    
+    // 默认折叠（除了前两个分类）
+    if (h.tagName === 'H3' && !h.id.match(/cat-liver|cat-sleep/)) {
+      wrapper.classList.add('collapsed');
+      h.classList.add('collapsed');
+    }
+    
+    // 点击折叠/展开
+    h.addEventListener('click', function() {
+      wrapper.classList.toggle('collapsed');
+      h.classList.toggle('collapsed');
+    });
+  });
+});
+</script>
+</body>
 </html>

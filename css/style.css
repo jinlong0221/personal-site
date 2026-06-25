@@ -468,6 +468,54 @@ strong,b { font-weight:700; color:var(--text); }
 .m-table td { color:var(--text-secondary); }
 .m-table tr:nth-child(even) td { background:var(--bg-secondary); }
 
+/* 表格移动端横向滚动 + 首列固定 */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 16px 0;
+  position: relative;
+  border-radius: 12px;
+}
+.table-wrapper::after {
+  content: '⟩';
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--text-muted);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: scrollHint 1.5s ease-in-out infinite;
+}
+@keyframes scrollHint {
+  0%, 100% { right: 8px; opacity: 0.3; }
+  50% { right: 4px; opacity: 0.7; }
+}
+.m-table { min-width: 640px; width: 100%; }
+.m-table th:first-child,
+.m-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--card);
+  z-index: 2;
+  font-weight: 600;
+  min-width: 90px;
+}
+.m-table th:first-child { z-index: 3; }
+/* scoreline-table 适配 */
+.scoreline-table { min-width: 400px; width: 100%; }
+.scoreline-table th:first-child,
+.scoreline-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--card);
+  z-index: 2;
+  font-weight: 600;
+}
+.scoreline-table th:first-child { z-index: 3; }
+
+
 .tag {
  display:inline-block; padding:4px 10px; font-size:0.75rem; border-radius:20px;
  background:rgba(201,168,76,0.1); color:var(--gold); margin:2px 4px 2px 0;

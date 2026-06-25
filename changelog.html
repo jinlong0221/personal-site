@@ -80,32 +80,34 @@ var _hmt = _hmt || [];
   <!-- 格式：时间 | 板块 | 变更摘要 -->
   <!-- 2026-06-22 v2.3 entries already added in tbody above -->
   <div class="changelog-table">
-    <table class="m-table">
-      <thead>
-        <tr><th>时间</th><th>板块</th><th>变更摘要</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>2026-06-22</td><td>特斯拉</td><td>重大更新：特斯拉板块全面重构，新增 Model Y L/Semi/Roadster/Cybercab/Powerwall/Megapack 6个新页面，共11个特斯拉产品页面</td></tr>
-        <tr><td>2026-06-22</td><td>特斯拉</td><td>车型数据更新：Model Y修正为3版本（去高性能版），Model Y L新增为独立六座车型，Model S/X标注停产状态</td></tr>
-        <tr><td>2026-06-22</td><td>特斯拉</td><td>首页 tesla.html 全面改版：关键数据栏+新闻列表+车型分类（在售/停产/即将发布/储能）卡片网格</td></tr>
-        <tr><td>2026-06-22</td><td>特斯拉</td><td>所有车型页新增「最新动态」版块（3-5条），同步 FSD获批/上海工厂/停产等重大新闻</td></tr>
-        <tr><td>2026-06-22</td><td>全站</td><td>重大重构：卡片式布局、四大分类导航、访客留言板、CSS瘦身(34→23KB)、删除9个冗余页面、SEO优化</td></tr>
-        <tr><td>2026-06-22</td><td>中药材</td><td>子分类拆分：鉴别/功效/避坑科普三类子页</td></tr>
-        <tr><td>2026-06-22</td><td>文玩手串</td><td>子分类拆分：材质养护/真假分辨/尺寸参考</td></tr>
-        <tr><td>2026-06-22</td><td>新能源</td><td>子分类拆分：车载配件/充电/用车科普</td></tr>
-        <tr><td>2026-06-22</td><td>功能</td><td>新增访客留言板（XSS过滤）、一键复制按钮、信息来源区域、更新时间标注</td></tr>
-        <tr><td>2026-06-22</td><td>视觉</td><td>黑金+浅蓝国风科技配色统一、龙形SVG Logo、卡片悬停动画、404趣味页面升级</td></tr>
-        <tr><td>2026-06-22</td><td>CDN优化</td><td>修复fonts.font.im→fonts.googleapis.cn国内镜像，3个子页面字体加载加速</td></tr>
-        <tr><td>2026-06-22</td><td>搜索</td><td>搜索框新增清空按钮、无结果提示、全文检索高亮、XSS输入过滤</td></tr>
-        <tr><td>2026-06-22</td><td>夜间模式</td><td>localStorage持久保存、深浅双套配色完整、防闪白内联脚本生效</td></tr>
-        <tr><td>2026-06-22</td><td>交互</td><td>一键复制按钮全站覆盖、移动端触控区域44px、汉堡菜单全子页适配</td></tr>
-        <tr><td>2026-06-22</td><td>排版</td><td>天气模块缩小移至侧边、首页首屏AI学习内容优先、加宽手机端留白</td></tr>
-        <tr><td>2026-06-21</td><td>全站</td><td>网站创建上线：Metro风格设计、首页瓷砖导航、射阳天气面板</td></tr>
-        <tr><td>2026-06-21</td><td>中药材</td><td>首批9种中药材知识页面上线</td></tr>
-        <tr><td>2026-06-21</td><td>文玩</td><td>首批文玩手串页面上线：星月/凤眼/龙眼等</td></tr>
-        <tr><td>2026-06-21</td><td>新能源</td><td>特斯拉全系车型页面上线</td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>时间</th><th>板块</th><th>变更摘要</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2026-06-22</td><td>特斯拉</td><td>重大更新：特斯拉板块全面重构，新增 Model Y L/Semi/Roadster/Cybercab/Powerwall/Megapack 6个新页面，共11个特斯拉产品页面</td></tr>
+          <tr><td>2026-06-22</td><td>特斯拉</td><td>车型数据更新：Model Y修正为3版本（去高性能版），Model Y L新增为独立六座车型，Model S/X标注停产状态</td></tr>
+          <tr><td>2026-06-22</td><td>特斯拉</td><td>首页 tesla.html 全面改版：关键数据栏+新闻列表+车型分类（在售/停产/即将发布/储能）卡片网格</td></tr>
+          <tr><td>2026-06-22</td><td>特斯拉</td><td>所有车型页新增「最新动态」版块（3-5条），同步 FSD获批/上海工厂/停产等重大新闻</td></tr>
+          <tr><td>2026-06-22</td><td>全站</td><td>重大重构：卡片式布局、四大分类导航、访客留言板、CSS瘦身(34→23KB)、删除9个冗余页面、SEO优化</td></tr>
+          <tr><td>2026-06-22</td><td>中药材</td><td>子分类拆分：鉴别/功效/避坑科普三类子页</td></tr>
+          <tr><td>2026-06-22</td><td>文玩手串</td><td>子分类拆分：材质养护/真假分辨/尺寸参考</td></tr>
+          <tr><td>2026-06-22</td><td>新能源</td><td>子分类拆分：车载配件/充电/用车科普</td></tr>
+          <tr><td>2026-06-22</td><td>功能</td><td>新增访客留言板（XSS过滤）、一键复制按钮、信息来源区域、更新时间标注</td></tr>
+          <tr><td>2026-06-22</td><td>视觉</td><td>黑金+浅蓝国风科技配色统一、龙形SVG Logo、卡片悬停动画、404趣味页面升级</td></tr>
+          <tr><td>2026-06-22</td><td>CDN优化</td><td>修复fonts.font.im→fonts.googleapis.cn国内镜像，3个子页面字体加载加速</td></tr>
+          <tr><td>2026-06-22</td><td>搜索</td><td>搜索框新增清空按钮、无结果提示、全文检索高亮、XSS输入过滤</td></tr>
+          <tr><td>2026-06-22</td><td>夜间模式</td><td>localStorage持久保存、深浅双套配色完整、防闪白内联脚本生效</td></tr>
+          <tr><td>2026-06-22</td><td>交互</td><td>一键复制按钮全站覆盖、移动端触控区域44px、汉堡菜单全子页适配</td></tr>
+          <tr><td>2026-06-22</td><td>排版</td><td>天气模块缩小移至侧边、首页首屏AI学习内容优先、加宽手机端留白</td></tr>
+          <tr><td>2026-06-21</td><td>全站</td><td>网站创建上线：Metro风格设计、首页瓷砖导航、射阳天气面板</td></tr>
+          <tr><td>2026-06-21</td><td>中药材</td><td>首批9种中药材知识页面上线</td></tr>
+          <tr><td>2026-06-21</td><td>文玩</td><td>首批文玩手串页面上线：星月/凤眼/龙眼等</td></tr>
+          <tr><td>2026-06-21</td><td>新能源</td><td>特斯拉全系车型页面上线</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="section" style="margin-top:40px;">

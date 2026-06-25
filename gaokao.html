@@ -134,16 +134,18 @@ var _hmt = _hmt || [];
   <section class="gk-section">
     <h2>📊 2026年录取控制分数线</h2>
     <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:8px">6月24日公布，以下为2025年参考线（2026年分数线公布后自动更新）</p>
-    <table class="scoreline-table" id="scorelineTable">
-      <thead>
-        <tr><th>批次</th><th>物理等科目类</th><th>历史等科目类</th></tr>
-      </thead>
-      <tbody id="scorelineBody">
-        <tr><td>特殊类型招生控制线</td><td>519分（2025参考）</td><td>537分（2025参考）</td></tr>
-        <tr><td>本科批</td><td>463分（2025参考）</td><td>482分（2025参考）</td></tr>
-        <tr><td>专科批</td><td>220分（2025参考）</td><td>220分（2025参考）</td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="scoreline-table" id="scorelineTable">
+        <thead>
+          <tr><th>批次</th><th>物理等科目类</th><th>历史等科目类</th></tr>
+        </thead>
+        <tbody id="scorelineBody">
+          <tr><td>特殊类型招生控制线</td><td>519分（2025参考）</td><td>537分（2025参考）</td></tr>
+          <tr><td>本科批</td><td>463分（2025参考）</td><td>482分（2025参考）</td></tr>
+          <tr><td>专科批</td><td>220分（2025参考）</td><td>220分（2025参考）</td></tr>
+        </tbody>
+      </table>
+    </div>
     <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px">⚠️ 2026年分数线将在6月24日20:00公布后填入，当前为2025年参考线</p>
   </section>
 
@@ -161,23 +163,25 @@ var _hmt = _hmt || [];
       </ul>
     </div>
     <p style="font-size:.85rem;color:var(--text-muted);margin:12px 0 8px;">📎 2026年一分一段表将于6月24日20:00后在官网发布，以下为2025年数据供参考：</p>
-    <table class="scoreline-table" id="scoreTable">
-      <thead>
-        <tr><th>分数</th><th>物理类本段人数</th><th>物理类累计人数</th><th>历史类本段人数</th><th>历史类累计人数</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>683分及以上</td><td>—</td><td>126</td><td>—</td><td>—</td></tr>
-        <tr><td>658分</td><td>—</td><td>—</td><td>—</td><td>109</td></tr>
-        <tr><td>600分</td><td>约34888人</td><td>约34888</td><td>约5796人</td><td>约5796</td></tr>
-        <tr><td>583分</td><td>—</td><td>约51945</td><td>—</td><td>—</td></tr>
-        <tr><td>558分</td><td>—</td><td>—</td><td>—</td><td>约20075</td></tr>
-        <tr><td>500分</td><td>—</td><td>约162612</td><td>—</td><td>约47639</td></tr>
-        <tr><td>483分</td><td>—</td><td>约187370</td><td>—</td><td>—</td></tr>
-        <tr><td>463分（物理本科线）</td><td colspan="4" style="text-align:center;color:var(--gold);font-weight:600;">本科线对应位次参考</td></tr>
-        <tr><td>482分（历史本科线）</td><td colspan="4" style="text-align:center;color:var(--gold);font-weight:600;">本科线对应位次参考</td></tr>
-        <tr><td>220分（专科线）</td><td colspan="4" style="text-align:center;color:var(--text-muted);">专科线</td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="scoreline-table" id="scoreTable">
+        <thead>
+          <tr><th>分数</th><th>物理类本段人数</th><th>物理类累计人数</th><th>历史类本段人数</th><th>历史类累计人数</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>683分及以上</td><td>—</td><td>126</td><td>—</td><td>—</td></tr>
+          <tr><td>658分</td><td>—</td><td>—</td><td>—</td><td>109</td></tr>
+          <tr><td>600分</td><td>约34888人</td><td>约34888</td><td>约5796人</td><td>约5796</td></tr>
+          <tr><td>583分</td><td>—</td><td>约51945</td><td>—</td><td>—</td></tr>
+          <tr><td>558分</td><td>—</td><td>—</td><td>—</td><td>约20075</td></tr>
+          <tr><td>500分</td><td>—</td><td>约162612</td><td>—</td><td>约47639</td></tr>
+          <tr><td>483分</td><td>—</td><td>约187370</td><td>—</td><td>—</td></tr>
+          <tr><td>463分（物理本科线）</td><td colspan="4" style="text-align:center;color:var(--gold);font-weight:600;">本科线对应位次参考</td></tr>
+          <tr><td>482分（历史本科线）</td><td colspan="4" style="text-align:center;color:var(--gold);font-weight:600;">本科线对应位次参考</td></tr>
+          <tr><td>220分（专科线）</td><td colspan="4" style="text-align:center;color:var(--text-muted);">专科线</td></tr>
+        </tbody>
+      </table>
+    </div>
     <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px">⚠️ 一分一段表完整版含0~750分每1分的数据，请到官网下载Excel版查看完整逐分段数据</p>
     <div style="margin-top:12px;">
       <a href="https://www.jseea.cn/webfile/index/index_zcwj/" target="_blank" rel="noopener noreferrer" class="channel-btn" style="text-decoration:none;">📥 去省考试院官网下载完整一分一段表</a>
@@ -187,13 +191,15 @@ var _hmt = _hmt || [];
   <!-- 志愿填报时间 -->
   <section class="gk-section">
     <h2>📝 志愿填报时间安排</h2>
-    <table class="scoreline-table">
-      <thead><tr><th>阶段</th><th>时间</th><th>批次</th></tr></thead>
-      <tbody>
-        <tr><td>第一阶段</td><td>6月28日–7月2日</td><td>本科提前批、本科批</td></tr>
-        <tr><td>第二阶段</td><td>7月27日–28日</td><td>专科批</td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="scoreline-table">
+        <thead><tr><th>阶段</th><th>时间</th><th>批次</th></tr></thead>
+        <tbody>
+          <tr><td>第一阶段</td><td>6月28日–7月2日</td><td>本科提前批、本科批</td></tr>
+          <tr><td>第二阶段</td><td>7月27日–28日</td><td>专科批</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- 温馨提示 -->

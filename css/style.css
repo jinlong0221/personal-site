@@ -2366,17 +2366,23 @@ p.plot-text {
 }
 
 [data-theme="light"] .fusion-pick .pick-card {
-  background: rgba(255,255,255,0.85);
-  border-color: rgba(201,168,76,0.2);
-  color: #1a1a2e;
+  background: var(--card-bg);
+  border-color: var(--border-light-new);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .fusion-pick .pick-card {
+  background: var(--card-bg);
+  border-color: var(--border-light-new);
+  color: var(--text-primary);
 }
 
 [data-theme="light"] .fusion-pick .pick-name {
-  color: #1a1a2e;
+  color: var(--text-primary);
 }
 
 [data-theme="light"] .fusion-pick .pick-desc {
-  color: #555;
+  color: var(--text-secondary-new);
 }
 
 [data-theme="light"] .fusion-search .home-search-box {
@@ -2404,19 +2410,27 @@ p.plot-text {
 
 /* 融合模块新元素深浅模式 */
 [data-theme="dark"] .fusion-long .long-bubble {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.1);
+  background: var(--bubble-bg);
+  border-color: var(--border-light-new);
+  color: var(--bubble-text);
 }
 
 [data-theme="light"] .fusion-long .long-bubble {
-  background: rgba(255,255,255,0.8);
-  border-color: rgba(201,168,76,0.2);
+  background: var(--bubble-bg);
+  border-color: var(--border-light-new);
+  color: var(--bubble-text);
 }
 
 [data-theme="light"] .section-chip {
-  background: rgba(255,255,255,0.9);
-  border-color: #e0e0e0;
-  color: #333;
+  background: var(--chip-bg);
+  border-color: var(--chip-border);
+  color: var(--chip-text);
+}
+
+[data-theme="dark"] .section-chip {
+  background: var(--chip-bg);
+  border-color: var(--chip-border);
+  color: var(--chip-text);
 }
 
 [data-theme="light"] .section-chip:hover {
@@ -2432,11 +2446,11 @@ p.plot-text {
 }
 
 [data-theme="light"] .fusion-pick .pick-name {
-  color: #1a1a2e;
+  color: var(--text-primary);
 }
 
 [data-theme="light"] .fusion-pick .pick-desc {
-  color: #555;
+  color: var(--text-secondary-new);
 }
 
 /* 移动端适配 */

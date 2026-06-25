@@ -364,8 +364,15 @@ window.initClock=function(){
   var links = document.querySelectorAll('.nav-links a, .mobile-nav a');
   links.forEach(function(a){
     var href = a.getAttribute('href') || '';
-    if(href === page || (page === 'index.html' && href === '')){
+    if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//')) return;
+    var hrefFile = href.split('/').pop();
+    if(hrefFile === page){
       a.classList.add('active');
+    }
+    if(page === 'index.html'){
+      if(hrefFile === 'index.html' || href === '' || href === './' || href === '/'){
+        a.classList.add('active');
+      }
     }
   });
 })();

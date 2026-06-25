@@ -99,7 +99,6 @@ h1, h2, h3, h4, strong, .bold { font-weight: 900; }
   max-width: 600px;
 }
 
-
 /* ========== Tab 导航（Metro风格） ========== */
 .tab-nav {
   display: flex;
@@ -317,30 +316,22 @@ footer span { color: var(--blue); font-weight: 600; }
     .navbar-logo { font-size: 26px; }
 }
 
-
 /* ===== Theme ===== */
 
-
 .theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s; background: #333; color: #fff; }
-
 
 /* ===== Theme Switch ===== */
 :root { --bg: #0a0a0a; --text: #ffffff; --text-secondary: #b0b0b0; --text-muted: #7a7a7a; --card: #1a1a1a; --border: #333; --nav-bg: rgba(10,10,10,0.95); }
 
-
 .theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.3); transition: transform 0.2s, background 0.3s; background: #333; color: #fff; }
-
 
 /* Light mode for dark tiles */
 
-
 /* Light mode: force readable text on dark cards */
-
 
 /* === Theme Toggle Button === */
 .theme-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,box-shadow .2s;background:#333;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
 .theme-toggle:hover{transform:scale(1.15);box-shadow:0 4px 20px rgba(0,0,0,.4)}
-
 
 [data-theme="light"] {
   --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
@@ -371,7 +362,6 @@ footer span { color: var(--blue); font-weight: 600; }
 [data-theme="light"] .log-item { background: #f5f5f5; }
 [data-theme="light"] .warn-box { background: rgba(255,200,0,0.1); color: #7a5000; border-color: rgba(255,200,0,0.3); }
 [data-theme="light"] .tip-box { background: #e8f4f8; color: #1a4a5a; }
-
 
 [data-theme="light"] {
   --bg: #f5f5f5; --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
@@ -406,7 +396,6 @@ footer span { color: var(--blue); font-weight: 600; }
 .theme-toggle:hover{transform:scale(1.15)}
 [data-theme="light"] .theme-toggle{background:#fff;color:#333;border:1px solid #ddd;box-shadow:0 2px 12px rgba(0,0,0,.1)}
 [data-theme="light"] .theme-toggle:hover{background:#f0f0f0}
-
 
 /* === 亮色模式文字颜色全覆盖 === */
 [data-theme="light"] body,
@@ -448,7 +437,6 @@ footer span { color: var(--blue); font-weight: 600; }
 [data-theme="light"] .bodhi-card p,
 [data-theme="light"] .bodhi-card .tag { color: #fff !important; }
 
-
 /* === 亮色模式 Metro Tile 卡片 === */
 [data-theme="light"] .tile-blue,
 [data-theme="light"] .tile-green,
@@ -475,7 +463,6 @@ footer span { color: var(--blue); font-weight: 600; }
 [data-theme="light"] .tile p { color: var(--text-secondary) !important; }
 [data-theme="light"] .tile:hover { transform: scale(1.02); filter: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important; }
 
-
 /* === 亮色模式 深色背景元素修复 === */
 [data-theme="light"] { --dark: #f0f0f0; }
 [data-theme="light"] .phase-tile { background: #ffffff !important; border-color: #e0e0e0 !important; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
@@ -487,7 +474,6 @@ footer span { color: var(--blue); font-weight: 600; }
 [data-theme="light"] .m-table td { background: #fff !important; color: var(--text) !important; border-color: #ddd !important; }
 [data-theme="light"] .m-table tr:nth-child(even) td { background: #f9f9f9 !important; }
 /* 导航栏保持深色 */
-
 
 /* === 亮色模式 Metro 彩色瓷砖 === */
 [data-theme="light"] .page-header h1 { color: var(--text) !important; }
@@ -527,7 +513,6 @@ footer span { color: var(--blue); font-weight: 600; }
 
 [data-theme="light"] .tile:hover { filter: none !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
 
-
 /* === 亮色模式 最终白色文字修复 === */
 [data-theme="light"] .logo { color: var(--text) !important; }
 [data-theme="light"] header h1,
@@ -546,7 +531,6 @@ footer span { color: var(--blue); font-weight: 600; }
   background: var(--text) !important; color: var(--bg) !important; 
 }
 
-
 /* === 亮色模式 Warning/Tip框 === */
 [data-theme="light"] .warning-box { background: #fff; border-left-color: var(--red); border-color: #e0e0e0; }
 [data-theme="light"] .warning-box, [data-theme="light"] .warning-box p, [data-theme="light"] .warning-box li { color: #333; }
@@ -555,7 +539,6 @@ footer span { color: var(--blue); font-weight: 600; }
 [data-theme="light"] .tip-box p, [data-theme="light"] .tip-box li { color: #333; }
 /* === 亮色模式 其他深底元素 === */
 [data-theme="light"] .dark-tile, [data-theme="light"] [style*="background:var(--dark)"], [data-theme="light"] [style*="background: var(--dark)"] { background: #f5f5f5 !important; color: #222 !important; }
-
 
 /* === 亮色模式 所有Metro彩色瓷砖（含天气预报） === */
 [data-theme="light"] .tile-blue { background: #e3f2fd !important; color: #0d47a1 !important; }
@@ -580,11 +563,9 @@ footer span { color: var(--blue); font-weight: 600; }
 [data-theme="light"] .forecast-tile .forecast-temp,
 [data-theme="light"] .forecast-tile .forecast-rain { color: inherit !important; }
 
-
 [data-theme="light"] { --bg: #f0f0f0; --text: #1a1a1a; --text-secondary: #444; --text-muted: #666; --card: #ffffff; --border: #ddd; --nav-bg: rgba(240,240,240,0.95); --dark-tile: #f5f5f5; }
 [data-theme="light"] .tile { background: var(--card) !important; border-color: var(--border) !important; }
 [data-theme="light"] body { background: var(--bg); color: var(--text); }
-
 
 /* ========== 亮色模式完整修复 ========== */
 [data-theme="light"] {
@@ -674,8 +655,7 @@ var _hmt = _hmt || [];
       <li><a href="../marvel.html" class="nav-life">漫威宇宙</a></li>
       <li><a href="../xintan-weather.html" class="nav-life">农田气象</a></li>
       <li><a href="../zisha.html" class="nav-life">紫砂艺术</a></li>
-      <li><a href="../travel.html" class="nav-life">旅行攻略</a></li>
-      <li><a href="../console.html" class="nav-life">游戏主机</a></li>
+<li><a href="../console.html" class="nav-life">游戏主机</a></li>
       <li><a href="../gaokao.html" class="nav-life">高考查分</a></li>
       <li><a href="../pitfalls.html" class="nav-life">踩坑记</a></li>
     </ul>    <div class="nav-actions">
@@ -702,7 +682,8 @@ var _hmt = _hmt || [];
     <a href="../marvel.html">🦸 漫威宇宙</a>
     <a href="../xintan-weather.html">🌾 农田气象</a>
     <a href="../zisha.html">🏺 紫砂艺术</a>
-    <a href="../travel.html">✈️ 旅行攻略</a>
+    
+
     <a href="../console.html">🎮 游戏主机</a>
     <a href="../gaokao.html">🎓 高考查分</a>
     <a href="../pitfalls.html">🕳️ 龙兄踩坑记</a>
@@ -780,8 +761,6 @@ var _hmt = _hmt || [];
       </div>
     </div>
   </div>
-
-
 
   <!-- 沉香基础知识 -->
   <div class="tile tile-wide">
@@ -954,7 +933,6 @@ var _hmt = _hmt || [];
 
 </div><!-- end container -->
 
-
   <!-- 龙兄经验（讨论） -->
   <div style="background:rgba(255,140,0,0.08);border:1px solid rgba(255,140,0,0.2);border-radius:12px;padding:20px;margin-bottom:24px;line-height:1.8;">
     <h2 style="font-size:1.1rem;color:var(--orange);margin-bottom:8px;">💡 龙兄经验（讨论）</h2>
@@ -1000,7 +978,6 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
   });
 });
 </script>
-
 
 <script>
 (function(){

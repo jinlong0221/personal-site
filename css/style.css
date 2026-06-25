@@ -3407,3 +3407,119 @@ p.plot-text {
 .pick-card {
   cursor: pointer;
 }
+
+/* ===== 视觉增强套件（不动布局，只加动效）===== */
+
+/* 1. 卡片悬停微抬起 + 阴影扩散 */
+.tile, .work-card, .console-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease;
+}
+.tile:hover, .work-card:hover, .console-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 2. 导航项悬停下划线滑入 */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gold, #c9a84c);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.nav-links a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* 3. 按钮点击涟漪反馈 */
+@keyframes rippleClick {
+  0% { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.hero-btn, .action-btn, .explore-btn {
+  position: relative;
+  overflow: hidden;
+}
+.hero-btn::before, .action-btn::before, .explore-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+  border-radius: inherit;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-btn:active::before, .action-btn:active::before, .explore-btn:active::before {
+  animation: rippleClick 0.6s ease-out;
+}
+
+/* 4. 图片加载淡入 */
+.tile img, .work-card img, .console-card img {
+  opacity: 0;
+  animation: fadeInImg 0.5s ease forwards;
+  animation-delay: 0.1s;
+}
+@keyframes fadeInImg {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 5. 折叠栏展开平滑过渡 */
+.home-collapsible-body {
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+  opacity: 0;
+  overflow: hidden;
+}
+.home-collapsible.open .home-collapsible-body {
+  opacity: 1;
+}
+
+/* 6. 移动端导航项悬停高亮 */
+.mobile-nav a {
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+.mobile-nav a:hover {
+  background: rgba(201, 168, 76, 0.1);
+  padding-left: 20px;
+}
+
+/* 7. 深色模式卡片阴影适配 */
+[data-theme="dark"] .tile:hover,
+[data-theme="dark"] .work-card:hover,
+[data-theme="dark"] .console-card:hover {
+  box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* 8. 搜索框聚焦发光 */
+.search-box input:focus {
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+}
+
+/* 9. 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted, #888);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold, #c9a84c);
+}

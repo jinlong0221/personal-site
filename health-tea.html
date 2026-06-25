@@ -76,6 +76,25 @@
 
 /* 配料表：简单提示但占用小 */
 .section-desc { font-size:14px; color:var(--text-secondary); margin-bottom:4px; }
+
+/* 症状快速匹配 */
+.symptom-quick { margin:20px 0 16px; padding:16px; background:var(--dark-tile); border-radius:12px; }
+[data-theme="light"] .symptom-quick { background:#fff; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
+.symptom-quick .sq-title { font-size:15px; font-weight:900; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+.symptom-quick .sq-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.symptom-quick .sq-tag { display:inline-flex; align-items:center; gap:4px; padding:7px 16px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; background:rgba(255,255,255,0.08); color:var(--text); border:none; transition:all .2s; white-space:nowrap; }
+[data-theme="light"] .symptom-quick .sq-tag { background:rgba(0,0,0,0.06); }
+.symptom-quick .sq-tag:hover,.symptom-quick .sq-tag:active { transform:translateY(-2px); }
+.symptom-quick .sq-tag:active { transform:scale(0.95); }
+/* 每个标签的颜色 */
+.sq-tag-liver { border-left:3px solid #ce93d8; }.sq-tag-liver:hover,.sq-tag-liver:active { background:#ce93d8;color:#000 !important; }
+.sq-tag-sleep { border-left:3px solid #64b5f6; }.sq-tag-sleep:hover,.sq-tag-sleep:active { background:#64b5f6;color:#000 !important; }
+.sq-tag-damp { border-left:3px solid #81c784; }.sq-tag-damp:hover,.sq-tag-damp:active { background:#81c784;color:#000 !important; }
+.sq-tag-lung { border-left:3px solid #e57373; }.sq-tag-lung:hover,.sq-tag-lung:active { background:#e57373;color:#000 !important; }
+.sq-tag-blood { border-left:3px solid #ffb74d; }.sq-tag-blood:hover,.sq-tag-blood:active { background:#ffb74d;color:#000 !important; }
+.sq-tag-pressure { border-left:3px solid #f06292; }.sq-tag-pressure:hover,.sq-tag-pressure:active { background:#f06292;color:#000 !important; }
+.sq-tag-beauty { border-left:3px solid #ba68c8; }.sq-tag-beauty:hover,.sq-tag-beauty:active { background:#ba68c8;color:#000 !important; }
+.sq-tag-gout { border-left:3px solid #4db6ac; }.sq-tag-gout:hover,.sq-tag-gout:active { background:#4db6ac;color:#000 !important; }
 </style>
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <script>
@@ -158,6 +177,21 @@ var _hmt = _hmt || [];
     <p>中药养生茶（也称"代茶饮"）是将药食同源材料以沸水冲泡饮用的养生方式，源自唐代"药茶"传统。用量小、气味轻，适合日常保健。</p>
     <div class="warning-box">
       <p>⚠️ <strong>重要提醒：</strong>养生茶不能替代药物治疗。孕妇、儿童、慢性病患者及正在服药者建议先咨询中医师。首次饮用少量试饮，观察身体反应。</p>
+    </div>
+  </div>
+
+  <!-- ========= 快速症状匹配 ========= -->
+  <div class="symptom-quick section">
+    <div class="sq-title">💡 我适合喝什么茶？</div>
+    <div class="sq-tags">
+      <button class="sq-tag sq-tag-liver" onclick="document.getElementById('cat-liver').scrollIntoView({behavior:'smooth',block:'start'})">👁️ 眼疲劳/用眼过度</button>
+      <button class="sq-tag sq-tag-sleep" onclick="document.getElementById('cat-sleep').scrollIntoView({behavior:'smooth',block:'start'})">😴 失眠/睡眠差</button>
+      <button class="sq-tag sq-tag-damp" onclick="document.getElementById('cat-damp').scrollIntoView({behavior:'smooth',block:'start'})">💧 湿气重/身体困重</button>
+      <button class="sq-tag sq-tag-lung" onclick="document.getElementById('cat-lung').scrollIntoView({behavior:'smooth',block:'start'})">🌬️ 咽喉不适/咳嗽</button>
+      <button class="sq-tag sq-tag-blood" onclick="document.getElementById('cat-blood').scrollIntoView({behavior:'smooth',block:'start'})">💪 气血不足/面色差</button>
+      <button class="sq-tag sq-tag-pressure" onclick="document.getElementById('cat-pressure').scrollIntoView({behavior:'smooth',block:'start'})">🫀 高血压/高血脂</button>
+      <button class="sq-tag sq-tag-beauty" onclick="document.getElementById('cat-beauty').scrollIntoView({behavior:'smooth',block:'start'})">🌸 皮肤差/长痘</button>
+      <button class="sq-tag sq-tag-gout" onclick="document.getElementById('cat-gout').scrollIntoView({behavior:'smooth',block:'start'})">🦶 痛风/尿酸高</button>
     </div>
   </div>
 

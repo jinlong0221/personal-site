@@ -163,11 +163,27 @@ var _hmt = _hmt || [];
   </div>
 </nav>
 
+<div class="mcu-bg"></div>
+<div class="mcu-particles" id="mcuParticles"></div>
 <main class="container">
   <div id="breadcrumb"></div>
 
   <div class="page-hero">
     <h1>🦸 漫威电影宇宙</h1>
+  <div class="phase-progress">
+    <div class="phase-dot p1"><div class="dot-fill" style="width:100%"></div></div>
+    <div class="phase-dot p2"><div class="dot-fill" style="width:100%"></div></div>
+    <div class="phase-dot p3"><div class="dot-fill" style="width:100%"></div></div>
+    <div class="phase-dot p4"><div class="dot-fill" style="width:100%"></div></div>
+    <div class="phase-dot p5"><div class="dot-fill" style="width:60%"></div></div>
+  </div>
+  <div class="phase-stat">
+    <div class="stat-item"><div class="stat-num">34</div><div class="stat-label">部电影</div></div>
+    <div class="stat-item"><div class="stat-num">39</div><div class="stat-label">条剧情</div></div>
+    <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">位英雄</div></div>
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">个阶段</div></div>
+  </div>
+
     <p class="subtitle">完整观影顺序 · 超级英雄档案 · 角色解析</p>
   </div>
 
@@ -185,12 +201,12 @@ var _hmt = _hmt || [];
         <div class="timeline-phase">第一阶段 · 复仇者集结</div>
         <div class="timeline-content">
           <ol class="movie-list">
-            <li>🛡️ <strong class="plot-trigger" data-key="captain-america-1" onclick="openPlotModal('captain-america-1')">《美国队长1》</strong>（2011）· 二战起源故事</li>
-            <li>☄️ <strong class="plot-trigger" data-key="captain-marvel" onclick="openPlotModal('captain-marvel')">《惊奇队长》</strong>（2019）· 1995年故事</li>
-            <li>🔧 <strong class="plot-trigger" data-key="iron-man-1" onclick="openPlotModal('iron-man-1')">《钢铁侠》</strong>（2008）· MCU开山之作</li>
-            <li>⚡ <strong class="plot-trigger" data-key="iron-man-2" onclick="openPlotModal('iron-man-2')">《钢铁侠2》</strong>（2010）· 黑寡妇首秀</li>
-            <li>⚡ <strong class="plot-trigger" data-key="thor-1" onclick="openPlotModal('thor-1')">《雷神》</strong>（2011）· 阿斯加德王子</li>
-            <li>💪 <strong class="plot-trigger" data-key="avengers-1" onclick="openPlotModal('avengers-1')">《复仇者联盟》</strong>（2012）· 初代六人集结</li>
+            <li><span class="emoji-char">🛡️</span> <strong class="plot-trigger" data-key="captain-america-1" onclick="openPlotModal('captain-america-1')">《美国队长1》</strong>（2011）· 二战起源故事</li>
+            <li><span class="emoji-char">☄️</span> <strong class="plot-trigger" data-key="captain-marvel" onclick="openPlotModal('captain-marvel')">《惊奇队长》</strong>（2019）· 1995年故事</li>
+            <li><span class="emoji-char">🔧</span> <strong class="plot-trigger" data-key="iron-man-1" onclick="openPlotModal('iron-man-1')">《钢铁侠》</strong>（2008）· MCU开山之作</li>
+            <li><span class="emoji-char">⚡</span> <strong class="plot-trigger" data-key="iron-man-2" onclick="openPlotModal('iron-man-2')">《钢铁侠2》</strong>（2010）· 黑寡妇首秀</li>
+            <li><span class="emoji-char">⚡</span> <strong class="plot-trigger" data-key="thor-1" onclick="openPlotModal('thor-1')">《雷神》</strong>（2011）· 阿斯加德王子</li>
+            <li><span class="emoji-char">💪</span> <strong class="plot-trigger" data-key="avengers-1" onclick="openPlotModal('avengers-1')">《复仇者联盟》</strong>（2012）· 初代六人集结</li>
           </ol>
         </div>
       </div>
@@ -199,12 +215,12 @@ var _hmt = _hmt || [];
         <div class="timeline-phase">第二阶段 · 新世界开启</div>
         <div class="timeline-content">
           <ol class="movie-list" start="7">
-            <li>💥 <strong class="plot-trigger" data-key="iron-man-3" onclick="openPlotModal('iron-man-3')">《钢铁侠3》</strong>（2013）</li>
-            <li>🌌 <strong class="plot-trigger" data-key="thor-2" onclick="openPlotModal('thor-2')">《雷神2：黑暗世界》</strong>（2013）</li>
-            <li>🛡️ <strong class="plot-trigger" data-key="captain-america-2" onclick="openPlotModal('captain-america-2')">《美国队长2：冬日战士》</strong>（2014）· 神盾局崩塌</li>
-            <li>🌌 <strong class="plot-trigger" data-key="guardians-1" onclick="openPlotModal('guardians-1')">《银河护卫队》</strong>（2014）· 星爵登场</li>
-            <li>🤖 <strong class="plot-trigger" data-key="avengers-2" onclick="openPlotModal('avengers-2')">《复仇者联盟2：奥创纪元》</strong>（2015）· 幻视诞生</li>
-            <li>🐜 <strong class="plot-trigger" data-key="ant-man-1" onclick="openPlotModal('ant-man-1')">《蚁人》</strong>（2015）· 量子领域初探</li>
+            <li><span class="emoji-char">💥</span> <strong class="plot-trigger" data-key="iron-man-3" onclick="openPlotModal('iron-man-3')">《钢铁侠3》</strong>（2013）</li>
+            <li><span class="emoji-char">🌌</span> <strong class="plot-trigger" data-key="thor-2" onclick="openPlotModal('thor-2')">《雷神2：黑暗世界》</strong>（2013）</li>
+            <li><span class="emoji-char">🛡️</span> <strong class="plot-trigger" data-key="captain-america-2" onclick="openPlotModal('captain-america-2')">《美国队长2：冬日战士》</strong>（2014）· 神盾局崩塌</li>
+            <li><span class="emoji-char">🌌</span> <strong class="plot-trigger" data-key="guardians-1" onclick="openPlotModal('guardians-1')">《银河护卫队》</strong>（2014）· 星爵登场</li>
+            <li><span class="emoji-char">🤖</span> <strong class="plot-trigger" data-key="avengers-2" onclick="openPlotModal('avengers-2')">《复仇者联盟2：奥创纪元》</strong>（2015）· 幻视诞生</li>
+            <li><span class="emoji-char">🐜</span> <strong class="plot-trigger" data-key="ant-man-1" onclick="openPlotModal('ant-man-1')">《蚁人》</strong>（2015）· 量子领域初探</li>
           </ol>
         </div>
       </div>
@@ -213,16 +229,16 @@ var _hmt = _hmt || [];
         <div class="timeline-phase">第三阶段 · 无限传奇</div>
         <div class="timeline-content">
           <ol class="movie-list" start="13">
-            <li>🛡️ <strong class="plot-trigger" data-key="captain-america-3" onclick="openPlotModal('captain-america-3')">《美国队长3：内战》</strong>（2016）· 复仇者分裂</li>
-            <li>🔮 <strong class="plot-trigger" data-key="doctor-strange" onclick="openPlotModal('doctor-strange')">《奇异博士》</strong>（2016）· 魔法世界开启</li>
-            <li>🎵 <strong class="plot-trigger" data-key="guardians-2" onclick="openPlotModal('guardians-2')">《银河护卫队2》</strong>（2017）</li>
-            <li>🕷️ <strong class="plot-trigger" data-key="spider-man-homecoming" onclick="openPlotModal('spider-man-homecoming')">《蜘蛛侠：英雄归来》</strong>（2017）· 小蜘蛛加入MCU</li>
-            <li>🌌 <strong class="plot-trigger" data-key="thor-3" onclick="openPlotModal('thor-3')">《雷神3：诸神黄昏》</strong>（2017）· 阿斯加德毁灭</li>
-            <li>🐆 <strong class="plot-trigger" data-key="black-panther" onclick="openPlotModal('black-panther')">《黑豹》</strong>（2018）· 瓦坎达 Forever</li>
-            <li>💎 <strong class="plot-trigger" data-key="avengers-3" onclick="openPlotModal('avengers-3')">《复仇者联盟3：无限战争》</strong>（2018）· 灭霸响指</li>
-            <li>🐜 <strong class="plot-trigger" data-key="ant-man-2" onclick="openPlotModal('ant-man-2')">《蚁人2：黄蜂女现身》</strong>（2018）</li>
-            <li>🧤 <strong class="plot-trigger" data-key="avengers-4" onclick="openPlotModal('avengers-4')">《复仇者联盟4：终局之战》</strong>（2019）· 初代谢幕</li>
-            <li>🎬 <strong class="plot-trigger" data-key="spider-man-far-from-home" onclick="openPlotModal('spider-man-far-from-home')">《蜘蛛侠：英雄远征》</strong>（2019）· 第三阶段收官</li>
+            <li><span class="emoji-char">🛡️</span> <strong class="plot-trigger" data-key="captain-america-3" onclick="openPlotModal('captain-america-3')">《美国队长3：内战》</strong>（2016）· 复仇者分裂</li>
+            <li><span class="emoji-char">🔮</span> <strong class="plot-trigger" data-key="doctor-strange" onclick="openPlotModal('doctor-strange')">《奇异博士》</strong>（2016）· 魔法世界开启</li>
+            <li><span class="emoji-char">🎵</span> <strong class="plot-trigger" data-key="guardians-2" onclick="openPlotModal('guardians-2')">《银河护卫队2》</strong>（2017）</li>
+            <li><span class="emoji-char">🕷️</span> <strong class="plot-trigger" data-key="spider-man-homecoming" onclick="openPlotModal('spider-man-homecoming')">《蜘蛛侠：英雄归来》</strong>（2017）· 小蜘蛛加入MCU</li>
+            <li><span class="emoji-char">🌌</span> <strong class="plot-trigger" data-key="thor-3" onclick="openPlotModal('thor-3')">《雷神3：诸神黄昏》</strong>（2017）· 阿斯加德毁灭</li>
+            <li><span class="emoji-char">🐆</span> <strong class="plot-trigger" data-key="black-panther" onclick="openPlotModal('black-panther')">《黑豹》</strong>（2018）· 瓦坎达 Forever</li>
+            <li><span class="emoji-char">💎</span> <strong class="plot-trigger" data-key="avengers-3" onclick="openPlotModal('avengers-3')">《复仇者联盟3：无限战争》</strong>（2018）· 灭霸响指</li>
+            <li><span class="emoji-char">🐜</span> <strong class="plot-trigger" data-key="ant-man-2" onclick="openPlotModal('ant-man-2')">《蚁人2：黄蜂女现身》</strong>（2018）</li>
+            <li><span class="emoji-char">🧤</span> <strong class="plot-trigger" data-key="avengers-4" onclick="openPlotModal('avengers-4')">《复仇者联盟4：终局之战》</strong>（2019）· 初代谢幕</li>
+            <li><span class="emoji-char">🎬</span> <strong class="plot-trigger" data-key="spider-man-far-from-home" onclick="openPlotModal('spider-man-far-from-home')">《蜘蛛侠：英雄远征》</strong>（2019）· 第三阶段收官</li>
           </ol>
         </div>
       </div>
@@ -231,13 +247,13 @@ var _hmt = _hmt || [];
         <div class="timeline-phase">第四阶段 · 多元宇宙传奇</div>
         <div class="timeline-content">
           <ol class="movie-list" start="23">
-            <li>🎬 <strong class="plot-trigger" data-key="black-widow" onclick="openPlotModal('black-widow')">《黑寡妇》</strong>（2021）</li>
-            <li>🥋 <strong class="plot-trigger" data-key="shang-chi" onclick="openPlotModal('shang-chi')">《尚气》</strong>（2021）</li>
-            <li>⭐ <strong class="plot-trigger" data-key="eternals" onclick="openPlotModal('eternals')">《永恒族》</strong>（2021）</li>
-            <li>🕷️ <strong class="plot-trigger" data-key="spider-man-no-way-home" onclick="openPlotModal('spider-man-no-way-home')">《蜘蛛侠：英雄无归》</strong>（2021）· 三代蜘蛛侠同框</li>
-            <li>🔮 <strong class="plot-trigger" data-key="doctor-strange-2" onclick="openPlotModal('doctor-strange-2')">《奇异博士2：疯狂多元宇宙》</strong>（2022）</li>
-            <li>⚡ <strong class="plot-trigger" data-key="thor-4" onclick="openPlotModal('thor-4')">《雷神4：爱与雷霆》</strong>（2022）</li>
-            <li>🐆 <strong class="plot-trigger" data-key="black-panther-2" onclick="openPlotModal('black-panther-2')">《黑豹2：瓦坎达万岁》</strong>（2022）</li>
+            <li><span class="emoji-char">🎬</span> <strong class="plot-trigger" data-key="black-widow" onclick="openPlotModal('black-widow')">《黑寡妇》</strong>（2021）</li>
+            <li><span class="emoji-char">🥋</span> <strong class="plot-trigger" data-key="shang-chi" onclick="openPlotModal('shang-chi')">《尚气》</strong>（2021）</li>
+            <li><span class="emoji-char">⭐</span> <strong class="plot-trigger" data-key="eternals" onclick="openPlotModal('eternals')">《永恒族》</strong>（2021）</li>
+            <li><span class="emoji-char">🕷️</span> <strong class="plot-trigger" data-key="spider-man-no-way-home" onclick="openPlotModal('spider-man-no-way-home')">《蜘蛛侠：英雄无归》</strong>（2021）· 三代蜘蛛侠同框</li>
+            <li><span class="emoji-char">🔮</span> <strong class="plot-trigger" data-key="doctor-strange-2" onclick="openPlotModal('doctor-strange-2')">《奇异博士2：疯狂多元宇宙》</strong>（2022）</li>
+            <li><span class="emoji-char">⚡</span> <strong class="plot-trigger" data-key="thor-4" onclick="openPlotModal('thor-4')">《雷神4：爱与雷霆》</strong>（2022）</li>
+            <li><span class="emoji-char">🐆</span> <strong class="plot-trigger" data-key="black-panther-2" onclick="openPlotModal('black-panther-2')">《黑豹2：瓦坎达万岁》</strong>（2022）</li>
           </ol>
         </div>
       </div>
@@ -246,11 +262,11 @@ var _hmt = _hmt || [];
         <div class="timeline-phase">第五阶段 · 康之王朝</div>
         <div class="timeline-content">
           <ol class="movie-list" start="30">
-            <li>🐜 <strong class="plot-trigger" data-key="ant-man-3" onclick="openPlotModal('ant-man-3')">《蚁人3：量子狂潮》</strong>（2023）· 康登场</li>
-            <li>🌌 <strong class="plot-trigger" data-key="guardians-3" onclick="openPlotModal('guardians-3')">《银河护卫队3》</strong>（2023）</li>
-            <li>🎬 <strong class="plot-trigger" data-key="marvels" onclick="openPlotModal('marvels')">《惊奇队长2》</strong>（2023）</li>
-            <li>🎬 <strong class="plot-trigger" data-key="deadpool-3" onclick="openPlotModal('deadpool-3')">《死侍与金刚狼》</strong>（2024）</li>
-            <li>🎬 <strong class="plot-trigger" data-key="captain-america-4" onclick="openPlotModal('captain-america-4')">《美国队长4：美丽新世界》</strong>（2025）</li>
+            <li><span class="emoji-char">🐜</span> <strong class="plot-trigger" data-key="ant-man-3" onclick="openPlotModal('ant-man-3')">《蚁人3：量子狂潮》</strong>（2023）· 康登场</li>
+            <li><span class="emoji-char">🌌</span> <strong class="plot-trigger" data-key="guardians-3" onclick="openPlotModal('guardians-3')">《银河护卫队3》</strong>（2023）</li>
+            <li><span class="emoji-char">🎬</span> <strong class="plot-trigger" data-key="marvels" onclick="openPlotModal('marvels')">《惊奇队长2》</strong>（2023）</li>
+            <li><span class="emoji-char">🎬</span> <strong class="plot-trigger" data-key="deadpool-3" onclick="openPlotModal('deadpool-3')">《死侍与金刚狼》</strong>（2024）</li>
+            <li><span class="emoji-char">🎬</span> <strong class="plot-trigger" data-key="captain-america-4" onclick="openPlotModal('captain-america-4')">《美国队长4：美丽新世界》</strong>（2025）</li>
           </ol>
         </div>
       </div>
@@ -277,7 +293,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🔴</div>
         </div>
-        <h3>钢铁侠 / 托尼·斯塔克</h3>
+        <div data-hero="iron-man"></div><h3>钢铁侠 / 托尼·斯塔克</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《钢铁侠》（2008）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>小罗伯特·唐尼</span></div>
@@ -293,7 +309,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🔵</div>
         </div>
-        <h3>美国队长 / 史蒂夫·罗杰斯</h3>
+        <div data-hero="captain"></div><h3>美国队长 / 史蒂夫·罗杰斯</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《美国队长1》（2011）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>克里斯·埃文斯</span></div>
@@ -309,7 +325,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">⚡</div>
         </div>
-        <h3>雷神 / 索尔</h3>
+        <div data-hero="thor"></div><h3>雷神 / 索尔</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《雷神》（2011）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>克里斯·海姆斯沃斯</span></div>
@@ -341,7 +357,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🕷️</div>
         </div>
-        <h3>黑寡妇 / 娜塔莎·罗曼诺夫</h3>
+        <div data-hero="widow"></div><h3>黑寡妇 / 娜塔莎·罗曼诺夫</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《钢铁侠2》（2010）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>斯嘉丽·约翰逊</span></div>
@@ -357,7 +373,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🎯</div>
         </div>
-        <h3>鹰眼 / 克林特·巴顿</h3>
+        <div data-hero="hawkeye"></div><h3>鹰眼 / 克林特·巴顿</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《雷神》（2011）客串</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>杰瑞米·雷纳</span></div>
@@ -373,7 +389,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🕸️</div>
         </div>
-        <h3>蜘蛛侠 / 彼得·帕克</h3>
+        <div data-hero="spider"></div><h3>蜘蛛侠 / 彼得·帕克</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《美国队长3》（2016）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>汤姆·赫兰德</span></div>
@@ -389,7 +405,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🔮</div>
         </div>
-        <h3>奇异博士 / 史蒂芬·斯特兰奇</h3>
+        <div data-hero="strange"></div><h3>奇异博士 / 史蒂芬·斯特兰奇</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《奇异博士》（2016）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>本尼迪克特·康伯巴奇</span></div>
@@ -405,7 +421,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🐆</div>
         </div>
-        <h3>黑豹 / 特查拉</h3>
+        <div data-hero="panther"></div><h3>黑豹 / 特查拉</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《美国队长3》（2016）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>查德维克·博斯曼</span></div>
@@ -437,7 +453,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">☄️</div>
         </div>
-        <h3>惊奇队长 / 卡罗尔·丹弗斯</h3>
+        <div data-hero="captain-m"></div><h3>惊奇队长 / 卡罗尔·丹弗斯</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《惊奇队长》（2019）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>布丽·拉尔森</span></div>
@@ -453,7 +469,7 @@ var _hmt = _hmt || [];
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🌌</div>
         </div>
-        <h3>星爵 / 彼得·奎尔</h3>
+        <div data-hero="quill"></div><h3>星爵 / 彼得·奎尔</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《银河护卫队》（2014）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>克里斯·帕拉特</span></div>
@@ -557,10 +573,10 @@ var _hmt = _hmt || [];
       <div class="info-card">
         <h4>📺 必看剧集推荐</h4>
         <ul>
-          <li>🔮 <strong class="plot-trigger" data-key="wandavision" onclick="openPlotModal('wandavision')">《旺达幻视》</strong>（2021）- 绯红女巫关键剧情</li>
-          <li>⏳ <strong class="plot-trigger" data-key="loki" onclick="openPlotModal('loki')">《洛基》</strong>（2021）- 多元宇宙设定铺垫</li>
-          <li>🎯 <strong class="plot-trigger" data-key="hawkeye" onclick="openPlotModal('hawkeye')">《鹰眼》</strong>（2021）- 接棒传承</li>
-          <li>🎬 <strong class="plot-trigger" data-key="moon-knight" onclick="openPlotModal('moon-knight')">《月光骑士》</strong>（2022）- 新英雄登场</li>
+          <li><span class="emoji-char">🔮</span> <strong class="plot-trigger" data-key="wandavision" onclick="openPlotModal('wandavision')">《旺达幻视》</strong>（2021）- 绯红女巫关键剧情</li>
+          <li><span class="emoji-char">⏳</span> <strong class="plot-trigger" data-key="loki" onclick="openPlotModal('loki')">《洛基》</strong>（2021）- 多元宇宙设定铺垫</li>
+          <li><span class="emoji-char">🎯</span> <strong class="plot-trigger" data-key="hawkeye" onclick="openPlotModal('hawkeye')">《鹰眼》</strong>（2021）- 接棒传承</li>
+          <li><span class="emoji-char">🎬</span> <strong class="plot-trigger" data-key="moon-knight" onclick="openPlotModal('moon-knight')">《月光骑士》</strong>（2022）- 新英雄登场</li>
         </ul>
       </div>
 
@@ -829,5 +845,94 @@ var _hmt = _hmt || [];
   </script>
 
     <script src="js/share.js"></script>
-  </body>
+  
+<script>
+// ==================== MARVEL PAGE DYNAMIC JS ====================
+
+// ---- 1. 粒子背景动画 ----
+(function() {
+  var container = document.getElementById('mcuParticles');
+  if (!container) return;
+  var colors = ['rgba(230,57,70,0.7)', 'rgba(244,162,97,0.7)', 'rgba(69,123,157,0.7)', 'rgba(155,93,229,0.7)', 'rgba(255,255,255,0.5)'];
+  for (var i = 0; i < 25; i++) {
+    var p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = (Math.random() * 100) + '%';
+    p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    container.appendChild(p);
+  }
+})();
+
+// ---- 2. 阶段进度条（按滚动位置动态点亮）----
+(function() {
+  var dots = document.querySelectorAll('.phase-dot');
+  if (!dots.length) return;
+
+  var sections = document.querySelectorAll('.timeline-item');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var idx = Array.from(sections).indexOf(entry.target);
+        for (var i = 0; i <= Math.min(idx, dots.length - 1); i++) {
+          dots[i].classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(function(s) { observer.observe(s); });
+})();
+
+// ---- 3. 滚动触发动画（Intersection Observer）----
+(function() {
+  var revealEls = document.querySelectorAll('.hero-card, .future-card, .timeline-item');
+  revealEls.forEach(function(el) {
+    el.classList.add('reveal');
+  });
+
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry, i) {
+      if (entry.isIntersecting) {
+        setTimeout(function() {
+          entry.target.classList.add('visible');
+        }, i * 60);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  revealEls.forEach(function(el) { io.observe(el); });
+})();
+
+// ---- 4. 数字跳动动画 ----
+function animateMarvelStats() {
+  var stats = document.querySelectorAll('.stat-num');
+  stats.forEach(function(el) {
+    var target = parseInt(el.textContent);
+    var current = 0;
+    var step = Math.max(1, Math.ceil(target / 30));
+    var timer = setInterval(function() {
+      current = Math.min(current + step, target);
+      el.textContent = current;
+      if (current >= target) clearInterval(timer);
+    }, 30);
+  });
+}
+var statsAnimated = false;
+window.addEventListener('scroll', function() {
+  if (statsAnimated) return;
+  var statSection = document.querySelector('.phase-stat');
+  if (!statSection) return;
+  var rect = statSection.getBoundingClientRect();
+  if (rect.top < window.innerHeight) {
+    statsAnimated = true;
+    animateMarvelStats();
+  }
+}, { passive: true });
+</script>
+
+</body>
 </html>

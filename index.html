@@ -84,69 +84,92 @@ var _hmt = _hmt || [];
 
 <main class="container">
 
-  <!-- ===== 第一屏融合模块 ===== -->
-  <section class="hero-fusion" id="hero-fusion">
-    <div class="hero-fusion-bg"></div>
-    <div class="hero-fusion-content">
-      <!-- 站点标题 -->
-      <h1 class="fusion-title">🐉 龙兄知识库</h1>
-      <p class="fusion-subtitle">AI驱动 · 知识沉淀 · 实用至上</p>
-      
-      <!-- 站点数据统计 -->
-      <div class="fusion-stats">
-        <div class="stat-item">
-          <span class="stat-number" data-target="11">0</span>
-          <span class="stat-label">个板块</span>
+  <!-- ===== Hero Banner（不动） ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>🐉 龙兄知识库</h1>
+      <p class="hero-subtitle">爱好集中地 · 学习笔记 · 朋友科普</p>
+      <a href="#all-sections" class="hero-btn">探索内容 ↓</a>
+    </div>
+  </section>
+
+  <!-- ===== ✅ 融合模块 ===== -->
+  <section class="fusion" id="fusion">
+    <!-- 龙兄公示牌 -->
+    <div class="fusion-long">
+      <div class="long-bubble">
+        <div class="bubble-header">
+          <span class="bubble-name">🐉 龙兄</span>
+          <span class="bubble-time" id="bubbleTime">刚刚</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="104">0</span>
-          <span class="stat-label">个页面</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="0">0</span>
-          <span class="stat-label">次访问</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="0">0</span>
-          <span class="stat-label">位访客</span>
-        </div>
-      </div>
-      
-      <!-- 今日推荐 -->
-      <div class="fusion-pick">
-        <div class="pick-header">
-          <span class="pick-icon">🎲</span>
-          <span class="pick-title">今日推荐</span>
-          <button class="pick-refresh" id="pick-refresh" title="换一个">🔄</button>
-        </div>
-        <a class="pick-card" id="pick-card" href="agarwood.html">
-          <img class="pick-img" id="pick-img" src="img/zisha/zisha_p1_0.webp" alt="今日推荐">
-          <div class="pick-info">
-            <h3 class="pick-name" id="pick-name">沉香鉴别</h3>
-            <p class="pick-desc" id="pick-desc">天然沉香鉴别全攻略</p>
-            <span class="pick-tag" id="pick-tag">药材与手串</span>
-          </div>
-        </a>
-      </div>
-      
-      <!-- 搜索框 -->
-      <div class="fusion-search">
-        <div class="home-search-box">
-          <input type="text" id="homeSearchInput" class="home-search-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">
-          <button id="homeSearchClear" class="home-search-clear" aria-label="清空" style="display:none;">✕</button>
-          <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">搜索</button>
-        </div>
-        <div class="search-hot" id="search-hot">
-          <div class="hot-title">🔥 大家都在搜</div>
-          <div class="hot-tags" id="hot-tags"></div>
+        <div class="bubble-body" id="todayStatusText">今天的心情，和高考家长一起加油 📚</div>
+        <div class="bubble-footer">
+          <span class="bubble-date" id="bubbleDate">2026-06-25</span>
         </div>
       </div>
     </div>
-    <a href="#sections" class="hero-scroll-btn">探索内容 ↓</a>
+
+    <!-- 四大板块入口 -->
+    <div class="fusion-sections">
+      <div class="section-grid">
+        <a href="#hc-herbs" class="section-chip">🔬 药材与手串</a>
+        <a href="#hc-life" class="section-chip">🌿 生活百科</a>
+        <a href="#hc-tech" class="section-chip">🚗 数码科技</a>
+        <a href="#hc-pop" class="section-chip">🎭 流行文化</a>
+      </div>
+    </div>
+
+    <!-- 今日推荐 -->
+    <div class="fusion-pick">
+      <div class="pick-header">
+        <span class="pick-icon">🎲</span>
+        <span class="pick-title">今日推荐</span>
+        <button class="pick-refresh" id="pick-refresh" title="换一个">🔄</button>
+      </div>
+      <a class="pick-card" id="pick-card" href="agarwood.html">
+        <img class="pick-img" id="pick-img" src="img/zisha/zisha_p1_0.webp" alt="今日推荐">
+        <div class="pick-info">
+          <h3 class="pick-name" id="pick-name">沉香鉴别</h3>
+          <p class="pick-desc" id="pick-desc">天然沉香鉴别全攻略</p>
+          <span class="pick-tag" id="pick-tag">药材与手串</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 最近更新 -->
+    <div class="fusion-updates">
+      <div class="section-label" style="margin-bottom:8px;">
+        <span class="hc-icon">📰</span>
+        <span class="hc-title">最近更新</span>
+      </div>
+      <div class="changelog-list" id="weeklyChangelog"></div>
+    </div>
+
+    <!-- 滚动条 -->
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 特斯拉板块全面重构 · 11个产品页面上线</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 中药养生茶板块上线 · 30+配方 · 8大类</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 紫砂艺术板块 · 95件紫砂作品鉴赏</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 游戏主机博物馆 · 6大品牌46个详情页</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 全站103页 · 搜索/主题/导航统一升级</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 特斯拉板块全面重构 · 11个产品页面上线</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 中药养生茶板块上线 · 30+配方 · 8大类</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 紫砂艺术板块 · 95件紫砂作品鉴赏</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 游戏主机博物馆 · 6大品牌46个详情页</span>
+        <span class="ticker-item"><span class="ticker-tag">NEW</span> 全站103页 · 搜索/主题/导航统一升级</span>
+      </div>
+    </div>
+
+    <!-- 引导按钮 -->
+    <div style="text-align:center;margin:24px 0 0;">
+      <a href="#all-sections" class="explore-btn">🔍 探索全部内容</a>
+    </div>
   </section>
 
-  <!-- ===== 板块列表 ===== -->
-  <div id="sections"></div>
+  <!-- ===== 全部板块大列表 ===== -->
+  <section id="all-sections">
 
   <!-- ===== 首页推荐：龙兄踩坑记 ===== -->
 
@@ -316,128 +339,27 @@ var _hmt = _hmt || [];
       </div>
     </div>
   </div>
-
-
-  <!-- 1. 最近更新滚动条 -->
-  <div class="ticker-wrap">
-    <div class="ticker-track">
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 特斯拉板块全面重构 · 11个产品页面上线</span>
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 中药养生茶板块上线 · 30+配方 · 8大类</span>
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 紫砂艺术板块 · 95件紫砂作品鉴赏</span>
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 游戏主机博物馆 · 6大品牌46个详情页</span>
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 全站103页 · 搜索/主题/导航统一升级</span>
-      <!-- 重复一遍实现无缝滚动 -->
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 特斯拉板块全面重构 · 11个产品页面上线</span>
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 中药养生茶板块上线 · 30+配方 · 8大类</span>
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 紫砂艺术板块 · 95件紫砂作品鉴赏</span>
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 游戏主机博物馆 · 6大品牌46个详情页</span>
-      <span class="ticker-item"><span class="ticker-tag">NEW</span> 全站103页 · 搜索/主题/导航统一升级</span>
-    </div>
-  </div>
-
-  <!-- ===== 底部双栏（居中并排） ===== -->
-  <div class="bottom-duo">
-    <!-- 本周更新 -->
-    <section class="section-block" style="margin-bottom:20px;">
-      <div class="section-label">
-        <span class="hc-icon">📰</span>
-        <span class="hc-title">本周更新</span>
-      </div>
-      <div class="changelog-list" id="weeklyChangelog"></div>
-    </section>
-
-    <div class="bottom-duo-row">
-      <!-- 进化的龙兄 -->
-      <section class="section-block bottom-duo-item">
-        <div class="section-label bottom-section-header">
-          <div class="hc-left"><span class="hc-icon">🐉</span><span class="hc-title">进化的龙兄</span></div>
-        </div>
-        <article class="tile tile-gold">
-          <a href="changelog.html">
-            <div class="tile-svg">
-              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="8" width="40" height="48" rx="4"/><line x1="20" y1="20" x2="44" y2="20"/><line x1="20" y1="28" x2="44" y2="28"/><line x1="20" y1="36" x2="36" y2="36"/><circle cx="40" cy="44" r="6" fill="#c9a84c" opacity="0.3"/></svg>
-            </div>
-            <div class="tile-link-body">
-              <div class="title">进化的龙兄</div>
-              <div class="desc">这个网站是活的</div>
-            </div>
-          </a>
-        </article>
-      </section>
-
-      <!-- 龙兄公示牌 -->
-      <section class="section-block bottom-duo-item">
-        <div class="section-label bottom-section-header">
-          <div class="hc-left"><span class="hc-icon">📢</span><span class="hc-title">龙兄公示牌</span></div>
-        </div>
-        <article class="tile tile-gold" style="cursor:default;">
-          <div class="notice-inner">
-            <div class="tile-svg" style="margin-bottom:8px;"><span style="font-size:28px;">🎊</span></div>
-            <div class="notice-text" id="noticeContent">
-              <p>🎉 <strong>龙兄知识库</strong>于2026年6月正式落成！本站由AI独立搭建，记录站长龙兄的生活、兴趣与折腾 🚀</p>
-              <p style="margin-top:8px;font-size:0.85rem;">🙏 请各位随一下礼 😏</p>
-              <div class="long-status" id="todayStatusInline" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-color);display:flex;">
-                <div class="long-avatar">🐉</div>
-          <div class="long-bubble">
-            <div class="bubble-header">
-              <span class="bubble-name">龙兄</span>
-              <span class="bubble-time" id="bubbleTime">刚刚</span>
-            </div>
-            <div class="bubble-body" id="todayStatusText">今天的心情，和高考家长一起加油 📚</div>
-            <div class="bubble-footer">
-              <span class="bubble-date" id="bubbleDate">2026-06-25</span>
-            </div>
-          </div>
-                
-              </div>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <!-- 近期动态 -->
-      <section class="section-block bottom-duo-item">
-        <div class="section-label bottom-section-header">
-          <div class="hc-left"><span class="hc-icon">📰</span><span class="hc-title">近期动态</span></div>
-        </div>
-        <article class="tile" style="padding:12px;">
-          <div class="update-list" id="updateLogList"></div>
-        </article>
-      </section>
-    </div>
-  </div>
+  </section>
 
 </main>
 
 <footer>
-  <div class="container footer-inner">
-    <div class="footer-col">
-      <p class="footer-brand">🐉 龙兄知识库</p>
-      <p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p>
-    </div>
-    <div class="footer-col">
-      <p>© 2026 龙兄知识库 · 保留所有权利</p>
-      <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer" class="footer-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub 开源仓库
-      </a>
-    </div>
+  <div class="container" style="text-align:center;padding:24px 16px;">
+    <div class="evolved">🐉 进化的龙兄：这个网站是活的</div>
   </div>
-    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
-      <span style="font-size:13px;color:var(--text-muted)">
-        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
-      </span>
-      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
-        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
-      </span>
-      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
-    </div>
-
-  
-  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+  <div style="text-align:center;padding:0 16px 24px;font-size:12px;color:var(--text-muted);">
+    © 2026 龙兄知识库 · <a href="https://github.com/jinlong0221/personal-site" target="_blank" class="footer-link" style="color:var(--gold)">GitHub 开源</a> · 专注实用科普与生活百科
+  </div>
+  <div style="margin-top:8px;padding-bottom:24px;text-align:center;">
+    <span style="font-size:13px;color:var(--text-muted)">
+      访问 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+    </span>
+    <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+      访客 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+    </span>
+  </div>
 </footer>
-
-<script>
+  <script>
 (function(){
   // Open-Meteo天气代码映射
   var omCodes={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};

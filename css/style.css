@@ -49,6 +49,24 @@
  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+
+  
+  /* 融合模块颜色变量（白天模式） */
+  --text-primary: #222222;
+  --text-secondary-new: #555555;
+  --text-muted-new: #999999;
+  --bg-card: #ffffff;
+  --bg-section: #f8f9fa;
+  --border-light-new: #e0e0e0;
+  --accent: #1565C0;
+  --bubble-bg: #FFF8F0;
+  --bubble-text: #222;
+  --chip-bg: #ffffff;
+  --chip-border: #e0e0e0;
+  --chip-text: #333333;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0,0,0,0.1);
+
 }
 
 /* [BUG-FIX:二-2] 深色模式独立配色：确保文字/卡片/导航栏全部同步 */
@@ -69,6 +87,24 @@
  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
  --shadow-lg: 0 8px 24px rgba(0,0,0,0.6);
+
+  
+  /* 融合模块颜色变量（夜间模式） */
+  --text-primary: #eeeeee;
+  --text-secondary-new: #bbbbbb;
+  --text-muted-new: #777777;
+  --bg-card: #2a2a3e;
+  --bg-section: #1a1a2e;
+  --border-light-new: #333333;
+  --accent: #64B5F6;
+  --bubble-bg: #3d2e1e;
+  --bubble-text: #eee;
+  --chip-bg: #2a2a3e;
+  --chip-border: #444444;
+  --chip-text: #eeeeee;
+  --card-bg: #2a2a3e;
+  --card-shadow: rgba(0,0,0,0.3);
+
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -1521,7 +1557,7 @@ p.plot-text {
   flex-shrink: 0;
 }
 .ticker-item .ticker-tag {
-  background: var(--gold);
+  background: var(--accent);
   color: #fff;
   font-size: 13px;
   padding: 1px 6px;
@@ -2239,7 +2275,7 @@ p.plot-text {
 }
 
 .fusion-search .home-search-btn {
-  background: var(--gold);
+  background: var(--accent);
   color: #fff;
 }
 
@@ -2467,6 +2503,7 @@ p.plot-text {
 .fusion {
   padding: 32px 0;
   margin: 0 -20px;
+  background: var(--bg-section);
 }
 
 /* 龙兄公示牌 */
@@ -2477,12 +2514,51 @@ p.plot-text {
 }
 
 .fusion-long .long-bubble {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  background: var(--bubble-bg);
+  border: 1px solid var(--border-light-new);
   border-radius: 16px;
   padding: 16px 20px;
   max-width: 480px;
   width: 100%;
+  color: var(--bubble-text);
+}
+
+.fusion-long .bubble-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.fusion-long .bubble-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--orange);
+}
+
+[data-theme="dark"] .fusion-long .bubble-name {
+  color: #FF8C42;  /* 夜间模式亮橙色 */
+}
+
+.fusion-long .bubble-time {
+  font-size: 0.8rem;
+  color: var(--text-muted-new);
+}
+
+.fusion-long .bubble-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: var(--bubble-text);
+}
+
+.fusion-long .bubble-footer {
+  text-align: right;
+}
+
+.fusion-long .bubble-date {
+  font-size: 0.8rem;
+  color: var(--text-muted-new);
 }
 
 /* 四大板块入口 */
@@ -2502,10 +2578,10 @@ p.plot-text {
   align-items: center;
   gap: 6px;
   padding: 10px 20px;
-  background: var(--card-bg);
-  border: 1.5px solid var(--border-color);
+  background: var(--chip-bg);
+  border: 1.5px solid var(--chip-border);
   border-radius: 24px;
-  color: var(--text);
+  color: var(--chip-text);
   text-decoration: none;
   font-size: 0.95rem;
   transition: all 0.3s;
@@ -2531,16 +2607,22 @@ p.plot-text {
   margin-bottom: 12px;
 }
 
+.fusion-pick .pick-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 .fusion-pick .pick-card {
   display: flex;
   align-items: center;
   background: var(--card-bg);
-  border: 1.5px solid var(--border-color);
+  border: 1.5px solid var(--border-light-new);
   border-radius: 16px;
   padding: 12px;
   gap: 16px;
   text-decoration: none;
-  color: var(--text);
+  color: var(--text-primary);
   transition: all 0.3s;
   max-width: 480px;
   margin: 0 auto;
@@ -2549,7 +2631,7 @@ p.plot-text {
 .fusion-pick .pick-card:hover {
   border-color: var(--gold);
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px var(--card-shadow);
 }
 
 .fusion-pick .pick-img {
@@ -2569,12 +2651,12 @@ p.plot-text {
 .fusion-pick .pick-name {
   font-size: 1.1rem;
   margin: 0 0 4px;
-  color: var(--text);
+  color: var(--text-primary);
 }
 
 .fusion-pick .pick-desc {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: var(--text-secondary-new);
   margin: 0 0 8px;
 }
 
@@ -2584,6 +2666,68 @@ p.plot-text {
   background: var(--gold-light);
   color: var(--gold-text);
   border-radius: 10px;
+}
+
+[data-theme="dark"] .fusion-pick .pick-tag {
+  background: #1a3a5c;
+  color: #64B5F6;
+}
+
+/* 最近更新 */
+.fusion-updates {
+  margin-bottom: 24px;
+  padding: 0 20px;
+}
+
+.fusion-updates .section-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.fusion-updates .hc-icon {
+  font-size: 1.2rem;
+}
+
+.fusion-updates .hc-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.fusion-updates .changelog-list {
+  color: var(--text-secondary-new);
+}
+
+/* 探索按钮 */
+.explore-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 24px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.explore-btn:hover {
+  background: var(--accent);
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .explore-btn {
+  background: var(--accent);
+  color: #fff;
+}
+
+[data-theme="dark"] .explore-btn:hover {
+  background: var(--accent);
+  opacity: 0.9;
 }
 
 /* 最近更新 */
@@ -2596,7 +2740,7 @@ p.plot-text {
 .explore-btn {
   display: inline-block;
   padding: 12px 32px;
-  background: var(--gold);
+  background: var(--accent);
   color: #fff;
   border-radius: 24px;
   text-decoration: none;
@@ -2606,7 +2750,7 @@ p.plot-text {
 }
 
 .explore-btn:hover {
-  background: var(--gold-dark);
+  background: var(--accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(201,168,76,0.3);
 }

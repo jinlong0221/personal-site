@@ -84,69 +84,61 @@ var _hmt = _hmt || [];
 
 <main class="container">
 
-  <!-- ===== 第一屏融合模块 ===== -->
-  <section class="hero-fusion" id="hero-fusion">
-    <div class="hero-fusion-bg"></div>
-    <div class="hero-fusion-content">
-      <!-- 站点标题 -->
-      <h1 class="fusion-title">🐉 龙兄知识库</h1>
-      <p class="fusion-subtitle">AI驱动 · 知识沉淀 · 实用至上</p>
-      
-      <!-- 站点数据统计 -->
-      <div class="fusion-stats">
-        <div class="stat-item">
-          <span class="stat-number" data-target="11">0</span>
-          <span class="stat-label">个板块</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="104">0</span>
-          <span class="stat-label">个页面</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="0">0</span>
-          <span class="stat-label">次访问</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="0">0</span>
-          <span class="stat-label">位访客</span>
-        </div>
-      </div>
-      
-      <!-- 今日推荐 -->
-      <div class="fusion-pick">
-        <div class="pick-header">
-          <span class="pick-icon">🎲</span>
-          <span class="pick-title">今日推荐</span>
-          <button class="pick-refresh" id="pick-refresh" title="换一个">🔄</button>
-        </div>
-        <a class="pick-card" id="pick-card" href="agarwood.html">
-          <img class="pick-img" id="pick-img" src="img/zisha/zisha_p1_0.webp" alt="今日推荐">
-          <div class="pick-info">
-            <h3 class="pick-name" id="pick-name">沉香鉴别</h3>
-            <p class="pick-desc" id="pick-desc">天然沉香鉴别全攻略</p>
-            <span class="pick-tag" id="pick-tag">药材与手串</span>
-          </div>
-        </a>
-      </div>
-      
-      <!-- 搜索框 -->
-      <div class="fusion-search">
-        <div class="home-search-box">
-          <input type="text" id="homeSearchInput" class="home-search-input" placeholder="搜索药材、手串、车型..." aria-label="搜索">
-          <button id="homeSearchClear" class="home-search-clear" aria-label="清空" style="display:none;">✕</button>
-          <button id="homeSearchBtn" class="home-search-btn" aria-label="搜索">搜索</button>
-        </div>
-        <div class="search-hot" id="search-hot">
-          <div class="hot-title">🔥 大家都在搜</div>
-          <div class="hot-tags" id="hot-tags"></div>
-        </div>
+  <!-- ===== Hero Banner ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>🐉 龙兄知识库</h1>
+      <p class="hero-subtitle">爱好集中地 · 学习笔记 · 朋友科普</p>
+      <a href="#sections" class="hero-btn">探索内容 ↓</a>
+    </div>
+  </section>
+
+  <!-- ===== 今日推荐 ===== -->
+  <section class="daily-pick" id="daily-pick">
+    <div class="pick-header">
+      <span class="pick-icon">🎲</span>
+      <span class="pick-title">今日推荐</span>
+      <button class="pick-refresh" id="pick-refresh" title="换一个">🔄</button>
+    </div>
+    <div class="pick-card" id="pick-card" role="link" tabindex="0">
+      <img class="pick-img" id="pick-img" src="" alt="">
+      <div class="pick-info">
+        <h3 class="pick-name" id="pick-name"></h3>
+        <p class="pick-desc" id="pick-desc"></p>
+        <span class="pick-tag" id="pick-tag"></span>
       </div>
     </div>
-    <a href="#sections" class="hero-scroll-btn">探索内容 ↓</a>
   </section>
 
   <!-- ===== 板块列表 ===== -->
   <div id="sections"></div>
+
+  <!-- 首页标题区 -->
+  <div class="home-header">
+    <h1 class="site-title">龙兄知识库</h1>
+    <p class="hero-slogan">🐉 AI驱动 · 知识沉淀 · 实用至上 🐉</p>
+  </div>
+
+  <!-- ===== 站点数据统计 ===== -->
+  <div class="site-stats">
+    <div class="stat-item">
+      <span class="stat-number" data-target="11">0</span>
+      <span class="stat-label">个板块</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="104">0</span>
+      <span class="stat-label">个页面</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="0">0</span>
+      <span class="stat-label">次访问</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="0">0</span>
+      <span class="stat-label">位访客</span>
+    </div>
+  </div>
 
     <!-- ===== 首页推荐：龙兄踩坑记 ===== -->
   <section class="section-block" style="text-align:center;padding-top:8px;">

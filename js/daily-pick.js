@@ -1,92 +1,79 @@
 /**
  * daily-pick.js - 今日推荐 + 热门搜索
+ * 本地图片 + 加载淡入动画
  */
 (function () {
-  // ===== 推荐池 =====
+  // ===== 推荐池（本地图片，无外部依赖）=====
   const pickPool = [
     {
       name: '沉香鉴别指南',
       desc: '天然沉香四大鉴别方法，告别假货少走弯路',
       tag: '🔬 药材与手串',
       url: 'agarwood.html',
-      img: 'https://images.unsplash.com/photo-1606041011872-596597976b25?w=160&h=160&fit=crop'
+      img: 'img/zisha/wht2026_p1_0.webp'
     },
     {
       name: '特斯拉 Model Y',
       desc: '用车科普·充电指南·配件推荐一网打尽',
       tag: '🚗 数码科技',
       url: 'tesla.html',
-      img: 'https://images.unsplash.com/photo-1619316885535-9a8ab3ddf0f3?w=160&h=160&fit=crop'
+      img: 'img/tesla/modely/front.webp'
     },
     {
       name: '中药养生茶',
       desc: '30+经典配方，按体质喝对茶',
       tag: '🌿 生活百科',
       url: 'health-tea.html',
-      img: 'https://images.unsplash.com/photo-1563911302283-d2bc129e7570?w=160&h=160&fit=crop'
+      img: 'img/zisha/wht2026_p1_1.webp'
     },
     {
       name: 'PlayStation 5',
       desc: '超高速SSD·DualSense手柄·次世代游戏体验',
       tag: '🎮 游戏主机',
-      url: 'console.html',
-      img: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=160&h=160&fit=crop'
+      url: 'console-playstation-5.html',
+      img: 'img/consoles/ps5.webp'
     },
     {
       name: '漫威观影顺序',
       desc: 'MCU全阶段观影指南，收藏慢慢看',
       tag: '🎭 流行文化',
       url: 'marvel.html',
-      img: 'https://images.unsplash.com/photo-1635805737707-575885ab0820?w=160&h=160&fit=crop'
+      img: 'img/marvel/iron-man-1.jpg'
     },
     {
       name: '紫砂壶鉴赏',
       desc: '95件紫砂艺术品，品味东方美学',
       tag: '🏺 传统文化',
       url: 'zisha.html',
-      img: 'https://images.unsplash.com/photo-1563195582-4e1ba7e41ae9?w=160&h=160&fit=crop'
-    },
-    {
-      name: '紫砂壶鉴赏',
-      desc: '95件紫砂艺术品，品味东方美学',
-      tag: '🏺 传统文化',
-      url: 'zisha.html',
-      img: 'https://images.unsplash.com/photo-1563195582-4e1ba7e41ae9?w=160&h=160&fit=crop'
+      img: 'img/zisha/wht2026_p1_3.webp'
     },
     {
       name: '射阳天气预报',
       desc: '新坍镇实时天气，出行无忧',
       tag: '⛅ 生活服务',
       url: 'xintan-weather.html',
-      img: 'https://images.unsplash.com/photo-1504608524841-42584120d693?w=160&h=160&fit=crop'
+      img: 'img/zisha/wht2026_p1_4.webp'
     },
     {
-      name: 'Switch 游戏推荐',
-      desc: '独占大作+多人派对，动森/塞尔达/马车',
+      name: 'Nintendo Switch 2',
+      desc: '独占大作+多人派对，动森/塞尔达/马车8',
       tag: '🎮 游戏主机',
-      url: 'console.html',
-      img: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=160&h=160&fit=crop'
+      url: 'console-switch-2.html',
+      img: 'img/consoles/switch-2.webp'
     },
     {
       name: '中药材香料',
       desc: '10种名贵药材香料知识，从入门到精通',
       tag: '🌿 生活百科',
       url: 'herbs.html',
-      img: 'https://images.unsplash.com/photo-1471188033229-46dc1bf3f90c?w=160&h=160&fit=crop'
-    },
-    {
-      name: '特斯拉充电攻略',
-      desc: '家用充电桩安装·公共充电站使用指南',
-      tag: '🚗 数码科技',
-      url: 'tesla.html',
-      img: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=160&h=160&fit=crop'
+      img: 'img/zisha/wht2026_p1_6.webp'
     },
     {
       name: '高考查分入口',
       desc: '2026年高考成绩查询，收藏备用',
       tag: '📚 实用工具',
       url: 'gaokao.html',
-      img: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=160&h=160&fit=crop'
+      img: 'img/zisha/wht2026_p1_7.webp'
     }
   ];
 
@@ -107,135 +94,127 @@
   // ===== 今日推荐逻辑 =====
   let currentPickIndex = -1;
 
-  function renderPick() {
-    const container = document.getElementById('daily-pick');
-    if (!container) return;
+  function renderPick(animate) {
+    animate = (animate !== false);
+    var card = document.getElementById('pick-card');
+    if (!card) return;
 
-    // 随机选一个（避免重复）
-    let newIndex;
+    // 随机选一个（避免连续重复）
+    var newIndex;
     do {
       newIndex = Math.floor(Math.random() * pickPool.length);
     } while (newIndex === currentPickIndex && pickPool.length > 1);
     currentPickIndex = newIndex;
 
-    const item = pickPool[newIndex];
+    var item = pickPool[newIndex];
 
-    // 填充内容
-    const card = document.getElementById('pick-card');
-    const img = document.getElementById('pick-img');
-    const name = document.getElementById('pick-name');
-    const desc = document.getElementById('pick-desc');
-    const tag = document.getElementById('pick-tag');
-
-    if (card) {
-      card.href = item.url;
-      card.target = '_self';
+    if (animate) {
+      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(12px)';
     }
+
+    // 更新内容
+    card.href = item.url;
+    card.target = '_self';
+    card.onclick = null; // <a> 标签直接跳转，清除旧 JS
+
+    var img = document.getElementById('pick-img');
     if (img) {
       img.src = item.img;
       img.alt = item.name;
-      // 图片加载失败时用占位图
       img.onerror = function() {
-        this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect fill="%23f0f0f0" width="80" height="80"/><text x="40" y="45" text-anchor="middle" font-size="30">📚</text></svg>';
+        // 本地图片加载失败，显示 emoji 占位
+        this.style.display = 'none';
+        var fb = document.createElement('div');
+        fb.style.cssText = 'width:80px;height:80px;display:flex;align-items:center;justify-content:center;font-size:36px;background:var(--dark-tile);border-radius:8px;flex-shrink:0;';
+        fb.textContent = item.tag.split(' ')[0];
+        this.parentNode.insertBefore(fb, this.nextSibling);
       };
     }
-    if (name) name.textContent = item.name;
-    if (desc) desc.textContent = item.desc;
-    if (tag) tag.textContent = item.tag;
 
-    // 处理卡片点击（<div> 需要 JS 跳转）
-    if (card) {
-      card.onclick = function() {
-        window.location.href = item.url;
-      };
-      // 键盘无障碍访问
-      card.onkeydown = function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          window.location.href = item.url;
-        }
-      };
+    var nameEl = document.getElementById('pick-name');
+    if (nameEl) nameEl.textContent = item.name;
+
+    var descEl = document.getElementById('pick-desc');
+    if (descEl) descEl.textContent = item.desc;
+
+    var tagEl = document.getElementById('pick-tag');
+    if (tagEl) tagEl.textContent = item.tag;
+
+    if (animate) {
+      var _card = card;
+      setTimeout(function() {
+        _card.style.opacity = '1';
+        _card.style.transform = 'translateY(0)';
+      }, 50);
     }
   }
 
-  // ===== 热门搜索逻辑 =====
+  // ===== 热门搜索 =====
   function renderHotTags() {
-    const container = document.getElementById('hot-tags');
+    var container = document.getElementById('hot-tags');
     if (!container) return;
-
     container.innerHTML = hotKeywords.map(function(kw) {
       return '<a class="hot-tag" onclick="doSearch(\'' + kw + '\')">' + kw + '</a>';
     }).join('');
   }
 
-  // 触发搜索
   window.doSearch = function(kw) {
-    const searchInput = document.getElementById('homeSearchInput');
+    var searchInput = document.getElementById('homeSearchInput');
     if (searchInput) {
       searchInput.value = kw;
       searchInput.focus();
-      // 触发搜索事件
       searchInput.dispatchEvent(new Event('input'));
-      // 隐藏热门搜索
-      document.getElementById('search-hot').classList.remove('active');
+      var hot = document.getElementById('search-hot');
+      if (hot) hot.classList.remove('active');
     }
   };
 
   // ===== 初始化 =====
   function init() {
-    // 初始化今日推荐
-    renderPick();
-
-    // 初始化热门搜索
+    renderPick(true); // 首次加载带淡入
     renderHotTags();
 
-    // 刷新按钮点击事件
-    const refreshBtn = document.getElementById('pick-refresh');
+    var refreshBtn = document.getElementById('pick-refresh');
     if (refreshBtn) {
       refreshBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        var icon = this;
 
-        // 旋转动画
-        this.style.transform = 'rotate(360deg)';
-        setTimeout(function() {
-          refreshBtn.style.transform = 'rotate(0deg)';
-        }, 500);
+        // 按钮旋转动画
+        icon.style.transition = 'transform 0.5s ease';
+        icon.style.transform = 'rotate(360deg)';
+        setTimeout(function() { icon.style.transform = ''; }, 500);
 
-        // 卡片切换动画
-        const card = document.getElementById('pick-card');
+        var card = document.getElementById('pick-card');
         if (card) {
+          card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
           card.style.opacity = '0';
           card.style.transform = 'translateY(10px)';
           setTimeout(function() {
-            renderPick();
+            renderPick(false); // 内容替换
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
           }, 300);
         } else {
-          renderPick();
+          renderPick(true);
         }
       });
     }
 
-    // 搜索框聚焦/失焦事件
-    const searchInput = document.getElementById('homeSearchInput');
-    const searchHot = document.getElementById('search-hot');
-
+    // 搜索框聚焦/失焦
+    var searchInput = document.getElementById('homeSearchInput');
+    var searchHot = document.getElementById('search-hot');
     if (searchInput && searchHot) {
-      searchInput.addEventListener('focus', function() {
-        searchHot.classList.add('active');
-      });
-
+      searchInput.addEventListener('focus', function() { searchHot.classList.add('active'); });
       searchInput.addEventListener('blur', function() {
-        setTimeout(function() {
-          searchHot.classList.remove('active');
-        }, 200);
+        setTimeout(function() { searchHot.classList.remove('active'); }, 200);
       });
     }
   }
 
-  // 页面加载完成后执行
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

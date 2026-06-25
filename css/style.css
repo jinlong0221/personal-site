@@ -2623,6 +2623,24 @@ p.plot-text {
   color: var(--text-muted-new);
 }
 
+.fusion-long .bubble-sep {
+  margin: 0 6px;
+  color: var(--text-muted-new);
+  opacity: 0.5;
+}
+
+.fusion-long .contact-link {
+  font-size: 0.8rem;
+  color: var(--gold);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.fusion-long .contact-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
 /* 四大板块入口 */
 .fusion-sections {
   margin-bottom: 24px;

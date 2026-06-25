@@ -68,6 +68,9 @@
 @media (max-width: 768px) { .tesla-hero h1 { font-size: 1.6rem; } }
 @media (max-width: 480px) { .card-grid-tesla { grid-template-columns: 1fr; } .news-item { flex-direction: column; gap: 4px; } .news-item .news-date { width: auto; } }
 /* 特斯拉新闻区块内容较多，增加展开高度 */
+.home-collapsible.open {
+  overflow: visible;
+}
 .home-collapsible.open .home-collapsible-body {
   max-height: none;
   overflow-y: visible;

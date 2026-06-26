@@ -3646,7 +3646,7 @@ body.dark .new-badge {
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  height: 72px;
+  height: 84px;
   display: flex;
   align-items: center;
   z-index: 10;
@@ -3657,11 +3657,11 @@ body.dark .new-badge {
   overflow-y: hidden;
   scrollbar-width: none;
   gap: 0;
-  padding: 0.4rem 40px;
+  padding: 0.5rem 40px;
   align-items: center;
   box-sizing: border-box;
   width: max-content;
-  animation: scrollInfinite 6s linear infinite;
+  animation: scrollInfinite 4s ease-in-out infinite;
 }
 .horizontal-nav .h-nav-inner:hover {
   animation-play-state: paused;
@@ -3690,8 +3690,8 @@ body.dark .new-badge {
   background: rgba(201,168,76,0.1);
   color: var(--accent-color, #c9a84c);
 }
-.horizontal-nav .h-nav-inner a .nav-icon { font-size: 1.4rem; line-height: 1.2; }
-.horizontal-nav .h-nav-inner a .nav-label { font-size: 0.75rem; line-height: 1.3; opacity: 0.9; }
+.horizontal-nav .h-nav-inner a .nav-icon { font-size: 1.6rem; line-height: 1; display: block; }
+.horizontal-nav .h-nav-inner a .nav-label { font-size: 0.78rem; line-height: 1.3; opacity: 0.9; }
 
 /* 左右箭头按钮 */
 /* 移动端 */

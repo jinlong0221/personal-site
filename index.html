@@ -450,6 +450,13 @@ function toggleHomeSection(el){
   (function() {
     var inner = document.getElementById('tickerInner');
     if (!inner) return;
+    // 随机排序
+    var items = Array.from(inner.children);
+    for (var i = items.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      inner.appendChild(items[j]);
+      items.splice(j, 1);
+    }
     // 复制一份，实现无缝循环
     inner.innerHTML = inner.innerHTML + inner.innerHTML;
   })();

@@ -82,9 +82,8 @@ var _hmt = _hmt || [];
   </div>
 </nav>
 
-<!-- ===== 横向快速入口条 ===== -->
+<!-- ===== 横向自动滚动入口条 ===== -->
 <div class="horizontal-nav" id="horizNav">
-  <button class="h-nav-arrow prev" id="hNavPrev" aria-label="向左滚动">‹</button>
   <div class="h-nav-inner" id="hNavInner">
     <a href="herbs/chenxiang.html"><span class="nav-icon">🪵</span><span class="nav-label">沉香鉴别</span></a>
     <a href="herbs.html"><span class="nav-icon">🌿</span><span class="nav-label">中药材</span></a>
@@ -99,7 +98,6 @@ var _hmt = _hmt || [];
     <a href="pitfalls.html"><span class="nav-icon">🕳️</span><span class="nav-label">踩坑记</span></a>
     <a href="calendar.html"><span class="nav-icon">📅</span><span class="nav-label">万年历</span></a>
   </div>
-  <button class="h-nav-arrow next" id="hNavNext" aria-label="向右滚动">›</button>
 </div>
 
 <main class="container">
@@ -133,24 +131,7 @@ var _hmt = _hmt || [];
     </div>
 
     <!-- 四大板块入口 -->
-    <div class="fusion-sections">
-      <div class="section-grid">
-        <a href="#hc-herbs" class="section-chip">🔬 药材与手串</a>
-        <a href="#hc-life" class="section-chip">🌿 生活百科</a>
-        <a href="#hc-tech" class="section-chip">🚗 数码科技</a>
-        <a href="#hc-pop" class="section-chip">🎭 流行文化</a>
-
-        <!-- ✅ 新增：小游戏入口（先链接到 #，等游戏做好再改） -->
-        <a class="section-card game-entrance" href="#">
-          <div class="card-icon">🎮</div>
-          <div class="card-info">
-            <h3>龙兄陪你摸鱼</h3>
-            <p>上班摸鱼？来一局放松一下</p>
-          </div>
-          <span class="new-badge">NEW</span>
-        </a>
-      </div>
-    </div>
+    <!-- 四大板块入口（已迁移至导航栏下方横向入口条） -->
 
     <!-- 今日推荐 -->
     <div class="fusion-pick">
@@ -476,33 +457,37 @@ function toggleHomeSection(el){
 <script src="js/status-bubble.js"></script>
 <script src="js/daily-pick.js"></script>
   <script>
-  /* ===== 横向快速入口条箭头 ===== */
+  /* ===== 横向入口条自动滚动 ===== */
   (function() {
     var inner = document.getElementById('hNavInner');
-    var prev = document.getElementById('hNavPrev');
-    var next = document.getElementById('hNavNext');
-    if(!inner || !prev || !next) return;
+    if (!inner) return;
+    var links = inner.querySelectorAll('a');
+    if (links.length === 0) return;
+    var scrollAmount = 0;
+    var timer = null;
 
-    function updateArrows() {
-      var maxScroll = inner.scrollWidth - inner.clientWidth;
-      if(maxScroll <= 0) {
-        prev.classList.add('hidden');
-        next.classList.add('hidden');
-      } else {
-        prev.classList.toggle('hidden', inner.scrollLeft <= 2);
-        next.classList.toggle('hidden', inner.scrollLeft >= maxScroll - 2);
+    function autoScroll() {
+      scrollAmount += links[0].offsetWidth + 8; // 8 = gap
+      if (scrollAmount >= inner.scrollWidth - inner.clientWidth + 10) {
+        scrollAmount = 0;
       }
+      inner.scrollTo({ left: scrollAmount, behavior: 'smooth' });
     }
 
-    prev.addEventListener('click', function() {
-      inner.scrollBy({ left: -200, behavior: 'smooth' });
-    });
-    next.addEventListener('click', function() {
-      inner.scrollBy({ left: 200, behavior: 'smooth' });
-    });
-    inner.addEventListener('scroll', updateArrows);
-    window.addEventListener('resize', updateArrows);
-    setTimeout(updateArrows, 100);
+    function startAuto() {
+      stopAuto();
+      timer = setInterval(autoScroll, 3000);
+    }
+    function stopAuto() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    inner.addEventListener('mouseenter', stopAuto);
+    inner.addEventListener('mouseleave', startAuto);
+    inner.addEventListener('touchstart', stopAuto, { passive: true });
+    inner.addEventListener('touchend', function() { setTimeout(startAuto, 4000); });
+
+    setTimeout(startAuto, 1000);
   })();
   </script>
   </body>

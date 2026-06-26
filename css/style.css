@@ -3686,38 +3686,12 @@ body.dark .new-badge {
 .horizontal-nav .h-nav-inner a .nav-label { font-size: 0.7rem; line-height: 1.2; opacity: 0.85; }
 
 /* 左右箭头按钮 */
-.horizontal-nav .h-nav-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
-  background: var(--card-bg, #1a1a1a);
-  border: 1px solid var(--border-color, #333);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2;
-  color: var(--text-color, #e0e0e0);
-  font-size: 1rem;
-  transition: background 0.15s;
-  user-select: none;
-}
-.horizontal-nav .h-nav-arrow:hover { background: var(--accent-color, #c9a84c); color: #fff; border-color: var(--accent-color); }
-.horizontal-nav .h-nav-arrow.prev { left: 4px; }
-.horizontal-nav .h-nav-arrow.next { right: 4px; }
-.horizontal-nav .h-nav-arrow.hidden { opacity: 0; pointer-events: none; }
-
 /* 移动端 */
 @media (max-width: 480px) {
-  .horizontal-nav .h-nav-inner { padding: 0.4rem 36px; }
+  .horizontal-nav .h-nav-inner { padding: 0.4rem 12px; }
   .horizontal-nav .h-nav-inner a { min-width: 60px; padding: 0.4rem 0.5rem; font-size: 0.7rem; }
-  .horizontal-nav .h-nav-arrow { width: 28px; height: 28px; font-size: 0.85rem; }
 }
 
 /* 暗色模式（亮色模式变量覆盖） */
 [data-theme="light"] .horizontal-nav { background: #ffffff; border-bottom-color: #e5e7eb; }
 [data-theme="light"] .horizontal-nav .h-nav-inner a { color: #374151; }
-[data-theme="light"] .horizontal-nav .h-nav-arrow { background: #ffffff; border-color: #e5e7eb; color: #374151; }

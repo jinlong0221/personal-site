@@ -48,7 +48,53 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
   <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
 </head>
 <body>
-<div class="navbar"><a href="../../index.html" class="logo">龙兄知识库</a><span id="nc"></span><ul class="nav-links"><li><a href="../../herbs/chenxiang.html">沉香</a></li><li><a href="../../herbs.html">药材</a></li><li><a href="../zisha.html">紫砂</a></li><li><a href="../../tesla.html">特斯拉</a></li></ul></div>
+  <nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../../index.html" class="logo" aria-label="龙兄知识库首页">
+龙兄知识库
+    </a>
+    <span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span>
+    <span class="nav-weather" id="navWeather" data-init="1" onclick="location.href='../../sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><span class="weather-loading" style="font-size:0.8rem;color:var(--text-muted)">🌤️</span></span>
+    <ul class="nav-links">
+      <li><a href="../../herbs/chenxiang.html" class="nav-ai">沉香鉴别</a></li>
+      <li><a href="../../herbs.html" class="nav-hobby">中药材</a></li>
+      <li><a href="../../health-tea.html" class="nav-hobby">养生茶</a></li>
+      <li><a href="../../bracelet.html" class="nav-hobby">文玩手串</a></li>
+      <li><a href="../../tesla.html" class="nav-life">特斯拉</a></li>
+      <li><a href="../../marvel.html" class="nav-life">漫威宇宙</a></li>
+      <li><a href="../../xintan-weather.html" class="nav-life">农田气象</a></li>
+      <li><a href="../../zisha.html" class="nav-life">紫砂艺术</a></li>
+      <li><a href="../../console.html" class="nav-life">游戏主机</a></li>
+      <li><a href="../../gaokao.html" class="nav-life">高考查分</a></li>
+      <li><a href="../../pitfalls.html" class="nav-life">踩坑记</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../../herbs/chenxiang.html">🪵 沉香鉴别</a>
+    <a href="../../herbs.html">🌿 中药材</a>
+    <a href="../../health-tea.html">🍵 养生茶</a>
+    <a href="../../bracelet.html">📿 文玩手串</a>
+    <a href="../../tesla.html">🚗 特斯拉</a>
+    <a href="../../marvel.html">🦸 漫威宇宙</a>
+    <a href="../../xintan-weather.html">🌾 农田气象</a>
+    <a href="../../zisha.html">🏺 紫砂艺术</a>
+    <a href="../../console.html">🎮 游戏主机</a>
+    <a href="../../gaokao.html">🎓 高考查分</a>
+    <a href="../../pitfalls.html">🕳️ 踩坑记</a>
+  </div>
+
 <div class="breadcrumb"><a href="../../index.html">首页</a> › <a href="../zisha.html">紫砂艺术</a> › <span>菱花如意杯</span></div>
 <div class="detail-hero">
 <div class="detail-img-wrap" onclick="openLightbox(this)"><img src="../../img/zisha/zisha_p20_0.webp" alt="菱花如意杯"></div>

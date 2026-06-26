@@ -451,7 +451,7 @@ function toggleHomeSection(el){
     var timer = null;
 
     function autoScroll() {
-      scrollAmount += links[0].offsetWidth + 8; // 8 = gap
+      scrollAmount += (links[0].offsetWidth + 8) * 2; // 每次滚2个，8=gap
       if (scrollAmount >= inner.scrollWidth - inner.clientWidth + 10) {
         scrollAmount = 0;
       }
@@ -460,7 +460,7 @@ function toggleHomeSection(el){
 
     function startAuto() {
       stopAuto();
-      timer = setInterval(autoScroll, 1500);
+      timer = setInterval(autoScroll, 800); // 800ms间隔，滚动更快
     }
     function stopAuto() {
       if (timer) { clearInterval(timer); timer = null; }

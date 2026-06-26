@@ -2978,6 +2978,7 @@ body.dark .new-badge {
   overflow: hidden;
   text-align: center;
   margin: 0 -20px 40px -20px;
+  z-index: 1;
 }
 
 .hero-bg {
@@ -3648,6 +3649,8 @@ body.dark .new-badge {
   height: 60px;
   display: flex;
   align-items: center;
+  z-index: 10;
+  flex-shrink: 0;
 }
 .horizontal-nav .h-nav-inner {
   display: flex;

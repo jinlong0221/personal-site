@@ -3641,9 +3641,9 @@ body.dark .new-badge {
   background: var(--card-bg, #1a1a1a);
   border-bottom: 1px solid var(--border-color, #333);
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   position: relative;
-  width: 100%;
+  max-width: 1200px;
   box-sizing: border-box;
   overflow: hidden;
   height: 84px;
@@ -3654,14 +3654,15 @@ body.dark .new-badge {
 }
 .horizontal-nav .h-nav-inner {
   display: flex;
-  overflow-y: hidden;
+  overflow: hidden;
   scrollbar-width: none;
   gap: 0;
   padding: 0.5rem 40px;
   align-items: center;
   box-sizing: border-box;
   width: max-content;
-  animation: scrollInfinite 4s ease-in-out infinite;
+  will-change: transform;
+  animation: scrollInfinite 20s linear infinite;
 }
 .horizontal-nav .h-nav-inner:hover {
   animation-play-state: paused;
@@ -3696,6 +3697,7 @@ body.dark .new-badge {
 /* 左右箭头按钮 */
 /* 移动端 */
 @media (max-width: 480px) {
+  .horizontal-nav { max-width: 100%; margin: 0; }
   .horizontal-nav .h-nav-inner { padding: 0.4rem 12px; }
   .horizontal-nav .h-nav-inner a { min-width: 60px; padding: 0.4rem 0.5rem; font-size: 0.7rem; }
 }

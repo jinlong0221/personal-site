@@ -3687,7 +3687,7 @@ body.dark .new-badge {
   align-items: center;
   white-space: nowrap;
   will-change: transform;
-  animation: tickerScroll 40s linear infinite;
+  animation: tickerScroll 15s linear infinite;
   gap: 0;
 }
 
@@ -3717,7 +3717,7 @@ body.dark .new-badge {
   max-width: 100%; margin: 0 auto 24px auto; }
   .news-ticker .ticker-label { padding: 0 10px; font-size: 0.72rem; }
   .news-ticker .ticker-item { font-size: 0.76rem; padding: 0 20px 0 0; }
-  .news-ticker .ticker-inner { animation-duration: 25s; }
+  .news-ticker .ticker-inner { animation-duration: 12s; }
 }
 
 /* 暗色 / 亮色模式 */

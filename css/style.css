@@ -696,6 +696,8 @@ footer a:hover { color:var(--gold-light); }
  .nav-links { display:none; }
  .hamburger { display:flex; }
  .nav-clock { display:inline; font-size:0.7rem; opacity:0.6; }
+ .nav-clock-link { text-decoration:none; color:inherit; cursor:pointer; }
+ .nav-clock-link:hover .nav-clock { text-decoration:underline; opacity:0.9; }
  .nav-weather { display:inline; font-size:0.7rem; padding:1px 4px; margin:0; }
  .navbar .logo { font-size:1.05rem; letter-spacing:0; }
  .nav-actions { gap:0; }

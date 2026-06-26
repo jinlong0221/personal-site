@@ -3651,7 +3651,7 @@ body.dark .new-badge {
   background: var(--card-bg, #1a1a1a);
   border-bottom: 1px solid var(--border-color, #333);
   max-width: 1200px;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 24px auto;
   display: flex;
   align-items: center;
   height: 44px;
@@ -3713,7 +3713,8 @@ body.dark .new-badge {
 
 /* 移动端 */
 @media (max-width: 480px) {
-  .news-ticker { max-width: 100%; }
+  .news-ticker {
+  max-width: 100%; margin: 0 auto 24px auto; }
   .news-ticker .ticker-label { padding: 0 10px; font-size: 0.72rem; }
   .news-ticker .ticker-item { font-size: 0.76rem; padding: 0 20px 0 0; }
   .news-ticker .ticker-inner { animation-duration: 25s; }
@@ -3721,11 +3722,13 @@ body.dark .new-badge {
 
 /* 暗色 / 亮色模式 */
 [data-theme="dark"] .news-ticker {
+  margin-bottom: 24px;
   background: #1a1a2e;
   border-bottom-color: #2a2a4e;
 }
 
-[data-theme="light"] .news-ticker { background: #ffffff; border-bottom-color: #e5e7eb; }
+[data-theme="light"] .news-ticker {
+  margin-bottom: 24px; background: #ffffff; border-bottom-color: #e5e7eb; }
 [data-theme="light"] .news-ticker .ticker-label { background: rgba(201,168,76,0.1); color: #8B6914; }
 [data-theme="light"] .news-ticker .ticker-item { color: #374151; }
 [data-theme="light"] .news-ticker .ticker-item:hover { color: #8B6914; }

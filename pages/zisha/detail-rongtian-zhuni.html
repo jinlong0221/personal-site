@@ -92,4 +92,25 @@ function openLightbox(e){var s=e.querySelector?e.querySelector('img').src:e.src;
 </script><script src="../../js/app.js"></script>
 <script src="../../js/search.js"></script>
 <script src="../../js/share.js"></script>
+
+
+<script>
+// 修复 iOS Safari backdrop-filter+fixed 首屏无法滚动
+(function(){
+  function fixScroll(){
+    var el=document.documentElement;
+    el.style.overflow='hidden';
+    void el.offsetHeight;
+    el.style.overflow='';
+    window.scrollTo(0,1);
+    void window.scrollY;
+    window.scrollTo(0,0);
+  }
+  ['load','resize','touchstart'].forEach(function(ev){
+    window.addEventListener(ev,fixScroll,{passive:true});
+  });
+  fixScroll();
+})();
+</script>
+
 </body></html>

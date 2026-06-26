@@ -170,13 +170,11 @@ strong,b { font-weight:700; color:var(--text); }
  transition:background var(--transition), border-color var(--transition);
 }
 
-/* ===== 详情页滚动容器方案 ===== */
-/* body使用flexbox: navbar固定+内容区滚动 */
-body { overflow: hidden !important; }
-/* navbar在flex布局中不缩小 */
-.navbar { position: sticky !important; top: 0; flex-shrink: 0; }
-/* page-wrap是真正的滚动容器 */
+/* ===== 详情页滚动容器方案（仅 zisha.html / sheyang.html） ===== */
+/* 详情页：page-wrap 是滚动容器，flex:1 占满剩余高度 */
 .page-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+/* navbar 在 flex 布局中不缩小 */
+body .navbar { position: sticky; top: 0; flex-shrink: 0; }
 
 .navbar-inner {
  max-width:var(--max-width); margin:0 auto; padding:0 20px;
@@ -2977,17 +2975,28 @@ body.dark .new-badge {
   justify-content: center;
   overflow: hidden;
   text-align: center;
-  margin: 0 -20px 40px -20px;
+  margin: 16px 0 40px 0;
   z-index: 1;
+}
+
+/* 全宽背景伪元素，不受 margin 影响 */
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background-size: 200% 200%;
+  animation: gradientMove 8s ease infinite;
+  z-index: 0;
 }
 
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  background-size: 200% 200%;
-  animation: gradientMove 8s ease infinite;
-  z-index: 0;
+  z-index: 1;
 }
 
 .hero-bg::after {
@@ -3642,12 +3651,13 @@ body.dark .new-badge {
   background: var(--card-bg, #1a1a1a);
   border-bottom: 1px solid var(--border-color, #333);
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
   display: flex;
   align-items: center;
   height: 44px;
   overflow: hidden;
   flex-shrink: 0;
+  /* 暗色模式下与 Hero 背景自然过渡 */
 }
 
 .news-ticker .ticker-label {
@@ -3709,7 +3719,12 @@ body.dark .new-badge {
   .news-ticker .ticker-inner { animation-duration: 25s; }
 }
 
-/* 亮色模式 */
+/* 暗色 / 亮色模式 */
+[data-theme="dark"] .news-ticker {
+  background: #1a1a2e;
+  border-bottom-color: #2a2a4e;
+}
+
 [data-theme="light"] .news-ticker { background: #ffffff; border-bottom-color: #e5e7eb; }
 [data-theme="light"] .news-ticker .ticker-label { background: rgba(201,168,76,0.1); color: #8B6914; }
 [data-theme="light"] .news-ticker .ticker-item { color: #374151; }

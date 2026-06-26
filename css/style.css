@@ -108,7 +108,7 @@
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size:16px; overflow-x:hidden; scroll-behavior:smooth; }
+html { font-size:16px; overflow-x:hidden; overflow-y:auto; scroll-behavior:smooth; -webkit-overflow-scrolling: touch; }
 body {
  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
  background: var(--bg);

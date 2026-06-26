@@ -2665,15 +2665,15 @@ p.plot-text {
 }
 
 .section-grid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
 .section-chip {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 10px 20px;
   background: var(--chip-bg);
@@ -2683,6 +2683,7 @@ p.plot-text {
   text-decoration: none;
   font-size: 0.95rem;
   transition: all 0.3s;
+  text-align: center;
 }
 
 .section-chip:hover {
@@ -2690,6 +2691,96 @@ p.plot-text {
   border-color: var(--gold);
   color: var(--gold-text);
   transform: translateY(-2px);
+}
+
+/* 板块卡片（新增游戏入口用） */
+.section-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 16px;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.section-card .card-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.section-card .card-info {
+  text-align: center;
+}
+
+.section-card .card-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.section-card .card-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* 游戏入口：品红色主题 */
+.game-entrance {
+  border-top: 3px solid #E91E63;
+  border-color: #E91E63;
+}
+
+.game-entrance .card-icon {
+  color: #E91E63;
+}
+
+/* NEW 角标 */
+.new-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #E91E63;
+  color: #fff;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 700;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+body.dark .new-badge {
+  background: #F06292;
+}
+
+/* 手机端：游戏入口占满一行 */
+@media (max-width: 480px) {
+  .section-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .game-entrance {
+    grid-column: span 2;
+  }
 }
 
 /* 今日推荐（fusion版） */

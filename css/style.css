@@ -2977,7 +2977,7 @@ body.dark .new-badge {
   justify-content: center;
   overflow: hidden;
   text-align: center;
-  margin: -20px -20px 40px -20px;
+  margin: 0 -20px 40px -20px;
 }
 
 .hero-bg {
@@ -3645,14 +3645,17 @@ body.dark .new-badge {
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  height: 60px;
+  display: flex;
+  align-items: center;
 }
 .horizontal-nav .h-nav-inner {
   display: flex;
   overflow-y: hidden;
   scrollbar-width: none;
   gap: 0;
-  padding: 0.5rem 40px;
-  align-items: stretch;
+  padding: 0.4rem 40px;
+  align-items: center;
   box-sizing: border-box;
   width: max-content;
   animation: scrollInfinite 6s linear infinite;

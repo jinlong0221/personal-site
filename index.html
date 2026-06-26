@@ -82,6 +82,26 @@ var _hmt = _hmt || [];
   </div>
 </nav>
 
+<!-- ===== 横向快速入口条 ===== -->
+<div class="horizontal-nav" id="horizNav">
+  <button class="h-nav-arrow prev" id="hNavPrev" aria-label="向左滚动">‹</button>
+  <div class="h-nav-inner" id="hNavInner">
+    <a href="herbs/chenxiang.html"><span class="nav-icon">🪵</span><span class="nav-label">沉香鉴别</span></a>
+    <a href="herbs.html"><span class="nav-icon">🌿</span><span class="nav-label">中药材</span></a>
+    <a href="health-tea.html"><span class="nav-icon">🍵</span><span class="nav-label">养生茶</span></a>
+    <a href="bracelet.html"><span class="nav-icon">📿</span><span class="nav-label">文玩手串</span></a>
+    <a href="tesla.html"><span class="nav-icon">🚗</span><span class="nav-label">特斯拉</span></a>
+    <a href="marvel.html"><span class="nav-icon">🦸</span><span class="nav-label">漫威宇宙</span></a>
+    <a href="xintan-weather.html"><span class="nav-icon">🌾</span><span class="nav-label">农田气象</span></a>
+    <a href="zisha.html"><span class="nav-icon">🏺</span><span class="nav-label">紫砂艺术</span></a>
+    <a href="console.html"><span class="nav-icon">🎮</span><span class="nav-label">游戏主机</span></a>
+    <a href="gaokao.html"><span class="nav-icon">🎓</span><span class="nav-label">高考查分</span></a>
+    <a href="pitfalls.html"><span class="nav-icon">🕳️</span><span class="nav-label">踩坑记</span></a>
+    <a href="calendar.html"><span class="nav-icon">📅</span><span class="nav-label">万年历</span></a>
+  </div>
+  <button class="h-nav-arrow next" id="hNavNext" aria-label="向右滚动">›</button>
+</div>
+
 <main class="container">
 
   <!-- ===== Hero Banner（不动） ===== -->
@@ -455,5 +475,35 @@ function toggleHomeSection(el){
     <script src="js/animations.js"></script>
 <script src="js/status-bubble.js"></script>
 <script src="js/daily-pick.js"></script>
+  <script>
+  /* ===== 横向快速入口条箭头 ===== */
+  (function() {
+    var inner = document.getElementById('hNavInner');
+    var prev = document.getElementById('hNavPrev');
+    var next = document.getElementById('hNavNext');
+    if(!inner || !prev || !next) return;
+
+    function updateArrows() {
+      var maxScroll = inner.scrollWidth - inner.clientWidth;
+      if(maxScroll <= 0) {
+        prev.classList.add('hidden');
+        next.classList.add('hidden');
+      } else {
+        prev.classList.toggle('hidden', inner.scrollLeft <= 2);
+        next.classList.toggle('hidden', inner.scrollLeft >= maxScroll - 2);
+      }
+    }
+
+    prev.addEventListener('click', function() {
+      inner.scrollBy({ left: -200, behavior: 'smooth' });
+    });
+    next.addEventListener('click', function() {
+      inner.scrollBy({ left: 200, behavior: 'smooth' });
+    });
+    inner.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+    setTimeout(updateArrows, 100);
+  })();
+  </script>
   </body>
 </html>

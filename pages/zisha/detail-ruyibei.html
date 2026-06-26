@@ -37,7 +37,7 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://longxiong.vip/pages/zisha/detail-ruyibei.html">
   <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
-<style>html,body{height:auto!important;overflow:auto!important;-webkit-overflow-scrolling:touch!important;position:static!important}</style></head>
+<style>html,body{height:auto!important;overflow:scroll!important;-webkit-overflow-scrolling:scroll!important;position:static!important}</style></head>
 <body>
   <nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner">
@@ -100,10 +100,10 @@ function openLightbox(e){var s=e.querySelector?e.querySelector('img').src:e.src;
 // 强制解锁滚动（WKWebView bug修复）
 (function(){
   function fix(){
-    document.documentElement.style.overflow='auto';
-    document.documentElement.style.webkitOverflowScrolling='touch';
-    document.body.style.overflow='auto';
-    document.body.style.webkitOverflowScrolling='touch';
+    document.documentElement.style.overflow='scroll';
+    document.documentElement.style.webkitOverflowScrolling='scroll';
+    document.body.style.overflow='scroll';
+    document.body.style.webkitOverflowScrolling='scroll';
   }
   fix();
   window.addEventListener('load',fix);

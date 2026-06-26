@@ -1,10 +1,10 @@
 /**
- * AI 聊天功能 - DeepSeek 版
- * 使用前请替换 DEEPSEEK_API_KEY 为真实 Key
+ * AI 聊天功能 - 通过 Cloudflare Worker 代理调用 DeepSeek
+ * Worker 代码见：workspace/cloudflare-worker.js
  */
 
-const DEEPSEEK_API_KEY = '你的API密钥'; // ← 替换成你的 DeepSeek API Key
-const API_URL = 'https://api.deepseek.com/v1/chat/completions';
+// ⚠️ 部署 Cloudflare Worker 后，把 URL 替换成你的 Worker 地址
+const WORKER_URL = 'https://longxiong-chat.xxx.workers.dev';
 
 let chatOpen = false;
 let chatHistory = [
@@ -29,17 +29,13 @@ async function sendMessage() {
   input.value = '';
   const btn = document.getElementById('chatSend');
   btn.disabled = true;
-
   const loadingId = appendLoading();
 
   try {
     chatHistory.push({ role: 'user', content: text });
-    const response = await fetch(API_URL, {
+    const response = await fetch(WORKER_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'deepseek-chat',
         messages: chatHistory,
@@ -93,11 +89,9 @@ function escapeHtml(text) {
   return d.innerHTML;
 }
 
-// 绑定事件
 document.getElementById('chatSend').onclick = sendMessage;
 document.getElementById('chatInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') sendMessage();
 });
 
-// 初始状态：折叠
 document.getElementById('chatWindow').classList.remove('open');

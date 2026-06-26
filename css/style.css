@@ -3644,19 +3644,21 @@ body.dark .new-badge {
   position: relative;
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .horizontal-nav .h-nav-inner {
   display: flex;
-  overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   gap: 0;
   padding: 0.5rem 40px;
   align-items: stretch;
   box-sizing: border-box;
-  width: 100%;
+  width: max-content;
+  animation: scrollInfinite 6s linear infinite;
+}
+.horizontal-nav .h-nav-inner:hover {
+  animation-play-state: paused;
 }
 .horizontal-nav .h-nav-inner::-webkit-scrollbar { display: none; }
 .horizontal-nav .h-nav-inner a {
@@ -3695,3 +3697,9 @@ body.dark .new-badge {
 /* 暗色模式（亮色模式变量覆盖） */
 [data-theme="light"] .horizontal-nav { background: #ffffff; border-bottom-color: #e5e7eb; }
 [data-theme="light"] .horizontal-nav .h-nav-inner a { color: #374151; }
+
+/* 横向导航无限循环滚动 */
+@keyframes scrollInfinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

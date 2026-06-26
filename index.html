@@ -441,37 +441,13 @@ function toggleHomeSection(el){
 <script src="js/status-bubble.js"></script>
 <script src="js/daily-pick.js"></script>
   <script>
-  /* ===== 横向入口条自动滚动 ===== */
+  /* ===== 横向入口条无限循环滚动 ===== */
   (function() {
     var inner = document.getElementById('hNavInner');
     if (!inner) return;
-    var links = inner.querySelectorAll('a');
-    if (links.length === 0) return;
-    var scrollAmount = 0;
-    var timer = null;
-
-    function autoScroll() {
-      scrollAmount += (links[0].offsetWidth + 8) * 2; // 每次滚2个，8=gap
-      if (scrollAmount >= inner.scrollWidth - inner.clientWidth + 10) {
-        scrollAmount = 0;
-      }
-      inner.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-    }
-
-    function startAuto() {
-      stopAuto();
-      timer = setInterval(autoScroll, 800); // 800ms间隔，滚动更快
-    }
-    function stopAuto() {
-      if (timer) { clearInterval(timer); timer = null; }
-    }
-
-    inner.addEventListener('mouseenter', stopAuto);
-    inner.addEventListener('mouseleave', startAuto);
-    inner.addEventListener('touchstart', stopAuto, { passive: true });
-    inner.addEventListener('touchend', function() { setTimeout(startAuto, 4000); });
-
-    setTimeout(startAuto, 1000);
+    // 复制一份图标，实现无缝循环
+    var clone = inner.innerHTML;
+    inner.innerHTML = clone + clone;
   })();
   </script>
   </body>

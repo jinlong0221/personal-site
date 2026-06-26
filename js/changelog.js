@@ -32,6 +32,10 @@
         count++;
       });
       container.innerHTML = html;
+
+      // 更新条数 badge
+      var badge = document.getElementById('update-count');
+      if (badge) badge.textContent = count + '条';
     };
     xhr.send();
   }

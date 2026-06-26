@@ -1,5 +1,3 @@
-/* 强制滚动修复 */
-html, body { height: auto !important; min-height: 100vh !important; overflow: scroll !important; -webkit-overflow-scrolling: scroll !important; position: static !important; }
 
 
 
@@ -171,6 +169,15 @@ strong,b { font-weight:700; color:var(--text); }
  height:var(--nav-height);
  transition:background var(--transition), border-color var(--transition);
 }
+
+/* ===== 详情页滚动容器方案 ===== */
+/* body使用flexbox: navbar固定+内容区滚动 */
+body { overflow: hidden !important; }
+/* navbar在flex布局中不缩小 */
+.navbar { position: sticky !important; top: 0; flex-shrink: 0; }
+/* page-wrap是真正的滚动容器 */
+.page-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
 .navbar-inner {
  max-width:var(--max-width); margin:0 auto; padding:0 20px;
  height:100%; display:flex; align-items:center; justify-content:space-between;

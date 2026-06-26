@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关于本站 - 龙兄知识库</title>
+<meta name="description" content="龙兄知识库：关于本站、免责声明、知识产权说明与联系方式">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.about-wrap{max-width:720px;margin:80px auto 60px;padding:0 20px;line-height:1.8}
+.about-title{font-size:1.8rem;margin-bottom:8px}
+.about-subtitle{color:var(--text-muted);font-size:0.95rem;margin-bottom:36px}
+.about-section{background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:28px 24px;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+.about-section h3{font-size:1.2rem;margin-bottom:12px;color:#1565C0}
+[data-theme="dark"] .about-section h3{color:#64B5F6}
+.about-section p{color:var(--text-color);margin-bottom:12px}
+.about-section ul{padding-left:20px;color:var(--text-color)}
+.about-section li{margin-bottom:8px}
+.highlight{color:#E91E63;font-weight:600}
+[data-theme="dark"] .highlight{color:#F06292}
+.contact-box{background:#FFF8F0;border:1px solid var(--border-color);border-radius:12px;padding:20px;text-align:center;margin-top:24px}
+[data-theme="dark"] .contact-box{background:#3d2e1e}
+.contact-box p{color:#666;margin-bottom:8px}
+[data-theme="dark"] .contact-box p{color:#aaa}
+.back-home{display:inline-block;margin-top:24px;padding:10px 28px;background:linear-gradient(135deg,#1565C0,#0D47A1);color:#fff;border:none;border-radius:30px;font-size:0.95rem;cursor:pointer;text-decoration:none}
+.back-home:hover{opacity:.9}
+</style>
+</head>
+<body>
+
+<!-- 全站统一导航栏 -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">龙兄知识库</a>
+    <span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span>
+    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html" class="nav-ai">沉香鉴别</a></li>
+      <li><a href="herbs.html" class="nav-hobby">中药材</a></li>
+      <li><a href="health-tea.html" class="nav-hobby">养生茶</a></li>
+      <li><a href="bracelet.html" class="nav-hobby">文玩手串</a></li>
+      <li><a href="tesla.html" class="nav-life">特斯拉</a></li>
+      <li><a href="marvel.html" class="nav-life">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html" class="nav-life">农田气象</a></li>
+      <li><a href="zisha.html" class="nav-life">紫砂艺术</a></li>
+      <li><a href="console.html" class="nav-life">游戏主机</a></li>
+      <li><a href="pitfalls.html" class="nav-life">踩坑记</a></li>
+      <li><a href="gaokao.html" class="nav-life">高考查分</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="herbs/chenxiang.html">🪵 沉香鉴别</a>
+    <a href="herbs.html">🌿 中药材</a>
+    <a href="health-tea.html">🍵 养生茶</a>
+    <a href="bracelet.html">📿 文玩手串</a>
+    <a href="tesla.html">🚗 特斯拉</a>
+    <a href="marvel.html">🦸 漫威宇宙</a>
+    <a href="xintan-weather.html">🌾 农田气象</a>
+    <a href="zisha.html">🏺 紫砂艺术</a>
+    <a href="console.html">🎮 游戏主机</a>
+    <a href="gaokao.html">🎓 高考查分</a>
+    <a href="pitfalls.html">🕳️ 踩坑记</a>
+  </div>
+</nav>
+
+<main>
+  <div class="about-wrap">
+
+    <div class="about-title">关于本站</div>
+    <div class="about-subtitle">龙兄知识库 · 最后更新：2026年6月</div>
+
+    <!-- 网站简介 -->
+    <div class="about-section">
+      <h3>📖 网站简介</h3>
+      <p>「龙兄知识库」是由 <span class="highlight">AI 辅助搭建</span> 的个人知识分享网站，记录站长在生活、兴趣与折腾过程中的学习笔记和实用经验。</p>
+      <p>内容涵盖紫砂艺术、沉香鉴别、中药材、养生茶、数码科技、流行文化等领域，力求 <span class="highlight">实用、靠谱、可落地</span>。</p>
+    </div>
+
+    <!-- 免责声明 -->
+    <div class="about-section">
+      <h3>⚖️ 免责声明</h3>
+      <p>本网站所有内容仅供 <span class="highlight">学习交流参考</span>，不构成任何专业建议（包括但不限于医疗、投资、法律建议）。</p>
+      <ul>
+        <li>紫砂、沉香等收藏品鉴别内容基于个人经验整理，<span class="highlight">不作为交易依据</span>，购买贵重物品请寻求专业机构鉴定。</li>
+        <li>中药材、养生茶相关信息仅供科普，<span class="highlight">身体不适请及时就医</span>，勿自行用药。</li>
+        <li>高考查分、志愿填报信息仅供参考，<span class="highlight">以官方发布为准</span>。</li>
+        <li>游戏板块仅供娱乐，<span class="highlight">不涉赌、不涉币</span>。</li>
+      </ul>
+    </div>
+
+    <!-- 知识产权 -->
+    <div class="about-section">
+      <h3>©️ 知识产权与版权说明</h3>
+      <p><strong>原创内容：</strong>本站原创文字、图片、代码等内容的版权归「龙兄知识库」所有，转载请注明出处。</p>
+      <p><strong>第三方商标：</strong>本网站提及的「漫威®」「特斯拉®」「PlayStation®」等均为各公司注册商标，仅用于知识分享与科普，不代表本站与这些公司有任何关联。</p>
+      <p><strong>图片来源：</strong>本站图片来源于原创拍摄或已获得授权的内容，如有版权问题，请联系我们及时处理。</p>
+      <p><strong>紫砂艺术板块：</strong>紫砂作品图片及介绍已获得相关权利人授权使用。</p>
+    </div>
+
+    <!-- 推广标注 -->
+    <div class="about-section">
+      <h3>🔗 合作链接说明</h3>
+      <p>本站为纯知识分享网站，<span class="highlight">不含任何商业推广或联盟链接</span>。所有商品/店铺推荐仅为主观经验分享，不构成购买建议。</p>
+      <p>「龙兄踩坑记」中提到的商品购买经历仅供故事分享，请自行判断。</p>
+    </div>
+
+    <!-- 联系方式 -->
+    <div class="contact-box">
+      <p>📧 如有问题、建议或版权投诉，欢迎联系：</p>
+      <p style="font-weight:700;color:#1565C0;">799958000@qq.com</p>
+    </div>
+
+    <div style="text-align:center;">
+      <a href="index.html" class="back-home">🏠 回到首页</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <p class="footer-brand">🐉 龙兄知识库</p>
+      <p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p>
+    </div>
+    <div class="footer-col">
+      <p>© 2026 龙兄知识库 · 保留所有权利</p>
+      <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub 开源仓库
+      </a>
+    </div>
+  </div>
+  <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
+    <span style="font-size:13px;color:var(--text-muted)">本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次</span>
+    <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人</span>
+    <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
+  </div>
+  <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/search.js"></script>
+<script src="js/share.js"></script>
+</body>
+</html>

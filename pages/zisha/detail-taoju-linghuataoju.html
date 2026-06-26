@@ -98,7 +98,7 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 <script>(function(){function u(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});}u();setInterval(u,1000);})();
 function openLightbox(e){var s=e.querySelector('img').src;var o=document.createElement('div');o.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';o.innerHTML='<img src="'+s+'" style="max-width:90%;max-height:90vh;border-radius:8px;object-fit:contain" />';o.onclick=function(){document.body.removeChild(o)};document.body.appendChild(o);}
 </script><script src="../../js/app.js"></script>
-</div class="page-wrap">
+</div>
 <script src="../../js/search.js"></script>
 <script src="../../js/share.js"></script>
 
@@ -106,4 +106,7 @@ function openLightbox(e){var s=e.querySelector('img').src;var o=document.createE
 
 
 
+<div style="margin-top:60px;padding:20px;text-align:center;border-top:1px solid var(--border-color);font-size:0.85rem;">
+  <a href="../../about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+</div>
 </body></html>

@@ -438,13 +438,36 @@ function toggleHomeSection(el){
   var wrap=el.parentElement;
   wrap.classList.toggle('open');
 }
-</script>
+<!-- AI 聊天悬浮按钮 + 对话框 -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-fab" id="chatFab" onclick="toggleChat()">
+    <span class="fab-icon">💬</span>
+    <span class="fab-badge">AI</span>
+  </div>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-title">🐉 龙兄 AI 助手</div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="msg-avatar">🐉</div>
+        <div class="msg-bubble">你好！我是龙兄的 AI 助手 🐉 有什么可以帮你的？可以问我紫砂、沉香、养生茶、数码科技、流行文化等方面的问题～</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="输入你的问题..." autocomplete="off">
+      <button class="chat-send" id="chatSend">发送</button>
+    </div>
+  </div>
+</div>
 
     <script src="js/share.js"></script>
     <script src="js/changelog.js"></script>
     <script src="js/animations.js"></script>
 <script src="js/status-bubble.js"></script>
 <script src="js/daily-pick.js"></script>
+<script src="js/main.js"></script>
   <script>
   /* ===== 新闻滚动条无限循环 ===== */
   (function() {

@@ -116,8 +116,10 @@ body {
  line-height: 1.8;
  min-height: 100vh;
  -webkit-font-smoothing: antialiased;
+ -webkit-overflow-scrolling: touch;
  padding-top: var(--nav-height);
  overflow-x: hidden;
+ overflow-y: auto;
  transition: background var(--transition), color var(--transition);
 }
 

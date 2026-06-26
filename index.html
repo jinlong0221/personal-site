@@ -82,23 +82,28 @@ var _hmt = _hmt || [];
   </div>
 </nav>
 
-<!-- ===== 横向自动滚动入口条 ===== -->
-<div class="horizontal-nav" id="horizNav">
-  <div class="h-nav-inner" id="hNavInner">
-    <a href="herbs/chenxiang.html"><span class="nav-icon">🪵</span><span class="nav-label">沉香鉴别</span></a>
-    <a href="herbs.html"><span class="nav-icon">🌿</span><span class="nav-label">中药材</span></a>
-    <a href="health-tea.html"><span class="nav-icon">🍵</span><span class="nav-label">养生茶</span></a>
-    <a href="bracelet.html"><span class="nav-icon">📿</span><span class="nav-label">文玩手串</span></a>
-    <a href="tesla.html"><span class="nav-icon">🚗</span><span class="nav-label">特斯拉</span></a>
-    <a href="marvel.html"><span class="nav-icon">🦸</span><span class="nav-label">漫威宇宙</span></a>
-    <a href="xintan-weather.html"><span class="nav-icon">🌾</span><span class="nav-label">农田气象</span></a>
-    <a href="zisha.html"><span class="nav-icon">🏺</span><span class="nav-label">紫砂艺术</span></a>
-    <a href="console.html"><span class="nav-icon">🎮</span><span class="nav-label">游戏主机</span></a>
-    <a href="gaokao.html"><span class="nav-icon">🎓</span><span class="nav-label">高考查分</span></a>
-    <a href="pitfalls.html"><span class="nav-icon">🕳️</span><span class="nav-label">踩坑记</span></a>
-    <a href="calendar.html"><span class="nav-icon">📅</span><span class="nav-label">万年历</span></a>
+<!-- ===== 最新动态滚动条 ===== -->
+<div class="news-ticker" id="newsTicker">
+  <div class="ticker-label">📢 最新动态</div>
+  <div class="ticker-window">
+    <div class="ticker-inner" id="tickerInner">
+    <a href="tesla.html" class="ticker-item">◆ 特斯拉板块：FSD全球订阅制+5月交付85982辆最新动态</a>
+    <a href="gaokao.html" class="ticker-item">◆ 江苏高考查分：更新2026年分数线历史484/物理456</a>
+    <a href="herbs.html" class="ticker-item">◆ 中药材板块10个详情页统一路径+平铺5章节结构</a>
+    <a href="zisha.html" class="ticker-item">◆ 紫砂详情页39个文件导航栏统一+iOS滚动Bug修复</a>
+    <a href="index.html" class="ticker-item">◆ 独立域名 longxiong.vip 正式上线全站143页</a>
+    <a href="index.html" class="ticker-item">◆ 首页探索模块改版+龙兄陪你摸鱼小游戏入口</a>
+    <a href="pitfalls.html" class="ticker-item">◆ 龙兄踩坑记栏目上线+难度标签系统</a>
+    <a href="marvel.html" class="ticker-item">◆ 漫威宇宙板块上线：34部电影+39条剧情线</a>
+    <a href="console.html" class="ticker-item">◆ 游戏主机板块上线：6大品牌46款主机详情</a>
+    <a href="zisha.html" class="ticker-item">◆ 紫砂艺术板块上线：95张高清作品图</a>
+    <a href="gaokao.html" class="ticker-item">◆ 高考查分页面上线：实时倒计时+分数线查询</a>
+    <a href="health-tea.html" class="ticker-item">◆ 养生茶配方更新：30+配方8大分类+痛风调理</a>
+    <a href="bracelet.html" class="ticker-item">◆ 文玩手串盘玩指南上线+星月菩提鉴别</a>
+    </div>
   </div>
 </div>
+
 
 <main class="container">
 
@@ -441,13 +446,12 @@ function toggleHomeSection(el){
 <script src="js/status-bubble.js"></script>
 <script src="js/daily-pick.js"></script>
   <script>
-  /* ===== 横向入口条无限循环滚动 ===== */
+  /* ===== 新闻滚动条无限循环 ===== */
   (function() {
-    var inner = document.getElementById('hNavInner');
+    var inner = document.getElementById('tickerInner');
     if (!inner) return;
-    // 复制一份图标，实现无缝循环
-    var clone = inner.innerHTML;
-    inner.innerHTML = clone + clone;
+    // 复制一份，实现无缝循环
+    inner.innerHTML = inner.innerHTML + inner.innerHTML;
   })();
   </script>
   </body>

@@ -1472,14 +1472,22 @@ p.plot-text {
 .home-collapsible.open .hc-arrow {
   transform: rotate(180deg);
 }
+/* ===== 折叠栏动画：grid-template-rows 方案（丝滑60fps）===== */
+.home-collapsible {
+  display: grid;
+  grid-template-rows: auto 0fr;     /* header 行 + body 行(折叠) */
+  transition: grid-template-rows 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.home-collapsible.open {
+  grid-template-rows: auto 1fr;     /* body 行展开为自然高度 */
+}
 .home-collapsible-body {
-  max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease, padding 0.35s ease;
+  min-height: 0;                     /* grid 动画的关键：允许内容高度为0 */
+  transition: padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   padding: 0 20px;
 }
 .home-collapsible.open .home-collapsible-body {
-  max-height: 500px;
   padding: 0 20px 20px;
 }
 

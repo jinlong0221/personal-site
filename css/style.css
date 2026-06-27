@@ -4,15 +4,15 @@
 :root {
  --orange: var(--orange);
  --orange-light: var(--orange-light);
- --bg: #0a0a0a;
- --bg-secondary: #111111;
- --card: #1a1a1a;
- --card-hover: #222222;
- --border: #2a2a2a;
- --border-light: #333333;
- --text: #f0f0f0;
- --text-secondary: #b0b0b0;
- --text-muted: #666666;
+ --bg: --bg;
+ --bg-secondary: --bg-secondary;
+ --card: --card;
+ --card-hover: --card-hover;
+ --border: --border;
+ --border-light: --border-light;
+ --text: --text;
+ --text-secondary: --text-secondary;
+ --text-muted: --text-muted;
  --gold: #c9a84c;
  --gold-light: #e0c97a;
  --blue: #0078d4;
@@ -41,9 +41,9 @@
  --card-hover: #f9f9f7;
  --border: #e0ddd5;
  --border-light: #d5d2ca;
- --text: #1a1a1a;
+ --text: --card;
  --text-secondary: #444444;
- --text-muted: #777777;
+ --text-muted: --text-muted;
  --gold: #a68a3c;
  --gold-light: #c9a84c;
  --nav-bg: rgba(255,255,255,0.96);
@@ -53,18 +53,18 @@
 
   
   /* 融合模块颜色变量（白天模式） */
-  --text-primary: #222222;
+  --text-primary: --card-hover;
   --text-secondary-new: #555555;
   --text-muted-new: #999999;
   --bg-card: #ffffff;
   --bg-section: #f8f9fa;
-  --border-light-new: #e0e0e0;
+  --border-light-new: --text-secondary;
   --accent: #1565C0;
   --bubble-bg: #FFF8F0;
   --bubble-text: #222;
   --chip-bg: #ffffff;
-  --chip-border: #e0e0e0;
-  --chip-text: #333333;
+  --chip-border: --text-secondary;
+  --chip-text: --border-light;
   --card-bg: #ffffff;
   --card-shadow: rgba(0,0,0,0.1);
 
@@ -75,12 +75,12 @@
  --orange: #FFB380;
  --orange-light: #3d2817;
  --card: #1e1e1e;
- --card-hover: #2a2a2a;
+ --card-hover: --border;
  --border: #3a3a3a;
  --border-light: #444444;
- --text: #f0f0f0;
+ --text: --text;
  --text-secondary: #c0c0c0;
- --text-muted: #888888;
+ --text-muted: --text-muted;
  --gold: #d4af37;
  --gold-light: #e0c97a;
  --blue-light: #4da6e8;
@@ -93,10 +93,10 @@
   /* 融合模块颜色变量（夜间模式） */
   --text-primary: #eeeeee;
   --text-secondary-new: #bbbbbb;
-  --text-muted-new: #777777;
+  --text-muted-new: --text-muted;
   --bg-card: #2a2a3e;
   --bg-section: #1a1a2e;
-  --border-light-new: #333333;
+  --border-light-new: --border-light;
   --accent: #64B5F6;
   --bubble-bg: #3d2e1e;
   --bubble-text: #eee;
@@ -373,7 +373,7 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
 .home-search-btn {
  display:inline-flex; align-items:center; justify-content:center; gap:6px;
  padding:12px 24px; font-size:1rem; font-family:inherit;
- background:var(--gold); color:#0a0a0a; border:none; border-radius:8px;
+ background:var(--gold); color:--bg; border:none; border-radius:8px;
  cursor:pointer; font-weight:600; white-space:nowrap;
  min-height:44px; min-width:44px;
  transition:background 0.2s, transform 0.15s;
@@ -404,7 +404,7 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
 }
 .search-modal.active { opacity:1; visibility:visible; }
 .search-modal-content {
- background:#1a1a1a; border-radius:12px; width:90%; max-width:600px; max-height:70vh;
+ background:--card; border-radius:12px; width:90%; max-width:600px; max-height:70vh;
  overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.4);
  display:flex; flex-direction:column;
  transform:translateY(-20px); transition:transform 0.25s;
@@ -670,7 +670,7 @@ footer a:hover { color:var(--gold-light); }
 .btn-home {
  display:inline-flex; align-items:center; gap:8px;
  padding:14px 32px; font-size:1rem; font-family:inherit;
- background:var(--gold); color:#0a0a0a; border:none; border-radius:var(--radius);
+ background:var(--gold); color:--bg; border:none; border-radius:var(--radius);
  cursor:pointer; font-weight:700; min-height:44px; text-decoration:none;
  transition:background var(--transition), transform 0.2s;
 }
@@ -800,7 +800,7 @@ button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {
 }
 [data-theme="light"] .search-highlight {
  background:rgba(201,168,76,0.4);
- color:#1a1a1a;
+ color:--card;
 }
 
 /* [BUG-FIX:四-4] 天气模块缩小移至侧边 */
@@ -1306,7 +1306,7 @@ html, body {
 }
 [data-theme="light"] .plot-modal-content {
   background: #fff;
-  border-color: #333;
+  border-color: --text;
   box-shadow: 0 4px 24px rgba(0,0,0,0.15);
 }
 .plot-modal-close {
@@ -1342,22 +1342,22 @@ html, body {
   font-size: 0.8rem;
 }
 [data-theme="light"] .plot-badge {
-  background: #f0f0f0;
-  color: #555;
+  background: --text;
+  color: --text-secondary;
 }
 .plot-imdb { color: #f5c518; }
 [data-theme="light"] .plot-imdb { color: #c9a000; }
 p.plot-text {
-  color: #ddd;
+  color: --text-secondary;
   line-height: 1.8;
   font-size: 1rem;
   margin: 0;
 }
-[data-theme="light"] p.plot-text { color: #333; }
+[data-theme="light"] p.plot-text { color: --text; }
 /* Scrollbar */
 .plot-modal-content::-webkit-scrollbar { width: 6px; }
 .plot-modal-content::-webkit-scrollbar-track { background: transparent; }
-.plot-modal-content::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+.plot-modal-content::-webkit-scrollbar-thumb { background: --text-muted; border-radius: 3px; }
 
 /* ===== Lightbox 海报灯箱 ===== */
 .lightbox {
@@ -2333,7 +2333,7 @@ p.plot-text {
 
 .fusion-search .home-search-input {
   background: transparent;
-  color: #333;
+  color: --text;
 }
 
 .fusion-search .home-search-input::placeholder {
@@ -2428,7 +2428,7 @@ p.plot-text {
 }
 
 [data-theme="light"] .fusion-stats .stat-label {
-  color: #555;
+  color: --text-secondary;
 }
 
 [data-theme="light"] .fusion-pick .pick-card {
@@ -2460,7 +2460,7 @@ p.plot-text {
 }
 
 [data-theme="light"] .fusion-search .hot-title {
-  color: #555;
+  color: --text-secondary;
 }
 
 [data-theme="light"] .fusion-search .pick-tag {
@@ -3200,7 +3200,7 @@ body.dark .new-badge {
 .bubble-body {
   font-size: 1rem;
   line-height: 1.6;
-  color: #333;
+  color: --text;
 }
 
 [data-theme="dark"] .bubble-time {
@@ -3212,9 +3212,9 @@ body.dark .new-badge {
 }
 
 [data-theme="dark"] .bubble-body {
-  color: #ddd;
+  color: --text-secondary;
 }
-  color: #ddd;
+  color: --text-secondary;
 }
 
 .bubble-footer {
@@ -3648,7 +3648,7 @@ body.dark .new-badge {
 /* ===== 横向快速入口条 ===== */
 /* ===== 最新动态滚动条 ===== */
 .news-ticker {
-  background: var(--card-bg, #1a1a1a);
+  background: var(--card-bg, --card);
   border-bottom: 1px solid var(--border-color, #333);
   max-width: 1200px;
   margin: 0 auto 24px auto;
@@ -3699,7 +3699,7 @@ body.dark .new-badge {
   flex: 0 0 auto;
   padding: 0 28px 0 0;
   font-size: 0.82rem;
-  color: var(--text-color, #e0e0e0);
+  color: var(--text-color, --text-secondary);
   text-decoration: none;
   white-space: nowrap;
   transition: color 0.2s;

@@ -87,19 +87,7 @@ var _hmt = _hmt || [];
   <div class="ticker-label">📢 最新动态</div>
   <div class="ticker-window">
     <div class="ticker-inner" id="tickerInner">
-    <a href="tesla.html" class="ticker-item">◆ 特斯拉板块：FSD全球订阅制+5月交付85982辆最新动态</a>
-    <a href="gaokao.html" class="ticker-item">◆ 江苏高考查分：更新2026年分数线历史484/物理456</a>
-    <a href="herbs.html" class="ticker-item">◆ 中药材板块10个详情页统一路径+平铺5章节结构</a>
-    <a href="zisha.html" class="ticker-item">◆ 紫砂详情页39个文件导航栏统一+iOS滚动Bug修复</a>
-    <a href="index.html" class="ticker-item">◆ 独立域名 longxiong.vip 正式上线全站143页</a>
-    <a href="index.html" class="ticker-item">◆ 首页探索模块改版+龙兄陪你摸鱼小游戏入口</a>
-    <a href="pitfalls.html" class="ticker-item">◆ 龙兄踩坑记栏目上线+难度标签系统</a>
-    <a href="marvel.html" class="ticker-item">◆ 漫威宇宙板块上线：34部电影+39条剧情线</a>
-    <a href="console.html" class="ticker-item">◆ 游戏主机板块上线：6大品牌46款主机详情</a>
-    <a href="zisha.html" class="ticker-item">◆ 紫砂艺术板块上线：95张高清作品图</a>
-    <a href="gaokao.html" class="ticker-item">◆ 高考查分页面上线：实时倒计时+分数线查询</a>
-    <a href="health-tea.html" class="ticker-item">◆ 养生茶配方更新：30+配方8大分类+痛风调理</a>
-    <a href="bracelet.html" class="ticker-item">◆ 文玩手串盘玩指南上线+星月菩提鉴别</a>
+    <span class="ticker-item">加载中...</span>
     </div>
   </div>
 </div>
@@ -460,5 +448,78 @@ function toggleHomeSection(el){
 <script src="js/daily-pick.js"></script>
 <script src="js/share.js"></script>
 <script src="js/changelog.js"></script>
+  <script>
+    // ===== Ticker 新闻动态加载（从 changelog.json 实时读取）=====
+    (function () {
+      function esc(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+      // 根据内容关键词智能匹配跳转 URL
+      function getTickerUrl(content) {
+        var c = content.toLowerCase();
+        if (c.indexOf('特斯拉') > -1 || c.indexOf('model') > -1) return 'tesla.html';
+        if (c.indexOf('高考') > -1) return 'gaokao.html';
+        if (c.indexOf('中药材') > -1 || c.indexOf('药材') > -1) return 'herbs.html';
+        if (c.indexOf('沉香') > -1) return 'herbs/chenxiang.html';
+        if (c.indexOf('紫砂') > -1) return 'zisha.html';
+        if (c.indexOf('漫威') > -1) return 'marvel.html';
+        if (c.indexOf('游戏主机') > -1 || c.indexOf('ps5') > -1 || c.indexOf('switch') > -1 || c.indexOf('Xbox') > -1) return 'console.html';
+        if (c.indexOf('养生茶') > -1 || c.indexOf('痛风') > -1) return 'health-tea.html';
+        if (c.indexOf('文玩手串') > -1 || c.indexOf('星月') > -1 || c.indexOf('手串') > -1) return 'bracelet.html';
+        if (c.indexOf('天气') > -1 || c.indexOf('射阳') > -1 || c.indexOf('气象') > -1) return 'xintan-weather.html';
+        if (c.indexOf('域名') > -1 || c.indexOf('longxiong') > -1 || c.indexOf('首页') > -1) return 'index.html';
+        if (c.indexOf('踩坑') > -1 || c.indexOf('龙兄') > -1) return 'pitfalls.html';
+        return 'index.html';
+      }
+
+      function initTicker() {
+        var inner = document.getElementById('tickerInner');
+        if (!inner) return;
+
+        var base = '';
+        var scripts = document.querySelectorAll('script[src]');
+        for (var i = 0; i < scripts.length; i++) {
+          var m = scripts[i].src.match(/(.*)\/js\/.+/);
+          if (m) { base = m[1]; break; }
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', base + '/data/changelog.json', true);
+        xhr.responseType = 'json';
+        xhr.onload = function () {
+          if (xhr.status !== 200) return;
+          var data = xhr.response;
+          if (!Array.isArray(data)) return;
+
+          var html = '';
+          // 取前 14 条
+          var items = data.slice(0, 14);
+          items.forEach(function (item) {
+            var url = getTickerUrl(item.content);
+            html += '<a href="' + esc(url) + '" class="ticker-item">' + esc(item.content) + '</a>';
+            // 用 middot 分隔符
+            html += '<span class="ticker-sep"> · </span>';
+          });
+          // 复制一份实现无缝循环
+          inner.innerHTML = html + html;
+
+          // Fisher-Yates 随机洗牌
+          var children = Array.from(inner.children);
+          for (var i = children.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            inner.appendChild(children[j]);
+            children.splice(j, 1);
+          }
+        };
+        xhr.send();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTicker);
+      } else {
+        initTicker();
+      }
+    })();
+  </script>
 </body>
 </html>  

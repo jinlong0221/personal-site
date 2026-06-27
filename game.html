@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成语接龙 - 龙兄知识库</title>
+<meta name="description" content="成语接龙挑战，15秒倒计时，你能撑到第几轮？">
+<meta property="og:title" content="成语接龙 - 龙兄知识库">
+<meta property="og:description" content="成语接龙挑战，15秒倒计时，你能撑到第几轮？">
+<meta property="og:url" content="https://longxiong.vip/game.html">
+<meta property="og:type" content="website">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css?v=6271">
+<style>
+body{background:var(--bg);color:var(--text);font-family:-apple-system,PingFang SC,Microsoft YaHei,sans-serif}
+.game-wrap{max-width:600px;margin:40px auto;padding:0 20px;text-align:center}
+
+/* 开始页 */
+.start-box{background:var(--card);border-radius:16px;padding:48px 32px;border:1px solid var(--border)}
+.start-box h1{font-size:2rem;margin:0 0 8px;color:var(--text)}
+.start-box p{color:var(--text-secondary);margin:0 0 32px;font-size:1rem}
+.start-box .rules{text-align:left;background:var(--bg-secondary);border-radius:10px;padding:16px 20px;margin-bottom:32px;font-size:0.9rem;color:var(--text-secondary);line-height:1.8}
+.start-box .rules li{margin-bottom:4px}
+.start-btn{display:inline-block;background:linear-gradient(135deg,#E91E63,#ff4081);color:#fff;padding:14px 48px;border-radius:30px;font-size:1.1rem;font-weight:700;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;cursor:pointer;border:none}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(233,30,99,0.35)}
+
+/* 游戏区 */
+.game-box{display:none;background:var(--card);border-radius:16px;padding:32px 24px;border:1px solid var(--border)}
+.round-label{font-size:0.85rem;color:var(--text-muted);margin-bottom:8px}
+.round-label span{color:#E91E63;font-weight:700}
+.q-box{background:var(--bg-secondary);border-radius:12px;padding:20px;margin-bottom:20px;border:1px solid var(--border)}
+.q-label{font-size:0.8rem;color:var(--text-muted);margin-bottom:6px}
+.q-text{font-size:2rem;font-weight:900;color:#c9a84c;letter-spacing:4px;animation:fadeIn 0.3s}
+.q-sub{font-size:0.85rem;color:var(--text-muted);margin-top:8px}
+.input-row{display:flex;gap:10px;margin-bottom:16px}
+.cy-input{flex:1;background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 16px;font-size:1.2rem;color:var(--text);outline:none;transition:border-color 0.2s}
+.cy-input:focus{border-color:#E91E63}
+.cy-input:disabled{opacity:0.5;cursor:not-allowed}
+.submit-btn{background:#E91E63;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-size:1rem;font-weight:600;cursor:pointer;transition:background 0.2s}
+.submit-btn:hover{background:#d01756}
+.submit-btn:disabled{background:var(--border);cursor:not-allowed}
+.timer-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px}
+.timer-bar-wrap{flex:1;max-width:200px;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.timer-bar{height:100%;background:#E91E63;border-radius:3px;transition:width 0.1s linear}
+.timer-num{font-size:1.1rem;font-weight:700;color:#E91e63;min-width:36px}
+.score-row{display:flex;justify-content:center;gap:32px;margin-bottom:16px}
+.score-item{font-size:0.85rem;color:var(--text-muted)}
+.score-item span{font-size:1.3rem;font-weight:700;color:#c9a84c}
+.feedback{margin-top:12px;min-height:24px;font-size:0.9rem;font-weight:600;transition:opacity 0.3s}
+.feedback.ok{color:#4caf50}
+.feedback.fail{color:#f44336}
+.feedback.info{color:var(--text-muted)}
+
+/* 结果页 */
+.result-box{display:none;background:var(--card);border-radius:16px;padding:40px 32px;border:1px solid var(--border)}
+.result-score{font-size:4rem;font-weight:900;color:#c9a84c;margin:16px 0}
+.result-label{font-size:1.1rem;color:var(--text-muted);margin-bottom:8px}
+.result-detail{color:var(--text-secondary);font-size:0.9rem;margin-bottom:32px;line-height:1.8}
+.replay-btn{display:inline-block;background:linear-gradient(135deg,#E91E63,#ff4081);color:#fff;padding:12px 40px;border-radius:30px;font-size:1rem;font-weight:600;text-decoration:none;cursor:pointer;border:none}
+.back-link{display:block;margin-top:20px;color:var(--text-muted);text-decoration:none;font-size:0.9rem}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.shake{animation:shake 0.4s}
+</style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">龙兄知识库</a>
+    <a href="calendar.html" class="nav-clock-link"><span id="navClock" class="nav-clock"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'"><span class="weather-loading">🌤️</span></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li><a href="pitfalls.html">踩坑记</a></li>
+      <li><a href="about.html">关于</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+      <button class="share-btn" onclick="sharePage()">🔗</button>
+      <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="about.html">关于本站</a>
+</div>
+
+<main>
+<div class="game-wrap">
+
+  <!-- 开始页 -->
+  <div class="start-box" id="startBox">
+    <div style="font-size:4rem;margin-bottom:16px;">📜</div>
+    <h1>成语接龙</h1>
+    <p>电脑出题，你来接龙，15秒倒计时</p>
+    <ul class="rules">
+      <li>🎯 电脑先出一个成语</li>
+      <li>⌨️ 你接的成语必须以上一个成语的最后一个字开头</li>
+      <li>⏱️ 每轮限时 <strong style="color:#E91E63">15 秒</strong>，超时或答错出局</li>
+      <li>🏆 答对一题 +10 分，速度越快额外加分越多</li>
+      <li>💡 如果电脑接不上，你继续出题</li>
+    </ul>
+    <button class="start-btn" onclick="startGame()">开始挑战</button>
+  </div>
+
+  <!-- 游戏区 -->
+  <div class="game-box" id="gameBox">
+    <div class="round-label">第 <span id="roundNum">1</span> 轮</div>
+    <div class="q-box">
+      <div class="q-label" id="qLabel">电脑出题：</div>
+      <div class="q-text" id="qText">一马当先</div>
+      <div class="q-sub" id="qSub">请接：以「先」字开头的成语</div>
+    </div>
+    <div class="timer-row">
+      <span class="timer-num" id="timerNum">15</span>
+      <div class="timer-bar-wrap"><div class="timer-bar" id="timerBar" style="width:100%"></div></div>
+    </div>
+    <div class="input-row">
+      <input class="cy-input" id="cyInput" type="text" placeholder="输入成语后回车" maxlength="10" autocomplete="off">
+      <button class="submit-btn" id="submitBtn" onclick="submitAnswer()">确认</button>
+    </div>
+    <div class="score-row">
+      <div class="score-item">得分 <span id="scoreNum">0</span></div>
+      <div class="score-item">连胜 <span id="streakNum">0</span></div>
+    </div>
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <!-- 结果页 -->
+  <div class="result-box" id="resultBox">
+    <div style="font-size:4rem;margin-bottom:8px;" id="resultEmoji">💀</div>
+    <div class="result-label" id="resultLabel">游戏结束</div>
+    <div class="result-score" id="resultScore">0</div>
+    <div class="result-detail" id="resultDetail"></div>
+    <button class="replay-btn" onclick="startGame()">再来一局</button>
+    <a href="fun.html" class="back-link">← 返回游戏大厅</a>
+  </div>
+
+</div>
+</main>
+
+<!-- 页脚 -->
+<footer style="text-align:center;padding:24px 20px;color:var(--text-muted);font-size:0.85rem;border-top:1px solid var(--border);margin-top:40px;">
+  <a href="about.html" style="color:var(--text-muted);">关于本站</a> · 
+  <a href="about.html#disclaimer" style="color:var(--text-muted);">免责声明</a> · 
+  <span id="busuanzi_container_site_pv">本站总访问 <span id="busuanzi_value_site_pv">-</span> 次</span>
+</footer>
+
+<script src="js/app.js?v=6271"></script>
+<script>
+// ===== 成语数据库 =====
+const CY = {
+  '一':['一言为定','一帆风顺','一往无前','一路平安','一路顺风','一举两得','一模一样','一心一意','一五一十','一清二楚','一如既往','一路之上'],
+  '先':['先入为主','先发制人','先天不足','先礼后兵','先斩后奏','先见之明','先人后己','先公后私','先声夺人'],
+  '定':['定点清除','定睛一看','定国安邦','定倾扶危','定心丸'],
+  '顺':['顺水推舟','顺藤摸瓜','顺理成章','顺其自然','顺顺利利','顺风而呼'],
+  '风':['风雨同舟','风雨无阻','风和日丽','风调雨顺','风云突变','风生水起','风马牛不相及','风驰电掣'],
+  '舟':['舟车劳顿'],
+  '河':['河山破碎','河北梆子','河清海晏','河东狮吼','河鱼腹疾'],
+  '山':['山清水秀','山高水长','山穷水尽','山明水秀','山雨欲来'],
+  '秀':['秀色可餐','秀才不出门'],
+  '长':['长驱直入','长年累月','长治久安','长途跋涉','长江后浪'],
+  '尽':['尽人皆知','尽力而为','尽善尽美','尽心尽力','尽如人意'],
+  '为':['为所欲为','为非作歹','为虎作伥','为富不仁','为期不远'],
+  '得':['得天独厚','得意忘形','得寸进尺','得心应手','得过且过'],
+  '形':['形影不离','形形色色','形单影只','形势严峻'],
+  '离':['离经叛道','离群索居','离题万里','离心离德'],
+  '道':['道听途说','道貌岸然','道不同不相为谋'],
+  '说':['说三道四','说一不二','说长道短','说来话长','说曹操曹操到'],
+  '四':['四通八达','四面八方','四海为家','四平八稳','四分五裂','四季如春'],
+  '达':['达官贵人','达人知命'],
+  '贵':['贵人多忘事','贵耳贱目'],
+  '事':['事半功倍','事在人为','事不宜迟','事出有因','事过境迁'],
+  '半':['半途而废','半斤八两','半壁江山','半信半疑','半生不熟'],
+  '废':['废话连篇'],
+  '篇':['篇幅有限'],
+  '限':['限期整改','限量发售'],
+  '改':['改朝换代','改头换面','改邪归正','改过自新'],
+  '朝':['朝三暮四','朝思暮想','朝令夕改','朝阳产业'],
+  '暮':['暮色苍茫'],
+  '想':['想入非非','想方设法'],
+  '非':['非亲非故','非此即彼','非同小可','非同寻常'],
+  '故':['故步自封','故弄玄虚','故态复萌','故作镇定'],
+  '封':['封官许愿','封山育林'],
+  '许':['许愿池','许身孺子'],
+  '子':['子虚乌有','子子孙孙'],
+  '乌':['乌合之众','乌烟瘴气','乌龙茶'],
+  '众':['众志成城','众叛亲离','众说纷纭','众所周知','众望所归'],
+  '城':['城北徐公','城门失火'],
+  '火':['火上浇油','火树银花','火眼金睛','火冒三丈','火烧眉毛','火海刀山'],
+  '油':['油然而生','油头滑脑'],
+  '生':['生龙活虎','生机勃勃','生搬硬套','生死存亡','生生不息','生气勃勃'],
+  '龙':['龙飞凤舞','龙潭虎穴','龙马精神','龙盘虎踞','龙争虎斗','龙腾虎跃'],
+  '虎':['虎头蛇尾','虎口拔牙','虎视眈眈','虎落平阳'],
+  '尾':['尾大不掉','尾随其后'],
+  '掉':['掉以轻心','掉头就跑'],
+  '心':['心花怒放','心旷神怡','心满意足','心照不宣','心不在焉','心无旁骛','心潮澎湃','心如止水'],
+  '花':['花好月圆','花枝招展','花言巧语','花天酒地'],
+  '圆':['圆满结束'],
+  '结':['结结巴巴','结发夫妻','成家立业'],
+  '业':['业精于勤','业精于勤荒于嬉'],
+  '勤':['勤勤恳恳','勤学苦练'],
+  '恳':['恳请批准'],
+  '批':['批准文件'],
+  '准':['准确无误','准予办理'],
+  '无':['无中生有','无懈可击','无忧无虑','无独有偶','无微不至','无伤大雅'],
+  '有':['有目共睹','有气无力','有条不紊','有勇无谋','有恃无恐'],
+  '睹':['睹物思人'],
+  '人':['人才辈出','人山人海','人杰地灵','人心所向','人各有志','人间烟火'],
+  '烟':['烟消云散','烟雾缭绕'],
+  '云':['云淡风轻','云蒸霞蔚','云开日出','云里雾里'],
+  '轻':['轻描淡写','轻而易举','轻重缓急'],
+  '写':['写意山水'],
+  '水':['水落石出','水深火热','水到渠成','水滴石穿','水清无鱼'],
+  '石':['石破天惊','石沉大海'],
+  '惊':['惊天动地','惊弓之鸟','惊慌失措','惊喜若狂'],
+  '地':['地大物博','地动山摇','地利人和'],
+  '博':['博采众长','博大精深','博古通今','博士买驴'],
+  '长':['长驱直入','长年累月','长治久安'],  // 重复兼容
+  '马':['马到成功','马不停蹄','马首是瞻','马失前蹄'],
+  '功':['功成名就','功亏一篑','功不可没','功德圆满'],
+  '就':['就事论事','就地正法','就坡下驴'],
+  '论':['论功行赏','论资排辈'],
+  '赏':['赏心悦目','赏罚分明'],
+  '目':['目不暇接','目瞪口呆','目中无人','目光如炬'],
+  '接':['接二连三','接踵而至','接连不断'],
+  '三':['三心二意','三言两语','三更半夜','三长两短','三令五申'],
+  '意':['意气风发','意味深长','意犹未尽','意想不到'],
+  '发':['发扬光大','发人深省','发挥特长','发愤图强'],
+  '扬':['扬眉吐气','扬长避短','扬名立万'],
+  '气':['气势磅礴','气吞山河','气急败坏','气象万千'],
+  '河':['河清海晏'],  // 已有
+  '山':['山清水秀','山穷水尽','山明水秀'],  // 重复兼容
+  '海':['海阔天空','海枯石烂','海底捞针','海誓山盟','海纳百川'],
+  '空':['空前绝后','空穴来风','空手套白狼'],
+  '后':['后生可畏','后来居上','后会有期','后患无穷'],
+  '畏':['畏首畏尾','畏罪潜逃'],
+  '尾':['尾大不掉'],  // 已有
+  '前':['前车之鉴','前赴后继','前功尽弃','前思后想','前因后果'],
+  '继':['继往开来','继绝世事'],
+  '来':['来日方长','来者不拒','来龙去脉'],
+  '往':['往返徒劳','往往如此'],
+  '劳':['劳民伤财','劳苦功高','劳燕分飞'],
+  '财':['财大气粗','财源广进'],
+  '进':['进退两难','进退自如','进退维谷'],
+  '退':['退而求其次','退避三舍'],
+  '舍':['舍己为人','舍近求远','舍生忘死','舍本逐末'],
+  '本':['本末倒置','本本主义','本性难移'],
+  '末':['末班车','末代皇帝'],
+  '主':['主次分明','主观臆断'],
+  '次':['次贷危机'],
+  '机':['机不可失','机智过人'],
+  '失':['失之交臂','失而复得'],
+  '臂':['臂力过人'],
+  '过':['过犹不及','过关斩将','过河拆桥'],
+  '及':['及锋而试'],
+  '试':['试金石'],
+  '石':['石破天惊'],  // 已有
+  '金':['金碧辉煌','金玉满堂','金榜题名','金童玉女','金戈铁马'],
+  '玉':['玉石俱焚','玉汝于成'],
+  '焚':['焚香礼拜'],
+  '礼':['礼尚往来','礼贤下士','礼轻情意重'],
+  '轻':['轻描淡写'],  // 已有
+  '重':['重蹈覆辙','重男轻女','重整旗鼓'],
+  '蹈':['蹈厉奋发'],
+  '辙':['辙旗息鼓'],
+  '男':['男耕女织','男盗女娼'],
+  '盗':['盗亦有道'],
+  '道':['道听途说'],  // 已有
+  '途':['徒劳无功'],
+  '徒':['徒有其名','徒子徒孙'],
+  '名':['名落孙山','名不虚传','名正言顺','名列前茅','名副其实'],
+  '孙':['孙康映雪'],
+  '雪':['雪上加霜','雪中送炭','雪泥鸿爪'],
+  '霜':['霜露之病'],
+  '病':['病从口入','病入膏肓'],
+  '膏':['膏肓之疾'],
+  '盲':['盲人摸象','盲人瞎马'],
+  '象':['象牙之塔'],
+  '塔':['塔尖上的角逐'],
+  '局':['局促不安'],
+  '安':['安然无恙','安居乐业','安土重迁','安步当车','安不忘危'],
+  '恙':['恙虫病'],
+  '乐':['乐不思蜀','乐此不疲','乐善好施','乐天知命'],
+  '蜀':['蜀犬吠日'],
+  '日':['日新月异','日积月累','日理万机','日暮途穷','日上三竿'],
+  '异':['异曲同工','异想天开','异军突起'],
+  '工':['工欲善其事','工于心计'],
+  '事':['事半功倍'],  // 已有
+  '月':['月明星稀','月黑风高','月下老人'],
+  '稀':['稀奇古怪'],
+  '怪':['怪模怪样'],
+  '样':['样样俱全'],
+  '全':['全力以赴','全神贯注','全始全终','全知全能'],
+  '力':['力挽狂澜','力不从心','力所能及','力争上游'],
+  '挽':['挽狂澜于既倒'],
+  '澜':['澜翻潮涌'],
+  '倒':['倒背如流','倒行逆施'],
+  '逆':['逆水行舟','逆来顺受'],
+  '舟':['舟车劳顿'],  // 已有
+  '行':['行云流水','行尸走肉','行之有效','行成于思'],
+  '流':['流光溢彩','流芳百世','流离失所','流水不腐'],
+  '彩':['彩笔生花'],
+  '花':['花好月圆'],  // 已有
+  '月':['月明星稀'],  // 已有
+  '光':['光明磊落','光彩夺目','光怪陆离'],
+  '落':['落花流水','落叶归根','落井下石'],
+  '井':['井底之蛙','井井有条'],
+  '蛙':['蛙泳比赛'],
+  '条':['条理分明'],
+  '分':['分秒必争','分门别类','分道扬镳'],
+  '秒':['秒针跳动'],
+  '争':['争先恐后','争权夺利','争奇斗艳'],
+  '恐':['恐年事已高'],
+  '高':['高枕无忧','高瞻远瞩','高谈阔论','高山流水','高抬贵手'],
+  '枕':['枕戈待旦'],
+  '旦':['旦夕之间'],
+  '夕':['夕阳无限好'],
+  '好':['好好先生','好高骛远','好逸恶劳'],
+  '逸':['逸闻趣事'],
+  '闻':['闻鸡起舞','闻风丧胆','闻名不如一见'],
+  '鸡':['鸡犬不宁','鸡鸣狗吠'],
+  '犬':['犬马之劳'],
+  '马':['马到成功'],  // 已有
+  '牙':['咬牙切齿'],
+  '齿':['齿若编贝'],
+  '贝':['贝锦萋菲'],
+  '志':['志同道合','志在千里','志得意满'],
+  '合':['合情合理','合而为一'],
+  '理':['理直气壮','理屈词穷','理所当然'],
+  '直':['直言不讳','直言贾祸','直截了当'],
+  '讳':['讳莫如深'],
+  '深':['深谋远虑','深入浅出','深恶痛绝','水深火热'],
+  '虑':['虑不及远'],
+  '远':['远交近攻','远见卓识'],
+  '攻':['攻守同盟','攻城略地'],
+  '略':['略知一二'],
+  '一':['一心一意','一帆风顺','一路平安'],  // 循环
+};
+
+// 电脑无法回答时的备用题库
+const STARTERS = ['一帆风顺','一路平安','一心一意','一马当先','一生一世','一模一样','一往无前','一清二楚','一举两得','龙飞凤舞','龙马精神','火树银花','水深火热','水落石出','山清水秀','山明水秀','天高地厚','天长日久','日新月异','日积月累','风和日丽','风调雨顺','心花怒放','心旷神怡','马到成功','人山人海','众志成城','人才辈出','满面春风','满面红光','虎头蛇尾','画蛇添足'];
+
+// 状态
+let round = 0;
+let score = 0;
+let streak = 0;
+let bestStreak = 0;
+let used = new Set();
+let timerInterval = null;
+let timeLeft = 15;
+let isPlayerTurn = true; // true=玩家回合 false=电脑回合
+
+// ===== 工具函数 =====
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function lastChar(s){return s.slice(-1)}
+function getLastChar(s){
+  const c = lastChar(s);
+  return c;
+}
+
+// ===== 游戏逻辑 =====
+function startGame(){
+  round = 0; score = 0; streak = 0; bestStreak = 0;
+  used = new Set();
+  isPlayerTurn = true;
+  document.getElementById('startBox').style.display='none';
+  document.getElementById('gameBox').style.display='block';
+  document.getElementById('resultBox').style.display='none';
+  document.getElementById('scoreNum').textContent='0';
+  document.getElementById('streakNum').textContent='0';
+  nextRound(true);
+}
+
+function nextRound(isFirst=false, userAnswer=null){
+  round++;
+  document.getElementById('roundNum').textContent=round;
+  document.getElementById('feedback').textContent='';
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('cyInput').value='';
+  document.getElementById('cyInput').disabled=false;
+  document.getElementById('submitBtn').disabled=false;
+  document.getElementById('cyInput').focus();
+
+  if(isFirst){
+    const start = rand(STARTERS);
+    showQuestion('🤖 电脑出题：', start);
+    return;
+  }
+
+  if(userAnswer){
+    // === 玩家刚答对，电脑接龙 ===
+    const lc = getLastChar(userAnswer);
+    const answers = CY[lc] || [];
+    const available = answers.filter(c=>!used.has(c));
+    if(available.length > 0){
+      const ans = rand(available);
+      used.add(ans);
+      showFeedback('ok', `✅ +${pts}分！电脑接：「${ans}」`);
+      setTimeout(()=>{
+        // 电脑接上，现在玩家接电脑的题
+        showQuestion('🤖 你出题（电脑接「'+lc+'」）：', ans);
+      }, 1500);
+    } else {
+      // 电脑接不上，玩家用同一题继续出
+      showFeedback('ok', `✅ +${pts}分！🤖 电脑接不上，换你来！`);
+      setTimeout(()=>{
+        showQuestion('🤖 你出题（换你）：', userAnswer);
+      }, 1500);
+    }
+    return;
+  }
+
+  // 正常轮次：显示当前成语，等待玩家回答
+  // （玩家回合时直接showQuestion，轮到玩家时isPlayerTurn已经是true）
+}
+
+var pts = 0; // 供nextRound引用
+
+let lastQuestion = '';
+let lastChar = '';
+
+function showQuestion(label, idiom){
+  lastQuestion = idiom;
+  lastChar = getLastChar(idiom);
+  document.getElementById('qLabel').textContent=label;
+  const qEl = document.getElementById('qText');
+  qEl.textContent=idiom;
+  void qEl.offsetWidth;
+  qEl.className='q-text';
+  document.getElementById('qSub').textContent=`请接：以「${lastChar}」字开头的成语`;
+  isPlayerTurn = true;
+  startTimer();
+}
+
+function submitAnswer(){
+  const input = document.getElementById('cyInput');
+  const val = input.value.trim();
+  if(!val){showFeedback('fail','请输入成语');return;}
+  // 至少2个字
+  if(val.length < 2){showFeedback('fail','请输入成语，至少2个字');return;}
+  // 必须是成语库里的
+  const last = getLastChar(lastQuestion);
+  if(val[0] !== last){
+    showFeedback('fail',`❌ 首字必须是「${last}」，你填了「${val[0]}」`);
+    input.classList.add('shake');
+    setTimeout(()=>input.classList.remove('shake'),400);
+    return;
+  }
+  // 检查是否在库里
+  const possible = CY[last] || [];
+  const match = possible.find(c=>c===val);
+  if(!match){
+    // 不在标准库里，检查是否合理（给予宽容）
+    // 如果接龙正确但不在库里，给提示
+    if(CY[last] && CY[last].length>0){
+      showFeedback('info',`🤔 不在题库里，但「${val}」以「${last}」开头是对的！电脑接...`);
+    }
+  }
+  if(match && used.has(match)){
+    showFeedback('fail','🔄 这个成语用过了，换一个');
+    return;
+  }
+  if(match) used.add(match);
+
+  // 答对加分
+  stopTimer();
+  const timeBonus = Math.max(0, Math.round((timeLeft/15)*5));
+  pts = 10 + timeBonus;
+  score += pts;
+  streak++;
+  if(streak>bestStreak) bestStreak=streak;
+  document.getElementById('scoreNum').textContent=score;
+  document.getElementById('streakNum').textContent=streak;
+  showFeedback('ok',`✅ 答对了！+${pts}分（速度奖励+${timeBonus}）`);
+  input.disabled=true;
+  document.getElementById('submitBtn').disabled=true;
+
+  // 玩家答对后，电脑接龙
+  nextRound(false, val);
+}
+
+function showFeedback(cls, text){
+  const el=document.getElementById('feedback');
+  el.className='feedback '+cls;
+  el.textContent=text;
+}
+
+// ===== 计时器 =====
+function startTimer(){
+  stopTimer();
+  timeLeft=15;
+  updateTimerUI();
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    updateTimerUI();
+    if(timeLeft<=0){
+      stopTimer();
+      gameOver('⏱️ 超时了！');
+    }
+  },1000);
+}
+function updateTimerUI(){
+  document.getElementById('timerNum').textContent=timeLeft;
+  const pct=(timeLeft/15)*100;
+  document.getElementById('timerBar').style.width=pct+'%';
+  const bar=document.getElementById('timerBar');
+  if(pct>50) bar.style.background='#E91E63';
+  else if(pct>25) bar.style.background='#ff9800';
+  else bar.style.background='#f44336';
+}
+function stopTimer(){
+  if(timerInterval){clearInterval(timerInterval);timerInterval=null;}
+}
+
+function gameOver(reason){
+  stopTimer();
+  document.getElementById('cyInput').disabled=true;
+  document.getElementById('submitBtn').disabled=true;
+  setTimeout(()=>{
+    document.getElementById('gameBox').style.display='none';
+    document.getElementById('resultBox').style.display='block';
+    document.getElementById('resultLabel').textContent=reason;
+    document.getElementById('resultScore').textContent=score+'分';
+    let emoji='💀';
+    if(score>=100) emoji='🏆';
+    else if(score>=70) emoji='🌟';
+    else if(score>=40) emoji='👍';
+    else if(score>=20) emoji='😄';
+    else emoji='💪';
+    document.getElementById('resultEmoji').textContent=emoji;
+    let detail=`第 ${round} 轮结束`;
+    if(streak>0) detail+=`，最高连胜 ${bestStreak} 轮`;
+    detail+=`。<br><br>${reason}，继续加油！`;
+    document.getElementById('resultDetail').innerHTML=detail;
+  },600);
+}
+
+// ===== 回车提交 =====
+document.getElementById('cyInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    e.preventDefault();
+    if(!document.getElementById('submitBtn').disabled){
+      submitAnswer();
+    }
+  }
+});
+
+// ===== 页面加载时聚焦输入框 =====
+window.addEventListener('load',()=>{});
+
+function sharePage(){
+  if(navigator.share){navigator.share({title:document.title,url:location.href})}
+  else{navigator.clipboard.writeText(location.href);alert('链接已复制')}
+}
+</script>
+</body>
+</html>

@@ -529,6 +529,46 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
 }
 .scoreline-table th:first-child { z-index: 3; }
 
+/* ===== 新闻条目（特斯拉动态页） ===== */
+.news-item {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.news-item:last-child { border-bottom: none; }
+.news-date {
+  flex-shrink: 0;
+  width: 50px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding-top: 2px;
+}
+.news-content {
+  flex: 1;
+  min-width: 0;
+}
+.news-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.news-tag.hot   { background: rgba(220,38,38,0.15); color: #dc2626; }
+.news-tag.fsd   { background: rgba(168,85,247,0.15); color: #a855f7; }
+.news-tag.china { background: rgba(239,68,68,0.12); color: #ef4444; }
+.news-tag.product { background: rgba(59,130,246,0.12); color: #3b82f6; }
+.news-tag.default { background: var(--bg-secondary); color: var(--text-muted); }
+.news-content p { margin: 6px 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+
+@media (max-width: 480px) {
+  .news-item { gap: 10px; }
+  .news-date { width: 40px; font-size: 0.75rem; }
+  .news-content p { font-size: 0.85rem; }
+}
 
 .tag {
  display:inline-block; padding:4px 10px; font-size:0.75rem; border-radius:20px;

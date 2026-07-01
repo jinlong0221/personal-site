@@ -109,7 +109,7 @@ var _hmt = _hmt || [];
   <section class="fusion" id="fusion">
     <!-- 龙兄公示牌 -->
     <div class="fusion-long">
-      <a href="status-history.html" class="long-bubble" id="todayStatusInline" style="text-decoration:none;color:inherit;display:none;">
+      <div class="long-bubble" onclick="location.href='status-history.html'" style="cursor:pointer;">
         <div class="bubble-header">
           <span class="bubble-name">🐉 龙兄</span>
           <span class="bubble-time" id="bubbleTime">刚刚</span>
@@ -118,19 +118,7 @@ var _hmt = _hmt || [];
         <div class="bubble-footer">
           <span class="bubble-date" id="bubbleDate">2026-06-25</span>
           <span class="bubble-sep">·</span>
-          <span class="contact-link" title="查看历史状态">📜 历史状态</span>
-        </div>
-      </a>
-      <div class="long-bubble" id="todayStatusFallback" style="display:flex;">
-        <div class="bubble-header">
-          <span class="bubble-name">🐉 龙兄</span>
-          <span class="bubble-time" id="bubbleTimeFallback">刚刚</span>
-        </div>
-        <div class="bubble-body" id="todayStatusTextFallback">各板块数据已刷新 ⚡</div>
-        <div class="bubble-footer">
-          <span class="bubble-date" id="bubbleDateFallback">2026-06-25</span>
-          <span class="bubble-sep">·</span>
-          <a href="mailto:799958000@qq.com" class="contact-link" title="给龙兄发邮件">✉️ 联系龙兄</a>
+          <a href="status-history.html" class="contact-link" title="查看历史状态">📜 历史状态</a>
         </div>
       </div>
     </div>

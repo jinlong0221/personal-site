@@ -9,7 +9,7 @@
       name: '沉香鉴别指南',
       desc: '天然沉香四大鉴别方法，告别假货少走弯路',
       tag: '🔬 药材与手串',
-      url: 'agarwood.html',
+      url: 'herbs/chenxiang.html',
       img: 'img/zisha/wht2026_p1_0.webp'
     },
     {

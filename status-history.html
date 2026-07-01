@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>龙兄状态历史 - 龙兄的知识宇宙</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .history-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .history-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: var(--text);
+    }
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .history-item {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid var(--accent, #007AFF);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .history-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .history-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .history-date {
+      font-weight: 600;
+    }
+    .history-time {
+      color: var(--text-secondary);
+    }
+    .history-status {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .empty-history {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--accent, #007AFF);
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">龙兄的知识宇宙</a>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="marvel.html">漫威宇宙</a>
+        <a href="tesla.html">特斯拉</a>
+        <a href="zisha.html">紫砂艺术</a>
+        <a href="health-tea.html">养生茶</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="history-container">
+    <a href="index.html" class="back-link">← 返回首页</a>
+    <h1 class="history-title">🐉 龙兄状态历史</h1>
+    <div class="history-list" id="historyList">
+      <div class="empty-history">加载中...</div>
+    </div>
+  </div>
+
+  <script>
+    // 加载状态历史
+    function loadStatusHistory() {
+      var historyList = document.getElementById('historyList');
+      
+      // 先尝试读取 status-history.json
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'status-history.json', true);
+      xhr.responseType = 'json';
+      
+      xhr.onload = function() {
+        if (xhr.status === 200 && xhr.response && xhr.response.history) {
+          renderHistory(xhr.response.history);
+        } else {
+          // 没有历史文件，显示当前状态
+          showCurrentStatusOnly();
+        }
+      };
+      
+      xhr.onerror = function() {
+        showCurrentStatusOnly();
+      };
+      
+      xhr.send();
+    }
+    
+    // 渲染历史记录
+    function renderHistory(history) {
+      var historyList = document.getElementById('historyList');
+      
+      if (!history || history.length === 0) {
+        historyList.innerHTML = '<div class="empty-history">暂无历史记录</div>';
+        return;
+      }
+      
+      // 按时间倒序排列
+      history.sort(function(a, b) {
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      });
+      
+      var html = '';
+      history.forEach(function(item) {
+        var date = new Date(item.updatedAt);
+        var dateStr = date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        var timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+        
+        html += '<div class="history-item">' +
+          '<div class="history-meta">' +
+            '<span class="history-date">' + dateStr + '</span>' +
+            '<span class="history-time">' + timeStr + '</span>' +
+          '</div>' +
+          '<div class="history-status">' + item.status + '</div>' +
+        '</div>';
+      });
+      
+      historyList.innerHTML = html;
+    }
+    
+    // 只显示当前状态（没有历史文件时）
+    function showCurrentStatusOnly() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'status.json', true);
+      xhr.responseType = 'json';
+      
+      xhr.onload = function() {
+        if (xhr.status === 200 && xhr.response) {
+          renderHistory([xhr.response]);
+        } else {
+          document.getElementById('historyList').innerHTML = '<div class="empty-history">暂无状态记录</div>';
+        }
+      };
+      
+      xhr.send();
+    }
+    
+    // 页面加载完成后执行
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadStatusHistory);
+    } else {
+      loadStatusHistory();
+    }
+  </script>
+</body>
+</html>

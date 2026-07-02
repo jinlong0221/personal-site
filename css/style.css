@@ -211,6 +211,28 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
 }
 .nav-links a:hover, .nav-links a.active { color:var(--gold); border-bottom-color:var(--gold); }
 
+/* 更多下拉菜单 */
+.nav-more-wrap { position:relative; }
+.nav-more-btn { cursor:pointer; color:var(--text-secondary) !important; border-bottom:2px solid transparent !important; user-select:none; }
+.nav-more-btn:hover { color:var(--gold) !important; }
+.nav-more-dropdown {
+  display:none; position:absolute; top:calc(100% + 4px); right:0; min-width:130px;
+  background:var(--nav-bg); border:1px solid var(--border); border-radius:var(--radius-sm);
+  box-shadow:var(--shadow); z-index:300; padding:6px 0;
+}
+.nav-more-wrap:hover .nav-more-dropdown { display:block; }
+.nav-more-dropdown a {
+  display:block; padding:8px 14px; color:var(--text-secondary) !important;
+  font-size:0.82rem; white-space:nowrap; border-bottom:none !important;
+  transition:background var(--transition), color var(--transition);
+}
+.nav-more-dropdown a:hover { background:var(--card-hover); color:var(--gold) !important; }
+
+/* 移动端隐藏更多按钮（移动端用汉堡菜单） */
+@media (max-width:768px) {
+  .nav-more-wrap { display:none; }
+}
+
 .nav-actions { display:flex; align-items:center; gap:4px; }
 .icon-btn {
  background:none; border:none; cursor:pointer; padding:8px;

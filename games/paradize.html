@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>欢迎来到帕拉迪泽 | 龙兄的游戏库</title>
+<meta name="description" content="欢迎来到帕拉迪泽(Welcome to ParadiZe) PS5丧尸生存建造游戏评测与截图。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',h>=6&&h<18?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+:root{--gc:#1a1a2e;--ga:#16213e;--ge:#0f3460;--gn:#e94560;--gs:#1db954;}
+[data-theme="light"]{--gbg:#f5f5f7;--gcard:#ffffff;--gt:#1a1a2e;--gm:#555;--gb:#e0e0e0;--gbg2:#f0f0f5;}
+[data-theme="dark"]{--gbg:#0d0d1a;--gcard:#1a1a2e;--gt:#f0f0f0;--gm:#a0a0b0;--gb:#2a2a3e;--gbg2:#141420;}
+body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}
+.breadcrumb{max-width:1100px;margin:20px auto 0;padding:0 24px;font-size:0.95rem;color:var(--gm)}
+.breadcrumb a{color:var(--gm);text-decoration:none}
+.breadcrumb a:hover{color:var(--gt)}
+.breadcrumb span{color:var(--gm);margin:0 8px}
+.detail-hero{max-width:1100px;margin:20px auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:700px){.detail-hero{grid-template-columns:1fr;}}
+.detail-cover{border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(233,69,96,0.2);cursor:zoom-in}
+.detail-cover img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.game-title-wrap h1{font-size:2.2rem;font-weight:800;margin:0 0 14px;color:var(--gt);letter-spacing:1px}
+.game-title-wrap .en-title{font-size:1rem;color:var(--gm);font-weight:400;margin-bottom:16px;display:block}
+.game-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.badge{background:var(--gcard);border:1px solid var(--gb);color:var(--gm);padding:5px 14px;border-radius:8px;font-size:0.95rem}
+.badge.platform{background:var(--ge);color:#fff;border:none}
+.badge.status-playing{background:#2ecc71;color:#fff;border:none}
+.badge.status-completed{background:#3498db;color:#fff;border:none}
+.badge.status-paused{background:#f39c12;color:#fff;border:none}
+.badge.status-dropped{background:#e74c3c;color:#fff;border:none}
+.info-table{width:100%;border-collapse:collapse;background:var(--gcard);border:1px solid var(--gb);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.info-table th,.info-table td{padding:11px 16px;text-align:left;border-bottom:1px solid var(--gb);font-size:0.98rem}
+.info-table th{background:var(--gc);color:#fff;width:100px}
+.info-table tr:last-child td{border-bottom:none}
+.rating{display:flex;align-items:center;gap:8px;font-size:1.1rem}
+.stars{color:#f39c12;letter-spacing:2px}
+.detail-section{max-width:1100px;margin:0 auto;padding:0 24px 40px}
+.section-label{font-size:1.2rem;color:var(--gc);letter-spacing:2px;margin:32px 0 14px;font-weight:700;border-left:4px solid var(--gn);padding-left:12px}
+.desc-box{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:20px 24px;font-size:1.05rem;line-height:1.85;color:var(--gt)}
+.desc-box p{margin:0 0 12px;text-indent:2em}
+.desc-box p:last-child{margin-bottom:0}
+.screenshot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:8px}
+.screenshot-item{border-radius:10px;overflow:hidden;border:1px solid var(--gb);cursor:zoom-in}
+.screenshot-item img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;transition:transform 0.2s}
+.screenshot-item:hover img{transform:scale(1.03)}
+.gameplay-notes{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:20px 24px}
+.gameplay-notes h3{font-size:1.1rem;margin:0 0 14px;color:var(--gt)}
+.gameplay-notes ul{margin:0;padding-left:20px;color:var(--gt);line-height:2}
+.gameplay-notes li{margin-bottom:6px}
+.gameplay-notes li:last-child{margin-bottom:0}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+@media(max-width:600px){.pro-con-grid{grid-template-columns:1fr}.detail-hero h1{font-size:1.7rem}.screenshot-grid{grid-template-columns:1fr}}
+.pros-box{background:#1db95415;border:1px solid #1db95440;border-radius:10px;padding:16px 20px}
+.cons-box{background:#e74c3c15;border:1px solid #e74c3c40;border-radius:10px;padding:16px 20px}
+.pros-box h4,.cons-box h4{font-size:1rem;margin:0 0 10px;font-weight:700}
+.pros-box h4{color:#1db954}
+.cons-box h4{color:#e74c3c}
+.pros-box ul,.cons-box ul{margin:0;padding-left:18px;line-height:1.9;font-size:0.98rem}
+@media(max-width:600px){.pro-cons{grid-template-columns:1fr}.game-title-wrap h1{font-size:1.7rem}}
+</style>
+<meta property="og:title" content="欢迎来到帕拉迪泽 | 龙兄的游戏库">
+<meta property="og:description" content="PS5丧尸生存建造游戏——驯服丧尸当工人，建立你自己的避难所。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://longxiong.vip/games/paradize.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+<div class="navbar-inner">
+<a href="../index.html" class="logo" aria-label="龙兄知识库首页">龙兄知识库</a>
+<span id="navClock" class="nav-clock" title="当前时间"></span>
+<span class="nav-weather" id="navWeather" data-init="1" onclick="location.href='../sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><span class="weather-loading" style="font-size:0.8rem;color:var(--text-muted)">🌤️</span></span>
+<ul class="nav-links">
+<li><a href="../index.html">首页</a></li>
+<li><a href="../games.html" class="active">🎮 游戏库</a></li>
+</ul>
+<div class="nav-actions">
+<button class="icon-btn" id="searchBtn" aria-label="搜索"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+<button class="icon-btn" id="themeToggle" aria-label="切换主题"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+<button class="icon-btn" id="shareBtn" aria-label="分享"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+<button class="icon-btn hamburger" id="hamburger" aria-label="菜单"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+</div>
+</div>
+<div class="mobile-nav" id="mobileNav">
+<a href="../index.html">🏠 首页</a>
+<a href="../herbs/chenxiang.html">🪵 沉香鉴别</a>
+<a href="../herbs.html">🌿 中药材</a>
+<a href="../health-tea.html">🍵 养生茶</a>
+<a href="../bracelet.html">📿 文玩手串</a>
+<a href="../tesla.html">🚗 特斯拉</a>
+<a href="../marvel.html">🎬 漫威宇宙</a>
+<a href="../zisha.html">🏺 紫砂艺术</a>
+<a href="../console.html">🎮 游戏主机</a>
+<a href="../games.html">🕹️ 游戏库</a>
+<a href="../pitfalls.html">💡 踩坑记</a>
+<a href="../about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+<div class="breadcrumb">
+<a href="../index.html">首页</a><span>›</span>
+<a href="../games.html">游戏库</a><span>›</span>
+<span>欢迎来到帕拉迪泽</span>
+</div>
+
+<div class="detail-hero">
+<div class="detail-cover" onclick="openLightbox(this)">
+<img src="../img/games/paradize-cover.webp" alt="欢迎来到帕拉迪泽封面" onerror="this.parentElement.style.display='none'">
+</div>
+<div class="game-title-wrap">
+<h1>欢迎来到帕拉迪泽</h1>
+<span class="en-title">Welcome to ParadiZe</span>
+<div class="game-meta">
+<span class="badge platform">🎮 PS5</span>
+<span class="badge status-playing">🎮 正在玩</span>
+<span class="badge">丧尸生存</span>
+<span class="badge">建造经营</span>
+<span class="badge">多人合作</span>
+</div>
+<table class="info-table">
+<tr><th>开发商</th><td>NeoX</td></tr>
+<tr><th>发行商</th><td>Humble Games</td></tr>
+<tr><th>发售日期</th><td>2024年6月28日</td></tr>
+<tr><th>平台</th><td>PS5 / PC / Xbox Series X|S</td></tr>
+<tr><th>游玩时长</th><td>进行中</td></tr>
+<tr><th>游戏人数</th><td>1-4人</td></tr>
+</table>
+<div class="rating">
+<span>龙兄评分：</span>
+<span class="stars">★★★☆☆</span>
+<span style="color:var(--gm)">3/5</span>
+</div>
+</div>
+</div>
+
+<div class="detail-section">
+
+<div class="section-label">🎮 游戏简介</div>
+<div class="desc-box">
+<p>欢迎来到帕拉迪泽是一款丧尸末日题材的生存建造游戏。玩家在丧尸横行的世界中建立避难所，最独特的设定是——你可以<strong>驯服丧尸</strong>让它们当工人，帮你建造基地、种植作物、采集资源。</p>
+<p>游戏融合了生存建造、丧尸驯服、多人合作三大核心玩法。基地建设自由度很高，可以自由布局各种建筑。丧尸驯服系统是最大亮点，不同类型的丧尸有不同的技能和用途。</p>
+<p>目前处于抢先体验阶段（EA），内容还在持续更新中。整体玩法和《英灵神殿》有相似之处，但加入了独特的丧尸驯服系统。</p>
+</div>
+
+<div class="section-label">🕹️ 核心玩法</div>
+<div class="gameplay-notes">
+<h3>游戏主要系统</h3>
+<ul>
+<li><strong>丧尸驯服</strong>：用特殊装备击晕丧尸后喂食食物即可驯服，不同食物对应不同性格的丧尸</li>
+<li><strong>基地建造</strong>：在规定区域内建造各种功能建筑，支持自由布局</li>
+<li><strong>资源采集</strong>：外出探索收集木材、石头、食物等资源，地图随机生成</li>
+<li><strong>丧尸围城</strong>：定期有丧尸潮来袭，需要防守基地</li>
+<li><strong>多人合作</strong>：最多4人联机，一起建造和战斗</li>
+</ul>
+</div>
+
+<div class="section-label">📸 游戏截图</div>
+<div class="screenshot-grid">
+<div class="screenshot-item" onclick="openLightbox(this)">
+<img src="../img/games/paradize-ss1.webp" alt="游戏截图1" onerror="this.parentElement.style.display='none'">
+</div>
+<div class="screenshot-item" onclick="openLightbox(this)">
+<img src="../img/games/paradize-ss2.webp" alt="游戏截图2" onerror="this.parentElement.style.display='none'">
+</div>
+<div class="screenshot-item" onclick="openLightbox(this)">
+<img src="../img/games/paradize-ss3.webp" alt="游戏截图3" onerror="this.parentElement.style.display='none'">
+</div>
+<div class="screenshot-item" onclick="openLightbox(this)">
+<img src="../img/games/paradize-ss4.webp" alt="游戏截图4" onerror="this.parentElement.style.display='none'">
+</div>
+</div>
+
+<div class="section-label">⚖️ 优缺点</div>
+<div class="pro-cons">
+<div class="pros-box">
+<h4>✅ 优点</h4>
+<ul>
+<li>独特的丧尸驯服系统</li>
+<li>建造自由度不错</li>
+<li>多人合作有趣</li>
+<li>美术风格讨喜</li>
+</ul>
+</div>
+<div class="cons-box">
+<h4>❌ 缺点</h4>
+<ul>
+<li>EA阶段，bug较多</li>
+<li>后期内容偏少</li>
+<li>服务器不稳定</li>
+<li>丧尸AI有待优化</li>
+</ul>
+</div>
+</div>
+
+<div class="section-label">💬 龙兄点评</div>
+<div class="desc-box">
+<p>目前大概玩了30小时，主要在单人模式和室友双人联机。整体感觉是个有潜力的"时间杀手"，丧尸驯服的设定确实很有意思，但EA阶段的各种bug和服务器问题还是比较影响体验的。</p>
+<p>适合喜欢生存建造类游戏、愿意陪游戏一起成长的玩家。如果追求稳定完整体验，建议等正式版再入手。</p>
+</div>
+
+</div>
+
+<footer style="text-align:center;padding:30px 20px;border-top:1px solid var(--border);color:var(--text-secondary);font-size:0.9rem;margin-top:20px">
+<p>龙兄知识库 · 让求知成为习惯 | <a href="../about.html" style="color:var(--text-secondary)">关于本站</a></p>
+</footer>
+
+<script>
+(function(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});setInterval(function(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})},1000)})();
+function openLightbox(e){var s=e.querySelector?e.querySelector('img').src:e.src;var o=document.createElement('div');o.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';o.innerHTML='<img src="'+s+'" style="max-width:92%;max-height:92vh;border-radius:8px;object-fit:contain" />';o.onclick=function(){document.body.removeChild(o)};document.body.appendChild(o);}
+</script>
+<script src="../js/clock.js"></script>
+<script src="../js/weather.js"></script>
+<script src="../js/search.js"></script>
+<script src="../js/theme.js"></script>
+<script src="../js/share.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

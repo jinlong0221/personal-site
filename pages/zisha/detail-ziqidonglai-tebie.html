@@ -83,7 +83,7 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 
 <div class="breadcrumb"><a href="../../index.html">首页</a> › <a href="../../zisha.html">紫砂艺术</a> › <span>紫气东来（特别款）</span></div>
 <div class="detail-hero">
-<div class="detail-img-wrap" onclick="openLightbox(this)"><img src="../../img/zisha/wht2026_p2_5.webp" alt="紫气东来（特别款）"></div>
+<div class="detail-img-wrap" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/wht2026_p2_5.webp" alt="紫气东来（特别款）"></div>
 <div class="detail-info">
 <h1 class="detail-title">紫气东来（特别款）</h1>
 <div class="detail-meta"><span class="meta-pill">🫖 容量：360ml</span><span class="meta-pill">🏺 泥料：黄金段泥</span><span class="meta-pill">📁 系列：特别款</span></div>
@@ -94,7 +94,17 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 <div class="section-label">规格参数</div><table class="spec-table"><tr><th>容量</th><td>360ml</td></tr><tr><th>泥料</th><td>黄金段泥</td></tr><tr><th>工艺</th><td>全手工</td></tr><tr><th>系列</th><td>特别款</td></tr></table></div>
 <script>
 (function(){function u(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});}u();setInterval(u,1000);})();
-function openLightbox(e){var s=e.querySelector?e.querySelector('img').src:e.src;var o=document.createElement('div');o.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';o.innerHTML='<img src="'+s+'" style="max-width:90%;max-height:90vh;border-radius:8px;object-fit:contain" />';o.onclick=function(){document.body.removeChild(o)};document.body.appendChild(o);}
+function openLightbox(e){
+    var s=e.querySelector?e.querySelector('img').src:e.src;
+    // 预加载图片
+    var preload=new Image();
+    preload.src=s;
+    var o=document.createElement('div');
+    o.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';
+    o.innerHTML='<img src="'+s+'" style="max-width:90%;max-height:90vh;border-radius:8px;object-fit:contain" />';
+    o.onclick=function(){document.body.removeChild(o)};
+    document.body.appendChild(o);
+}
 </script><script src="../../js/app.js"></script>
 </div>
 <script src="../../js/search.js"></script>

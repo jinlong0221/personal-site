@@ -49,7 +49,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
 .gameplay-notes li{margin-bottom:6px}
 .gameplay-notes li:last-child{margin-bottom:0}
 .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
-@media(max-width:600px){.pro-con-grid{grid-template-columns:1fr}.detail-hero h1{font-size:1.7rem}.screenshot-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.pro-cons{grid-template-columns:1fr}.detail-hero h1{font-size:1.7rem}.screenshot-grid{grid-template-columns:1fr}}
 .pros-box{background:#1db95415;border:1px solid #1db95440;border-radius:10px;padding:16px 20px}
 .cons-box{background:#e74c3c15;border:1px solid #e74c3c40;border-radius:10px;padding:16px 20px}
 .pros-box h4,.cons-box h4{font-size:1rem;margin:0 0 10px;font-weight:700}
@@ -282,7 +282,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
 </footer>
 
 <script>
-(function(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});setInterval(function(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})},1000)})();
+(function(){var e=document.getElementById('navClock');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});setInterval(function(){var e=document.getElementById('navClock');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})},1000)})();
 function openLightbox(e){var s=e.querySelector?e.querySelector('img').src:e.src;var o=document.createElement('div');o.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';o.innerHTML='<img src="'+s+'" style="max-width:92%;max-height:92vh;border-radius:8px;object-fit:contain" />';o.onclick=function(){document.body.removeChild(o)};document.body.appendChild(o);}
 </script>
 <script src="../js/search.js"></script>

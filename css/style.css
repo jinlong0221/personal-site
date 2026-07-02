@@ -203,10 +203,10 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
   background:var(--card-hover);
 }
 
-.nav-links { display:flex; gap:24px; list-style:none; }
+.nav-links { display:flex; gap:12px; list-style:none; flex-wrap:nowrap; overflow:hidden; }
 .nav-links a {
- color:var(--text-secondary); font-size:0.9rem; padding:8px 4px;
- border-bottom:2px solid transparent;
+ color:var(--text-secondary); font-size:0.82rem; padding:6px 2px;
+ white-space:nowrap; border-bottom:2px solid transparent;
  transition:color var(--transition), border-color var(--transition);
 }
 .nav-links a:hover, .nav-links a.active { color:var(--gold); border-bottom-color:var(--gold); }

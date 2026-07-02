@@ -221,6 +221,7 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
   box-shadow:var(--shadow); z-index:300; padding:6px 0;
 }
 .nav-more-wrap:hover .nav-more-dropdown { display:block; }
+.nav-more-wrap.open .nav-more-dropdown { display:block; }
 .nav-more-dropdown a {
   display:block; padding:8px 14px; color:var(--text-secondary) !important;
   font-size:0.82rem; white-space:nowrap; border-bottom:none !important;

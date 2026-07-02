@@ -415,3 +415,33 @@ window.initClock=function(){
 
   check();
 })();
+
+// ============================================================
+// 区域H - 导航栏"更多"下拉菜单（点击切换）
+// ============================================================
+(function(){
+  var btn = document.querySelector('.nav-more-btn');
+  var wrap = document.querySelector('.nav-more-wrap');
+  if (!btn || !wrap) return;
+
+  // 点击"更多"按钮切换
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    wrap.classList.toggle('open');
+  });
+
+  // 点击页面其他地方关闭
+  document.addEventListener('click', function(e){
+    if (wrap.classList.contains('open') && !wrap.contains(e.target)){
+      wrap.classList.remove('open');
+    }
+  });
+
+  // ESC关闭
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && wrap.classList.contains('open')){
+      wrap.classList.remove('open');
+    }
+  });
+})();

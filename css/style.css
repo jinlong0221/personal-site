@@ -349,6 +349,17 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
  font-weight:900;
  font-size:3rem; color:var(--text); letter-spacing:4px; line-height:1.2;
 }
+
+[data-theme="light"] .tile-game {
+  background: linear-gradient(135deg, #2d1b4e, #1a1a3e) !important;
+}
+[data-theme="light"] .tile-game .title {
+  color: #e0e0e0 !important;
+}
+[data-theme="light"] .tile-game .desc {
+  color: #b0b0b0 !important;
+}
+
 .hero-slogan {
  text-align:center; margin:16px 0 32px; font-size:1.2rem; font-weight:600;
  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
@@ -874,6 +885,12 @@ button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {
 .weather-arrow { color: var(--text-muted); }
 
 /* [BUG-FIX:四-2] 加宽手机文字留白 */
+
+/* 游戏库卡片 - 主题感知 */
+.tile-game {
+  background: #1a1a2e !important;
+}
+
 @media (max-width: 768px) {
   .container { padding: 0 24px; }
 }

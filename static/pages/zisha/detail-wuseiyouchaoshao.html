@@ -34,6 +34,14 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:40px}
 .gallery-item{border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);cursor:zoom-in}
 .gallery-item img{width:100%;height:180px;object-fit:cover;display:block}
+
+/* 锚点高亮：点击卡片跳转后对应作品发光 */
+:target {
+  outline: 3px solid #C8A96E;
+  outline-offset: 4px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(200,169,110,0.4);
+}
 </style>
   <meta property="og:title" content="五色釉柴烧茶器 | 紫砂艺术 | 龙兄知识库">
   <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
@@ -106,7 +114,7 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 
 <div class="breadcrumb"><a href="../../index.html">首页</a> › <a href="../../zisha.html">紫砂艺术</a> › <span>五色釉柴烧茶器</span></div>
 <div class="detail-hero">
-<div class="detail-img-wrap" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p12_0.webp" alt="五色釉柴烧茶器"></div>
+<div class="detail-img-wrap" id="hero" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p12_0.webp" alt="五色釉柴烧茶器"></div>
 <div class="detail-info">
 <h1 class="detail-title">五色釉柴烧茶器</h1>
 <div class="detail-meta"><span class="meta-pill">🔥 工艺：柴窑高温烧制</span><span class="meta-pill">🏺 泥料：原矿紫泥（柴烧）</span><span class="meta-pill">📁 系列：五色釉柴烧系列</span></div>
@@ -115,7 +123,7 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 <div class="section-label">系列简介</div><div class="detail-desc"><p><p>柴烧自然落灰釉，每件独一无二。火焰与灰烬在坯体上留下不可复制的釉面，色彩斑斓，古朴自然。</p></p></div>
 <div class="section-label">柴烧工艺</div><div class="detail-desc"><p>「五色釉柴烧茶器」采用传统柴窑烧制，在1200°C以上高温中，松木灰烬自然落在坯体上，形成独特的「自然釉」。</p><p></p><p>每一件柴烧作品都是独一无二的——火焰走向、灰烬分布、窑内气氛，共同决定了最终的釉面效果。正如人生，无法复制，不可重来。</p><p></p><p>series包含7件茶器，器型各异，釉色斑斓，可单用可成组，是柴烧爱好者收藏佳品。</p></div>
 <div class="section-label">规格参数</div><table class="spec-table"><tr><th>系列</th><td>五色釉柴烧系列</td></tr><tr><th>泥料</th><td>原矿紫泥（柴烧）</td></tr><tr><th>烧制</th><td>柴窑高温1260°C</td></tr><tr><th>工艺</th><td>全手工+柴烧自然釉</td></tr><tr><th>数量</th><td>7件/套</td></tr></table>
-<div class="section-label">系列作品（共7件）</div><div class="gallery-grid"><div class="gallery-item" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p12_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p13_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p14_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p15_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p16_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p17_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p18_0.webp" alt="五色釉柴烧茶器"></div></div></div>
+<div class="section-label">系列作品（共7件）</div><div class="gallery-grid"><div class="gallery-item" id="item-p12" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p12_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" id="item-p13" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p13_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" id="item-p14" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p14_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" id="item-p15" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p15_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" id="item-p16" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p16_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" id="item-p17" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p17_0.webp" alt="五色釉柴烧茶器"></div><div class="gallery-item" id="item-p18" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/zisha_p18_0.webp" alt="五色釉柴烧茶器"></div></div></div>
 <script>(function(){function u(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});}u();setInterval(u,1000);})();
 function openLightbox(e){
     var s=e.querySelector?e.querySelector('img').src:e.src;

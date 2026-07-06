@@ -31,6 +31,9 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 .spec-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--b);border-radius:10px;overflow:hidden;margin-bottom:24px}
 .spec-table th,.spec-table td{padding:12px 18px;text-align:left;border-bottom:1px solid var(--b);font-size:1.08rem}
 .spec-table th{background:var(--zb);color:#fff;width:120px}
+
+/* 锚点高亮 */
+:target{outline:3px solid #C8A96E;outline-offset:4px;border-radius:10px;box-shadow:0 0 20px rgba(200,169,110,0.4);}
 </style>
   <meta property="og:title" content="如意杯 | 紫砂艺术 | 龙兄知识库">
   <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
@@ -103,7 +106,7 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 
 <div class="breadcrumb"><a href="../../index.html">首页</a> › <a href="../../zisha.html">紫砂艺术</a> › <span>如意杯</span></div>
 <div class="detail-hero">
-<div class="detail-img-wrap" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/wht2026_p2_6.webp" alt="如意杯"></div>
+<div class="detail-img-wrap" id="hero" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/wht2026_p2_6.webp" alt="如意杯"></div>
 <div class="detail-info">
 <h1 class="detail-title">如意杯</h1>
 <div class="detail-meta"><span class="meta-pill">🫖 容量：420ml</span><span class="meta-pill">🏺 泥料：底槽清</span><span class="meta-pill">📁 系列：特别款·杯类</span></div>

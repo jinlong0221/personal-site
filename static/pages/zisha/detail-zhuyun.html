@@ -103,7 +103,7 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 
 <div class="breadcrumb"><a href="../../index.html">首页</a> › <a href="../../zisha.html">紫砂艺术</a> › <span>竹韵</span></div>
 <div class="detail-hero">
-<div class="detail-img-wrap" onclick="openLightbox(this)"><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/wht2026_p1_1.webp" alt="竹韵"></div>
+<div class="detail-img-wrap"  data-lightbox data-caption="" data-src="">><img loading="lazy" decoding="async" onerror="this.onerror=null;this.src=this.src+"?retry="+(new Date()).getTime()" src="../../img/zisha/wht2026_p1_1.webp" alt="竹韵"></div>
 <div class="detail-info">
 <h1 class="detail-title">竹韵</h1>
 <div class="detail-meta"><span class="meta-pill">🫖 容量：410ml</span><span class="meta-pill">🏺 泥料：原矿天星泥</span><span class="meta-pill">📁 系列：天星泥方器</span></div>
@@ -113,16 +113,7 @@ body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,"Pin
 <div class="section-label">设计理念</div><div class="detail-desc"><p>「竹韵」以竹入壶，壶身取竹节三段式造型，线条挺拔有力。</p><p>壶钮为竹节状，呼应壶身，整体气韵清雅。</p><p>天星泥暗金色质地将竹韵的清高气质衬托得恰到好处。</p></div>
 <div class="section-label">规格参数</div><table class="spec-table"><tr><th>容量</th><td>410ml</td></tr><tr><th>泥料</th><td>原矿天星泥</td></tr><tr><th>工艺</th><td>全手工</td></tr><tr><th>系列</th><td>天星泥方器</td></tr></table></div>
 <script>
-(function(){function u(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});}u();setInterval(u,1000);})();
-function openLightbox(e){
-    var s=e.querySelector?e.querySelector('img').src:e.src;
-    // 预加载图片
-    var preload=new Image();
-    preload.src=s;
-    var o=document.createElement('div');
-    o.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';
-    o.innerHTML='<img src="'+s+'" style="max-width:90%;max-height:90vh;border-radius:8px;object-fit:contain" />';
-    o.onclick=function(){document.body.removeChild(o)};
+(function(){function u(){var e=document.getElementById('nc');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});}u();setInterval(u,1000);})();;
     document.body.appendChild(o);
 }
 </script><script src="../../js/app.js"></script>

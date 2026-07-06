@@ -27,3 +27,5 @@
 - CSS/JS/图片 保留在 `static/` 目录
 - 模板改动会影响所有 Hugo 生成的页面
 - `public/` 目录由 Hugo 自动生成，勿手动修改
+
+<!-- Hugo Actions 自动部署测试 10:37 -->

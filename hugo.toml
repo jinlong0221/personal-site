@@ -1,0 +1,24 @@
+baseURL = "https://longxiong.vip/"
+defaultContentLanguage = "zh-cn"
+title = "龙兄知识库"
+timeout = "120s"
+enableRobotsTXT = true
+enableGitInfo = false
+
+[frontmatter]
+  excludeFiles = ["README.md"]
+
+[markup]
+  [markup.goldmark]
+    renderer = { unsafe = true }
+
+# 使用 uglyURLs 让生成的页面有 .html 后缀（与现有 URL 保持一致）
+uglyURLs = true
+
+[params]
+  description = "AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、中药养生茶、特斯拉动态新闻、射阳天气等实用内容。"
+  keywords = "AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料"
+  author = "龙兄"
+  email = "799958000@qq.com"
+  github = "jinlong0221/personal-site"
+  baiduAnalytics = "04913e92799dc86649938ea8f5eb4b78"

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文玩手串百科 - 龙兄知识库</title>
+<meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
+<meta name="description" content="文玩手串百科全书，星月菩提、凤眼菩提、龙眼菩提、骨料手串鉴别与盘玩全攻略。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* 文玩手串首页特定样式 */
+  .bracelet-hero {
+    padding: 48px 0 24px;
+    text-align: center;
+  }
+  .bracelet-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .bracelet-hero .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .bracelet-hero .tagline {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  /* 分类标题 */
+  .cat-header {
+    margin: 40px 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cat-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+  .cat-header .badge {
+    background: #5b2c8d;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+
+  /* 卡片网格 */
+  .bracelet-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .bracelet-card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px 20px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s;
+    text-decoration: none;
+    color: var(--text);
+    overflow: hidden;
+  }
+  .bracelet-card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
+  }
+
+  .bracelet-card .emoji {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .bracelet-card .title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .bracelet-card .desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .bracelet-card .tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: fit-content;
+  }
+
+  /* 卡片紫色边框和悬停效果 */
+  .card-purple { border-left: 4px solid #5b2c8d; }
+  .card-purple .tag { background: rgba(91, 44, 141, 0.15); color: #9c6ede; }
+  .card-purple:hover { border-color: #5b2c8d; }
+
+  .card-amber { border-left: 4px solid #c9a84c; }
+  .card-amber .tag { background: rgba(201, 168, 76, 0.15); color: var(--gold); }
+
+  /* 分类背景 */
+  .cat-material .bracelet-card:nth-child(1) .emoji,
+  .cat-material .bracelet-card:nth-child(2) .emoji,
+  .cat-material .bracelet-card:nth-child(3) .emoji,
+  .cat-material .bracelet-card:nth-child(4) .emoji,
+  .cat-material .bracelet-card:nth-child(5) .emoji,
+  .cat-material .bracelet-card:nth-child(6) .emoji { font-size: 34px; }
+
+  /* 更新日志压缩 */
+  .update-compact {
+    margin-top: 32px;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .update-compact h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-muted);
+  }
+  .log-item {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .log-item:last-child { border-bottom: none; }
+  .log-item .date { font-size: 12px; color: var(--blue); font-weight: 700; }
+  .log-item .text { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* 亮色模式卡片 */
+  [data-theme="light"] .bracelet-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+
+  /* 响应式 */
+  @media (max-width: 768px) {
+    .bracelet-grid { grid-template-columns: repeat(2, 1fr); }
+    .bracelet-hero h1 { font-size: 1.8rem; }
+  }
+  @media (max-width: 480px) {
+    .bracelet-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:title" content="文玩手串材质养护 | 文玩手串 | 龙兄知识库">
+  <meta property="og:description" content="星月菩提、紫檀黄花梨的盘玩与保养">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://longxiong.vip/bracelet.html">
+  <meta property="og:site_name" content="龙兄知识库">
+  <meta property="og:title" content="文玩手串百科 - 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/bracelet.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+龙兄知识库
+    </a><a href="calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a>    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span><ul class="nav-links">
+          <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="herbs.html">中药材</a></li>
+          <li><a href="health-tea.html">养生茶</a></li>
+          <li><a href="bracelet.html" class="active">文玩手串</a></li>
+          <li><a href="tesla.html">特斯拉</a></li>
+          <li><a href="marvel.html">漫威宇宙</a></li>
+          <li><a href="xintan-weather.html">农田气象</a></li>
+          <li><a href="zisha.html">紫砂艺术</a></li>
+          <li><a href="console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="gaokao.html">高考查分</a>
+              <a href="pitfalls.html">踩坑记</a>
+              <a href="games.html">游戏库</a>
+              <a href="about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">🏠 首页</a>
+  <a href="herbs/chenxiang.html">🪵 沉香鉴别</a>
+  <a href="herbs.html">🌿 中药材</a>
+  <a href="health-tea.html">🍵 养生茶</a>
+  <a href="bracelet.html">📿 文玩手串</a>
+  <a href="tesla.html">🚗 特斯拉</a>
+  <a href="marvel.html">🎬 漫威宇宙</a>
+  <a href="xintan-weather.html">🌾 农田气象</a>
+  <a href="zisha.html">🏺 紫砂艺术</a>
+  <a href="console.html">🎮 游戏主机</a>
+  <a href="gaokao.html">🎓 高考查分</a>
+  <a href="pitfalls.html">🕳️ 龙兄踩坑记</a>
+  <a href="games.html">🕹️ 游戏库</a>
+  <a href="about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+<main class="container">
+  <div id="breadcrumb"></div>
+
+  <!-- 面包屑 -->
+  <div class="breadcrumb">
+    <a href="index.html">首页</a>
+    <span class="sep">›</span>
+    <span class="current">文玩手串</span>
+  </div>
+
+  <!-- 标题区 -->
+  <div class="bracelet-hero">
+    <h1>文玩手串百科</h1>
+    <p class="subtitle">菩提·骨料·五行，手串材质鉴别与盘玩全攻略</p>
+    <p class="tagline">🌈 紫金配色 · 紫色系（#5b2c8d）</p>
+  </div>
+
+  <!-- 材质养护分类 -->
+  <div class="cat-header">
+    <h2>材质养护</h2>
+    <span class="badge">6种材质</span>
+  </div>
+
+  <div class="bracelet-grid">
+    <a href="bracelet/xingyue.html" class="bracelet-card card-purple">
+      <div class="emoji">🌟</div>
+      <div class="title">星月菩提</div>
+      <div class="desc">白底星点如繁星伴月，选料、盘玩、包浆、色差处理全套知识</div>
+      <div class="tag">海南毛感料</div>
+    </a>
+
+    <a href="bracelet/fengyan.html" class="bracelet-card card-purple">
+      <div class="emoji">👁️</div>
+      <div class="title">凤眼菩提</div>
+      <div class="desc">深褐底深棕眼，三大菩提中最珍贵，尺寸越小越贵重</div>
+      <div class="tag">尼泊尔产</div>
+    </a>
+
+    <a href="bracelet/longyan.html" class="bracelet-card card-purple">
+      <div class="emoji">🐉</div>
+      <div class="title">龙眼菩提</div>
+      <div class="desc">浅褐底两条交叉眼线，凤眼变异种，比凤眼更稀缺</div>
+      <div class="tag">变异珍品</div>
+    </a>
+
+    <a href="bracelet/magu.html" class="bracelet-card card-purple">
+      <div class="emoji">🦴</div>
+      <div class="title">马骨手串</div>
+      <div class="desc">骨料新星，价格亲民纹理独特，纵向纤维纹鉴别要点</div>
+      <div class="tag">入门50+</div>
+    </a>
+
+    <a href="bracelet/mengma.html" class="bracelet-card card-purple">
+      <div class="emoji">🦷</div>
+      <div class="title">猛犸牙手串</div>
+      <div class="desc">合法象牙替代品，勒兹纹（裂帛纹/雷纹）鉴别全解析</div>
+      <div class="tag">合法化石</div>
+    </a>
+
+    <a href="bracelet/zijinboyu.html" class="bracelet-card card-purple">
+      <div class="emoji">🏺</div>
+      <div class="title">紫金钵盂菩提</div>
+      <div class="desc">小众菩提籽，半圆钵盂形似倒扣碗，紫褐至棕红色</div>
+      <div class="tag">小众入门</div>
+    </a>
+  </div>
+
+  <!-- 知识指南分类 -->
+  <div class="cat-header">
+    <h2>知识指南</h2>
+    <span class="badge">3个专题</span>
+  </div>
+
+  <div class="bracelet-grid">
+    <a href="bracelet/quanao.html" class="bracelet-card card-amber">
+      <div class="emoji">📖</div>
+      <div class="title">星月全套攻略</div>
+      <div class="desc">选料→上手→包浆→保养，星月菩提完整生命周期，配包浆图谱</div>
+      <div class="tag">完整指南</div>
+    </a>
+
+    <a href="bracelet/pinxiang.html" class="bracelet-card card-amber">
+      <div class="emoji">🔍</div>
+      <div class="title">品相辨别指南</div>
+      <div class="desc">六维评分系统：密度、油性、做工、均匀度、瑕疵、完整性</div>
+      <div class="tag">选购必读</div>
+    </a>
+
+    <a href="bracelet/wuxing.html" class="bracelet-card card-amber">
+      <div class="emoji">🎯</div>
+      <div class="title">五行搭配指南</div>
+      <div class="desc">材质五行属性对照表，相生搭配建议，色彩美学原则</div>
+      <div class="tag">美学体系</div>
+    </a>
+  </div>
+
+  <!-- 更新日志 -->
+  <div class="update-compact">
+    <h3>更新记录</h3>
+    <div class="log-item">
+      <div class="date">2026-06-22</div>
+      <div class="text">拆分文玩手串为独立子页面系统，创建9个专题子页面，首页改为卡片索引。</div>
+    </div>
+    <div class="log-item">
+      <div class="date">2026-06-21</div>
+      <div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div>
+    </div>
+    <div class="log-item">
+      <div class="date">2026-06-20</div>
+      <div class="text">完成欢见品牌研究，用户持有3串星月菩提盘玩方案确定。</div>
+    </div>
+  </div>
+
+</main>
+<div class="page-meta">
+    <div class="source">信息来源：待补充</div>
+    <div class="update-time">最后更新时间：2026-06-22</div>
+  </div>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
+    <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
+  </div>
+    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
+      <span style="font-size:13px;color:var(--text-muted)">
+        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
+    </div>
+
+  
+    <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+</footer>
+
+<script>
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+</script>
+
+<script src="js/search.js"></script>
+<script src="js/app.js"></script>
+    <script src="js/share.js"></script>
+  </body>
+</html>

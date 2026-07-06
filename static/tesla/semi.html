@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semi · 参数与动态 - 龙兄知识库</title>
+<meta name="keywords" content="特斯拉Semi,Semi电动卡车,特斯拉Semi参数,Semi续航,特斯拉重卡">
+<meta name="description" content="特斯拉 Semi 全面解析：2026年已量产，电动重卡，满载37吨续航523-803km，3电机后轴，30分钟充至60%，FSD已开始测试。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-list .label { color: var(--text-muted); flex-shrink: 0; }
+.spec-list .value { color: var(--text); text-align: right; font-weight: 600; }
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.pros, .cons { padding: 16px; border-radius: var-radius-sm); }
+.pros { background: rgba(16,124,16,0.08); border-left: 4px solid var(--green); }
+.cons { background: rgba(232,17,35,0.06); border-left: 4px solid var(--red); }
+.pros h3 { color: var(--green); margin-bottom: 8px; font-size: 1rem; }
+.cons h3 { color: var(--red); margin-bottom: 8px; font-size: 1rem; }
+.pros ul, .cons ul { padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+.pros ul li, .cons ul li { margin-bottom: 4px; }
+.people-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.people-box h3 { font-size: 1rem; margin-bottom: 8px; color: var(--blue); }
+.people-box p { font-size: 0.9rem; color: var(--text-secondary); }
+.highlight { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
+.highlight-item { flex: 1; min-width: 140px; text-align: center; }
+.highlight-item .num { font-size: 2rem; font-weight: 900; color: var(--green); }
+.highlight-item .desc { font-size: 0.8rem; color: var(--text-muted); }
+.news-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.news-box .news-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.news-box .news-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+.version-tag { font-size: 0.7rem; padding: 1px 6px; border-radius: 6px; font-weight: 700; margin-left: 4px; }
+.version-tag.new { background: rgba(16,124,16,0.12); color: var(--green); }
+.version-tag.top { background: rgba(0,120,212,0.12); color: var(--blue); }
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } .spec-list li { flex-direction: column; gap: 4px; } .spec-list .value { text-align: left; } }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:title" content="Semi · 参数与动态 - 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/tesla/semi.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo">
+龙兄知识库
+    </a><a href="../calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a><span class="nav-weather" id="navWeather" onclick="location.href='../sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span>    <ul class="nav-links">
+          <li><a href="../herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="../herbs.html">中药材</a></li>
+          <li><a href="../health-tea.html">养生茶</a></li>
+          <li><a href="../bracelet.html">文玩手串</a></li>
+          <li><a href="../tesla.html">特斯拉</a></li>
+          <li><a href="../marvel.html">漫威宇宙</a></li>
+          <li><a href="../xintan-weather.html">农田气象</a></li>
+          <li><a href="../zisha.html">紫砂艺术</a></li>
+          <li><a href="../console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="../gaokao.html">高考查分</a>
+              <a href="../pitfalls.html">踩坑记</a>
+              <a href="../games.html">游戏库</a>
+              <a href="../about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>  <div class="mobile-nav" id="mobileNav">
+    <a href="../herbs/chenxiang.html">🪵 沉香鉴别</a>
+    <a href="../herbs.html">🌿 中药材</a>
+    <a href="../health-tea.html">🍵 养生茶</a>
+    <a href="../bracelet.html">📿 文玩手串</a>
+    <a href="../tesla.html">🚗 特斯拉</a>
+    <a href="../marvel.html">🦸 漫威宇宙</a>
+    <a href="../xintan-weather.html">🌾 农田气象</a>
+    <a href="../zisha.html">🏺 紫砂艺术</a>
+    <a href="../console.html">🎮 游戏主机</a>
+    
+
+  <a href="../gaokao.html">🎓 高考查分</a>
+    
+<a href="../games.html">🕹️ 游戏库</a>
+<a href="../pitfalls.html">🕳️ 龙兄踩坑记</a>
+<a href="../about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+<main class="container">
+
+  <div id="breadcrumb"></div>
+
+  <div class="page-header">
+    <h1>🚚 Tesla Semi</h1>
+    <p class="subtitle">电动重卡 · 2026年已量产 · 满载37吨 · FSD测试中</p>
+  </div>
+
+  <!-- 最新动态 -->
+  <div class="section">
+    <h2>📰 最新动态</h2>
+    <div class="news-box">
+      <div class="news-title">🔥 Semi 已正式量产，2026年预计交付5000-15000辆</div>
+      <div class="news-body">特斯拉 Semi 电动重卡已在2026年实现量产，年产能规划为5万辆。2026年预计交付5000-15000辆，目前已开始向早期企业客户（包括百事可乐等）规模化交付。</div>
+    </div>
+    <div class="news-box">
+      <div class="news-title">🤖 FSD 已在 Semi 上开始测试</div>
+      <div class="news-body">特斯拉已开始将 FSD（完全自动驾驶）系统部署到 Semi 电动重卡上进行测试，标志着特斯拉将无人驾驶货运作为长期战略方向。</div>
+    </div>
+    <div class="news-box">
+      <div class="news-title">🇺🇸 百事可乐成为最大企业客户之一</div>
+      <div class="news-body">百事可乐是 Semi 的首批企业客户之一，其在加州的 Semi 运输线路已经运营了较长时间，积累了大量真实运营数据。</div>
+    </div>
+  </div>
+
+  <!-- 车型概览 -->
+  <div class="section">
+    <h2>📋 车型概览</h2>
+    <p>Semi 是特斯拉于2017年11月发布的纯电动重卡，历经多年开发终于在2026年实现大规模量产。它是全球首款面向商业运输市场的大规模量产纯电动重卡，旨在用电力替代传统柴油卡车，大幅降低运输成本和碳排放。</p>
+
+    <div class="highlight">
+      <div class="highlight-item"><div class="num">500 英里</div><div class="desc">长续航版（804km）</div></div>
+      <div class="highlight-item"><div class="num">2 个版本</div><div class="desc">标准/长续航</div></div>
+      <div class="highlight-item"><div class="num">37 吨</div><div class="desc">满载总重</div></div>
+    </div>
+
+    <ul class="spec-list">
+      <li><span class="label">车型定位</span><span class="value">纯电动重型卡车（Class 8）</span></li>
+      <li><span class="label">在售版本</span><span class="value">标准续航版 / 长续航版（500英里）</span></li>
+      <li><span class="label">生产地</span><span class="value">美国内华达超级工厂（Giga Nevada）</span></li>
+      <li><span class="label">起售价（美国）</span><span class="value">标准版约 26万美元 / 长续航版约 29万美元</span></li>
+      <li><span class="label">量产状态</span><span class="value">2026年已量产，年产能5万辆</span></li>
+      <li><span class="label">中国引进</span><span class="value">暂无引进计划</span></li>
+    </ul>
+  </div>
+
+  <!-- 核心参数 -->
+  <div class="section">
+    <h2>📊 核心参数</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>参数</th><th>标准续航版</th><th>长续航版（500英里）</th></tr></thead>
+        <tbody>
+          <tr><td>售价（美国）</td><td>约 26 万美元</td><td>约 29 万美元</td></tr>
+          <tr><td>续航（满载37吨）</td><td>325 英里（523 km）</td><td>500 英里（804 km）</td></tr>
+          <tr><td>电机</td><td>3电机后轴驱动</td><td>3电机后轴驱动</td></tr>
+          <tr><td>拖载能力</td><td>约 36,287 kg</td><td>约 36,287 kg</td></tr>
+          <tr><td>快充（Megacharger）</td><td>30分钟充至70%</td><td>30分钟充至60%</td></tr>
+          <tr><td>风阻系数</td><td>Cd 0.36（业界最低之一）</td><td>Cd 0.36</td></tr>
+          <tr><td>驾驶舱</td><td>居中驾驶位，无副驾</td><td>居中驾驶位，无副驾</td></tr>
+          <tr><td>FSD</td><td>测试中</td><td>测试中</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 核心亮点 -->
+  <div class="section">
+    <h2>⚡ 核心亮点</h2>
+    <ul style="padding-left:20px;font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">
+      <li><strong>超低能耗：</strong>官方宣称每英里耗电少于2kWh，远低于传统柴油卡车同类场景能耗</li>
+      <li><strong>Megacharger 快充：</strong>特斯拉专属 Megacharger 充电网络，30分钟可补充70%电量，与普通超充不同</li>
+      <li><strong>超低风阻：</strong>Cd 0.36风阻系数，接近部分轿车水平，大幅降低高速行驶能耗</li>
+      <li><strong>超低运营成本：</strong>电费约为柴油的1/3，维护成本更低（无变速箱、无复杂发动机）</li>
+      <li><strong>驾驶体验：</strong>居中驾驶位设计，视野开阔；加速平顺，无换挡顿挫</li>
+      <li><strong>FSD 测试中：</strong>长途货运是FSD自动驾驶的理想场景，未来可实现无人货运</li>
+      <li><strong>车厢连通性：</strong>驾驶舱与货箱无隔断，可直接走向车尾检查货物（Class 8标准设计）</li>
+    </ul>
+    <div class="tip-box">
+      <p>💡 <strong>运营成本对比：</strong>以美国柴油价格计算，Semi的每英里运营成本约为传统柴油卡车的1/2至1/3，主要节省来自：电费低于柴油、保养成本更低（无发动机油/变速箱油/复杂冷却系统）、制动片因动能回收而大幅延长寿命。</p>
+    </div>
+  </div>
+
+  <!-- 优缺点 -->
+  <div class="section">
+    <h2>👍👎 优缺点</h2>
+    <div class="pros-cons">
+      <div class="pros">
+        <h3>✅ 优点</h3>
+        <ul>
+          <li>零尾气排放，符合最严环保法规趋势</li>
+          <li>运营成本显著低于柴油卡车</li>
+          <li>驾驶体验优于传统重卡（平顺/安静）</li>
+          <li>Mega charger超快充网络</li>
+          <li>FSD自动驾驶前景广阔</li>
+          <li>维护成本低，结构简单可靠</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h3>❌ 缺点</h3>
+        <ul>
+          <li>续航在极端天气（严寒）下会有所下降</li>
+          <li>需要特斯拉 Megacharger 网络支持（覆盖有限）</li>
+          <li>美国售价约26-29万美元，高于传统重卡</li>
+          <li>载货空间设计较紧凑</li>
+          <li>目前在中国无引进计划</li>
+          <li>充电基础设施需大量投资</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 适合人群 -->
+  <div class="section">
+    <h2>👥 适合人群 & 购买建议</h2>
+    <div class="people-box">
+      <h3>🏭 目标客户</h3>
+      <p><strong>大型物流企业：</strong>短中途（500英里以内）固定线路运输，如港口/仓储/电商物流中心之间的运输。</p>
+      <p style="margin-top:8px;"><strong>快消品巨头：</strong>如百事可乐、沃尔玛等已参与Semi试点项目，有固定配送线路和车队规模需求。</p>
+      <p style="margin-top:8px;"><strong>区域运输：</strong>城市间固定线路运输，可充分利用Megacharger网络。</p>
+    </div>
+    <div class="people-box" style="border-left-color:var(--orange);">
+      <p><strong>⚠️ 购买考虑：</strong>需评估线路沿途Megacharger覆盖情况、当地电价政策、企业减碳目标。目前中国暂无引进计划，国内企业暂无法直接订购。</p>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:24px;">
+    <p>📌 <strong>数据来源：</strong>特斯拉Semi官方规格页（2026年6月）、Electrek、Teslarati。Semi已量产但主要面向北美市场，中国暂无引进计划。本页面为知识科普性质，不构成购买建议。</p>
+  </div>
+
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回特斯拉动态新闻</a>
+  </div>
+
+</main>
+
+<script src="../js/search.js"></script>
+<script src="../js/app.js"></script>
+
+    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
+      <span style="font-size:13px;color:var(--text-muted)">
+        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
+    </div>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
+    <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
+  </div>
+    <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="../about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+</footer>
+    <script src="../js/share.js"></script>
+  </body>
+</html>

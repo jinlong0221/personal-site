@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Computer (FC) - 游戏主机图鉴 - 龙兄知识库</title>
+<meta name="keywords" content="Family Computer,FC,红白机,Famicom,任天堂,8位,超级马里奥,塞尔达">
+<meta name="description" content="Family Computer详细图鉴：1983年发售，全球6191万台，定义现代游戏产业标准。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.console-detail-hero { display: flex; gap: 40px; align-items: center; padding: 48px 0 32px; flex-wrap: wrap; }
+.console-detail-hero .image-side { flex: 0 0 380px; }
+.console-detail-hero .image-side img { width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); background: var(--card); }
+.console-detail-hero .info-side { flex: 1; min-width: 280px; }
+.console-detail-hero h1 { font-size: 2.4rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.console-detail-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+.console-detail-hero .year-badge { display: inline-block; background: linear-gradient(135deg, #e60012, #ff4757); color: #fff; font-weight: 800; font-size: 0.85rem; padding: 4px 16px; border-radius: 20px; margin-bottom: 16px; }
+.console-detail-hero .quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.console-detail-hero .qs { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 90px; }
+.console-detail-hero .qs .qsv { font-size: 1.2rem; font-weight: 900; color: #e60012; }
+.console-detail-hero .qs .qsl { font-size: 0.7rem; color: var(--text-muted); }
+
+.detail-section { margin: 40px 0; }
+.detail-section h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); border-left: 4px solid #e60012; padding-left: 12px; margin-bottom: 16px; }
+.detail-section p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+.detail-section ul { list-style: none; padding: 0; }
+.detail-section ul li { font-size: 0.9rem; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 8px; }
+.detail-section ul li::before { content: '▶'; color: #e60012; font-size: 0.7rem; flex-shrink: 0; }
+
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.spec-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.spec-item .spec-label { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; }
+.spec-item .spec-value { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.game-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+.game-card .game-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.game-card .game-year { font-size: 0.73rem; color: #e60012; font-weight: 600; }
+.game-card .game-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+
+.nav-prev-next { display: flex; justify-content: space-between; margin: 48px 0 20px; padding: 20px 0; border-top: 1px solid var(--border); }
+.nav-prev-next a { color: #e60012; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.nav-prev-next a:hover { text-decoration: underline; }
+
+.timeline-bar { display: flex; align-items: center; gap: 0; margin: 20px 0; overflow-x: auto; }
+.timeline-item { display: flex; flex-direction: column; align-items: center; min-width: 80px; cursor: pointer; text-decoration: none; }
+.timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border); border: 2px solid var(--border); margin-bottom: 6px; flex-shrink: 0; }
+.timeline-item.active .timeline-dot { background: #e60012; border-color: #e60012; }
+.timeline-item .tl-year { font-size: 0.68rem; color: var(--text-muted); font-weight: 600; }
+.timeline-item.active .tl-year { color: #e60012; }
+.timeline-line { flex: 1; height: 2px; background: var(--border); min-width: 20px; }
+
+[data-theme="light"] .console-detail-hero .image-side img { background: #f0f0f0; }
+[data-theme="light"] .spec-item, [data-theme="light"] .game-card { background: #ffffff; }
+@media (max-width: 768px) { .console-detail-hero { flex-direction: column; } .console-detail-hero .image-side { flex: none; width: 100%; max-width: 320px; margin: 0 auto; } }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:title" content="Family Computer (FC) - 游戏主机图鉴 - 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/console-fc.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+龙兄知识库
+    </a><a href="calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a>    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span><ul class="nav-links">
+          <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="herbs.html">中药材</a></li>
+          <li><a href="health-tea.html">养生茶</a></li>
+          <li><a href="bracelet.html">文玩手串</a></li>
+          <li><a href="tesla.html">特斯拉</a></li>
+          <li><a href="marvel.html">漫威宇宙</a></li>
+          <li><a href="xintan-weather.html">农田气象</a></li>
+          <li><a href="zisha.html">紫砂艺术</a></li>
+          <li><a href="console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="gaokao.html">高考查分</a>
+              <a href="pitfalls.html">踩坑记</a>
+              <a href="games.html">游戏库</a>
+              <a href="about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">🏠 首页</a>
+  <a href="herbs/chenxiang.html">🪵 沉香鉴别</a>
+  <a href="herbs.html">🌿 中药材</a>
+  <a href="health-tea.html">🍵 养生茶</a>
+  <a href="bracelet.html">📿 文玩手串</a>
+  <a href="tesla.html">🚗 特斯拉</a>
+  <a href="marvel.html">🎬 漫威宇宙</a>
+  <a href="xintan-weather.html">🌾 农田气象</a>
+  <a href="zisha.html">🏺 紫砂艺术</a>
+  <a href="console.html">🎮 游戏主机</a>
+  <a href="gaokao.html">🎓 高考查分</a>
+  <a href="pitfalls.html">🕳️ 龙兄踩坑记</a>
+  <a href="games.html">🕹️ 游戏库</a>
+  <a href="about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+<main class="container">
+
+  <div class="timeline-bar" style="margin-top:24px;">
+    <a class="timeline-item active" href="console-fc.html">
+      <div class="timeline-dot"></div><div class="tl-year">FC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-sfc.html">
+      <div class="timeline-dot"></div><div class="tl-year">SFC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-n64.html">
+      <div class="timeline-dot"></div><div class="tl-year">N64</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-gc.html">
+      <div class="timeline-dot"></div><div class="tl-year">GC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-wii.html">
+      <div class="timeline-dot"></div><div class="tl-year">Wii</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-wiiu.html">
+      <div class="timeline-dot"></div><div class="tl-year">Wii U</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-switch.html">
+      <div class="timeline-dot"></div><div class="tl-year">Switch</div>
+    </a>
+  </div>
+
+  <div class="console-detail-hero">
+    <div class="image-side">
+      <img src="img/consoles/fc.webp" alt="Nintendo Famicom (FC) 红白机" style="width:100%;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);" loading="lazy">
+    </div>
+    <div class="info-side">
+      <div class="year-badge">1983 年发布</div>
+      <h1>Family Computer (FC)</h1>
+      <div class="subtitle">红白机 · 现代游戏产业奠基者 · 十字键发明者</div>
+      <div class="quick-stats">
+        <div class="qs"><div class="qsv">6191万</div><div class="qsl">全球销量</div></div>
+        <div class="qs"><div class="qsv">8位</div><div class="qsl">CPU架构</div></div>
+        <div class="qs"><div class="qsv">¥14,800</div><div class="qsl">日本首发价</div></div>
+        <div class="qs"><div class="qsv">10NES</div><div class="qsl">锁区芯片</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>📖 历史与背景</h2>
+    <p>1983年7月15日，任天堂在日本推出Family Computer（简称FC，欧美版称NES），因红白配色被中国玩家称为"红白机"。FC的诞生终结了1983年美国游戏大崩溃后的市场混乱，重新定义了游戏产业标准。</p>
+    <p>FC的核心创新是<strong>十字键（D-pad）</strong>，由任天堂工程师横井军平发明，彻底改变了游戏操作方式。另一个创新是<strong>10NES锁区芯片</strong>，防止未授权游戏运行，这催生了"任天堂许可费制度"——第三方厂商每卖一款游戏，任天堂抽取15-20%许可费。</p>
+    <p>FC在中国市场的影响尤为深远。由于正品FC价格昂贵，大量仿制品（小霸王、步步高、裕兴等）涌入市场，让一代中国孩子玩到了《超级马里奥》《魂斗罗》。"小霸王学习机"的广告"包你三天玩到爽"成为时代记忆。</p>
+  </div>
+
+  <div class="detail-section">
+    <h2>⚙️ 硬件规格</h2>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">CPU</div><div class="spec-value">Ricoh 6502 8位 1.79MHz</div></div>
+      <div class="spec-item"><div class="spec-label">GPU</div><div class="spec-value">PPU 2C02 5.37MHz</div></div>
+      <div class="spec-item"><div class="spec-label">内存</div><div class="spec-value">2KB RAM + 2KB VRAM</div></div>
+      <div class="spec-item"><div class="spec-label">调色板</div><div class="spec-value">52色（同屏13色）</div></div>
+      <div class="spec-item"><div class="spec-label">音频</div><div class="spec-value">PSG 5通道 + DPCM</div></div>
+      <div class="spec-item"><div class="spec-label">介质</div><div class="spec-value">卡带（ROM最大256KB）</div></div>
+      <div class="spec-item"><div class="spec-label">输出</div><div class="spec-value">RF射频 / AV（后期）</div></div>
+      <div class="spec-item"><div class="spec-label">手柄</div><div class="spec-value">十字键 + A/B键 + Select/Start</div></div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>🎮 经典游戏阵容</h2>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-title">超级马里奥兄弟</div>
+        <div class="game-year">1985 · 平台跳跃</div>
+        <div class="game-note">4024万份，史上最畅销FC游戏，定义了平台跳跃游戏</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">塞尔达传说</div>
+        <div class="game-year">1986 · ARPG</div>
+        <div class="game-note">系列开山之作，首创"救公主"叙事模板</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">魂斗罗</div>
+        <div class="game-year">1987 · 射击</div>
+        <div class="game-note">KONAMI代表作，上上下下左右左右BA秘籍</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">俄罗斯方块</div>
+        <div class="game-year">1989 · 益智</div>
+        <div class="game-note">1423万份，推动FC销量暴涨</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">最终幻想</div>
+        <div class="game-year">1987 · RPG</div>
+        <div class="game-note">Square成名作，挽救了濒临破产的Square</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">勇者斗恶龙III</div>
+        <div class="game-year">1988 · RPG</div>
+        <div class="game-note">593万份，日本"国民RPG"</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">街霸</div>
+        <div class="game-year">1987 · 格斗</div>
+        <div class="game-note">Capcom格斗游戏鼻祖</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">打鸭子</div>
+        <div class="game-year">1984 · 射击</div>
+        <div class="game-note">光枪游戏，NES美版捆绑销售</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>📦 型号演变</h2>
+    <ul>
+      <li><strong>FC初版（1983）：</strong>红白配色，顶部插卡，RF输出</li>
+      <li><strong>NES美版（1985）：</strong>灰色长方形，前部插卡， redesign外观</li>
+      <li><strong>FC Jr.（1993）：</strong>小型化，取消S-Video输出，更便宜</li>
+      <li><strong>小霸王学习机（1990s）：</strong>中国仿制版，键盘+手柄二合一</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h2>💡 趣闻与冷知识</h2>
+    <ul>
+      <li>FC的十字键（D-pad）是横井军平的发明，后来成为所有游戏手柄的标准配置</li>
+      <li>10NES锁区芯片让任天堂对游戏内容有完全控制权，也导致大量优秀游戏无法登陆FC</li>
+      <li>《俄罗斯方块》的版权争夺战：任天堂与Tengen争夺，最终任天堂获胜</li>
+      <li>中国"小霸王学习机"就是FC的克隆版，广告词"包你三天玩到爽"成为时代记忆</li>
+      <li>FC的光枪（Zapper）可以玩《打鸭子》，是美国市场重要卖点，但日本版没有光枪</li>
+      <li>《超级马里奥兄弟》的1-1关卡设计被认为是游戏关卡设计的教科书案例</li>
+    </ul>
+  </div>
+
+  <div class="nav-prev-next">
+    <a href="#" style="color:var(--text-muted);pointer-events:none;">← 上一代（无）</a>
+    <a href="console-nintendo.html">任天堂主机列表 ↑</a>
+    <a href="console-sfc.html">SFC（下一代） →</a>
+  </div>
+
+  <div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;">
+    <p>最后更新：2026-06-23 | 数据来源：官方资料、维基百科、游戏媒体</p>
+    <p><a href="console-nintendo.html" style="color:var(--blue);;">← 返回任天堂主机列表</a></p>
+  </div>
+
+</main>
+
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <p class="footer-brand">🐉 龙兄知识库</p>
+      <p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p>
+    </div>
+    <div class="footer-col">
+      <p>© 2026 龙兄知识库 · 保留所有权利</p>
+      <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a>
+    </div>
+  </div>
+  <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+  <div class="footer-stat" style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border-color);text-align:center;">
+      <span id="busuanzi_container_site_pv" style="font-size:13px;color:var(--text-muted)">
+        本页总阅读 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span id="busuanzi_container_site_uv" style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+    </div>
+</footer>
+
+
+<script src="js/app.js"></script>

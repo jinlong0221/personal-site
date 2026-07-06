@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>保养维修 · 特斯拉 - 龙兄知识库</title>
+<meta name="keywords" content="特斯拉保养,Model 3保养,Model Y保养,保修政策,保养周期,空调滤芯,制动液">
+<meta name="description" content="特斯拉保养维修指南：按车型区分的保修政策、保养周期表、日常自检清单、常见问题处理。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.checklist { list-style: none; padding: 0; }
+.checklist li { padding: 8px 12px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-start; font-size: 0.9rem; color: var(--text-secondary); }
+.checklist li:before { content: "☐"; flex-shrink: 0; font-size: 1.1rem; color: var(--text-muted); }
+.checklist li:last-child { border-bottom: none; }
+.faq-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 8px 0; }
+.faq-item h4 { font-size: 0.95rem; color: var(--blue); margin-bottom: 6px; }
+.faq-item p { font-size: 0.85rem; color: var(--text-secondary); }
+.warranty-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin: 12px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.warranty-item { text-align: center; padding: 12px; }
+.warranty-item .period { font-size: 1.5rem; font-weight: 900; color: var(--blue); }
+.warranty-item .desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+.model-note { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 18px; margin: 10px 0; font-size: 0.85rem; color: var(--text-secondary); }
+.model-note strong { color: var(--blue); }
+@media (max-width: 600px) { .warranty-box { grid-template-columns: 1fr 1fr; } }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:title" content="保养维修 · 特斯拉 - 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/tesla/maintenance.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo">
+龙兄知识库
+    </a><a href="../calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a><span class="nav-weather" id="navWeather" onclick="location.href='../sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span>    <ul class="nav-links">
+          <li><a href="../herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="../herbs.html">中药材</a></li>
+          <li><a href="../health-tea.html">养生茶</a></li>
+          <li><a href="../bracelet.html">文玩手串</a></li>
+          <li><a href="../tesla.html">特斯拉</a></li>
+          <li><a href="../marvel.html">漫威宇宙</a></li>
+          <li><a href="../xintan-weather.html">农田气象</a></li>
+          <li><a href="../zisha.html">紫砂艺术</a></li>
+          <li><a href="../console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="../gaokao.html">高考查分</a>
+              <a href="../pitfalls.html">踩坑记</a>
+              <a href="../games.html">游戏库</a>
+              <a href="../about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>  <div class="mobile-nav" id="mobileNav">
+    <a href="../herbs/chenxiang.html">🪵 沉香鉴别</a>
+    <a href="../herbs.html">🌿 中药材</a>
+    <a href="../health-tea.html">🍵 养生茶</a>
+    <a href="../bracelet.html">📿 文玩手串</a>
+    <a href="../tesla.html">🚗 特斯拉</a>
+    <a href="../marvel.html">🦸 漫威宇宙</a>
+    <a href="../xintan-weather.html">🌾 农田气象</a>
+    <a href="../zisha.html">🏺 紫砂艺术</a>
+    <a href="../console.html">🎮 游戏主机</a>
+    
+
+  <a href="../gaokao.html">🎓 高考查分</a>
+    
+<a href="../games.html">🕹️ 游戏库</a>
+<a href="../pitfalls.html">🕳️ 龙兄踩坑记</a>
+<a href="../about.html">ℹ️ 关于本站</a>
+</div>
+  </nav>
+
+<main class="container">
+
+  <div id="breadcrumb"></div>
+
+  <div class="page-header">
+    <h1>🔧 特斯拉保养维修指南</h1>
+    <p class="subtitle">按车型区分 · 保修政策 · 保养周期 · 日常自检 · 常见问题处理</p>
+  </div>
+
+  <!-- 1. 保修政策 -->
+  <div class="section">
+    <h2>📜 保修政策（中国大陆）</h2>
+    <p>特斯拉保修分为整车保修、电池与驱动单元保修、安全系统保修等。不同车型保修期限不同：</p>
+    <div class="warranty-box">
+      <div class="warranty-item"><div class="period">4 年 / 8 万 km</div><div class="desc">整车基本保修（所有车型，先到为准）</div></div>
+      <div class="warranty-item"><div class="period">8 年 / 16 万 km</div><div class="desc">Model 3/Y 标准续航版电池与驱动单元</div></div>
+      <div class="warranty-item"><div class="period">8 年 / 19.2 万 km</div><div class="desc">Model 3/Y 长续航/高性能版电池与驱动单元</div></div>
+      <div class="warranty-item"><div class="period">8 年 / 24 万 km</div><div class="desc">Model S/X 电池与驱动单元</div></div>
+      <div class="warranty-item"><div class="period">5 年 / 10 万 km</div><div class="desc">安全带与安全气囊系统</div></div>
+      <div class="warranty-item"><div class="period">12 年 / 不限里程</div><div class="desc">车身腐蚀保修（穿孔锈蚀）</div></div>
+    </div>
+    <div class="model-note">
+      <strong>⚠️ 电池保修关键条款：</strong>保修期内电池容量低于 70% 可免费维修或更换。过户后剩余保修继续有效。澳大利亚/新西兰地区 2026 年后提车的 Model 3/Y 已升级为 5 年不限公里整车保修，中国大陆暂未跟进。
+    </div>
+    <div class="tip-box">
+      <p>💡 <strong>省心建议：</strong>保修范围不包括易损件（轮胎、刹车片、雨刮片、空调滤芯等）。建议在临近保修期结束前去服务中心做一次全面检查，发现问题及时索赔。特斯拉官方服务中心的车辆技术检查是<strong>免费</strong>的，包括底盘轮胎、刹车卡钳、电池健康等项目。</p>
+    </div>
+  </div>
+
+  <!-- 2. 保养周期（按车型区分） -->
+  <div class="section">
+    <h2>📅 保养周期表（按车型区分）</h2>
+    <p>特斯拉不需要换机油、机滤，保养项目远少于燃油车。但不同车型在某些项目上有差异，以下逐一标注：</p>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>项目</th><th>Model 3</th><th>Model Y</th><th>Model S</th><th>Model X</th><th>预计费用</th></tr></thead>
+        <tbody>
+          <tr><td>空调滤芯</td><td colspan="4" style="text-align:center;">每 12 个月更换一次</td><td>约 100 元（自购曼牌 DIY）/ 约 300 元（官方）</td></tr>
+          <tr><td>HEPA 空调滤芯</td><td colspan="4" style="text-align:center;">每 12 个月更换一次（配备 HEPA 的车型）</td><td>约 100 元（自购）/ 约 1,100 元（官方）</td></tr>
+          <tr><td>空调干燥剂</td><td>每 6 年</td><td>每 4 年</td><td>每 2 年</td><td>每 4 年</td><td>约 1,200 元（官方）</td></tr>
+          <tr><td>制动液检测</td><td colspan="4" style="text-align:center;">每 2 年检测，视污染情况更换</td><td>约 500 元（官方更换）</td></tr>
+          <tr><td>电池冷却液</td><td colspan="4" style="text-align:center;">每 4 年或 8 万公里更换（以先到为准）</td><td>约 735 元（官方）</td></tr>
+          <tr><td>轮胎换位</td><td colspan="4" style="text-align:center;">每 1 万公里或胎纹深度差 ≥1.5mm</td><td>约 124 元（官方）</td></tr>
+          <tr><td>四轮定位</td><td colspan="4" style="text-align:center;">不跑偏不需要做，建议每 2 年或 4 万公里检查一次</td><td>约 980 元（官方）</td></tr>
+          <tr><td>制动卡钳清洁润滑</td><td colspan="4" style="text-align:center;">寒冷地区每 12 个月或 2 万公里</td><td>约 450 元（官方）</td></tr>
+          <tr><td>雨刮片</td><td colspan="4" style="text-align:center;">刮不干净就换，至少每年检查一次</td><td>约 50-150 元</td></tr>
+          <tr><td>玻璃水</td><td colspan="4" style="text-align:center;">车机提醒"不足"时加注，北方冬季注意冰点</td><td>约 10-30 元/瓶</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="model-note">
+      <strong>📌 空调干燥剂是最大的车型差异：</strong>Model 3 每 6 年换一次，Model Y 每 4 年，Model S 每 2 年，Model X 每 4 年。这个项目不能跳过——干燥剂失效会导致空调压缩机损坏，维修费用远高于定期更换。<br>
+      <strong>📌 制动卡钳清洁：</strong>南方不撒融雪盐的地区可以适当延长到 2 年一次。北方冬季撒盐地区严格按 12 个月/2 万公里执行。<br>
+      <strong>📌 PM2.5 滤芯：</strong>如改用 PM2.5 滤芯，建议每半年更换一次。空气污染严重地区可每季度更换。
+    </div>
+    <div class="warning-box">
+      <p>⚠️ <strong>改装有风险：</strong>任何非官方改装（尤其是电路改装）可能导致相关部件保修失效。轮毂轮胎改装可能导致悬架系统保修受影响。第三方维修使用非原厂配件也可能影响相关部件保修。</p>
+    </div>
+  </div>
+
+  <!-- 3. 保养费用估算 -->
+  <div class="section">
+    <h2>💰 保养费用参考（Model 3/Y）</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>里程/时间</th><th>保养项目</th><th>官方费用参考</th><th>第三方/DIY</th></tr></thead>
+        <tbody>
+          <tr><td>1 万 km / 12 个月</td><td>电池健康检查 + 高压线路检测</td><td>约 280 元</td><td>—（需官方设备）</td></tr>
+          <tr><td>2 万 km / 24 个月</td><td>上述 + 空调滤芯更换</td><td>约 415 元</td><td>滤芯自购约 65-100 元</td></tr>
+          <tr><td>4 万 km / 48 个月</td><td>上述 + 制动液更换 + 电池冷却液更换</td><td>约 1,700 元</td><td>冷却液建议回官方</td></tr>
+          <tr><td>6 万 km / 72 个月</td><td>上述 + 空调干燥剂（Model 3）</td><td>约 2,900 元</td><td>干燥剂建议回官方</td></tr>
+          <tr><td>8 万 km / 96 个月</td><td>上述 + 轮胎更换（4 条）</td><td>约 5,000-7,000 元（含轮胎）</td><td>轮胎第三方约 2,000-4,000 元</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip-box">
+      <p>💡 <strong>对比燃油车：</strong>同价位燃油车 6 万公里保养总费用约 8,000-15,000 元，特斯拉约 3,000-5,000 元（不含轮胎），节省约 50-70%。</p>
+    </div>
+  </div>
+
+  <!-- 4. 日常自检清单 -->
+  <div class="section">
+    <h2>✅ 日常自检清单</h2>
+    <p>以下检查每月做一遍，或长途出行前检查一遍：</p>
+    <ul class="checklist">
+      <li>检查轮胎气压（推荐 2.9-3.1 bar，中控屏「服务」页面可查看）</li>
+      <li>检查轮胎磨损（花纹深度至少 1.6mm，电动车自重大磨损比燃油车快）</li>
+      <li>检查雨刮水/玻璃水液位（车机提醒时加注即可）</li>
+      <li>检查所有灯光（大灯/转向灯/刹车灯/日行灯）</li>
+      <li>检查充电插头和充电线缆有无破损</li>
+      <li>检查空调制冷/制热效果</li>
+      <li>检查门把手收回是否顺畅（感应式门把手偶尔卡滞，清洁导轨即可）</li>
+      <li>检查哨兵模式录制的视频是否正常保存到 U 盘</li>
+      <li>检查 App 远程控制功能正常（锁车/解锁/空调预热）</li>
+      <li>检查制动效果（动能回收 + 机械制动是否正常）</li>
+    </ul>
+    <div class="model-note">
+      <strong>💡 早期车型注意：</strong>2019 年 5 月前生产的 Model 3 在积水路段行驶可能导致后保险杠脱落（特斯拉已确认属于设计缺陷），如遇此问题可联系服务中心免费维修。
+    </div>
+  </div>
+
+  <!-- 5. 常见问题 -->
+  <div class="section">
+    <h2>❓ 常见问题 & 处理方案</h2>
+
+    <div class="faq-item">
+      <h4>🔊 车辆行驶中有异响</h4>
+      <p>常见原因：① 前备箱拉线松动撞击盖板（去服务中心紧固）② 安全带卡扣蹭到座椅侧面 ③ 手套箱或中控储物盒里有物体滚动 ④ 底盘护板卡扣脱落（需升起检查）。Model Y 后排座椅靠背异响也常见，可调整靠背锁扣。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🌧️ 天窗/车门有漏水</h4>
+      <p>Model 3/Y 全景天幕采用粘合工艺，漏水概率很低。如发生，通常是密封胶条局部脱开或排水孔堵塞。去服务中心免费检查。不要自己打胶，可能影响保修。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🔋 续航衰减严重</h4>
+      <p>先排除环境因素：① LFP 车型冬季续航下降 25-35%（正常）② 三元锂车型冬季下降 15-25%（正常）③ 暖空调对续航影响约 15-30%。如温和天气续航明显缩水，做一次完整充放电校准 BMS（LFP：充满到100%；三元锂：10%→100%）。仍异常则去服务中心检测电池健康。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🔄 OTA 升级失败</h4>
+      <p>确保车辆停在有良好 Wi-Fi 信号的位置，电量 > 20%。升级中断后车辆会自动回滚到上一版本。再试一次或联系客服远程推送。升级期间不要强制断电。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🧊 冬季续航大幅下降</h4>
+      <p>正常现象。低温下电池活性降低+暖空调消耗大。应对：① 出发前插枪用 App 预热电池和座舱 ② 使用座椅加热比加热全车更省电 ③ LFP 车型保持较高 SOC（50%+）以维持性能 ④ 三元锂车型同样建议出发前预热。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🎨 车漆划痕 / 石子击伤</h4>
+      <p>特斯拉车漆相对较薄，前保险杠和引擎盖常见石子击伤。应对：① 新车落地做隐形车衣 PPF（约 8,000-20,000 元）② 补漆笔填补小伤（约 30-50 元）③ 深划痕走保险喷漆（约 800-2,000 元/面）。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>🔦 大灯/尾灯起雾</h4>
+      <p>LED 大灯轻微起雾属正常现象（呼吸效应），太阳晒后自行消散。如果积水成滴或持续不消散，属于密封失效，可走保修更换。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>📱 12V 电池更换提醒</h4>
+      <p>特斯拉低压 12V 电池寿命约 2-4 年。车机出现"12V 电池需要更换"提示时需尽快处理，否则可能导致车辆无法启动。新款已换用锂离子 12V 电池，寿命更长。</p>
+    </div>
+  </div>
+
+  <!-- 6. 服务中心 vs 第三方维修 -->
+  <div class="section">
+    <h2>🏪 服务中心 vs 第三方维修</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>项目</th><th>特斯拉服务中心</th><th>第三方维修</th></tr></thead>
+        <tbody>
+          <tr><td>价格</td><td>偏高</td><td>约 50-70%</td></tr>
+          <tr><td>配件质量</td><td>原厂</td><td>原厂/副厂均有</td></tr>
+          <tr><td>保修影响</td><td>不会影响</td><td>使用非原厂配件可能影响相关部件保修</td></tr>
+          <tr><td>专业性</td><td>极高（经过特斯拉培训）</td><td>良莠不齐</td></tr>
+          <tr><td>预约情况</td><td>繁忙，需提前 1-2 周</td><td>通常快</td></tr>
+          <tr><td>车辆检查</td><td>免费（含电池健康、底盘、制动）</td><td>—</td></tr>
+          <tr><td>适合项目</td><td>电池/电机/OTA/空调干燥剂/冷却液等高难度</td><td>轮胎/刹车/空调滤芯/钣喷等常规项目</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip-box">
+      <p>💡 <strong>推荐策略：</strong>保修期内尽量去服务中心（避免争议）。出保后，空调滤芯（曼牌 FP25015 约 65 元自购 DIY）、轮胎、刹车片等常规保养可以找可靠第三方，价格更优。电池/电机/高压系统故障建议回官方。</p>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回特斯拉动态新闻</a>
+  </div>
+
+</main>
+
+<script>
+(function(){
+  var btn = document.getElementById('tb');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>
+<script src="../js/search.js"></script>
+<script src="../js/app.js"></script>
+
+    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
+      <span style="font-size:13px;color:var(--text-muted)">
+        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
+    </div>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
+    <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
+  </div>
+    <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="../about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+</footer>
+    <script src="../js/share.js"></script>
+  </body>
+</html>

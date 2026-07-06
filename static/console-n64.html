@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nintendo 64 - 游戏主机图鉴 - 龙兄知识库</title>
+<meta name="keywords" content="Nintendo 64,N64,任天堂64,64位,超级马里奥64,塞尔达64,体感,模拟摇杆">
+<meta name="description" content="Nintendo 64详细图鉴：1996年发售，全球3293万台，首款64位主机，定义3D游戏标准。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.console-detail-hero { display: flex; gap: 40px; align-items: center; padding: 48px 0 32px; flex-wrap: wrap; }
+.console-detail-hero .image-side { flex: 0 0 380px; }
+.console-detail-hero .image-side img { width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); background: var(--card); }
+.console-detail-hero .info-side { flex: 1; min-width: 280px; }
+.console-detail-hero h1 { font-size: 2.4rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.console-detail-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+.console-detail-hero .year-badge { display: inline-block; background: linear-gradient(135deg, #e60012, #ff4757); color: #fff; font-weight: 800; font-size: 0.85rem; padding: 4px 16px; border-radius: 20px; margin-bottom: 16px; }
+.console-detail-hero .quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.console-detail-hero .qs { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 90px; }
+.console-detail-hero .qs .qsv { font-size: 1.2rem; font-weight: 900; color: #e60012; }
+.console-detail-hero .qs .qsl { font-size: 0.7rem; color: var(--text-muted); }
+
+.detail-section { margin: 40px 0; }
+.detail-section h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); border-left: 4px solid #e60012; padding-left: 12px; margin-bottom: 16px; }
+.detail-section p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+.detail-section ul { list-style: none; padding: 0; }
+.detail-section ul li { font-size: 0.9rem; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 8px; }
+.detail-section ul li::before { content: '▶'; color: #e60012; font-size: 0.7rem; flex-shrink: 0; }
+
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.spec-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.spec-item .spec-label { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; }
+.spec-item .spec-value { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.game-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+.game-card .game-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.game-card .game-year { font-size: 0.73rem; color: #e60012; font-weight: 600; }
+.game-card .game-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+
+.nav-prev-next { display: flex; justify-content: space-between; margin: 48px 0 20px; padding: 20px 0; border-top: 1px solid var(--border); }
+.nav-prev-next a { color: #e60012; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.nav-prev-next a:hover { text-decoration: underline; }
+
+.timeline-bar { display: flex; align-items: center; gap: 0; margin: 20px 0; overflow-x: auto; }
+.timeline-item { display: flex; flex-direction: column; align-items: center; min-width: 80px; cursor: pointer; text-decoration: none; }
+.timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border); border: 2px solid var(--border); margin-bottom: 6px; flex-shrink: 0; }
+.timeline-item.active .timeline-dot { background: #e60012; border-color: #e60012; }
+.timeline-item .tl-year { font-size: 0.68rem; color: var(--text-muted); font-weight: 600; }
+.timeline-item.active .tl-year { color: #e60012; }
+.timeline-line { flex: 1; height: 2px; background: var(--border); min-width: 20px; }
+
+[data-theme="light"] .console-detail-hero .image-side img { background: #f0f0f0; }
+[data-theme="light"] .spec-item, [data-theme="light"] .game-card { background: #ffffff; }
+@media (max-width: 768px) { .console-detail-hero { flex-direction: column; } .console-detail-hero .image-side { flex: none; width: 100%; max-width: 320px; margin: 0 auto; } }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:title" content="Nintendo 64 - 游戏主机图鉴 - 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/console-n64.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+龙兄知识库
+    </a><a href="calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a>    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span><ul class="nav-links">
+          <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="herbs.html">中药材</a></li>
+          <li><a href="health-tea.html">养生茶</a></li>
+          <li><a href="bracelet.html">文玩手串</a></li>
+          <li><a href="tesla.html">特斯拉</a></li>
+          <li><a href="marvel.html">漫威宇宙</a></li>
+          <li><a href="xintan-weather.html">农田气象</a></li>
+          <li><a href="zisha.html">紫砂艺术</a></li>
+          <li><a href="console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="gaokao.html">高考查分</a>
+              <a href="pitfalls.html">踩坑记</a>
+              <a href="games.html">游戏库</a>
+              <a href="about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">🏠 首页</a>
+  <a href="herbs/chenxiang.html">🪵 沉香鉴别</a>
+  <a href="herbs.html">🌿 中药材</a>
+  <a href="health-tea.html">🍵 养生茶</a>
+  <a href="bracelet.html">📿 文玩手串</a>
+  <a href="tesla.html">🚗 特斯拉</a>
+  <a href="marvel.html">🎬 漫威宇宙</a>
+  <a href="xintan-weather.html">🌾 农田气象</a>
+  <a href="zisha.html">🏺 紫砂艺术</a>
+  <a href="console.html">🎮 游戏主机</a>
+  <a href="gaokao.html">🎓 高考查分</a>
+  <a href="pitfalls.html">🕳️ 龙兄踩坑记</a>
+  <a href="games.html">🕹️ 游戏库</a>
+  <a href="about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+<main class="container">
+
+  <div class="timeline-bar" style="margin-top:24px;">
+    <a class="timeline-item" href="console-fc.html">
+      <div class="timeline-dot"></div><div class="tl-year">FC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-sfc.html">
+      <div class="timeline-dot"></div><div class="tl-year">SFC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item active" href="console-n64.html">
+      <div class="timeline-dot"></div><div class="tl-year">N64</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-gc.html">
+      <div class="timeline-dot"></div><div class="tl-year">GC</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-wii.html">
+      <div class="timeline-dot"></div><div class="tl-year">Wii</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-wiiu.html">
+      <div class="timeline-dot"></div><div class="tl-year">Wii U</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-switch.html">
+      <div class="timeline-dot"></div><div class="tl-year">Switch</div>
+    </a>
+  </div>
+
+  <div class="console-detail-hero">
+    <div class="image-side">
+      <img src="img/consoles/n64.webp" alt="Nintendo 64" style="width:100%;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);" loading="lazy">
+    </div>
+    <div class="info-side">
+      <div class="year-badge">1996 年发布</div>
+      <h1>Nintendo 64</h1>
+      <div class="subtitle">任天堂64 · 业界首款64位主机 · 定义3D游戏标准</div>
+      <div class="quick-stats">
+        <div class="qs"><div class="qsv">3293万</div><div class="qsl">全球销量</div></div>
+        <div class="qs"><div class="qsv">64位</div><div class="qsl">CPU架构</div></div>
+        <div class="qs"><div class="qsv">93.75MHz</div><div class="qsl">CPU主频</div></div>
+        <div class="qs"><div class="qsv">卡带</div><div class="qsl">存储介质</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>📖 历史与背景</h2>
+    <p>1996年，任天堂推出业界首款64位主机Nintendo 64（N64）。N64坚持使用卡带而非CD-ROM，导致第三方开发商（如Square）转向PS1，但也让游戏加载速度更快、无盗版问题。</p>
+    <p>N64最重大的创新是<strong>模拟摇杆</strong>——首次在手柄上标配真正的模拟摇杆（之前的十字键只能是数字输入）。《超级马里奥64》利用模拟摇杆实现了360度自由移动，定义了3D平台游戏的标准。</p>
+    <p>N64的另一个创新是<strong>四玩家分屏</strong>——最多支持4个手柄同时游玩，《马里奥赛车64》《任天堂明星大乱斗》等游戏让"聚会游戏"成为主流。但N64的卡带容量限制（最大64MB）导致游戏无法存储高质量过场动画，最终在"CD-ROM大战"中败给PS1。</p>
+  </div>
+
+  <div class="detail-section">
+    <h2>⚙️ 硬件规格</h2>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">CPU</div><div class="spec-value">NEC VR4300 64位 93.75MHz</div></div>
+      <div class="spec-item"><div class="spec-label">GPU</div><div class="spec-value">SGI Reality Coprocessor</div></div>
+      <div class="spec-item"><div class="spec-label">内存</div><div class="spec-value">4MB RDRAM（可扩展至8MB）</div></div>
+      <div class="spec-item"><div class="spec-label">色彩</div><div class="spec-value">1677万色</div></div>
+      <div class="spec-item"><div class="spec-label">音频</div><div class="spec-value">16位 48kHz</div></div>
+      <div class="spec-item"><div class="spec-label">介质</div><div class="spec-value">卡带（4-64MB）</div></div>
+      <div class="spec-item"><div class="spec-label">手柄</div><div class="spec-value">三叉戟造型，模拟摇杆首发</div></div>
+      <div class="spec-item"><div class="spec-label">多人</div><div class="spec-value">最多4人分屏</div></div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>🎮 经典游戏阵容</h2>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-title">超级马里奥64</div>
+        <div class="game-year">1996 · 3D平台</div>
+        <div class="game-note">1130万份，定义3D平台游戏标准</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">塞尔达传说64</div>
+        <div class="game-year">1998 · 3D ARPG</div>
+        <div class="game-note">760万份，动态捕捉动画当时最先进</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">黄金眼007</div>
+        <div class="game-year">1997 · FPS</div>
+        <div class="game-note">810万份，主机FPS开创者</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">任天堂明星大乱斗</div>
+        <div class="game-year">1999 · 格斗</div>
+        <div class="game-note">520万份，聚会游戏经典</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">马里奥赛车64</div>
+        <div class="game-year">1996 · 赛车</div>
+        <div class="game-note">980万份，四玩家分屏经典</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">星际火狐64</div>
+        <div class="game-year">1997 · 射击</div>
+        <div class="game-note">轨道射击，全语音剧情</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">塞尔达传说：时之笛</div>
+        <div class="game-year">1998 · ARPG</div>
+        <div class="game-note">史上最高分游戏（Metacritic 99分）</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">任天堂明星大乱斗DX</div>
+        <div class="game-year">2001 · 格斗</div>
+        <div class="game-note">GC游戏，但N64开创了系列</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>📦 型号演变</h2>
+    <ul>
+      <li><strong>N64原版（1996）：</strong>黑色手柄，灰色主机，三叉戟造型手柄</li>
+      <li><strong>N64薄版（1999）：</strong>更轻更小，取消部分扩展接口</li>
+      <li><strong>iQue Player（2003）：</strong>任天堂为中国市场推出的N64兼容主机，内置游戏</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h2>💡 趣闻与冷知识</h2>
+    <ul>
+      <li>N64坚持使用卡带导致Square把《最终幻想VII》给了PS1（CD-ROM可以存储更多数据）</li>
+      <li>《超级马里奥64》的"收集星星"设计影响了整个行业，所有3D平台游戏都借鉴了</li>
+      <li>N64是首款标配模拟摇杆的主机，之前的十字键只能是数字输入（上/下/左/右）</li>
+      <li>《塞尔达传说64》的动态捕捉动画是当时最先进的，连面部表情都能捕捉</li>
+      <li>《黄金眼007》首创了"瞄准镜视角"和"分屏对战"，影响了后来所有FPS游戏</li>
+      <li>N64的卡带容量最大只有64MB，而PS1的CD-ROM可以存储650MB，这是N64失败的主因</li>
+    </ul>
+  </div>
+
+  <div class="nav-prev-next">
+    <a href="console-sfc.html">← SFC（上一代）</a>
+    <a href="console-nintendo.html">任天堂主机列表 ↑</a>
+    <a href="console-gc.html">GC（下一代） →</a>
+  </div>
+
+  <div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;">
+    <p>最后更新：2026-06-23 | 数据来源：官方资料、维基百科、游戏媒体</p>
+    <p><a href="console-nintendo.html" style="color:var(--blue);;">← 返回任天堂主机列表</a></p>
+  </div>
+
+</main>
+
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <p class="footer-brand">🐉 龙兄知识库</p>
+      <p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p>
+    </div>
+    <div class="footer-col">
+      <p>© 2026 龙兄知识库 · 保留所有权利</p>
+      <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a>
+    </div>
+  </div>
+  <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+  <div class="footer-stat" style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border-color);text-align:center;">
+      <span id="busuanzi_container_site_pv" style="font-size:13px;color:var(--text-muted)">
+        本页总阅读 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span id="busuanzi_container_site_uv" style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+    </div>
+</footer>
+
+
+<script src="js/app.js"></script>

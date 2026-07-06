@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model 3 · 参数与动态 - 龙兄知识库</title>
+<meta name="keywords" content="特斯拉Model 3,Model 3参数,Model 3续航,Model 3 2026款,Model 3评测,特斯拉轿车">
+<meta name="description" content="特斯拉 Model 3 全面解析（2026款）：4个版本参数对比、CLTC续航/充电/优缺点/购买建议，830km最长续航版本详解。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-list .label { color: var(--text-muted); flex-shrink: 0; }
+.spec-list .value { color: var(--text); text-align: right; font-weight: 600; }
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.pros, .cons { padding: 16px; border-radius: var(--radius-sm); }
+.pros { background: rgba(16,124,16,0.08); border-left: 4px solid var(--green); }
+.cons { background: rgba(232,17,35,0.06); border-left: 4px solid var(--red); }
+.pros h3 { color: var(--green); margin-bottom: 8px; font-size: 1rem; }
+.cons h3 { color: var(--red); margin-bottom: 8px; font-size: 1rem; }
+.pros ul, .cons ul { padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+.pros ul li { margin-bottom: 4px; }
+.cons ul li { margin-bottom: 4px; }
+.people-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.people-box h3 { font-size: 1rem; margin-bottom: 8px; color: var(--blue); }
+.people-box p { font-size: 0.9rem; color: var(--text-secondary); }
+.news-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 8px; margin-right: 6px; margin-bottom: 4px; }
+.news-tag.hot { background: rgba(232,17,35,0.12); color: var(--red); }
+.news-tag.fsd { background: rgba(0,120,212,0.12); color: var(--blue); }
+.news-tag.china { background: rgba(16,124,16,0.12); color: var(--green); }
+.news-tag.product { background: rgba(107,105,214,0.12); color: var(--purple); }
+.news-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.news-box .news-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.news-box .news-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+.version-tag { font-size: 0.7rem; padding: 1px 6px; border-radius: 6px; font-weight: 700; margin-left: 4px; }
+.version-tag.new { background: rgba(16,124,16,0.12); color: var(--green); }
+.version-tag.top { background: rgba(0,120,212,0.12); color: var(--blue); }
+.version-tag.perf { background: rgba(232,17,35,0.1); color: var(--red); }
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } .spec-list li { flex-direction: column; gap: 4px; } .spec-list .value { text-align: left; } }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:title" content="Model 3 · 参数与动态 - 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/tesla/model3.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+
+<!-- ========== 导航栏 ========== -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo">
+龙兄知识库
+    </a><a href="../calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a><span class="nav-weather" id="navWeather" onclick="location.href='../sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span>    <ul class="nav-links">
+          <li><a href="../herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="../herbs.html">中药材</a></li>
+          <li><a href="../health-tea.html">养生茶</a></li>
+          <li><a href="../bracelet.html">文玩手串</a></li>
+          <li><a href="../tesla.html">特斯拉</a></li>
+          <li><a href="../marvel.html">漫威宇宙</a></li>
+          <li><a href="../xintan-weather.html">农田气象</a></li>
+          <li><a href="../zisha.html">紫砂艺术</a></li>
+          <li><a href="../console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="../gaokao.html">高考查分</a>
+              <a href="../pitfalls.html">踩坑记</a>
+              <a href="../games.html">游戏库</a>
+              <a href="../about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>  <div class="mobile-nav" id="mobileNav">
+    <a href="../herbs/chenxiang.html">🪵 沉香鉴别</a>
+    <a href="../herbs.html">🌿 中药材</a>
+    <a href="../health-tea.html">🍵 养生茶</a>
+    <a href="../bracelet.html">📿 文玩手串</a>
+    <a href="../tesla.html">🚗 特斯拉</a>
+    <a href="../marvel.html">🦸 漫威宇宙</a>
+    <a href="../xintan-weather.html">🌾 农田气象</a>
+    <a href="../zisha.html">🏺 紫砂艺术</a>
+    <a href="../console.html">🎮 游戏主机</a>
+    
+
+  <a href="../gaokao.html">🎓 高考查分</a>
+    
+<a href="../games.html">🕹️ 游戏库</a>
+<a href="../pitfalls.html">🕳️ 龙兄踩坑记</a>
+<a href="../about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+<main class="container">
+
+  <!-- 面包屑 -->
+  <div id="breadcrumb"></div>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>🚗 Tesla Model 3</h1>
+    <p class="subtitle">全能电动轿车 · 2026款 · 4个版本 · 最长830km CLTC续航</p>
+  </div>
+
+  <!-- ========= 最新动态 ========= -->
+  <div class="section">
+    <h2>📰 最新动态</h2>
+    <div class="news-box">
+      <div class="news-title">🔥 Model 3 2026款持续热销</div>
+      <div class="news-body">上海工厂5月交付超8.5万辆，Model 3是绝对主力。2026款配备4680电池，支持250kW超充，15分钟补能300km，后驱版百公里电耗约11.2kWh，能效业界领先。</div>
+    </div>
+    <div class="news-box">
+      <div class="news-title">🤖 FSD监督版获批，7月订阅制落地</div>
+      <div class="news-body">FSD监督版已获中国政府批准，7月1日起亚洲市场FSD买断制下架，改为月度订阅制（约800元/月），订阅用户可直接享用FSD功能。</div>
+    </div>
+    <div class="news-box">
+      <div class="news-title">🌏 日本到手约13.4万元（含补贴+免费超充）</div>
+      <div class="news-body">特斯拉日本市场Model 3到手价约13.4万元人民币（含政府补贴），另附三年免费超充，在亚洲市场价格有竞争力。</div>
+    </div>
+  </div>
+
+  <!-- ========= 1. 车型概览 ========= -->
+  <div class="section">
+    <h2>📋 车型概览</h2>
+    <p>特斯拉 Model 3 是全球最畅销的纯电动轿车之一，2026款（Project Highland 焕新版）舒适性大幅提升，已完全过渡到4680电池架构。4个版本覆盖从23万到34万的广泛价格区间，长续航后驱版CLTC达830km，是特斯拉目前在售最长续航车型。</p>
+
+    <ul class="spec-list">
+      <li><span class="label">车型定位</span><span class="value">中型纯电动轿车</span></li>
+      <li><span class="label">在售版本</span><span class="value">后驱版 / 长续航后驱版 / 长续航全驱版 / 高性能全驱版</span></li>
+      <li><span class="label">生产地</span><span class="value">上海超级工厂（Giga Shanghai）</span></li>
+      <li><span class="label">指导价区间</span><span class="value">23.55 万 – 33.95 万</span></li>
+      <li><span class="label">2026 核心亮点</span><span class="value">4680电池、250kW超充、15分钟补能300km、后驱版电耗11.2kWh</span></li>
+    </ul>
+  </div>
+
+  <!-- ========= 2. 核心参数 ========= -->
+  <div class="section">
+    <h2>📊 核心参数（4个版本对比）</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>参数</th><th>后轮驱动版<span class="version-tag new">入门</span></th><th>长续航后驱版<span class="version-tag top">最长续航</span></th><th>长续航全轮驱动版</th><th>高性能全轮驱动版<span class="version-tag perf">最强</span></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>售价</td><td>23.55万起</td><td>26.95万起</td><td>28.55万起</td><td>33.95万起</td></tr>
+          <tr><td>CLTC续航</td><td>634 km</td><td><strong>830 km</strong></td><td>715 km</td><td>647 km</td></tr>
+          <tr><td>电机型式</td><td>单电机后驱</td><td>单电机后驱</td><td>双电机全驱</td><td>双电机全驱</td></tr>
+          <tr><td>最大功率</td><td>194 kW</td><td>225 kW</td><td>331 kW</td><td>343 kW</td></tr>
+          <tr><td>0-100 km/h</td><td>5.6 s</td><td>5.2 s</td><td>4.4 s</td><td><strong>3.1 s</strong></td></tr>
+          <tr><td>最高时速</td><td>201 km/h</td><td>210 km/h</td><td>225 km/h</td><td><strong>261 km/h</strong></td></tr>
+          <tr><td>百公里能耗</td><td>约 11.2 kWh</td><td>约 11.5 kWh</td><td>约 13.0 kWh</td><td>约 14.8 kWh</td></tr>
+          <tr><td>电池类型</td><td>磷酸铁锂（LFP）</td><td>三元锂（NCA）</td><td>三元锂（NCA）</td><td>三元锂（NCA）</td></tr>
+          <tr><td>电池容量</td><td>62.5 kWh</td><td>78.4 kWh</td><td>78.4 kWh</td><td>82 kWh</td></tr>
+          <tr><td>快充（10→80%）</td><td>约 25 min</td><td>约 28 min</td><td>约 30 min</td><td>约 28 min</td></tr>
+          <tr><td>超充峰值功率</td><td>250 kW</td><td>250 kW</td><td>250 kW</td><td>250 kW</td></tr>
+          <tr><td>整备质量</td><td>1,760 kg</td><td>1,805 kg</td><td>1,828 kg</td><td>1,859 kg</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========= 3. 续航与充电 ========= -->
+  <div class="section">
+    <h2>⚡ 续航与充电</h2>
+    <p>Model 3 是业内能耗效率最高的电动轿车之一。Edmunds实测2026款后驱版反向虚标——实际跑出632km（EPA标称584km），说明官方CLTC数据保守。长续航后驱版CLTC 830km是特斯拉在售最长续航车型，非常适合经常长途出行且不想频繁充电的用户。</p>
+
+    <h3 style="font-size:1.1rem; color:var(--blue); margin:12px 0 8px;">🔌 充电建议</h3>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>充电方式</th><th>功率</th><th>充满时间</th><th>适用场景</th></tr></thead>
+        <tbody>
+          <tr><td>家充（7kW 壁挂）</td><td>7 kW</td><td>约 8-10 h</td><td>日常过夜充电</td></tr>
+          <tr><td>家充（11kW 三相）</td><td>11 kW</td><td>约 5-6 h</td><td>有380V电源</td></tr>
+          <tr><td>特斯拉超充 V3/V4</td><td>250 kW</td><td>约 25 min（10→80%）</td><td>长途补能，15分钟补300km</td></tr>
+          <tr><td>特斯拉超充 V4</td><td>500 kW（未来）</td><td>约 15 min（10→80%）</td><td>最新超充站</td></tr>
+          <tr><td>第三方快充</td><td>120-180 kW</td><td>约 35-45 min</td><td>国网/特来电等</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <p>💡 <strong>电池养护贴士：</strong>LFP电池可每周充满一次以校准BMS；日常使用建议随用随充，不必等电量极低再充。2026款已全系升级4680电池，循环寿命和安全性均有提升。长途前在导航中设定超充站，车辆会自动预热电池以提升充电速度。</p>
+    </div>
+  </div>
+
+  <!-- ========= 4. 优缺点 ========= -->
+  <div class="section">
+    <h2>👍👎 优缺点</h2>
+    <div class="pros-cons">
+      <div class="pros">
+        <h3>✅ 优点</h3>
+        <ul>
+          <li>能耗效率极高，用车成本低（约11.2kWh/100km）</li>
+          <li>830km超长续航版满足跨城通勤无压力</li>
+          <li>2026款舒适性大幅提升（悬架/隔音/座椅通风）</li>
+          <li>OTA持续推送新功能</li>
+          <li>超级充电网络布局完善</li>
+          <li>辅助驾驶（AP/FSD）体验领先</li>
+          <li>储物空间出色（前备箱+后备箱）</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h3>❌ 缺点</h3>
+        <ul>
+          <li>内饰设计极简，部分人觉得简陋</li>
+          <li>全景天幕夏季隔热有限</li>
+          <li>后排空间够用但不如同尺寸燃油车</li>
+          <li>补漆/维修费用偏高</li>
+          <li>无CarPlay/Android Auto</li>
+          <li>FSD在中国落地受限（7月起改为订阅制）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========= 5. 适合人群 / 购买建议 ========= -->
+  <div class="section">
+    <h2>👥 适合人群 & 购买建议</h2>
+    <div class="people-box">
+      <h3>🥇 推荐配置</h3>
+      <p><strong>日常通勤为主：</strong>后驱版（23.55万），CLTC 634km，实际约500km，费用最低，性价比最高。</p>
+      <p style="margin-top:8px;"><strong>经常长途出行：</strong>长续航后驱版（26.95万），CLTC 830km，78.4kWh三元锂，目前特斯拉在售最长续航，市场讨论中关注度较高。</p>
+      <p style="margin-top:8px;"><strong>追求性能：</strong>高性能全驱版（33.95万），3.1s破百，261km/h极速，同价位性能无敌。</p>
+    </div>
+    <div class="people-box" style="border-left-color:var(--orange);">
+      <p><strong>⚠️ 慎选人群：</strong>对内饰豪华感要求较高的用户、需要最大后排空间的家庭、没有固定充电条件的用户（建议先解决家充问题再购入）。</p>
+    </div>
+  </div>
+
+  <!-- ========= 6. 保养要点 ========= -->
+  <div class="section">
+    <h2>🔧 保养要点</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead><tr><th>项目</th><th>周期</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>空调滤芯/HEPA</td><td>每 12 个月</td><td>2026款有HEPA滤芯，建议定期更换</td></tr>
+          <tr><td>轮胎换位/动平衡</td><td>每 1-2 万公里</td><td>纯电车自重较大，轮胎磨损比油车快</td></tr>
+          <tr><td>制动液检测</td><td>每 2 年</td><td>因动能回收，刹车片寿命很长</td></tr>
+          <tr><td>空调系统服务</td><td>每 2-3 年</td><td>含干燥剂更换、系统清洗</td></tr>
+          <tr><td>电池冷却液</td><td>每 4 年</td><td>建议回服务中心处理</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 数据来源 -->
+  <div class="tip-box" style="margin-top:24px;">
+    <p>📌 <strong>数据来源：</strong>特斯拉中国官网（2026年6月）、Tesla USA官网、Edmunds实测数据、乘联会月度交付数据。价格以各地官网实时公布为准，不构成购买建议。</p>
+  </div>
+
+  <!-- 底部链接 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回特斯拉动态新闻</a>
+  </div>
+
+</main>
+
+<script src="../js/search.js"></script>
+<script src="../js/app.js"></script>
+
+    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
+      <span style="font-size:13px;color:var(--text-muted)">
+        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
+    </div>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
+    <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
+  </div>
+    <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="../about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+</footer>
+    <script src="../js/share.js"></script>
+  </body>
+</html>

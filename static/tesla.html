@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>特斯拉动态新闻 - 龙兄知识库</title>
+<meta name="keywords" content="特斯拉,Model 3,Model Y,Model Y L,Cybertruck,Semi,Roadster,Cybercab,Powerwall,Megapack,FSD,新能源">
+<meta name="description" content="特斯拉全系动态新闻：Model 3/Y/L/S/X/Cybertruck/Semi/Roadster/Cybercab参数、FSD进展、上海工厂产能、储能产品（Powerwall/Megapack）实时追踪。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.tesla-hero { text-align: center; padding: 48px 0 32px; }
+.tesla-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
+.tesla-hero h1 { font-size: 2.2rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+.tesla-hero p { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+.section-header { display: flex; align-items: center; gap: 12px; margin: 40px 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--blue); }
+.section-header .icon { font-size: 28px; }
+.section-header h2 { font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 0; }
+.section-header .count { font-size: 0.8rem; color: var(--text-muted); background: var(--card); padding: 2px 10px; border-radius: 12px; font-weight: 600; }
+.card-grid-tesla { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.card-tesla { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; text-decoration: none; color: inherit; position: relative; overflow: hidden; }
+.card-tesla::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--blue); }
+.card-tesla:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,120,212,0.15); border-color: var(--blue); }
+.card-tesla .card-emoji { font-size: 36px; line-height: 1; margin-bottom: 12px; }
+.card-tesla .card-img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; margin-bottom: 12px; display: block; }
+.card-tesla .card-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.card-tesla .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+.card-tesla .card-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+.card-tesla .card-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.card-tesla .tag-blue { background: rgba(0,120,212,0.12); color: var(--blue); padding: 2px 7px; border-radius: 8px; font-weight: 600; }
+.card-tesla .tag-green { background: rgba(16,124,16,0.12); color: var(--green); padding: 2px 7px; border-radius: 8px; font-weight: 600; }
+.card-tesla .tag-red { background: rgba(232,17,35,0.1); color: var(--red); padding: 2px 7px; border-radius: 8px; font-weight: 600; }
+.card-tesla .price-badge { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; background: rgba(0,120,212,0.1); color: var(--blue); padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+.card-tesla.model-3::before { background: var(--blue); }
+.card-tesla.model-y::before { background: var(--orange); }
+.card-tesla.model-yl::before { background: var(--purple); }
+.card-tesla.model-s::before { background: var(--gold); }
+.card-tesla.model-x::before { background: var(--purple); }
+.card-tesla.cybertruck::before { background: var(--teal); }
+.card-tesla.semi::before { background: var(--green); }
+.card-tesla.roadster::before { background: var(--red); }
+.card-tesla.cybercab::before { background: var(--teal); }
+.card-tesla.powerwall::before { background: var(--orange); }
+.card-tesla.megapack::before { background: var(--green); }
+.card-tesla.charging::before { background: var(--green); }
+.card-tesla.accessories::before { background: var(--pink); }
+.card-tesla.maintenance::before { background: var(--orange); }
+.brand-note { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: var(--radius-sm); padding: 20px 24px; margin: 32px 0; }
+.brand-note h3 { font-size: 1rem; color: var(--blue); margin-bottom: 8px; }
+.brand-note p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+.news-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; display: flex; gap: 14px; align-items: flex-start; transition: border-color 0.2s; }
+.news-item:hover { border-color: var(--blue); }
+.news-item .news-date { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; padding-top: 2px; flex-shrink: 0; width: 60px; }
+.news-item .news-content { flex: 1; }
+.news-item p { font-size: 0.88rem; color: var(--text); margin: 0; }
+.news-tag { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 1px 7px; border-radius: 7px; margin-right: 5px; margin-bottom: 3px; }
+.news-tag.hot { background: rgba(232,17,35,0.12); color: var(--red); }
+.news-tag.fsd { background: rgba(0,120,212,0.12); color: var(--blue); }
+.news-tag.product { background: rgba(107,105,214,0.12); color: var(--purple); }
+.news-tag.china { background: rgba(16,124,16,0.12); color: var(--green); }
+.news-tag.energy { background: rgba(255,140,0,0.12); color: var(--orange); }
+.key-stats { display: flex; gap: 14px; flex-wrap: wrap; margin: 24px 0; }
+.stat-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 18px; flex: 1; min-width: 130px; text-align: center; }
+.stat-item .stat-num { font-size: 1.5rem; font-weight: 900; color: var(--blue); }
+.stat-item .stat-label { font-size: 0.73rem; color: var(--text-muted); margin-top: 3px; }
+[data-theme="light"] .card-tesla { background: #ffffff; border-color: #e0e0e0; }
+[data-theme="light"] .brand-note, [data-theme="light"] .news-item, [data-theme="light"] .stat-item { background: #ffffff; }
+@media (max-width: 768px) { .tesla-hero h1 { font-size: 1.6rem; } }
+@media (max-width: 480px) { .card-grid-tesla { grid-template-columns: 1fr; } .news-item { flex-direction: column; gap: 4px; } .news-item .news-date { width: auto; } }
+/* 特斯拉新闻区块内容较多，增加展开高度 */
+.home-collapsible.open {
+  overflow: visible;
+}
+.home-collapsible.open .home-collapsible-body {
+  max-height: none;
+  overflow-y: visible;
+}
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:title" content="特斯拉车型百科与用车指南 | 特斯拉百科 | 龙兄知识库">
+  <meta property="og:description" content="10款车型详情、充电攻略、最新动态">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://longxiong.vip/tesla.html">
+  <meta property="og:site_name" content="龙兄知识库">
+  <meta property="og:title" content="特斯拉动态新闻 - 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/tesla.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+龙兄知识库
+    </a><a href="calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a>    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span><ul class="nav-links">
+          <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="herbs.html">中药材</a></li>
+          <li><a href="health-tea.html">养生茶</a></li>
+          <li><a href="bracelet.html">文玩手串</a></li>
+          <li><a href="tesla.html" class="active">特斯拉</a></li>
+          <li><a href="marvel.html">漫威宇宙</a></li>
+          <li><a href="xintan-weather.html">农田气象</a></li>
+          <li><a href="zisha.html">紫砂艺术</a></li>
+          <li><a href="console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="gaokao.html">高考查分</a>
+              <a href="pitfalls.html">踩坑记</a>
+              <a href="games.html">游戏库</a>
+              <a href="about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">🏠 首页</a>
+  <a href="herbs/chenxiang.html">🪵 沉香鉴别</a>
+  <a href="herbs.html">🌿 中药材</a>
+  <a href="health-tea.html">🍵 养生茶</a>
+  <a href="bracelet.html">📿 文玩手串</a>
+  <a href="tesla.html">🚗 特斯拉</a>
+  <a href="marvel.html">🎬 漫威宇宙</a>
+  <a href="xintan-weather.html">🌾 农田气象</a>
+  <a href="zisha.html">🏺 紫砂艺术</a>
+  <a href="console.html">🎮 游戏主机</a>
+  <a href="gaokao.html">🎓 高考查分</a>
+  <a href="pitfalls.html">🕳️ 龙兄踩坑记</a>
+  <a href="games.html">🕹️ 游戏库</a>
+  <a href="about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+<main class="container">
+  <div id="breadcrumb"></div>
+
+  <div class="tesla-hero">
+    <img src="img/tesla/cybertruck/card.jpg" alt="Tesla" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
+    <h1>特斯拉动态新闻 <span class="tag tag-must">#必看</span></h1>
+    <p>车型动态 · FSD进展 · 储能产品 · 产能追踪</p>
+  </div>
+
+  <!-- 关键数据栏 -->
+  <div class="key-stats">
+    <div class="stat-item"><div class="stat-num">8.5万+</div><div class="stat-label">上海工厂 5月交付</div></div>
+    <div class="stat-item"><div class="stat-num">✅ 已获批</div><div class="stat-label">FSD 监督版 中国</div></div>
+    <div class="stat-item"><div class="stat-num">2026 Q3</div><div class="stat-label">FSD 全面商用许可</div></div>
+    <div class="stat-item"><div class="stat-num">停产</div><div class="stat-label">Model S/X（含签名版）</div></div>
+    <div class="stat-item"><div class="stat-num">2026投产</div><div class="stat-label">Semi / Cybercab</div></div>
+  </div>
+
+  <!-- 最新动态（折叠） -->
+  <div class="home-collapsible open" id="hc-tesla-news">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">📰</span><span class="hc-title">最新动态</span><span class="hc-count">9条 · 2026年6月</span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body">
+      <div class="news-item">
+        <div class="news-date">06-26</div>
+        <div class="news-content">
+          <span class="news-tag hot">🔥</span><span class="news-tag fsd">FSD</span>
+          <p>特斯拉FSD全球转向订阅制：港澳台地区买断版6月30日后下架。中国大陆暂无时间表，但官方预计2026年Q3获得全面商用许可。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">06-25</div>
+        <div class="news-content">
+          <span class="news-tag hot">🔥</span><span class="news-tag product">机器人</span>
+          <p>特斯拉Optimus 3量产开始备货！已与盟立自动化（谐波减速机）、亚洲光学等供应链合作，泰国合资厂即将量产，目标2026年底上市。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">06-23</div>
+        <div class="news-content">
+          <span class="news-tag china">中国</span>
+          <p>特斯拉上海超级工厂5月交付85982辆，创2026年单月交付新高。其中Model Y约62000辆（连续18个月蝉联SUV冠军），Model 3焕新版约24000辆。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">06-23</div>
+        <div class="news-content">
+          <span class="news-tag hot">🔥</span><span class="news-tag fsd">FSD</span>
+          <p>特斯拉FSD订阅制价格曝光：美国99美元/月，欧洲99欧元/月，中国预计599元/月。港澳台买断价约4.7万元人民币，6月30日后取消买断。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">06-22</div>
+        <div class="news-content">
+          <span class="news-tag product">FSD</span>
+          <p>Semi电动卡车开始搭载FSD路测！目击车辆在加州和内华达现身，配备LiDAR等工程设备，标志FSD向重型卡车平台扩展。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">06-21</div>
+        <div class="news-content">
+          <span class="news-tag fsd">FSD</span>
+          <p>马斯克确认：Grok语音控制FSD功能将在3个月左右推出（约2026年9月），可用自然语言直接设定FSD行驶逻辑。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">06-18</div>
+        <div class="news-content">
+          <span class="news-tag product">新车</span>
+          <p>首席设计师Franz透露Roadster将在"几周内"正式发布，Model Y L六座版已上线官网。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">06-15</div>
+        <div class="news-content">
+          <span class="news-tag product">停产</span>
+          <p>Model S/X正式停产，限量签名版（S Plaid 250台+X Plaid 100台）已全部交付完毕，库存现车可售。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">06-12</div>
+        <div class="news-content">
+          <span class="news-tag product">量产</span>
+          <p>Semi电动卡车2026年量产，年产能5万辆，预计交付5000-15000辆，FSD已开始测试。Cybercab同期投产。</p>
+        </div>
+      </div>
+    </div>
+
+  <!-- 6. 自动新闻聚合 -->
+  <div class="home-collapsible" id="hc-tesla-auto-news" style="display:none;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🚀</span><span class="hc-title">自动聚合</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <script>
+  // 6. 自动加载特斯拉新闻
+  (function(){
+    fetch('tesla-news.json?v='+Date.now())
+      .then(function(r){if(!r.ok)throw new Error('Not found');return r.json();})
+      .then(function(data){
+        if(!data||!(data.news&&data.news.length)&&!(data.items&&data.items.length))return;
+        var items=data.news||data.items||[];
+        var container=document.getElementById('autoNewsBody');
+        var section=document.getElementById('hc-tesla-auto-news');
+        var countEl=document.getElementById('autoNewsCount');
+        if(!container||!section)return;
+        var html='';
+        items.forEach(function(item){
+          var date=item.date||'近期';
+          var content=item.content||item.title||'';
+          var tags=item.tags||[];
+          var tagHtml=tags.map(function(t){return '<span class="news-tag '+t.class+'">'+t.text+'</span>';}).join(' ');
+          var link=item.url?'<br><a href="'+item.url+'" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);">查看详情 →</a>':'';
+          html+='<div class="news-item"><div class="news-date">'+date+'</div><div class="news-content">'+tagHtml+'<p>'+content+link+'</p></div></div>';
+        });
+        container.innerHTML=html;
+        if(countEl)countEl.textContent=items.length+'条';
+        section.style.display='';
+      })
+      .catch(function(){});
+  })();
+  </script>
+
+  <!-- 在售车型 -->
+  <div class="section-header">
+    <span class="icon">🚙</span>
+    <h2>在售车型 <span class="tag tag-beginner">#入门</span></h2>
+    <span class="count">5 款车型</span>
+  </div>
+
+  <div class="card-grid-tesla">
+    <a href="tesla/model3.html" class="card-tesla model-3">
+      <img class="card-img" src="img/tesla/model3/card.jpg" alt="Tesla Model 3">
+      <div class="card-title">Tesla Model 3</div>
+      <div class="card-subtitle">全能电动轿车 · 2026款</div>
+      <div class="card-desc">后驱/长续航后驱(830km)/长续航全驱/高性能四款，4680电池，250kW超充。</div>
+      <div class="card-meta"><span class="tag-blue">23.55万起</span><span class="tag-green">CLTC 634-830km</span></div>
+      <span class="price-badge">轿车</span>
+    </a>
+
+    <a href="tesla/modely.html" class="card-tesla model-y">
+      <img class="card-img" src="img/tesla/modely/card.jpg" alt="Tesla Model Y">
+      <div class="card-title">Tesla Model Y</div>
+      <div class="card-subtitle">全球销冠SUV · 2026改款</div>
+      <div class="card-desc">后驱/长续航后驱/长续航全驱，2026改款黑标+螺旋轮毂+浅灰内饰，上海工厂。</div>
+      <div class="card-meta"><span class="tag-blue">26.35万起</span><span class="tag-green">CLTC ~800km</span></div>
+      <span class="price-badge">SUV</span>
+    </a>
+
+    <a href="tesla/modelyl.html" class="card-tesla model-yl">
+      <img class="card-img" src="img/tesla/modely-l/card.jpg" alt="Tesla Model Y L">
+      <div class="card-title">Tesla Model Y L</div>
+      <div class="card-subtitle">六座旗舰SUV · 独立车型</div>
+      <div class="card-desc">全新六座版（2+2+2独立座椅），82kWh三元锂，CLTC 751km，双电机340kW，4.5s破百。</div>
+      <div class="card-meta"><span class="tag-blue">33.9万起</span><span class="tag-green">CLTC 751km</span></div>
+      <span class="price-badge">六座</span>
+    </a>
+
+    <a href="tesla/cybertruck.html" class="card-tesla cybertruck">
+      <img class="card-img" src="img/tesla/cybertruck/card.jpg" alt="Tesla Cybertruck">
+      <div class="card-title">Cybertruck</div>
+      <div class="card-subtitle">不锈钢外骨骼 · 装甲玻璃</div>
+      <div class="card-desc">AWD版4.1s/野兽版2.6s，EPA 515-547km。中国官网已开放预订（订金1000元）。</div>
+      <div class="card-meta"><span class="tag-blue">$59,990起</span><span class="tag-green">EPA 515-547km</span></div>
+      <span class="price-badge">皮卡</span>
+    </a>
+  </div>
+
+  <!-- 已停产车型 -->
+  <div class="section-header">
+    <span class="icon">🏭</span>
+    <h2>已停产车型（仅库存可售）</h2>
+    <span class="count">2 款</span>
+  </div>
+
+  <div class="card-grid-tesla">
+    <a href="tesla/models.html" class="card-tesla model-s">
+      <img class="card-img" src="img/tesla/models/card.jpg" alt="Tesla Model S">
+      <div class="card-title">Tesla Model S</div>
+      <div class="card-subtitle">旗舰轿车 · 已停产</div>
+      <div class="card-desc">已停产！双电机版3.2s/Plaid版2.1s，1020马力，322km/h，限量签名版已交付完毕。</div>
+      <div class="card-meta"><span class="tag-red">已停产</span><span class="tag-blue">84.29万起</span></div>
+      <span class="price-badge">旗舰</span>
+    </a>
+
+    <a href="tesla/modelx.html" class="card-tesla model-x">
+      <img class="card-img" src="img/tesla/modelx/card.jpg" alt="Tesla Model X">
+      <div class="card-title">Tesla Model X</div>
+      <div class="card-subtitle">鹰翼门旗舰SUV · 已停产</div>
+      <div class="card-desc">已停产！鹰翼门+7座，Plaid版2.6s破百。限量签名版已交付，库存现车可售。</div>
+      <div class="card-meta"><span class="tag-red">已停产</span><span class="tag-blue">88.29万起</span></div>
+      <span class="price-badge">旗舰 SUV</span>
+    </a>
+  </div>
+
+  <!-- 即将发布 / 即将交付 -->
+  <div class="section-header">
+    <span class="icon">🚀</span>
+    <h2>即将发布 / 即将交付</h2>
+    <span class="count">3 款</span>
+  </div>
+
+  <div class="card-grid-tesla">
+    <a href="tesla/semi.html" class="card-tesla semi">
+      <img class="card-img" src="img/tesla/semi/card.jpg" alt="Tesla Semi">
+      <div class="card-title">Tesla Semi</div>
+      <div class="card-subtitle">电动重卡 · 2026已量产</div>
+      <div class="card-desc">满载37吨续航523-803km，3电机，30分钟充至60%，FSD测试中，年产能5万辆。</div>
+      <div class="card-meta"><span class="tag-blue">$26万起</span><span class="tag-green">325-500英里</span></div>
+      <span class="price-badge">重卡</span>
+    </a>
+
+    <a href="tesla/roadster.html" class="card-tesla roadster">
+      <img class="card-img" src="img/tesla/roadster/card.jpg" alt="Tesla Roadster">
+      <div class="card-title">Tesla Roadster</div>
+      <div class="card-subtitle">电动超跑 · 即将发布</div>
+      <div class="card-desc">0-60mph &lt; 1.9s（SpaceX 1.1s），WLTP 992km，200kWh，900V平台，预计2027交付。</div>
+      <div class="card-meta"><span class="tag-red">即将发布</span><span class="tag-green">WLTP 992km</span></div>
+      <span class="price-badge">超跑</span>
+    </a>
+
+    <a href="tesla/cybercab.html" class="card-tesla cybercab">
+      <img class="card-img" src="img/tesla/cybercab/card.jpg" alt="Tesla Cybercab">
+      <div class="card-title">Tesla Cybercab</div>
+      <div class="card-subtitle">无人驾驶出租车 · 2026投产</div>
+      <div class="card-desc">无方向盘/踏板，MW级无线充电，约3万美元。预计2026北美试运营，中国待FSD获批。</div>
+      <div class="card-meta"><span class="tag-blue">约$3万</span><span class="tag-green">L4无人驾驶</span></div>
+      <span class="price-badge">Robotaxi</span>
+    </a>
+  </div>
+
+  <!-- 储能产品 -->
+  <div class="section-header">
+    <span class="icon">🔋</span>
+    <h2>储能产品</h2>
+    <span class="count">2 款</span>
+  </div>
+
+  <div class="card-grid-tesla">
+    <a href="tesla/powerwall.html" class="card-tesla powerwall">
+      <img class="card-img" src="img/tesla/powerwall/card.webp" alt="Tesla Powerwall">
+      <div class="card-title">Powerwall</div>
+      <div class="card-subtitle">家庭储能电池</div>
+      <div class="card-desc">13.5kWh储能，配合太阳能或谷电储能，白天供电、夜晚用电，年省电费数千元。</div>
+      <div class="card-meta"><span class="tag-blue">¥约4万起</span><span class="tag-green">13.5kWh</span></div>
+      <span class="price-badge">家用储能</span>
+    </a>
+
+    <a href="tesla/megapack.html" class="card-tesla megapack">
+      <img class="card-img" src="img/tesla/megapack/card.webp" alt="Tesla Megapack">
+      <div class="card-title">Megapack</div>
+      <div class="card-subtitle">超大型商用储能系统</div>
+      <div class="card-desc">单个3.9MWh储能模块，积木式拼装可扩展至GWh级，电网调峰/可再生能源配套可选。</div>
+      <div class="card-meta"><span class="tag-blue">企业采购</span><span class="tag-green">3.9MWh/单元</span></div>
+      <span class="price-badge">商用储能</span>
+    </a>
+  </div>
+
+  <!-- 用车科普 -->
+  <div class="section-header">
+    <span class="icon">📖</span>
+    <h2>用车科普 <span class="tag tag-advanced">#进阶</span></h2>
+    <span class="count">3 篇</span>
+  </div>
+
+  <div class="card-grid-tesla">
+    <a href="tesla/charging.html" class="card-tesla charging">
+      <div class="card-emoji">⚡</div>
+      <div class="card-title">充电指南</div>
+      <div class="card-subtitle">家充 / 超充 / 第三方</div>
+      <div class="card-desc">家充安装教程、超充使用技巧、第三方充电网络对比、三元锂/LFP电池保养全攻略。</div>
+      <div class="card-meta"><span class="tag-blue">省钱技巧</span><span class="tag-green">电池保养</span></div>
+    </a>
+    <a href="tesla/accessories.html" class="card-tesla accessories">
+      <div class="card-emoji">🎒</div>
+      <div class="card-title">车载配件推荐</div>
+      <div class="card-subtitle">常用 / 推荐 / 可选三档</div>
+      <div class="card-desc">随车充、脚垫、屏幕保护、储物盒等实用配件深度评测，避坑指南帮你省钱省心。</div>
+      <div class="card-meta"><span class="tag-blue">实用为主</span><span class="tag-green">拒绝智商税</span></div>
+    </a>
+    <a href="tesla/maintenance.html" class="card-tesla maintenance">
+      <div class="card-emoji">🔧</div>
+      <div class="card-title">保养维修</div>
+      <div class="card-subtitle">保修 · 自检 · 常见问题</div>
+      <div class="card-desc">保修政策解析、保养周期表、日常自检清单、常见故障处理、官方vs第三方维修策略。</div>
+      <div class="card-meta"><span class="tag-blue">省心手册</span><span class="tag-green">故障排查</span></div>
+    </a>
+  </div>
+
+  <!-- 品牌动态摘要 -->
+  <div class="brand-note">
+    <h3>📰 特斯拉最新动态摘要（2026年6月）</h3>
+    <p><strong>🚗 上海工厂：</strong>5月交付85982辆，创2026单月新高。Model Y稳居中SUV销冠（18连冠），Model 3焕新版环比增长15%。2026改款Model Y已交付，Model Y L六座版33.9万起。</p>
+    <p style="margin-top:8px;"><strong>🤖 FSD：</strong>监督版已获中国政府批准，预计2026年Q3全面商用许可。全球FSD转向订阅制：港澳台买断版6月30日后下架（目前买断价约4.7万人民币），中国内地预计599-800元/月。台湾已提交监督版上路审核申请。</p>
+    <p style="margin-top:8px;"><strong>📦 停产/新车：</strong>Model S/X（含350台限量签名版）正式停产，库存现车可售。Semi/Cybercab已在2026年投产，Roadster"几周内"发布，Cybertruck中国官网预订中。</p>
+    <p style="margin-top:8px;"><strong>🔋 储能：</strong>Powerwall/Megapack持续热销，为家庭和电网提供储能解决方案。</p>
+    <p style="margin-top:12px; color:var(--text-muted); font-size:0.8rem;">📌 数据来源：特斯拉官网 tesla.cn、tesla.com、Teslarati、Electrek、乘联会。价格以官网实时公布为准，本页面为知识科普性质。</p>
+  </div>
+
+  <div style="text-align:center; padding:20px 0 40px; color:var(--text-muted); font-size:0.8rem;">
+    <p>由 <span style="color:var(--blue);font-weight:900">QClaw AI</span> 整理 · 客观 · 实用 · 简洁 · 最后更新 2026-06-26</p>
+  </div>
+
+</main>
+
+<script src="js/search.js"></script>
+<script src="js/app.js"></script>
+<script>
+function toggleHomeSection(el){
+  var wrap=el.parentElement;
+  wrap.classList.toggle("open");
+}
+</script>
+
+    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
+      <span style="font-size:13px;color:var(--text-muted)">
+        本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
+    </div>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
+    <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
+  </div>
+    <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+</footer>
+    <script src="js/share.js"></script>
+  </body>
+</html>

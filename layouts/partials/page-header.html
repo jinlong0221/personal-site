@@ -1,0 +1,10 @@
+<!-- 面包屑导航 -->
+<div class="breadcrumb-nav">
+  <a href="{{ $.Site.BaseURL }}">首页</a>
+  {{ if .Section }}
+  <span> › </span>
+  <a href="{{ $.Site.BaseURL }}{{ .Section }}.html">{{ .Section | humanize }}</a>
+  {{ end }}
+  <span> › </span>
+  <span>{{ .Title }}</span>
+</div>

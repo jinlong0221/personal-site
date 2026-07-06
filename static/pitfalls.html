@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>龙兄踩坑记 | 龙兄知识库</title>
+  <meta name="description" content="龙兄在沉香、手串、特斯拉、中药材等领域踩过的坑和经验教训，帮你避开同样的坑。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
+  <meta property="og:title" content="龙兄踩坑记 | 踩坑记 | 龙兄知识库">
+  <meta property="og:description" content="沉香、手串、特斯拉等领域的真实避坑经验">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://longxiong.vip/pitfalls.html">
+  <meta property="og:site_name" content="龙兄知识库">
+  <style>
+    .pitfall-hero {
+      text-align: center;
+      padding: 48px 20px 32px;
+    }
+    .pitfall-hero h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .pitfall-hero p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+    .pitfall-list {
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+    .pitfall-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .pitfall-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255,140,0,0.1);
+    }
+    .pitfall-header {
+      padding: 20px 24px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .pitfall-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+    }
+    .pitfall-meta {
+      flex: 1;
+    }
+    .pitfall-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .pitfall-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pitfall-tag {
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .pitfall-tag.money { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.tesla { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.agarwood { border-color: #c9a84c; color: #c9a84c; }
+    .pitfall-tag.bracelet { border-color: #9b59b6; color: #9b59b6; }
+    .pitfall-body {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .pitfall-body.open { display: block; }
+    .pitfall-body p {
+      margin-top: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pitfall-body p:first-child { margin-top: 20px; }
+    .pitfall-body blockquote {
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: rgba(255,140,0,0.08);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      color: var(--gold-light);
+      font-size: 0.95rem;
+    }
+    .pitfall-body blockquote strong {
+      color: var(--orange);
+    }
+    .pitfall-lesson {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(16,124,16,0.1);
+      border: 1px solid rgba(16,124,16,0.3);
+      border-radius: 8px;
+    }
+    .pitfall-lesson-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pitfall-lesson p {
+      margin: 0 !important;
+      color: var(--text) !important;
+    }
+    .pitfall-expand {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      padding-top: 4px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .pitfall-card.expanded .pitfall-expand {
+      transform: rotate(180deg);
+    }
+    .pitfall-divider {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 8px 0 24px;
+    }
+    .more-stories {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .more-stories span { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+  </style>
+  <meta property="og:title" content="龙兄踩坑记 | 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/pitfalls.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+龙兄知识库
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-init="1" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><span class="weather-loading" style="font-size:0.8rem;color:var(--text-muted)">🌤️</span></span>
+    <ul class="nav-links">
+          <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="herbs.html">中药材</a></li>
+          <li><a href="health-tea.html">养生茶</a></li>
+          <li><a href="bracelet.html">文玩手串</a></li>
+          <li><a href="tesla.html">特斯拉</a></li>
+          <li><a href="marvel.html">漫威宇宙</a></li>
+          <li><a href="xintan-weather.html">农田气象</a></li>
+          <li><a href="zisha.html">紫砂艺术</a></li>
+          <li><a href="console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="gaokao.html">高考查分</a>
+              <a href="pitfalls.html">踩坑记</a>
+              <a href="games.html">游戏库</a>
+              <a href="about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">🏠 首页</a>
+  <a href="herbs/chenxiang.html">🪵 沉香鉴别</a>
+  <a href="herbs.html">🌿 中药材</a>
+  <a href="health-tea.html">🍵 养生茶</a>
+  <a href="bracelet.html">📿 文玩手串</a>
+  <a href="tesla.html">🚗 特斯拉</a>
+  <a href="marvel.html">🎬 漫威宇宙</a>
+  <a href="xintan-weather.html">🌾 农田气象</a>
+  <a href="zisha.html">🏺 紫砂艺术</a>
+  <a href="console.html">🎮 游戏主机</a>
+  <a href="gaokao.html">🎓 高考查分</a>
+  <a href="pitfalls.html">🕳️ 龙兄踩坑记</a>
+  <a href="games.html">🕹️ 游戏库</a>
+  <a href="about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+  <main>
+    <div class="container">
+      <div class="pitfall-hero">
+        <h1>🚧 龙兄踩坑记</h1>
+        <p>花冤枉钱买的教训，帮你省回去</p>
+      </div>
+
+      <div class="pitfall-list">
+
+        <!-- 踩坑1：随车充功率 -->
+        <div class="pitfall-card" id="pit-car-charger">
+          <div class="pitfall-header" onclick="togglePitfall(this)">
+            <div class="pitfall-icon">⚡</div>
+            <div class="pitfall-meta">
+              <div class="pitfall-title">买了随车充才发现插16A插座才能用</div>
+              <div class="pitfall-tags">
+                <span class="pitfall-tag tesla">🚗 特斯拉</span>
+                <span class="pitfall-tag money">💰 损失约 ¥500</span>
+                <span class="pitfall-tag">📅 2025年</span>
+              </div>
+            </div>
+            <div class="pitfall-expand">▼</div>
+          </div>
+          <div class="pitfall-body">
+            <p>提了特斯拉之后，心里那个美，觉得自己终于跟上时代了。4S店那个销售当时说："随车充备一个，临时用方便。"我想想也是，万一回老家农村没充电桩怎么办？</p>
+            <p>当时网购随便搜了一个，89块钱，图片上写的是"新能源通用"，评论也都不错，果断下单。</p>
+            <p>到货那天晚上兴冲冲拆开包装，插上我家那个10A的普通插座——充了10分钟，App显示"充电功率1.4kW"。我算了算，一小时充7%，充满要14个小时。</p>
+            <p>然后我去翻说明书，发现我这车的随车充是16A的……我家那插座是10A的，插上去电流就那么大，它不会爆炸，但是它就这么慢。</p>
+            <p>后来才知道，这个"新能源通用"的意思是"能插进去就能充电"，而不是"插进去就能满功率充电"。10A插座最大2.2kW，16A随车充插上去自动降速到1.4kW，全程充当一个大型充电宝角色。</p>
+            <blockquote>
+              <strong>🔑 关键教训：</strong>随车充分10A和16A两种。10A插座（普通三眼）→ 买10A随车充（功率约2.2kW）；16A插座（空调大三眼）→ 买16A随车充（功率约3.5kW）。买之前先看看家里插座是哪种，别买错了。
+            </blockquote>
+            <div class="pitfall-lesson">
+              <div class="pitfall-lesson-title">💡 正确做法</div>
+              <p>买随车充之前，先数数家里有几种插座。一般客厅/卧室是10A，普通空调是16A，农村老宅可能是10A。问清楚客服你买的随车充是几A的，再对应准备插座。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 踩坑2：网购沉香 -->
+        <div class="pitfall-card" id="pit-agarwood-online">
+          <div class="pitfall-header" onclick="togglePitfall(this)">
+            <div class="pitfall-icon">🪵</div>
+            <div class="pitfall-meta">
+              <div class="pitfall-title">花3000块买回来的"沉香手串"，烧着冒黑烟</div>
+              <div class="pitfall-tags">
+                <span class="pitfall-tag agarwood">🪵 沉香</span>
+                <span class="pitfall-tag money">💰 损失约 ¥3000</span>
+                <span class="pitfall-tag">📅 2024年</span>
+              </div>
+            </div>
+            <div class="pitfall-expand">▼</div>
+          </div>
+          <div class="pitfall-body">
+            <p>这事说出来我都替自己丢人。</p>
+            <p>那会儿刚迷上沉香，看网上说"沉香能安神、能养生、还能传家"，心里就痒痒。逛贴吧看到一个帖子，说"自家渠道，一手货源，比市场价便宜50%"，配图那手串油油亮亮的，颜色深沉，拿放大镜一拍，纹理细腻。</p>
+            <p>评论区一片"求私信"，我也就跟着求了。加了微信，转账3000块，等了两周到手。</p>
+            <p>拿到手第一感觉：颜色挺深，沉甸甸的，有点成就感。闻了闻，有股香味——但说实话，不像书里写的那种"甜凉带蜜"，更像是……香水味？</p>
+            <p>我没死心，按照书上的方法，拿打火机烧了一下。</p>
+            <p>白烟？没有。香味？没有。冒出来的是一股黑烟，刺鼻，像烧塑料。灰烬是硬的、黑的、结成块的。</p>
+            <p>我那时候才明白：这是一串泡了沉香油的普通木头，可能是杂木，也可能是越南藤，总之外面那层东西绝对不是沉香。</p>
+            <p>去找那个"渠道商"理论，微信已被拉黑。</p>
+            <blockquote>
+              <strong>🔑 关键教训：</strong>网上99%的"一手货源沉香"是假的。真正沉香的价格体系：入门级碎料几百元可以，沉水级手串没有大几千下不来。能便宜50%的"一手货源"，99%是泡油、注油、压缩的假货。记住：沉香不是越便宜越值得买。
+            </blockquote>
+            <div class="pitfall-lesson">
+              <div class="pitfall-lesson-title">💡 正确做法</div>
+              <p>新手买沉香，只做一件事：要求对方提供"明火燃烧视频"——真沉香烧起来是白烟、燃后灰烬松散、火烧时有层次分明的香甜味（不是香水味）。不敢给你烧的，一律不买。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 踩坑3：星月菩提泡油 -->
+        <div class="pitfall-card" id="pit-bracelet-oil">
+          <div class="pitfall-header" onclick="togglePitfall(this)">
+            <div class="pitfall-icon">📿</div>
+            <div class="pitfall-meta">
+              <div class="pitfall-title">"高密顺白"星月菩提，盘了三个月变花了</div>
+              <div class="pitfall-tags">
+                <span class="pitfall-tag bracelet">📿 手串</span>
+                <span class="pitfall-tag money">💰 损失约 ¥800</span>
+                <span class="pitfall-tag">📅 2024年</span>
+              </div>
+            </div>
+            <div class="pitfall-expand">▼</div>
+          </div>
+          <div class="pitfall-body">
+            <p>盘手串这件事，我是有执念的。</p>
+            <p>那会儿刚开始玩，某宝搜"星月菩提"，看上一串标注"高密顺白海南籽，精挑品质"，月销量600+，评价里有图，看起来颗颗正月、白白净净、粒粒分明。价格680，领券减100，580到手。</p>
+            <p>到货之后确实漂亮，朋友圈发了一圈，收获一堆点赞。开始盘，每天手套盘半小时，净手盘半小时，虔诚得像在修行。</p>
+            <p>第一个月：变色正常，有点包浆的意思，自我感觉良好。</p>
+            <p>第二个月：开始感觉不对，有几颗颜色明显比其他颗深，像是沾了脏东西。仔细看，不是脏——是那几颗本身的颜色，和其他颗开始分层了。</p>
+            <p>第三个月：彻底花了。深浅不一，一串手串像拼凑来的。有的地方已经包浆发亮，有的地方还是白的，有的直接发黑。</p>
+            <p>后来才知道：这叫"脱油"。有些星月菩提在出厂前泡过油，让它看起来更白更亮更"顺"，但这种油会慢慢渗出来，遇到手汗就发花，尤其是密度低的籽，吸油不均匀，几个月后必然花脸。</p>
+            <p>而真正的高密海南籽，是不需要泡油的——密度够高，自然白，自然变色，按部就班包浆就行。</p>
+            <blockquote>
+              <strong>🔑 关键教训：</strong>买星月菩提，看到"精挑"、"高密"、"顺白"这种词，第一反应应该是"有没有泡油"。一个简单的鉴别方法：用指甲轻轻刮一下珠子的凹槽（正月位置），如果表面有黏腻感或者泛油光，大概率是泡过油的。价格特别便宜的"高密"，基本都有问题。
+            </blockquote>
+            <div class="pitfall-lesson">
+              <div class="pitfall-lesson-title">💡 正确做法</div>
+              <p>买星月先问清楚产地（海南最好），然后看价格——单圈10mm左右海南籽，正常价格300-800元。低于200的"高密"，基本有猫腻。收到货先用手指感受珠子表面，黏腻的不对，干涩有阻尼感的才是原生态。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 踩坑4：中药养生茶配方 -->
+        <div class="pitfall-card" id="pit-tea-wrong">
+          <div class="pitfall-header" onclick="togglePitfall(this)">
+            <div class="pitfall-icon">🍵</div>
+            <div class="pitfall-meta">
+              <div class="pitfall-title">给痛风老爸喝了三个月土茯苓茶，尿酸反而高了</div>
+              <div class="pitfall-tags">
+                <span class="pitfall-tag">🌿 养生茶</span>
+                <span class="pitfall-tag money">💰 走了弯路，时间成本为主</span>
+                <span class="pitfall-tag">📅 2025年</span>
+              </div>
+            </div>
+            <div class="pitfall-expand">▼</div>
+          </div>
+          <div class="pitfall-body">
+            <p>我爸痛风，这个我心里一直记着。听说土茯苓能降尿酸，就在网上搜"土茯苓痛风"，找到一篇文章说"每天用30克土茯苓煮水喝，两个月尿酸降100"。</p>
+            <p>照着做了，每天煮水，早晚一杯。第一个月我爸说感觉还行，关节不那么酸了。我还特地买了电砂锅，方便又省心。</p>
+            <p>第二个月去体检，尿酸从480升到了510。</p>
+            <p>我当场懵了，不是说降尿酸吗？怎么还涨了？</p>
+            <p>后来认真研究了一下：土茯苓确实有降尿酸的作用，但它主要是通过"利湿"来排泄尿酸——也就是说，它会增加排尿。问题是，我爸那段时间喝水少了，排尿是多了，但身体整体水分补充跟不上，尿酸反而浓缩了，指标更高。</p>
+            <p>而且土茯苓性偏寒，脾胃虚寒的人长期喝，会伤脾胃，脾胃运化不好，湿气反而更难排。这是一个系统问题，不是喝一个东西就能解决的。</p>
+            <blockquote>
+              <strong>🔑 关键教训：</strong>中医调理讲"整体观"，不是"头痛医头脚痛医脚"。尿酸高的人往往同时有湿气重、脾胃弱、代谢差等问题，单喝一味药茶大概率是"按下葫芦浮起瓢"。喝利尿的东西，一定要保证整体水量充足，而且要看体质。
+            </blockquote>
+            <div class="pitfall-lesson">
+              <div class="pitfall-lesson-title">💡 正确做法</div>
+              <p>痛风/尿酸高的人，调理思路应该是：①多喝水（每天2.5L以上）②健脾祛湿（茯苓/薏米配合）③必要时找中医辨证体质后再出方案。自己搜文章照着喝，不做体质判断，大概率走弯路。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="more-stories">
+          <span>🔨</span>
+          更多踩坑经历整理中……<br>
+          龙兄踩过的坑，都会变成你绕过的路。
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <p class="footer-brand">🐉 龙兄知识库</p>
+        <p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p>
+      </div>
+      <div class="footer-col">
+        <p>© 2026 龙兄知识库 · 保留所有权利</p>
+        <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub 开源仓库
+        </a>
+      </div>
+    </div>
+    <div class="footer-stat">
+      <span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
+      <span style="margin:0 8px;">·</span>
+      <span>访客数 <span id="busuanzi_value_site_uv"></span> 人</span>
+    </div>
+    <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+      <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+    </div>
+    <div class="footer-update">最后更新：<span id="lastUpdate"></span></div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/share.js"></script>
+  <script>
+    // 踩坑卡片折叠展开
+    function togglePitfall(header) {
+      var card = header.closest('.pitfall-card');
+      var body = card.querySelector('.pitfall-body');
+      var wasOpen = body.classList.contains('open');
+
+      // 关闭所有其他卡片
+      document.querySelectorAll('.pitfall-body.open').forEach(function(b) {
+        b.classList.remove('open');
+        b.closest('.pitfall-card').classList.remove('expanded');
+      });
+
+      // 切换当前卡片
+      if (!wasOpen) {
+        body.classList.add('open');
+        card.classList.add('expanded');
+      }
+    }
+
+    document.getElementById('lastUpdate').textContent = new Date(document.lastModified).toISOString().slice(0,10);
+  </script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

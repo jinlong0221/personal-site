@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlayStation 2 (PS2) - 游戏主机图鉴 - 龙兄知识库</title>
+<meta name="keywords" content="PlayStation 2,PS2,索尼,家用主机,销量最高,DVD播放,最终幻想,合金装备">
+<meta name="description" content="PlayStation 2详细图鉴：史上销量最高的游戏主机（1.55亿台），DVD播放功能推动普及，经典游戏阵容辉煌。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.console-detail-hero { display: flex; gap: 40px; align-items: center; padding: 48px 0 32px; flex-wrap: wrap; }
+.console-detail-hero .image-side { flex: 0 0 380px; }
+.console-detail-hero .image-side img { width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); background: var(--card); }
+.console-detail-hero .info-side { flex: 1; min-width: 280px; }
+.console-detail-hero h1 { font-size: 2.4rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.console-detail-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+.console-detail-hero .year-badge { display: inline-block; background: linear-gradient(135deg, #003791, #0068d6); color: #fff; font-weight: 800; font-size: 0.85rem; padding: 4px 16px; border-radius: 20px; margin-bottom: 16px; }
+.console-detail-hero .quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.console-detail-hero .qs { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 90px; }
+.console-detail-hero .qs .qsv { font-size: 1.2rem; font-weight: 900; color: #0068d6; }
+.console-detail-hero .qs .qsl { font-size: 0.7rem; color: var(--text-muted); }
+
+.detail-section { margin: 40px 0; }
+.detail-section h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); border-left: 4px solid #0068d6; padding-left: 12px; margin-bottom: 16px; }
+.detail-section p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+.detail-section ul { list-style: none; padding: 0; }
+.detail-section ul li { font-size: 0.9rem; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 8px; }
+.detail-section ul li::before { content: '▶'; color: #0068d6; font-size: 0.7rem; flex-shrink: 0; }
+
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.spec-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.spec-item .spec-label { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; }
+.spec-item .spec-value { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.game-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+.game-card .game-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.game-card .game-year { font-size: 0.73rem; color: #0068d6; font-weight: 600; }
+.game-card .game-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+
+.nav-prev-next { display: flex; justify-content: space-between; margin: 48px 0 20px; padding: 20px 0; border-top: 1px solid var(--border); }
+.nav-prev-next a { color: #0068d6; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.nav-prev-next a:hover { text-decoration: underline; }
+.nav-prev-next .disabled { color: var(--text-muted); cursor: default; pointer-events: none; }
+
+.timeline-bar { display: flex; align-items: center; gap: 0; margin: 20px 0; overflow-x: auto; }
+.timeline-item { display: flex; flex-direction: column; align-items: center; min-width: 80px; cursor: pointer; text-decoration: none; }
+.timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border); border: 2px solid var(--border); margin-bottom: 6px; flex-shrink: 0; }
+.timeline-item.active .timeline-dot { background: #0068d6; border-color: #0068d6; }
+.timeline-item .tl-year { font-size: 0.68rem; color: var(--text-muted); font-weight: 600; }
+.timeline-item.active .tl-year { color: #0068d6; }
+.timeline-line { flex: 1; height: 2px; background: var(--border); min-width: 20px; }
+
+[data-theme="light"] .console-detail-hero .image-side img { background: #f0f0f0; }
+[data-theme="light"] .spec-item, [data-theme="light"] .game-card { background: #ffffff; }
+@media (max-width: 768px) { .console-detail-hero { flex-direction: column; } .console-detail-hero .image-side { flex: none; width: 100%; max-width: 320px; margin: 0 auto; } }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:title" content="PlayStation 2 (PS2) - 游戏主机图鉴 - 龙兄知识库">
+  <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/console-ps2.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.svg">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+龙兄知识库
+    </a><a href="calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a>    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span><ul class="nav-links">
+          <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="herbs.html">中药材</a></li>
+          <li><a href="health-tea.html">养生茶</a></li>
+          <li><a href="bracelet.html">文玩手串</a></li>
+          <li><a href="tesla.html">特斯拉</a></li>
+          <li><a href="marvel.html">漫威宇宙</a></li>
+          <li><a href="xintan-weather.html">农田气象</a></li>
+          <li><a href="zisha.html">紫砂艺术</a></li>
+          <li><a href="console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="gaokao.html">高考查分</a>
+              <a href="pitfalls.html">踩坑记</a>
+              <a href="games.html">游戏库</a>
+              <a href="about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">🏠 首页</a>
+  <a href="herbs/chenxiang.html">🪵 沉香鉴别</a>
+  <a href="herbs.html">🌿 中药材</a>
+  <a href="health-tea.html">🍵 养生茶</a>
+  <a href="bracelet.html">📿 文玩手串</a>
+  <a href="tesla.html">🚗 特斯拉</a>
+  <a href="marvel.html">🎬 漫威宇宙</a>
+  <a href="xintan-weather.html">🌾 农田气象</a>
+  <a href="zisha.html">🏺 紫砂艺术</a>
+  <a href="console.html">🎮 游戏主机</a>
+  <a href="gaokao.html">🎓 高考查分</a>
+  <a href="pitfalls.html">🕳️ 龙兄踩坑记</a>
+  <a href="games.html">🕹️ 游戏库</a>
+  <a href="about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+<main class="container">
+
+  <!-- 品牌时间线导航 -->
+  <div class="timeline-bar" style="margin-top:24px;">
+    <a class="timeline-item" href="console-playstation.html">
+      <div class="timeline-dot"></div><div class="tl-year">PS1</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item active" href="console-ps2.html">
+      <div class="timeline-dot"></div><div class="tl-year">PS2</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-playstation-3.html">
+      <div class="timeline-dot"></div><div class="tl-year">PS3</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-playstation-4.html">
+      <div class="timeline-dot"></div><div class="tl-year">PS4</div>
+    </a>
+    <div class="timeline-line"></div>
+    <a class="timeline-item" href="console-playstation-5.html">
+      <div class="timeline-dot"></div><div class="tl-year">PS5</div>
+    </a>
+  </div>
+
+  <!-- 主机详情英雄区 -->
+  <div class="console-detail-hero">
+    <div class="image-side">
+      <!-- 高清主机照片：先用占位图，后续替换为真实照片 -->
+      <img src="img/consoles/ps2.webp" alt="Sony PlayStation 2" style="width:100%;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);" loading="lazy">
+    </div>
+    <div class="info-side">
+      <div class="year-badge">2000 年发布</div>
+      <h1>PlayStation 2</h1>
+      <div class="subtitle">史上销量最高的游戏主机 · DVD播放器 · 六代王朝</div>
+      <div class="quick-stats">
+        <div class="qs"><div class="qsv">1.55亿</div><div class="qsl">全球销量</div></div>
+        <div class="qs"><div class="qsv">DVD</div><div class="qsl">光驱格式</div></div>
+        <div class="qs"><div class="qsv">128MB</div><div class="qsl">内存</div></div>
+        <div class="qs"><div class="qsv">¥399</div><div class="qsl">首发价格</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 详细介绍 -->
+  <div class="detail-section">
+    <h2>📖 历史与背景</h2>
+    <p>2000年3月4日，索尼在日本发布PlayStation 2，开启了游戏史上最辉煌的主机王朝。PS2不仅是一台游戏机，更是一台廉价DVD播放器——当时DVD播放器售价约$1000，而PS2仅售$299，直接推动了DVD格式在全球的普及。</p>
+    <p>PS2的核心战略是"向下兼容"——能够玩所有PS1游戏，这让用户在升级时没有顾虑。首发游戏《 ridge racer V》《铁拳TT》展现了强劲的3D性能。2000年底欧美发布后，PS2迅速占领市场。</p>
+    <p>PS2的生命周期长达13年（2000-2013），是历史上生命周期最长的主机。2013年1月4日，索尼正式宣布停产PS2，累计销量定格在<strong>1.55亿台</strong>，成为人类历史上销量最高的游戏主机。</p>
+  </div>
+
+  <div class="detail-section">
+    <h2>⚙️ 硬件规格</h2>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">CPU</div><div class="spec-value">Emotion Engine 294MHz</div></div>
+      <div class="spec-item"><div class="spec-label">GPU</div><div class="spec-value">Graphics Synthesizer 147MHz</div></div>
+      <div class="spec-item"><div class="spec-label">内存</div><div class="spec-value">32MB RAM + 4MB VRAM</div></div>
+      <div class="spec-item"><div class="spec-label">显存带宽</div><div class="spec-value">48GB/s（当时最高）</div></div>
+      <div class="spec-item"><div class="spec-label">光驱</div><div class="spec-value">DVD-ROM（兼容CD）</div></div>
+      <div class="spec-item"><div class="spec-label">输出分辨率</div><div class="spec-value">最高 1920×1080</div></div>
+      <div class="spec-item"><div class="spec-label">在线服务</div><div class="spec-value">宽带适配器（选配）</div></div>
+      <div class="spec-item"><div class="spec-label">手柄</div><div class="spec-value">DualShock 2（压力感应）</div></div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>🎮 经典游戏阵容</h2>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-title">最终幻想 X</div>
+        <div class="game-year">2001 · RPG</div>
+        <div class="game-note">FF系列首款PS2作品，CG电影级画质</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">合金装备2</div>
+        <div class="game-year">2001 · 潜行</div>
+        <div class="game-note">潜行游戏标杆，剧情深度惊人</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">GT赛车 3</div>
+        <div class="game-year">2001 · 竞速</div>
+        <div class="game-note">画面逼真，销量最高赛车游戏</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">美国末日</div>
+        <div class="game-year">（PS3作品）</div>
+        <div class="game-note">注：美国末日是PS3游戏，PS2代表作还有《战神》《GTA：圣安地列斯》</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">战神</div>
+        <div class="game-year">2005 · 动作</div>
+        <div class="game-note">奎托斯复仇之旅，爽快战斗</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">GTA：圣安地列斯</div>
+        <div class="game-year">2004 · 开放世界</div>
+        <div class="game-note">开放世界巅峰，销量2700万份</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">实况足球 系列</div>
+        <div class="game-year">2001-2013</div>
+        <div class="game-note">足球游戏王者，几代人的回忆</div>
+      </div>
+      <div class="game-card">
+        <div class="game-title">铁拳 TT</div>
+        <div class="game-year">2000 · 格斗</div>
+        <div class="game-note">3D格斗游戏代表</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>🏆 市场表现与影响</h2>
+    <ul>
+      <li><strong>全球销量：</strong>1.55亿台（史上最高，无人能破）</li>
+      <li><strong>游戏销量：</strong>超过20款游戏销量超过1000万份</li>
+      <li><strong>生命周期：</strong>2000-2013年，长达13年</li>
+      <li><strong>DVD普及：</strong>PS2让DVD格式战胜了Divx，推动了家庭影院普及</li>
+      <li><strong>中国水货市场：</strong>国内"PS2直读"芯片改装产业繁荣，数千家电玩店靠此生存</li>
+      <li><strong>竞争对手：</strong>世嘉Dreamcast（已退出）、任天堂GameCube、微软Xbox（2001年才入局）</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h2>🔧 型号演变</h2>
+    <ul>
+      <li><strong>SCPH-10000（2000）：</strong>首发型号，内置IEEE 1394接口，后续移除</li>
+      <li><strong>SCPH-30000（2000）：</strong>移除1394，增加EXPANSION BAY，支持硬盘</li>
+      <li><strong>SCPH-50000（2001）：</strong>内置红外接收器，支持遥控器</li>
+      <li><strong>SCPH-70000（2002）：</strong>瘦身版（Slim），体积减少1/3，取消硬盘位</li>
+      <li><strong>SCPH-90000（2004）：</strong>最终版Slim，功耗降低，更安静</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h2>💡 趣闻与冷知识</h2>
+    <ul>
+      <li>PS2的"Emotion Engine"CPU由索尼与东芝联合开发，至今仍被视为芯片设计杰作</li>
+      <li>PS2可以安装Linux系统（需硬盘套件），变成一台简易电脑</li>
+      <li>中国"EVD"高清格式争夺战中，PS2的DVD能力间接帮助了DVD阵营</li>
+      <li>PS2在中国水货市场极为繁荣，"直读芯片"改装可以让PS2玩盗版游戏，这也是国内PS2普及的重要原因</li>
+      <li>《GTA：圣安地列斯》的"热咖啡"MOD事件引发巨大争议，索尼因此加强了游戏审查</li>
+    </ul>
+  </div>
+
+  <!-- 上下导航 -->
+  <div class="nav-prev-next">
+    <a href="console-playstation.html">← PS1（上一代）</a>
+    <a href="console-sony.html">索尼主机列表 ↑</a>
+    <a href="console-playstation-3.html">PS3（下一代） →</a>
+  </div>
+
+  <div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;">
+    <p>最后更新：2026-06-23 | 数据来源：官方资料、维基百科、游戏媒体</p>
+    <p><a href="console-sony.html" style="color:var(--blue);;">← 返回索尼主机列表</a></p>
+  </div>
+
+</main>
+
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <p class="footer-brand">🐉 龙兄知识库</p>
+      <p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p>
+    </div>
+    <div class="footer-col">
+      <p>© 2026 龙兄知识库 · 保留所有权利</p>
+      <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a>
+    </div>
+  </div>
+  <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
+    <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+  <div class="footer-stat" style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border-color);text-align:center;">
+      <span id="busuanzi_container_site_pv" style="font-size:13px;color:var(--text-muted)">
+        本页总阅读 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次
+      </span>
+      <span id="busuanzi_container_site_uv" style="font-size:13px;color:var(--text-muted);margin-left:16px;">
+        访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人
+      </span>
+    </div>
+</footer>
+
+
+<script src="js/app.js"></script>

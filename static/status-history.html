@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>龙兄状态历史 - 龙兄的知识宇宙</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+  <style>
+    .history-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .history-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: var(--text);
+    }
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .history-item {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid var(--accent, #007AFF);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .history-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .history-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .history-date {
+      font-weight: 600;
+    }
+    .history-time {
+      color: var(--text-secondary);
+    }
+    .history-status {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .empty-history {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--accent, #007AFF);
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+龙兄知识库
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-init="1" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><span class="weather-loading" style="font-size:0.8rem;color:var(--text-muted)">🌤️</span></span>
+    <ul class="nav-links">
+          <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+          <li><a href="herbs.html">中药材</a></li>
+          <li><a href="health-tea.html">养生茶</a></li>
+          <li><a href="bracelet.html">文玩手串</a></li>
+          <li><a href="tesla.html">特斯拉</a></li>
+          <li><a href="marvel.html">漫威宇宙</a></li>
+          <li><a href="xintan-weather.html">农田气象</a></li>
+          <li><a href="zisha.html">紫砂艺术</a></li>
+          <li><a href="console.html">游戏主机</a></li>
+          <li class="nav-more-wrap">
+            <a href="javascript:void(0)" class="nav-more-btn">更多 ▾</a>
+            <div class="nav-more-dropdown">
+              <a href="gaokao.html">高考查分</a>
+              <a href="pitfalls.html">踩坑记</a>
+              <a href="games.html">游戏库</a>
+              <a href="about.html">关于本站</a>
+            </div>
+          </li>
+        </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+            <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+<button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">🏠 首页</a>
+  <a href="herbs/chenxiang.html">🪵 沉香鉴别</a>
+  <a href="herbs.html">🌿 中药材</a>
+  <a href="health-tea.html">🍵 养生茶</a>
+  <a href="bracelet.html">📿 文玩手串</a>
+  <a href="tesla.html">🚗 特斯拉</a>
+  <a href="marvel.html">🎬 漫威宇宙</a>
+  <a href="xintan-weather.html">🌾 农田气象</a>
+  <a href="zisha.html">🏺 紫砂艺术</a>
+  <a href="console.html">🎮 游戏主机</a>
+  <a href="gaokao.html">🎓 高考查分</a>
+  <a href="pitfalls.html">🕳️ 龙兄踩坑记</a>
+  <a href="games.html">🕹️ 游戏库</a>
+  <a href="about.html">ℹ️ 关于本站</a>
+</div>
+</nav>
+
+  <div class="history-container">
+    <a href="index.html" class="back-link">← 返回首页</a>
+    <h1 class="history-title">🐉 龙兄状态历史</h1>
+    <div class="history-list" id="historyList">
+      <div class="empty-history">加载中...</div>
+    </div>
+  </div>
+
+  <script>
+    // 加载状态历史
+    function loadStatusHistory() {
+      var historyList = document.getElementById('historyList');
+      
+      // 先尝试读取 status-history.json（加时间戳破坏缓存，解决微信浏览器缓存问题）
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'status-history.json?t=' + Date.now(), true);
+      xhr.responseType = 'json';
+      xhr.setRequestHeader('Cache-Control', 'no-cache');
+      
+      xhr.onload = function() {
+        if (xhr.status === 200 && xhr.response && xhr.response.history) {
+          renderHistory(xhr.response.history);
+        } else {
+          // 没有历史文件，显示当前状态
+          showCurrentStatusOnly();
+        }
+      };
+      
+      xhr.onerror = function() {
+        showCurrentStatusOnly();
+      };
+      
+      xhr.send();
+    }
+    
+    // 渲染历史记录
+    function renderHistory(history) {
+      var historyList = document.getElementById('historyList');
+      
+      if (!history || history.length === 0) {
+        historyList.innerHTML = '<div class="empty-history">暂无历史记录</div>';
+        return;
+      }
+      
+      // 容错：统一从 updatedAt 或 date+time 提取时间戳
+      function getTimestamp(item) {
+        if (item.updatedAt) return new Date(item.updatedAt).getTime();
+        if (item.date && item.time) return new Date(item.date + 'T' + item.time + ':00+08:00').getTime();
+        if (item.date) return new Date(item.date + 'T00:00:00+08:00').getTime();
+        return 0;
+      }
+      
+      // 按时间倒序排列
+      history.sort(function(a, b) {
+        return getTimestamp(b) - getTimestamp(a);
+      });
+      
+      var html = '';
+      history.forEach(function(item) {
+        var ts = getTimestamp(item);
+        var date = new Date(ts);
+        var dateStr = date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        var timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+        
+        html += '<div class="history-item">' +
+          '<div class="history-meta">' +
+            '<span class="history-date">' + dateStr + '</span>' +
+            '<span class="history-time">' + timeStr + '</span>' +
+          '</div>' +
+          '<div class="history-status">' + item.status + '</div>' +
+        '</div>';
+      });
+      
+      historyList.innerHTML = html;
+    }
+    
+    // 只显示当前状态（没有历史文件时）
+    function showCurrentStatusOnly() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'status.json', true);
+      xhr.responseType = 'json';
+      
+      xhr.onload = function() {
+        if (xhr.status === 200 && xhr.response) {
+          renderHistory([xhr.response]);
+        } else {
+          document.getElementById('historyList').innerHTML = '<div class="empty-history">暂无状态记录</div>';
+        }
+      };
+      
+      xhr.send();
+    }
+    
+    // 页面加载完成后执行
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadStatusHistory);
+    } else {
+      loadStatusHistory();
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="text-align:center;padding:24px 16px;">
+      <div class="evolved">🐉 进化的龙兄：这个网站是活的</div>
+    </div>
+    <div style="text-align:center;padding:0 16px 24px;font-size:12px;color:var(--text-muted);">
+      © 2026 龙兄知识库 · <a href="https://github.com/jinlong0221/personal-site" target="_blank" class="footer-link" style="color:var(--gold)">GitHub 开源</a> · 专注实用科普与生活百科
+    </div>
+    <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">
+      <span style="font-size:13px;color:var(--text-muted)">本站总访问量 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次</span>
+      <span style="font-size:13px;color:var(--text-muted);margin-left:16px;">访客数 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人</span>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
+    </div>
+    
+  </footer>
+
+  <!-- JS -->
+  <script src="js/search.js"></script>
+<script src="js/app.js"></script>
+  <script src="js/share.js"></script>
+  <script src="js/status-bubble.js"></script>
+</body>
+</html>

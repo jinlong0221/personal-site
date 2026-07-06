@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="hero-section">
+  <div class="hero-content">
+    <h1>龙兄知识库</h1>
+    <p class="hero-subtitle">专注实用科普与生活百科</p>
+  </div>
+</div>
+<div class="container" style="padding:2rem 1rem;">
+  <div class="card-grid-3">
+    <a href="{{ .Site.BaseURL }}herbs.html" class="tile-card">
+      <h3>🌿 中药材</h3>
+      <p>沉香、五灵脂、猫屎咖啡、熊胆等名贵药材鉴别知识</p>
+    </a>
+    <a href="{{ .Site.BaseURL }}tesla.html" class="tile-card">
+      <h3>🚗 特斯拉</h3>
+      <p>Model 系列最新资讯、用车指南、新闻动态</p>
+    </a>
+    <a href="{{ .Site.BaseURL }}zisha.html" class="tile-card">
+      <h3>🍶 紫砂艺术</h3>
+      <p>紫砂壶鉴赏与吴昊天作品赏析</p>
+    </a>
+  </div>
+</div>
+{{ end }}

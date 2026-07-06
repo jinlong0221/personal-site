@@ -306,7 +306,7 @@
 }
 
 /* ---- 电影列表悬浮动效 ---- */
-.movie-list { list-style: none; margin: 0; padding: 0; }
+.movie-list { margin: 0; padding: 0; counter-reset: movie; }
 .movie-list li {
   display: flex;
   align-items: center;
@@ -314,6 +314,17 @@
   border-radius: 8px;
   transition: background 0.2s ease, transform 0.2s ease;
   font-size: 0.92rem;
+  counter-increment: movie;
+}
+.movie-list li::before {
+  content: counter(movie) ".";
+  min-width: 24px;
+  text-align: right;
+  margin-right: 8px;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  flex-shrink: 0;
 }
 .movie-list li:hover {
   background: rgba(255,255,255,0.06);
@@ -713,11 +724,11 @@ var _hmt = _hmt || [];
 
     <div class="hero-grid">
       <!-- 钢铁侠 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="iron-man">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🔴</div>
         </div>
-        <div data-hero="iron-man"></div><h3>钢铁侠 / 托尼·斯塔克</h3>
+        <h3>钢铁侠 / 托尼·斯塔克</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《钢铁侠》（2008）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>小罗伯特·唐尼</span></div>
@@ -729,11 +740,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 美国队长 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="captain">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🔵</div>
         </div>
-        <div data-hero="captain"></div><h3>美国队长 / 史蒂夫·罗杰斯</h3>
+        <h3>美国队长 / 史蒂夫·罗杰斯</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《美国队长1》（2011）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>克里斯·埃文斯</span></div>
@@ -745,11 +756,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 雷神 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="thor">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">⚡</div>
         </div>
-        <div data-hero="thor"></div><h3>雷神 / 索尔</h3>
+        <h3>雷神 / 索尔</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《雷神》（2011）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>克里斯·海姆斯沃斯</span></div>
@@ -777,11 +788,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 黑寡妇 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="widow">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🕷️</div>
         </div>
-        <div data-hero="widow"></div><h3>黑寡妇 / 娜塔莎·罗曼诺夫</h3>
+        <h3>黑寡妇 / 娜塔莎·罗曼诺夫</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《钢铁侠2》（2010）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>斯嘉丽·约翰逊</span></div>
@@ -793,11 +804,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 鹰眼 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="hawkeye">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🎯</div>
         </div>
-        <div data-hero="hawkeye"></div><h3>鹰眼 / 克林特·巴顿</h3>
+        <h3>鹰眼 / 克林特·巴顿</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《雷神》（2011）客串</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>杰瑞米·雷纳</span></div>
@@ -809,11 +820,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 蜘蛛侠 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="spider">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🕸️</div>
         </div>
-        <div data-hero="spider"></div><h3>蜘蛛侠 / 彼得·帕克</h3>
+        <h3>蜘蛛侠 / 彼得·帕克</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《美国队长3》（2016）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>汤姆·赫兰德</span></div>
@@ -825,11 +836,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 奇异博士 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="strange">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🔮</div>
         </div>
-        <div data-hero="strange"></div><h3>奇异博士 / 史蒂芬·斯特兰奇</h3>
+        <h3>奇异博士 / 史蒂芬·斯特兰奇</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《奇异博士》（2016）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>本尼迪克特·康伯巴奇</span></div>
@@ -841,11 +852,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 黑豹 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="panther">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🐆</div>
         </div>
-        <div data-hero="panther"></div><h3>黑豹 / 特查拉</h3>
+        <h3>黑豹 / 特查拉</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《美国队长3》（2016）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>查德维克·博斯曼</span></div>
@@ -873,11 +884,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 惊奇队长 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="captain-m">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">☄️</div>
         </div>
-        <div data-hero="captain-m"></div><h3>惊奇队长 / 卡罗尔·丹弗斯</h3>
+        <h3>惊奇队长 / 卡罗尔·丹弗斯</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《惊奇队长》（2019）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>布丽·拉尔森</span></div>
@@ -889,11 +900,11 @@ var _hmt = _hmt || [];
       </div>
 
       <!-- 星爵 -->
-      <div class="hero-card">
+      <div class="hero-card" data-hero="quill">
         <div class="hero-avatar">
           <div style="font-size:64px;line-height:1;text-align:center;padding:8px;">🌌</div>
         </div>
-        <div data-hero="quill"></div><h3>星爵 / 彼得·奎尔</h3>
+        <h3>星爵 / 彼得·奎尔</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">首次登场：</span><span>《银河护卫队》（2014）</span></div>
           <div class="hero-row"><span class="label">演员：</span><span>克里斯·帕拉特</span></div>

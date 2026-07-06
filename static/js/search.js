@@ -280,7 +280,11 @@ function ensureSearchModal(){
 
   // 导航栏搜索按钮
   var sb=document.getElementById('searchBtn');
-  if(sb)sb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();open();});
+  if(sb)sb.addEventListener('click',function(e){
+    e.preventDefault();
+    // 跳转到 Pagefind 搜索页
+    window.location.href = 'search.html';
+  });
 
   // 首页搜索框
   var hi=document.getElementById('homeSearchInput'),hb2=document.getElementById('homeSearchBtn');

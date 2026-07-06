@@ -1,0 +1,11 @@
+{
+  "name": "jinlong-knowledge",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "/Users/chenjinlong/miniconda3/envs/fooocus/bin/hugo --gc --minify && npx pagefind --source public",
+    "dev": "/Users/chenjinlong/miniconda3/envs/fooocus/bin/hugo server -D"
+  },
+  "devDependencies": {
+    "pagefind": "^1.3.0"
+  }
+}

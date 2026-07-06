@@ -22,3 +22,8 @@ uglyURLs = true
   email = "799958000@qq.com"
   github = "jinlong0221/personal-site"
   baiduAnalytics = "04913e92799dc86649938ea8f5eb4b78"
+  pagefind = true
+
+# Pagefind 搜索
+[outputs]
+  home = ["HTML", "RSS", "JSON"]  # JSON 给 Pagefind 用

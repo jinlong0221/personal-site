@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="page-wrap">
+  <div class="detail-section">
+    <h1 class="detail-title" style="text-align:center;margin:40px 0 30px;">🔍 全站搜索</h1>
+    <div id="search" style="max-width:800px;margin:0 auto;">
+      <div id="pagefind-search"></div>
+    </div>
+  </div>
+</div>
+<script src="/pagefind/pagefind.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    new PagefindUI({
+      element: "#pagefind-search",
+      showSubResults: true,
+      showImages: false
+    });
+  });
+</script>
+{{ end }}

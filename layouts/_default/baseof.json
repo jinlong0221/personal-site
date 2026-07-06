@@ -1,0 +1,7 @@
+{{- $.Scratch.Add "index" slice -}}
+{{- range .Site.Pages -}}
+  {{- if and (not .Params.noindex) (ne .Kind "taxonomy") -}}
+    {{- $.Scratch.Add "index" (dict "title" .Title "url" .RelPermalink "content" .Plain "tags" .Params.tags "categories" .Params.categories) -}}
+  {{- end -}}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}

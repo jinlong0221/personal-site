@@ -90,14 +90,6 @@
   filter: brightness(0.95);
 }
 
-/* Movie timeline cards with posters */
-.movie-list li {
-  display: flex;
-  align-items: flex-start;
-  padding: 8px 0;
-  line-height: 1.6;
-}
-
 /* ==================== MARVEL VISUAL UPGRADE ==================== */
 
 /* ---- 动态背景（粒子星空）---- */
@@ -306,25 +298,14 @@
 }
 
 /* ---- 电影列表悬浮动效 ---- */
-.movie-list { margin: 0; padding: 0; counter-reset: movie; }
+.movie-list { margin: 0; padding: 0 0 0 28px; }
 .movie-list li {
-  display: flex;
-  align-items: center;
   padding: 7px 6px;
+  border-bottom: none;
   border-radius: 8px;
   transition: background 0.2s ease, transform 0.2s ease;
   font-size: 0.92rem;
-  counter-increment: movie;
-}
-.movie-list li::before {
-  content: counter(movie) ".";
-  min-width: 24px;
-  text-align: right;
-  margin-right: 8px;
-  font-weight: 700;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  flex-shrink: 0;
+  line-height: 1.8;
 }
 .movie-list li:hover {
   background: rgba(255,255,255,0.06);

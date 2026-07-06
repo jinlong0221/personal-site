@@ -9,7 +9,7 @@
   </url>{{ end }}
   {{- /* Static HTML pages from data file */}}
   {{- $base := strings.TrimSuffix "/" .Site.BaseURL }}
-  {{- range .Site.Data.sitemap_extra }}
+  {{- range hugo.Data.sitemap_extra }}
   <url>
     <loc>{{ $base }}{{ .url }}</loc>
     <priority>{{ .priority }}</priority>

@@ -3,12 +3,60 @@
 <title>{{ if .Title }}{{ .Title }} - 龙兄知识库{{ else }}龙兄知识库{{ end }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 <meta name="keywords" content="{{ with .Keywords }}{{ . }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" type="image/svg+xml" href="{{ .Site.BaseURL }}favicon.svg">
+
+<!-- Open Graph -->
 <meta property="og:title" content="{{ if .Title }}{{ .Title }} - 龙兄知识库{{ else }}龙兄知识库{{ end }}">
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:image" content="{{ .Site.BaseURL }}img/og-image.png">
 <meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .Title }}{{ .Title }} - 龙兄知识库{{ else }}龙兄知识库{{ end }}">
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="twitter:image" content="{{ .Site.BaseURL }}img/og-image.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "{{ .Site.BaseURL }}",
+      "description": "{{ .Site.Params.description }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ .Site.BaseURL }}search.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }{{ if .IsPage }},
+    {
+      "@type": "Article",
+      "headline": "{{ .Title }}",
+      "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}",
+      "url": "{{ .Permalink }}",
+      {{- with .Date }}"datePublished": "{{ .Format "2006-01-02" }}",{{ end }}
+      {{- with .Lastmod }}"dateModified": "{{ .Format "2006-01-02" }}",{{ end }}
+      "author": { "@type": "Person", "name": "{{ .Site.Params.author }}" },
+      "publisher": { "@type": "Organization", "name": "龙兄知识库" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "{{ .Site.BaseURL }}" },
+        { "@type": "ListItem", "position": 2, "name": "{{ .Title }}", "item": "{{ .Permalink }}" }
+      ]
+    }
+    {{ end }}
+  ]
+}
+</script>
 
 <!-- [主题防闪白] DOM渲染前读取localStorage设置data-theme -->
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>

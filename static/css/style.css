@@ -3865,3 +3865,92 @@ body.dark .new-badge {
   border-radius: 8px;
   font-weight: 700;
 }
+
+/* ========== Hugo Markdown Content Styles ========== */
+.content-body {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+.content-body h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 20px;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 10px;
+}
+.content-body h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 28px 0 12px;
+  border-left: 4px solid var(--gold);
+  padding-left: 10px;
+}
+.content-body h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 20px 0 8px;
+}
+.content-body p {
+  margin: 0 0 14px;
+  line-height: 1.8;
+}
+.content-body ul, .content-body ol {
+  padding-left: 24px;
+  margin: 0 0 14px;
+}
+.content-body li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+.content-body strong {
+  color: var(--gold);
+}
+.content-body a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.content-body a:hover {
+  text-decoration: underline;
+}
+.content-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 16px 0;
+}
+.content-body th {
+  background: var(--gold);
+  color: #fff;
+  padding: 10px 12px;
+  text-align: center;
+  font-weight: 600;
+}
+.content-body td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+.content-body tr:hover td {
+  background: rgba(212, 175, 55, 0.06);
+}
+.content-body blockquote {
+  background: var(--card-bg);
+  border-left: 4px solid var(--gold);
+  margin: 16px 0;
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  color: var(--text-muted);
+}
+.content-body code {
+  background: var(--card-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--gold);
+}
+.content-body hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 24px 0;
+}

@@ -9,11 +9,6 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<!-- Google Analytics 4 -->
-<!-- 替换 G-XXXXXXXXXX 为你的 GA4 衡量 ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
-
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <meta property="og:title" content="Sega Dreamcast - 游戏主机图鉴 - 龙兄知识库">
   <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
@@ -65,6 +60,11 @@ var _hmt = _hmt || [];
 .nav-prev-next a:hover { text-decoration: underline; } .nav-prev-next .disabled { color: var(--text-muted); cursor: default; pointer-events: none; }
 [data-theme="light"] .spec-item, [data-theme="light"] .game-card { background: #ffffff; }</style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="css/style.css?v=6273" as="style">
+<link rel="preload" href="js/app.js" as="script">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 <link rel="stylesheet" href="css/style.css?v=6273">
 <nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner"><a href="index.html" class="logo">
@@ -149,7 +149,7 @@ var _hmt = _hmt || [];
 <div class="nav-prev-next"><a href="console-saturn.html">← Saturn（上一代）</a><a href="console-sega.html">世嘉主机列表 ↑</a><span class="disabled">无下一代 →</span></div>
 <div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;"><p>最后更新：2026-07-07</p><p><a href="console-sega.html" style="color:var(--blue);;">← 返回世嘉主机列表</a></p></div>
 </main>
-<script src="js/app.js"></script>
+<script defer src="js/app.js"></script>
 <script src="js/search.js"></script>
 
     <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">

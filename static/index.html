@@ -15,6 +15,11 @@
 
 <!-- [BUG-FIX:二-4] 消除主题切换闪白：在DOM渲染前读取localStorage设置data-theme -->
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="css/style.css?v=6273" as="style">
+<link rel="preload" href="js/app.js" as="script">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 <link rel="stylesheet" href="css/style.css?v=6273">
 <script>
 var _hmt = _hmt || [];
@@ -25,11 +30,6 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<!-- Google Analytics 4 -->
-<!-- 替换 G-XXXXXXXXXX 为你的 GA4 衡量 ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
-
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <link rel="canonical" href="https://longxiong.vip/">
@@ -435,7 +435,7 @@ var _hmt = _hmt || [];
 </script>
 
 <script src="js/search.js"></script>
-<script src="js/app.js?v=6272"></script>
+<script defer src="js/app.js?v=6272"></script>
 <script>
 function toggleHomeSection(el){
   var wrap=el.parentElement;

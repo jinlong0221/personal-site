@@ -5,6 +5,11 @@
 <title>龙兄的游戏库 | 龙兄知识库</title>
 <meta name="description" content="龙兄的游戏库——收录正在玩、已通关、曾经玩过的游戏，带详细截图和真实评测。">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',h>=6&&h<18?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="css/style.css?v=6273" as="style">
+<link rel="preload" href="js/app.js" as="script">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 <link rel="stylesheet" href="css/style.css?v=6273">
 <style>
 :root{--gc:#1a1a2e;--ga:#16213e;--ge:#0f3460;--gn:#e94560;}
@@ -194,7 +199,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
 
 <script src="js/search.js"></script>
 <script src="js/share.js"></script>
-<script src="js/app.js"></script>
+<script defer src="js/app.js"></script>
 
 <script type="application/ld+json">
 {

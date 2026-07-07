@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>龙兄状态历史 - 龙兄的知识宇宙</title>
-  <link rel="stylesheet" href="css/style.css?v=6273">
+  <!-- 预加载关键资源 -->
+<link rel="preload" href="css/style.css?v=6273" as="style">
+<link rel="preload" href="js/app.js" as="script">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<link rel="stylesheet" href="css/style.css?v=6273">
   <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
   <style>
     .history-container {
@@ -272,7 +277,7 @@
 
   <!-- JS -->
   <script src="js/search.js"></script>
-<script src="js/app.js"></script>
+<script defer src="js/app.js"></script>
   <script src="js/share.js"></script>
   <script src="js/status-bubble.js"></script>
 

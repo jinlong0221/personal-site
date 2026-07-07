@@ -7,6 +7,11 @@
 <meta name="keywords" content="游戏主机,任天堂,索尼,微软,PlayStation,Xbox,Switch,Nintendo,世嘉,雅达利,Steam Deck,ROG Ally,掌机,家用主机">
 <meta name="description" content="任天堂、索尼、微软、世嘉、雅达利等游戏主机完整图鉴，从1977年至今的全部家用主机与掌机，包含详细参数、销量、经典游戏。">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="css/style.css?v=6273" as="style">
+<link rel="preload" href="js/app.js" as="script">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 <link rel="stylesheet" href="css/style.css?v=6273">
 <style>
 .console-hero { text-align: center; padding: 48px 0 32px; }
@@ -77,13 +82,7 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<!-- Google Analytics 4 -->
-<!-- 替换 G-XXXXXXXXXX 为你的 GA4 衡量 ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <meta property="og:title" content="游戏主机博物馆 | 游戏主机 | 龙兄知识库">
   <meta property="og:description" content="6大品牌46款主机完整档案">
   <meta property="og:type" content="article">
@@ -874,7 +873,7 @@ var _hmt = _hmt || [];
   </div>
 </footer>
 
-  <script src="js/app.js"></script>
+  <script defer src="js/app.js"></script>
   <script src="js/search.js"></script>
   <script src="js/share.js"></script>
   <script src="js/status-bubble.js"></script>

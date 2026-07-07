@@ -7,13 +7,7 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<!-- Google Analytics 4 -->
-<!-- 替换 G-XXXXXXXXXX 为你的 GA4 衡量 ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <meta property="og:title" content="Steam Deck - 游戏主机图鉴">
   <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
   <meta property="og:type" content="website">
@@ -53,6 +47,11 @@ var _hmt = _hmt || [];
 .nav-prev-next { display: flex; justify-content: space-between; margin: 48px 0 20px; padding: 20px 0; border-top: 1px solid var(--border); }
 .nav-prev-next a { color: #2a475e; } .nav-prev-next .disabled { color: var(--text-muted); }</style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="css/style.css?v=6273" as="style">
+<link rel="preload" href="js/app.js" as="script">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 <link rel="stylesheet" href="css/style.css?v=6273">
 <nav class="navbar" role="navigation" aria-label="主导航">   <div class="navbar-inner">     <a href="index.html" class="logo">
 龙兄知识库</a><a href="calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a>    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span><ul class="nav-links">
@@ -144,4 +143,4 @@ var _hmt = _hmt || [];
 </footer>
 
 
-<script src="js/app.js"></script>
+<script defer src="js/app.js"></script>

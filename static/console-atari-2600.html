@@ -9,11 +9,6 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<!-- Google Analytics 4 -->
-<!-- 替换 G-XXXXXXXXXX 为你的 GA4 衡量 ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
-
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <meta property="og:title" content="Atari 2600 - 游戏主机图鉴 - 龙兄知识库">
   <meta property="og:description" content="龙兄知识库 · 让求知成为习惯">
@@ -60,6 +55,11 @@ var _hmt = _hmt || [];
 .nav-prev-next a { color: #d43434; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
 .nav-prev-next a:hover { text-decoration: underline; } .nav-prev-next .disabled { color: var(--text-muted); cursor: default; pointer-events: none; }</style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="css/style.css?v=6273" as="style">
+<link rel="preload" href="js/app.js" as="script">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 <link rel="stylesheet" href="css/style.css?v=6273">
 <nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner"><a href="index.html" class="logo">
@@ -132,7 +132,7 @@ var _hmt = _hmt || [];
 <div class="detail-section"><h2>💡 趣闻</h2><ul><li>《E.T.外星人》游戏被认为是史上最臭名昭著的失败游戏之一——雅达利制作了数百万份但大部分没卖出去，据传被埋在沙漠</li><li>1983年"Atari Shock"事件中，雅达利的市值从20多亿美元暴跌至几乎为零，游戏产业濒临崩溃</li><li>Activision成立于1979年，是最早的第三方游戏开发商——雅达利的前员工在踩了2600开发技巧后离职开创了Activision</li><li>2600的TIA芯片至今仍在某些复古硬件中被"FPGA精确模拟"——因为它的行为太复杂了</li></ul></div>
 <div class="nav-prev-next"><span class="disabled">← 无上一代</span><a href="console-atari.html">雅达利主机列表 ↑</a><a href="console-atari-5200.html">Atari 5200（下一代） →</a></div>
 <div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;"><p>最后更新：2026-07-07</p><p><a href="console-atari.html" style="color:var(--blue);;">← 返回雅达利主机列表</a></p></div></main>
-<script src="js/app.js"></script>
+<script defer src="js/app.js"></script>
 <script src="js/search.js"></script>
 
     <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">

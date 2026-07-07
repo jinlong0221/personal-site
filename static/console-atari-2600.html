@@ -60,7 +60,7 @@ var _hmt = _hmt || [];
 .nav-prev-next a { color: #d43434; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
 .nav-prev-next a:hover { text-decoration: underline; } .nav-prev-next .disabled { color: var(--text-muted); cursor: default; pointer-events: none; }</style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=6273">
 <nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner"><a href="index.html" class="logo">
 龙兄知识库</a><a href="calendar.html" class="nav-clock-link" style="text-decoration:none;color:inherit"><span id="navClock" class="nav-clock" title="当前时间" aria-label="当前时间"></span></a>    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看天气">🌤️</span><ul class="nav-links">
@@ -146,14 +146,24 @@ var _hmt = _hmt || [];
     </div>
 
 <footer>
-  <div class="container footer-inner">
-    <div class="footer-col"><p class="footer-brand">🐉 龙兄知识库</p><p class="footer-desc">AI驱动的个人知识库，专注实用科普与生活百科</p></div>
-    <div class="footer-col"><p>© 2026 龙兄知识库 · 保留所有权利</p><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener" class="footer-link">GitHub 开源仓库</a></div>
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
   </div>
-    <div style="margin-top:8px;text-align:center;font-size:0.85rem;">
-    <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
   </div>
-  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
 </footer>
     <script src="js/share.js"></script>
   

@@ -31,6 +31,15 @@
   --max-width: 1200px;
   --nav-height: 56px;
   --transition: 0.25s ease;
+  /* 融合模块+聊天气泡变量（默认暗色） */
+  --text-primary: #eeeeee;
+  --border-light-new: #333333;
+  --bubble-bg: #3d2e1e;
+  --bubble-text: #eee;
+  --chip-bg: #2a2a3e;
+  --chip-border: #444444;
+  --chip-text: #eeeeee;
+  --card-bg: #2a2a3e;
 }
 
 [data-theme="light"] {
@@ -220,7 +229,7 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
 .nav-more-dropdown {
   display:none; position:absolute; top:calc(100% + 4px); right:0; min-width:130px;
   background:var(--nav-bg); border:1px solid var(--border); border-radius:var(--radius-sm);
-  box-shadow:var(--shadow); z-index:300; padding:6px 0;
+  box-shadow:var(--shadow-md); z-index:300; padding:6px 0;
 }
 .nav-more-wrap:focus-within .nav-more-dropdown { display:block; }
 .nav-more-wrap.open .nav-more-dropdown { display:block; }

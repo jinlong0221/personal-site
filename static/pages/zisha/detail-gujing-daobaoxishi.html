@@ -172,7 +172,7 @@ function openLightbox(el){
   var src=el.querySelector('img').src;
   var ov=document.createElement('div');
   ov.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';
-  ov.innerHTML='<img src="'+src+'" style="max-width:90%;max-height:90vh;border-radius:8px;object-fit:contain;" />';
+  ov.innerHTML='<img loading="lazy" src="'+src+'" style="max-width:90%;max-height:90vh;border-radius:8px;object-fit:contain;" />';
   ov.onclick=function(){document.body.removeChild(ov);};
   document.body.appendChild(ov);
 }

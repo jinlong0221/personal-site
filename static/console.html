@@ -866,7 +866,17 @@ var _hmt = _hmt || [];
       <span style="font-size:11px;color:var(--text-muted);margin-left:16px;">（仅供参考）</span>
     </div>
     
-  </footer>
+  
+  <!-- 自动更新动态（每日凌晨自动刷新） -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">自动更新动态</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+</footer>
 
   <script src="js/app.js"></script>
   <script src="js/search.js"></script>
@@ -892,5 +902,6 @@ var _hmt = _hmt || [];
   ]
 }
 </script>
+<script src="js/auto_news_loader.js"></script>
 </body>
 </html>

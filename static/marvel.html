@@ -1122,6 +1122,16 @@ var _hmt = _hmt || [];
     <a href="about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
   </div>
   <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;">最后更新：<span id="lastModified"></span></p>
+
+  <!-- 自动更新动态（每日凌晨自动刷新） -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">自动更新动态</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
 </footer>
 
 <script src="js/search.js"></script>
@@ -1356,5 +1366,6 @@ window.addEventListener('scroll', function() {
   ]
 }
 </script>
+<script src="js/auto_news_loader.js"></script>
 </body>
 </html>

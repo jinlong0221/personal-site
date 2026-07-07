@@ -8,11 +8,88 @@
 <meta name="description" content="索尼PlayStation游戏主机完整图鉴：PS1到PS5 Pro、PSP、PS Vita等9款主机详细信息。">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
-<link rel="preload" href="css/style.css?v=6273" as="style">
 <link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
-<link rel="stylesheet" href="css/style.css?v=6273">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="css/style.css?v=6274" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=6274"></noscript>
 <style>
 .console-hero { text-align: center; padding: 48px 0 32px; background: linear-gradient(135deg, rgba(0,48,135,0.1), rgba(0,48,135,0.05)); border-radius: 16px; margin-bottom: 32px; }
 .console-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
@@ -132,10 +209,10 @@ var _hmt = _hmt || [];
 </div>
 </nav>
 
-<main class="container">
+<main class="container" id="main-content" role="main">
 
   <div class="console-hero">
-    <div class="emoji-big"><img src="img/consoles/ps1.webp" alt="品牌图标" style="width:56px;height:56px;border-radius:12px;object-fit:contain;" loading="lazy"></div>
+    <div class="emoji-big"><img width="800" height="600" src="img/consoles/ps1.webp" alt="品牌图标" style="width:56px;height:56px;border-radius:12px;object-fit:contain;" loading="lazy"></div>
     <h1>索尼 Sony PlayStation</h1>
     <p>1994年入局 · PS2史上最畅销 · 9款主机</p>
   </div>
@@ -161,7 +238,7 @@ var _hmt = _hmt || [];
   <div class="card-grid-console">
     <a href="console-playstation.html" class="card-console">
       <span class="year-badge">1994</span>
-      <img src="img/consoles/ps1.webp" alt="PlayStation (PS1)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
+      <img width="800" height="600" src="img/consoles/ps1.webp" alt="PlayStation (PS1)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
       <div class="card-title">PlayStation (PS1)</div>
       <div class="card-year">光盘游戏革命 · 3D时代开启</div>
       <div class="card-desc">CD-ROM容量远超卡带，3D多边形渲染。《最终幻想VII》《生化危机》《古墓丽影》定义3D游戏。手柄无摇杆，后期DualShock加入。</div>
@@ -173,7 +250,7 @@ var _hmt = _hmt || [];
     </a>
     <a href="console-ps2.html" class="card-console">
       <span class="year-badge">2000</span>
-      <img src="img/consoles/ps2.webp" alt="PlayStation 2 (PS2)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
+      <img width="800" height="600" src="img/consoles/ps2.webp" alt="PlayStation 2 (PS2)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
       <div class="card-title">PlayStation 2 (PS2)</div>
       <div class="card-year">史上最畅销主机</div>
       <div class="card-desc">DVD播放器+游戏机二合一，价格有竞争力。《侠盗猎车手》《战神》《鬼泣》《最终幻想X》。向下兼容PS1游戏。</div>
@@ -185,7 +262,7 @@ var _hmt = _hmt || [];
     </a>
     <a href="console-playstation-3.html" class="card-console">
       <span class="year-badge">2006</span>
-      <img src="img/consoles/ps3.webp" alt="PlayStation 3 (PS3)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
+      <img width="800" height="600" src="img/consoles/ps3.webp" alt="PlayStation 3 (PS3)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
       <div class="card-title">PlayStation 3 (PS3)</div>
       <div class="card-year">蓝光时代 · Cell处理器</div>
       <div class="card-desc">首发$599过高，但蓝光播放器价值显著。Cell处理器架构复杂，开发困难。后期降价+《最后生还者》挽救局面。</div>
@@ -197,7 +274,7 @@ var _hmt = _hmt || [];
     </a>
     <a href="console-playstation-4.html" class="card-console">
       <span class="year-badge">2013</span>
-      <img src="img/consoles/ps4.webp" alt="PlayStation 4 (PS4)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
+      <img width="800" height="600" src="img/consoles/ps4.webp" alt="PlayStation 4 (PS4)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
       <div class="card-title">PlayStation 4 (PS4)</div>
       <div class="card-year">本世代霸主</div>
       <div class="card-desc">AMD x86架构，开发友好。Xbox One初期失误让PS4独占优势。《战神4》《地平线：零之曙光》《对马岛之魂》。</div>
@@ -209,7 +286,7 @@ var _hmt = _hmt || [];
     </a>
     <a href="console-playstation-5.html" class="card-console">
       <span class="year-badge">2020</span>
-      <img src="img/consoles/ps5.webp" alt="PlayStation 5 (PS5)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
+      <img width="800" height="600" src="img/consoles/ps5.webp" alt="PlayStation 5 (PS5)" style="width:48px;height:48px;border-radius:8px;object-fit:contain;float:right;margin-left:10px;margin-bottom:5px;" loading="lazy">
       <div class="card-title">PlayStation 5 (PS5)</div>
       <div class="card-year">SSD革命 · 光追时代</div>
       <div class="card-desc">超高速SSD消除加载时间（5.5GB/s），DualSense手柄触觉反馈+自适应扳机。《蜘蛛侠2》《最终幻想XVI》《战神：诸神黄昏》。</div>
@@ -284,7 +361,7 @@ var _hmt = _hmt || [];
 </main>
 
 
-<footer>
+<footer role="contentinfo">
   <div class="footer-brand-row">
     🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
   </div>

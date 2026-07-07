@@ -8,11 +8,88 @@
 <meta name="keywords" content="吴昊天,紫砂,紫砂壶,五色釉,柴烧,宜兴,国礼艺术,非遗">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
-<link rel="preload" href="css/style.css?v=6273" as="style">
 <link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
-<link rel="stylesheet" href="css/style.css?v=6273">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="css/style.css?v=6274" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=6274"></noscript>
 <style>
 /* ===== 紫砂意境配色系统 ===== */
 :root {
@@ -536,7 +613,7 @@ var _hmt = _hmt || [];
 </div>
 </nav>
 
-<main class="container">
+<main class="container" id="main-content" role="main">
 
   <!-- ===== HERO ===== -->
   <div class="zisha-hero">
@@ -544,7 +621,7 @@ var _hmt = _hmt || [];
     <h1>吴昊天紫砂艺术</h1>
     <p class="subtitle">器以载道 · 物以传情</p>
     <div class="zisha-hero-img">
-      <img loading="lazy" src="/img/zisha/zisha_p3_0.webp" alt="惠风和畅">
+      <img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p3_0.webp" alt="惠风和畅">
       <div class="img-caption">《惠风和畅》· 吴昊天手制</div>
     </div>
   </div>
@@ -552,7 +629,7 @@ var _hmt = _hmt || [];
   <!-- ===== 艺术家简介 ===== -->
   <div class="artist-section">
     <div class="artist-card">
-      <img loading="lazy" src="/img/zisha/zisha_p2_0.webp" alt="吴昊天" class="portrait">
+      <img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p2_0.webp" alt="吴昊天" class="portrait">
       <div class="info">
         <h2>吴昊天</h2>
         <div class="titles">
@@ -592,49 +669,49 @@ var _hmt = _hmt || [];
         </p>
         <div class="works-grid">
           <a class="work-card" href="pages/zisha/detail-wuseiyouchaoshao.html#item-p12">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p12_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p12_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
             <div class="card-body">
               <div class="work-name">五色釉柴烧茶器</div>
               <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-wuseiyouchaoshao.html#item-p13">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p13_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p13_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
             <div class="card-body">
               <div class="work-name">五色釉柴烧茶器</div>
               <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-wuseiyouchaoshao.html#item-p14">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p14_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p14_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
             <div class="card-body">
               <div class="work-name">五色釉柴烧茶器</div>
               <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">70ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-wuseiyouchaoshao.html#item-p15">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p15_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p15_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
             <div class="card-body">
               <div class="work-name">五色釉柴烧茶器</div>
               <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">60ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-wuseiyouchaoshao.html#item-p16">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p16_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p16_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
             <div class="card-body">
               <div class="work-name">五色釉柴烧茶器</div>
               <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">260ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-wuseiyouchaoshao.html#item-p17">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p17_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p17_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
             <div class="card-body">
               <div class="work-name">五色釉柴烧茶器</div>
               <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">280ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-wuseiyouchaoshao.html#item-p18">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p18_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p18_0.webp" alt="五色釉柴烧" data-caption="五色釉柴烧紫砂茶器"></div>
             <div class="card-body">
               <div class="work-name">五色釉柴烧茶器</div>
               <div class="work-meta"><span class="meta-tag">原矿段泥</span><span class="meta-tag">280ml</span></div>
@@ -657,28 +734,28 @@ var _hmt = _hmt || [];
       <div class="collapsible-body-inner">
         <div class="works-grid">
           <a class="work-card" href="pages/zisha/detail-gaibei-yuanrun.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p19_0.webp" alt="圆润杯" data-caption="圆润杯"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p19_0.webp" alt="圆润杯" data-caption="圆润杯"></div>
             <div class="card-body">
               <div class="work-name">圆润杯</div>
               <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">400ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gaibei-linghuaruyi.html#hero" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p20_0.webp" alt="菱花如意杯" data-caption="菱花如意杯"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p20_0.webp" alt="菱花如意杯" data-caption="菱花如意杯"></div>
             <div class="card-body">
               <div class="work-name">菱花如意杯</div>
               <div class="work-meta"><span class="meta-tag">原矿紫泥</span><span class="meta-tag">350ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gaibei-baohubei.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p21_0.webp" alt="宝葫杯" data-caption="宝葫杯"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p21_0.webp" alt="宝葫杯" data-caption="宝葫杯"></div>
             <div class="card-body">
               <div class="work-name">宝葫杯</div>
               <div class="work-meta"><span class="meta-tag">原矿清水泥</span><span class="meta-tag">280ml</span></div>
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gaibei-jixiangruyi.html#hero" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p22_0.webp" alt="吉祥如意" data-caption="吉祥如意"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p22_0.webp" alt="吉祥如意" data-caption="吉祥如意"></div>
             <div class="card-body">
               <div class="work-name">吉祥如意杯</div>
               <div class="work-desc">此杯设计化镂空灵珠为盖钮，精妙秀巧，腰线贯穿杯身，束出盖杯硬朗挺拔之姿。以佛灯造型点缀杯盖，整体似「吉」字，寓意吉祥如意、时来运转。</div>
@@ -686,7 +763,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gaibei-shengshixianglong.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p23_0.webp" alt="盛世祥龙" data-caption="盛世祥龙"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p23_0.webp" alt="盛世祥龙" data-caption="盛世祥龙"></div>
             <div class="card-body">
               <div class="work-name">盛世祥龙杯</div>
               <div class="work-desc">设计创意源自新石器时代红山文化玉龙，红山文化与紫砂文化相结合，化国宝玉龙之形为柄。以物言志，君子比德如玉，天行健自强不息。</div>
@@ -710,7 +787,7 @@ var _hmt = _hmt || [];
       <div class="collapsible-body-inner">
         <div class="works-grid">
           <a class="work-card" href="pages/zisha/detail-gujing-ziqidonglai.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p24_0.webp" alt="紫气东来" data-caption="紫气东来 | 金奖作品"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p24_0.webp" alt="紫气东来" data-caption="紫气东来 | 金奖作品"></div>
             <div class="card-body">
               <div class="work-name">🏆 紫气东来</div>
               <div class="work-desc">吴昊天先生原创设计首款生肖作品，荣获「中誉杯」工艺美术创新作品大赛金奖。壶身为汉时瓦缸，壶钮为汉时瓦片浮雕祥云，壶嘴壶把为东方巨龙，象征祥瑞之气出自东方。</div>
@@ -718,7 +795,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gujing-guoqiaobianfu.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p25_0.webp" alt="过桥扁腹" data-caption="过桥扁腹"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p25_0.webp" alt="过桥扁腹" data-caption="过桥扁腹"></div>
             <div class="card-body">
               <div class="work-name">过桥扁腹</div>
               <div class="work-desc">清末制壶大家黄玉麟经典之作，由仿古壶演变而来。壶体扁圆不塌，转折弧线优雅精当，短弯流嘴出水有力，玉环圆把飘逸自如，体现紫砂艺术「圆、稳、匀、正」美学意蕴。</div>
@@ -726,7 +803,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gujing-daobaoxishi.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p26_0.webp" alt="倒把西施" data-caption="倒把西施"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p26_0.webp" alt="倒把西施" data-caption="倒把西施"></div>
             <div class="card-body">
               <div class="work-name">倒把西施</div>
               <div class="work-desc">壶身圆润，截盖设计、短嘴、倒把把手，构成西施壶特殊审美效果，成为紫砂壶经典。选用宜兴黄龙山珍贵稀有红降坡泥制作。</div>
@@ -734,7 +811,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gujing-pinggailianzi.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p27_0.webp" alt="平盖莲子" data-caption="平盖莲子"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p27_0.webp" alt="平盖莲子" data-caption="平盖莲子"></div>
             <div class="card-body">
               <div class="work-name">平盖莲子</div>
               <div class="work-desc">造型源于莲子，象征纯洁高雅。造型古朴大方，婉约俏丽，壶身浑圆饱满，曲线委婉动人。蕴含「连生贵子」吉祥寓意。</div>
@@ -742,7 +819,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gujing-rongtian.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p28_0.webp" alt="容天" data-caption="容天"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p28_0.webp" alt="容天" data-caption="容天"></div>
             <div class="card-body">
               <div class="work-name">容天</div>
               <div class="work-desc">寓意「大肚能容，容天下难容之事」，设计灵感源自佛教大肚罗汉，象征宽容大度和包容一切。壶型饱满圆润，线条流畅，富有哲理。</div>
@@ -750,7 +827,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gujing-fanggu.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p29_0.webp" alt="仿古" data-caption="仿古"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p29_0.webp" alt="仿古" data-caption="仿古"></div>
             <div class="card-body">
               <div class="work-name">仿古</div>
               <div class="work-desc">模仿古代青铜器造型，形态和功能完美结合，「藏而不泄」是为「宝」。象征对功名事业的追求，一鼓作气奋发向上。</div>
@@ -758,7 +835,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gujing-dahengduozhi-xiao.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p30_0.webp" alt="大亨掇只(小)" data-caption="大亨掇只(小)"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p30_0.webp" alt="大亨掇只(小)" data-caption="大亨掇只(小)"></div>
             <div class="card-body">
               <div class="work-name">大亨掇只（小）</div>
               <div class="work-desc">清代制壶名家邵大亨代表作品，被称为「千金壶王」。选用黄龙山三种以上原矿泥料科学配比全手工制作，经柴窑高温烧制，砂粒感强俗称「天星泥」，双重透气性。</div>
@@ -766,7 +843,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-gujing-dahengduozhi-da.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p31_0.webp" alt="大亨掇只(大)" data-caption="大亨掇只(大)"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p31_0.webp" alt="大亨掇只(大)" data-caption="大亨掇只(大)"></div>
             <div class="card-body">
               <div class="work-name">大亨掇只（大）</div>
               <div class="work-desc">千金壶王大版，380ml容量。诠释儒家用世、道家清净和佛家圆融，简朴无华、素净端庄。</div>
@@ -790,7 +867,7 @@ var _hmt = _hmt || [];
       <div class="collapsible-body-inner">
         <div class="works-grid">
           <a class="work-card" href="pages/zisha/detail-taoju-linghuataoju.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p32_0.webp" alt="菱花套具" data-caption="菱花套具"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p32_0.webp" alt="菱花套具" data-caption="菱花套具"></div>
             <div class="card-body">
               <div class="work-name">菱花套具</div>
               <div class="work-desc">菱花壶盖对称精致，壶体正背面由中国佛教协会副会长心澄法师题写「澄心得妙观」「静中观物化」，由辽宁省陶瓷艺术大师王银亮铭刻。配有精美水晶玻璃杯。</div>
@@ -798,7 +875,7 @@ var _hmt = _hmt || [];
             </div>
           </a>
           <a class="work-card" href="pages/zisha/detail-taoju-hehejixiang.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/zisha_p33_0.webp" alt="和合吉祥" data-caption="和合吉祥"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/zisha_p33_0.webp" alt="和合吉祥" data-caption="和合吉祥"></div>
             <div class="card-body">
               <div class="work-name">💝 和合吉祥套具</div>
               <div class="work-desc">一壶两杯（主人壶+男女主人对杯）。主人壶选用顾景舟大师「石瓢」，寓意「弱水三千，仅饮一瓢」。男主人杯以「山」为印，女主人杯以「水」为印。山水相依，天下之美。</div>
@@ -824,19 +901,19 @@ var _hmt = _hmt || [];
         <div class="category-subtitle">🔵 天星泥方器系列 <span class="sub-count">4 件</span></div>
         <div class="works-grid">
           <a class="work-card" href="pages/zisha/detail-sifangchuanlu.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_0.webp" alt="四方传炉" data-caption="四方传炉 · 天星泥 360ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_0.webp" alt="四方传炉" data-caption="四方传炉 · 天星泥 360ml"></div>
             <div class="card-body"><div class="work-name">四方传炉</div><div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">360ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-zhuyun.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_1.webp" alt="竹韵" data-caption="竹韵 · 天星泥 410ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_1.webp" alt="竹韵" data-caption="竹韵 · 天星泥 410ml"></div>
             <div class="card-body"><div class="work-name">竹韵</div><div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">410ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-liufanggongdeng.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_2.webp" alt="六方宫灯" data-caption="六方宫灯 · 天星泥 430ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_2.webp" alt="六方宫灯" data-caption="六方宫灯 · 天星泥 430ml"></div>
             <div class="card-body"><div class="work-name">六方宫灯</div><div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">430ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-sifangqingyu.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_3.webp" alt="四方青玉" data-caption="四方青玉 · 天星泥 420ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_3.webp" alt="四方青玉" data-caption="四方青玉 · 天星泥 420ml"></div>
             <div class="card-body"><div class="work-name">四方青玉</div><div class="work-meta"><span class="meta-tag">天星泥</span><span class="meta-tag">420ml</span></div></div>
           </a>
         </div>
@@ -844,31 +921,31 @@ var _hmt = _hmt || [];
         <div class="category-subtitle">🔴 朱泥大红袍系列 <span class="sub-count">7 件</span></div>
         <div class="works-grid">
           <a class="work-card" href="pages/zisha/detail-siting.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_4.webp" alt="思亭" data-caption="思亭 · 朱泥大红袍 180ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_4.webp" alt="思亭" data-caption="思亭 · 朱泥大红袍 180ml"></div>
             <div class="card-body"><div class="work-name">思亭</div><div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-rongtian-zhuni.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_5.webp" alt="容天" data-caption="容天 · 朱泥大红袍 180ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_5.webp" alt="容天" data-caption="容天 · 朱泥大红袍 180ml"></div>
             <div class="card-body"><div class="work-name">容天（朱泥版）</div><div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-linglong.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_6.webp" alt="玲珑" data-caption="玲珑 · 朱泥大红袍 180ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_6.webp" alt="玲珑" data-caption="玲珑 · 朱泥大红袍 180ml"></div>
             <div class="card-body"><div class="work-name">玲珑</div><div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-duozhi-zhuni.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_7.webp" alt="掇只" data-caption="掇只 · 朱泥大红袍 180ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_7.webp" alt="掇只" data-caption="掇只 · 朱泥大红袍 180ml"></div>
             <div class="card-body"><div class="work-name">掇只（朱泥版）</div><div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">180ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-hehuan.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p1_8.webp" alt="合欢" data-caption="合欢 · 朱泥大红袍 280ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p1_8.webp" alt="合欢" data-caption="合欢 · 朱泥大红袍 280ml"></div>
             <div class="card-body"><div class="work-name">合欢</div><div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-jingzhoushuangquan.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_0.webp" alt="景舟双圈" data-caption="景舟双圈 · 朱泥大红袍 280ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_0.webp" alt="景舟双圈" data-caption="景舟双圈 · 朱泥大红袍 280ml"></div>
             <div class="card-body"><div class="work-name">景舟双圈</div><div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-yilizhu.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_1.webp" alt="一粒珠" data-caption="一粒珠 · 朱泥大红袍 280ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_1.webp" alt="一粒珠" data-caption="一粒珠 · 朱泥大红袍 280ml"></div>
             <div class="card-body"><div class="work-name">一粒珠</div><div class="work-meta"><span class="meta-tag">朱泥大红袍</span><span class="meta-tag">280ml</span></div></div>
           </a>
         </div>
@@ -876,15 +953,15 @@ var _hmt = _hmt || [];
         <div class="category-subtitle">🟢 本山绿泥系列 <span class="sub-count">3 件</span></div>
         <div class="works-grid">
           <a class="work-card" href="pages/zisha/detail-jingzhoushipiao-yaqing.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_2.webp" alt="景舟石瓢" data-caption="景舟石瓢（雅青）· 本山绿泥 320ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_2.webp" alt="景舟石瓢" data-caption="景舟石瓢（雅青）· 本山绿泥 320ml"></div>
             <div class="card-body"><div class="work-name">景舟石瓢（雅青）</div><div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">320ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-wenrenxishi-yaqing.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_3.webp" alt="文人西施" data-caption="文人西施（雅青陶刻）· 本山绿泥 180ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_3.webp" alt="文人西施" data-caption="文人西施（雅青陶刻）· 本山绿泥 180ml"></div>
             <div class="card-body"><div class="work-name">文人西施（雅青陶刻）</div><div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">180ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-wenrenxishi.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_4.webp" alt="文人西施" data-caption="文人西施 · 本山绿泥 180ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_4.webp" alt="文人西施" data-caption="文人西施 · 本山绿泥 180ml"></div>
             <div class="card-body"><div class="work-name">文人西施</div><div class="work-meta"><span class="meta-tag">本山绿泥</span><span class="meta-tag">180ml</span></div></div>
           </a>
         </div>
@@ -892,39 +969,39 @@ var _hmt = _hmt || [];
         <div class="category-subtitle">🟡 特别款 · 杯类 · 定制 <span class="sub-count">9 件</span></div>
         <div class="works-grid">
           <a class="work-card" href="pages/zisha/detail-ziqidonglai-tebie.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_5.webp" alt="紫气东来特别款" data-caption="紫气东来（特别款）· 黄金段泥 360ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_5.webp" alt="紫气东来特别款" data-caption="紫气东来（特别款）· 黄金段泥 360ml"></div>
             <div class="card-body"><div class="work-name">紫气东来（特别款）</div><div class="work-meta"><span class="meta-tag">黄金段泥</span><span class="meta-tag">360ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-ruyibei.html#hero" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_6.webp" alt="如意杯" data-caption="如意杯 · 底槽清 420ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_6.webp" alt="如意杯" data-caption="如意杯 · 底槽清 420ml"></div>
             <div class="card-body"><div class="work-name">如意杯</div><div class="work-meta"><span class="meta-tag">底槽清</span><span class="meta-tag">420ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-yulongbei.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_7.webp" alt="玉龙杯" data-caption="玉龙杯 · 底槽清 420ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_7.webp" alt="玉龙杯" data-caption="玉龙杯 · 底槽清 420ml"></div>
             <div class="card-body"><div class="work-name">玉龙杯</div><div class="work-meta"><span class="meta-tag">底槽清</span><span class="meta-tag">420ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-yuanrongbei-ruihong.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p2_8.webp" alt="圆融杯瑞红" data-caption="圆融杯（瑞红）· 降坡泥 420ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p2_8.webp" alt="圆融杯瑞红" data-caption="圆融杯（瑞红）· 降坡泥 420ml"></div>
             <div class="card-body"><div class="work-name">圆融杯（瑞红）</div><div class="work-meta"><span class="meta-tag">降坡泥</span><span class="meta-tag">420ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-yuanrongbei-xuanzi.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p3_0.webp" alt="圆融杯玄紫" data-caption="圆融杯（玄紫）· 降坡泥 420ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p3_0.webp" alt="圆融杯玄紫" data-caption="圆融杯（玄紫）· 降坡泥 420ml"></div>
             <div class="card-body"><div class="work-name">圆融杯（玄紫）</div><div class="work-meta"><span class="meta-tag">降坡泥</span><span class="meta-tag">420ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-tiejunbei.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p3_1.webp" alt="铁军杯" data-caption="铁军杯（定制）· 老紫泥 420ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p3_1.webp" alt="铁军杯" data-caption="铁军杯（定制）· 老紫泥 420ml"></div>
             <div class="card-body"><div class="work-name">铁军杯（定制款）</div><div class="work-meta"><span class="meta-tag">老紫泥</span><span class="meta-tag">420ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-dandinghebei.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p3_2.webp" alt="丹顶鹤杯" data-caption="丹顶鹤杯（定制）· 紫泥 260ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p3_2.webp" alt="丹顶鹤杯" data-caption="丹顶鹤杯（定制）· 紫泥 260ml"></div>
             <div class="card-body"><div class="work-name">丹顶鹤杯（定制款）</div><div class="work-meta"><span class="meta-tag">紫泥</span><span class="meta-tag">260ml</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-tiejunguapan.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p3_3.webp" alt="铁军挂盘" data-caption="铁军挂盘（定制）· 紫泥"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p3_3.webp" alt="铁军挂盘" data-caption="铁军挂盘（定制）· 紫泥"></div>
             <div class="card-body"><div class="work-name">铁军挂盘（定制款）</div><div class="work-meta"><span class="meta-tag">紫泥</span></div></div>
           </a>
           <a class="work-card" href="pages/zisha/detail-qianchengsijin.html" style="cursor:pointer">
-            <div class="img-wrap"><img loading="lazy" src="/img/zisha/wht2026_p3_4.webp" alt="前程似锦" data-caption="前程似锦（马年生肖）· 黄金段泥 380ml"></div>
+            <div class="img-wrap"><img width="800" height="600" loading="lazy" src="/img/zisha/wht2026_p3_4.webp" alt="前程似锦" data-caption="前程似锦（马年生肖）· 黄金段泥 380ml"></div>
             <div class="card-body">
               <div class="work-name">🐎 前程似锦（马年生肖）</div>
               <div class="work-desc">2026马年生肖纪念作品，黄金段泥精制。</div>
@@ -950,7 +1027,7 @@ var _hmt = _hmt || [];
 
 </main>
 
-<footer>
+<footer role="contentinfo">
   <p>© 2026 龙兄知识库 · 中国国礼艺术大师吴昊天紫砂艺术</p>
 
     <div class="footer-stat" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-color);text-align:center;">

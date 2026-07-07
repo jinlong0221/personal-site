@@ -8,11 +8,88 @@
 <meta name="description" content="任天堂、索尼、微软、世嘉、雅达利等游戏主机完整图鉴，从1977年至今的全部家用主机与掌机，包含详细参数、销量、经典游戏。">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
-<link rel="preload" href="css/style.css?v=6273" as="style">
 <link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
-<link rel="stylesheet" href="css/style.css?v=6273">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="css/style.css?v=6274" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=6274"></noscript>
 <style>
 .console-hero { text-align: center; padding: 48px 0 32px; }
 .console-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
@@ -166,7 +243,7 @@ var _hmt = _hmt || [];
 </div>
 </nav>
 
-<main class="container">
+<main class="container" id="main-content" role="main">
 
   <div class="console-hero">
     <div class="emoji-big">🎮</div>
@@ -191,7 +268,7 @@ var _hmt = _hmt || [];
 
   <div class="card-grid-console" style="margin-bottom:40px;">
     <a href="console-nintendo.html" class="card-console nintendo" style="text-decoration:none;">
-      <img loading="lazy" src="img/logos/nintendo-logo.webp" alt="Nintendo" style="height:40px;margin-bottom:12px;object-fit:contain;">
+      <img width="800" height="600" loading="lazy" src="img/logos/nintendo-logo.webp" alt="Nintendo" style="height:40px;margin-bottom:12px;object-fit:contain;">
       <div class="card-title" style="font-size:1.3rem;">任天堂 Nintendo</div>
       <div class="card-year">现存品牌 · 15款主机</div>
       <div class="card-desc">从FC红白机到Switch 2，48年创新历程。马里奥、塞尔达、宝可梦的故乡。</div>
@@ -201,7 +278,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-sony.html" class="card-console sony" style="text-decoration:none;">
-      <img loading="lazy" src="img/logos/sony-logo.webp" alt="Sony" style="height:40px;margin-bottom:12px;object-fit:contain;">
+      <img width="800" height="600" loading="lazy" src="img/logos/sony-logo.webp" alt="Sony" style="height:40px;margin-bottom:12px;object-fit:contain;">
       <div class="card-title" style="font-size:1.3rem;">索尼 Sony</div>
       <div class="card-year">现存品牌 · 9款主机</div>
       <div class="card-desc">PS2史上最畅销主机（1.55亿台）。战神、最后生还者、神秘海域。</div>
@@ -211,7 +288,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-microsoft.html" class="card-console microsoft" style="text-decoration:none;">
-      <img loading="lazy" src="img/logos/microsoft-logo.webp" alt="Microsoft" style="height:40px;margin-bottom:12px;object-fit:contain;">
+      <img width="800" height="600" loading="lazy" src="img/logos/microsoft-logo.webp" alt="Microsoft" style="height:40px;margin-bottom:12px;object-fit:contain;">
       <div class="card-title" style="font-size:1.3rem;">微软 Microsoft</div>
       <div class="card-year">现存品牌 · 5款主机</div>
       <div class="card-desc">Xbox Live开创在线游戏时代。光环、战争机器、XGP订阅服务。</div>
@@ -220,7 +297,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-sega.html" class="card-console sega" style="text-decoration:none;">
-      <img loading="lazy" src="img/logos/sega-logo.webp" alt="SEGA" style="height:40px;margin-bottom:12px;object-fit:contain;">
+      <img width="800" height="600" loading="lazy" src="img/logos/sega-logo.webp" alt="SEGA" style="height:40px;margin-bottom:12px;object-fit:contain;">
       <div class="card-title" style="font-size:1.3rem;">世嘉 SEGA</div>
       <div class="card-year">已停产 · 2001年退出</div>
       <div class="card-desc">Mega Drive、Dreamcast经典永存。索尼克、莎木、VR战士。</div>
@@ -230,7 +307,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
     <a href="console-atari.html" class="card-console atari" style="text-decoration:none;">
-      <img loading="lazy" src="img/logos/atari-logo.webp" alt="Atari" style="height:40px;margin-bottom:12px;object-fit:contain;">
+      <img width="800" height="600" loading="lazy" src="img/logos/atari-logo.webp" alt="Atari" style="height:40px;margin-bottom:12px;object-fit:contain;">
       <div class="card-title" style="font-size:1.3rem;">雅达利 Atari</div>
       <div class="card-year">经典品牌 · 鼻祖地位</div>
       <div class="card-desc">1972年开创电子游戏产业。Atari 2600是家用主机鼻祖。</div>
@@ -265,7 +342,7 @@ var _hmt = _hmt || [];
   </div>
   <div class="card-grid-console">
     <a href="console-atari-2600.html" class="card-console atari" style="text-decoration:none;">
-      <img src="img/consoles/atari-2600.webp" alt="Atari 2600" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/atari-2600.webp" alt="Atari 2600" class="card-console-img" loading="lazy">
   <span class="year-badge">1977</span>
       <div class="card-title">Atari 2600</div>
       <div class="card-desc">雅达利 · 家用</div>
@@ -275,7 +352,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-atari-5200.html" class="card-console atari" style="text-decoration:none;">
-      <img src="img/consoles/atari-5200.webp" alt="Atari 5200" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/atari-5200.webp" alt="Atari 5200" class="card-console-img" loading="lazy">
   <span class="year-badge">1982</span>
       <div class="card-title">Atari 5200</div>
       <div class="card-desc">雅达利 · 家用</div>
@@ -285,7 +362,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-family-computer.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/family-computer.webp" alt="Family Computer" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/family-computer.webp" alt="Family Computer" class="card-console-img" loading="lazy">
   <span class="year-badge">1983</span>
       <div class="card-title">Family Computer</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -295,7 +372,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-fc.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/fc.webp" alt="FC 红白机" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/fc.webp" alt="FC 红白机" class="card-console-img" loading="lazy">
   <span class="year-badge">1983</span>
       <div class="card-title">FC 红白机</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -305,7 +382,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-sg1000.html" class="card-console sega" style="text-decoration:none;">
-      <img src="img/consoles/sg1000.webp" alt="Sega SG-1000" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/sg1000.webp" alt="Sega SG-1000" class="card-console-img" loading="lazy">
   <span class="year-badge">1983</span>
       <div class="card-title">Sega SG-1000</div>
       <div class="card-desc">世嘉 · 家用</div>
@@ -315,7 +392,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-master-system.html" class="card-console sega" style="text-decoration:none;">
-      <img src="img/consoles/master-system.webp" alt="Sega Master System" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/master-system.webp" alt="Sega Master System" class="card-console-img" loading="lazy">
   <span class="year-badge">1985</span>
       <div class="card-title">Sega Master System</div>
       <div class="card-desc">世嘉 · 家用</div>
@@ -325,7 +402,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-xiaobawang.html" class="card-console other" style="text-decoration:none;">
-      <img src="img/consoles/xiaobawang.webp" alt="小霸王" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/xiaobawang.webp" alt="小霸王" class="card-console-img" loading="lazy">
   <span class="year-badge">1987</span>
       <div class="card-title">小霸王</div>
       <div class="card-desc">其他 · 家用</div>
@@ -335,7 +412,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-atari-7800.html" class="card-console atari" style="text-decoration:none;">
-      <img src="img/consoles/atari-7800.webp" alt="Atari 7800" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/atari-7800.webp" alt="Atari 7800" class="card-console-img" loading="lazy">
   <span class="year-badge">1988</span>
       <div class="card-title">Atari 7800</div>
       <div class="card-desc">雅达利 · 家用</div>
@@ -345,7 +422,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-mega-drive.html" class="card-console sega" style="text-decoration:none;">
-      <img src="img/consoles/mega-drive.webp" alt="Sega Mega Drive" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/mega-drive.webp" alt="Sega Mega Drive" class="card-console-img" loading="lazy">
   <span class="year-badge">1988</span>
       <div class="card-title">Sega Mega Drive</div>
       <div class="card-desc">世嘉 · 家用</div>
@@ -355,7 +432,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-neo-geo.html" class="card-console other" style="text-decoration:none;">
-      <img src="img/consoles/neo-geo.webp" alt="Neo Geo" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/neo-geo.webp" alt="Neo Geo" class="card-console-img" loading="lazy">
   <span class="year-badge">1990</span>
       <div class="card-title">Neo Geo</div>
       <div class="card-desc">其他 · 家用</div>
@@ -365,7 +442,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-sfc.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/sfc.webp" alt="SFC 超级任天堂" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/sfc.webp" alt="SFC 超级任天堂" class="card-console-img" loading="lazy">
   <span class="year-badge">1990</span>
       <div class="card-title">SFC 超级任天堂</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -375,7 +452,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-super-famicom.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/super-famicom.webp" alt="Super Famicom" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/super-famicom.webp" alt="Super Famicom" class="card-console-img" loading="lazy">
   <span class="year-badge">1990</span>
       <div class="card-title">Super Famicom</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -385,7 +462,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-3do.html" class="card-console other" style="text-decoration:none;">
-      <img src="img/consoles/3do.webp" alt="3DO Interactive Multiplayer" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/3do.webp" alt="3DO Interactive Multiplayer" class="card-console-img" loading="lazy">
   <span class="year-badge">1993</span>
       <div class="card-title">3DO Interactive Multiplayer</div>
       <div class="card-desc">其他 · 家用</div>
@@ -395,7 +472,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-playstation.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/playstation.webp" alt="PlayStation" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/playstation.webp" alt="PlayStation" class="card-console-img" loading="lazy">
   <span class="year-badge">1994</span>
       <div class="card-title">PlayStation</div>
       <div class="card-desc">索尼 · 家用</div>
@@ -405,7 +482,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-saturn.html" class="card-console sega" style="text-decoration:none;">
-      <img src="img/consoles/saturn.webp" alt="Sega Saturn" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/saturn.webp" alt="Sega Saturn" class="card-console-img" loading="lazy">
   <span class="year-badge">1994</span>
       <div class="card-title">Sega Saturn</div>
       <div class="card-desc">世嘉 · 家用</div>
@@ -415,7 +492,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-n64.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/n64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/n64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
   <span class="year-badge">1996</span>
       <div class="card-title">Nintendo 64</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -425,7 +502,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-nintendo-64.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/nintendo-64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/nintendo-64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
   <span class="year-badge">1996</span>
       <div class="card-title">Nintendo 64</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -435,7 +512,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-dreamcast.html" class="card-console sega" style="text-decoration:none;">
-      <img src="img/consoles/dreamcast.webp" alt="Sega Dreamcast" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/dreamcast.webp" alt="Sega Dreamcast" class="card-console-img" loading="lazy">
   <span class="year-badge">1998</span>
       <div class="card-title">Sega Dreamcast</div>
       <div class="card-desc">世嘉 · 家用</div>
@@ -445,7 +522,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-ps2.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/playstation-2.webp" alt="PlayStation 2" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/playstation-2.webp" alt="PlayStation 2" class="card-console-img" loading="lazy">
   <span class="year-badge">2000</span>
       <div class="card-title">PlayStation 2</div>
       <div class="card-desc">索尼 · 家用</div>
@@ -455,7 +532,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-gamecube.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/gamecube.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/gamecube.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
   <span class="year-badge">2001</span>
       <div class="card-title">Nintendo GameCube</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -465,7 +542,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-gc.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/gc.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/gc.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
   <span class="year-badge">2001</span>
       <div class="card-title">Nintendo GameCube</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -475,7 +552,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-xbox.html" class="card-console microsoft" style="text-decoration:none;">
-      <img src="img/consoles/xbox.webp" alt="Xbox" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/xbox.webp" alt="Xbox" class="card-console-img" loading="lazy">
   <span class="year-badge">2001</span>
       <div class="card-title">Xbox</div>
       <div class="card-desc">微软 · 家用</div>
@@ -485,7 +562,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-xbox360.html" class="card-console microsoft" style="text-decoration:none;">
-      <img src="img/consoles/xbox360.webp" alt="Xbox 360" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/xbox360.webp" alt="Xbox 360" class="card-console-img" loading="lazy">
   <span class="year-badge">2005</span>
       <div class="card-title">Xbox 360</div>
       <div class="card-desc">微软 · 家用</div>
@@ -495,7 +572,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-playstation-3.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/playstation-3.webp" alt="PlayStation 3" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/playstation-3.webp" alt="PlayStation 3" class="card-console-img" loading="lazy">
   <span class="year-badge">2006</span>
       <div class="card-title">PlayStation 3</div>
       <div class="card-desc">索尼 · 家用</div>
@@ -505,7 +582,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-wii.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/wii.webp" alt="Wii" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/wii.webp" alt="Wii" class="card-console-img" loading="lazy">
   <span class="year-badge">2006</span>
       <div class="card-title">Wii</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -515,7 +592,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-wii-u.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/wii-u.webp" alt="Wii U" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/wii-u.webp" alt="Wii U" class="card-console-img" loading="lazy">
   <span class="year-badge">2012</span>
       <div class="card-title">Wii U</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -525,7 +602,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-wiiu.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/wiiu.webp" alt="Wii U" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/wiiu.webp" alt="Wii U" class="card-console-img" loading="lazy">
   <span class="year-badge">2012</span>
       <div class="card-title">Wii U</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -535,7 +612,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-playstation-4.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/playstation-4.webp" alt="PlayStation 4" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/playstation-4.webp" alt="PlayStation 4" class="card-console-img" loading="lazy">
   <span class="year-badge">2013</span>
       <div class="card-title">PlayStation 4</div>
       <div class="card-desc">索尼 · 家用</div>
@@ -545,7 +622,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-xbox-one.html" class="card-console microsoft" style="text-decoration:none;">
-      <img src="img/consoles/xbox-one.webp" alt="Xbox One" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/xbox-one.webp" alt="Xbox One" class="card-console-img" loading="lazy">
   <span class="year-badge">2013</span>
       <div class="card-title">Xbox One</div>
       <div class="card-desc">微软 · 家用</div>
@@ -555,7 +632,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-switch.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/switch.webp" alt="Nintendo Switch" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/switch.webp" alt="Nintendo Switch" class="card-console-img" loading="lazy">
   <span class="year-badge">2017</span>
       <div class="card-title">Nintendo Switch</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -565,7 +642,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-playstation-5.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/ps5.webp" alt="PlayStation 5" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/ps5.webp" alt="PlayStation 5" class="card-console-img" loading="lazy">
   <span class="year-badge">2020</span>
       <div class="card-title">PlayStation 5</div>
       <div class="card-desc">索尼 · 家用</div>
@@ -575,7 +652,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-xbox-series-s.html" class="card-console microsoft" style="text-decoration:none;">
-      <img src="img/consoles/xbox-series-s.webp" alt="Xbox Series S" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/xbox-series-s.webp" alt="Xbox Series S" class="card-console-img" loading="lazy">
   <span class="year-badge">2020</span>
       <div class="card-title">Xbox Series S</div>
       <div class="card-desc">微软 · 家用</div>
@@ -585,7 +662,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-xbox-series-x.html" class="card-console microsoft" style="text-decoration:none;">
-      <img src="img/consoles/xbox-series-x.webp" alt="Xbox Series X" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/xbox-series-x.webp" alt="Xbox Series X" class="card-console-img" loading="lazy">
   <span class="year-badge">2020</span>
       <div class="card-title">Xbox Series X</div>
       <div class="card-desc">微软 · 家用</div>
@@ -595,7 +672,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-playstation-5-pro.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/playstation-5-pro.webp" alt="PlayStation 5 Pro" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/playstation-5-pro.webp" alt="PlayStation 5 Pro" class="card-console-img" loading="lazy">
   <span class="year-badge">2024</span>
       <div class="card-title">PlayStation 5 Pro</div>
       <div class="card-desc">索尼 · 家用</div>
@@ -605,7 +682,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-switch-2.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/switch-2.webp" alt="Nintendo Switch 2" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/switch-2.webp" alt="Nintendo Switch 2" class="card-console-img" loading="lazy">
   <span class="year-badge">2025</span>
       <div class="card-title">Nintendo Switch 2</div>
       <div class="card-desc">任天堂 · 家用</div>
@@ -620,7 +697,7 @@ var _hmt = _hmt || [];
   </div>
   <div class="card-grid-console">
     <a href="console-game-watch.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/game-watch.webp" alt="Game & Watch" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/game-watch.webp" alt="Game & Watch" class="card-console-img" loading="lazy">
   <span class="year-badge">1980</span>
       <div class="card-title">Game & Watch</div>
       <div class="card-desc">任天堂 · 掌机</div>
@@ -630,7 +707,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-atari-lynx.html" class="card-console atari" style="text-decoration:none;">
-      <img src="img/consoles/atari-lynx.webp" alt="Atari Lynx" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/atari-lynx.webp" alt="Atari Lynx" class="card-console-img" loading="lazy">
   <span class="year-badge">1989</span>
       <div class="card-title">Atari Lynx</div>
       <div class="card-desc">雅达利 · 掌机</div>
@@ -640,7 +717,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-gameboy.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/gameboy.webp" alt="Game Boy" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/gameboy.webp" alt="Game Boy" class="card-console-img" loading="lazy">
   <span class="year-badge">1989</span>
       <div class="card-title">Game Boy</div>
       <div class="card-desc">任天堂 · 掌机</div>
@@ -650,7 +727,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-game-gear.html" class="card-console sega" style="text-decoration:none;">
-      <img src="img/consoles/game-gear.webp" alt="Sega Game Gear" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/game-gear.webp" alt="Sega Game Gear" class="card-console-img" loading="lazy">
   <span class="year-badge">1990</span>
       <div class="card-title">Sega Game Gear</div>
       <div class="card-desc">世嘉 · 掌机</div>
@@ -660,7 +737,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-gameboy-pocket.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/gameboy-pocket.webp" alt="Game Boy Pocket" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/gameboy-pocket.webp" alt="Game Boy Pocket" class="card-console-img" loading="lazy">
   <span class="year-badge">1996</span>
       <div class="card-title">Game Boy Pocket</div>
       <div class="card-desc">任天堂 · 掌机</div>
@@ -670,7 +747,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-gameboy-color.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/gameboy-color.webp" alt="Game Boy Color" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/gameboy-color.webp" alt="Game Boy Color" class="card-console-img" loading="lazy">
   <span class="year-badge">1998</span>
       <div class="card-title">Game Boy Color</div>
       <div class="card-desc">任天堂 · 掌机</div>
@@ -680,7 +757,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-gameboy-advance.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/gameboy-advance.webp" alt="Game Boy Advance" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/gameboy-advance.webp" alt="Game Boy Advance" class="card-console-img" loading="lazy">
   <span class="year-badge">2001</span>
       <div class="card-title">Game Boy Advance</div>
       <div class="card-desc">任天堂 · 掌机</div>
@@ -690,7 +767,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-nintendo-ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/nintendo-ds.webp" alt="Nintendo DS" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/nintendo-ds.webp" alt="Nintendo DS" class="card-console-img" loading="lazy">
   <span class="year-badge">2004</span>
       <div class="card-title">Nintendo DS</div>
       <div class="card-desc">任天堂 · 掌机</div>
@@ -700,7 +777,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-psp.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/psp.webp" alt="PlayStation Portable" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/psp.webp" alt="PlayStation Portable" class="card-console-img" loading="lazy">
   <span class="year-badge">2004</span>
       <div class="card-title">PlayStation Portable</div>
       <div class="card-desc">索尼 · 掌机</div>
@@ -710,7 +787,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-nintendo-3ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/nintendo-3ds.webp" alt="Nintendo 3DS" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/nintendo-3ds.webp" alt="Nintendo 3DS" class="card-console-img" loading="lazy">
   <span class="year-badge">2011</span>
       <div class="card-title">Nintendo 3DS</div>
       <div class="card-desc">任天堂 · 掌机</div>
@@ -720,7 +797,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-ps-vita.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/ps-vita.webp" alt="PlayStation Vita" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/ps-vita.webp" alt="PlayStation Vita" class="card-console-img" loading="lazy">
   <span class="year-badge">2011</span>
       <div class="card-title">PlayStation Vita</div>
       <div class="card-desc">索尼 · 掌机</div>
@@ -730,7 +807,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-switch-lite.html" class="card-console nintendo" style="text-decoration:none;">
-      <img src="img/consoles/switch-lite.webp" alt="Nintendo Switch Lite" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/switch-lite.webp" alt="Nintendo Switch Lite" class="card-console-img" loading="lazy">
   <span class="year-badge">2019</span>
       <div class="card-title">Nintendo Switch Lite</div>
       <div class="card-desc">任天堂 · 掌机</div>
@@ -740,7 +817,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-steam-deck.html" class="card-console other" style="text-decoration:none;">
-      <img src="img/consoles/steam-deck.webp" alt="Steam Deck" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/steam-deck.webp" alt="Steam Deck" class="card-console-img" loading="lazy">
   <span class="year-badge">2022</span>
       <div class="card-title">Steam Deck</div>
       <div class="card-desc">其他 · 掌机</div>
@@ -750,7 +827,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-legion-go.html" class="card-console other" style="text-decoration:none;">
-      <img src="img/consoles/legion-go.webp" alt="Legion Go" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/legion-go.webp" alt="Legion Go" class="card-console-img" loading="lazy">
   <span class="year-badge">2023</span>
       <div class="card-title">Legion Go</div>
       <div class="card-desc">其他 · 掌机</div>
@@ -760,7 +837,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-rog-ally.html" class="card-console other" style="text-decoration:none;">
-      <img src="img/consoles/rog-ally.webp" alt="ROG Ally" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/rog-ally.webp" alt="ROG Ally" class="card-console-img" loading="lazy">
   <span class="year-badge">2023</span>
       <div class="card-title">ROG Ally</div>
       <div class="card-desc">其他 · 掌机</div>
@@ -770,7 +847,7 @@ var _hmt = _hmt || [];
       </div>
     </a>
 <a href="console-playstation-portal.html" class="card-console sony" style="text-decoration:none;">
-      <img src="img/consoles/playstation-portal.webp" alt="PlayStation Portal" class="card-console-img" loading="lazy">
+      <img width="800" height="600" src="img/consoles/playstation-portal.webp" alt="PlayStation Portal" class="card-console-img" loading="lazy">
   <span class="year-badge">2024</span>
       <div class="card-title">PlayStation Portal</div>
       <div class="card-desc">索尼 · 掌机</div>
@@ -852,7 +929,7 @@ var _hmt = _hmt || [];
   </div>
 
   <!-- Footer -->
-  <footer>
+  <footer role="contentinfo">
   <div class="footer-brand-row">
     🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
   </div>

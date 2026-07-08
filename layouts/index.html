@@ -1,11 +1,8 @@
 {{ define "main" }}
-<!-- ===== 杂志头部：品牌 + 公示牌 + 滚动 ===== -->
+<!-- ===== 杂志头部：公示牌 + 滚动Ticker（去掉重复Logo） ===== -->
 <div class="container" style="padding-top:4px">
   <div class="mag-header">
-    <div class="mag-brand-row">
-      <a href="index.html" class="mag-logo">🐉 龙兄知识库</a>
-      <span class="mag-status-bubble" id="magStatus">龙兄已睡着 😴</span>
-    </div>
+    <span class="mag-status-bubble" id="magStatus">龙兄已睡着 😴</span>
     <div class="mag-ticker-mini" id="newsTicker">
       <span class="mag-ticker-label">动态</span>
       <div class="mag-ticker-inner" id="tickerInner">
@@ -40,75 +37,115 @@
     </a>
   </div>
 
-  <!-- ===== 板块一：药材与文玩 ===== -->
+  <!-- ===== 板块一：药材与文玩（混合网格 - 大卡+双小卡） ===== -->
   <div class="mag-section">
     <div class="mag-section-title">药材与文玩</div>
-    <div class="mag-grid">
-      <a class="mag-card" href="herbs/chenxiang.html">
+    <div class="mag-grid-mixed">
+      <!-- 大卡片：沉香鉴别 -->
+      <a class="mag-card mag-card-lg" href="herbs/chenxiang.html">
         <span class="mag-card-accent" style="background:#c9a84c"></span>
-        <div class="mag-card-icon">
-          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8c0 0-16 8-16 28s16 20 16 20 16 0 16-20S32 8 32 8z"/><path d="M32 8v48M20 24h24M22 36h20"/></svg>
+        <div class="mag-card-lg-img" style="background:linear-gradient(135deg,#c9a84c22,#c9a84c08),url(img/herbs/chenxiang/chenxiang_p1_0.webp) center/cover"></div>
+        <div class="mag-card-lg-body">
+          <div class="mag-card-icon">
+            <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8c0 0-16 8-16 28s16 20 16 20 16 0 16-20S32 8 32 8z"/><path d="M32 8v48M20 24h24M22 36h20"/></svg>
+          </div>
+          <h3 class="mag-card-title">沉香鉴别</h3>
+          <p class="mag-card-desc">天然沉香鉴别全攻略，四大鉴别方法详解。从外观、气味、油脂线到上炉品鉴，一篇读懂真伪沉香。</p>
+          <span class="mag-card-badge">查看专题 →</span>
         </div>
-        <h3 class="mag-card-title">沉香鉴别</h3>
-        <p class="mag-card-desc">天然沉香鉴别全攻略，四大鉴别方法详解</p>
-        <span class="mag-card-badge">查看专题 →</span>
       </a>
-      <a class="mag-card" href="herbs.html">
-        <span class="mag-card-accent" style="background:#107c10"></span>
-        <div class="mag-card-icon">
-          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#107c10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 56V28M20 20c0-8 6-14 14-14M44 20c0-8-6-14-14-14"/><path d="M20 40c-6 0-12 4-12 10h48c0-6-6-10-12-10"/></svg>
-        </div>
-        <h3 class="mag-card-title">中药材香料</h3>
-        <p class="mag-card-desc">鉴别 · 功效 · 避坑科普，全面了解中药材与香料知识</p>
-        <span class="mag-card-badge">查看专题 →</span>
-      </a>
-      <a class="mag-card" href="bracelet.html">
-        <span class="mag-card-accent" style="background:#6b69d6"></span>
-        <div class="mag-card-icon">
-          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#6b69d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="12" r="3" fill="#6b69d6"/><circle cx="49" cy="22" r="3" fill="#6b69d6" opacity=".7"/><circle cx="49" cy="42" r="3" fill="#6b69d6" opacity=".7"/><circle cx="32" cy="52" r="3" fill="#6b69d6"/><circle cx="15" cy="42" r="3" fill="#6b69d6" opacity=".7"/><circle cx="15" cy="22" r="3" fill="#6b69d6" opacity=".7"/></svg>
-        </div>
-        <h3 class="mag-card-title">文玩手串</h3>
-        <p class="mag-card-desc">材质养护 · 真假分辨 · 尺寸参考，手串玩家的实用指南</p>
-        <span class="mag-card-badge">查看专题 →</span>
-      </a>
+      <!-- 右侧双小卡 -->
+      <div class="mag-card-stack">
+        <a class="mag-card-h" href="herbs.html">
+          <span class="mag-card-h-accent" style="background:#107c10"></span>
+          <div class="mag-card-h-icon">
+            <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#107c10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 56V28M20 20c0-8 6-14 14-14M44 20c0-8-6-14-14-14"/><path d="M20 40c-6 0-12 4-12 10h48c0-6-6-10-12-10"/></svg>
+          </div>
+          <div class="mag-card-h-body">
+            <h4>中药材香料</h4>
+            <p>鉴别 · 功效 · 避坑科普</p>
+          </div>
+          <span class="mag-card-h-arrow">→</span>
+        </a>
+        <a class="mag-card-h" href="bracelet.html">
+          <span class="mag-card-h-accent" style="background:#6b69d6"></span>
+          <div class="mag-card-h-icon">
+            <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#6b69d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="12" r="3" fill="#6b69d6"/><circle cx="49" cy="22" r="3" fill="#6b69d6" opacity=".7"/><circle cx="49" cy="42" r="3" fill="#6b69d6" opacity=".7"/><circle cx="32" cy="52" r="3" fill="#6b69d6"/><circle cx="15" cy="42" r="3" fill="#6b69d6" opacity=".7"/><circle cx="15" cy="22" r="3" fill="#6b69d6" opacity=".7"/></svg>
+          </div>
+          <div class="mag-card-h-body">
+            <h4>文玩手串</h4>
+            <p>材质养护 · 真假分辨 · 尺寸参考</p>
+          </div>
+          <span class="mag-card-h-arrow">→</span>
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- ===== 板块二：生活与文化 ===== -->
+  <!-- ===== 视觉分隔条：站点数据 ===== -->
+  <div class="mag-stat-strip">
+    <div class="mag-stat-item">
+      <span class="mag-stat-num">14</span>
+      <span class="mag-stat-label">知识板块</span>
+    </div>
+    <div class="mag-stat-divider"></div>
+    <div class="mag-stat-item">
+      <span class="mag-stat-num">400+</span>
+      <span class="mag-stat-label">图文专题</span>
+    </div>
+    <div class="mag-stat-divider"></div>
+    <div class="mag-stat-item">
+      <span class="mag-stat-num">每日</span>
+      <span class="mag-stat-label">新闻更新</span>
+    </div>
+    <div class="mag-stat-divider"></div>
+    <div class="mag-stat-item">
+      <span class="mag-stat-num" id="magVisitorCount">—</span>
+      <span class="mag-stat-label">访客</span>
+    </div>
+  </div>
+
+  <!-- ===== 板块二：生活与文化（横向卡片布局） ===== -->
   <div class="mag-section">
     <div class="mag-section-title">生活与文化</div>
-    <div class="mag-grid">
-      <a class="mag-card" href="health-tea.html">
-        <span class="mag-card-accent" style="background:#038387"></span>
-        <div class="mag-card-icon">
-          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#038387" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20h24l4 16H16z"/><path d="M28 12h8l2 8H26z"/><ellipse cx="32" cy="38" rx="6" ry="3"/><path d="M14 44c0 4 8 6 18 6s18-2 18-6"/></svg>
+    <div class="mag-grid-h">
+      <a class="mag-card-h" href="health-tea.html">
+        <span class="mag-card-h-accent" style="background:#038387"></span>
+        <div class="mag-card-h-icon">
+          <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#038387" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20h24l4 16H16z"/><path d="M28 12h8l2 8H26z"/><ellipse cx="32" cy="38" rx="6" ry="3"/><path d="M14 44c0 4 8 6 18 6s18-2 18-6"/></svg>
         </div>
-        <h3 class="mag-card-title">中药养生茶</h3>
-        <p class="mag-card-desc">经典配方 · 体质对应 · 四季养生，喝对茶养好身体</p>
-        <span class="mag-card-badge">查看专题 →</span>
+        <div class="mag-card-h-body">
+          <h4>中药养生茶</h4>
+          <p>经典配方 · 体质对应 · 四季养生，喝对茶养好身体</p>
+        </div>
+        <span class="mag-card-h-arrow">→</span>
       </a>
-      <a class="mag-card" href="xintan-weather.html">
-        <span class="mag-card-accent" style="background:#d84315"></span>
-        <div class="mag-card-icon">
-          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#d84315" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v8M32 48v8M12 32H8M56 32h-4M17 17l4 4M43 43l4 4M17 47l4-4M43 21l4-4"/><circle cx="32" cy="32" r="10" fill="#d84315" opacity=".15"/><path d="M32 22v10l6 4" stroke-linecap="round"/></svg>
+      <a class="mag-card-h" href="xintan-weather.html">
+        <span class="mag-card-h-accent" style="background:#d84315"></span>
+        <div class="mag-card-h-icon">
+          <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#d84315" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v8M32 48v8M12 32H8M56 32h-4M17 17l4 4M43 43l4 4M17 47l4-4M43 21l4-4"/><circle cx="32" cy="32" r="10" fill="#d84315" opacity=".15"/><path d="M32 22v10l6 4" stroke-linecap="round"/></svg>
         </div>
-        <h3 class="mag-card-title">新坍镇农田气象</h3>
-        <p class="mag-card-desc">乡镇精准预报 · 农事指导 · 灾害预警，为农田保驾护航</p>
-        <span class="mag-card-badge">查看专题 →</span>
+        <div class="mag-card-h-body">
+          <h4>新坍镇农田气象</h4>
+          <p>乡镇精准预报 · 农事指导 · 灾害预警，为农田保驾护航</p>
+        </div>
+        <span class="mag-card-h-arrow">→</span>
       </a>
-      <a class="mag-card" href="zisha.html">
-        <span class="mag-card-accent" style="background:#D4A574"></span>
-        <div class="mag-card-icon">
-          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#D4A574" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="20" rx="10" ry="4"/><path d="M22 20v12c0 2.2 4.5 4 10 4s10-1.8 10-4V20"/><path d="M22 26c0 2.2 4.5 4 10 4s10-1.8 10-4"/><path d="M22 32c0 2.2 4.5 4 10 4s10-1.8 10-4v8"/><ellipse cx="32" cy="44" rx="10" ry="4"/><path d="M22 44c0 2.2 4.5 4 10 4s10-1.8 10-4"/></svg>
+      <a class="mag-card-h" href="zisha.html">
+        <span class="mag-card-h-accent" style="background:#D4A574"></span>
+        <div class="mag-card-h-icon">
+          <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#D4A574" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="20" rx="10" ry="4"/><path d="M22 20v12c0 2.2 4.5 4 10 4s10-1.8 10-4V20"/><path d="M22 26c0 2.2 4.5 4 10 4s10-1.8 10-4"/><path d="M22 32c0 2.2 4.5 4 10 4s10-1.8 10-4v8"/><ellipse cx="32" cy="44" rx="10" ry="4"/><path d="M22 44c0 2.2 4.5 4 10 4s10-1.8 10-4"/></svg>
         </div>
-        <h3 class="mag-card-title">紫砂艺术</h3>
-        <p class="mag-card-desc">吴昊天作品 · 五色釉 · 经典壶型，感受紫砂之美</p>
-        <span class="mag-card-badge">查看专题 →</span>
+        <div class="mag-card-h-body">
+          <h4>紫砂艺术</h4>
+          <p>吴昊天作品 · 五色釉 · 经典壶型，感受紫砂之美</p>
+        </div>
+        <span class="mag-card-h-arrow">→</span>
       </a>
     </div>
   </div>
 
-  <!-- ===== 板块三：科技与娱乐 ===== -->
+  <!-- ===== 板块三：科技与娱乐（三列网格 - 保持紧凑） ===== -->
   <div class="mag-section">
     <div class="mag-section-title">科技与娱乐</div>
     <div class="mag-grid">
@@ -163,7 +200,7 @@
 
 </main>
 <script>
-// Ticker随机排序
+// Ticker随机排序 + 无缝循环
 (function() {
   var inner = document.getElementById("tickerInner");
   if (!inner) return;

@@ -280,18 +280,22 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 // 5. 今日龙兄在干嘛（内嵌到龙兄公示牌）
 (function(){
   var inline = document.getElementById('todayStatusInline');
-  var textEl = document.getElementById('todayStatusText');
+  var textEl = document.getElementById('todayStatusText') || document.getElementById('magStatus');
   var dateEl = document.getElementById('todayStatusDate');
-  if(!inline || !textEl) return;
+  if(!textEl) return;
   fetch('status.json?v='+Date.now())
     .then(function(r){if(!r.ok)throw new Error('Not found');return r.json();})
     .then(function(data){
       if(data && data.status && data.status.trim() !== ''){
-        textEl.textContent = data.status;
-        if(data.date) dateEl.textContent = '（' + data.date + '）';
-        inline.style.display = 'block';
+        if(textEl.id === 'magStatus') {
+          textEl.textContent = data.status + ' ' + (data.emoji || '');
+        } else {
+          textEl.textContent = data.status;
+        }
+        if(dateEl) dateEl.textContent = '（' + (data.date || '') + '）';
+        if(inline) inline.style.display = 'block';
       } else {
-        inline.style.display = 'none';
+        if(inline) inline.style.display = 'none';
       }
     })
     .catch(function(){

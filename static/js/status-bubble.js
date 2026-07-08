@@ -64,6 +64,10 @@
     if (statusText) statusText.textContent = data.status || '';
     if (bubbleDate) bubbleDate.textContent = data.date || '';
     if (bubbleTime) bubbleTime.textContent = getTimeAgo(data.updatedAt);
+
+    // 同时更新杂志布局中的状态显示
+    var magStatus = document.getElementById('magStatus');
+    if (magStatus) magStatus.textContent = (data.status || '') + ' ' + (data.emoji || '');
   }
 
   // 回退：从 updates.json 找最新板块显示

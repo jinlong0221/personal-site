@@ -1,24 +1,200 @@
 {{ define "main" }}
-<div class="hero-section">
-  <div class="hero-content">
-    <h1>龙兄知识库</h1>
-    <p class="hero-subtitle">专注实用科普与生活百科</p>
+<!-- ===== 杂志头部：品牌 + 公示牌 + 滚动 ===== -->
+<div class="container" style="padding-top:4px">
+  <div class="mag-header">
+    <div class="mag-brand-row">
+      <a href="index.html" class="mag-logo">🐉 龙兄知识库</a>
+      <span class="mag-status-bubble" id="magStatus">龙兄已睡着 😴</span>
+    </div>
+    <div class="mag-ticker-mini" id="newsTicker">
+      <span class="mag-ticker-label">动态</span>
+      <div class="mag-ticker-inner" id="tickerInner">
+        <a href="#">加载中...</a>
+      </div>
+    </div>
   </div>
 </div>
-<div class="container" style="padding:2rem 1rem;">
-  <div class="card-grid-3">
-    <a href="{{ .Site.BaseURL }}herbs.html" class="tile-card">
-      <h3>🌿 中药材</h3>
-      <p>沉香、五灵脂、猫屎咖啡、熊胆等名贵药材鉴别知识</p>
+
+<main class="container" id="main-content" role="main">
+
+  <!-- ===== 焦点区：特斯拉专题 + 今日推荐 ===== -->
+  <div class="mag-featured">
+    <a class="mag-feat-main" href="tesla.html">
+      <img width="800" height="450" loading="lazy" class="mag-feat-img" src="img/tesla/model3/front.webp" alt="特斯拉专题">
+      <div class="mag-feat-overlay">
+        <span class="mag-feat-tag">专题</span>
+        <h2>特斯拉动态新闻</h2>
+        <p>车载配件 · 充电指南 · 用车科普 · 新品追踪</p>
+        <div class="mag-feat-news" id="magFeatNews">
+          <span class="mag-feat-news-item">加载最新资讯...</span>
+        </div>
+      </div>
     </a>
-    <a href="{{ .Site.BaseURL }}tesla.html" class="tile-card">
-      <h3>🚗 特斯拉</h3>
-      <p>Model 系列最新资讯、用车指南、新闻动态</p>
-    </a>
-    <a href="{{ .Site.BaseURL }}zisha.html" class="tile-card">
-      <h3>🍶 紫砂艺术</h3>
-      <p>紫砂壶鉴赏与吴昊天作品赏析</p>
+    <a class="mag-feat-side" id="pick-card" href="zisha.html">
+      <img fetchpriority="high" width="800" height="600" loading="lazy" class="mag-feat-side-img" id="pick-img" src="img/zisha/wht2026_p1_0.webp" alt="今日推荐">
+      <div class="mag-feat-side-body">
+        <span class="mag-feat-side-tag">🎲 今日推荐</span>
+        <h3 id="pick-name">紫砂艺术</h3>
+        <p id="pick-desc">吴昊天作品 · 五色釉 · 经典壶型</p>
+      </div>
     </a>
   </div>
-</div>
+
+  <!-- ===== 板块一：药材与文玩 ===== -->
+  <div class="mag-section">
+    <div class="mag-section-title">药材与文玩</div>
+    <div class="mag-grid">
+      <a class="mag-card" href="herbs/chenxiang.html">
+        <span class="mag-card-accent" style="background:#c9a84c"></span>
+        <div class="mag-card-icon">
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8c0 0-16 8-16 28s16 20 16 20 16 0 16-20S32 8 32 8z"/><path d="M32 8v48M20 24h24M22 36h20"/></svg>
+        </div>
+        <h3 class="mag-card-title">沉香鉴别</h3>
+        <p class="mag-card-desc">天然沉香鉴别全攻略，四大鉴别方法详解</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+      <a class="mag-card" href="herbs.html">
+        <span class="mag-card-accent" style="background:#107c10"></span>
+        <div class="mag-card-icon">
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#107c10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 56V28M20 20c0-8 6-14 14-14M44 20c0-8-6-14-14-14"/><path d="M20 40c-6 0-12 4-12 10h48c0-6-6-10-12-10"/></svg>
+        </div>
+        <h3 class="mag-card-title">中药材香料</h3>
+        <p class="mag-card-desc">鉴别 · 功效 · 避坑科普，全面了解中药材与香料知识</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+      <a class="mag-card" href="bracelet.html">
+        <span class="mag-card-accent" style="background:#6b69d6"></span>
+        <div class="mag-card-icon">
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#6b69d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="12" r="3" fill="#6b69d6"/><circle cx="49" cy="22" r="3" fill="#6b69d6" opacity=".7"/><circle cx="49" cy="42" r="3" fill="#6b69d6" opacity=".7"/><circle cx="32" cy="52" r="3" fill="#6b69d6"/><circle cx="15" cy="42" r="3" fill="#6b69d6" opacity=".7"/><circle cx="15" cy="22" r="3" fill="#6b69d6" opacity=".7"/></svg>
+        </div>
+        <h3 class="mag-card-title">文玩手串</h3>
+        <p class="mag-card-desc">材质养护 · 真假分辨 · 尺寸参考，手串玩家的实用指南</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== 板块二：生活与文化 ===== -->
+  <div class="mag-section">
+    <div class="mag-section-title">生活与文化</div>
+    <div class="mag-grid">
+      <a class="mag-card" href="health-tea.html">
+        <span class="mag-card-accent" style="background:#038387"></span>
+        <div class="mag-card-icon">
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#038387" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20h24l4 16H16z"/><path d="M28 12h8l2 8H26z"/><ellipse cx="32" cy="38" rx="6" ry="3"/><path d="M14 44c0 4 8 6 18 6s18-2 18-6"/></svg>
+        </div>
+        <h3 class="mag-card-title">中药养生茶</h3>
+        <p class="mag-card-desc">经典配方 · 体质对应 · 四季养生，喝对茶养好身体</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+      <a class="mag-card" href="xintan-weather.html">
+        <span class="mag-card-accent" style="background:#d84315"></span>
+        <div class="mag-card-icon">
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#d84315" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v8M32 48v8M12 32H8M56 32h-4M17 17l4 4M43 43l4 4M17 47l4-4M43 21l4-4"/><circle cx="32" cy="32" r="10" fill="#d84315" opacity=".15"/><path d="M32 22v10l6 4" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="mag-card-title">新坍镇农田气象</h3>
+        <p class="mag-card-desc">乡镇精准预报 · 农事指导 · 灾害预警，为农田保驾护航</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+      <a class="mag-card" href="zisha.html">
+        <span class="mag-card-accent" style="background:#D4A574"></span>
+        <div class="mag-card-icon">
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#D4A574" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="20" rx="10" ry="4"/><path d="M22 20v12c0 2.2 4.5 4 10 4s10-1.8 10-4V20"/><path d="M22 26c0 2.2 4.5 4 10 4s10-1.8 10-4"/><path d="M22 32c0 2.2 4.5 4 10 4s10-1.8 10-4v8"/><ellipse cx="32" cy="44" rx="10" ry="4"/><path d="M22 44c0 2.2 4.5 4 10 4s10-1.8 10-4"/></svg>
+        </div>
+        <h3 class="mag-card-title">紫砂艺术</h3>
+        <p class="mag-card-desc">吴昊天作品 · 五色釉 · 经典壶型，感受紫砂之美</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== 板块三：科技与娱乐 ===== -->
+  <div class="mag-section">
+    <div class="mag-section-title">科技与娱乐</div>
+    <div class="mag-grid">
+      <a class="mag-card" href="console.html">
+        <span class="mag-card-accent" style="background:#00796b"></span>
+        <div class="mag-card-icon">
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#00796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="16" width="48" height="32" rx="4" fill="#00796b" opacity=".15"/><circle cx="24" cy="32" r="8"/><circle cx="40" cy="32" r="4" fill="#00796b"/><line x1="32" y1="48" x2="32" y2="56"/><line x1="24" y1="56" x2="40" y2="56"/></svg>
+        </div>
+        <h3 class="mag-card-title">游戏主机</h3>
+        <p class="mag-card-desc">任天堂 · 索尼 · 微软 · 经典主机图鉴，主机玩家指南</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+      <a class="mag-card" href="marvel.html">
+        <span class="mag-card-accent" style="background:#7B1FA2"></span>
+        <div class="mag-card-icon">
+          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="#7B1FA2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="12"/><path d="M20 44l12-8 12 8"/><path d="M16 56c0-8 7-16 16-16s16 8 16 16"/><circle cx="28" cy="22" r="2" fill="#7B1FA2"/><circle cx="36" cy="22" r="2" fill="#7B1FA2"/></svg>
+        </div>
+        <h3 class="mag-card-title">漫威宇宙</h3>
+        <p class="mag-card-desc">观影顺序 · 英雄档案 · 角色解析，漫威迷的完整指南</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+      <a class="mag-card" href="pitfalls.html">
+        <span class="mag-card-accent" style="background:#e94560"></span>
+        <div class="mag-card-icon" style="font-size:28px;line-height:36px">
+          🕳️
+        </div>
+        <h3 class="mag-card-title">龙兄踩坑记</h3>
+        <p class="mag-card-desc">首页推荐 · 真金白银买来的教训，避坑经验分享</p>
+        <span class="mag-card-badge">查看专题 →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== 更多入口 ===== -->
+  <div class="mag-section" style="margin-bottom:8px">
+    <div class="mag-section-title">更多</div>
+    <div class="mag-grid">
+      <a class="mag-card-sm" href="gaokao.html">
+        <span class="mag-card-sm-icon">🎓</span>
+        <span class="mag-card-sm-title">2026高考查分</span>
+      </a>
+      <a class="mag-card-sm" href="games.html">
+        <span class="mag-card-sm-icon">🕹️</span>
+        <span class="mag-card-sm-title">龙兄的游戏库</span>
+      </a>
+      <a class="mag-card-sm" href="about.html">
+        <span class="mag-card-sm-icon">ℹ️</span>
+        <span class="mag-card-sm-title">关于本站</span>
+      </a>
+    </div>
+  </div>
+
+</main>
+<script>
+// Ticker随机排序
+(function() {
+  var inner = document.getElementById("tickerInner");
+  if (!inner) return;
+  var items = Array.from(inner.children);
+  for (var i = items.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    inner.appendChild(items[j]);
+    items.splice(j, 1);
+  }
+  inner.innerHTML = inner.innerHTML + inner.innerHTML;
+})();
+</script>
+<script>
+// 特斯拉专题卡新闻加载
+(function(){
+  var container = document.getElementById('magFeatNews');
+  if(!container) return;
+  fetch('/tesla-news.json?t=' + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(!data || !data.news || !data.news.length) return;
+      var news = data.news.slice(0, 2);
+      var html = '';
+      news.forEach(function(item){
+        html += '<span class="mag-feat-news-item">' +
+          '<span style="color:var(--gold);font-size:.65rem;margin-right:6px">' + (item.date||'') + '</span>' +
+          (item.content||'').substring(0, 80) + '...</span>';
+      });
+      container.innerHTML = html;
+    })
+    .catch(function(){ container.innerHTML = '<span class="mag-feat-news-item">特斯拉最新动态加载中...</span>'; });
+})();
+</script>
 {{ end }}

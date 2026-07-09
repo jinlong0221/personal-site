@@ -14,23 +14,15 @@
     lb.className = 'site-lightbox';
     lb.innerHTML =
       '<div class="lb-backdrop"></div>' +
-      '<button class="lb-btn lb-prev" aria-label="上一张">&#10094;</button>' +
-      '<button class="lb-btn lb-next" aria-label="下一张">&#10095;</button>' +
-      '<button class="lb-btn lb-close" aria-label="关闭">&#10005;</button>' +
       '<div class="lb-stage">' +
         '<img class="lb-img" src="" alt="">' +
         '<div class="lb-caption"></div>' +
-      '</div>' +
-      '<div class="lb-counter"></div>';
+      '</div>';
     document.body.appendChild(lb);
 
     var img = lb.querySelector('.lb-img');
     var caption = lb.querySelector('.lb-caption');
     var backdrop = lb.querySelector('.lb-backdrop');
-    var prevBtn = lb.querySelector('.lb-prev');
-    var nextBtn = lb.querySelector('.lb-next');
-    var closeBtn = lb.querySelector('.lb-close');
-    var counter = lb.querySelector('.lb-counter');
 
     var items = [];  // [{src, caption, el}]
     var index = 0;
@@ -52,9 +44,6 @@
       img.src = item.src;
       img.alt = item.caption;
       caption.textContent = item.caption;
-      counter.textContent = items.length > 1 ? (index + 1) + ' / ' + items.length : '';
-      prevBtn.style.display = items.length > 1 ? '' : 'none';
-      nextBtn.style.display = items.length > 1 ? '' : 'none';
       lb.classList.add('active');
       document.body.style.overflow = 'hidden';
       // 预加载相邻图片
@@ -73,11 +62,8 @@
     function prev() { show(index - 1); }
     function next() { show(index + 1); }
 
-    // 点击空白/按钮关闭
+    // 点击空白关闭
     backdrop.addEventListener('click', close);
-    closeBtn.addEventListener('click', close);
-    prevBtn.addEventListener('click', prev);
-    nextBtn.addEventListener('click', next);
 
     // 键盘
     document.addEventListener('keydown', function(e) {

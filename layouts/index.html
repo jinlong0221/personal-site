@@ -200,17 +200,50 @@
 
 </main>
 <script>
-// Ticker随机排序 + 无缝循环
+// Ticker: 从 data/updates.json 加载动态列表，实现无限滚动
 (function() {
   var inner = document.getElementById("tickerInner");
   if (!inner) return;
-  var items = Array.from(inner.children);
-  for (var i = items.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    inner.appendChild(items[j]);
-    items.splice(j, 1);
+
+  function shuffleItems() {
+    var items = Array.from(inner.children);
+    for (var i = items.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      inner.appendChild(items[j]);
+      items.splice(j, 1);
+    }
   }
-  inner.innerHTML = inner.innerHTML + inner.innerHTML;
+
+  function buildTicker(data) {
+    var html = '';
+    var count = 0;
+    for (var key in data) {
+      if (data[key] && data[key].url) {
+        var url = data[key].url;
+        if (url.indexOf('http') !== 0 && url.indexOf('/') !== 0) url = '/' + url;
+        var date = data[key].lastUpdate || '';
+        var dateStr = date ? date.substring(5).replace('-', '/') : '';
+        html += '<a href="' + url + '" style="flex:0 0 auto;padding:0 28px 0 0;font-size:.78rem;color:var(--text-secondary);text-decoration:none;height:36px;line-height:36px;">' +
+          '<span style="color:var(--gold);font-size:.65rem;margin-right:4px;">●</span>' +
+          key + (dateStr ? ' <span style="color:var(--text-muted);font-size:.65rem;">' + dateStr + '更新</span>' : '') + '</a>';
+        count++;
+      }
+    }
+    if (!count) {
+      html = '<a href="#" style="flex:0 0 auto;padding:0 28px 0 0;font-size:.78rem;color:var(--text-secondary);text-decoration:none;height:36px;line-height:36px;">暂无动态更新</a>';
+    }
+    inner.innerHTML = html;
+    shuffleItems();
+    inner.innerHTML = inner.innerHTML + inner.innerHTML;
+  }
+
+  fetch('/data/updates.json?t=' + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(data){ buildTicker(data); })
+    .catch(function(){
+      inner.innerHTML = '<a href="#" style="flex:0 0 auto;padding:0 28px 0 0;font-size:.78rem;color:var(--text-secondary);text-decoration:none;height:36px;line-height:36px;">动态加载失败</a>';
+      inner.innerHTML = inner.innerHTML + inner.innerHTML;
+    });
 })();
 </script>
 <script>

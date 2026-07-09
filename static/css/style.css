@@ -809,6 +809,7 @@ footer a:hover { color:var(--gold-light); }
  .nav-actions { gap:0; }
  .icon-btn { min-width:36px; min-height:36px; padding:4px; }
  .card-grid-3 { grid-template-columns:repeat(2,1fr); }
+ .card-grid-4 { grid-template-columns:repeat(2,1fr); }
  .card-grid-2 { grid-template-columns:1fr; }
  .home-header .site-title { font-size:2.4rem; }
  .page-header h1 { font-size:1.6rem; }
@@ -817,6 +818,9 @@ footer a:hover { color:var(--gold-light); }
  .search-modal { padding-top:5vh; }
  .search-modal-content { width:95%; max-height:80vh; }
  .hero-slogan { font-size:1rem; }
+ .fusion { margin: 0; }
+ .hero { margin: 0 0 30px 0; }
+ .hero::before { left: 0; right: 0; }
 }
 
 @media (max-width:480px) {
@@ -837,6 +841,10 @@ footer a:hover { color:var(--gold-light); }
  .home-search-btn { justify-content:center; padding:10px 16px; width:100%; }
  .home-search-clear { position:absolute; right:60px; top:50%; transform:translateY(-50%); }
  .home-search-box { position:relative; }
+ /* 折叠区内板块卡片：移动端改为列排，避免文字被截断 */
+ .home-collapsible-body .tile a { flex-direction: column; gap: 4px; align-items: flex-start; }
+ .home-collapsible-body .tile-svg svg { width: 22px; height: 22px; }
+ .home-collapsible-body .tile { padding: 10px 12px; }
 }
 
 button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {
@@ -2693,7 +2701,6 @@ p.plot-text {
 
 .fusion {
   padding: 32px 0;
-  margin: 0 -20px;
   background: var(--bg-section);
 }
 

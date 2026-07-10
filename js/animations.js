@@ -196,38 +196,52 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 16);
   }
 
-  // 等待不蒜子数据加载
+  // 等待不蒜子数据加载（兼容 magazine 风格 .mag-stat-strip 和传统 .site-stats 两种布局）
   function waitForBusuanzi() {
     const pvEl = document.getElementById('busuanzi_value_site_pv');
     const uvEl = document.getElementById('busuanzi_value_site_uv');
-    
+
     // 检查不蒜子是否已加载数据
-    if (pvEl && pvEl.textContent !== '' && pvEl.textContent !== '0') {
-      // 不蒜子已加载，更新统计数据
+    const hasPvData = pvEl && pvEl.textContent !== '' && pvEl.textContent !== '-' && pvEl.textContent !== '0';
+    const hasUvData = uvEl && uvEl.textContent !== '' && uvEl.textContent !== '-' && uvEl.textContent !== '0';
+
+    if (hasPvData || hasUvData) {
+      // ===== 1. 更新 magazine 风格统计条（首页 .mag-stat-strip #magVisitorCount）=====
+      const magVisitor = document.getElementById('magVisitorCount');
+      if (magVisitor && hasUvData) {
+        const uv = parseInt(uvEl.textContent.replace(/,/g, ''));
+        if (!isNaN(uv) && uv > 0) {
+          animateNumbers(uv, magVisitor);
+        }
+      }
+
+      // ===== 2. 更新传统 site-stats 布局（.stat-number + 标签文字匹配）=====
       const statNumbers = document.querySelectorAll('.stat-number');
       statNumbers.forEach(function(el) {
         const label = el.nextElementSibling;
-        if (label && label.textContent.includes('访问')) {
-          // 次访问
+        if (label && label.textContent.includes('访问') && hasPvData) {
           const pv = parseInt(pvEl.textContent.replace(/,/g, ''));
-          if (!isNaN(pv)) {
-            animateNumbers(pv, el);
-          }
-        } else if (label && label.textContent.includes('访客')) {
-          // 位访客
+          if (!isNaN(pv)) animateNumbers(pv, el);
+        } else if (label && label.textContent.includes('访客') && hasUvData) {
           const uv = parseInt(uvEl.textContent.replace(/,/g, ''));
-          if (!isNaN(uv)) {
-            animateNumbers(uv, el);
-          }
+          if (!isNaN(uv)) animateNumbers(uv, el);
         }
       });
     } else {
-      // 不蒜子未加载，500ms后重试
-      setTimeout(waitForBusuanzi, 500);
+      // 不蒜子未加载，500ms后重试（最多重试约30秒）
+      if (!waitForBusuanzi._retries) waitForBusuanzi._retries = 0;
+      waitForBusuanzi._retries++;
+      if (waitForBusuanzi._retries < 60) {
+        setTimeout(waitForBusuanzi, 500);
+      } else {
+        console.warn('⚠️ 不蒜子访客统计加载超时');
+        var fallback = document.getElementById('magVisitorCount');
+        if (fallback) fallback.style.opacity = '0.4';
+      }
     }
   }
 
-  // 进入视口时触发
+  // 进入视口时触发（兼容 .site-stats 和 .mag-stat-strip 两种布局）
   const statsObserver = new IntersectionObserver(function(entries) {
     observers.push(statsObserver);
     entries.forEach(function(entry) {
@@ -239,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, { threshold: 0.5 });
 
-  const statsEl = document.querySelector('.site-stats');
+  const statsEl = document.querySelector('.site-stats') || document.querySelector('.mag-stat-strip');
   if (statsEl) statsObserver.observe(statsEl);
 
   /* 6. 板块/页面计数器动画 - 基于 data-target 属性 */

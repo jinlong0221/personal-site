@@ -495,3 +495,254 @@ if(document.readyState==='loading'){
     updateVisitorCount();
   }
 })();
+
+// ============================================================
+// 区域J - 自动章节快速导航（解决长页面下拉疲劳）
+// 自动扫描页面 h2 标题，生成粘性侧边导航（电脑端）
+// + 底部浮动导航（手机端），带 scroll spy 高亮
+// 已有自定义导航的页面（guanghui/zisha）自动跳过
+// ============================================================
+(function(){
+  function initSectionNav(){
+    // 跳过已有自定义导航的页面
+    if(document.querySelector('.gh-sidenav') || document.querySelector('.gh-page')) return;
+    // zisha.html 已有 .section-nav，但它是页面内嵌的水平导航，不是侧边浮动
+    // 仍然跳过避免重复
+    if(document.querySelector('.section-nav') && document.querySelector('.gh-sidenav') === null){
+      // zisha 的 section-nav 是页面内嵌的，我们给它增强但不重复创建
+      // 实际上 zisha 的 section-nav 已经是页内导航了，跳过
+      var existingNav = document.querySelector('.section-nav');
+      if(existingNav && existingNav.children.length >= 3) return;
+    }
+
+    // 扫描 h2 标题
+    var headings = [];
+    var allH2 = document.querySelectorAll('h2');
+    allH2.forEach(function(h){
+      // 跳过隐藏的、在 script/template 中的
+      if(h.closest('script') || h.closest('template')) return;
+      if(h.offsetParent === null && getComputedStyle(h).display === 'none') return;
+      var text = (h.textContent || '').trim();
+      if(!text || text.length < 2) return;
+      headings.push(h);
+    });
+
+    // 少于3个 h2 不生成导航
+    if(headings.length < 3) return;
+
+    // 给没有 id 的 h2 生成 id
+    headings.forEach(function(h, i){
+      if(!h.id){
+        h.id = 'sec-nav-' + i;
+      }
+      h.setAttribute('data-secnav', 'true');
+    });
+
+    // 准备导航项（最多取8个，避免太长）
+    var maxItems = headings.length > 8 ? 8 : headings.length;
+    var navItems = [];
+    for(var i = 0; i < maxItems; i++){
+      var h = headings[i];
+      var text = (h.textContent || '').trim();
+      // 清理 emoji 前缀，取核心文字（截断到20字）
+      var cleanText = text.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]+\s*/u, '');
+      if(cleanText.length > 16) cleanText = cleanText.substring(0, 16) + '…';
+      if(!cleanText) cleanText = text.substring(0, 16);
+      navItems.push({ id: h.id, text: cleanText, fullText: text });
+    }
+
+    // 注入 CSS（只注入一次）
+    if(!document.getElementById('secnav-styles')){
+      var style = document.createElement('style');
+      style.id = 'secnav-styles';
+      style.textContent = [
+        '/* 自动章节导航 */',
+        '.secnav-side{',
+          'position:fixed;left:20px;top:50%;transform:translateY(-50%);',
+          'z-index:90;max-height:70vh;overflow-y:auto;',
+          'display:flex;flex-direction:column;gap:2px;',
+          'padding:10px 8px;border-radius:12px;',
+          'background:var(--card);border:1px solid var(--border);',
+          'box-shadow:var(--shadow-md);',
+          'opacity:0;visibility:hidden;',
+          'transition:opacity .3s,visibility .3s;',
+          'min-width:130px;max-width:180px;',
+        '}',
+        '.secnav-side.visible{opacity:1;visibility:visible;}',
+        '.secnav-side a{',
+          'display:block;padding:6px 12px;border-radius:6px;',
+          'font-size:0.78rem;color:var(--text-secondary);',
+          'text-decoration:none;cursor:pointer;',
+          'transition:all .2s;white-space:nowrap;',
+          'overflow:hidden;text-overflow:ellipsis;',
+          'border-left:2px solid transparent;',
+        '}',
+        '.secnav-side a:hover{color:var(--text);background:var(--card-hover);}',
+        '.secnav-side a.active{',
+          'color:var(--gold);border-left-color:var(--gold);',
+          'background:rgba(201,168,76,0.08);font-weight:600;',
+        '}',
+        '.secnav-side .secnav-title{',
+          'font-size:0.7rem;color:var(--text-muted);',
+          'padding:4px 12px 8px;border-bottom:1px solid var(--border);',
+          'margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;',
+        '}',
+        '/* 手机端底部导航 */',
+        '.secnav-bottom{',
+          'position:fixed;bottom:0;left:0;right:0;z-index:91;',
+          'display:none;align-items:center;gap:4px;',
+          'padding:8px 12px;overflow-x:auto;',
+          'background:var(--nav-bg);backdrop-filter:blur(12px);',
+          'border-top:1px solid var(--border);',
+          'scrollbar-width:none;-ms-overflow-style:none;',
+        '}',
+        '.secnav-bottom::-webkit-scrollbar{display:none;}',
+        '.secnav-bottom a{',
+          'flex-shrink:0;padding:6px 14px;border-radius:20px;',
+          'font-size:0.75rem;color:var(--text-secondary);',
+          'text-decoration:none;white-space:nowrap;',
+          'background:var(--card);border:1px solid var(--border);',
+          'transition:all .2s;',
+        '}',
+        '.secnav-bottom a:hover{color:var(--text);}',
+        '.secnav-bottom a.active{',
+          'color:var(--gold);border-color:var(--gold);',
+          'background:rgba(201,168,76,0.12);',
+        '}',
+        '/* 响应式切换 */',
+        '@media (max-width:900px){',
+          '.secnav-side{display:none;}',
+          '.secnav-bottom.visible{display:flex;}',
+          'body.has-secnav{padding-bottom:50px;}',
+        '}',
+        '@media (min-width:901px){',
+          '.secnav-bottom{display:none;}',
+        '}',
+        '/* 滚动条美化 */',
+        '.secnav-side::-webkit-scrollbar{width:4px;}',
+        '.secnav-side::-webkit-scrollbar-track{background:transparent;}',
+        '.secnav-side::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px;}'
+      ].join('\n');
+      document.head.appendChild(style);
+    }
+
+    // 创建电脑端侧边导航
+    var sideNav = document.createElement('nav');
+    sideNav.className = 'secnav-side';
+    sideNav.setAttribute('aria-label', '页面章节导航');
+    var sideHtml = '<div class="secnav-title">📑 快速跳转</div>';
+    navItems.forEach(function(item){
+      sideHtml += '<a href="#' + item.id + '" data-target="' + item.id + '" title="' + 
+        item.fullText.replace(/"/g, '&quot;') + '">' + item.text + '</a>';
+    });
+    sideNav.innerHTML = sideHtml;
+    document.body.appendChild(sideNav);
+
+    // 创建手机端底部导航
+    var bottomNav = document.createElement('nav');
+    bottomNav.className = 'secnav-bottom';
+    bottomNav.setAttribute('aria-label', '页面章节导航');
+    var bottomHtml = '';
+    navItems.forEach(function(item){
+      bottomHtml += '<a href="#' + item.id + '" data-target="' + item.id + '">' + item.text + '</a>';
+    });
+    bottomNav.innerHTML = bottomHtml;
+    document.body.appendChild(bottomNav);
+    document.body.classList.add('has-secnav');
+
+    // 平滑滚动
+    function scrollToSection(id){
+      var target = document.getElementById(id);
+      if(!target) return;
+      var navHeight = 60; // 导航栏高度
+      var rect = target.getBoundingClientRect();
+      var top = window.scrollY + rect.top - navHeight - 10;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+
+    // 点击事件
+    [sideNav, bottomNav].forEach(function(nav){
+      nav.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          var id = a.getAttribute('data-target');
+          scrollToSection(id);
+        });
+      });
+    });
+
+    // 滚动显示/隐藏 + Scroll Spy
+    var scrollThreshold = 300;
+    var ticking = false;
+    var currentActive = null;
+
+    function update(){
+      var scrollY = window.scrollY || window.pageYOffset;
+
+      // 显示/隐藏
+      if(scrollY > scrollThreshold){
+        sideNav.classList.add('visible');
+        bottomNav.classList.add('visible');
+      } else {
+        sideNav.classList.remove('visible');
+        bottomNav.classList.remove('visible');
+      }
+
+      // Scroll Spy: 找到当前可见的标题
+      var activeId = null;
+      for(var i = headings.length - 1; i >= 0; i--){
+        var rect = headings[i].getBoundingClientRect();
+        if(rect.top <= 120 && rect.bottom > 60){
+          activeId = headings[i].id;
+          break;
+        }
+      }
+      // 如果没找到（可能在页面最顶部），选第一个
+      if(!activeId && scrollY < 200 && headings.length > 0){
+        activeId = headings[0].id;
+      }
+
+      if(activeId !== currentActive){
+        currentActive = activeId;
+        [sideNav, bottomNav].forEach(function(nav){
+          nav.querySelectorAll('a').forEach(function(a){
+            if(a.getAttribute('data-target') === activeId){
+              a.classList.add('active');
+            } else {
+              a.classList.remove('active');
+            }
+          });
+        });
+
+        // 手机端：自动滚动到活跃项
+        if(activeId && window.innerWidth <= 900){
+          var activeLink = bottomNav.querySelector('a.active');
+          if(activeLink){
+            var navRect = bottomNav.getBoundingClientRect();
+            var linkRect = activeLink.getBoundingClientRect();
+            if(linkRect.left < navRect.left || linkRect.right > navRect.right){
+              activeLink.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+          }
+        }
+      }
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function(){
+      if(!ticking){
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    update();
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initSectionNav);
+  } else {
+    initSectionNav();
+  }
+})();

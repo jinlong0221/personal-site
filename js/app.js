@@ -453,3 +453,45 @@ if(document.readyState==='loading'){
     }
   });
 })();
+
+// ============================================================
+// 区域I - 不蒜子访客统计 → 更新首页 magVisitorCount
+// ============================================================
+(function(){
+  function updateVisitorCount(){
+    var uvEl = document.getElementById('busuanzi_value_site_uv');
+    var magVisitor = document.getElementById('magVisitorCount');
+    if (!magVisitor) return; // 不在首页则无需处理
+
+    // 不蒜子已加载数据（非空、非默认 -、非0）
+    if (uvEl && uvEl.textContent && uvEl.textContent !== '-' && uvEl.textContent !== '0') {
+      var uv = parseInt(uvEl.textContent.replace(/,/g, ''));
+      if (!isNaN(uv) && uv > 0) {
+        // 数字滚动动画
+        var duration = 1200;
+        var startTime = performance.now();
+        function tick(now){
+          var progress = Math.min((now - startTime) / duration, 1);
+          magVisitor.textContent = Math.floor(uv * progress);
+          if (progress < 1) requestAnimationFrame(tick);
+          else magVisitor.textContent = uv;
+        }
+        requestAnimationFrame(tick);
+        return;
+      }
+    }
+
+    // 不蒜子尚未加载，重试（最多60次 × 500ms = 30秒）
+    updateVisitorCount._retries = (updateVisitorCount._retries || 0) + 1;
+    if (updateVisitorCount._retries < 60) {
+      setTimeout(updateVisitorCount, 500);
+    }
+  }
+
+  // DOM 就绪后启动（兼容已 loaded 和 loading 两种状态）
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateVisitorCount);
+  } else {
+    updateVisitorCount();
+  }
+})();

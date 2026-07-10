@@ -149,18 +149,6 @@ var _hmt = _hmt || [];
 .gh-mobile-nav-btn.active { color: var(--gh-blue-light); }
 .gh-mobile-nav-btn span:first-child { font-size: 1.1rem; }
 
-/* ===== 回到顶部 ===== */
-.gh-scroll-top {
-  position: fixed; bottom: 80px; right: 20px; z-index: 99;
-  width: 42px; height: 42px; border-radius: 50%;
-  background: var(--gh-blue); color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem; cursor: pointer; opacity: 0;
-  transition: opacity .3s, transform .3s; transform: translateY(10px);
-  box-shadow: 0 4px 16px rgba(0,112,192,.3);
-}
-.gh-scroll-top.visible { opacity: 1; transform: translateY(0); }
-.gh-scroll-top:hover { transform: translateY(-3px); }
 
 /* ===== Hero 大图区域 ===== */
 .gh-hero {
@@ -574,7 +562,6 @@ var _hmt = _hmt || [];
   .gh-honor-grid { grid-template-columns: repeat(2, 1fr); }
   .gh-partner-cards { grid-template-columns: 1fr; }
   .gh-vision-data { grid-template-columns: 1fr; }
-  .gh-scroll-top { bottom: 70px; }
 }
 @media (max-width: 520px) {
   .gh-hero { min-height: 280px; }
@@ -679,9 +666,6 @@ var _hmt = _hmt || [];
       <a class="gh-mobile-nav-btn" data-target="sec-vision"><span>🚀</span><span>前景</span></a>
     </div>
   </nav>
-
-  <!-- 回到顶部按钮 -->
-  <div class="gh-scroll-top" id="ghScrollTop" title="回到顶部">↑</div>
 
   <!-- ===== Hero 大图 ===== -->
   <section class="gh-hero" id="gh-hero">
@@ -1218,7 +1202,6 @@ var _hmt = _hmt || [];
   var sideItems = document.querySelectorAll('.gh-sidenav-item');
   var mobileBtns = document.querySelectorAll('.gh-mobile-nav-btn');
   var sidenav = document.getElementById('ghSidenav');
-  var scrollTopBtn = document.getElementById('ghScrollTop');
 
   // 点击跳转
   sideItems.forEach(function(item){
@@ -1243,11 +1226,6 @@ var _hmt = _hmt || [];
     });
   });
 
-  // 回到顶部
-  scrollTopBtn.addEventListener('click', function(){
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
-
   // Scroll Spy: 检测当前可见板块，高亮对应导航
   var ticking = false;
   function updateSpy(){
@@ -1257,10 +1235,8 @@ var _hmt = _hmt || [];
     // 侧边导航在滚动超过300px后显示
     if(scrollY > 300){
       sidenav.classList.add('visible');
-      scrollTopBtn.classList.add('visible');
     } else {
       sidenav.classList.remove('visible');
-      scrollTopBtn.classList.remove('visible');
     }
 
     // 找到当前可见板块

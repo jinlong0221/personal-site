@@ -99,15 +99,78 @@ var _hmt = _hmt || [];
 
 .gh-page img { max-width: 100%; height: auto; display: block; }
 
+/* ===== 粘性侧边快速导航 ===== */
+.gh-sidenav {
+  position: fixed; left: 16px; top: 50%; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 6px;
+  opacity: 0; transition: opacity .4s;
+}
+.gh-sidenav.visible { opacity: 1; }
+.gh-sidenav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 10px; border-radius: 20px;
+  background: var(--gh-card); border: 1px solid var(--gh-border);
+  font-size: .72rem; color: var(--gh-text-muted); cursor: pointer;
+  transition: all .25s; white-space: nowrap;
+  text-decoration: none;
+}
+.gh-sidenav-item:hover {
+  background: var(--gh-blue); color: #fff; border-color: var(--gh-blue);
+}
+.gh-sidenav-item.active {
+  background: rgba(0,112,192,.15); color: var(--gh-blue-light);
+  border-color: var(--gh-blue); font-weight: 700;
+}
+.gh-sidenav-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gh-text-muted); flex-shrink: 0;
+  transition: all .25s;
+}
+.gh-sidenav-item.active .gh-sidenav-dot { background: var(--gh-blue-light); width: 8px; height: 8px; }
+.gh-sidenav-item:hover .gh-sidenav-dot { background: #fff; }
+
+/* ===== 手机端底部导航条 ===== */
+.gh-mobile-nav {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0;
+  z-index: 100; background: var(--gh-card);
+  border-top: 1px solid var(--gh-border);
+  padding: 8px 0 env(safe-area-inset-bottom, 8px);
+  box-shadow: 0 -4px 16px rgba(0,0,0,.15);
+}
+.gh-mobile-nav-inner {
+  display: flex; justify-content: space-around; align-items: center;
+  max-width: 500px; margin: 0 auto;
+}
+.gh-mobile-nav-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 4px; font-size: .65rem; color: var(--gh-text-muted);
+  text-decoration: none; transition: color .2s; cursor: pointer;
+}
+.gh-mobile-nav-btn.active { color: var(--gh-blue-light); }
+.gh-mobile-nav-btn span:first-child { font-size: 1.1rem; }
+
+/* ===== 回到顶部 ===== */
+.gh-scroll-top {
+  position: fixed; bottom: 80px; right: 20px; z-index: 99;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--gh-blue); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; cursor: pointer; opacity: 0;
+  transition: opacity .3s, transform .3s; transform: translateY(10px);
+  box-shadow: 0 4px 16px rgba(0,112,192,.3);
+}
+.gh-scroll-top.visible { opacity: 1; transform: translateY(0); }
+.gh-scroll-top:hover { transform: translateY(-3px); }
+
 /* ===== Hero 大图区域 ===== */
 .gh-hero {
   position: relative;
-  min-height: 520px;
+  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 80px 20px 60px;
+  padding: 60px 20px 40px;
   overflow: hidden;
 }
 .gh-hero::before {
@@ -155,10 +218,10 @@ var _hmt = _hmt || [];
 /* ===== 容器 ===== */
 .gh-wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 .gh-section {
-  padding: 60px 0;
+  padding: 40px 0;
 }
 .gh-section-header {
-  text-align: center; margin-bottom: 44px;
+  text-align: center; margin-bottom: 30px;
 }
 .gh-section-tag {
   display: inline-block; font-size: .7rem; color: var(--gh-blue-light);
@@ -489,12 +552,18 @@ var _hmt = _hmt || [];
 .gh-back-btn:hover { opacity: .9; transform: translateY(-2px); }
 
 /* ===== 响应式 ===== */
+@media (max-width: 1100px) {
+  .gh-sidenav { display: none; }
+}
 @media (max-width: 900px) {
-  .gh-hero { min-height: 420px; padding: 70px 20px 50px; }
-  .gh-section { padding: 42px 0; }
+  .gh-sidenav { display: none; }
+  .gh-mobile-nav { display: block; }
+  .gh-hero { min-height: 340px; padding: 50px 16px 30px; }
+  .gh-section { padding: 30px 0; }
+  .gh-section-header { margin-bottom: 20px; }
   .gh-media-block, .gh-product-showcase, .gh-leader-wrap, .gh-vision-wrap, .gh-factory-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 20px;
   }
   .gh-media-block.reverse { direction: ltr; }
   .gh-stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -505,20 +574,21 @@ var _hmt = _hmt || [];
   .gh-honor-grid { grid-template-columns: repeat(2, 1fr); }
   .gh-partner-cards { grid-template-columns: 1fr; }
   .gh-vision-data { grid-template-columns: 1fr; }
+  .gh-scroll-top { bottom: 70px; }
 }
 @media (max-width: 520px) {
-  .gh-hero { min-height: 360px; }
+  .gh-hero { min-height: 280px; }
   .gh-hero-badges { display: none; }
-  .gh-stats-bar { padding: 20px 16px; }
-  .gh-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .gh-stat-num { font-size: 1.5rem; }
+  .gh-stats-bar { padding: 16px 12px; }
+  .gh-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .gh-stat-num { font-size: 1.3rem; }
   .gh-product-cards { grid-template-columns: 1fr; }
   .gh-honor-grid { grid-template-columns: 1fr; }
   .gh-equipment-list { grid-template-columns: 1fr; }
-  .gh-leader-wrap { padding: 24px; }
-  .gh-vision-wrap { padding: 28px; }
-  .gh-quote-wrap { padding: 28px 24px; }
-  .gh-quote-text { font-size: 1rem; }
+  .gh-leader-wrap { padding: 20px; }
+  .gh-vision-wrap { padding: 24px; }
+  .gh-quote-wrap { padding: 24px 20px; }
+  .gh-quote-text { font-size: .95rem; }
 }
 </style>
 </head>
@@ -584,8 +654,37 @@ var _hmt = _hmt || [];
 
 <main class="gh-page">
 
+  <!-- ===== 粘性侧边快速导航（桌面端） ===== -->
+  <nav class="gh-sidenav" id="ghSidenav" aria-label="板块快速导航">
+    <a class="gh-sidenav-item" data-target="gh-hero"><span class="gh-sidenav-dot"></span>首页</a>
+    <a class="gh-sidenav-item" data-target="sec-overview"><span class="gh-sidenav-dot"></span>概况</a>
+    <a class="gh-sidenav-item" data-target="sec-policy"><span class="gh-sidenav-dot"></span>质量</a>
+    <a class="gh-sidenav-item" data-target="sec-leader"><span class="gh-sidenav-dot"></span>领导</a>
+    <a class="gh-sidenav-item" data-target="sec-product"><span class="gh-sidenav-dot"></span>产品</a>
+    <a class="gh-sidenav-item" data-target="sec-factory"><span class="gh-sidenav-dot"></span>产能</a>
+    <a class="gh-sidenav-item" data-target="sec-honor"><span class="gh-sidenav-dot"></span>荣誉</a>
+    <a class="gh-sidenav-item" data-target="sec-partner"><span class="gh-sidenav-dot"></span>合作</a>
+    <a class="gh-sidenav-item" data-target="sec-tech"><span class="gh-sidenav-dot"></span>技术</a>
+    <a class="gh-sidenav-item" data-target="sec-vision"><span class="gh-sidenav-dot"></span>前景</a>
+    <a class="gh-sidenav-item" data-target="sec-quote"><span class="gh-sidenav-dot"></span>寄语</a>
+  </nav>
+
+  <!-- ===== 手机端底部快速导航 ===== -->
+  <nav class="gh-mobile-nav" id="ghMobileNav" aria-label="手机端板块导航">
+    <div class="gh-mobile-nav-inner">
+      <a class="gh-mobile-nav-btn" data-target="sec-overview"><span>📋</span><span>概况</span></a>
+      <a class="gh-mobile-nav-btn" data-target="sec-product"><span>🔩</span><span>产品</span></a>
+      <a class="gh-mobile-nav-btn" data-target="sec-honor"><span>🏆</span><span>荣誉</span></a>
+      <a class="gh-mobile-nav-btn" data-target="sec-tech"><span>🔬</span><span>技术</span></a>
+      <a class="gh-mobile-nav-btn" data-target="sec-vision"><span>🚀</span><span>前景</span></a>
+    </div>
+  </nav>
+
+  <!-- 回到顶部按钮 -->
+  <div class="gh-scroll-top" id="ghScrollTop" title="回到顶部">↑</div>
+
   <!-- ===== Hero 大图 ===== -->
-  <section class="gh-hero">
+  <section class="gh-hero" id="gh-hero">
     <img src="img/guanghui/slide3_img4.jpg" alt="江苏光辉电力器材有限公司" class="gh-hero-img" fetchpriority="high">
     <div class="gh-hero-content">
       <div class="gh-hero-label">National High-tech Enterprise</div>
@@ -630,7 +729,7 @@ var _hmt = _hmt || [];
   </div>
 
   <!-- ===== 公司概况 ===== -->
-  <section class="gh-section">
+  <section class="gh-section" id="sec-overview">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Company Overview</div>
@@ -657,7 +756,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 质量方针 ===== -->
-  <section class="gh-section" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <section class="gh-section" id="sec-policy" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Quality Policy</div>
@@ -698,7 +797,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 领导风采 ===== -->
-  <section class="gh-section">
+  <section class="gh-section" id="sec-leader">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Leadership</div>
@@ -727,7 +826,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 产品体系 ===== -->
-  <section class="gh-section" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <section class="gh-section" id="sec-product" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Product System</div>
@@ -805,7 +904,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 生产能力 ===== -->
-  <section class="gh-section">
+  <section class="gh-section" id="sec-factory">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Production Capacity</div>
@@ -855,7 +954,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 荣誉资质 ===== -->
-  <section class="gh-section" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <section class="gh-section" id="sec-honor" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Honors & Certifications</div>
@@ -940,7 +1039,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 战略合作 ===== -->
-  <section class="gh-section">
+  <section class="gh-section" id="sec-partner">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Strategic Partnerships</div>
@@ -975,7 +1074,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 技术突破 ===== -->
-  <section class="gh-section" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <section class="gh-section" id="sec-tech" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Technical Breakthrough</div>
@@ -1009,7 +1108,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 发展前景 ===== -->
-  <section class="gh-section">
+  <section class="gh-section" id="sec-vision">
     <div class="gh-wrap">
       <div class="gh-section-header">
         <div class="gh-section-tag">Development Vision</div>
@@ -1052,7 +1151,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 董事长寄语 ===== -->
-  <section class="gh-section">
+  <section class="gh-section" id="sec-quote">
     <div class="gh-wrap">
       <div class="gh-quote-wrap">
         <div class="gh-quote-label">CHAIRMAN'S MESSAGE</div>
@@ -1106,6 +1205,112 @@ var _hmt = _hmt || [];
       box.innerHTML=icon+' '+temp+'°';
     }else{box.innerHTML='🌡️--°';}
   }).catch(function(){box.innerHTML='🌡️--°';});
+})();
+</script>
+
+<!-- 光辉页面：Scroll Spy + 侧边导航交互 -->
+<script>
+(function(){
+  // 板块ID列表
+  var sections = ['gh-hero','sec-overview','sec-policy','sec-leader','sec-product','sec-factory','sec-honor','sec-partner','sec-tech','sec-vision','sec-quote'];
+
+  // 导航项
+  var sideItems = document.querySelectorAll('.gh-sidenav-item');
+  var mobileBtns = document.querySelectorAll('.gh-mobile-nav-btn');
+  var sidenav = document.getElementById('ghSidenav');
+  var scrollTopBtn = document.getElementById('ghScrollTop');
+
+  // 点击跳转
+  sideItems.forEach(function(item){
+    item.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = item.getAttribute('data-target');
+      var el = document.getElementById(target);
+      if(el){
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+
+  mobileBtns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = btn.getAttribute('data-target');
+      var el = document.getElementById(target);
+      if(el){
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+
+  // 回到顶部
+  scrollTopBtn.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  // Scroll Spy: 检测当前可见板块，高亮对应导航
+  var ticking = false;
+  function updateSpy(){
+    var scrollY = window.scrollY || window.pageYOffset;
+    var current = '';
+
+    // 侧边导航在滚动超过300px后显示
+    if(scrollY > 300){
+      sidenav.classList.add('visible');
+      scrollTopBtn.classList.add('visible');
+    } else {
+      sidenav.classList.remove('visible');
+      scrollTopBtn.classList.remove('visible');
+    }
+
+    // 找到当前可见板块
+    for(var i = sections.length - 1; i >= 0; i--){
+      var sec = document.getElementById(sections[i]);
+      if(sec && sec.offsetTop - 120 <= scrollY){
+        current = sections[i];
+        break;
+      }
+    }
+
+    // 高亮侧边导航
+    sideItems.forEach(function(item){
+      if(item.getAttribute('data-target') === current){
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
+    // 高亮手机导航（5个按钮，做就近映射）
+    var mobileCurrent = current;
+    if(mobileCurrent === 'gh-hero') mobileCurrent = 'sec-overview';
+    if(mobileCurrent === 'sec-policy') mobileCurrent = 'sec-overview';
+    if(mobileCurrent === 'sec-leader') mobileCurrent = 'sec-overview';
+    if(mobileCurrent === 'sec-factory') mobileCurrent = 'sec-product';
+    if(mobileCurrent === 'sec-partner') mobileCurrent = 'sec-honor';
+    if(mobileCurrent === 'sec-quote') mobileCurrent = 'sec-vision';
+
+    mobileBtns.forEach(function(btn){
+      if(btn.getAttribute('data-target') === mobileCurrent){
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      ticking = true;
+      requestAnimationFrame(function(){
+        updateSpy();
+        ticking = false;
+      });
+    }
+  });
+
+  // 初始调用
+  updateSpy();
 })();
 </script>
 </body>

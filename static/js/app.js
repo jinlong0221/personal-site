@@ -280,22 +280,18 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 // 5. 今日龙兄在干嘛（内嵌到龙兄公示牌）
 (function(){
   var inline = document.getElementById('todayStatusInline');
-  var textEl = document.getElementById('todayStatusText') || document.getElementById('magStatus');
+  var textEl = document.getElementById('todayStatusText');
   var dateEl = document.getElementById('todayStatusDate');
-  if(!textEl) return;
+  if(!inline || !textEl) return;
   fetch('status.json?v='+Date.now())
     .then(function(r){if(!r.ok)throw new Error('Not found');return r.json();})
     .then(function(data){
       if(data && data.status && data.status.trim() !== ''){
-        if(textEl.id === 'magStatus') {
-          textEl.textContent = data.status + ' ' + (data.emoji || '');
-        } else {
-          textEl.textContent = data.status;
-        }
-        if(dateEl) dateEl.textContent = '（' + (data.date || '') + '）';
-        if(inline) inline.style.display = 'block';
+        textEl.textContent = data.status;
+        if(data.date) dateEl.textContent = '（' + data.date + '）';
+        inline.style.display = 'block';
       } else {
-        if(inline) inline.style.display = 'none';
+        inline.style.display = 'none';
       }
     })
     .catch(function(){
@@ -304,10 +300,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 
-// 4. 实时时钟（在天气页面初始化）
+// 4. 实时时钟（在天气页面自动初始化）
 window.initClock=function(){
   var el=document.getElementById('liveClock');
-  if(!el)return;
+  if(!el || el.dataset.init==='1') return;
+  el.dataset.init='1';
   var dateEl=document.getElementById('liveDate');
   function tick(){
     var d=new Date();
@@ -323,6 +320,13 @@ window.initClock=function(){
   tick();
   setInterval(tick,1000);
 };
+
+// 自动初始化天气页面时钟（无需页面再手动调用）
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', window.initClock);
+} else {
+  window.initClock();
+}
 
 })();
 

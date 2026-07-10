@@ -300,10 +300,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 
-// 4. 实时时钟（在天气页面初始化）
+// 4. 实时时钟（在天气页面自动初始化）
 window.initClock=function(){
   var el=document.getElementById('liveClock');
-  if(!el)return;
+  if(!el || el.dataset.init==='1') return;
+  el.dataset.init='1';
   var dateEl=document.getElementById('liveDate');
   function tick(){
     var d=new Date();
@@ -319,6 +320,13 @@ window.initClock=function(){
   tick();
   setInterval(tick,1000);
 };
+
+// 自动初始化天气页面时钟（无需页面再手动调用）
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', window.initClock);
+} else {
+  window.initClock();
+}
 
 })();
 

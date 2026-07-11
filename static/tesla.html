@@ -192,7 +192,7 @@ var _hmt = _hmt || [];
   <div id="breadcrumb"></div>
 
   <div class="tesla-hero">
-    <img loading="lazy" src="img/tesla/cybertruck/card.jpg" alt="Tesla" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
+    <img src="img/tesla/cybertruck/card.jpg" alt="Tesla" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
     <h1>特斯拉动态新闻 <span class="tag tag-must">#必看</span></h1>
     <p>车型动态 · FSD进展 · 储能产品 · 产能追踪</p>
   </div>
@@ -209,36 +209,57 @@ var _hmt = _hmt || [];
   <!-- 最新动态（折叠） -->
   <div class="home-collapsible open" id="hc-tesla-news">
     <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
-      <div class="hc-left"><span class="hc-icon">📰</span><span class="hc-title">最新动态</span><span class="hc-count">10条 · 2026年7月</span></div>
+      <div class="hc-left"><span class="hc-icon">📰</span><span class="hc-title">最新动态</span><span class="hc-count">18条 · 2026年7月</span></div>
       <span class="hc-arrow">▼</span>
     </div>
     <div class="home-collapsible-body">
       <div class="news-item">
         <div class="news-date">07-10</div>
         <div class="news-content">
-          <span class="news-tag hot">🔥</span><span class="news-tag fsd">FSD</span>
-          <p>特斯拉FSD收费模式全球分化：美国已取消买断改订阅（月费99美元/年费999美元），中国内地仍维持6.4万元买断。</p>
+          <span class="news-tag hot">🔥</span><span class="news-tag product">Model Y</span>
+          <p>工信部第409批公告：新款Model Y完成申报，前后电机176kW+291kW，三元锂电池，长4796mm轴距2890mm，最高车速250km/h。</p>
         </div>
       </div>
       <div class="news-item">
         <div class="news-date">07-10</div>
         <div class="news-content">
-          <span class="news-tag hot">🔥</span><span class="news-tag fsd">FSD入华</span>
-          <p>特斯拉FSD在华落地深度解析：5月监督版正式入华，首批HW4.0车型已推送，中国累计路测超120万公里覆盖9城。</p>
+          <span class="news-tag hot">🔥</span><span class="news-tag fsd">FSD</span>
+          <p>FSD收费全球分化：美国取消买断改订阅（月费99美元），中国仍维持6.4万元买断，Q3有望全面商用，路测超120万公里覆盖9城。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">07-10</div>
+        <div class="news-content">
+          <span class="news-tag hot">🔥</span><span class="news-tag product">Optimus</span>
+          <p>Optimus Gen3供应链下单：9月周产1000台、年底2500台/周，年末年产10万台配套；马斯克威胁未达指标即更换采购团队。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">07-10</div>
+        <div class="news-content">
+          <span class="news-tag hot">🔥</span><span class="news-tag energy">储能</span>
+          <p>特斯拉与Esyasoft签30亿美元储能协议，部署超15GWh Megapack，覆盖英国/西欧/GCC/印度，六周内已累计超90亿美元新项目。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">07-10</div>
+        <div class="news-content">
+          <span class="news-tag product">股价</span><span class="news-tag fsd">分析师</span>
+          <p>TSLA分析师密集调级：UBS目标价升至442美元，RBC升至500美元；37家机构目标均价406美元，分歧显著（24.86-600美元）。</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">07-10</div>
+        <div class="news-content">
+          <span class="news-tag hot">🔥</span><span class="news-tag china">韩国</span>
+          <p>韩国进口车份额首破25%，特斯拉上半年售出56,139辆占进口车30.5%，同比+192%，Model Y一度登顶全市场销冠。</p>
         </div>
       </div>
       <div class="news-item">
         <div class="news-date">07-09</div>
         <div class="news-content">
           <span class="news-tag hot">🔥</span><span class="news-tag product">SpaceXAI</span>
-          <p>SpaceXAI发布Grok 4.5新模型：与Cursor联合开发，面向金融、法律、编程及网络安全，马斯克确认向公众开放。</p>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-date">07-09</div>
-        <div class="news-content">
-          <span class="news-tag hot">🔥</span><span class="news-tag energy">影响力报告</span>
-          <p>特斯拉发布216页《2025年影响力报告》：首次将使命定义为“加速世界向可持续能源转型”，全面披露能源、AI、制造数据。</p>
+          <p>SpaceXAI发布Grok 4.5：1.5万亿参数模型，编程88分全球登顶，推理80TPS、API比对手便宜60%，与Cursor联合开发。</p>
         </div>
       </div>
       <div class="news-item">
@@ -260,27 +281,6 @@ var _hmt = _hmt || [];
         <div class="news-content">
           <span class="news-tag hot">🔥</span><span class="news-tag product">Optimus</span>
           <p>马斯克发布弗里蒙特Optimus产线合影，Model S/X产线已拆除腾空间；Gen 3规划年产能7万台，远期目标100万台。</p>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-date">07-08</div>
-        <div class="news-content">
-          <span class="news-tag hot">🔥</span><span class="news-tag fsd">Cybercab</span>
-          <p>Cybercab双突破：更强FSD硬件（算力碾压Model 3/Y，内存超32GB）+RIM喷漆工艺分钟级完成。</p>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-date">07-08</div>
-        <div class="news-content">
-          <span class="news-tag hot">🔥</span><span class="news-tag fsd">FSD争议</span>
-          <p>网友实测FSD里程在断网后仍自动上涨；特斯拉回应系为优化页面流畅度，以官方安全报告数据为准。</p>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-date">07-07</div>
-        <div class="news-content">
-          <span class="news-tag hot">🔥</span><span class="news-tag fsd">App</span>
-          <p>特斯拉App 4.58.5上线，新增FSD激活状态实时显示，界面同步蓝色导航路线与「自动驾驶」标识，可远程查看。</p>
         </div>
       </div>
     </div>
@@ -332,7 +332,7 @@ var _hmt = _hmt || [];
 
   <div class="card-grid-tesla">
     <a href="tesla/model3.html" class="card-tesla model-3">
-      <img loading="lazy" class="card-img" src="img/tesla/model3/card.jpg" alt="Tesla Model 3">
+      <img class="card-img" src="img/tesla/model3/card.jpg" alt="Tesla Model 3">
       <div class="card-title">Tesla Model 3</div>
       <div class="card-subtitle">全能电动轿车 · 2026款</div>
       <div class="card-desc">后驱/长续航后驱(830km)/长续航全驱/高性能四款，4680电池，250kW超充。</div>
@@ -341,7 +341,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="tesla/modely.html" class="card-tesla model-y">
-      <img loading="lazy" class="card-img" src="img/tesla/modely/card.jpg" alt="Tesla Model Y">
+      <img class="card-img" src="img/tesla/modely/card.jpg" alt="Tesla Model Y">
       <div class="card-title">Tesla Model Y</div>
       <div class="card-subtitle">全球销冠SUV · 2026改款</div>
       <div class="card-desc">后驱/长续航后驱/长续航全驱，2026改款黑标+螺旋轮毂+浅灰内饰，上海工厂。</div>
@@ -350,7 +350,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="tesla/modelyl.html" class="card-tesla model-yl">
-      <img loading="lazy" class="card-img" src="img/tesla/modely-l/card.jpg" alt="Tesla Model Y L">
+      <img class="card-img" src="img/tesla/modely-l/card.jpg" alt="Tesla Model Y L">
       <div class="card-title">Tesla Model Y L</div>
       <div class="card-subtitle">六座旗舰SUV · 独立车型</div>
       <div class="card-desc">全新六座版（2+2+2独立座椅），82kWh三元锂，CLTC 751km，双电机340kW，4.5s破百。</div>
@@ -359,7 +359,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="tesla/cybertruck.html" class="card-tesla cybertruck">
-      <img loading="lazy" class="card-img" src="img/tesla/cybertruck/card.jpg" alt="Tesla Cybertruck">
+      <img class="card-img" src="img/tesla/cybertruck/card.jpg" alt="Tesla Cybertruck">
       <div class="card-title">Cybertruck</div>
       <div class="card-subtitle">不锈钢外骨骼 · 装甲玻璃</div>
       <div class="card-desc">AWD版4.1s/野兽版2.6s，EPA 515-547km。中国官网已开放预订（订金1000元）。</div>
@@ -377,7 +377,7 @@ var _hmt = _hmt || [];
 
   <div class="card-grid-tesla">
     <a href="tesla/models.html" class="card-tesla model-s">
-      <img loading="lazy" class="card-img" src="img/tesla/models/card.jpg" alt="Tesla Model S">
+      <img class="card-img" src="img/tesla/models/card.jpg" alt="Tesla Model S">
       <div class="card-title">Tesla Model S</div>
       <div class="card-subtitle">旗舰轿车 · 已停产</div>
       <div class="card-desc">已停产！双电机版3.2s/Plaid版2.1s，1020马力，322km/h，限量签名版已交付完毕。</div>
@@ -386,7 +386,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="tesla/modelx.html" class="card-tesla model-x">
-      <img loading="lazy" class="card-img" src="img/tesla/modelx/card.jpg" alt="Tesla Model X">
+      <img class="card-img" src="img/tesla/modelx/card.jpg" alt="Tesla Model X">
       <div class="card-title">Tesla Model X</div>
       <div class="card-subtitle">鹰翼门旗舰SUV · 已停产</div>
       <div class="card-desc">已停产！鹰翼门+7座，Plaid版2.6s破百。限量签名版已交付，库存现车可售。</div>
@@ -404,7 +404,7 @@ var _hmt = _hmt || [];
 
   <div class="card-grid-tesla">
     <a href="tesla/semi.html" class="card-tesla semi">
-      <img loading="lazy" class="card-img" src="img/tesla/semi/card.jpg" alt="Tesla Semi">
+      <img class="card-img" src="img/tesla/semi/card.jpg" alt="Tesla Semi">
       <div class="card-title">Tesla Semi</div>
       <div class="card-subtitle">电动重卡 · 2026已量产</div>
       <div class="card-desc">满载37吨续航523-803km，3电机，30分钟充至60%，FSD测试中，年产能5万辆。</div>
@@ -413,7 +413,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="tesla/roadster.html" class="card-tesla roadster">
-      <img loading="lazy" class="card-img" src="img/tesla/roadster/card.jpg" alt="Tesla Roadster">
+      <img class="card-img" src="img/tesla/roadster/card.jpg" alt="Tesla Roadster">
       <div class="card-title">Tesla Roadster</div>
       <div class="card-subtitle">电动超跑 · 即将发布</div>
       <div class="card-desc">0-60mph &lt; 1.9s（SpaceX 1.1s），WLTP 992km，200kWh，900V平台，预计2027交付。</div>
@@ -422,7 +422,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="tesla/cybercab.html" class="card-tesla cybercab">
-      <img loading="lazy" class="card-img" src="img/tesla/cybercab/card.jpg" alt="Tesla Cybercab">
+      <img class="card-img" src="img/tesla/cybercab/card.jpg" alt="Tesla Cybercab">
       <div class="card-title">Tesla Cybercab</div>
       <div class="card-subtitle">无人驾驶出租车 · 2026投产</div>
       <div class="card-desc">无方向盘/踏板，MW级无线充电，约3万美元。预计2026北美试运营，中国待FSD获批。</div>
@@ -440,7 +440,7 @@ var _hmt = _hmt || [];
 
   <div class="card-grid-tesla">
     <a href="tesla/powerwall.html" class="card-tesla powerwall">
-      <img loading="lazy" class="card-img" src="img/tesla/powerwall/card.webp" alt="Tesla Powerwall">
+      <img class="card-img" src="img/tesla/powerwall/card.webp" alt="Tesla Powerwall">
       <div class="card-title">Powerwall</div>
       <div class="card-subtitle">家庭储能电池</div>
       <div class="card-desc">13.5kWh储能，配合太阳能或谷电储能，白天供电、夜晚用电，年省电费数千元。</div>
@@ -449,7 +449,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="tesla/megapack.html" class="card-tesla megapack">
-      <img loading="lazy" class="card-img" src="img/tesla/megapack/card.webp" alt="Tesla Megapack">
+      <img class="card-img" src="img/tesla/megapack/card.webp" alt="Tesla Megapack">
       <div class="card-title">Megapack</div>
       <div class="card-subtitle">超大型商用储能系统</div>
       <div class="card-desc">单个3.9MWh储能模块，积木式拼装可扩展至GWh级，电网调峰/可再生能源配套可选。</div>
@@ -493,16 +493,18 @@ var _hmt = _hmt || [];
   <div class="brand-note">
     <h3>📰 特斯拉最新动态摘要（2026年7月）</h3>
     <p><strong>🚗 上海工厂：</strong>6月交付超8.9万辆，创年内新高，同比+24.4%；出口3.6万辆，同比暴增257%。上半年累计交付46.8万辆，同比+28.4%，占全球一半以上。</p>
-    <p style="margin-top:8px;"><strong>🤖 FSD：</strong>监督版已获中国政府批准，目标2026年Q3全面商用许可。App 4.58.5新增FSD激活状态实时显示。中国累计路测超120万公里、覆盖9座核心城市，核心城区适配率92%。</p>
-    <p style="margin-top:8px;"><strong>🚕 Robotaxi：</strong>迈阿密正式上线，Robotaxi首次进入佛罗里达州，全程无安全员，覆盖德州、加州、佛州三州。Cybercab量产版已在奥斯汀启动公开工程路测。</p>
-    <p style="margin-top:8px;"><strong>📦 停产/新车：</strong>Model S/X（含限量签名版）已停产，库存现车可售。Model Y L在美国、波多黎各、阿联酋上市。Semi/Cybercab 2026年投产，Cybertruck入门版交付推迟至9-10月。</p>
-    <p style="margin-top:8px;"><strong>🔋 储能：</strong>Q2储能部署13.5 GWh创单季新高，同比+41%、环比+53%。Megapack持续热销，上海储能工厂已下线超2000台。</p>
-    <p style="margin-top:8px;"><strong>📈 资本动态：</strong>Q2交付48万辆超预期，但股价当日反跌7.49%；随后迈阿密Robotaxi上线推动股价单日涨6.69%至419.77美元。韦德布什分析师预测特斯拉与SpaceX一年内合并概率超80%。</p>
-    <p style="margin-top:12px; color:var(--text-muted); font-size:0.8rem;">📌 数据来源：特斯拉官网/IR、乘联会、Electrek、IT之家、TechWeb、财联社。价格以官网实时公布为准，本页面为知识科普性质。</p>
+    <p style="margin-top:8px;"><strong>🤖 FSD：</strong>监督版已获中国政府批准，目标2026年Q3全面商用许可。累计路测超120万公里、覆盖9座核心城市，核心城区适配率92%。美国已取消买断改订阅制（月费99美元）。</p>
+    <p style="margin-top:8px;"><strong>🚕 Robotaxi：</strong>迈阿密正式上线（全程无安全员），已覆盖5城（奥斯汀/旧金山/达拉斯/休斯顿/迈阿密），新奥尔良测试已启动。Cybercab量产版已在奥斯汀公开路测。</p>
+    <p style="margin-top:8px;"><strong>🤖 Optimus：</strong>Gen3整机方案6月底敲定，供应链下单启动：9月周产1000台，年底2500台/周，年末年产10万台配套。弗里蒙特产线已就位，Model S/X产线拆除腾空间。</p>
+    <p style="margin-top:8px;"><strong>📦 车型动态：</strong>新款Model Y工信部申报（前后176+291kW）；Model S/X已停产库存可售。Model Y L在美国/波多黎各/阿联酋上市。Semi改款已量产。Cybercab得州工厂积压待交付。</p>
+    <p style="margin-top:8px;"><strong>🔋 储能：</strong>Q2储能部署13.5 GWh创单季新高（同比+41%，环比+53%）。与Esyasoft签30亿美元15GWh大单，六周内累计宣布超90亿美元Megapack新项目。</p>
+    <p style="margin-top:8px;"><strong>📈 资本动态：</strong>Q2交付48万辆超预期，股价当日反跌7.49%；随后迈阿密Robotaxi上线推动反弹至419美元。UBS目标价442美元，RBC 500美元。韦德布什预测特斯拉与SpaceX一年内合并概率超80%。</p>
+    <p style="margin-top:8px;"><strong>🌍 海外市场：</strong>韩国上半年5.6万辆（+192%），进口车份额30.5%，首破25%关口。德国6月注册7,768辆（+317.6%），上半年累计28,857辆（+224.6%）。法国7月同比-26.57%。</p>
+    <p style="margin-top:12px; color:var(--text-muted); font-size:0.8rem;">📌 数据来源：特斯拉官网/IR、乘联会、工信部、KBA、KAIDA、IT之家、新浪财经、财联社、环球网、MarketBeat。价格以官网实时公布为准，本页面为知识科普性质。</p>
   </div>
 
   <div style="text-align:center; padding:20px 0 40px; color:var(--text-muted); font-size:0.8rem;">
-    <p>由 <span style="color:var(--blue);font-weight:900">QClaw AI</span> 整理 · 客观 · 实用 · 简洁 · 最后更新 2026-07-10</p>
+    <p>由 <span style="color:var(--blue);font-weight:900">QClaw AI</span> 整理 · 客观 · 实用 · 简洁 · 最后更新 2026-07-11</p>
   </div>
 
 </main>

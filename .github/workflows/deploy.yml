@@ -31,8 +31,14 @@ jobs:
           hugo-version: '0.163.3'
           extended: true
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Build Hugo
         run: hugo --gc
+
+      - name: Build Pagefind index
+        run: npx pagefind --site public
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

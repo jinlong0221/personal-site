@@ -223,7 +223,20 @@ function ensureSearchModal(){
 
   function open(q){
     modal.classList.add('active');
-    setTimeout(function(){input.focus();if(q){input.value=q;handle(q);}},50);
+    setTimeout(function(){
+      // 按需加载 pagefind.js（仅搜索页自带，全站其他页动态加载）
+      if(typeof pagefind==='undefined'){
+        var s=document.createElement('script');
+        s.src='/pagefind/pagefind.js';
+        s.onload=function(){pagefindReady=true;input.focus();if(q){input.value=q;handle(q);}};
+        s.onerror=function(){input.focus();if(q){input.value=q;handle(q);}};
+        document.head.appendChild(s);
+      }else{
+        pagefindReady=true;
+        input.focus();
+        if(q){input.value=q;handle(q);}
+      }
+    },50);
   }
   function close(){
     modal.classList.remove('active');

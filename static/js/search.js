@@ -204,6 +204,13 @@ function ensureSearchModal(){
   var clearBtn=modal.querySelector('.search-modal-clear');
   var tabs=modal.querySelectorAll('.search-tab');
   var searchMode='site';
+  var pagefindReady=false;
+  var pagefindSearch=null;
+
+  // 初始化 Pagefind（全站搜索）
+  if(typeof pagefind!=='undefined'){
+    pagefind.search('').then(function(){pagefindReady=true;}).catch(function(){pagefindReady=false;});
+  }
 
   tabs.forEach(function(tab){
     tab.addEventListener('click',function(){
@@ -226,33 +233,14 @@ function ensureSearchModal(){
     clearHighlights();
   }
 
-  function handle(q){
-    q=searchSanitizeInput(q);
-    clearBtn.style.display=q?'block':'none';
-    if(!q||q.length<1){
-      results.innerHTML='<div class="search-hint">输入关键词开始搜索</div>';
-      clearHighlights();
-      return;
-    }
-    if(searchMode==='page'){
-      clearHighlights();
-      var count=highlightOnPage(q);
-      if(count===0){
-        results.innerHTML='<div class="search-no-results">暂无相关内容</div>';
-      }else{
-        results.innerHTML='<div class="search-page-result">在本页找到 <strong>'+count+'</strong> 处匹配</div>';
-      }
-      return;
-    }
-    clearHighlights();
-    var r=performSearch(q);
+  function displayResults(r,q){
     if(r.length===0){
       results.innerHTML='<div class="search-no-results">暂无相关内容</div>';
       return;
     }
     var h='<div class="search-results-list">';
     r.forEach(function(item){
-      var desc=item.description||'';
+      var desc=item.description||item.excerpt||'';
       var paras='';
       if(item.paragraphs&&item.paragraphs.length>0){
         paras='<div class="search-result-paras">';
@@ -276,6 +264,45 @@ function ensureSearchModal(){
     });
     h+='</div>';
     results.innerHTML=h;
+  }
+
+  async function handle(q){
+    q=searchSanitizeInput(q);
+    clearBtn.style.display=q?'block':'none';
+    if(!q||q.length<1){
+      results.innerHTML='<div class="search-hint">输入关键词开始搜索</div>';
+      clearHighlights();
+      return;
+    }
+    if(searchMode==='page'){
+      clearHighlights();
+      var count=highlightOnPage(q);
+      if(count===0){
+        results.innerHTML='<div class="search-no-results">暂无相关内容</div>';
+      }else{
+        results.innerHTML='<div class="search-page-result">在本页找到 <strong>'+count+'</strong> 处匹配</div>';
+      }
+      return;
+    }
+    clearHighlights();
+    results.innerHTML='<div class="search-hint">搜索中…</div>';
+
+    // 优先用 Pagefind，否则降级到 search-index.json
+    if(pagefindReady){
+      try{
+        var pf=await pagefind.search(q);
+        var items=[];
+        for(var i=0;i<pf.results.length&&i<20;i++){
+          var d=await pf.results[i].data();
+          items.push({title:d.meta&&d.meta.title||'',url:d.url,description:d.excerpt||'',paragraphs:[]});
+        }
+        displayResults(items,q);
+        return;
+      }catch(e){}
+    }
+    // 降级方案
+    var r=performSearch(q);
+    displayResults(r,q);
   }
 
   // 导航栏搜索按钮

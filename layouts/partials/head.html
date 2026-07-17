@@ -58,8 +58,9 @@
 }
 </script>
 
-<!-- 龙兄状态数据：构建时注入HTML，不走fetch，彻底规避微信浏览器JSON缓存 -->
-<script id="site-status-data" type="application/json">{{ .Site.Data.status | jsonify }}</script>
+<!-- 龙兄状态数据：构建时注入HTML，不走fetch，彻底规避微信浏览器JSON缓存
+     用 safeJS 避免被 Go 模板当字符串上下文再包裹一层引号 -->
+<script id="site-status-data" type="application/json">{{ .Site.Data.status | jsonify | safeJS }}</script>
 
 <!-- [主题防闪白] DOM渲染前读取localStorage设置data-theme -->
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark'}}catch(e){}})();</script>

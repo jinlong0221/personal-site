@@ -207,10 +207,13 @@ function ensureSearchModal(){
   var pagefindReady=false;
   var pagefindSearch=null;
 
-  // 初始化 Pagefind（全站搜索）
-  if(typeof pagefind!=='undefined'){
-    pagefind.search('').then(function(){pagefindReady=true;}).catch(function(){pagefindReady=false;});
-  }
+  // 初始化 Pagefind（全站搜索）- ES Module，需动态 import
+  (function initPagefind(){
+    import('/pagefind/pagefind.js').then(function(mod){
+      window.__pagefind=mod;
+      pagefindReady=true;
+    }).catch(function(){});
+  })();
 
   tabs.forEach(function(tab){
     tab.addEventListener('click',function(){
@@ -224,13 +227,17 @@ function ensureSearchModal(){
   function open(q){
     modal.classList.add('active');
     setTimeout(function(){
-      // 按需加载 pagefind.js（仅搜索页自带，全站其他页动态加载）
-      if(typeof pagefind==='undefined'){
-        var s=document.createElement('script');
-        s.src='/pagefind/pagefind.js';
-        s.onload=function(){pagefindReady=true;input.focus();if(q){input.value=q;handle(q);}};
-        s.onerror=function(){input.focus();if(q){input.value=q;handle(q);}};
-        document.head.appendChild(s);
+      // 按需加载 pagefind.js（ES Module，必须用 import() 动态加载）
+      if(!window.__pagefind){
+        import('/pagefind/pagefind.js').then(function(mod){
+          window.__pagefind=mod;
+          pagefindReady=true;
+          input.focus();
+          if(q){input.value=q;handle(q);}
+        }).catch(function(){
+          input.focus();
+          if(q){input.value=q;handle(q);}
+        });
       }else{
         pagefindReady=true;
         input.focus();
@@ -300,10 +307,10 @@ function ensureSearchModal(){
     clearHighlights();
     results.innerHTML='<div class="search-hint">搜索中…</div>';
 
-    // 优先用 Pagefind，否则降级到 search-index.json
-    if(pagefindReady){
+    // 优先用 Pagefind（ES Module），否则降级到 search-index.json
+    if(pagefindReady && window.__pagefind){
       try{
-        var pf=await pagefind.search(q);
+        var pf=await window.__pagefind.search(q);
         var items=[];
         for(var i=0;i<pf.results.length&&i<20;i++){
           var d=await pf.results[i].data();

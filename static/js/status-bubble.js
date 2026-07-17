@@ -61,9 +61,16 @@
     var bubbleDate = document.getElementById('bubbleDate');
     var bubbleTime = document.getElementById('bubbleTime');
 
+    // 兼容两种数据格式：
+    // - data/status.json（Hugo模板注入）：有 timestamp，无顶层 date/updatedAt
+    // - static/status.json（fetch回退）：有 date/time/updatedAt
+    var ts = data.timestamp || data.updatedAt || '';
+    var dateStr = data.date || (ts ? ts.split('T')[0] : '');
+    var updatedAtStr = data.updatedAt || ts;
+
     if (statusText) statusText.textContent = data.status || '';
-    if (bubbleDate) bubbleDate.textContent = data.date || '';
-    if (bubbleTime) bubbleTime.textContent = getTimeAgo(data.updatedAt);
+    if (bubbleDate) bubbleDate.textContent = dateStr;
+    if (bubbleTime) bubbleTime.textContent = getTimeAgo(updatedAtStr);
 
     // 同时更新杂志布局中的状态显示
     var magStatus = document.getElementById('magStatus');

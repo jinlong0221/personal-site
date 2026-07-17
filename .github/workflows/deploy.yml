@@ -38,12 +38,30 @@ jobs:
         run: hugo --gc
 
       - name: Build Pagefind index
-        run: npx pagefind --site public
+        run: |
+          echo "=== Before pagefind: public/ files ==="
+          find public/ -type f | head -20
+          echo ""
+          echo "=== Running pagefind ==="
+          npx pagefind --site public --verbose 2>&1
+          echo ""
+          echo "=== After pagefind: pagefind/ dir ==="
+          ls -la public/pagefind/
+          echo ""
+          echo "=== pagefind fragment/ files ==="
+          find public/pagefind/fragment/ -type f | head -10
+          echo ""
+          echo "=== pagefind index/ files ==="
+          find public/pagefind/index/ -type f | head -10
+          echo ""
+          echo "=== Count all files in public/pagefind/ ==="
+          find public/pagefind/ -type f | wc -l
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
+          retention-days: 1
 
   deploy:
     environment:

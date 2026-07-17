@@ -4,7 +4,6 @@
  * 
  * 使用方式：
  *   1. 在页面中添加一个容器：<div id="autoNewsBody"></div>
- *   2. 引入本脚本：<script src="js/auto_news_loader.js"></script>
  */
 
 (function () {

@@ -1,5 +1,53 @@
 [
   {
+    "date": "2026-07-23",
+    "content": "Tesla新闻更新：Q2财报发布、Cybercab投产、FSD中国落地消息"
+  },
+  {
+    "date": "2026-07-22",
+    "content": "搜索功能Bug修复：pagefind.js是ES Module需用import()动态加载"
+  },
+  {
+    "date": "2026-07-18",
+    "content": "全站JS加载架构重构：head.html全局加载10个JS，清除per-page标签"
+  },
+  {
+    "date": "2026-07-18",
+    "content": "数据目录规范：确认data/仅模板用，JS fetch文件必须放static/data/"
+  },
+  {
+    "date": "2026-07-17",
+    "content": "Pagefind搜索索引静态化：206个文件本地生成后提交git，绕开CI不确定性"
+  },
+  {
+    "date": "2026-07-17",
+    "content": "微信浏览器缓存根治：status数据内联注入HTML，零网络请求"
+  },
+  {
+    "date": "2026-07-17",
+    "content": "网站迁移Hugo静态站点架构完成，GitHub Actions自动构建部署"
+  },
+  {
+    "date": "2026-07-16",
+    "content": "书籍封面识别教训：必须用image工具看原图，不信任历史summary描述"
+  },
+  {
+    "date": "2026-07-15",
+    "content": "搜索功能修复：pagefind.js返回404→在GitHub Actions添加npx pagefind步骤"
+  },
+  {
+    "date": "2026-07-15",
+    "content": "重复DOM id修复：首页+9个herbs文件+18个static文件，74处重复归零"
+  },
+  {
+    "date": "2026-07-14",
+    "content": "全站体检：166页面、5694内链、0断链、0图片缺失"
+  },
+  {
+    "date": "2026-07-13",
+    "content": "全站内容批量更新：特斯拉23条、漫威9条、游戏主机9条、中药材9条"
+  },
+  {
     "date": "2026-07-12",
     "content": "🤖 自动更新：特斯拉、紫砂艺术、漫威宇宙"
   },

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="css/style.css?v=7080" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=7080"></noscript>
+<title>足迹 · 家庭旅行 - 龙兄知识库</title><meta name="description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案，按年份记录每一次出行的城市、瞬间与孩子的笑容。">
+<meta name="keywords" content="家庭旅行,亲子游,足迹,带着孩子去旅行,龙兄知识库">
+<style>:root{--tl:#c9a84c;--tl-2:#d98a4e;--tl-soft:rgba(201,168,76,.12)}
+[data-theme="light"]{--tl:#a68a3c;--tl-2:#c2763a;--tl-soft:rgba(166,138,60,.10)}
+.tl-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;min-height:230px;
+  display:flex;align-items:flex-end;background:linear-gradient(135deg,#231c0e 0%,#2e2512 50%,#3a2a14 100%)}
+.tl-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tl-hero::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,8,4,.92) 8%,rgba(10,8,4,.35) 55%,rgba(10,8,4,.15) 100%);pointer-events:none}
+.tl-hero>*{position:relative;z-index:1}
+.tl-hero-inner{padding:30px 28px 26px;max-width:760px}
+.tl-kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:3px;color:#e9d39a;
+  border:1px solid rgba(233,211,154,.4);border-radius:999px;padding:3px 14px;margin-bottom:12px}
+.tl-hero h1{font-size:2.1rem;color:#fff;margin:0 0 8px;line-height:1.25}
+.tl-hero p.tl-sub{color:rgba(255,255,255,.9);font-size:1rem;margin:0 0 10px;font-weight:600}
+.tl-hero p.tl-intro{color:rgba(255,255,255,.74);font-size:.9rem;line-height:1.85;margin:0}
+.tl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 10px}
+.tl-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 12px;text-align:center}
+.tl-stat-num{display:block;font-size:1.65rem;font-weight:800;color:var(--tl);line-height:1.2}
+.tl-stat-label{display:block;font-size:.76rem;color:var(--text-secondary);margin-top:4px}
+.tl-sec{margin:42px 0 0}
+.tl-sec-title{display:flex;align-items:center;gap:10px;font-size:1.28rem;font-weight:800;margin:0 0 6px;padding-left:12px;border-left:4px solid var(--tl)}
+.tl-sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+.tl-filter{margin:0 0 20px;padding:12px 14px;background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:12px}
+.tl-search-wrap{position:relative;margin-bottom:10px}
+.tl-search{width:100%;padding:9px 34px 9px 34px;font-size:.9rem;color:var(--text);background:var(--card);
+  border:1px solid var(--border);border-radius:9px;font-family:inherit}
+.tl-search:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tl-soft)}
+.tl-search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem;pointer-events:none}
+.tl-search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;
+  color:var(--text-muted);cursor:pointer;font-size:1rem;padding:2px 6px;display:none}
+.tl-chips{display:flex;flex-wrap:wrap;gap:7px}
+.tl-chip{font-size:.8rem;padding:5px 13px;border-radius:999px;border:1px solid var(--border);background:var(--card);
+  color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .18s}
+.tl-chip b{font-weight:700;opacity:.6;margin-left:2px;font-size:.74rem}
+.tl-chip:hover{border-color:var(--tl);color:var(--tl)}
+.tl-chip.active{background:var(--tl);border-color:var(--tl);color:#1a1408}
+.tl-chip.active b{opacity:.85}
+.tl-count-bar{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--text-muted);margin-bottom:14px}
+.tl-reset{background:none;border:none;color:var(--tl);cursor:pointer;font-size:.8rem;font-family:inherit;text-decoration:underline}
+.tl-list{display:flex;flex-direction:column;gap:20px}
+.tl-trip{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;border-left:4px solid var(--tl)}
+.tl-trip-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.tl-season{flex:0 0 auto;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.05rem;font-weight:800}
+.tl-trip-titles{display:flex;flex-direction:column}
+.tl-trip-title{font-size:1.22rem;font-weight:800;color:var(--text);line-height:1.3;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tl-latest{flex:0 0 auto;font-size:.7rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--tl),var(--tl-2));
+  padding:2px 10px;border-radius:999px;letter-spacing:.5px}
+.tl-trip-meta{font-size:.82rem;color:var(--text-secondary);margin-top:2px}
+.tl-trip-note{font-size:.92rem;color:var(--text-secondary);line-height:1.8;margin:0 0 14px;padding:10px 14px;
+  background:var(--tl-soft);border-left:3px solid var(--tl);border-radius:0 9px 9px 0;font-style:italic}
+.tl-cities{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.tl-city{background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  transition:box-shadow .2s,transform .2s}
+.tl-city:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.tl-city-img-wrap{position:relative;aspect-ratio:320/200;background:var(--card);overflow:hidden}
+.tl-city-img{display:block;width:100%;height:100%;object-fit:cover}
+.tl-photo-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  color:var(--text-muted);background:
+    repeating-linear-gradient(45deg,rgba(201,168,76,.05) 0 12px,transparent 12px 24px),var(--card);
+  font-size:.78rem}
+.tl-photo-empty svg{opacity:.5}
+.tl-city-body{padding:12px 14px 14px}
+.tl-city-name{font-size:1.05rem;font-weight:800;color:var(--text);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.tl-city-meta{font-size:.76rem;font-weight:400;color:var(--text-muted)}
+.tl-city-memory{font-size:.88rem;color:var(--text-secondary);line-height:1.7;margin:6px 0 2px}
+.tl-city-kids{font-size:.78rem;color:var(--tl);margin:4px 0 6px;font-weight:600}
+.tl-rating{display:inline-flex;gap:1px;color:var(--tl);vertical-align:middle;margin-bottom:4px}
+.tl-rating .tl-star{color:var(--text-muted)}
+.tl-rating .tl-star.on{color:var(--tl)}
+.tl-city-toggle{display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:4px 12px;font-size:.76rem;
+  font-family:inherit;color:var(--tl);background:var(--tl-soft);border:1px solid transparent;border-radius:999px;cursor:pointer;transition:border-color .15s}
+.tl-city-toggle:hover{border-color:var(--tl)}
+.tl-caret{display:inline-block;transition:transform .2s;font-size:.7rem;line-height:1}
+.tl-city.open .tl-caret{transform:rotate(180deg)}
+.tl-city-detail{display:none;margin-top:8px;animation:tlFade .2s ease}
+.tl-city.open .tl-city-detail{display:block}
+.tl-highlights{margin:0;padding-left:18px}
+.tl-highlights li{font-size:.84rem;color:var(--text-secondary);line-height:1.8}
+.tl-empty{display:none;text-align:center;padding:46px 20px;color:var(--text-muted);font-size:.9rem}
+@keyframes tlFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.tl-reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.tl-reveal.in{opacity:1;transform:none}
+.tl-note{margin:36px 0 8px;padding:16px 18px;background:var(--bg);border:1px solid var(--border);border-radius:12px;
+  font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+.tl-note h3{font-size:.9rem;margin:0 0 8px;color:var(--text)}
+.tl-note code{background:var(--card);padding:1px 6px;border-radius:5px;font-size:.78rem;color:var(--tl)}
+@media(max-width:992px){.tl-stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:576px){.tl-hero{min-height:200px}.tl-hero-inner{padding:22px 16px 20px}.tl-hero h1{font-size:1.5rem}
+  .tl-trip{padding:16px 15px}.tl-cities{grid-template-columns:1fr}.tl-stat-num{font-size:1.35rem}}</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta property="og:site_name" content="龙兄知识库">
+<link rel="canonical" href="https://longxiong.vip/travel.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="足迹 · 家庭旅行 - 龙兄知识库">
+<meta property="og:description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/travel.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="足迹 · 家庭旅行 - 龙兄知识库">
+<meta name="twitter:description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">龙兄知识库</a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <a href="javascript:void(0)" class="nav-more-btn" onclick="var w=this.parentElement;w.classList.toggle('open');event.stopPropagation();">更多 ▾</a>
+        <div class="nav-more-dropdown">
+          <a href="travel.html" class="active">家庭旅行</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="games.html">游戏库</a>
+          <a href="about.html">关于本站</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="games.html">游戏库</a>
+  <a href="about.html">关于本站</a>
+  </div>
+</nav>
+
+  <main id="main-content" role="main"><div class="container">
+  <div class="breadcrumb" id="breadcrumb">
+    <a href="index.html">首页</a>
+    <span class="sep">›</span>
+    <span class="current">家庭旅行 · 足迹</span>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <div class="tl-hero">
+    <div class="tl-hero-img tl-photo-empty"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 16l5-5 4 4 3-3 6 6"/><rect x="2" y="6" width="20" height="13" rx="2"/><circle cx="8" cy="10" r="1.6"/></svg><span>封面照片随后补充</span></div>
+    <div class="tl-hero-inner">
+      <span class="tl-kicker">FAMILY TRAVEL · 家庭旅行</span>
+      <h1>足迹</h1>
+      <p class="tl-sub">带着老婆孩子，走过的每一座城</p>
+      <p class="tl-intro">每年两次，拖着行李箱，牵着一大的手、抱一小的人，去看不一样的天和地。这里记下的不是攻略，是我们一家走过的每一座城，和当时最想记住的瞬间。</p>
+    </div>
+  </div>
+
+  <div class="tl-stats">
+    <div class="tl-stat"><span class="tl-stat-num">5</span><span class="tl-stat-label">走过城市</span></div>
+    <div class="tl-stat"><span class="tl-stat-num">2</span><span class="tl-stat-label">出行次数</span></div>
+    <div class="tl-stat"><span class="tl-stat-num">1</span><span class="tl-stat-label">到过国家/地区</span></div>
+    <div class="tl-stat"><span class="tl-stat-num">2021</span><span class="tl-stat-label">始于</span></div>
+  </div>
+
+  <!-- ===== 出行档案 ===== -->
+  <section class="tl-sec">
+    <h2 class="tl-sec-title">我们的出行档案</h2>
+    <p class="tl-sec-sub">按年份排列，支持按年份筛选与关键词搜索（城市、地区、记忆都能搜）。点开每座城市可看亮点。</p>
+
+    <div class="tl-filter">
+      <div class="tl-search-wrap">
+        <span class="tl-search-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+        <input type="search" class="tl-search" id="tlSearch" placeholder="搜城市、地区或记忆，例如：成都 / 云南 / 大熊猫" aria-label="搜索家庭旅行">
+        <button class="tl-search-clear" id="tlClear" aria-label="清空搜索"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+      </div>
+      <div class="tl-chips">
+        <button class="tl-chip active" data-year="all">全部 <b>2</b></button>
+        <button class="tl-chip" data-year="2026">2026 <b>2</b></button>
+      </div>
+    </div>
+
+    <div class="tl-count-bar">
+      <span>共 <strong id="tlShown">2</strong> 次出行</span>
+      <button class="tl-reset" id="tlReset">重置筛选</button>
+    </div>
+
+    <div class="tl-list" id="tlList">
+<article class="tl-trip tl-reveal" data-year="2026" data-q="春·西南行 春 2026-04 女儿第一次见到活的大熊猫，回来后念了整整一周。 成都 重庆 丽江">  <div class="tl-trip-head">    <span class="tl-season" data-season="春" style="background:#3f7d4f">春</span>    <div class="tl-trip-titles">      <div class="tl-trip-title">春·西南行 </div>      <div class="tl-trip-meta">2026-04 · 6 天 · 3 城</div>    </div>  </div>  <p class="tl-trip-note">女儿第一次见到活的大熊猫，回来后念了整整一周。</p>  <div class="tl-cities"><article class="tl-city" data-q="成都 四川 中国 孩子第一次看大熊猫 女儿 5 岁 · 儿子 2 岁 大熊猫基地 宽窄巷子 春熙路火锅"><div class="tl-city-img-wrap tl-photo-empty"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="10" r="1.6"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg><span>照片随后补充</span></div><div class="tl-city-body">  <div class="tl-city-name">成都<span class="tl-city-meta">四川 · 中国 · 3 天</span></div>  <p class="tl-city-memory">孩子第一次看大熊猫</p><p class="tl-city-kids">女儿 5 岁 · 儿子 2 岁</p><span class="tl-rating" title="推荐指数 5/5" aria-label="推荐指数 5 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>大熊猫基地</li><li>宽窄巷子</li><li>春熙路火锅</li></ul></div></div></article>
+<article class="tl-city" data-q="重庆 直辖市 中国 洪崖洞的夜，孩子说像进了动画城 女儿 5 岁 · 儿子 2 岁 洪崖洞 长江索道 磁器口"><div class="tl-city-img-wrap tl-photo-empty"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="10" r="1.6"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg><span>照片随后补充</span></div><div class="tl-city-body">  <div class="tl-city-name">重庆<span class="tl-city-meta">直辖市 · 中国 · 1 天</span></div>  <p class="tl-city-memory">洪崖洞的夜，孩子说像进了动画城</p><p class="tl-city-kids">女儿 5 岁 · 儿子 2 岁</p><span class="tl-rating" title="推荐指数 4/5" aria-label="推荐指数 4 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>洪崖洞</li><li>长江索道</li><li>磁器口</li></ul></div></div></article>
+<article class="tl-city" data-q="丽江 云南 中国 古城慢下来，儿子第一次追着溪水跑 女儿 5 岁 · 儿子 2 岁 古城漫步 玉龙雪山 束河古镇"><div class="tl-city-img-wrap tl-photo-empty"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="10" r="1.6"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg><span>照片随后补充</span></div><div class="tl-city-body">  <div class="tl-city-name">丽江<span class="tl-city-meta">云南 · 中国 · 2 天</span></div>  <p class="tl-city-memory">古城慢下来，儿子第一次追着溪水跑</p><p class="tl-city-kids">女儿 5 岁 · 儿子 2 岁</p><span class="tl-rating" title="推荐指数 5/5" aria-label="推荐指数 5 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>古城漫步</li><li>玉龙雪山</li><li>束河古镇</li></ul></div></div></article>  </div></article>
+
+<article class="tl-trip tl-reveal" data-year="2026" data-q="秋·江南行 秋 2026-10 秋天的水乡最温柔，女儿说桥比楼房还多。 杭州 苏州">  <div class="tl-trip-head">    <span class="tl-season" data-season="秋" style="background:#b8822e">秋</span>    <div class="tl-trip-titles">      <div class="tl-trip-title">秋·江南行 <span class="tl-latest">最新足迹</span></div>      <div class="tl-trip-meta">2026-10 · 7 天 · 2 城</div>    </div>  </div>  <p class="tl-trip-note">秋天的水乡最温柔，女儿说桥比楼房还多。</p>  <div class="tl-cities"><article class="tl-city" data-q="杭州 浙江 中国 一家四口骑单车绕西湖 女儿 5 岁 · 儿子 2 岁 西湖骑行 灵隐寺 河坊街"><div class="tl-city-img-wrap tl-photo-empty"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="10" r="1.6"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg><span>照片随后补充</span></div><div class="tl-city-body">  <div class="tl-city-name">杭州<span class="tl-city-meta">浙江 · 中国 · 2 天</span></div>  <p class="tl-city-memory">一家四口骑单车绕西湖</p><p class="tl-city-kids">女儿 5 岁 · 儿子 2 岁</p><span class="tl-rating" title="推荐指数 5/5" aria-label="推荐指数 5 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>西湖骑行</li><li>灵隐寺</li><li>河坊街</li></ul></div></div></article>
+<article class="tl-city" data-q="苏州 江苏 中国 园林里玩寻宝，儿子认识了第一只锦鲤 女儿 5 岁 · 儿子 2 岁 拙政园 平江路 狮子林"><div class="tl-city-img-wrap tl-photo-empty"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="10" r="1.6"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg><span>照片随后补充</span></div><div class="tl-city-body">  <div class="tl-city-name">苏州<span class="tl-city-meta">江苏 · 中国 · 2 天</span></div>  <p class="tl-city-memory">园林里玩寻宝，儿子认识了第一只锦鲤</p><p class="tl-city-kids">女儿 5 岁 · 儿子 2 岁</p><span class="tl-rating" title="推荐指数 4/5" aria-label="推荐指数 4 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>拙政园</li><li>平江路</li><li>狮子林</li></ul></div></div></article>  </div></article>
+    </div>
+    <div class="tl-empty" id="tlEmpty">没有匹配的出行，换个关键词试试～</div>
+  </section>
+
+  <div class="tl-note">
+    <h3>关于本页</h3>
+    <ul>
+      <li>这里记的是我们一家人的真实足迹，不是攻略。每一座城背后，都是一段想被记住的时光。</li>
+      <li>每个城市可放一张<b>真实旅行照</b>：把照片放到 <code>static/img/travel/&lt;行程id&gt;/&lt;城市&gt;.webp</code>（封面用 <code>&lt;行程id&gt;/cover.webp</code>），重新构建后自动显示。本站<b>绝不使用 AI 生成图</b>，照片必须是真实拍摄的。</li>
+      <li>照片还没整理好也没关系——没有照片的城市会显示一张优雅的占位卡，绝不会出现破图。</li>
+      <li>新增一次出行，只需在 <code>static/data/travel.json</code> 的 trips 里加一段，重跑 <code>scripts/build_travel.py</code> 即可。</li>
+    </ul>
+  </div>
+
+</div>
+</main><footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script src="js/search.js"></script>
+<script defer src="js/app.js"></script>
+<script src="js/share.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "name": "足迹 · 家庭旅行 - 龙兄知识库",
+      "url": "https://longxiong.vip/travel.html",
+      "description": "带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。"
+    }
+  ]
+}
+</script>
+
+<script>(function(){
+  var list=document.getElementById('tlList');
+  if(!list)return;
+  var trips=[].slice.call(list.querySelectorAll('.tl-trip'));
+  var chips=[].slice.call(document.querySelectorAll('.tl-chip'));
+  var input=document.getElementById('tlSearch');
+  var clear=document.getElementById('tlClear');
+  var shown=document.getElementById('tlShown');
+  var empty=document.getElementById('tlEmpty');
+  var reset=document.getElementById('tlReset');
+  var ALIAS={'旅游':'travel 旅行','家庭':'family 家庭','孩子':'孩子 女儿 儿子','亲子':'亲子 家庭'};
+  var state={year:'all',q:''};
+  trips.forEach(function(t){ t._q=(t.getAttribute('data-q')||''); });
+  function render(){
+    var n=0;
+    trips.forEach(function(t){
+      var okY=(state.year==='all')||String(t.getAttribute('data-year'))===state.year;
+      var okQ=!state.q||t._q.indexOf(state.q)>-1;
+      var ok=okY&&okQ;
+      t.style.display=ok?'':'none';
+      if(ok)n++;
+    });
+    shown.textContent=n;
+    empty.style.display=n?'none':'block';
+    clear.style.display=state.q?'block':'none';
+  }
+  chips.forEach(function(ch){
+    ch.addEventListener('click',function(){
+      chips.forEach(function(x){x.classList.remove('active');});
+      ch.classList.add('active');
+      state.year=ch.getAttribute('data-year');
+      render();
+    });
+  });
+  input.addEventListener('input',function(){
+    var v=input.value.trim().toLowerCase();
+    if(ALIAS[v])v=ALIAS[v];
+    state.q=v; render();
+  });
+  clear.addEventListener('click',function(){ input.value=''; state.q=''; render(); input.focus(); });
+  reset.addEventListener('click',function(){
+    input.value=''; state.q=''; state.year='all';
+    chips.forEach(function(x){x.classList.toggle('active',x.getAttribute('data-year')==='all');});
+    render();
+  });
+  var toggles=[].slice.call(list.querySelectorAll('.tl-city-toggle'));
+  toggles.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var card=btn.closest('.tl-city');
+      var open=card.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+      var t=btn.querySelector('.tl-toggle-txt'); if(t)t.textContent=open?'收起亮点':'展开亮点';
+    });
+  });
+  // 滚动淡入
+  var reveals=[].slice.call(document.querySelectorAll('.tl-reveal'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:0.08});
+    reveals.forEach(function(r){io.observe(r);});
+  } else { reveals.forEach(function(r){r.classList.add('in');}); }
+  render();
+})();</script>
+</body>
+</html>

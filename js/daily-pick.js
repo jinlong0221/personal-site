@@ -4,13 +4,15 @@
  */
 (function () {
   // ===== 推荐池（本地图片，无外部依赖）=====
+  // ⚠️ 每条的 img 必须与 name/url/desc 主题严格对应，禁止混用其它主题照片
+  // （养生茶/天气/高考 三条因仓库无对应真实照片、且外网取图被限流，暂移除以杜绝错配）
   const pickPool = [
     {
       name: '沉香鉴别指南',
       desc: '天然沉香四大鉴别方法，告别假货少走弯路',
       tag: '🔬 药材与手串',
       url: 'herbs/chenxiang.html',
-      img: 'img/zisha/wht2026_p1_0.webp'
+      img: 'img/herbs/chenxiang/chenxiang_p1_0.webp'
     },
     {
       name: '特斯拉 Model Y',
@@ -18,13 +20,6 @@
       tag: '🚗 数码科技',
       url: 'tesla.html',
       img: 'img/tesla/modely/front.webp'
-    },
-    {
-      name: '中药养生茶',
-      desc: '30+经典配方，按体质喝对茶',
-      tag: '🌿 生活百科',
-      url: 'health-tea.html',
-      img: 'img/zisha/wht2026_p1_1.webp'
     },
     {
       name: 'PlayStation 5',
@@ -48,13 +43,6 @@
       img: 'img/zisha/wht2026_p1_3.webp'
     },
     {
-      name: '射阳天气预报',
-      desc: '新坍镇实时天气，出行无忧',
-      tag: '⛅ 生活服务',
-      url: 'xintan-weather.html',
-      img: 'img/zisha/wht2026_p1_4.webp'
-    },
-    {
       name: 'Nintendo Switch 2',
       desc: '独占大作+多人派对，动森/塞尔达/马车8',
       tag: '🎮 游戏主机',
@@ -66,14 +54,7 @@
       desc: '10种名贵药材香料知识，从入门到精通',
       tag: '🌿 生活百科',
       url: 'herbs.html',
-      img: 'img/zisha/wht2026_p1_6.webp'
-    },
-    {
-      name: '高考查分入口',
-      desc: '2026年高考成绩查询，收藏备用',
-      tag: '📚 实用工具',
-      url: 'gaokao.html',
-      img: 'img/zisha/wht2026_p1_7.webp'
+      img: 'img/herbs/chenxiang/chenxiang_p1_0.webp'
     }
   ];
 

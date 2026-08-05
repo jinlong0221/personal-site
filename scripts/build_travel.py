@@ -16,6 +16,7 @@
 import os
 import re
 import json
+from collections import OrderedDict
 import html as htmllib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -122,7 +123,18 @@ def build_city_card(c, trip_id):
     ) % (esc(q), img_wrap, esc(name), esc(meta), memory_html, kids_html, rating_html, detail)
 
 
-def build_trip_card(t, latest_id, open_default=False):
+def region_of(t):
+    """返回 (城市级分组键, 完整 region 串)，用于把同一地区的多次出行聚合到一张卡内。"""
+    cities = t.get('cities', [])
+    if not cities:
+        return (t.get('title', t.get('id', '')), t.get('title', t.get('id', '')))
+    region = cities[0].get('region', '')
+    parts = [p.strip() for p in region.split('·') if p.strip()]
+    return (parts[-1] if parts else cities[0].get('name', ''), region)
+
+
+def build_visit_section(t, latest_id):
+    """渲染某地区卡内部的一段「年份出行」：季节/日期 + 城市解说 + 沿途相册。"""
     tid = t.get('id', '')
     year = t.get('year', '')
     season = t.get('season', '')
@@ -153,7 +165,7 @@ def build_trip_card(t, latest_id, open_default=False):
 
     city_cards = '\n'.join(build_city_card(c, tid) for c in cities)
 
-    # 沿途相册：本趟真实照片全收录，每张配一句解说（文字对应图片）
+    # 沿途相册：本段真实照片全收录，每张配一句解说（文字对应图片）
     gallery_imgs = []
     for p in t.get('photos', []):
         if isinstance(p, dict):
@@ -176,12 +188,6 @@ def build_trip_card(t, latest_id, open_default=False):
     else:
         gallery_html = ''
 
-    # 封面作卡片背景（存在才用，否则用渐变兜底）
-    cover = resolve_photo(t.get('cover', ''))
-    bg = '<img class="tl-trip-bg" src="%s" alt="">' % esc(cover) if cover else ''
-
-    q = ' '.join([title, season, date, note] + [c.get('name', '') for c in cities]).lower()
-
     n_cities = len(cities)
     city_limit = 4
     cities_cls = 'tl-cities'
@@ -192,17 +198,56 @@ def build_trip_card(t, latest_id, open_default=False):
                      'aria-expanded="false">展开全部 %d 城 <span class="tl-caret">▾</span></button>'
                      % (city_limit, n_cities, n_cities))
 
+    return (
+        '<section class="tl-visit">'
+        '  <header class="tl-visit-head">'
+        '    %s'
+        '    <span class="tl-visit-date">%s</span>'
+        '    <span class="tl-visit-meta">%s</span>'
+        '    %s'
+        '  </header>'
+        '  %s'
+        '  <div class="%s">%s</div>'
+        '  %s'
+        '  %s'
+        '</section>'
+    ) % (season_html, esc(date), meta, latest_badge, note_html, cities_cls, city_cards, city_more, gallery_html)
+
+
+def build_region_card(key, region_full, visits, latest_id, open_default=False):
+    """把同一地区的多次出行聚合为一张可展开的大卡；卡内按年份分小段。"""
+    # 卡封面用该地区最近一次出行的封面（visits 已按年份倒序，[0] 为最新）
+    cover = resolve_photo(visits[0].get('cover', ''))
+    bg = '<img class="tl-trip-bg" src="%s" alt="">' % esc(cover) if cover else ''
+
+    years = ' '.join(str(v.get('year', '')) for v in visits)
+    year_disp = ' / '.join(str(v.get('year', '')) for v in visits)
+    n_visits = len(visits)
+
+    meta = '去过 %d 次 · %s' % (n_visits, year_disp)
+
+    q_parts = [key, region_full]
+    for v in visits:
+        q_parts += [v.get('title', ''), v.get('season', ''), v.get('date', ''), v.get('note', '')]
+        q_parts += [c.get('name', '') for c in v.get('cities', [])]
+        for p in v.get('photos', []):
+            if isinstance(p, dict):
+                q_parts.append(p.get('caption', ''))
+    q = ' '.join(q_parts).lower()
+
+    visit_html = '\n'.join(build_visit_section(v, latest_id) for v in visits)
+
     open_cls = ' open' if open_default else ''
     aria = 'true' if open_default else 'false'
-    hint = ('点击展开 · 看这趟 %d 城的解说与照片' % n_cities) if n_cities else '点击展开 · 看照片'
+    hint = ('点击展开 · 看这 %d 次出行的城市解说与照片' % n_visits) if n_visits > 1 else '点击展开 · 看城市解说与照片'
 
     return (
-        '<article class="tl-trip tl-reveal%s" data-year="%s" data-q="%s">'
+        '<article class="tl-trip tl-reveal%s" data-year="%s" data-n="%d" data-q="%s">'
         '  <button type="button" class="tl-trip-head" aria-expanded="%s">'
         '    %s'
         '    <span class="tl-trip-head-inner">'
         '      <span class="tl-trip-titles">'
-        '        <span class="tl-trip-title">%s %s</span>'
+        '        <span class="tl-trip-title">%s <span class="tl-trip-region">%s</span></span>'
         '        <span class="tl-trip-meta">%s</span>'
         '        <span class="tl-trip-hint">%s</span>'
         '      </span>'
@@ -211,13 +256,9 @@ def build_trip_card(t, latest_id, open_default=False):
         '  </button>'
         '  <div class="tl-trip-body">'
         '    %s'
-        '    <div class="%s">%s</div>'
-        '    %s'
-        '    %s'
         '  </div>'
         '</article>'
-    ) % (open_cls, year, esc(q), aria, bg, esc(title), latest_badge, meta, hint,
-         note_html, cities_cls, city_cards, city_more, gallery_html)
+    ) % (open_cls, esc(years), n_visits, esc(q), aria, bg, esc(key), esc(region_full), esc(meta), esc(hint), visit_html)
 
 
 def main():
@@ -275,8 +316,23 @@ def main():
     year_chips_html = '\n        '.join(year_chips)
 
     if trips:
-        # 默认展开「最新一次出行」作为示范，其余折叠成背景卡以节省空间（应对将来几十上百地区）
-        cards = '\n\n'.join(build_trip_card(t, latest_id, t.get('id') == latest_id) for t in trips)
+        # 按地区聚合：同一城市的多段出行合并成一张卡，卡内按年份分小段（用户要求：同地区放一起、里面分年份）
+        groups = OrderedDict()
+        for t in trips:
+            key, region_full = region_of(t)
+            if key not in groups:
+                groups[key] = {'region_full': region_full, 'visits': []}
+            groups[key]['visits'].append(t)
+        # 地区卡按「最近一次出行」倒序；卡内年份段也倒序
+        group_items = sorted(groups.items(),
+                             key=lambda kv: max(sort_key(v) for v in kv[1]['visits']),
+                             reverse=True)
+        for _, g in group_items:
+            g['visits'].sort(key=sort_key, reverse=True)
+        latest_region = region_of(max(trips, key=sort_key))[0] if trips else ''
+        cards = '\n\n'.join(
+            build_region_card(key, g['region_full'], g['visits'], latest_id, key == latest_region)
+            for key, g in group_items)
     else:
         cards = ('<div class="tl-empty-state">'
                  '<svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" '
@@ -374,6 +430,12 @@ def main():
 .tl-trip-body{display:none;padding:18px 22px 22px}
 .tl-trip.open .tl-trip-body{display:block;animation:tlSlide .3s ease}
 @keyframes tlSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.tl-visit{padding-top:16px;margin-top:16px;border-top:1px dashed var(--border)}
+.tl-visit:first-of-type{padding-top:2px;margin-top:0;border-top:none}
+.tl-visit-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+.tl-visit-date{font-size:1.06rem;font-weight:800;color:var(--text);line-height:1.3;display:flex;align-items:center;gap:8px}
+.tl-visit-meta{font-size:.8rem;color:var(--text-muted)}
+.tl-trip-region{font-size:.8rem;font-weight:500;color:rgba(255,255,255,.6);margin-left:4px}
 .tl-season{flex:0 0 auto;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
   color:#fff;font-size:1.05rem;font-weight:800}
 .tl-trip-titles{display:flex;flex-direction:column}
@@ -454,15 +516,17 @@ def main():
   var state={year:'all',q:'',page:1};
   trips.forEach(function(t){ t._q=(t.getAttribute('data-q')||''); });
   function match(t){
-    var okY=(state.year==='all')||String(t.getAttribute('data-year'))===state.year;
+    var y=t.getAttribute('data-year')||'';
+    var okY=(state.year==='all')||y.indexOf(state.year)>-1;
     var okQ=!state.q||t._q.indexOf(state.q)>-1;
     return okY&&okQ;
   }
   function render(){
-    var total=0,shownCount=0;
+    var total=0,shownCount=0,visitCount=0;
     trips.forEach(function(t){
       if(!match(t)){ t.style.display='none'; return; }
       total++;
+      visitCount += parseInt(t.getAttribute('data-n')||'0',10);
       if(shownCount < state.page*PER){
         var wasHidden=t.style.display==='none';
         t.style.display='';
@@ -472,7 +536,7 @@ def main():
         t.style.display='none';
       }
     });
-    shown.textContent=total;
+    shown.textContent=visitCount;
     empty.style.display=total?'none':'block';
     clear.style.display=state.q?'block':'none';
     moreWrap.style.display=(total>state.page*PER)?'block':'none';
@@ -630,7 +694,7 @@ __NAVBAR__
   <!-- ===== 出行档案 ===== -->
   <section class="tl-sec">
     <h2 class="tl-sec-title">我们的出行档案</h2>
-    <p class="tl-sec-sub">点开任意一次出行卡片，即可看到该地区的城市解说与沿途照片；可筛选年份或搜索关键词（城市、地区、记忆都能搜），点「显示更多出行」看更早的足迹。</p>
+    <p class="tl-sec-sub">点开任意地区卡片，即可看到该地区每一次出行的城市解说与沿途照片；可按年份筛选或搜索关键词（城市、地区、记忆、年份都能搜），点「显示更多地区」看更早的足迹。</p>
 
     <div class="tl-filter">
       <div class="tl-search-wrap">
@@ -652,7 +716,7 @@ __NAVBAR__
 __CARDS__
     </div>
     <div class="tl-more-wrap" id="tlMoreWrap">
-      <button class="tl-more-btn" id="tlMore" type="button">显示更多出行 <span class="tl-caret">▾</span></button>
+      <button class="tl-more-btn" id="tlMore" type="button">显示更多地区 <span class="tl-caret">▾</span></button>
     </div>
     <div class="tl-empty" id="tlEmpty">没有匹配的出行，换个关键词试试～</div>
   </section>

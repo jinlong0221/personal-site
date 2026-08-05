@@ -227,7 +227,16 @@ def main():
     trips = data.get('trips', [])
 
     # 计算统计
-    total_cities = sum(len(t.get('cities', [])) for t in trips)
+    # 走过城市：按「城市」去重（棒棰岛/东港均属大连、天河/珠江新城均属广州，只算 大连/广州/南京）
+    city_set = set()
+    for t in trips:
+        for c in t.get('cities', []):
+            region = c.get('region', '')
+            parts = [p.strip() for p in region.replace('·', '·').split('·') if p.strip()]
+            city = parts[-1] if parts else c.get('name', '')
+            if city:
+                city_set.add(city)
+    total_cities = len(city_set)
     total_trips = len(trips)
     countries = set()
     for t in trips:

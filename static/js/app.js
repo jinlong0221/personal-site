@@ -204,7 +204,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 // 区域F - 面包屑
 // ============================================================
 (function(){
-  var c=document.getElementById('breadcrumb');if(!c)return;
+  var c=document.getElementById('breadcrumb');if(!c||c.innerHTML.trim())return;
   var path=window.location.pathname;
   var parts=path.replace(/\/$/,'').split('/').filter(Boolean);
   var titleMap={

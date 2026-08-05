@@ -506,12 +506,7 @@ __CARDS__
 
   <div class="tl-note">
     <h3>关于本页</h3>
-    <ul>
-      <li>这里记的是我们一家人的真实足迹，不是攻略。每一座城背后，都是一段想被记住的时光。</li>
-      <li>每个城市可放一张<b>真实旅行照</b>：把照片放到 <code>static/img/travel/&lt;行程id&gt;/&lt;城市&gt;.webp</code>（封面用 <code>&lt;行程id&gt;/cover.webp</code>），重新构建后自动显示。本站<b>绝不使用 AI 生成图</b>，照片必须是真实拍摄的。</li>
-      <li>照片还没整理好也没关系——没有照片的城市会显示一张优雅的占位卡，绝不会出现破图。</li>
-      <li>新增一次出行，只需在 <code>static/data/travel.json</code> 的 trips 里加一段，重跑 <code>scripts/build_travel.py</code> 即可。</li>
-    </ul>
+    <p>这里记的是我们一家人的真实足迹，不是攻略——每一座城背后，都是一段想被记住的时光。所有照片均为真实拍摄，绝不使用 AI 生成图。</p>
   </div>
 
 </div>

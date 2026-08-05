@@ -186,6 +186,7 @@ def main():
         for c in t.get('cities', []):
             countries.add(c.get('country', '中国'))
     start_year = site.get('startYear') or (min(t.get('year', 9999) for t in trips) if trips else '')
+    start_year_disp = str(start_year) if trips else '—'
     years = sorted(set(t.get('year') for t in trips), reverse=True)
     # 最新一次出行（按 年+日期 倒序）
     def sort_key(t):
@@ -216,7 +217,18 @@ def main():
         year_chips.append('<button class="tl-chip" data-year="%s">%s <b>%d</b></button>' % (y, y, n))
     year_chips_html = '\n        '.join(year_chips)
 
-    cards = '\n\n'.join(build_trip_card(t, latest_id) for t in trips)
+    if trips:
+        cards = '\n\n'.join(build_trip_card(t, latest_id) for t in trips)
+    else:
+        cards = ('<div class="tl-empty-state">'
+                 '<svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" '
+                 'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+                 '<path d="M32 10c-8 0-14 6-14 14 0 10 14 30 14 30s14-20 14-30c0-8-6-14-14-14z"/>'
+                 '<circle cx="32" cy="24" r="5"/></svg>'
+                 '<p class="tl-empty-title">足迹，正在路上</p>'
+                 '<p class="tl-empty-sub">还没有出行记录。把旅行照片发给我，告诉我对应哪座城，'
+                 '我就帮你一张张填进来——这里会慢慢长出你们一家人的脚印。</p>'
+                 '</div>')
 
     page_css = """
 :root{--tl:#c9a84c;--tl-2:#d98a4e;--tl-soft:rgba(201,168,76,.12)}
@@ -306,6 +318,10 @@ def main():
   font-size:.82rem;color:var(--text-secondary);line-height:1.85}
 .tl-note h3{font-size:.9rem;margin:0 0 8px;color:var(--text)}
 .tl-note code{background:var(--card);padding:1px 6px;border-radius:5px;font-size:.78rem;color:var(--tl)}
+.tl-empty-state{text-align:center;padding:54px 20px;color:var(--text-muted)}
+.tl-empty-state svg{color:var(--tl);opacity:.7;margin-bottom:14px}
+.tl-empty-title{font-size:1.15rem;font-weight:800;color:var(--text);margin:0 0 8px}
+.tl-empty-sub{font-size:.9rem;line-height:1.85;max-width:440px;margin:0 auto;color:var(--text-secondary)}
 @media(max-width:992px){.tl-stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:576px){.tl-hero{min-height:200px}.tl-hero-inner{padding:22px 16px 20px}.tl-hero h1{font-size:1.5rem}
   .tl-trip{padding:16px 15px}.tl-cities{grid-template-columns:1fr}.tl-stat-num{font-size:1.35rem}}
@@ -469,7 +485,7 @@ __NAVBAR__
     <div class="tl-filter">
       <div class="tl-search-wrap">
         <span class="tl-search-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-        <input type="search" class="tl-search" id="tlSearch" placeholder="搜城市、地区或记忆，例如：成都 / 云南 / 大熊猫" aria-label="搜索家庭旅行">
+        <input type="search" class="tl-search" id="tlSearch" placeholder="搜城市、地区或记忆" aria-label="搜索家庭旅行">
         <button class="tl-search-clear" id="tlClear" aria-label="清空搜索"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
       </div>
       <div class="tl-chips">
@@ -545,7 +561,7 @@ __CARDS__
             .replace('__N_CITIES__', str(total_cities))
             .replace('__N_TRIPS__', str(total_trips))
             .replace('__N_COUNTRIES__', str(len(countries)))
-            .replace('__START_YEAR__', str(start_year)))
+            .replace('__START_YEAR__', start_year_disp))
 
     with open(OUT, 'w', encoding='utf-8') as f:
         f.write(html)

@@ -122,7 +122,7 @@ def build_city_card(c, trip_id):
     ) % (esc(q), img_wrap, esc(name), esc(meta), memory_html, kids_html, rating_html, detail)
 
 
-def build_trip_card(t, latest_id):
+def build_trip_card(t, latest_id, open_default=False):
     tid = t.get('id', '')
     year = t.get('year', '')
     season = t.get('season', '')
@@ -169,6 +169,10 @@ def build_trip_card(t, latest_id):
     else:
         gallery_html = ''
 
+    # 封面作卡片背景（存在才用，否则用渐变兜底）
+    cover = resolve_photo(t.get('cover', ''))
+    bg = '<img class="tl-trip-bg" src="%s" alt="">' % esc(cover) if cover else ''
+
     q = ' '.join([title, season, date, note] + [c.get('name', '') for c in cities]).lower()
 
     n_cities = len(cities)
@@ -181,24 +185,32 @@ def build_trip_card(t, latest_id):
                      'aria-expanded="false">展开全部 %d 城 <span class="tl-caret">▾</span></button>'
                      % (city_limit, n_cities, n_cities))
 
+    open_cls = ' open' if open_default else ''
+    aria = 'true' if open_default else 'false'
+    hint = ('点击展开 · 看这趟 %d 城的解说与照片' % n_cities) if n_cities else '点击展开 · 看照片'
+
     return (
-        '<article class="tl-trip tl-reveal" data-year="%s" data-q="%s">'
-        '  <div class="tl-trip-head">'
+        '<article class="tl-trip tl-reveal%s" data-year="%s" data-q="%s">'
+        '  <button type="button" class="tl-trip-head" aria-expanded="%s">'
         '    %s'
-        '    <div class="tl-trip-titles">'
-        '      <div class="tl-trip-title">%s %s</div>'
-        '      <div class="tl-trip-meta">%s</div>'
-        '    </div>'
+        '    <span class="tl-trip-head-inner">'
+        '      <span class="tl-trip-titles">'
+        '        <span class="tl-trip-title">%s %s</span>'
+        '        <span class="tl-trip-meta">%s</span>'
+        '        <span class="tl-trip-hint">%s</span>'
+        '      </span>'
+        '      <span class="tl-trip-caret" aria-hidden="true">▾</span>'
+        '    </span>'
+        '  </button>'
+        '  <div class="tl-trip-body">'
+        '    %s'
+        '    <div class="%s">%s</div>'
+        '    %s'
+        '    %s'
         '  </div>'
-        '  %s'
-        '  <div class="%s">'
-        '%s'
-        '  </div>'
-        '  %s'
-        '  %s'
         '</article>'
-    ) % (year, esc(q), season_html, esc(title), latest_badge, meta, note_html,
-         cities_cls, city_cards, city_more, gallery_html)
+    ) % (open_cls, year, esc(q), aria, bg, esc(title), latest_badge, meta, hint,
+         note_html, cities_cls, city_cards, city_more, gallery_html)
 
 
 def main():
@@ -247,7 +259,8 @@ def main():
     year_chips_html = '\n        '.join(year_chips)
 
     if trips:
-        cards = '\n\n'.join(build_trip_card(t, latest_id) for t in trips)
+        # 默认展开「最新一次出行」作为示范，其余折叠成背景卡以节省空间（应对将来几十上百地区）
+        cards = '\n\n'.join(build_trip_card(t, latest_id, t.get('id') == latest_id) for t in trips)
     else:
         cards = ('<div class="tl-empty-state">'
                  '<svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" '
@@ -314,8 +327,28 @@ def main():
 .tl-count-bar{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--text-muted);margin-bottom:14px}
 .tl-reset{background:none;border:none;color:var(--tl);cursor:pointer;font-size:.8rem;font-family:inherit;text-decoration:underline}
 .tl-list{display:flex;flex-direction:column;gap:20px}
-.tl-trip{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;border-left:4px solid var(--tl)}
-.tl-trip-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.tl-trip{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  transition:box-shadow .25s ease,border-color .25s ease}
+.tl-trip.open{border-color:var(--tl);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.tl-trip-head{position:relative;display:flex;width:100%;text-align:left;cursor:pointer;border:none;
+  -webkit-appearance:none;appearance:none;background:linear-gradient(135deg,#231c0e 0%,#2e2512 50%,#3a2a14 100%);
+  color:#fff;padding:0;font-family:inherit;-webkit-tap-highlight-color:transparent;outline:none}
+.tl-trip-head:focus-visible{box-shadow:0 0 0 3px var(--tl-soft)}
+.tl-trip-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;z-index:0}
+.tl-trip-head::before{content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.22) 100%)}
+.tl-trip-head-inner{position:relative;z-index:2;flex:1;display:flex;justify-content:space-between;align-items:center;
+  gap:16px;padding:20px 22px;min-height:120px}
+.tl-trip-titles{display:flex;flex-direction:column;gap:3px}
+.tl-trip-head .tl-trip-title{font-size:1.24rem;font-weight:800;color:#fff;line-height:1.3;margin:0;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.tl-trip-head .tl-trip-meta{font-size:.82rem;color:rgba(255,255,255,.86);margin-top:2px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.tl-trip-hint{font-size:.76rem;color:rgba(255,255,255,.7);margin-top:3px;letter-spacing:.3px}
+.tl-trip-caret{flex:0 0 auto;font-size:1.1rem;color:rgba(255,255,255,.9);transition:transform .25s ease;line-height:1}
+.tl-trip.open .tl-trip-caret{transform:rotate(180deg)}
+.tl-trip-body{display:none;padding:18px 22px 22px}
+.tl-trip.open .tl-trip-body{display:block;animation:tlSlide .3s ease}
+@keyframes tlSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 .tl-season{flex:0 0 auto;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
   color:#fff;font-size:1.05rem;font-weight:800}
 .tl-trip-titles{display:flex;flex-direction:column}
@@ -465,6 +498,15 @@ def main():
       var t=btn.querySelector('.tl-toggle-txt'); if(t)t.textContent=open?'收起亮点':'展开亮点';
     });
   });
+  // 出行卡片手风琴：点击背景卡头部展开/收起该地区的城市解说与照片
+  var heads=[].slice.call(list.querySelectorAll('.tl-trip-head'));
+  heads.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var card=btn.closest('.tl-trip');
+      var open=card.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
   // 滚动淡入
   var reveals=[].slice.call(document.querySelectorAll('.tl-reveal'));
   if('IntersectionObserver' in window){
@@ -563,7 +605,7 @@ __NAVBAR__
   <!-- ===== 出行档案 ===== -->
   <section class="tl-sec">
     <h2 class="tl-sec-title">我们的出行档案</h2>
-    <p class="tl-sec-sub">默认展示最近几次出行，可筛选年份或搜索关键词（城市、地区、记忆都能搜）；点「显示更多出行」看更早的足迹，点开每座城市可看亮点。</p>
+    <p class="tl-sec-sub">点开任意一次出行卡片，即可看到该地区的城市解说与沿途照片；可筛选年份或搜索关键词（城市、地区、记忆都能搜），点「显示更多出行」看更早的足迹。</p>
 
     <div class="tl-filter">
       <div class="tl-search-wrap">

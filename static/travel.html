@@ -86,7 +86,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
 <link rel="preload" href="css/style.css?v=7080" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="css/style.css?v=7080"></noscript>
-<title>足迹 · 家庭旅行 - 龙兄知识库</title><meta name="description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案，按年份记录每一次出行的城市、瞬间与孩子的笑容。">
+<title>足迹 · 家庭旅行 - 龙兄知识库</title><meta name="description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案，按年份记录每一次出行的城市、瞬间与孩子的笑容。">
 <meta name="keywords" content="家庭旅行,亲子游,足迹,带着孩子去旅行,龙兄知识库">
 <style>:root{--tl:#c9a84c;--tl-2:#d98a4e;--tl-soft:rgba(201,168,76,.12)}
 [data-theme="light"]{--tl:#a68a3c;--tl-2:#c2763a;--tl-soft:rgba(166,138,60,.10)}
@@ -193,6 +193,14 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .tl-empty-state svg{color:var(--tl);opacity:.7;margin-bottom:14px}
 .tl-empty-title{font-size:1.15rem;font-weight:800;color:var(--text);margin:0 0 8px}
 .tl-empty-sub{font-size:.9rem;line-height:1.85;max-width:440px;margin:0 auto;color:var(--text-secondary)}
+.tl-more-wrap{display:none;text-align:center;margin:22px 0 4px}
+.tl-more-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 28px;font-size:.92rem;font-family:inherit;
+  color:var(--tl);background:var(--tl-soft);border:1px solid var(--tl);border-radius:999px;cursor:pointer;transition:all .18s}
+.tl-more-btn:hover{background:var(--tl);color:#1a1408}
+.tl-cities-more{display:inline-flex;align-items:center;gap:4px;margin:12px 0 2px;padding:4px 14px;font-size:.78rem;
+  font-family:inherit;color:var(--tl);background:var(--tl-soft);border:1px solid transparent;border-radius:999px;cursor:pointer}
+.tl-cities-more:hover{border-color:var(--tl)}
+.tl-cities.tl-collapsible{position:relative}
 @media(max-width:992px){.tl-stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:576px){.tl-hero{min-height:200px}.tl-hero-inner{padding:22px 16px 20px}.tl-hero h1{font-size:1.5rem}
   .tl-trip{padding:16px 15px}.tl-cities{grid-template-columns:1fr}.tl-stat-num{font-size:1.35rem}}</style>
@@ -210,14 +218,14 @@ var _hmt = _hmt || [];
 <link rel="canonical" href="https://longxiong.vip/travel.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta property="og:title" content="足迹 · 家庭旅行 - 龙兄知识库">
-<meta property="og:description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。">
+<meta property="og:description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/travel.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="足迹 · 家庭旅行 - 龙兄知识库">
-<meta name="twitter:description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。">
+<meta name="twitter:description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 </head>
 <body>
@@ -277,7 +285,7 @@ var _hmt = _hmt || [];
   <a href="xintan-weather.html">农田气象</a>
   <a href="zisha.html">紫砂艺术</a>
   <a href="console.html">游戏主机</a>
-  <a href="travel.html">家庭旅行</a>
+  <a href="travel.html" class="active">家庭旅行</a>
   <a href="chinajoy.html">ChinaJoy 成长史</a>
   <a href="guanghui.html">光辉电力</a>
   <a href="gaokao.html">高考查分</a>
@@ -300,8 +308,8 @@ var _hmt = _hmt || [];
     <div class="tl-hero-inner">
       <span class="tl-kicker">FAMILY TRAVEL · 家庭旅行</span>
       <h1>足迹</h1>
-      <p class="tl-sub">带着老婆孩子，走过的每一座城</p>
-      <p class="tl-intro">每年两次，拖着行李箱，牵着一大的手、抱一小的人，去看不一样的天和地。这里记下的不是攻略，是我们一家走过的每一座城，和当时最想记住的瞬间。</p>
+      <p class="tl-sub">带着老婆和两个儿子，走过的每一座城</p>
+      <p class="tl-intro">每年两次，拖着行李箱，牵着大儿子的手、抱着小儿子，去看不一样的天和地。这里记下的不是攻略，是我们一家四口的真实脚印——每一座城背后，都是一段想被记住的时光。</p>
     </div>
   </div>
 
@@ -315,7 +323,7 @@ var _hmt = _hmt || [];
   <!-- ===== 出行档案 ===== -->
   <section class="tl-sec">
     <h2 class="tl-sec-title">我们的出行档案</h2>
-    <p class="tl-sec-sub">按年份排列，支持按年份筛选与关键词搜索（城市、地区、记忆都能搜）。点开每座城市可看亮点。</p>
+    <p class="tl-sec-sub">默认展示最近几次出行，可筛选年份或搜索关键词（城市、地区、记忆都能搜）；点「显示更多出行」看更早的足迹，点开每座城市可看亮点。</p>
 
     <div class="tl-filter">
       <div class="tl-search-wrap">
@@ -335,8 +343,11 @@ var _hmt = _hmt || [];
     </div>
 
     <div class="tl-list" id="tlList">
-<article class="tl-trip tl-reveal" data-year="2026" data-q="大连 · 海与城 夏 2026 夏 棒棰岛的海、东港的风，孩子大了，海风还是那股海风。 棒棰岛 东港">  <div class="tl-trip-head">    <span class="tl-season" data-season="夏" style="background:#c2623f">夏</span>    <div class="tl-trip-titles">      <div class="tl-trip-title">大连 · 海与城 <span class="tl-latest">最新足迹</span></div>      <div class="tl-trip-meta">2026 夏 · 4 天 · 2 城</div>    </div>  </div>  <p class="tl-trip-note">棒棰岛的海、东港的风，孩子大了，海风还是那股海风。</p>  <div class="tl-cities"><article class="tl-city" data-q="棒棰岛 辽宁 · 大连 中国 黄海的风从礁石那头吹过来，我们在海边的椅子上举杯，孩子们在沙滩上踩浪——那一刻觉得整个夏天都值了。 就我们俩，什么都不说，海风替我们聊完了。 远处那座小礁石，像一颗孤独的牙齿 椅背上印着「溪存汽水」四个字，老派的浪漫 海边的饮料罐比海风更凉"><div class="tl-city-img-wrap has-photo"><img class="tl-city-img" src="img/travel/2026-dalian/bangchui.webp" alt="棒棰岛 旅行照" loading="lazy" width="320" height="200" decoding="async"></div><div class="tl-city-body">  <div class="tl-city-name">棒棰岛<span class="tl-city-meta">辽宁 · 大连 · 中国 · 1 天</span></div>  <p class="tl-city-memory">黄海的风从礁石那头吹过来，我们在海边的椅子上举杯，孩子们在沙滩上踩浪——那一刻觉得整个夏天都值了。</p><p class="tl-city-kids">就我们俩，什么都不说，海风替我们聊完了。</p><span class="tl-rating" title="推荐指数 5/5" aria-label="推荐指数 5 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>远处那座小礁石，像一颗孤独的牙齿</li><li>椅背上印着「溪存汽水」四个字，老派的浪漫</li><li>海边的饮料罐比海风更凉</li></ul></div></div></article>
-<article class="tl-city" data-q="东港 辽宁 · 大连 中国 拖着行李箱走过大连国际会议中心前的广场，宽马路、林荫道、高楼——俩小子戴上墨镜一秒变街拍模特。 老大笑得眼睛弯弯，老二努力装酷，相机一抬就破功。 「p3 会议中心」路牌下的小子，把行李箱当成了宝座 宽马路尽头，海风从港务区那头追过来 太阳镜一戴，谁都不爱"><div class="tl-city-img-wrap has-photo"><img class="tl-city-img" src="img/travel/2026-dalian/donggang.webp" alt="东港 旅行照" loading="lazy" width="320" height="200" decoding="async"></div><div class="tl-city-body">  <div class="tl-city-name">东港<span class="tl-city-meta">辽宁 · 大连 · 中国 · 1 天</span></div>  <p class="tl-city-memory">拖着行李箱走过大连国际会议中心前的广场，宽马路、林荫道、高楼——俩小子戴上墨镜一秒变街拍模特。</p><p class="tl-city-kids">老大笑得眼睛弯弯，老二努力装酷，相机一抬就破功。</p><span class="tl-rating" title="推荐指数 5/5" aria-label="推荐指数 5 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>「P3 会议中心」路牌下的小子，把行李箱当成了宝座</li><li>宽马路尽头，海风从港务区那头追过来</li><li>太阳镜一戴，谁都不爱</li></ul></div></div></article>  </div>  <div class="tl-gallery-block"><div class="tl-gallery-title">沿途 · 3 张</div><div class="tl-gallery"><a href="img/travel/2026-dalian/bangchui.webp" target="_blank" rel="noopener"><img src="img/travel/2026-dalian/bangchui.webp" alt="大连 · 海与城 沿途" loading="lazy" decoding="async"></a><a href="img/travel/2026-dalian/donggang.webp" target="_blank" rel="noopener"><img src="img/travel/2026-dalian/donggang.webp" alt="大连 · 海与城 沿途" loading="lazy" decoding="async"></a><a href="img/travel/2026-dalian/donggang-suitcase.webp" target="_blank" rel="noopener"><img src="img/travel/2026-dalian/donggang-suitcase.webp" alt="大连 · 海与城 沿途" loading="lazy" decoding="async"></a></div></div></article>
+<article class="tl-trip tl-reveal" data-year="2026" data-q="大连 · 海与城 夏 2026 夏 棒棰岛的海、东港的风，孩子大了，海风还是那股海风。 棒棰岛 东港">  <div class="tl-trip-head">    <span class="tl-season" data-season="夏" style="background:#c2623f">夏</span>    <div class="tl-trip-titles">      <div class="tl-trip-title">大连 · 海与城 <span class="tl-latest">最新足迹</span></div>      <div class="tl-trip-meta">2026 夏 · 4 天 · 2 城</div>    </div>  </div>  <p class="tl-trip-note">棒棰岛的海、东港的风，孩子大了，海风还是那股海风。</p>  <div class="tl-cities"><article class="tl-city" data-q="棒棰岛 辽宁 · 大连 中国 黄海的风从礁石那头吹过来，我们在海边的椅子上举杯，孩子们在沙滩上踩浪——那一刻觉得整个夏天都值了。 俩小子光脚在沙滩上追浪，回头冲我们喊，海风里全是他们的笑。 远处那座小礁石，像一颗孤独的牙齿 椅背上印着「溪存汽水」四个字，老派的浪漫 海边的饮料罐比海风更凉"><div class="tl-city-img-wrap has-photo"><img class="tl-city-img" src="img/travel/2026-dalian/bangchui.webp" alt="棒棰岛 旅行照" loading="lazy" width="320" height="200" decoding="async"></div><div class="tl-city-body">  <div class="tl-city-name">棒棰岛<span class="tl-city-meta">辽宁 · 大连 · 中国 · 1 天</span></div>  <p class="tl-city-memory">黄海的风从礁石那头吹过来，我们在海边的椅子上举杯，孩子们在沙滩上踩浪——那一刻觉得整个夏天都值了。</p><p class="tl-city-kids">俩小子光脚在沙滩上追浪，回头冲我们喊，海风里全是他们的笑。</p><span class="tl-rating" title="推荐指数 5/5" aria-label="推荐指数 5 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>远处那座小礁石，像一颗孤独的牙齿</li><li>椅背上印着「溪存汽水」四个字，老派的浪漫</li><li>海边的饮料罐比海风更凉</li></ul></div></div></article>
+<article class="tl-city" data-q="东港 辽宁 · 大连 中国 拖着行李箱走过大连国际会议中心前的广场，宽马路、林荫道、高楼——俩小子戴上墨镜一秒变街拍模特。 老大笑得眼睛弯弯，老二努力装酷，相机一抬就破功。 「p3 会议中心」路牌下的小子，把行李箱当成了宝座 宽马路尽头，海风从港务区那头追过来 太阳镜一戴，谁都不爱"><div class="tl-city-img-wrap has-photo"><img class="tl-city-img" src="img/travel/2026-dalian/donggang.webp" alt="东港 旅行照" loading="lazy" width="320" height="200" decoding="async"></div><div class="tl-city-body">  <div class="tl-city-name">东港<span class="tl-city-meta">辽宁 · 大连 · 中国 · 1 天</span></div>  <p class="tl-city-memory">拖着行李箱走过大连国际会议中心前的广场，宽马路、林荫道、高楼——俩小子戴上墨镜一秒变街拍模特。</p><p class="tl-city-kids">老大笑得眼睛弯弯，老二努力装酷，相机一抬就破功。</p><span class="tl-rating" title="推荐指数 5/5" aria-label="推荐指数 5 星"><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg><svg class="tl-star on" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.6 7.3 14 2.5 9.4l6.6-.9z"/></svg></span>  <button type="button" class="tl-city-toggle" aria-expanded="false"><span class="tl-toggle-txt">展开亮点</span> <span class="tl-caret">▾</span></button><div class="tl-city-detail"><ul class="tl-highlights"><li>「P3 会议中心」路牌下的小子，把行李箱当成了宝座</li><li>宽马路尽头，海风从港务区那头追过来</li><li>太阳镜一戴，谁都不爱</li></ul></div></div></article>  </div>    <div class="tl-gallery-block"><div class="tl-gallery-title">沿途 · 3 张</div><div class="tl-gallery"><a href="img/travel/2026-dalian/bangchui.webp" target="_blank" rel="noopener"><img src="img/travel/2026-dalian/bangchui.webp" alt="大连 · 海与城 沿途" loading="lazy" decoding="async"></a><a href="img/travel/2026-dalian/donggang.webp" target="_blank" rel="noopener"><img src="img/travel/2026-dalian/donggang.webp" alt="大连 · 海与城 沿途" loading="lazy" decoding="async"></a><a href="img/travel/2026-dalian/donggang-suitcase.webp" target="_blank" rel="noopener"><img src="img/travel/2026-dalian/donggang-suitcase.webp" alt="大连 · 海与城 沿途" loading="lazy" decoding="async"></a></div></div></article>
+    </div>
+    <div class="tl-more-wrap" id="tlMoreWrap">
+      <button class="tl-more-btn" id="tlMore" type="button">显示更多出行 <span class="tl-caret">▾</span></button>
     </div>
     <div class="tl-empty" id="tlEmpty">没有匹配的出行，换个关键词试试～</div>
   </section>
@@ -386,7 +397,7 @@ var _hmt = _hmt || [];
       "@type": "Article",
       "name": "足迹 · 家庭旅行 - 龙兄知识库",
       "url": "https://longxiong.vip/travel.html",
-      "description": "带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。"
+      "description": "带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案。"
     }
   ]
 }
@@ -402,40 +413,72 @@ var _hmt = _hmt || [];
   var shown=document.getElementById('tlShown');
   var empty=document.getElementById('tlEmpty');
   var reset=document.getElementById('tlReset');
+  var moreWrap=document.getElementById('tlMoreWrap');
+  var moreBtn=document.getElementById('tlMore');
+  var PER=6;
   var ALIAS={'旅游':'travel 旅行','家庭':'family 家庭','孩子':'孩子 女儿 儿子','亲子':'亲子 家庭'};
-  var state={year:'all',q:''};
+  var state={year:'all',q:'',page:1};
   trips.forEach(function(t){ t._q=(t.getAttribute('data-q')||''); });
+  function match(t){
+    var okY=(state.year==='all')||String(t.getAttribute('data-year'))===state.year;
+    var okQ=!state.q||t._q.indexOf(state.q)>-1;
+    return okY&&okQ;
+  }
   function render(){
-    var n=0;
+    var total=0,shownCount=0;
     trips.forEach(function(t){
-      var okY=(state.year==='all')||String(t.getAttribute('data-year'))===state.year;
-      var okQ=!state.q||t._q.indexOf(state.q)>-1;
-      var ok=okY&&okQ;
-      t.style.display=ok?'':'none';
-      if(ok)n++;
+      if(!match(t)){ t.style.display='none'; return; }
+      total++;
+      if(shownCount < state.page*PER){
+        var wasHidden=t.style.display==='none';
+        t.style.display='';
+        if(wasHidden) t.classList.add('in');
+        shownCount++;
+      } else {
+        t.style.display='none';
+      }
     });
-    shown.textContent=n;
-    empty.style.display=n?'none':'block';
+    shown.textContent=total;
+    empty.style.display=total?'none':'block';
     clear.style.display=state.q?'block':'none';
+    moreWrap.style.display=(total>state.page*PER)?'block':'none';
   }
   chips.forEach(function(ch){
     ch.addEventListener('click',function(){
       chips.forEach(function(x){x.classList.remove('active');});
       ch.classList.add('active');
-      state.year=ch.getAttribute('data-year');
-      render();
+      state.year=ch.getAttribute('data-year'); state.page=1; render();
     });
   });
   input.addEventListener('input',function(){
     var v=input.value.trim().toLowerCase();
     if(ALIAS[v])v=ALIAS[v];
-    state.q=v; render();
+    state.q=v; state.page=1; render();
   });
-  clear.addEventListener('click',function(){ input.value=''; state.q=''; render(); input.focus(); });
+  clear.addEventListener('click',function(){ input.value=''; state.q=''; state.page=1; render(); input.focus(); });
   reset.addEventListener('click',function(){
-    input.value=''; state.q=''; state.year='all';
+    input.value=''; state.q=''; state.year='all'; state.page=1;
     chips.forEach(function(x){x.classList.toggle('active',x.getAttribute('data-year')==='all');});
     render();
+  });
+  if(moreBtn){ moreBtn.addEventListener('click',function(){ state.page++; render(); }); }
+  // 城市卡片折叠（一趟出行城市很多时，默认仅显示前 4 座）
+  var collapsibles=[].slice.call(list.querySelectorAll('.tl-cities.tl-collapsible'));
+  collapsibles.forEach(function(grid){
+    var limit=parseInt(grid.getAttribute('data-limit')||'4',10);
+    var totalN=grid.getAttribute('data-total')||'';
+    var kids=[].slice.call(grid.children);
+    kids.forEach(function(k,i){ if(i>=limit) k.style.display='none'; });
+    var btn=grid.parentNode.querySelector('.tl-cities-more');
+    if(btn){
+      btn.addEventListener('click',function(){
+        var open=grid.classList.toggle('open');
+        btn.setAttribute('aria-expanded',open?'true':'false');
+        kids.forEach(function(k,i){ k.style.display=(open||i<limit)?'':'none'; });
+        btn.firstChild.nodeValue=open?('收起城市 '):('展开全部 '+totalN+' 城 ');
+        var caret=btn.querySelector('.tl-caret'); if(caret)caret.textContent=open?'▴':'▾';
+      });
+    }
   });
   var toggles=[].slice.call(list.querySelectorAll('.tl-city-toggle'));
   toggles.forEach(function(btn){

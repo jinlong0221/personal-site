@@ -13,6 +13,7 @@
     'bracelet':  'bracelet-news.json',
     'zisha':     'zisha-news.json',
     'console':   'console-news.json',
+    'chinajoy':  'chinajoy-news.json',
     'marvel':    'marvel-news.json',
     'tesla':     'tesla-news.json',
     'health-tea': 'health-tea-news.json',

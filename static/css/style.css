@@ -4094,6 +4094,10 @@ body.dark .new-badge {
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
+/* 四列网格（科技与娱乐板块含 ChinaJoy） */
+.mag-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 992px) { .mag-grid.cols-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .mag-grid.cols-4 { grid-template-columns: 1fr; } }
 .mag-card {
   display: flex;
   flex-direction: column;

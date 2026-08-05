@@ -99,6 +99,64 @@
   .card-console-img { height: 80px; }
 }
 
+
+/* ===== 筛选控制台 ===== */
+.cf-wrap { position: sticky; top: var(--cf-top, 56px); z-index: 30; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 8px 0 22px; box-shadow: 0 4px 18px rgba(0,0,0,.18); }
+[data-theme="light"] .cf-wrap { background: rgba(255,255,255,.94); box-shadow: 0 4px 18px rgba(0,0,0,.07); }
+@supports (backdrop-filter: blur(10px)) { .cf-wrap { background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); } }
+.cf-searchbar { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 12px; height: 40px; margin-bottom: 12px; transition: border-color .2s, box-shadow .2s; }
+.cf-searchbar:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,120,212,.14); }
+.cf-sicon { font-size: .9rem; opacity: .65; flex-shrink: 0; }
+.cf-searchbar input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text); font-size: .9rem; font-family: inherit; height: 100%; }
+.cf-searchbar input::placeholder { color: var(--text-muted); }
+.cf-searchbar input::-webkit-search-cancel-button { display: none; }
+.cf-clear { background: none; border: 0; color: var(--text-muted); cursor: pointer; font-size: .8rem; padding: 4px 6px; line-height: 1; border-radius: 4px; }
+.cf-clear:hover { color: var(--text); background: var(--border); }
+.cf-rows { display: flex; flex-direction: column; gap: 7px; }
+.cf-row { display: flex; align-items: center; gap: 10px; }
+.cf-label { flex-shrink: 0; width: 30px; font-size: .72rem; color: var(--text-muted); font-weight: 700; letter-spacing: .5px; }
+.cf-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; flex: 1; }
+.cf-chips::-webkit-scrollbar { display: none; }
+.cf-chip { flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; font-size: .78rem; color: var(--text-secondary); cursor: pointer; font-family: inherit; white-space: nowrap; transition: all .18s ease; }
+.cf-chip:hover { border-color: var(--blue); color: var(--text); }
+.cf-chip i { font-style: normal; font-size: .68rem; opacity: .55; font-variant-numeric: tabular-nums; }
+.cf-chip i:empty { display: none; }
+.cf-chip.is-on { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 600; }
+.cf-chip.is-on i { opacity: .8; }
+.cf-status { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--border); }
+.cf-count { font-size: .8rem; color: var(--text-muted); }
+.cf-count b { color: var(--blue); font-size: 1.02rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+.cf-actions { display: flex; gap: 7px; }
+.cf-btn { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 5px 11px; font-size: .76rem; color: var(--text-secondary); cursor: pointer; font-family: inherit; transition: all .18s; white-space: nowrap; }
+.cf-btn:hover { border-color: var(--blue); color: var(--text); }
+.cf-btn-reset:hover { border-color: #d13438; color: #d13438; }
+
+/* 卡片入场 */
+.card-console.cf-in { animation: cfIn .32s ease both; }
+@keyframes cfIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.card-console[hidden] { display: none !important; }
+
+/* 空状态 */
+.cf-empty { text-align: center; padding: 56px 20px; }
+.cf-empty-icon { font-size: 2.6rem; margin-bottom: 12px; opacity: .5; }
+.cf-empty-t { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.cf-empty-s { font-size: .84rem; color: var(--text-muted); margin-bottom: 18px; }
+
+/* 显示更多 */
+.cf-more-wrap { display: flex; justify-content: center; margin: 26px 0 8px; }
+.cf-more { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 11px 30px; font-size: .88rem; font-weight: 600; color: var(--text); cursor: pointer; font-family: inherit; transition: all .2s; }
+.cf-more:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,120,212,.16); }
+.cf-more em { font-style: normal; font-size: .76rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 768px) {
+  .cf-wrap { padding: 12px; margin-bottom: 18px; border-radius: 8px; }
+  .cf-label { display: none; }
+  .cf-chips { margin: 0 -12px; padding: 2px 12px; }
+  .cf-status { margin-top: 10px; padding-top: 9px; }
+  .cf-btn { padding: 5px 9px; font-size: .72rem; }
+}
+@media (prefers-reduced-motion: reduce) { .card-console.cf-in { animation: none; } }
+
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -182,14 +240,14 @@ var _hmt = _hmt || [];
   <div class="console-hero">
     <div class="emoji-big">🎮</div>
     <h1>游戏主机图鉴</h1>
-    <p>从1977年至今 · 6大品牌 · 50+主机型号</p>
+    <p>从 1977 年至今 · 6 大品牌 · 69 款主机型号</p>
   </div>
 
   <!-- 关键数据栏 -->
   <div class="key-stats">
-    <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">主机型号</div></div>
+    <div class="stat-item"><div class="stat-num">69</div><div class="stat-label">主机型号</div></div>
     <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">品牌收录</div></div>
-    <div class="stat-item"><div class="stat-num">48年</div><div class="stat-label">时间跨度</div></div>
+    <div class="stat-item"><div class="stat-num">49年</div><div class="stat-label">时间跨度</div></div>
     <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">现存品牌</div></div>
   </div>
 
@@ -261,361 +319,60 @@ var _hmt = _hmt || [];
     </a>
   </div>
 
-  <div class="page-meta" style="text-align:center;padding:40px 0 20px;color:var(--text-muted);font-size:0.8rem;">
-    <p>最后更新：2026-06-23</p>
-    <p>数据来源：官方资料、维基百科、游戏媒体</p>
-    <p>💡 点击品牌卡片查看详细主机信息</p>
+
+  <!-- ===== 筛选控制台（吸顶） ===== -->
+  <div class="cf-wrap" id="cfWrap">
+    <div class="cf-searchbar">
+      <span class="cf-sicon" aria-hidden="true">🔍</span>
+      <input type="search" id="cfSearch" placeholder="搜索主机：Switch / PS5 / 红白机 / GBA…" aria-label="搜索主机型号" autocomplete="off">
+      <button type="button" class="cf-clear" id="cfClear" aria-label="清除搜索" hidden>✕</button>
+    </div>
+    <div class="cf-rows">
+      <div class="cf-row">
+        <span class="cf-label">品牌</span>
+        <div class="cf-chips">
+        <button type="button" class="cf-chip is-on" data-dim="brand" data-val="all">全部<i>69</i></button>
+        <button type="button" class="cf-chip" data-dim="brand" data-val="nintendo">🔴 任天堂<i>30</i></button>
+        <button type="button" class="cf-chip" data-dim="brand" data-val="other">⚪ 其他<i>13</i></button>
+        <button type="button" class="cf-chip" data-dim="brand" data-val="sony">🔵 索尼<i>10</i></button>
+        <button type="button" class="cf-chip" data-dim="brand" data-val="sega">🔷 世嘉<i>7</i></button>
+        <button type="button" class="cf-chip" data-dim="brand" data-val="microsoft">🟢 微软<i>5</i></button>
+        <button type="button" class="cf-chip" data-dim="brand" data-val="atari">🟠 雅达利<i>4</i></button>
+        </div>
+      </div>
+      <div class="cf-row">
+        <span class="cf-label">类型</span>
+        <div class="cf-chips">
+        <button type="button" class="cf-chip is-on" data-dim="type" data-val="all">全部<i></i></button>
+        <button type="button" class="cf-chip" data-dim="type" data-val="home">🏠 家用主机<i>35</i></button>
+        <button type="button" class="cf-chip" data-dim="type" data-val="handheld">🖐️ 掌机<i>34</i></button>
+        </div>
+      </div>
+      <div class="cf-row">
+        <span class="cf-label">年代</span>
+        <div class="cf-chips">
+        <button type="button" class="cf-chip is-on" data-dim="decade" data-val="all">全部<i></i></button>
+        <button type="button" class="cf-chip" data-dim="decade" data-val="2020">2020s<i>11</i></button>
+        <button type="button" class="cf-chip" data-dim="decade" data-val="2010">2010s<i>13</i></button>
+        <button type="button" class="cf-chip" data-dim="decade" data-val="2000">2000s<i>16</i></button>
+        <button type="button" class="cf-chip" data-dim="decade" data-val="1990">1990s<i>17</i></button>
+        <button type="button" class="cf-chip" data-dim="decade" data-val="1980">1980s<i>11</i></button>
+        <button type="button" class="cf-chip" data-dim="decade" data-val="1970">1970s<i>1</i></button>
+        </div>
+      </div>
+    </div>
+    <div class="cf-status">
+      <span class="cf-count">共 <b id="cfNum">69</b> 款</span>
+      <div class="cf-actions">
+        <button type="button" class="cf-btn" id="cfSort" aria-label="切换排序">🕐 由新到旧</button>
+        <button type="button" class="cf-btn cf-btn-reset" id="cfReset" hidden>✕ 重置</button>
+      </div>
+    </div>
   </div>
 
-</main>
-
-  <div class="section-header">
-    <span class="icon">📺</span>
-    <h2>家用主机</h2>
-    <span class="count">40款</span>
-  </div>
-  <div class="card-grid-console">
-    <a href="console-atari-2600.html" class="card-console atari" style="text-decoration:none;">
-      <img width="600" height="338" src="img/consoles/atari-2600.webp" alt="Atari 2600" class="card-console-img" loading="lazy">
-  <span class="year-badge">1977</span>
-      <div class="card-title">Atari 2600</div>
-      <div class="card-desc">雅达利 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-atari">🟠 雅达利</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-atari-5200.html" class="card-console atari" style="text-decoration:none;">
-      <img width="600" height="346" src="img/consoles/atari-5200.webp" alt="Atari 5200" class="card-console-img" loading="lazy">
-  <span class="year-badge">1982</span>
-      <div class="card-title">Atari 5200</div>
-      <div class="card-desc">雅达利 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-atari">🟠 雅达利</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-family-computer.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="450" height="600" src="img/consoles/family-computer.webp" alt="Family Computer" class="card-console-img" loading="lazy">
-  <span class="year-badge">1983</span>
-      <div class="card-title">Family Computer</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-fc.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="316" height="600" src="img/consoles/fc.webp" alt="FC 红白机" class="card-console-img" loading="lazy">
-  <span class="year-badge">1983</span>
-      <div class="card-title">FC 红白机</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-sg1000.html" class="card-console sega" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/sg1000.webp" alt="Sega SG-1000" class="card-console-img" loading="lazy">
-  <span class="year-badge">1983</span>
-      <div class="card-title">Sega SG-1000</div>
-      <div class="card-desc">世嘉 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sega">🔵 世嘉</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-master-system.html" class="card-console sega" style="text-decoration:none;">
-      <img width="600" height="338" src="img/consoles/master-system.webp" alt="Sega Master System" class="card-console-img" loading="lazy">
-  <span class="year-badge">1985</span>
-      <div class="card-title">Sega Master System</div>
-      <div class="card-desc">世嘉 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sega">🔵 世嘉</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-xiaobawang.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/xiaobawang.webp" alt="小霸王" class="card-console-img" loading="lazy">
-  <span class="year-badge">1987</span>
-      <div class="card-title">小霸王</div>
-      <div class="card-desc">其他 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-atari-7800.html" class="card-console atari" style="text-decoration:none;">
-      <img width="600" height="338" src="img/consoles/atari-7800.webp" alt="Atari 7800" class="card-console-img" loading="lazy">
-  <span class="year-badge">1988</span>
-      <div class="card-title">Atari 7800</div>
-      <div class="card-desc">雅达利 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-atari">🟠 雅达利</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-mega-drive.html" class="card-console sega" style="text-decoration:none;">
-      <img width="600" height="365" src="img/consoles/mega-drive.webp" alt="Sega Mega Drive" class="card-console-img" loading="lazy">
-  <span class="year-badge">1988</span>
-      <div class="card-title">Sega Mega Drive</div>
-      <div class="card-desc">世嘉 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sega">🔵 世嘉</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-neo-geo.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="375" src="img/consoles/neo-geo.webp" alt="Neo Geo" class="card-console-img" loading="lazy">
-  <span class="year-badge">1990</span>
-      <div class="card-title">Neo Geo</div>
-      <div class="card-desc">其他 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-sfc.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="800" height="784" src="img/consoles/sfc.webp" alt="SFC 超级任天堂" class="card-console-img" loading="lazy">
-  <span class="year-badge">1990</span>
-      <div class="card-title">SFC 超级任天堂</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-super-famicom.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="800" height="784" src="img/consoles/super-famicom.webp" alt="Super Famicom" class="card-console-img" loading="lazy">
-  <span class="year-badge">1990</span>
-      <div class="card-title">Super Famicom</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-3do.html" class="card-console other" style="text-decoration:none;">
-      <img width="800" height="519" src="img/consoles/3do.webp" alt="3DO Interactive Multiplayer" class="card-console-img" loading="lazy">
-  <span class="year-badge">1993</span>
-      <div class="card-title">3DO Interactive Multiplayer</div>
-      <div class="card-desc">其他 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-playstation.html" class="card-console sony" style="text-decoration:none;">
-      <img width="600" height="375" src="img/consoles/playstation.webp" alt="PlayStation" class="card-console-img" loading="lazy">
-  <span class="year-badge">1994</span>
-      <div class="card-title">PlayStation</div>
-      <div class="card-desc">索尼 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-saturn.html" class="card-console sega" style="text-decoration:none;">
-      <img width="600" height="375" src="img/consoles/saturn.webp" alt="Sega Saturn" class="card-console-img" loading="lazy">
-  <span class="year-badge">1994</span>
-      <div class="card-title">Sega Saturn</div>
-      <div class="card-desc">世嘉 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sega">🔵 世嘉</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-n64.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/n64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
-  <span class="year-badge">1996</span>
-      <div class="card-title">Nintendo 64</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-nintendo-64.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/nintendo-64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
-  <span class="year-badge">1996</span>
-      <div class="card-title">Nintendo 64</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-dreamcast.html" class="card-console sega" style="text-decoration:none;">
-      <img width="600" height="360" src="img/consoles/dreamcast.webp" alt="Sega Dreamcast" class="card-console-img" loading="lazy">
-  <span class="year-badge">1998</span>
-      <div class="card-title">Sega Dreamcast</div>
-      <div class="card-desc">世嘉 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sega">🔵 世嘉</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-ps2.html" class="card-console sony" style="text-decoration:none;">
-      <img width="600" height="600" src="img/consoles/playstation-2.webp" alt="PlayStation 2" class="card-console-img" loading="lazy">
-  <span class="year-badge">2000</span>
-      <div class="card-title">PlayStation 2</div>
-      <div class="card-desc">索尼 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-gamecube.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="338" src="img/consoles/gamecube.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
-  <span class="year-badge">2001</span>
-      <div class="card-title">Nintendo GameCube</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-gc.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="338" src="img/consoles/gc.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
-  <span class="year-badge">2001</span>
-      <div class="card-title">Nintendo GameCube</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-xbox.html" class="card-console microsoft" style="text-decoration:none;">
-      <img width="600" height="338" src="img/consoles/xbox.webp" alt="Xbox" class="card-console-img" loading="lazy">
-  <span class="year-badge">2001</span>
-      <div class="card-title">Xbox</div>
-      <div class="card-desc">微软 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-microsoft">🟢 微软</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-xbox360.html" class="card-console microsoft" style="text-decoration:none;">
-      <img width="600" height="505" src="img/consoles/xbox360.webp" alt="Xbox 360" class="card-console-img" loading="lazy">
-  <span class="year-badge">2005</span>
-      <div class="card-title">Xbox 360</div>
-      <div class="card-desc">微软 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-microsoft">🟢 微软</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-playstation-3.html" class="card-console sony" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/playstation-3.webp" alt="PlayStation 3" class="card-console-img" loading="lazy">
-  <span class="year-badge">2006</span>
-      <div class="card-title">PlayStation 3</div>
-      <div class="card-desc">索尼 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-wii.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="450" height="600" src="img/consoles/wii.webp" alt="Wii" class="card-console-img" loading="lazy">
-  <span class="year-badge">2006</span>
-      <div class="card-title">Wii</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-wii-u.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="399" src="img/consoles/wii-u.webp" alt="Wii U" class="card-console-img" loading="lazy">
-  <span class="year-badge">2012</span>
-      <div class="card-title">Wii U</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-wiiu.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="399" src="img/consoles/wiiu.webp" alt="Wii U" class="card-console-img" loading="lazy">
-  <span class="year-badge">2012</span>
-      <div class="card-title">Wii U</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-playstation-4.html" class="card-console sony" style="text-decoration:none;">
-      <img width="400" height="600" src="img/consoles/playstation-4.webp" alt="PlayStation 4" class="card-console-img" loading="lazy">
-  <span class="year-badge">2013</span>
-      <div class="card-title">PlayStation 4</div>
-      <div class="card-desc">索尼 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-xbox-one.html" class="card-console microsoft" style="text-decoration:none;">
-      <img width="570" height="600" src="img/consoles/xbox-one.webp" alt="Xbox One" class="card-console-img" loading="lazy">
-  <span class="year-badge">2013</span>
-      <div class="card-title">Xbox One</div>
-      <div class="card-desc">微软 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-microsoft">🟢 微软</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-switch.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/switch.webp" alt="Nintendo Switch" class="card-console-img" loading="lazy">
-  <span class="year-badge">2017</span>
-      <div class="card-title">Nintendo Switch</div>
-      <div class="card-desc">任天堂 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-playstation-5.html" class="card-console sony" style="text-decoration:none;">
-      <img width="480" height="600" src="img/consoles/ps5.webp" alt="PlayStation 5" class="card-console-img" loading="lazy">
-  <span class="year-badge">2020</span>
-      <div class="card-title">PlayStation 5</div>
-      <div class="card-desc">索尼 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-xbox-series-s.html" class="card-console microsoft" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/xbox-series-s.webp" alt="Xbox Series S" class="card-console-img" loading="lazy">
-  <span class="year-badge">2020</span>
-      <div class="card-title">Xbox Series S</div>
-      <div class="card-desc">微软 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-microsoft">🟢 微软</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-xbox-series-x.html" class="card-console microsoft" style="text-decoration:none;">
-      <img width="450" height="600" src="img/consoles/xbox-series-x.webp" alt="Xbox Series X" class="card-console-img" loading="lazy">
-  <span class="year-badge">2020</span>
-      <div class="card-title">Xbox Series X</div>
-      <div class="card-desc">微软 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-microsoft">🟢 微软</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-playstation-5-pro.html" class="card-console sony" style="text-decoration:none;">
-      <img width="480" height="640" src="img/consoles/playstation-5-pro.webp" alt="PlayStation 5 Pro" class="card-console-img" loading="lazy">
-  <span class="year-badge">2024</span>
-      <div class="card-title">PlayStation 5 Pro</div>
-      <div class="card-desc">索尼 · 家用</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-home">🏠 家用</span>
-      </div>
-    </a>
-    <a href="console-switch-2.html" class="card-console nintendo" style="text-decoration:none;">
+  <!-- ===== 主机墙 ===== -->
+  <div class="card-grid-console" id="cfGrid">
+    <a href="console-switch-2.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="2025" data-decade="2020" data-name="nintendo switch 2 任天堂" style="text-decoration:none;">
       <img width="600" height="338" src="img/consoles/switch-2.webp" alt="Nintendo Switch 2" class="card-console-img" loading="lazy">
   <span class="year-badge">2025</span>
       <div class="card-title">Nintendo Switch 2</div>
@@ -625,344 +382,7 @@ var _hmt = _hmt || [];
         <span class="tag tag-home">🏠 家用</span>
       </div>
     </a>
-  </div>
-  <div class="section-header">
-    <span class="icon">🖐️</span>
-    <h2>掌机</h2>
-    <span class="count">34款</span>
-  </div>
-  <div class="card-grid-console">
-    <a href="console-game-watch.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/game-watch.webp" alt="Game & Watch" class="card-console-img" loading="lazy">
-  <span class="year-badge">1980</span>
-      <div class="card-title">Game & Watch</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-atari-lynx.html" class="card-console atari" style="text-decoration:none;">
-      <img width="600" height="377" src="img/consoles/atari-lynx.webp" alt="Atari Lynx" class="card-console-img" loading="lazy">
-  <span class="year-badge">1989</span>
-      <div class="card-title">Atari Lynx</div>
-      <div class="card-desc">雅达利 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-atari">🟠 雅达利</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-gameboy.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="580" height="600" src="img/consoles/gameboy.webp" alt="Game Boy" class="card-console-img" loading="lazy">
-  <span class="year-badge">1989</span>
-      <div class="card-title">Game Boy</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-turboexpress.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/turboexpress.webp" alt="TurboExpress" class="card-console-img" loading="lazy">
-  <span class="year-badge">1990</span>
-      <div class="card-title">TurboExpress</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-game-gear.html" class="card-console sega" style="text-decoration:none;">
-      <img width="600" height="330" src="img/consoles/game-gear.webp" alt="Sega Game Gear" class="card-console-img" loading="lazy">
-  <span class="year-badge">1990</span>
-      <div class="card-title">Sega Game Gear</div>
-      <div class="card-desc">世嘉 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-sega">🔵 世嘉</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-sega-nomad.html" class="card-console sega" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/sega-nomad.webp" alt="Sega Nomad" class="card-console-img" loading="lazy">
-  <span class="year-badge">1995</span>
-      <div class="card-title">Sega Nomad</div>
-      <div class="card-desc">世嘉 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-sega">🔵 世嘉</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-gameboy-pocket.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="400" height="300" src="img/consoles/gameboy-pocket.webp" alt="Game Boy Pocket" class="card-console-img" loading="lazy">
-  <span class="year-badge">1996</span>
-      <div class="card-title">Game Boy Pocket</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-gb-light.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/gb-light.webp" alt="Game Boy Light" class="card-console-img" loading="lazy">
-  <span class="year-badge">1998</span>
-      <div class="card-title">Game Boy Light</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-gameboy-color.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="375" src="img/consoles/gameboy-color.webp" alt="Game Boy Color" class="card-console-img" loading="lazy">
-  <span class="year-badge">1998</span>
-      <div class="card-title">Game Boy Color</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-neo-geo-pocket-color.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/ngpc.webp" alt="Neo Geo Pocket Color" class="card-console-img" loading="lazy">
-  <span class="year-badge">1999</span>
-      <div class="card-title">Neo Geo Pocket Color</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-wonderswan.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/wonderswan.webp" alt="Bandai WonderSwan" class="card-console-img" loading="lazy">
-  <span class="year-badge">1999</span>
-      <div class="card-title">Bandai WonderSwan</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-gameboy-advance.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="600" src="img/consoles/gameboy-advance.webp" alt="Game Boy Advance" class="card-console-img" loading="lazy">
-  <span class="year-badge">2001</span>
-      <div class="card-title">Game Boy Advance</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-gba-sp.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/gba-sp.webp" alt="Game Boy Advance SP" class="card-console-img" loading="lazy">
-  <span class="year-badge">2003</span>
-      <div class="card-title">Game Boy Advance SP</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-ngage.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/ngage.webp" alt="Nokia N-Gage" class="card-console-img" loading="lazy">
-  <span class="year-badge">2003</span>
-      <div class="card-title">Nokia N-Gage</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-nintendo-ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/nintendo-ds.webp" alt="Nintendo DS" class="card-console-img" loading="lazy">
-  <span class="year-badge">2004</span>
-      <div class="card-title">Nintendo DS</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-psp.html" class="card-console sony" style="text-decoration:none;">
-      <img width="600" height="399" src="img/consoles/psp.webp" alt="PlayStation Portable" class="card-console-img" loading="lazy">
-  <span class="year-badge">2004</span>
-      <div class="card-title">PlayStation Portable</div>
-      <div class="card-desc">索尼 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-gb-micro.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/gb-micro.webp" alt="Game Boy Micro" class="card-console-img" loading="lazy">
-  <span class="year-badge">2005</span>
-      <div class="card-title">Game Boy Micro</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-ds-lite.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/ds-lite.webp" alt="Nintendo DS Lite" class="card-console-img" loading="lazy">
-  <span class="year-badge">2006</span>
-      <div class="card-title">Nintendo DS Lite</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-dsi.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/dsi.webp" alt="Nintendo DSi" class="card-console-img" loading="lazy">
-  <span class="year-badge">2008</span>
-      <div class="card-title">Nintendo DSi</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-psp-go.html" class="card-console sony" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/psp-go.webp" alt="PSP Go" class="card-console-img" loading="lazy">
-  <span class="year-badge">2009</span>
-      <div class="card-title">PSP Go</div>
-      <div class="card-desc">索尼 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-nintendo-3ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="450" height="600" src="img/consoles/nintendo-3ds.webp" alt="Nintendo 3DS" class="card-console-img" loading="lazy">
-  <span class="year-badge">2011</span>
-      <div class="card-title">Nintendo 3DS</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-ps-vita.html" class="card-console sony" style="text-decoration:none;">
-      <img width="582" height="600" src="img/consoles/ps-vita.webp" alt="PlayStation Vita" class="card-console-img" loading="lazy">
-  <span class="year-badge">2011</span>
-      <div class="card-title">PlayStation Vita</div>
-      <div class="card-desc">索尼 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-3ds-xl.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/3ds-xl.webp" alt="Nintendo 3DS XL" class="card-console-img" loading="lazy">
-  <span class="year-badge">2012</span>
-      <div class="card-title">Nintendo 3DS XL</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-2ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/2ds.webp" alt="Nintendo 2DS" class="card-console-img" loading="lazy">
-  <span class="year-badge">2013</span>
-      <div class="card-title">Nintendo 2DS</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-new-3ds.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/new-3ds.webp" alt="New Nintendo 3DS" class="card-console-img" loading="lazy">
-  <span class="year-badge">2014</span>
-      <div class="card-title">New Nintendo 3DS</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-gpd-win.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/gpd-win.webp" alt="GPD Win" class="card-console-img" loading="lazy">
-  <span class="year-badge">2016</span>
-      <div class="card-title">GPD Win</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-new-2ds-xl.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/new-2ds-xl.webp" alt="New Nintendo 2DS XL" class="card-console-img" loading="lazy">
-  <span class="year-badge">2017</span>
-      <div class="card-title">New Nintendo 2DS XL</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-switch-lite.html" class="card-console nintendo" style="text-decoration:none;">
-      <img width="600" height="600" src="img/consoles/switch-lite.webp" alt="Nintendo Switch Lite" class="card-console-img" loading="lazy">
-  <span class="year-badge">2019</span>
-      <div class="card-title">Nintendo Switch Lite</div>
-      <div class="card-desc">任天堂 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-nintendo">🔴 任天堂</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-ayaneo.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="400" src="img/consoles/ayaneo.webp" alt="AYANEO" class="card-console-img" loading="lazy">
-  <span class="year-badge">2021</span>
-      <div class="card-title">AYANEO</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-steam-deck.html" class="card-console other" style="text-decoration:none;">
-      <img width="400" height="300" src="img/consoles/steam-deck.webp" alt="Steam Deck" class="card-console-img" loading="lazy">
-  <span class="year-badge">2022</span>
-      <div class="card-title">Steam Deck</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-legion-go.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/legion-go.webp" alt="Legion Go" class="card-console-img" loading="lazy">
-  <span class="year-badge">2023</span>
-      <div class="card-title">Legion Go</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-rog-ally.html" class="card-console other" style="text-decoration:none;">
-      <img width="600" height="450" src="img/consoles/rog-ally.webp" alt="ROG Ally" class="card-console-img" loading="lazy">
-  <span class="year-badge">2023</span>
-      <div class="card-title">ROG Ally</div>
-      <div class="card-desc">其他 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-other">⚪ 其他</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-playstation-portal.html" class="card-console sony" style="text-decoration:none;">
-      <img width="600" height="384" src="img/consoles/playstation-portal.webp" alt="PlayStation Portal" class="card-console-img" loading="lazy">
-  <span class="year-badge">2024</span>
-      <div class="card-title">PlayStation Portal</div>
-      <div class="card-desc">索尼 · 掌机</div>
-      <div class="card-specs">
-        <span class="tag tag-sony">🔵 索尼</span>
-        <span class="tag tag-handheld">🖐️ 掌机</span>
-      </div>
-    </a>
-    <a href="console-msi-claw.html" class="card-console other" style="text-decoration:none;">
+    <a href="console-msi-claw.html" class="card-console other" data-brand="other" data-type="handheld" data-year="2024" data-decade="2020" data-name="msi claw 其他" style="text-decoration:none;">
       <img width="600" height="400" src="img/consoles/msi-claw.webp" alt="MSI Claw" class="card-console-img" loading="lazy">
   <span class="year-badge">2024</span>
       <div class="card-title">MSI Claw</div>
@@ -972,80 +392,698 @@ var _hmt = _hmt || [];
         <span class="tag tag-handheld">🖐️ 掌机</span>
       </div>
     </a>
-  </div>
-  <!-- 品牌快速入口（折叠） -->
-  <details class="home-collapsible" style="margin:32px 0;">
-    <summary class="home-collapsible-header">
-      <span class="collapsible-icon">🏢</span>
-      <span class="collapsible-title">按品牌浏览</span>
-      <span class="collapsible-count">6个品牌</span>
-      <span class="collapsible-arrow">▶</span>
-    </summary>
-    <div class="home-collapsible-body" style="padding:20px 0;">
-      <div class="card-grid-console">
-        <a href="console-nintendo.html" class="card-console nintendo" style="text-decoration:none;">
-          <div class="card-title" style="font-size:1.1rem;">🔴 任天堂</div>
-          <div class="card-year">30款主机</div>
-          <div class="card-desc">: 1889年创立，代表作：马里奥、塞尔达、宝可梦。</div>
-          <div class="card-specs">
-            <span class="tag tag-nintendo">🏠 家用×13</span>
-            <span class="tag tag-handheld">🖐️ 掌机×17</span>
-          </div>
-        </a>
-        <a href="console-sony.html" class="card-console sony" style="text-decoration:none;">
-          <div class="card-title" style="font-size:1.1rem;">🔵 索尼</div>
-          <div class="card-year">15款主机</div>
-          <div class="card-desc">: PS2史上最畅销主机（1.55亿台）。</div>
-          <div class="card-specs">
-            <span class="tag tag-sony">🏠 家用×11</span>
-            <span class="tag tag-handheld">🖐️ 掌机×4</span>
-          </div>
-        </a>
-        <a href="console-microsoft.html" class="card-console microsoft" style="text-decoration:none;">
-          <div class="card-title" style="font-size:1.1rem;">🟢 微软</div>
-          <div class="card-year">5款主机</div>
-          <div class="card-desc">: Xbox Live开创在线游戏时代。</div>
-          <div class="card-specs">
-            <span class="tag tag-microsoft">🏠 家用×5</span>
-            <span class="tag tag-handheld">🖐️ 掌机×0</span>
-          </div>
-        </a>
-        <a href="console-sega.html" class="card-console sega" style="text-decoration:none;">
-          <div class="card-title" style="font-size:1.1rem;">🔵 世嘉</div>
-          <div class="card-year">7款主机</div>
-          <div class="card-desc">: Mega Drive、Dreamcast经典永存。索尼克、莎木。</div>
-          <div class="card-specs">
-            <span class="tag tag-sega">🏠 家用×5</span>
-            <span class="tag tag-handheld">🖐️ 掌机×2</span>
-          </div>
-        </a>
-        <a href="console-atari.html" class="card-console atari" style="text-decoration:none;">
-          <div class="card-title" style="font-size:1.1rem;">🟠 雅达利</div>
-          <div class="card-year">4款主机</div>
-          <div class="card-desc">: 1972年开创电子游戏产业。</div>
-          <div class="card-specs">
-            <span class="tag tag-atari">🏠 家用×3</span>
-            <span class="tag tag-handheld">🖐️ 掌机×1</span>
-          </div>
-        </a>
-        <a href="console-other.html" class="card-console other" style="text-decoration:none;">
-          <div class="card-title" style="font-size:1.1rem;">⚪ 其他</div>
-          <div class="card-year">13款主机</div>
-          <div class="card-desc">: 3DO、Neo Geo、Steam Deck等。</div>
-          <div class="card-specs">
-            <span class="tag tag-other">🏠 家用×3</span>
-            <span class="tag tag-handheld">🖐️ 掌机×10</span>
-          </div>
-        </a>
+    <a href="console-playstation-5-pro.html" class="card-console sony" data-brand="sony" data-type="home" data-year="2024" data-decade="2020" data-name="playstation 5 pro 索尼" style="text-decoration:none;">
+      <img width="480" height="640" src="img/consoles/playstation-5-pro.webp" alt="PlayStation 5 Pro" class="card-console-img" loading="lazy">
+  <span class="year-badge">2024</span>
+      <div class="card-title">PlayStation 5 Pro</div>
+      <div class="card-desc">索尼 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-home">🏠 家用</span>
       </div>
-    </div>
-  </details>
+    </a>
+    <a href="console-playstation-portal.html" class="card-console sony" data-brand="sony" data-type="handheld" data-year="2024" data-decade="2020" data-name="playstation portal 索尼" style="text-decoration:none;">
+      <img width="600" height="384" src="img/consoles/playstation-portal.webp" alt="PlayStation Portal" class="card-console-img" loading="lazy">
+  <span class="year-badge">2024</span>
+      <div class="card-title">PlayStation Portal</div>
+      <div class="card-desc">索尼 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-legion-go.html" class="card-console other" data-brand="other" data-type="handheld" data-year="2023" data-decade="2020" data-name="legion go 其他" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/legion-go.webp" alt="Legion Go" class="card-console-img" loading="lazy">
+  <span class="year-badge">2023</span>
+      <div class="card-title">Legion Go</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-rog-ally.html" class="card-console other" data-brand="other" data-type="handheld" data-year="2023" data-decade="2020" data-name="rog ally 其他" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/rog-ally.webp" alt="ROG Ally" class="card-console-img" loading="lazy">
+  <span class="year-badge">2023</span>
+      <div class="card-title">ROG Ally</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-steam-deck.html" class="card-console other" data-brand="other" data-type="handheld" data-year="2022" data-decade="2020" data-name="steam deck 其他" style="text-decoration:none;">
+      <img width="400" height="300" src="img/consoles/steam-deck.webp" alt="Steam Deck" class="card-console-img" loading="lazy">
+  <span class="year-badge">2022</span>
+      <div class="card-title">Steam Deck</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-ayaneo.html" class="card-console other" data-brand="other" data-type="handheld" data-year="2021" data-decade="2020" data-name="ayaneo 其他" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/ayaneo.webp" alt="AYANEO" class="card-console-img" loading="lazy">
+  <span class="year-badge">2021</span>
+      <div class="card-title">AYANEO</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-playstation-5.html" class="card-console sony" data-brand="sony" data-type="home" data-year="2020" data-decade="2020" data-name="playstation 5 索尼" style="text-decoration:none;">
+      <img width="480" height="600" src="img/consoles/ps5.webp" alt="PlayStation 5" class="card-console-img" loading="lazy">
+  <span class="year-badge">2020</span>
+      <div class="card-title">PlayStation 5</div>
+      <div class="card-desc">索尼 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-xbox-series-s.html" class="card-console microsoft" data-brand="microsoft" data-type="home" data-year="2020" data-decade="2020" data-name="xbox series s 微软" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/xbox-series-s.webp" alt="Xbox Series S" class="card-console-img" loading="lazy">
+  <span class="year-badge">2020</span>
+      <div class="card-title">Xbox Series S</div>
+      <div class="card-desc">微软 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-microsoft">🟢 微软</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-xbox-series-x.html" class="card-console microsoft" data-brand="microsoft" data-type="home" data-year="2020" data-decade="2020" data-name="xbox series x 微软" style="text-decoration:none;">
+      <img width="450" height="600" src="img/consoles/xbox-series-x.webp" alt="Xbox Series X" class="card-console-img" loading="lazy">
+  <span class="year-badge">2020</span>
+      <div class="card-title">Xbox Series X</div>
+      <div class="card-desc">微软 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-microsoft">🟢 微软</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-switch-lite.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2019" data-decade="2010" data-name="nintendo switch lite 任天堂" style="text-decoration:none;">
+      <img width="600" height="600" src="img/consoles/switch-lite.webp" alt="Nintendo Switch Lite" class="card-console-img" loading="lazy">
+  <span class="year-badge">2019</span>
+      <div class="card-title">Nintendo Switch Lite</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-new-2ds-xl.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2017" data-decade="2010" data-name="new nintendo 2ds xl 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/new-2ds-xl.webp" alt="New Nintendo 2DS XL" class="card-console-img" loading="lazy">
+  <span class="year-badge">2017</span>
+      <div class="card-title">New Nintendo 2DS XL</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-switch.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="2017" data-decade="2010" data-name="nintendo switch 任天堂" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/switch.webp" alt="Nintendo Switch" class="card-console-img" loading="lazy">
+  <span class="year-badge">2017</span>
+      <div class="card-title">Nintendo Switch</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-gpd-win.html" class="card-console other" data-brand="other" data-type="handheld" data-year="2016" data-decade="2010" data-name="gpd win 其他" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/gpd-win.webp" alt="GPD Win" class="card-console-img" loading="lazy">
+  <span class="year-badge">2016</span>
+      <div class="card-title">GPD Win</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-new-3ds.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2014" data-decade="2010" data-name="new nintendo 3ds 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/new-3ds.webp" alt="New Nintendo 3DS" class="card-console-img" loading="lazy">
+  <span class="year-badge">2014</span>
+      <div class="card-title">New Nintendo 3DS</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-2ds.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2013" data-decade="2010" data-name="nintendo 2ds 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/2ds.webp" alt="Nintendo 2DS" class="card-console-img" loading="lazy">
+  <span class="year-badge">2013</span>
+      <div class="card-title">Nintendo 2DS</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-playstation-4.html" class="card-console sony" data-brand="sony" data-type="home" data-year="2013" data-decade="2010" data-name="playstation 4 索尼" style="text-decoration:none;">
+      <img width="400" height="600" src="img/consoles/playstation-4.webp" alt="PlayStation 4" class="card-console-img" loading="lazy">
+  <span class="year-badge">2013</span>
+      <div class="card-title">PlayStation 4</div>
+      <div class="card-desc">索尼 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-xbox-one.html" class="card-console microsoft" data-brand="microsoft" data-type="home" data-year="2013" data-decade="2010" data-name="xbox one 微软" style="text-decoration:none;">
+      <img width="570" height="600" src="img/consoles/xbox-one.webp" alt="Xbox One" class="card-console-img" loading="lazy">
+  <span class="year-badge">2013</span>
+      <div class="card-title">Xbox One</div>
+      <div class="card-desc">微软 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-microsoft">🟢 微软</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-3ds-xl.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2012" data-decade="2010" data-name="nintendo 3ds xl 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/3ds-xl.webp" alt="Nintendo 3DS XL" class="card-console-img" loading="lazy">
+  <span class="year-badge">2012</span>
+      <div class="card-title">Nintendo 3DS XL</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-wii-u.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="2012" data-decade="2010" data-name="wii u 任天堂" style="text-decoration:none;">
+      <img width="600" height="399" src="img/consoles/wii-u.webp" alt="Wii U" class="card-console-img" loading="lazy">
+  <span class="year-badge">2012</span>
+      <div class="card-title">Wii U</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-wiiu.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="2012" data-decade="2010" data-name="wii u 任天堂" style="text-decoration:none;">
+      <img width="600" height="399" src="img/consoles/wiiu.webp" alt="Wii U" class="card-console-img" loading="lazy">
+  <span class="year-badge">2012</span>
+      <div class="card-title">Wii U</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-nintendo-3ds.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2011" data-decade="2010" data-name="nintendo 3ds 任天堂" style="text-decoration:none;">
+      <img width="450" height="600" src="img/consoles/nintendo-3ds.webp" alt="Nintendo 3DS" class="card-console-img" loading="lazy">
+  <span class="year-badge">2011</span>
+      <div class="card-title">Nintendo 3DS</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-ps-vita.html" class="card-console sony" data-brand="sony" data-type="handheld" data-year="2011" data-decade="2010" data-name="playstation vita 索尼" style="text-decoration:none;">
+      <img width="582" height="600" src="img/consoles/ps-vita.webp" alt="PlayStation Vita" class="card-console-img" loading="lazy">
+  <span class="year-badge">2011</span>
+      <div class="card-title">PlayStation Vita</div>
+      <div class="card-desc">索尼 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-psp-go.html" class="card-console sony" data-brand="sony" data-type="handheld" data-year="2009" data-decade="2000" data-name="psp go 索尼" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/psp-go.webp" alt="PSP Go" class="card-console-img" loading="lazy">
+  <span class="year-badge">2009</span>
+      <div class="card-title">PSP Go</div>
+      <div class="card-desc">索尼 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-dsi.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2008" data-decade="2000" data-name="nintendo dsi 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/dsi.webp" alt="Nintendo DSi" class="card-console-img" loading="lazy">
+  <span class="year-badge">2008</span>
+      <div class="card-title">Nintendo DSi</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-ds-lite.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2006" data-decade="2000" data-name="nintendo ds lite 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/ds-lite.webp" alt="Nintendo DS Lite" class="card-console-img" loading="lazy">
+  <span class="year-badge">2006</span>
+      <div class="card-title">Nintendo DS Lite</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-playstation-3.html" class="card-console sony" data-brand="sony" data-type="home" data-year="2006" data-decade="2000" data-name="playstation 3 索尼" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/playstation-3.webp" alt="PlayStation 3" class="card-console-img" loading="lazy">
+  <span class="year-badge">2006</span>
+      <div class="card-title">PlayStation 3</div>
+      <div class="card-desc">索尼 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-wii.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="2006" data-decade="2000" data-name="wii 任天堂" style="text-decoration:none;">
+      <img width="450" height="600" src="img/consoles/wii.webp" alt="Wii" class="card-console-img" loading="lazy">
+  <span class="year-badge">2006</span>
+      <div class="card-title">Wii</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-gb-micro.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2005" data-decade="2000" data-name="game boy micro 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/gb-micro.webp" alt="Game Boy Micro" class="card-console-img" loading="lazy">
+  <span class="year-badge">2005</span>
+      <div class="card-title">Game Boy Micro</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-xbox360.html" class="card-console microsoft" data-brand="microsoft" data-type="home" data-year="2005" data-decade="2000" data-name="xbox 360 微软" style="text-decoration:none;">
+      <img width="600" height="505" src="img/consoles/xbox360.webp" alt="Xbox 360" class="card-console-img" loading="lazy">
+  <span class="year-badge">2005</span>
+      <div class="card-title">Xbox 360</div>
+      <div class="card-desc">微软 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-microsoft">🟢 微软</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-nintendo-ds.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2004" data-decade="2000" data-name="nintendo ds 任天堂" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/nintendo-ds.webp" alt="Nintendo DS" class="card-console-img" loading="lazy">
+  <span class="year-badge">2004</span>
+      <div class="card-title">Nintendo DS</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-psp.html" class="card-console sony" data-brand="sony" data-type="handheld" data-year="2004" data-decade="2000" data-name="playstation portable 索尼" style="text-decoration:none;">
+      <img width="600" height="399" src="img/consoles/psp.webp" alt="PlayStation Portable" class="card-console-img" loading="lazy">
+  <span class="year-badge">2004</span>
+      <div class="card-title">PlayStation Portable</div>
+      <div class="card-desc">索尼 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-gba-sp.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2003" data-decade="2000" data-name="game boy advance sp 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/gba-sp.webp" alt="Game Boy Advance SP" class="card-console-img" loading="lazy">
+  <span class="year-badge">2003</span>
+      <div class="card-title">Game Boy Advance SP</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-ngage.html" class="card-console other" data-brand="other" data-type="handheld" data-year="2003" data-decade="2000" data-name="nokia n-gage 其他" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/ngage.webp" alt="Nokia N-Gage" class="card-console-img" loading="lazy">
+  <span class="year-badge">2003</span>
+      <div class="card-title">Nokia N-Gage</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-gameboy-advance.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="2001" data-decade="2000" data-name="game boy advance 任天堂" style="text-decoration:none;">
+      <img width="600" height="600" src="img/consoles/gameboy-advance.webp" alt="Game Boy Advance" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
+      <div class="card-title">Game Boy Advance</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-gamecube.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="2001" data-decade="2000" data-name="nintendo gamecube 任天堂" style="text-decoration:none;">
+      <img width="600" height="338" src="img/consoles/gamecube.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
+      <div class="card-title">Nintendo GameCube</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-gc.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="2001" data-decade="2000" data-name="nintendo gamecube 任天堂" style="text-decoration:none;">
+      <img width="600" height="338" src="img/consoles/gc.webp" alt="Nintendo GameCube" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
+      <div class="card-title">Nintendo GameCube</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-xbox.html" class="card-console microsoft" data-brand="microsoft" data-type="home" data-year="2001" data-decade="2000" data-name="xbox 微软" style="text-decoration:none;">
+      <img width="600" height="338" src="img/consoles/xbox.webp" alt="Xbox" class="card-console-img" loading="lazy">
+  <span class="year-badge">2001</span>
+      <div class="card-title">Xbox</div>
+      <div class="card-desc">微软 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-microsoft">🟢 微软</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-ps2.html" class="card-console sony" data-brand="sony" data-type="home" data-year="2000" data-decade="2000" data-name="playstation 2 索尼" style="text-decoration:none;">
+      <img width="600" height="600" src="img/consoles/playstation-2.webp" alt="PlayStation 2" class="card-console-img" loading="lazy">
+  <span class="year-badge">2000</span>
+      <div class="card-title">PlayStation 2</div>
+      <div class="card-desc">索尼 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-wonderswan.html" class="card-console other" data-brand="other" data-type="handheld" data-year="1999" data-decade="1990" data-name="bandai wonderswan 其他" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/wonderswan.webp" alt="Bandai WonderSwan" class="card-console-img" loading="lazy">
+  <span class="year-badge">1999</span>
+      <div class="card-title">Bandai WonderSwan</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-neo-geo-pocket-color.html" class="card-console other" data-brand="other" data-type="handheld" data-year="1999" data-decade="1990" data-name="neo geo pocket color 其他" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/ngpc.webp" alt="Neo Geo Pocket Color" class="card-console-img" loading="lazy">
+  <span class="year-badge">1999</span>
+      <div class="card-title">Neo Geo Pocket Color</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-gameboy-color.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="1998" data-decade="1990" data-name="game boy color 任天堂" style="text-decoration:none;">
+      <img width="600" height="375" src="img/consoles/gameboy-color.webp" alt="Game Boy Color" class="card-console-img" loading="lazy">
+  <span class="year-badge">1998</span>
+      <div class="card-title">Game Boy Color</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-gb-light.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="1998" data-decade="1990" data-name="game boy light 任天堂" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/gb-light.webp" alt="Game Boy Light" class="card-console-img" loading="lazy">
+  <span class="year-badge">1998</span>
+      <div class="card-title">Game Boy Light</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-dreamcast.html" class="card-console sega" data-brand="sega" data-type="home" data-year="1998" data-decade="1990" data-name="sega dreamcast 世嘉" style="text-decoration:none;">
+      <img width="600" height="360" src="img/consoles/dreamcast.webp" alt="Sega Dreamcast" class="card-console-img" loading="lazy">
+  <span class="year-badge">1998</span>
+      <div class="card-title">Sega Dreamcast</div>
+      <div class="card-desc">世嘉 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sega">🔵 世嘉</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-gameboy-pocket.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="1996" data-decade="1990" data-name="game boy pocket 任天堂" style="text-decoration:none;">
+      <img width="400" height="300" src="img/consoles/gameboy-pocket.webp" alt="Game Boy Pocket" class="card-console-img" loading="lazy">
+  <span class="year-badge">1996</span>
+      <div class="card-title">Game Boy Pocket</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-n64.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="1996" data-decade="1990" data-name="nintendo 64 任天堂" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/n64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
+  <span class="year-badge">1996</span>
+      <div class="card-title">Nintendo 64</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-nintendo-64.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="1996" data-decade="1990" data-name="nintendo 64 任天堂" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/nintendo-64.webp" alt="Nintendo 64" class="card-console-img" loading="lazy">
+  <span class="year-badge">1996</span>
+      <div class="card-title">Nintendo 64</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-sega-nomad.html" class="card-console sega" data-brand="sega" data-type="handheld" data-year="1995" data-decade="1990" data-name="sega nomad 世嘉" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/sega-nomad.webp" alt="Sega Nomad" class="card-console-img" loading="lazy">
+  <span class="year-badge">1995</span>
+      <div class="card-title">Sega Nomad</div>
+      <div class="card-desc">世嘉 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-sega">🔵 世嘉</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-playstation.html" class="card-console sony" data-brand="sony" data-type="home" data-year="1994" data-decade="1990" data-name="playstation 索尼" style="text-decoration:none;">
+      <img width="600" height="375" src="img/consoles/playstation.webp" alt="PlayStation" class="card-console-img" loading="lazy">
+  <span class="year-badge">1994</span>
+      <div class="card-title">PlayStation</div>
+      <div class="card-desc">索尼 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sony">🔵 索尼</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-saturn.html" class="card-console sega" data-brand="sega" data-type="home" data-year="1994" data-decade="1990" data-name="sega saturn 世嘉" style="text-decoration:none;">
+      <img width="600" height="375" src="img/consoles/saturn.webp" alt="Sega Saturn" class="card-console-img" loading="lazy">
+  <span class="year-badge">1994</span>
+      <div class="card-title">Sega Saturn</div>
+      <div class="card-desc">世嘉 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sega">🔵 世嘉</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-3do.html" class="card-console other" data-brand="other" data-type="home" data-year="1993" data-decade="1990" data-name="3do interactive multiplayer 其他" style="text-decoration:none;">
+      <img width="800" height="519" src="img/consoles/3do.webp" alt="3DO Interactive Multiplayer" class="card-console-img" loading="lazy">
+  <span class="year-badge">1993</span>
+      <div class="card-title">3DO Interactive Multiplayer</div>
+      <div class="card-desc">其他 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-neo-geo.html" class="card-console other" data-brand="other" data-type="home" data-year="1990" data-decade="1990" data-name="neo geo 其他" style="text-decoration:none;">
+      <img width="600" height="375" src="img/consoles/neo-geo.webp" alt="Neo Geo" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
+      <div class="card-title">Neo Geo</div>
+      <div class="card-desc">其他 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-sfc.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="1990" data-decade="1990" data-name="sfc 超级任天堂 任天堂" style="text-decoration:none;">
+      <img width="800" height="784" src="img/consoles/sfc.webp" alt="SFC 超级任天堂" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
+      <div class="card-title">SFC 超级任天堂</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-game-gear.html" class="card-console sega" data-brand="sega" data-type="handheld" data-year="1990" data-decade="1990" data-name="sega game gear 世嘉" style="text-decoration:none;">
+      <img width="600" height="330" src="img/consoles/game-gear.webp" alt="Sega Game Gear" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
+      <div class="card-title">Sega Game Gear</div>
+      <div class="card-desc">世嘉 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-sega">🔵 世嘉</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-super-famicom.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="1990" data-decade="1990" data-name="super famicom 任天堂" style="text-decoration:none;">
+      <img width="800" height="784" src="img/consoles/super-famicom.webp" alt="Super Famicom" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
+      <div class="card-title">Super Famicom</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-turboexpress.html" class="card-console other" data-brand="other" data-type="handheld" data-year="1990" data-decade="1990" data-name="turboexpress 其他" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/turboexpress.webp" alt="TurboExpress" class="card-console-img" loading="lazy">
+  <span class="year-badge">1990</span>
+      <div class="card-title">TurboExpress</div>
+      <div class="card-desc">其他 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-atari-lynx.html" class="card-console atari" data-brand="atari" data-type="handheld" data-year="1989" data-decade="1980" data-name="atari lynx 雅达利" style="text-decoration:none;">
+      <img width="600" height="377" src="img/consoles/atari-lynx.webp" alt="Atari Lynx" class="card-console-img" loading="lazy">
+  <span class="year-badge">1989</span>
+      <div class="card-title">Atari Lynx</div>
+      <div class="card-desc">雅达利 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-atari">🟠 雅达利</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-gameboy.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="1989" data-decade="1980" data-name="game boy 任天堂" style="text-decoration:none;">
+      <img width="580" height="600" src="img/consoles/gameboy.webp" alt="Game Boy" class="card-console-img" loading="lazy">
+  <span class="year-badge">1989</span>
+      <div class="card-title">Game Boy</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-atari-7800.html" class="card-console atari" data-brand="atari" data-type="home" data-year="1988" data-decade="1980" data-name="atari 7800 雅达利" style="text-decoration:none;">
+      <img width="600" height="338" src="img/consoles/atari-7800.webp" alt="Atari 7800" class="card-console-img" loading="lazy">
+  <span class="year-badge">1988</span>
+      <div class="card-title">Atari 7800</div>
+      <div class="card-desc">雅达利 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-atari">🟠 雅达利</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-mega-drive.html" class="card-console sega" data-brand="sega" data-type="home" data-year="1988" data-decade="1980" data-name="sega mega drive 世嘉" style="text-decoration:none;">
+      <img width="600" height="365" src="img/consoles/mega-drive.webp" alt="Sega Mega Drive" class="card-console-img" loading="lazy">
+  <span class="year-badge">1988</span>
+      <div class="card-title">Sega Mega Drive</div>
+      <div class="card-desc">世嘉 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sega">🔵 世嘉</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-xiaobawang.html" class="card-console other" data-brand="other" data-type="home" data-year="1987" data-decade="1980" data-name="小霸王 其他" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/xiaobawang.webp" alt="小霸王" class="card-console-img" loading="lazy">
+  <span class="year-badge">1987</span>
+      <div class="card-title">小霸王</div>
+      <div class="card-desc">其他 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-other">⚪ 其他</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-master-system.html" class="card-console sega" data-brand="sega" data-type="home" data-year="1985" data-decade="1980" data-name="sega master system 世嘉" style="text-decoration:none;">
+      <img width="600" height="338" src="img/consoles/master-system.webp" alt="Sega Master System" class="card-console-img" loading="lazy">
+  <span class="year-badge">1985</span>
+      <div class="card-title">Sega Master System</div>
+      <div class="card-desc">世嘉 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sega">🔵 世嘉</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-fc.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="1983" data-decade="1980" data-name="fc 红白机 任天堂" style="text-decoration:none;">
+      <img width="316" height="600" src="img/consoles/fc.webp" alt="FC 红白机" class="card-console-img" loading="lazy">
+  <span class="year-badge">1983</span>
+      <div class="card-title">FC 红白机</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-family-computer.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="1983" data-decade="1980" data-name="family computer 任天堂" style="text-decoration:none;">
+      <img width="450" height="600" src="img/consoles/family-computer.webp" alt="Family Computer" class="card-console-img" loading="lazy">
+  <span class="year-badge">1983</span>
+      <div class="card-title">Family Computer</div>
+      <div class="card-desc">任天堂 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-sg1000.html" class="card-console sega" data-brand="sega" data-type="home" data-year="1983" data-decade="1980" data-name="sega sg-1000 世嘉" style="text-decoration:none;">
+      <img width="600" height="400" src="img/consoles/sg1000.webp" alt="Sega SG-1000" class="card-console-img" loading="lazy">
+  <span class="year-badge">1983</span>
+      <div class="card-title">Sega SG-1000</div>
+      <div class="card-desc">世嘉 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-sega">🔵 世嘉</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-atari-5200.html" class="card-console atari" data-brand="atari" data-type="home" data-year="1982" data-decade="1980" data-name="atari 5200 雅达利" style="text-decoration:none;">
+      <img width="600" height="346" src="img/consoles/atari-5200.webp" alt="Atari 5200" class="card-console-img" loading="lazy">
+  <span class="year-badge">1982</span>
+      <div class="card-title">Atari 5200</div>
+      <div class="card-desc">雅达利 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-atari">🟠 雅达利</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+    <a href="console-game-watch.html" class="card-console nintendo" data-brand="nintendo" data-type="handheld" data-year="1980" data-decade="1980" data-name="game & watch 任天堂" style="text-decoration:none;">
+      <img width="600" height="450" src="img/consoles/game-watch.webp" alt="Game & Watch" class="card-console-img" loading="lazy">
+  <span class="year-badge">1980</span>
+      <div class="card-title">Game & Watch</div>
+      <div class="card-desc">任天堂 · 掌机</div>
+      <div class="card-specs">
+        <span class="tag tag-nintendo">🔴 任天堂</span>
+        <span class="tag tag-handheld">🖐️ 掌机</span>
+      </div>
+    </a>
+    <a href="console-atari-2600.html" class="card-console atari" data-brand="atari" data-type="home" data-year="1977" data-decade="1970" data-name="atari 2600 雅达利" style="text-decoration:none;">
+      <img width="600" height="338" src="img/consoles/atari-2600.webp" alt="Atari 2600" class="card-console-img" loading="lazy">
+  <span class="year-badge">1977</span>
+      <div class="card-title">Atari 2600</div>
+      <div class="card-desc">雅达利 · 家用</div>
+      <div class="card-specs">
+        <span class="tag tag-atari">🟠 雅达利</span>
+        <span class="tag tag-home">🏠 家用</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="cf-empty" id="cfEmpty" hidden>
+    <div class="cf-empty-icon">🕹️</div>
+    <p class="cf-empty-t">没有找到匹配的主机</p>
+    <p class="cf-empty-s">换个关键词，或点下面按钮看全部 69 款</p>
+    <button type="button" class="cf-btn" id="cfEmptyReset">重置筛选</button>
+  </div>
+
+  <div class="cf-more-wrap" id="cfMoreWrap">
+    <button type="button" class="cf-more" id="cfMore">
+      <span>显示更多</span><em id="cfRest"></em>
+    </button>
+  </div>
+
 
   <div class="page-meta" style="text-align:center;padding:40px 0 20px;color:var(--text-muted);font-size:0.8rem;">
-    <p>最后更新：2026-06-24 · 74款主机 · 6大品牌</p>
+    <p>收录 69 款主机 · 6 大品牌 · 1977—2025 共 49 年</p>
     <p>数据来源：官方资料、维基百科、游戏媒体</p>
-    <p>💡 点击主机卡片查看详情 · 按品牌浏览全部</p>
   </div>
+
+</main>
 
   <!-- Footer -->
   <footer>
@@ -1087,5 +1125,137 @@ var _hmt = _hmt || [];
   }
   </script>
   <script src="js/auto_news_loader.js"></script>
+
+<!-- ===== 主机筛选控制台 ===== -->
+<script>
+(function(){
+  var grid=document.getElementById('cfGrid');
+  if(!grid) return;
+  var PAGE=24;
+  // 常见缩写别名：命中规范名则并入搜索串，使 gba/gameboy/nds 等也能搜到
+  var ALIAS={'gba':'game boy advance','gbc':'game boy color','gb':'game boy','gameboy':'game boy',
+             'nds':'nintendo ds','n3ds':'nintendo 3ds','dc':'dreamcast','ss':'saturn',
+             'ns':'nintendo switch','ns2':'switch 2','psx':'playstation','xbox360':'xbox 360','wiiu':'wii u'};
+  var cards=[].slice.call(grid.querySelectorAll('.card-console')).map(function(c){
+    var q=c.dataset.name.toLowerCase();
+    for(var a in ALIAS){ if(q.indexOf(ALIAS[a])!==-1) q+=' '+a; }
+    c._q=q; return c;
+  });
+  var wrap=document.getElementById('cfWrap'),
+      search=document.getElementById('cfSearch'),
+      clearBtn=document.getElementById('cfClear'),
+      numEl=document.getElementById('cfNum'),
+      sortBtn=document.getElementById('cfSort'),
+      resetBtn=document.getElementById('cfReset'),
+      moreWrap=document.getElementById('cfMoreWrap'),
+      moreBtn=document.getElementById('cfMore'),
+      restEl=document.getElementById('cfRest'),
+      empty=document.getElementById('cfEmpty');
+
+  var state={brand:'all',type:'all',decade:'all',q:'',desc:true,shown:PAGE};
+
+  // sticky 顶部偏移 = 导航栏实际高度
+  function syncTop(){
+    var nav=document.querySelector('.navbar');
+    var h=nav?Math.round(nav.getBoundingClientRect().height):56;
+    document.documentElement.style.setProperty('--cf-top', h+'px');
+  }
+  syncTop();
+  window.addEventListener('resize',syncTop);
+
+  function match(c){
+    if(state.brand!=='all' && c.dataset.brand!==state.brand) return false;
+    if(state.type!=='all'  && c.dataset.type!==state.type)   return false;
+    if(state.decade!=='all'&& c.dataset.decade!==state.decade) return false;
+    if(state.q && c._q.indexOf(state.q)===-1) return false;
+    return true;
+  }
+
+  function render(animate){
+    var hits=cards.filter(match);
+    // 排序
+    hits.sort(function(a,b){
+      var d=(+b.dataset.year)-(+a.dataset.year);
+      if(!state.desc) d=-d;
+      return d || a.dataset.name.localeCompare(b.dataset.name);
+    });
+    cards.forEach(function(c){ c.hidden=true; c.classList.remove('cf-in'); });
+    var vis=hits.slice(0,state.shown);
+    vis.forEach(function(c,i){
+      c.hidden=false;
+      grid.appendChild(c);                 // 重排 DOM 顺序
+      if(animate && i<PAGE) c.classList.add('cf-in');
+    });
+    numEl.textContent=hits.length;
+    empty.hidden=hits.length>0;
+    grid.style.display=hits.length?'':'none';
+    var rest=hits.length-vis.length;
+    moreWrap.hidden=rest<=0;
+    if(rest>0) restEl.textContent='还有 '+rest+' 款';
+    var dirty=state.brand!=='all'||state.type!=='all'||state.decade!=='all'||!!state.q;
+    resetBtn.hidden=!dirty;
+    clearBtn.hidden=!state.q;
+  }
+
+  // chips
+  wrap.addEventListener('click',function(e){
+    var chip=e.target.closest('.cf-chip');
+    if(!chip) return;
+    var dim=chip.dataset.dim;
+    wrap.querySelectorAll('.cf-chip[data-dim="'+dim+'"]').forEach(function(x){ x.classList.remove('is-on'); });
+    chip.classList.add('is-on');
+    state[dim]=chip.dataset.val;
+    state.shown=PAGE;
+    render(true);
+  });
+
+  // 搜索（防抖）
+  var t;
+  search.addEventListener('input',function(){
+    clearTimeout(t);
+    t=setTimeout(function(){
+      state.q=search.value.trim().toLowerCase();
+      state.shown=PAGE;
+      render(true);
+    },160);
+  });
+  clearBtn.addEventListener('click',function(){
+    search.value=''; state.q=''; state.shown=PAGE; render(true); search.focus();
+  });
+
+  // 排序
+  sortBtn.addEventListener('click',function(){
+    state.desc=!state.desc;
+    sortBtn.textContent=state.desc?'🕐 由新到旧':'🕐 由旧到新';
+    state.shown=PAGE;
+    render(true);
+  });
+
+  // 显示更多
+  moreBtn.addEventListener('click',function(){
+    state.shown+=PAGE;
+    render(true);
+    requestAnimationFrame(function(){
+      var first=grid.querySelectorAll('.card-console:not([hidden])')[state.shown-PAGE];
+      if(first) first.scrollIntoView({block:'nearest',behavior:'smooth'});
+    });
+  });
+
+  function reset(){
+    state={brand:'all',type:'all',decade:'all',q:'',desc:state.desc,shown:PAGE};
+    search.value='';
+    wrap.querySelectorAll('.cf-chip').forEach(function(x){
+      x.classList.toggle('is-on', x.dataset.val==='all');
+    });
+    render(true);
+    wrap.scrollIntoView({block:'start',behavior:'smooth'});
+  }
+  resetBtn.addEventListener('click',reset);
+  document.getElementById('cfEmptyReset').addEventListener('click',reset);
+
+  render(false);
+})();
+</script>
+
 </body>
 </html>

@@ -27,3 +27,14 @@ uglyURLs = true
 # Pagefind 搜索
 [outputs]
   home = ["HTML", "RSS", "JSON", "SITEMAP"]  # JSON 给 Pagefind 用
+
+# 构建时压缩输出的 HTML / CSS / JS / JSON / SVG（减小传输体积、提升加载速度）
+[minify]
+  minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepWhitespace = false
+    [minify.tdewolff.css]
+      keepCSS2 = false
+    [minify.tdewolff.js]
+      keepVarNames = true  # 保守：保留变量名，避免任何脚本因压缩出错

@@ -349,19 +349,41 @@ if(document.readyState==='loading'){
   setInterval(tick, 1000);
 })();
 
-// ── 导航栏紧凑天气（全站共享，首页内联版优先） ──
+// ── 导航栏紧凑天气（全站共享，SVG 图标 + 实时温度）──
 (function(){
   var el = document.getElementById('navWeather');
-  if(!el || el.dataset.init==='1') return; // 首页内联版已处理则跳过
-  var WX={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌧️',53:'🌧️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'🌨️',77:'🌨️',80:'🌧️',81:'🌧️',82:'🌧️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
+  if(!el) return;
   var URL='https://api.open-meteo.com/v1/forecast?latitude=33.77&longitude=120.52&current=temperature_2m,weather_code&timezone=Asia/Shanghai&forecast_days=1';
-  function apply(t,c){ el.textContent=(WX[String(c)]||'🌡️')+' '+Math.round(t)+'°'; }
+  var ICONS={
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/>',
+    'cloud-sun':'<circle cx="8.5" cy="8.5" r="3"/><path d="M8.5 2.5v2M3.3 8.5h2M4.6 4.6l1.4 1.4"/><path d="M11 18a3.2 3.2 0 010-6.4 4.2 4.2 0 018.1-1.2A3.2 3.2 0 0118.5 18H11z"/>',
+    cloud:'<path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/>',
+    fog:'<path d="M7 17a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 17H7z"/><path d="M7 20h11M8.5 22.5h8"/>',
+    rain:'<path d="M7 16a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 16H7z"/><path d="M8 19l-1 3M12 19l-1 3M16 19l-1 3"/>',
+    snow:'<path d="M7 16a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 16H7z"/><path d="M8 19.5v3M12 19.5v3M16 19.5v3"/>',
+    thunder:'<path d="M7 16a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 16H7z"/><path d="M11 18l-2.5 4h3l-2.5 4"/>'
+  };
+  function svg(key){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[key]||ICONS.cloud)+'</svg>'; }
+  function keyFor(c){ c=+c;
+    if(c===0) return 'sun';
+    if(c===1||c===2) return 'cloud-sun';
+    if(c===3) return 'cloud';
+    if(c===45||c===48) return 'fog';
+    if(c>=51&&c<=67) return 'rain';
+    if(c>=71&&c<=77) return 'snow';
+    if(c>=80&&c<=86) return 'rain';
+    if(c>=95) return 'thunder';
+    return 'cloud';
+  }
+  function apply(t,c){ el.innerHTML = svg(keyFor(c)) + '<span style="margin-left:3px">'+Math.round(t)+'°</span>'; }
   fetch(URL).then(function(r){return r.json();}).then(function(d){
     if(d&&d.current) apply(d.current.temperature_2m,d.current.weather_code);
+    else el.innerHTML = svg('cloud')+'<span style="margin-left:3px">--°</span>';
   }).catch(function(){
-    el.textContent='🌤️--°';
+    el.innerHTML = svg('cloud')+'<span style="margin-left:3px">--°</span>';
   });
 })();
+
 
 // ============================================================
 // 区域F - 导航高亮（当前页面）

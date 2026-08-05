@@ -200,16 +200,19 @@ def build_visit_section(t, latest_id):
 
     return (
         '<section class="tl-visit">'
-        '  <header class="tl-visit-head">'
+        '  <button type="button" class="tl-visit-head" aria-expanded="false">'
         '    %s'
         '    <span class="tl-visit-date">%s</span>'
         '    <span class="tl-visit-meta">%s</span>'
         '    %s'
-        '  </header>'
-        '  %s'
-        '  <div class="%s">%s</div>'
-        '  %s'
-        '  %s'
+        '    <span class="tl-visit-caret" aria-hidden="true">▾</span>'
+        '  </button>'
+        '  <div class="tl-visit-body">'
+        '    %s'
+        '    <div class="%s">%s</div>'
+        '    %s'
+        '    %s'
+        '  </div>'
         '</section>'
     ) % (season_html, esc(date), meta, latest_badge, note_html, cities_cls, city_cards, city_more, gallery_html)
 
@@ -239,7 +242,7 @@ def build_region_card(key, region_full, visits, latest_id, open_default=False):
 
     open_cls = ' open' if open_default else ''
     aria = 'true' if open_default else 'false'
-    hint = ('点击展开 · 看这 %d 次出行的城市解说与照片' % n_visits) if n_visits > 1 else '点击展开 · 看城市解说与照片'
+    hint = '点击展开 · 再点年份查看每次出行的城市解说与照片' if n_visits > 1 else '点击展开 · 点年份查看城市解说与照片'
 
     return (
         '<article class="tl-trip tl-reveal%s" data-year="%s" data-n="%d" data-q="%s">'
@@ -430,11 +433,20 @@ def main():
 .tl-trip-body{display:none;padding:18px 22px 22px}
 .tl-trip.open .tl-trip-body{display:block;animation:tlSlide .3s ease}
 @keyframes tlSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-.tl-visit{padding-top:16px;margin-top:16px;border-top:1px dashed var(--border)}
+.tl-visit{padding-top:14px;margin-top:14px;border-top:1px dashed var(--border)}
 .tl-visit:first-of-type{padding-top:2px;margin-top:0;border-top:none}
-.tl-visit-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+.tl-visit-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%;text-align:left;
+  cursor:pointer;margin:0 0 10px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;
+  background:var(--bg);color:var(--text);font-family:inherit;-webkit-appearance:none;appearance:none;
+  -webkit-tap-highlight-color:transparent;transition:border-color .18s,background .18s}
+.tl-visit-head:hover{border-color:var(--tl)}
+.tl-visit.open .tl-visit-head{border-color:var(--tl);background:var(--tl-soft)}
 .tl-visit-date{font-size:1.06rem;font-weight:800;color:var(--text);line-height:1.3;display:flex;align-items:center;gap:8px}
 .tl-visit-meta{font-size:.8rem;color:var(--text-muted)}
+.tl-visit-caret{margin-left:auto;font-size:1rem;color:var(--text-muted);transition:transform .2s ease;line-height:1}
+.tl-visit.open .tl-visit-caret{transform:rotate(180deg);color:var(--tl)}
+.tl-visit-body{display:none;padding:2px 2px 4px}
+.tl-visit.open .tl-visit-body{display:block;animation:tlFade .2s ease}
 .tl-trip-region{font-size:.8rem;font-weight:500;color:rgba(255,255,255,.6);margin-left:4px}
 .tl-season{flex:0 0 auto;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
   color:#fff;font-size:1.05rem;font-weight:800}
@@ -593,6 +605,15 @@ def main():
     btn.addEventListener('click',function(){
       var card=btn.closest('.tl-trip');
       var open=card.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+  // 年份小段手风琴：地区卡展开后，每段年份默认折叠，点年份条才展开该年的城市解说与相册
+  var vheads=[].slice.call(list.querySelectorAll('.tl-visit-head'));
+  vheads.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var sec=btn.closest('.tl-visit');
+      var open=sec.classList.toggle('open');
       btn.setAttribute('aria-expanded',open?'true':'false');
     });
   });

@@ -153,18 +153,25 @@ def build_trip_card(t, latest_id, open_default=False):
 
     city_cards = '\n'.join(build_city_card(c, tid) for c in cities)
 
-    # 沿途相册：本趟真实照片全收录
+    # 沿途相册：本趟真实照片全收录，每张配一句解说（文字对应图片）
     gallery_imgs = []
     for p in t.get('photos', []):
-        src = resolve_photo(p)
-        if src:
-            gallery_imgs.append('<a href="%s" target="_blank" rel="noopener">'
-                                '<img src="%s" alt="%s 沿途" loading="lazy" decoding="async"></a>'
-                                % (esc(src), esc(src), esc(title)))
+        if isinstance(p, dict):
+            src = p.get('src', '')
+            caption = p.get('caption', '')
+        else:
+            src, caption = p, ''
+        s = resolve_photo(src)
+        if s:
+            cap = ('<figcaption class="tl-photo-cap">%s</figcaption>' % esc(caption)) if caption else ''
+            gallery_imgs.append('<figure class="tl-photo">'
+                                '<a href="%s" target="_blank" rel="noopener">'
+                                '<img src="%s" alt="%s" loading="lazy" decoding="async"></a>%s</figure>'
+                                % (esc(s), esc(s), esc(caption or title), cap))
     if gallery_imgs:
         gallery_html = ('<div class="tl-gallery-block">'
-                        '<div class="tl-gallery-title">沿途 · %d 张</div>'
-                        '<div class="tl-gallery">%s</div></div>'
+                        '<div class="tl-gallery-title">沿途 · %d 张（点开看大图）</div>'
+                        '<div class="tl-gallery tl-gallery-captioned">%s</div></div>'
                         % (len(gallery_imgs), ''.join(gallery_imgs)))
     else:
         gallery_html = ''
@@ -301,6 +308,15 @@ def main():
 .tl-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--border);
   display:block;background:#222;transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease}
 .tl-gallery img:hover{transform:scale(1.04);border-color:var(--tl);box-shadow:0 8px 22px rgba(0,0,0,.5)}
+.tl-gallery-captioned{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.tl-photo{margin:0;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s,border-color .25s}
+.tl-photo:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--tl)}
+.tl-photo a{display:block;line-height:0}
+.tl-gallery-captioned .tl-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#222;
+  border:none;border-radius:0}
+.tl-gallery-captioned .tl-photo img:hover{transform:none}
+.tl-photo-cap{font-size:.82rem;color:var(--text-secondary);line-height:1.6;padding:10px 12px 12px}
 .tl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 10px}
 .tl-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 12px;text-align:center}
 .tl-stat-num{display:block;font-size:1.65rem;font-weight:800;color:var(--tl);line-height:1.2}

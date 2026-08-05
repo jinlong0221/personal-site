@@ -171,6 +171,16 @@ def build_trip_card(t, latest_id):
 
     q = ' '.join([title, season, date, note] + [c.get('name', '') for c in cities]).lower()
 
+    n_cities = len(cities)
+    city_limit = 4
+    cities_cls = 'tl-cities'
+    city_more = ''
+    if n_cities > city_limit:
+        cities_cls += ' tl-collapsible'
+        city_more = ('<button type="button" class="tl-cities-more" data-limit="%d" data-total="%d" '
+                     'aria-expanded="false">展开全部 %d 城 <span class="tl-caret">▾</span></button>'
+                     % (city_limit, n_cities, n_cities))
+
     return (
         '<article class="tl-trip tl-reveal" data-year="%s" data-q="%s">'
         '  <div class="tl-trip-head">'
@@ -181,12 +191,14 @@ def build_trip_card(t, latest_id):
         '    </div>'
         '  </div>'
         '  %s'
-        '  <div class="tl-cities">'
+        '  <div class="%s">'
         '%s'
         '  </div>'
         '  %s'
+        '  %s'
         '</article>'
-    ) % (year, esc(q), season_html, esc(title), latest_badge, meta, note_html, city_cards, gallery_html)
+    ) % (year, esc(q), season_html, esc(title), latest_badge, meta, note_html,
+         cities_cls, city_cards, city_more, gallery_html)
 
 
 def main():
@@ -353,6 +365,14 @@ def main():
 .tl-empty-state svg{color:var(--tl);opacity:.7;margin-bottom:14px}
 .tl-empty-title{font-size:1.15rem;font-weight:800;color:var(--text);margin:0 0 8px}
 .tl-empty-sub{font-size:.9rem;line-height:1.85;max-width:440px;margin:0 auto;color:var(--text-secondary)}
+.tl-more-wrap{display:none;text-align:center;margin:22px 0 4px}
+.tl-more-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 28px;font-size:.92rem;font-family:inherit;
+  color:var(--tl);background:var(--tl-soft);border:1px solid var(--tl);border-radius:999px;cursor:pointer;transition:all .18s}
+.tl-more-btn:hover{background:var(--tl);color:#1a1408}
+.tl-cities-more{display:inline-flex;align-items:center;gap:4px;margin:12px 0 2px;padding:4px 14px;font-size:.78rem;
+  font-family:inherit;color:var(--tl);background:var(--tl-soft);border:1px solid transparent;border-radius:999px;cursor:pointer}
+.tl-cities-more:hover{border-color:var(--tl)}
+.tl-cities.tl-collapsible{position:relative}
 @media(max-width:992px){.tl-stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:576px){.tl-hero{min-height:200px}.tl-hero-inner{padding:22px 16px 20px}.tl-hero h1{font-size:1.5rem}
   .tl-trip{padding:16px 15px}.tl-cities{grid-template-columns:1fr}.tl-stat-num{font-size:1.35rem}}
@@ -369,40 +389,72 @@ def main():
   var shown=document.getElementById('tlShown');
   var empty=document.getElementById('tlEmpty');
   var reset=document.getElementById('tlReset');
+  var moreWrap=document.getElementById('tlMoreWrap');
+  var moreBtn=document.getElementById('tlMore');
+  var PER=6;
   var ALIAS={'旅游':'travel 旅行','家庭':'family 家庭','孩子':'孩子 女儿 儿子','亲子':'亲子 家庭'};
-  var state={year:'all',q:''};
+  var state={year:'all',q:'',page:1};
   trips.forEach(function(t){ t._q=(t.getAttribute('data-q')||''); });
+  function match(t){
+    var okY=(state.year==='all')||String(t.getAttribute('data-year'))===state.year;
+    var okQ=!state.q||t._q.indexOf(state.q)>-1;
+    return okY&&okQ;
+  }
   function render(){
-    var n=0;
+    var total=0,shownCount=0;
     trips.forEach(function(t){
-      var okY=(state.year==='all')||String(t.getAttribute('data-year'))===state.year;
-      var okQ=!state.q||t._q.indexOf(state.q)>-1;
-      var ok=okY&&okQ;
-      t.style.display=ok?'':'none';
-      if(ok)n++;
+      if(!match(t)){ t.style.display='none'; return; }
+      total++;
+      if(shownCount < state.page*PER){
+        var wasHidden=t.style.display==='none';
+        t.style.display='';
+        if(wasHidden) t.classList.add('in');
+        shownCount++;
+      } else {
+        t.style.display='none';
+      }
     });
-    shown.textContent=n;
-    empty.style.display=n?'none':'block';
+    shown.textContent=total;
+    empty.style.display=total?'none':'block';
     clear.style.display=state.q?'block':'none';
+    moreWrap.style.display=(total>state.page*PER)?'block':'none';
   }
   chips.forEach(function(ch){
     ch.addEventListener('click',function(){
       chips.forEach(function(x){x.classList.remove('active');});
       ch.classList.add('active');
-      state.year=ch.getAttribute('data-year');
-      render();
+      state.year=ch.getAttribute('data-year'); state.page=1; render();
     });
   });
   input.addEventListener('input',function(){
     var v=input.value.trim().toLowerCase();
     if(ALIAS[v])v=ALIAS[v];
-    state.q=v; render();
+    state.q=v; state.page=1; render();
   });
-  clear.addEventListener('click',function(){ input.value=''; state.q=''; render(); input.focus(); });
+  clear.addEventListener('click',function(){ input.value=''; state.q=''; state.page=1; render(); input.focus(); });
   reset.addEventListener('click',function(){
-    input.value=''; state.q=''; state.year='all';
+    input.value=''; state.q=''; state.year='all'; state.page=1;
     chips.forEach(function(x){x.classList.toggle('active',x.getAttribute('data-year')==='all');});
     render();
+  });
+  if(moreBtn){ moreBtn.addEventListener('click',function(){ state.page++; render(); }); }
+  // 城市卡片折叠（一趟出行城市很多时，默认仅显示前 4 座）
+  var collapsibles=[].slice.call(list.querySelectorAll('.tl-cities.tl-collapsible'));
+  collapsibles.forEach(function(grid){
+    var limit=parseInt(grid.getAttribute('data-limit')||'4',10);
+    var totalN=grid.getAttribute('data-total')||'';
+    var kids=[].slice.call(grid.children);
+    kids.forEach(function(k,i){ if(i>=limit) k.style.display='none'; });
+    var btn=grid.parentNode.querySelector('.tl-cities-more');
+    if(btn){
+      btn.addEventListener('click',function(){
+        var open=grid.classList.toggle('open');
+        btn.setAttribute('aria-expanded',open?'true':'false');
+        kids.forEach(function(k,i){ k.style.display=(open||i<limit)?'':'none'; });
+        btn.firstChild.nodeValue=open?('收起城市 '):('展开全部 '+totalN+' 城 ');
+        var caret=btn.querySelector('.tl-caret'); if(caret)caret.textContent=open?'▴':'▾';
+      });
+    }
   });
   var toggles=[].slice.call(list.querySelectorAll('.tl-city-toggle'));
   toggles.forEach(function(btn){
@@ -452,7 +504,7 @@ def main():
 __CRITICAL__
 <link rel="preload" href="css/style.css?v=7080" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="css/style.css?v=7080"></noscript>
-<title>足迹 · 家庭旅行 - 龙兄知识库</title><meta name="description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案，按年份记录每一次出行的城市、瞬间与孩子的笑容。">
+<title>足迹 · 家庭旅行 - 龙兄知识库</title><meta name="description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案，按年份记录每一次出行的城市、瞬间与孩子的笑容。">
 <meta name="keywords" content="家庭旅行,亲子游,足迹,带着孩子去旅行,龙兄知识库">
 <style>__PAGECSS__</style>
 <script>
@@ -469,14 +521,14 @@ var _hmt = _hmt || [];
 <link rel="canonical" href="https://longxiong.vip/travel.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta property="og:title" content="足迹 · 家庭旅行 - 龙兄知识库">
-<meta property="og:description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。">
+<meta property="og:description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/travel.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="足迹 · 家庭旅行 - 龙兄知识库">
-<meta name="twitter:description" content="带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。">
+<meta name="twitter:description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 </head>
 <body>
@@ -511,7 +563,7 @@ __NAVBAR__
   <!-- ===== 出行档案 ===== -->
   <section class="tl-sec">
     <h2 class="tl-sec-title">我们的出行档案</h2>
-    <p class="tl-sec-sub">按年份排列，支持按年份筛选与关键词搜索（城市、地区、记忆都能搜）。点开每座城市可看亮点。</p>
+    <p class="tl-sec-sub">默认展示最近几次出行，可筛选年份或搜索关键词（城市、地区、记忆都能搜）；点「显示更多出行」看更早的足迹，点开每座城市可看亮点。</p>
 
     <div class="tl-filter">
       <div class="tl-search-wrap">
@@ -531,6 +583,9 @@ __NAVBAR__
 
     <div class="tl-list" id="tlList">
 __CARDS__
+    </div>
+    <div class="tl-more-wrap" id="tlMoreWrap">
+      <button class="tl-more-btn" id="tlMore" type="button">显示更多出行 <span class="tl-caret">▾</span></button>
     </div>
     <div class="tl-empty" id="tlEmpty">没有匹配的出行，换个关键词试试～</div>
   </section>
@@ -561,7 +616,7 @@ __CARDS__
       "@type": "Article",
       "name": "足迹 · 家庭旅行 - 龙兄知识库",
       "url": "https://longxiong.vip/travel.html",
-      "description": "带着老婆孩子走过的每一座城：一份有温度的家庭旅行档案。"
+      "description": "带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案。"
     }
   ]
 }

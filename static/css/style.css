@@ -4368,3 +4368,127 @@ body.dark .new-badge {
   .mag-stat-strip { flex-wrap: wrap; gap: 12px; }
   .mag-stat-item { flex: 1 1 40%; }
 }
+
+/* ===== 沉香鉴别页（content/herbs/chenxiang.md）专属样式 ===== */
+.content-body .cx-hero {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 4px 0 20px;
+  border: 1px solid var(--border);
+}
+.content-body .cx-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  object-fit: cover;
+}
+.content-body .cx-hero-badge {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+.content-body .cx-lead {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin: 0 0 8px;
+}
+.content-body .cx-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+.content-body .cx-steps .step-tile {
+  margin: 0;
+  text-align: center;
+}
+.content-body blockquote {
+  background: rgba(201,168,76,0.08);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+.content-body .cx-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.content-body .cx-compare-col {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.content-body .cx-natural { border-top: 3px solid var(--gold); }
+.content-body .cx-artificial { border-top: 3px solid var(--text-muted); }
+.content-body .cx-compare-head {
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.content-body .cx-natural .cx-compare-head { color: var(--gold); }
+.content-body .cx-compare-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 16px 16px;
+}
+.content-body .cx-compare-list li {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.content-body .cx-compare-list li:last-child { border-bottom: none; }
+.content-body .cx-disclaimer {
+  background: rgba(201,168,76,0.08);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+  margin: 20px 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.content-body .cx-disclaimer strong { color: var(--gold); }
+.content-body .cx-channels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.content-body .cx-channel {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+}
+.content-body .cx-channel span {
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.content-body .cx-channel:hover { background: var(--bg-secondary); }
+@media (max-width: 640px) {
+  .content-body .cx-steps { grid-template-columns: repeat(2, 1fr); }
+  .content-body .cx-compare { grid-template-columns: 1fr; }
+  .content-body .cx-channels { grid-template-columns: 1fr; }
+}

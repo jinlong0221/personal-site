@@ -239,10 +239,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     'use strict';
 
     // ========== 1. 农历数据表 ==========
-    // lunarInfo[y-1900] 编码了 y 年的：
-    //   bit15      = 闰月大月标志（1=30天，0=29天）
-    //   bit0~bit14 = 12个月的大小月（1=大30天，0=小29天），bit0=正月...
-    //   bit4~bit14 = 农历闰月月份（1~12），无闰月则 bit4=0
+    // LUNAR_INFO[y-1900] 按经典编码记录了 y 年的农历信息：
+    //   bit15 ~ bit4  = 12 个正常月的大小月（1=大月30天，0=小月29天），bit15=正月、bit4=腊月
+    //   bit0  ~ bit3  = 闰月月份（1~12），为 0 表示该年无闰月
+    //   bit16 (0x10000)= 闰月为大月（30天）标志，仅当存在闰月时有效
     const LUNAR_INFO = [
       0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2, //1900-1909
       0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977, //1910-1919
@@ -346,7 +346,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       return sum + leapDays(y);
     }
     function leapMonth(y) { return LUNAR_INFO[y-1900] & 0xf; }
-    function leapDays(y) { return (LUNAR_INFO[y-1900] & 0x10000) ? 30 : 29; }
+    function leapDays(y) { return leapMonth(y) ? ((LUNAR_INFO[y-1900] & 0x10000) ? 30 : 29) : 0; }
     function monthDays(y,m) { return (LUNAR_INFO[y-1900] & (0x10000>>m)) ? 30 : 29; }
 
     // 公历日期转农历

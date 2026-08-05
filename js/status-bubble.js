@@ -61,9 +61,20 @@
     var bubbleDate = document.getElementById('bubbleDate');
     var bubbleTime = document.getElementById('bubbleTime');
 
+    // 兼容两种数据格式：
+    // - data/status.json（Hugo模板注入）：有 timestamp，无顶层 date/updatedAt
+    // - static/status.json（fetch回退）：有 date/time/updatedAt
+    var ts = data.timestamp || data.updatedAt || '';
+    var dateStr = data.date || (ts ? ts.split('T')[0] : '');
+    var updatedAtStr = data.updatedAt || ts;
+
     if (statusText) statusText.textContent = data.status || '';
-    if (bubbleDate) bubbleDate.textContent = data.date || '';
-    if (bubbleTime) bubbleTime.textContent = getTimeAgo(data.updatedAt);
+    if (bubbleDate) bubbleDate.textContent = dateStr;
+    if (bubbleTime) bubbleTime.textContent = getTimeAgo(updatedAtStr);
+
+    // 同时更新杂志布局中的状态显示
+    var magStatus = document.getElementById('magStatus');
+    if (magStatus) magStatus.textContent = (data.status || '') + ' ' + (data.emoji || '');
   }
 
   // 回退：从 updates.json 找最新板块显示
@@ -133,11 +144,27 @@
     updateList.innerHTML = html;
   }
 
-  // 主入口：先读 status.json，失败再读 updates.json
+  // 主入口：优先读HTML内联的状态数据（构建时注入，无缓存问题）；
+  // 若无内联数据（旧版静态页），再回退到 fetch status.json
   function loadStatusAndUpdates() {
     var base = getBasePath();
 
-    // 1. 尝试读取 status.json（今日状态，优先；加时间戳破微信浏览器缓存）
+    // 1. 优先读取构建时注入的 #site-status-data（不走网络，彻底规避微信缓存）
+    var embedded = document.getElementById('site-status-data');
+    if (embedded && embedded.textContent) {
+      try {
+        var data = JSON.parse(embedded.textContent);
+        if (data && data.status) {
+          showStatusBubble(data);
+          loadUpdatesListFromUrl(base); // 近期动态仍从 updates.json 读取
+          return;
+        }
+      } catch (e) {
+        // 解析失败，继续走 fetch 回退
+      }
+    }
+
+    // 2. 回退：fetch status.json（加时间戳破微信浏览器缓存）
     var statusXhr = new XMLHttpRequest();
     statusXhr.open('GET', base + 'status.json?t=' + Date.now(), true);
     statusXhr.responseType = 'json';

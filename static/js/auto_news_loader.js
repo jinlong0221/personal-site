@@ -65,9 +65,12 @@
         if (!data.news || data.news.length === 0) return;
         if (countEl) countEl.textContent = data.news.length + '条';
         renderNews(container, data.news);
-        // 显示整个折叠区域
+        // 显示整个折叠区域（保留 grid 折叠动画：display:grid + 添加 open 类）
         var wrapper = document.getElementById('hc-auto-news');
-        if (wrapper) wrapper.style.display = 'block';
+        if (wrapper) {
+          wrapper.style.display = 'grid';
+          wrapper.classList.add('open');
+        }
       })
       .catch(function (e) {
         console.log('[auto_news] 加载失败:', jsonFile, e);

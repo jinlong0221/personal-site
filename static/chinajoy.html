@@ -124,17 +124,9 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .cj-chip.active b{opacity:.85}
 .cj-count-bar{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--text-muted);margin-bottom:14px}
 .cj-reset{background:none;border:none;color:var(--cj);cursor:pointer;font-size:.8rem;font-family:inherit;text-decoration:underline}
-/* 年代卡缩略图（每届对应年代场景） */
-.cj-card-img-wrap{position:relative;margin:-20px -22px 14px;border-radius:14px 14px 0 0;overflow:hidden;aspect-ratio:320/130;background:linear-gradient(135deg,var(--cj),var(--cj-2))}
+/* 年代卡真实现场照片（仅当用户放入对应年份真图才显示） */
+.cj-card-img-wrap{position:relative;margin:-20px -22px 14px;border-radius:14px 14px 0 0;overflow:hidden;aspect-ratio:320/200;background:var(--bg-secondary)}
 .cj-card-img{display:block;width:100%;height:100%;object-fit:cover}
-.cj-card-img-badge{position:absolute;left:10px;top:10px;font-size:.66rem;font-weight:700;letter-spacing:1px;color:#fff;background:rgba(15,23,42,.55);padding:2px 8px;border-radius:999px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-[data-theme="light"] .cj-card-img-badge{background:rgba(15,23,42,.7)}
-/* 时代分隔横幅 */
-.cj-era-banner{position:relative;border-radius:14px;overflow:hidden;margin:8px 0 6px;height:140px}
-.cj-era-banner-svg{width:100%;height:100%;display:block}
-/* Hero 装饰层 */
-.cj-hero-deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;border-radius:16px}
-.cj-hero-deco-svg{width:100%;height:100%;display:block}
 .cj-list{display:flex;flex-direction:column;gap:16px}
 .cj-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;border-left:4px solid var(--cj);transition:box-shadow .2s,transform .2s}
 .cj-card:hover{box-shadow:var(--shadow-md);transform:translateX(2px)}
@@ -193,7 +185,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:576px){.cj-hero{padding:32px 18px 28px}.cj-hero h1{font-size:1.55rem}.cj-era-grid{grid-template-columns:1fr}
 .cj-card{padding:16px 15px}.cj-card-place{margin-left:0;width:100%;text-align:left}.cj-card-year{font-size:1.25rem}
 .cj-mile-list::before{left:52px}.cj-mile-year{flex:0 0 44px}.cj-mile::after{left:47px}
-.cj-bar-tip{display:none}.cj-card-img-wrap{margin:-16px -15px 12px;border-radius:14px 14px 0 0;aspect-ratio:320/110}.cj-era-banner{height:110px}}</style>
+.cj-bar-tip{display:none}.cj-card-img-wrap{margin:-16px -15px 12px;border-radius:14px 14px 0 0;aspect-ratio:320/200}}</style>
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -288,7 +280,6 @@ var _hmt = _hmt || [];
 
   <!-- ===== Hero ===== -->
   <div class="cj-hero">
-    <div class="cj-hero-deco"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" preserveAspectRatio="xMidYMid slice" class="cj-hero-deco-svg" aria-hidden="true"><rect x="60" y="190" width="86" height="18" rx="3" fill="#fff" opacity="0.10"/><circle cx="80" cy="202" r="4" fill="#fbbf24" opacity="0.45"/><circle cx="126" cy="202" r="4" fill="#fbbf24" opacity="0.45"/><line x1="103" y1="190" x2="103" y2="148" stroke="#fff" stroke-width="3" opacity="0.22" stroke-linecap="round"/><circle cx="103" cy="140" r="11" fill="#fbbf24" opacity="0.45"/><rect x="1040" y="176" width="116" height="52" rx="24" fill="#fff" opacity="0.10"/><circle cx="1062" cy="202" r="9" fill="#fff" opacity="0.28"/><line x1="1053" y1="202" x2="1071" y2="202" stroke="#0f172a" stroke-width="1.5" opacity="0.5"/><line x1="1062" y1="193" x2="1062" y2="211" stroke="#0f172a" stroke-width="1.5" opacity="0.5"/><circle cx="1130" cy="194" r="3.5" fill="#0f172a" opacity="0.6"/><circle cx="1139" cy="202" r="3.5" fill="#0f172a" opacity="0.6"/><circle cx="1139" cy="210" r="3.5" fill="#0f172a" opacity="0.6"/><circle cx="1130" cy="218" r="3.5" fill="#0f172a" opacity="0.6"/><rect x="300" y="64" width="12" height="236" fill="#fff" opacity="0.07"/><rect x="332" y="64" width="12" height="236" fill="#fff" opacity="0.07"/><rect x="856" y="64" width="12" height="236" fill="#fff" opacity="0.07"/><rect x="888" y="64" width="12" height="236" fill="#fff" opacity="0.07"/><rect x="300" y="54" width="600" height="10" fill="#fff" opacity="0.08"/><path d="M0,320 L0,290 Q40,275 80,290 Q120,275 160,290 Q200,275 240,290 Q280,275 320,290 Q360,275 400,290 Q440,275 480,290 Q520,275 560,290 Q600,275 640,290 Q680,275 720,290 Q760,275 800,290 Q840,275 880,290 Q920,275 960,290 Q1000,275 1040,290 Q1080,275 1120,290 Q1160,275 1200,290 L1200,320 Z" fill="#fff" opacity="0.08"/></svg></div>
     <span class="cj-kicker">CHINA DIGITAL ENTERTAINMENT EXPO</span>
     <h1>ChinaJoy 成长史</h1>
     <p>从 2004 年北京展览馆的第一届，到 2026 年上海新国际博览中心的第 23 届——
@@ -351,471 +342,9 @@ var _hmt = _hmt || [];
     </div>
 
     <div class="cj-list" id="cjList">
-<div class="cj-era-banner" data-era="start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" preserveAspectRatio="xMidYMid slice" class="cj-era-banner-svg"><defs><linearGradient id="ebg_start" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient></defs><rect width="1200" height="180" fill="url(#ebg_start)"/><g opacity="0.88"><rect x="120.0" y="39.6" width="408.00000000000006" height="75.6" rx="5.4" fill="#0f172a" stroke="#fde68a" stroke-width="2"/><rect x="144.0" y="48.6" width="360.0" height="54.0" fill="#1e3a8a"/><line x1="144.0" y1="55.8" x2="504.0" y2="55.8" stroke="#fde68a" stroke-width="0.5" opacity="0.4"/><line x1="144.0" y1="66.6" x2="504.0" y2="66.6" stroke="#fde68a" stroke-width="0.5" opacity="0.4"/><line x1="144.0" y1="77.4" x2="504.0" y2="77.4" stroke="#fde68a" stroke-width="0.5" opacity="0.4"/><rect x="264.0" y="115.2" width="120.0" height="7.2" fill="#0f172a"/><rect x="216.0" y="122.4" width="216.0" height="7.2" rx="3.6" fill="#0f172a"/><rect x="792.0" y="99.00000000000001" width="192.0" height="14.4" rx="3.6" fill="#0f172a"/><line x1="888.0" y1="99.00000000000001" x2="888.0" y2="68.4" stroke="#fde68a" stroke-width="3" stroke-linecap="round"/><circle cx="888.0" cy="61.2" r="6.3" fill="#f59e0b"/><path d="M0,180 L0,154.8 Q300.0,140.4 600.0,154.8 T1200,154.8 L1200,180 Z" fill="#0f172a" opacity="0.55"/></g><rect x="0" y="0" width="1200" height="180" fill="url(#ebg_start)" opacity="0.32"/><rect x="36" y="36" width="10" height="108" fill="#fde68a" rx="2"/><text x="64" y="68" fill="#fde68a" font-size="13" font-weight="800" letter-spacing="4" font-family="system-ui">START</text><text x="64" y="112" fill="#fff" font-size="34" font-weight="900" font-family="system-ui,-apple-system,sans-serif">起步落沪</text><text x="64" y="142" fill="#fff" opacity="0.85" font-size="13" font-family="system-ui">2004–2007 · 从北京到上海，韩流网游当道，国产逐步崛起</text></svg></div>
-
-<article class="cj-card" data-era="start" data-year="2007" data-q="2007 第 5 届   上海 上海新国际博览中心 魔兽世界：燃烧的远征 fifa online 命令与征服 3：泰伯利亚之战 模拟人生 — 生活物语 仙剑 ol 战锤 doa online 一骑当千 ea 网禅 世纪天成 《魔兽世界：燃烧的远征》中文版现场试玩，资料片时代到来 观众数量首次达到 10 万量级 展商 163 家（国内 139 / 国际 24） 参展游戏 345 款 观众约 10 万人次">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2007.svg" alt="第 5 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2007</div>
-      <div class="cj-card-date">2007.7.12 – 7.15</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
-  <ul class="cj-scale">
-    <li>展商 163 家（国内 139 / 国际 24）</li>
-    <li>参展游戏 345 款</li>
-    <li>观众约 10 万人次</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">魔兽世界：燃烧的远征</span><span class="cj-tag cj-tag-game">FIFA Online</span><span class="cj-tag cj-tag-game">命令与征服 3：泰伯利亚之战</span><span class="cj-tag cj-tag-game">模拟人生 — 生活物语</span><span class="cj-tag cj-tag-game">仙剑 OL</span><span class="cj-tag cj-tag-game">战锤</span><span class="cj-tag cj-tag-game">DOA Online</span><span class="cj-tag cj-tag-game">一骑当千</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">网禅</span><span class="cj-tag cj-tag-brand">世纪天成</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>《魔兽世界：燃烧的远征》中文版现场试玩，资料片时代到来</li>
-      <li>观众数量首次达到 10 万量级</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="start" data-year="2006" data-q="2006 第 4 届   上海 上海新国际博览中心 剑网 3 新大话西游 ii 暗黑之门 天下贰 奇迹世界 卓越之剑 一骑当千 莎木 ol 苍天 激战 索尼 世嘉 konami square enix ea 育碧 光荣 playstation 3 正式亮相 chinajoy 国际知名游戏公司参展数量创下当时之最 《剑网 3》《新大话西游 ii》首次曝光，《天下贰》现场发放内测号 展商 161 家（国内 138 / 国际 23） 参展游戏 338 款（国内 138 / 国际 200） 观众 134738 人次">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2006.svg" alt="第 4 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2006</div>
-      <div class="cj-card-date">2006.7.28 – 7.30</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
-  <ul class="cj-scale">
-    <li>展商 161 家（国内 138 / 国际 23）</li>
-    <li>参展游戏 338 款（国内 138 / 国际 200）</li>
-    <li>观众 134738 人次</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">剑网 3</span><span class="cj-tag cj-tag-game">新大话西游 II</span><span class="cj-tag cj-tag-game">暗黑之门</span><span class="cj-tag cj-tag-game">天下贰</span><span class="cj-tag cj-tag-game">奇迹世界</span><span class="cj-tag cj-tag-game">卓越之剑</span><span class="cj-tag cj-tag-game">一骑当千</span><span class="cj-tag cj-tag-game">莎木 OL</span><span class="cj-tag cj-tag-game">苍天</span><span class="cj-tag cj-tag-game">激战</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">世嘉</span><span class="cj-tag cj-tag-brand">KONAMI</span><span class="cj-tag cj-tag-brand">Square Enix</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">光荣</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>PlayStation 3 正式亮相 ChinaJoy</li>
-      <li>国际知名游戏公司参展数量创下当时之最</li>
-      <li>《剑网 3》《新大话西游 II》首次曝光，《天下贰》现场发放内测号</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="start" data-year="2005" data-q="2005 第 3 届   上海 上海新国际博览中心 梦幻西游 快乐西游 洛奇 完美世界 ea intel 索尼 世嘉 光荣 育碧 盛大 网易 第九城市 cosplay 嘉年华第一次面向全国海选，成为展会最具吸引力的配套活动 明星站台成风：杨千嬅、张韶涵、张娜拉、水木年华、周星驰、元华悉数到场 国产游戏势头强劲，市场份额肉眼可见地上升 展位面积 2.5 万㎡ 展商 156 家（国内 137 / 国际 19） 参展游戏 289 款（国内 97 / 国际 192） 观众约 8 万人次 门票 20 元">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2005.svg" alt="第 3 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2005</div>
-      <div class="cj-card-date">2005.7.20 – 7.23</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
-  <ul class="cj-scale">
-    <li>展位面积 2.5 万㎡</li>
-    <li>展商 156 家（国内 137 / 国际 19）</li>
-    <li>参展游戏 289 款（国内 97 / 国际 192）</li>
-    <li>观众约 8 万人次</li>
-    <li>门票 20 元</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">梦幻西游</span><span class="cj-tag cj-tag-game">快乐西游</span><span class="cj-tag cj-tag-game">洛奇</span><span class="cj-tag cj-tag-game">完美世界</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">Intel</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">世嘉</span><span class="cj-tag cj-tag-brand">光荣</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">第九城市</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>Cosplay 嘉年华第一次面向全国海选，成为展会最具吸引力的配套活动</li>
-      <li>明星站台成风：杨千嬅、张韶涵、张娜拉、水木年华、周星驰、元华悉数到场</li>
-      <li>国产游戏势头强劲，市场份额肉眼可见地上升</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="start" data-year="2004" data-q="2004 第 2 届   上海 上海新国际博览中心 魔兽世界 仙剑奇侠传 梦幻西游 暴雪 第九城市 索尼 育碧 ea 唯美德 网易 韩国游戏产业开发院（20 家） chinajoy 自本届起永久落户上海 九城代理的《魔兽世界》成为全场最大焦点，此后深刻改写中国网游与网吧生态 cosplay 比赛扩大规模并吸纳社会团体，22 家游戏厂商参赛 showgirl 文化自此萌芽，也为日后的争议埋下伏笔 展商 140 家（国内 126 / 国际 14） 参展游戏 167 款（国内 58 / 国际 109） 观众约 7 万人次">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2004.svg" alt="第 2 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2004</div>
-      <div class="cj-card-date">2004.10.5 – 10.7</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
-  <ul class="cj-scale">
-    <li>展商 140 家（国内 126 / 国际 14）</li>
-    <li>参展游戏 167 款（国内 58 / 国际 109）</li>
-    <li>观众约 7 万人次</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">魔兽世界</span><span class="cj-tag cj-tag-game">仙剑奇侠传</span><span class="cj-tag cj-tag-game">梦幻西游</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">唯美德</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">韩国游戏产业开发院（20 家）</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>ChinaJoy 自本届起永久落户上海</li>
-      <li>九城代理的《魔兽世界》成为全场最大焦点，此后深刻改写中国网游与网吧生态</li>
-      <li>Cosplay 比赛扩大规模并吸纳社会团体，22 家游戏厂商参赛</li>
-      <li>Showgirl 文化自此萌芽，也为日后的争议埋下伏笔</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="start" data-year="2004" data-q="2004 第 1 届   北京 北京展览馆 天堂 ii 大话西游 online ii 传奇 3 传奇世界 神迹 实况足球 7 凯旋 铁血三国志 新浪乐谷 网易 光通 盛大 索尼 腾讯 华义 原定 2003 年 7 月在北京举办，先因扩大规模改址北京展览馆，又因非典（sars）延期至 2004 年 1 月 全称为「中国国际数码互动娱乐产品及技术应用展览会」，当时国内市场以代理海外网游为主 韩国网游占据压倒性优势，同场展出的韩游超过 20 款 中央展厅领取《天堂 ii》内测账号的队伍排成长龙，一直蜿蜒到邻近展厅 首届 cosplay 嘉年华仅有游戏厂商参加 展商 129 家（国内 117 / 国际 12） 展品 145 款（国内 39 / 国际 106） 观众约 6 万人次 门票 20 元，在线预订 15 元">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2004.svg" alt="第 1 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2004</div>
-      <div class="cj-card-date">2004.1.16 – 1.18</div>
-    </div>
-    <div class="cj-card-place">北京<span class="cj-venue">北京展览馆</span></div>
-  </div>
-  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
-  <ul class="cj-scale">
-    <li>展商 129 家（国内 117 / 国际 12）</li>
-    <li>展品 145 款（国内 39 / 国际 106）</li>
-    <li>观众约 6 万人次</li>
-    <li>门票 20 元，在线预订 15 元</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">天堂 II</span><span class="cj-tag cj-tag-game">大话西游 Online II</span><span class="cj-tag cj-tag-game">传奇 3</span><span class="cj-tag cj-tag-game">传奇世界</span><span class="cj-tag cj-tag-game">神迹</span><span class="cj-tag cj-tag-game">实况足球 7</span><span class="cj-tag cj-tag-game">凯旋</span><span class="cj-tag cj-tag-game">铁血三国志</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">新浪乐谷</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">光通</span><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">腾讯</span><span class="cj-tag cj-tag-brand">华义</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>原定 2003 年 7 月在北京举办，先因扩大规模改址北京展览馆，又因非典（SARS）延期至 2004 年 1 月</li>
-      <li>全称为「中国国际数码互动娱乐产品及技术应用展览会」，当时国内市场以代理海外网游为主</li>
-      <li>韩国网游占据压倒性优势，同场展出的韩游超过 20 款</li>
-      <li>中央展厅领取《天堂 II》内测账号的队伍排成长龙，一直蜿蜒到邻近展厅</li>
-      <li>首届 Cosplay 嘉年华仅有游戏厂商参加</li>
-    </ul>
-  </div>
-</article>
-
-<div class="cj-era-banner" data-era="indus"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" preserveAspectRatio="xMidYMid slice" class="cj-era-banner-svg"><defs><linearGradient id="ebg_indus" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7f1d1d"/><stop offset="1" stop-color="#f59e0b"/></linearGradient></defs><rect width="1200" height="180" fill="url(#ebg_indus)"/><g opacity="0.88"><line x1="84.00000000000001" y1="165.6" x2="84.00000000000001" y2="32.4" stroke="#fbbf24" stroke-width="2"/><circle cx="84.00000000000001" cy="32.4" r="9.0" fill="#fbbf24"/><circle cx="84.00000000000001" cy="57.6" r="12.6" fill="none" stroke="#fbbf24" stroke-width="2"/><rect x="168.00000000000003" y="81.0" width="60.0" height="90.0" fill="#7f1d1d"/><rect x="240.0" y="62.99999999999999" width="72.0" height="108.0" fill="#991b1b"/><rect x="324.0" y="75.6" width="60.0" height="95.4" fill="#7f1d1d"/><rect x="396.0" y="93.60000000000001" width="72.0" height="77.4" fill="#991b1b"/><rect x="480.0" y="54.0" width="84.00000000000001" height="117.0" fill="#7f1d1d"/><rect x="576.0" y="86.39999999999999" width="60.0" height="84.6" fill="#991b1b"/><rect x="648.0" y="68.4" width="72.0" height="102.6" fill="#7f1d1d"/><rect x="732.0" y="90.0" width="60.0" height="81.0" fill="#7f1d1d"/><rect x="804.0" y="72.0" width="72.0" height="99.00000000000001" fill="#991b1b"/><rect x="888.0" y="86.39999999999999" width="60.0" height="84.6" fill="#7f1d1d"/><rect x="960.0" y="75.6" width="72.0" height="95.4" fill="#7f1d1d"/><polygon points="600.0,171.0 384.0,39.6 816.0000000000001,39.6" fill="#fbbf24" opacity="0.18"/><rect x="0" y="158.4" width="1200" height="21.599999999999998" fill="#7f1d1d" opacity="0.6"/></g><rect x="0" y="0" width="1200" height="180" fill="url(#ebg_indus)" opacity="0.32"/><rect x="36" y="36" width="10" height="108" fill="#fbbf24" rx="2"/><text x="64" y="68" fill="#fbbf24" font-size="13" font-weight="800" letter-spacing="4" font-family="system-ui">INDUSTRY</text><text x="64" y="112" fill="#fff" font-size="34" font-weight="900" font-family="system-ui,-apple-system,sans-serif">产业化</text><text x="64" y="142" fill="#fff" opacity="0.85" font-size="13" font-family="system-ui">2008–2012 · BTOB 落地、国内展品反超，展会变成产业平台</text></svg></div>
-
-<article class="cj-card" data-era="indus" data-year="2012" data-q="2012 第 10 届 十进位 · 新纪元  上海 上海新国际博览中心  索尼 ea 暴雪 intel amd nvidia crytek chinajoy 十周年，首次拥有编号式的纪念主题 芯片与硬件厂商大举进场，为四年后的 esmart 埋下伏笔 中、美、日、德、韩等 20 余个国家和地区 300 多家企业参展 展出面积约 7 万㎡">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2012.svg" alt="第 10 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2012</div>
-      <div class="cj-card-date">2012.7.26 – 7.29</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">十进位 · 新纪元</span></div>
-  <ul class="cj-scale">
-    <li>中、美、日、德、韩等 20 余个国家和地区 300 多家企业参展</li>
-    <li>展出面积约 7 万㎡</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">Intel</span><span class="cj-tag cj-tag-brand">AMD</span><span class="cj-tag cj-tag-brand">NVIDIA</span><span class="cj-tag cj-tag-brand">Crytek</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>ChinaJoy 十周年，首次拥有编号式的纪念主题</li>
-      <li>芯片与硬件厂商大举进场，为四年后的 eSmart 埋下伏笔</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="indus" data-year="2011" data-q="2011 第 9 届   上海 上海新国际博览中心 火瀑 魔兽世界 星际争霸 2 最终幻想 14 黑金 巫师之怒 七龙珠 ol 地下城守护者 ol 第九城市 暴雪 网龙 ea 国际展商数量首次突破 70 家 开幕前主办方要求各展台严格审核演出人员数量、衣着与内容 展出面积 6 万㎡ 展商 283 家（国内 204 / 国际 79） 参展游戏 482 款 观众约 15 万人次">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2011.svg" alt="第 9 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2011</div>
-      <div class="cj-card-date">2011.7.28 – 7.31</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
-  <ul class="cj-scale">
-    <li>展出面积 6 万㎡</li>
-    <li>展商 283 家（国内 204 / 国际 79）</li>
-    <li>参展游戏 482 款</li>
-    <li>观众约 15 万人次</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">火瀑</span><span class="cj-tag cj-tag-game">魔兽世界</span><span class="cj-tag cj-tag-game">星际争霸 2</span><span class="cj-tag cj-tag-game">最终幻想 14</span><span class="cj-tag cj-tag-game">黑金</span><span class="cj-tag cj-tag-game">巫师之怒</span><span class="cj-tag cj-tag-game">七龙珠 OL</span><span class="cj-tag cj-tag-game">地下城守护者 OL</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">网龙</span><span class="cj-tag cj-tag-brand">EA</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>国际展商数量首次突破 70 家</li>
-      <li>开幕前主办方要求各展台严格审核演出人员数量、衣着与内容</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="indus" data-year="2010" data-q="2010 第 8 届 与世博同行，共创美好生活  上海 上海新国际博览中心 龙之谷之天空战记 新浪微博 中国移动游戏基地 华友世纪 首次出现正式的展会主题，与上海世博会形成联动 新浪微博首次以展台形式亮相 chinajoy 展出面积 5 万㎡ 展商 195 家（国内 160 / 国际 35） 展品 407 款 观众约 14 万人次（含约 2 万专业观众）">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2010.svg" alt="第 8 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2010</div>
-      <div class="cj-card-date">2010.7.29 – 8.1</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">与世博同行，共创美好生活</span></div>
-  <ul class="cj-scale">
-    <li>展出面积 5 万㎡</li>
-    <li>展商 195 家（国内 160 / 国际 35）</li>
-    <li>展品 407 款</li>
-    <li>观众约 14 万人次（含约 2 万专业观众）</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">龙之谷之天空战记</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">新浪微博</span><span class="cj-tag cj-tag-brand">中国移动游戏基地</span><span class="cj-tag cj-tag-brand">华友世纪</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>首次出现正式的展会主题，与上海世博会形成联动</li>
-      <li>新浪微博首次以展台形式亮相 ChinaJoy</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="indus" data-year="2009" data-q="2009 第 7 届   上海 上海新国际博览中心   高峰论坛体系成型：产业高峰论坛 + 投资、移动娱乐、休闲游戏三大分论坛 电竞大赛、cosplay 嘉年华、miss chinajoy 成为固定配套活动 展商 192 家（国内 158 / 国际 34） 参展游戏 367 款 观众约 13 万人次">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2009.svg" alt="第 7 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2009</div>
-      <div class="cj-card-date">2009.7.23 – 7.26</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
-  <ul class="cj-scale">
-    <li>展商 192 家（国内 158 / 国际 34）</li>
-    <li>参展游戏 367 款</li>
-    <li>观众约 13 万人次</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>高峰论坛体系成型：产业高峰论坛 + 投资、移动娱乐、休闲游戏三大分论坛</li>
-      <li>电竞大赛、Cosplay 嘉年华、Miss ChinaJoy 成为固定配套活动</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="indus" data-year="2008" data-q="2008 第 6 届   上海 上海新国际博览中心  盛大 网易 第九城市 巨人 久游网 完美时空 腾讯 金山 世纪天成 联众 育碧 索尼 首次设立 btob 商务洽谈展区，展会从「玩家嘉年华」升级为产业平台 国内展品数量首次超过国外展品，标志国产游戏完成反超 新闻出版总署副署长在高峰论坛上首次公开批评部分网游对青少年的影响 展出面积 4 万㎡ 169 家企业参展（国内 142 / 国际 27） 展品 354 款（国内 207 / 国际 147）">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2008.svg" alt="第 6 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2008</div>
-      <div class="cj-card-date">2008.7.17 – 7.19</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
-  <ul class="cj-scale">
-    <li>展出面积 4 万㎡</li>
-    <li>169 家企业参展（国内 142 / 国际 27）</li>
-    <li>展品 354 款（国内 207 / 国际 147）</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">巨人</span><span class="cj-tag cj-tag-brand">久游网</span><span class="cj-tag cj-tag-brand">完美时空</span><span class="cj-tag cj-tag-brand">腾讯</span><span class="cj-tag cj-tag-brand">金山</span><span class="cj-tag cj-tag-brand">世纪天成</span><span class="cj-tag cj-tag-brand">联众</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">索尼</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>首次设立 BTOB 商务洽谈展区，展会从「玩家嘉年华」升级为产业平台</li>
-      <li>国内展品数量首次超过国外展品，标志国产游戏完成反超</li>
-      <li>新闻出版总署副署长在高峰论坛上首次公开批评部分网游对青少年的影响</li>
-    </ul>
-  </div>
-</article>
-
-<div class="cj-era-banner" data-era="mobile"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" preserveAspectRatio="xMidYMid slice" class="cj-era-banner-svg"><defs><linearGradient id="ebg_mobile" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6d28d9"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs><rect width="1200" height="180" fill="url(#ebg_mobile)"/><g opacity="0.88"><rect x="144.0" y="32.4" width="192.0" height="108.0" rx="24.0" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/><rect x="162.0" y="43.199999999999996" width="156.0" height="82.8" fill="#6d28d9"/><circle cx="240.0" cy="68.4" r="4.5" fill="#fbbf24"/><rect x="180.0" y="86.39999999999999" width="120.0" height="5.3999999999999995" fill="#f0abfc"/><rect x="180.0" y="97.2" width="90.0" height="5.3999999999999995" fill="#06b6d4"/><circle cx="240.0" cy="129.6" r="2.2" fill="#9ca3af"/><line x1="504.0" y1="43.199999999999996" x2="672.0000000000001" y2="18.0" stroke="#f0abfc" stroke-width="1.5" opacity="0.7"/><line x1="552.0" y1="68.4" x2="768.0" y2="39.6" stroke="#06b6d4" stroke-width="1.5" opacity="0.7"/><line x1="600.0" y1="100.80000000000001" x2="816.0000000000001" y2="79.2" stroke="#f0abfc" stroke-width="1.5" opacity="0.7"/><rect x="792.0" y="43.199999999999996" width="84.00000000000001" height="21.599999999999998" rx="18.0" fill="#06b6d4"/><rect x="912.0" y="61.2" width="84.00000000000001" height="21.599999999999998" rx="18.0" fill="#f0abfc"/><rect x="840.0" y="93.60000000000001" width="84.00000000000001" height="21.599999999999998" rx="18.0" fill="#6d28d9"/><rect x="960.0" y="111.6" width="84.00000000000001" height="21.599999999999998" rx="18.0" fill="#fbbf24"/></g><rect x="0" y="0" width="1200" height="180" fill="url(#ebg_mobile)" opacity="0.32"/><rect x="36" y="36" width="10" height="108" fill="#f0abfc" rx="2"/><text x="64" y="68" fill="#f0abfc" font-size="13" font-weight="800" letter-spacing="4" font-family="system-ui">MOBILE</text><text x="64" y="112" fill="#fff" font-size="34" font-weight="900" font-family="system-ui,-apple-system,sans-serif">移动泛娱乐</text><text x="64" y="142" fill="#fff" opacity="0.85" font-size="13" font-family="system-ui">2013–2016 · 手游爆发，CAWAE 与 eSmart 让边界向动漫、硬件延伸</text></svg></div>
-
-<article class="cj-card" data-era="mobile" data-year="2016" data-q="2016 第 14 届 游戏新时代，拥抱泛娱乐  上海 上海新国际博览中心   同期首次举办国际智能娱乐硬件展览会（esmart），完成「软硬兼备」战略布局 主办方发布展台着装「正误图示」，规范细到服装遮盖与模特互动 来自 30 多个国家和地区的千余家企业参展">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2016.svg" alt="第 14 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2016</div>
-      <div class="cj-card-date">2016.7.28 – 7.31</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">游戏新时代，拥抱泛娱乐</span></div>
-  <ul class="cj-scale">
-    <li>来自 30 多个国家和地区的千余家企业参展</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>同期首次举办国际智能娱乐硬件展览会（eSmart），完成「软硬兼备」战略布局</li>
-      <li>主办方发布展台着装「正误图示」，规范细到服装遮盖与模特互动</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="mobile" data-year="2015" data-q="2015 第 13 届 让快乐更简单  上海 上海新国际博览中心   主题回归「快乐」本身，呼应手游把游戏门槛大幅拉低的行业变化 来自 30 多个国家和地区的 700 余家企业参展">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2015.svg" alt="第 13 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2015</div>
-      <div class="cj-card-date">2015.7.30 – 8.2</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">让快乐更简单</span></div>
-  <ul class="cj-scale">
-    <li>来自 30 多个国家和地区的 700 余家企业参展</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>主题回归「快乐」本身，呼应手游把游戏门槛大幅拉低的行业变化</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="mobile" data-year="2014" data-q="2014 第 12 届 大作的时代，永不停歇的盛宴  上海 上海新国际博览中心   同期首次举办中国国际动漫及衍生品展览会（cawae），「游戏 + 动漫」双轮启动 ">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2014.svg" alt="第 12 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2014</div>
-      <div class="cj-card-date">2014.7.31 – 8.3</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">大作的时代，永不停歇的盛宴</span></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>同期首次举办中国国际动漫及衍生品展览会（CAWAE），「游戏 + 动漫」双轮启动</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="mobile" data-year="2013" data-q="2013 第 11 届 游戏演绎梦想，移动畅想未来  上海 上海新国际博览中心   移动游戏爆发元年，上半年手游收入激增 主题第一次把「移动」写进标题，此后数年产品形态与商业模式彻底改写 ">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2013.svg" alt="第 11 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2013</div>
-      <div class="cj-card-date">2013.7.25 – 7.28</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">游戏演绎梦想，移动畅想未来</span></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>移动游戏爆发元年，上半年手游收入激增</li>
-      <li>主题第一次把「移动」写进标题，此后数年产品形态与商业模式彻底改写</li>
-    </ul>
-  </div>
-</article>
-
-<div class="cj-era-banner" data-era="tech"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" preserveAspectRatio="xMidYMid slice" class="cj-era-banner-svg"><defs><linearGradient id="ebg_tech" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect width="1200" height="180" fill="url(#ebg_tech)"/><g opacity="0.88"><rect x="96.0" y="62.99999999999999" width="336.00000000000006" height="45.0" rx="48.0" fill="#22d3ee"/><ellipse cx="192.0" cy="86.39999999999999" rx="54.0" ry="18.0" fill="#0f172a"/><ellipse cx="336.00000000000006" cy="86.39999999999999" rx="54.0" ry="18.0" fill="#0f172a"/><rect x="228.0" y="104.39999999999999" width="72.0" height="12.600000000000001" fill="#22d3ee"/><line x1="0" y1="158.4" x2="1200" y2="158.4" stroke="#d946ef" stroke-width="1" opacity="0.6"/><line x1="0.0" y1="158.4" x2="72.0" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><line x1="150.0" y1="158.4" x2="222.0" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><line x1="300.0" y1="158.4" x2="372.0" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><line x1="450.0" y1="158.4" x2="522.0" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><line x1="600.0" y1="158.4" x2="672.0000000000001" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><line x1="750.0" y1="158.4" x2="822.0000000000001" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><line x1="900.0" y1="158.4" x2="972.0000000000001" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><line x1="1050.0" y1="158.4" x2="1122.0" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><line x1="1200.0" y1="158.4" x2="1272.0" y2="133.2" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/><rect x="720.0" y="54.0" width="300.0" height="50.400000000000006" rx="12.0" fill="#0f172a" stroke="#84cc16" stroke-width="1.5"/><text x="870.0" y="90.0" text-anchor="middle" fill="#84cc16" font-size="18.0" font-weight="900" font-family="system-ui">VS</text><line x1="540.0" y1="36.0" x2="660.0" y2="36.0" stroke="#22d3ee" stroke-width="1" opacity="0.5"/><line x1="540.0" y1="43.199999999999996" x2="624.0" y2="43.199999999999996" stroke="#22d3ee" stroke-width="1" opacity="0.5"/></g><rect x="0" y="0" width="1200" height="180" fill="url(#ebg_tech)" opacity="0.32"/><rect x="36" y="36" width="10" height="108" fill="#d946ef" rx="2"/><text x="64" y="68" fill="#d946ef" font-size="13" font-weight="800" letter-spacing="4" font-family="system-ui">TECH</text><text x="64" y="112" fill="#fff" font-size="34" font-weight="900" font-family="system-ui,-apple-system,sans-serif">科技驱动</text><text x="64" y="142" fill="#fff" opacity="0.85" font-size="13" font-family="system-ui">2017–2021 · 规模冲上历史高点，5G、云、数字生活成为关键词</text></svg></div>
-
-<article class="cj-card" data-era="tech" data-year="2021" data-q="2021 第 19 届 科技创梦，乐赢未来  上海 上海新国际博览中心   连续第四届把「科技」写进主题，云游戏与数字生活成为论坛焦点 ">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2021.svg" alt="第 19 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2021</div>
-      <div class="cj-card-date">2021.7.30 – 8.2</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">科技创梦，乐赢未来</span></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>连续第四届把「科技」写进主题，云游戏与数字生活成为论坛焦点</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="tech" data-year="2020" data-q="2020 第 18 届 科技 · 引领数字娱乐新浪潮  上海 上海新国际博览中心  中国联通 高通 疫情之下如期线下举办，成为当年全球罕见的大型线下游戏展 中国联通携手高通联合布展呈现 5g 成果，「5g 快闪直播间」成为现场热点 ">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2020.svg" alt="第 18 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2020</div>
-      <div class="cj-card-date">2020.7.31 – 8.3</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">科技 · 引领数字娱乐新浪潮</span></div>
-  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">中国联通</span><span class="cj-tag cj-tag-brand">高通</span></div></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>疫情之下如期线下举办，成为当年全球罕见的大型线下游戏展</li>
-      <li>中国联通携手高通联合布展呈现 5G 成果，「5G 快闪直播间」成为现场热点</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="tech" data-year="2019" data-q="2019 第 17 届 数字新娱乐，科技新生活  上海 上海新国际博览中心   人气达到疫情前顶点，展会的「泛娱乐 + 科技」结构基本定型 观众 36.47 万人次（疫情前的历史峰值）">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2019.svg" alt="第 17 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2019</div>
-      <div class="cj-card-date">2019.8.2 – 8.5</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">数字新娱乐，科技新生活</span></div>
-  <ul class="cj-scale">
-    <li>观众 36.47 万人次（疫情前的历史峰值）</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>人气达到疫情前顶点，展会的「泛娱乐 + 科技」结构基本定型</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="tech" data-year="2018" data-q="2018 第 16 届 新科技 新娱乐 新价值  上海 上海新国际博览中心   主题从「泛娱乐」切换到「科技」，此后连续四届延续科技主线 ">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2018.svg" alt="第 16 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2018</div>
-      <div class="cj-card-date">2018.8.3 – 8.6</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">新科技 新娱乐 新价值</span></div>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>主题从「泛娱乐」切换到「科技」，此后连续四届延续科技主线</li>
-    </ul>
-  </div>
-</article>
-
-<article class="cj-card" data-era="tech" data-year="2017" data-q="2017 第 15 届 娱乐升级，全民消费时代到来  上海 上海新国际博览中心   展出面积创下 chinajoy 历史纪录，至今未被超越 「全民消费」的提法标志游戏正式被视为大众消费品类 展出总面积 17 万㎡（历届最大） 15 个展馆，btoc 互动娱乐区 13 万㎡ 参展企业 900 多家 展品 4000 款、现场体验机 5000 台以上 观众超 30 万人次">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2017.svg" alt="第 15 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
-  <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
-    <div class="cj-card-meta">
-      <div class="cj-card-year">2017</div>
-      <div class="cj-card-date">2017.7.27 – 7.30</div>
-    </div>
-    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
-  </div>
-  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">娱乐升级，全民消费时代到来</span></div>
-  <ul class="cj-scale">
-    <li>展出总面积 17 万㎡（历届最大）</li>
-    <li>15 个展馆，BTOC 互动娱乐区 13 万㎡</li>
-    <li>参展企业 900 多家</li>
-    <li>展品 4000 款、现场体验机 5000 台以上</li>
-    <li>观众超 30 万人次</li>
-  </ul>
-  <div class="cj-block"><span class="cj-block-label">本届看点</span>
-    <ul class="cj-points">
-      <li>展出面积创下 ChinaJoy 历史纪录，至今未被超越</li>
-      <li>「全民消费」的提法标志游戏正式被视为大众消费品类</li>
-    </ul>
-  </div>
-</article>
-
-<div class="cj-era-banner" data-era="newcy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" preserveAspectRatio="xMidYMid slice" class="cj-era-banner-svg"><defs><linearGradient id="ebg_newcy" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4338ca"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><rect width="1200" height="180" fill="url(#ebg_newcy)"/><g opacity="0.88"><rect x="168.00000000000003" y="32.4" width="120.0" height="28.8" rx="24.0" fill="#5eead4"/><circle cx="204.00000000000003" cy="45.0" r="2.7" fill="#0f172a"/><circle cx="252.0" cy="45.0" r="2.7" fill="#0f172a"/><rect x="186.0" y="61.2" width="90.0" height="36.0" rx="12.0" fill="#5eead4"/><rect x="138.0" y="64.8" width="42.00000000000001" height="28.8" rx="9.6" fill="#5eead4"/><rect x="282.0" y="64.8" width="42.00000000000001" height="28.8" rx="9.6" fill="#5eead4"/><rect x="204.00000000000003" y="97.2" width="24.0" height="36.0" fill="#5eead4"/><rect x="240.0" y="97.2" width="24.0" height="36.0" fill="#5eead4"/><ellipse cx="744.0" cy="90.0" rx="216.0" ry="14.4" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.85"/><ellipse cx="744.0" cy="90.0" rx="144.0" ry="9.0" fill="none" stroke="#4338ca" stroke-width="1.5" opacity="0.9"/><ellipse cx="744.0" cy="90.0" rx="72.0" ry="4.5" fill="none" stroke="#5eead4" stroke-width="1.5"/><circle cx="744.0" cy="90.0" r="2.2" fill="#fbbf24"/><circle cx="600.0" cy="50.400000000000006" r="2.2" fill="#7c3aed"/><circle cx="888.0" cy="43.199999999999996" r="2.2" fill="#4338ca"/><circle cx="960.0" cy="111.6" r="2.2" fill="#5eead4"/><line x1="600.0" y1="50.400000000000006" x2="744.0" y2="90.0" stroke="#7c3aed" stroke-width="0.6" opacity="0.6"/><line x1="888.0" y1="43.199999999999996" x2="744.0" y2="90.0" stroke="#4338ca" stroke-width="0.6" opacity="0.6"/><line x1="960.0" y1="111.6" x2="744.0" y2="90.0" stroke="#5eead4" stroke-width="0.6" opacity="0.6"/></g><rect x="0" y="0" width="1200" height="180" fill="url(#ebg_newcy)" opacity="0.32"/><rect x="36" y="36" width="10" height="108" fill="#5eead4" rx="2"/><text x="64" y="68" fill="#5eead4" font-size="13" font-weight="800" letter-spacing="4" font-family="system-ui">NEW CYCLE</text><text x="64" y="112" fill="#fff" font-size="34" font-weight="900" font-family="system-ui,-apple-system,sans-serif">新周期</text><text x="64" y="142" fill="#fff" opacity="0.85" font-size="13" font-family="system-ui">2023–2026 · 二十周年后回归玩家，AI 第一次被写进主题</text></svg></div>
-
 <article class="cj-card" data-era="newcy" data-year="2026" data-q="2026 第 23 届 与 ai 同游 level up with ai 上海 上海新国际博览中心 魔兽世界 炉石传说 守望先锋 暗黑破坏神 iv 星际争霸 ii 逃离塔科夫 腾讯游戏 网易游戏 暴雪游戏 世纪华通 巨人网络 完美世界 金山世游 咪咕互娱 朝夕光年 顺网科技 playstation 360 游戏 恺英网络 b站游戏 华为游戏中心 4399 &amp; 好游快爆 pocketpair 高通骁龙 tcl 华星 宇树科技 chinajoy 历史上第一次把「ai」写进展会主题 高通骁龙主题馆以「ai 驱动体验进化」为核心，联合三大运营商、中国广电与小米 / iqoo / 一加 / 荣耀 / 努比亚 / 红魔 / 联想 / 京东等品牌 宇树科技、逐际动力、魔法原子、露米智能、云幕智造等携人形机器人与具身智能产品集中亮相 新增「地偶街区」「chinajoy next play 创新游戏体验场」与国潮特色展区 同期举办第二届中国国际游戏开发者大会、全球电竞大会与 cdec 中国音数协游戏工委与清华大学调研：国内游戏企业研发环节 ai 应用率已达 86.36% 总展览面积超 14 万㎡ 近 900 家企业参展（外资 275 家） 覆盖 39 个国家和地区 btoc 近 12 万㎡ / 超 350 家 btob 2.5 万㎡ / 超 500 家（外资占 46.6%） 超 500 家厂商带来逾 1000 款游戏 steam 线上盛典报名超 600 款 chinajoy express 试玩区 88 款">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2026.svg" alt="第 23 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
   <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
+    <div class="cj-card-no">第 23 届</div>
     <div class="cj-card-meta">
       <div class="cj-card-year">2026</div>
       <div class="cj-card-date">2026.7.31 – 8.3</div>
@@ -848,9 +377,8 @@ var _hmt = _hmt || [];
 </article>
 
 <article class="cj-card" data-era="newcy" data-year="2025" data-q="2025 第 22 届 聚 · 你所爱  上海 上海新国际博览中心 燕云十六声 逆水寒 第五人格 永劫无间 遗忘之海 命运：群星 无主星渊 异环 dota2 反恐精英：全球攻势 女神异闻录：夜幕魅影 诛仙世界 解限机 超自然行动组 金庸群侠传 无尽冬日 最终幻想 14 大航海时代：起源 鹅鸭杀 猫咪和汤 斗罗大陆：猎魂世界 无畏契约 dnf 明日方舟 腾讯游戏 网易游戏 暴雪游戏 世纪华通 完美世界 巨人网络 西山居 金山世游 三七互娱 万代南梦宫 playstation 华为游戏中心 4399 比亚迪 高通骁龙 暴雪搭建「暴雪街区」，5 米高的大天使泰瑞尔雕像与巫妖王无敌战马领衔 70 余尊角色雕像 网易把《燕云十六声》凉州「葡萄美酒夜光杯」场景搬进现场，《逆水寒》巨型水缸美人鱼表演出圈 比亚迪展台带来与《黑神话：悟空》联动的痛车 腾讯占据 n4 馆近一半空间，「cool 鹅夏日营地」主舞台 +《无畏契约》《符文战场》《dnf》专属展台 n5 馆为骁龙主题馆，聚合市面主流骁龙合作硬件品牌 主办方携《第五人格》《鸣潮》推出联名限定 ip 谷子门票 观众画像：男性 66% / 女性 34%，18–24 岁 33%、25–29 岁 31%，上海本地观众仅占 39% 启用 11.5 个展馆 / 13.5 万㎡ 799 家企业参展 btoc 313 家 / 11 万㎡ btob 486 家 / 2.5 万㎡，来自 37 个国家和地区，海外及外资占比近 43% 观众 41.03 万人次（历史新高） btob 商务馆 41231 人次，海外观众占 35.82%">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2025.svg" alt="第 22 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
   <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
+    <div class="cj-card-no">第 22 届</div>
     <div class="cj-card-meta">
       <div class="cj-card-year">2025</div>
       <div class="cj-card-date">2025.8.1 – 8.4</div>
@@ -882,9 +410,8 @@ var _hmt = _hmt || [];
 </article>
 
 <article class="cj-card" data-era="newcy" data-year="2024" data-q="2024 第 21 届 初心「游」在，精彩无限 stay true, game on. 上海 上海新国际博览中心   主打「游戏 + ip」跨界，推动游戏与中华传统文化、当代美学融合 口号回到玩家视角，强调行业在版号常态化后重拾「初心」 由国家新闻出版署与上海市人民政府共同指导">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2024.svg" alt="第 21 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
   <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
+    <div class="cj-card-no">第 21 届</div>
     <div class="cj-card-meta">
       <div class="cj-card-year">2024</div>
       <div class="cj-card-date">2024.7.26 – 7.29</div>
@@ -904,9 +431,8 @@ var _hmt = _hmt || [];
 </article>
 
 <article class="cj-card" data-era="newcy" data-year="2023" data-q="2023 第 20 届 相伴二十载，越来悦精彩  上海 上海新国际博览中心   chinajoy 二十周年，同年 12 月中国游戏产业年会同期举办二十周年庆典 首次举办 aigc 产业大会，ai 正式进入同期会议议程（尚未成为主角） 疫情三年后的全面回归，线下人气迅速修复 四天展期吸引观众 33.8 万人次">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2023.svg" alt="第 20 届" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
   <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
+    <div class="cj-card-no">第 20 届</div>
     <div class="cj-card-meta">
       <div class="cj-card-year">2023</div>
       <div class="cj-card-date">2023.7.28 – 7.31</div>
@@ -927,9 +453,8 @@ var _hmt = _hmt || [];
 </article>
 
 <article class="cj-card cj-card-gap" data-era="newcy" data-year="2022" data-q="2022 停办 因疫情未能举办  — —   受疫情影响，2022 年未举办，届次由第 19 届直接顺延至 2023 年的第 20 届 chinajoy 创办以来唯一一次中断">
-  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2022.svg" alt="展会停办" loading="lazy" width="320" height="200" decoding="async"><span class="cj-card-img-badge">概念图 · 可替换</span></div>
   <div class="cj-card-head">
-    <div class="cj-card-no">&lt;span class=&quot;cj-card-img-badge&quot;&gt;概念图 · 可替换&lt;/span&gt;</div>
+    <div class="cj-card-no">停办</div>
     <div class="cj-card-meta">
       <div class="cj-card-year">2022</div>
       <div class="cj-card-date">停办</div>
@@ -942,6 +467,438 @@ var _hmt = _hmt || [];
   <div class="cj-block"><span class="cj-block-label">本届看点</span>
     <ul class="cj-points">
       <li>受疫情影响，2022 年未举办，届次由第 19 届直接顺延至 2023 年的第 20 届</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2021" data-q="2021 第 19 届 科技创梦，乐赢未来  上海 上海新国际博览中心   连续第四届把「科技」写进主题，云游戏与数字生活成为论坛焦点 ">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 19 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2021</div>
+      <div class="cj-card-date">2021.7.30 – 8.2</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">科技创梦，乐赢未来</span></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>连续第四届把「科技」写进主题，云游戏与数字生活成为论坛焦点</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2020" data-q="2020 第 18 届 科技 · 引领数字娱乐新浪潮  上海 上海新国际博览中心  中国联通 高通 疫情之下如期线下举办，成为当年全球罕见的大型线下游戏展 中国联通携手高通联合布展呈现 5g 成果，「5g 快闪直播间」成为现场热点 ">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 18 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2020</div>
+      <div class="cj-card-date">2020.7.31 – 8.3</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">科技 · 引领数字娱乐新浪潮</span></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">中国联通</span><span class="cj-tag cj-tag-brand">高通</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>疫情之下如期线下举办，成为当年全球罕见的大型线下游戏展</li>
+      <li>中国联通携手高通联合布展呈现 5G 成果，「5G 快闪直播间」成为现场热点</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2019" data-q="2019 第 17 届 数字新娱乐，科技新生活  上海 上海新国际博览中心   人气达到疫情前顶点，展会的「泛娱乐 + 科技」结构基本定型 观众 36.47 万人次（疫情前的历史峰值）">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 17 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2019</div>
+      <div class="cj-card-date">2019.8.2 – 8.5</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">数字新娱乐，科技新生活</span></div>
+  <ul class="cj-scale">
+    <li>观众 36.47 万人次（疫情前的历史峰值）</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>人气达到疫情前顶点，展会的「泛娱乐 + 科技」结构基本定型</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2018" data-q="2018 第 16 届 新科技 新娱乐 新价值  上海 上海新国际博览中心   主题从「泛娱乐」切换到「科技」，此后连续四届延续科技主线 ">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 16 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2018</div>
+      <div class="cj-card-date">2018.8.3 – 8.6</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">新科技 新娱乐 新价值</span></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>主题从「泛娱乐」切换到「科技」，此后连续四届延续科技主线</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2017" data-q="2017 第 15 届 娱乐升级，全民消费时代到来  上海 上海新国际博览中心   展出面积创下 chinajoy 历史纪录，至今未被超越 「全民消费」的提法标志游戏正式被视为大众消费品类 展出总面积 17 万㎡（历届最大） 15 个展馆，btoc 互动娱乐区 13 万㎡ 参展企业 900 多家 展品 4000 款、现场体验机 5000 台以上 观众超 30 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 15 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2017</div>
+      <div class="cj-card-date">2017.7.27 – 7.30</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">娱乐升级，全民消费时代到来</span></div>
+  <ul class="cj-scale">
+    <li>展出总面积 17 万㎡（历届最大）</li>
+    <li>15 个展馆，BTOC 互动娱乐区 13 万㎡</li>
+    <li>参展企业 900 多家</li>
+    <li>展品 4000 款、现场体验机 5000 台以上</li>
+    <li>观众超 30 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>展出面积创下 ChinaJoy 历史纪录，至今未被超越</li>
+      <li>「全民消费」的提法标志游戏正式被视为大众消费品类</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="mobile" data-year="2016" data-q="2016 第 14 届 游戏新时代，拥抱泛娱乐  上海 上海新国际博览中心   同期首次举办国际智能娱乐硬件展览会（esmart），完成「软硬兼备」战略布局 主办方发布展台着装「正误图示」，规范细到服装遮盖与模特互动 来自 30 多个国家和地区的千余家企业参展">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 14 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2016</div>
+      <div class="cj-card-date">2016.7.28 – 7.31</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">游戏新时代，拥抱泛娱乐</span></div>
+  <ul class="cj-scale">
+    <li>来自 30 多个国家和地区的千余家企业参展</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>同期首次举办国际智能娱乐硬件展览会（eSmart），完成「软硬兼备」战略布局</li>
+      <li>主办方发布展台着装「正误图示」，规范细到服装遮盖与模特互动</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="mobile" data-year="2015" data-q="2015 第 13 届 让快乐更简单  上海 上海新国际博览中心   主题回归「快乐」本身，呼应手游把游戏门槛大幅拉低的行业变化 来自 30 多个国家和地区的 700 余家企业参展">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 13 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2015</div>
+      <div class="cj-card-date">2015.7.30 – 8.2</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">让快乐更简单</span></div>
+  <ul class="cj-scale">
+    <li>来自 30 多个国家和地区的 700 余家企业参展</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>主题回归「快乐」本身，呼应手游把游戏门槛大幅拉低的行业变化</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="mobile" data-year="2014" data-q="2014 第 12 届 大作的时代，永不停歇的盛宴  上海 上海新国际博览中心   同期首次举办中国国际动漫及衍生品展览会（cawae），「游戏 + 动漫」双轮启动 ">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 12 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2014</div>
+      <div class="cj-card-date">2014.7.31 – 8.3</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">大作的时代，永不停歇的盛宴</span></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>同期首次举办中国国际动漫及衍生品展览会（CAWAE），「游戏 + 动漫」双轮启动</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="mobile" data-year="2013" data-q="2013 第 11 届 游戏演绎梦想，移动畅想未来  上海 上海新国际博览中心   移动游戏爆发元年，上半年手游收入激增 主题第一次把「移动」写进标题，此后数年产品形态与商业模式彻底改写 ">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 11 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2013</div>
+      <div class="cj-card-date">2013.7.25 – 7.28</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">游戏演绎梦想，移动畅想未来</span></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>移动游戏爆发元年，上半年手游收入激增</li>
+      <li>主题第一次把「移动」写进标题，此后数年产品形态与商业模式彻底改写</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2012" data-q="2012 第 10 届 十进位 · 新纪元  上海 上海新国际博览中心  索尼 ea 暴雪 intel amd nvidia crytek chinajoy 十周年，首次拥有编号式的纪念主题 芯片与硬件厂商大举进场，为四年后的 esmart 埋下伏笔 中、美、日、德、韩等 20 余个国家和地区 300 多家企业参展 展出面积约 7 万㎡">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 10 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2012</div>
+      <div class="cj-card-date">2012.7.26 – 7.29</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">十进位 · 新纪元</span></div>
+  <ul class="cj-scale">
+    <li>中、美、日、德、韩等 20 余个国家和地区 300 多家企业参展</li>
+    <li>展出面积约 7 万㎡</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">Intel</span><span class="cj-tag cj-tag-brand">AMD</span><span class="cj-tag cj-tag-brand">NVIDIA</span><span class="cj-tag cj-tag-brand">Crytek</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>ChinaJoy 十周年，首次拥有编号式的纪念主题</li>
+      <li>芯片与硬件厂商大举进场，为四年后的 eSmart 埋下伏笔</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2011" data-q="2011 第 9 届   上海 上海新国际博览中心 火瀑 魔兽世界 星际争霸 2 最终幻想 14 黑金 巫师之怒 七龙珠 ol 地下城守护者 ol 第九城市 暴雪 网龙 ea 国际展商数量首次突破 70 家 开幕前主办方要求各展台严格审核演出人员数量、衣着与内容 展出面积 6 万㎡ 展商 283 家（国内 204 / 国际 79） 参展游戏 482 款 观众约 15 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 9 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2011</div>
+      <div class="cj-card-date">2011.7.28 – 7.31</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <ul class="cj-scale">
+    <li>展出面积 6 万㎡</li>
+    <li>展商 283 家（国内 204 / 国际 79）</li>
+    <li>参展游戏 482 款</li>
+    <li>观众约 15 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">火瀑</span><span class="cj-tag cj-tag-game">魔兽世界</span><span class="cj-tag cj-tag-game">星际争霸 2</span><span class="cj-tag cj-tag-game">最终幻想 14</span><span class="cj-tag cj-tag-game">黑金</span><span class="cj-tag cj-tag-game">巫师之怒</span><span class="cj-tag cj-tag-game">七龙珠 OL</span><span class="cj-tag cj-tag-game">地下城守护者 OL</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">网龙</span><span class="cj-tag cj-tag-brand">EA</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>国际展商数量首次突破 70 家</li>
+      <li>开幕前主办方要求各展台严格审核演出人员数量、衣着与内容</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2010" data-q="2010 第 8 届 与世博同行，共创美好生活  上海 上海新国际博览中心 龙之谷之天空战记 新浪微博 中国移动游戏基地 华友世纪 首次出现正式的展会主题，与上海世博会形成联动 新浪微博首次以展台形式亮相 chinajoy 展出面积 5 万㎡ 展商 195 家（国内 160 / 国际 35） 展品 407 款 观众约 14 万人次（含约 2 万专业观众）">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 8 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2010</div>
+      <div class="cj-card-date">2010.7.29 – 8.1</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">与世博同行，共创美好生活</span></div>
+  <ul class="cj-scale">
+    <li>展出面积 5 万㎡</li>
+    <li>展商 195 家（国内 160 / 国际 35）</li>
+    <li>展品 407 款</li>
+    <li>观众约 14 万人次（含约 2 万专业观众）</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">龙之谷之天空战记</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">新浪微博</span><span class="cj-tag cj-tag-brand">中国移动游戏基地</span><span class="cj-tag cj-tag-brand">华友世纪</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>首次出现正式的展会主题，与上海世博会形成联动</li>
+      <li>新浪微博首次以展台形式亮相 ChinaJoy</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2009" data-q="2009 第 7 届   上海 上海新国际博览中心   高峰论坛体系成型：产业高峰论坛 + 投资、移动娱乐、休闲游戏三大分论坛 电竞大赛、cosplay 嘉年华、miss chinajoy 成为固定配套活动 展商 192 家（国内 158 / 国际 34） 参展游戏 367 款 观众约 13 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 7 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2009</div>
+      <div class="cj-card-date">2009.7.23 – 7.26</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <ul class="cj-scale">
+    <li>展商 192 家（国内 158 / 国际 34）</li>
+    <li>参展游戏 367 款</li>
+    <li>观众约 13 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>高峰论坛体系成型：产业高峰论坛 + 投资、移动娱乐、休闲游戏三大分论坛</li>
+      <li>电竞大赛、Cosplay 嘉年华、Miss ChinaJoy 成为固定配套活动</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2008" data-q="2008 第 6 届   上海 上海新国际博览中心  盛大 网易 第九城市 巨人 久游网 完美时空 腾讯 金山 世纪天成 联众 育碧 索尼 首次设立 btob 商务洽谈展区，展会从「玩家嘉年华」升级为产业平台 国内展品数量首次超过国外展品，标志国产游戏完成反超 新闻出版总署副署长在高峰论坛上首次公开批评部分网游对青少年的影响 展出面积 4 万㎡ 169 家企业参展（国内 142 / 国际 27） 展品 354 款（国内 207 / 国际 147）">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 6 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2008</div>
+      <div class="cj-card-date">2008.7.17 – 7.19</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <ul class="cj-scale">
+    <li>展出面积 4 万㎡</li>
+    <li>169 家企业参展（国内 142 / 国际 27）</li>
+    <li>展品 354 款（国内 207 / 国际 147）</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">巨人</span><span class="cj-tag cj-tag-brand">久游网</span><span class="cj-tag cj-tag-brand">完美时空</span><span class="cj-tag cj-tag-brand">腾讯</span><span class="cj-tag cj-tag-brand">金山</span><span class="cj-tag cj-tag-brand">世纪天成</span><span class="cj-tag cj-tag-brand">联众</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">索尼</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>首次设立 BTOB 商务洽谈展区，展会从「玩家嘉年华」升级为产业平台</li>
+      <li>国内展品数量首次超过国外展品，标志国产游戏完成反超</li>
+      <li>新闻出版总署副署长在高峰论坛上首次公开批评部分网游对青少年的影响</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2007" data-q="2007 第 5 届   上海 上海新国际博览中心 魔兽世界：燃烧的远征 fifa online 命令与征服 3：泰伯利亚之战 模拟人生 — 生活物语 仙剑 ol 战锤 doa online 一骑当千 ea 网禅 世纪天成 《魔兽世界：燃烧的远征》中文版现场试玩，资料片时代到来 观众数量首次达到 10 万量级 展商 163 家（国内 139 / 国际 24） 参展游戏 345 款 观众约 10 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 5 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2007</div>
+      <div class="cj-card-date">2007.7.12 – 7.15</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <ul class="cj-scale">
+    <li>展商 163 家（国内 139 / 国际 24）</li>
+    <li>参展游戏 345 款</li>
+    <li>观众约 10 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">魔兽世界：燃烧的远征</span><span class="cj-tag cj-tag-game">FIFA Online</span><span class="cj-tag cj-tag-game">命令与征服 3：泰伯利亚之战</span><span class="cj-tag cj-tag-game">模拟人生 — 生活物语</span><span class="cj-tag cj-tag-game">仙剑 OL</span><span class="cj-tag cj-tag-game">战锤</span><span class="cj-tag cj-tag-game">DOA Online</span><span class="cj-tag cj-tag-game">一骑当千</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">网禅</span><span class="cj-tag cj-tag-brand">世纪天成</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>《魔兽世界：燃烧的远征》中文版现场试玩，资料片时代到来</li>
+      <li>观众数量首次达到 10 万量级</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2006" data-q="2006 第 4 届   上海 上海新国际博览中心 剑网 3 新大话西游 ii 暗黑之门 天下贰 奇迹世界 卓越之剑 一骑当千 莎木 ol 苍天 激战 索尼 世嘉 konami square enix ea 育碧 光荣 playstation 3 正式亮相 chinajoy 国际知名游戏公司参展数量创下当时之最 《剑网 3》《新大话西游 ii》首次曝光，《天下贰》现场发放内测号 展商 161 家（国内 138 / 国际 23） 参展游戏 338 款（国内 138 / 国际 200） 观众 134738 人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 4 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2006</div>
+      <div class="cj-card-date">2006.7.28 – 7.30</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <ul class="cj-scale">
+    <li>展商 161 家（国内 138 / 国际 23）</li>
+    <li>参展游戏 338 款（国内 138 / 国际 200）</li>
+    <li>观众 134738 人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">剑网 3</span><span class="cj-tag cj-tag-game">新大话西游 II</span><span class="cj-tag cj-tag-game">暗黑之门</span><span class="cj-tag cj-tag-game">天下贰</span><span class="cj-tag cj-tag-game">奇迹世界</span><span class="cj-tag cj-tag-game">卓越之剑</span><span class="cj-tag cj-tag-game">一骑当千</span><span class="cj-tag cj-tag-game">莎木 OL</span><span class="cj-tag cj-tag-game">苍天</span><span class="cj-tag cj-tag-game">激战</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">世嘉</span><span class="cj-tag cj-tag-brand">KONAMI</span><span class="cj-tag cj-tag-brand">Square Enix</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">光荣</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>PlayStation 3 正式亮相 ChinaJoy</li>
+      <li>国际知名游戏公司参展数量创下当时之最</li>
+      <li>《剑网 3》《新大话西游 II》首次曝光，《天下贰》现场发放内测号</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2005" data-q="2005 第 3 届   上海 上海新国际博览中心 梦幻西游 快乐西游 洛奇 完美世界 ea intel 索尼 世嘉 光荣 育碧 盛大 网易 第九城市 cosplay 嘉年华第一次面向全国海选，成为展会最具吸引力的配套活动 明星站台成风：杨千嬅、张韶涵、张娜拉、水木年华、周星驰、元华悉数到场 国产游戏势头强劲，市场份额肉眼可见地上升 展位面积 2.5 万㎡ 展商 156 家（国内 137 / 国际 19） 参展游戏 289 款（国内 97 / 国际 192） 观众约 8 万人次 门票 20 元">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 3 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2005</div>
+      <div class="cj-card-date">2005.7.20 – 7.23</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <ul class="cj-scale">
+    <li>展位面积 2.5 万㎡</li>
+    <li>展商 156 家（国内 137 / 国际 19）</li>
+    <li>参展游戏 289 款（国内 97 / 国际 192）</li>
+    <li>观众约 8 万人次</li>
+    <li>门票 20 元</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">梦幻西游</span><span class="cj-tag cj-tag-game">快乐西游</span><span class="cj-tag cj-tag-game">洛奇</span><span class="cj-tag cj-tag-game">完美世界</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">Intel</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">世嘉</span><span class="cj-tag cj-tag-brand">光荣</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">第九城市</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>Cosplay 嘉年华第一次面向全国海选，成为展会最具吸引力的配套活动</li>
+      <li>明星站台成风：杨千嬅、张韶涵、张娜拉、水木年华、周星驰、元华悉数到场</li>
+      <li>国产游戏势头强劲，市场份额肉眼可见地上升</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2004" data-q="2004 第 2 届   上海 上海新国际博览中心 魔兽世界 仙剑奇侠传 梦幻西游 暴雪 第九城市 索尼 育碧 ea 唯美德 网易 韩国游戏产业开发院（20 家） chinajoy 自本届起永久落户上海 九城代理的《魔兽世界》成为全场最大焦点，此后深刻改写中国网游与网吧生态 cosplay 比赛扩大规模并吸纳社会团体，22 家游戏厂商参赛 showgirl 文化自此萌芽，也为日后的争议埋下伏笔 展商 140 家（国内 126 / 国际 14） 参展游戏 167 款（国内 58 / 国际 109） 观众约 7 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 2 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2004</div>
+      <div class="cj-card-date">2004.10.5 – 10.7</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <ul class="cj-scale">
+    <li>展商 140 家（国内 126 / 国际 14）</li>
+    <li>参展游戏 167 款（国内 58 / 国际 109）</li>
+    <li>观众约 7 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">魔兽世界</span><span class="cj-tag cj-tag-game">仙剑奇侠传</span><span class="cj-tag cj-tag-game">梦幻西游</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">唯美德</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">韩国游戏产业开发院（20 家）</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>ChinaJoy 自本届起永久落户上海</li>
+      <li>九城代理的《魔兽世界》成为全场最大焦点，此后深刻改写中国网游与网吧生态</li>
+      <li>Cosplay 比赛扩大规模并吸纳社会团体，22 家游戏厂商参赛</li>
+      <li>Showgirl 文化自此萌芽，也为日后的争议埋下伏笔</li>
+    </ul>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2004" data-q="2004 第 1 届   北京 北京展览馆 天堂 ii 大话西游 online ii 传奇 3 传奇世界 神迹 实况足球 7 凯旋 铁血三国志 新浪乐谷 网易 光通 盛大 索尼 腾讯 华义 原定 2003 年 7 月在北京举办，先因扩大规模改址北京展览馆，又因非典（sars）延期至 2004 年 1 月 全称为「中国国际数码互动娱乐产品及技术应用展览会」，当时国内市场以代理海外网游为主 韩国网游占据压倒性优势，同场展出的韩游超过 20 款 中央展厅领取《天堂 ii》内测账号的队伍排成长龙，一直蜿蜒到邻近展厅 首届 cosplay 嘉年华仅有游戏厂商参加 展商 129 家（国内 117 / 国际 12） 展品 145 款（国内 39 / 国际 106） 观众约 6 万人次 门票 20 元，在线预订 15 元">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 1 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2004</div>
+      <div class="cj-card-date">2004.1.16 – 1.18</div>
+    </div>
+    <div class="cj-card-place">北京<span class="cj-venue">北京展览馆</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <ul class="cj-scale">
+    <li>展商 129 家（国内 117 / 国际 12）</li>
+    <li>展品 145 款（国内 39 / 国际 106）</li>
+    <li>观众约 6 万人次</li>
+    <li>门票 20 元，在线预订 15 元</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">天堂 II</span><span class="cj-tag cj-tag-game">大话西游 Online II</span><span class="cj-tag cj-tag-game">传奇 3</span><span class="cj-tag cj-tag-game">传奇世界</span><span class="cj-tag cj-tag-game">神迹</span><span class="cj-tag cj-tag-game">实况足球 7</span><span class="cj-tag cj-tag-game">凯旋</span><span class="cj-tag cj-tag-game">铁血三国志</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">新浪乐谷</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">光通</span><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">腾讯</span><span class="cj-tag cj-tag-brand">华义</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>原定 2003 年 7 月在北京举办，先因扩大规模改址北京展览馆，又因非典（SARS）延期至 2004 年 1 月</li>
+      <li>全称为「中国国际数码互动娱乐产品及技术应用展览会」，当时国内市场以代理海外网游为主</li>
+      <li>韩国网游占据压倒性优势，同场展出的韩游超过 20 款</li>
+      <li>中央展厅领取《天堂 II》内测账号的队伍排成长龙，一直蜿蜒到邻近展厅</li>
+      <li>首届 Cosplay 嘉年华仅有游戏厂商参加</li>
     </ul>
   </div>
 </article>
@@ -1003,7 +960,7 @@ var _hmt = _hmt || [];
     <ul>
       <li>数据来源于 ChinaJoy 官方公告与公开报道，早期届次的观众数字在不同信源间存在口径差异，本页取较常被引用的一组。</li>
       <li>本页随每届展会持续更新，「每日自动更新」区块会跟进展会与行业的最新动态。</li>
-      <li>每张年代卡顶部那张「对应年代场景图」默认是按 5 个时代绘制的概念插画（年代感强、不冒充真照）。如果你手上有该届的现场照片，把它放到 <code>static/img/chinajoy/&lt;年份&gt;.jpg</code>（或 .png/.webp），重新构建后就会自动覆盖默认图，无需改任何代码。</li>
+      <li>每届卡片顶部可放一张该届的<b>真实现场照片</b>：把照片放到 <code>static/img/chinajoy/&lt;年份&gt;.jpg</code>（或 .png/.webp），重新构建后会在对应卡片顶部自动显示。本站<b>绝不使用 AI 生成图</b>，照片必须是真实拍摄的现场图。</li>
       <li>参考资料：</li>
     </ul>
     <ul>

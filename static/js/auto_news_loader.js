@@ -62,6 +62,9 @@
         return r.json();
       })
       .then(function (data) {
+        // 同步"最后更新时间"为新闻实际更新日期，避免与「实时」徽标矛盾
+        var updEl = document.getElementById('lastNewsUpdate');
+        if (updEl && data.updated) updEl.textContent = data.updated;
         if (!data.news || data.news.length === 0) return;
         if (countEl) countEl.textContent = data.news.length + '条';
         renderNews(container, data.news);

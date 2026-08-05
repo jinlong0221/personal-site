@@ -306,6 +306,249 @@ def chips_html(items, cls='cj-chip-tag'):
     return ''.join('<span class="%s">%s</span>' % (cls, esc(x)) for x in items)
 
 
+# ================================================================= 视觉资源
+# 每张年代卡的「对应年代场景插画」+ 时代分隔横幅 + Hero 装饰。
+# 默认产出 SVG 插画作为占位（避免版权图）；把真照片放进
+#   static/img/chinajoy/<年份>.jpg（或 .png/.webp）
+# 即自动覆盖默认插画。
+THUMB_DIR = os.path.join(ROOT, 'static', 'img', 'chinajoy')
+
+ERA_PALETTES = {
+    'start':  ('#1e3a8a', '#f59e0b', '#fde68a'),   # 海军蓝 → 琥珀 → 奶油
+    'indus':  ('#7f1d1d', '#f59e0b', '#fbbf24'),   # 深红 → 金 → 浅金
+    'mobile': ('#6d28d9', '#06b6d4', '#f0abfc'),   # 紫罗兰 → 青 → 浅紫
+    'tech':   ('#0f172a', '#22d3ee', '#d946ef'),   # 深石板 → 青 → 品红
+    'newcy':  ('#4338ca', '#7c3aed', '#5eead4'),   # 靛 → 紫 → 青绿
+}
+
+ERA_LABELS = {
+    'start':  ('START',     '起步落沪'),
+    'indus':  ('INDUSTRY',  '产业化'),
+    'mobile': ('MOBILE',    '移动泛娱乐'),
+    'tech':   ('TECH',      '科技驱动'),
+    'newcy':  ('NEW CYCLE', '新周期'),
+}
+
+
+def _scene(era, w, h):
+    """时代场景形状（按 w,h 比例放置，缩略图与时代横幅共用）"""
+    if era == 'start':
+        # CRT 显示器 + 街机摇杆 + 人群剪影
+        return (
+            f'<g opacity="0.88">'
+            f'<rect x="{w*0.10}" y="{h*0.22}" width="{w*0.34}" height="{h*0.42}" rx="{min(w,h)*0.03:.1f}" fill="#0f172a" stroke="#fde68a" stroke-width="2"/>'
+            f'<rect x="{w*0.12}" y="{h*0.27}" width="{w*0.30}" height="{h*0.30}" fill="#1e3a8a"/>'
+            f'<line x1="{w*0.12}" y1="{h*0.31}" x2="{w*0.42}" y2="{h*0.31}" stroke="#fde68a" stroke-width="0.5" opacity="0.4"/>'
+            f'<line x1="{w*0.12}" y1="{h*0.37}" x2="{w*0.42}" y2="{h*0.37}" stroke="#fde68a" stroke-width="0.5" opacity="0.4"/>'
+            f'<line x1="{w*0.12}" y1="{h*0.43}" x2="{w*0.42}" y2="{h*0.43}" stroke="#fde68a" stroke-width="0.5" opacity="0.4"/>'
+            f'<rect x="{w*0.22}" y="{h*0.64}" width="{w*0.10}" height="{h*0.04}" fill="#0f172a"/>'
+            f'<rect x="{w*0.18}" y="{h*0.68}" width="{w*0.18}" height="{h*0.04}" rx="{h*0.02:.1f}" fill="#0f172a"/>'
+            f'<rect x="{w*0.66}" y="{h*0.55}" width="{w*0.16}" height="{h*0.08}" rx="{h*0.02:.1f}" fill="#0f172a"/>'
+            f'<line x1="{w*0.74}" y1="{h*0.55}" x2="{w*0.74}" y2="{h*0.38}" stroke="#fde68a" stroke-width="3" stroke-linecap="round"/>'
+            f'<circle cx="{w*0.74}" cy="{h*0.34}" r="{min(w,h)*0.035:.1f}" fill="#f59e0b"/>'
+            f'<path d="M0,{h} L0,{h*0.86} Q{w/4},{h*0.78} {w/2},{h*0.86} T{w},{h*0.86} L{w},{h} Z" fill="#0f172a" opacity="0.55"/>'
+            f'</g>'
+        )
+    if era == 'indus':
+        # 上海天际线 + 聚光灯 + 展馆地面
+        sk = (
+            f'<rect x="{w*0.14}" y="{h*0.45}" width="{w*0.05}" height="{h*0.5}" fill="#7f1d1d"/>'
+            f'<rect x="{w*0.20}" y="{h*0.35}" width="{w*0.06}" height="{h*0.6}" fill="#991b1b"/>'
+            f'<rect x="{w*0.27}" y="{h*0.42}" width="{w*0.05}" height="{h*0.53}" fill="#7f1d1d"/>'
+            f'<rect x="{w*0.33}" y="{h*0.52}" width="{w*0.06}" height="{h*0.43}" fill="#991b1b"/>'
+            f'<rect x="{w*0.40}" y="{h*0.30}" width="{w*0.07}" height="{h*0.65}" fill="#7f1d1d"/>'
+            f'<rect x="{w*0.48}" y="{h*0.48}" width="{w*0.05}" height="{h*0.47}" fill="#991b1b"/>'
+            f'<rect x="{w*0.54}" y="{h*0.38}" width="{w*0.06}" height="{h*0.57}" fill="#7f1d1d"/>'
+            f'<rect x="{w*0.61}" y="{h*0.50}" width="{w*0.05}" height="{h*0.45}" fill="#7f1d1d"/>'
+            f'<rect x="{w*0.67}" y="{h*0.40}" width="{w*0.06}" height="{h*0.55}" fill="#991b1b"/>'
+            f'<rect x="{w*0.74}" y="{h*0.48}" width="{w*0.05}" height="{h*0.47}" fill="#7f1d1d"/>'
+            f'<rect x="{w*0.80}" y="{h*0.42}" width="{w*0.06}" height="{h*0.53}" fill="#7f1d1d"/>'
+        )
+        return (
+            f'<g opacity="0.88">'
+            f'<line x1="{w*0.07}" y1="{h*0.92}" x2="{w*0.07}" y2="{h*0.18}" stroke="#fbbf24" stroke-width="2"/>'
+            f'<circle cx="{w*0.07}" cy="{h*0.18}" r="{min(w,h)*0.05:.1f}" fill="#fbbf24"/>'
+            f'<circle cx="{w*0.07}" cy="{h*0.32}" r="{min(w,h)*0.07:.1f}" fill="none" stroke="#fbbf24" stroke-width="2"/>'
+            f'{sk}'
+            f'<polygon points="{w*0.5},{h*0.95} {w*0.32},{h*0.22} {w*0.68},{h*0.22}" fill="#fbbf24" opacity="0.18"/>'
+            f'<rect x="0" y="{h*0.88}" width="{w}" height="{h*0.12}" fill="#7f1d1d" opacity="0.6"/>'
+            f'</g>'
+        )
+    if era == 'mobile':
+        # 智能手机 + 漫画动感线 + 浮动 App 图标
+        return (
+            f'<g opacity="0.88">'
+            f'<rect x="{w*0.12}" y="{h*0.18}" width="{w*0.16}" height="{h*0.6}" rx="{w*0.02:.1f}" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/>'
+            f'<rect x="{w*0.135}" y="{h*0.24}" width="{w*0.13}" height="{h*0.46}" fill="#6d28d9"/>'
+            f'<circle cx="{w*0.20}" cy="{h*0.38}" r="{min(w,h)*0.025:.1f}" fill="#fbbf24"/>'
+            f'<rect x="{w*0.15}" y="{h*0.48}" width="{w*0.1}" height="{h*0.03}" fill="#f0abfc"/>'
+            f'<rect x="{w*0.15}" y="{h*0.54}" width="{w*0.075}" height="{h*0.03}" fill="#06b6d4"/>'
+            f'<circle cx="{w*0.20}" cy="{h*0.72}" r="{min(w,h)*0.012:.1f}" fill="#9ca3af"/>'
+            f'<line x1="{w*0.42}" y1="{h*0.24}" x2="{w*0.56}" y2="{h*0.10}" stroke="#f0abfc" stroke-width="1.5" opacity="0.7"/>'
+            f'<line x1="{w*0.46}" y1="{h*0.38}" x2="{w*0.64}" y2="{h*0.22}" stroke="#06b6d4" stroke-width="1.5" opacity="0.7"/>'
+            f'<line x1="{w*0.50}" y1="{h*0.56}" x2="{w*0.68}" y2="{h*0.44}" stroke="#f0abfc" stroke-width="1.5" opacity="0.7"/>'
+            f'<rect x="{w*0.66}" y="{h*0.24}" width="{w*0.07}" height="{h*0.12}" rx="{w*0.015:.1f}" fill="#06b6d4"/>'
+            f'<rect x="{w*0.76}" y="{h*0.34}" width="{w*0.07}" height="{h*0.12}" rx="{w*0.015:.1f}" fill="#f0abfc"/>'
+            f'<rect x="{w*0.70}" y="{h*0.52}" width="{w*0.07}" height="{h*0.12}" rx="{w*0.015:.1f}" fill="#6d28d9"/>'
+            f'<rect x="{w*0.80}" y="{h*0.62}" width="{w*0.07}" height="{h*0.12}" rx="{w*0.015:.1f}" fill="#fbbf24"/>'
+            f'</g>'
+        )
+    if era == 'tech':
+        # VR 头显 + 霓虹地板网格 + 电竞大屏
+        grid = ''.join(
+            f'<line x1="{w*i/8}" y1="{h*0.88}" x2="{w*(i/8+0.06)}" y2="{h*0.74}" stroke="#d946ef" stroke-width="0.6" opacity="0.5"/>'
+            for i in range(9)
+        )
+        return (
+            f'<g opacity="0.88">'
+            f'<rect x="{w*0.08}" y="{h*0.35}" width="{w*0.28}" height="{h*0.25}" rx="{w*0.04:.1f}" fill="#22d3ee"/>'
+            f'<ellipse cx="{w*0.16}" cy="{h*0.48}" rx="{w*0.045}" ry="{h*0.10}" fill="#0f172a"/>'
+            f'<ellipse cx="{w*0.28}" cy="{h*0.48}" rx="{w*0.045}" ry="{h*0.10}" fill="#0f172a"/>'
+            f'<rect x="{w*0.19}" y="{h*0.58}" width="{w*0.06}" height="{h*0.07}" fill="#22d3ee"/>'
+            f'<line x1="0" y1="{h*0.88}" x2="{w}" y2="{h*0.88}" stroke="#d946ef" stroke-width="1" opacity="0.6"/>'
+            f'{grid}'
+            f'<rect x="{w*0.60}" y="{h*0.30}" width="{w*0.25}" height="{h*0.28}" rx="{w*0.01:.1f}" fill="#0f172a" stroke="#84cc16" stroke-width="1.5"/>'
+            f'<text x="{w*0.725}" y="{h*0.50}" text-anchor="middle" fill="#84cc16" font-size="{min(w,h)*0.10:.1f}" font-weight="900" font-family="system-ui">VS</text>'
+            f'<line x1="{w*0.45}" y1="{h*0.20}" x2="{w*0.55}" y2="{h*0.20}" stroke="#22d3ee" stroke-width="1" opacity="0.5"/>'
+            f'<line x1="{w*0.45}" y1="{h*0.24}" x2="{w*0.52}" y2="{h*0.24}" stroke="#22d3ee" stroke-width="1" opacity="0.5"/>'
+            f'</g>'
+        )
+    if era == 'newcy':
+        # 人形机器人 + AI 全息环 + 节点连线
+        return (
+            f'<g opacity="0.88">'
+            f'<rect x="{w*0.14}" y="{h*0.18}" width="{w*0.10}" height="{h*0.16}" rx="{w*0.02:.1f}" fill="#5eead4"/>'
+            f'<circle cx="{w*0.17}" cy="{h*0.25}" r="{min(w,h)*0.015:.1f}" fill="#0f172a"/>'
+            f'<circle cx="{w*0.21}" cy="{h*0.25}" r="{min(w,h)*0.015:.1f}" fill="#0f172a"/>'
+            f'<rect x="{w*0.155}" y="{h*0.34}" width="{w*0.075}" height="{h*0.20}" rx="{w*0.01:.1f}" fill="#5eead4"/>'
+            f'<rect x="{w*0.115}" y="{h*0.36}" width="{w*0.035}" height="{h*0.16}" rx="{w*0.008:.1f}" fill="#5eead4"/>'
+            f'<rect x="{w*0.235}" y="{h*0.36}" width="{w*0.035}" height="{h*0.16}" rx="{w*0.008:.1f}" fill="#5eead4"/>'
+            f'<rect x="{w*0.17}" y="{h*0.54}" width="{w*0.02}" height="{h*0.20}" fill="#5eead4"/>'
+            f'<rect x="{w*0.20}" y="{h*0.54}" width="{w*0.02}" height="{h*0.20}" fill="#5eead4"/>'
+            f'<ellipse cx="{w*0.62}" cy="{h*0.50}" rx="{w*0.18}" ry="{h*0.08}" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.85"/>'
+            f'<ellipse cx="{w*0.62}" cy="{h*0.50}" rx="{w*0.12}" ry="{h*0.05}" fill="none" stroke="#4338ca" stroke-width="1.5" opacity="0.9"/>'
+            f'<ellipse cx="{w*0.62}" cy="{h*0.50}" rx="{w*0.06}" ry="{h*0.025}" fill="none" stroke="#5eead4" stroke-width="1.5"/>'
+            f'<circle cx="{w*0.62}" cy="{h*0.50}" r="{min(w,h)*0.012:.1f}" fill="#fbbf24"/>'
+            f'<circle cx="{w*0.50}" cy="{h*0.28}" r="{min(w,h)*0.012:.1f}" fill="#7c3aed"/>'
+            f'<circle cx="{w*0.74}" cy="{h*0.24}" r="{min(w,h)*0.012:.1f}" fill="#4338ca"/>'
+            f'<circle cx="{w*0.80}" cy="{h*0.62}" r="{min(w,h)*0.012:.1f}" fill="#5eead4"/>'
+            f'<line x1="{w*0.50}" y1="{h*0.28}" x2="{w*0.62}" y2="{h*0.50}" stroke="#7c3aed" stroke-width="0.6" opacity="0.6"/>'
+            f'<line x1="{w*0.74}" y1="{h*0.24}" x2="{w*0.62}" y2="{h*0.50}" stroke="#4338ca" stroke-width="0.6" opacity="0.6"/>'
+            f'<line x1="{w*0.80}" y1="{h*0.62}" x2="{w*0.62}" y2="{h*0.50}" stroke="#5eead4" stroke-width="0.6" opacity="0.6"/>'
+            f'</g>'
+        )
+    return ''
+
+
+def gen_thumb_svg(era, year, is_gap=False):
+    """生成单张年代缩略图 SVG（320×200 viewBox）"""
+    if is_gap:
+        return (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">'
+            '<rect width="320" height="200" fill="#374151"/>'
+            '<text x="160" y="110" text-anchor="middle" fill="#9ca3af" font-size="64" font-weight="900" font-family="system-ui">—</text>'
+            '<text x="160" y="152" text-anchor="middle" fill="#6b7280" font-size="14" letter-spacing="4" font-family="system-ui">展 会 停 办</text>'
+            '</svg>'
+        )
+    c1, c2, c3 = ERA_PALETTES[era]
+    en, _cn = ERA_LABELS[era]
+    gid = 'tg_%s_%d' % (era, year)
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">'
+        f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="1">'
+        f'<stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient></defs>'
+        f'<rect width="320" height="200" fill="url(#{gid})"/>'
+        f'{_scene(era, 320, 200)}'
+        f'<rect x="0" y="0" width="320" height="200" fill="url(#{gid})" opacity="0.22"/>'
+        f'<text x="14" y="26" fill="{c3}" font-size="10" font-weight="800" letter-spacing="2" font-family="system-ui">{en}</text>'
+        f'<text x="306" y="158" text-anchor="end" fill="#fff" font-size="72" font-weight="900" font-family="system-ui,-apple-system,sans-serif">{year}</text>'
+        f'</svg>'
+    )
+
+
+def gen_era_banner_svg(era_key):
+    """生成时代分隔横幅 SVG（1200×180 viewBox）"""
+    c1, c2, c3 = ERA_PALETTES[era_key]
+    en, cn = ERA_LABELS[era_key]
+    span = next((s for k, _, s, _ in ERAS if k == era_key), '')
+    desc = next((d for k, _, _, d in ERAS if k == era_key), '')
+    gid = 'ebg_' + era_key
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" preserveAspectRatio="xMidYMid slice" class="cj-era-banner-svg">'
+        f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="0">'
+        f'<stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient></defs>'
+        f'<rect width="1200" height="180" fill="url(#{gid})"/>'
+        f'{_scene(era_key, 1200, 180)}'
+        f'<rect x="0" y="0" width="1200" height="180" fill="url(#{gid})" opacity="0.32"/>'
+        f'<rect x="36" y="36" width="10" height="108" fill="{c3}" rx="2"/>'
+        f'<text x="64" y="68" fill="{c3}" font-size="13" font-weight="800" letter-spacing="4" font-family="system-ui">{en}</text>'
+        f'<text x="64" y="112" fill="#fff" font-size="34" font-weight="900" font-family="system-ui,-apple-system,sans-serif">{cn}</text>'
+        f'<text x="64" y="142" fill="#fff" opacity="0.85" font-size="13" font-family="system-ui">{esc(span)} · {esc(desc)}</text>'
+        f'</svg>'
+    )
+
+
+def gen_hero_deco_svg():
+    """Hero 背景装饰 SVG（展馆立柱 + 街机摇杆 + 手柄 + 人群）"""
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" preserveAspectRatio="xMidYMid slice" class="cj-hero-deco-svg" aria-hidden="true">'
+        # 左下街机摇杆
+        '<rect x="60" y="190" width="86" height="18" rx="3" fill="#fff" opacity="0.10"/>'
+        '<circle cx="80" cy="202" r="4" fill="#fbbf24" opacity="0.45"/>'
+        '<circle cx="126" cy="202" r="4" fill="#fbbf24" opacity="0.45"/>'
+        '<line x1="103" y1="190" x2="103" y2="148" stroke="#fff" stroke-width="3" opacity="0.22" stroke-linecap="round"/>'
+        '<circle cx="103" cy="140" r="11" fill="#fbbf24" opacity="0.45"/>'
+        # 右下手柄
+        '<rect x="1040" y="176" width="116" height="52" rx="24" fill="#fff" opacity="0.10"/>'
+        '<circle cx="1062" cy="202" r="9" fill="#fff" opacity="0.28"/>'
+        '<line x1="1053" y1="202" x2="1071" y2="202" stroke="#0f172a" stroke-width="1.5" opacity="0.5"/>'
+        '<line x1="1062" y1="193" x2="1062" y2="211" stroke="#0f172a" stroke-width="1.5" opacity="0.5"/>'
+        '<circle cx="1130" cy="194" r="3.5" fill="#0f172a" opacity="0.6"/>'
+        '<circle cx="1139" cy="202" r="3.5" fill="#0f172a" opacity="0.6"/>'
+        '<circle cx="1139" cy="210" r="3.5" fill="#0f172a" opacity="0.6"/>'
+        '<circle cx="1130" cy="218" r="3.5" fill="#0f172a" opacity="0.6"/>'
+        # 展馆立柱与顶梁
+        '<rect x="300" y="64" width="12" height="236" fill="#fff" opacity="0.07"/>'
+        '<rect x="332" y="64" width="12" height="236" fill="#fff" opacity="0.07"/>'
+        '<rect x="856" y="64" width="12" height="236" fill="#fff" opacity="0.07"/>'
+        '<rect x="888" y="64" width="12" height="236" fill="#fff" opacity="0.07"/>'
+        '<rect x="300" y="54" width="600" height="10" fill="#fff" opacity="0.08"/>'
+        # 人群剪影
+        '<path d="M0,320 L0,290 Q40,275 80,290 Q120,275 160,290 Q200,275 240,290 Q280,275 320,290 '
+        'Q360,275 400,290 Q440,275 480,290 Q520,275 560,290 Q600,275 640,290 Q680,275 720,290 '
+        'Q760,275 800,290 Q840,275 880,290 Q920,275 960,290 Q1000,275 1040,290 Q1080,275 1120,290 Q1160,275 1200,290 L1200,320 Z" fill="#fff" opacity="0.08"/>'
+        '</svg>'
+    )
+
+
+def resolve_thumb(year):
+    """挑选该年份的最佳图片：有真照片优先，否则用默认 SVG，返回 (相对路径, 是否真照)"""
+    base = os.path.join(THUMB_DIR, str(year))
+    for ext in ('jpg', 'jpeg', 'png', 'webp', 'gif'):
+        p = base + '.' + ext
+        if os.path.exists(p):
+            return ('img/chinajoy/%d.%s' % (year, ext), True)
+    svg = base + '.svg'
+    if os.path.exists(svg):
+        return ('img/chinajoy/%d.svg' % year, False)
+    return (None, False)
+
+
+def ensure_visual_assets():
+    """如缺失，生成每届缩略图 SVG（已有真照片覆盖则跳过）"""
+    os.makedirs(THUMB_DIR, exist_ok=True)
+    for e in EDITIONS:
+        year = e['year']
+        svg_path = os.path.join(THUMB_DIR, '%d.svg' % year)
+        has_photo = any(
+            os.path.exists(os.path.join(THUMB_DIR, '%d.%s' % (year, ext)))
+            for ext in ('jpg', 'jpeg', 'png', 'webp', 'gif')
+        )
+        if not os.path.exists(svg_path) and not has_photo:
+            with open(svg_path, 'w', encoding='utf-8') as f:
+                f.write(gen_thumb_svg(e['era'], year, is_gap=(e['no'] is None)))
+
+
 def build_edition_card(e):
     no = e['no']
     is_gap = no is None
@@ -320,6 +563,15 @@ def build_edition_card(e):
     parts = []
     parts.append('<article class="cj-card%s" data-era="%s" data-year="%s" data-q="%s">'
                  % (' cj-card-gap' if is_gap else '', era, e['year'], esc(search_pool)))
+    # 年代场景缩略图（真照片优先，否则用 SVG 概念图占位）
+    thumb_src, thumb_is_real = resolve_thumb(e['year'])
+    if thumb_src:
+        badge = '' if thumb_is_real else '<span class="cj-card-img-badge">概念图 · 可替换</span>'
+        alt = ('第 %d 届' % e['no']) if not is_gap else '展会停办'
+        parts.append('  <div class="cj-card-img-wrap">'
+                     '<img class="cj-card-img" src="%s" alt="%s" loading="lazy" '
+                     'width="320" height="200" decoding="async">'
+                     '%s</div>' % (esc(thumb_src), esc(alt), badge))
     parts.append('  <div class="cj-card-head">')
     parts.append('    <div class="cj-card-no">%s</div>' % esc(badge))
     parts.append('    <div class="cj-card-meta">')
@@ -366,6 +618,9 @@ def build_edition_card(e):
 
 # ================================================================= 页面组装
 def main():
+    # 先把缺失的年代缩略图 SVG 写出来（已有真照片覆盖则跳过）
+    ensure_visual_assets()
+
     with open(DONOR, encoding='utf-8') as f:
         donor = f.read()
 
@@ -386,6 +641,17 @@ def main():
     first_year = min(e['year'] for e in held)
 
     cards = '\n\n'.join(build_edition_card(e) for e in EDITIONS)
+    # 按时代分组，在每组前插一张时代分隔横幅
+    grouped_parts = []
+    for era_key, era_name, era_span, era_desc in ERAS:
+        era_eds = [e for e in EDITIONS if e['era'] == era_key]
+        if not era_eds:
+            continue
+        grouped_parts.append(
+            '<div class="cj-era-banner" data-era="%s">%s</div>' % (era_key, gen_era_banner_svg(era_key))
+        )
+        grouped_parts.append('\n\n'.join(build_edition_card(e) for e in era_eds))
+    cards = '\n\n'.join(grouped_parts)
 
     era_chips = ['<button class="cj-chip active" data-era="all">全部 <b>%d</b></button>' % len(EDITIONS)]
     for key, name, span, _desc in ERAS:
@@ -457,6 +723,17 @@ def main():
 .cj-chip.active b{opacity:.85}
 .cj-count-bar{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--text-muted);margin-bottom:14px}
 .cj-reset{background:none;border:none;color:var(--cj);cursor:pointer;font-size:.8rem;font-family:inherit;text-decoration:underline}
+/* 年代卡缩略图（每届对应年代场景） */
+.cj-card-img-wrap{position:relative;margin:-20px -22px 14px;border-radius:14px 14px 0 0;overflow:hidden;aspect-ratio:320/130;background:linear-gradient(135deg,var(--cj),var(--cj-2))}
+.cj-card-img{display:block;width:100%;height:100%;object-fit:cover}
+.cj-card-img-badge{position:absolute;left:10px;top:10px;font-size:.66rem;font-weight:700;letter-spacing:1px;color:#fff;background:rgba(15,23,42,.55);padding:2px 8px;border-radius:999px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+[data-theme="light"] .cj-card-img-badge{background:rgba(15,23,42,.7)}
+/* 时代分隔横幅 */
+.cj-era-banner{position:relative;border-radius:14px;overflow:hidden;margin:8px 0 6px;height:140px}
+.cj-era-banner-svg{width:100%;height:100%;display:block}
+/* Hero 装饰层 */
+.cj-hero-deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;border-radius:16px}
+.cj-hero-deco-svg{width:100%;height:100%;display:block}
 .cj-list{display:flex;flex-direction:column;gap:16px}
 .cj-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;border-left:4px solid var(--cj);transition:box-shadow .2s,transform .2s}
 .cj-card:hover{box-shadow:var(--shadow-md);transform:translateX(2px)}
@@ -515,7 +792,7 @@ def main():
 @media(max-width:576px){.cj-hero{padding:32px 18px 28px}.cj-hero h1{font-size:1.55rem}.cj-era-grid{grid-template-columns:1fr}
 .cj-card{padding:16px 15px}.cj-card-place{margin-left:0;width:100%;text-align:left}.cj-card-year{font-size:1.25rem}
 .cj-mile-list::before{left:52px}.cj-mile-year{flex:0 0 44px}.cj-mile::after{left:47px}
-.cj-bar-tip{display:none}}
+.cj-bar-tip{display:none}.cj-card-img-wrap{margin:-16px -15px 12px;border-radius:14px 14px 0 0;aspect-ratio:320/110}.cj-era-banner{height:110px}}
 """
 
     page_js = """
@@ -639,6 +916,7 @@ __NAVBAR__
 
   <!-- ===== Hero ===== -->
   <div class="cj-hero">
+    <div class="cj-hero-deco">__HERODECO__</div>
     <span class="cj-kicker">CHINA DIGITAL ENTERTAINMENT EXPO</span>
     <h1>ChinaJoy 成长史</h1>
     <p>从 2004 年北京展览馆的第一届，到 2026 年上海新国际博览中心的第 __TOTAL__ 届——
@@ -729,6 +1007,7 @@ __HALL__
     <ul>
       <li>数据来源于 ChinaJoy 官方公告与公开报道，早期届次的观众数字在不同信源间存在口径差异，本页取较常被引用的一组。</li>
       <li>本页随每届展会持续更新，「每日自动更新」区块会跟进展会与行业的最新动态。</li>
+      <li>每张年代卡顶部那张「对应年代场景图」默认是按 5 个时代绘制的概念插画（年代感强、不冒充真照）。如果你手上有该届的现场照片，把它放到 <code>static/img/chinajoy/&lt;年份&gt;.jpg</code>（或 .png/.webp），重新构建后就会自动覆盖默认图，无需改任何代码。</li>
       <li>参考资料：</li>
     </ul>
     <ul>
@@ -791,7 +1070,8 @@ if (typeof toggleHomeSection === 'undefined') {
             .replace('__SOURCES__', src_items)
             .replace('__TOTAL__', str(total_editions))
             .replace('__FIRST__', str(first_year))
-            .replace('__LASTUPDATE__', LAST_UPDATE))
+            .replace('__LASTUPDATE__', LAST_UPDATE)
+            .replace('__HERODECO__', gen_hero_deco_svg()))
 
     with open(OUT, 'w', encoding='utf-8') as f:
         f.write(html)

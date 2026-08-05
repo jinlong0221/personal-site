@@ -1585,6 +1585,42 @@ p.plot-text {
 .home-collapsible.open .hc-arrow {
   transform: rotate(180deg);
 }
+/* ===== 自动更新动态区块强化：醒目主色 + 实时脉冲徽标（仅作用于 #hc-auto-news）===== */
+#hc-auto-news .home-collapsible-header {
+  border-left: 3px solid var(--blue);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--blue) 9%, transparent), transparent 55%);
+}
+#hc-auto-news .hc-title {
+  color: var(--blue);
+}
+.hc-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 14%, transparent);
+  padding: 2px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.hc-live .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: hcPulse 1.6s infinite;
+}
+@keyframes hcPulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 6px color-mix(in srgb, var(--green) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-live .dot { animation: none; }
+}
 /* ===== 折叠栏动画：grid-template-rows 方案（丝滑60fps）===== */
 .home-collapsible {
   display: grid;

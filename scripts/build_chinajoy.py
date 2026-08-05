@@ -362,24 +362,43 @@ def build_edition_card(e):
                      '<span class="cj-theme-label">主题</span>'
                      '<span class="cj-theme-txt">未设置正式主题</span></div>')
 
+    # ---- 详情（默认折叠，点击展开，降低长内容压迫感）----
+    detail = []
     if e['scale']:
-        parts.append('  <ul class="cj-scale">')
+        detail.append('  <ul class="cj-scale">')
         for s in e['scale']:
-            parts.append('    <li>%s</li>' % esc(s))
-        parts.append('  </ul>')
-
+            detail.append('    <li>%s</li>' % esc(s))
+        detail.append('  </ul>')
     if e['games']:
-        parts.append('  <div class="cj-block"><span class="cj-block-label">参展游戏</span>'
+        detail.append('  <div class="cj-block"><span class="cj-block-label">参展游戏</span>'
                      '<div class="cj-tags">%s</div></div>' % chips_html(e['games'], 'cj-tag cj-tag-game'))
     if e['brands']:
-        parts.append('  <div class="cj-block"><span class="cj-block-label">参展品牌</span>'
+        detail.append('  <div class="cj-block"><span class="cj-block-label">参展品牌</span>'
                      '<div class="cj-tags">%s</div></div>' % chips_html(e['brands'], 'cj-tag cj-tag-brand'))
     if e['points']:
-        parts.append('  <div class="cj-block"><span class="cj-block-label">本届看点</span>')
-        parts.append('    <ul class="cj-points">')
+        detail.append('  <div class="cj-block"><span class="cj-block-label">本届看点</span>')
+        detail.append('    <ul class="cj-points">')
         for p in e['points']:
-            parts.append('      <li>%s</li>' % esc(p))
-        parts.append('    </ul>')
+            detail.append('      <li>%s</li>' % esc(p))
+        detail.append('    </ul>')
+        detail.append('  </div>')
+
+    # 概要行：不展开也能快速扫读这届有什么
+    teaser = []
+    if e['games']:
+        teaser.append('参展游戏 %d' % len(e['games']))
+    if e['brands']:
+        teaser.append('品牌 %d' % len(e['brands']))
+    if e['points']:
+        teaser.append('看点 %d' % len(e['points']))
+    if teaser:
+        parts.append('  <div class="cj-card-teaser">%s</div>' % ' · '.join(esc(t) for t in teaser))
+
+    if detail:
+        parts.append('  <button type="button" class="cj-card-toggle" aria-expanded="false">'
+                     '<span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>')
+        parts.append('  <div class="cj-card-detail">')
+        parts.extend(detail)
         parts.append('  </div>')
     parts.append('</article>')
     return '\n'.join(parts)
@@ -499,6 +518,16 @@ def main():
 .cj-theme-en{font-size:.78rem;color:var(--text-muted);font-style:italic}
 .cj-theme-none{background:transparent;padding:0 0 4px}
 .cj-theme-none .cj-theme-txt{font-weight:400;font-size:.86rem;color:var(--text-muted)}
+/* 卡片折叠：详情默认收起，降低长内容压迫感 */
+.cj-card-teaser{font-size:.78rem;color:var(--text-muted);margin:2px 0 12px;padding-left:12px;border-left:3px solid var(--cj-soft)}
+.cj-card-toggle{display:inline-flex;align-items:center;gap:4px;margin:2px 0 6px;padding:5px 14px;font-size:.78rem;font-family:inherit;color:var(--cj);background:var(--cj-soft);border:1px solid transparent;border-radius:999px;cursor:pointer;transition:background .15s,border-color .15s}
+.cj-card-toggle:hover{border-color:var(--cj)}
+.cj-caret{display:inline-block;transition:transform .2s;font-size:.72rem;line-height:1}
+.cj-card.open .cj-caret{transform:rotate(180deg)}
+.cj-card-detail{display:none;margin-top:8px;animation:cjFade .2s ease}
+.cj-card.open .cj-card-detail{display:block}
+@keyframes cjFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.cj-count-actions{display:flex;gap:14px;align-items:center}
 .cj-scale{list-style:none;display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 12px}
 .cj-scale li{font-size:.78rem;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--border);border-radius:7px;padding:3px 10px}
 .cj-block{margin-top:11px}
@@ -594,6 +623,27 @@ def main():
     chips.forEach(function(x){x.classList.toggle('active',x.getAttribute('data-era')==='all');});
     render();
   });
+
+  // 卡片折叠 / 展开全部（默认收起详情，降低长内容压迫感）
+  var toggles=[].slice.call(list.querySelectorAll('.cj-card-toggle'));
+  function setToggleTxt(btn,open){ var t=btn.querySelector('.cj-toggle-txt'); if(t)t.textContent=open?'收起详情':'展开详情'; }
+  toggles.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var card=btn.closest('.cj-card');
+      var open=card.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+      setToggleTxt(btn,open);
+    });
+  });
+  var expandBtn=document.getElementById('cjExpand');
+  if(expandBtn){
+    expandBtn.addEventListener('click',function(){
+      var open=expandBtn.textContent.indexOf('收起')===-1;
+      cards.forEach(function(c){ c.classList.toggle('open',open); });
+      toggles.forEach(function(b){ b.setAttribute('aria-expanded',open?'true':'false'); setToggleTxt(b,open); });
+      expandBtn.textContent=open?'收起全部':'展开全部';
+    });
+  }
 
   [].slice.call(document.querySelectorAll('.cj-era-card')).forEach(function(card){
     card.addEventListener('click',function(){
@@ -712,7 +762,10 @@ __ERACARDS__
 
     <div class="cj-count-bar">
       <span>共 <strong id="cjShown">__CARDCOUNT__</strong> 条记录</span>
-      <button class="cj-reset" id="cjReset">重置筛选</button>
+      <span class="cj-count-actions">
+        <button class="cj-reset" id="cjExpand">展开全部</button>
+        <button class="cj-reset" id="cjReset">重置筛选</button>
+      </span>
     </div>
 
     <div class="cj-list" id="cjList">

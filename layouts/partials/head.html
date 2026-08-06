@@ -92,8 +92,10 @@
 
 <!-- 预加载关键资源 -->
 <link rel="preload" href="{{ .Site.BaseURL }}js/app.js" as="script">
+{{ if .IsHome }}<link rel="preload" as="image" href="{{ .Site.BaseURL }}img/tesla/model3/front.webp" fetchpriority="high">{{ end }}
 <link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="preconnect" href="//busuanzi.ibruce.info">
 <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 
 <!-- 关键CSS内联（首屏渲染不再阻塞） -->
@@ -178,14 +180,25 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <!-- 不蒜子统计 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<!-- 主脚本 & 灯箱 & 搜索 & 分享（均异步加载，不阻塞渲染） -->
+<!-- 核心脚本：首屏交互/视觉，defer 不阻塞解析 -->
 <script src="{{ .Site.BaseURL }}js/app.js" defer></script>
-<script src="{{ .Site.BaseURL }}js/lightbox.js" defer></script>
-<script src="{{ .Site.BaseURL }}js/search.js" defer></script>
-<script src="{{ .Site.BaseURL }}js/share.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/animations.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/auto_news_loader.js" defer></script>
-<script src="{{ .Site.BaseURL }}js/changelog.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/daily-pick.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/status-bubble.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/updates.js" defer></script>
+<!-- 非关键交互脚本（搜索/灯箱/分享/更新日志）：空闲时再加载，释放首屏主线程，缓解卡顿 -->
+<script>
+(function () {
+  function loadDeferred() {
+    ['js/lightbox.js', 'js/search.js', 'js/share.js', 'js/changelog.js'].forEach(function (s) {
+      var e = document.createElement('script');
+      e.src = '{{ .Site.BaseURL }}' + s;
+      e.defer = true;
+      document.head.appendChild(e);
+    });
+  }
+  if ('requestIdleCallback' in window) requestIdleCallback(loadDeferred, { timeout: 2500 });
+  else window.addEventListener('load', loadDeferred);
+})();
+</script>

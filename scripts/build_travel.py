@@ -221,7 +221,7 @@ def build_region_card(key, region_full, visits, latest_id, open_default=False):
     """把同一地区的多次出行聚合为一张可展开的大卡；卡内按年份分小段。"""
     # 卡封面用该地区最近一次出行的封面（visits 已按年份倒序，[0] 为最新）
     cover = resolve_photo(visits[0].get('cover', ''))
-    bg = '<img class="tl-trip-bg" src="%s" alt="">' % esc(cover) if cover else ''
+    bg = '<img class="tl-trip-bg" src="%s" alt="%s 出行封面">' % (esc(cover), esc(key)) if cover else ''
 
     years = ' '.join(str(v.get('year', '')) for v in visits)
     year_disp = ' / '.join(str(v.get('year', '')) for v in visits)

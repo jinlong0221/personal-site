@@ -212,7 +212,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <button id="nextBtn" aria-label="下一个月">下月 →</button>
       <button id="todayBtn" class="today-btn" aria-label="回到今天">今天</button>
     </div>
-    <table class="cal-table">
+    <div class="table-wrapper">
+<table class="cal-table">
       <thead>
         <tr>
           <th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th>
@@ -220,6 +221,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       </thead>
       <tbody id="calBody"></tbody>
     </table>
+</div>
     <div class="day-detail" id="dayDetail">
       <h3 id="detailTitle"></h3>
       <div class="detail-grid" id="detailGrid"></div>

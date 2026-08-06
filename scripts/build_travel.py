@@ -50,6 +50,22 @@ def resolve_photo(rel_path):
     return None
 
 
+def img_dims(rel_path):
+    """返回 (w, h)；本地生成时用，PIL 不可用时优雅跳过（返回 (None, None)）。"""
+    if not rel_path:
+        return (None, None)
+    try:
+        from PIL import Image
+        base = os.path.join(PHOTO_DIR, rel_path)
+        p = base if rel_path.lower().endswith(('webp', 'jpg', 'jpeg', 'png', 'gif')) else base + '.webp'
+        if os.path.exists(p):
+            with Image.open(p) as im:
+                return im.size
+    except Exception:
+        pass
+    return (None, None)
+
+
 def stars_html(rating):
     try:
         r = int(rating)
@@ -176,10 +192,12 @@ def build_visit_section(t, latest_id):
         s = resolve_photo(src)
         if s:
             cap = ('<figcaption class="tl-photo-cap">%s</figcaption>' % esc(caption)) if caption else ''
+            w, h = img_dims(src)
+            dim_attr = ' width="%d" height="%d"' % (w, h) if (w and h) else ''
             gallery_imgs.append('<figure class="tl-photo">'
                                 '<a href="%s" target="_blank" rel="noopener">'
-                                '<img src="%s" alt="%s" loading="lazy" decoding="async"></a>%s</figure>'
-                                % (esc(s), esc(s), esc(caption or title), cap))
+                                '<img src="%s" alt="%s" loading="lazy" decoding="async"%s></a>%s</figure>'
+                                % (esc(s), esc(s), esc(caption or title), dim_attr, cap))
     if gallery_imgs:
         gallery_html = ('<div class="tl-gallery-block">'
                         '<div class="tl-gallery-title">沿途 · %d 张（点开看大图）</div>'
@@ -220,8 +238,11 @@ def build_visit_section(t, latest_id):
 def build_region_card(key, region_full, visits, latest_id, open_default=False):
     """把同一地区的多次出行聚合为一张可展开的大卡；卡内按年份分小段。"""
     # 卡封面用该地区最近一次出行的封面（visits 已按年份倒序，[0] 为最新）
-    cover = resolve_photo(visits[0].get('cover', ''))
-    bg = '<img class="tl-trip-bg" src="%s" alt="%s 出行封面">' % (esc(cover), esc(key)) if cover else ''
+    cover_raw = visits[0].get('cover', '')
+    cover = resolve_photo(cover_raw)
+    cw, ch = img_dims(cover_raw)
+    cover_dim = ' width="%d" height="%d"' % (cw, ch) if (cw and ch) else ''
+    bg = '<img class="tl-trip-bg" src="%s" alt="%s 出行封面"%s>' % (esc(cover), esc(key), cover_dim) if cover else ''
 
     years = ' '.join(str(v.get('year', '')) for v in visits)
     year_disp = ' / '.join(str(v.get('year', '')) for v in visits)

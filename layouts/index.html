@@ -7,12 +7,15 @@
   <!-- ===== 报头：竖排书法刊名 + 朱砂印 ===== -->
   <header class="lx-masthead">
     <div class="lx-mh-row">
-      <div class="lx-mh-title lx-brush">龙兄知识库</div>
+      <svg class="lx-mh-title" viewBox="0 0 60 256" role="img" aria-label="龙兄知识库" xmlns="http://www.w3.org/2000/svg">
+        <text x="30" y="28">龙</text><text x="30" y="76">兄</text><text x="30" y="124">知</text><text x="30" y="172">识</text><text x="30" y="220">库</text>
+      </svg>
       <div class="lx-mh-meta">
-        <div class="lx-mh-kicker">LONGXIONG KNOWLEDGE BASE · SINCE 2024</div>
         <div class="lx-mh-sub">一个人写的知识库。买过的、踩过的、查证过的，都记在这里——不追热点，不写空话，每条都能溯源。</div>
-        <div class="lx-mh-date">{{ now.Format "2006年1月2日" }}</div>
-        <div class="lx-mh-solar">每日更新 · 活的知识库</div>
+        <div class="lx-mh-foot">
+          <span class="lx-mh-date">{{ now.Format "2006年1月2日" }}</span>
+          <span class="lx-mh-solar">每日更新 · 活的知识库</span>
+        </div>
       </div>
     </div>
     <svg class="lx-seal lx-seal-lg lx-mh-seal" viewBox="0 0 100 100"><rect x="3" y="3" width="94" height="94" rx="8" fill="none" stroke="currentColor" stroke-width="6"/><text class="lx-brush" x="30" y="31" font-size="34" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text><text class="lx-brush" x="70" y="31" font-size="34" fill="currentColor" text-anchor="middle" dominant-baseline="middle">兄</text><text class="lx-brush" x="30" y="71" font-size="34" fill="currentColor" text-anchor="middle" dominant-baseline="middle">知</text><text class="lx-brush" x="70" y="71" font-size="34" fill="currentColor" text-anchor="middle" dominant-baseline="middle">库</text></svg>

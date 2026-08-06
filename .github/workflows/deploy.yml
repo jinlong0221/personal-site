@@ -91,13 +91,14 @@ jobs:
           echo "待推送 URL 数量："; wc -l < urls.txt || echo 0
 
       - name: 推送到百度（主动推送接口）
-        if: ${{ secrets.BAIDU_PUSH_TOKEN != '' }}
         env:
           BAIDU_TOKEN: ${{ secrets.BAIDU_PUSH_TOKEN }}
         run: |
           python3 - <<'PY'
           import os, urllib.request
           token = os.environ.get("BAIDU_TOKEN", "")
+          if not token:
+              print("BAIDU_PUSH_TOKEN 未配置，跳过"); raise SystemExit
           urls = [l.strip() for l in open("urls.txt") if l.strip()]
           if not urls:
               print("无 URL 可推送，跳过"); raise SystemExit
@@ -111,13 +112,14 @@ jobs:
           PY
 
       - name: 推送到 Bing IndexNow
-        if: ${{ secrets.INDEXNOW_KEY != '' }}
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
           python3 - <<'PY'
           import os, json, urllib.request
           key = os.environ.get("INDEXNOW_KEY", "")
+          if not key:
+              print("INDEXNOW_KEY 未配置，跳过"); raise SystemExit
           urls = [l.strip() for l in open("urls.txt") if l.strip()]
           if not urls:
               print("无 URL 可推送，跳过"); raise SystemExit

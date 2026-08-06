@@ -8,7 +8,7 @@ url: "/herbs/chenxiang.html"
 # 沉香鉴别完全指南
 
 <div class="cx-hero">
-  <img src="/img/herbs/chenxiang/chenxiang_p1_0.webp" alt="天然沉香实拍" class="cx-hero-img" fetchpriority="high">
+  <img src="/img/herbs/chenxiang/chenxiang_p1_0.webp" alt="天然沉香实拍" class="cx-hero-img" width="1200" height="800" fetchpriority="high" decoding="async">
   <span class="cx-hero-badge">实拍 · 非 AI 生成</span>
 </div>
 
@@ -108,3 +108,5 @@ url: "/herbs/chenxiang.html"
 </div>
 
 *（详细市场行情数据持续更新中）*
+
+<p class="cx-update" style="margin-top:24px;font-size:0.85rem;color:var(--text-muted);">最后更新：2026-08-06</p>

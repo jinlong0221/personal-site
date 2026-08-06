@@ -112,13 +112,18 @@
       .replace(/"/g, '&quot;');
   }
 
-  // 绑定按钮（如果有）
-  document.addEventListener('DOMContentLoaded', function () {
+  // 绑定按钮（如果有）——兼容延迟加载：DOM 已就绪则立即绑定
+  function bindShareBtn() {
     var btn = document.getElementById('shareBtn');
     if (btn) {
       btn.addEventListener('click', openShareModal);
     }
-  });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindShareBtn);
+  } else {
+    bindShareBtn();
+  }
 
   // 暴露给全局（供外链调用）
   window.openShareModal = openShareModal;

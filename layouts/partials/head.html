@@ -4,6 +4,15 @@
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 <meta name="keywords" content="{{ with .Keywords }}{{ . }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
 <link rel="canonical" href="{{ .Permalink }}">
+<!-- 收录基建：显式声明可被索引与跟随链接 -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<!-- RSS 发现：便于订阅与搜索引擎发现内容流 -->
+<link rel="alternate" type="application/rss+xml" title="龙兄知识库 RSS" href="{{ .Site.BaseURL }}index.xml">
+<!-- 搜索引擎站长验证（在对应平台获取验证码填入 hugo.toml 的 [params.seo]，留空则不输出该行） -->
+{{ with .Site.Params.seo.googleVerify }}<meta name="google-site-verification" content="{{ . }}">{{ end }}
+{{ with .Site.Params.seo.bingVerify }}<meta name="msvalidate.01" content="{{ . }}">{{ end }}
+{{ with .Site.Params.seo.baiduVerify }}<meta name="baidu-site-verification" content="{{ . }}">{{ end }}
+{{ with .Site.Params.seo.yandexVerify }}<meta name="yandex-verification" content="{{ . }}">{{ end }}
 <link rel="icon" type="image/svg+xml" href="{{ .Site.BaseURL }}favicon.svg">
 
 <!-- Open Graph -->
@@ -54,6 +63,22 @@
       ]
     }
     {{ end }}
+  ]
+}
+</script>
+
+<!-- 组织 / 站点实体结构化数据（增强搜索引擎对站点主体的识别与权威度） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "龙兄知识库",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ .Site.BaseURL }}favicon.svg",
+  "image": "{{ .Site.BaseURL }}img/og-image.png",
+  "description": "{{ .Site.Params.description }}",
+  "sameAs": [
+    "https://github.com/{{ .Site.Params.github }}"
   ]
 }
 </script>

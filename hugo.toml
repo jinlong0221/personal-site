@@ -24,6 +24,13 @@ uglyURLs = true
   baiduAnalytics = "04913e92799dc86649938ea8f5eb4b78"
   pagefind = true
 
+# 搜索引擎站长验证（在对应平台获取验证码后填入，留空则 head.html 不输出对应 meta 标签）
+[params.seo]
+  googleVerify = ""   # Google Search Console -> 资源设置 -> 验证方式(HTML 标记) 的 content
+  bingVerify   = ""   # Bing Webmaster Tools -> 顶部 msvalidate.01 的值
+  baiduVerify  = ""   # 百度搜索资源平台 -> 站点管理 -> 验证 -> HTML 标签 的 content
+  yandexVerify = ""   # Yandex Webmaster -> 验证 -> meta 标签 的 content
+
 # Pagefind 搜索
 [outputs]
   home = ["HTML", "RSS", "JSON", "SITEMAP"]  # JSON 给 Pagefind 用

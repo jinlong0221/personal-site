@@ -73,3 +73,66 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # 部署后自动推送 sitemap 到搜索引擎（解决"幽灵站"不收录问题）
+  # 密钥未配置时对应步骤自动跳过，不会报错；配置方法见提交说明。
+  notify-search-engines:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 拉取线上 sitemap URL 列表
+        run: |
+          curl -s --max-time 30 https://longxiong.vip/sitemap.xml \
+            | grep -oP '(?<=<loc>)[^<]+' > urls.txt || true
+          echo "待推送 URL 数量："; wc -l < urls.txt || echo 0
+
+      - name: 推送到百度（主动推送接口）
+        if: ${{ secrets.BAIDU_PUSH_TOKEN != '' }}
+        env:
+          BAIDU_TOKEN: ${{ secrets.BAIDU_PUSH_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import os, urllib.request
+          token = os.environ.get("BAIDU_TOKEN", "")
+          urls = [l.strip() for l in open("urls.txt") if l.strip()]
+          if not urls:
+              print("无 URL 可推送，跳过"); raise SystemExit
+          body = ("\n".join(urls)).encode("utf-8")
+          api = f"http://data.zz.baidu.com/urls?site=longxiong.vip&token={token}"
+          req = urllib.request.Request(api, data=body, headers={"Content-Type": "text/plain"})
+          try:
+              print("百度推送返回：", urllib.request.urlopen(req, timeout=20).read().decode("utf-8")[:200])
+          except Exception as e:
+              print("百度推送异常：", e)
+          PY
+
+      - name: 推送到 Bing IndexNow
+        if: ${{ secrets.INDEXNOW_KEY != '' }}
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          python3 - <<'PY'
+          import os, json, urllib.request
+          key = os.environ.get("INDEXNOW_KEY", "")
+          urls = [l.strip() for l in open("urls.txt") if l.strip()]
+          if not urls:
+              print("无 URL 可推送，跳过"); raise SystemExit
+          payload = {
+              "host": "longxiong.vip",
+              "key": key,
+              "keyLocation": f"https://longxiong.vip/{key}.txt",
+              "urlList": urls,
+          }
+          data = json.dumps(payload).encode("utf-8")
+          req = urllib.request.Request(
+              "https://www.bing.com/indexnow", data=data,
+              headers={"Content-Type": "application/json"})
+          try:
+              print("IndexNow 返回：", urllib.request.urlopen(req, timeout=20).read().decode("utf-8")[:200])
+          except Exception as e:
+              print("IndexNow 异常：", e)
+          PY

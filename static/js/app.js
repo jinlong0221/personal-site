@@ -123,6 +123,29 @@ function updateThemeIcon(t){
 })();
 
 // ============================================================
+// 区域Z - 移动端表格横向滚动包裹 [MOBILE-FIX]
+// 宽表格(.m-table min-width:640px / .scoreline-table 400px / .changelog-table 600px)
+// 在窄屏会横向溢出被 overflow-x:hidden 裁切。把未包裹的表格装入 .table-wrapper
+// (已有 overflow-x:auto + 首列 sticky + 滚动提示)，统一修复所有内容页表格。
+// ============================================================
+(function(){
+  function wrapTables(){
+    var tables = document.querySelectorAll(
+      '.content-body table, table.m-table, table.scoreline-table, .changelog-table table'
+    );
+    Array.prototype.forEach.call(tables, function(t){
+      if(t.closest('.table-wrapper')) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'table-wrapper';
+      t.parentNode.insertBefore(wrap, t);
+      wrap.appendChild(t);
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wrapTables);
+  else wrapTables();
+})();
+
+// ============================================================
 // 区域D - 搜索已拆分至 js/search.js 独立加载 [六-1]
 // ============================================================
 

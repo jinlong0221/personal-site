@@ -280,6 +280,9 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
  background:var(--nav-bg); backdrop-filter:blur(12px);
  border-bottom:1px solid var(--border); z-index:199;
  padding:12px 20px; flex-direction:column; gap:4px;
+ /* [MOBILE-FIX] 矮屏手机菜单项过多时内部滚动，避免底部链接被裁切/够不到 */
+ max-height: calc(100dvh - var(--nav-height));
+ overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;
 }
 .mobile-nav.open { display:flex; }
 /* [BUG-FIX:三-2] 移动端汉堡菜单：放大触屏点击区域，文字不溢出 */
@@ -4011,6 +4014,7 @@ body.dark .new-badge {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-height: 2.4em;
 }
 .mag-feat-news-item {
   font-size: .78rem;
@@ -4494,4 +4498,51 @@ body.dark .new-badge {
   .content-body .cx-steps { grid-template-columns: repeat(2, 1fr); }
   .content-body .cx-compare { grid-template-columns: 1fr; }
   .content-body .cx-channels { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   移动端适配补全 [MOBILE-FIX]
+   - 杂志首页网格在手机端收拢，避免卡片过窄拥挤
+   - 刘海屏/灵动岛安全区（env(safe-area-inset-*)）适配
+   - 导航栏在极窄屏(≤320px)不挤压汉堡按钮
+   ============================================================ */
+
+/* 导航栏操作区不被压缩，保证汉堡按钮始终可见 */
+.nav-actions { flex-shrink: 0; }
+/* Logo 在极窄屏可收缩省略，避免把右侧按钮挤出可视区 */
+.navbar .logo { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+/* 杂志首页网格：平板双列、手机单列，恢复正常阅读宽度 */
+@media (max-width: 768px) {
+  .mag-featured { grid-template-columns: 1fr; }
+  .mag-grid-mixed { grid-template-columns: 1fr; }
+  .mag-grid { grid-template-columns: repeat(2, 1fr); }
+  .mag-grid-h { grid-template-columns: repeat(2, 1fr); }
+  .mag-feat-main { min-height: 220px; }
+  .mag-feat-overlay { padding: 90px 18px 18px; }
+  .mag-feat-overlay h2 { font-size: 1.25rem; }
+}
+@media (max-width: 480px) {
+  .mag-grid { grid-template-columns: 1fr; }
+  .mag-grid-h { grid-template-columns: 1fr; }
+  .mag-feat-overlay h2 { font-size: 1.1rem; }
+  .mag-section-title { letter-spacing: 1px; font-size: 0.72rem; }
+}
+
+/* 刘海屏/灵动岛安全区适配（viewport-fit=cover 生效时才有值，否则为 0） */
+@supports (padding: env(safe-area-inset-top)) {
+  .navbar {
+    height: calc(var(--nav-height) + env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+  }
+  .mobile-nav {
+    top: calc(var(--nav-height) + env(safe-area-inset-top));
+    max-height: calc(100dvh - var(--nav-height) - env(safe-area-inset-top));
+  }
+  body { padding-top: calc(var(--nav-height) + env(safe-area-inset-top)); }
+  .theme-toggle, .back-to-top {
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    right: calc(16px + env(safe-area-inset-right));
+  }
+  .search-modal { padding-top: calc(5vh + env(safe-area-inset-top)); }
 }

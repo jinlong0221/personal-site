@@ -93,7 +93,6 @@
 <!-- 预加载关键资源 -->
 <link rel="preload" href="{{ .Site.BaseURL }}fonts/lx-brush.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ .Site.BaseURL }}js/app.js" as="script">
-{{ if .IsHome }}<link rel="preload" as="image" href="{{ .Site.BaseURL }}img/tesla/model3/front.webp" fetchpriority="high">{{ end }}
 <link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
 <link rel="preconnect" href="//busuanzi.ibruce.info">
@@ -145,17 +144,6 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .lx-pulse{width:7px;height:7px;border-radius:50%;background:var(--cinnabar);position:relative;flex:0 0 auto}
 .lx-pulse::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--cinnabar);animation:lx-pl 2s ease-out infinite}
 @keyframes lx-pl{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.7);opacity:0}}
-.lx-lead{position:relative;display:block;text-decoration:none;color:inherit;margin-top:12px;border:1px solid var(--rule-soft);border-radius:2px;overflow:hidden;background:var(--ink-3)}
-.lx-lead-img{width:100%;height:212px;object-fit:cover;display:block}
-.lx-lead-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,7,5,.05),rgba(8,7,5,.92))}
-.lx-lead-body{position:absolute;left:0;right:0;bottom:0;padding:16px;display:flex;align-items:flex-end;gap:14px}
-.lx-lead-vt{writing-mode:vertical-rl;text-orientation:upright;font-family:var(--brush);font-size:clamp(22px,5vw,32px);letter-spacing:3px;color:#F5EFE0;text-shadow:0 3px 16px rgba(0,0,0,.75);line-height:1.05;flex:0 0 auto}
-.lx-lead-txt{flex:1;padding-bottom:2px;min-width:0}
-.lx-lead-tag{display:inline-block;font-size:10.5px;letter-spacing:2.5px;color:#F5EFE0;border:1px solid rgba(245,239,224,.5);padding:1.5px 8px;border-radius:2px;margin-bottom:8px}
-.lx-lead-txt p{font-size:12.5px;color:rgba(245,239,224,.72);line-height:1.6;margin-bottom:8px}
-.lx-lead-news{display:flex;flex-direction:column;gap:5px;border-top:1px solid rgba(245,239,224,.16);padding-top:8px}
-.lx-lead-news span{font-size:11.5px;color:rgba(245,239,224,.62);line-height:1.5;display:flex;gap:7px}
-.lx-lead-news i{font-style:normal;color:var(--gold);flex:0 0 auto;font-size:10.5px;padding-top:1px}
 .lx-pick{position:relative;display:flex;gap:12px;margin-top:22px;padding:12px;text-decoration:none;color:inherit;background:var(--ink-3);border:1px solid var(--rule-soft);border-radius:2px}
 .lx-pick img{width:82px;height:82px;object-fit:cover;border-radius:2px;flex:0 0 auto;background:var(--ink-4)}
 .lx-pick .pb{flex:1;min-width:0;padding-top:2px}

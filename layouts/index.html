@@ -35,21 +35,6 @@
     <div class="lx-ticker-inner" id="tickerInner"><a href="#">加载中…</a></div>
   </div>
 
-  <!-- ===== 头条：特斯拉专题 ===== -->
-  <a class="lx-lead" href="tesla.html">
-    <img class="lx-lead-img" src="img/tesla/model3/front.webp" alt="特斯拉专题" width="800" height="450" fetchpriority="high" decoding="async">
-    <div class="lx-lead-shade"></div>
-    <svg class="lx-seal lx-lead-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="44" fill="currentColor" text-anchor="middle" dominant-baseline="middle">特</text></svg>
-    <div class="lx-lead-body">
-      <div class="lx-lead-vt lx-brush">特斯拉</div>
-      <div class="lx-lead-txt">
-        <span class="lx-lead-tag">头条</span>
-        <p>车载配件 · 充电指南 · 用车科普 · 新品追踪</p>
-        <div class="lx-lead-news" id="magFeatNews"><span>加载最新资讯…</span></div>
-      </div>
-    </div>
-  </a>
-
   <h2 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">知识专题</h2>
 
   <!-- ===== 今日一荐 ===== -->
@@ -286,27 +271,6 @@
       inner.innerHTML = '<a href="#" style="flex:0 0 auto;padding:0 28px 0 0;font-size:.78rem;color:var(--tx-2);text-decoration:none;height:34px;line-height:34px;">动态加载失败</a>';
       inner.innerHTML = inner.innerHTML + inner.innerHTML;
     });
-})();
-</script>
-<script>
-// 特斯拉专题卡新闻加载
-(function(){
-  var container = document.getElementById('magFeatNews');
-  if(!container) return;
-  fetch('/tesla-news.json?t=' + Date.now())
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if(!data || !data.news || !data.news.length) return;
-      var news = data.news.slice(0, 2);
-      var html = '';
-      news.forEach(function(item){
-        html += '<span>' +
-          '<i>' + (item.date||'') + '</i>' +
-          (item.content||'').substring(0, 80) + '...</span>';
-      });
-      container.innerHTML = html;
-    })
-    .catch(function(){ container.innerHTML = '<span>特斯拉最新动态加载中…</span>'; });
 })();
 </script>
 {{ end }}

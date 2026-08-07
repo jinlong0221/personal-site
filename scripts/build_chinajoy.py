@@ -285,8 +285,8 @@ HALL = [
 
 SOURCES = [
     ('ChinaJoy 官方网站', 'https://www.chinajoy.net/'),
-    ('ChinaJoy 英文官网（历届规模数据）', 'http://en.chinajoy.net/'),
-    ('中国音像与数字出版协会 · 游戏工委', 'http://www.cgigc.com.cn/'),
+    ('ChinaJoy 英文官网（历届规模数据）', 'https://en.chinajoy.net/'),
+    ('中国音像与数字出版协会 · 游戏工委', 'https://www.cgigc.com.cn/'),
 ]
 
 
@@ -835,7 +835,8 @@ __SOURCES__
     },
     {
       "@type": "Article",
-      "name": "ChinaJoy 成长史 - 龙兄知识库",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "ChinaJoy 成长史 - 龙兄知识库",
       "url": "https://longxiong.vip/chinajoy.html",
       "description": "从 2004 年首届到 2026 年第 23 届，ChinaJoy 逐届档案：主题、规模、参展品牌与代表游戏。"
     }

@@ -154,4 +154,14 @@ url: "/herbs/chenxiang.html"
   <a class="tile-gold cx-channel" href="/zisha.html" rel="noopener">紫砂艺术<span>壶型 · 泥料 · 名家</span></a>
 </div>
 
+## 资料来源与核验说明
+
+<div class="cx-disclaimer" style="line-height:1.85;">
+  <p><b>药用与基原认定</b>：沉香药材的法定基原、性状与用法用量以 <a href="https://ydz.chp.org.cn/" target="_blank" rel="noopener">《中华人民共和国药典》在线数据库（国家药典委员会）</a> 收载内容为准；本文涉及功效的表述均为典籍与药典的科普转述，<b>不构成用药建议</b>，用药请遵医嘱。</p>
+  <p><b>行情与产区</b>：价格区间参考 <a href="https://www.zyctd.com/" target="_blank" rel="noopener">中药材天地网</a> 公开报价，并与亳州 / 安国 / 玉林三大药材市场的实地询价互相印证；行情每日波动，本文数字仅表示成文时的区间量级。</p>
+  <p><b>物种与保护状态（三处独立官方来源互证）</b>：<a href="https://www.forestry.gov.cn/c/www/ztq/584985.jhtml" target="_blank" rel="noopener">国家林业和草原局</a>公开资料载明，CITES 附录 II 收录沉香属植物 23 种、拟沉香属 8 种；<a href="https://www.forestry.gov.cn/html/lykj/lykj_1708/20200910085214307757451/file/20200910094144626605314.pdf" target="_blank" rel="noopener">林业行业标准《沉香质量分级》编制说明</a>进一步指出，沉香属为 CITES 附录 II 管制物种，其中土沉香列入《国家重点保护野生植物名录》II 级保护；海关系统多次通报的查获案例亦印证「沉香属所有物种均属附录 II」。<b>因此除持《允许进出口证明书》并依法办理海关手续外，禁止携带、邮寄、贸易沉香及其制品进出境</b>，海外代购风险极高。植物学名称核对参考 <a href="https://www.iplant.cn/" target="_blank" rel="noopener">植物智·中国植物物种信息系统</a>。</p>
+  <p><b>一手内容</b>：香韵描述、盘玩手感与踩坑经验为本人一手记录，主观性较强，不作为鉴定依据；鉴别请以专业机构出具的检测报告为准。</p>
+  <p style="color:var(--text-muted);font-size:.9em;">以上外部链接均于 2026-08-07 人工核验可达。</p>
+</div>
+
 <p class="cx-update" style="margin-top:24px;font-size:0.85rem;color:var(--text-muted);">最后更新：2026-08-07</p>

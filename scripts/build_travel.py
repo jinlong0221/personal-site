@@ -242,7 +242,7 @@ def build_region_card(key, region_full, visits, latest_id, open_default=False):
     cover = resolve_photo(cover_raw)
     cw, ch = img_dims(cover_raw)
     cover_dim = ' width="%d" height="%d"' % (cw, ch) if (cw and ch) else ''
-    bg = '<img class="tl-trip-bg" src="%s" alt="%s 出行封面"%s>' % (esc(cover), esc(key), cover_dim) if cover else ''
+    bg = '<img class="tl-trip-bg" src="%s" alt="%s 出行封面" loading="lazy"%s>' % (esc(cover), esc(key), cover_dim) if cover else ''
 
     years = ' '.join(str(v.get('year', '')) for v in visits)
     year_disp = ' / '.join(str(v.get('year', '')) for v in visits)

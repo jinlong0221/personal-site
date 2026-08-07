@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>万年历 - 龙兄知识库</title>
-  <meta name="description" content="万年历查询，含农历、干支、节气、吉凶宜忌。" />
+  <meta name="description" content="万年历查询工具，含公历农历对照、干支纪年、二十四节气与每日吉凶宜忌，帮你快速查看传统历法与节气信息。">
   <style id="critical-css">/* CRITICAL CSS - Above the fold */
 :root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
 [data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
@@ -157,7 +157,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <li><a href="zisha.html">紫砂艺术</a></li>
       <li><a href="console.html">游戏主机</a></li>
       <li class="nav-more-wrap">
-        <a href="javascript:void(0)" class="nav-more-btn" onclick="var w=this.parentElement;w.classList.toggle('open');event.stopPropagation();">更多 ▾</a>
+        <button type="button" class="nav-more-btn" onclick="var w=this.parentElement;w.classList.toggle('open');event.stopPropagation();">更多 ▾</button>
         <div class="nav-more-dropdown">
           <a href="travel.html">家庭旅行</a>
           <a href="chinajoy.html">ChinaJoy 成长史</a>
@@ -227,7 +227,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     </table>
 </div>
     <div class="day-detail" id="dayDetail">
-      <h3 id="detailTitle"></h3>
+      <h2 id="detailTitle"></h2>
       <div class="detail-grid" id="detailGrid"></div>
       <div id="detailYiJi"></div>
     </div>

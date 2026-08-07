@@ -1,7 +1,7 @@
 ---
 title: "沉香鉴别完全指南"
 date: 2026-04-18
-description: "沉香鉴别入门知识，含天然沉香与人工沉香的区别、燃烧测试方法、市场行情参考"
+description: "沉香鉴别入门知识：系统讲解天然沉香与人工沉香的核心区别、燃烧嗅闻测试方法、产地特征与市场行情参考，并附实拍图解与避坑要点。"
 url: "/herbs/chenxiang.html"
 ---
 
@@ -80,17 +80,17 @@ url: "/herbs/chenxiang.html"
 ## 二、鉴别方法
 
 <div class="method-tile">
-  <h4>1. 燃烧测试（最可靠）</h4>
+  <h3>1. 燃烧测试（最可靠）</h3>
   <p><strong>天然沉香</strong>：白烟、层次分明的甜香、不刺鼻。<br><strong>假沉香</strong>：黑烟、刺鼻臭味、化学气味。</p>
 </div>
 
 <div class="method-tile">
-  <h4>2. 掂重手感</h4>
+  <h3>2. 掂重手感</h3>
   <p>天然沉香因油脂丰富，入手有明显压手感觉。</p>
 </div>
 
 <div class="method-tile">
-  <h4>3. 热针测试</h4>
+  <h3>3. 热针测试</h3>
   <p>烧热针尖刺入，香气扩散快且持久为真。</p>
 </div>
 

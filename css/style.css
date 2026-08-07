@@ -4728,20 +4728,6 @@ body.dark .new-badge {
 .lx-wrap{padding:0 14px;max-width:var(--max-width);margin:0 auto}
 @media(min-width:768px){.lx-wrap{padding:0 24px}}
 
-/* 头条 lead */
-.lx-lead{position:relative;display:block;text-decoration:none;color:inherit;margin-top:12px;border:1px solid var(--rule-soft);border-radius:2px;overflow:hidden;background:var(--ink-3)}
-.lx-lead-img{width:100%;height:212px;object-fit:cover;display:block;filter:saturate(.94) contrast(1.03)}
-.lx-lead-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,7,5,.05) 0%,rgba(8,7,5,.5) 52%,rgba(8,7,5,.92) 100%)}
-.lx-lead-body{position:absolute;left:0;right:0;bottom:0;padding:16px;display:flex;align-items:flex-end;gap:14px}
-.lx-lead-vt{writing-mode:vertical-rl;text-orientation:upright;font-family:var(--brush);font-size:clamp(22px,5vw,32px);letter-spacing:3px;color:#F5EFE0;text-shadow:0 3px 16px rgba(0,0,0,.75);line-height:1.05;flex:0 0 auto}
-.lx-lead-txt{flex:1;padding-bottom:2px;min-width:0}
-.lx-lead-tag{display:inline-block;font-size:10.5px;letter-spacing:2.5px;color:#F5EFE0;border:1px solid rgba(245,239,224,.5);padding:1.5px 8px;border-radius:2px;margin-bottom:8px}
-.lx-lead-txt p{font-size:12.5px;color:rgba(245,239,224,.72);line-height:1.6;margin-bottom:8px}
-.lx-lead-news{display:flex;flex-direction:column;gap:5px;border-top:1px solid rgba(245,239,224,.16);padding-top:8px}
-.lx-lead-news span{font-size:11.5px;color:rgba(245,239,224,.62);line-height:1.5;display:flex;gap:7px}
-.lx-lead-news i{font-style:normal;color:var(--gold);flex:0 0 auto;font-size:10.5px;padding-top:1px}
-.lx-lead-seal{position:absolute;top:12px;right:12px;transform:rotate(7deg);opacity:.92}
-
 /* 今日一荐 */
 .lx-pick{position:relative;display:flex;gap:12px;margin-top:22px;padding:12px;text-decoration:none;color:inherit;background:var(--ink-3);border:1px solid var(--rule-soft);border-radius:2px}
 .lx-pick::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-1.6deg);width:104px;height:19px;background:var(--gold-soft);border-left:1px dashed var(--gold);border-right:1px dashed var(--gold);opacity:.9}
@@ -4777,7 +4763,6 @@ body.dark .new-badge {
 @media(min-width:768px){
   .lx-deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));overflow:visible;gap:11px;padding-bottom:4px}
   .lx-card{flex:none;scroll-snap-align:none}
-  .lx-lead-img{height:300px}
 }
 
 /* 数据条 */

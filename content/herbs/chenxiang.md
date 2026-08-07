@@ -14,6 +14,12 @@ url: "/herbs/chenxiang.html"
 
 <p class="cx-lead">沉香是一种珍贵的天然香料和中药材，因其稀缺性和高价值，市场上充斥着大量假冒伪劣产品。以下为龙兄整理的鉴别知识，供学习参考。</p>
 
+<ul class="cx-meta">
+  <li><span class="cx-meta-k">参考来源</span><span class="cx-meta-v">龙兄实测 + <a href="https://www.zyctd.com/" target="_blank" rel="noopener">中药材天地网</a></span></li>
+  <li><span class="cx-meta-k">鉴别要点</span><span class="cx-meta-v">看油脂 · 掂重量 · 闻香气 · 烧验真（四大法）</span></li>
+  <li><span class="cx-meta-k">最后更新</span><span class="cx-meta-v">2026-08-07</span></li>
+</ul>
+
 ## 快速鉴别口诀（先看这个）
 
 <div class="cx-steps">
@@ -24,6 +30,15 @@ url: "/herbs/chenxiang.html"
 </div>
 
 > **一看油脂，二掂重量，三闻香气，四烧验真**
+
+<div class="cx-guide">
+  <p class="cx-guide-h">新手入门路径（三步走）</p>
+  <ol>
+    <li><b>第一步 · 看懂产区与香韵</b>：先认星洲系 / 惠安系差异，建立自己的香气基准（见上文行情与权威渠道）。</li>
+    <li><b>第二步 · 掌握四大鉴别法</b>：看油脂线、掂重量、闻层次、烧验真，逐步排除假货。</li>
+    <li><b>第三步 · 学选购与养护</b>：认准正规渠道，避开低价化工料，长期佩戴养出包浆。</li>
+  </ol>
+</div>
 
 ## 一、天然沉香 vs 人工沉香
 
@@ -109,4 +124,34 @@ url: "/herbs/chenxiang.html"
 
 *（详细市场行情数据持续更新中）*
 
-<p class="cx-update" style="margin-top:24px;font-size:0.85rem;color:var(--text-muted);">最后更新：2026-08-06</p>
+## 常见疑问（FAQ）
+
+<div class="cx-faq">
+  <details open>
+    <summary>新手该从哪种沉香入手？</summary>
+    <div class="cx-faq-a">建议先从入门级野生沉香或人工种植料熟悉香气与手感，再逐步接触棋楠级。切勿一开始就追高价奇楠，容易踩坑。</div>
+  </details>
+  <details>
+    <summary>沉香手串怎么盘才不会毁？</summary>
+    <div class="cx-faq-a">沉香忌大汗与油污，日常净手轻盘即可；奇楠质软油脂高，更应"轻养、慢养"，避免暴力揉搓堵塞毛孔、冲淡香气。</div>
+  </details>
+  <details>
+    <summary>网上买沉香如何避假？</summary>
+    <div class="cx-faq-a">认准正规渠道与实体市场比价，警惕"完美低价"；坚持先鉴后付，优先选择可提供溯源与鉴定的商家。</div>
+  </details>
+  <details>
+    <summary>沉香能戴着洗澡吗？</summary>
+    <div class="cx-faq-a">不建议。香水、沐浴露、汗水都会干扰香韵并损伤油脂，长期佩戴也应在清洁干燥环境下养护。</div>
+  </details>
+</div>
+
+## 相关阅读
+
+<div class="cx-channels">
+  <a class="tile-gold cx-channel" href="/herbs.html" rel="noopener">中药材图鉴<span>同源 · 鉴别与功效</span></a>
+  <a class="tile-gold cx-channel" href="/health-tea.html" rel="noopener">养生茶<span>体质对应 · 四季调理</span></a>
+  <a class="tile-gold cx-channel" href="/bracelet.html" rel="noopener">文玩手串<span>材质养护 · 真假分辨</span></a>
+  <a class="tile-gold cx-channel" href="/zisha.html" rel="noopener">紫砂艺术<span>壶型 · 泥料 · 名家</span></a>
+</div>
+
+<p class="cx-update" style="margin-top:24px;font-size:0.85rem;color:var(--text-muted);">最后更新：2026-08-07</p>

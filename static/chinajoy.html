@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
 <link rel="preload" href="js/app.js" as="script">
@@ -281,7 +281,7 @@ var _hmt = _hmt || [];
   <a href="zisha.html">紫砂艺术</a>
   <a href="console.html">游戏主机</a>
   <a href="travel.html">家庭旅行</a>
-  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="chinajoy.html" class="active">ChinaJoy 成长史</a>
   <a href="guanghui.html">光辉电力</a>
   <a href="gaokao.html">高考查分</a>
   <a href="pitfalls.html">踩坑记</a>
@@ -1086,9 +1086,18 @@ var _hmt = _hmt || [];
 
   <div class="cj-note">
     <h3>关于本页</h3>
-    <p>本页梳理 ChinaJoy 自创办以来的届次与规模，数据来自官方公告与公开报道（早期届次口径不一，取较常引用的一组），并随每届展会持续更新。</p>
-    <p>现场照片均来自 <b>Wikimedia Commons</b>（CC BY-SA / CC BY 等自由许可），未找到真图的届次以纯文字展示；本站<b>绝不使用 AI 生成图</b>。</p>
-    <p>参考资料：<a href="https://www.chinajoy.net/" target="_blank" rel="noopener noreferrer">ChinaJoy 官网</a> · <a href="https://en.chinajoy.net/" target="_blank" rel="noopener noreferrer">英文官网（历届数据）</a> · <a href="https://www.cgigc.com.cn/" target="_blank" rel="noopener noreferrer">中国音数协游戏工委</a></p>
+    <ul>
+      <li>数据来源于 ChinaJoy 官方公告与公开报道，早期届次的观众数字在不同信源间存在口径差异，本页取较常被引用的一组。</li>
+      <li>本页随每届展会持续更新，「每日自动更新」区块会跟进展会与行业的最新动态。</li>
+      <li>每届卡片顶部可放一张该届的<b>真实现场照片</b>：把照片放到 <code>static/img/chinajoy/&lt;年份&gt;.jpg</code>（或 .png/.webp），重新构建后会在对应卡片顶部自动显示。本站<b>绝不使用 AI 生成图</b>，照片必须是真实拍摄的现场图。</li>
+      <li>本页现有现场照片均来自 <b>Wikimedia Commons</b>（依据 CC BY-SA / CC BY 等自由许可使用），按年份一一对应；原作者与原始文件名见各图 alt 属性。未找到对应年份真图的届次暂以纯文字展示，绝不张冠李戴。</li>
+      <li>参考资料：</li>
+    </ul>
+    <ul>
+    <li><a href="https://www.chinajoy.net/" target="_blank" rel="noopener noreferrer">ChinaJoy 官方网站</a></li>
+    <li><a href="https://en.chinajoy.net/" target="_blank" rel="noopener noreferrer">ChinaJoy 英文官网（历届规模数据）</a></li>
+    <li><a href="https://www.cgigc.com.cn/" target="_blank" rel="noopener noreferrer">中国音像与数字出版协会 · 游戏工委</a></li>
+    </ul>
     <p style="margin-top:10px">最后更新时间：<span id="lastNewsUpdate">2026-08-06</span></p>
   </div>
 
@@ -1130,7 +1139,8 @@ var _hmt = _hmt || [];
     },
     {
       "@type": "Article",
-      "name": "ChinaJoy 成长史 - 龙兄知识库",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "ChinaJoy 成长史 - 龙兄知识库",
       "url": "https://longxiong.vip/chinajoy.html",
       "description": "从 2004 年首届到 2026 年第 23 届，ChinaJoy 逐届档案：主题、规模、参展品牌与代表游戏。"
     }

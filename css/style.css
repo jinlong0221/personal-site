@@ -649,6 +649,7 @@ body .navbar { position: sticky; top: 0; flex-shrink: 0; }
  transition:background var(--transition);
 }
 .method-tile h4 { color:var(--gold); margin-bottom:8px; }
+.method-tile h3 { color:var(--gold); margin-bottom:8px; }
 .phase-num, .step-num { font-size:1.5rem; font-weight:900; color:var(--blue); }
 .phase-name, .step-name { font-size:1.1rem; font-weight:700; color:var(--text); margin:4px 0; }
 .phase-desc, .step-desc { font-size:0.9rem; color:var(--text-secondary); }
@@ -811,8 +812,9 @@ footer a:hover { color:var(--gold-light); }
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
 
 .page-meta { margin:32px 0 16px; padding:16px; background:var(--bg-secondary); border-radius:var(--radius); }
-.page-meta .source { font-size:0.85rem; color:var(--text-muted); }
+.page-meta .source { font-size:0.85rem; color:var(--text-muted); line-height:1.75; }
 .page-meta .source a { color:var(--gold); }
+.page-meta .source strong { color:var(--text-secondary); }
 .page-meta .update-time { font-size:0.8rem; color:var(--text-muted); margin-top:4px; }
 
 .section { margin:24px 0; }
@@ -4511,10 +4513,99 @@ body.dark .new-badge {
   margin-top: 4px;
 }
 .content-body .cx-channel:hover { background: var(--bg-secondary); }
+
+/* ---- P0 新增：可信度信息条 / 新手引导 / 折叠 FAQ（沉香样板，纯 CSS 无 JS 依赖） ---- */
+.content-body .cx-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+}
+.content-body .cx-meta li {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+.content-body .cx-meta .cx-meta-k {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.content-body .cx-meta .cx-meta-v {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.content-body .cx-meta .cx-meta-v a { color: var(--gold); }
+
+.content-body .cx-guide {
+  background: linear-gradient(135deg, rgba(201,168,76,0.10), rgba(201,168,76,0.02));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+.content-body .cx-guide-h {
+  font-weight: 700;
+  color: var(--gold);
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+.content-body .cx-guide ol { margin: 0; padding-left: 22px; }
+.content-body .cx-guide li {
+  margin: 8px 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.content-body .cx-guide li b { color: var(--text); }
+
+.content-body .cx-faq {
+  margin: 20px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.content-body .cx-faq details { border-bottom: 1px solid var(--border); }
+.content-body .cx-faq details:last-child { border-bottom: none; }
+.content-body .cx-faq summary {
+  cursor: pointer;
+  padding: 14px 18px;
+  padding-right: 40px;
+  font-weight: 600;
+  color: var(--text);
+  list-style: none;
+  position: relative;
+}
+.content-body .cx-faq summary::-webkit-details-marker { display: none; }
+.content-body .cx-faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.content-body .cx-faq details[open] summary::after { content: "\2212"; }
+.content-body .cx-faq .cx-faq-a {
+  padding: 0 18px 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 0.92rem;
+}
+
 @media (max-width: 640px) {
   .content-body .cx-steps { grid-template-columns: repeat(2, 1fr); }
   .content-body .cx-compare { grid-template-columns: 1fr; }
   .content-body .cx-channels { grid-template-columns: 1fr; }
+  .content-body .cx-meta { grid-template-columns: 1fr; }
 }
 
 /* ============================================================
@@ -4668,6 +4759,7 @@ body.dark .new-badge {
 .lx-card-top{position:absolute;top:0;left:0;right:0;height:2px}
 .lx-card-ico{margin-bottom:11px;opacity:.92;color:var(--tx-2)}
 .lx-card h4{font-family:var(--serif);font-size:15.5px;font-weight:600;letter-spacing:.8px;margin-bottom:6px;color:var(--tx)}
+.lx-card h3{font-family:var(--serif);font-size:15.5px;font-weight:600;letter-spacing:.8px;margin-bottom:6px;color:var(--tx)}
 .lx-card p{font-size:11.5px;color:var(--tx-2);line-height:1.7;min-height:38px}
 .lx-card-ft{display:flex;align-items:center;justify-content:space-between;margin-top:11px;padding-top:9px;border-top:1px dashed var(--rule-soft)}
 .lx-card-go{font-size:11px;color:var(--tx-3);letter-spacing:1.5px}

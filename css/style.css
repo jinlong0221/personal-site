@@ -815,6 +815,14 @@ footer a:hover { color:var(--gold-light); }
 .page-meta .source { font-size:0.85rem; color:var(--text-muted); line-height:1.75; }
 .page-meta .source a { color:var(--gold); }
 .page-meta .source strong { color:var(--text-secondary); }
+
+/* 正文内联引用上标 */
+.ref { font-size:0.62em; vertical-align:super; line-height:0; margin-left:2px; font-weight:700; }
+.ref a { color:var(--gold); text-decoration:none; padding:0 1px; }
+.ref a:hover { text-decoration:underline; }
+.ref-note { font-size:0.76rem; color:var(--text-muted); margin:8px 0 0; line-height:1.7; }
+.content-body .cx-ref { font-size:0.62em; vertical-align:super; line-height:0; margin-left:2px; font-weight:700; color:var(--gold); }
+.src-anchor { scroll-margin-top:90px; }
 .page-meta .update-time { font-size:0.8rem; color:var(--text-muted); margin-top:4px; }
 
 .section { margin:24px 0; }

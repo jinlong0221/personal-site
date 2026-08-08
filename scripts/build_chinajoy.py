@@ -20,6 +20,57 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'static', 'chinajoy.html')
 DONOR = os.path.join(ROOT, 'static', 'herbs.html')
 
+
+def _cj_img_size(path):
+    """纯 Python 读取图片真实宽高（PNG/JPEG/WEBP），无需第三方库。"""
+    try:
+        with open(path, 'rb') as f:
+            sig = f.read(64)
+        if sig[:8] == b'\x89PNG\r\n\x1a\n':
+            import struct
+            return struct.unpack('>II', sig[16:24])
+        if sig[:2] == b'\xff\xd8':
+            with open(path, 'rb') as f:
+                f.read(2)
+                while True:
+                    b = f.read(1)
+                    if not b:
+                        return None
+                    if b != b'\xff':
+                        f.read(1)
+                        continue
+                    mk = f.read(1)
+                    if mk in (b'\xc0', b'\xc1', b'\xc2', b'\xc3', b'\xc5', b'\xc6', b'\xc7',
+                              b'\xc9', b'\xca', b'\xcb', b'\xcd', b'\xce', b'\xcf'):
+                        f.read(3)
+                        import struct
+                        h, w = struct.unpack('>HH', f.read(4))
+                        return w, h
+                    else:
+                        import struct
+                        ln = struct.unpack('>H', f.read(2))[0]
+                        f.read(ln - 2)
+        if sig[:4] == b'RIFF' and sig[8:12] == b'WEBP':
+            fmt = sig[12:16]
+            if fmt == b'VP8X':
+                return int.from_bytes(sig[24:27], 'little') + 1, int.from_bytes(sig[27:30], 'little') + 1
+            if fmt == b'VP8L':
+                b = sig[21:26]
+                return ((b[1] & 0x3F) << 8 | b[0]) + 1, ((b[2] << 4) | (b[1] >> 6)) + 1
+            if fmt == b'VP8 ':
+                import struct
+                return struct.unpack('<H', sig[26:28])[0] & 0x3fff, struct.unpack('<H', sig[28:30])[0] & 0x3fff
+    except Exception:
+        return None
+    return None
+
+
+def img_dims(rel_path):
+    """返回 (w, h)；纯 Python 读取，无第三方依赖。rel_path 为站点根下相对路径（如 img/chinajoy/2025.webp）。"""
+    if not rel_path:
+        return (None, None)
+    return _cj_img_size(os.path.join(ROOT, 'static', rel_path)) or (None, None)
+
 LAST_UPDATE = '2026-08-06'
 
 # ---------------------------------------------------------------- 年代分期
@@ -338,9 +389,10 @@ def build_edition_card(e):
     photo = resolve_photo(e['year'])
     if photo:
         alt = ('第 %d 届 ChinaJoy 现场' % e['no']) if not is_gap else 'ChinaJoy 展会现场'
+        cw, ch = img_dims(photo) or (320, 200)
         parts.append('  <div class="cj-card-img-wrap">'
                      '<img class="cj-card-img" src="%s" alt="%s" loading="lazy" '
-                     'width="320" height="200" decoding="async"></div>' % (esc(photo), esc(alt)))
+                     'width="%d" height="%d" decoding="async"></div>' % (esc(photo), esc(alt), cw, ch))
     parts.append('  <div class="cj-card-head">')
     parts.append('    <div class="cj-card-no">%s</div>' % esc(badge))
     parts.append('    <div class="cj-card-meta">')

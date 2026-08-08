@@ -50,20 +50,57 @@ def resolve_photo(rel_path):
     return None
 
 
+def _pure_img_size(path):
+    """纯 Python 读取图片真实宽高（PNG/JPEG/WEBP），无需第三方库。"""
+    try:
+        with open(path, 'rb') as f:
+            sig = f.read(64)
+        if sig[:8] == b'\x89PNG\r\n\x1a\n':
+            import struct
+            return struct.unpack('>II', sig[16:24])
+        if sig[:2] == b'\xff\xd8':
+            with open(path, 'rb') as f:
+                f.read(2)
+                while True:
+                    b = f.read(1)
+                    if not b:
+                        return None
+                    if b != b'\xff':
+                        f.read(1)
+                        continue
+                    mk = f.read(1)
+                    if mk in (b'\xc0', b'\xc1', b'\xc2', b'\xc3', b'\xc5', b'\xc6', b'\xc7',
+                              b'\xc9', b'\xca', b'\xcb', b'\xcd', b'\xce', b'\xcf'):
+                        f.read(3)
+                        import struct
+                        h, w = struct.unpack('>HH', f.read(4))
+                        return w, h
+                    else:
+                        import struct
+                        ln = struct.unpack('>H', f.read(2))[0]
+                        f.read(ln - 2)
+        if sig[:4] == b'RIFF' and sig[8:12] == b'WEBP':
+            fmt = sig[12:16]
+            if fmt == b'VP8X':
+                return int.from_bytes(sig[24:27], 'little') + 1, int.from_bytes(sig[27:30], 'little') + 1
+            if fmt == b'VP8L':
+                b = sig[21:26]
+                return ((b[1] & 0x3F) << 8 | b[0]) + 1, ((b[2] << 4) | (b[1] >> 6)) + 1
+            if fmt == b'VP8 ':
+                import struct
+                return struct.unpack('<H', sig[26:28])[0] & 0x3fff, struct.unpack('<H', sig[28:30])[0] & 0x3fff
+    except Exception:
+        return None
+    return None
+
+
 def img_dims(rel_path):
-    """返回 (w, h)；本地生成时用，PIL 不可用时优雅跳过（返回 (None, None)）。"""
+    """返回 (w, h)；纯 Python 读取，无第三方依赖，始终可用。"""
     if not rel_path:
         return (None, None)
-    try:
-        from PIL import Image
-        base = os.path.join(PHOTO_DIR, rel_path)
-        p = base if rel_path.lower().endswith(('webp', 'jpg', 'jpeg', 'png', 'gif')) else base + '.webp'
-        if os.path.exists(p):
-            with Image.open(p) as im:
-                return im.size
-    except Exception:
-        pass
-    return (None, None)
+    base = os.path.join(PHOTO_DIR, rel_path)
+    p = base if rel_path.lower().endswith(('webp', 'jpg', 'jpeg', 'png', 'gif')) else base + '.webp'
+    return _pure_img_size(p) or (None, None)
 
 
 def stars_html(rating):
@@ -104,8 +141,9 @@ def build_city_card(c, trip_id):
     # 照片：仅真实存在才显示；否则优雅占位（绝不用 AI 图）
     photo = resolve_photo(c.get('photo', ''))
     if photo:
-        img = ('<img class="tl-city-img" src="%s" alt="%s 旅行照" loading="lazy" '
-               'width="320" height="200" decoding="async">' % (esc(photo), esc(name)))
+        cw, ch = img_dims(c.get('photo', ''))
+        dim = ' width="%d" height="%d"' % (cw, ch) if (cw and ch) else ' width="320" height="200"'
+        img = ('<img class="tl-city-img" src="%s" alt="%s 旅行照" loading="lazy"%s decoding="async">' % (esc(photo), esc(name), dim))
         img_wrap = '<div class="tl-city-img-wrap has-photo">%s</div>' % img
     else:
         img_wrap = ('<div class="tl-city-img-wrap tl-photo-empty">'
@@ -319,8 +357,9 @@ def main():
     latest_trip = max(trips, key=sort_key) if trips else {}
     cover = resolve_photo(latest_trip.get('cover', ''))
     if cover:
-        hero_img = ('<img class="tl-hero-img" src="%s" alt="家庭旅行封面" fetchpriority="high" '
-                    'width="1200" height="480" decoding="async">' % esc(cover))
+        hw, hh = img_dims(latest_trip.get('cover', ''))
+        hero_dim = ' width="%d" height="%d"' % (hw, hh) if (hw and hh) else ' width="1200" height="480"'
+        hero_img = ('<img class="tl-hero-img" src="%s" alt="家庭旅行封面" fetchpriority="high"%s decoding="async">' % (esc(cover), hero_dim))
     else:
         hero_img = ('<div class="tl-hero-img tl-photo-empty">'
                     '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">'

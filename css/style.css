@@ -4822,3 +4822,49 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .mobile-nav a{display:block;padding:13px 4px;color:var(--tx);font-size:.95rem;border-bottom:1px solid var(--rule-soft)}
 .mobile-nav a:hover,.mobile-nav a.active{color:var(--cinnabar)}
 .mobile-nav a.active{background:var(--cinnabar-soft)}
+
+/* ===== 阅读窄栏（降低长行/宽栏阅读疲劳，P0 排版修复）===== */
+/* 1) #main-content 模板：正文（段落/列表/引用/标题）收 760px 阅读列，左缘与容器对齐 */
+#main-content p,
+#main-content ul,
+#main-content ol,
+#main-content blockquote,
+#main-content h2,
+#main-content h3,
+#main-content h4,
+#main-content h5,
+#main-content h6 {
+  max-width: 760px;
+}
+/* 以下满宽容器保持 1200px 栅格/英雄区/折叠新闻，不被收窄 */
+#main-content .card-grid p,
+#main-content .card-grid ul,
+#main-content .card-grid ol,
+#main-content .card-grid blockquote,
+#main-content .card-grid h2,
+#main-content .card-grid h3,
+#main-content .card-grid h4,
+#main-content .card-grid h5,
+#main-content .card-grid h6,
+#main-content .timeline p,
+#main-content .timeline-content p,
+#main-content .timeline-content h2,
+#main-content .timeline-content h3,
+#main-content .home-collapsible p,
+#main-content .news-content p,
+#main-content .hero p,
+#main-content .hero-grid p,
+#main-content .section-header p,
+#main-content .tile-grid p,
+#main-content .tile p {
+  max-width: none;
+}
+
+/* 2) .detail-section 模板（games/console 子页、zisha 详情页）：整体居中 860px 列 */
+.detail-section {
+  max-width: 860px;
+  margin: 0 auto;
+}
+@media (max-width: 920px) {
+  .detail-section { padding: 0 20px; }
+}

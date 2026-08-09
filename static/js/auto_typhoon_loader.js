@@ -1,14 +1,16 @@
-/* 台风实时监测 - 数据驱动渲染 + 动态走向示意图
+/* 台风实时监测 - 数据驱动渲染 + 动态走向图
  * 数据源: /typhoon.json（由每日自动化更新）
  * 无第三方依赖，纯 SVG + 原生 JS
  */
 (function () {
   'use strict';
 
+  var SVGNS = 'http://www.w3.org/2000/svg';
+
   /* ============ 投影参数 ============ */
   var LON_MIN = 115.5, LON_MAX = 128.0;
   var LAT_MIN = 24.5, LAT_MAX = 36.2;
-  var VB_W = 760, VB_H = 620, PAD_L = 52, PAD_T = 30, PAD_R = 26, PAD_B = 34;
+  var VB_W = 760, VB_H = 600, PAD_L = 48, PAD_T = 26, PAD_R = 22, PAD_B = 30;
   var PLOT_W = VB_W - PAD_L - PAD_R;
   var PLOT_H = VB_H - PAD_T - PAD_B;
   var SHEYANG = { lat: 33.776, lon: 120.26, name: '射阳' };
@@ -16,8 +18,6 @@
   function lon2x(lon) { return PAD_L + (lon - LON_MIN) / (LON_MAX - LON_MIN) * PLOT_W; }
   function lat2y(lat) { return PAD_T + (LAT_MAX - lat) / (LAT_MAX - LAT_MIN) * PLOT_H; }
   function n(v) { return Math.round(v * 100) / 100; }
-
-  /* 公里 -> 画布像素（按纬度方向换算，1° 纬度 ≈ 111km） */
   function km2px(km) { return km / 111 / (LAT_MAX - LAT_MIN) * PLOT_H; }
 
   function haversine(lat1, lon1, lat2, lon2) {
@@ -33,6 +33,15 @@
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  /* 距离语义分级：决定颜色与措辞 */
+  function distGrade(km) {
+    if (km == null) return { cls: 'none', label: '—' };
+    if (km < 150) return { cls: 'crit', label: '正面影响' };
+    if (km < 400) return { cls: 'high', label: '距离很近' };
+    if (km < 800) return { cls: 'mid', label: '外围影响' };
+    return { cls: 'low', label: '距离较远' };
+  }
+
   /* ============ 中国东部海岸线（简化，自北向南） ============ */
   var COAST = [
     [37.4, 122.7], [36.9, 122.5], [36.6, 121.4], [36.9, 120.3], [37.0, 119.4],
@@ -46,11 +55,8 @@
     [26.40, 119.80], [26.05, 119.65], [25.60, 119.75], [25.30, 119.30], [25.00, 118.80],
     [24.70, 118.30]
   ];
-
-  /* 内陆封口（西边界，让陆地成为闭合面） */
   var INLAND_CLOSE = [[24.70, LON_MIN], [37.4, LON_MIN]];
 
-  /* 城市标注 */
   var CITIES = [
     { n: '连云港', lat: 34.60, lon: 119.16 },
     { n: '盐城', lat: 33.35, lon: 120.16 },
@@ -72,92 +78,81 @@
     var wr = cur.windRadius || {};
     var s = [];
 
-    s.push('<svg class="tf-track-svg" viewBox="0 0 ' + VB_W + ' ' + VB_H + '" ' +
+    s.push('<svg class="tf-track-svg" id="tfSvg" viewBox="0 0 ' + VB_W + ' ' + VB_H + '" ' +
       'preserveAspectRatio="xMidYMid meet" role="img" ' +
       'aria-label="台风白海豚路径示意图，含射阳位置标注">');
 
-    /* --- defs：渐变、滤镜、动画 --- */
     s.push('<defs>');
     s.push('<linearGradient id="tfSea" x1="0" y1="0" x2="0" y2="1">' +
       '<stop offset="0%" stop-color="#0d2b45"/><stop offset="100%" stop-color="#123a5c"/></linearGradient>');
     s.push('<linearGradient id="tfLand" x1="0" y1="0" x2="0" y2="1">' +
       '<stop offset="0%" stop-color="#243a2e"/><stop offset="100%" stop-color="#1d3026"/></linearGradient>');
-    s.push('<radialGradient id="tfEye"><stop offset="0%" stop-color="#fff" stop-opacity=".95"/>' +
-      '<stop offset="55%" stop-color="#ffd28a" stop-opacity=".55"/>' +
+    s.push('<radialGradient id="tfEyeG"><stop offset="0%" stop-color="#fff" stop-opacity=".95"/>' +
+      '<stop offset="55%" stop-color="#ffd28a" stop-opacity=".5"/>' +
       '<stop offset="100%" stop-color="#ff6b35" stop-opacity="0"/></radialGradient>');
     s.push('<filter id="tfGlow" x="-60%" y="-60%" width="220%" height="220%">' +
-      '<feGaussianBlur stdDeviation="3.2" result="b"/>' +
+      '<feGaussianBlur stdDeviation="3" result="b"/>' +
       '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>');
-    s.push('<filter id="tfSoft" x="-40%" y="-40%" width="180%" height="180%">' +
-      '<feGaussianBlur stdDeviation="1.6"/></filter>');
     s.push('</defs>');
 
-    /* --- 海洋底 --- */
     s.push('<rect x="0" y="0" width="' + VB_W + '" height="' + VB_H + '" fill="url(#tfSea)"/>');
 
-    /* --- 经纬网格 --- */
-    var g = ['<g class="tf-grid" stroke="#ffffff" stroke-opacity=".07" stroke-width="1">'];
+    /* 网格 */
+    var g = ['<g stroke="#ffffff" stroke-opacity=".07" stroke-width="1">'];
     var labels = [];
     for (var lo = 116; lo <= 128; lo += 2) {
       var gx = lon2x(lo);
       if (gx < PAD_L - 1 || gx > VB_W - PAD_R + 1) continue;
       g.push('<line x1="' + n(gx) + '" y1="' + PAD_T + '" x2="' + n(gx) + '" y2="' + (VB_H - PAD_B) + '"/>');
-      labels.push('<text x="' + n(gx) + '" y="' + (VB_H - PAD_B + 16) + '" class="tf-axis" text-anchor="middle">' + lo + '°E</text>');
+      labels.push('<text x="' + n(gx) + '" y="' + (VB_H - PAD_B + 15) + '" class="tf-axis" text-anchor="middle">' + lo + '°E</text>');
     }
     for (var la = 26; la <= 36; la += 2) {
       var gy = lat2y(la);
       if (gy < PAD_T - 1 || gy > VB_H - PAD_B + 1) continue;
       g.push('<line x1="' + PAD_L + '" y1="' + n(gy) + '" x2="' + (VB_W - PAD_R) + '" y2="' + n(gy) + '"/>');
-      labels.push('<text x="' + (PAD_L - 8) + '" y="' + n(gy + 4) + '" class="tf-axis" text-anchor="end">' + la + '°N</text>');
+      labels.push('<text x="' + (PAD_L - 7) + '" y="' + n(gy + 4) + '" class="tf-axis" text-anchor="end">' + la + '°N</text>');
     }
     g.push('</g>');
     s.push(g.join(''));
 
-    /* --- 陆地 --- */
-    var landPts = COAST.concat(INLAND_CLOSE);
-    var landPath = landPts.map(function (p, i) {
+    /* 陆地 + 海岸 */
+    var landPath = COAST.concat(INLAND_CLOSE).map(function (p, i) {
       return (i ? 'L' : 'M') + n(lon2x(p[1])) + ' ' + n(lat2y(p[0]));
     }).join(' ') + ' Z';
-    s.push('<path d="' + landPath + '" fill="url(#tfLand)" stroke="none"/>');
-    /* 海岸高亮线 */
+    s.push('<path d="' + landPath + '" fill="url(#tfLand)"/>');
     var coastLine = COAST.map(function (p, i) {
       return (i ? 'L' : 'M') + n(lon2x(p[1])) + ' ' + n(lat2y(p[0]));
     }).join(' ');
-    s.push('<path d="' + coastLine + '" fill="none" stroke="#7fd4c1" stroke-opacity=".55" stroke-width="1.6"/>');
-
+    s.push('<path d="' + coastLine + '" fill="none" stroke="#7fd4c1" stroke-opacity=".5" stroke-width="1.5"/>');
     s.push(labels.join(''));
 
-    /* --- 城市点 --- */
-    var cg = ['<g class="tf-cities">'];
+    /* 城市 */
+    var cg = ['<g>'];
     CITIES.forEach(function (c) {
       var cx = lon2x(c.lon), cy = lat2y(c.lat);
-      cg.push('<circle cx="' + n(cx) + '" cy="' + n(cy) + '" r="2.2" fill="#cfe4ff" fill-opacity=".7"/>');
+      cg.push('<circle cx="' + n(cx) + '" cy="' + n(cy) + '" r="2.2" fill="#cfe4ff" fill-opacity=".65"/>');
       cg.push('<text x="' + n(cx + 5) + '" y="' + n(cy + 3.5) + '" class="tf-city">' + c.n + '</text>');
     });
     cg.push('</g>');
     s.push(cg.join(''));
 
-    /* --- 风圈（以当前中心为圆心） --- */
-    var ccx = lon2x(cur.lon), ccy = lat2y(cur.lat);
+    /* 风圈（group 可整体平移） */
+    s.push('<g id="tfRings">');
     if (wr.r7) {
-      s.push('<g class="tf-rings">');
-      s.push('<circle cx="' + n(ccx) + '" cy="' + n(ccy) + '" r="' + n(km2px(wr.r7)) +
-        '" fill="#4da6e8" fill-opacity=".10" stroke="#7cc3f5" stroke-opacity=".45" stroke-width="1" stroke-dasharray="5 4">' +
-        '<animate attributeName="fill-opacity" values=".10;.18;.10" dur="4s" repeatCount="indefinite"/></circle>');
-      if (wr.r10) {
-        s.push('<circle cx="' + n(ccx) + '" cy="' + n(ccy) + '" r="' + n(km2px(wr.r10)) +
-          '" fill="#ffb02e" fill-opacity=".12" stroke="#ffc65c" stroke-opacity=".5" stroke-width="1" stroke-dasharray="4 3">' +
-          '<animate attributeName="fill-opacity" values=".12;.22;.12" dur="3.2s" repeatCount="indefinite"/></circle>');
-      }
-      if (wr.r12) {
-        s.push('<circle cx="' + n(ccx) + '" cy="' + n(ccy) + '" r="' + n(km2px(wr.r12)) +
-          '" fill="#e81123" fill-opacity=".16" stroke="#ff5a68" stroke-opacity=".6" stroke-width="1">' +
-          '<animate attributeName="fill-opacity" values=".16;.30;.16" dur="2.4s" repeatCount="indefinite"/></circle>');
-      }
-      s.push('</g>');
+      s.push('<circle class="tf-ring r7" cx="0" cy="0" r="' + n(km2px(wr.r7)) +
+        '" fill="#4da6e8" fill-opacity=".09" stroke="#7cc3f5" stroke-opacity=".4" stroke-width="1" stroke-dasharray="5 4"/>');
     }
+    if (wr.r10) {
+      s.push('<circle class="tf-ring r10" cx="0" cy="0" r="' + n(km2px(wr.r10)) +
+        '" fill="#ffb02e" fill-opacity=".11" stroke="#ffc65c" stroke-opacity=".45" stroke-width="1" stroke-dasharray="4 3"/>');
+    }
+    if (wr.r12) {
+      s.push('<circle class="tf-ring r12" cx="0" cy="0" r="' + n(km2px(wr.r12)) +
+        '" fill="#e81123" fill-opacity=".15" stroke="#ff5a68" stroke-opacity=".55" stroke-width="1"/>');
+    }
+    s.push('</g>');
 
-    /* --- 路径：实况段 / 预报段 --- */
+    /* 路径：实况 / 预报 */
     var obs = [], fc = [];
     track.forEach(function (p) { (p.forecast ? fc : obs).push(p); });
     function toPath(arr) {
@@ -166,243 +161,307 @@
       }).join(' ');
     }
     if (obs.length > 1) {
-      var op = toPath(obs);
-      s.push('<path class="tf-path-obs" d="' + op + '" fill="none" stroke="#ff8c00" ' +
+      s.push('<path id="tfPathObs" d="' + toPath(obs) + '" fill="none" stroke="#ff8c00" ' +
         'stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#tfGlow)"/>');
     }
     if (fc.length) {
       var bridge = obs.length ? [obs[obs.length - 1]].concat(fc) : fc;
-      s.push('<path class="tf-path-fc" d="' + toPath(bridge) + '" fill="none" stroke="#5db8ff" ' +
+      s.push('<path id="tfPathFc" d="' + toPath(bridge) + '" fill="none" stroke="#5db8ff" ' +
         'stroke-width="2.6" stroke-dasharray="9 7" stroke-linecap="round"/>');
     }
 
-    /* --- 射阳连线（当前中心 -> 射阳） --- */
+    /* 射阳连线 + 距离标签（可动） */
     var sx = lon2x(SHEYANG.lon), sy = lat2y(SHEYANG.lat);
-    var distKm = haversine(SHEYANG.lat, SHEYANG.lon, cur.lat, cur.lon);
-    s.push('<line x1="' + n(ccx) + '" y1="' + n(ccy) + '" x2="' + n(sx) + '" y2="' + n(sy) + '" ' +
-      'stroke="#ffffff" stroke-opacity=".28" stroke-width="1.2" stroke-dasharray="3 5"/>');
-    var mx = (ccx + sx) / 2, my = (ccy + sy) / 2;
-    s.push('<g><rect x="' + n(mx - 34) + '" y="' + n(my - 11) + '" width="68" height="19" rx="9.5" ' +
-      'fill="#000" fill-opacity=".5"/><text x="' + n(mx) + '" y="' + n(my + 2.5) + '" ' +
-      'class="tf-distlabel" text-anchor="middle">' + distKm + ' km</text></g>');
+    s.push('<line id="tfLine" x1="0" y1="0" x2="' + n(sx) + '" y2="' + n(sy) + '" ' +
+      'stroke="#ffffff" stroke-opacity=".26" stroke-width="1.2" stroke-dasharray="3 5"/>');
+    s.push('<g id="tfDistG"><rect x="-34" y="-11" width="68" height="19" rx="9.5" fill="#000" fill-opacity=".55"/>' +
+      '<text id="tfDistT" x="0" y="3" class="tf-distlabel" text-anchor="middle">— km</text></g>');
 
-    /* --- 路径点 --- */
-    var pg = ['<g class="tf-pts">'];
+    /* 路径点 */
+    var pg = ['<g id="tfPts">'];
     track.forEach(function (p, i) {
       var x = lon2x(p.lon), y = lat2y(p.lat);
-      var isFc = !!p.forecast, isLand = !!p.landfall, isCur = !!p.current;
-      var r = isCur ? 0 : (isLand ? 5.5 : 4);
+      var isFc = !!p.forecast, isLand = !!p.landfall;
+      var r = isLand ? 5.5 : 4;
       var fill = isFc ? '#5db8ff' : (isLand ? '#e81123' : '#ffb02e');
-      if (!isCur) {
-        pg.push('<circle class="tf-pt" data-i="' + i + '" cx="' + n(x) + '" cy="' + n(y) + '" r="' + r +
-          '" fill="' + fill + '" stroke="#fff" stroke-width="1.6" stroke-opacity=".9"/>');
-      }
-      /* 命中点的时间小标签（隔点显示避免拥挤） */
-      if (isLand || isFc || i === 0) {
+      pg.push('<circle class="tf-pt" data-i="' + i + '" data-r="' + r + '" cx="' + n(x) + '" cy="' + n(y) +
+        '" r="' + r + '" fill="' + fill + '" stroke="#fff" stroke-width="1.6" stroke-opacity=".9"/>');
+      if (isLand || i === 0 || i === track.length - 1) {
         var anchor = x > VB_W * 0.72 ? 'end' : 'start';
-        var dx = anchor === 'end' ? -9 : 9;
-        pg.push('<text x="' + n(x + dx) + '" y="' + n(y - 8) + '" class="tf-ptlabel" text-anchor="' + anchor + '">' +
-          esc(p.t) + '</text>');
+        pg.push('<text x="' + n(x + (anchor === 'end' ? -9 : 9)) + '" y="' + n(y - 8) +
+          '" class="tf-ptlabel" text-anchor="' + anchor + '">' + esc(p.t) + '</text>');
       }
     });
     pg.push('</g>');
     s.push(pg.join(''));
 
-    /* --- 台风符号（旋转动画） --- */
-    s.push('<g class="tf-eye" transform="translate(' + n(ccx) + ',' + n(ccy) + ')">');
-    s.push('<circle r="26" fill="url(#tfEye)"/>');
-    s.push('<g>');
-    s.push('<animateTransform attributeName="transform" type="rotate" from="0" to="-360" dur="6s" repeatCount="indefinite"/>');
-    /* 两条旋臂 */
+    /* 台风符号（可动） */
+    s.push('<g id="tfEye">');
+    s.push('<circle r="24" fill="url(#tfEyeG)"/>');
+    s.push('<g class="tf-eye-arms">');
     s.push('<path d="M0 0 C -3 -9, -11 -13, -18 -9 C -12 -16, -2 -15, 0 0 Z" fill="#ffffff" fill-opacity=".92"/>');
     s.push('<path d="M0 0 C 3 9, 11 13, 18 9 C 12 16, 2 15, 0 0 Z" fill="#ffffff" fill-opacity=".92"/>');
     s.push('<circle r="3.4" fill="#e81123"/>');
     s.push('</g>');
-    /* 外圈脉冲 */
-    s.push('<circle r="14" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.4">' +
-      '<animate attributeName="r" values="14;30;14" dur="2.6s" repeatCount="indefinite"/>' +
-      '<animate attributeName="stroke-opacity" values=".8;0;.8" dur="2.6s" repeatCount="indefinite"/></circle>');
+    s.push('<circle class="tf-eye-wave" r="13" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.4"/>');
     s.push('</g>');
 
-    /* --- 射阳标记（重点） --- */
-    s.push('<g class="tf-sy" transform="translate(' + n(sx) + ',' + n(sy) + ')">');
-    s.push('<circle r="9" fill="none" stroke="#ff4757" stroke-width="1.5" stroke-opacity=".9">' +
-      '<animate attributeName="r" values="9;20;9" dur="2.2s" repeatCount="indefinite"/>' +
-      '<animate attributeName="stroke-opacity" values=".9;0;.9" dur="2.2s" repeatCount="indefinite"/></circle>');
+    /* 射阳标记 */
+    s.push('<g transform="translate(' + n(sx) + ',' + n(sy) + ')">');
+    s.push('<circle class="tf-sy-wave" r="9" fill="none" stroke="#ff4757" stroke-width="1.5" stroke-opacity=".9"/>');
     s.push('<circle r="6" fill="#ff4757" stroke="#fff" stroke-width="2"/>');
     s.push('<rect x="11" y="-11" width="46" height="21" rx="5" fill="#ff4757" fill-opacity=".95"/>');
     s.push('<text x="34" y="3.5" class="tf-sylabel" text-anchor="middle">射阳</text>');
     s.push('</g>');
 
-    /* --- 图例 --- */
-    var lx = PAD_L + 8, ly = PAD_T + 8;
-    s.push('<g class="tf-legend" transform="translate(' + lx + ',' + ly + ')">');
-    s.push('<rect x="0" y="0" width="150" height="112" rx="8" fill="#000" fill-opacity=".42" stroke="#fff" stroke-opacity=".12"/>');
-    s.push('<line x1="12" y1="20" x2="34" y2="20" stroke="#ff8c00" stroke-width="3.2" stroke-linecap="round"/>');
-    s.push('<text x="41" y="24" class="tf-lg">实况路径</text>');
-    s.push('<line x1="12" y1="40" x2="34" y2="40" stroke="#5db8ff" stroke-width="2.6" stroke-dasharray="6 5" stroke-linecap="round"/>');
-    s.push('<text x="41" y="44" class="tf-lg">预报路径</text>');
-    s.push('<circle cx="23" cy="59" r="5" fill="#e81123" stroke="#fff" stroke-width="1.4"/>');
-    s.push('<text x="41" y="63" class="tf-lg">登陆点</text>');
-    s.push('<circle cx="23" cy="78" r="6" fill="none" stroke="#ffc65c" stroke-width="1.2" stroke-dasharray="3 2"/>');
-    s.push('<text x="41" y="82" class="tf-lg">十级风圈</text>');
-    s.push('<circle cx="23" cy="97" r="6" fill="none" stroke="#7cc3f5" stroke-width="1.2" stroke-dasharray="4 3"/>');
-    s.push('<text x="41" y="101" class="tf-lg">七级风圈</text>');
+    /* 图例 */
+    s.push('<g transform="translate(' + (PAD_L + 6) + ',' + (PAD_T + 6) + ')">');
+    s.push('<rect x="0" y="0" width="142" height="92" rx="8" fill="#000" fill-opacity=".4" stroke="#fff" stroke-opacity=".1"/>');
+    s.push('<line x1="11" y1="19" x2="31" y2="19" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>');
+    s.push('<text x="38" y="23" class="tf-lg">实况路径</text>');
+    s.push('<line x1="11" y1="38" x2="31" y2="38" stroke="#5db8ff" stroke-width="2.4" stroke-dasharray="6 5" stroke-linecap="round"/>');
+    s.push('<text x="38" y="42" class="tf-lg">预报路径</text>');
+    s.push('<circle cx="21" cy="57" r="5" fill="#e81123" stroke="#fff" stroke-width="1.3"/>');
+    s.push('<text x="38" y="61" class="tf-lg">登陆点</text>');
+    s.push('<circle cx="21" cy="76" r="6" fill="none" stroke="#ffc65c" stroke-width="1.2" stroke-dasharray="3 2"/>');
+    s.push('<text x="38" y="80" class="tf-lg">风圈</text>');
     s.push('</g>');
 
     s.push('</svg>');
     return s.join('');
   }
 
-  /* ============ 渲染：走向图区块 ============ */
+  /* ============ 走向图区块 ============ */
   function renderTrack(d) {
     var box = document.getElementById('tf-track');
     if (!box) return;
-    var cur = d.current || {};
-    var wr = cur.windRadius || {};
-    var html = '<div class="tf-track-wrap">' + buildTrackSVG(d) + '<div class="tf-tip" id="tfTip"></div></div>';
-
-    /* 时间轴播放器 */
     var track = d.track || [];
-    html += '<div class="tf-player">' +
-      '<button type="button" class="tf-play" id="tfPlay" aria-label="播放路径">' +
+    var h = '<div class="tf-track-wrap">' + buildTrackSVG(d) + '<div class="tf-tip" id="tfTip"></div></div>';
+
+    h += '<div class="tf-player">' +
+      '<button type="button" class="tf-play" id="tfPlay" aria-label="播放台风路径">' +
       '<span class="tf-play-ico" id="tfPlayIco">▶</span><span id="tfPlayTxt">播放路径</span></button>' +
-      '<input type="range" class="tf-range" id="tfRange" min="0" max="' + (track.length - 1) +
-      '" value="' + (track.length - 1) + '" aria-label="台风路径时间轴">' +
-      '<span class="tf-range-t" id="tfRangeT">—</span>' +
-      '</div>';
-    html += '<div class="tf-step" id="tfStep"></div>';
+      '<input type="range" class="tf-range" id="tfRange" min="0" max="' + Math.max(0, track.length - 1) +
+      '" step="0.01" value="' + Math.max(0, track.length - 1) + '" aria-label="台风路径时间轴">' +
+      '<span class="tf-range-t" id="tfRangeT">—</span></div>';
+    h += '<div class="tf-step" id="tfStep"></div>';
 
-    if (wr.note) {
-      html += '<p class="tf-note"><strong>风圈说明：</strong>' + esc(wr.note) + '</p>';
+    var notes = [];
+    if ((d.current || {}).windRadius && d.current.windRadius.note) notes.push('<b>风圈</b>' + esc(d.current.windRadius.note));
+    if (d.trackNote) notes.push('<b>不确定性</b>' + esc(d.trackNote));
+    if (notes.length) {
+      h += '<details class="tf-details"><summary>图例说明与数据口径</summary><div class="tf-details-body">' +
+        '<p><b>怎么看</b>橙色实线是已走过的实况路径，蓝色虚线是概率预报（会调整）。红点是射阳，白色虚线标出台风中心到射阳的实时直线距离。同心圈是风圈半径，圈扫到哪里哪里就有对应量级的风。</p>' +
+        notes.map(function (t) { return '<p>' + t + '</p>'; }).join('') +
+        '<p><b>免责</b>本图依据公开坐标绘制的简化走向，非官方精确底图。精确路径请查中央气象台台风网。</p>' +
+        '</div></details>';
     }
-    if (d.trackNote) {
-      html += '<p class="tf-note tf-note-warn"><strong>路径不确定性：</strong>' + esc(d.trackNote) + '</p>';
-    }
-    box.innerHTML = html;
-
-    bindTrackInteractions(d);
+    box.innerHTML = h;
+    bindTrack(d);
   }
 
-  /* ============ 交互：时间轴 + 悬停 ============ */
-  function bindTrackInteractions(d) {
+  /* ============ 动画播放器（真正驱动 SVG） ============ */
+  function bindTrack(d) {
     var track = d.track || [];
+    if (track.length < 2) return;
+    var svg = document.getElementById('tfSvg');
     var range = document.getElementById('tfRange');
     var stepBox = document.getElementById('tfStep');
     var rangeT = document.getElementById('tfRangeT');
     var playBtn = document.getElementById('tfPlay');
     var playIco = document.getElementById('tfPlayIco');
     var playTxt = document.getElementById('tfPlayTxt');
-    var svg = document.querySelector('#tf-track .tf-track-svg');
-    if (!range || !stepBox || !svg) return;
+    if (!svg || !range || !stepBox) return;
 
-    var timer = null;
+    var eye = document.getElementById('tfEye');
+    var rings = document.getElementById('tfRings');
+    var line = document.getElementById('tfLine');
+    var distG = document.getElementById('tfDistG');
+    var distT = document.getElementById('tfDistT');
+    var pathObs = document.getElementById('tfPathObs');
+    var pathFc = document.getElementById('tfPathFc');
+    var pts = svg.querySelectorAll('.tf-pt');
+    var tip = document.getElementById('tfTip');
 
-    function showStep(i) {
+    /* --- 预计算：各点画布坐标 + 累计弧长 --- */
+    var XY = track.map(function (p) { return { x: lon2x(p.lon), y: lat2y(p.lat) }; });
+    var seg = [], cum = [0], total = 0;
+    for (var i = 1; i < XY.length; i++) {
+      var dx = XY[i].x - XY[i - 1].x, dy = XY[i].y - XY[i - 1].y;
+      var L = Math.sqrt(dx * dx + dy * dy);
+      seg.push(L); total += L; cum.push(total);
+    }
+    var obsCount = 0;
+    track.forEach(function (p) { if (!p.forecast) obsCount++; });
+    var obsEndLen = cum[Math.max(0, obsCount - 1)];
+
+    var LObs = pathObs ? pathObs.getTotalLength() : 0;
+    var LFc = pathFc ? pathFc.getTotalLength() : 0;
+    if (pathObs) { pathObs.style.animation = 'none'; pathObs.style.strokeDasharray = LObs; }
+    if (pathFc) { pathFc.style.animation = 'none'; pathFc.style.opacity = '1'; }
+
+    var sx = lon2x(SHEYANG.lon), sy = lat2y(SHEYANG.lat);
+
+    /* --- 核心：按连续位置 t（0 ~ track.length-1）绘制一帧 --- */
+    function setFrame(t) {
+      t = Math.max(0, Math.min(track.length - 1, t));
+      var i0 = Math.floor(t);
+      var frac = t - i0;
+      if (i0 >= track.length - 1) { i0 = track.length - 2; frac = 1; }
+      var a = track[i0], b = track[i0 + 1];
+      var lat = a.lat + (b.lat - a.lat) * frac;
+      var lon = a.lon + (b.lon - a.lon) * frac;
+      var x = lon2x(lon), y = lat2y(lat);
+
+      /* 台风符号 + 风圈跟随 */
+      if (eye) eye.setAttribute('transform', 'translate(' + n(x) + ',' + n(y) + ')');
+      if (rings) rings.setAttribute('transform', 'translate(' + n(x) + ',' + n(y) + ')');
+
+      /* 射阳连线 + 距离 */
+      var km = haversine(SHEYANG.lat, SHEYANG.lon, lat, lon);
+      if (line) { line.setAttribute('x1', n(x)); line.setAttribute('y1', n(y)); }
+      if (distG) distG.setAttribute('transform', 'translate(' + n((x + sx) / 2) + ',' + n((y + sy) / 2) + ')');
+      if (distT) distT.textContent = km + ' km';
+
+      /* 路径逐段揭示 */
+      var curLen = cum[i0] + (seg[i0] || 0) * frac;
+      if (pathObs && LObs > 0) {
+        var ro = obsEndLen > 0 ? Math.min(1, curLen / obsEndLen) : 1;
+        pathObs.style.strokeDashoffset = LObs * (1 - ro);
+      }
+      if (pathFc && LFc > 0) {
+        var fcSpan = total - obsEndLen;
+        var rf = fcSpan > 0 ? Math.max(0, Math.min(1, (curLen - obsEndLen) / fcSpan)) : 0;
+        pathFc.style.strokeDasharray = (LFc * rf) + ' ' + LFc;
+      }
+
+      /* 点的显隐与高亮 */
+      Array.prototype.forEach.call(pts, function (el) {
+        var idx = parseInt(el.getAttribute('data-i'), 10);
+        var base = parseFloat(el.getAttribute('data-r'));
+        var passed = idx <= t + 0.001;
+        el.style.opacity = passed ? '1' : '0.22';
+        var near = Math.abs(idx - t) < 0.5;
+        el.setAttribute('r', near ? base + 3 : base);
+        el.style.filter = near ? 'drop-shadow(0 0 6px rgba(255,255,255,.9))' : '';
+      });
+
+      /* 步骤卡（贴合最近的点） */
+      var si = Math.round(t);
+      renderStep(si, km);
+      if (rangeT) rangeT.textContent = track[si].t;
+    }
+
+    function renderStep(i, kmLive) {
       var p = track[i];
       if (!p) return;
-      var dist = haversine(SHEYANG.lat, SHEYANG.lon, p.lat, p.lon);
+      var km = kmLive != null ? kmLive : haversine(SHEYANG.lat, SHEYANG.lon, p.lat, p.lon);
       var badge = p.forecast
         ? '<span class="tf-step-badge fc">预报</span>'
         : (p.landfall ? '<span class="tf-step-badge land">登陆</span>' : '<span class="tf-step-badge obs">实况</span>');
       stepBox.innerHTML =
         '<div class="tf-step-head">' + badge + '<strong>' + esc(p.t) + '</strong>' +
-        '<span class="tf-step-dist">距射阳 ' + dist + ' km</span></div>' +
+        '<span class="tf-step-dist">距射阳 <b>' + km + '</b> km</span></div>' +
         '<div class="tf-step-body">' +
-        '<span><i>位置</i>' + n(p.lat) + '°N, ' + n(p.lon) + '°E</span>' +
         '<span><i>强度</i>' + esc(p.intensity || '—') + '</span>' +
         '<span><i>气压</i>' + esc(p.pressure || '—') + '</span>' +
-        '</div>' +
+        '<span><i>坐标</i>' + n(p.lat) + '°N ' + n(p.lon) + '°E</span></div>' +
         '<div class="tf-step-desc">' + esc(p.desc || '') + '</div>';
-      if (rangeT) rangeT.textContent = p.t;
-
-      /* 高亮当前点 */
-      var pts = svg.querySelectorAll('.tf-pt');
-      Array.prototype.forEach.call(pts, function (el) {
-        el.classList.toggle('on', parseInt(el.getAttribute('data-i'), 10) === i);
-      });
     }
 
+    /* --- 播放控制（requestAnimationFrame 平滑插值） --- */
+    var raf = null, playing = false;
+    var SPEED = 0.9; // 每秒推进的"点"数
+
     function stop() {
-      if (timer) { clearInterval(timer); timer = null; }
+      playing = false;
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
       if (playIco) playIco.textContent = '▶';
       if (playTxt) playTxt.textContent = '播放路径';
       if (playBtn) playBtn.classList.remove('playing');
     }
 
     function play() {
-      if (timer) { stop(); return; }
-      var i = parseInt(range.value, 10);
-      if (i >= track.length - 1) i = -1;
+      if (playing) { stop(); return; }
+      playing = true;
       if (playIco) playIco.textContent = '❚❚';
       if (playTxt) playTxt.textContent = '暂停';
       if (playBtn) playBtn.classList.add('playing');
-      timer = setInterval(function () {
-        i++;
-        if (i >= track.length) { stop(); return; }
-        range.value = i;
-        showStep(i);
-      }, 900);
+
+      var t = parseFloat(range.value);
+      /* 已在末尾 → 从头播 */
+      if (t >= track.length - 1 - 0.01) t = 0;
+      var last = null;
+      function tick(ts) {
+        if (!playing) return;
+        if (last == null) last = ts;
+        var dt = (ts - last) / 1000;
+        last = ts;
+        t += dt * SPEED;
+        if (t >= track.length - 1) {
+          t = track.length - 1;
+          range.value = t; setFrame(t); stop(); return;
+        }
+        range.value = t;
+        setFrame(t);
+        raf = requestAnimationFrame(tick);
+      }
+      raf = requestAnimationFrame(tick);
     }
 
-    range.addEventListener('input', function () { stop(); showStep(parseInt(range.value, 10)); });
     if (playBtn) playBtn.addEventListener('click', play);
+    range.addEventListener('input', function () { stop(); setFrame(parseFloat(range.value)); });
 
-    /* 路径点悬停/点击 */
-    var tip = document.getElementById('tfTip');
-    Array.prototype.forEach.call(svg.querySelectorAll('.tf-pt'), function (el) {
-      var i = parseInt(el.getAttribute('data-i'), 10);
+    /* 路径点交互 */
+    Array.prototype.forEach.call(pts, function (el) {
+      var idx = parseInt(el.getAttribute('data-i'), 10);
       el.style.cursor = 'pointer';
       el.addEventListener('mouseenter', function () {
-        var p = track[i];
+        var p = track[idx];
         if (!p || !tip) return;
-        tip.innerHTML = '<b>' + esc(p.t) + '</b>' + esc(p.intensity || '') +
-          '<br>' + esc(p.desc || '');
+        tip.innerHTML = '<b>' + esc(p.t) + '</b>' + esc(p.intensity || '') + '<br>' + esc(p.desc || '');
         tip.classList.add('show');
-        var box = svg.getBoundingClientRect();
-        var pr = el.getBoundingClientRect();
-        tip.style.left = ((pr.left + pr.width / 2 - box.left) / box.width * 100) + '%';
-        tip.style.top = ((pr.top - box.top) / box.height * 100) + '%';
+        var bb = svg.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = ((pr.left + pr.width / 2 - bb.left) / bb.width * 100) + '%';
+        tip.style.top = ((pr.top - bb.top) / bb.height * 100) + '%';
       });
       el.addEventListener('mouseleave', function () { if (tip) tip.classList.remove('show'); });
-      el.addEventListener('click', function () { stop(); range.value = i; showStep(i); });
+      el.addEventListener('click', function () { stop(); range.value = idx; setFrame(idx); });
     });
 
-    /* 初始定位到"当前"点 */
+    /* 初始：停在"当前"点 */
     var curIdx = track.length - 1;
     for (var k = 0; k < track.length; k++) { if (track[k].current) { curIdx = k; break; } }
     range.value = curIdx;
-    showStep(curIdx);
+    setFrame(curIdx);
   }
 
-  /* ============ 渲染：当前状态 ============ */
+  /* ============ 当前状态 ============ */
   function renderStatus(d) {
     var box = document.getElementById('tf-status');
     if (!box) return;
     var c = d.current || {};
-    var dist = (c.lat != null) ? haversine(SHEYANG.lat, SHEYANG.lon, c.lat, c.lon) : null;
+    var km = (c.lat != null) ? haversine(SHEYANG.lat, SHEYANG.lon, c.lat, c.lon) : null;
+    var gr = distGrade(km);
 
-    var h = '';
-    h += '<div class="tf-hero-card">';
+    var h = '<div class="tf-hero-card">';
     h += '<div class="tf-hero-main">';
     h += '<div class="tf-hero-name"><span class="tf-spin">🌀</span><b>' + esc(d.name) + '</b>' +
-      '<span class="tf-hero-no">' + esc(d.year) + ' 年第 ' + esc(d.no) + ' 号台风 · ' + esc(d.nameEn) + '</span></div>';
-    h += '<div class="tf-hero-status ' + esc(d.statusLevel || 'warn') + '">' + esc(d.status) + '</div>';
+      '<span class="tf-hero-no">' + esc(d.year) + ' 年第 ' + esc(d.no) + ' 号</span>' +
+      '<span class="tf-hero-status ' + esc(d.statusLevel || 'warn') + '">' + esc(d.status) + '</span></div>';
     if (d.headline) h += '<div class="tf-hero-headline">' + esc(d.headline) + '</div>';
     h += '</div>';
-    if (dist != null) {
-      h += '<div class="tf-hero-dist"><span class="tf-dist-num">' + dist + '</span>' +
-        '<span class="tf-dist-unit">km</span><span class="tf-dist-label">距射阳直线距离</span></div>';
+    if (km != null) {
+      h += '<div class="tf-hero-dist ' + gr.cls + '"><span class="tf-dist-num">' + km + '</span>' +
+        '<span class="tf-dist-unit">km</span><span class="tf-dist-label">距射阳 · ' + gr.label + '</span></div>';
     }
     h += '</div>';
 
     var cells = [
-      ['当前位置', c.location || '—', 'pin'],
-      ['中心强度', c.intensity || '—', 'wind'],
-      ['中心气压', c.pressure || '—', 'gauge'],
-      ['移动方向', c.move || '—', 'arrow'],
-      ['坐标', (c.lat != null ? n(c.lat) + '°N, ' + n(c.lon) + '°E' : '—'), 'globe'],
-      ['后续趋势', c.trend || '—', 'clock']
+      ['当前位置', c.location || '—'],
+      ['中心强度', c.intensity || '—'],
+      ['中心气压', c.pressure || '—'],
+      ['移动与趋势', (c.move || '—') + (c.trend ? '，' + c.trend : '')]
     ];
     h += '<div class="tf-status-grid">';
     cells.forEach(function (it) {
@@ -410,53 +469,48 @@
         '<span class="tf-cell-v">' + esc(it[1]) + '</span></div>';
     });
     h += '</div>';
-
-    if (d.summary) h += '<p class="tf-summary">' + esc(d.summary) + '</p>';
+    if (d.summary) {
+      h += '<details class="tf-details"><summary>台风背景与整体研判</summary>' +
+        '<div class="tf-details-body"><p>' + esc(d.summary) + '</p></div></details>';
+    }
     box.innerHTML = h;
   }
 
-  /* ============ 渲染：射阳影响 ============ */
+  /* ============ 射阳影响 ============ */
   function renderSheyang(d) {
     var box = document.getElementById('tf-sheyang');
     if (!box) return;
     var sy = d.sheyang || {};
     var h = '';
 
-    /* 风险总判 */
     h += '<div class="tf-verdict">' +
       '<div class="tf-verdict-badge">' + esc(sy.riskLevel || '—') + '</div>' +
       '<div class="tf-verdict-body"><b>' + esc(sy.riskLabel || '') + '</b>' +
       '<p>' + esc(sy.riskNote || '') + '</p></div></div>';
 
-    /* 预警徽章 */
     if (sy.alerts && sy.alerts.length) {
       h += '<div class="tf-alerts">';
       sy.alerts.forEach(function (a) {
-        if (typeof a === 'string') { h += '<span class="tf-alert blue">' + esc(a) + '</span>'; return; }
+        if (typeof a === 'string') { h += '<span class="tf-alert blue"><b>' + esc(a) + '</b></span>'; return; }
         h += '<span class="tf-alert ' + esc(a.color || 'blue') + '">' +
-          '<b>' + esc(a.name) + '</b>' +
-          (a.level ? '<i>' + esc(a.level) + '</i>' : '') +
+          '<b>' + esc(a.name) + '</b>' + (a.level ? '<i>' + esc(a.level) + '</i>' : '') +
           '<em>' + esc(a.issuer || '') + (a.time ? ' · ' + esc(a.time) : '') + '</em></span>';
       });
       h += '</div>';
     }
 
-    /* 关键指标 */
     h += '<div class="tf-key">';
     if (sy.period) h += '<div class="tf-key-item"><span>影响时段</span><b>' + esc(sy.period) + '</b></div>';
     if (sy.peakWindow) h += '<div class="tf-key-item"><span>最强时段</span><b>' + esc(sy.peakWindow) + '</b></div>';
-    if (sy.wind) h += '<div class="tf-key-item"><span>风力</span><b>' + esc(sy.wind) + '</b></div>';
-    if (sy.rain) h += '<div class="tf-key-item"><span>降雨</span><b>' + esc(sy.rain) + '</b></div>';
     h += '</div>';
 
-    /* 分日风力条形图 */
     if (sy.windDaily && sy.windDaily.length) {
-      h += '<div class="tf-wind-chart"><div class="tf-chart-title">分日风力预报（江苏省气象台）</div>';
+      h += '<div class="tf-wind-chart"><div class="tf-chart-title">分日风力预报 <em>江苏省气象台 / 射阳县气象台</em></div>';
       sy.windDaily.forEach(function (w) {
         var seaPct = Math.min(100, (w.seaScale || 0) / 12 * 100);
         var landPct = Math.min(100, (w.landScale || 0) / 12 * 100);
         h += '<div class="tf-wrow' + (w.peak ? ' peak' : '') + '">' +
-          '<span class="tf-wdate">' + esc(w.date) + (w.peak ? ' <i>峰值</i>' : '') + '</span>' +
+          '<span class="tf-wdate">' + esc(w.date) + (w.peak ? '<i>峰值</i>' : '') + '</span>' +
           '<div class="tf-wbars">' +
           '<div class="tf-wbar"><span class="tf-wtag">海上</span>' +
           '<div class="tf-wtrack"><div class="tf-wfill sea" style="width:' + seaPct + '%"></div></div>' +
@@ -469,38 +523,38 @@
       h += '</div>';
     }
 
-    /* 实况 */
-    if (sy.observed) {
-      h += '<div class="tf-observed"><span class="tf-obs-k">本地实况</span><p>' + esc(sy.observed) + '</p></div>';
-    }
-
-    /* 风险清单 */
-    if (sy.risk && sy.risk.length) {
-      h += '<div class="tf-risk-grid">';
-      sy.risk.forEach(function (r) {
-        if (typeof r === 'string') { h += '<div class="tf-risk-card mid"><p>' + esc(r) + '</p></div>'; return; }
-        h += '<div class="tf-risk-card ' + esc(r.level || 'mid') + '">' +
-          '<b>' + esc(r.title) + '</b><p>' + esc(r.text) + '</p></div>';
-      });
-      h += '</div>';
-    }
-
-    /* 时间线 */
+    /* 风险 + 实况 + 时间线：收进折叠，默认展开时间线（最实用） */
     if (sy.timeline && sy.timeline.length) {
       h += '<div class="tf-timeline">';
       sy.timeline.forEach(function (t) {
         h += '<div class="tf-tl-item ' + esc(t.state || 'future') + '">' +
-          '<span class="tf-tl-dot"></span>' +
-          '<span class="tf-tl-date">' + esc(t.date) + '</span>' +
+          '<span class="tf-tl-dot"></span><span class="tf-tl-date">' + esc(t.date) + '</span>' +
           '<span class="tf-tl-text">' + esc(t.text) + '</span></div>';
       });
       h += '</div>';
     }
 
+    var extra = '';
+    if (sy.risk && sy.risk.length) {
+      extra += '<div class="tf-risk-grid">';
+      sy.risk.forEach(function (r) {
+        if (typeof r === 'string') { extra += '<div class="tf-risk-card mid"><p>' + esc(r) + '</p></div>'; return; }
+        extra += '<div class="tf-risk-card ' + esc(r.level || 'mid') + '"><b>' + esc(r.title) + '</b><p>' + esc(r.text) + '</p></div>';
+      });
+      extra += '</div>';
+    }
+    if (sy.wind) extra += '<p class="tf-xline"><b>风力</b>' + esc(sy.wind) + '</p>';
+    if (sy.rain) extra += '<p class="tf-xline"><b>降雨</b>' + esc(sy.rain) + '</p>';
+    if (sy.observed) extra += '<p class="tf-xline"><b>本地实况</b>' + esc(sy.observed) + '</p>';
+    if (extra) {
+      h += '<details class="tf-details"><summary>展开风险清单与详细预报</summary>' +
+        '<div class="tf-details-body">' + extra + '</div></details>';
+    }
+
     box.innerHTML = h;
   }
 
-  /* ============ 渲染：防范措施 ============ */
+  /* ============ 防范措施（Tab 切换） ============ */
   var ICONS = {
     home: '<path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
     walk: '<circle cx="13" cy="4" r="2"/><path d="M11 21l2-6-3-2 1-5 4 2 3 1M9 21l2-5"/>',
@@ -513,60 +567,95 @@
     if (!box) return;
     var p = d.prevention || {};
     var order = ['home', 'outdoor', 'drive', 'farm'];
-    var fallbackTitle = { home: '居家', outdoor: '外出', drive: '驾车', farm: '农渔' };
-    var fallbackIcon = { home: 'home', outdoor: 'walk', drive: 'car', farm: 'leaf' };
-    var h = '<div class="tf-prev-grid">';
+    var fbTitle = { home: '居家', outdoor: '外出', drive: '驾车', farm: '农渔' };
+    var fbIcon = { home: 'home', outdoor: 'walk', drive: 'car', farm: 'leaf' };
+    var groups = [];
     order.forEach(function (k) {
       var g = p[k];
       if (!g) return;
       var items = Array.isArray(g) ? g : (g.items || []);
-      var title = (g && g.title) || fallbackTitle[k];
-      var ico = ICONS[(g && g.icon) || fallbackIcon[k]] || ICONS.home;
       if (!items.length) return;
-      h += '<div class="tf-prev-card">' +
-        '<div class="tf-prev-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
-        'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + ico + '</svg>' +
-        '<h3>' + esc(title) + '</h3></div><ul class="tf-prev-list">';
-      items.forEach(function (t) { h += '<li>' + esc(t) + '</li>'; });
-      h += '</ul></div>';
+      groups.push({ key: k, title: (g && g.title) || fbTitle[k], icon: (g && g.icon) || fbIcon[k], items: items });
+    });
+    if (!groups.length) return;
+
+    var h = '<div class="tf-tabs" role="tablist">';
+    groups.forEach(function (g, i) {
+      h += '<button type="button" class="tf-tab' + (i === 0 ? ' on' : '') + '" data-k="' + g.key + '" role="tab">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' + (ICONS[g.icon] || ICONS.home) + '</svg>' +
+        esc(g.title) + '</button>';
     });
     h += '</div>';
+    groups.forEach(function (g, i) {
+      h += '<ul class="tf-prev-list' + (i === 0 ? ' on' : '') + '" data-k="' + g.key + '">';
+      g.items.forEach(function (t) { h += '<li>' + esc(t) + '</li>'; });
+      h += '</ul>';
+    });
     box.innerHTML = h;
+
+    var tabs = box.querySelectorAll('.tf-tab');
+    var lists = box.querySelectorAll('.tf-prev-list');
+    Array.prototype.forEach.call(tabs, function (btn) {
+      btn.addEventListener('click', function () {
+        var k = btn.getAttribute('data-k');
+        Array.prototype.forEach.call(tabs, function (b) { b.classList.toggle('on', b === btn); });
+        Array.prototype.forEach.call(lists, function (l) { l.classList.toggle('on', l.getAttribute('data-k') === k); });
+      });
+    });
   }
 
-  /* ============ 渲染：实时动态 ============ */
+  /* ============ 实时动态（默认 3 条） ============ */
   function renderFeed(d) {
     var box = document.getElementById('autoNewsBody');
     if (!box) return;
     var list = d.feed || [];
     if (!list.length) { box.innerHTML = '<p class="tf-empty">暂无动态</p>'; return; }
-    var h = '';
-    list.forEach(function (it) {
+    var SHOW = 3;
+    function itemHtml(it, hidden) {
       var tags = '';
       (it.tags || []).forEach(function (t) {
         if (typeof t === 'string') tags += '<span class="news-tag">' + esc(t) + '</span>';
         else tags += '<span class="news-tag ' + esc(t.class || '') + '">' + esc(t.text) + '</span>';
       });
-      h += '<div class="news-item">' +
+      return '<div class="news-item' + (hidden ? ' tf-hide' : '') + '">' +
         '<div class="news-meta"><span class="news-date">' + esc(it.date) + '</span>' + tags + '</div>' +
         '<div class="news-content">' + esc(it.content) + '</div>' +
-        (it.source ? '<div class="tf-src">来源：' + esc(it.source) + '</div>' : '') +
-        '</div>';
-    });
+        (it.source ? '<div class="tf-src">来源：' + esc(it.source) + '</div>' : '') + '</div>';
+    }
+    var h = '';
+    list.forEach(function (it, i) { h += itemHtml(it, i >= SHOW); });
+    if (list.length > SHOW) {
+      h += '<button type="button" class="tf-more" id="tfMore">展开全部 ' + list.length + ' 条动态</button>';
+    }
     box.innerHTML = h;
     var cnt = document.getElementById('autoNewsCount');
     if (cnt) cnt.textContent = list.length;
-    var sec = document.getElementById('hc-auto-news');
-    if (sec) sec.style.display = '';
+
+    var more = document.getElementById('tfMore');
+    if (more) {
+      more.addEventListener('click', function () {
+        var hid = box.querySelectorAll('.news-item.tf-hide');
+        if (hid.length) {
+          Array.prototype.forEach.call(hid, function (el) { el.classList.remove('tf-hide'); });
+          more.textContent = '收起';
+        } else {
+          Array.prototype.forEach.call(box.querySelectorAll('.news-item'), function (el, i) {
+            if (i >= SHOW) el.classList.add('tf-hide');
+          });
+          more.textContent = '展开全部 ' + list.length + ' 条动态';
+        }
+      });
+    }
   }
 
-  /* ============ 渲染：来源与免责 ============ */
+  /* ============ 来源与免责 ============ */
   function renderSources(d) {
     var box = document.getElementById('tf-sources');
     if (!box) return;
     var h = '';
     if (d.sources && d.sources.length) {
-      h += '<div class="tf-src-list"><span>权威数据源：</span>';
+      h += '<div class="tf-src-list"><span>数据源</span>';
       d.sources.forEach(function (s) {
         h += '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + esc(s.name) + '</a>';
       });
@@ -576,15 +665,13 @@
     box.innerHTML = h;
   }
 
-  /* ============ 更新时间 ============ */
   function renderUpdated(d) {
     var el = document.getElementById('lastNewsUpdate');
     if (!el || !d.updated) return;
     var dt = new Date(d.updated);
     if (isNaN(dt.getTime())) { el.textContent = d.updated; return; }
     var pad = function (v) { return v < 10 ? '0' + v : '' + v; };
-    el.textContent = dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate()) +
-      ' ' + pad(dt.getHours()) + ':' + pad(dt.getMinutes());
+    el.textContent = (dt.getMonth() + 1) + '月' + dt.getDate() + '日 ' + pad(dt.getHours()) + ':' + pad(dt.getMinutes());
   }
 
   /* ============ 启动 ============ */

@@ -172,8 +172,9 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .tf-track-svg .tf-sylabel{font-size:12px;fill:#fff;font-weight:700;}
 .tf-track-svg .tf-distlabel{font-size:11px;fill:#fff;font-weight:600;}
 .tf-track-svg .tf-lg{font-size:11px;fill:rgba(255,255,255,.86);}
-.tf-track-svg .tf-pt{transition:r .18s ease,filter .18s ease;}
-.tf-track-svg .tf-pt:hover,.tf-track-svg .tf-pt.on{r:7.5;filter:drop-shadow(0 0 6px rgba(255,255,255,.85));}
+.tf-track-svg .tf-pt{cursor:pointer;transition:filter .18s ease;}
+.tf-track-svg .tf-pt:hover{filter:drop-shadow(0 0 6px rgba(255,255,255,.7));}
+.tf-track-svg .tf-pt.on{filter:drop-shadow(0 0 7px rgba(255,255,255,.9));}
 .tf-track-svg .tf-path-obs{stroke-dasharray:2000;stroke-dashoffset:2000;animation:tfDraw 2.6s ease-out forwards;}
 .tf-track-svg .tf-path-fc{opacity:0;animation:tfFade .9s ease-out 2.4s forwards;}
 @keyframes tfDraw{to{stroke-dashoffset:0}}
@@ -206,7 +207,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .tf-step-badge.obs{background:rgba(255,176,46,.18);color:#ffcf7a;}
 .tf-step-badge.land{background:rgba(232,17,35,.2);color:#ff8b95;}
 .tf-step-badge.fc{background:rgba(77,166,232,.18);color:#8fcbf5;}
-.tf-step-dist{margin-left:auto;font-size:.78rem;color:var(--gold-light);font-variant-numeric:tabular-nums;}
+.tf-step-dist{margin-left:auto;font-size:.78rem;color:var(--text-muted);font-variant-numeric:tabular-nums;}
+.tf-step-dist b{color:var(--text-primary);font-weight:700;}
 .tf-step-body{display:flex;gap:18px;flex-wrap:wrap;font-size:.83rem;color:var(--text-secondary);}
 .tf-step-body i{display:block;font-style:normal;font-size:.7rem;color:var(--text-muted);margin-bottom:2px;}
 .tf-step-desc{margin-top:9px;font-size:.85rem;color:var(--text-secondary);line-height:1.6;}
@@ -245,6 +247,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 /* 风力条形图 */
 .tf-wind-chart{padding:18px 20px;border-radius:14px;background:var(--bg-card);border:1px solid var(--border-subtle);margin-bottom:18px;}
 .tf-chart-title{font-size:.88rem;color:var(--gold-light);margin-bottom:14px;font-weight:600;}
+.tf-chart-title em{font-style:normal;font-size:.74rem;color:var(--text-muted);font-weight:400;margin-left:6px;}
 .tf-wrow{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--border-subtle);}
 .tf-wrow:last-child{border-bottom:none;}
 .tf-wrow.peak{background:rgba(232,17,35,.045);border-radius:8px;padding-left:8px;padding-right:8px;}
@@ -322,6 +325,54 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   background:rgba(201,168,76,.1);transition:background .2s ease;}
 .tf-src-list a:hover{background:rgba(201,168,76,.22);}
 .tf-disclaimer{font-size:.79rem;color:var(--text-muted);line-height:1.78;}
+
+/* ---- 距离分级语义色（修复"大数字金光刺眼"：近=红/橙，远=蓝） ---- */
+.tf-hero-dist.crit{border-color:rgba(232,17,35,.55);background:rgba(232,17,35,.10);}
+.tf-hero-dist.high{border-color:rgba(255,140,0,.5);background:rgba(255,140,0,.09);}
+.tf-hero-dist.mid{border-color:rgba(255,176,46,.45);background:rgba(255,176,46,.08);}
+.tf-hero-dist.low{border-color:rgba(77,166,232,.45);background:rgba(77,166,232,.08);}
+.tf-hero-dist.crit .tf-dist-num{color:#ff6b76;}
+.tf-hero-dist.high .tf-dist-num{color:#ff9e3d;}
+.tf-hero-dist.mid .tf-dist-num{color:#ffc24d;}
+.tf-hero-dist.low .tf-dist-num{color:#7cc0f0;}
+.tf-hero-dist.crit .tf-dist-label{color:rgba(255,140,150,.9);}
+.tf-hero-dist.high .tf-dist-label{color:rgba(255,180,120,.9);}
+.tf-hero-dist.mid .tf-dist-label{color:rgba(255,200,120,.9);}
+.tf-hero-dist.low .tf-dist-label{color:rgba(150,200,240,.9);}
+
+/* ---- 折叠块（降噪：默认收起） ---- */
+.tf-details{margin-top:16px;border:1px solid var(--border-subtle);border-radius:11px;background:var(--bg-card);overflow:hidden;}
+.tf-details>summary{list-style:none;cursor:pointer;padding:12px 16px;font-size:.92rem;font-weight:600;color:var(--text-primary);
+  display:flex;align-items:center;gap:9px;user-select:none;}
+.tf-details>summary::-webkit-details-marker{display:none;}
+.tf-details>summary::before{content:'';width:7px;height:7px;margin-top:-3px;border-right:2px solid var(--text-muted);border-bottom:2px solid var(--text-muted);
+  transform:rotate(-45deg);transition:transform .2s ease;flex:0 0 auto;}
+.tf-details[open]>summary::before{transform:rotate(45deg);margin-top:0;}
+.tf-details-body{padding:0 16px 16px;font-size:.9rem;color:var(--text-secondary);line-height:1.85;}
+.tf-details-body p{margin:0;line-height:1.85;}
+
+/* ---- 防范 Tab 切换 ---- */
+.tf-prev-list{display:none;}
+.tf-prev-list.on{display:block;}
+.tf-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.tf-tab{flex:1 1 110px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 12px;border-radius:11px;cursor:pointer;
+  background:var(--bg-card);border:1px solid var(--border-subtle);color:var(--text-secondary);font-size:.9rem;font-weight:600;
+  font-family:inherit;transition:all .2s ease;}
+.tf-tab svg{width:18px;height:18px;flex:0 0 auto;}
+.tf-tab:hover{border-color:rgba(201,168,76,.34);color:var(--text-primary);}
+.tf-tab.on{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.5);color:var(--gold-light);}
+
+/* ---- 动态流：默认 3 条 + 展开全部 ---- */
+.tf-more{display:block;width:100%;margin-top:4px;padding:11px;cursor:pointer;border-radius:10px;
+  background:var(--bg-card);border:1px solid var(--border-subtle);color:var(--gold-light);font-size:.85rem;font-weight:600;
+  font-family:inherit;transition:all .2s ease;}
+.tf-more:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.34);}
+.tf-hide{display:none;}
+
+/* ---- 射阳影响折叠内的小行 ---- */
+.tf-xline{margin:0 0 12px;font-size:.88rem;color:var(--text-secondary);line-height:1.78;}
+.tf-xline:last-child{margin-bottom:0;}
+.tf-xline b{display:inline-block;min-width:64px;color:var(--text-primary);}
 
 /* ---- 响应式 ---- */
 @media(max-width:900px){

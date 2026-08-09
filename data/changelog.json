@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-08-09",
+    "title": "台风页实时动态显示异常修复",
+    "desc": "实时动态卡片横向错乱：typhoon.html 引用了全站共享 style.css，其全局规则 .news-item{display:flex} 把台风 feed 的 meta/内容/来源压成一行横排；内联 .news-item 未覆盖 display，导致继承 flex。修复：内联 .news-item 加 display:block 强制纵向堆叠。已 headless 计算样式验证 newsitem=block、danger 标签色正确",
+    "tags": [
+      "台风",
+      "Bug",
+      "CSS",
+      "样式冲突"
+    ]
+  },
+  {
+    "date": "2026-08-09",
     "title": "台风页三处修复：播放动画驱动 / 距离语义色 / 页面降噪",
     "desc": "修复「播放路径无反应」——重写动画引擎：setFrame(t) 驱动 SVG（eye/rings/line/distT/pathDashoffset/点r）+ requestAnimationFrame 平滑插值 + range step=0.01 精细拖拽；修复「数字颜色不合理」——距离大数字改用语义分级色（近红/中橙/远蓝），步骤距离去金光；修复「界面内容太长」——防范改为 Tab 切换、风险/实况收进折叠、动态默认 3 条+展开；移除 Safari 不兼容的 CSS r 属性规则",
     "tags": [

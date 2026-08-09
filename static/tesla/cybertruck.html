@@ -3,6 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
 <title>Cybertruck · 参数与科普 - 龙兄知识库</title>
 <meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
 <meta name="description" content="未来已来 · 不锈钢外骨骼 · 装甲玻璃 · 野兽模式Cybertruck 是特斯拉推出的一款设计极具争议的纯电动皮卡，2019 年 11 月发布，2023 年底才开始交付。它采用超硬 30X 冷轧不锈钢外骨骼车身和装甲玻璃，造型科幻且功能强悍。尽管发布至今争议不断，但全球预订量已突破 250 万辆。">

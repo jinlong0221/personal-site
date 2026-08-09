@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
   <title>滑石粉 | 中药材香料 | 龙兄知识库</title>
   <meta name="description" content="滑石为硅酸盐类矿物滑石族滑石，主含含水硅酸镁 Mg₃(Si₄O₁₀)(OH)₂。药材性状：白色或类白色块状，有玻璃光泽，手摸有滑腻感（这是最直观的鉴别特征）。无臭，无味。饮片：滑石粉（细粉）或滑石块（打碎）。性味归经：甘、淡、寒；归膀胱、肺、胃经。经典方剂：六一散（滑石6份 + 甘草1份），清暑利湿经典方，夏天常备。">
   <!-- 预加载关键资源 -->

@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
   <title>猫屎咖啡 | 中药材香料 | 龙兄知识库</title>
   <meta name="description" content="麝香猫（Civet）消化后排出的咖啡豆加工而成，曾是世界上最贵的咖啡之一。因暴利驱动，市场假货泛滥，需重点鉴别。外观特征：生豆呈深褐色至青绿色，豆形较小、偏椭圆，表面保留发酵痕迹，有独特的动物性香气（类似麝香味）。烘焙后呈中深烘，有泥土、巧克力、香料混合香气。作为咖啡饮品，猫屎咖啡的主要成分是咖啡因和多种活性物质。">
   <!-- 预加载关键资源 -->

@@ -16,6 +16,7 @@
     'chinajoy':  'chinajoy-news.json',
     'marvel':    'marvel-news.json',
     'tesla':     'tesla-news.json',
+    'fsd':       'fsd-news.json',
     'health-tea': 'health-tea-news.json',
     'sheyang':   'sheyang-news.json',
   };

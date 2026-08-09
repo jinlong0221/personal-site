@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>FSD 完全自动驾驶 · 特斯拉辅助驾驶中国进展 - 龙兄知识库</title>
+<meta name="keywords" content="特斯拉FSD,FSD中国,FSD监督版,特斯拉辅助驾驶TAD,FSD V14.3,城市NOA,特斯拉自动驾驶,Robotaxi">
+<meta name="description" content="特斯拉 FSD（国内称「特斯拉辅助驾驶 TAD」）全梳理：中国落地进展、V14.3 城市覆盖、6.4万买断/999元订阅、数据本地化合规，以及北美 Robotaxi 与无监督 FSD 全球动态。每日自动更新最新资讯。">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="../js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="../css/style.css?v=7080" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="../css/style.css?v=7080"></noscript>
+<style>
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-list .label { color: var(--text-muted); flex-shrink: 0; }
+.spec-list .value { color: var(--text); text-align: right; font-weight: 600; }
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.pros, .cons { padding: 16px; border-radius: var(--radius-sm); }
+.pros { background: rgba(16,124,16,0.08); border-left: 4px solid var(--green); }
+.cons { background: rgba(232,17,35,0.06); border-left: 4px solid var(--red); }
+.pros h3 { color: var(--green); margin-bottom: 8px; font-size: 1rem; }
+.cons h3 { color: var(--red); margin-bottom: 8px; font-size: 1rem; }
+.pros ul, .cons ul { padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+.pros ul li { margin-bottom: 4px; }
+.cons ul li { margin-bottom: 4px; }
+.people-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.people-box h3 { font-size: 1rem; margin-bottom: 8px; color: var(--blue); }
+.people-box p { font-size: 0.9rem; color: var(--text-secondary); }
+.news-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 8px; margin-right: 6px; margin-bottom: 4px; }
+.news-tag.hot { background: rgba(232,17,35,0.12); color: var(--red); }
+.news-tag.fsd { background: rgba(0,120,212,0.12); color: var(--blue); }
+.news-tag.china { background: rgba(16,124,16,0.12); color: var(--green); }
+.news-tag.product { background: rgba(107,105,214,0.12); color: var(--purple); }
+.news-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; }
+.news-box .news-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.news-box .news-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+.version-tag { font-size: 0.7rem; padding: 1px 6px; border-radius: 6px; font-weight: 700; margin-left: 4px; }
+.version-tag.new { background: rgba(16,124,16,0.12); color: var(--green); }
+.version-tag.top { background: rgba(0,120,212,0.12); color: var(--blue); }
+.version-tag.perf { background: rgba(232,17,35,0.1); color: var(--red); }
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } .spec-list li { flex-direction: column; gap: 4px; } .spec-list .value { text-align: left; } }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link rel="canonical" href="https://longxiong.vip/tesla/model3.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="Model 3 · 参数与动态 - 龙兄知识库">
+<meta property="og:description" content="特斯拉 Model 3 全面解析（2026款）：4个版本参数对比、CLTC续航/充电/优缺点/购买建议，830km最长续航版本详解。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/tesla/model3.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Model 3 · 参数与动态 - 龙兄知识库">
+<meta name="twitter:description" content="特斯拉 Model 3 全面解析（2026款）：4个版本参数对比、CLTC续航/充电/优缺点/购买建议，830km最长续航版本详解。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+</head>
+<body>
+
+<!-- ========== 导航栏 ========== -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="../calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='../sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="../herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="../herbs.html">中药材</a></li>
+      <li><a href="../health-tea.html">养生茶</a></li>
+      <li><a href="../bracelet.html">文玩手串</a></li>
+      <li><a href="../tesla.html">特斯拉</a></li>
+      <li><a href="../marvel.html">漫威宇宙</a></li>
+      <li><a href="../xintan-weather.html">农田气象</a></li>
+      <li><a href="../zisha.html">紫砂艺术</a></li>
+      <li><a href="../console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn" onclick="var w=this.parentElement;w.classList.toggle('open');event.stopPropagation();">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="../travel.html">家庭旅行</a>
+          <a href="../chinajoy.html">ChinaJoy 成长史</a>
+          <a href="../guanghui.html">光辉电力</a>
+          <a href="../gaokao.html">高考查分</a>
+          <a href="../pitfalls.html">踩坑记</a>
+          <a href="../games.html">游戏库</a>
+          <a href="../about.html">关于本站</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">首页</a>
+  <a href="../herbs/chenxiang.html">沉香鉴别</a>
+  <a href="../herbs.html">中药材</a>
+  <a href="../health-tea.html">养生茶</a>
+  <a href="../bracelet.html">文玩手串</a>
+  <a href="../tesla.html">特斯拉</a>
+  <a href="../marvel.html">漫威宇宙</a>
+  <a href="../xintan-weather.html">农田气象</a>
+  <a href="../zisha.html">紫砂艺术</a>
+  <a href="../console.html">游戏主机</a>
+  <a href="../travel.html">家庭旅行</a>
+  <a href="../chinajoy.html">ChinaJoy 成长史</a>
+  <a href="../guanghui.html">光辉电力</a>
+  <a href="../gaokao.html">高考查分</a>
+  <a href="../pitfalls.html">踩坑记</a>
+  <a href="../games.html">游戏库</a>
+  <a href="../about.html">关于本站</a>
+  </div>
+</nav>
+
+<main class="container" id="main-content" role="main">
+
+  <!-- 面包屑 -->
+  <div id="breadcrumb"></div>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>🤖 特斯拉 FSD</h1>
+    <p class="subtitle">完全自动驾驶能力（中国官方名：特斯拉辅助驾驶 TAD）· 国内外最新资讯 · 尤其聚焦中国落地</p>
+  </div>
+
+    <!-- ========= FSD 是什么 ========= -->
+  <div class="section">
+    <h2>📌 FSD 是什么？中国怎么叫？</h2>
+    <p>FSD（Full Self-Driving，完全自动驾驶能力）是特斯拉最高阶的辅助驾驶软件。在中国，因监管规定 L2 级辅助驾驶不得使用「自动/自动驾驶」字样，特斯拉已于 2026 年 5 月将官网名称改为「特斯拉辅助驾驶（Tesla Assisted Driving，TAD）」。无论叫什么，<strong>它本质是 SAE L2 级辅助驾驶</strong>：系统可完成红绿灯识别、无保护左转、博弈变道等，但驾驶员必须全程监控、随时接管，事故责任由驾驶员承担。</p>
+    <ul class="spec-list">
+      <li><span class="label">入华时间</span><span class="value">2026-05-21 官宣中国纳入 FSD Supervised 可用地区（美/加/澳/韩/荷之后）</span></li>
+      <li><span class="label">当前主力版本</span><span class="value">V14.3（融合 Robotaxi 技术，端到端神经网络）</span></li>
+      <li><span class="label">硬件门槛</span><span class="value">仅 HW4.0 车型满血（2024-02 后产 Model 3/Y）；HW3.0 暂不支持完整城市 NOA</span></li>
+      <li><span class="label">付费方式</span><span class="value">6.4 万元买断，或 999 元/月订阅（EAP 车主可 3.2 万元升级）</span></li>
+      <li><span class="label">合规底座</span><span class="value">上海临港数据中心 + AI 训练中心，数据不出境；与百度合作获乙级测绘资质</span></li>
+    </ul>
+  </div>
+
+  <!-- ========= 中国落地现状 ========= -->
+  <div class="section">
+    <h2>🇨🇳 中国落地现状（重点）</h2>
+    <p>截至 2026-08，FSD 在中国的落地节奏可概括为「合规已通、审批收尾、分批推送」：</p>
+    <div class="tip-box">
+      <p>✅ <strong>数据合规已扫清最大门槛：</strong>国内车辆采集的道路数据全部存于上海数据中心、本地训练，满足《汽车数据安全管理规定》数据不出境；并与百度合作解决高精地图与测绘资质，在北京/上海/深圳/成都等 9 城组建本土测试车队持续调优。</p>
+    </div>
+    <div class="tip-box" style="border-left-color:var(--orange);">
+      <p>⏳ <strong>监管审批最后一步：</strong>工信部、公安部、网信办、市场监管总局四部门于 2026-07-20 至 07-31 对 FSD 完成联合终审；业内预判若顺利通过，最快 2026 年 8 月启动分批 OTA 推送（以官方公告为准）。特斯拉 CFO 目标为 2026 年 Q3 拿到全面商用批复。</p>
+    </div>
+    <p style="margin-top:12px;">城市覆盖已从 2025-02-25 首推的 10 个试点城市（京沪广深等），扩展到 2026-07 的 <strong>40+ 一二线城市</strong>（成都、重庆、杭州、武汉、南京、苏州、西安、青岛、长沙、佛山、郑州、沈阳、合肥、济南、昆明、南宁、福州、厦门、哈尔滨、长春、石家庄等），支持红绿灯识别、无保护左转、博弈变道等全场景领航辅助；官方称三四线城市 2026 下半年跟进。</p>
+  </div>
+
+  <!-- ========= 每日自动更新（FSD 资讯流） ========= -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新 · FSD 资讯</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <!-- ========= 数据来源 ========= -->
+  <div class="tip-box" style="margin-top:24px;">
+    <p>📌 <strong><a id="sources" class="src-anchor"></a>数据来源：</strong>特斯拉中国官网、特斯拉官方 X 账号、汽车之家、新浪汽车、太平洋汽车、腾讯新闻等公开报道（2026-05 至 2026-08）。城市覆盖、版本号、定价与审批进展均交叉核对；涉及「预计 / 待官方确认」的节点已明确标注，不构成投资建议。</p>
+    <p class="ref-note">正文中的具体参数、版本与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
+  </div>
+
+<!-- 底部链接 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="../tesla.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回特斯拉动态新闻</a>
+  </div>
+
+</main>
+
+<script src="../js/search.js"></script>
+<script defer src="../js/app.js"></script>
+<script src="../js/auto_news_loader.js"></script>
+
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="../about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
+<p style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);">最后更新：2026-08-09</p>
+</footer>
+    <script src="../js/share.js"></script>
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "特斯拉 FSD · 辅助驾驶中国进展 - 龙兄知识库",
+      "url": "https://longxiong.vip/tesla/fsd.html",
+      "description": "特斯拉 FSD（国内称特斯拉辅助驾驶 TAD）全梳理：中国落地进展、V14.3 城市覆盖、6.4万买断/999元订阅、数据本地化合规，及北美 Robotaxi 与无监督 FSD 全球动态。"
+    }
+  ]
+}
+</script>
+</body>
+</html>

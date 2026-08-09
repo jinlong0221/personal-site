@@ -233,50 +233,14 @@ var _hmt = _hmt || [];
     <div class="stat-item"><div class="stat-num">5城运营</div><div class="stat-label">Robotaxi 无监督</div></div>
   </div>
 
-  <!-- 最新动态（每日自动聚合，数据来自 tesla-news.json） -->
-  <div class="home-collapsible open" id="hc-tesla-news">
+  <!-- 最新动态（每日自动聚合，数据来自 tesla-news.json，由 auto_news_loader.js 统一渲染） -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
     <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
-      <div class="hc-left"><span class="hc-icon">📰</span><span class="hc-title">最新动态</span><span class="hc-count" id="teslaNewsCount">加载中…</span></div>
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
       <span class="hc-arrow">▼</span>
     </div>
-    <div class="home-collapsible-body" id="teslaNewsBody">
-      <p style="color:var(--text-muted);font-size:14px;padding:10px 0;">正在加载最新动态…</p>
-    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
   </div>
-
-  <script>
-  // 自动加载特斯拉最新动态（tesla-news.json 由每日自动化更新，保证日期最新）
-  (function(){
-    fetch('tesla-news.json?v='+Date.now())
-      .then(function(r){if(!r.ok)throw new Error('Not found');return r.json();})
-      .then(function(data){
-        if(!data)return;
-        var items=(data.news||data.items||[]).slice();
-        if(!items.length)return;
-        items.sort(function(a,b){return (b.date||'').localeCompare(a.date||'');});
-        var container=document.getElementById('teslaNewsBody');
-        var countEl=document.getElementById('teslaNewsCount');
-        var dateEl=document.getElementById('teslaNewsUpdated');
-        if(!container)return;
-        var html='';
-        items.forEach(function(item){
-          var date=item.date||'近期';
-          var content=item.content||item.title||'';
-          var tags=item.tags||[];
-          var tagHtml=tags.map(function(t){return '<span class="news-tag '+t.class+'">'+t.text+'</span>';}).join(' ');
-          var link=item.url?'<br><a href="'+item.url+'" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);">查看详情 →</a>':'';
-          html+='<div class="news-item"><div class="news-date">'+date+'</div><div class="news-content">'+tagHtml+'<p>'+content+link+'</p></div></div>';
-        });
-        container.innerHTML=html;
-        if(countEl)countEl.textContent=items.length+'条 · 更新于'+(data.updated||'');
-        if(dateEl)dateEl.textContent=data.updated||'';
-      })
-      .catch(function(){
-        var c=document.getElementById('teslaNewsBody');
-        if(c)c.innerHTML='<p style="color:var(--text-muted);font-size:14px;padding:10px 0;">最新动态加载失败，请稍后刷新。</p>';
-      });
-  })();
-  </script>
 
   <!-- 在售车型 -->
   <div class="section-header">
@@ -476,7 +440,7 @@ var _hmt = _hmt || [];
   </div>
 
   <div style="text-align:center; padding:20px 0 40px; color:var(--text-muted); font-size:0.8rem;">
-    <p>最后更新 <span id="teslaNewsUpdated">2026-08-05</span></p>
+    <p>最后更新 <span id="lastNewsUpdate">2026-08-09</span></p>
   </div>
 
 <section style="margin:28px 0 4px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
@@ -602,5 +566,6 @@ function toggleHomeSection(el){
   </div>
 </footer>
     <script src="js/share.js"></script>
+    <script src="js/auto_news_loader.js"></script>
   </body>
 </html>

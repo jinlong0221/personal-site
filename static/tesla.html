@@ -468,6 +468,84 @@ var _hmt = _hmt || [];
     <li><a href="https://www.tesla.cn/modely" target="_blank" rel="noopener" style="color:var(--blue-light)">特斯拉 Model Y 官网</a> / <a href="https://www.tesla.cn/model3" target="_blank" rel="noopener" style="color:var(--blue-light)">Model 3 官网</a> — 车型参数与价格以官网实时公布为准（海外 tesla.com 启用反爬，故引用中国官网；官网偶有限速，打开较慢时请稍候或刷新重试）</li>
   </ul>
 </section>
+
+<!-- ===== 新增：品牌与技术科普区块（2026-08 补充） ===== -->
+<section style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;">
+  <h2 style="font-size:1.25rem;margin:0 0 6px;color:var(--gold);">🔎 特斯拉品牌与技术科普：简史、三电、超充与辅助驾驶</h2>
+  <p style="color:var(--text-muted);font-size:.82rem;margin:0 0 18px;">写给刚接触特斯拉的人。本节只写<strong>已被至少两个独立来源确认的事实</strong>；凡是尚未量产、或官方没有确定档期的内容，都会单独标注，不当作既成事实。</p>
+
+  <h3 style="font-size:1.02rem;margin:22px 0 10px;color:var(--gold);border-left:3px solid var(--blue);padding-left:10px;">一、公司发展简史（关键节点，均为已发生事实）</h3>
+  <ul style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.9;font-size:.92rem;">
+    <li><strong>2003 年 7 月</strong>：Martin Eberhard 与 Marc Tarpenning 在美国硅谷创立 Tesla Motors，公司名致敬物理学家尼古拉·特斯拉。</li>
+    <li><strong>2004 年 2 月</strong>：埃隆·马斯克领投并出任董事长；<strong>2008 年</strong>起接任 CEO。</li>
+    <li><strong>2008 年</strong>：首款量产车 <strong>Roadster</strong> 上市，用锂离子电池组证明了纯电跑车可行——这是特斯拉电池与电驱技术的第一次公开亮相。</li>
+    <li><strong>2010 年</strong>：在纳斯达克 IPO，募资约 2.26 亿美元。</li>
+    <li><strong>2012 年</strong>：<strong>Model S</strong> 交付，电池改为平铺在底盘下方（重心更低、后备厢空间更大），这一布局被之后所有车型沿用；同年开始在北美和欧洲建设<strong>超级充电站（Supercharger）</strong>。</li>
+    <li><strong>2015 年</strong>：<strong>Model X</strong> 上市（鹰翼门 SUV）。</li>
+    <li><strong>2016 年</strong>发布 <strong>Model 3</strong>，<strong>2017 年</strong>开始量产；同年公司正式更名为 <strong>Tesla, Inc.</strong>——去掉 "Motors"，表示业务已不只是造车。</li>
+    <li><strong>2019 年 3 月</strong>：发布 <strong>Model Y</strong>，后来成为走量主力。</li>
+    <li><strong>超级工厂布局</strong>：内华达（2016）、纽约布法罗（2017）、上海（2019）；<strong>柏林工厂 2022 年 3 月 22 日</strong>正式启用并交付首批 30 辆 Model Y；<strong>得州奥斯汀工厂 2022 年 4 月 7 日</strong>举行开业投产活动，该地同时也是公司总部所在地。</li>
+    <li><strong>上海超级工厂</strong>：2019 年 1 月破土动工，同年 <strong>12 月 30 日</strong>完成 Model 3 首批交付，创下"当年开工、当年投产、当年交付"的纪录；2022 年 8 月第 100 万辆下线，2024 年 10 月第 300 万辆，<strong>2025 年 12 月 8 日第 400 万辆</strong>整车下线，产业链本土化率约 95%。</li>
+    <li><strong>上海储能超级工厂</strong>：2024 年 5 月动工，<strong>2025 年 2 月 11 日正式投产</strong>，是特斯拉在美国本土之外的第一个储能超级工厂，产品面向全球出口。</li>
+  </ul>
+
+  <h3 style="font-size:1.02rem;margin:26px 0 10px;color:var(--gold);border-left:3px solid var(--blue);padding-left:10px;">二、"三电"到底指什么</h3>
+  <p style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0 0 10px;">电动车行业说的"三电"，就是 <strong>电池、电机、电控</strong> 三大总成，它决定了一台电车的续航、动力和能耗表现。特斯拉的特点是这三块基本都自己做，并且做系统级整合。</p>
+  <ul style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.9;font-size:.92rem;">
+    <li><strong>电池</strong>：特斯拉是少数长期坚持<strong>圆柱电芯</strong>路线的车企，规格从早期 Model S 的 18650，到 Model 3/Y 的 2170，再到 4680（下一节详述）。电池管理系统（BMS）采用主从架构：主控制器负责高压安全与对外通信，从控制器负责单体电压、温度采集。需要说明的是，<strong>不同车型、不同配置用的电芯并不一样</strong>——例如中国产入门后驱版多为磷酸铁锂（LFP），长续航版为三元锂，具体请以官网车型配置表为准。</li>
+    <li><strong>电机</strong>：Model 3/Y 后驱版用<strong>永磁同步电机</strong>；双电机四驱版是<strong>"前感应异步 + 后永磁同步"</strong>的混搭。原因很实在——感应电机的高效区间偏高速，永磁电机的高效区间偏低速，两者搭配可以在高低速工况下互补，兼顾能耗与性能。从 Model Y 起，绕组由圆线切换为<strong>扁线</strong>，槽满率更高、电机体积更小、功率密度更好。</li>
+    <li><strong>电控</strong>：Model 3 起主逆变器采用<strong>碳化硅（SiC）功率器件</strong>替代传统硅基 IGBT，电能转换效率提升，直接换来续航收益；驱动系统把电机、电机控制器和单速减速器集成为"三合一"总成，减少线束与体积。热管理方面采用热泵与集成阀体，冬季可回收电机、电池余热给座舱供暖，降低空调对续航的拖累。</li>
+  </ul>
+
+  <h3 style="font-size:1.02rem;margin:26px 0 10px;color:var(--gold);border-left:3px solid var(--blue);padding-left:10px;">三、4680 电池：名字就是尺寸</h3>
+  <p style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0 0 10px;">"4680"指的是<strong>直径 46 毫米、高度 80 毫米</strong>的大圆柱电芯，2020 年 9 月特斯拉"电池日"上首次公开。三个核心改动：</p>
+  <ul style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.9;font-size:.92rem;">
+    <li><strong>无极耳（全极耳）</strong>：传统圆柱电芯靠一对狭窄的极耳导流，路径长、内阻大、发热高；4680 把整个电极端面变成导电通路，内阻大幅下降，快充和大功率放电时的发热明显降低。</li>
+    <li><strong>干电极工艺</strong>：省掉传统湿法工艺中的溶剂涂布、烘干和溶剂回收环节，理论上能省能耗、缩小厂房占地。</li>
+    <li><strong>CTC 结构化电池包</strong>：把电芯直接集成进底盘，电池包同时充当车身结构件，省掉模组和支架，提升空间利用率与车身刚性。</li>
+  </ul>
+  <p style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:10px 0 0;"><strong>⚠️ 一句实话</strong>：4680 从发布到稳定量产走了好几年，早期良率与产能爬坡都不顺利，媒体上关于它的"降本 X%、续航提升 X%"多数是<strong>发布会给出的目标值或第三方测算</strong>，不等于每款量产车的实测收益。买车时请以具体车型的官方参数为准，不要按电芯规格反推续航。</p>
+
+  <h3 style="font-size:1.02rem;margin:26px 0 10px;color:var(--gold);border-left:3px solid var(--blue);padding-left:10px;">四、超级充电网络：特斯拉最实在的一道护城河</h3>
+  <p style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0 0 10px;">超级充电站从 2012 年开始建设，是特斯拉少数"自建自营、全国联网"的基础设施。它的价值不在单桩功率有多夸张，而在<strong>点位密度、可用率和导航联动</strong>——车机能直接看到目标站点的空闲桩数，导航去超充时还会自动预热电池以提升充电效率。</p>
+  <ul style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.9;font-size:.92rem;">
+    <li><strong>规模</strong>：截至 2026 年第二季度，特斯拉全球超级充电桩突破 <strong>8 万根</strong>；中国内地超级充电站超 <strong>2600 座</strong>、超充桩约 <strong>1.3 万根</strong>，另配套 650 余座目的地充电站，已覆盖内地全部省会与直辖市及绝大部分地级市。</li>
+    <li><strong>对外开放</strong>：截至 2026 年 3 月，中国内地已向非特斯拉品牌车辆开放超级充电站 <strong>950 余座</strong>、目的地充电站 400 余座，其他品牌车主用微信小程序扫码即可充电。</li>
+    <li><strong>V4 超充</strong>：以 Model Y 长续航后驱版为例，官方与媒体现场口径为约 <strong>15 分钟补充最高 250 公里</strong>续航。注意"最高"二字——实际速度受电量区间（SOC）、电池温度、车型 BMS 策略和现场功率分配影响，不要拿峰值当平均值。</li>
+  </ul>
+
+  <h3 style="font-size:1.02rem;margin:26px 0 10px;color:var(--gold);border-left:3px solid var(--red);padding-left:10px;">五、Autopilot 与 FSD：它是辅助驾驶，不是自动驾驶</h3>
+  <p style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0 0 10px;">这是全篇最需要说清楚、也最容易被名字误导的一节。</p>
+  <ul style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.9;font-size:.92rem;">
+    <li><strong>Autopilot（自动辅助驾驶）</strong>：2014 年起在 Model S 上提供，属于车道保持 + 自适应巡航一类的基础驾驶辅助，是各车型的标配基础能力。</li>
+    <li><strong>FSD</strong>：英文全称 Full Self-Driving，是需要额外付费的高阶软件包，目前的正式名称带有 <strong>Supervised（监督版）</strong>后缀。特斯拉官网对已启用功能有明确表述——这些功能<strong>需要驾驶员主动监督，并不会使车辆成为自动驾驶车辆</strong>（原文：require active driver supervision and do not make the vehicle autonomous）。</li>
+    <li><strong>在中国</strong>：2026 年 5 月 21 日特斯拉宣布将中国纳入 FSD Supervised 可用地区；5 月 23 日中国官网把功能名称改为<strong>「特斯拉辅助驾驶」</strong>，移除"完全自动驾驶"等表述，一次性买断价 6.4 万元不变。此次更名是响应工信部与市场监管总局 2026 年 2 月的规定：L2 级辅助驾驶系统不得使用"自动驾驶""全自动"等易误导用词。</li>
+    <li><strong>能力边界（重点）</strong>：官方定位为 <strong>SAE L2 级辅助驾驶</strong>。驾驶员必须全程注视路面、双手随时准备接管，<strong>行驶过程中的法律责任由驾驶员承担</strong>。技术上走纯视觉路线（车身摄像头 + 神经网络），在强逆光、雨雪雾、镜头脏污遮挡、异形障碍物等场景下仍可能误判或退出。欧洲 Euro NCAP 也曾公开批评其命名容易让人过度依赖。把它当"更聪明的巡航"用是合理的，把它当"可以放手睡觉"用是危险的。</li>
+    <li><strong>⚠️ 尚未实现、不要当既成事实</strong>：FSD Unsupervised（无监督版）、以及取消方向盘与踏板的 Cybercab 这类形态，能否大规模落地取决于技术成熟度与各国／各地监管审批，<strong>官方并未给出确定的全球时间表</strong>。任何"某年就能全无人"的说法，目前都只是预期而非承诺，以官方公告为准。</li>
+  </ul>
+
+  <h3 style="font-size:1.02rem;margin:26px 0 10px;color:var(--gold);border-left:3px solid var(--blue);padding-left:10px;">六、看特斯拉消息的三条实用判断</h3>
+  <ul style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.9;font-size:.92rem;">
+    <li><strong>分清"发布／亮相"和"量产／交付"</strong>：一款车公开亮相不代表能买到，开放预订也不代表已经下线。看到新车型，先找"首批交付"这个词。</li>
+    <li><strong>分清"官方口径"和"CEO 的预期"</strong>：马斯克在发布会或社交平台给出的时间表，历史上多次延后。以官网公告、财报和监管批文为准。</li>
+    <li><strong>续航数字不能跨标准比较</strong>：中国用 CLTC，美国用 EPA，欧洲用 WLTP，三套工况法的宽松程度不同，同一台车的数字会差出不少。看到"续航 XXX 公里"，先看它挂的是哪个标准。</li>
+  </ul>
+
+  <p style="color:var(--text-muted);font-size:.8rem;line-height:1.8;margin:22px 0 0;padding-top:14px;border-top:1px dashed var(--border);">📌 本节内容整理自下方公开来源，每条关键事实均经至少两个独立来源交叉核对，数据截至 2026 年 8 月。价格、续航、软件功能与开放范围均以特斯拉官网实时公布为准；本页为知识科普，不构成购车或投资建议。</p>
+</section>
+
+<section id="sources-kepu" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;">
+  <h2 style="font-size:1.08rem;margin:0 0 12px;color:var(--gold);">📚 资料来源 · 延伸阅读（品牌与技术科普）</h2>
+  <ul style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.9;font-size:.9rem;">
+    <li><a href="https://www.tesla.cn/manufacturing" target="_blank" rel="noopener" style="color:var(--blue-light)">特斯拉中国官网 · 制造</a> — 官方对工厂布局与产能规模的说明，用于核对"2012 年首辆 Model S 在弗里蒙特下线"等基本事实。</li>
+    <li><a href="https://www.tesla.cn/supercharger" target="_blank" rel="noopener" style="color:var(--blue-light)">特斯拉中国官网 · 超级充电</a> — 超充网络的官方介绍与站点查询入口，充电功率与开放范围以此页为准。</li>
+    <li><a href="https://www.shanghai.gov.cn/nw4411/20250214/be66288d9fe54a81823bb75939876c8e.html" target="_blank" rel="noopener" style="color:var(--blue-light)">上海市人民政府门户网站（转载新华社）</a> — 确认上海超级工厂 2019 年 1 月开工、上海储能超级工厂 2025 年 2 月投产等时间节点。</li>
+    <li><a href="https://m.21jingji.com/article/20260329/herald/e3789b640174286021435d9e3ea4db2d_zaker.html" target="_blank" rel="noopener" style="color:var(--blue-light)">21 世纪经济报道：国内规模最大的特斯拉高速服务区超充站投用</a> — 中国内地超充站／桩数量与对外开放数量的媒体口径。</li>
+    <li><a href="https://m.163.com/dy/article/L10MLBIU0514R9OJ.html" target="_blank" rel="noopener" style="color:var(--blue-light)">环球网科技：特斯拉全球超充桩突破 8 万根</a> — 2026 年第二季度充电网络规模数据，与上条互为印证。</li>
+    <li><a href="https://auto.sina.cn/2026-07-26/detail-inikankn8782712.d.html" target="_blank" rel="noopener" style="color:var(--blue-light)">新浪汽车：特斯拉 FSD 正式入华，更名"特斯拉辅助驾驶"</a> — FSD 中文更名、6.4 万元定价与 SAE L2 级定位的报道依据。</li>
+    <li><a href="https://www.163.com/dy/article/HE810K8R0527UP9U.html" target="_blank" rel="noopener" style="color:var(--blue-light)">中信证券 Model 3 拆解研报解读（网易转载）</a> — 前感应异步 + 后永磁同步、扁线电机、SiC 逆变器等三电细节的技术出处。</li>
+  </ul>
+</section>
 </main>
 
 <script src="js/search.js"></script>

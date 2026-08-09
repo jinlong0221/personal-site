@@ -13,7 +13,7 @@
   var VB_W = 760, VB_H = 600, PAD_L = 48, PAD_T = 26, PAD_R = 22, PAD_B = 30;
   var PLOT_W = VB_W - PAD_L - PAD_R;
   var PLOT_H = VB_H - PAD_T - PAD_B;
-  var SHEYANG = { lat: 33.776, lon: 120.26, name: '射阳' };
+  var SHEYANG = { lat: 33.48, lon: 120.27, name: '射阳' };
 
   function lon2x(lon) { return PAD_L + (lon - LON_MIN) / (LON_MAX - LON_MIN) * PLOT_W; }
   function lat2y(lat) { return PAD_T + (LAT_MAX - lat) / (LAT_MAX - LAT_MIN) * PLOT_H; }
@@ -434,6 +434,8 @@
     for (var k = 0; k < track.length; k++) { if (track[k].current) { curIdx = k; break; } }
     range.value = curIdx;
     setFrame(curIdx);
+
+    window.__tfStop = stop; /* 供静默轮询在重渲染前停掉旧动画，避免泄漏 */
   }
 
   /* ============ 当前状态 ============ */
@@ -675,17 +677,86 @@
   }
 
   /* ============ 启动 ============ */
+  var lastSig = null;
+
+  function renderAll(d) {
+    renderUpdated(d);
+    renderStatus(d);
+    renderTrack(d);
+    renderSheyang(d);
+    renderPrevention(d);
+    renderFeed(d);
+    renderSources(d);
+  }
+
+  /* 抓取用户当前浏览状态，重渲染后无感还原 */
+  function captureState() {
+    var st = { scrollY: window.scrollY };
+    var ds = document.querySelectorAll('.tf-details');
+    st.details = Array.prototype.map.call(ds, function (d) { return d.open; });
+    var onTab = document.querySelector('.tf-tab.on');
+    st.tab = onTab ? onTab.getAttribute('data-k') : null;
+    var more = document.getElementById('tfMore');
+    st.feedOpen = !!(more && more.textContent.indexOf('收起') >= 0);
+    var r = document.getElementById('tfRange');
+    st.rangeT = r ? parseFloat(r.value) : null;
+    var p = document.getElementById('tfPlay');
+    st.playing = !!(p && p.classList.contains('playing'));
+    return st;
+  }
+
+  function restoreState(st) {
+    if (!st) return;
+    var ds = document.querySelectorAll('.tf-details');
+    st.details.forEach(function (open, i) { if (ds[i]) ds[i].open = open; });
+    if (st.tab) {
+      Array.prototype.forEach.call(document.querySelectorAll('.tf-tab'), function (b) {
+        b.classList.toggle('on', b.getAttribute('data-k') === st.tab);
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('.tf-prev-list'), function (l) {
+        l.classList.toggle('on', l.getAttribute('data-k') === st.tab);
+      });
+    }
+    if (st.feedOpen) {
+      var more = document.getElementById('tfMore');
+      if (more) more.click();
+    }
+    if (st.rangeT != null) {
+      var r = document.getElementById('tfRange');
+      if (r) { r.value = st.rangeT; r.dispatchEvent(new Event('input', { bubbles: true })); }
+    }
+    if (st.playing) {
+      var p = document.getElementById('tfPlay');
+      if (p) p.click();
+    }
+    window.scrollTo(0, st.scrollY);
+  }
+
   function init() {
     fetch('typhoon.json?v=' + Date.now())
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (d) {
-        renderUpdated(d);
-        renderStatus(d);
-        renderTrack(d);
-        renderSheyang(d);
-        renderPrevention(d);
-        renderFeed(d);
-        renderSources(d);
+        lastSig = JSON.stringify(d);
+        renderAll(d);
+        /* 每 10 分钟静默轮询：仅当数据有变化才重渲染，且保留用户滚动/播放/展开状态 */
+        if (!window.__tfPolling) {
+          window.__tfPolling = true;
+          setInterval(function () {
+            fetch('typhoon.json?v=' + Date.now())
+              .then(function (r) { if (!r.ok) return null; return r.json(); })
+              .then(function (nd) {
+                if (!nd) return;
+                var sig = JSON.stringify(nd);
+                if (sig === lastSig) return; /* 无变化，不打扰 */
+                lastSig = sig;
+                if (window.__tfStop) window.__tfStop(); /* 停掉旧播放动画，避免泄漏 */
+                var st = captureState();
+                renderAll(nd);
+                restoreState(st);
+              })
+              .catch(function () {});
+          }, 10 * 60 * 1000);
+        }
       })
       .catch(function (e) {
         var box = document.getElementById('tf-status');

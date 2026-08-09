@@ -549,121 +549,102 @@ if(document.readyState==='loading'){
 // ============================================================
 (function(){
   function initSectionNav(){
-    // 跳过已有自定义导航的页面
+    // 跳过已有自定义侧边导航的页面
     if(document.querySelector('.gh-sidenav') || document.querySelector('.gh-page')) return;
-    // zisha.html 已有 .section-nav，但它是页面内嵌的水平导航，不是侧边浮动
-    // 仍然跳过避免重复
-    if(document.querySelector('.section-nav') && document.querySelector('.gh-sidenav') === null){
-      // zisha 的 section-nav 是页面内嵌的，我们给它增强但不重复创建
-      // 实际上 zisha 的 section-nav 已经是页内导航了，跳过
-      var existingNav = document.querySelector('.section-nav');
-      if(existingNav && existingNav.children.length >= 3) return;
+    // zisha.html 的 .section-nav 为页内水平导航，避免重复生成
+    if(document.querySelector('.section-nav') && !document.querySelector('.gh-sidenav')){
+      var exNav = document.querySelector('.section-nav');
+      if(exNav && exNav.children.length >= 3) return;
     }
 
-    // 扫描 h2 标题
-    var headings = [];
-    var allH2 = document.querySelectorAll('h2');
-    allH2.forEach(function(h){
-      // 跳过隐藏的、在 script/template 中的
+    // 扫描 h2/h3 标题，构建大纲树
+    var tree = [];
+    var all = [];
+    var current = null;
+    var hs = document.querySelectorAll('h2, h3');
+    hs.forEach(function(h){
       if(h.closest('script') || h.closest('template')) return;
       if(h.offsetParent === null && getComputedStyle(h).display === 'none') return;
+      var level = h.tagName === 'H2' ? 2 : 3;
       var text = (h.textContent || '').trim();
       if(!text || text.length < 2) return;
-      headings.push(h);
-    });
-
-    // 少于3个 h2 不生成导航
-    if(headings.length < 3) return;
-
-    // 给没有 id 的 h2 生成 id
-    headings.forEach(function(h, i){
-      if(!h.id){
-        h.id = 'sec-nav-' + i;
+      if(level === 2){
+        current = { el:h, level:2, text:text, children:[] };
+        tree.push(current);
+        all.push(current);
+      } else if(current){
+        var sub = { el:h, level:3, text:text, parent:current };
+        current.children.push(sub);
+        all.push(sub);
       }
-      h.setAttribute('data-secnav', 'true');
     });
 
-    // 准备导航项（最多取8个，避免太长）
-    var maxItems = headings.length > 8 ? 8 : headings.length;
-    var navItems = [];
-    for(var i = 0; i < maxItems; i++){
-      var h = headings[i];
-      var text = (h.textContent || '').trim();
-      // 清理 emoji 前缀，取核心文字（截断到20字）
-      var cleanText = text.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]+\s*/u, '');
-      if(cleanText.length > 16) cleanText = cleanText.substring(0, 16) + '…';
-      if(!cleanText) cleanText = text.substring(0, 16);
-      navItems.push({ id: h.id, text: cleanText, fullText: text });
+    // 触发条件：h2 >= 3，或（有 h2 且 总标题数 >= 4）
+    if(tree.length < 3 && !(tree.length >= 1 && all.length >= 4)) return;
+
+    // 给没有 id 的标题生成 id
+    all.forEach(function(node, i){
+      if(!node.el.id) node.el.id = 'toc-' + i;
+      node.el.setAttribute('data-toc', 'true');
+    });
+
+    // 清理 emoji / 符号前缀并截断
+    function clean(t, max){
+      var c = t.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{2705}\u{274C}\u{2714}\u{2716}]+\s*/u, '');
+      c = c.replace(/^[✔✅❌⭕▶▸•·\-—]+/, '').trim();
+      if(c.length > max) c = c.substring(0, max) + '…';
+      return c || t.substring(0, max);
     }
 
-    // 注入 CSS（只注入一次）
+    // 注入样式（仅一次）
     if(!document.getElementById('secnav-styles')){
       var style = document.createElement('style');
       style.id = 'secnav-styles';
       style.textContent = [
-        '/* 自动章节导航 */',
-        '.secnav-side{',
-          'position:fixed;left:20px;top:50%;transform:translateY(-50%);',
-          'z-index:90;max-height:70vh;overflow-y:auto;',
-          'display:flex;flex-direction:column;gap:2px;',
-          'padding:10px 8px;border-radius:12px;',
-          'background:var(--card);border:1px solid var(--border);',
-          'box-shadow:var(--shadow-md);',
-          'opacity:0;visibility:hidden;',
-          'transition:opacity .3s,visibility .3s;',
-          'min-width:130px;max-width:180px;',
-        '}',
+        '/* 自动章节导航 v2 */',
+        '.reading-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:201;',
+        'background:linear-gradient(90deg,var(--gold),var(--gold-light));',
+        'box-shadow:0 0 8px rgba(201,168,76,.6);transition:width .12s linear;}',
+        '.secnav-side{position:fixed;right:20px;top:50%;transform:translateY(-50%);',
+        'z-index:90;max-height:72vh;overflow-y:auto;display:flex;flex-direction:column;gap:2px;',
+        'padding:14px 10px 14px 12px;border-radius:14px;background:var(--card);',
+        'border:1px solid var(--border);box-shadow:var(--shadow-md);',
+        'opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;min-width:160px;max-width:220px;}',
         '.secnav-side.visible{opacity:1;visibility:visible;}',
-        '.secnav-side a{',
-          'display:block;padding:6px 12px;border-radius:6px;',
-          'font-size:0.78rem;color:var(--text-secondary);',
-          'text-decoration:none;cursor:pointer;',
-          'transition:all .2s;white-space:nowrap;',
-          'overflow:hidden;text-overflow:ellipsis;',
-          'border-left:2px solid transparent;',
-        '}',
+        '.secnav-side .secnav-title{font-size:0.72rem;color:var(--text-muted);',
+        'padding:2px 12px 10px;margin-bottom:6px;border-bottom:1px solid var(--border);',
+        'letter-spacing:1px;font-weight:700;}',
+        '.secnav-side a{display:block;padding:6px 12px;border-radius:7px;font-size:0.82rem;',
+        'color:var(--text-secondary);text-decoration:none;cursor:pointer;transition:all .2s;',
+        'line-height:1.45;border-left:2px solid transparent;}',
         '.secnav-side a:hover{color:var(--text);background:var(--card-hover);}',
-        '.secnav-side a.active{',
-          'color:var(--gold);border-left-color:var(--gold);',
-          'background:rgba(201,168,76,0.08);font-weight:600;',
-        '}',
-        '.secnav-side .secnav-title{',
-          'font-size:0.7rem;color:var(--text-muted);',
-          'padding:4px 12px 8px;border-bottom:1px solid var(--border);',
-          'margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;',
-        '}',
-        '/* 手机端底部导航 */',
-        '.secnav-bottom{',
-          'position:fixed;bottom:0;left:0;right:0;z-index:91;',
-          'display:none;align-items:center;gap:4px;',
-          'padding:8px 12px;overflow-x:auto;',
-          'background:var(--nav-bg);backdrop-filter:blur(12px);',
-          'border-top:1px solid var(--border);',
-          'scrollbar-width:none;-ms-overflow-style:none;',
-        '}',
+        '.secnav-side a.toc-h3{padding-left:26px;font-size:0.78rem;color:var(--text-muted);}',
+        '.secnav-side a.active{color:var(--gold);border-left-color:var(--gold);',
+        'background:rgba(201,168,76,0.10);font-weight:600;}',
+        '.secnav-side a.toc-h3.active{color:var(--gold-light);}',
+        '.secnav-bottom{position:fixed;bottom:0;left:0;right:0;z-index:91;display:none;',
+        'align-items:center;gap:4px;padding:8px 12px;overflow-x:auto;background:var(--nav-bg);',
+        'backdrop-filter:blur(12px);border-top:1px solid var(--border);',
+        'scrollbar-width:none;-ms-overflow-style:none;}',
         '.secnav-bottom::-webkit-scrollbar{display:none;}',
-        '.secnav-bottom a{',
-          'flex-shrink:0;padding:6px 14px;border-radius:20px;',
-          'font-size:0.75rem;color:var(--text-secondary);',
-          'text-decoration:none;white-space:nowrap;',
-          'background:var(--card);border:1px solid var(--border);',
-          'transition:all .2s;',
-        '}',
+        '.secnav-bottom a{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:0.75rem;',
+        'color:var(--text-secondary);text-decoration:none;white-space:nowrap;',
+        'background:var(--card);border:1px solid var(--border);transition:all .2s;}',
         '.secnav-bottom a:hover{color:var(--text);}',
-        '.secnav-bottom a.active{',
-          'color:var(--gold);border-color:var(--gold);',
-          'background:rgba(201,168,76,0.12);',
-        '}',
-        '/* 响应式切换 */',
+        '.secnav-bottom a.active{color:var(--gold);border-color:var(--gold);',
+        'background:rgba(201,168,76,0.12);}',
+        '.toc-top{position:fixed;right:22px;bottom:24px;z-index:95;width:44px;height:44px;',
+        'display:flex;align-items:center;justify-content:center;border-radius:50%;',
+        'background:var(--card);border:1px solid var(--gold);color:var(--gold);',
+        'box-shadow:var(--shadow-md);cursor:pointer;opacity:0;visibility:hidden;',
+        'transition:opacity .3s,visibility .3s,background .2s,transform .2s;}',
+        '.toc-top.visible{opacity:1;visibility:visible;}',
+        '.toc-top:hover{background:var(--gold);color:#1a1a1a;transform:translateY(-2px);}',
+        '.toc-top svg{width:20px;height:20px;}',
         '@media (max-width:900px){',
-          '.secnav-side{display:none;}',
-          '.secnav-bottom.visible{display:flex;}',
-          'body.has-secnav{padding-bottom:50px;}',
-        '}',
-        '@media (min-width:901px){',
-          '.secnav-bottom{display:none;}',
-        '}',
-        '/* 滚动条美化 */',
+        '.secnav-side{display:none;}.secnav-bottom.visible{display:flex;}',
+        'body.has-secnav{padding-bottom:52px;}.toc-top{bottom:64px;}}',
+        '@media (min-width:901px){.secnav-bottom{display:none;}}',
         '.secnav-side::-webkit-scrollbar{width:4px;}',
         '.secnav-side::-webkit-scrollbar-track{background:transparent;}',
         '.secnav-side::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px;}'
@@ -671,117 +652,124 @@ if(document.readyState==='loading'){
       document.head.appendChild(style);
     }
 
-    // 创建电脑端侧边导航
+    // 生成右侧目录（嵌套 h3）
     var sideNav = document.createElement('nav');
     sideNav.className = 'secnav-side';
-    sideNav.setAttribute('aria-label', '页面章节导航');
-    var sideHtml = '<div class="secnav-title">📑 快速跳转</div>';
-    navItems.forEach(function(item){
-      sideHtml += '<a href="#' + item.id + '" data-target="' + item.id + '" title="' + 
-        item.fullText.replace(/"/g, '&quot;') + '">' + item.text + '</a>';
+    sideNav.setAttribute('aria-label', '页面目录');
+    var sideHtml = '<div class="secnav-title">目录</div>';
+    var sideCount = 0;
+    var SIDE_MAX = 16;
+    tree.forEach(function(node){
+      if(sideCount >= SIDE_MAX) return;
+      sideHtml += '<a href="#' + node.el.id + '" class="toc-h2" data-target="' + node.el.id + '" title="' +
+        node.text.replace(/"/g,'&quot;') + '">' + clean(node.text, 18) + '</a>';
+      sideCount++;
+      node.children.forEach(function(sub){
+        if(sideCount >= SIDE_MAX) return;
+        sideHtml += '<a href="#' + sub.el.id + '" class="toc-h3" data-target="' + sub.el.id + '" title="' +
+          sub.text.replace(/"/g,'&quot;') + '">' + clean(sub.text, 16) + '</a>';
+        sideCount++;
+      });
     });
     sideNav.innerHTML = sideHtml;
     document.body.appendChild(sideNav);
 
-    // 创建手机端底部导航
+    // 生成底部导航（扁平）
     var bottomNav = document.createElement('nav');
     bottomNav.className = 'secnav-bottom';
-    bottomNav.setAttribute('aria-label', '页面章节导航');
+    bottomNav.setAttribute('aria-label', '页面目录');
     var bottomHtml = '';
-    navItems.forEach(function(item){
-      bottomHtml += '<a href="#' + item.id + '" data-target="' + item.id + '">' + item.text + '</a>';
+    all.forEach(function(node){
+      bottomHtml += '<a href="#' + node.el.id + '" data-target="' + node.el.id + '">' +
+        clean(node.text, 14) + '</a>';
     });
     bottomNav.innerHTML = bottomHtml;
     document.body.appendChild(bottomNav);
     document.body.classList.add('has-secnav');
 
+    // 阅读进度条
+    var progress = document.createElement('div');
+    progress.className = 'reading-progress';
+    document.body.appendChild(progress);
+
+    // 返回顶部按钮
+    var topBtn = document.createElement('button');
+    topBtn.className = 'toc-top';
+    topBtn.setAttribute('aria-label', '返回顶部');
+    topBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>';
+    document.body.appendChild(topBtn);
+
     // 平滑滚动
-    function scrollToSection(id){
+    function scrollToId(id){
       var target = document.getElementById(id);
       if(!target) return;
-      var navHeight = 60; // 导航栏高度
+      var navH = 60;
       var rect = target.getBoundingClientRect();
-      var top = window.scrollY + rect.top - navHeight - 10;
+      var top = window.scrollY + rect.top - navH - 12;
       window.scrollTo({ top: top, behavior: 'smooth' });
     }
-
-    // 点击事件
     [sideNav, bottomNav].forEach(function(nav){
       nav.querySelectorAll('a').forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
-          var id = a.getAttribute('data-target');
-          scrollToSection(id);
+          scrollToId(a.getAttribute('data-target'));
         });
       });
     });
+    topBtn.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-    // 滚动显示/隐藏 + Scroll Spy
-    var scrollThreshold = 300;
+    // 滚动处理：显示/隐藏 + scroll spy + 进度条
+    var showThreshold = 300;
     var ticking = false;
     var currentActive = null;
 
     function update(){
       var scrollY = window.scrollY || window.pageYOffset;
-
-      // 显示/隐藏
-      if(scrollY > scrollThreshold){
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (docH > 0 ? (scrollY / docH * 100) : 0) + '%';
+      if(scrollY > 400) topBtn.classList.add('visible');
+      else topBtn.classList.remove('visible');
+      if(scrollY > showThreshold){
         sideNav.classList.add('visible');
         bottomNav.classList.add('visible');
       } else {
         sideNav.classList.remove('visible');
         bottomNav.classList.remove('visible');
       }
-
-      // Scroll Spy: 找到当前可见的标题
       var activeId = null;
-      for(var i = headings.length - 1; i >= 0; i--){
-        var rect = headings[i].getBoundingClientRect();
-        if(rect.top <= 120 && rect.bottom > 60){
-          activeId = headings[i].id;
-          break;
-        }
+      for(var i = all.length - 1; i >= 0; i--){
+        var r = all[i].el.getBoundingClientRect();
+        if(r.top <= 130 && r.bottom > 0){ activeId = all[i].el.id; break; }
       }
-      // 如果没找到（可能在页面最顶部），选第一个
-      if(!activeId && scrollY < 200 && headings.length > 0){
-        activeId = headings[0].id;
-      }
-
+      if(!activeId && scrollY < 200 && all.length) activeId = all[0].el.id;
       if(activeId !== currentActive){
         currentActive = activeId;
         [sideNav, bottomNav].forEach(function(nav){
           nav.querySelectorAll('a').forEach(function(a){
-            if(a.getAttribute('data-target') === activeId){
-              a.classList.add('active');
-            } else {
-              a.classList.remove('active');
-            }
+            a.classList.toggle('active', a.getAttribute('data-target') === activeId);
           });
         });
-
-        // 手机端：自动滚动到活跃项
         if(activeId && window.innerWidth <= 900){
           var activeLink = bottomNav.querySelector('a.active');
           if(activeLink){
-            var navRect = bottomNav.getBoundingClientRect();
-            var linkRect = activeLink.getBoundingClientRect();
-            if(linkRect.left < navRect.left || linkRect.right > navRect.right){
-              activeLink.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            var nr = bottomNav.getBoundingClientRect();
+            var lr = activeLink.getBoundingClientRect();
+            if(lr.left < nr.left || lr.right > nr.right){
+              activeLink.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
             }
           }
         }
       }
-
       ticking = false;
     }
-
     window.addEventListener('scroll', function(){
-      if(!ticking){
-        requestAnimationFrame(update);
-        ticking = true;
-      }
+      if(!ticking){ requestAnimationFrame(update); ticking = true; }
     }, { passive: true });
-
+    window.addEventListener('resize', function(){
+      if(!ticking){ requestAnimationFrame(update); ticking = true; }
+    });
     update();
   }
 

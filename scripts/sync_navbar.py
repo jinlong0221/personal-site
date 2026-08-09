@@ -42,6 +42,7 @@ DROPDOWN = [
     ("guanghui.html", "光辉电力"),
     ("gaokao.html", "高考查分"),
     ("pitfalls.html", "踩坑记"),
+    ("typhoon.html", "台风监测"),
     ("games.html", "游戏库"),
     ("about.html", "关于本站"),
 ]

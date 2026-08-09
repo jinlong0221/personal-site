@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
@@ -20,11 +20,9 @@
 })();
 </script>
 
-<title>进化的龙兄 - 龙兄知识库</title>
-<meta name="description" content="记录龙兄知识库的每次进化轨迹全站 149 个页面补全 Open Graph / Twitter Card / canonical URL / JSON-LD 结构化数据。新建 robots.txt、生成 og-image 分享图、创建 SVG favicon。修复搜索功能（Pagefind 重建索引）。">
-<meta name="keywords" content="AI提示词教程,文玩科普,数码家电选购,新能源用车,居家养生科普,沉香鉴别,中药材香料">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
-<!-- 预加载关键资源 -->
+  <title>台风实时监测 | 龙兄知识库</title>
+  <meta name="description" content="花冤枉钱买的教训，帮你省回去提了特斯拉之后，心里那个美，觉得自己终于跟上时代了。4S店那个销售当时说："随车充备一个，临时用方便。"我想想也是，万一回老家农村没充电桩怎么办？当时网购随便搜了一个，89块钱，图片上写的是"新能源通用"，评论也都不错，果断下单。">
+  <!-- 预加载关键资源 -->
 <link rel="preload" href="js/app.js" as="script">
 <link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
@@ -107,32 +105,102 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
 <link rel="preload" href="css/style.css?v=20260809" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="css/style.css?v=20260809"></noscript>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
+  <meta property="og:site_name" content="龙兄知识库">
+  <style>
+/* ===== 台风实时监测板 ===== */
+.tf-board{margin:0 auto;}
+.tf-hero{
+  position:relative;text-align:center;padding:56px 20px 40px;margin-bottom:28px;
+  background:linear-gradient(135deg,#0a2a43 0%,#0d3b5c 45%,#102a4a 100%);
+  border-radius:0 0 24px 24px;overflow:hidden;
+}
+.tf-hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 20%,rgba(77,166,232,.18),transparent 40%),radial-gradient(circle at 80% 60%,rgba(201,168,76,.15),transparent 45%);pointer-events:none;}
+.tf-hero-inner{position:relative;z-index:1;}
+.tf-hero h1{font-size:2.4rem;color:#fff;margin-bottom:10px;letter-spacing:1px;}
+.tf-hero p{color:rgba(255,255,255,.82);font-size:1.05rem;max-width:760px;margin:0 auto;line-height:1.7;}
+.tf-hero .tf-update{margin-top:14px;font-size:.8rem;color:rgba(255,255,255,.6);}
+.tf-hero .tf-update b{color:var(--gold-light);}
 
-<link rel="canonical" href="https://longxiong.vip/changelog.html">
+.tf-section-title{font-size:1.5rem;margin:36px 0 18px;padding-left:12px;border-left:4px solid var(--gold);color:var(--text);}
+.tf-section-title .tf-sub-en{font-size:.8rem;color:var(--text-muted);font-weight:400;margin-left:8px;}
+
+.tf-status{
+  background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(77,166,232,.10));
+  border:1px solid var(--border);border-radius:16px;padding:24px 26px;margin-bottom:8px;
+}
+.tf-badge{display:inline-block;font-size:.78rem;font-weight:700;color:#fff;background:linear-gradient(90deg,var(--gold),var(--orange));padding:4px 14px;border-radius:20px;letter-spacing:1px;}
+.tf-name{font-size:2rem;margin:12px 0 4px;color:var(--text);}
+.tf-name .tf-en{font-size:1rem;color:var(--text-muted);font-weight:400;}
+.tf-status-line{font-size:1rem;color:var(--gold-light);font-weight:600;margin-bottom:18px;}
+.tf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.tf-cell{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+.tf-cell span{display:block;font-size:.78rem;color:var(--text-muted);margin-bottom:4px;}
+.tf-cell b{font-size:.95rem;color:var(--text);font-weight:600;}
+
+.tf-track-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-top:8px;}
+.tf-track-svg{width:100%;height:auto;display:block;border-radius:10px;}
+
+.tf-two-col{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;align-items:start;}
+
+.tf-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.tf-chip{font-size:.8rem;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-secondary);}
+.tf-chip-warn{border-color:#e8a33d;color:#e8a33d;background:rgba(232,163,61,.10);}
+.tf-impact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.tf-impact-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.tf-impact-card h4{font-size:.95rem;color:var(--gold);margin-bottom:8px;}
+.tf-impact-card p{font-size:.9rem;color:var(--text-secondary);line-height:1.7;margin:0;}
+.tf-sub{font-size:1.05rem;color:var(--text);margin:22px 0 10px;}
+.tf-risk-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0;}
+.tf-risk-list li{font-size:.88rem;color:var(--text-secondary);background:rgba(232,61,61,.08);border:1px solid rgba(232,61,61,.25);border-left:3px solid #e81123;border-radius:8px;padding:10px 12px;line-height:1.6;}
+.tf-timeline{position:relative;padding-left:18px;border-left:2px solid var(--border);margin-top:6px;}
+.tf-tl-item{position:relative;padding:0 0 16px 10px;}
+.tf-tl-item::before{content:'';position:absolute;left:-25px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.2);}
+.tf-tl-date{font-size:.85rem;font-weight:700;color:var(--gold-light);}
+.tf-tl-text{font-size:.9rem;color:var(--text-secondary);line-height:1.6;}
+
+.tf-prev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.tf-prev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;transition:border-color .2s,transform .2s;}
+.tf-prev-card:hover{border-color:var(--gold);transform:translateY(-3px);}
+.tf-prev-head{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.tf-prev-list{list-style:none;padding:0;margin:0;}
+.tf-prev-list li{font-size:.86rem;color:var(--text-secondary);line-height:1.7;padding:8px 0 8px 18px;position:relative;border-bottom:1px dashed var(--border-light);}
+.tf-prev-list li:last-child{border-bottom:none;}
+.tf-prev-list li::before{content:'▸';position:absolute;left:0;color:var(--gold);}
+
+.tf-count{font-size:.85rem;color:var(--text-muted);font-weight:400;margin-left:8px;}
+.tf-src{font-size:.75rem;color:var(--text-muted);margin-left:6px;}
+.news-tag.danger{background:rgba(232,17,35,.15);color:#ff6b6b;border:1px solid rgba(232,17,35,.4);padding:2px 10px;border-radius:20px;font-size:.75rem;}
+.news-tag.info{background:rgba(77,166,232,.15);color:#6cb8f0;border:1px solid rgba(77,166,232,.4);padding:2px 10px;border-radius:20px;font-size:.75rem;}
+.news-tag.warn{background:rgba(232,163,61,.15);color:#e8a33d;border:1px solid rgba(232,163,61,.4);padding:2px 10px;border-radius:20px;font-size:.75rem;}
+
+@media(max-width:900px){
+  .tf-grid{grid-template-columns:repeat(2,1fr);}
+  .tf-two-col{grid-template-columns:1fr;}
+  .tf-impact-grid,.tf-risk-list{grid-template-columns:1fr;}
+  .tf-prev-grid{grid-template-columns:repeat(2,1fr);}
+  .tf-hero h1{font-size:1.8rem;}
+}
+@media(max-width:560px){
+  .tf-grid{grid-template-columns:1fr;}
+  .tf-prev-grid{grid-template-columns:1fr;}
+}
+</style>
+
+<link rel="canonical" href="https://longxiong.vip/typhoon.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
-<meta property="og:title" content="进化的龙兄 - 龙兄知识库">
-<meta property="og:description" content="龙兄知识库更新日志，记录每次迭代与进化">
+<meta property="og:title" content="台风实时监测 | 龙兄知识库">
+<meta property="og:description" content="台风白海豚实时监测：跟踪台风走向与强度，重点提示对江苏盐城射阳的风雨影响与防台风措施。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://longxiong.vip/changelog.html">
+<meta property="og:url" content="https://longxiong.vip/typhoon.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="进化的龙兄 - 龙兄知识库">
-<meta name="twitter:description" content="龙兄知识库更新日志，记录每次迭代与进化">
+<meta name="twitter:title" content="台风实时监测 | 龙兄知识库">
+<meta name="twitter:description" content="台风白海豚实时监测：跟踪台风走向与强度，重点提示对江苏盐城射阳的风雨影响与防台风措施。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 </head>
 <body>
-
 <nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner">
     <a href="index.html" class="logo" aria-label="龙兄知识库首页">
@@ -159,7 +227,7 @@ var _hmt = _hmt || [];
           <a href="guanghui.html">光辉电力</a>
           <a href="gaokao.html">高考查分</a>
           <a href="pitfalls.html">踩坑记</a>
-          <a href="typhoon.html">台风监测</a>
+          <a href="typhoon.html" class="active">台风监测</a>
           <a href="games.html">游戏库</a>
           <a href="about.html">关于本站</a>
         </div>
@@ -203,118 +271,44 @@ var _hmt = _hmt || [];
   </div>
 </nav>
 
-<main class="container" id="main-content" role="main">
-  <div id="breadcrumb"></div>
+  <main id="main-content" role="main">
+  <div class="container">
+    <section class="tf-hero">
+      <div class="tf-hero-inner">
+        <h1>🌀 台风实时监测</h1>
+        <p>聚焦江苏省盐城市射阳县 —— 跟踪今年第13号台风「白海豚」的走向、强度，以及对射阳的风雨影响与防范指引。</p>
+        <div class="tf-update">数据更新：<b id="lastNewsUpdate">2026-08-09 20:35</b> · 来源：中央气象台 / 江苏·盐城气象</div>
+      </div>
+    </section>
 
-  <div class="page-header">
-    <h1>🐉 进化的龙兄</h1>
-    <p class="subtitle">记录龙兄知识库的每次进化轨迹</p>
-  </div>
+    <h2 class="tf-section-title">当前状态 <span class="tf-sub-en">Current Status</span></h2>
+    <div id="tf-status" class="tf-status"><!-- JS 渲染 --></div>
 
-  <!-- 格式：时间 | 板块 | 变更摘要 -->
-  <!-- 2026-06-22 v2.3 entries already added in tbody above -->
-  <div class="changelog-table">
-    <div class="table-wrapper">
-      <table class="m-table">
-        <thead>
-          <tr><th>时间</th><th>变更摘要</th></tr>
-        </thead>
-        <tbody id="changelogBody">
-          <tr><td>2026-07-07</td><td>全站内容更新：所有板块最后更新日期同步至 2026-07-07，sitemap 自动重新生成</td></tr>
-          <tr><td>2026-07-06</td><td>全面 SEO 优化：添加 Open Graph/Twitter Card/canonical/JSON-LD 结构化数据到 149 个页面</td></tr>
-          <tr><td>2026-07-06</td><td>修复搜索功能：运行 Pagefind 重建全文搜索索引</td></tr>
-          <tr><td>2026-07-06</td><td>新建 robots.txt（含 sitemap 引用）、生成 og-image.png 分享图、创建 SVG favicon</td></tr>
-          <tr><td>2026-07-06</td><td>清理 8 个重复主机条目，修正 PS1 错误图片引用，主机总数更新为 51 款</td></tr>
-          <tr><td>2026-07-06</td><td>接入 Google Analytics 4（模板 + 93 个静态页面），与百度统计双轨运行</td></tr>
-          <tr><td>2026-07-06</td><td>新建 sitemap 自动生成脚本 generate_sitemap.py，支持自动提取最后更新日期</td></tr>
-          <tr><td>2026-07-06</td><td>.htaccess 添加 www→裸域重定向、HTTP→HTTPS 强制跳转</td></tr>
-          <tr><td>2026-06-22</td><td>重大更新：特斯拉板块全面重构，新增 Model Y L/Semi/Roadster/Cybercab/Powerwall/Megapack 6个新页面，共11个特斯拉产品页面</td></tr>
-          <tr><td>2026-06-22</td><td>车型数据更新：Model Y修正为3版本（去高性能版），Model Y L新增为独立六座车型，Model S/X标注停产状态</td></tr>
-          <tr><td>2026-06-22</td><td>首页 tesla.html 全面改版：关键数据栏+新闻列表+车型分类（在售/停产/即将发布/储能）卡片网格</td></tr>
-          <tr><td>2026-06-22</td><td>所有车型页新增「最新动态」版块（3-5条），同步 FSD获批/上海工厂/停产等重大新闻</td></tr>
-          <tr><td>2026-06-22</td><td>重大重构：卡片式布局、四大分类导航、访客留言板、CSS瘦身(34→23KB)、删除9个冗余页面、SEO优化</td></tr>
-          <tr><td>2026-06-22</td><td>子分类拆分：鉴别/功效/避坑科普三类子页</td></tr>
-          <tr><td>2026-06-22</td><td>子分类拆分：材质养护/真假分辨/尺寸参考</td></tr>
-          <tr><td>2026-06-22</td><td>子分类拆分：车载配件/充电/用车科普</td></tr>
-          <tr><td>2026-06-22</td><td>新增访客留言板（XSS过滤）、一键复制按钮、信息来源区域、更新时间标注</td></tr>
-          <tr><td>2026-06-22</td><td>黑金+浅蓝国风科技配色统一、龙形SVG Logo、卡片悬停动画、404趣味页面升级</td></tr>
-          <tr><td>2026-06-22</td><td>修复fonts.font.im→fonts.googleapis.cn国内镜像，3个子页面字体加载加速</td></tr>
-          <tr><td>2026-06-22</td><td>搜索框新增清空按钮、无结果提示、全文检索高亮、XSS输入过滤</td></tr>
-          <tr><td>2026-06-22</td><td>localStorage持久保存、深浅双套配色完整、防闪白内联脚本生效</td></tr>
-          <tr><td>2026-06-22</td><td>一键复制按钮全站覆盖、移动端触控区域44px、汉堡菜单全子页适配</td></tr>
-          <tr><td>2026-06-22</td><td>天气模块缩小移至侧边、首页首屏AI学习内容优先、加宽手机端留白</td></tr>
-          <tr><td>2026-06-21</td><td>网站创建上线：Metro风格设计、首页瓷砖导航、射阳天气面板</td></tr>
-          <tr><td>2026-06-21</td><td>首批9种中药材知识页面上线</td></tr>
-          <tr><td>2026-06-21</td><td>首批文玩手串页面上线：星月/凤眼/龙眼等</td></tr>
-          <tr><td>2026-06-21</td><td>特斯拉全系车型页面上线</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="section" style="margin-top:40px;">
-    <h2>进化里程碑</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-date">2026-07-06</div>
-        <div class="timeline-content">
-          <h3>🔧 全面 SEO 优化 v3.0</h3>
-          <p>全站 149 个页面补全 Open Graph / Twitter Card / canonical URL / JSON-LD 结构化数据。新建 robots.txt、生成 og-image 分享图、创建 SVG favicon。修复搜索功能（Pagefind 重建索引）。清理主机图鉴 8 个重复条目。接入 Google Analytics 4。创建 sitemap 自动生成脚本。.htaccess 添加 www 重定向和 HTTPS 强制跳转。</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-date">2026-06-22</div>
-        <div class="timeline-content">
-          <h3>🚗 特斯拉板块全面重构 v2.3</h3>
-          <p>特斯拉板块重大更新：全面重写所有车型页面（Model 3/Y/S/X/Cybertruck），新增6个产品页面（Model Y L/Semi/Roadster/Cybercab/Powerwall/Megapack），共11个特斯拉相关页面。车型数据全面更新：Model Y修正为3个版本，Model Y L独立为六座旗舰车型，Model S/X标注停产状态并添加停产公告。新增「最新动态」版块（3-5条新闻），首页全面改版为关键数据栏+新闻列表+分类卡片网格。app.js面包屑和search-index.json同步更新，导航栏包含全部特斯拉产品线。</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-date">2026-06-22</div>
-        <div class="timeline-content">
-          <h3>🍵 新增中药养生茶板块 v2.2</h3>
-          <p>新增「中药养生茶配方」板块，包含20+种常用药食同源食材、30+经典配方（养肝明目/安神助眠/健脾祛湿/清热润肺/补气养血/降压降脂/排毒养颜/解酒护肝8大类）、四季养生方案和体质辨识指南。全站导航和搜索索引同步更新。</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-date">2026-06-22</div>
-        <div class="timeline-content">
-          <h3>🔧 全站8项修复 v2.1（2026-06-22）</h3>
-          <p>CDN优化：fonts.font.im→fonts.googleapis.cn国内镜像，3个子页面字体加载加速。搜索：新增清空按钮+无结果提示+全文高亮+XSS过滤。夜间模式：localStorage持久+双套配色+防闪白。交互：全站复制按钮+移动端44px触控区+汉堡菜单全适配。排版：天气侧边栏+AI内容优先+手机端加宽留白。</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-date">2026-06-22</div>
-        <div class="timeline-content">
-          <h3>🚀 全站重大重构 v2.0</h3>
-          <p>全面整改：卡片式布局替换平铺、四大分类导航（AI学习/兴趣干货/生活实用/在线小工具）、访客留言板、CSS从34KB瘦身至23KB、删除9个冗余单页、SEO关键词统一、XSS防护加固。</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-date">2026-06-21</div>
-        <div class="timeline-content">
-          <h3>🎉 网站创建 v1.0</h3>
-          <p>龙兄知识库正式上线！GitHub Pages 部署，Metro 风格，黑金国风科技色系。首批包含沉香鉴别、中药材、文玩手串、特斯拉动态、射阳天气等板块。</p>
-        </div>
+    <h2 class="tf-section-title">走向示意图 <span class="tf-sub-en">Track</span></h2>
+    <div class="tf-two-col">
+      <div id="tf-track" class="tf-track-wrap"><!-- SVG --></div>
+      <div class="tf-impact-card" style="align-self:stretch">
+        <h4>看点</h4>
+        <p style="margin-top:8px">橙色实线为「白海豚」已走过的路径，蓝色虚线为气象部门预报路径（概率预报，可能调整）。红色圈为<strong>射阳</strong>——本页重点关注区域。</p>
+        <p style="margin-top:10px">台风 8/9 17:30 登陆浙江玉环后向偏西转西偏北移动、强度减弱，其庞大外围环流将持续影响江苏至 8/13；射阳地处江苏北部沿海，需重点防范海上大风与暴雨内涝。</p>
+        <p style="margin-top:10px;color:var(--text-muted);font-size:.82rem">示意图依据公开坐标绘制的简化走向，非官方精确底图，仅供参考。</p>
       </div>
     </div>
-  </div>
 
-  <div class="section" style="margin-top:40px;">
-    <h2>近期更新</h2>
-    <p style="color:var(--text-muted);font-size:.9rem;margin:6px 0 18px;">每一次提交的进化轨迹（自动更新 + 手工记录），数据每日同步。</p>
-    <div id="weeklyChangelog" class="timeline"></div>
-  </div>
+    <h2 class="tf-section-title">对射阳的影响 <span class="tf-sub-en">Impact on Sheyang</span></h2>
+    <div id="tf-sheyang"><!-- JS 渲染 --></div>
 
-  <!-- 信息来源 -->
-  <div class="page-meta">
-    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站更新记录 · 如有疑问请访问 <a href="https://github.com/jinlong0221/personal-site">GitHub 仓库</a></div>
-    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
-    <div class="update-time">最后更新时间：<span id="changelogUpdated">2026-08-09</span></div>
+    <h2 class="tf-section-title">防范措施 <span class="tf-sub-en">How to Prepare</span></h2>
+    <div id="tf-prevention" class="tf-prev-grid"><!-- JS 渲染 --></div>
+
+    <h2 class="tf-section-title">实时动态 <span class="tf-sub-en">Live Feed</span><span id="autoNewsCount" class="tf-count"></span></h2>
+    <div id="autoNewsBody"><!-- JS 渲染 --></div>
+
+    <p style="margin-top:24px;font-size:.8rem;color:var(--text-muted);text-align:center">本页为信息聚合与科普提醒，<strong>不作为预警发布依据</strong>。请以盐城/射阳气象部门及「盐城发布」「射阳发布」等官方渠道的最新预报预警为准；遇险情及时拨打当地防汛防台值班电话或 119 / 120。</p>
   </div>
 </main>
 
-<footer role="contentinfo">
+  <footer role="contentinfo">
   <div class="footer-brand-row">
     🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
   </div>
@@ -334,11 +328,35 @@ var _hmt = _hmt || [];
     如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
   </div>
 </footer>
-<script src="js/search.js"></script>
-<script defer src="js/app.js"></script>
-    <script src="js/share.js"></script>
-    <script src="js/changelog.js"></script>
-  
+
+  <script defer src="js/app.js"></script>
+  <script src="js/auto_typhoon_loader.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/share.js"></script>
+  <script>
+    // 踩坑卡片折叠展开
+    function togglePitfall(header) {
+      var card = header.closest('.pitfall-card');
+      var body = card.querySelector('.pitfall-body');
+      var wasOpen = body.classList.contains('open');
+
+      // 关闭所有其他卡片
+      document.querySelectorAll('.pitfall-body.open').forEach(function(b) {
+        b.classList.remove('open');
+        b.closest('.pitfall-card').classList.remove('expanded');
+      });
+
+      // 切换当前卡片
+      if (!wasOpen) {
+        body.classList.add('open');
+        card.classList.add('expanded');
+      }
+    }
+
+    document.getElementById('lastUpdate').textContent = new Date(document.lastModified).toISOString().slice(0,10);
+  </script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -352,10 +370,9 @@ var _hmt = _hmt || [];
     {
       "@type": "Article",
       "author": { "@type": "Person", "name": "龙兄" },
-      "dateModified": "2026-08-09",
-      "headline": "进化的龙兄 - 龙兄知识库",
-      "url": "https://longxiong.vip/changelog.html",
-      "description": "龙兄知识库更新日志，记录每次迭代与进化"
+      "headline": "台风实时监测 | 龙兄知识库",
+      "url": "https://longxiong.vip/typhoon.html",
+      "description": "龙兄在沉香、手串、特斯拉、中药材等领域踩过的坑和经验教训，帮你避开同样的坑。"
     }
   ]
 }

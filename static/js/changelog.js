@@ -32,7 +32,7 @@
         if (!Array.isArray(arr)) return;
         arr.forEach(function (item) {
           if (!item || !item.date) return;
-          var key = item.date + ' ' + item.content;
+          var key = item.date + ' ' + (item.content || item.desc || item.title || '');
           if (seen[key]) return;
           seen[key] = 1;
           merged.push(item);
@@ -44,9 +44,10 @@
 
       var html = '';
       merged.forEach(function (item) {
+        var text = item.desc || item.content || item.title || '';
         html += '<div class="timeline-item">' +
           '<div class="timeline-date">' + esc(item.date) + '</div>' +
-          '<div class="timeline-content"><p>' + esc(item.content) + '</p></div>' +
+          '<div class="timeline-content"><p>' + esc(text) + '</p></div>' +
           '</div>';
       });
       container.innerHTML = html;
@@ -56,7 +57,8 @@
       if (tbody) {
         var rows = '';
         merged.forEach(function (item) {
-          rows += '<tr><td>' + esc(item.date) + '</td><td>' + esc(item.content) + '</td></tr>';
+          var text = item.desc || item.content || item.title || '';
+          rows += '<tr><td>' + esc(item.date) + '</td><td>' + esc(text) + '</td></tr>';
         });
         tbody.innerHTML = rows;
       }

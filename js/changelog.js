@@ -51,6 +51,20 @@
       });
       container.innerHTML = html;
 
+      // 主表格（时间 | 变更摘要）也由同一份合并数据驱动
+      var tbody = document.getElementById('changelogBody');
+      if (tbody) {
+        var rows = '';
+        merged.forEach(function (item) {
+          rows += '<tr><td>' + esc(item.date) + '</td><td>' + esc(item.content) + '</td></tr>';
+        });
+        tbody.innerHTML = rows;
+      }
+
+      // 页脚"最后更新时间"同步为最新一条
+      var upd = document.getElementById('changelogUpdated');
+      if (upd && merged.length) upd.textContent = merged[0].date;
+
       var badge = document.getElementById('update-count');
       if (badge) badge.textContent = merged.length + '条';
     }

@@ -74,7 +74,15 @@
 
     // 同时更新杂志布局中的状态显示
     var magStatus = document.getElementById('magStatus');
-    if (magStatus) magStatus.textContent = (data.status || '') + ' ' + (data.emoji || '');
+    if (magStatus) {
+      var base = (data.status || '') + ' ' + (data.emoji || '');
+      if (data.dnd) {
+        magStatus.innerHTML = base + ' <span class="lx-dnd-badge" style="display:inline-flex;align-items:center;gap:3px;margin-left:6px;padding:1px 7px;border-radius:999px;font-size:.66rem;font-weight:700;background:rgba(229,57,53,.14);color:#e53935;border:1px solid rgba(229,57,53,.4);letter-spacing:.02em;vertical-align:middle;">🔕 勿扰</span>';
+        magStatus.classList.add('lx-dnd');
+      } else {
+        magStatus.textContent = base;
+      }
+    }
   }
 
   // 回退：从 updates.json 找最新板块显示

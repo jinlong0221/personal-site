@@ -558,5 +558,20 @@ setInterval(loadWeather, 10 * 60 * 1000);
   ]
 }
 </script>
+
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+  </script>
+  <script src="js/auto_news_loader.js"></script>
 </body>
 </html>

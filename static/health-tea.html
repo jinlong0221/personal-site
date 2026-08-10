@@ -301,6 +301,15 @@ var _hmt = _hmt || [];
     <p class="subtitle">药食同源 · 辨证施饮 · 四季养生</p>
   </div>
 
+  <!-- ========= 每日自动更新（置于正文顶部，与 herbs 等板块一致） ========= -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
   <!-- ========= 前言 ========= -->
   <div class="section">
     <h2>📖 什么是中药养生茶？</h2>
@@ -888,14 +897,6 @@ document.addEventListener('DOMContentLoaded', function() {
   ]
 }
 </script>
-
-  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
-    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
-      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
-      <span class="hc-arrow">▼</span>
-    </div>
-    <div class="home-collapsible-body" id="autoNewsBody"></div>
-  </div>
 
   <script>
   if (typeof toggleHomeSection === 'undefined') {

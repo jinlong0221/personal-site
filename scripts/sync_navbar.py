@@ -30,7 +30,6 @@ DESKTOP = [
     ("health-tea.html", "养生茶"),
     ("bracelet.html", "文玩手串"),
     ("tesla.html", "特斯拉"),
-    ("marvel.html", "漫威宇宙"),
     ("xintan-weather.html", "农田气象"),
     ("zisha.html", "紫砂艺术"),
     ("console.html", "游戏主机"),

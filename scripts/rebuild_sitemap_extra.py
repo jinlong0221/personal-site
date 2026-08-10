@@ -33,7 +33,6 @@ PRIORITY_RULES = [
     ('herbs.html',        '0.9'),
     ('bracelet.html',     '0.9'),
     ('console.html',      '0.9'),
-    ('marvel.html',       '0.9'),
     ('games.html',        '0.9'),
     ('guanghui.html',     '0.9'),
     ('health-tea.html',   '0.8'),

@@ -29,13 +29,6 @@
       img: 'img/consoles/ps5.webp'
     },
     {
-      name: '漫威观影顺序',
-      desc: 'MCU全阶段观影指南，收藏慢慢看',
-      tag: '🎭 流行文化',
-      url: 'marvel.html',
-      img: 'img/marvel/iron-man-1.jpg'
-    },
-    {
       name: '紫砂壶鉴赏',
       desc: '95件紫砂艺术品，品味东方美学',
       tag: '🏺 传统文化',

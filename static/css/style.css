@@ -1278,57 +1278,6 @@ html, body {
   }
 }
 
-/* ===== 漫威宇宙专用样式 ===== */
-
-.marvel-timeline {
-  margin: 24px 0;
-}
-
-.marvel-timeline .timeline-item {
-  margin-bottom: 20px;
-  padding-left: 0;
-}
-
-.marvel-timeline .timeline-item::before {
-  display: none;
-}
-
-.marvel-timeline .timeline-phase {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--gold);
-  margin-bottom: 12px;
-  padding: 10px 16px;
-  background: rgba(201,168,76,0.12);
-  border-left: 4px solid var(--gold);
-  border-radius: 8px;
-}
-
-[data-theme="light"] .marvel-timeline .timeline-phase {
-  background: rgba(139,105,20,0.08);
-  color: #6B4F00;
-}
-
-.movie-list {
-  list-style: decimal;
-  padding-left: 24px;
-  margin: 0;
-}
-
-.movie-list li {
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-  line-height: 1.6;
-}
-
-.movie-list li:last-child {
-  border-bottom: none;
-}
-
-.movie-list strong {
-  color: var(--text);
-}
-
 /* 超级英雄卡片网格 */
 .hero-grid {
   display: grid;

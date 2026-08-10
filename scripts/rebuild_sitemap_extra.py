@@ -29,6 +29,7 @@ EXCLUDE_DIRS = {'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
 PRIORITY_RULES = [
     ('index.html',        '1.0'),   # 首页
     ('tesla.html',        '0.9'),
+    ('marvel.html',       '0.9'),
     ('zisha.html',        '0.9'),
     ('herbs.html',        '0.9'),
     ('bracelet.html',     '0.9'),

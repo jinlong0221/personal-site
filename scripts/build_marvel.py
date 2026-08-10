@@ -44,16 +44,16 @@ RELEASE_ORDER = [
     (4, '蜘蛛侠：英雄无归', 2021), (4, '奇异博士 2：疯狂多元宇宙', 2022),
     (4, '雷神 4：爱与雷霆', 2022), (4, '黑豹 2：瓦坎达万岁', 2022),
     (4, '蚁人 3：量子狂潮', 2023),
-    (5, '银河护卫队 3', 2023), (5, '惊奇队长 2：惊奇女神', 2023),
+    (5, '银河护卫队 3', 2023), (5, '惊奇队长 2', 2023),
     (5, '秘密入侵', 2023), (5, '洛基（第二季）', 2023),
     (5, '死侍与金刚狼', 2024), (5, '回声', 2024),
-    (5, '神奇四侠：第一步', 2025),
+    (6, '神奇四侠：第一步', 2025),
 ]
 
 # ---------------------------------------------------------------- 观影顺序：故事时间线
 # 一种常见的「按宇宙内时间线」观看顺序（粉丝向整理，非官方）
 STORY_ORDER = [
-    (1, '美国队长：复仇者先锋', 2011),   # 片头即 1940 年代
+    (1, '美国队长', 2011),   # 片头即 1940 年代
     (1, '钢铁侠', 2008),
     (1, '无敌浩克', 2008),
     (1, '钢铁侠 2', 2010),
@@ -89,6 +89,7 @@ STORY_ORDER = [
     (5, '银河护卫队 3', 2023),
     (5, '秘密入侵', 2023),
     (5, '死侍与金刚狼', 2024),
+    (6, '神奇四侠：第一步', 2025),
 ]
 
 # ---------------------------------------------------------------- 阶段时间线
@@ -98,7 +99,7 @@ PHASES = [
     ('2', '无限传奇 · 铺垫', '2013–2015', '无限宝石逐一登场，危机在笑声里暗涌', '💎'),
     ('3', '无限传奇 · 终章', '2016–2019', '无限战争到终局之战，十年布局一朝收束', '🏆'),
     ('4', '多元宇宙 · 开启', '2021–2023', '后终局时代，Disney+ 剧集把边界推向多元宇宙', '🌌'),
-    ('5', '多元宇宙 · 推进', '2023–2025', '新老交替，康与秘密入侵搅动时间线', '⏳'),
+    ('5', '多元宇宙 · 推进', '2023–2024', '新老交替，康与秘密入侵搅动时间线', '⏳'),
     ('6', '多元宇宙 · 收官', '2025–', '秘密战争等规划中的大事件，传奇阶段落幕', '🌠'),
 ]
 
@@ -151,7 +152,7 @@ RATINGS = [
 # ---------------------------------------------------------------- 冷知识
 TRIVIA = [
     '钢铁侠是 MCU 第一部电影，当年没人料到它会长成一个电影宇宙。',
-    '宇宙魔方（空间宝石）最早出现在《雷神》(2011) 的片尾彩蛋里。',
+    '宇宙魔方（空间宝石）最早在《美国队长：复仇者先锋》(2011) 正片登场，并在《雷神》片尾彩蛋埋下复联伏笔。',
     '美国队长的振金盾牌，是漫画里最经典的道具之一。',
     '洛基是少数靠个人剧集真正出圈的反派角色。',
     '《复仇者联盟 4》大量使用 IMAX 胶片拍摄，画幅切换本身就是叙事。',
@@ -182,9 +183,30 @@ def order_item(t, y, p):
             '<span class="mv-order-p">Phase %d</span>'
             '<span class="mv-order-y">%d</span></li>' % (esc(t), p, y))
 
+
 def build_orders():
-    release = '\n'.join(order_item(t, y, p) for p, t, y in RELEASE_ORDER)
-    story = '\n'.join(order_item(t, y, p) for p, t, y in STORY_ORDER)
+    """按阶段分组渲染：每个阶段一个 <details>，默认仅展开 Phase 1，其余收起。
+    大幅缩短首屏滚动量，避免「一路下拉」。"""
+    pnames = {no: name for no, name, span, desc, em in PHASES}
+
+    def group(phase_items):
+        p = phase_items[0][0]
+        items = '\n'.join(order_item(t, y, p) for p, t, y in phase_items)
+        head = ('<summary><span class="mv-pg-no">Phase %d</span> %s'
+                '<span class="mv-pg-count">%d 部</span></summary>'
+                % (p, esc(pnames.get(str(p), '')), len(phase_items)))
+        open_attr = ' open' if p == 1 else ''
+        return ('      <details class="mv-phase-group"%s>%s\n'
+                '      <ol class="mv-order">\n%s\n      </ol>\n      </details>'
+                % (open_attr, head, items))
+
+    rel, sto = {}, {}
+    for p, t, y in RELEASE_ORDER:
+        rel.setdefault(p, []).append((p, t, y))
+    for p, t, y in STORY_ORDER:
+        sto.setdefault(p, []).append((p, t, y))
+    release = '\n'.join(group(rel[p]) for p in sorted(rel))
+    story = '\n'.join(group(sto[p]) for p in sorted(sto))
     return release, story
 
 
@@ -296,6 +318,31 @@ def main():
 .mv-order-t{font-weight:700;color:var(--text);flex:1;min-width:0}
 .mv-order-p{font-size:.72rem;color:var(--mv);background:var(--mv-soft);padding:2px 8px;border-radius:999px;white-space:nowrap}
 .mv-order-y{font-size:.78rem;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* 观影顺序按阶段折叠 */
+.mv-order-groups{display:flex;flex-direction:column;gap:12px}
+.mv-phase-group{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card)}
+.mv-phase-group>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 16px;font-weight:800;font-size:.96rem;user-select:none;transition:background .15s}
+.mv-phase-group>summary::-webkit-details-marker{display:none}
+.mv-phase-group>summary:hover{background:var(--bg-secondary)}
+.mv-phase-group>summary::before{content:'▸';color:var(--mv);font-size:.8rem;transition:transform .2s}
+.mv-phase-group[open]>summary::before{content:'▾'}
+.mv-pg-no{color:var(--mv);font-weight:800;font-size:.8rem;letter-spacing:.5px}
+.mv-pg-count{margin-left:auto;font-size:.74rem;color:var(--text-muted);font-weight:500}
+.mv-phase-group .mv-order{padding:4px 14px 14px;gap:8px}
+/* 章节锚点导航 */
+html{scroll-behavior:smooth}
+.mv-toc{position:sticky;top:62px;z-index:5;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-sm)}
+.mv-toc a{font-size:.82rem;padding:6px 13px;border-radius:999px;background:var(--bg-secondary);color:var(--text-secondary);text-decoration:none;transition:all .15s}
+.mv-toc a:hover{background:var(--mv-soft);color:var(--mv)}
+.mv-sec{scroll-margin-top:74px}
+/* 大板块整体折叠 */
+.mv-sec>summary{position:relative;list-style:none;cursor:pointer;padding:6px 30px 8px 0;outline:none}
+.mv-sec>summary::-webkit-details-marker{display:none}
+.mv-sec>summary .mv-sec-title{margin-bottom:2px;transition:color .15s}
+.mv-sec>summary:hover .mv-sec-title{color:var(--mv)}
+.mv-sec>summary .mv-sec-sub{margin:0 0 0 16px}
+.mv-sec>summary::after{content:'▸';position:absolute;right:4px;top:10px;color:var(--mv);font-size:1.1rem;line-height:1;transition:transform .2s}
+.mv-sec[open]>summary::after{content:'▾'}
 /* 阶段时间线 */
 .mv-phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .mv-phase-card{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--mv);border-radius:12px;padding:18px 16px;transition:transform .2s,box-shadow .2s}
@@ -336,10 +383,27 @@ def main():
       tabs.forEach(function(x){x.classList.remove('active');});
       btn.classList.add('active');
       var kind=btn.getAttribute('data-order');
-      rel.style.display=kind==='release'?'grid':'none';
-      sto.style.display=kind==='story'?'grid':'none';
+      rel.style.display=kind==='release'?'block':'none';
+      sto.style.display=kind==='story'?'block':'none';
     });
   });
+  // 章节锚点：点击时自动展开目标板块并平滑滚动
+  var toc=document.querySelector('.mv-toc');
+  if(toc){
+    toc.addEventListener('click',function(e){
+      var a=e.target.closest('a');
+      if(!a)return;
+      var id=a.getAttribute('href');
+      if(id&&id.charAt(0)==='#'){
+        var sec=document.getElementById(id.slice(1));
+        if(sec){
+          if(sec.tagName==='DETAILS'){ sec.open=true; }
+          e.preventDefault();
+          sec.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      }
+    });
+  }
 })();
 """
 
@@ -402,63 +466,71 @@ __NAVBAR__
   </div>
 
   <div class="mv-kpi">
-    <div class="mv-kpi-item"><span class="mv-kpi-num">__NFILMS__</span><span class="mv-kpi-label">已上映影片</span></div>
+    <div class="mv-kpi-item"><span class="mv-kpi-num">__NFILMS__</span><span class="mv-kpi-label">已收录影剧</span></div>
     <div class="mv-kpi-item"><span class="mv-kpi-num">__NPHASES__</span><span class="mv-kpi-label">阶段划分</span></div>
     <div class="mv-kpi-item"><span class="mv-kpi-num">__NHEROES__</span><span class="mv-kpi-label">英雄档案</span></div>
     <div class="mv-kpi-item"><span class="mv-kpi-num">__NRATINGS__</span><span class="mv-kpi-label">私人评分</span></div>
   </div>
 
+  <nav class="mv-toc" aria-label="章节导航">
+    <a href="#sec-order">🎬 观影顺序</a>
+    <a href="#sec-phase">📜 阶段</a>
+    <a href="#sec-hero">🦸 英雄</a>
+    <a href="#sec-rate">⭐ 评分</a>
+    <a href="#sec-trivia">💡 冷知识</a>
+  </nav>
+
   <!-- ===== 观影顺序 ===== -->
-  <section class="mv-sec">
-    <h2 class="mv-sec-title">观影顺序：两条线任你选</h2>
-    <p class="mv-sec-sub">「上映顺序」按当年影院节奏看，「故事时间线」按宇宙内时间看。点击下方切换。</p>
+  <details class="mv-sec" id="sec-order">
+    <summary><h2 class="mv-sec-title">观影顺序：两条线任你选</h2>
+    <p class="mv-sec-sub">「上映顺序」按当年影院节奏看，「故事时间线」按宇宙内时间看；点标题展开，再点阶段标题看明细。</p></summary>
     <div class="mv-tabs">
       <button class="mv-tab active" data-order="release">🎬 上映顺序</button>
       <button class="mv-tab" data-order="story">🕰️ 故事时间线</button>
     </div>
-    <ol class="mv-order" id="mvRelease">
+    <div class="mv-order-groups" id="mvRelease">
 __RELEASE__
-    </ol>
-    <ol class="mv-order" id="mvStory" style="display:none">
+    </div>
+    <div class="mv-order-groups" id="mvStory" style="display:none">
 __STORY__
-    </ol>
-  </section>
+    </div>
+  </details>
 
   <!-- ===== 阶段时间线 ===== -->
-  <section class="mv-sec">
-    <h2 class="mv-sec-title">六个阶段，一部传奇编年</h2>
-    <p class="mv-sec-sub">官方把 MCU 分成「无限传奇（Phase 1–3）」与「多元宇宙传奇（Phase 4–6）」两大篇章；以下阶段与年份为个人整理，官方计划可能调整。</p>
+  <details class="mv-sec" id="sec-phase">
+    <summary><h2 class="mv-sec-title">六个阶段，一部传奇编年</h2>
+    <p class="mv-sec-sub">官方把 MCU 分成「无限传奇（Phase 1–3）」与「多元宇宙传奇（Phase 4–6）」两大篇章；以下阶段与年份为个人整理，官方计划可能调整。</p></summary>
     <div class="mv-phase-grid">
 __PHASES__
     </div>
-  </section>
+  </details>
 
   <!-- ===== 英雄档案卡 ===== -->
-  <section class="mv-sec">
-    <h2 class="mv-sec-title">英雄档案卡</h2>
-    <p class="mv-sec-sub">挑了些最常被提起的名字，纯文字卡片，绝不托管任何官方剧照或海报。</p>
+  <details class="mv-sec" id="sec-hero">
+    <summary><h2 class="mv-sec-title">英雄档案卡</h2>
+    <p class="mv-sec-sub">挑了些最常被提起的名字，纯文字卡片，绝不托管任何官方剧照或海报。</p></summary>
     <div class="hero-grid">
 __HEROES__
     </div>
-  </section>
+  </details>
 
   <!-- ===== 私人评分 ===== -->
-  <section class="mv-sec">
-    <h2 class="mv-sec-title">龙兄私人评分</h2>
-    <p class="mv-sec-sub">凭个人口味打的星，仅供参考，欢迎来辩。</p>
+  <details class="mv-sec" id="sec-rate">
+    <summary><h2 class="mv-sec-title">龙兄私人评分</h2>
+    <p class="mv-sec-sub">凭个人口味打的星，仅供参考，欢迎来辩。</p></summary>
     <div class="mv-rating">
 __RATINGS__
     </div>
-  </section>
+  </details>
 
   <!-- ===== 冷知识 ===== -->
-  <section class="mv-sec">
-    <h2 class="mv-sec-title">冷知识</h2>
-    <p class="mv-sec-sub">几件看片时不一定会注意的小事。</p>
+  <details class="mv-sec" id="sec-trivia">
+    <summary><h2 class="mv-sec-title">冷知识</h2>
+    <p class="mv-sec-sub">几件看片时不一定会注意的小事。</p></summary>
     <ul class="mv-trivia">
 __TRIVIA__
     </ul>
-  </section>
+  </details>
 
   <div class="mv-note">
     <h3>关于本页</h3>

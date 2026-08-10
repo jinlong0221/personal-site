@@ -1175,6 +1175,60 @@ html, body {
   color: var(--text-muted);
   margin-top: 4px;
 }
+
+/* 移动端：更新日志改为纵向卡片，避免左右滑动（仅作用于 .changelog-table，不影响参数表） */
+@media (max-width: 768px) {
+  .changelog-table {
+    overflow: visible;
+    margin: 16px 0;
+    padding: 0;
+  }
+  .changelog-table::after { content: none; }
+  .changelog-table .table-wrapper {
+    overflow: visible;
+    margin: 0;
+    border-radius: 0;
+  }
+  .changelog-table .table-wrapper::after { content: none; }
+  .changelog-table .m-table,
+  .changelog-table table {
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.88rem;
+  }
+  .changelog-table .m-table thead { display: none; }
+  .changelog-table .m-table,
+  .changelog-table .m-table tbody,
+  .changelog-table .m-table tr,
+  .changelog-table .m-table td { display: block; width: 100%; }
+  .changelog-table .m-table tr {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .changelog-table .m-table tr:nth-child(even) td { background: transparent; }
+  .changelog-table .m-table td {
+    border: none;
+    padding: 2px 0;
+    color: var(--text);
+  }
+  .changelog-table .m-table td:first-child {
+    position: static;
+    min-width: 0;
+    background: transparent;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+}
 @media (max-width: 480px) {
   .home-weather {
     flex-direction: column;
@@ -1194,29 +1248,8 @@ html, body {
     font-size: 2.6rem;
   }
   
-  /* 移动端表格横向滚动 - iOS Safari 兼容 */
-  .changelog-table {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    -webkit-overflow-x: scroll;
-    margin: 16px -20px;
-    padding: 0 20px 16px 20px;
-    position: relative;
-  }
-  .changelog-table::after {
-    content: '← 左右滑动查看完整表格 →';
-    display: block;
-    text-align: center;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 8px;
-  }
-  .changelog-table table {
-    min-width: 600px;
-    margin-bottom: 0;
-  }
-  
+  /* 移动端更新日志的卡片布局已在 max-width:768px 块统一处理，此处不再横向滚动 */
+
   /* 移动端时间线适配 */
   .timeline {
     padding-left: 20px;

@@ -692,13 +692,6 @@ if(document.readyState==='loading'){
     progress.className = 'reading-progress';
     document.body.appendChild(progress);
 
-    // 返回顶部按钮
-    var topBtn = document.createElement('button');
-    topBtn.className = 'toc-top';
-    topBtn.setAttribute('aria-label', '返回顶部');
-    topBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>';
-    document.body.appendChild(topBtn);
-
     // 平滑滚动
     function scrollToId(id){
       var target = document.getElementById(id);
@@ -716,9 +709,6 @@ if(document.readyState==='loading'){
         });
       });
     });
-    topBtn.addEventListener('click', function(){
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
 
     // 滚动处理：显示/隐藏 + scroll spy + 进度条
     var showThreshold = 300;
@@ -729,8 +719,6 @@ if(document.readyState==='loading'){
       var scrollY = window.scrollY || window.pageYOffset;
       var docH = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (docH > 0 ? (scrollY / docH * 100) : 0) + '%';
-      if(scrollY > 400) topBtn.classList.add('visible');
-      else topBtn.classList.remove('visible');
       if(scrollY > showThreshold){
         sideNav.classList.add('visible');
         bottomNav.classList.add('visible');

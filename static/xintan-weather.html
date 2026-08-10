@@ -482,8 +482,8 @@ var _hmt = _hmt || [];
     var curIcon=codes[c.weather_code]||'🌡️';
     var curName=names[c.weather_code]||'未知';
 
-    var sourceHtml='<div class="xw-source"><span>🌐 <a id="sources" class="src-anchor"></a>数据来源：Open-Meteo</span></div>
-    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>';
+    var sourceHtml='<div class="xw-source"><span>🌐 <a id="sources" class="src-anchor"></a>数据来源：Open-Meteo</span></div>' +
+    '<p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>';
 
     /* ===== 当前大卡 ===== */
     var curHtml='<div class="xw-current">'+
@@ -678,6 +678,7 @@ function xwCopy(){
   }
 }
 </script>
+<script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
 <script>if(window.initClock)initClock();</script>
 <script src="js/search.js"></script>

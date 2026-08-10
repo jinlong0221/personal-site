@@ -277,8 +277,6 @@ document.addEventListener('DOMContentLoaded', function() {
     targetCounterObserver.observe(counter);
   });
 
-  console.log('✨ 首页动画效果已加载（含触屏适配）');
-
   // 页面卸载时清理所有 Observer（防止内存泄漏）
   window.addEventListener('pagehide', function() {
     observers.forEach(function(observer) {
@@ -286,6 +284,5 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.disconnect();
       }
     });
-    console.log('🧹 Observers 已清理');
   });
 });

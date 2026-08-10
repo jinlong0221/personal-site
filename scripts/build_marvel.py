@@ -48,6 +48,7 @@ RELEASE_ORDER = [
     (5, '秘密入侵', 2023), (5, '洛基（第二季）', 2023),
     (5, '死侍与金刚狼', 2024), (5, '回声', 2024),
     (6, '神奇四侠：第一步', 2025),
+    (6, '蜘蛛侠：崭新之日', 2026),
 ]
 
 # ---------------------------------------------------------------- 观影顺序：故事时间线
@@ -90,6 +91,7 @@ STORY_ORDER = [
     (5, '秘密入侵', 2023),
     (5, '死侍与金刚狼', 2024),
     (6, '神奇四侠：第一步', 2025),
+    (6, '蜘蛛侠：崭新之日', 2026),
 ]
 
 # ---------------------------------------------------------------- 阶段时间线
@@ -147,6 +149,14 @@ RATINGS = [
     ('蜘蛛侠：英雄无归', 4, '三代同框的眼泪，粉丝狂喜的一课。'),
     ('死侍与金刚狼', 4, 'R 级狂欢，打破次元壁的粉丝盛宴。'),
     ('钢铁侠', 4, '一切的起点，唐尼一人撑起一个宇宙。'),
+]
+
+# ---------------------------------------------------------------- 正在热映 & 未来计划
+# (status, 片名, 日期, 一句话)
+UPCOMING = [
+    ('now', '蜘蛛侠：崭新之日', '2026-07-31', 'MCU 第六阶段第 38 部，汤姆·赫兰德回归，「邻里英雄」基调重启'),
+    ('soon', '复仇者联盟5：毁灭之日', '2026-12-18', '毁灭博士（小罗伯特·唐尼饰）登场，多元宇宙入侵，复联换血集结'),
+    ('soon', '复仇者联盟6：秘密战争', '2027-12-17', '多元宇宙传奇收官之作，与毁灭之日背靠背拍摄'),
 ]
 
 # ---------------------------------------------------------------- 冷知识
@@ -261,6 +271,21 @@ def build_trivia():
     return '\n'.join('      <li>%s</li>' % esc(x) for x in TRIVIA)
 
 
+def build_soon():
+    out = []
+    for status, t, d, note in UPCOMING:
+        badge = '正在热映' if status == 'now' else '待上映'
+        cls = 'mv-soon-now' if status == 'now' else 'mv-soon-soon'
+        out.append(
+            '      <div class="mv-soon-item %s">'
+            '<div class="mv-soon-head"><span class="mv-soon-name">%s</span>'
+            '<span class="mv-soon-badge">%s</span></div>'
+            '<div class="mv-soon-date">%s</div>'
+            '<p class="mv-soon-note">%s</p></div>'
+            % (cls, esc(t), badge, esc(d), esc(note)))
+    return '\n'.join(out)
+
+
 def build_sources():
     return '\n'.join(
         '    <li><a href="%s" target="_blank" rel="noopener noreferrer">%s</a></li>' % (u, esc(n))
@@ -366,6 +391,18 @@ html{scroll-behavior:smooth}
 .mv-trivia li{position:relative;padding:12px 14px 12px 40px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;font-size:.88rem;color:var(--text-secondary);line-height:1.7}
 .mv-trivia li::before{content:'🎬';position:absolute;left:12px;top:11px;font-size:1rem}
 .mv-note{margin:36px 0 8px;padding:16px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+/* 正在热映 & 未来计划 */
+.mv-soon{display:flex;flex-direction:column;gap:12px}
+.mv-soon-item{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:var(--card)}
+.mv-soon-now{border-left:4px solid var(--mv)}
+.mv-soon-soon{border-left:4px solid var(--text-muted)}
+.mv-soon-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mv-soon-name{font-size:1.05rem;font-weight:700;color:var(--text)}
+.mv-soon-badge{font-size:.72rem;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.mv-soon-now .mv-soon-badge{background:var(--mv-soft);color:var(--mv)}
+.mv-soon-soon .mv-soon-badge{background:var(--bg-secondary);color:var(--text-secondary)}
+.mv-soon-date{font-size:.8rem;color:var(--text-muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.mv-soon-note{font-size:.84rem;color:var(--text-secondary);line-height:1.65;margin:8px 0 0}
 .mv-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
 .mv-note ul{margin:0;padding-left:18px}
 @media(max-width:992px){.mv-phase-grid{grid-template-columns:repeat(2,1fr)}.mv-kpi{grid-template-columns:repeat(2,1fr)}}
@@ -478,6 +515,7 @@ __NAVBAR__
     <a href="#sec-hero">🦸 英雄</a>
     <a href="#sec-rate">⭐ 评分</a>
     <a href="#sec-trivia">💡 冷知识</a>
+    <a href="#sec-soon">🎟️ 热映/计划</a>
   </nav>
 
   <!-- ===== 观影顺序 ===== -->
@@ -530,6 +568,14 @@ __RATINGS__
     <ul class="mv-trivia">
 __TRIVIA__
     </ul>
+  </details>
+
+  <details class="mv-sec" id="sec-soon">
+    <summary><h2 class="mv-sec-title">正在热映 &amp; 未来计划</h2>
+    <p class="mv-sec-sub">现在正在映与已定档的院线新片，持续更新。</p></summary>
+    <div class="mv-soon">
+__SOON__
+    </div>
   </details>
 
   <div class="mv-note">
@@ -591,6 +637,7 @@ __SOURCES__
             .replace('__HEROES__', build_heroes())
             .replace('__RATINGS__', build_ratings())
             .replace('__TRIVIA__', build_trivia())
+            .replace('__SOON__', build_soon())
             .replace('__SOURCES__', build_sources())
             .replace('__NFILMS__', str(n_films))
             .replace('__NPHASES__', str(n_phases))

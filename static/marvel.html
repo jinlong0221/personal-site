@@ -163,6 +163,18 @@ html{scroll-behavior:smooth}
 .mv-trivia li{position:relative;padding:12px 14px 12px 40px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;font-size:.88rem;color:var(--text-secondary);line-height:1.7}
 .mv-trivia li::before{content:'🎬';position:absolute;left:12px;top:11px;font-size:1rem}
 .mv-note{margin:36px 0 8px;padding:16px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+/* 正在热映 & 未来计划 */
+.mv-soon{display:flex;flex-direction:column;gap:12px}
+.mv-soon-item{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:var(--card)}
+.mv-soon-now{border-left:4px solid var(--mv)}
+.mv-soon-soon{border-left:4px solid var(--text-muted)}
+.mv-soon-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mv-soon-name{font-size:1.05rem;font-weight:700;color:var(--text)}
+.mv-soon-badge{font-size:.72rem;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.mv-soon-now .mv-soon-badge{background:var(--mv-soft);color:var(--mv)}
+.mv-soon-soon .mv-soon-badge{background:var(--bg-secondary);color:var(--text-secondary)}
+.mv-soon-date{font-size:.8rem;color:var(--text-muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.mv-soon-note{font-size:.84rem;color:var(--text-secondary);line-height:1.65;margin:8px 0 0}
 .mv-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
 .mv-note ul{margin:0;padding-left:18px}
 @media(max-width:992px){.mv-phase-grid{grid-template-columns:repeat(2,1fr)}.mv-kpi{grid-template-columns:repeat(2,1fr)}}
@@ -278,7 +290,7 @@ var _hmt = _hmt || [];
   </div>
 
   <div class="mv-kpi">
-    <div class="mv-kpi-item"><span class="mv-kpi-num">38</span><span class="mv-kpi-label">已收录影剧</span></div>
+    <div class="mv-kpi-item"><span class="mv-kpi-num">39</span><span class="mv-kpi-label">已收录影剧</span></div>
     <div class="mv-kpi-item"><span class="mv-kpi-num">6</span><span class="mv-kpi-label">阶段划分</span></div>
     <div class="mv-kpi-item"><span class="mv-kpi-num">14</span><span class="mv-kpi-label">英雄档案</span></div>
     <div class="mv-kpi-item"><span class="mv-kpi-num">8</span><span class="mv-kpi-label">私人评分</span></div>
@@ -290,6 +302,7 @@ var _hmt = _hmt || [];
     <a href="#sec-hero">🦸 英雄</a>
     <a href="#sec-rate">⭐ 评分</a>
     <a href="#sec-trivia">💡 冷知识</a>
+    <a href="#sec-soon">🎟️ 热映/计划</a>
   </nav>
 
   <!-- ===== 观影顺序 ===== -->
@@ -358,9 +371,10 @@ var _hmt = _hmt || [];
       <li><span class="mv-order-t">回声</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2024</span></li>
       </ol>
       </details>
-      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 6</span> 多元宇宙 · 收官<span class="mv-pg-count">1 部</span></summary>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 6</span> 多元宇宙 · 收官<span class="mv-pg-count">2 部</span></summary>
       <ol class="mv-order">
       <li><span class="mv-order-t">神奇四侠：第一步</span><span class="mv-order-p">Phase 6</span><span class="mv-order-y">2025</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：崭新之日</span><span class="mv-order-p">Phase 6</span><span class="mv-order-y">2026</span></li>
       </ol>
       </details>
     </div>
@@ -421,9 +435,10 @@ var _hmt = _hmt || [];
       <li><span class="mv-order-t">死侍与金刚狼</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2024</span></li>
       </ol>
       </details>
-      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 6</span> 多元宇宙 · 收官<span class="mv-pg-count">1 部</span></summary>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 6</span> 多元宇宙 · 收官<span class="mv-pg-count">2 部</span></summary>
       <ol class="mv-order">
       <li><span class="mv-order-t">神奇四侠：第一步</span><span class="mv-order-p">Phase 6</span><span class="mv-order-y">2025</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：崭新之日</span><span class="mv-order-p">Phase 6</span><span class="mv-order-y">2026</span></li>
       </ol>
       </details>
     </div>
@@ -619,6 +634,16 @@ var _hmt = _hmt || [];
       <li>《复仇者联盟 4》大量使用 IMAX 胶片拍摄，画幅切换本身就是叙事。</li>
       <li>Disney+ 的剧集把「电影宇宙」扩展成了「影视宇宙」，观看顺序从此多了维度。</li>
     </ul>
+  </details>
+
+  <details class="mv-sec" id="sec-soon">
+    <summary><h2 class="mv-sec-title">正在热映 &amp; 未来计划</h2>
+    <p class="mv-sec-sub">现在正在映与已定档的院线新片，持续更新。</p></summary>
+    <div class="mv-soon">
+      <div class="mv-soon-item mv-soon-now"><div class="mv-soon-head"><span class="mv-soon-name">蜘蛛侠：崭新之日</span><span class="mv-soon-badge">正在热映</span></div><div class="mv-soon-date">2026-07-31</div><p class="mv-soon-note">MCU 第六阶段第 38 部，汤姆·赫兰德回归，「邻里英雄」基调重启</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">复仇者联盟5：毁灭之日</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">2026-12-18</div><p class="mv-soon-note">毁灭博士（小罗伯特·唐尼饰）登场，多元宇宙入侵，复联换血集结</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">复仇者联盟6：秘密战争</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">2027-12-17</div><p class="mv-soon-note">多元宇宙传奇收官之作，与毁灭之日背靠背拍摄</p></div>
+    </div>
   </details>
 
   <div class="mv-note">

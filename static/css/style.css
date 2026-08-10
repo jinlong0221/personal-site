@@ -781,6 +781,16 @@ footer a:hover { color:var(--gold-light); }
 #weeklyChangelog .timeline-item { margin-bottom:14px; }
 #weeklyChangelog .timeline-content { padding:12px 16px; }
 #weeklyChangelog .timeline-content p { line-height:1.65; }
+#weeklyChangelog .cl-head { font-weight:600; color:var(--text); margin-bottom:4px; }
+#weeklyChangelog .cl-detail { margin-top:6px; border-top:1px solid var(--border); }
+#weeklyChangelog .cl-detail summary {
+  cursor:pointer; list-style:none; padding:8px 0 4px; font-size:.82rem;
+  color:var(--text-secondary); position:relative;
+}
+#weeklyChangelog .cl-detail summary::-webkit-details-marker { display:none; }
+#weeklyChangelog .cl-detail summary::after { content:"▾"; margin-left:6px; color:var(--gold); }
+#weeklyChangelog .cl-detail[open] summary::after { content:"▴"; }
+#weeklyChangelog .cl-detail p { font-size:.85rem; color:var(--text-secondary); line-height:1.6; white-space:pre-wrap; }
 .log-item {
  background:var(--card); border-left:3px solid var(--gold);
  border-radius:0 var(--radius-sm) var(--radius-sm) 0;

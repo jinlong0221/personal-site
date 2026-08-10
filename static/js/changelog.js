@@ -42,23 +42,40 @@
         return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0);
       });
 
+      // 精炼标题：优先用 title；无 title 时取首句并截断，避免一整面文字墙
+      function headlineOf(item) {
+        if (item.title) return item.title;
+        var c = item.desc || item.content || '';
+        var first = (c.split(/[。！\n]/)[0] || c);
+        if (first.length > 60) first = first.slice(0, 60) + '…';
+        return first;
+      }
+      // 完整细节：默认收进「详情」展开，不堆在首屏
+      function detailOf(item) {
+        return item.desc || item.content || '';
+      }
+
       var html = '';
       merged.forEach(function (item) {
-        var text = item.desc || item.content || item.title || '';
+        var head = headlineOf(item);
+        var detail = detailOf(item);
         html += '<div class="timeline-item">' +
           '<div class="timeline-date">' + esc(item.date) + '</div>' +
-          '<div class="timeline-content"><p>' + esc(text) + '</p></div>' +
-          '</div>';
+          '<div class="timeline-content">' +
+          '<p class="cl-head">' + esc(head) + '</p>';
+        if (detail && detail !== head) {
+          html += '<details class="cl-detail"><summary>详情</summary><p>' + esc(detail) + '</p></details>';
+        }
+        html += '</div></div>';
       });
       container.innerHTML = html;
 
-      // 主表格（时间 | 变更摘要）也由同一份合并数据驱动
+      // 主表格（时间 | 变更摘要）也由同一份合并数据驱动，仅显示精炼标题
       var tbody = document.getElementById('changelogBody');
       if (tbody) {
         var rows = '';
         merged.forEach(function (item) {
-          var text = item.desc || item.content || item.title || '';
-          rows += '<tr><td>' + esc(item.date) + '</td><td>' + esc(text) + '</td></tr>';
+          rows += '<tr><td>' + esc(item.date) + '</td><td>' + esc(headlineOf(item)) + '</td></tr>';
         });
         tbody.innerHTML = rows;
       }

@@ -88,8 +88,8 @@
     s.push('<linearGradient id="tfLand" x1="0" y1="0" x2="0" y2="1">' +
       '<stop offset="0%" stop-color="#243a2e"/><stop offset="100%" stop-color="#1d3026"/></linearGradient>');
     s.push('<radialGradient id="tfEyeG"><stop offset="0%" stop-color="#fff" stop-opacity=".95"/>' +
-      '<stop offset="55%" stop-color="#ffd28a" stop-opacity=".5"/>' +
-      '<stop offset="100%" stop-color="#ff6b35" stop-opacity="0"/></radialGradient>');
+      '<stop offset="55%" stop-color="#9ec9e8" stop-opacity=".45"/>' +
+      '<stop offset="100%" stop-color="#4da6e8" stop-opacity="0"/></radialGradient>');
     s.push('<filter id="tfGlow" x="-60%" y="-60%" width="220%" height="220%">' +
       '<feGaussianBlur stdDeviation="3" result="b"/>' +
       '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>');
@@ -144,7 +144,7 @@
     }
     if (wr.r10) {
       s.push('<circle class="tf-ring r10" cx="0" cy="0" r="' + n(km2px(wr.r10)) +
-        '" fill="#ffb02e" fill-opacity=".11" stroke="#ffc65c" stroke-opacity=".45" stroke-width="1" stroke-dasharray="4 3"/>');
+        '" fill="#4faf9b" fill-opacity=".12" stroke="#7fd0bf" stroke-opacity=".5" stroke-width="1" stroke-dasharray="4 3"/>');
     }
     if (wr.r12) {
       s.push('<circle class="tf-ring r12" cx="0" cy="0" r="' + n(km2px(wr.r12)) +
@@ -183,7 +183,7 @@
       var x = lon2x(p.lon), y = lat2y(p.lat);
       var isFc = !!p.forecast, isLand = !!p.landfall;
       var r = isLand ? 5.5 : 4;
-      var fill = isFc ? '#5db8ff' : (isLand ? '#e81123' : '#ffb02e');
+      var fill = isFc ? '#5db8ff' : (isLand ? '#e81123' : '#ff8c00');
       pg.push('<circle class="tf-pt" data-i="' + i + '" data-r="' + r + '" cx="' + n(x) + '" cy="' + n(y) +
         '" r="' + r + '" fill="' + fill + '" stroke="#fff" stroke-width="1.6" stroke-opacity=".9"/>');
       if (isLand || i === 0 || i === track.length - 1) {
@@ -223,7 +223,7 @@
     s.push('<text x="38" y="42" class="tf-lg">预报路径</text>');
     s.push('<circle cx="21" cy="57" r="5" fill="#e81123" stroke="#fff" stroke-width="1.3"/>');
     s.push('<text x="38" y="61" class="tf-lg">登陆点</text>');
-    s.push('<circle cx="21" cy="76" r="6" fill="none" stroke="#ffc65c" stroke-width="1.2" stroke-dasharray="3 2"/>');
+    s.push('<circle cx="21" cy="76" r="6" fill="none" stroke="#7fd0bf" stroke-width="1.2" stroke-dasharray="3 2"/>');
     s.push('<text x="38" y="80" class="tf-lg">风圈</text>');
     s.push('</g>');
 
@@ -738,7 +738,7 @@
       .then(function (d) {
         lastSig = JSON.stringify(d);
         renderAll(d);
-        /* 每 10 分钟静默轮询：仅当数据有变化才重渲染，且保留用户滚动/播放/展开状态 */
+        /* 每 3 分钟静默轮询：仅当数据有变化才重渲染，且保留用户滚动/播放/展开状态 */
         if (!window.__tfPolling) {
           window.__tfPolling = true;
           setInterval(function () {
@@ -755,7 +755,7 @@
                 restoreState(st);
               })
               .catch(function () {});
-          }, 10 * 60 * 1000);
+          }, 3 * 60 * 1000);
         }
       })
       .catch(function (e) {

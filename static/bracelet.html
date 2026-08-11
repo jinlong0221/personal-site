@@ -261,6 +261,23 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   @media (max-width: 480px) {
     .bracelet-grid { grid-template-columns: 1fr; }
   }
+
+  /* 桌面端字号增强（2026-08-11）：与全站 17.5px 正文基线对齐，修正固定小字号 */
+  @media (min-width: 1024px) {
+    .bracelet-hero .subtitle { font-size: 1.2rem; font-weight: 500; letter-spacing: .3px; }
+    .bracelet-card { min-height: 180px; }
+    .bracelet-card .desc { font-size: 0.92rem; }
+    .bracelet-card .tag { font-size: 0.72rem; }
+    .update-compact h3 { font-size: 1.1rem; }
+    .log-item .text { font-size: 0.9rem; }
+    .log-item .date { font-size: 0.82rem; }
+    .bracelet-science p,
+    .bracelet-science li { font-size: 1rem !important; }
+    .bracelet-science h3 { font-size: 1.18rem !important; }
+    .bracelet-science table,
+    .bracelet-science td,
+    .bracelet-science th { font-size: 0.95rem !important; }
+  }
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -492,7 +509,7 @@ var _hmt = _hmt || [];
   </section>
 
   <!-- ===== 新增科普区块：木质/菩提手串材质科普 ===== -->
-  <section style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;">
+  <section class="bracelet-science" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;">
     <h2 style="color:var(--gold);font-size:1.3rem;margin:0 0 6px;">🪵 木质与菩提手串材质科普：辨识、养护与避坑</h2>
     <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 18px;font-size:.92rem;">
       文玩圈里最容易吃亏的，往往不是眼力，而是概念没搞清。下面这些结论均以国家/行业标准文本、林业科研机构与官方消费提示为依据，尽量只写“查得到出处”的部分。
@@ -602,7 +619,7 @@ var _hmt = _hmt || [];
 <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：中国工艺美术协会（cnaca.org）、中国工艺美术学会（cnacs.net.cn）；品类鉴别与行情参考公开市场资料</div>
     <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
-    <div class="update-time">最后更新时间：<span id="lastNewsUpdate">2026-07-07</span></div>
+    <div class="update-time">最后更新时间：<span id="lastNewsUpdate">2026-08-11</span></div>
   </div>
 
 <footer role="contentinfo">

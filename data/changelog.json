@@ -1,6 +1,13 @@
 [
   {
     "date": "2026-08-11",
+    "time": "20:21",
+    "type": "Bug 修复",
+    "title": "修复 deploy.yml 加密步骤错误引用 secrets 上下文导致 workflow 全部失败的问题",
+    "detail": "GitHub Actions 不允许在 step 的 if 条件中直接引用 secrets.*，因此此前加入的 if: secrets.TRAVEL_KEY != '' 导致所有推送触发的工作流在解析阶段即失败、没有任何 job 能运行。修复：删除该 if 守卫，改由 scripts/encrypt_travel.mjs 内部判断 TRAVEL_KEY 是否存在；存在则加密，不存在则打印跳过并保持旅行页公开。CI 中 node 步骤通过 step-level env 接收 TRAVEL_KEY。已重新触发部署。"
+  },
+  {
+    "date": "2026-08-11",
     "time": "19:57",
     "type": "数据更新",
     "title": "台风实时监测刷新 · 中央气象台18时解除台风蓝色预警、盐城市台15:24已官方解除海区黄警（订正）、13-14日量级分歧收敛",

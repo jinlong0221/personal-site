@@ -2,8 +2,8 @@
 /**
  * encrypt_travel.mjs — 旅行板块真加密（方案 B）
  *
- * 仅在 CI 设置 Secret TRAVEL_KEY 时运行（deploy.yml 用 if 守卫）。
- * 本地无密钥则直接跳过（不改动任何文件），因此每日自动更新流水线不会受影响。
+ * 仅在 CI 设置 Secret TRAVEL_KEY 时运行；脚本内部判断，无密钥则直接跳过。
+ * 跳过时不改动任何文件，因此每日自动更新流水线不会受影响。
  *
  * 流程：
  *   1. 从 public/travel.html 抽取 <div id="tlWrap" data-tl-wrap> ... </div> 内的私密内容

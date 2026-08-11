@@ -36,6 +36,12 @@ jobs:
       - name: Build Hugo
         run: hugo --gc
 
+      - name: Encrypt travel section (if TRAVEL_KEY set)
+        if: ${{ secrets.TRAVEL_KEY != '' }}
+        env:
+          TRAVEL_KEY: ${{ secrets.TRAVEL_KEY }}
+        run: node scripts/encrypt_travel.mjs
+
       - name: Build Pagefind index
         run: npx pagefind --site public --verbose
 

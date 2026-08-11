@@ -21,6 +21,7 @@ OUT = os.path.join(BASE, 'data', 'sitemap_extra.json')
 EXCLUDE = {
     '404.html',        # 错误页
     'search.html',     # 站内搜索结果页（无独立内容价值）
+    'travel.html',     # 私密家庭旅行相册（仅家人可见，不收录）
     'console.html.bak',
 }
 EXCLUDE_DIRS = {'pagefind', 'js', 'css', 'img', 'data', 'fonts'}

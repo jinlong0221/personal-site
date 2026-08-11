@@ -1,6 +1,13 @@
 [
   {
     "date": "2026-08-11",
+    "time": "07:50",
+    "type": "功能更新",
+    "title": "旅行板块改为密码加密（仅家人可见）· 客户端 AES-GCM 真加密上线",
+    "detail": "家庭旅行板块（travel.html）接入客户端真加密：构建/部署时用 WebCrypto AES-GCM + PBKDF2 加密正文与全部照片，页面变为密码门外壳（导航/页脚保留，正文区需输入密码后浏览器端解密渲染）。已做：① travel.html 用 tlWrap 包裹私密内容；② 新增 scripts/encrypt_travel.mjs（仅当仓库配置 TRAVEL_KEY 密钥时运行，否则跳过、网站保持原样，每日自动更新不受影响）；③ deploy.yml 在 Hugo 构建后、Pagefind 索引前插入受 if 守卫的加密步骤；④ travel.html 加 noindex、body 加 data-pagefind-ignore，并从 sitemap_extra.json 与重建脚本 EXCLUDE 中移除（不再被搜索引擎收录）；⑤ 删除部署产物中的明文 travel.json。当前状态：代码已落地并通过本地加解密往返校验，但 GitHub 仓库尚未配置 TRAVEL_KEY 密钥——需站长在仓库 Settings → Secrets 添加 TRAVEL_KEY（自定义密码）后，下一次部署即自动加密上线。注意：仓库源代码历史中已含明文照片/数据，如需彻底从 git 历史清除需另做 git filter-repo（可选，默认未做）。"
+  },
+  {
+    "date": "2026-08-11",
     "time": "17:52",
     "type": "数据更新",
     "title": "台风实时监测刷新 · 中央气象台17时对「白海豚」(2613)停止编号、本轮对射阳监测结束转入待命",

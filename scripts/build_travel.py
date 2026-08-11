@@ -747,6 +747,7 @@ var _hmt = _hmt || [];
 
 __NAVBAR__
 
+<div id="tlWrap" data-tl-wrap>
   <main id="main-content" role="main"><div class="container">
   <div class="breadcrumb" id="breadcrumb">
     <a href="index.html">首页</a>
@@ -815,10 +816,6 @@ __CARDS__
 </div>
 </main>__FOOTER__
 
-<script src="js/search.js"></script>
-<script defer src="js/app.js"></script>
-<script src="js/share.js"></script>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -841,6 +838,11 @@ __CARDS__
 </script>
 
 <script>__PAGEJS__</script>
+</div>
+
+<script src="js/search.js"></script>
+<script defer src="js/app.js"></script>
+<script src="js/share.js"></script>
 </body>
 </html>
 """

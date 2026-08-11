@@ -67,6 +67,9 @@ function walk(dir, out) {
 }
 
 const PHOTO_RE = /src=["'](img\/travel\/[^"']+\.(?:webp|jpg|jpeg|png|avif|gif))["']/gi;
+// 画廊「点开看大图」的 <a href="img/travel/...webp" target="_blank"> 也要改写，
+// 否则明文 .webp 被删后点击链接会 404。
+const HREF_RE = /href=["'](img\/travel\/[^"']+\.(?:webp|jpg|jpeg|png|avif|gif))["']/gi;
 
 async function main() {
   if (!PASSWORD) { console.log('[encrypt_travel] TRAVEL_KEY 未设置，跳过加密（旅行页保持公开）。'); return; }
@@ -110,8 +113,10 @@ async function main() {
   const salt = globalThis.__salt || crypto.getRandomValues(new Uint8Array(16));
   const key = globalThis.__key || await deriveKey(PASSWORD, salt);
 
-  // —— 2. 改写内容里的 img src -> data-enc ——
-  const contentRewritten = content.replace(PHOTO_RE, (_m, p1) => `data-enc="${p1}.enc"`);
+  // —— 2. 改写内容里的 img src -> data-enc（同时处理画廊 <a href> 大图链接）——
+  const contentRewritten = content
+    .replace(PHOTO_RE, (_m, p1) => `data-enc="${p1}.enc"`)
+    .replace(HREF_RE, (_m, p1) => `data-enc-href="${p1}.enc"`);
 
   // —— 3. 内容 gzip + AES-GCM 加密 ——
   const gz = gzipSync(Buffer.from(contentRewritten, 'utf8'));
@@ -205,10 +210,31 @@ function buildGate(blobB64, saltB64) {
       })
       .catch(function(e){ console.error("照片解密失败", rel, e); });
   }
+  // 画廊「点开看大图」链接：点击时解密 .enc 并以 blob 在新标签页打开大图
+  function decryptLink(a,key){
+    var rel=a.getAttribute("data-enc-href");
+    if(!rel) return;
+    a.addEventListener("click",function(e){
+      e.preventDefault();
+      fetch(rel).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.arrayBuffer(); })
+        .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
+        .then(function(u){
+          var url=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));
+          window.open(url,"_blank","noopener");
+        })
+        .catch(function(err){ console.error("大图打开失败", rel, err); });
+    });
+    a.removeAttribute("data-enc-href");
+  }
   // 私人相册：解锁后一次性解密全部照片（折叠手风琴内图片也需直接可见，故不依赖 IntersectionObserver）
   function loadPhotos(key){
     var imgs=document.querySelectorAll("#tlContent img[data-enc]");
-    for(var i=0;i<imgs.length;i++){ decryptPhoto(imgs[i], key); }
+    for(var i=0;i<imgs.length;i++){
+      var img=imgs[i];
+      decryptPhoto(img, key);
+      var a = img.closest ? img.closest("a[data-enc-href]") : (img.parentNode && img.parentNode.tagName==="A" ? img.parentNode : null);
+      if(a) decryptLink(a, key);
+    }
   }
   function unlock(){
     var err=document.getElementById("tlErr"); err.hidden=true;

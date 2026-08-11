@@ -126,6 +126,8 @@ async function main() {
   if (!/name=["']robots["']/.test(head)) {
     head = head.replace('</head>', '<meta name="robots" content="noindex">\n</head>');
   }
+  // 解密后的照片以 blob: URL 渲染，需在本页 CSP 的 img-src 放开 blob:（仅作用于加密后的 travel 外壳页）
+  head = head.replace("img-src 'self' data:", "img-src 'self' data: blob:");
   head = head.replace('<body>', '<body data-pagefind-ignore>');
 
   const shell = head + buildGate(blobB64, saltB64) + tail;
@@ -172,25 +174,41 @@ function buildGate(blobB64, saltB64) {
   function derive(pw,salt){return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:250000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);});}
   function decBytes(key,blob){var iv=blob.slice(0,12),ct=blob.slice(12);return crypto.subtle.decrypt({name:"AES-GCM",iv:iv},key,ct).then(function(pt){return new Uint8Array(pt);});}
   function gunzip(u){return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream("gzip"))).text();}
-  function reRun(root){var s=root.querySelectorAll("script");for(var i=0;i<s.length;i++){var n=document.createElement("script");n.textContent=s[i].textContent;s[i].replaceWith(n);}}
+  function reRun(root){
+    var s=root.querySelectorAll("script");
+    for(var i=0;i<s.length;i++){
+      var n=document.createElement("script");
+      var attrs=s[i].attributes;
+      for(var a=0;a<attrs.length;a++){ n.setAttribute(attrs[a].name, attrs[a].value); }
+      n.textContent=s[i].textContent;
+      s[i].replaceWith(n);
+    }
+  }
+  function photoType(rel){
+    var s=rel.toLowerCase();
+    if(s.endsWith(".png.enc")) return "image/png";
+    if(s.endsWith(".jpg.enc")||s.endsWith(".jpeg.enc")) return "image/jpeg";
+    if(s.endsWith(".gif.enc")) return "image/gif";
+    if(s.endsWith(".avif.enc")) return "image/avif";
+    return "image/webp";
+  }
   function decryptPhoto(img,key){
     var rel=img.getAttribute("data-enc");
-    fetch(rel).then(function(r){return r.arrayBuffer();}).then(function(buf){return decBytes(key,new Uint8Array(buf));})
-      .then(function(u){return URL.createObjectURL(new Blob([u]));})
-      .then(function(url){img.src=url;img.removeAttribute("data-enc");})
-      .catch(function(e){console.error("照片解密失败",rel,e);});
+    if(!rel) return;
+    fetch(rel).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.arrayBuffer(); })
+      .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
+      .then(function(u){
+        var url=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));
+        img.removeAttribute("loading");
+        img.src=url;
+        img.removeAttribute("data-enc");
+      })
+      .catch(function(e){ console.error("照片解密失败", rel, e); });
   }
+  // 私人相册：解锁后一次性解密全部照片（折叠手风琴内图片也需直接可见，故不依赖 IntersectionObserver）
   function loadPhotos(key){
-    var root=document.getElementById("tlContent");
-    var hero=root.querySelector(".tl-hero-img");
-    var imgs=root.querySelectorAll("img[data-enc]");
-    for(var i=0;i<imgs.length;i++){
-      var img=imgs[i];
-      if(img===hero){ decryptPhoto(img,key); }
-      else if("IntersectionObserver" in window){
-        (function(im){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){decryptPhoto(im,key);io.unobserve(im);}});});io.observe(im);})(img);
-      } else { decryptPhoto(img,key); }
-    }
+    var imgs=document.querySelectorAll("#tlContent img[data-enc]");
+    for(var i=0;i<imgs.length;i++){ decryptPhoto(imgs[i], key); }
   }
   function unlock(){
     var err=document.getElementById("tlErr"); err.hidden=true;

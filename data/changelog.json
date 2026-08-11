@@ -1,6 +1,13 @@
 [
   {
     "date": "2026-08-11",
+    "time": "07:52",
+    "type": "Bug 修复",
+    "title": "修复加密旅行页解锁后照片不显示（CSP 拦截 blob: + JSON-LD 被当 JS 执行）",
+    "detail": "密码门能开但照片空白，根因有二：① 站点 CSP 的 img-src 未放行 blob:，浏览器拒绝渲染解密出的 blob: 照片；② 解密脚本 reRun() 重建 script 时丢失 type 属性，把 JSON-LD（application/ld+json）当 JS 执行报 Unexpected token ':'。修复：加密外壳页 CSP 的 img-src 追加 blob:；reRun() 完整复制 script 属性。已用真实 Chrome headless 验证 42 张照片全部解密并以正确 MIME 渲染、0 破损。"
+  },
+  {
+    "date": "2026-08-11",
     "time": "20:21",
     "type": "Bug 修复",
     "title": "修复 deploy.yml 加密步骤错误引用 secrets 上下文导致 workflow 全部失败的问题",

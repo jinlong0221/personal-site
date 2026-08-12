@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-12",
+    "content": "漫威板块新增「正在热映票房 · 每日更新」区块：每日自动刷新最新上映漫威电影（《蜘蛛侠：崭新之日》）实时票房卡（全球累计 / 北美 / 海外合计 / 中国内地 + 里程碑），数据综合猫眼专业版、Box Office Mojo、TNABO、灯塔专业版，由 marvel-boxoffice.json 驱动、marvel_boxoffice.js 渲染；同时补全原先未显示的漫威每日资讯——注册 marvel 到共享新闻加载器（auto_news_loader.js 的 PAGE_MAP），marvel-news.json 现可在页面呈现。"
+  },
+  {
+    "date": "2026-08-12",
     "content": "旅行加密抗爆破加固：PBKDF2-SHA-256 迭代次数由 25 万提升至 100 万（Node 端 `PBKDF2_ITERS` 与浏览器端解密脚本同步修改，避免解密失败）；解锁仅做一次密钥派生、手机端约亚秒级，离线爆破弱密码成本约 4 倍提升。下一步建议：仓库转 private + 设置长口令，进一步压缩攻击面。"
   },
   {

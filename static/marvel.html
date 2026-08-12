@@ -178,7 +178,21 @@ html{scroll-behavior:smooth}
 .mv-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
 .mv-note ul{margin:0;padding-left:18px}
 @media(max-width:992px){.mv-phase-grid{grid-template-columns:repeat(2,1fr)}.mv-kpi{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:576px){.mv-hero{padding:32px 18px 28px}.mv-hero h1{font-size:1.55rem}.mv-phase-grid{grid-template-columns:1fr}.mv-order{grid-template-columns:1fr}}</style>
+/* ===== 正在热映票房（每日自动更新） ===== */
+.mv-bo{margin-top:8px}
+.mv-bo-loading{color:var(--text-muted);font-size:.92rem;padding:6px 0}
+.mv-bo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:10px 0 4px}
+.mv-bo-card{background:rgba(226,54,54,.10);border:1px solid rgba(226,54,54,.35);border-radius:12px;padding:14px 16px;text-align:center}
+.mv-bo-card .mv-bo-val{font-size:1.5rem;font-weight:800;color:#e23636;line-height:1.25;word-break:break-word}
+.mv-bo-card .mv-bo-label{font-size:.82rem;color:var(--text-muted);margin-top:4px}
+.mv-bo-meta{margin:8px 0 2px;font-size:.92rem;color:var(--text-secondary);line-height:1.7}
+.mv-bo-meta b{color:var(--text)}
+.mv-bo-miles{list-style:none;padding:0;margin:10px 0 2px;display:grid;gap:8px}
+.mv-bo-miles li{position:relative;padding-left:20px;font-size:.9rem;line-height:1.7;color:var(--text-secondary)}
+.mv-bo-miles li::before{content:'★';position:absolute;left:0;top:1px;color:#e23636;font-size:.8rem}
+.mv-bo-note{font-size:.8rem;color:var(--text-muted);margin-top:10px;line-height:1.75;border-top:1px dashed var(--border);padding-top:8px}
+.mv-bo-updated{font-size:.8rem;color:var(--text-muted);margin-top:10px}
+@media(max-width:576px){.mv-hero{padding:32px 18px 28px}.mv-hero h1{font-size:1.55rem}.mv-phase-grid{grid-template-columns:1fr}.mv-order{grid-template-columns:1fr}.mv-bo-grid{grid-template-columns:1fr}}</style>
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -651,6 +665,25 @@ var _hmt = _hmt || [];
     </div>
   </details>
 
+  <!-- ===== 正在热映票房（每日自动更新） ===== -->
+  <details class="mv-sec" id="sec-boxoffice" open>
+    <summary><h2 class="mv-sec-title">正在热映票房 · 每日更新</h2>
+    <p class="mv-sec-sub">最新上映漫威电影实时票房，每日自动刷新（数据综合猫眼 / Box Office Mojo 等）。</p></summary>
+    <div id="mvBoxoffice" class="mv-bo">
+      <p class="mv-bo-loading">票房数据加载中…</p>
+    </div>
+    <p class="mv-bo-updated">最后更新：<span id="boUpdated">2026-08-11</span></p>
+  </details>
+
+  <!-- ===== 漫威每日资讯（每日自动更新 · 补全原先未显示的板块新闻） ===== -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin:24px 0 8px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
   <div class="mv-note">
     <h3>关于本页</h3>
     <ul>
@@ -691,6 +724,13 @@ var _hmt = _hmt || [];
 <script src="js/search.js"></script>
 <script defer src="js/app.js"></script>
 <script src="js/share.js"></script>
+<script src="js/marvel_boxoffice.js"></script>
+<script src="js/auto_news_loader.js"></script>
+<script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+</script>
 
 <script type="application/ld+json">
 {

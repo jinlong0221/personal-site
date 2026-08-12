@@ -169,14 +169,15 @@ function buildGate(blobB64, saltB64) {
   </div>
 </div>
 <style>
-.tl-gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg,#0e0e10);z-index:9999;padding:24px}
-.tl-gate-card{background:var(--surface,#16161a);border:1px solid var(--border,#2a2a30);border-radius:18px;padding:34px 30px;max-width:360px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.tl-gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0e0e10;z-index:9999;padding:24px}
+.tl-gate-card{background:#16161a;border:1px solid #322b20;border-radius:18px;padding:34px 30px;max-width:360px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
 .tl-gate-lock{font-size:38px;margin-bottom:6px}
-.tl-gate-card h2{margin:.2em 0;font-size:1.3rem;color:var(--text,#eee)}
-.tl-gate-sub{color:var(--text-muted,#9aa);font-size:.9rem;margin:.4em 0 1.1em}
-.tl-gate-input{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--border,#2a2a30);background:var(--bg,#0e0e10);color:var(--text,#eee);font-size:1rem;box-sizing:border-box}
-.tl-gate-input:focus{outline:none;border-color:var(--gold,#c9a14a)}
-.tl-gate-btn{margin-top:12px;width:100%;padding:11px;border:none;border-radius:10px;background:var(--gold,#c9a14a);color:#1a1408;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit}
+.tl-gate-card h2{margin:.2em 0;font-size:1.3rem;color:#EDE6D6}
+.tl-gate-sub{color:#A89F8C;font-size:.9rem;margin:.4em 0 1.1em}
+.tl-gate-input{width:100%;padding:11px 14px;border-radius:10px;border:1px solid #322b20;background:#0e0e10;color:#EDE6D6;font-size:1rem;box-sizing:border-box}
+.tl-gate-input:focus{outline:none;border-color:#C9A84C}
+.tl-gate-input::placeholder{color:#6C6353}
+.tl-gate-btn{margin-top:12px;width:100%;padding:11px;border:none;border-radius:10px;background:#C9A84C;color:#1a1408;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit}
 .tl-gate-btn:hover{filter:brightness(1.06)}
 .tl-gate-err{color:#e0777a;font-size:.85rem;margin:.7em 0 0}
 .tl-lb{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.92);padding:24px}
@@ -185,8 +186,8 @@ function buildGate(blobB64, saltB64) {
 .tl-lb-stage{position:relative;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;gap:12px;align-items:center}
 .tl-lb-stage img{max-width:94vw;max-height:80vh;width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.6);background:#111}
 .tl-lb-bar{display:flex;gap:10px}
-.tl-lb-btn{padding:9px 16px;border:1px solid var(--border,#2a2a30);border-radius:10px;background:var(--surface,#16161a);color:var(--text,#eee);font-size:.9rem;cursor:pointer;font-family:inherit}
-.tl-lb-btn:hover{border-color:var(--gold,#c9a14a)}
+.tl-lb-btn{padding:9px 16px;border:1px solid rgba(255,255,255,.28);border-radius:10px;background:rgba(28,28,32,.92);color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.tl-lb-btn:hover{border-color:#D8B25E;color:#fff}
 </style>
 <script>
 (function(){

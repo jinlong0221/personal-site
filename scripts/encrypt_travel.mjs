@@ -15,7 +15,7 @@
  *      注入 <meta name="robots" content="noindex">、<body data-pagefind-ignore>。
  *   6. 删除 public/data/travel.json（明文私有数据，运行时已烘焙进 HTML，不需要）。
  *
- * 密码学：Node WebCrypto (AES-GCM 256 + PBKDF2 SHA-256, 250k iters)，
+ * 密码学：Node WebCrypto (AES-GCM 256 + PBKDF2 SHA-256, 1M iters)，
  *         与浏览器 crypto.subtle 字节级一致，解密逻辑在浏览器端复用同一套原语。
  */
 import { webcrypto as crypto } from 'node:crypto';
@@ -29,7 +29,7 @@ const PUBLIC = process.env.PUBLIC ? process.env.PUBLIC : join(ROOT, 'public');
 const TRAVEL_HTML = join(PUBLIC, 'travel.html');
 const PASSWORD = process.env.TRAVEL_KEY;
 
-const PBKDF2_ITERS = 250000;
+const PBKDF2_ITERS = 1000000; // 抗离线爆破：解锁时只做一次密钥派生，1M 在手机上约亚秒级；爆破弱密码成本约为 250k 的 4 倍
 const enc = new TextEncoder();
 
 function b64(buf) { return Buffer.from(buf).toString('base64'); }
@@ -195,7 +195,7 @@ function buildGate(blobB64, saltB64) {
   var SALT="${saltB64}";
   var enc=new TextEncoder();
   function b64ToU8(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
-  function derive(pw,salt){return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:250000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);});}
+  function derive(pw,salt){return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:1000000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);});}
   function decBytes(key,blob){var iv=blob.slice(0,12),ct=blob.slice(12);return crypto.subtle.decrypt({name:"AES-GCM",iv:iv},key,ct).then(function(pt){return new Uint8Array(pt);});}
   function gunzip(u){return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream("gzip"))).text();}
   function reRun(root){

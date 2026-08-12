@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-08-12",
+    "content": "旅行加密抗爆破加固：PBKDF2-SHA-256 迭代次数由 25 万提升至 100 万（Node 端 `PBKDF2_ITERS` 与浏览器端解密脚本同步修改，避免解密失败）；解锁仅做一次密钥派生、手机端约亚秒级，离线爆破弱密码成本约 4 倍提升。下一步建议：仓库转 private + 设置长口令，进一步压缩攻击面。"
+  },
+  {
     "date": "2026-08-11",
     "content": "导航栏常驻顶部修复：原 navbar 在外部样式表被 `body .navbar{position:sticky}` 覆盖为 sticky，而 `body{overflow-x:hidden}` 使 body 变成不滚动的滚动容器，sticky 找不到可粘附的滚动祖先而随页面滚走（打开板块需上滑找回导航栏）；改为 `position:fixed` 相对视口常驻顶部，配合 `body{padding-top:var(--nav-height)}` 内容不被遮挡，全站所有板块（首页/详情页/旅行加密页等）均生效。"
   },

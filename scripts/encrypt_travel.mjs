@@ -147,6 +147,16 @@ async function main() {
 
 function buildGate(blobB64, saltB64) {
   return `
+<div id="tlLightbox" class="tl-lb" hidden>
+  <div class="tl-lb-backdrop" data-lb-close></div>
+  <div class="tl-lb-stage">
+    <img id="tlLbImg" alt="旅行大图">
+    <div class="tl-lb-bar">
+      <button type="button" id="tlLbNew" class="tl-lb-btn">在新标签页打开</button>
+      <button type="button" class="tl-lb-btn" data-lb-close>关闭 (Esc)</button>
+    </div>
+  </div>
+</div>
 <div id="tlContent" data-pagefind-ignore></div>
 <div id="tlGate" class="tl-gate">
   <div class="tl-gate-card">
@@ -169,6 +179,14 @@ function buildGate(blobB64, saltB64) {
 .tl-gate-btn{margin-top:12px;width:100%;padding:11px;border:none;border-radius:10px;background:var(--gold,#c9a14a);color:#1a1408;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit}
 .tl-gate-btn:hover{filter:brightness(1.06)}
 .tl-gate-err{color:#e0777a;font-size:.85rem;margin:.7em 0 0}
+.tl-lb{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.92);padding:24px}
+.tl-lb[hidden]{display:none}
+.tl-lb-backdrop{position:absolute;inset:0;cursor:zoom-out}
+.tl-lb-stage{position:relative;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;gap:12px;align-items:center}
+.tl-lb-stage img{max-width:94vw;max-height:80vh;width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.6);background:#111}
+.tl-lb-bar{display:flex;gap:10px}
+.tl-lb-btn{padding:9px 16px;border:1px solid var(--border,#2a2a30);border-radius:10px;background:var(--surface,#16161a);color:var(--text,#eee);font-size:.9rem;cursor:pointer;font-family:inherit}
+.tl-lb-btn:hover{border-color:var(--gold,#c9a14a)}
 </style>
 <script>
 (function(){
@@ -210,20 +228,32 @@ function buildGate(blobB64, saltB64) {
       })
       .catch(function(e){ console.error("照片解密失败", rel, e); });
   }
-  // 画廊「点开看大图」链接：点击时解密 .enc 并以 blob 在新标签页打开大图
-  function decryptLink(a,key){
+  // 画廊「点开看大图」：点击缩略图 → 页面内灯箱显示原图（不依赖新标签页弹窗，避免被浏览器拦截）
+  var lb=document.getElementById("tlLightbox");
+  var lbImg=document.getElementById("tlLbImg");
+  var lbNew=document.getElementById("tlLbNew");
+  var lbUrl=null;
+  function openLightbox(rel,key){
+    if(lbUrl){ URL.revokeObjectURL(lbUrl); lbUrl=null; }
+    lbImg.removeAttribute("src");
+    lb.hidden=false;
+    fetch(rel).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.arrayBuffer(); })
+      .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
+      .then(function(u){
+        lbUrl=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));
+        lbImg.src=lbUrl;
+      })
+      .catch(function(err){ console.error("大图解密失败", rel, err); lb.hidden=true; });
+  }
+  function closeLightbox(){ lb.hidden=true; if(lbUrl){ URL.revokeObjectURL(lbUrl); lbUrl=null; } }
+  lb.addEventListener("click",function(e){ if(e.target.hasAttribute("data-lb-close")) closeLightbox(); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !lb.hidden) closeLightbox(); });
+  // 「在新标签页打开」按钮在用户点击的同步瞬间触发，保留 user activation，不会被弹窗拦截
+  lbNew.addEventListener("click",function(){ if(lbUrl) window.open(lbUrl,"_blank","noopener"); });
+  function bindLink(a,key){
     var rel=a.getAttribute("data-enc-href");
     if(!rel) return;
-    a.addEventListener("click",function(e){
-      e.preventDefault();
-      fetch(rel).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.arrayBuffer(); })
-        .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
-        .then(function(u){
-          var url=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));
-          window.open(url,"_blank","noopener");
-        })
-        .catch(function(err){ console.error("大图打开失败", rel, err); });
-    });
+    a.addEventListener("click",function(e){ e.preventDefault(); openLightbox(rel,key); });
     a.removeAttribute("data-enc-href");
   }
   // 私人相册：解锁后一次性解密全部照片（折叠手风琴内图片也需直接可见，故不依赖 IntersectionObserver）
@@ -233,7 +263,7 @@ function buildGate(blobB64, saltB64) {
       var img=imgs[i];
       decryptPhoto(img, key);
       var a = img.closest ? img.closest("a[data-enc-href]") : (img.parentNode && img.parentNode.tagName==="A" ? img.parentNode : null);
-      if(a) decryptLink(a, key);
+      if(a) bindLink(a, key);
     }
   }
   function unlock(){

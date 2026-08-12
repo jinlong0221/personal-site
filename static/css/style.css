@@ -209,7 +209,10 @@ strong,b { font-weight:700; color:var(--text); }
 /* 详情页：page-wrap 是滚动容器，flex:1 占满剩余高度 */
 .page-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 /* navbar 在 flex 布局中不缩小 */
-body .navbar { position: sticky; top: 0; flex-shrink: 0; }
+/* [NAVBAR-FIX] 改为 fixed：body{overflow-x:hidden} 会让 body 变成不滚动的滚动容器，
+   导致 position:sticky 找不到可粘附的滚动祖先而随页面滚走。fixed 相对视口、免疫该陷阱，
+   配合 body{padding-top:var(--nav-height)} 即可常驻顶部、内容不被遮挡。 */
+body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 
 .navbar-inner {
  max-width:var(--max-width); margin:0 auto; padding:0 20px;

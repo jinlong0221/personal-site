@@ -349,9 +349,9 @@ var _hmt = _hmt || [];
 (function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
 </script>
 
-<script src="../js/search.js"></script>
+<script defer src="../js/search.js"></script>
 <script defer src="../js/app.js"></script>
-    <script src="../js/share.js"></script>
+    <script defer src="../js/share.js"></script>
   <div style="margin-top:60px;padding:20px;text-align:center;border-top:1px solid var(--border-color);font-size:0.85rem;">
   <a href="../about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
 </div>

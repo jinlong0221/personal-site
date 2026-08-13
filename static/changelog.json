@@ -1,6 +1,10 @@
 [
  {
   "date": "2026-08-13",
+  "content": "性能与缓存基线复核 + CSS 缓存版本刷新：复核确认全站已具备关键 CSS 内联、完整 CSS 异步 preload、JS 全 defer、图片全 WebP（首屏 fetchpriority / 非首屏 lazy）、外部域名 preconnect+dns-prefetch 等优化，线上测速首页 HTML 仅 44KB、无剩余渲染阻塞瓶颈；修复 CSS 缓存版本陈旧缺陷——原 46 个静态页无版本号 + 440 个静态页停留在 v=20260809，但 style.css 已于 8/12 更新（含导航栏 fixed 修复），老访客可能拿到旧样式，已将全站 CSS 引用统一刷新为 v=20260813 触发缓存失效。"
+ },
+ {
+  "date": "2026-08-13",
   "content": "全站质量审计与打磨：修复 typhoon / sheyang / 特斯拉充电 / 紫金钵盂菩提 / 文玩品相辨别 5 个页面的 h2→h4 标题层级跳级（栈式同级展平统一为 h3，符合无障碍规范）；给特斯拉板块 5 张车型卡图补充 loading=lazy 优化加载性能；修正台风页被错配的 meta description 与 JSON-LD（原误用「踩坑」文案），并新增中央气象台（nmc.cn，已核验 HTTP 200 可达）资料来源块与概率预报免责声明、核验日期；全站 133 个 JSON-LD 结构化数据块逐一 json.loads 校验全部有效。"
  },
  {

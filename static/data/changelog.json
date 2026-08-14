@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-14",
+    "content": "台风页数据与自动化规则修正：用户反馈移动端「对射阳的影响」徽标变成「文字山」——根因是自动化生成的 sheyang.riskLevel 字段被写成了 275 字的长说明，而页面渲染器把它当作 ≤4 字的短标签放在徽标里。已将 static/typhoon.json 的 riskLevel 改为「中低」（长说明保留在 riskLabel/riskNote），并在台风自动化(1786286346465)的 prompt 中新增「sheyang 字段格式铁律」：riskLevel 必须 ≤4 字、只写等级，长说明必须放进 riskLabel/riskNote。CSS 侧同步加 -webkit-line-clamp:3 作为兜底，防止异常长文再次撑破布局。双端复验：徽标仅显示「中低」（宽 68-70px、高 50-52px），桌面正文 1034px、移动 360/375/390 纵向堆叠，所有视口文档级横向溢出为零。"
+  },
+  {
+    "date": "2026-08-14",
     "content": "台风页「对射阳的影响」区块显示修复：.tf-verdict-badge 原带 white-space:nowrap 且无 max-width，当 riskLevel 文本极长（本轮数据超长）时徽标横向撑到 3367px、把正文挤压成 103px 窄列，整段内容在浅色主题下大面积空白（横向上溢被全局 overflow-x:hidden 裁掉）。改为 max-width:220px + word-break:break-word，并给 .tf-verdict-body 加 flex:1 1 auto;min-width:0 使其正常占满剩余宽度。双端实测：桌面徽标 220px/正文 882px、移动 390/375/360 纵向堆叠且文档级横向溢出均为零。"
   },
   {

@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-14",
+    "content": "台风页「对射阳的影响」区块显示修复：.tf-verdict-badge 原带 white-space:nowrap 且无 max-width，当 riskLevel 文本极长（本轮数据超长）时徽标横向撑到 3367px、把正文挤压成 103px 窄列，整段内容在浅色主题下大面积空白（横向上溢被全局 overflow-x:hidden 裁掉）。改为 max-width:220px + word-break:break-word，并给 .tf-verdict-body 加 flex:1 1 auto;min-width:0 使其正常占满剩余宽度。双端实测：桌面徽标 220px/正文 882px、移动 390/375/360 纵向堆叠且文档级横向溢出均为零。"
+  },
+  {
+    "date": "2026-08-14",
     "content": "全站响应式显示审查与修复：补定义 5 个此前缺失的 CSS 变量 —— --dark-tile（养生茶卡片背景/悬浮目录条、首页每日精选卡片兜底图）、--border-color（数十页页脚分隔线）、--text-color（关于页段落文字）、--border-subtle（台风页卡片边框）、--pink（特斯拉 accessories 装饰条、养生茶养颜类卡片左边框），--accent-color 原带兜底金色故一并补全。双端（移动 390/375/360、桌面 1440/1920）无头浏览器实测：文档级横向溢出为零、表格横向滚动正常、标题层级无跳跃、图片均带尺寸；修复后复验 8 页×双主题×双视口横向溢出仍为零，前述失效样式均已正确解析（深/浅主题）。"
   },
   {

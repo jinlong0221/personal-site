@@ -179,9 +179,27 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.78r
 .skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
 .skip-link:focus{top:0}
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.container,.lx-wrap{padding:0 14px}footer{padding:24px 16px}.lx-mh-title{font-size:34px}}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="preload" href="{{ .Site.BaseURL }}css/style.css?v=20260813" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css?v=20260813"></noscript>
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* 私人空间时间线（临界样式，防 FOUC，完整规则见 css/style.css） */
+.mb-chips{display:flex;gap:8px;overflow-x:auto;padding:14px 2px 4px}
+.mb-chip{flex:0 0 auto;padding:6px 14px;border-radius:999px;border:1px solid var(--rule-soft);background:var(--ink-3);color:var(--tx-2);font-size:.82rem;white-space:nowrap}
+.mb-chip.on{background:var(--gold);color:#1a1206;border-color:var(--gold)}
+.mb-feed{display:flex;flex-direction:column;gap:14px;padding:14px 0 8px}
+.mb-feed-loading,.mb-empty{padding:30px 12px;text-align:center;color:var(--tx-3);font-size:.9rem}
+.mb-card{display:flex;gap:12px;padding:14px;background:var(--ink-3);border:1px solid var(--rule-soft);border-radius:12px;min-width:0}
+.mb-avatar{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--brush);font-size:1.1rem}
+.mb-card-main{flex:1;min-width:0}
+.mb-card-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.mb-name{font-weight:500;color:var(--tx);font-size:.92rem}
+.mb-time{font-size:.72rem;color:var(--tx-3);margin-left:auto;white-space:nowrap}
+.mb-text{font-size:.92rem;color:var(--tx-2);line-height:1.8;word-break:break-word;white-space:pre-wrap}
+.mb-badge{font-size:.68rem;padding:2px 8px;border-radius:999px;border:1px solid var(--rule-soft)}
+.mb-hero{display:flex;align-items:center;gap:14px;padding:22px 4px 8px}
+.mb-hero-avatar{width:54px;height:54px;border-radius:50%;background:var(--gold);color:#1a1206;display:flex;align-items:center;justify-content:center;font-family:var(--brush);font-size:1.6rem;font-weight:500;flex:0 0 auto}
+.mb-hero-name{font-size:1.25rem;font-weight:700;color:var(--tx);margin:0}
+.mb-hero-bio{font-size:.86rem;color:var(--tx-2);line-height:1.6;margin:6px 0 0}</style>
+<link rel="preload" href="{{ .Site.BaseURL }}css/style.css?v=20260814" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css?v=20260814"></noscript>
 
 <!-- 百度统计 -->
 <script async>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
@@ -196,6 +214,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.78r
 <script src="{{ .Site.BaseURL }}js/daily-pick.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/status-bubble.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/updates.js" defer></script>
+<script src="{{ .Site.BaseURL }}js/feed.js" defer></script>
 <!-- 非关键交互脚本（搜索/灯箱/分享/更新日志）：空闲时再加载，释放首屏主线程，缓解卡顿 -->
 <script>
 (function () {

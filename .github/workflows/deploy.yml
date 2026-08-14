@@ -33,6 +33,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build feed data
+        run: node scripts/build_feed.js
+
       - name: Build Hugo
         run: hugo --gc
 

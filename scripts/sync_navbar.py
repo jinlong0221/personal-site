@@ -38,6 +38,7 @@ DESKTOP = [
 # “更多”下拉
 DROPDOWN = [
     ("travel.html", "家庭旅行"),
+    ("microblog.html", "碎碎念"),
     ("chinajoy.html", "ChinaJoy 成长史"),
     ("guanghui.html", "光辉电力"),
     ("gaokao.html", "高考查分"),

@@ -14,6 +14,12 @@ description: "龙兄的私人随手记——文玩盘玩、养生茶饮、旅行
     <a class="mb-hero-cta" href="index.html">返回首页时间线 →</a>
   </header>
 
+  <div class="mb-privacy" aria-label="隐私分层说明">
+    <span class="mb-privacy-item"><span class="mb-privacy-dot mb-privacy-public"></span>时间线 · 碎碎念：<b>公开</b>，任何人可看</span>
+    <span class="mb-privacy-sep" aria-hidden="true">·</span>
+    <a class="mb-privacy-item mb-privacy-locked" href="travel.html"><span class="mb-privacy-dot mb-privacy-enc"></span>旅行相册：<b>密码加密</b></a>
+  </div>
+
   <div class="mb-chips" id="mbChips" data-default-filter="碎碎念" role="tablist" aria-label="动态筛选">
     <button type="button" class="mb-chip on" data-filter="all">全部</button>
     <button type="button" class="mb-chip" data-filter="碎碎念">碎碎念</button>

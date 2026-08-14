@@ -4899,6 +4899,15 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .mb-tag-cloud-item:hover { color: var(--text); border-color: var(--gold); }
 .mb-tag-cloud-item .mb-tag-count { opacity: .55; font-size: .7rem; margin-left: 3px; }
 .mb-tag-cloud-item.on { background: var(--gold); color: #1a1206; border-color: var(--gold); font-weight: 500; }
+.mb-privacy { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 10px 12px; margin: 2px 0 6px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); font-size: .78rem; color: var(--text-secondary); line-height: 1.5; }
+.mb-privacy-item { display: inline-flex; align-items: center; gap: 6px; }
+.mb-privacy-item b { color: var(--text); font-weight: 600; }
+.mb-privacy-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: 0 0 auto; }
+.mb-privacy-public { background: #4E8A4E; }
+.mb-privacy-enc { background: var(--gold); }
+.mb-privacy-sep { opacity: .35; }
+.mb-privacy-locked { color: var(--text-secondary); text-decoration: none; border-bottom: 1px dashed transparent; transition: all .2s ease; }
+.mb-privacy-locked:hover { color: var(--gold); border-bottom-color: var(--gold); }
 @media (max-width: 768px) {
   .mb-hero { padding: 18px 2px 6px; }
   .mb-hero-cta { display: none; }

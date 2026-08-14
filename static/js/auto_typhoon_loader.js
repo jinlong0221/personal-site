@@ -446,11 +446,18 @@
     var km = (c.lat != null) ? haversine(SHEYANG.lat, SHEYANG.lon, c.lat, c.lon) : null;
     var gr = distGrade(km);
 
+    /* 状态徽标只显示短标签：优先用 statusShort（短徽标），否则按 statusLevel 映射。
+       长文 status（监测续报）绝不进徽标，改为下方独立卡片渲染，避免"文字山"撑破布局。 */
+    var STATUS_SHORT_MAP = { danger: '高风险预警', warn: '在效监测', info: '收尾/解除' };
+    var statusBadge = (d.statusShort && String(d.statusShort).trim())
+      ? String(d.statusShort).trim()
+      : (STATUS_SHORT_MAP[d.statusLevel] || '监测中');
+
     var h = '<div class="tf-hero-card">';
     h += '<div class="tf-hero-main">';
     h += '<div class="tf-hero-name"><span class="tf-spin">🌀</span><b>' + esc(d.name) + '</b>' +
       '<span class="tf-hero-no">' + esc(d.year) + ' 年第 ' + esc(d.no) + ' 号</span>' +
-      '<span class="tf-hero-status ' + esc(d.statusLevel || 'warn') + '">' + esc(d.status) + '</span></div>';
+      '<span class="tf-hero-status ' + esc(d.statusLevel || 'warn') + '">' + esc(statusBadge) + '</span></div>';
     if (d.headline) h += '<div class="tf-hero-headline">' + esc(d.headline) + '</div>';
     h += '</div>';
     if (km != null) {
@@ -474,6 +481,11 @@
     if (d.summary) {
       h += '<details class="tf-details"><summary>台风背景与整体研判</summary>' +
         '<div class="tf-details-body"><p>' + esc(d.summary) + '</p></div></details>';
+    }
+    /* 监测续报（长文）：独立卡片，不进徽标 */
+    if (d.status) {
+      h += '<div class="tf-report"><div class="tf-report-k">监测续报</div>' +
+        '<div class="tf-report-body">' + esc(d.status) + '</div></div>';
     }
     box.innerHTML = h;
   }

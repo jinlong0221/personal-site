@@ -39,6 +39,7 @@ DESKTOP = [
 DROPDOWN = [
     ("travel.html", "家庭旅行"),
     ("microblog.html", "碎碎念"),
+    ("original/", "原创发布"),
     ("chinajoy.html", "ChinaJoy 成长史"),
     ("guanghui.html", "光辉电力"),
     ("gaokao.html", "高考查分"),

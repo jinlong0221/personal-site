@@ -81,6 +81,9 @@ def main():
             if not fn.endswith(".html"):
                 continue
             full = os.path.join(dirpath, fn)
+            rel = os.path.relpath(full, STATIC_DIR).replace(os.sep, "/")
+            if rel.startswith("admin/") or "/admin/" in rel:
+                continue  # 后台页自带宽松 CSP，跳过严格注入
             st = process_file(full, check_only)
             if st.startswith("inject"):
                 counts["inject"] += 1

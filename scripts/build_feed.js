@@ -52,6 +52,53 @@ function trunc(s, n) {
   return s.length > n ? s.slice(0, n) + '…' : s;
 }
 
+// 轻量 frontmatter 解析（项目无 YAML 依赖，仅覆盖后台写入的受控结构）
+function stripVal(v) {
+  return v.replace(/^["']|["']$/g, '');
+}
+function parseFrontmatter(raw) {
+  var m = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n?/);
+  if (!m) return null;
+  var lines = m[1].split('\n');
+  var out = {};
+  var curKey = null;
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    if (!line.trim()) continue;
+    if (/^\s*-\s+/.test(line) && curKey && Array.isArray(out[curKey])) {
+      out[curKey].push(stripVal(line.trim().replace(/^\s*-\s+/, '')));
+      continue;
+    }
+    var idx = line.indexOf(':');
+    if (idx < 0) continue;
+    var key = line.slice(0, idx).trim();
+    var val = line.slice(idx + 1).trim();
+    if (!key) continue;
+    if (val === '') {
+      out[key] = [];
+      curKey = key;
+    } else {
+      out[key] = stripVal(val);
+      curKey = null;
+    }
+  }
+  return out;
+}
+function normTags(t) {
+  if (Array.isArray(t)) return t.map(String).map(function (x) { return x.trim(); }).filter(Boolean);
+  if (typeof t === 'string') {
+    var s = t.trim();
+    if (s.charAt(0) === '[' && s.charAt(s.length - 1) === ']') s = s.slice(1, -1);
+    return s.split(',').map(function (x) { return x.trim().replace(/^["']|["']$/g, ''); }).filter(Boolean);
+  }
+  return [];
+}
+function bodyExcerpt(raw, n) {
+  var body = raw.replace(/^---\s*\n[\s\S]*?\n---\s*\n?/, '');
+  var txt = body.replace(/^#+\s+.*$/gm, '').replace(/[*_`>#]/g, '').replace(/\s+/g, ' ').trim();
+  return txt.length > n ? txt.slice(0, n) + '…' : txt;
+}
+
 const items = [];
 
 // 1) 碎碎念
@@ -118,6 +165,46 @@ if (ty && ty.statusLevel && ['warn', 'danger', 'info'].indexOf(ty.statusLevel) >
     linkText: '查看实时路径',
     cover: '',
     accent: ACCENT['台风']
+  });
+}
+
+// 0) 原创发布（后台自助写入 content/original/*.md，type=原创，带 board 字段）
+var ORIGINAL_DIR = path.join(ROOT, 'content', 'original');
+var BOARD_PAGE = {
+  '中药材': 'herbs.html', '养生茶': 'health-tea.html', '文玩手串': 'bracelet.html',
+  '特斯拉': 'tesla.html', '漫威宇宙': 'marvel.html', '紫砂艺术': 'zisha.html',
+  '游戏主机': 'console.html', 'ChinaJoy': 'chinajoy.html', '光辉电力': 'guanghui.html',
+  '踩坑记': 'pitfalls.html', '高考查分': 'gaokao.html', '农田气象': 'xintan-weather.html',
+  '游戏库': 'games.html', '台风监测': 'typhoon.html'
+};
+var BOARD_ACCENT = {
+  '中药材': '#3B9C6B', '养生茶': '#6FA85B', '文玩手串': '#B07A3C', '特斯拉': '#E0492F',
+  '漫威宇宙': '#C0392B', '紫砂艺术': '#8B5A2B', '游戏主机': '#5B6BB0', 'ChinaJoy': '#D269A0',
+  '光辉电力': '#E0A92F', '踩坑记': '#9B7BD4', '高考查分': '#2E8BC0', '农田气象': '#4FA3C7',
+  '游戏库': '#7A8BD0', '台风监测': '#2E8BC0', '随笔杂记': '#8B7FD6'
+};
+if (fs.existsSync(ORIGINAL_DIR)) {
+  fs.readdirSync(ORIGINAL_DIR).forEach(function (fn) {
+    if (!/\.md$/.test(fn) || fn === '_index.md') return;
+    var raw = fs.readFileSync(path.join(ORIGINAL_DIR, fn), 'utf8');
+    var fm = parseFrontmatter(raw);
+    if (!fm || !fm.title) return;
+    var board = fm.board || '随笔杂记';
+    var slug = fn.replace(/\.md$/, '');
+    items.push({
+      id: 'og-' + slug,
+      type: '原创',
+      date: String(fm.date || '').slice(0, 10),
+      time: '',
+      title: fm.title,
+      text: fm.summary || bodyExcerpt(raw, 120),
+      tags: normTags(fm.tags),
+      link: 'original/' + slug + '/',
+      linkText: '阅读全文 →',
+      cover: fm.cover || '',
+      accent: BOARD_ACCENT[board] || ACCENT['碎碎念'],
+      board: board
+    });
   });
 }
 

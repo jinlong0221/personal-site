@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="og-hub lx-wrap">
+  <header class="og-hub-head">
+    <h1 class="og-hub-title">我的原创</h1>
+    <p class="og-hub-sub">各板块的随手记与深度内容都在这里，按板块归类。想发新内容？登录 <a href="{{ .Site.BaseURL }}admin/">内容管理后台</a> 即可自助发布。</p>
+  </header>
+  {{ $groups := .Pages.GroupByParam "board" }}
+  {{ if $groups }}
+    {{ range $groups }}
+      <h2 class="og-group" id="board-{{ .Key }}">{{ .Key }}<span class="og-group-count">{{ len .Pages }}</span></h2>
+      <div class="og-list">
+        {{ range .Pages }}
+          <a class="og-item" href="{{ .RelPermalink }}">
+            <span class="og-item-title">{{ .Title }}</span>
+            <time class="og-item-date">{{ .Date.Format "2006-01-02" }}</time>
+          </a>
+        {{ end }}
+      </div>
+    {{ end }}
+  {{ else }}
+    <p class="og-empty">还没有原创内容。去后台发第一篇吧。</p>
+  {{ end }}
+</section>
+{{ end }}

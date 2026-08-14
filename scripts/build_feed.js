@@ -7,8 +7,10 @@
  *   - static/data/microblog.json   碎碎念（主人随手记）
  *   - static/data/changelog.json  手工更新日志（站点里程碑）
  *   - static/typhoon.json         台风实时（仅在 active 时出一条）
- *   - static/data/travel.json     家庭旅行（取最近 2 次出行）
  * 输出：static/data/feed.json
+ *
+ * 注意：家庭旅行（travel）属隐私内容，仅在加密后的 travel.html 凭密码访问，
+ * 不进入公开时间线 feed.json，避免隐私行程/照片泄露到首页。
  *
  * 由 CI（deploy.yml，hugo 之前）与本地提交前运行，保证首页时间线与碎碎念页始终最新。
  */
@@ -19,7 +21,7 @@ const ROOT = path.dirname(__dirname); // hugo-site（scripts 的上一级）
 const STATIC = path.join(ROOT, 'static');
 const DATA = path.join(STATIC, 'data');
 
-const ACCENT = { '碎碎念': '#8B7FD6', '动态': '#3B93DD', '台风': '#2E8BC0', '旅行': '#D98A5C' };
+const ACCENT = { '碎碎念': '#8B7FD6', '动态': '#3B93DD', '台风': '#2E8BC0' };
 
 function readJSON(p) {
   try {
@@ -116,31 +118,6 @@ if (ty && ty.statusLevel && ['warn', 'danger', 'info'].indexOf(ty.statusLevel) >
     linkText: '查看实时路径',
     cover: '',
     accent: ACCENT['台风']
-  });
-}
-
-// 4) 旅行（最近 2 次出行）
-const tv = readJSON(path.join(DATA, 'travel.json'));
-if (tv && Array.isArray(tv.trips)) {
-  const trips = tv.trips.slice().sort(function (a, b) {
-    return tsOf(b.id || b.date || '', '') - tsOf(a.id || a.date || '', '');
-  }).slice(0, 2);
-  trips.forEach(function (tr) {
-    if (!tr || !tr.id) return;
-    const cover = tr.cover ? ('img/travel/' + tr.cover + '.webp') : '';
-    items.push({
-      id: 'tr-' + tr.id,
-      type: '旅行',
-      date: '',
-      time: tr.date || '',
-      title: tr.title || '旅行',
-      text: tr.note || '',
-      tags: ['旅行'],
-      link: 'travel.html',
-      linkText: '看旅行记录',
-      cover: cover,
-      accent: ACCENT['旅行']
-    });
   });
 }
 

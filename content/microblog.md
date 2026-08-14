@@ -19,7 +19,6 @@ description: "龙兄的私人随手记——文玩盘玩、养生茶饮、旅行
     <button type="button" class="mb-chip" data-filter="碎碎念">碎碎念</button>
     <button type="button" class="mb-chip" data-filter="动态">动态</button>
     <button type="button" class="mb-chip" data-filter="台风">台风</button>
-    <button type="button" class="mb-chip" data-filter="旅行">旅行</button>
   </div>
 
   <section class="mb-feed" id="mbFeed" data-default-filter="碎碎念" aria-live="polite">

@@ -13,6 +13,7 @@
     var feed = document.getElementById('mbFeed');
     if (!feed) return; // 非时间线页不拉取，零开销
     var chips = document.getElementById('mbChips');
+    var tagCloud = document.getElementById('mbTagCloud');
 
     var base = '';
     var scripts = document.querySelectorAll('script[src]');
@@ -94,6 +95,8 @@
       });
       feed.innerHTML = html;
 
+      if (tagCloud) buildTagCloud(items);
+
       if (chips) {
         var preset = chips.querySelector('.mb-chip');
         if (!preset) {
@@ -109,6 +112,26 @@
       }
     }
 
+    function buildTagCloud(items) {
+      var counts = {};
+      items.forEach(function (it) {
+        if (Array.isArray(it.tags)) {
+          it.tags.forEach(function (t) {
+            counts[t] = (counts[t] || 0) + 1;
+          });
+        }
+      });
+      var entries = Object.keys(counts).map(function (k) { return [k, counts[k]]; });
+      if (!entries.length) { tagCloud.style.display = 'none'; return; }
+      entries.sort(function (a, b) {
+        return b[1] - a[1] || (a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0));
+      });
+      tagCloud.innerHTML = entries.map(function (e) {
+        return '<button type="button" class="mb-tag-cloud-item" data-tag="' + esc(e[0]) + '">' +
+          esc(e[0]) + '<span class="mb-tag-count">' + e[1] + '</span></button>';
+      }).join('');
+    }
+
     function wireChips() {
       if (!chips) return;
       var chipEls = chips.querySelectorAll('.mb-chip');
@@ -117,6 +140,12 @@
         chipEls.forEach(function (c) {
           c.classList.toggle('on', c.getAttribute('data-filter') === filter);
         });
+        if (tagCloud) {
+          var cloudEls = tagCloud.querySelectorAll('.mb-tag-cloud-item');
+          cloudEls.forEach(function (el) {
+            el.classList.toggle('on', el.getAttribute('data-tag') === filter);
+          });
+        }
         var cards = feed.querySelectorAll('.mb-card');
         var anyVisible = false;
         cards.forEach(function (card) {
@@ -144,6 +173,12 @@
         var t = e.target.closest && e.target.closest('.mb-tag');
         if (t) apply(t.getAttribute('data-tag'));
       });
+      if (tagCloud) {
+        var cloudEls = tagCloud.querySelectorAll('.mb-tag-cloud-item');
+        cloudEls.forEach(function (el) {
+          el.addEventListener('click', function () { apply(el.getAttribute('data-tag')); });
+        });
+      }
       apply(defaultFilter || 'all');
     }
   }

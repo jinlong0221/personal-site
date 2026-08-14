@@ -21,6 +21,8 @@ description: "龙兄的私人随手记——文玩盘玩、养生茶饮、旅行
     <button type="button" class="mb-chip" data-filter="台风">台风</button>
   </div>
 
+  <div class="mb-tag-cloud" id="mbTagCloud" aria-label="标签云"></div>
+
   <section class="mb-feed" id="mbFeed" data-default-filter="碎碎念" aria-live="polite">
     <div class="mb-feed-loading">正在加载动态…</div>
   </section>

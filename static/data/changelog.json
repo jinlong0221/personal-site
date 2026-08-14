@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-14",
+    "content": "家庭旅行页「个人合影」板块改为默认折叠：原 #personalPhotos 区块（两张与宋晓峰的饭后合影）默认展开，现用原生 <details> 包裹、默认收起，点击摘要「📸 个人合影 · 2 张」展开；新增 .tl-details 配套样式，并补收起态强制隐藏规则 .tl-details:not([open]) > .tl-details-body{display:none}，确保收起时正文与图片完全不占位（原生 details 在加密模式下同样可用）。双端（360/1440）无头复验：默认收起、点击展开、文档级横向溢出均为 0。"
+  },
+  {
+    "date": "2026-08-14",
     "content": "全站「短徽标被长文撑破」类缺陷复查与修复：1) 无头浏览器对 public/ 下全部 177 个页面在 360 与 1440 双视口做横向溢出扫描（scrollWidth>clientWidth 即便有全局 overflow-x:hidden 仍可见），结果为全站零横向溢出——确定性的撑破布局 bug 已清零。2) 发现并修复台风页 hero 状态徽标（.tf-hero-status）同类缺陷：自动化写入的顶层 status 字段是数百字「监测续报」长文，原被直接塞进徽标导致移动端 360px 下徽标高 1209px 的「文字山」。改为徽标只渲染短状态（新增 statusShort 字段 + statusLevel 映射兜底），长文 status 独立成「监测续报」卡片（.tf-report）保留完整内容；并在台风自动化 prompt 新增「status 字段格式铁律」（status 全文渲染在下方卡片、statusShort ≤6 字进徽标）。双端复验：徽标显示「收尾监测」、高 30-34px，文档级横向溢出仍为零。"
   },
   {

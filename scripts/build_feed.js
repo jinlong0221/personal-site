@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 'use strict';
 /**
- * build_feed.js — 聚合多源更新为统一时间线 feed.json
+ * build_feed.js — 聚合多源内容更新为统一时间线 feed.json
  *
  * 数据源（任一缺失/异常都不影响其余，互不脱节）：
  *   - static/data/microblog.json   碎碎念（主人随手记）
- *   - static/data/changelog.json  手工更新日志（站点里程碑）
  *   - static/typhoon.json         台风实时（仅在 active 时出一条）
+ *   - content/original/*.md       原创发布（后台自助写入）
  * 输出：static/data/feed.json
  *
- * 注意：家庭旅行（travel）属隐私内容，仅在加密后的 travel.html 凭密码访问，
- * 不进入公开时间线 feed.json，避免隐私行程/照片泄露到首页。
+ * 设计边界（严谨约定，勿改）：
+ *   - 更新日志（changelog.json）是「站点维护记录」，不属于首页内容动态，
+ *     只在 changelog.html 独立呈现（经首页「目录 → 更新日志」可达）。
+ *     严禁把 changelog 注入本 feed，否则维护记录会污染首页时间线。
+ *   - 家庭旅行（travel）属隐私内容，仅在加密后的 travel.html 凭密码访问，
+ *     不进入公开时间线 feed.json，避免隐私行程/照片泄露到首页。
  *
  * 由 CI（deploy.yml，hugo 之前）与本地提交前运行，保证首页时间线与碎碎念页始终最新。
  */
@@ -21,7 +25,7 @@ const ROOT = path.dirname(__dirname); // hugo-site（scripts 的上一级）
 const STATIC = path.join(ROOT, 'static');
 const DATA = path.join(STATIC, 'data');
 
-const ACCENT = { '碎碎念': '#8B7FD6', '动态': '#3B93DD', '台风': '#2E8BC0' };
+const ACCENT = { '碎碎念': '#8B7FD6', '台风': '#2E8BC0' };
 
 function readJSON(p) {
   try {
@@ -122,29 +126,9 @@ if (Array.isArray(mb)) {
   });
 }
 
-// 2) 手工更新日志（仅取最近 12 条，避免历史里程碑淹没时间线；完整归档见 changelog.html）
-const cl = readJSON(path.join(DATA, 'changelog.json'));
-if (Array.isArray(cl)) {
-  cl.slice(0, 12).forEach(function (it, i) {
-    if (!it || !it.date) return;
-    const content = it.content || it.desc || it.title || '';
-    if (!content) return;
-    const head = trunc((content.split(/[。！\n]/)[0] || content), 80);
-    items.push({
-      id: 'cl-' + it.date + '-' + i,
-      type: '动态',
-      date: it.date,
-      time: it.time || '',
-      title: '',
-      text: head,
-      tags: [],
-      link: 'changelog.html',
-      linkText: '查看更新日志',
-      cover: '',
-      accent: ACCENT['动态']
-    });
-  });
-}
+// 2) 更新日志（changelog.json）刻意不纳入本 feed —— 它是站点维护记录，
+//    只在 changelog.html 独立呈现。混入首页时间线会把「导航栏修复」这类
+//    维护条目伪装成内容动态，干扰读者。请勿在此处重新引入。
 
 // 3) 台风实时（仅在 active：warn/danger/info）
 const ty = readJSON(path.join(STATIC, 'typhoon.json'));

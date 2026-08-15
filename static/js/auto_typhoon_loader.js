@@ -488,33 +488,65 @@
     return 'mid';
   }
 
-  /* ============ 射阳影响 ============ */
+  /* 文本截断为简短结论 */
+  function shortText(s, max) {
+    s = String(s || '').replace(/\s+/g, ' ').trim();
+    if (s.length <= max) return s;
+    return s.slice(0, max).replace(/[，。、；：！？,.;:!?]$/, '') + '…';
+  }
+
+  /* ============ 射阳影响 ============
+   * 首屏只保留「一眼能看懂」的三样东西：
+   * 1. 风险结论卡片（等级+一句话）
+   * 2. 关键指标（影响时段/最强时段/在效预警数）
+   * 3. 风力预报图（带标题、图例、海/陆标签）
+   * 所有详细预警、风险清单、长说明都收进「射阳影响详情」折叠块。
+   */
   function renderSheyang(d) {
     var box = document.getElementById('tf-sheyang');
     if (!box) return;
     var sy = d.sheyang || {};
     var h = '';
 
-    /* 风险等级：纯色块徽标（仅短词），不写整句说明 */
+    /* 1. 风险结论卡片 */
     if (sy.riskLevel) {
       h += '<div class="tf-verdict">' +
-        '<div class="tf-verdict-badge ' + riskCls(sy.riskLevel) + '">' + esc(sy.riskLevel) + '</div></div>';
+        '<div class="tf-verdict-badge ' + riskCls(sy.riskLevel) + '">' + esc(sy.riskLevel) + '</div>' +
+        '<div class="tf-verdict-body">' +
+        '<b>对射阳影响</b>' +
+        '<p>' + esc(shortText(sy.riskLabel || sy.riskNote || '请查看详细分析', 52)) + '</p>' +
+        '</div></div>';
     }
 
-    /* 预警信号：纯色条，无文字（hover 看名称），颜色即等级 */
-    if (sy.alerts && sy.alerts.length) {
-      h += '<div class="tf-alerts">';
-      sy.alerts.forEach(function (a) {
-        if (typeof a === 'string') { h += '<span class="tf-alert-chip blue" title="' + esc(a) + '"></span>'; return; }
-        h += '<span class="tf-alert-chip ' + esc(a.color || 'blue') + '" title="' +
-          esc((a.name || '') + (a.level ? ' ' + a.level : '')) + '"></span>';
+    /* 2. 关键指标行（数值/短文本，绝不放长分析） */
+    var meta = [];
+    if (sy.windDaily && sy.windDaily.length) {
+      meta.push(['影响时段', sy.windDaily[0].date + ' – ' + sy.windDaily[sy.windDaily.length - 1].date]);
+    }
+    if (sy.peakWindow && String(sy.peakWindow).length < 20) {
+      meta.push(['最强时段', sy.peakWindow]);
+    } else if (sy.windDaily) {
+      var peak = sy.windDaily.find(function (w) { return w.peak; });
+      if (peak) meta.push(['最强日期', peak.date]);
+    }
+    var alertCount = (sy.alerts || []).length;
+    if (alertCount) meta.push(['预警记录', alertCount + ' 条']);
+    if (meta.length) {
+      h += '<div class="tf-key">';
+      meta.forEach(function (m) {
+        h += '<div class="tf-key-item"><span>' + esc(m[0]) + '</span><b>' + esc(m[1]) + '</b></div>';
       });
       h += '</div>';
     }
 
-    /* 分日风力：纯条形图，去掉标题，仅留日期 + 海/陆 + 数值 */
+    /* 3. 风力预报图（带标题、图例） */
     if (sy.windDaily && sy.windDaily.length) {
-      h += '<div class="tf-wind-chart">';
+      h += '<div class="tf-wind-chart">' +
+        '<div class="tf-chart-title">风力预报 <em>未来几日海面 / 陆地最大风力</em></div>' +
+        '<div class="tf-chart-legend">' +
+        '<span class="tf-leg sea"><i></i>海面</span>' +
+        '<span class="tf-leg land"><i></i>陆地</span>' +
+        '</div>';
       sy.windDaily.forEach(function (w) {
         var seaPct = Math.min(100, (w.seaScale || 0) / 12 * 100);
         var landPct = Math.min(100, (w.landScale || 0) / 12 * 100);
@@ -531,6 +563,9 @@
       });
       h += '</div>';
     }
+
+    /* 4. 简短提示：详情已折叠 */
+    h += '<p class="tf-sheyang-tip">👆 以上为首屏摘要；完整预警、风险清单与风雨分析请展开下方「📍 射阳影响详情」。</p>';
 
     box.innerHTML = h;
   }

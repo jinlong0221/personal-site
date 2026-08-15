@@ -243,44 +243,39 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .tf-side-card .tf-mini{font-size:.78rem;color:var(--text-muted);}
 
 /* ---- 射阳影响 ---- */
-.tf-verdict{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:14px;margin-bottom:16px;
+.tf-verdict{display:flex;gap:16px;align-items:center;padding:18px 20px;border-radius:14px;margin-bottom:16px;
   background:linear-gradient(135deg,rgba(255,176,46,.10),rgba(255,140,0,.04));border:1px solid rgba(255,176,46,.28);}
-.tf-verdict-badge{flex:0 0 auto;padding:10px 16px;border-radius:11px;background:rgba(217,130,130,.13);
-  color:#d18a8a;font-size:1.05rem;font-weight:700;letter-spacing:1px;max-width:220px;word-break:break-word;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.tf-verdict-badge{flex:0 0 auto;min-width:72px;text-align:center;padding:12px 14px;border-radius:11px;
+  font-size:1.4rem;font-weight:800;letter-spacing:2px;}
 .tf-verdict-body{flex:1 1 auto;min-width:0;}
-.tf-verdict-body b{display:block;font-size:1.02rem;color:var(--text-primary);margin-bottom:7px;}
-.tf-verdict-body p{font-size:.9rem;color:var(--text-secondary);line-height:1.8;}
-.tf-alerts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
-.tf-alert{display:flex;flex-direction:column;gap:3px;padding:10px 14px;border-radius:11px;min-width:150px;
-  background:var(--bg-card);border-left:4px solid var(--tf-blue);border-top:1px solid var(--border-subtle);
-  border-right:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);}
-.tf-alert.blue{border-left-color:#4da6e8;}
-.tf-alert.yellow{border-left-color:#5fa89a;}
-.tf-alert.orange{border-left-color:#ff8c00;}
-.tf-alert.red{border-left-color:#e81123;}
-.tf-alert b{font-size:.88rem;color:var(--text-primary);}
-.tf-alert i{font-style:normal;font-size:.78rem;color:var(--tf-accent);}
-.tf-alert em{font-style:normal;font-size:.71rem;color:var(--text-muted);}
-/* 预警信号：纯色条（去文字，hover 看名称） */
+.tf-verdict-body b{display:block;font-size:1.05rem;color:var(--text-primary);margin-bottom:5px;}
+.tf-verdict-body p{font-size:.9rem;color:var(--text-secondary);line-height:1.7;}
+/* 风险等级色块等级配色 */
+.tf-verdict-badge.low{background:rgba(95,168,154,.18);color:#5fa89a;}
+.tf-verdict-badge.mid{background:rgba(217,130,130,.16);color:#d98282;}
+.tf-verdict-badge.high{background:rgba(255,140,0,.20);color:#ff8c00;}
+.tf-verdict-badge.danger{background:rgba(232,17,35,.22);color:#ff6b75;}
+/* 关键指标 */
+.tf-key{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px;}
+.tf-key-item{padding:13px 16px;border-radius:11px;background:var(--bg-card);border:1px solid var(--border-subtle);}
+.tf-key-item span{display:block;font-size:.73rem;color:var(--text-muted);letter-spacing:.6px;margin-bottom:5px;}
+.tf-key-item b{display:block;font-size:.92rem;color:var(--text-primary);line-height:1.5;font-weight:600;}
+/* 风力条形图 */
+.tf-wind-chart{padding:18px 20px;border-radius:14px;background:var(--bg-card);border:1px solid var(--border-subtle);margin-bottom:14px;}
+.tf-chart-title{font-size:.92rem;color:var(--text-primary);margin-bottom:12px;font-weight:700;}
+.tf-chart-title em{font-style:normal;font-size:.76rem;color:var(--text-muted);font-weight:400;margin-left:6px;}
+.tf-chart-legend{display:flex;gap:16px;margin-bottom:14px;}
+.tf-leg{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-secondary);}
+.tf-leg i{width:18px;height:6px;border-radius:3px;display:inline-block;}
+.tf-leg.sea i{background:linear-gradient(90deg,#2e7fc0,#4da6e8);}
+.tf-leg.land i{background:linear-gradient(90deg,#2f9e8a,#5fc4ad);}
+.tf-sheyang-tip{margin:0 0 18px;font-size:.78rem;color:var(--text-muted);line-height:1.7;text-align:center;}
+/* 历史样式：保留但当前不再使用 */
 .tf-alert-chip{width:52px;height:14px;border-radius:7px;display:inline-block;cursor:default;}
 .tf-alert-chip.blue{background:#4da6e8;}
 .tf-alert-chip.yellow{background:#e0b400;}
 .tf-alert-chip.orange{background:#ff8c00;}
 .tf-alert-chip.red{background:#e81123;}
-/* 风险等级色块等级配色 */
-.tf-verdict-badge.low{background:rgba(95,168,154,.16);color:#5fa89a;}
-.tf-verdict-badge.mid{background:rgba(217,130,130,.13);color:#d98282;}
-.tf-verdict-badge.high{background:rgba(255,140,0,.18);color:#ff8c00;}
-.tf-verdict-badge.danger{background:rgba(232,17,35,.2);color:#ff6b75;}
-.tf-key{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:18px;}
-.tf-key-item{padding:13px 16px;border-radius:11px;background:var(--bg-card);border:1px solid var(--border-subtle);}
-.tf-key-item span{display:block;font-size:.73rem;color:var(--text-muted);letter-spacing:.6px;margin-bottom:5px;}
-.tf-key-item b{display:block;font-size:.89rem;color:var(--text-primary);line-height:1.6;font-weight:500;}
-/* 风力条形图 */
-.tf-wind-chart{padding:18px 20px;border-radius:14px;background:var(--bg-card);border:1px solid var(--border-subtle);margin-bottom:18px;}
-.tf-chart-title{font-size:.88rem;color:var(--tf-accent);margin-bottom:14px;font-weight:600;}
-.tf-chart-title em{font-style:normal;font-size:.74rem;color:var(--text-muted);font-weight:400;margin-left:6px;}
 .tf-wrow{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--border-subtle);}
 .tf-wrow:last-child{border-bottom:none;}
 .tf-wrow.peak{background:rgba(232,17,35,.045);border-radius:8px;padding-left:8px;padding-right:8px;}
@@ -603,7 +598,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
   <script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
-  <script defer src="js/auto_typhoon_loader.js?v=20260815e"></script>
+  <script defer src="js/auto_typhoon_loader.js?v=20260815f"></script>
   <script defer src="js/search.js"></script>
   <script defer src="js/share.js"></script>
   <script>

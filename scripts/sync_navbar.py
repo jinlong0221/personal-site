@@ -84,7 +84,7 @@ def build_nav(prefix, active_bare):
     <ul class="nav-links">
 {nav_links}
       <li class="nav-more-wrap">
-        <button type="button" class="nav-more-btn" onclick="var w=this.parentElement;w.classList.toggle('open');event.stopPropagation();">更多 ▾</button>
+        <button type="button" class="nav-more-btn">更多 ▾</button>
         <div class="nav-more-dropdown">
 {drop_links}
         </div>

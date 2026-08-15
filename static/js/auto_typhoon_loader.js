@@ -497,8 +497,7 @@
       sy.alerts.forEach(function (a) {
         if (typeof a === 'string') { h += '<span class="tf-alert blue"><b>' + esc(a) + '</b></span>'; return; }
         h += '<span class="tf-alert ' + esc(a.color || 'blue') + '">' +
-          '<b>' + esc(a.name) + '</b>' + (a.level ? '<i>' + esc(a.level) + '</i>' : '') +
-          '<em>' + esc(a.issuer || '') + (a.time ? ' · ' + esc(a.time) : '') + '</em></span>';
+          '<b>' + esc(a.name) + '</b>' + (a.level ? '<i>' + esc(a.level) + '</i>' : '') + '</span>';
       });
       h += '</div>';
     }
@@ -509,17 +508,17 @@
     h += '</div>';
 
     if (sy.windDaily && sy.windDaily.length) {
-      h += '<div class="tf-wind-chart"><div class="tf-chart-title">分日风力预报 <em>江苏省气象台 / 射阳县气象台</em></div>';
+      h += '<div class="tf-wind-chart"><div class="tf-chart-title">分日风力预报</div>';
       sy.windDaily.forEach(function (w) {
         var seaPct = Math.min(100, (w.seaScale || 0) / 12 * 100);
         var landPct = Math.min(100, (w.landScale || 0) / 12 * 100);
         h += '<div class="tf-wrow' + (w.peak ? ' peak' : '') + '">' +
           '<span class="tf-wdate">' + esc(w.date) + (w.peak ? '<i>峰值</i>' : '') + '</span>' +
           '<div class="tf-wbars">' +
-          '<div class="tf-wbar"><span class="tf-wtag">海上</span>' +
+          '<div class="tf-wbar"><span class="tf-wtag">海</span>' +
           '<div class="tf-wtrack"><div class="tf-wfill sea" style="width:' + seaPct + '%"></div></div>' +
           '<span class="tf-wval">' + esc(w.sea) + '</span></div>' +
-          '<div class="tf-wbar"><span class="tf-wtag">陆上</span>' +
+          '<div class="tf-wbar"><span class="tf-wtag">陆</span>' +
           '<div class="tf-wtrack"><div class="tf-wfill land" style="width:' + landPct + '%"></div></div>' +
           '<span class="tf-wval">' + esc(w.land) + '</span></div>' +
           '</div></div>';

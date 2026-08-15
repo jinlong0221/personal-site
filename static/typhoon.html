@@ -413,7 +413,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   .tf-hero-name b{font-size:1.5rem;}
   .tf-hero-dist{width:100%;padding:12px;}
   .tf-dist-num{font-size:2.05rem;}
-  .tf-section-title{font-size:1.22rem;margin-top:32px;}
+  .tf-section-title{font-size:1rem;font-weight:600;color:var(--text-secondary);margin-top:28px;padding-left:10px;border-left:3px solid var(--tf-accent);line-height:1.3;}
   .tf-verdict{flex-direction:column;gap:11px;}
   .tf-wrow{grid-template-columns:1fr;gap:7px;}
   .tf-wbar{grid-template-columns:32px 1fr;}
@@ -527,23 +527,23 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <div class="tf-hero-inner">
         <span class="tf-live"><i></i>实时监测中</span>
         <h1>🌀 台风实时监测</h1>
-        <div class="tf-update">数据更新：<b id="lastNewsUpdate">—</b> · 来源：中央气象台 / 江苏省气象台 / 盐城·射阳气象</div>
+        <div class="tf-update"><b id="lastNewsUpdate">—</b> 更新 · 中央气象台等</div>
       </div>
     </section>
 
-    <h2 class="tf-section-title">当前状态</h2>
+    <h2 class="tf-section-title">状态</h2>
     <div id="tf-status"><!-- JS 渲染 --></div>
 
-    <h2 class="tf-section-title">走向示意图</h2>
+    <h2 class="tf-section-title">路径图</h2>
     <div class="tf-two-col">
       <div id="tf-track"><!-- JS 渲染 SVG + 播放器 --></div>
     </div>
 
-    <h2 class="tf-section-title">对射阳的影响</h2>
+    <h2 class="tf-section-title">射阳影响</h2>
     <div id="tf-sheyang"><!-- JS 渲染：风险色块 + 预警条 + 风力图 + 时段（纯可视化） --></div>
 
     <details class="tf-details" id="tf-detail-all" style="margin-top:24px;">
-      <summary>📋 完整分析报告（点击展开查看详情）</summary>
+      <summary>📋 完整报告</summary>
       <div class="tf-detail-inner">
         <div id="tf-sheyang-extra"><!-- JS 渲染：影响说明 / 过程时间线 / 风险清单 --></div>
         <div id="tf-prevention"><!-- JS 渲染：防范措施 --></div>
@@ -555,7 +555,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     <div class="tf-sources" id="tf-sources"><!-- JS 渲染：数据源标签 + 免责 --></div>
 
     <details class="tf-details" style="margin:24px 0 4px;" id="tf-source-details">
-      <summary>📚 资料来源 · 数据说明（点击展开）</summary>
+      <summary>📚 资料来源</summary>
       <div style="padding:16px 4px 4px;">
         <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
           <li><a href="https://www.nmc.cn/" target="_blank" rel="noopener noreferrer" style="color:var(--blue-light)">中央气象台（国家气象中心 nmc.cn）</a> — 台风路径、强度、预报与预警信号的官方权威来源，本页实时数据以其发布为准。</li>
@@ -591,7 +591,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
   <script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
-  <script defer src="js/auto_typhoon_loader.js?v=20260815"></script>
+  <script defer src="js/auto_typhoon_loader.js?v=20260815b"></script>
   <script defer src="js/search.js"></script>
   <script defer src="js/share.js"></script>
   <script>

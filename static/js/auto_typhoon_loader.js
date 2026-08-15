@@ -743,8 +743,13 @@
         el.open = false;
       });
     }
-    /* 对 summary 做显式点击绑定，防止某些 WebView 不触发 toggle */
+    /* 对 summary 做显式点击绑定，防止某些 WebView 不触发 toggle。
+       注意：本函数会在 init、fetch 成功、轮询重渲染时多次调用，
+       若不加去重标记，静态折叠块（如底部「资料来源」）会被重复绑定监听器，
+       点击一次触发多次 toggle 相互抵消 → 折叠块永远打不开。故用 dataset.bf 防重。 */
     Array.prototype.forEach.call(document.querySelectorAll('.tf-details>summary'), function (sum) {
+      if (sum.dataset.bf) return;
+      sum.dataset.bf = '1';
       sum.addEventListener('click', function (e) {
         var det = sum.parentNode;
         if (det) {

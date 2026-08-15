@@ -246,16 +246,7 @@
       '<span class="tf-range-t" id="tfRangeT">—</span></div>';
     h += '<div class="tf-step" id="tfStep"></div>';
 
-    var notes = [];
-    if ((d.current || {}).windRadius && d.current.windRadius.note) notes.push('<b>风圈</b>' + esc(d.current.windRadius.note));
-    if (d.trackNote) notes.push('<b>不确定性</b>' + esc(d.trackNote));
-    if (notes.length) {
-      h += '<details class="tf-details"><summary>图例说明与数据口径</summary><div class="tf-details-body">' +
-        '<p><b>怎么看</b>橙色实线是已走过的实况路径，蓝色虚线是概率预报（会调整）。红点是射阳，白色虚线标出台风中心到射阳的实时直线距离。同心圈是风圈半径，圈扫到哪里哪里就有对应量级的风。</p>' +
-        notes.map(function (t) { return '<p>' + t + '</p>'; }).join('') +
-        '<p><b>免责</b>本图依据公开坐标绘制的简化走向，非官方精确底图。精确路径请查中央气象台台风网。</p>' +
-        '</div></details>';
-    }
+    /* 图例说明与数据口径：SVG 已自带图例，长文解释移入底部「完整分析报告」，避免首屏文字堆叠 */
     box.innerHTML = h;
     bindTrack(d);
   }
@@ -500,10 +491,6 @@
     h += '<div class="tf-verdict">' +
       '<div class="tf-verdict-badge">' + esc(sy.riskLevel || '—') + '</div>' +
       '<div class="tf-verdict-body"><b>' + esc(sy.riskLabel || '') + '</b></div></div>';
-    if (sy.riskNote) {
-      h += '<details class="tf-details"><summary>影响说明（点击展开）</summary>' +
-        '<div class="tf-details-body"><p>' + esc(sy.riskNote) + '</p></div></details>';
-    }
 
     if (sy.alerts && sy.alerts.length) {
       h += '<div class="tf-alerts">';
@@ -540,7 +527,19 @@
       h += '</div>';
     }
 
-    /* 风险 + 实况 + 时间线：收进折叠，默认展开时间线（最实用） */
+    box.innerHTML = h;
+  }
+
+  /* 射阳影响：长文部分（影响说明 / 过程时间线 / 风险清单）统一沉入「完整分析报告」折叠 */
+  function renderSheyangExtra(d) {
+    var box = document.getElementById('tf-sheyang-extra');
+    if (!box) return;
+    var sy = d.sheyang || {};
+    var h = '';
+    if (sy.riskNote) {
+      h += '<details class="tf-details"><summary>影响说明（点击展开）</summary>' +
+        '<div class="tf-details-body"><p>' + esc(sy.riskNote) + '</p></div></details>';
+    }
     if (sy.timeline && sy.timeline.length) {
       h += '<details class="tf-details"><summary>过程时间线（点击展开）</summary><div class="tf-details-body" style="padding-top:12px">';
       h += '<div class="tf-timeline">';
@@ -552,7 +551,6 @@
       h += '</div>';
       h += '</div></details>';
     }
-
     var extra = '';
     if (sy.risk && sy.risk.length) {
       extra += '<div class="tf-risk-grid">';
@@ -569,7 +567,6 @@
       h += '<details class="tf-details"><summary>展开风险清单与详细预报</summary>' +
         '<div class="tf-details-body">' + extra + '</div></details>';
     }
-
     box.innerHTML = h;
   }
 
@@ -731,6 +728,7 @@
     renderStatus(d);
     renderTrack(d);
     renderSheyang(d);
+    renderSheyangExtra(d);
     renderPrevention(d);
     renderFeed(d);
     renderSources(d);

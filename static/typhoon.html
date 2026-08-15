@@ -372,6 +372,9 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .tf-details[open]>summary::before{transform:rotate(45deg);margin-top:0;}
 .tf-details-body{padding:0 16px 16px;font-size:.9rem;color:var(--text-secondary);line-height:1.85;}
 .tf-details-body p{margin:0;line-height:1.85;}
+/* 唯一的「完整报告」入口：略加强调，让它成为下拉时唯一可见的文字门 */
+#tf-detail-all{margin-top:24px;border-color:var(--tf-accent);background:rgba(201,168,76,.06);}
+#tf-detail-all>summary{color:var(--tf-accent);font-size:.95rem;}
 /* 兜底：未展开时强制隐藏 body，防止部分 WebView 默认展开 */
 .tf-details:not([open])>.tf-details-body{display:none;}
 
@@ -528,24 +531,26 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       </div>
     </section>
 
-    <h2 class="tf-section-title">当前状态 <span class="tf-sub-en">Current Status</span></h2>
+    <h2 class="tf-section-title">当前状态</h2>
     <div id="tf-status"><!-- JS 渲染 --></div>
 
-    <h2 class="tf-section-title">走向示意图 <span class="tf-sub-en">Track</span></h2>
+    <h2 class="tf-section-title">走向示意图</h2>
     <div class="tf-two-col">
       <div id="tf-track"><!-- JS 渲染 SVG + 播放器 --></div>
     </div>
 
-    <h2 class="tf-section-title">对射阳的影响 <span class="tf-sub-en">Impact on Sheyang</span></h2>
-    <div id="tf-sheyang"><!-- JS 渲染 --></div>
+    <h2 class="tf-section-title">对射阳的影响</h2>
+    <div id="tf-sheyang"><!-- JS 渲染：风险色块 + 预警条 + 风力图 + 时段（纯可视化） --></div>
 
-    <h2 class="tf-section-title">防范措施 <span class="tf-sub-en">How to Prepare</span></h2>
-    <div id="tf-prevention"><!-- JS 渲染 --></div>
-
-    <h2 class="tf-section-title">实时动态 <span class="tf-sub-en">Live Feed</span><span id="autoNewsCount" class="tf-count"></span></h2>
-    <div id="autoNewsBody"><!-- JS 渲染 --></div>
-
-    <div id="tf-longtext"><!-- JS 渲染：监测续报/整体研判长文统一沉底 --></div>
+    <details class="tf-details" id="tf-detail-all" style="margin-top:24px;">
+      <summary>📋 完整分析报告（点击展开查看详情）</summary>
+      <div class="tf-detail-inner">
+        <div id="tf-sheyang-extra"><!-- JS 渲染：影响说明 / 过程时间线 / 风险清单 --></div>
+        <div id="tf-prevention"><!-- JS 渲染：防范措施 --></div>
+        <div id="autoNewsBody"><!-- JS 渲染：实时动态 --></div>
+        <div id="tf-longtext"><!-- JS 渲染：监测续报原文 / 整体研判 --></div>
+      </div>
+    </details>
 
     <div class="tf-sources" id="tf-sources"><!-- JS 渲染：数据源标签 + 免责 --></div>
 

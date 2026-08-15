@@ -475,16 +475,19 @@
         '<span class="tf-cell-v">' + esc(it[1]) + '</span></div>';
     });
     h += '</div>';
+    box.innerHTML = h;
+
+    /* 长文（背景研判 / 监测续报）彻底沉底，首屏一个字都不堆 */
+    var lt = '';
     if (d.summary) {
-      h += '<details class="tf-details"><summary>台风背景与整体研判</summary>' +
+      lt += '<details class="tf-details"><summary>台风背景与整体研判（点击展开）</summary>' +
         '<div class="tf-details-body"><p>' + esc(d.summary) + '</p></div></details>';
     }
-    /* 监测续报（长文）：默认收起，按需展开 */
     if (d.status) {
-      h += '<details class="tf-details"><summary>监测续报（点击展开）</summary>' +
+      lt += '<details class="tf-details"><summary>监测续报原文（点击展开）</summary>' +
         '<div class="tf-details-body"><p>' + esc(d.status) + '</p></div></details>';
     }
-    box.innerHTML = h;
+    window.__tfLongText = lt;
   }
 
   /* ============ 射阳影响 ============ */
@@ -682,6 +685,13 @@
     box.innerHTML = h;
   }
 
+  /* 把长文统一渲染到页面底部，首屏只留可视化 */
+  function renderLongText() {
+    var box = document.getElementById('tf-longtext');
+    if (!box) return;
+    box.innerHTML = window.__tfLongText || '';
+  }
+
   function renderUpdated(d) {
     var el = document.getElementById('lastNewsUpdate');
     if (!el || !d.updated) return;
@@ -689,6 +699,28 @@
     if (isNaN(dt.getTime())) { el.textContent = d.updated; return; }
     var pad = function (v) { return v < 10 ? '0' + v : '' + v; };
     el.textContent = (dt.getMonth() + 1) + '月' + dt.getDate() + '日 ' + pad(dt.getHours()) + ':' + pad(dt.getMinutes());
+  }
+
+  /* ============ 折叠块 polyfill：兼容旧版 WebView / 微信，默认强制收起 ============ */
+  function polyfillDetails() {
+    var test = document.createElement('details');
+    var ok = 'open' in test;
+    if (ok) {
+      /* 即使支持 details，也强制确保没有 open 属性的 .tf-details 都闭合 */
+      Array.prototype.forEach.call(document.querySelectorAll('.tf-details:not([open])'), function (el) {
+        el.open = false;
+      });
+    }
+    /* 对 summary 做显式点击绑定，防止某些 WebView 不触发 toggle */
+    Array.prototype.forEach.call(document.querySelectorAll('.tf-details>summary'), function (sum) {
+      sum.addEventListener('click', function (e) {
+        var det = sum.parentNode;
+        if (det) {
+          e.preventDefault();
+          det.open = !det.open;
+        }
+      });
+    });
   }
 
   /* ============ 启动 ============ */
@@ -702,6 +734,7 @@
     renderPrevention(d);
     renderFeed(d);
     renderSources(d);
+    renderLongText();
   }
 
   /* 抓取用户当前浏览状态，重渲染后无感还原 */
@@ -748,11 +781,13 @@
   }
 
   function init() {
+    polyfillDetails(); /* 先绑定折叠，避免数据回来前默认展开 */
     fetch('typhoon.json?v=' + Date.now())
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (d) {
         lastSig = JSON.stringify(d);
         renderAll(d);
+        polyfillDetails(); /* 重新绑定渲染后新增的 details */
         /* 每 3 分钟静默轮询：仅当数据有变化才重渲染，且保留用户滚动/播放/展开状态 */
         if (!window.__tfPolling) {
           window.__tfPolling = true;
@@ -767,6 +802,7 @@
                 if (window.__tfStop) window.__tfStop(); /* 停掉旧播放动画，避免泄漏 */
                 var st = captureState();
                 renderAll(nd);
+                polyfillDetails();
                 restoreState(st);
               })
               .catch(function () {});

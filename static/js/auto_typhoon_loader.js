@@ -365,8 +365,7 @@
         '<div class="tf-step-body">' +
         '<span><i>强度</i>' + esc(p.intensity || '—') + '</span>' +
         '<span><i>气压</i>' + esc(p.pressure || '—') + '</span>' +
-        '<span><i>坐标</i>' + n(p.lat) + '°N ' + n(p.lon) + '°E</span></div>' +
-        '<div class="tf-step-desc">' + esc(p.desc || '') + '</div>';
+        '<span><i>坐标</i>' + n(p.lat) + '°N ' + n(p.lon) + '°E</span></div>';
     }
 
     /* --- 播放控制（requestAnimationFrame 平滑插值） --- */
@@ -419,7 +418,7 @@
       el.addEventListener('mouseenter', function () {
         var p = track[idx];
         if (!p || !tip) return;
-        tip.innerHTML = '<b>' + esc(p.t) + '</b>' + esc(p.intensity || '') + '<br>' + esc(p.desc || '');
+        tip.innerHTML = '<b>' + esc(p.t) + '</b>' + esc(p.intensity || '');
         tip.classList.add('show');
         var bb = svg.getBoundingClientRect(), pr = el.getBoundingClientRect();
         tip.style.left = ((pr.left + pr.width / 2 - bb.left) / bb.width * 100) + '%';
@@ -458,7 +457,6 @@
     h += '<div class="tf-hero-name"><span class="tf-spin">🌀</span><b>' + esc(d.name) + '</b>' +
       '<span class="tf-hero-no">' + esc(d.year) + ' 年第 ' + esc(d.no) + ' 号</span>' +
       '<span class="tf-hero-status ' + esc(d.statusLevel || 'warn') + '">' + esc(statusBadge) + '</span></div>';
-    if (d.headline) h += '<div class="tf-hero-headline">' + esc(d.headline) + '</div>';
     h += '</div>';
     if (km != null) {
       h += '<div class="tf-hero-dist ' + gr.cls + '"><span class="tf-dist-num">' + km + '</span>' +
@@ -466,11 +464,10 @@
     }
     h += '</div>';
 
+    /* 仅保留短字段（强度/气压）；长段 location/move/trend 不进首屏 */
     var cells = [
-      ['当前位置', c.location || '—'],
       ['中心强度', c.intensity || '—'],
-      ['中心气压', c.pressure || '—'],
-      ['移动与趋势', (c.move || '—') + (c.trend ? '，' + c.trend : '')]
+      ['中心气压', c.pressure || '—']
     ];
     h += '<div class="tf-status-grid">';
     cells.forEach(function (it) {
@@ -482,10 +479,10 @@
       h += '<details class="tf-details"><summary>台风背景与整体研判</summary>' +
         '<div class="tf-details-body"><p>' + esc(d.summary) + '</p></div></details>';
     }
-    /* 监测续报（长文）：独立卡片，不进徽标 */
+    /* 监测续报（长文）：默认收起，按需展开 */
     if (d.status) {
-      h += '<div class="tf-report"><div class="tf-report-k">监测续报</div>' +
-        '<div class="tf-report-body">' + esc(d.status) + '</div></div>';
+      h += '<details class="tf-details"><summary>监测续报（点击展开）</summary>' +
+        '<div class="tf-details-body"><p>' + esc(d.status) + '</p></div></details>';
     }
     box.innerHTML = h;
   }
@@ -499,8 +496,11 @@
 
     h += '<div class="tf-verdict">' +
       '<div class="tf-verdict-badge">' + esc(sy.riskLevel || '—') + '</div>' +
-      '<div class="tf-verdict-body"><b>' + esc(sy.riskLabel || '') + '</b>' +
-      '<p>' + esc(sy.riskNote || '') + '</p></div></div>';
+      '<div class="tf-verdict-body"><b>' + esc(sy.riskLabel || '') + '</b></div></div>';
+    if (sy.riskNote) {
+      h += '<details class="tf-details"><summary>影响说明（点击展开）</summary>' +
+        '<div class="tf-details-body"><p>' + esc(sy.riskNote) + '</p></div></details>';
+    }
 
     if (sy.alerts && sy.alerts.length) {
       h += '<div class="tf-alerts">';
@@ -539,6 +539,7 @@
 
     /* 风险 + 实况 + 时间线：收进折叠，默认展开时间线（最实用） */
     if (sy.timeline && sy.timeline.length) {
+      h += '<details class="tf-details"><summary>过程时间线（点击展开）</summary><div class="tf-details-body" style="padding-top:12px">';
       h += '<div class="tf-timeline">';
       sy.timeline.forEach(function (t) {
         h += '<div class="tf-tl-item ' + esc(t.state || 'future') + '">' +
@@ -546,6 +547,7 @@
           '<span class="tf-tl-text">' + esc(t.text) + '</span></div>';
       });
       h += '</div>';
+      h += '</div></details>';
     }
 
     var extra = '';
@@ -593,7 +595,7 @@
     });
     if (!groups.length) return;
 
-    var h = '<div class="tf-tabs" role="tablist">';
+    var h = '<details class="tf-details"><summary>防台风措施（点击展开）</summary><div class="tf-details-body" style="padding-top:12px"><div class="tf-tabs" role="tablist">';
     groups.forEach(function (g, i) {
       h += '<button type="button" class="tf-tab' + (i === 0 ? ' on' : '') + '" data-k="' + g.key + '" role="tab">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
@@ -606,6 +608,7 @@
       g.items.forEach(function (t) { h += '<li>' + esc(t) + '</li>'; });
       h += '</ul>';
     });
+    h += '</div></details>';
     box.innerHTML = h;
 
     var tabs = box.querySelectorAll('.tf-tab');
@@ -634,7 +637,7 @@
       });
       return '<div class="news-item' + (hidden ? ' tf-hide' : '') + '">' +
         '<div class="news-meta"><span class="news-date">' + esc(it.date) + '</span>' + tags + '</div>' +
-        '<div class="news-content">' + esc(it.content) + '</div>' +
+        (it.content ? '<details class="tf-details"><summary>动态详情（点击展开）</summary><div class="tf-details-body"><div class="news-content">' + esc(it.content) + '</div></div></details>' : '') +
         (it.source ? '<div class="tf-src">来源：' + esc(it.source) + '</div>' : '') + '</div>';
     }
     var h = '';

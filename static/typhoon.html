@@ -182,7 +182,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .tf-report-body{line-height:1.85;word-break:break-word;}
 
 /* ---- 走向图 ---- */
-.tf-two-col{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:20px;align-items:start;}
+.tf-two-col{display:grid;grid-template-columns:1fr;gap:20px;align-items:start;}
 .tf-track-wrap{position:relative;border-radius:16px;overflow:hidden;background:var(--tf-sea);border:1px solid rgba(255,255,255,.1);
   box-shadow:0 10px 34px rgba(0,0,0,.32);}
 .tf-track-svg{display:block;width:100%;height:auto;}
@@ -522,7 +522,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <div class="tf-hero-inner">
         <span class="tf-live"><i></i>实时监测中</span>
         <h1>🌀 台风实时监测</h1>
-        <p>聚焦江苏省盐城市射阳县 —— 跟踪影响或可能影响射阳的台风走向与强度，以及对射阳的风雨影响、危害程度与防范指引。数据高频自动更新。</p>
         <div class="tf-update">数据更新：<b id="lastNewsUpdate">—</b> · 来源：中央气象台 / 江苏省气象台 / 盐城·射阳气象</div>
       </div>
     </section>
@@ -533,14 +532,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     <h2 class="tf-section-title">走向示意图 <span class="tf-sub-en">Track</span></h2>
     <div class="tf-two-col">
       <div id="tf-track"><!-- JS 渲染 SVG + 播放器 --></div>
-      <aside class="tf-side-card">
-        <h3>怎么看这张图</h3>
-        <p><b style="color:var(--tf-orange)">橙色实线</b>是当前台风已经走过的实况路径，<b style="color:var(--tf-blue)">蓝色虚线</b>是气象部门的路径概率预报——预报会随时调整，别当准信。</p>
-        <p><b style="color:#ff4757">红点</b>是射阳。中间那条白色虚线标的是台风中心到射阳的实时直线距离。</p>
-        <p>三层同心圈是<b>风圈半径</b>：最内圈十二级、中间十级、最外圈七级。圈扫到哪里，哪里就有对应量级的风。</p>
-        <p>点击路径上的任意一个点，或者拖动下方时间轴、按「播放路径」，可以逐个时刻回看台风走过的每一步。</p>
-        <p class="tf-mini">示意图依据公开坐标绘制，为简化走向图，非官方精确底图，仅供参考。精确路径请查中央气象台台风网。</p>
-      </aside>
     </div>
 
     <h2 class="tf-section-title">对射阳的影响 <span class="tf-sub-en">Impact on Sheyang</span></h2>
@@ -554,16 +545,17 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <div class="tf-sources" id="tf-sources"><!-- JS 渲染 --></div>
 
-    <section style="margin:24px 0 4px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
-      <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 数据说明</h2>
-      <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
-        <li><a href="https://www.nmc.cn/" target="_blank" rel="noopener noreferrer" style="color:var(--blue-light)">中央气象台（国家气象中心 nmc.cn）</a> — 台风路径、强度、预报与预警信号的官方权威来源，本页实时数据以其发布为准。</li>
-        <li><a href="https://www.nmc.cn/typhoon/" target="_blank" rel="noopener noreferrer" style="color:var(--blue-light)">中央气象台 · 台风网</a> — 西北太平洋台风实时编号、定位与风圈预报。</li>
-      </ul>
-      <p style="margin:12px 0 0;font-size:.82rem;color:var(--text-muted);line-height:1.8;">⚠️ 说明：台风路径与强度为<strong style="color:var(--text-secondary)">概率预报</strong>，存在不确定性，可能随时调整；本页仅供参考，不作为防灾决策依据。出行与防灾请以中央气象台及属地气象部门最新预警为准。数据截至页面加载时，核验日期：2026 年 8 月。</p>
-    </section>
-
-    <p style="margin-top:20px;font-size:.79rem;color:var(--text-muted);text-align:center;line-height:1.8">本页为信息聚合与科普提醒，<strong>不作为预警发布依据</strong>。请以盐城、射阳气象部门及「盐城发布」「射阳发布」等官方渠道的最新预报预警为准；遇险情及时拨打当地防汛防台值班电话或 119 / 120。</p>
+    <details class="tf-details" style="margin:24px 0 4px;">
+      <summary>📚 资料来源 · 数据说明（点击展开）</summary>
+      <div style="padding:16px 4px 4px;">
+        <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
+          <li><a href="https://www.nmc.cn/" target="_blank" rel="noopener noreferrer" style="color:var(--blue-light)">中央气象台（国家气象中心 nmc.cn）</a> — 台风路径、强度、预报与预警信号的官方权威来源，本页实时数据以其发布为准。</li>
+          <li><a href="https://www.nmc.cn/typhoon/" target="_blank" rel="noopener noreferrer" style="color:var(--blue-light)">中央气象台 · 台风网</a> — 西北太平洋台风实时编号、定位与风圈预报。</li>
+        </ul>
+        <p style="margin:12px 0 0;font-size:.82rem;color:var(--text-muted);line-height:1.8;">⚠️ 说明：台风路径与强度为<strong style="color:var(--text-secondary)">概率预报</strong>，存在不确定性，可能随时调整；本页仅供参考，不作为防灾决策依据。出行与防灾请以中央气象台及属地气象部门最新预警为准。数据截至页面加载时，核验日期：2026 年 8 月。</p>
+        <p style="margin-top:16px;font-size:.79rem;color:var(--text-muted);text-align:center;line-height:1.8">本页为信息聚合与科普提醒，<strong>不作为预警发布依据</strong>。请以盐城、射阳气象部门及「盐城发布」「射阳发布」等官方渠道的最新预报预警为准；遇险情及时拨打当地防汛防台值班电话或 119 / 120。</p>
+      </div>
+    </details>
   </div>
 </main>
 
@@ -590,7 +582,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
   <script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
-  <script defer src="js/auto_typhoon_loader.js?v=2026081013"></script>
+  <script defer src="js/auto_typhoon_loader.js?v=20260815"></script>
   <script defer src="js/search.js"></script>
   <script defer src="js/share.js"></script>
   <script>

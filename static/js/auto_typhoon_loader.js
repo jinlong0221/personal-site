@@ -478,6 +478,16 @@
       : '';
   }
 
+  /* 风险等级短词 → 色块等级（用于 tf-verdict-badge 配色） */
+  function riskCls(s) {
+    s = String(s || '');
+    if (/极高|红|极/.test(s)) return 'danger';
+    if (/高|橙/.test(s)) return 'high';
+    if (/中|黄/.test(s)) return 'mid';
+    if (/低|蓝|绿/.test(s)) return 'low';
+    return 'mid';
+  }
+
   /* ============ 射阳影响 ============ */
   function renderSheyang(d) {
     var box = document.getElementById('tf-sheyang');
@@ -485,27 +495,26 @@
     var sy = d.sheyang || {};
     var h = '';
 
-    h += '<div class="tf-verdict">' +
-      '<div class="tf-verdict-badge">' + esc(sy.riskLevel || '—') + '</div>' +
-      '<div class="tf-verdict-body"><b>' + esc(sy.riskLabel || '') + '</b></div></div>';
+    /* 风险等级：纯色块徽标（仅短词），不写整句说明 */
+    if (sy.riskLevel) {
+      h += '<div class="tf-verdict">' +
+        '<div class="tf-verdict-badge ' + riskCls(sy.riskLevel) + '">' + esc(sy.riskLevel) + '</div></div>';
+    }
 
+    /* 预警信号：纯色条，无文字（hover 看名称），颜色即等级 */
     if (sy.alerts && sy.alerts.length) {
       h += '<div class="tf-alerts">';
       sy.alerts.forEach(function (a) {
-        if (typeof a === 'string') { h += '<span class="tf-alert blue"><b>' + esc(a) + '</b></span>'; return; }
-        h += '<span class="tf-alert ' + esc(a.color || 'blue') + '">' +
-          '<b>' + esc(a.name) + '</b>' + (a.level ? '<i>' + esc(a.level) + '</i>' : '') + '</span>';
+        if (typeof a === 'string') { h += '<span class="tf-alert-chip blue" title="' + esc(a) + '"></span>'; return; }
+        h += '<span class="tf-alert-chip ' + esc(a.color || 'blue') + '" title="' +
+          esc((a.name || '') + (a.level ? ' ' + a.level : '')) + '"></span>';
       });
       h += '</div>';
     }
 
-    h += '<div class="tf-key">';
-    if (sy.period) h += '<div class="tf-key-item"><span>影响时段</span><b>' + esc(sy.period) + '</b></div>';
-    if (sy.peakWindow) h += '<div class="tf-key-item"><span>最强时段</span><b>' + esc(sy.peakWindow) + '</b></div>';
-    h += '</div>';
-
+    /* 分日风力：纯条形图，去掉标题，仅留日期 + 海/陆 + 数值 */
     if (sy.windDaily && sy.windDaily.length) {
-      h += '<div class="tf-wind-chart"><div class="tf-chart-title">分日风力预报</div>';
+      h += '<div class="tf-wind-chart">';
       sy.windDaily.forEach(function (w) {
         var seaPct = Math.min(100, (w.seaScale || 0) / 12 * 100);
         var landPct = Math.min(100, (w.landScale || 0) / 12 * 100);
@@ -514,10 +523,10 @@
           '<div class="tf-wbars">' +
           '<div class="tf-wbar"><span class="tf-wtag">海</span>' +
           '<div class="tf-wtrack"><div class="tf-wfill sea" style="width:' + seaPct + '%"></div></div>' +
-          '<span class="tf-wval">' + esc(w.sea) + '</span></div>' +
+          '<span class="tf-wval">' + esc((w.seaScale != null ? Math.round(w.seaScale) + '级' : (w.sea || ''))) + '</span></div>' +
           '<div class="tf-wbar"><span class="tf-wtag">陆</span>' +
           '<div class="tf-wtrack"><div class="tf-wfill land" style="width:' + landPct + '%"></div></div>' +
-          '<span class="tf-wval">' + esc(w.land) + '</span></div>' +
+          '<span class="tf-wval">' + esc((w.landScale != null ? Math.round(w.landScale) + '级' : (w.land || ''))) + '</span></div>' +
           '</div></div>';
       });
       h += '</div>';
@@ -532,6 +541,23 @@
     if (!box) return;
     var sy = d.sheyang || {};
     var body = '';
+    if (sy.period) body += '<p class="tf-xline"><b>影响时段</b>' + esc(sy.period) + '</p>';
+    if (sy.peakWindow) body += '<p class="tf-xline"><b>最强时段</b>' + esc(sy.peakWindow) + '</p>';
+    if (sy.riskLabel) body += '<p class="tf-xline"><b>风险结论</b>' + esc(sy.riskLabel) + '</p>';
+    if (sy.alerts && sy.alerts.length) {
+      body += '<h4 class="tf-cat-h">预警信号</h4>';
+      sy.alerts.forEach(function (a) {
+        if (typeof a === 'string') { body += '<p class="tf-xline">' + esc(a) + '</p>'; return; }
+        body += '<p class="tf-xline"><b>' + esc(a.name || '') + '</b>' +
+          (a.level ? '<br>' + esc(a.level) : '') + (a.status ? '<br><span class="tf-muted">' + esc(a.status) + '</span>' : '') + '</p>';
+      });
+    }
+    if (sy.windDaily && sy.windDaily.length) {
+      body += '<h4 class="tf-cat-h">分日风力</h4>';
+      sy.windDaily.forEach(function (w) {
+        body += '<p class="tf-xline"><b>' + esc(w.date) + '</b>　海：' + esc(w.sea || '') + '　陆：' + esc(w.land || '') + '</p>';
+      });
+    }
     if (sy.riskNote) body += '<h4 class="tf-cat-h">影响说明</h4><p class="tf-xline">' + esc(sy.riskNote) + '</p>';
     if (sy.timeline && sy.timeline.length) {
       body += '<h4 class="tf-cat-h">过程时间线</h4><div class="tf-timeline">';

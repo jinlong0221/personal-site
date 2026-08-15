@@ -22,6 +22,7 @@ EXCLUDE = {
     '404.html',        # 错误页
     'search.html',     # 站内搜索结果页（无独立内容价值）
     'travel.html',     # 私密家庭旅行相册（仅家人可见，不收录）
+    'admin/index.html',  # 后台自助发布（noindex + robots Disallow，对外隐藏）
     'console.html.bak',
 }
 EXCLUDE_DIRS = {'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
@@ -31,6 +32,7 @@ PRIORITY_RULES = [
     ('index.html',        '1.0'),   # 首页
     ('tesla.html',        '0.9'),
     ('marvel.html',       '0.9'),
+    ('apple.html',        '0.9'),
     ('zisha.html',        '0.9'),
     ('herbs.html',        '0.9'),
     ('bracelet.html',     '0.9'),

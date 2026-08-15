@@ -45,6 +45,7 @@ DROPDOWN = [
     ("gaokao.html", "高考查分"),
     ("pitfalls.html", "踩坑记"),
     ("typhoon.html", "台风监测"),
+    ("apple.html", "苹果新品"),
     ("games.html", "游戏库"),
     ("about.html", "关于本站"),
 ]

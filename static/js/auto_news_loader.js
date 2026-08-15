@@ -19,6 +19,7 @@
     'health-tea': 'health-tea-news.json',
     'sheyang':   'sheyang-news.json',
     'marvel':   'marvel-news.json',
+    'apple':    'apple-news.json',
   };
 
   // 获取当前页面对应的 JSON 文件

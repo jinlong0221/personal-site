@@ -468,17 +468,14 @@
     h += '</div>';
     box.innerHTML = h;
 
-    /* 长文（背景研判 / 监测续报）彻底沉底，首屏一个字都不堆 */
-    var lt = '';
-    if (d.summary) {
-      lt += '<details class="tf-details"><summary>台风背景与整体研判（点击展开）</summary>' +
-        '<div class="tf-details-body"><p>' + esc(d.summary) + '</p></div></details>';
-    }
-    if (d.status) {
-      lt += '<details class="tf-details"><summary>监测续报原文（点击展开）</summary>' +
-        '<div class="tf-details-body"><p>' + esc(d.status) + '</p></div></details>';
-    }
-    window.__tfLongText = lt;
+    /* 长文（背景研判 / 监测续报）合并为一个分类折叠「监测续报与研判」，沉底默认收起 */
+    var inner = '';
+    if (d.status) inner += '<h4 class="tf-cat-h">监测续报</h4><p class="tf-xline">' + esc(d.status) + '</p>';
+    if (d.summary) inner += '<h4 class="tf-cat-h">整体研判</h4><p class="tf-xline">' + esc(d.summary) + '</p>';
+    window.__tfLongText = inner
+      ? '<details class="tf-details"><summary>📋 监测续报与研判</summary>' +
+        '<div class="tf-details-body" style="padding-top:12px">' + inner + '</div></details>'
+      : '';
   }
 
   /* ============ 射阳影响 ============ */
@@ -529,44 +526,37 @@
     box.innerHTML = h;
   }
 
-  /* 射阳影响：长文部分（影响说明 / 过程时间线 / 风险清单）统一沉入「完整分析报告」折叠 */
+  /* 射阳影响：长文部分合并为一个分类折叠「射阳影响详情」，内含影响说明/时间线/风险清单三段 */
   function renderSheyangExtra(d) {
     var box = document.getElementById('tf-sheyang-extra');
     if (!box) return;
     var sy = d.sheyang || {};
-    var h = '';
-    if (sy.riskNote) {
-      h += '<details class="tf-details"><summary>影响说明（点击展开）</summary>' +
-        '<div class="tf-details-body"><p>' + esc(sy.riskNote) + '</p></div></details>';
-    }
+    var body = '';
+    if (sy.riskNote) body += '<h4 class="tf-cat-h">影响说明</h4><p class="tf-xline">' + esc(sy.riskNote) + '</p>';
     if (sy.timeline && sy.timeline.length) {
-      h += '<details class="tf-details"><summary>过程时间线（点击展开）</summary><div class="tf-details-body" style="padding-top:12px">';
-      h += '<div class="tf-timeline">';
+      body += '<h4 class="tf-cat-h">过程时间线</h4><div class="tf-timeline">';
       sy.timeline.forEach(function (t) {
-        h += '<div class="tf-tl-item ' + esc(t.state || 'future') + '">' +
+        body += '<div class="tf-tl-item ' + esc(t.state || 'future') + '">' +
           '<span class="tf-tl-dot"></span><span class="tf-tl-date">' + esc(t.date) + '</span>' +
           '<span class="tf-tl-text">' + esc(t.text) + '</span></div>';
       });
-      h += '</div>';
-      h += '</div></details>';
+      body += '</div>';
     }
-    var extra = '';
     if (sy.risk && sy.risk.length) {
-      extra += '<div class="tf-risk-grid">';
+      body += '<h4 class="tf-cat-h">风险清单</h4><div class="tf-risk-grid">';
       sy.risk.forEach(function (r) {
-        if (typeof r === 'string') { extra += '<div class="tf-risk-card mid"><p>' + esc(r) + '</p></div>'; return; }
-        extra += '<div class="tf-risk-card ' + esc(r.level || 'mid') + '"><b>' + esc(r.title) + '</b><p>' + esc(r.text) + '</p></div>';
+        if (typeof r === 'string') { body += '<div class="tf-risk-card mid"><p>' + esc(r) + '</p></div>'; return; }
+        body += '<div class="tf-risk-card ' + esc(r.level || 'mid') + '"><b>' + esc(r.title) + '</b><p>' + esc(r.text) + '</p></div>';
       });
-      extra += '</div>';
+      body += '</div>';
     }
-    if (sy.wind) extra += '<p class="tf-xline"><b>风力</b>' + esc(sy.wind) + '</p>';
-    if (sy.rain) extra += '<p class="tf-xline"><b>降雨</b>' + esc(sy.rain) + '</p>';
-    if (sy.observed) extra += '<p class="tf-xline"><b>本地实况</b>' + esc(sy.observed) + '</p>';
-    if (extra) {
-      h += '<details class="tf-details"><summary>展开风险清单与详细预报</summary>' +
-        '<div class="tf-details-body">' + extra + '</div></details>';
-    }
-    box.innerHTML = h;
+    if (sy.wind) body += '<p class="tf-xline"><b>风力</b>' + esc(sy.wind) + '</p>';
+    if (sy.rain) body += '<p class="tf-xline"><b>降雨</b>' + esc(sy.rain) + '</p>';
+    if (sy.observed) body += '<p class="tf-xline"><b>本地实况</b>' + esc(sy.observed) + '</p>';
+    box.innerHTML = body
+      ? '<details class="tf-details"><summary>📍 射阳影响详情</summary>' +
+        '<div class="tf-details-body" style="padding-top:12px">' + body + '</div></details>'
+      : '';
   }
 
   /* ============ 防范措施（Tab 切换） ============ */
@@ -594,7 +584,7 @@
     });
     if (!groups.length) return;
 
-    var h = '<details class="tf-details"><summary>防台风措施（点击展开）</summary><div class="tf-details-body" style="padding-top:12px"><div class="tf-tabs" role="tablist">';
+    var h = '<details class="tf-details"><summary>🛡️ 防范措施</summary><div class="tf-details-body" style="padding-top:12px"><div class="tf-tabs" role="tablist">';
     groups.forEach(function (g, i) {
       h += '<button type="button" class="tf-tab' + (i === 0 ? ' on' : '') + '" data-k="' + g.key + '" role="tab">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
@@ -621,48 +611,33 @@
     });
   }
 
-  /* ============ 实时动态（默认 3 条） ============ */
+  /* ============ 实时动态（整体一个分类折叠，每条内容内层收起） ============ */
   function renderFeed(d) {
     var box = document.getElementById('autoNewsBody');
     if (!box) return;
     var list = d.feed || [];
-    if (!list.length) { box.innerHTML = '<p class="tf-empty">暂无动态</p>'; return; }
-    var SHOW = 3;
-    function itemHtml(it, hidden) {
+    if (!list.length) {
+      box.innerHTML = '<details class="tf-details"><summary>📰 实时动态</summary>' +
+        '<div class="tf-details-body"><p class="tf-empty">暂无动态</p></div></details>';
+      return;
+    }
+    var h = '<details class="tf-details"><summary>📰 实时动态（' + list.length + '）</summary>' +
+      '<div class="tf-details-body" style="padding-top:12px">';
+    list.forEach(function (it) {
       var tags = '';
       (it.tags || []).forEach(function (t) {
         if (typeof t === 'string') tags += '<span class="news-tag">' + esc(t) + '</span>';
         else tags += '<span class="news-tag ' + esc(t.class || '') + '">' + esc(t.text) + '</span>';
       });
-      return '<div class="news-item' + (hidden ? ' tf-hide' : '') + '">' +
-        '<div class="news-meta"><span class="news-date">' + esc(it.date) + '</span>' + tags + '</div>' +
-        (it.content ? '<details class="tf-details"><summary>动态详情（点击展开）</summary><div class="tf-details-body"><div class="news-content">' + esc(it.content) + '</div></div></details>' : '') +
-        (it.source ? '<div class="tf-src">来源：' + esc(it.source) + '</div>' : '') + '</div>';
-    }
-    var h = '';
-    list.forEach(function (it, i) { h += itemHtml(it, i >= SHOW); });
-    if (list.length > SHOW) {
-      h += '<button type="button" class="tf-more" id="tfMore">展开全部 ' + list.length + ' 条动态</button>';
-    }
+      h += '<div class="news-item">';
+      h += '<div class="news-meta"><span class="news-date">' + esc(it.date) + '</span>' + tags + '</div>';
+      if (it.content) h += '<details class="tf-details tf-nested"><summary>详情</summary>' +
+        '<div class="tf-details-body"><div class="news-content">' + esc(it.content) + '</div></div></details>';
+      if (it.source) h += '<div class="tf-src">来源：' + esc(it.source) + '</div>';
+      h += '</div>';
+    });
+    h += '</div></details>';
     box.innerHTML = h;
-    var cnt = document.getElementById('autoNewsCount');
-    if (cnt) cnt.textContent = list.length;
-
-    var more = document.getElementById('tfMore');
-    if (more) {
-      more.addEventListener('click', function () {
-        var hid = box.querySelectorAll('.news-item.tf-hide');
-        if (hid.length) {
-          Array.prototype.forEach.call(hid, function (el) { el.classList.remove('tf-hide'); });
-          more.textContent = '收起';
-        } else {
-          Array.prototype.forEach.call(box.querySelectorAll('.news-item'), function (el, i) {
-            if (i >= SHOW) el.classList.add('tf-hide');
-          });
-          more.textContent = '展开全部 ' + list.length + ' 条动态';
-        }
-      });
-    }
   }
 
   /* ============ 来源与免责 ============ */
@@ -730,7 +705,6 @@
     renderSheyangExtra(d);
     renderPrevention(d);
     renderFeed(d);
-    renderSources(d);
     renderLongText();
   }
 

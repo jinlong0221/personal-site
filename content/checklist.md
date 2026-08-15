@@ -3,6 +3,7 @@ title: "龙兄知识库 · 建站清单"
 date: 2026-07-06
 description: "longxiong.vip 建站完整记录：从定位规划、搭建框架、填充内容到上线与持续优化的每一步，是一份可复用的个人知识库建设清单。"
 type: page
+noindex: true
 ---
 
 # 龙兄知识库 · 建站清单

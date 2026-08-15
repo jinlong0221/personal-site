@@ -30,6 +30,7 @@ DESKTOP = [
     ("health-tea.html", "养生茶"),
     ("bracelet.html", "文玩手串"),
     ("tesla.html", "特斯拉"),
+    ("apple.html", "苹果新品"),
     ("marvel.html", "漫威宇宙"),
     ("xintan-weather.html", "农田气象"),
     ("zisha.html", "紫砂艺术"),
@@ -45,7 +46,6 @@ DROPDOWN = [
     ("gaokao.html", "高考查分"),
     ("pitfalls.html", "踩坑记"),
     ("typhoon.html", "台风监测"),
-    ("apple.html", "苹果新品"),
     ("games.html", "游戏库"),
     ("about.html", "关于本站"),
 ]

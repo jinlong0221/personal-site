@@ -122,6 +122,7 @@ def main():
 
     lines = []
     lines.append('<?xml version="1.0" encoding="UTF-8"?>')
+    lines.append('<?xml-stylesheet type="text/xsl" href="/rss.xsl"?>')
     lines.append('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">')
     lines.append('  <channel>')
     lines.append('    <title>龙兄知识库</title>')

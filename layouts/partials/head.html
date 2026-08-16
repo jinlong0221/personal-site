@@ -40,8 +40,8 @@
 <link rel="canonical" href="{{ .Permalink }}">
 <!-- 收录基建：显式声明可被索引与跟随链接（noindex 标记的页面改为 noindex, nofollow） -->
 {{ if .Params.noindex }}<meta name="robots" content="noindex, nofollow">{{ else }}<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">{{ end }}
-<!-- RSS 发现：便于订阅与搜索引擎发现内容流 -->
-<link rel="alternate" type="application/rss+xml" title="龙兄知识库 RSS" href="{{ .Site.BaseURL }}index.xml">
+<!-- RSS 发现：便于订阅与搜索引擎发现内容流（综合订阅源由 scripts/build_rss.py 生成） -->
+<link rel="alternate" type="application/rss+xml" title="龙兄知识库 RSS" href="{{ .Site.BaseURL }}rss.xml">
 <!-- 搜索引擎站长验证（在对应平台获取验证码填入 hugo.toml 的 [params.seo]，留空则不输出该行） -->
 {{ with .Site.Params.seo.googleVerify }}<meta name="google-site-verification" content="{{ . }}">{{ end }}
 {{ with .Site.Params.seo.bingVerify }}<meta name="msvalidate.01" content="{{ . }}">{{ end }}
@@ -278,6 +278,9 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.78r
 <script src="{{ .Site.BaseURL }}js/daily-pick.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/status-bubble.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/updates.js" defer></script>
+<!-- 全站小组件：悬浮栏目目录 + 本地收藏（纯前端，无后端） -->
+<script src="{{ .Site.BaseURL }}js/quick-toc.js" defer></script>
+<script src="{{ .Site.BaseURL }}js/bookmark.js" defer></script>
 <!-- 非关键交互脚本（搜索/灯箱/分享/更新日志）：空闲时再加载，释放首屏主线程，缓解卡顿 -->
 <script>
 (function () {

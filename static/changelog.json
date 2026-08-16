@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-16",
+    "content": "新增纯前端功能（无后端、无登录）：①本地收藏——文章页一键收藏，/bookmarks.html 查看与管理（localStorage 存储）；②全站悬浮栏目目录——右下固定按钮，随时跳转任意栏目；③RSS 订阅——scripts/build_rss.py 生成 /rss.xml（覆盖全站内容），导航「更多」与悬浮面板均设入口。"
+  },
+  {
+    "date": "2026-08-16",
     "content": "【第三方组件接入】接入 Umami 轻量访问统计：head.html 引入 umami.html 片段（placeholder 域名/website-id 待替换），全站静态页由 scripts/apply_umami.py 注入同片段；同步放宽 meta CSP 放行 Umami / Gitalk 所需域名（cdn.jsdelivr.net、api.github.com、avatars.githubusercontent.com、umami.example.com）。每篇文章底部接入 Gitalk 评论（存于 GitHub Issues，无自有后端）：Hugo 文章经 gitalk.html 局部、83 个静态文章经 scripts/apply_gitalk.py 注入 .gitalk-container + gitalk-init.js（GitHub OAuth Client ID 待填）。首页「热门精选」模块预留访问量位置（.hot-views + data-views-path，umami-hot.js 按 window.UMAMI_HOT 配置填充）。未删除任何原有内容/链接/文件。"
   },
   {

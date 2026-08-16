@@ -49,6 +49,8 @@ DROPDOWN = [
     ("games.html", "游戏库"),
     ("status-history.html", "站点状态"),
     ("about.html", "关于本站"),
+    ("bookmarks.html", "我的收藏"),
+    ("rss.xml", "RSS 订阅"),
 ]
 MOBILE = [("index.html", "首页")] + DESKTOP + DROPDOWN
 

@@ -606,6 +606,8 @@ var _hmt = _hmt || [];
           <a href="games.html">游戏库</a>
           <a href="status-history.html">站点状态</a>
           <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
         </div>
       </li>
     </ul>
@@ -648,6 +650,8 @@ var _hmt = _hmt || [];
   <a href="games.html">游戏库</a>
   <a href="status-history.html">站点状态</a>
   <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
   </div>
 </nav>
 
@@ -1279,5 +1283,10 @@ window.addEventListener('pageshow', function(e) {
   <script defer src="js/auto_news_loader.js"></script>
 <section class="board-originals" id="boardOriginals" data-board="紫砂艺术" aria-label="本板块原创"></section>
 <script defer src="js/board_originals.js"></script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer></script>
+<script src="js/bookmark.js" defer></script>
 </body>
 </html>

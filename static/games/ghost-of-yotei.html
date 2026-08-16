@@ -212,6 +212,8 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
           <a href="../games.html">游戏库</a>
           <a href="../status-history.html">站点状态</a>
           <a href="../about.html">关于本站</a>
+          <a href="../bookmarks.html">我的收藏</a>
+          <a href="../rss.xml">RSS 订阅</a>
         </div>
       </li>
     </ul>
@@ -254,10 +256,13 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
   <a href="../games.html">游戏库</a>
   <a href="../status-history.html">站点状态</a>
   <a href="../about.html">关于本站</a>
+  <a href="../bookmarks.html">我的收藏</a>
+  <a href="../rss.xml">RSS 订阅</a>
   </div>
 </nav>
 <!--SEO-ARTICLE-HEADER-->
 <section class="seo-art-head" aria-label="文章信息">
+  <div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
   <figure class="seo-cover"><div class="seo-cover-ph">封面图位置（建议 1200×630 WebP，放此处）</div></figure>
   <div class="seo-art-meta">
     <p class="seo-row"><span class="seo-k">🕓 更新时间</span><span class="seo-v seo-update">____（填 YYYY-MM-DD）</span></p>
@@ -399,5 +404,10 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
 <!-- Gitalk 评论（底部，第三方，存于 GitHub Issues；配置见 /js/gitalk-init.js） -->
 <div class="gitalk-container" aria-label="评论区"></div>
 <script src="/js/gitalk-init.js" defer></script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="../js/quick-toc.js" defer></script>
+<script src="../js/bookmark.js" defer></script>
 </body>
 </html>

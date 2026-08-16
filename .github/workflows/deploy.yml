@@ -44,6 +44,12 @@ jobs:
           python3 scripts/apply_umami.py
           python3 scripts/apply_gitalk.py
 
+      - name: Inject site widgets (floating TOC + local bookmark)
+        run: python3 scripts/apply_site_widgets.py
+
+      - name: Build RSS feed
+        run: python3 scripts/build_rss.py
+
       - name: Build Hugo
         run: hugo --gc
 

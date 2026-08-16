@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
@@ -107,8 +107,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="preload" href="../css/style.css?v=20260816" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="../css/style.css?v=20260816"></noscript>
+<link rel="preload" href="../css/style.css?v=20260817" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="../css/style.css?v=20260817"></noscript>
 <style>
 .spec-list { list-style: none; padding: 0; }
 .spec-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
@@ -162,6 +162,9 @@ var _hmt = _hmt || [];
 <meta name="twitter:title" content="Model Y · 参数与动态 - 龙兄知识库">
 <meta name="twitter:description" content="特斯拉 Model Y 全面解析（2026改款）：3个版本参数对比、CLTC续航/充电/优缺点/购买建议，上海工厂月交付8.5万辆热销解读。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
+<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
 </head>
 <body>
 
@@ -463,5 +466,9 @@ var _hmt = _hmt || [];
     </a>
   </div>
 </section>
+
+<!-- Gitalk 评论（底部，第三方，存于 GitHub Issues；配置见 /js/gitalk-init.js） -->
+<div class="gitalk-container" aria-label="评论区"></div>
+<script src="/js/gitalk-init.js" defer></script>
 </body>
 </html>

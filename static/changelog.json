@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-08-16",
-    "content": "【标签系统 + 搜索升级】新增文章标签能力：每篇文章可在 head 加 &lt;meta name=\"article-category/tags/updated\"&gt;（Hugo 文章用 frontmatter 的 category/tags/updated）手动打标签；scripts/build_content_index.py 扫描全站生成 static/data/content-index.json（176 条，已打标签 17 条）。站内搜索（search.html）升级为「关键词 + 分类 + 标签 + 更新时间」筛选（filter-search.js，零依赖、保留原 Pagefind 弹窗）；新增标签聚合页 tags.html（标签云）与 tag.html?tag=标签名（列出该标签全部文章，tag.js）。导航「更多」下拉加入「标签聚合」入口。所有原内容、链接、文件均保留。"
+    "content": "【第三方组件接入】接入 Umami 轻量访问统计：head.html 引入 umami.html 片段（placeholder 域名/website-id 待替换），全站静态页由 scripts/apply_umami.py 注入同片段；同步放宽 meta CSP 放行 Umami / Gitalk 所需域名（cdn.jsdelivr.net、api.github.com、avatars.githubusercontent.com、umami.example.com）。每篇文章底部接入 Gitalk 评论（存于 GitHub Issues，无自有后端）：Hugo 文章经 gitalk.html 局部、83 个静态文章经 scripts/apply_gitalk.py 注入 .gitalk-container + gitalk-init.js（GitHub OAuth Client ID 待填）。首页「热门精选」模块预留访问量位置（.hot-views + data-views-path，umami-hot.js 按 window.UMAMI_HOT 配置填充）。未删除任何原有内容/链接/文件。"
   },
   {
     "date": "2026-08-16",

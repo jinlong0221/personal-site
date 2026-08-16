@@ -39,6 +39,11 @@ jobs:
       - name: Build content index (tags + search filters)
         run: python3 scripts/build_content_index.py
 
+      - name: Inject third-party components (Umami + Gitalk)
+        run: |
+          python3 scripts/apply_umami.py
+          python3 scripts/apply_gitalk.py
+
       - name: Build Hugo
         run: hugo --gc
 

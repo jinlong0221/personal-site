@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
@@ -58,7 +58,7 @@
 }
 </script>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
-<link rel="stylesheet" href="css/style.css?v=20260816">
+<link rel="stylesheet" href="css/style.css?v=20260817">
 <style>
 .console-detail-hero { display: flex; gap: 40px; align-items: center; padding: 48px 0 32px; flex-wrap: wrap; }
 .console-detail-hero .image-side { flex: 0 0 380px; }
@@ -109,6 +109,9 @@ var _hmt = _hmt || [];
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://longxiong.vip/console-gb-micro.html">
   <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
+<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
 </head>
 <body>
 

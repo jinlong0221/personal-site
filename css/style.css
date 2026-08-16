@@ -5147,3 +5147,14 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 }
 .tag-cloud-item:hover{ border-color:var(--accent); transform:translateY(-2px); }
 .tci-count{ font-size:.72rem; font-weight:700; color:var(--gold); background:var(--bg-section); border-radius:999px; padding:1px 8px; }
+
+/* ===== 热门精选「访问量」预留位（Umami 统计接入点） ===== */
+.hot-views{ display:inline-block; margin-top:6px; font-size:11.5px; color:var(--text-muted); letter-spacing:.3px; }
+.hot-views:empty{ display:none; }
+
+/* ===== Gitalk 评论容器 ===== */
+.gitalk-container{ max-width:760px; margin:32px auto 0; padding:0 14px; }
+.gitalk-container .gt-container{ font-size:.92rem; }
+.gitalk-container .gt-header-textarea,
+.gitalk-container .gt-comment-content{ background:var(--bg-section); color:var(--text); }
+.gitalk-container a{ color:var(--blue-light); }

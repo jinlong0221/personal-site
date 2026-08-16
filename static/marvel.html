@@ -3,6 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <link rel="preload" href="js/app.js" as="script">
 <link rel="preconnect" href="//hm.baidu.com">
@@ -84,12 +101,13 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="preload" href="css/style.css?v=20260817" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.css?v=20260817"></noscript>
+<link rel="preload" href="css/style.css?v=20260816" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260816"></noscript>
 <title>漫威宇宙 · 龙兄观影手账详细科普｜龙兄知识库</title>
 <meta name="keywords" content="漫威宇宙 · 龙兄观影手账,实测溯源,避坑指南,图文科普,龙兄知识库">
 
 <meta name="description" content="漫威宇宙 · 龙兄观影手账详细科普：实测溯源、实操图文、避坑指南。适合漫威宇宙 · 龙兄观影手账爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+
 <!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
 <meta name="article-category" content="漫威">
 <meta name="article-tags" content="漫威,电影,宇宙">
@@ -321,7 +339,7 @@ var _hmt = _hmt || [];
   <div class="mv-hero">
     <span class="mv-kicker">MARVEL CINEMATIC UNIVERSE · 龙兄观影手账</span>
     <h1>漫威宇宙</h1>
-    <p>从 2008 年托尼·斯塔克在山洞里敲出第一套战甲，到今天横跨电影与剧集的多元宇宙——一份属于龙兄的观影手账：怎么看、按什么顺序看、谁值得记住，以及哪些片子最对胃口。</p>
+<p>从 2008 年托尼·斯塔克在山洞里敲出第一套战甲，到今天横跨电影与剧集的多元宇宙——一份属于龙兄的观影手账：怎么看、按什么顺序看、谁值得记住，以及哪些片子最对胃口。</p>
   </div>
 
   <div class="mv-kpi">

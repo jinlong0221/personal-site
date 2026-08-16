@@ -10,8 +10,8 @@
      - meta description 70-90 字统一风格：实测溯源、实操图文、避坑指南、适合人群
      - keywords / og:title / og:description / twitter:title / twitter:description 同步
   2) 图片：缺失 loading 的非 hero 图补 loading="lazy"；缺失 alt 补合理 alt
-  3) 文章页(深度>=2) 头部注入统一模板（封面/更新时间/阅读收益/时效性标签）
-  4) 文章页(深度>=2) 底部注入「相关专题推荐」（同目录真实兄弟页，内部链接）
+  3) 文章页(深度>=2) 底部注入「相关专题推荐」（同目录真实兄弟页，内部链接）
+     注：已移除旧版头部统一模板（封面图/更新时间/阅读收益/时效性）
 幂等：已存在注入标记则跳过；description 先删后插，确保唯一。
 首页与 Hugo content 文章(title/description 在 frontmatter) 不在此脚本处理。
 """
@@ -120,17 +120,6 @@ def add_lazy_and_alt(html, page_title):
     return re.sub(r'<img\b[^>]*>', repl, html, flags=re.I)
 
 
-ART_HEADER = '''<!--SEO-ARTICLE-HEADER-->
-<section class="seo-art-head" aria-label="文章信息">
-  <figure class="seo-cover"><div class="seo-cover-ph">封面图位置（建议 1200×630 WebP，放此处）</div></figure>
-  <div class="seo-art-meta">
-    <p class="seo-row"><span class="seo-k">🕓 更新时间</span><span class="seo-v seo-update">____（填 YYYY-MM-DD）</span></p>
-    <p class="seo-row"><span class="seo-k">📌 阅读收益</span><span class="seo-v seo-benefit">一句话说明读完能得到什么（待填）</span></p>
-    <p class="seo-row"><span class="seo-k">⏱ 时效性</span><span class="seo-v"><span class="seo-tag">时效性标签（如：长期有效 / 2026 适用 / 待核实）</span></span></p>
-  </div>
-</section>
-'''
-
 REL_HEADER = '<!--SEO-RELATED-->\n<section class="seo-related" aria-label="相关专题推荐">\n  <h2 class="seo-rel-hd">相关专题推荐</h2>\n  <div class="seo-rel-grid">\n'
 REL_FOOTER = '  </div>\n</section>\n'
 
@@ -158,8 +147,10 @@ def sibling_cards(self_rel):
 
 
 def inject_article(html, self_rel):
-    if '<!--SEO-ARTICLE-HEADER-->' not in html:
-        html = re.sub(r'(</nav>)', r'\1\n' + ART_HEADER, html, count=1, flags=re.I)
+    # 移除旧版 SEO 文章头部模板（封面图/更新时间/阅读收益/时效性）
+    html = re.sub(
+        r'<!--SEO-ARTICLE-HEADER-->\s*<section\s+class="seo-art-head"[^>]*>.*?</section>\s*',
+        '', html, count=1, flags=re.I | re.S)
     if '<!--SEO-RELATED-->' not in html:
         cards = sibling_cards(self_rel)
         if cards:

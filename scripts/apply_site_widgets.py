@@ -9,7 +9,7 @@ apply_site_widgets.py — 向全站静态 HTML 注入纯前端小组件（幂等
      - <script src=".../js/quick-toc.js" defer>
      - <script src=".../js/bookmark.js" defer>
      脚本相对路径按文件目录深度自动加 ../ 前缀，与 static 页现有引用一致。
-  2. 文章页（含 <section class="seo-art-head" ...>）：在文章头内注入「收藏」按钮 .bm-bar。
+  2. 文章页（含 <h1> 标题）：在首个 <h1> 后注入「收藏」按钮 .bm-bar。
 
 用法：
   python3 scripts/apply_site_widgets.py          # 写入
@@ -38,9 +38,6 @@ BM_BTN = (
     '<span class="bm-label">收藏</span></button></div>'
 )
 
-ART_HEAD_OPEN = '<section class="seo-art-head" aria-label="文章信息">'
-
-
 def js_prefix(depth):
     return '../' * depth + 'js/'
 
@@ -68,10 +65,12 @@ def process_file(path, check_only=False):
             html = fixed
             changed.append('fix-prefix')
 
-    # 2) 文章页「收藏」按钮
-    if ART_HEAD_OPEN in html and 'data-bm-btn' not in html:
-        html = html.replace(ART_HEAD_OPEN, ART_HEAD_OPEN + '\n  ' + BM_BTN, 1)
-        changed.append('bm-btn')
+    # 2) 文章页（depth>=1）「收藏」按钮：改在首个 <h1> 后注入
+    if depth >= 1 and 'data-bm-btn' not in html:
+        m = re.search(r'(<h1[^>]*>.*?</h1>)', html, re.I | re.S)
+        if m:
+            html = html.replace(m.group(1), m.group(1) + '\n' + BM_BTN, 1)
+            changed.append('bm-btn')
 
     if not changed:
         return False

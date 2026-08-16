@@ -7,7 +7,6 @@
     <time class="og-date">{{ .Date.Format "2006-01-02" }}</time>
   </div>
   {{ with .Params.tags }}<div class="og-tags">{{ range . }}<span class="og-tag">#{{ . }}</span>{{ end }}</div>{{ end }}
-  {{ partial "article-head.html" . }}
   {{ partial "bookmark-btn.html" . }}
   <div class="og-body">{{ .Content }}</div>
 </article>

@@ -1,0 +1,18 @@
+{{/* 相关专题推荐（req3）：同分类 3-5 篇；同分类不足 3 篇时回退到全站最新文章，保证模块不空。
+     复用于 Hugo 渲染的文章页，与静态页 SEO-RELATED 结构一致。 */}}
+<section class="seo-related" aria-label="相关专题推荐">
+  <h2 class="seo-rel-hd">相关专题推荐</h2>
+  <div class="seo-rel-grid">
+    {{- $self := . -}}
+    {{- $rel := .Site.RegularPages.Related . -}}
+    {{- if lt (len $rel) 3 -}}{{- $rel = where .Site.RegularPages "RelPermalink" "ne" $self.RelPermalink | first 5 -}}{{- end -}}
+    {{- range first 5 $rel -}}
+    <a class="seo-rel-card" href="{{ .RelPermalink }}">
+      <div class="seo-rel-thumb" aria-hidden="true">
+        {{- with .Params.cover -}}<img src="{{ . }}" alt="" width="320" height="180" loading="lazy" decoding="async">{{ else }}专题{{ end -}}
+      </div>
+      <div class="seo-rel-title">{{ .Title }}</div>
+    </a>
+    {{- end -}}
+  </div>
+</section>

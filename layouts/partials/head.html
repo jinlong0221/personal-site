@@ -22,8 +22,14 @@
 })();
 </script>
 
-<title>{{ if .Title }}{{ .Title }} - 龙兄知识库{{ else }}龙兄知识库{{ end }}</title>
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if eq .Kind "term" }}{{ .Site.Params.description }} · 标签「{{ .Title }}」相关文章{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+{{ $homeTitle := "龙兄知识库｜沉香/中药材/特斯拉/射阳本地民生干货｜实测溯源图文库" }}
+{{ $homeDesc := "龙兄知识库实测溯源图文库：覆盖沉香鉴别、中药材、特斯拉用车、文玩紫砂、游戏主机、射阳本地民生等主题，实拍图解、实操步骤与避坑指南，适合爱好者与从业者系统参考。" }}
+{{ $title := "龙兄知识库" }}
+{{ if .IsHome }}{{ $title = $homeTitle }}{{ else if .Title }}{{ $title = printf "%s｜龙兄知识库" .Title }}{{ end }}
+{{ $desc := .Site.Params.description }}
+{{ if .IsHome }}{{ $desc = $homeDesc }}{{ else if .Description }}{{ $desc = .Description }}{{ else if eq .Kind "term" }}{{ $desc = printf "%s · 标签「%s」相关文章" .Site.Params.description .Title }}{{ end }}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
 <meta name="keywords" content="{{ with .Keywords }}{{ . }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
 <link rel="canonical" href="{{ .Permalink }}">
 <!-- 收录基建：显式声明可被索引与跟随链接（noindex 标记的页面改为 noindex, nofollow） -->
@@ -38,8 +44,8 @@
 <link rel="icon" type="image/svg+xml" href="{{ .Site.BaseURL }}favicon.svg">
 
 <!-- Open Graph -->
-<meta property="og:title" content="{{ if .Title }}{{ .Title }} - 龙兄知识库{{ else }}龙兄知识库{{ end }}">
-<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if eq .Kind "term" }}{{ .Site.Params.description }} · 标签「{{ .Title }}」相关文章{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $desc }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:image" content="{{ .Site.BaseURL }}img/og-image.png">
@@ -47,8 +53,8 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ if .Title }}{{ .Title }} - 龙兄知识库{{ else }}龙兄知识库{{ end }}">
-<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if eq .Kind "term" }}{{ .Site.Params.description }} · 标签「{{ .Title }}」相关文章{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $desc }}">
 <meta name="twitter:image" content="{{ .Site.BaseURL }}img/og-image.png">
 
 <!-- Structured Data -->

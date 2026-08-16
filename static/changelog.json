@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-16",
+    "content": "【关于本站改版】重写「关于本站」页（static/about.html）：保留原有网站简介/免责声明/知识产权/合作链接说明/联系方式，新增四大板块——①建站初衷（实测溯源、不营销不带货、长期主义）；②站长介绍·龙兄是谁（公开 GitHub jinlong0221 身份、射阳本地、亲测溯源方法论，强化个人可信 IP）；③更新规则与内容创作标准（每日自动刷新 + 六条硬标准：一手实测/多源交叉验证/事实观点分离/时效标注/可复核/公开纠错）；④开源仓库与二次部署教程（github.com/jinlong0221/personal-site，Hugo+Pagefind+GitHub Pages，含本地预览与 Pages 部署步骤）。同步刷新 meta/og/twitter description。"
+  },
+  {
+    "date": "2026-08-16",
     "content": "新增纯前端功能（无后端、无登录）：①本地收藏——文章页一键收藏，/bookmarks.html 查看与管理（localStorage 存储）；②全站悬浮栏目目录——右下固定按钮，随时跳转任意栏目；③RSS 订阅——scripts/build_rss.py 生成 /rss.xml（覆盖全站内容），导航「更多」与悬浮面板均设入口。"
   },
   {

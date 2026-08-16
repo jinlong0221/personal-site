@@ -23,7 +23,7 @@
 <title>关于本站｜龙兄知识库</title>
 <meta name="keywords" content="关于本站,龙兄知识库">
 
-<meta name="description" content="关于本站：龙兄知识库说明页，介绍站点内容、栏目分类与更新动态，方便读者快速了解本站并检索实用科普与生活百科内容。内容持续更新，欢迎对照实操、少踩坑。">
+<meta name="description" content="龙兄知识库 · 关于本站：建站初衷、站长（龙兄）介绍、内容创作标准与更新规则、开源仓库与二次部署教程。全站内容站长本人实测溯源，不营销不带货，只记录踩坑干货。">
 
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
@@ -127,19 +127,31 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 [data-theme="dark"] .contact-box p{color:#aaa}
 .back-home{display:inline-block;margin-top:24px;padding:10px 28px;background:linear-gradient(135deg,#1565C0,#0D47A1);color:#fff;border:none;border-radius:30px;font-size:0.95rem;cursor:pointer;text-decoration:none}
 .back-home:hover{opacity:.9}
+/* ===== 新增：关于本站扩展板块样式 ===== */
+.owner-card{border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:16px;padding:24px 22px;margin-top:16px;background:var(--card)}
+.owner-card ul{padding-left:20px;color:var(--text)}
+.owner-card li{margin-bottom:8px}
+.owner-note{margin-top:12px;color:var(--text-secondary);font-size:.92rem}
+.std-list{padding-left:22px;color:var(--text)}
+.std-list li{margin-bottom:10px}
+.std-warn{margin-top:14px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid #E91E63;border-radius:10px;color:var(--text);font-size:.95rem}
+[data-theme="dark"] .std-warn{border-left-color:#F06292}
+.std-note{margin-top:12px;color:var(--text-secondary);font-size:.9rem}
+.code-cmd{background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:16px 18px;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;line-height:1.7;color:var(--text);white-space:pre}
+.code-cmd code{font-family:inherit}
 </style>
 
 <link rel="canonical" href="https://longxiong.vip/about.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta property="og:title" content="关于本站｜龙兄知识库">
-<meta property="og:description" content="关于本站：龙兄知识库说明页，介绍站点内容、栏目分类与更新动态，方便读者快速了解本站并检索实用科普与生活百科内容。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:description" content="龙兄知识库 · 关于本站：建站初衷、站长（龙兄）介绍、内容创作标准与更新规则、开源仓库与二次部署教程。全站内容站长本人实测溯源，不营销不带货，只记录踩坑干货。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/about.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="关于本站 - 龙兄知识库">
-<meta name="twitter:description" content="龙兄知识库：关于本站、免责声明、知识产权说明与联系方式">
+<meta name="twitter:description" content="龙兄知识库 · 关于本站：建站初衷、站长介绍、内容创作标准与更新规则、开源仓库与二次部署教程。实测溯源，不营销不带货。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 
 <!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
@@ -245,6 +257,32 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <p>内容涵盖紫砂艺术、沉香鉴别、中药材、养生茶、数码科技、流行文化等领域，力求 <span class="highlight">实用、靠谱、可落地</span>。</p>
     </div>
 
+    <!-- ===== 新增：建站初衷 ===== -->
+    <div class="about-section">
+      <h2>🎯 建站初衷</h2>
+      <p>这个网站最初只是我自己的「外挂大脑」——把生活里反复踩过的坑、亲手验证过的经验记下来，下次不再被同一个问题坑第二次，也顺手分享给可能遇到同样问题的人。</p>
+      <ul>
+        <li><strong>实测溯源，不搬运二手结论。</strong>站里能亲手测的内容，我一定先自己跑一遍、拍下来、记下环境与结论；引用他人结论会标出来源并尽量交叉核对，不当「复制粘贴机器」。</li>
+        <li><strong>不营销、不带货、不接软文。</strong>全站<strong>没有任何商业推广、联盟链接或付费内容</strong>。推荐的店铺或商品只是个人经历，不构成购买建议——这与营销号的根本区别就在这里。</li>
+        <li><strong>长期主义，慢就是快。</strong>内容少而精，宁可少写也不编。能帮一个人省下真金白银或半天折腾，这个站就有价值。</li>
+      </ul>
+    </div>
+
+    <!-- ===== 新增：站长介绍（强化个人可信 IP） ===== -->
+    <div class="about-section">
+      <h2>🧑‍💻 站长介绍 · 龙兄是谁</h2>
+      <div class="owner-card">
+        <p>大家好，我是<strong>龙兄</strong>——站里几乎所有内容都出自我本人的一手实操与整理。</p>
+        <ul>
+          <li><strong>公开身份：</strong>站内统一以「龙兄」署名；源码与自动化脚本全部在 GitHub 以 <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">jinlong0221</a> 账号开源，欢迎围观与挑错。</li>
+          <li><strong>长期扎根江苏射阳</strong>，所以做了「射阳本地气象 / 民生」这类接地气的板块；同时也常年在一线务实行业里摸爬滚打，养成「动手折腾、动笔记录」的习惯。</li>
+          <li><strong>折腾跨度很广：</strong>沉香鉴别、中药材、养生茶、文玩手串（紫砂）、特斯拉、苹果新品、漫威宇宙、游戏主机——本质都是同一套方法：<em>亲测、溯源、交叉验证</em>。</li>
+          <li><strong>诚实优先：</strong>写错的地方会公开修订并记进更新日志；不确定的结论一律标注「待官方确认」，绝不装懂。</li>
+        </ul>
+        <p class="owner-note">为什么要公开这些？因为「透明 + 可复核」，才是一个个人站点最值钱的可信度。</p>
+      </div>
+    </div>
+
     <!-- 免责声明 -->
     <div class="about-section">
       <h2>⚖️ 免责声明</h2>
@@ -255,6 +293,27 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         <li>高考查分、志愿填报信息仅供参考，<span class="highlight">以官方发布为准</span>。</li>
         <li>游戏板块仅供娱乐，<span class="highlight">不涉赌、不涉币</span>。</li>
       </ul>
+    </div>
+
+    <!-- ===== 新增：更新规则与内容创作标准 ===== -->
+    <div class="about-section">
+      <h2>🔄 更新规则与内容创作标准</h2>
+      <p>为了让「实测溯源」不只是口号，本站内容遵循以下硬规则：</p>
+      <h3>更新频率</h3>
+      <ul>
+        <li>资讯类板块（新车 / 新机 / 票房 / 天气等）<strong>每日自动刷新</strong>，保证数据不过期；</li>
+        <li>深度原创随研究进度发布，不求日更，但求每篇经得起复核。</li>
+      </ul>
+      <h3>内容创作标准（六条）</h3>
+      <ol class="std-list">
+        <li><strong>一手实测优先：</strong>能亲手测的必亲手测，记录测试时间、环境、样本与结论，并附实拍图。</li>
+        <li><strong>多源交叉验证：</strong>政策、参数、数值类信息须 ≥2 个独立可信来源；单一来源须明确标注。</li>
+        <li><strong>事实与观点分开：</strong>主观体验明确标注「本人一手记录」，并声明不构成医疗 / 投资 / 法律建议。</li>
+        <li><strong>标注时效：</strong>价格、参数、档期等易变信息标注「截至时间」；无法确认的未来节点标注「待官方确认」。</li>
+        <li><strong>可复核：</strong>关键数据附出处链接；遇反爬 / 403 域名只写文本、不做超链，不做断章取义。</li>
+        <li><strong>公开纠错：</strong>发现错误立即修订并记入更新日志，不悄悄改、不删帖掩盖。</li>
+      </ol>
+      <p class="std-warn">本站<strong>不参与</strong>：商业推广、联盟带货、付费软文、未经验证的「内幕消息」。</p>
     </div>
 
     <!-- 知识产权 -->
@@ -272,6 +331,37 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <h2>🔗 合作链接说明</h2>
       <p>本站为纯知识分享网站，<span class="highlight">不含任何商业推广或联盟链接</span>。所有商品/店铺推荐仅为主观经验分享，不构成购买建议。</p>
       <p>「龙兄踩坑记」中提到的商品购买经历仅供故事分享，请自行判断。</p>
+    </div>
+
+    <!-- ===== 新增：开源仓库与二次部署教程 ===== -->
+    <div class="about-section">
+      <h2>🛠️ 开源仓库与二次部署教程</h2>
+      <p>本站是<strong>纯静态站点</strong>，代码以 MIT 许可、内容以 CC BY-NC 4.0 许可完全开源，任何人都可以 fork 后部署成自己的知识库。</p>
+      <ul>
+        <li><strong>仓库地址：</strong><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">github.com/jinlong0221/personal-site</a></li>
+        <li><strong>技术栈：</strong>Hugo（静态生成）+ Pagefind（站内搜索）+ GitHub Pages（托管），无后端、无数据库。</li>
+      </ul>
+      <h3>本地预览</h3>
+      <pre class="code-cmd"><code># 1. 安装依赖：Hugo extended、Git、Node（供 Pagefind）
+# 2. 克隆仓库
+git clone https://github.com/jinlong0221/personal-site.git
+cd personal-site
+
+# 3. 本地预览（默认 http://localhost:1313）
+hugo server -D
+
+# 4. 生成静态文件到 public/
+hugo --gc</code></pre>
+      <h3>部署到 GitHub Pages</h3>
+      <ol class="std-list">
+        <li><strong>Fork</strong> 本仓库到你的 GitHub 账号；</li>
+        <li>修改 <code>hugo.toml</code> 里的 <code>baseURL</code> 为你自己的域名（或用默认的 <code>username.github.io</code>）；</li>
+        <li>写文章：放到 <code>content/</code>（Hugo 文章），或直接编辑 <code>static/</code> 下的页面；</li>
+        <li>推送 <code>git push origin main</code>，GitHub Actions 自动执行 <code>hugo --gc</code> + Pagefind 并推送到 <code>gh-pages</code> 分支；</li>
+        <li>仓库 <strong>Settings → Pages → Source</strong> 选择 <strong>Deploy from a branch → gh-pages / root</strong>，约 1–2 分钟生效；</li>
+        <li>自定义域名：在 <strong>Settings → Pages → Custom domain</strong> 填写，并在仓库根目录添加 <code>CNAME</code> 文件即可。</li>
+      </ol>
+      <p class="std-note">提示：仓库内置「旅行加密」等可选脚本（依赖 <code>TRAVEL_KEY</code> 仓库密钥），二次部署时如不需要可忽略；其余板块开箱即用。</p>
     </div>
 
     <!-- 联系方式 -->

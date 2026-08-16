@@ -139,6 +139,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .std-note{margin-top:12px;color:var(--text-secondary);font-size:.9rem}
 .code-cmd{background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:16px 18px;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;line-height:1.7;color:var(--text);white-space:pre}
 .code-cmd code{font-family:inherit}
+/* ===== 新增：本页导读（页内锚点导航） ===== */
+.about-toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.about-toc a{display:inline-block;padding:6px 14px;font-size:.85rem;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--border);border-radius:20px;text-decoration:none;transition:color var(--transition),border-color var(--transition)}
+.about-toc a:hover{color:var(--gold);border-color:var(--gold)}
+main [id]{scroll-margin-top:72px}
 </style>
 
 <link rel="canonical" href="https://longxiong.vip/about.html">
@@ -250,16 +255,29 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     <div style="font-size:.78rem;line-height:1.7;color:var(--text-muted);max-width:760px;margin:10px auto 0;"><a id="sources" class="src-anchor"></a>内容来源：本页为站点自述，信息由站长本人撰写与维护。全站内容遵循「多源交叉验证 + 注明出处」原则：政策法规类以官方发布为准，产品参数类以厂商官网为准，主观体验类明确标注为本人一手记录，三者互不混同。</div>
     <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
 
+    <!-- ===== 新增：本页导读（页内锚点导航，便于长文跳转） ===== -->
+    <nav class="about-toc" aria-label="本页导读">
+      <a href="#intro">网站简介</a>
+      <a href="#purpose">建站初衷</a>
+      <a href="#owner">站长介绍</a>
+      <a href="#disclaimer">免责声明</a>
+      <a href="#standards">更新与标准</a>
+      <a href="#ip">知识产权</a>
+      <a href="#links">合作说明</a>
+      <a href="#opensource">开源部署</a>
+      <a href="#contact">联系方式</a>
+    </nav>
+
     <!-- 网站简介 -->
     <div class="about-section">
-      <h2>📖 网站简介</h2>
+      <h2 id="intro">📖 网站简介</h2>
       <p>「龙兄知识库」是由 <span class="highlight">AI 辅助搭建</span> 的个人知识分享网站，记录站长在生活、兴趣与折腾过程中的学习笔记和实用经验。</p>
       <p>内容涵盖紫砂艺术、沉香鉴别、中药材、养生茶、数码科技、流行文化等领域，力求 <span class="highlight">实用、靠谱、可落地</span>。</p>
     </div>
 
     <!-- ===== 新增：建站初衷 ===== -->
     <div class="about-section">
-      <h2>🎯 建站初衷</h2>
+      <h2 id="purpose">🎯 建站初衷</h2>
       <p>这个网站最初只是我自己的「外挂大脑」——把生活里反复踩过的坑、亲手验证过的经验记下来，下次不再被同一个问题坑第二次，也顺手分享给可能遇到同样问题的人。</p>
       <ul>
         <li><strong>实测溯源，不搬运二手结论。</strong>站里能亲手测的内容，我一定先自己跑一遍、拍下来、记下环境与结论；引用他人结论会标出来源并尽量交叉核对，不当「复制粘贴机器」。</li>
@@ -270,7 +288,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <!-- ===== 新增：站长介绍（强化个人可信 IP） ===== -->
     <div class="about-section">
-      <h2>🧑‍💻 站长介绍 · 龙兄是谁</h2>
+      <h2 id="owner">🧑‍💻 站长介绍 · 龙兄是谁</h2>
       <div class="owner-card">
         <p>大家好，我是<strong>龙兄</strong>——站里几乎所有内容都出自我本人的一手实操与整理。</p>
         <ul>
@@ -285,7 +303,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <!-- 免责声明 -->
     <div class="about-section">
-      <h2>⚖️ 免责声明</h2>
+      <h2 id="disclaimer">⚖️ 免责声明</h2>
       <p>本网站所有内容仅供 <span class="highlight">学习交流参考</span>，不构成任何专业建议（包括但不限于医疗、投资、法律建议）。</p>
       <ul>
         <li>紫砂、沉香等收藏品鉴别内容基于个人经验整理，<span class="highlight">不作为交易依据</span>，购买贵重物品请寻求专业机构鉴定。</li>
@@ -297,7 +315,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <!-- ===== 新增：更新规则与内容创作标准 ===== -->
     <div class="about-section">
-      <h2>🔄 更新规则与内容创作标准</h2>
+      <h2 id="standards">🔄 更新规则与内容创作标准</h2>
       <p>为了让「实测溯源」不只是口号，本站内容遵循以下硬规则：</p>
       <h3>更新频率</h3>
       <ul>
@@ -318,7 +336,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <!-- 知识产权 -->
     <div class="about-section">
-      <h2>©️ 知识产权与版权说明</h2>
+      <h2 id="ip">©️ 知识产权与版权说明</h2>
       <p><strong>原创内容许可：</strong>本站原创文字、图片、原创字体「LX Brush」等媒体作品，版权归「龙兄知识库」所有，采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可。转载请：① 署名「龙兄知识库」；② 注明出处链接；③ 不得用于商业用途。</p>
       <p><strong>代码许可：</strong>本站 Hugo 模板、CSS、JavaScript、构建配置等代码采用 <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer">MIT</a> 许可，可自由使用与修改（须保留版权声明）。</p>
       <p><strong>第三方商标：</strong>本网站提及的「漫威®」「特斯拉®」「PlayStation®」等均为各公司注册商标，仅用于知识分享与科普，不代表本站与这些公司有任何关联。</p>
@@ -328,14 +346,14 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <!-- 推广标注 -->
     <div class="about-section">
-      <h2>🔗 合作链接说明</h2>
+      <h2 id="links">🔗 合作链接说明</h2>
       <p>本站为纯知识分享网站，<span class="highlight">不含任何商业推广或联盟链接</span>。所有商品/店铺推荐仅为主观经验分享，不构成购买建议。</p>
       <p>「龙兄踩坑记」中提到的商品购买经历仅供故事分享，请自行判断。</p>
     </div>
 
     <!-- ===== 新增：开源仓库与二次部署教程 ===== -->
     <div class="about-section">
-      <h2>🛠️ 开源仓库与二次部署教程</h2>
+      <h2 id="opensource">🛠️ 开源仓库与二次部署教程</h2>
       <p>本站是<strong>纯静态站点</strong>，代码以 MIT 许可、内容以 CC BY-NC 4.0 许可完全开源，任何人都可以 fork 后部署成自己的知识库。</p>
       <ul>
         <li><strong>仓库地址：</strong><a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">github.com/jinlong0221/personal-site</a></li>
@@ -365,7 +383,7 @@ hugo --gc</code></pre>
     </div>
 
     <!-- 联系方式 -->
-    <div class="contact-box">
+    <div class="contact-box" id="contact">
       <p>📧 如有问题、建议或版权投诉，欢迎联系：</p>
       <p style="font-weight:700;color:#1565C0;">799958000@qq.com</p>
     </div>

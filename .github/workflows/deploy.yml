@@ -36,6 +36,9 @@ jobs:
       - name: Build feed data
         run: node scripts/build_feed.js
 
+      - name: Build content index (tags + search filters)
+        run: python3 scripts/build_content_index.py
+
       - name: Build Hugo
         run: hugo --gc
 

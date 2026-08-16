@@ -1,20 +1,47 @@
 {{ define "main" }}
 <div class="page-wrap">
   <div class="detail-section">
-    <h1 class="detail-title" style="text-align:center;margin:40px 0 30px;">🔍 全站搜索</h1>
-    <div id="search" style="max-width:800px;margin:0 auto;">
-      <div id="pagefind-search"></div>
+    <h1 class="detail-title" style="text-align:center;margin:40px 0 8px;">🔍 全站搜索</h1>
+    <p class="search-sub">输入关键词，并按「分类 / 标签 / 更新时间」筛选全部文章</p>
+
+    <div id="fsApp" class="filter-search">
+      <!-- ① 关键词（原有关键词搜索保留） -->
+      <div class="fs-keyword-row">
+        <input id="fsKeyword" class="fs-input" type="search" placeholder="搜索关键词：沉香、特斯拉、开壶、台风…" aria-label="搜索关键词" autocomplete="off">
+      </div>
+
+      <!-- ② 筛选：分类 + 更新时间 + 重置 -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label class="filter-label" for="fsCat">分类</label>
+          <select id="fsCat" class="fs-select"><option value="">全部分类</option></select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="fsTime">更新时间</label>
+          <select id="fsTime" class="fs-select">
+            <option value="">不限</option>
+            <option value="30">近一个月</option>
+            <option value="90">近三个月</option>
+            <option value="180">近半年</option>
+            <option value="365">近一年</option>
+          </select>
+        </div>
+        <div class="filter-group filter-group-reset">
+          <button id="fsReset" class="fs-reset" type="button">重置筛选</button>
+        </div>
+      </div>
+
+      <!-- ③ 筛选：标签（多选） -->
+      <div class="filter-group filter-tags">
+        <label class="filter-label">标签</label>
+        <div id="fsTags" class="tag-chips"><span class="tag-chips-hint">加载中…</span></div>
+      </div>
+
+      <div id="fsCount" class="fs-count"></div>
+      <div id="fsResults" class="filter-results"></div>
     </div>
   </div>
 </div>
-<script src="/pagefind/pagefind.js"></script>
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    new PagefindUI({
-      element: "#pagefind-search",
-      showSubResults: true,
-      showImages: false
-    });
-  });
-</script>
+<!-- 升级站内搜索：关键词 + 分类/标签/更新时间筛选（零依赖，读 /data/content-index.json） -->
+<script src="{{ .Site.BaseURL }}js/filter-search.js" defer></script>
 {{ end }}

@@ -5084,3 +5084,66 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 @media (max-width:480px){
   .seo-rel-grid{ grid-template-columns:1fr; }
 }
+
+/* ============================================================
+   站内搜索筛选 + 标签聚合（filter-search.js / tag.js）
+   ============================================================ */
+.search-sub{ text-align:center; color:var(--text-muted); margin:0 0 22px; font-size:.95rem; }
+.filter-search{ max-width:860px; margin:0 auto; }
+.fs-keyword-row{ margin-bottom:14px; }
+.fs-input{
+  width:100%; padding:13px 16px; font-size:1.05rem; border-radius:12px;
+  border:1px solid var(--border); background:var(--card); color:var(--text);
+  outline:none; transition:border-color .15s,box-shadow .15s;
+}
+.fs-input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent); }
+.filter-bar{ display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end; margin-bottom:14px; }
+.filter-group{ display:flex; flex-direction:column; gap:6px; }
+.filter-group-reset{ margin-left:auto; }
+.filter-label{ font-size:.8rem; color:var(--text-muted); font-weight:600; letter-spacing:.02em; }
+.fs-select{
+  padding:9px 12px; border-radius:10px; border:1px solid var(--border);
+  background:var(--card); color:var(--text); font-size:.95rem; min-width:140px; cursor:pointer;
+}
+.fs-reset{
+  padding:9px 16px; border-radius:10px; border:1px solid var(--border);
+  background:var(--bg-section); color:var(--text); font-size:.9rem; cursor:pointer; transition:background .15s;
+}
+.fs-reset:hover{ background:var(--card); }
+.filter-tags{ flex-direction:row; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+.tag-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chips-hint{ color:var(--text-muted); font-size:.85rem; }
+.tag-chip{
+  padding:6px 13px; border-radius:999px; border:1px solid var(--border);
+  background:var(--card); color:var(--text); font-size:.88rem; cursor:pointer;
+  transition:all .15s;
+}
+.tag-chip:hover{ border-color:var(--accent); }
+.tag-chip.active{ background:var(--accent); border-color:var(--accent); color:#fff; }
+.fs-count{ color:var(--text-muted); font-size:.85rem; margin:4px 0 14px; }
+.filter-results{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+@media (max-width:680px){ .filter-results{ grid-template-columns:1fr; } }
+.filter-card{
+  display:block; padding:16px; border-radius:14px; border:1px solid var(--border);
+  background:var(--card); color:var(--text); text-decoration:none; transition:transform .12s,border-color .15s,box-shadow .15s;
+}
+.filter-card:hover{ transform:translateY(-2px); border-color:var(--accent); box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 14%,transparent); }
+.fc-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; }
+.fc-cat{ font-size:.78rem; font-weight:700; color:var(--gold); }
+.fc-date{ font-size:.75rem; color:var(--text-muted); }
+.fc-title{ font-size:1.05rem; font-weight:700; margin-bottom:6px; line-height:1.4; }
+.fc-desc{ font-size:.85rem; color:var(--text-muted); line-height:1.6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.fc-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.fs-tag{ font-size:.72rem; padding:2px 8px; border-radius:999px; background:var(--bg-section); color:var(--text-muted); border:1px solid var(--border); }
+.fs-empty{ grid-column:1/-1; text-align:center; color:var(--text-muted); padding:40px 10px; }
+.fs-empty code{ background:var(--bg-section); padding:1px 6px; border-radius:5px; color:var(--gold); }
+
+/* 标签云（tags.html） */
+.tag-cloud{ max-width:860px; margin:0 auto; display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+.tag-cloud-item{
+  display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:999px;
+  border:1px solid var(--border); background:var(--card); color:var(--text); text-decoration:none;
+  font-size:.95rem; transition:all .15s;
+}
+.tag-cloud-item:hover{ border-color:var(--accent); transform:translateY(-2px); }
+.tci-count{ font-size:.72rem; font-weight:700; color:var(--gold); background:var(--bg-section); border-radius:999px; padding:1px 8px; }

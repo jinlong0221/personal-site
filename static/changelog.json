@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-16",
+    "content": "【标签系统 + 搜索升级】新增文章标签能力：每篇文章可在 head 加 &lt;meta name=\"article-category/tags/updated\"&gt;（Hugo 文章用 frontmatter 的 category/tags/updated）手动打标签；scripts/build_content_index.py 扫描全站生成 static/data/content-index.json（176 条，已打标签 17 条）。站内搜索（search.html）升级为「关键词 + 分类 + 标签 + 更新时间」筛选（filter-search.js，零依赖、保留原 Pagefind 弹窗）；新增标签聚合页 tags.html（标签云）与 tag.html?tag=标签名（列出该标签全部文章，tag.js）。导航「更多」下拉加入「标签聚合」入口。所有原内容、链接、文件均保留。"
+  },
+  {
+    "date": "2026-08-16",
     "content": "全站 SEO 标准化：统一 TDK（首页/栏目/文章标题与 70–90 字 description）、补充图片 alt 与懒加载、文章页新增「统一头部模板」（封面占位/更新时间/阅读收益/时效性标签）与「相关专题推荐」模块；同步 seo CSS 至 static/css/style.css；修复 Hugo 文章页标题双品牌（head.html 后缀改 ｜ 并去掉 chenxiang 标题尾部品牌）；重新生成完整 sitemap.xml（共 188 条，已排除 404 与非公开页）。"
   },
   {

@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="page-wrap">
+  <div class="detail-section">
+    <h1 class="detail-title" style="text-align:center;margin:40px 0 8px;">🏷 标签聚合</h1>
+    <p class="search-sub">点击任意标签，查看打上该标签的全部文章（数字为该标签文章数）</p>
+    <div id="tagCloud" class="tag-cloud"></div>
+  </div>
+</div>
+<!-- 标签云：列出全站所有标签及计数，点击跳转到 /tag.html?tag=标签名 -->
+<script src="{{ .Site.BaseURL }}js/tag.js" defer></script>
+{{ end }}

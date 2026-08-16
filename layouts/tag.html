@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="page-wrap">
+  <div class="detail-section">
+    <h1 id="tagTitle" class="detail-title" style="text-align:center;margin:40px 0 8px;">标签文章</h1>
+    <p class="search-sub">同一标签下的全部文章（按更新时间倒序）</p>
+    <div id="tagResults" class="filter-results"></div>
+  </div>
+</div>
+<!-- 标签聚合页：按 ?tag=标签名 列出全部打上该标签的文章（读 /data/content-index.json） -->
+<script src="{{ .Site.BaseURL }}js/tag.js" defer></script>
+{{ end }}

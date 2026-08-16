@@ -4976,3 +4976,88 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
   .mb-hero { padding: 18px 2px 6px; }
   .mb-hero-cta { display: none; }
 }
+
+/* ============================================================
+   首页重构（2026-08-16）：四大板块 + 固定搜索框 + 三占位模块
+   改动仅新增样式，不覆盖任何既有 .lx-* 规则
+   ============================================================ */
+
+/* [需求3] 首页顶部固定常驻搜索框（sticky 于导航栏下方，滚动时常驻） */
+.lx-search-wrap{
+  position:sticky; top:var(--nav-height); z-index:120;
+  background:var(--bg); padding:14px 0 12px;
+  border-bottom:1px solid var(--rule-soft);
+  margin:6px 0 4px;
+}
+.lx-search-wrap .home-search-box{ max-width:680px; margin:0 auto; }
+/* .home-search-* 输入框/按钮/清空样式已在 style.css 448-477 行定义，此处复用 */
+
+/* [需求1] 四大板块之间的分割线 */
+.lx-divider{
+  border:0; height:1px; margin:30px 0;
+  background:linear-gradient(90deg,transparent,var(--rule) 18%,var(--rule) 82%,transparent);
+}
+
+/* [需求2] 单字栏目悬浮提示：原生 title 已满足；此处仅增强键盘可达性（卡片整体可聚焦） */
+.lx-card{ cursor:pointer; }
+.lx-card:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+/* [需求4] 通用模块外壳 */
+.lx-mod{ margin:30px 0 6px; }
+.lx-mod-hd{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.lx-mod-no{ font-size:1.1rem; color:var(--gold); flex:0 0 auto; }
+.lx-mod-title{ font-family:var(--brush); font-size:clamp(20px,5vw,26px); letter-spacing:3px; color:var(--tx); margin:0; line-height:1; flex:0 0 auto; }
+.lx-mod-sub{ font-size:.78rem; color:var(--tx-3); letter-spacing:1px; }
+
+/* 模块一 · 今日更新（占位 8 条：标题 / 更新时间 / 简短摘要） */
+.upd-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.upd-card{
+  background:var(--ink-3); border:1px solid var(--rule-soft); border-radius:2px;
+  padding:13px 13px 14px; transition:border-color .2s, transform .2s;
+  min-height:118px; display:flex; flex-direction:column; gap:6px;
+}
+.upd-card:hover,.upd-card:focus-visible{ border-color:var(--gold); transform:translateY(-2px); outline:none; }
+.upd-date{ font-size:.72rem; color:var(--tx-3); font-variant-numeric:tabular-nums; letter-spacing:.5px; }
+.upd-title{ font-size:.95rem; font-weight:600; color:var(--tx); line-height:1.45; }
+.upd-sum{ font-size:.78rem; color:var(--tx-2); line-height:1.65; }
+
+/* 模块二 · 热门精选（占位 8 个专题图文卡片，封面用 CSS 占位块，不引入图片资源） */
+.hot-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.hot-card{
+  background:var(--ink-3); border:1px solid var(--rule-soft); border-radius:2px;
+  overflow:hidden; transition:border-color .2s, transform .2s;
+}
+.hot-card:hover{ border-color:var(--gold); transform:translateY(-2px); }
+.hot-thumb{
+  aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--ink-4),var(--ink-3));
+  color:var(--tx-3); font-size:.8rem; letter-spacing:2px;
+  border-bottom:1px solid var(--rule-soft);
+}
+.hot-body{ padding:12px 13px 14px; display:flex; flex-direction:column; gap:6px; }
+.hot-title{ font-size:.95rem; font-weight:600; color:var(--tx); line-height:1.45; }
+.hot-desc{ font-size:.78rem; color:var(--tx-2); line-height:1.65; }
+
+/* 模块三 · 射阳本地专区（气象 / 台风 / 电力 / 农事 入口） */
+.sheyang-zone{ background:color-mix(in srgb,var(--blue-light) 7%,var(--ink-3)); border:1px solid var(--rule-soft); border-radius:8px; padding:18px 16px 20px; }
+.sheyang-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.sheyang-card{
+  display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;
+  background:var(--ink-3); border:1px solid var(--rule-soft); border-radius:8px;
+  padding:16px 12px; text-decoration:none; color:inherit; transition:border-color .2s, transform .2s;
+}
+.sheyang-card:hover{ border-color:var(--blue-light); transform:translateY(-2px); }
+.sheyang-ico{ font-size:1.8rem; line-height:1; }
+.sheyang-name{ font-size:.98rem; font-weight:600; color:var(--tx); }
+.sheyang-desc{ font-size:.74rem; color:var(--tx-2); line-height:1.5; }
+
+/* [需求5] 移动端适配：模块网格折叠 + 搜索框堆叠 */
+@media (max-width:900px){
+  .upd-grid,.hot-grid,.sheyang-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:560px){
+  .upd-grid,.hot-grid,.sheyang-grid{ grid-template-columns:1fr; }
+  .lx-search-wrap{ padding:12px 0 10px; }
+  .lx-mod-title{ font-size:20px; }
+  .lx-divider{ margin:24px 0; }
+}

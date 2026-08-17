@@ -79,6 +79,12 @@ jobs:
             echo "[travel] 私有源未检出，跳过"
           fi
 
+      # changelog 防御性护栏：构建前强制清除 static/changelog.json 与
+      # data/changelog.json 中的空 content 记录（自动更新偶发写坏），
+      # 确保部署产物（更新日志页）永不含空白条目。即使脏提交进库也会被此处拦截。
+      - name: Guard changelog (strip empty records)
+        run: python3 scripts/guard_changelog.py
+
       - name: Build Hugo
         run: hugo --gc
 

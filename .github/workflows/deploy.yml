@@ -17,6 +17,10 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      # secrets 上下文不允许在 steps.if 中使用，提升到 job env 后通过 env 上下文引用。
+      # 未配置时为空字符串，对应步骤自动跳过，旅行页不部署且不泄露明文。
+      TRAVEL_REPO_TOKEN: ${{ secrets.TRAVEL_REPO_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,7 +58,7 @@ jobs:
       # TRAVEL_REPO_TOKEN 时才取回并参与构建；未配置则跳过（旅行页不部署，
       # 但不会泄露任何明文）。
       - name: Checkout private travel source (optional)
-        if: ${{ secrets.TRAVEL_REPO_TOKEN != '' }}
+        if: ${{ env.TRAVEL_REPO_TOKEN != '' }}
         uses: actions/checkout@v4
         with:
           repository: jinlong0221/personal-site-travel-private
@@ -63,7 +67,7 @@ jobs:
           persist-credentials: false
 
       - name: Stage travel source into build (optional)
-        if: ${{ secrets.TRAVEL_REPO_TOKEN != '' }}
+        if: ${{ env.TRAVEL_REPO_TOKEN != '' }}
         run: |
           if [ -d travel-private ]; then
             cp -f travel-private/travel.html static/travel.html

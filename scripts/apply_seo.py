@@ -10,7 +10,7 @@
      - meta description 70-90 字统一风格：实测溯源、实操图文、避坑指南、适合人群
      - keywords / og:title / og:description / twitter:title / twitter:description 同步
   2) 图片：缺失 loading 的非 hero 图补 loading="lazy"；缺失 alt 补合理 alt
-  3) 文章页(深度>=2) 底部注入「相关专题推荐」（同目录真实兄弟页，内部链接）
+  3) 文章页(深度>=2) 底部清理旧版「相关专题推荐」区块（用户决定移除），不再注入新块
      注：已移除旧版头部统一模板（封面图/更新时间/阅读收益/时效性）
 幂等：已存在注入标记则跳过；description 先删后插，确保唯一。
 首页与 Hugo content 文章(title/description 在 frontmatter) 不在此脚本处理。
@@ -120,42 +120,15 @@ def add_lazy_and_alt(html, page_title):
     return re.sub(r'<img\b[^>]*>', repl, html, flags=re.I)
 
 
-REL_HEADER = '<!--SEO-RELATED-->\n<section class="seo-related" aria-label="相关专题推荐">\n  <h2 class="seo-rel-hd">相关专题推荐</h2>\n  <div class="seo-rel-grid">\n'
-REL_FOOTER = '  </div>\n</section>\n'
-
-
-def sibling_cards(self_rel):
-    d = os.path.dirname(self_rel)
-    try:
-        names = [n for n in sorted(os.listdir(d)) if n.endswith('.html') and n != os.path.basename(self_rel)]
-    except OSError:
-        return ''
-    cards = []
-    for n in names[:5]:
-        try:
-            t = read(os.path.join(d, n))
-        except OSError:
-            continue
-        m = re.search(r'<title[^>]*>(.*?)</title>', t, re.S | re.I)
-        sib_title = strip_brand(m.group(1)).strip() if m else n
-        cards.append(
-            f'    <a class="seo-rel-card" href="{n}">\n'
-            f'      <div class="seo-rel-thumb" aria-hidden="true">图</div>\n'
-            f'      <div class="seo-rel-title">{sib_title}</div>\n'
-            f'    </a>\n')
-    return ''.join(cards)
-
-
 def inject_article(html, self_rel):
     # 移除旧版 SEO 文章头部模板（封面图/更新时间/阅读收益/时效性）
     html = re.sub(
         r'<!--SEO-ARTICLE-HEADER-->\s*<section\s+class="seo-art-head"[^>]*>.*?</section>\s*',
         '', html, count=1, flags=re.I | re.S)
-    if '<!--SEO-RELATED-->' not in html:
-        cards = sibling_cards(self_rel)
-        if cards:
-            block = REL_HEADER + cards + REL_FOOTER
-            html = re.sub(r'(</body>)', block + r'\1', html, count=1, flags=re.I)
+    # 清理已注入的「相关专题推荐」区块（用户决定移除）
+    html = re.sub(
+        r'<!--SEO-RELATED-->\s*<section\s+class="seo-related"[^>]*>.*?</section>\s*',
+        '', html, count=1, flags=re.I | re.S)
     return html
 
 
@@ -227,7 +200,7 @@ def main():
                 html = re.sub(r'(css/style\.css\?v=)\d{8}', r'\g<1>' + NEW_CSS_VER, html)
                 stats['cssver'] += 1
 
-            # 文章页注入头部模板 + 相关专题
+            # 文章页清理旧头部模板 + 旧相关专题区块
             if is_article:
                 html = inject_article(html, full)
                 stats['injected'] += 1

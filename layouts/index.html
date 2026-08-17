@@ -22,17 +22,22 @@
     <div class="lx-rule2"></div>
   </header>
 
-  <!-- ===== Hero：真实紫砂器物大图 + 品牌主张 ===== -->
-  <section class="lx-hero" aria-label="站点引言">
-    <div class="lx-hero-media" aria-hidden="true">
-      <img src="{{ .Site.BaseURL }}img/zisha/wht2026_p1_3.webp" alt="紫砂器物" loading="eager" width="1200" height="675">
-      <div class="lx-hero-scrim"></div>
-    </div>
-    <div class="lx-hero-body">
-      <p class="lx-hero-kicker">龙兄知识库</p>
-      <h2 class="lx-hero-title">把热爱，写成可被检索的知识</h2>
-      <p class="lx-hero-sub">沉香 · 紫砂 · 中药材 · 特斯拉 · 游戏主机 · 漫威——每条都经过查证，每条都能溯源。</p>
-    </div>
+  <!-- ===== Hero：真实照片轮播（自动切换 + 整张可点进专题） ===== -->
+  <section class="lx-hero reveal" aria-label="精选专题轮播">
+    <a class="lx-hero-link" id="heroLink" href="/zisha.html" aria-label="紫砂艺术">
+      <div class="lx-hero-media" aria-hidden="true">
+        <img class="lx-hero-img is-active" id="heroImgA" src="{{ .Site.BaseURL }}img/zisha/wht2026_p1_3.webp" alt="紫砂艺术" loading="eager" width="1200" height="675">
+        <img class="lx-hero-img" id="heroImgB" src="" alt="" loading="lazy" width="1200" height="675">
+        <div class="lx-hero-scrim"></div>
+      </div>
+      <div class="lx-hero-body">
+        <p class="lx-hero-kicker" id="heroKicker">紫砂艺术</p>
+        <h2 class="lx-hero-title" id="heroTitle">一壶一器，藏尽东方器度</h2>
+        <p class="lx-hero-sub" id="heroSub">从泥料、明针到窑火，读懂一把好壶的门道。</p>
+        <span class="lx-hero-cta" id="heroCta">走进紫砂艺术 →</span>
+      </div>
+    </a>
+    <div class="lx-hero-dots" id="heroDots" role="tablist" aria-label="专题切换"></div>
   </section>
 
   <!-- ===== 活体条：状态 / 专题数 / 入口 ===== -->

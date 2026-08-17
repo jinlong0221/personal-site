@@ -73,14 +73,27 @@ const HREF_RE = /href=["'](img\/travel\/[^"']+\.(?:webp|jpg|jpeg|png|avif|gif))[
 
 async function main() {
   if (!PASSWORD) {
-    // 无密钥时若仍存在明文旅行页（例如已检出私有源但 TRAVEL_KEY 未配），
-    // 必须删除明文，绝不以未加密形式部署。
+    // 无密钥时不强制删除，避免把「已加密外壳」误删导致线上整页 404：
+    // - 若 travel.html 仍是明文（含 data-tl-wrap），删除以防明文泄露；
+    // - 若已是加密外壳（无 data-tl-wrap），保留，等带密钥时再重加密。
     if (existsSync(TRAVEL_HTML)) {
-      console.warn('[encrypt_travel] TRAVEL_KEY 未设置但检测到明文旅行页，已删除以防泄露。');
-      rmSync(TRAVEL_HTML);
+      const raw = readFileSync(TRAVEL_HTML, 'utf8');
+      if (/data-tl-wrap/.test(raw)) {
+        console.warn('[encrypt_travel] TRAVEL_KEY 未设置但检测到明文旅行页，已删除以防泄露。');
+        rmSync(TRAVEL_HTML);
+      } else {
+        console.warn('[encrypt_travel] TRAVEL_KEY 未设置，但 travel.html 已是加密外壳，保留不删。');
+      }
     }
+    // 仅清理可能残留的明文照片（保留 .enc 密文）；明文数据文件同理删除。
     const dir = join(PUBLIC, 'img', 'travel');
-    if (existsSync(dir)) { rmSync(dir, { recursive: true, force: true }); }
+    if (existsSync(dir)) {
+      const files = [];
+      walk(dir, files);
+      for (const f of files) {
+        if (!f.endsWith('.enc')) { try { rmSync(f); } catch (e) {} }
+      }
+    }
     const dj = join(PUBLIC, 'data', 'travel.json');
     if (existsSync(dj)) rmSync(dj);
     return;

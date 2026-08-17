@@ -402,8 +402,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     // 公历日期转农历
     // 基准：1900-01-31 = 庚子年正月初一
     function solar2lunar(y, m, d) {
-      var baseDate = new Date(1900, 0, 31);
-      var objDate = new Date(y, m-1, d);
+      // 时间基准锁定为“北京日界”（东八区）：用 Date.UTC 以北京当日 12:00 构造，
+      // 跨时区/跨夏令时结果一致，用户在任意地区看到的农历与日柱都相同。
+      var baseDate = new Date(Date.UTC(1900, 0, 31, 4, 0, 0));
+      var objDate = new Date(Date.UTC(y, m-1, d, 4, 0, 0));
       var offset = Math.floor((objDate - baseDate) / 86400000);
       var i, temp = 0, ly;
       for(i=1900; i<2101 && offset>0; i++) {
@@ -433,23 +435,30 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       return { year: ly, month: lm, day: ld, isLeap: isLeap };
     }
 
-    // 干支计算（年柱、月柱、日柱、时柱）
-    function getGanzhi(y, m, d) {
-      // 年柱：1900=庚子年（index=36，36%60=36）
-      var yearGan = (y - 4) % 10;
-      var yearZhi = (y - 4) % 12;
-      // 日柱：计算总天数偏移
-      var baseDate2 = new Date(1900, 0, 1);
-      var curDate2 = new Date(y, m-1, d);
+    // 干支计算（年柱、月柱、日柱）
+    // 年柱：以农历年（春节为界）为准，最贴合大众认知的生肖/岁次
+    // 月柱：以二十四节气之“节”为界，按五虎遁推算月干（不再是简单公历月份）
+    function getGanzhi(y, m, d, ly) {
+      // 年柱/生肖：用农历年 ly（春节界）；未传时退回公历年兜底
+      var yl = ly || y;
+      var yearGan = (yl - 4) % 10;
+      var yearZhi = (yl - 4) % 12;
+      // 日柱：以 1900-01-01 甲戌日为锚点，并按北京日界（东八区）计算，跨时区一致
+      var baseDate2 = new Date(Date.UTC(1900, 0, 1, 4, 0, 0));
+      var curDate2 = new Date(Date.UTC(y, m - 1, d, 4, 0, 0));
       var daysOffset = Math.floor((curDate2 - baseDate2) / 86400000) + 10;
       var dayGan = daysOffset % 10;
       var dayZhi = daysOffset % 12;
-      // 月柱：以立春为分界
-      var monthGan = ((y - 4) * 12 + m + 2) % 10;
-      var monthZhi = m % 12;
+      // 月柱：节气分界 + 五虎遁
+      var terms = TERM_TABLE[y];
+      var jieDay = terms ? terms[(m - 1) * 2] : 99;   // 当月“节”的日期（如立春、惊蛰…）
+      var sm = (d >= jieDay) ? m : (m - 1);            // 当前所属节气月（公历月序：2=寅月起算）
+      var monthZhi = ((sm % 12) + 12) % 12;            // 0..11（子=0,丑=1,寅=2…）
+      var monthOffset = (sm - 2 + 12) % 12;            // 相对寅月(公历2月)的偏移
+      var monthGan = ((yearGan * 2 + 2 + monthOffset) % 10 + 10) % 10; // 五虎遁：年干*2+2 起寅月
       return {
-        year: GAN[yearGan] + ZHI[yearZhi],
-        yearAnimal: ANIMALS[yearZhi],
+        year: GAN[((yearGan % 10) + 10) % 10] + ZHI[((yearZhi % 12) + 12) % 12],
+        yearAnimal: ANIMALS[((yearZhi % 12) + 12) % 12],
         month: GAN[monthGan] + ZHI[monthZhi],
         day: GAN[dayGan] + ZHI[dayZhi]
       };
@@ -517,14 +526,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         ji = ['破土','动土','安葬','搬家'];
       }
 
-      // 随机打乱，每次结果略有不同
-      yi = shuffle(yi);
-      ji = shuffle(ji);
-
-      return {
-        yi: yi.slice(0, 5 + Math.floor(Math.random()*3)),
-        ji: ji.slice(0, 3 + Math.floor(Math.random()*2))
-      };
+      // 按农历/节气特征固定生成，保证同一天宜忌稳定（确定性，不做随机）
+      function uniqArr(a){ var seen={}, out=[]; a.forEach(function(v){ if(!seen[v]){ seen[v]=1; out.push(v); } }); return out; }
+      var yiOut = uniqArr(yi).slice(0, 8);
+      var jiOut = uniqArr(ji).slice(0, 5);
+      return { yi: yiOut, ji: jiOut };
     }
 
     function shuffle(arr) {
@@ -577,10 +583,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
             var lunar = solar2lunar(y, m, date);
             var term = getSolarTerm(y, m, date);
             var isToday = isCurrentMonth && date===now.getDate();
-            var fest = festSolar[key(m,date)] || '';
-            var lmd = lunar.month + '-' + lunar.day;
+            var fest = festSolar[key(m,date)] || FIXED_FESTIVALS[key(m,date)] || '';
+            var lmd = (lunar.month<10?'0':'')+lunar.month + '-' + (lunar.day<10?'0':'')+lunar.day;
             var lfest = LUNAR_FESTIVALS[lmd] || '';
-            var gz = getGanzhi(y, m, date);
+            var gz = getGanzhi(y, m, date, lunar.year);
             var monthStr = (lunar.isLeap?'闰':'') + LUNAR_MONTHS[lunar.month-1] + '月';
             var dayStr = LUNAR_DAYS[lunar.day-1];
 
@@ -603,8 +609,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
               else if(lunar.day===10 || lunar.day===20 || lunar.day===30) { showLunar=true; }
               // 初八显示
               else if(lunar.day===8) { showLunar=true; }
-              // 其他普通日期
-              else if(Math.random()<0.08) { showLunar=true; } // 随机显示少量
 
               if(showLunar) {
                 var label = lfest || fest || (lunar.day===1?monthStr:dayStr);
@@ -674,8 +678,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       var dayStr = LUNAR_DAYS[ld-1];
 
       // 节日
-      var festSolar = (FESTIVALS_SOLAR[y] || {})[(m<10?'0':'')+m+'-'+(d<10?'0':'')+d] || '';
-      var lmd = lm + '-' + ld;
+      var festKey2 = (m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+      var festSolar = (FESTIVALS_SOLAR[y] || {})[festKey2] || FIXED_FESTIVALS[festKey2] || '';
+      // 农历节日键补零（与 LUNAR_FESTIVALS 的 '01-01' 等键对齐）
+      var lmd = (lm<10?'0':'')+lm + '-' + (ld<10?'0':'')+ld;
       var lfest = LUNAR_FESTIVALS[lmd] || '';
       var fest = festSolar || lfest || term || '';
 

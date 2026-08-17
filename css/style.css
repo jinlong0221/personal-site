@@ -1956,9 +1956,9 @@ p.plot-text {
 @media (max-width:600px) {
   .back-to-top { bottom: 74px; right: 18px; width: 42px; height: 42px; }
 }
-/* iOS Safari 底部安全区域 */
+/* iOS Safari 底部安全区域（与 @supports(env(...)) 统一规则保持一致） */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .back-to-top { bottom: calc(env(safe-area-inset-bottom) + 64px); }
+  .back-to-top { bottom: calc(env(safe-area-inset-bottom) + 74px); }
 }
 
 

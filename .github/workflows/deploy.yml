@@ -85,6 +85,11 @@ jobs:
       - name: Guard changelog (strip empty records)
         run: python3 scripts/guard_changelog.py
 
+      # 首页聚合源：聚合各板块最新新闻生成 static/home-feed.json，供「今日更新」渲染。
+      # 部署前运行，确保每次上线都基于最新新闻数据。
+      - name: Build homepage feed (today's updates + hot picks)
+        run: python3 scripts/build_home_feed.py
+
       - name: Build Hugo
         run: hugo --gc
 

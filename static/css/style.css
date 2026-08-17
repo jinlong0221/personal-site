@@ -5062,6 +5062,16 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
   .lx-divider{ margin:24px 0; }
 }
 
+/* 首页聚合卡片（今日更新 / 热门精选 由 home-feed.js 注入真实内容） */
+.upd-meta{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.upd-board{ font-size:.7rem; color:var(--gold); font-weight:600; letter-spacing:.4px; border:1px solid rgba(201,168,76,.45); border-radius:2px; padding:1px 6px; white-space:nowrap; }
+.upd-link{ margin-top:auto; font-size:.74rem; color:var(--gold); text-decoration:none; }
+.upd-link:hover{ text-decoration:underline; }
+.hot-thumb{ padding:0; text-decoration:none; }
+.hot-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.hot-card .hot-body{ gap:7px; }
+.hot-pick-tag{ display:inline-block; font-size:.68rem; color:var(--gold); border:1px solid rgba(201,168,76,.4); border-radius:2px; padding:1px 6px; letter-spacing:.4px; }
+
 /* === 相关专题推荐（2026-08-16 新增） === */
 .seo-related{ margin:40px 0 8px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; }
 .seo-rel-hd{ font-size:1.15rem; color:var(--gold); margin:0 0 14px; }

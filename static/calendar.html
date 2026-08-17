@@ -359,7 +359,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <div class="tool-panel active" id="toolConvert">
         <div class="conv-row">
           <label for="convSolar">公历</label>
-          <input type="date" id="convSolar" />
+          <input type="date" id="convSolar" min="1900-01-01" max="2100-12-31" />
           <button type="button" id="convSolarBtn" class="cal-mini-btn">查农历</button>
         </div>
         <div class="conv-result" id="convSolarRes"></div>
@@ -615,6 +615,12 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     // 公历日期转农历
     // 基准：1900-01-31 = 庚子年正月初一
     function solar2lunar(y, m, d) {
+      // 支持范围下界前移：1900-01-01 ~ 1900-01-30 落在基准日（1900-01-31 庚子正月初一）
+      // 之前，属己亥年（1899）腊月；因正月初一=1/31 推出腊月为 30 天（腊月大），
+      // 故 1900-01-d 即 腊月 d 日。直接定位，避免 year 循环在负 offset 下失效。
+      if (y === 1900 && m === 1 && d >= 1 && d <= 30) {
+        return { year: 1899, month: 12, day: d, isLeap: false };
+      }
       // 时间基准锁定为“北京日界”（东八区）：用 Date.UTC 以北京当日 12:00 构造，
       // 跨时区/跨夏令时结果一致，用户在任意地区看到的农历与日柱都相同。
       var baseDate = new Date(Date.UTC(1900, 0, 31, 4, 0, 0));
@@ -758,7 +764,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     // ========== 8. 渲染月历 ==========
     var curY, curM;
-    var todayBtnClicked = false;
 
     function renderCalendar(y, m) {
       curY = y; curM = m;
@@ -862,12 +867,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         if(date > daysInMonth && row > 3) break;
       }
 
-      // 自动选中今天
-      if(isCurrentMonth && !todayBtnClicked) {
-        var tds = tbody.querySelectorAll('td.today');
-        if(tds.length) showDayDetail(tds[0]);
-      }
-      todayBtnClicked = false;
     }
 
     // ========== 9. 显示日期详情 ==========
@@ -1202,6 +1201,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         if (!v) { v = isoToday(); }
         var p = v.split('-');
         var y = +p[0], m = +p[1], d = +p[2];
+        if (y < 1900 || y > 2100) {
+          document.getElementById('convSolarRes').innerHTML = '支持范围：1900-01-01 ~ 2100-12-31';
+          return;
+        }
         var L = solar2lunar(y, m, d);
         var gz = getGanzhi(y, m, d, L.year);
         var weekDays = ['日','一','二','三','四','五','六'];
@@ -1232,6 +1235,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         var by = +document.getElementById('zodiacYear').value;
         var ai = +document.getElementById('zodiacAnimal').value;
         if (!by) { by = cur - (((cur - 4 - ai) % 12 + 12) % 12); }
+        if (by > cur) {
+          document.getElementById('zodiacRes').innerHTML = '出生年份不能晚于今年（' + cur + '），请检查输入';
+          return;
+        }
         var info = zodiacInfo(by, cur);
         document.getElementById('zodiacRes').innerHTML = '<span class="big">属' + info.animal + '</span>'
           + ' ｜ 出生年份参考 ' + by + ' 年'
@@ -1277,15 +1284,16 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     document.getElementById('prevBtn').addEventListener('click', function() {
       var y = curY, m = curM - 1;
       if(m < 1) { m=12; y--; }
+      if(y < 1900) { y = 1900; m = 1; }
       renderCalendar(y, m);
     });
     document.getElementById('nextBtn').addEventListener('click', function() {
       var y = curY, m = curM + 1;
       if(m > 12) { m=1; y++; }
+      if(y > 2100) { y = 2100; m = 12; }
       renderCalendar(y, m);
     });
     document.getElementById('todayBtn').addEventListener('click', function() {
-      todayBtnClicked = true;
       var now = new Date();
       renderCalendar(now.getFullYear(), now.getMonth()+1);
     });

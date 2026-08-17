@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-17",
+    "content": "【全站·浮动键布局】修复右下角「栏目目录键」与「一键回顶部键」重合问题：解除 @supports(env(safe-area-inset-*)) 把回顶部键/主题键都强推到同一角落的冲突，将三枚浮动键统一右对齐、竖向堆叠——目录键 bottom:18px、回顶部键 bottom:74px、主题切换键 bottom:126px；同时目录面板 z-index 提升至 10000，打开时盖住回顶部/主题键但不遮挡目录键（目录键仍可点关闭）。"
+  },
+  {
+    "date": "2026-08-17",
     "content": "【全站】移除文章页底部「相关专题推荐」模块：Hugo 文章页删除 article-related.html partial 引用并移除该 partial 文件；static 静态页通过 apply_seo.py 清理全部已有 <!--SEO-RELATED--> 区块并停止注入；同步清理 static/css/style.css 与根 css/style.css 中对应的专用样式。"
   },
   {

@@ -12,8 +12,8 @@ updated: "2026-08-07"
 # 沉香鉴别完全指南
 
 <div class="cx-hero">
-  <img src="/img/herbs/chenxiang/chenxiang_p1_0.webp" alt="天然沉香（沉香木/乌德）实拍" class="cx-hero-img" width="1600" height="800" fetchpriority="high" decoding="async">
-  <span class="cx-hero-badge">沉香实拍 · 图源 Pexels</span>
+  <img src="/img/herbs/chenxiang/chenxiang_p1_0.webp" alt="龙兄私藏天然沉香挂件实拍" class="cx-hero-img" width="1200" height="600" fetchpriority="high" decoding="async">
+  <span class="cx-hero-badge">龙兄实拍 · 非 AI 生成</span>
 </div>
 
 <p class="cx-lead">沉香是一种珍贵的天然香料和中药材，因其稀缺性和高价值，市场上充斥着大量假冒伪劣产品。以下为龙兄整理的鉴别知识，供学习参考。</p>

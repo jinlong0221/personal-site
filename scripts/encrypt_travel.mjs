@@ -121,6 +121,7 @@ async function main() {
     const salt = crypto.getRandomValues(new Uint8Array(16));
     const key = await deriveKey(PASSWORD, salt);
     for (const f of files) {
+      if (f.endsWith('.enc')) continue; // 已是密文则跳过，避免重复加密成 .enc.enc（会导致外壳引用的文件名对不上）
       const data = new Uint8Array(readFileSync(f));
       const blob = await encryptBytes(key, data);
       const encFile = f + '.enc';
@@ -241,18 +242,32 @@ function buildGate(blobB64, saltB64) {
     if(s.endsWith(".avif.enc")) return "image/avif";
     return "image/webp";
   }
+  // 带重试的 fetch：瞬时网络抖动（连接重置/超时）是“部分图片不显示”的根因——
+  // 解锁瞬间并行拉取几十张密文，任一请求偶发失败即永久缺图。这里对网络层失败重试 3 次，
+  // 硬错误（HTTP 4xx/5xx，如 .enc 确实不存在）不重试直接报错。
+  function fetchWithRetry(url, tries){
+    return fetch(url).then(function(r){
+      if(!r.ok) return Promise.reject(Object.assign(new Error("HTTP "+r.status), { http:true }));
+      return r;
+    }).catch(function(e){
+      if(e && e.http) throw e;
+      if(tries>1) return new Promise(function(res,rej){ setTimeout(function(){ fetchWithRetry(url, tries-1).then(res,rej); }, 500); });
+      throw e;
+    });
+  }
   function decryptPhoto(img,key){
     var rel=img.getAttribute("data-enc");
     if(!rel) return;
-    fetch(rel).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.arrayBuffer(); })
+    fetchWithRetry(rel,3).then(function(r){ return r.arrayBuffer(); })
       .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
       .then(function(u){
         var url=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));
         img.removeAttribute("loading");
+        img.onerror=function(){ console.error("照片渲染失败（blob 无效）", rel); };
         img.src=url;
         img.removeAttribute("data-enc");
       })
-      .catch(function(e){ console.error("照片解密失败", rel, e); });
+      .catch(function(e){ console.error("照片解密失败（已重试 3 次）", rel, e); });
   }
   // 画廊「点开看大图」：点击缩略图 → 页面内灯箱显示原图（不依赖新标签页弹窗，避免被浏览器拦截）
   var lb=document.getElementById("tlLightbox");
@@ -263,7 +278,7 @@ function buildGate(blobB64, saltB64) {
     if(lbUrl){ URL.revokeObjectURL(lbUrl); lbUrl=null; }
     lbImg.removeAttribute("src");
     lb.hidden=false;
-    fetch(rel).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.arrayBuffer(); })
+    fetchWithRetry(rel,3).then(function(r){ return r.arrayBuffer(); })
       .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
       .then(function(u){
         lbUrl=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));

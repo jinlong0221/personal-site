@@ -4,3 +4,9 @@ resources/
 node_modules/
 package-lock.json
 __pycache__/
+
+# 旅行板块为私人相册：源文件移入私有仓库 personal-site-travel-private，
+# 仅经 CI 加密后部署，绝不进入公开仓库（含历史）。
+static/travel.html
+static/data/travel.json
+static/img/travel/

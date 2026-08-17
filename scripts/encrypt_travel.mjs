@@ -72,7 +72,19 @@ const PHOTO_RE = /src=["'](img\/travel\/[^"']+\.(?:webp|jpg|jpeg|png|avif|gif))[
 const HREF_RE = /href=["'](img\/travel\/[^"']+\.(?:webp|jpg|jpeg|png|avif|gif))["']/gi;
 
 async function main() {
-  if (!PASSWORD) { console.log('[encrypt_travel] TRAVEL_KEY 未设置，跳过加密（旅行页保持公开）。'); return; }
+  if (!PASSWORD) {
+    // 无密钥时若仍存在明文旅行页（例如已检出私有源但 TRAVEL_KEY 未配），
+    // 必须删除明文，绝不以未加密形式部署。
+    if (existsSync(TRAVEL_HTML)) {
+      console.warn('[encrypt_travel] TRAVEL_KEY 未设置但检测到明文旅行页，已删除以防泄露。');
+      rmSync(TRAVEL_HTML);
+    }
+    const dir = join(PUBLIC, 'img', 'travel');
+    if (existsSync(dir)) { rmSync(dir, { recursive: true, force: true }); }
+    const dj = join(PUBLIC, 'data', 'travel.json');
+    if (existsSync(dj)) rmSync(dj);
+    return;
+  }
   if (!existsSync(TRAVEL_HTML)) { console.log('[encrypt_travel] public/travel.html 不存在，跳过。'); return; }
 
   let html = readFileSync(TRAVEL_HTML, 'utf8');

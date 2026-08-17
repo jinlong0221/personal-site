@@ -50,6 +50,31 @@ jobs:
       - name: Build RSS feed
         run: python3 scripts/build_rss.py
 
+      # 旅行板块为私人相册：源存于私有仓库，仅当配置了具备读权限的
+      # TRAVEL_REPO_TOKEN 时才取回并参与构建；未配置则跳过（旅行页不部署，
+      # 但不会泄露任何明文）。
+      - name: Checkout private travel source (optional)
+        if: ${{ secrets.TRAVEL_REPO_TOKEN != '' }}
+        uses: actions/checkout@v4
+        with:
+          repository: jinlong0221/personal-site-travel-private
+          token: ${{ secrets.TRAVEL_REPO_TOKEN }}
+          path: travel-private
+          persist-credentials: false
+
+      - name: Stage travel source into build (optional)
+        if: ${{ secrets.TRAVEL_REPO_TOKEN != '' }}
+        run: |
+          if [ -d travel-private ]; then
+            cp -f travel-private/travel.html static/travel.html
+            mkdir -p static/img/travel
+            cp -Rf travel-private/img/travel/. static/img/travel/
+            cp -f travel-private/data/travel.json static/data/travel.json
+            echo "[travel] 私有源已暂存"
+          else
+            echo "[travel] 私有源未检出，跳过"
+          fi
+
       - name: Build Hugo
         run: hugo --gc
 

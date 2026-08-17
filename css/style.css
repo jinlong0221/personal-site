@@ -5062,6 +5062,137 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
   .lx-divider{ margin:24px 0; }
 }
 
+/* 首页聚合卡片（今日更新 / 热门精选 由 home-feed.js 注入真实内容） */
+.upd-meta{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.upd-board{ font-size:.7rem; color:var(--gold); font-weight:600; letter-spacing:.4px; border:1px solid rgba(201,168,76,.45); border-radius:2px; padding:1px 6px; white-space:nowrap; }
+.upd-link{ margin-top:auto; font-size:.74rem; color:var(--gold); text-decoration:none; }
+.upd-link:hover{ text-decoration:underline; }
+.hot-thumb{ padding:0; text-decoration:none; }
+.hot-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.hot-card .hot-body{ gap:7px; }
+.hot-pick-tag{ display:inline-block; font-size:.68rem; color:var(--gold); border:1px solid rgba(201,168,76,.4); border-radius:2px; padding:1px 6px; letter-spacing:.4px; }
+
+/* ============================================================
+   首页视觉升级（2026-08-17）：Apple/Tesla 式克制 + 暖金身份
+   ============================================================ */
+
+/* 全局首页留白与呼吸感 */
+.lx-masthead{ padding:36px 0 22px; }
+.lx-vital{ padding:14px 0 10px; gap:10px; }
+.lx-vchip{ border-radius:8px; padding:8px 14px; }
+
+/* Hero：真实照片 + 暗色遮罩 + 大字标题 */
+.lx-hero{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  min-height:clamp(280px,38vw,420px);
+  margin:18px 0 32px;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  isolation:isolate;
+}
+.lx-hero-media{ position:absolute; inset:0; z-index:0; }
+.lx-hero-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+.lx-hero-scrim{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(18,16,12,.55) 0%, rgba(18,16,12,.72) 60%, rgba(18,16,12,.82) 100%);
+  z-index:1;
+}
+.lx-hero-body{
+  position:relative; z-index:2;
+  padding:32px 24px;
+  max-width:720px;
+  color:#EDE6D6;
+  text-shadow:0 2px 16px rgba(0,0,0,.45);
+}
+.lx-hero-kicker{
+  margin:0 0 12px;
+  font-size:.82rem; letter-spacing:3px; text-transform:uppercase;
+  color:var(--gold-light); font-weight:600;
+}
+.lx-hero-title{
+  margin:0 0 16px;
+  font-family:var(--brush);
+  font-size:clamp(30px,6vw,54px);
+  line-height:1.15;
+  letter-spacing:1px;
+  font-weight:500;
+}
+.lx-hero-sub{
+  margin:0 auto;
+  font-size:clamp(.95rem,2vw,1.1rem);
+  line-height:1.7;
+  color:rgba(237,230,214,.86);
+  max-width:560px;
+}
+
+/* 模块标题与留白：更大、更疏 */
+.lx-mod{ margin:56px 0 12px; }
+.lx-mod-hd{ margin-bottom:20px; gap:12px; }
+.lx-mod-title{
+  font-size:clamp(24px,5vw,32px);
+  letter-spacing:1px;
+  font-weight:600;
+}
+.lx-mod-sub{ font-size:.85rem; letter-spacing:.5px; }
+
+/* 分隔线去渐变，改发丝线 */
+.lx-divider{
+  margin:48px 0;
+  background:var(--rule-soft);
+  height:1px;
+}
+
+/* 板块卡片网格：加大间距与圆角 */
+.lx-deck{ gap:16px; }
+.lx-deck .lx-card{ border-radius:14px; }
+
+/* 聚合卡片：大圆角、轻阴影、悬停微抬 */
+.upd-grid,.hot-grid,.sheyang-grid{ gap:18px; }
+.upd-card,.hot-card,.sheyang-card,.seo-rel-card{
+  border-radius:14px;
+  box-shadow:var(--shadow-sm);
+  border-color:var(--rule-soft);
+}
+.upd-card:hover,.hot-card:hover,.sheyang-card:hover,.seo-rel-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+}
+.hot-thumb{ border-radius:14px 14px 0 0; }
+.sheyang-zone{ border-radius:14px; }
+.lx-pick{ border-radius:14px; }
+
+/* 导航更透、更细毛玻璃 */
+.navbar{
+  backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+  background:color-mix(in srgb,var(--nav-bg) 90%,transparent);
+  border-bottom-color:color-mix(in srgb,var(--rule-soft) 55%,transparent);
+}
+
+/* 滚动渐显 */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .55s ease, transform .55s ease; }
+.reveal.in{ opacity:1; transform:none; }
+.reveal-group .reveal:nth-child(1){ transition-delay:0ms; }
+.reveal-group .reveal:nth-child(2){ transition-delay:60ms; }
+.reveal-group .reveal:nth-child(3){ transition-delay:120ms; }
+.reveal-group .reveal:nth-child(4){ transition-delay:180ms; }
+.reveal-group .reveal:nth-child(5){ transition-delay:240ms; }
+.reveal-group .reveal:nth-child(6){ transition-delay:300ms; }
+.reveal-group .reveal:nth-child(7){ transition-delay:360ms; }
+.reveal-group .reveal:nth-child(8){ transition-delay:420ms; }
+
+/* 移动端 */
+@media (max-width:560px){
+  .lx-hero{ border-radius:14px; min-height:260px; margin:14px 0 24px; }
+  .lx-hero-body{ padding:24px 18px; }
+  .lx-hero-title{ font-size:clamp(26px,8vw,36px); }
+  .lx-mod{ margin:42px 0 10px; }
+  .lx-divider{ margin:36px 0; }
+  .lx-masthead{ padding:28px 0 18px; }
+}
+
 /* === 相关专题推荐（2026-08-16 新增） === */
 .seo-related{ margin:40px 0 8px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; }
 .seo-rel-hd{ font-size:1.15rem; color:var(--gold); margin:0 0 14px; }

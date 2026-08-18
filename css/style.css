@@ -5379,3 +5379,41 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .bm-remove{ padding:4px 12px; border-radius:999px; border:1px solid var(--border);
   background:transparent; color:var(--text-muted); font-size:.8rem; cursor:pointer; transition:all .15s; }
 .bm-remove:hover{ border-color:var(--cinnabar); color:var(--cinnabar); }
+
+/* ===== 通用自动折叠组件（板块 > 阈值条数默认折叠） ===== */
+.lx-ac-head { display: flex; align-items: center; gap: 10px; }
+.lx-ac-head.lx-ac-head-click { cursor: pointer; }
+.lx-ac-toggle {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.lx-ac-toggle:hover {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.lx-ac-count {
+  background: var(--accent);
+  color: #1a1407;
+  border-radius: 999px;
+  padding: 0 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.lx-ac-arrow { font-size: 0.7rem; line-height: 1; }
+.lx-ac[data-ac-state="collapsed"] .lx-ac-body { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .lx-ac-toggle { transition: none; }
+}

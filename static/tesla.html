@@ -63,7 +63,7 @@
 }
 </script>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
-<link rel="stylesheet" href="css/style.css?v=20260816">
+<link rel="stylesheet" href="css/style.css?v=20260818">
 <style>
 .tesla-hero { text-align: center; padding: 48px 0 32px; }
 .tesla-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
@@ -271,7 +271,7 @@ var _hmt = _hmt || [];
     <span class="count">4 款车型</span>
   </div>
 
-  <div class="card-grid-tesla">
+  <div class="card-grid-tesla" data-ac data-ac-items=".card-tesla" data-ac-head=".section-header" data-ac-count="false">
     <a href="tesla/model3.html" class="card-tesla model-3">
       <img width="900" height="570" class="card-img" src="img/tesla/model3/card.webp" alt="Tesla Model 3" loading="lazy">
       <div class="card-title">Tesla Model 3</div>
@@ -316,7 +316,7 @@ var _hmt = _hmt || [];
     <span class="count">1 个专题</span>
   </div>
 
-  <div class="card-grid-tesla">
+  <div class="card-grid-tesla" data-ac data-ac-items=".card-tesla" data-ac-head=".section-header" data-ac-count="false">
     <a href="tesla/fsd.html" class="card-tesla fsd" style="text-decoration:none;">
       <div class="card-title">🤖 特斯拉 FSD（中国：特斯拉辅助驾驶 TAD）</div>
       <div class="card-subtitle">完全自动驾驶能力 · 国内外最新资讯</div>
@@ -332,7 +332,7 @@ var _hmt = _hmt || [];
     <span class="count">2 款</span>
   </div>
 
-  <div class="card-grid-tesla">
+  <div class="card-grid-tesla" data-ac data-ac-items=".card-tesla" data-ac-head=".section-header" data-ac-count="false">
     <a href="tesla/models.html" class="card-tesla model-s">
       <img width="900" height="600" class="card-img" src="img/tesla/models/card.webp" alt="Tesla Model S" loading="lazy">
       <div class="card-title">Tesla Model S</div>
@@ -359,7 +359,7 @@ var _hmt = _hmt || [];
     <span class="count">3 款</span>
   </div>
 
-  <div class="card-grid-tesla">
+  <div class="card-grid-tesla" data-ac data-ac-items=".card-tesla" data-ac-head=".section-header" data-ac-count="false">
     <a href="tesla/semi.html" class="card-tesla semi">
       <img width="900" height="415" class="card-img" src="img/tesla/semi/card.webp" alt="Tesla Semi" loading="lazy">
       <div class="card-title">Tesla Semi</div>
@@ -395,7 +395,7 @@ var _hmt = _hmt || [];
     <span class="count">2 款</span>
   </div>
 
-  <div class="card-grid-tesla">
+  <div class="card-grid-tesla" data-ac data-ac-items=".card-tesla" data-ac-head=".section-header" data-ac-count="false">
     <a href="tesla/powerwall.html" class="card-tesla powerwall">
       <img width="800" height="450" class="card-img" src="img/tesla/powerwall/card.webp" alt="Tesla Powerwall" loading="lazy">
       <div class="card-title">Powerwall</div>
@@ -422,7 +422,7 @@ var _hmt = _hmt || [];
     <span class="count">3 篇</span>
   </div>
 
-  <div class="card-grid-tesla">
+  <div class="card-grid-tesla" data-ac data-ac-items=".card-tesla" data-ac-head=".section-header" data-ac-count="false">
     <a href="tesla/charging.html" class="card-tesla charging">
       <div class="card-emoji">⚡</div>
       <div class="card-title">充电指南</div>
@@ -594,6 +594,7 @@ function toggleHomeSection(el){
 
 <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
+<script defer src="js/auto-collapse.js"></script>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
 </body>

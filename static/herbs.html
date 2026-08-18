@@ -102,8 +102,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="preload" href="css/style.css?v=20260816" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.css?v=20260816"></noscript>
+<link rel="preload" href="css/style.css?v=20260818" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260818"></noscript>
 <title>中药材香料百科详细科普｜龙兄知识库</title>
 <meta name="keywords" content="中药材香料百科,实测溯源,避坑指南,图文科普,龙兄知识库">
 
@@ -342,7 +342,8 @@ var _hmt = _hmt || [];
     <div class="home-collapsible-body" id="autoNewsBody"></div>
   </div>
 
-<div class="herb-grid">
+<div class="section-title"><span class="icon">🌿</span><span>代表性药材</span></div>
+<div class="herb-grid" data-ac data-ac-items=".herb-card" data-ac-head=".section-title" data-ac-count="true">
     <a class="herb-card" href="herbs/chenxiang.html">
       <div class="emoji">🪵</div>
       <div class="name">沉香</div>
@@ -673,6 +674,7 @@ var _hmt = _hmt || [];
 
 <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
+<script defer src="js/auto-collapse.js"></script>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
 </body>

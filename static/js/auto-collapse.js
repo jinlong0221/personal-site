@@ -17,9 +17,9 @@
     var boards = document.querySelectorAll('[data-ac]');
     Array.prototype.forEach.call(boards, function (board) {
       var bodySel = board.getAttribute('data-ac-body');
-      if (!bodySel) return;
-      var body = board.querySelector(bodySel);
-      if (!body) return;
+      var body = bodySel ? board.querySelector(bodySel) : null;
+      if (bodySel && !body && board.matches(bodySel)) body = board; // body 即自身（无包裹模式）
+      if (!body) body = board;
 
       var itemSel = board.getAttribute('data-ac-items') || ':scope > *';
       var headSel = board.getAttribute('data-ac-head');
@@ -45,7 +45,15 @@
       board.classList.add('lx-ac');
       body.classList.add('lx-ac-body');
 
-      var head = headSel ? board.querySelector(headSel) : board.firstElementChild;
+      var head = null;
+      if (headSel) {
+        head = board.querySelector(headSel);
+        if (!head && board.previousElementSibling && board.previousElementSibling.matches &&
+            board.previousElementSibling.matches(headSel)) {
+          head = board.previousElementSibling; // 头部为前一个兄弟节点（无包裹模式）
+        }
+      }
+      if (!head) head = board.firstElementChild;
       if (!head) head = board;
       head.classList.add('lx-ac-head', 'lx-ac-head-click');
 

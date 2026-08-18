@@ -63,7 +63,7 @@
 }
 </script>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
-<link rel="stylesheet" href="css/style.css?v=20260816">
+<link rel="stylesheet" href="css/style.css?v=20260818">
 <style>
 .console-hero { text-align: center; padding: 48px 0 32px; }
 .console-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
@@ -318,7 +318,7 @@ var _hmt = _hmt || [];
     <span class="count">6个品牌</span>
   </div>
 
-  <div class="card-grid-console" style="margin-bottom:40px;">
+  <div class="card-grid-console" style="margin-bottom:40px;" data-ac data-ac-items=".card-console" data-ac-head=".section-header" data-ac-count="false">
     <a href="console-nintendo.html" class="card-console nintendo" style="text-decoration:none;">
       <img width="1206" height="658" fetchpriority="high" src="img/logos/nintendo-logo.webp" alt="Nintendo" style="height:40px;margin-bottom:12px;object-fit:contain;">
       <div class="card-title" style="font-size:1.3rem;">任天堂 Nintendo</div>
@@ -430,7 +430,12 @@ var _hmt = _hmt || [];
   </div>
 
   <!-- ===== 主机墙 ===== -->
-  <div class="card-grid-console" id="cfGrid">
+  <div class="section-header">
+    <span class="icon">🎮</span>
+    <h2>主机墙</h2>
+    <span class="count">69 款</span>
+  </div>
+  <div class="card-grid-console" id="cfGrid" data-ac data-ac-items=".card-console" data-ac-head=".section-header" data-ac-count="false">
     <a href="console-switch-2.html" class="card-console nintendo" data-brand="nintendo" data-type="home" data-year="2025" data-decade="2020" data-name="nintendo switch 2 任天堂" style="text-decoration:none;">
       <img width="600" height="338" src="img/consoles/switch-2.webp" alt="Nintendo Switch 2" class="card-console-img" loading="lazy">
   <span class="year-badge">2025</span>
@@ -1437,6 +1442,7 @@ var _hmt = _hmt || [];
 
 <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
+<script defer src="js/auto-collapse.js"></script>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
 </body>

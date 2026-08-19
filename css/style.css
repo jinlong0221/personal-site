@@ -4994,6 +4994,13 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
   border-bottom:1px solid var(--rule-soft);
   margin:6px 0 4px;
 }
+/* [BUG-FIX 2026-08-19] 刘海屏 safe-area 补偿：导航栏实际高度含 env(safe-area-inset-top)
+   （见上方 @supports 规则 .navbar{height:calc(var(--nav-height)+env(safe-area-inset-top))}），
+   搜索框 sticky 顶值必须同步加补偿，否则滚动时搜索框从 56px 处吸附、
+   直接插进导航栏下半部（56→103px），视觉上「搜索框挡住悬浮导航栏」。 */
+@supports (padding: env(safe-area-inset-top)) {
+  .lx-search-wrap { top: calc(var(--nav-height) + env(safe-area-inset-top)); }
+}
 .lx-search-wrap .home-search-box{ max-width:680px; margin:0 auto; }
 /* .home-search-* 输入框/按钮/清空样式已在 style.css 448-477 行定义，此处复用 */
 

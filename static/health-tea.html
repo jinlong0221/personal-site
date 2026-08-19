@@ -118,7 +118,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 /* ===== 养生茶页面专用样式 ===== */
 .tea-nav { display:flex; flex-wrap:wrap; gap:6px; margin:20px 0 8px; padding:12px; background:var(--dark-tile); border-radius:12px; position:sticky; top:68px; z-index:50; }
 [data-theme="light"] .tea-nav { background:#e8e8e3; }
-.tea-nav a { display:block; padding:6px 14px; border-radius:20px; font-size:13px; font-weight:700; text-decoration:none; color:var(--text); background:rgba(255,255,255,0.08); white-space:nowrap; transition:all .15s; }
+.tea-nav a { display:block; padding:6px 14px; border-radius:20px; font-size:14px; font-weight:700; text-decoration:none; color:var(--text); background:rgba(255,255,255,0.08); white-space:nowrap; transition:all .15s; }
 .tea-nav a:hover,.tea-nav a:active { background:var(--blue); color:#fff; }
 [data-theme="light"] .tea-nav a { background:rgba(0,0,0,0.06); }
 [data-theme="light"] .tea-nav a:hover { background:var(--blue); color:#fff; }
@@ -129,10 +129,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .recipe-card { background:var(--dark-tile); border-radius:12px; padding:16px; border-left:4px solid var(--blue); position:relative; }
 [data-theme="light"] .recipe-card { background:#fff; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
 .recipe-card .r-name { font-size:16px; font-weight:900; margin-bottom:6px; }
-.recipe-card .r-ingred { font-size:13px; color:var(--text-secondary); margin-bottom:8px; line-height:1.5; }
-.recipe-card .r-effect { font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:4px; }
-.recipe-card .r-note { font-size:12px; color:var(--orange); line-height:1.4; }
-.recipe-card .r-copy { position:absolute; top:12px; right:12px; font-size:12px; padding:3px 10px; border-radius:14px; background:rgba(255,255,255,0.08); cursor:pointer; border:none; color:var(--text); font-weight:700; transition:all .15s; }
+.recipe-card .r-ingred { font-size:14px; color:var(--text-secondary); margin-bottom:8px; line-height:1.5; }
+.recipe-card .r-effect { font-size:14px; color:var(--text-secondary); line-height:1.5; margin-bottom:4px; }
+.recipe-card .r-note { font-size:14px; color:var(--orange); line-height:1.4; }
+.recipe-card .r-copy { position:absolute; top:12px; right:12px; font-size:14px; padding:3px 10px; border-radius:14px; background:rgba(255,255,255,0.08); cursor:pointer; border:none; color:var(--text); font-weight:700; transition:all .15s; }
 .recipe-card .r-copy:active { background:var(--blue); color:#fff; }
 [data-theme="light"] .recipe-card .r-copy { background:rgba(0,0,0,0.06); }
 
@@ -141,14 +141,14 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .ingred-item { background:var(--dark-tile); border-radius:10px; padding:12px; text-align:center; }
 [data-theme="light"] .ingred-item { background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
 .ingred-item .i-name { font-weight:900; font-size:15px; }
-.ingred-item .i-xing { font-size:12px; color:var(--text-secondary); }
-.ingred-item .i-gong { font-size:12px; color:var(--text-secondary); margin-top:4px; }
+.ingred-item .i-xing { font-size:14px; color:var(--text-secondary); }
+.ingred-item .i-gong { font-size:14px; color:var(--text-secondary); margin-top:4px; }
 
 /* 四季方案 */
 .season-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; margin:16px 0; }
 .season-card { padding:16px; border-radius:12px; text-align:center; font-weight:900; font-size:15px; color:#fff; }
 .season-card .s-icon { font-size:28px; display:block; margin-bottom:4px; }
-.season-card .s-recipe { font-size:12px; opacity:0.9; margin-top:4px; font-weight:400; }
+.season-card .s-recipe { font-size:14px; opacity:0.9; margin-top:4px; font-weight:400; }
 .season-spring { background:linear-gradient(135deg,#f48fb1,#ce93d8); }
 .season-summer { background:linear-gradient(135deg,#ff8a65,#ffb74d); }
 .season-autumn { background:linear-gradient(135deg,#81d4fa,#4dd0e1); }
@@ -159,16 +159,16 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .constitution-card { background:var(--dark-tile); border-radius:12px; padding:14px; }
 [data-theme="light"] .constitution-card { background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
 .constitution-card .c-type { font-weight:900; font-size:15px; margin-bottom:4px; }
-.constitution-card .c-desc { font-size:13px; color:var(--text-secondary); margin-bottom:4px; }
-.constitution-card .c-rec { font-size:12px; color:var(--green); }
-.constitution-card .c-ban { font-size:12px; color:var(--orange); }
+.constitution-card .c-desc { font-size:14px; color:var(--text-secondary); margin-bottom:4px; }
+.constitution-card .c-rec { font-size:14px; color:var(--green); }
+.constitution-card .c-ban { font-size:14px; color:var(--orange); }
 
 /* 手机端：配方分类标题 stick */
 .cat-header { font-size:18px; font-weight:900; margin:24px 0 8px; padding-bottom:8px; border-bottom:2px solid var(--blue); display:flex; align-items:center; gap:8px; scroll-margin-top:130px; }
 
 @media(max-width:600px){
   .tea-nav { top:62px; margin:16px -4px; border-radius:10px; padding:10px; gap:4px; }
-  .tea-nav a { font-size:12px; padding:5px 10px; }
+  .tea-nav a { font-size:14px; padding:5px 10px; }
   .recipe-grid { grid-template-columns:1fr; gap:10px; }
   .ingred-grid { grid-template-columns:repeat(2,1fr); gap:6px; }
   .season-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
@@ -188,7 +188,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 [data-theme="light"] .symptom-quick { background:#fff; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
 .symptom-quick .sq-title { font-size:15px; font-weight:900; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
 .symptom-quick .sq-tags { display:flex; flex-wrap:wrap; gap:8px; }
-.symptom-quick .sq-tag { display:inline-flex; align-items:center; gap:4px; padding:7px 16px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; background:rgba(255,255,255,0.08); color:var(--text); border:none; transition:all .2s; white-space:nowrap; }
+.symptom-quick .sq-tag { display:inline-flex; align-items:center; gap:4px; padding:7px 16px; border-radius:20px; font-size:14px; font-weight:700; cursor:pointer; background:rgba(255,255,255,0.08); color:var(--text); border:none; transition:all .2s; white-space:nowrap; }
 [data-theme="light"] .symptom-quick .sq-tag { background:rgba(0,0,0,0.06); }
 .symptom-quick .sq-tag:hover,.symptom-quick .sq-tag:active { transform:translateY(-2px); }
 .symptom-quick .sq-tag:active { transform:scale(0.95); }
@@ -478,7 +478,7 @@ var _hmt = _hmt || [];
       <div class="recipe-card" style="border-left-color:var(--teal);"><button class="r-copy" onclick="copyText(this)" data-text="百合车前茶：百合15g、车前子10g（包煎）、知母5g。煮20分钟。滋阴清热利尿排酸，痛风反复发作肾阴不足。">📋 复制</button><div class="r-name">百合车前茶</div><div class="r-ingred">百合 15g · 车前子 10g（包煎）· 知母 5g</div><div class="r-effect">滋阴清热，利尿排酸。适用痛风反复发作、肾阴不足、口干</div><div class="r-note">⚠️ 百合含秋水仙碱微量，对痛风有益。车前子需纱布包煎</div></div>
       <div class="recipe-card" style="border-left-color:var(--teal);"><button class="r-copy" onclick="copyText(this)" data-text="樱桃柠檬茶：新鲜车厘子10颗（或干樱桃5g）、柠檬2片。泡水饮用，可加蜂蜜。富含花青素抗炎止痛，痛风急性期辅助缓解。">📋 复制</button><div class="r-name">樱桃柠檬茶</div><div class="r-ingred">新鲜车厘子 10 颗（或干樱桃 5g）· 柠檬 2 片</div><div class="r-effect">富含花青素与维C，抗炎止痛，降低尿酸。急性期可辅助缓解</div><div class="r-note">💡 最温和的痛风茶饮，所有体质均可饮用。车厘子优于樱桃</div></div>
     </div>
-    <div class="info-box" style="margin:8px 0 16px;padding:12px 16px;border-radius:10px;background:var(--dark-tile);font-size:13px;color:var(--text-secondary);">
+    <div class="info-box" style="margin:8px 0 16px;padding:12px 16px;border-radius:10px;background:var(--dark-tile);font-size:14px;color:var(--text-secondary);">
       <p><strong>🦶 痛风茶饮要点：</strong></p>
       <ul style="padding-left:16px;margin:4px 0;line-height:1.6;">
         <li>间歇期（不疼时）以利湿排酸为主，可长期饮用土茯苓玉米须茶</li>
@@ -552,7 +552,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：中医典籍《本草纲目》《金匮要略》《药典》· 国家卫健委药食同源目录 · 整理自网络公开资料</div>
     <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
-    <div class="update-time">最后更新时间：2026-07-07</div>
+    <div class="update-time">最后更新时间：2026-08-19</div>
   </div>
 </div>
 

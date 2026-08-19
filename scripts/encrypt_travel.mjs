@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * encrypt_travel.mjs — 旅行板块真加密（方案 B，单包架构）
+ * encrypt_travel.mjs — 旅行板块真加密（方案 B，分片架构 + 渐进式渲染）
  *
  * 仅在 CI 设置 Secret TRAVEL_KEY 时运行；脚本内部判断，无密钥则直接跳过。
  * 跳过时不改动任何文件，因此每日自动更新流水线不会受影响。
@@ -241,6 +241,10 @@ function buildGate(blobB64, saltB64, nShards) {
   </div>
 </div>
 <div id="tlContent" data-pagefind-ignore></div>
+<div id="tlProgress" class="tl-prog" hidden>
+  <span id="tlProgTxt">相册加载中…</span>
+  <div class="tl-prog-bar"><div id="tlProgFill"></div></div>
+</div>
 <div id="tlGate" class="tl-gate">
   <div class="tl-gate-card">
     <div class="tl-gate-lock" aria-hidden="true">🔒</div>
@@ -271,6 +275,11 @@ function buildGate(blobB64, saltB64, nShards) {
 .tl-lb-bar{display:flex;gap:10px}
 .tl-lb-btn{padding:9px 16px;border:1px solid rgba(255,255,255,.28);border-radius:10px;background:rgba(28,28,32,.92);color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
 .tl-lb-btn:hover{border-color:#D8B25E;color:#fff}
+.tl-prog{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:10001;background:rgba(16,16,20,.94);border:1px solid #322b20;border-radius:12px;padding:10px 16px;min-width:220px;max-width:86vw;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.tl-prog[hidden]{display:none}
+.tl-prog span{display:block;color:#EDE6D6;font-size:.85rem;margin-bottom:7px;text-align:center}
+.tl-prog-bar{height:5px;background:#26242a;border-radius:99px;overflow:hidden}
+.tl-prog-fill{height:100%;width:0;background:#C9A84C;border-radius:99px;transition:width .4s ease}
 </style>
 <script>
 (function(){
@@ -325,7 +334,10 @@ function buildGate(blobB64, saltB64, nShards) {
     return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()
       .then(function(b){ return new Uint8Array(b); });
   }
-  var tlUrls=null; // rel → BlobURL 字典（全部片加载完成后一次性建立，页面生命周期内有效）
+  var tlUrls={};   // rel → BlobURL 字典（逐片合并；页面生命周期内有效）
+  var tlDone=0;    // 已处理（成功或失败）片数，驱动进度条
+  var tlOk=0;      // 成功加载片数
+  var tlMissing={}; // 最终仍缺失的照片 rel（rel → true）
   // 解析相册分片：解密 + gunzip 后为 magic "TLPK"(4B) + manifestLen(4B,BE) + manifest JSON + 照片数据区
   function parseAlbum(pt){
     var dv=new DataView(pt.buffer,pt.byteOffset,pt.byteLength);
@@ -340,37 +352,82 @@ function buildGate(blobB64, saltB64, nShards) {
     }
     return map;
   }
-  // 并行拉取全部相册分片（浏览器自动控制并发；单片失败只影响该片，其余照常渲染）
-  function loadAllShards(key){
-    var tasks=[];
-    for(var i=1;i<=ALBUM_COUNT;i++){
-      tasks.push(fetchWithRetry("img/travel/album-"+i+".tlpk",5,30000)
-        .then(function(r){return r.arrayBuffer();})
-        .then(function(buf){ return decBytes(key,new Uint8Array(buf)); })
-        .then(gunzipBytes)
-        .then(parseAlbum)
-        .catch(function(e){ console.error("分片加载失败（已重试 5 次）album-"+i+".tlpk", e); return null; }));
-    }
-    return Promise.all(tasks);
+  // —— 渐进式分片加载（2026-08-19 第三轮改造：边下边渲染 + 加载进度条）——
+  // 教训：v2 并发 20 片虽把失败率从 32% 降到 2.5%，但「全部片加载完才渲染」导致
+  // 用户解锁后干等 2+ 分钟看不到照片。本版：
+  //   a) 并发窗口 2：链路带宽仅 ~40-50KB/s，6+ 并发共享带宽会使单片下载逼近 30s 超时
+  //      误触发重试；2 并发单片稳定 ~11s，且第一张照片 ~11s 内即可见；
+  //   b) 每片完成立即合并 tlUrls 并 renderAll()（渲染器移除 data-enc 属性，天然幂等）；
+  //   c) 进度条实时显示 X/20 片，全部完成自动隐藏；失败片重试 5 次后仍失败则记录并提示。
+  function loadShard(key,i){
+    return fetchWithRetry("img/travel/album-"+i+".tlpk",5,30000)
+      .then(function(r){return r.arrayBuffer();})
+      .then(function(buf){ return decBytes(key,new Uint8Array(buf)); })
+      .then(gunzipBytes)
+      .then(parseAlbum)
+      .then(function(map){
+        tlOk++;
+        for(var k in map) tlUrls[k]=map[k];
+      })
+      .catch(function(e){
+        console.error("分片加载失败（已重试 5 次）album-"+i+".tlpk", e);
+      })
+      .then(function(){
+        tlDone++;
+        renderAll(); // 合并最新片后立即渲染所有待渲染照片（幂等）
+        progressUI();
+        if(tlDone>=ALBUM_COUNT) finishUI();
+      });
   }
-  // 一次性渲染全部照片 + 绑定大图灯箱（数据全在内存，零网络请求）
+  function loadShardsProgressive(key){
+    var idx=0;
+    function next(){
+      if(idx>=ALBUM_COUNT) return;
+      var i=++idx;
+      loadShard(key,i).then(next,next); // 无论单片成败都继续调度下一片
+    }
+    for(var w=0;w<Math.min(2,ALBUM_COUNT);w++) next();
+  }
+  function progressUI(){
+    var txt=document.getElementById("tlProgTxt");
+    var fill=document.getElementById("tlProgFill");
+    if(!txt||!fill) return;
+    txt.textContent="相册加载中… "+tlDone+"/"+ALBUM_COUNT+" 片";
+    fill.style.width=Math.round(tlDone/ALBUM_COUNT*100)+"%";
+  }
+  function finishUI(){
+    var p=document.getElementById("tlProgress");
+    var txt=document.getElementById("tlProgTxt");
+    var fill=document.getElementById("tlProgFill");
+    if(!p||!txt||!fill) return;
+    var missing=Object.keys(tlMissing);
+    if(tlOk<ALBUM_COUNT||missing.length){
+      txt.textContent="相册加载完成："+tlOk+"/"+ALBUM_COUNT+" 片，"+(missing.length||"部分")+" 张照片暂不可用，请刷新重试";
+      fill.style.width="100%";
+    } else {
+      txt.textContent="相册已全部加载完成";
+      fill.style.width="100%";
+      setTimeout(function(){ p.hidden=true; },1500); // 全部成功，稍后自动隐藏
+    }
+  }
+  // 渲染所有已就绪照片 + 绑定大图灯箱（幂等：已渲染的 img 已移除 data-enc，不会重复处理）
   function renderAll(){
     var imgs=document.querySelectorAll("#tlContent img[data-enc]");
-    var fail=0;
     for(var i=0;i<imgs.length;i++){
       var img=imgs[i],rel=img.getAttribute("data-enc");
       var url=tlUrls[rel];
-      if(url){ img.removeAttribute("loading"); img.src=url; img.removeAttribute("data-enc"); }
-      else { fail++; console.error("相册缺少照片", rel); }
+      if(url){ img.removeAttribute("loading"); img.src=url; img.removeAttribute("data-enc"); delete tlMissing[rel]; }
+      else if(rel){ tlMissing[rel]=true; }
     }
     var as=document.querySelectorAll("#tlContent a[data-enc-href]");
     for(var i=0;i<as.length;i++){
       var a=as[i];
       var rel=a.getAttribute("data-enc-href");
-      a.removeAttribute("data-enc-href");
-      (function(rel,a){ a.addEventListener("click",function(e){ e.preventDefault(); openLightbox(rel); }); })(rel,a);
+      if(rel && tlUrls[rel]){
+        a.removeAttribute("data-enc-href");
+        (function(rel,a){ a.addEventListener("click",function(e){ e.preventDefault(); openLightbox(rel); }); })(rel,a);
+      }
     }
-    return fail;
   }
   // 画廊「点开看大图」：直接使用已解密的 Blob URL（零网络、零解密延迟）
   var lb=document.getElementById("tlLightbox");
@@ -388,7 +445,8 @@ function buildGate(blobB64, saltB64, nShards) {
   document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !lb.hidden) closeLightbox(); });
   // 「在新标签页打开」在点击同步瞬间触发，保留 user activation，不会被弹窗拦截
   lbNew.addEventListener("click",function(){ var rel=lbImg.getAttribute("data-rel"); if(rel&&tlUrls[rel]) window.open(tlUrls[rel],"_blank","noopener"); });
-  // 解锁：解密内容 BLOB → 渲染 HTML → 并行拉取全部相册分片 → 解密+gunzip → 全部照片立即可用
+  // 解锁：解密内容 BLOB → 立即渲染页面骨架 + 移除密码门 + 显示进度条 → 渐进式加载相册分片
+  // （照片随分片到达逐张显示，无需等全部加载完）
   function unlock(){
     var err=document.getElementById("tlErr"); err.hidden=true;
     var pw=document.getElementById("tlPw").value;
@@ -396,16 +454,13 @@ function buildGate(blobB64, saltB64, nShards) {
       return decBytes(key,b64ToU8(BLOB)).then(function(u){return gunzip(u);}).then(function(html){
         var c=document.getElementById("tlContent");
         c.innerHTML=html; reRun(c);
-        return loadAllShards(key);
-      }).then(function(maps){
-        tlUrls={};
-        var loadedShards=0;
-        for(var i=0;i<maps.length;i++){
-          if(maps[i]){ loadedShards++; for(var k in maps[i]) tlUrls[k]=maps[i][k]; }
-        }
-        var fail=renderAll();
         var g=document.getElementById("tlGate"); if(g) g.remove();
-        console.log("相册分片加载完成："+loadedShards+"/"+ALBUM_COUNT+" 片，照片渲染缺失 "+fail+" 张");
+        tlUrls={}; tlDone=0; tlOk=0; tlMissing={};
+        if(ALBUM_COUNT>0){
+          var p=document.getElementById("tlProgress"); if(p) p.hidden=false;
+          progressUI();
+          loadShardsProgressive(key);
+        }
       });
     }).catch(function(e){ err.hidden=false; console.error("解锁失败", e); });
   }

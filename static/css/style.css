@@ -5009,10 +5009,10 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 
 /* [需求4] 通用模块外壳 */
 .lx-mod{ margin:30px 0 6px; }
-.lx-mod-hd{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.lx-mod-hd{ display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
 .lx-mod-no{ font-size:1.1rem; color:var(--gold); flex:0 0 auto; }
 .lx-mod-title{ font-family:var(--brush); font-size:clamp(20px,5vw,26px); letter-spacing:3px; color:var(--tx); margin:0; line-height:1; flex:0 0 auto; }
-.lx-mod-sub{ font-size:.78rem; color:var(--tx-3); letter-spacing:1px; }
+.lx-mod-sub{ font-size:.78rem; color:var(--tx-3); letter-spacing:1px; min-width:0; }
 
 /* 模块一 · 今日更新（占位 8 条：标题 / 更新时间 / 简短摘要） */
 .upd-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
@@ -5064,6 +5064,8 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
   .upd-grid,.hot-grid,.sheyang-grid{ grid-template-columns:1fr; }
   .lx-search-wrap{ padding:12px 0 10px; }
   .lx-mod-title{ font-size:20px; }
+  .lx-mod-sub{ flex:1 1 100%; order:99; font-size:.72rem; margin-top:2px; padding-left:calc(1.1rem + 10px); }
+  .lx-ac-head.lx-ac-head-click{ margin-left:auto; }
   .lx-divider{ margin:24px 0; }
 }
 

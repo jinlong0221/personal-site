@@ -134,6 +134,7 @@ async function main() {
   const imgDir = join(PUBLIC, 'img', 'travel');
   let nPhotos = 0;
   let nShards = 0;
+  let shardIdx = {}; // photoRel → shardNum，嵌入 BLOB 供浏览器端 IO 懒加载
   let salt;
   let key;
   if (existsSync(imgDir)) {
@@ -177,6 +178,7 @@ async function main() {
         mkdirSync(dirname(shardFile), { recursive: true });
         writeFileSync(shardFile, blob);
         console.log(`[encrypt_travel] 片 ${s + 1}/${shards.length}: ${sh.manifest.length} 张（${(sh.bytes / 1024).toFixed(0)}KB 明文 → ${(blob.byteLength / 1024).toFixed(0)}KB 密文）`);
+        for (const m of sh.manifest) { shardIdx[m.rel] = s + 1; }
       }
       // 删除明文照片
       for (const f of photos) rmSync(f);
@@ -201,8 +203,9 @@ async function main() {
     .replace(PHOTO_RE, (_m, p1) => `data-enc="${p1.replace(/^img\/travel\//, '')}"`)
     .replace(HREF_RE, (_m, p1) => `data-enc-href="${p1.replace(/^img\/travel\//, '')}"`);
 
-  // —— 3. 内容 gzip + AES-GCM 加密 ——
-  const gz = gzipSync(Buffer.from(contentRewritten, 'utf8'));
+  // —— 3. 内容 gzip + AES-GCM 加密（注入分片索引供浏览器端 IO 懒加载）——
+  const idxScript = '<script>window.__tlShardIdx=' + JSON.stringify(shardIdx) + ';<\/script>';
+  const gz = gzipSync(Buffer.from(idxScript + contentRewritten, 'utf8'));
   const blob = await encryptBytes(key, new Uint8Array(gz));
   const blobB64 = b64(blob);
   const saltB64 = b64(salt);
@@ -338,6 +341,14 @@ function buildGate(blobB64, saltB64, nShards) {
   var tlDone=0;    // 已处理（成功或失败）片数，驱动进度条
   var tlOk=0;      // 成功加载片数
   var tlMissing={}; // 最终仍缺失的照片 rel（rel → true）
+  // —— 懒加载状态（2026-08-19 第四轮：IO 按需加载 + 并发 3 + 密码聚焦预取）——
+  var currentKey=null;
+  var loadedShards={};   // shardNum → true
+  var loadingShards={};  // shardNum → true
+  var pendingShards=[];  // 待加载分片队列
+  var bgStarted=false;   // 后台预取剩余分片是否已启动
+  var MAX_CONCURRENT=3;  // 并发窗口（v3 的 2→3：照片降质后分片更小，3 并发更稳）
+  var preFetched={};     // shardNum → ArrayBuffer（密码聚焦时预取的原始密文字节）
   // 解析相册分片：解密 + gunzip 后为 magic "TLPK"(4B) + manifestLen(4B,BE) + manifest JSON + 照片数据区
   function parseAlbum(pt){
     var dv=new DataView(pt.buffer,pt.byteOffset,pt.byteLength);
@@ -352,41 +363,112 @@ function buildGate(blobB64, saltB64, nShards) {
     }
     return map;
   }
-  // —— 渐进式分片加载（2026-08-19 第三轮改造：边下边渲染 + 加载进度条）——
-  // 教训：v2 并发 20 片虽把失败率从 32% 降到 2.5%，但「全部片加载完才渲染」导致
-  // 用户解锁后干等 2+ 分钟看不到照片。本版：
-  //   a) 并发窗口 2：6+ 并发共享带宽会使单片下载逼近 120s 超时上限；2 并发更稳，
-  //      且第一张照片通常可在 ~10-30s 内可见（视链路冷启动速度）；
-  //   b) 每片完成立即合并 tlUrls 并 renderAll()（渲染器移除 data-enc 属性，天然幂等）；
-  //   c) 进度条实时显示 X/20 片，全部完成自动隐藏；失败片重试 5 次后仍失败则记录并提示。
+  // —— IO 懒加载分片体系（2026-08-19 第四轮改造）——
+  // 核心改进：
+  //   a) IntersectionObserver：只加载视口内可见照片所属的分片，折叠区不下载；
+  //   b) 并发窗口 3：照片降质后分片更小（~170KB），3 并发吞吐更高且不超时；
+  //   c) 密码聚焦预取：用户输入密码时并行下载前 2 片密文，解锁后直接解密；
+  //   d) 后台补全：可见分片加载完后自动后台拉取剩余分片，展开折叠区时零等待。
   function loadShard(key,i){
-    return fetchWithRetry("img/travel/album-"+i+".tlpk",5,120000)
-      .then(function(r){return r.arrayBuffer();})
+    var fetchPromise;
+    if(preFetched[i]){
+      fetchPromise=Promise.resolve(preFetched[i]);
+      preFetched[i]=null;
+    } else {
+      fetchPromise=fetchWithRetry("img/travel/album-"+i+".tlpk",5,120000).then(function(r){return r.arrayBuffer();});
+    }
+    return fetchPromise
       .then(function(buf){ return decBytes(key,new Uint8Array(buf)); })
       .then(gunzipBytes)
       .then(parseAlbum)
       .then(function(map){
         tlOk++;
+        loadedShards[i]=true;
         for(var k in map) tlUrls[k]=map[k];
       })
       .catch(function(e){
         console.error("分片加载失败（已重试 5 次）album-"+i+".tlpk", e);
       })
       .then(function(){
+        delete loadingShards[i];
         tlDone++;
-        renderAll(); // 合并最新片后立即渲染所有待渲染照片（幂等）
+        renderAll();
         progressUI();
+        if(pendingShards.length>0) scheduleShards();
+        if(pendingShards.length===0 && Object.keys(loadingShards).length===0 && !bgStarted){
+          bgStarted=true;
+          backgroundLoadRemaining();
+        }
         if(tlDone>=ALBUM_COUNT) finishUI();
       });
   }
-  function loadShardsProgressive(key){
-    var idx=0;
-    function next(){
-      if(idx>=ALBUM_COUNT) return;
-      var i=++idx;
-      loadShard(key,i).then(next,next); // 无论单片成败都继续调度下一片
+  function scheduleShards(){
+    var loadingCount=0;
+    for(var k in loadingShards){ if(loadingShards[k]) loadingCount++; }
+    while(loadingCount<MAX_CONCURRENT && pendingShards.length>0){
+      var sn=pendingShards.shift();
+      if(loadedShards[sn]||loadingShards[sn]) continue;
+      loadingShards[sn]=true;
+      loadShard(currentKey,sn);
+      loadingCount++;
     }
-    for(var w=0;w<Math.min(2,ALBUM_COUNT);w++) next();
+  }
+  function requestShard(shardNum){
+    if(loadedShards[shardNum]||loadingShards[shardNum]) return;
+    for(var i=0;i<pendingShards.length;i++){ if(pendingShards[i]===shardNum) return; }
+    pendingShards.push(shardNum);
+    scheduleShards();
+  }
+  function backgroundLoadRemaining(){
+    for(var i=1;i<=ALBUM_COUNT;i++){
+      if(!loadedShards[i]&&!loadingShards[i]){
+        var inQueue=false;
+        for(var j=0;j<pendingShards.length;j++){ if(pendingShards[j]===i){inQueue=true;break;} }
+        if(!inQueue) pendingShards.push(i);
+      }
+    }
+    scheduleShards();
+  }
+  function setupLazyLoad(key){
+    currentKey=key;
+    var idx=window.__tlShardIdx||{};
+    if(!('IntersectionObserver' in window)||Object.keys(idx).length===0){
+      // 不支持 IO 或无索引：回退到全量加载
+      for(var i=1;i<=ALBUM_COUNT;i++) pendingShards.push(i);
+      scheduleShards();
+      return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        if(entries[i].isIntersecting){
+          var img=entries[i].target;
+          var rel=img.getAttribute('data-enc');
+          if(rel&&idx[rel]) requestShard(idx[rel]);
+          io.unobserve(img);
+        }
+      }
+    },{rootMargin:'300px'});
+    var imgs=document.querySelectorAll('#tlContent img[data-enc]');
+    for(var i=0;i<imgs.length;i++) io.observe(imgs[i]);
+    // 折叠展开时手动触发可见检查（IO 对 display:none→block 的检测有延迟）
+    var heads=document.querySelectorAll('#tlContent .tl-trip-head, #tlContent .tl-visit-head');
+    for(var h=0;h<heads.length;h++){
+      heads[h].addEventListener('click',function(){
+        setTimeout(function(){
+          var vis=document.querySelectorAll('#tlContent img[data-enc]');
+          for(var i=0;i<vis.length;i++){
+            var rel=vis[i].getAttribute('data-enc');
+            if(rel&&idx[rel]) requestShard(idx[rel]);
+          }
+        },50);
+      });
+    }
+    // 2 秒后若无分片被请求，加载前 3 片（保险）
+    setTimeout(function(){
+      if(Object.keys(loadedShards).length===0&&Object.keys(loadingShards).length===0&&pendingShards.length===0){
+        for(var i=1;i<=Math.min(3,ALBUM_COUNT);i++) requestShard(i);
+      }
+    },2000);
   }
   function progressUI(){
     var txt=document.getElementById("tlProgTxt");
@@ -445,8 +527,23 @@ function buildGate(blobB64, saltB64, nShards) {
   document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !lb.hidden) closeLightbox(); });
   // 「在新标签页打开」在点击同步瞬间触发，保留 user activation，不会被弹窗拦截
   lbNew.addEventListener("click",function(){ var rel=lbImg.getAttribute("data-rel"); if(rel&&tlUrls[rel]) window.open(tlUrls[rel],"_blank","noopener"); });
-  // 解锁：解密内容 BLOB → 立即渲染页面骨架 + 移除密码门 + 显示进度条 → 渐进式加载相册分片
-  // （照片随分片到达逐张显示，无需等全部加载完）
+  // —— 密码框聚焦时预取前 2 片原始密文（网络与用户输入时间重叠，省 3-5s）——
+  var pwEl=document.getElementById("tlPw");
+  if(pwEl){
+    pwEl.addEventListener("focus",function(){
+      for(var i=1;i<=Math.min(2,ALBUM_COUNT);i++){
+        if(!preFetched[i]){
+          (function(sn){
+            fetchWithRetry("img/travel/album-"+sn+".tlpk",5,120000)
+              .then(function(r){return r.arrayBuffer();})
+              .then(function(buf){ preFetched[sn]=buf; })
+              .catch(function(){/* 解锁后正常加载会重试 */});
+          })(i);
+        }
+      }
+    });
+  }
+  // 解锁：解密内容 BLOB → 立即渲染页面骨架 + 移除密码门 → IO 懒加载可见照片分片
   function unlock(){
     var err=document.getElementById("tlErr"); err.hidden=true;
     var pw=document.getElementById("tlPw").value;
@@ -456,10 +553,11 @@ function buildGate(blobB64, saltB64, nShards) {
         c.innerHTML=html; reRun(c);
         var g=document.getElementById("tlGate"); if(g) g.remove();
         tlUrls={}; tlDone=0; tlOk=0; tlMissing={};
+        loadedShards={}; loadingShards={}; pendingShards=[]; bgStarted=false;
         if(ALBUM_COUNT>0){
           var p=document.getElementById("tlProgress"); if(p) p.hidden=false;
           progressUI();
-          loadShardsProgressive(key);
+          setupLazyLoad(key);
         }
       });
     }).catch(function(e){ err.hidden=false; console.error("解锁失败", e); });

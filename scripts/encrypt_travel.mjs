@@ -309,14 +309,14 @@ function buildGate(blobB64, saltB64, nShards) {
     if(s.endsWith(".avif")) return "image/avif";
     return "image/webp";
   }
-  // 带超时 + 指数退避重试的 fetch：相册分片片级加载（每片 ≤300KB，与站内已验证稳定的
-  // 380KB 文件同量级）。2026-08-19 两轮实测结论：a) 逐张 .enc 31 次请求必有偶发失败；
-  // b) 单包 4.2MB 因链路带宽 ~40-50KB/s 传输超时（60s 仅传 1/4）。故每片独立 fetch：
-  // 30s 超时 + 5 次退避（0.6s/1.2s/1.8s/2.4s），单片失败可单独重试，互不阻塞。
+  // 带超时 + 指数退避重试的 fetch：相册分片片级加载（每片 ≤300KB）。
+  // 2026-08-19 实测：GitHub Pages 链路速度波动大，album-1（~327KB）时而 45KB/s、
+  // 时而冷启动仅 6-12KB/s，原 30s 超时会让大分片反复超时，进度卡在 0/20。
+  // 故每片独立 fetch：120s 超时 + 5 次退避（0.6s/1.2s/1.8s/2.4s/3.0s），单片失败可单独重试。
   // 硬错误（HTTP 4xx/5xx，如文件确实不存在）不重试。
   function fetchWithRetry(url, tries, timeoutMs){
     var ctrl=(typeof AbortController!=="undefined")?new AbortController():null;
-    var timer=ctrl?setTimeout(function(){ctrl.abort();}, timeoutMs||30000):null;
+    var timer=ctrl?setTimeout(function(){ctrl.abort();}, timeoutMs||120000):null;
     var p=fetch(url, ctrl?{signal:ctrl.signal}:{});
     var done=p.then(function(r){
       if(!r.ok) return Promise.reject(Object.assign(new Error("HTTP "+r.status),{http:true}));
@@ -355,12 +355,12 @@ function buildGate(blobB64, saltB64, nShards) {
   // —— 渐进式分片加载（2026-08-19 第三轮改造：边下边渲染 + 加载进度条）——
   // 教训：v2 并发 20 片虽把失败率从 32% 降到 2.5%，但「全部片加载完才渲染」导致
   // 用户解锁后干等 2+ 分钟看不到照片。本版：
-  //   a) 并发窗口 2：链路带宽仅 ~40-50KB/s，6+ 并发共享带宽会使单片下载逼近 30s 超时
-  //      误触发重试；2 并发单片稳定 ~11s，且第一张照片 ~11s 内即可见；
+  //   a) 并发窗口 2：6+ 并发共享带宽会使单片下载逼近 120s 超时上限；2 并发更稳，
+  //      且第一张照片通常可在 ~10-30s 内可见（视链路冷启动速度）；
   //   b) 每片完成立即合并 tlUrls 并 renderAll()（渲染器移除 data-enc 属性，天然幂等）；
   //   c) 进度条实时显示 X/20 片，全部完成自动隐藏；失败片重试 5 次后仍失败则记录并提示。
   function loadShard(key,i){
-    return fetchWithRetry("img/travel/album-"+i+".tlpk",5,30000)
+    return fetchWithRetry("img/travel/album-"+i+".tlpk",5,120000)
       .then(function(r){return r.arrayBuffer();})
       .then(function(buf){ return decBytes(key,new Uint8Array(buf)); })
       .then(gunzipBytes)

@@ -8,19 +8,21 @@
  * 流程：
  *   1. 从 public/travel.html 抽取 <div id="tlWrap" data-tl-wrap> ... </div> 内的私密内容
  *      （含 <main> 相册、页脚、JSON-LD、PAGEJS 交互逻辑）。
- *   2. 遍历 public/img/travel/** 下所有照片，打包为一个 album.tlpk.enc（magic "TLPK" +
- *      manifest JSON + 全部照片字节，整体 AES-GCM 加密），删除明文。
- *   3. 把内容里 img 的 src 改写为 data-enc="相对路径"（作为相册包 manifest 的 key）。
+ *   2. 遍历 public/img/travel/** 下所有照片，按大小贪心分片（每片 ≤300KB），每片打包为
+ *      album-N.tlpk（magic "TLPK" + manifest JSON + 照片字节 → gzip → AES-GCM），删除明文。
+ *   3. 把内容里 img 的 src 改写为 data-enc="相对路径"（作为分片 manifest 的 key）。
  *   4. 内容 gzip + AES-GCM 加密，base64 内嵌进「密码门外壳页」。
  *   5. travel.html 重写为：导航正常 + 密码门 + 解密注入容器 + 解密脚本；
  *      注入 <meta name="robots" content="noindex">、<body data-pagefind-ignore>。
  *   6. 删除 public/data/travel.json（明文私有数据，运行时已烘焙进 HTML，不需要）。
  *
- * 单包架构动机（2026-08-19 根治）：
- *   旧方案每张照片独立 .enc，解锁瞬间浏览器并发 fetch 31 个文件；CDN 边缘节点对 .enc
- *   偶发连接超时（实测 3-6%），任一失败即个别照片永久缺图——补丁式重试治标不治本。
- *   单包方案把 31 次网络请求合并为 1 次：一次成功 = 全部照片可用，从架构上根除
- *   “部分照片不显示”。浏览器端 fetch 带 30s 超时 + 5 次指数退避重试，成功率 ~99.99%。
+ * 分片架构动机（2026-08-19 两轮实测根治）：
+ *   a) 逐张 .enc（31 次请求）：每次请求都有 CDN 偶发失败概率，31 次中必有失败 → 个别照片永久缺图；
+ *   b) 单包 album.tlpk.enc（1 次请求，4.2MB）：访问 GitHub Pages CDN 的链路带宽仅 ~40-50KB/s，
+ *      实测 380KB webp 稳定 8-24s，4.2MB 单文件 60s 只传完 1/4 → 大文件传输超时，同样不可行。
+ *   结论：任何单文件必须 ≤300KB（与站内已验证稳定的 380KB 同量级）。分片方案把网络请求从
+ *   31 次降到 ~14 次、每片 300KB 级，片级独立 fetch（30s 超时 + 5 次指数退避重试），
+ *   单片失败只影响该片、可单独重试，从架构上根除“部分照片不显示”。
  *
  * 密码学：Node WebCrypto (AES-GCM 256 + PBKDF2 SHA-256, 1M iters)，
  *         与浏览器 crypto.subtle 字节级一致，解密逻辑在浏览器端复用同一套原语。
@@ -119,52 +121,68 @@ async function main() {
 
   const content = html.slice(oi + openTag.length, cdi);
 
-  // —— 1. 加密所有旅行照片（单包架构：打包成一个 album.tlpk.enc，浏览器一次请求全量加载）——
-  // 历史教训（2026-08-19）：旧方案逐张 .enc 各自加密，解锁瞬间浏览器并发 fetch 31 个文件，
-  // CDN 边缘节点对 .enc 偶发连接超时（实测 3-6%），任一失败即个别照片永久缺图，补丁式重试治标不治本。
-  // 单包方案把 31 次网络请求合并为 1 次：一次成功 = 全部照片可用，从架构上根除“部分照片不显示”。
+  // —— 1. 加密所有旅行照片（分片包架构：每片 ≤300KB，浏览器分片 fetch，片级独立重试）——
+  // 历史教训（2026-08-19，两轮实测结论）：
+  //   a) 逐张 .enc（31 次请求）：每次请求都有 CDN 偶发失败概率，31 次中必有失败 → 个别照片永久缺图；
+  //   b) 单包 album.tlpk.enc（1 次请求，4.2MB）：访问 GitHub Pages CDN 的链路带宽仅 ~40-50KB/s，
+  //      实测 380KB webp 稳定 8-24s，4.2MB 单文件 60s 只传完 1/4 → 大文件传输超时，同样不可行。
+  //  结论：任何单文件必须 ≤300KB（与站内已验证稳定的 380KB 同量级）。分片包方案——
+  //  31 张照片按大小贪心分片（每片原始字节 ≤300KB，超大单张独占一片），每片 gzip + AES-GCM
+  //  加密为 album-N.tlpk（去 .enc 后缀规避类型处理差异）。浏览器端各片独立 fetch（30s 超时 +
+  //  5 次指数退避重试），某片失败只影响该片、可单独重试，从架构上根除“部分照片不显示”。
+  const MAX_SHARD_BYTES = 300 * 1024; // 与站内已验证稳定传输的 380KB 同量级，留安全余量
   const imgDir = join(PUBLIC, 'img', 'travel');
   let nPhotos = 0;
+  let nShards = 0;
   let salt;
   let key;
   if (existsSync(imgDir)) {
     const files = [];
     walk(imgDir, files);
-    const photos = files.filter(f => !f.endsWith('.enc')); // 跳过已存在的密文（防重复打包）
+    const photos = files.filter(f => !/\.(tlpk|enc)$/.test(f)); // 跳过已存在的密文（防重复打包）
     salt = crypto.getRandomValues(new Uint8Array(16));
     key = await deriveKey(PASSWORD, salt);
     if (photos.length > 0) {
-      // —— 打包格式：magic "TLPK"(4B) + manifestLen(4B, BE) + manifest JSON + 全部照片字节 ——
-      const manifest = [];
-      const parts = [];
-      let total = 0;
+      // —— 贪心分片：按原始字节累积，超过阈值开新片（单张超阈值的独占一片）——
+      const shards = []; // [{manifest:[{rel,size}], parts:[Uint8Array]}]
+      let cur = { manifest: [], parts: [], bytes: 0 };
       for (const f of photos) {
         const rel = f.slice(imgDir.length + 1).replace(/\\/g, '/'); // 相对 img/travel/ 的路径，如 2025-japan/mario-block.webp
         const data = new Uint8Array(readFileSync(f));
-        manifest.push({ rel, size: data.byteLength });
-        parts.push(data);
-        total += data.byteLength;
+        if (cur.bytes > 0 && cur.bytes + data.byteLength > MAX_SHARD_BYTES) {
+          shards.push(cur);
+          cur = { manifest: [], parts: [], bytes: 0 };
+        }
+        cur.manifest.push({ rel, size: data.byteLength });
+        cur.parts.push(data);
+        cur.bytes += data.byteLength;
       }
-      const mjson = JSON.stringify(manifest);
-      const headLen = 8 + mjson.length;
-      const all = new Uint8Array(headLen + total);
-      const dv = new DataView(all.buffer);
-      dv.setUint32(0, 0x544C504B, false); // "TLPK"
-      dv.setUint32(4, mjson.length, false);
-      new TextEncoder().encodeInto(mjson, all.subarray(8, 8 + mjson.length));
-      let off = headLen;
-      for (const p of parts) { all.set(p, off); off += p.byteLength; }
-      // —— AES-GCM 加密单包（iv 12B + ct）——
-      const blob = await encryptBytes(key, all);
-      const albumFile = join(imgDir, 'album.tlpk.enc');
-      mkdirSync(dirname(albumFile), { recursive: true });
-      writeFileSync(albumFile, blob);
+      if (cur.manifest.length > 0) shards.push(cur);
+      // —— 每片：magic "TLPK"(4B) + manifestLen(4B,BE) + manifest JSON + 照片字节 → gzip → AES-GCM ——
+      nShards = shards.length;
+      for (let s = 0; s < shards.length; s++) {
+        const sh = shards[s];
+        const mjson = JSON.stringify(sh.manifest);
+        const headLen = 8 + mjson.length;
+        const all = new Uint8Array(headLen + sh.bytes);
+        const dv = new DataView(all.buffer);
+        dv.setUint32(0, 0x544C504B, false); // "TLPK"
+        dv.setUint32(4, mjson.length, false);
+        new TextEncoder().encodeInto(mjson, all.subarray(8, 8 + mjson.length));
+        let off = headLen;
+        for (const p of sh.parts) { all.set(p, off); off += p.byteLength; }
+        const gz = gzipSync(Buffer.from(all));
+        const blob = await encryptBytes(key, new Uint8Array(gz));
+        const shardFile = join(imgDir, `album-${s + 1}.tlpk`);
+        mkdirSync(dirname(shardFile), { recursive: true });
+        writeFileSync(shardFile, blob);
+        console.log(`[encrypt_travel] 片 ${s + 1}/${shards.length}: ${sh.manifest.length} 张（${(sh.bytes / 1024).toFixed(0)}KB 明文 → ${(blob.byteLength / 1024).toFixed(0)}KB 密文）`);
+      }
       // 删除明文照片
       for (const f of photos) rmSync(f);
       nPhotos = photos.length;
-      console.log(`[encrypt_travel] 照片打包加密完成：${nPhotos} 张 → album.tlpk.enc（${(blob.byteLength / 1024).toFixed(0)}KB 密文）`);
     } else {
-      console.log('[encrypt_travel] public/img/travel 无明文照片（可能已有 album.tlpk.enc），跳过。');
+      console.log('[encrypt_travel] public/img/travel 无明文照片（可能已有 album-*.tlpk），跳过。');
     }
     globalThis.__salt = salt; // 给内容加密复用同一 salt/key
     globalThis.__key = key;
@@ -200,17 +218,17 @@ async function main() {
   head = head.replace("img-src 'self' data:", "img-src 'self' data: blob:");
   head = head.replace('<body>', '<body data-pagefind-ignore>');
 
-  const shell = head + buildGate(blobB64, saltB64) + tail;
+  const shell = head + buildGate(blobB64, saltB64, nShards) + tail;
   writeFileSync(TRAVEL_HTML, shell);
 
   // —— 5. 删除明文私有数据文件 ——
   const dj = join(PUBLIC, 'data', 'travel.json');
   if (existsSync(dj)) rmSync(dj);
 
-  console.log(`[encrypt_travel] 完成：外壳页已写入，照片加密 ${nPhotos} 张，已注入 noindex + data-pagefind-ignore。`);
+  console.log(`[encrypt_travel] 完成：外壳页已写入，照片加密 ${nPhotos} 张（分片 ${nShards} 片 album-*.tlpk），已注入 noindex + data-pagefind-ignore。`);
 }
 
-function buildGate(blobB64, saltB64) {
+function buildGate(blobB64, saltB64, nShards) {
   return `
 <div id="tlLightbox" class="tl-lb" hidden>
   <div class="tl-lb-backdrop" data-lb-close></div>
@@ -258,6 +276,7 @@ function buildGate(blobB64, saltB64) {
 (function(){
   var BLOB="${blobB64}";
   var SALT="${saltB64}";
+  var ALBUM_COUNT=${nShards || 0};
   var enc=new TextEncoder();
   function b64ToU8(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
   function derive(pw,salt){return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:1000000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);});}
@@ -281,10 +300,11 @@ function buildGate(blobB64, saltB64) {
     if(s.endsWith(".avif")) return "image/avif";
     return "image/webp";
   }
-  // 带超时 + 指数退避重试的 fetch：相册包单次请求（31 张照片合并为一个加密文件），
-  // 从架构上根除“逐张 .enc 偶发连接超时导致个别照片永久缺图”的历史问题（2026-08-19 实测
-  // CDN 边缘节点对 .enc 有 3-6% 偶发超时）。30s 超时 + 5 次退避（0.6s/1.2s/1.8s/2.4s），
-  // 单请求失败率降至 ~0.01%；硬错误（HTTP 4xx/5xx，如文件确实不存在）不重试。
+  // 带超时 + 指数退避重试的 fetch：相册分片片级加载（每片 ≤300KB，与站内已验证稳定的
+  // 380KB 文件同量级）。2026-08-19 两轮实测结论：a) 逐张 .enc 31 次请求必有偶发失败；
+  // b) 单包 4.2MB 因链路带宽 ~40-50KB/s 传输超时（60s 仅传 1/4）。故每片独立 fetch：
+  // 30s 超时 + 5 次退避（0.6s/1.2s/1.8s/2.4s），单片失败可单独重试，互不阻塞。
+  // 硬错误（HTTP 4xx/5xx，如文件确实不存在）不重试。
   function fetchWithRetry(url, tries, timeoutMs){
     var ctrl=(typeof AbortController!=="undefined")?new AbortController():null;
     var timer=ctrl?setTimeout(function(){ctrl.abort();}, timeoutMs||30000):null;
@@ -301,11 +321,15 @@ function buildGate(blobB64, saltB64) {
       throw e;
     });
   }
-  var tlUrls=null; // rel → BlobURL 字典（解锁后一次性建立，页面生命周期内有效）
-  // 解析相册包：magic "TLPK"(4B) + manifestLen(4B,BE) + manifest JSON + 照片数据区
+  function gunzipBytes(u){
+    return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()
+      .then(function(b){ return new Uint8Array(b); });
+  }
+  var tlUrls=null; // rel → BlobURL 字典（全部片加载完成后一次性建立，页面生命周期内有效）
+  // 解析相册分片：解密 + gunzip 后为 magic "TLPK"(4B) + manifestLen(4B,BE) + manifest JSON + 照片数据区
   function parseAlbum(pt){
     var dv=new DataView(pt.buffer,pt.byteOffset,pt.byteLength);
-    if(dv.getUint32(0,false)!==0x544C504B) throw new Error("相册包格式错误(magic)");
+    if(dv.getUint32(0,false)!==0x544C504B) throw new Error("相册分片格式错误(magic)");
     var mlen=dv.getUint32(4,false);
     var manifest=JSON.parse(new TextDecoder().decode(pt.subarray(8,8+mlen)));
     var off=8+mlen,map={};
@@ -316,6 +340,19 @@ function buildGate(blobB64, saltB64) {
     }
     return map;
   }
+  // 并行拉取全部相册分片（浏览器自动控制并发；单片失败只影响该片，其余照常渲染）
+  function loadAllShards(key){
+    var tasks=[];
+    for(var i=1;i<=ALBUM_COUNT;i++){
+      tasks.push(fetchWithRetry("img/travel/album-"+i+".tlpk",5,30000)
+        .then(function(r){return r.arrayBuffer();})
+        .then(function(buf){ return decBytes(key,new Uint8Array(buf)); })
+        .then(gunzipBytes)
+        .then(parseAlbum)
+        .catch(function(e){ console.error("分片加载失败（已重试 5 次）album-"+i+".tlpk", e); return null; }));
+    }
+    return Promise.all(tasks);
+  }
   // 一次性渲染全部照片 + 绑定大图灯箱（数据全在内存，零网络请求）
   function renderAll(){
     var imgs=document.querySelectorAll("#tlContent img[data-enc]");
@@ -324,7 +361,7 @@ function buildGate(blobB64, saltB64) {
       var img=imgs[i],rel=img.getAttribute("data-enc");
       var url=tlUrls[rel];
       if(url){ img.removeAttribute("loading"); img.src=url; img.removeAttribute("data-enc"); }
-      else { fail++; console.error("相册包缺少照片", rel); }
+      else { fail++; console.error("相册缺少照片", rel); }
     }
     var as=document.querySelectorAll("#tlContent a[data-enc-href]");
     for(var i=0;i<as.length;i++){
@@ -341,7 +378,7 @@ function buildGate(blobB64, saltB64) {
   var lbNew=document.getElementById("tlLbNew");
   function openLightbox(rel){
     var url=tlUrls[rel];
-    if(!url){ console.error("相册包缺少照片", rel); return; }
+    if(!url){ console.error("相册缺少照片", rel); return; }
     lbImg.setAttribute("data-rel",rel);
     lbImg.src=url;
     lb.hidden=false;
@@ -351,7 +388,7 @@ function buildGate(blobB64, saltB64) {
   document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !lb.hidden) closeLightbox(); });
   // 「在新标签页打开」在点击同步瞬间触发，保留 user activation，不会被弹窗拦截
   lbNew.addEventListener("click",function(){ var rel=lbImg.getAttribute("data-rel"); if(rel&&tlUrls[rel]) window.open(tlUrls[rel],"_blank","noopener"); });
-  // 解锁：解密内容 BLOB → 渲染 HTML → 拉取相册包（1 次请求）→ 解密 → 全部照片立即可用
+  // 解锁：解密内容 BLOB → 渲染 HTML → 并行拉取全部相册分片 → 解密+gunzip → 全部照片立即可用
   function unlock(){
     var err=document.getElementById("tlErr"); err.hidden=true;
     var pw=document.getElementById("tlPw").value;
@@ -359,14 +396,16 @@ function buildGate(blobB64, saltB64) {
       return decBytes(key,b64ToU8(BLOB)).then(function(u){return gunzip(u);}).then(function(html){
         var c=document.getElementById("tlContent");
         c.innerHTML=html; reRun(c);
-        return fetchWithRetry("img/travel/album.tlpk.enc",5,60000)
-          .then(function(r){return r.arrayBuffer();})
-          .then(function(buf){ return decBytes(key,new Uint8Array(buf)); });
-      }).then(function(pt){
-        tlUrls=parseAlbum(pt);
+        return loadAllShards(key);
+      }).then(function(maps){
+        tlUrls={};
+        var loadedShards=0;
+        for(var i=0;i<maps.length;i++){
+          if(maps[i]){ loadedShards++; for(var k in maps[i]) tlUrls[k]=maps[i][k]; }
+        }
         var fail=renderAll();
         var g=document.getElementById("tlGate"); if(g) g.remove();
-        if(fail>0) console.warn("相册包缺少 "+fail+" 张照片");
+        console.log("相册分片加载完成："+loadedShards+"/"+ALBUM_COUNT+" 片，照片渲染缺失 "+fail+" 张");
       });
     }).catch(function(e){ err.hidden=false; console.error("解锁失败", e); });
   }
@@ -394,37 +433,52 @@ if (process.argv.includes('--selftest')) {
     let failed = false;
     try { await decryptBytes(badKey, blob); } catch (e) { failed = true; }
     if (!failed) { console.error('SELFTEST FAIL: 错误密码竟能解密'); process.exit(1); }
-    // —— 相册包打包/解包往返 ——
+    // —— 相册分片打包/解包往返（模拟浏览器端完整链路：分片→gzip→加密→解密→gunzip→解析）——
     const fakePhotos = [
-      { rel: '2025-japan/mario-block.webp', data: new TextEncoder().encode('fake-webp-data-1') },
-      { rel: '2026-sheyang/song-xiaofeng-1.webp', data: new TextEncoder().encode('fake-webp-data-2-较长内容填充填充') },
+      { rel: '2025-japan/mario-block.webp', data: new TextEncoder().encode('fake-webp-data-1-' + 'x'.repeat(300000)) },
+      { rel: '2026-sheyang/song-xiaofeng-1.webp', data: new TextEncoder().encode('fake-webp-data-2-较长内容填充填充-' + 'y'.repeat(10000)) },
     ];
-    const manifest = fakePhotos.map(p => ({ rel: p.rel, size: p.data.byteLength }));
-    const mjson = JSON.stringify(manifest);
-    const headLen = 8 + mjson.length;
-    const total = fakePhotos.reduce((s, p) => s + p.data.byteLength, 0);
-    const all = new Uint8Array(headLen + total);
-    const dv = new DataView(all.buffer);
-    dv.setUint32(0, 0x544C504B, false);
-    dv.setUint32(4, mjson.length, false);
-    new TextEncoder().encodeInto(mjson, all.subarray(8, 8 + mjson.length));
-    let off = headLen;
-    for (const p of fakePhotos) { all.set(p.data, off); off += p.data.byteLength; }
-    const packed = await encryptBytes(key, all);
-    const unpacked = await decryptBytes(key, packed);
-    const udv = new DataView(unpacked.buffer, unpacked.byteOffset, unpacked.byteLength);
-    if (udv.getUint32(0, false) !== 0x544C504B) { console.error('SELFTEST FAIL: 包 magic'); process.exit(1); }
-    const umlen = udv.getUint32(4, false);
-    const umanifest = JSON.parse(new TextDecoder().decode(unpacked.subarray(8, 8 + umlen)));
-    let uoff = 8 + umlen;
-    for (const it of umanifest) {
-      const bytes = unpacked.subarray(uoff, uoff + it.size);
-      const expected = fakePhotos.find(p => p.rel === it.rel).data;
-      if (Buffer.compare(Buffer.from(bytes), Buffer.from(expected)) !== 0) { console.error('SELFTEST FAIL: 包内照片字节不一致 ' + it.rel); process.exit(1); }
-      uoff += it.size;
+    // 贪心分片（模拟 MAX_SHARD_BYTES=300KB：第一张独占一片，第二张独立一片）
+    const MAX = 300 * 1024;
+    const shards = [];
+    let cur = { manifest: [], parts: [], bytes: 0 };
+    for (const p of fakePhotos) {
+      if (cur.bytes > 0 && cur.bytes + p.data.byteLength > MAX) { shards.push(cur); cur = { manifest: [], parts: [], bytes: 0 }; }
+      cur.manifest.push({ rel: p.rel, size: p.data.byteLength });
+      cur.parts.push(p.data);
+      cur.bytes += p.data.byteLength;
     }
-    if (uoff !== unpacked.byteLength) { console.error('SELFTEST FAIL: 包数据区长度不闭合'); process.exit(1); }
-    console.log('SELFTEST OK ✅ (加解密往返 / gzip / 错误密码被拒 / 相册包打包解包一致)');
+    if (cur.manifest.length) shards.push(cur);
+    if (shards.length !== 2) { console.error('SELFTEST FAIL: 分片数量应为 2，实际 ' + shards.length); process.exit(1); }
+    for (const sh of shards) {
+      const mjson = JSON.stringify(sh.manifest);
+      const headLen = 8 + mjson.length;
+      const all = new Uint8Array(headLen + sh.bytes);
+      const dv = new DataView(all.buffer);
+      dv.setUint32(0, 0x544C504B, false);
+      dv.setUint32(4, mjson.length, false);
+      new TextEncoder().encodeInto(mjson, all.subarray(8, 8 + mjson.length));
+      let off = headLen;
+      for (const p of sh.parts) { all.set(p, off); off += p.byteLength; }
+      const gz = gzipSync(Buffer.from(all));
+      const packed = await encryptBytes(key, new Uint8Array(gz));
+      const unpacked = await decryptBytes(key, packed);
+      const plain = gunzipSync(Buffer.from(unpacked));
+      const pu = new Uint8Array(plain);
+      const udv = new DataView(pu.buffer, pu.byteOffset, pu.byteLength);
+      if (udv.getUint32(0, false) !== 0x544C504B) { console.error('SELFTEST FAIL: 片 magic'); process.exit(1); }
+      const umlen = udv.getUint32(4, false);
+      const umanifest = JSON.parse(new TextDecoder().decode(pu.subarray(8, 8 + umlen)));
+      let uoff = 8 + umlen;
+      for (const it of umanifest) {
+        const bytes = pu.subarray(uoff, uoff + it.size);
+        const expected = fakePhotos.find(p => p.rel === it.rel).data;
+        if (Buffer.compare(Buffer.from(bytes), Buffer.from(expected)) !== 0) { console.error('SELFTEST FAIL: 片内照片字节不一致 ' + it.rel); process.exit(1); }
+        uoff += it.size;
+      }
+      if (uoff !== pu.byteLength) { console.error('SELFTEST FAIL: 片数据区长度不闭合'); process.exit(1); }
+    }
+    console.log('SELFTEST OK ✅ (加解密往返 / gzip / 错误密码被拒 / 分片打包解包 gzip 往返一致)');
   })();
 }
 

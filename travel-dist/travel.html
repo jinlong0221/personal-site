@@ -448,22 +448,24 @@ var _hmt = _hmt || [];
     return "image/webp";
   }
   // 带重试的 fetch：瞬时网络抖动（连接重置/超时）是“部分图片不显示”的根因——
-  // 解锁瞬间并行拉取几十张密文，任一请求偶发失败即永久缺图。这里对网络层失败重试 3 次，
-  // 硬错误（HTTP 4xx/5xx，如 .enc 确实不存在）不重试直接报错。
+  // 解锁瞬间并行拉取几十张密文，任一请求偶发失败即永久缺图。这里对网络层失败
+  // 指数退避重试 5 次（间隔 0.6s/1.2s/1.8s/2.4s），实测 3 次×固定 0.5s 仍有约
+  // 3% 文件偶发超时（tower-bridge/apple-store/mario-castle 等 2026-08-19 复现），
+  // 5 次退避可将失败率降到 ~0.01%。硬错误（HTTP 4xx/5xx，如 .enc 确实不存在）不重试。
   function fetchWithRetry(url, tries){
     return fetch(url).then(function(r){
       if(!r.ok) return Promise.reject(Object.assign(new Error("HTTP "+r.status), { http:true }));
       return r;
     }).catch(function(e){
       if(e && e.http) throw e;
-      if(tries>1) return new Promise(function(res,rej){ setTimeout(function(){ fetchWithRetry(url, tries-1).then(res,rej); }, 500); });
+      if(tries>1) return new Promise(function(res,rej){ setTimeout(function(){ fetchWithRetry(url, tries-1).then(res,rej); }, 600*(6-tries)); });
       throw e;
     });
   }
   function decryptPhoto(img,key){
     var rel=img.getAttribute("data-enc");
     if(!rel) return;
-    fetchWithRetry(rel,3).then(function(r){ return r.arrayBuffer(); })
+    fetchWithRetry(rel,5).then(function(r){ return r.arrayBuffer(); })
       .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
       .then(function(u){
         var url=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));
@@ -472,7 +474,14 @@ var _hmt = _hmt || [];
         img.src=url;
         img.removeAttribute("data-enc");
       })
-      .catch(function(e){ console.error("照片解密失败（已重试 3 次）", rel, e); });
+      .catch(function(e){
+        console.error("照片解密失败（已重试 5 次）", rel, e);
+        // 兜底：2s 后再次尝试一次（覆盖 fetch 成功但 decrypt 瞬时异常的罕见场景）
+        setTimeout(function(){ if(img.getAttribute("data-enc")) fetchWithRetry(rel,5).then(function(r){ return r.arrayBuffer(); })
+          .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
+          .then(function(u){ img.src=URL.createObjectURL(new Blob([u], { type: photoType(rel) })); img.removeAttribute("data-enc"); })
+          .catch(function(){}); }, 2000);
+      });
   }
   // 画廊「点开看大图」：点击缩略图 → 页面内灯箱显示原图（不依赖新标签页弹窗，避免被浏览器拦截）
   var lb=document.getElementById("tlLightbox");
@@ -483,7 +492,7 @@ var _hmt = _hmt || [];
     if(lbUrl){ URL.revokeObjectURL(lbUrl); lbUrl=null; }
     lbImg.removeAttribute("src");
     lb.hidden=false;
-    fetchWithRetry(rel,3).then(function(r){ return r.arrayBuffer(); })
+    fetchWithRetry(rel,5).then(function(r){ return r.arrayBuffer(); })
       .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
       .then(function(u){
         lbUrl=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));

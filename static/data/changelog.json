@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-08-19",
+    "content": "【首页·遮挡修复】根治首页 Hero 轮播区「透明空洞」遮挡：根因是 Hero 显式带 .reveal 滚动渐显类，reveal.js 一旦失效整块保持 opacity:0，露出页面背景色（曾疑搜索框/图片加载失败，均排除）。三重修复：① Hero 移除 reveal 依赖，无条件可见；② 滚动渐显 CSS 加 html.js 前缀——无 JS 时所有内容默认可见，绝不因渐显机制留透明区；③ reveal.js 增加视口内兜底强制显形，折叠容器内卡片展开时正常渐显。无头浏览器三场景验证通过（正常加载 / 拦截 reveal.js / 完全禁用 JS），CSS 缓存版本号升至 20260822。"
+  },
+  {
     "date": "2026-08-20",
     "content": "【全站·布局修复】桌面端「搜索框挡住悬浮导航栏」根治：根因是 body 同时设置 overflow-x:hidden + overflow-y:auto，令 body 成为名义滚动容器（不实际滚动），position:sticky 以 body 为滚动祖先而永不吸附，首页搜索框随页滚走穿过 fixed 导航栏。修复：body 改 overflow-x:clip（裁剪横向溢出但不创建滚动容器，sticky 正确以视口为滚动祖先），并将旧规则 `html,body{overflow-x:hidden}` 收窄为仅 html，head.html critical CSS 同步；style.css 缓存版本升至 20260821。已用无头浏览器在 1440/1280/390 三视口验证：搜索框全程吸附于导航栏下方、零重叠。"
   },

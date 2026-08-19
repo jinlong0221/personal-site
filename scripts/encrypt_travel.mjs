@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * encrypt_travel.mjs — 旅行板块真加密（方案 B）
+ * encrypt_travel.mjs — 旅行板块真加密（方案 B，单包架构）
  *
  * 仅在 CI 设置 Secret TRAVEL_KEY 时运行；脚本内部判断，无密钥则直接跳过。
  * 跳过时不改动任何文件，因此每日自动更新流水线不会受影响。
@@ -8,12 +8,19 @@
  * 流程：
  *   1. 从 public/travel.html 抽取 <div id="tlWrap" data-tl-wrap> ... </div> 内的私密内容
  *      （含 <main> 相册、页脚、JSON-LD、PAGEJS 交互逻辑）。
- *   2. 遍历 public/img/travel/** 下所有照片，用 AES-GCM 加密为 .enc，删除明文。
- *   3. 把内容里 img 的 src 改写为 data-enc="...webp.enc"。
+ *   2. 遍历 public/img/travel/** 下所有照片，打包为一个 album.tlpk.enc（magic "TLPK" +
+ *      manifest JSON + 全部照片字节，整体 AES-GCM 加密），删除明文。
+ *   3. 把内容里 img 的 src 改写为 data-enc="相对路径"（作为相册包 manifest 的 key）。
  *   4. 内容 gzip + AES-GCM 加密，base64 内嵌进「密码门外壳页」。
  *   5. travel.html 重写为：导航正常 + 密码门 + 解密注入容器 + 解密脚本；
  *      注入 <meta name="robots" content="noindex">、<body data-pagefind-ignore>。
  *   6. 删除 public/data/travel.json（明文私有数据，运行时已烘焙进 HTML，不需要）。
+ *
+ * 单包架构动机（2026-08-19 根治）：
+ *   旧方案每张照片独立 .enc，解锁瞬间浏览器并发 fetch 31 个文件；CDN 边缘节点对 .enc
+ *   偶发连接超时（实测 3-6%），任一失败即个别照片永久缺图——补丁式重试治标不治本。
+ *   单包方案把 31 次网络请求合并为 1 次：一次成功 = 全部照片可用，从架构上根除
+ *   “部分照片不显示”。浏览器端 fetch 带 30s 超时 + 5 次指数退避重试，成功率 ~99.99%。
  *
  * 密码学：Node WebCrypto (AES-GCM 256 + PBKDF2 SHA-256, 1M iters)，
  *         与浏览器 crypto.subtle 字节级一致，解密逻辑在浏览器端复用同一套原语。
@@ -112,23 +119,52 @@ async function main() {
 
   const content = html.slice(oi + openTag.length, cdi);
 
-  // —— 1. 加密所有旅行照片 ——
+  // —— 1. 加密所有旅行照片（单包架构：打包成一个 album.tlpk.enc，浏览器一次请求全量加载）——
+  // 历史教训（2026-08-19）：旧方案逐张 .enc 各自加密，解锁瞬间浏览器并发 fetch 31 个文件，
+  // CDN 边缘节点对 .enc 偶发连接超时（实测 3-6%），任一失败即个别照片永久缺图，补丁式重试治标不治本。
+  // 单包方案把 31 次网络请求合并为 1 次：一次成功 = 全部照片可用，从架构上根除“部分照片不显示”。
   const imgDir = join(PUBLIC, 'img', 'travel');
   let nPhotos = 0;
+  let salt;
+  let key;
   if (existsSync(imgDir)) {
     const files = [];
     walk(imgDir, files);
-    const salt = crypto.getRandomValues(new Uint8Array(16));
-    const key = await deriveKey(PASSWORD, salt);
-    for (const f of files) {
-      if (f.endsWith('.enc')) continue; // 已是密文则跳过，避免重复加密成 .enc.enc（会导致外壳引用的文件名对不上）
-      const data = new Uint8Array(readFileSync(f));
-      const blob = await encryptBytes(key, data);
-      const encFile = f + '.enc';
-      mkdirSync(dirname(encFile), { recursive: true });
-      writeFileSync(encFile, blob);
-      rmSync(f);
-      nPhotos++;
+    const photos = files.filter(f => !f.endsWith('.enc')); // 跳过已存在的密文（防重复打包）
+    salt = crypto.getRandomValues(new Uint8Array(16));
+    key = await deriveKey(PASSWORD, salt);
+    if (photos.length > 0) {
+      // —— 打包格式：magic "TLPK"(4B) + manifestLen(4B, BE) + manifest JSON + 全部照片字节 ——
+      const manifest = [];
+      const parts = [];
+      let total = 0;
+      for (const f of photos) {
+        const rel = f.slice(imgDir.length + 1).replace(/\\/g, '/'); // 相对 img/travel/ 的路径，如 2025-japan/mario-block.webp
+        const data = new Uint8Array(readFileSync(f));
+        manifest.push({ rel, size: data.byteLength });
+        parts.push(data);
+        total += data.byteLength;
+      }
+      const mjson = JSON.stringify(manifest);
+      const headLen = 8 + mjson.length;
+      const all = new Uint8Array(headLen + total);
+      const dv = new DataView(all.buffer);
+      dv.setUint32(0, 0x544C504B, false); // "TLPK"
+      dv.setUint32(4, mjson.length, false);
+      new TextEncoder().encodeInto(mjson, all.subarray(8, 8 + mjson.length));
+      let off = headLen;
+      for (const p of parts) { all.set(p, off); off += p.byteLength; }
+      // —— AES-GCM 加密单包（iv 12B + ct）——
+      const blob = await encryptBytes(key, all);
+      const albumFile = join(imgDir, 'album.tlpk.enc');
+      mkdirSync(dirname(albumFile), { recursive: true });
+      writeFileSync(albumFile, blob);
+      // 删除明文照片
+      for (const f of photos) rmSync(f);
+      nPhotos = photos.length;
+      console.log(`[encrypt_travel] 照片打包加密完成：${nPhotos} 张 → album.tlpk.enc（${(blob.byteLength / 1024).toFixed(0)}KB 密文）`);
+    } else {
+      console.log('[encrypt_travel] public/img/travel 无明文照片（可能已有 album.tlpk.enc），跳过。');
     }
     globalThis.__salt = salt; // 给内容加密复用同一 salt/key
     globalThis.__key = key;
@@ -136,13 +172,16 @@ async function main() {
     console.log('[encrypt_travel] public/img/travel 不存在，跳过照片加密。');
   }
 
-  const salt = globalThis.__salt || crypto.getRandomValues(new Uint8Array(16));
-  const key = globalThis.__key || await deriveKey(PASSWORD, salt);
+  // 内容加密复用同一 salt/key（照片打包时已派生；若目录不存在则新建）
+  salt = globalThis.__salt || salt || crypto.getRandomValues(new Uint8Array(16));
+  key = globalThis.__key || key || await deriveKey(PASSWORD, salt);
 
   // —— 2. 改写内容里的 img src -> data-enc（同时处理画廊 <a href> 大图链接）——
+  // data-enc 值改为相对 img/travel/ 的路径（如 2025-japan/mario-block.webp），作为相册包 manifest 的 key；
+  // 浏览器解锁后从已解密的字典直接取 Blob URL，不再逐张 fetch。
   const contentRewritten = content
-    .replace(PHOTO_RE, (_m, p1) => `data-enc="${p1}.enc"`)
-    .replace(HREF_RE, (_m, p1) => `data-enc-href="${p1}.enc"`);
+    .replace(PHOTO_RE, (_m, p1) => `data-enc="${p1.replace(/^img\/travel\//, '')}"`)
+    .replace(HREF_RE, (_m, p1) => `data-enc-href="${p1.replace(/^img\/travel\//, '')}"`);
 
   // —— 3. 内容 gzip + AES-GCM 加密 ——
   const gz = gzipSync(Buffer.from(contentRewritten, 'utf8'));
@@ -236,86 +275,83 @@ function buildGate(blobB64, saltB64) {
   }
   function photoType(rel){
     var s=rel.toLowerCase();
-    if(s.endsWith(".png.enc")) return "image/png";
-    if(s.endsWith(".jpg.enc")||s.endsWith(".jpeg.enc")) return "image/jpeg";
-    if(s.endsWith(".gif.enc")) return "image/gif";
-    if(s.endsWith(".avif.enc")) return "image/avif";
+    if(s.endsWith(".png")) return "image/png";
+    if(s.endsWith(".jpg")||s.endsWith(".jpeg")) return "image/jpeg";
+    if(s.endsWith(".gif")) return "image/gif";
+    if(s.endsWith(".avif")) return "image/avif";
     return "image/webp";
   }
-  // 带重试的 fetch：瞬时网络抖动（连接重置/超时）是“部分图片不显示”的根因——
-  // 解锁瞬间并行拉取几十张密文，任一请求偶发失败即永久缺图。这里对网络层失败
-  // 指数退避重试 5 次（间隔 0.6s/1.2s/1.8s/2.4s），实测 3 次×固定 0.5s 仍有约
-  // 3% 文件偶发超时（tower-bridge/apple-store/mario-castle 等 2026-08-19 复现），
-  // 5 次退避可将失败率降到 ~0.01%。硬错误（HTTP 4xx/5xx，如 .enc 确实不存在）不重试。
-  function fetchWithRetry(url, tries){
-    return fetch(url).then(function(r){
-      if(!r.ok) return Promise.reject(Object.assign(new Error("HTTP "+r.status), { http:true }));
+  // 带超时 + 指数退避重试的 fetch：相册包单次请求（31 张照片合并为一个加密文件），
+  // 从架构上根除“逐张 .enc 偶发连接超时导致个别照片永久缺图”的历史问题（2026-08-19 实测
+  // CDN 边缘节点对 .enc 有 3-6% 偶发超时）。30s 超时 + 5 次退避（0.6s/1.2s/1.8s/2.4s），
+  // 单请求失败率降至 ~0.01%；硬错误（HTTP 4xx/5xx，如文件确实不存在）不重试。
+  function fetchWithRetry(url, tries, timeoutMs){
+    var ctrl=(typeof AbortController!=="undefined")?new AbortController():null;
+    var timer=ctrl?setTimeout(function(){ctrl.abort();}, timeoutMs||30000):null;
+    var p=fetch(url, ctrl?{signal:ctrl.signal}:{});
+    var done=p.then(function(r){
+      if(!r.ok) return Promise.reject(Object.assign(new Error("HTTP "+r.status),{http:true}));
       return r;
-    }).catch(function(e){
+    });
+    if(timer) done=done.then(function(v){clearTimeout(timer);return v;});
+    return done.catch(function(e){
+      if(timer) clearTimeout(timer);
       if(e && e.http) throw e;
-      if(tries>1) return new Promise(function(res,rej){ setTimeout(function(){ fetchWithRetry(url, tries-1).then(res,rej); }, 600*(6-tries)); });
+      if(tries>1) return new Promise(function(res,rej){setTimeout(function(){fetchWithRetry(url,tries-1,timeoutMs).then(res,rej);},600*(6-tries));});
       throw e;
     });
   }
-  function decryptPhoto(img,key){
-    var rel=img.getAttribute("data-enc");
-    if(!rel) return;
-    fetchWithRetry(rel,5).then(function(r){ return r.arrayBuffer(); })
-      .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
-      .then(function(u){
-        var url=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));
-        img.removeAttribute("loading");
-        img.onerror=function(){ console.error("照片渲染失败（blob 无效）", rel); };
-        img.src=url;
-        img.removeAttribute("data-enc");
-      })
-      .catch(function(e){
-        console.error("照片解密失败（已重试 5 次）", rel, e);
-        // 兜底：2s 后再次尝试一次（覆盖 fetch 成功但 decrypt 瞬时异常的罕见场景）
-        setTimeout(function(){ if(img.getAttribute("data-enc")) fetchWithRetry(rel,5).then(function(r){ return r.arrayBuffer(); })
-          .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
-          .then(function(u){ img.src=URL.createObjectURL(new Blob([u], { type: photoType(rel) })); img.removeAttribute("data-enc"); })
-          .catch(function(){}); }, 2000);
-      });
+  var tlUrls=null; // rel → BlobURL 字典（解锁后一次性建立，页面生命周期内有效）
+  // 解析相册包：magic "TLPK"(4B) + manifestLen(4B,BE) + manifest JSON + 照片数据区
+  function parseAlbum(pt){
+    var dv=new DataView(pt.buffer,pt.byteOffset,pt.byteLength);
+    if(dv.getUint32(0,false)!==0x544C504B) throw new Error("相册包格式错误(magic)");
+    var mlen=dv.getUint32(4,false);
+    var manifest=JSON.parse(new TextDecoder().decode(pt.subarray(8,8+mlen)));
+    var off=8+mlen,map={};
+    for(var i=0;i<manifest.length;i++){
+      var it=manifest[i];
+      map[it.rel]=URL.createObjectURL(new Blob([pt.subarray(off,off+it.size)],{type:photoType(it.rel)}));
+      off+=it.size;
+    }
+    return map;
   }
-  // 画廊「点开看大图」：点击缩略图 → 页面内灯箱显示原图（不依赖新标签页弹窗，避免被浏览器拦截）
+  // 一次性渲染全部照片 + 绑定大图灯箱（数据全在内存，零网络请求）
+  function renderAll(){
+    var imgs=document.querySelectorAll("#tlContent img[data-enc]");
+    var fail=0;
+    for(var i=0;i<imgs.length;i++){
+      var img=imgs[i],rel=img.getAttribute("data-enc");
+      var url=tlUrls[rel];
+      if(url){ img.removeAttribute("loading"); img.src=url; img.removeAttribute("data-enc"); }
+      else { fail++; console.error("相册包缺少照片", rel); }
+    }
+    var as=document.querySelectorAll("#tlContent a[data-enc-href]");
+    for(var i=0;i<as.length;i++){
+      var a=as[i];
+      var rel=a.getAttribute("data-enc-href");
+      a.removeAttribute("data-enc-href");
+      (function(rel,a){ a.addEventListener("click",function(e){ e.preventDefault(); openLightbox(rel); }); })(rel,a);
+    }
+    return fail;
+  }
+  // 画廊「点开看大图」：直接使用已解密的 Blob URL（零网络、零解密延迟）
   var lb=document.getElementById("tlLightbox");
   var lbImg=document.getElementById("tlLbImg");
   var lbNew=document.getElementById("tlLbNew");
-  var lbUrl=null;
-  function openLightbox(rel,key){
-    if(lbUrl){ URL.revokeObjectURL(lbUrl); lbUrl=null; }
-    lbImg.removeAttribute("src");
+  function openLightbox(rel){
+    var url=tlUrls[rel];
+    if(!url){ console.error("相册包缺少照片", rel); return; }
+    lbImg.setAttribute("data-rel",rel);
+    lbImg.src=url;
     lb.hidden=false;
-    fetchWithRetry(rel,5).then(function(r){ return r.arrayBuffer(); })
-      .then(function(buf){ return decBytes(key, new Uint8Array(buf)); })
-      .then(function(u){
-        lbUrl=URL.createObjectURL(new Blob([u], { type: photoType(rel) }));
-        lbImg.src=lbUrl;
-      })
-      .catch(function(err){ console.error("大图解密失败", rel, err); lb.hidden=true; });
   }
-  function closeLightbox(){ lb.hidden=true; if(lbUrl){ URL.revokeObjectURL(lbUrl); lbUrl=null; } }
+  function closeLightbox(){ lb.hidden=true; }
   lb.addEventListener("click",function(e){ if(e.target.hasAttribute("data-lb-close")) closeLightbox(); });
   document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !lb.hidden) closeLightbox(); });
-  // 「在新标签页打开」按钮在用户点击的同步瞬间触发，保留 user activation，不会被弹窗拦截
-  lbNew.addEventListener("click",function(){ if(lbUrl) window.open(lbUrl,"_blank","noopener"); });
-  function bindLink(a,key){
-    var rel=a.getAttribute("data-enc-href");
-    if(!rel) return;
-    a.addEventListener("click",function(e){ e.preventDefault(); openLightbox(rel,key); });
-    a.removeAttribute("data-enc-href");
-  }
-  // 私人相册：解锁后一次性解密全部照片（折叠手风琴内图片也需直接可见，故不依赖 IntersectionObserver）
-  function loadPhotos(key){
-    var imgs=document.querySelectorAll("#tlContent img[data-enc]");
-    for(var i=0;i<imgs.length;i++){
-      var img=imgs[i];
-      decryptPhoto(img, key);
-      var a = img.closest ? img.closest("a[data-enc-href]") : (img.parentNode && img.parentNode.tagName==="A" ? img.parentNode : null);
-      if(a) bindLink(a, key);
-    }
-  }
+  // 「在新标签页打开」在点击同步瞬间触发，保留 user activation，不会被弹窗拦截
+  lbNew.addEventListener("click",function(){ var rel=lbImg.getAttribute("data-rel"); if(rel&&tlUrls[rel]) window.open(tlUrls[rel],"_blank","noopener"); });
+  // 解锁：解密内容 BLOB → 渲染 HTML → 拉取相册包（1 次请求）→ 解密 → 全部照片立即可用
   function unlock(){
     var err=document.getElementById("tlErr"); err.hidden=true;
     var pw=document.getElementById("tlPw").value;
@@ -323,10 +359,16 @@ function buildGate(blobB64, saltB64) {
       return decBytes(key,b64ToU8(BLOB)).then(function(u){return gunzip(u);}).then(function(html){
         var c=document.getElementById("tlContent");
         c.innerHTML=html; reRun(c);
-        loadPhotos(key);
+        return fetchWithRetry("img/travel/album.tlpk.enc",5,60000)
+          .then(function(r){return r.arrayBuffer();})
+          .then(function(buf){ return decBytes(key,new Uint8Array(buf)); });
+      }).then(function(pt){
+        tlUrls=parseAlbum(pt);
+        var fail=renderAll();
         var g=document.getElementById("tlGate"); if(g) g.remove();
+        if(fail>0) console.warn("相册包缺少 "+fail+" 张照片");
       });
-    }).catch(function(e){ err.hidden=false; });
+    }).catch(function(e){ err.hidden=false; console.error("解锁失败", e); });
   }
   document.getElementById("tlUnlock").addEventListener("click",unlock);
   document.getElementById("tlPw").addEventListener("keydown",function(e){if(e.key==="Enter")unlock();});
@@ -335,7 +377,7 @@ function buildGate(blobB64, saltB64) {
 `;
 }
 
-// —— 自检：验证 Node 端加解密与 gzip 往返（与浏览器 crypto.subtle 同原语）——
+// —— 自检：验证 Node 端加解密与 gzip 往返 + 相册包打包/解包（与浏览器 crypto.subtle 同原语）——
 if (process.argv.includes('--selftest')) {
   (async () => {
     const pw = '测试密码-Abc123-🔑';
@@ -352,8 +394,41 @@ if (process.argv.includes('--selftest')) {
     let failed = false;
     try { await decryptBytes(badKey, blob); } catch (e) { failed = true; }
     if (!failed) { console.error('SELFTEST FAIL: 错误密码竟能解密'); process.exit(1); }
-    console.log('SELFTEST OK ✅ (加解密往返一致 / gzip 一致 / 错误密码被拒)');
+    // —— 相册包打包/解包往返 ——
+    const fakePhotos = [
+      { rel: '2025-japan/mario-block.webp', data: new TextEncoder().encode('fake-webp-data-1') },
+      { rel: '2026-sheyang/song-xiaofeng-1.webp', data: new TextEncoder().encode('fake-webp-data-2-较长内容填充填充') },
+    ];
+    const manifest = fakePhotos.map(p => ({ rel: p.rel, size: p.data.byteLength }));
+    const mjson = JSON.stringify(manifest);
+    const headLen = 8 + mjson.length;
+    const total = fakePhotos.reduce((s, p) => s + p.data.byteLength, 0);
+    const all = new Uint8Array(headLen + total);
+    const dv = new DataView(all.buffer);
+    dv.setUint32(0, 0x544C504B, false);
+    dv.setUint32(4, mjson.length, false);
+    new TextEncoder().encodeInto(mjson, all.subarray(8, 8 + mjson.length));
+    let off = headLen;
+    for (const p of fakePhotos) { all.set(p.data, off); off += p.data.byteLength; }
+    const packed = await encryptBytes(key, all);
+    const unpacked = await decryptBytes(key, packed);
+    const udv = new DataView(unpacked.buffer, unpacked.byteOffset, unpacked.byteLength);
+    if (udv.getUint32(0, false) !== 0x544C504B) { console.error('SELFTEST FAIL: 包 magic'); process.exit(1); }
+    const umlen = udv.getUint32(4, false);
+    const umanifest = JSON.parse(new TextDecoder().decode(unpacked.subarray(8, 8 + umlen)));
+    let uoff = 8 + umlen;
+    for (const it of umanifest) {
+      const bytes = unpacked.subarray(uoff, uoff + it.size);
+      const expected = fakePhotos.find(p => p.rel === it.rel).data;
+      if (Buffer.compare(Buffer.from(bytes), Buffer.from(expected)) !== 0) { console.error('SELFTEST FAIL: 包内照片字节不一致 ' + it.rel); process.exit(1); }
+      uoff += it.size;
+    }
+    if (uoff !== unpacked.byteLength) { console.error('SELFTEST FAIL: 包数据区长度不闭合'); process.exit(1); }
+    console.log('SELFTEST OK ✅ (加解密往返 / gzip / 错误密码被拒 / 相册包打包解包一致)');
   })();
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+// 自检模式跳过 main()（避免 public/ 中残留旧外壳触发 exit 打断自检）
+if (!process.argv.includes('--selftest')) {
+  main().catch((e) => { console.error(e); process.exit(1); });
+}

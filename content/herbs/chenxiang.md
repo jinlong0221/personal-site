@@ -6,7 +6,7 @@ url: "/herbs/chenxiang.html"
 # 文章标签（手动维护：分类 / 标签 / 更新时间）— 用于站内搜索筛选与标签聚合页
 category: "沉香"
 tags: [沉香, 鉴别, 收藏]
-updated: "2026-08-07"
+updated: "2026-08-17"
 ---
 
 # 沉香鉴别完全指南
@@ -21,7 +21,7 @@ updated: "2026-08-07"
 <ul class="cx-meta">
   <li><span class="cx-meta-k">参考来源</span><span class="cx-meta-v">龙兄实测 + <a href="https://www.zyctd.com/" target="_blank" rel="noopener">中药材天地网</a></span></li>
   <li><span class="cx-meta-k">鉴别要点</span><span class="cx-meta-v">看油脂 · 掂重量 · 闻香气 · 烧验真（四大法）</span></li>
-  <li><span class="cx-meta-k">最后更新</span><span class="cx-meta-v">2026-08-07</span></li>
+  <li><span class="cx-meta-k">最后更新</span><span class="cx-meta-v">2026-08-17</span></li>
 </ul>
 
 ## 快速鉴别口诀（先看这个）
@@ -168,4 +168,4 @@ updated: "2026-08-07"
   <p style="color:var(--text-muted);font-size:.9em;">以上外部链接均于 2026-08-07 人工核验可达。</p>
 </div>
 
-<p class="cx-update" style="margin-top:24px;font-size:0.85rem;color:var(--text-muted);">最后更新：2026-08-07</p>
+<p class="cx-update" style="margin-top:24px;font-size:0.85rem;color:var(--text-muted);">最后更新：2026-08-17</p>

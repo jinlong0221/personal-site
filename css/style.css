@@ -175,8 +175,12 @@ body {
  -webkit-font-smoothing: antialiased;
  -webkit-overflow-scrolling: touch;
  padding-top: var(--nav-height);
- overflow-x: hidden;
- overflow-y: auto;
+ /* [STICKY-FIX 2026-08-20] body 原用 overflow-x:hidden + overflow-y:auto，会令 body 成为
+    名义滚动容器（但内容不溢出、实际不滚动，滚动发生在视口），position:sticky 会以 body
+    为滚动祖先而永不吸附 → 搜索框随页滚走穿过 fixed 导航栏（桌面端遮挡根因）。
+    改 overflow-x:clip：同样裁剪横向溢出（配合 html{overflow-x:hidden} 视口级兜底），
+    但不创建滚动容器，sticky 正确以视口为滚动祖先。 */
+ overflow-x: clip;
  transition: background var(--transition), color var(--transition);
 }
 
@@ -1031,8 +1035,9 @@ button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {
   letter-spacing: 1px;
 }
 
-/* [BUG-FIX:四-3] 移除横向滚动条 */
-html, body {
+/* [BUG-FIX:四-3] 移除横向滚动条：仅作用于 html（视口），不再把 body 变成滚动容器，
+   否则 position:sticky 以 body 为滚动祖先而永不吸附（见上方 .lx-search-wrap STICKY-FIX）。 */
+html {
   overflow-x: hidden;
   max-width: 100vw;
 }
@@ -4988,6 +4993,12 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
    ============================================================ */
 
 /* [需求3] 首页顶部固定常驻搜索框（sticky 于导航栏下方，滚动时常驻） */
+/* [SEARCH-FIX 2026-08-20] 桌面端「搜索框挡住悬浮导航栏」根治：
+   根因：body{overflow-x:hidden}+overflow-y:auto 使 body 成为名义滚动容器（不实际滚动），
+         position:sticky 以 body 为滚动祖先而永不吸附 → 搜索框随页滚走穿过 fixed 导航栏。
+   修复：body 改 overflow-x:clip（裁剪横向溢出但不创建滚动容器），sticky 正确以视口为
+         滚动祖先，搜索框全程吸附于导航栏下方。配套：1040 行旧规则 html,body{overflow-x:
+         hidden} 已改为仅 html，避免覆盖 clip。 */
 .lx-search-wrap{
   position:sticky; top:var(--nav-height); z-index:120;
   background:var(--bg); padding:14px 0 12px;

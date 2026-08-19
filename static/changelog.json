@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-19",
+    "content": "【首页·移除搜索栏】应要求移除首页顶部常驻搜索框（.lx-search-wrap 整块，含 #homeSearchInput / #homeSearchClear / #homeSearchBtn）：① 站内搜索入口保留——导航栏搜索图标（#searchBtn）与 Ctrl/Cmd+K 快捷键仍唤起 Pagefind 搜索弹窗，search.html 搜索页不受影响；② JS 侧零改动，search.js / daily-pick.js 中对首页输入框的引用均有 null 守卫，元素不存在时静默跳过不报错；③ 遗留 .lx-search-wrap 样式为无匹配死规则、视觉零影响，待后续 CSS 清理。"
+  },
+  {
+    "date": "2026-08-19",
     "content": "【首页·遮挡修复】根治首页 Hero 轮播区「透明空洞」遮挡：根因是 Hero 显式带 .reveal 滚动渐显类，reveal.js 一旦失效整块保持 opacity:0，露出页面背景色（曾疑搜索框/图片加载失败，均排除）。三重修复：① Hero 移除 reveal 依赖，无条件可见；② 滚动渐显 CSS 加 html.js 前缀——无 JS 时所有内容默认可见，绝不因渐显机制留透明区；③ reveal.js 增加视口内兜底强制显形，折叠容器内卡片展开时正常渐显。无头浏览器三场景验证通过（正常加载 / 拦截 reveal.js / 完全禁用 JS），CSS 缓存版本号升至 20260822。"
   },
   {

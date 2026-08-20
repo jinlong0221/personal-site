@@ -46,9 +46,10 @@
         'html{scroll-behavior:smooth}' +
         'h2[id]{scroll-margin-top:74px}' +
         '.bn-toc{position:sticky;top:62px;z-index:20;display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 10px;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-sm)}' +
+        '@media(max-width:768px){.bn-toc{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.bn-toc::-webkit-scrollbar{display:none}.bn-toc a{flex-shrink:0}}' +
         '.bn-toc a{font-size:.82rem;padding:6px 13px;border-radius:999px;background:var(--bg-secondary);color:var(--text-secondary);text-decoration:none;transition:all .15s;cursor:pointer}' +
         '.bn-toc a:hover{background:var(--text-muted);color:var(--card)}' +
-        '.bn-toc a.active{background:var(--text);color:var(--card)}';
+        '.bn-toc a.active{background:var(--accent);color:#1a1407}';
       var st = document.createElement('style');
       st.id = 'bn-style';
       st.textContent = css;

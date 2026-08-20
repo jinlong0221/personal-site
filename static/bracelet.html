@@ -112,8 +112,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="preload" href="css/style.css?v=20260823" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.css?v=20260823"></noscript>
+<link rel="preload" href="css/style.css?v=20260824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260824"></noscript>
 <style>
   /* 文玩手串首页特定样式 */
   .bracelet-hero {
@@ -155,8 +155,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     padding: 0;
   }
   .cat-header .badge {
-    background: #5b2c8d;
-    color: #fff;
+    background: var(--accent);
+    color: #1a1407;
     font-size: 0.7rem;
     padding: 3px 10px;
     border-radius: 12px;
@@ -453,7 +453,7 @@ var _hmt = _hmt || [];
     <span class="badge">6种材质</span>
   </div>
 
-  <div class="bracelet-grid">
+  <div class="bracelet-grid" data-ac data-ac-head=".cat-header" data-ac-items=".bracelet-card" data-ac-count="false">
     <a href="bracelet/xingyue.html" class="bracelet-card card-purple">
       <div class="emoji">🌟</div>
       <div class="title">星月菩提</div>
@@ -503,7 +503,7 @@ var _hmt = _hmt || [];
     <span class="badge">3个专题</span>
   </div>
 
-  <div class="bracelet-grid">
+  <div class="bracelet-grid" data-ac data-ac-head=".cat-header" data-ac-items=".bracelet-card" data-ac-count="false">
     <a href="bracelet/quanao.html" class="bracelet-card card-amber">
       <div class="emoji">📖</div>
       <div class="title">星月全套攻略</div>
@@ -734,6 +734,6 @@ var _hmt = _hmt || [];
 <div id="quickToc"></div>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
-<script src="js/auto-collapse.js?v=20260823" defer></script>
+<script src="js/auto-collapse.js?v=20260824" defer></script>
 </body>
 </html>

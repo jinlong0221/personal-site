@@ -59,8 +59,14 @@ jobs:
       # changelog 防御性护栏：构建前强制清除 static/changelog.json 与
       # data/changelog.json 中的空 content 记录（自动更新偶发写坏），
       # 确保部署产物（更新日志页）永不含空白条目。即使脏提交进库也会被此处拦截。
+      # （2026-08-20 起 guard_changelog.py 同时内联执行板块新闻日期排序自愈。）
       - name: Guard changelog (strip empty records)
         run: python3 scripts/guard_changelog.py
+
+      # 板块新闻日期排序护栏：所有 *-news.json 的 news 数组按 date 倒序，
+      # 根治「板块日期乱序」。部署前强制规范化，即使上游写入乱序也保证线上有序。
+      - name: Sort section news by date
+        run: python3 scripts/sort_news.py
 
       # 首页聚合源：聚合各板块最新新闻生成 static/home-feed.json，供「今日更新」渲染。
       # 部署前运行，确保每次上线都基于最新新闻数据。

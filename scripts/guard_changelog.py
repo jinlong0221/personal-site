@@ -3,9 +3,10 @@
 """
 changelog 提交前护栏（防御性清洗）。
 
-作用：过滤 static/changelog.json 与 data/changelog.json 中所有
-`content` 为空 / 空白 / 缺失的记录，避免更新日志页出现空白条目。
-changelog 双副本属永久规则——任何改动都须进这两份。
+作用：过滤三份 changelog 副本（static/changelog.json、data/changelog.json、
+static/data/changelog.json）中所有 `content` 为空 / 空白 / 缺失的记录，避免
+更新日志页出现空白条目。changelog 三副本属永久规则——任何改动都须三份同步。
+2026-08-20 起同时内联执行板块新闻日期排序自愈（scripts/sort_news.py）。
 
 用法（仓库根目录执行）：
     python3 scripts/guard_changelog.py
@@ -15,8 +16,8 @@ changelog 双副本属永久规则——任何改动都须进这两份。
 import json
 import sys
 
-# changelog 双副本：static/ 为运行时读取，data/ 为 Hugo 构建读取，均须保持干净。
-TARGETS = ["static/changelog.json", "data/changelog.json"]
+# changelog 三副本：static/ 与 static/data/ 为运行时读取，data/ 为 Hugo 构建读取，均须保持干净。
+TARGETS = ["static/changelog.json", "data/changelog.json", "static/data/changelog.json"]
 
 
 def clean(path: str) -> str:
@@ -50,4 +51,20 @@ if __name__ == "__main__":
         if "失败" in msg or "异常" in msg:
             failures.append(t)
     print("=== 清洗完成 ===")
+
+    # —— 板块新闻日期排序（自愈护栏，2026-08-20 接入）——
+    # 所有自动更新任务提交前都会执行本脚本；顺带把各板块 news 数组按日期倒序
+    # 规范化（scripts/sort_news.py，幂等），根治「板块日期乱序」。
+    # 排序失败则本护栏整体退出码置 1，阻断提交。
+    import runpy
+    try:
+        runpy.run_path("scripts/sort_news.py", run_name="__main__")
+    except SystemExit as e:
+        if e.code:
+            print("  sort_news 报告失败，退出码:", e.code)
+            failures.append("sort_news")
+    except Exception as e:  # 排序脚本本身异常（缺文件/权限等）
+        print(f"  sort_news 执行异常: {e}")
+        failures.append("sort_news")
+
     sys.exit(1 if failures else 0)

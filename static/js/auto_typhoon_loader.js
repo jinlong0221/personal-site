@@ -15,6 +15,27 @@
   var PLOT_H = VB_H - PAD_T - PAD_B;
   var SHEYANG = { lat: 33.48, lon: 120.27, name: '射阳' };
 
+  /* 动态投影边界：依据台风实际轨迹 + 射阳位置计算，确保任意位置的台风都完整可见
+     （修复硬编码 115.5–128°E 视窗导致远洋台风路径全部溢出画布的问题） */
+  function recomputeBounds(d) {
+    var pts = (d.track || []).map(function (p) { return [p.lat, p.lon]; });
+    pts.push([SHEYANG.lat, SHEYANG.lon]);
+    if (pts.length < 2) return;
+    var lons = pts.map(function (p) { return p[1]; });
+    var lats = pts.map(function (p) { return p[0]; });
+    var loMin = Math.min.apply(null, lons), loMax = Math.max.apply(null, lons);
+    var laMin = Math.min.apply(null, lats), laMax = Math.max.apply(null, lats);
+    var padLon = Math.max(2, (loMax - loMin) * 0.12);
+    var padLat = Math.max(2, (laMax - laMin) * 0.12);
+    LON_MIN = Math.floor(loMin - padLon);
+    LON_MAX = Math.ceil(loMax + padLon);
+    LAT_MIN = Math.floor(laMin - padLat);
+    LAT_MAX = Math.ceil(laMax + padLat);
+    /* 最小跨度保护：台风极近射阳时避免过度放大 */
+    if (LON_MAX - LON_MIN < 10) { var cl = (LON_MIN + LON_MAX) / 2; LON_MIN = cl - 5; LON_MAX = cl + 5; }
+    if (LAT_MAX - LAT_MIN < 8) { var ca = (LAT_MIN + LAT_MAX) / 2; LAT_MIN = ca - 4; LAT_MAX = ca + 4; }
+  }
+
   function lon2x(lon) { return PAD_L + (lon - LON_MIN) / (LON_MAX - LON_MIN) * PLOT_W; }
   function lat2y(lat) { return PAD_T + (LAT_MAX - lat) / (LAT_MAX - LAT_MIN) * PLOT_H; }
   function n(v) { return Math.round(v * 100) / 100; }
@@ -100,13 +121,15 @@
     /* 网格 */
     var g = ['<g stroke="#ffffff" stroke-opacity=".07" stroke-width="1">'];
     var labels = [];
-    for (var lo = 116; lo <= 128; lo += 2) {
+    var loStart = Math.ceil(LON_MIN / 2) * 2;
+    for (var lo = loStart; lo <= LON_MAX; lo += 2) {
       var gx = lon2x(lo);
       if (gx < PAD_L - 1 || gx > VB_W - PAD_R + 1) continue;
       g.push('<line x1="' + n(gx) + '" y1="' + PAD_T + '" x2="' + n(gx) + '" y2="' + (VB_H - PAD_B) + '"/>');
       labels.push('<text x="' + n(gx) + '" y="' + (VB_H - PAD_B + 15) + '" class="tf-axis" text-anchor="middle">' + lo + '°E</text>');
     }
-    for (var la = 26; la <= 36; la += 2) {
+    var laStart = Math.ceil(LAT_MIN / 2) * 2;
+    for (var la = laStart; la <= LAT_MAX; la += 2) {
       var gy = lat2y(la);
       if (gy < PAD_T - 1 || gy > VB_H - PAD_B + 1) continue;
       g.push('<line x1="' + PAD_L + '" y1="' + n(gy) + '" x2="' + (VB_W - PAD_R) + '" y2="' + n(gy) + '"/>');
@@ -235,6 +258,7 @@
   function renderTrack(d) {
     var box = document.getElementById('tf-track');
     if (!box) return;
+    recomputeBounds(d); /* 先按实际轨迹计算投影边界，保证路径可见 */
     var track = d.track || [];
     var h = '<div class="tf-track-wrap">' + buildTrackSVG(d) + '<div class="tf-tip" id="tfTip"></div></div>';
 

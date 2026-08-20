@@ -479,10 +479,11 @@
     }
     h += '</div>';
 
-    /* 仅保留短字段（强度/气压）；长段 location/move/trend 不进首屏 */
+    /* 状态卡只显示短值：优先 current.intensityShort/pressureShort（自动化若已生成），
+       否则从轨迹"最新实际点"派生（自校正，永不退化为长文"文字山"），兜底截断长文。 */
     var cells = [
-      ['中心强度', c.intensity || '—'],
-      ['中心气压', c.pressure || '—']
+      ['中心强度', currentShortIntensity(d)],
+      ['中心气压', currentShortPressure(d)]
     ];
     h += '<div class="tf-status-grid">';
     cells.forEach(function (it) {
@@ -517,6 +518,36 @@
     s = String(s || '').replace(/\s+/g, ' ').trim();
     if (s.length <= max) return s;
     return s.slice(0, max).replace(/[，。、；：！？,.;:!?]$/, '') + '…';
+  }
+
+  /* 取轨迹中"最新实际点"（剔除预报点）：用于派生当前强度/气压短值，
+     与走势图共用同一份权威 track 数据，保证状态卡与路径图一致。 */
+  function latestActualTrackPoint(d) {
+    var tr = d.track || [];
+    var actual = tr.filter(function (p) {
+      return !(p.forecast === true || /预报/.test(String(p.t || '')));
+    });
+    var src = actual.length ? actual : tr;
+    return src.length ? src[src.length - 1] : null;
+  }
+
+  /* 当前强度短值：优先 current.intensityShort（数据模型显式短字段），
+     否则取轨迹最新实际点的 intensity（如"热带风暴 9级/23m/s"），兜底截断长文。 */
+  function currentShortIntensity(d) {
+    var c = d.current || {};
+    if (c.intensityShort && String(c.intensityShort).trim()) return String(c.intensityShort).trim();
+    var p = latestActualTrackPoint(d);
+    if (p && p.intensity) return String(p.intensity);
+    return shortText(c.intensity, 30);
+  }
+
+  /* 当前气压短值：同强度逻辑，取 current.pressureShort / 轨迹最新实际点 pressure（如"990 hPa"）。 */
+  function currentShortPressure(d) {
+    var c = d.current || {};
+    if (c.pressureShort && String(c.pressureShort).trim()) return String(c.pressureShort).trim();
+    var p = latestActualTrackPoint(d);
+    if (p && p.pressure) return String(p.pressure);
+    return shortText(c.pressure, 22);
   }
 
   /* ============ 射阳影响 ============

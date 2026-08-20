@@ -112,8 +112,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="preload" href="css/style.css?v=20260822" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.css?v=20260822"></noscript>
+<link rel="preload" href="css/style.css?v=20260823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260823"></noscript>
 <style>
   /* 文玩手串首页特定样式 */
   .bracelet-hero {
@@ -263,11 +263,35 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
   /* 响应式 */
   @media (max-width: 768px) {
-    .bracelet-grid { grid-template-columns: repeat(2, 1fr); }
+    .bracelet-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .bracelet-hero h1 { font-size: 1.8rem; }
+    /* 卡片竖线与文字拉开间距 */
+    .bracelet-card { padding: 20px 18px 20px 24px; min-height: 140px; }
+    .bracelet-card .emoji { font-size: 28px; margin-bottom: 8px; }
+    .bracelet-card .title { font-size: 1rem; }
+    .bracelet-card .desc { font-size: 0.78rem; }
+    .card-purple, .card-amber { border-left-width: 3px; }
+    /* 标题区允许换行，防止折叠按钮挤压文字 */
+    .cat-header { margin: 32px 0 14px; gap: 8px 10px; flex-wrap: wrap; padding-bottom: 10px; }
+    .cat-header h2 { font-size: 1.2rem; }
+    .cat-header .badge { font-size: 0.65rem; padding: 2px 8px; }
+    /* 折叠按钮在窄屏下不挤占标题空间 */
+    .cat-header .lx-ac-toggle { padding: 3px 10px; font-size: 0.75rem; }
+    /* 长文科普卡片移动端收紧 */
+    .bracelet-science { padding: 22px 18px !important; }
+    .update-compact { padding: 16px; }
   }
   @media (max-width: 480px) {
-    .bracelet-grid { grid-template-columns: 1fr; }
+    .bracelet-grid { grid-template-columns: 1fr; gap: 10px; }
+    .bracelet-card { padding: 18px 16px 18px 22px; min-height: auto; }
+    .bracelet-card .emoji { font-size: 26px; }
+    .bracelet-card .title { font-size: 0.95rem; }
+    .cat-header h2 { font-size: 1.1rem; }
+    .bracelet-science { padding: 18px 14px !important; border-radius: 12px !important; }
+    .bracelet-science > h2 { font-size: 1.1rem !important; }
+    .bracelet-science h3 { font-size: 0.95rem !important; }
+    .bracelet-science p,
+    .bracelet-science li { font-size: 0.85rem !important; line-height: 1.8 !important; }
   }
 
   /* 桌面端字号增强（2026-08-11）：与全站 17.5px 正文基线对齐，修正固定小字号 */
@@ -710,6 +734,6 @@ var _hmt = _hmt || [];
 <div id="quickToc"></div>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
-<script src="js/auto-collapse.js?v=20260819" defer></script>
+<script src="js/auto-collapse.js?v=20260823" defer></script>
 </body>
 </html>

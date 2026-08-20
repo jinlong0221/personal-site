@@ -5439,6 +5439,13 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 @media (prefers-reduced-motion: reduce) {
   .lx-ac-toggle { transition: none; }
 }
+/* 移动端：折叠按钮不挤占标题，标题区允许换行 */
+@media (max-width: 480px) {
+  .lx-ac-head { flex-wrap: wrap; gap: 6px 8px; }
+  .lx-ac-toggle { padding: 3px 10px; font-size: 0.72rem; gap: 4px; }
+  .lx-ac-count { font-size: 0.68rem; padding: 0 6px; }
+  .lx-ac-arrow { font-size: 0.65rem; }
+}
 
 /* 通用区块标题（中药材等子页复用，金色调） */
 .section-title{display:flex;align-items:center;gap:12px;margin:36px 0 20px;font-size:1.35rem;font-weight:700;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:10px}

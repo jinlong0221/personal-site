@@ -520,6 +520,17 @@
     return s.slice(0, max).replace(/[，。、；：！？,.;:!?]$/, '') + '…';
   }
 
+  /* 清洗风险标签中可能混入的调试字段（如 statusLevel=danger·statusShort=...），
+     避免自动化写入的 riskLabel 把内部键值直接暴露到页面上。 */
+  function cleanRiskLabel(s) {
+    s = String(s || '');
+    // 匹配 "（危险级·statusLevel=danger·statusShort=高风险预警）" 这类调试标记
+    s = s.replace(/[·\s]*statusLevel=[^\s·）)]+[·\s]*statusShort=[^\s·）)]+/g, '');
+    // 兜底：单独出现的 "statusLevel=xxx" / "statusShort=xxx" 也去掉
+    s = s.replace(/\s*status(Level|Short)=[^\s·）)，,.;:!?]+/g, '');
+    return s.replace(/\s+/g, ' ').trim();
+  }
+
   /* 取轨迹中"最新实际点"（剔除预报点）：用于派生当前强度/气压短值，
      与走势图共用同一份权威 track 数据，保证状态卡与路径图一致。 */
   function latestActualTrackPoint(d) {
@@ -565,11 +576,12 @@
 
     /* 1. 风险结论卡片 */
     if (sy.riskLevel) {
+      var riskLbl = cleanRiskLabel(sy.riskLabel || sy.riskNote || '请查看详细分析');
       h += '<div class="tf-verdict">' +
         '<div class="tf-verdict-badge ' + riskCls(sy.riskLevel) + '">' + esc(sy.riskLevel) + '</div>' +
         '<div class="tf-verdict-body">' +
         '<b>对射阳影响</b>' +
-        '<p>' + esc(shortText(sy.riskLabel || sy.riskNote || '请查看详细分析', 52)) + '</p>' +
+        '<p>' + esc(shortText(riskLbl, 52)) + '</p>' +
         '</div></div>';
     }
 
@@ -633,7 +645,7 @@
     var body = '';
     if (sy.period) body += '<p class="tf-xline"><b>影响时段</b>' + esc(sy.period) + '</p>';
     if (sy.peakWindow) body += '<p class="tf-xline"><b>最强时段</b>' + esc(sy.peakWindow) + '</p>';
-    if (sy.riskLabel) body += '<p class="tf-xline"><b>风险结论</b>' + esc(sy.riskLabel) + '</p>';
+    if (sy.riskLabel) body += '<p class="tf-xline"><b>风险结论</b>' + esc(cleanRiskLabel(sy.riskLabel)) + '</p>';
     if (sy.alerts && sy.alerts.length) {
       body += '<h4 class="tf-cat-h">预警信号</h4>';
       sy.alerts.forEach(function (a) {

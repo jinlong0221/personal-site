@@ -110,38 +110,35 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <link rel="preload" href="../../css/style.css?v=20260822" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="../../css/style.css?v=20260822"></noscript>
 <style>
-:root{--zs-brown:#6D4C41;--zs-gold:#BCAAA4;--zs-dark:#3E2723;--zs-light:#EFEBE9;}
-[data-theme="light"]{--bg:#FAF5F0;--card:#FFFCF8;--text:#3E2723;--muted:#8D6E63;--border:#D7CCC8;}
-[data-theme="dark"]{--bg:#1A1210;--card:#2C1E18;--text:#EFEBE9;--muted:#A1887F;--border:#4E342E;}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:1.1rem;}
-.nav-links a:hover{color:var(--text);}
-.breadcrumb a{color:var(--muted);text-decoration:none;}
-.breadcrumb a:hover{color:var(--text);}
+:root{--zb:#6D4C41;--zg:#BCAAA4;--zb-bg:#FAF5F0;--zb-card:#FFFCF8;--zb-b:#D7CCC8;--zb-t:#3E2723;--zb-m:#8D6E63;}
+[data-theme="dark"]{--zb-bg:#1A1210;--zb-card:#2C1E18;--zb-b:#4E342E;--zb-t:#EFEBE9;--zb-m:#A1887F;}
+body{margin:0;background:var(--zb-bg);color:var(--zb-t);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.breadcrumb a{color:var(--zb-m);text-decoration:none;}
+.breadcrumb a:hover{color:var(--zb-t);}
 .detail-hero{max-width:900px;margin:24px auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
 @media(max-width:700px){.detail-hero{grid-template-columns:1fr;}}
 .detail-img-wrap{border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.15);cursor:zoom-in;}
 .detail-img-wrap img{width:100%;display:block;}
 .detail-info{}
-.detail-title{font-size:2rem;font-weight:700;color:var(--zs-brown);margin:0 0 12px;letter-spacing:2px;line-height:1.3;}
+.detail-title{font-size:2rem;font-weight:700;color:var(--zb);margin:0 0 12px;letter-spacing:2px;line-height:1.3;}
 .detail-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
-.meta-pill{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:5px 14px;border-radius:20px;font-size:1.05rem;}
+.meta-pill{background:var(--zb-card);border:1px solid var(--zb-b);color:var(--zb-m);padding:5px 14px;border-radius:20px;font-size:1.05rem;}
 .detail-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
-.tag{background:var(--zs-brown);color:#fff;padding:4px 12px;border-radius:6px;font-size:0.95rem;}
+.tag{background:var(--zb);color:#fff;padding:4px 12px;border-radius:6px;font-size:0.95rem;}
 .detail-section{max-width:900px;margin:0 auto;padding:0 24px;}
-.section-label{font-size:1.15rem;color:var(--zs-brown);letter-spacing:2px;margin:28px 0 14px;font-weight:600;border-left:4px solid var(--zs-brown);padding-left:12px;}
-.detail-desc{font-size:1.15rem;color:var(--text);line-height:1.9;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:16px;}
+.section-label{font-size:1.15rem;color:var(--zb);letter-spacing:2px;margin:28px 0 14px;font-weight:600;border-left:4px solid var(--zb);padding-left:12px;}
+.detail-desc{font-size:1.15rem;color:var(--zb-t);line-height:1.9;background:var(--zb-card);border:1px solid var(--zb-b);border-radius:12px;padding:20px 24px;margin-bottom:16px;}
 .detail-desc p{margin:0 0 14px;text-indent:2em;}
 .detail-desc p:last-child{margin-bottom:0;}
-.spec-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;}
-.spec-table th,.spec-table td{padding:12px 18px;text-align:left;border-bottom:1px solid var(--border);font-size:1.08rem;}
-.spec-table th{background:var(--zs-brown);color:#fff;width:120px;}
-.spec-table td{color:var(--text);}
+.spec-table{width:100%;border-collapse:collapse;background:var(--zb-card);border:1px solid var(--zb-b);border-radius:10px;overflow:hidden;margin-bottom:24px;}
+.spec-table th,.spec-table td{padding:12px 18px;text-align:left;border-bottom:1px solid var(--zb-b);font-size:1.08rem;}
+.spec-table th{background:var(--zb);color:#fff;width:120px;}
+.spec-table td{color:var(--zb-t);}
 .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:40px;}
-.related-card{display:block;text-decoration:none;background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;}
+.related-card{display:block;text-decoration:none;background:var(--zb-card);border:1px solid var(--zb-b);border-radius:10px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;}
 .related-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
 .related-card img{width:100%;height:120px;object-fit:cover;display:block;}
-.related-card span{display:block;padding:10px 12px;color:var(--text);font-size:1.05rem;font-weight:500;}
+.related-card span{display:block;padding:10px 12px;color:var(--zb-t);font-size:1.05rem;font-weight:500;}
 </style>
 
 <link rel="canonical" href="https://longxiong.vip/pages/zisha/detail-gujing-fanggu.html">

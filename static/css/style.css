@@ -2,6 +2,17 @@
 
 
 :root {
+/* ============================================================
+   设计 TOKEN 治理（2026-08-21 收敛）
+   规范名（唯一事实来源，改色只改这里）：
+     底色   --bg --bg-secondary --card --card-hover
+     边框   --border-color --border-subtle
+     文字   --text-color --text-secondary --text-muted
+     强调   --accent-color(=--gold) --gold-light --gold-soft
+   历史别名（--text/--tx/--text-primary/--bubble-text/--tx-2/--tx-3/
+            --border/--border-light/--card-bg/--gold）已改为 var() 引用，
+   禁止新增同名别名，禁止内联写死主题色值（用 var() 跟踪明暗）。
+   ============================================================ */
   --bg: #12100C;
   --bg-secondary: #191510;
   --card: #191510;
@@ -12,12 +23,12 @@
   --border-subtle: #3A3225;
   --pink: #E26A9C;
   --accent-color: #C9A84C;
-  --border: #2E281E;
-  --border-light: #3A3225;
-  --text: #EDE6D6;
+  --border: var(--border-color);
+  --border-light: var(--border-subtle);
+  --text: var(--text-color);
   --text-secondary: #A2977F;
   --text-muted: #6C6353;
-  --gold: #C9A84C;
+  --gold: var(--accent-color);
   --gold-light: #E0C97A;
   --blue: #0078d4;
   --blue-light: #6FA8DC;
@@ -44,9 +55,9 @@
   --ink-4: #2A2318;
   --rule: #3A3225;
   --rule-soft: #2A2419;
-  --tx: #EDE6D6;
-  --tx-2: #A2977F;
-  --tx-3: #6C6353;
+  --tx: var(--text-color);
+  --tx-2: var(--text-secondary);
+  --tx-3: var(--text-muted);
   --cinnabar: #D14A36;
   --cinnabar-soft: rgba(209,74,54,0.14);
   --gold-soft: rgba(201,168,76,0.14);
@@ -54,14 +65,14 @@
   --serif: "Songti SC","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
   --grain: 0.05;
   /* 融合模块+聊天气泡变量（默认暗色） */
-  --text-primary: #EDE6D6;
+  --text-primary: var(--text-color);
   --border-light-new: #3A3225;
   --bubble-bg: #2A2118;
-  --bubble-text: #EDE6D6;
+  --bubble-text: var(--text-color);
   --chip-bg: #211C15;
   --chip-border: #3A3225;
   --chip-text: #EDE6D6;
-  --card-bg: #191510;
+  --card-bg: var(--card);
   --gold-text: #12100C;
 }
 
@@ -76,12 +87,12 @@
  --border-subtle: #E2D9C5;
  --pink: #E26A9C;
  --accent-color: #957425;
- --border: #D8CDB4;
- --border-light: #E2D9C5;
- --text: #1E1A13;
+ --border: var(--border-color);
+ --border-light: var(--border-subtle);
+ --text: var(--text-color);
  --text-secondary: #5A5343;
  --text-muted: #8B8168;
- --gold: #957425;
+ --gold: var(--accent-color);
  --gold-light: #C9A84C;
  --blue-light: #2A6FB0;
  --nav-bg: rgba(241,235,221,0.92);
@@ -94,16 +105,16 @@
  --ink-4: #FFFDF7;
  --rule: #D8CDB4;
  --rule-soft: #E2D9C5;
- --tx: #1E1A13;
- --tx-2: #5A5343;
- --tx-3: #8B8168;
+ --tx: var(--text-color);
+ --tx-2: var(--text-secondary);
+ --tx-3: var(--text-muted);
  --cinnabar: #B7301F;
  --cinnabar-soft: rgba(183,48,31,0.10);
  --gold-soft: rgba(149,116,37,0.12);
  --grain: 0.045;
 
   /* 融合模块颜色变量（白天模式） */
-  --text-primary: #1E1A13;
+  --text-primary: var(--text-color);
   --text-secondary-new: #5A5343;
   --text-muted-new: #8B8168;
   --bg-card: #FBF7EE;
@@ -111,11 +122,11 @@
   --border-light-new: #D8CDB4;
   --accent: #957425;
   --bubble-bg: #FBF3E4;
-  --bubble-text: #1E1A13;
+  --bubble-text: var(--text-color);
   --chip-bg: #FBF7EE;
   --chip-border: #D8CDB4;
   --chip-text: #5A5343;
-  --card-bg: #FBF7EE;
+  --card-bg: var(--card);
   --card-shadow: rgba(90,75,45,0.14);
   --gold-text: #4A3508;
 

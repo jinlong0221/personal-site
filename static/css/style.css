@@ -5387,6 +5387,51 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .bm-btn .bm-star{ transition:fill .15s, transform .15s; }
 .bm-btn.on{ border-color:var(--gold); color:var(--gold); background:color-mix(in srgb, var(--gold) 12%, transparent); }
 .bm-btn.on .bm-star{ fill:var(--gold); }
+
+/* ============================================================
+   本周精选 · 主编推荐（2026-08-21 信息架构主线）
+   与下方自动模块「热门精选/今日更新」形成「策展 vs 时效」双主线；
+   金仅作强调线/印记，不铺面（品牌沉浸感克制原则）。
+   ============================================================ */
+.lx-picks{ margin:24px 0 4px; }
+.lx-picks-hd{ display:flex; align-items:baseline; gap:12px; margin-bottom:14px; }
+.lx-picks-hd .kicker{ font-size:.76rem; letter-spacing:.2em; font-weight:700;
+  color:var(--accent-color); white-space:nowrap; }
+.lx-picks-hd h2{ margin:0; font-size:1.16rem; color:var(--text-color); font-weight:700; }
+.lx-picks-hd .ln{ flex:1; height:1px; background:linear-gradient(90deg,var(--border-color),transparent); }
+.lx-picks-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.lx-epick{ display:block; text-decoration:none; background:var(--card);
+  border:1px solid var(--border-color); border-radius:14px; overflow:hidden;
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.lx-epick:hover{ transform:translateY(-3px); border-color:var(--accent-color); box-shadow:var(--shadow-md); }
+.lx-epick:focus-visible{ outline:2px solid var(--accent-color); outline-offset:2px; }
+.lx-epick-media{ height:92px; display:flex; align-items:center; justify-content:center; }
+.lx-epick-brush{ font-size:2.6rem; color:#fff; line-height:1; text-shadow:0 2px 6px rgba(0,0,0,.25); }
+.lx-epick-body{ padding:12px 14px 15px; }
+.lx-epick-tag{ font-size:.72rem; letter-spacing:.04em; color:var(--text-secondary); }
+.lx-epick-title{ font-size:1.02rem; font-weight:700; color:var(--text-color); margin:3px 0 5px; }
+.lx-epick-desc{ font-size:.82rem; line-height:1.5; color:var(--text-muted); }
+@media (max-width:900px){ .lx-picks-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:480px){ .lx-picks-grid{ grid-template-columns:1fr 1fr; gap:10px; }
+  .lx-epick-media{ height:74px; } .lx-epick-brush{ font-size:2.1rem; }
+  .lx-epick-title{ font-size:.95rem; } .lx-epick-desc{ font-size:.76rem; } }
+
+/* ============================================================
+   微交互安全层（2026-08-21 · 对标苹果/特斯拉工程标准）
+   1) 动效减弱偏好：尊重系统设置，避免眩晕（无障碍硬指标）。
+   2) 键盘焦点：金色可见轮廓，兼顾可达性与品牌一致。
+   3) 统一过渡节奏：以 --transition 为基准，避免各组件节奏漂移。
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+:focus-visible{ outline:2px solid var(--accent-color); outline-offset:2px; border-radius:2px; }
+a, button, .lx-card, .lx-pick, .lx-toc a, .qt-item { transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease, background-color .25s ease; }
 .bm-btn:active .bm-star{ transform:scale(1.2); }
 
 /* ===== 我的收藏列表页（bookmarks.html） ===== */

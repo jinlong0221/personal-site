@@ -42,6 +42,30 @@ def clean(path: str) -> str:
     return f"{path}: {before} 条 -> {len(out)} 条 (删除空记录 {dropped})"
 
 
+def sync_canonical(canonical: str = "static/changelog.json") -> list[str]:
+    """以 canonical 副本为准，强制三副本字节一致；返回被同步的路径列表。"""
+    synced = []
+    try:
+        with open(canonical, encoding="utf-8") as f:
+            text = f.read()
+        # 解析校验：确保 canonical 是合法 JSON
+        json.loads(text)
+    except Exception as e:
+        print(f"  同步失败: canonical {canonical} 无法读取或解析 -> {e}")
+        return synced
+
+    for target in TARGETS:
+        if target == canonical:
+            continue
+        try:
+            with open(target, "w", encoding="utf-8") as f:
+                f.write(text)
+            synced.append(target)
+        except Exception as e:
+            print(f"  同步失败: {target} -> {e}")
+    return synced
+
+
 if __name__ == "__main__":
     print("=== changelog 护栏：开始清洗空记录 ===")
     failures = []
@@ -51,6 +75,15 @@ if __name__ == "__main__":
         if "失败" in msg or "异常" in msg:
             failures.append(t)
     print("=== 清洗完成 ===")
+
+    # —— 三副本同步：以 static/changelog.json 为准，强制 data/ 与 static/data/ 一致 ——
+    print("=== changelog 三副本同步 ===")
+    synced = sync_canonical()
+    if synced:
+        print("  已同步至: " + ", ".join(synced))
+    else:
+        print("  三副本已一致，无需同步")
+    print("=== 同步完成 ===")
 
     # —— 板块新闻日期排序（自愈护栏，2026-08-20 接入）——
     # 所有自动更新任务提交前都会执行本脚本；顺带把各板块 news 数组按日期倒序

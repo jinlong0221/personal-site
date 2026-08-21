@@ -443,7 +443,7 @@ if(document.readyState==='loading'){
   document.body.appendChild(btn);
 
   // 滚动监听
-  var threshold = 500;
+  var threshold = 900;
   var ticking = false;
   function check() {
     var y = window.scrollY || window.pageYOffset;

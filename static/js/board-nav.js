@@ -22,6 +22,10 @@
     var path = location.pathname;
     if (path === '/' || path.endsWith('/index.html')) return;
 
+    // 页面可通过 <meta name="board-nav" content="off"> 关闭自动目录。
+    // 用于已有手动 .section-nav 的页面（如紫砂艺术家页），避免重复生成章节导航并误插入艺术家卡片内。
+    if (document.querySelector('meta[name="board-nav"][content="off"]')) return;
+
     // 收集内容区 h2（排除导航/页眉/页脚/目录自身）
     var allH2 = Array.prototype.slice.call(document.querySelectorAll('h2'));
     allH2 = allH2.filter(function (h) {

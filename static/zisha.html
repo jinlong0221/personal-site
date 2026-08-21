@@ -29,6 +29,8 @@
 <meta name="article-category" content="紫砂">
 <meta name="article-tags" content="紫砂,壶艺,收藏">
 <meta name="article-updated" content="2026-08-17">
+<!-- 关闭 board-nav 自动目录：本页已有手动 .section-nav，避免重复生成并误插入艺术家卡片内导致移动端溢出 -->
+<meta name="board-nav" content="off">
 
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
@@ -112,8 +114,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="preload" href="css/style.css?v=20260822" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.css?v=20260822"></noscript>
+<link rel="preload" href="css/style.css?v=20260821" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260821"></noscript>
 <style>
 /* ===== 紫砂意境配色系统 ===== */
 :root {
@@ -532,9 +534,13 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
 /* ===== 响应式 ===== */
 @media (max-width: 768px) {
-  .artist-card { flex-direction: column; align-items: center; text-align: center; padding: 20px; }
-  .artist-card .portrait { width: 120px; min-width: 120px; height: 120px; }
-  .artist-card .titles { justify-content: center; }
+  .artist-card { flex-direction: column; align-items: stretch; text-align: left; padding: 18px; gap: 14px; }
+  .artist-card .portrait { width: 84px; min-width: 84px; height: 84px; align-self: flex-start; margin: 0; }
+  .artist-card .info { width: 100%; }
+  .artist-card .info h2 { font-size: 1.45rem; }
+  .artist-card .titles { justify-content: flex-start; gap: 5px; margin: 6px 0 10px; }
+  .artist-card .title-tag { font-size: .82rem; padding: 2px 8px; }
+  .artist-card .bio { font-size: 1.0rem; line-height: 1.7; text-align: left; }
   .collapsible-header { padding: 14px 16px; }
   .collapsible-body-inner { padding: 0 16px 16px; }
   .works-grid { grid-template-columns: 1fr; }
@@ -692,7 +698,7 @@ var _hmt = _hmt || [];
           <span class="title-tag">中国紫砂文化研究会常务理事</span>
         </div>
         <p class="bio">出生于书香门第，早年求学澳大利亚，回国后即置身陶都宜兴，专业从事紫砂艺术品的创作与研发工作。秉承吴门传统制壶技艺，博纳众家之长，创作理念上融合中国传统儒学文化、道教文化、佛教文化的内涵。以泥塑形，以壶传神，从有形到无形，充分展现了各家的文化思想，逐步形成了自己独特的艺术风格。</p>
-        <p class="bio">十多年来，在继承传统的基础上，不断开拓创新，呈现出一系列优秀的原创紫砂作品。近百件作品先后获得国家外观设计专利，发表专业理论文章近20多篇，多件作品荣获国家级展评活动金奖，并被政要名人以及多家国内外知名博物馆所收藏。独创「五色釉柴烧紫砂茶器」，充分发挥紫砂器具的功能性，器物古朴典雅，肌理丰富，茶感醇厚多滋，茗香独特，颇受当代茶人与专业藏家追捧。</p>
+        <p class="bio">十多年来，在继承传统的基础上，不断开拓创新，呈现出一系列优秀的原创紫砂作品。近百件作品先后获得国家外观设计专利，发表专业理论文章20余篇，多件作品荣获国家级展评活动金奖，并被政要名人以及多家国内外知名博物馆所收藏。独创「五色釉柴烧紫砂茶器」，充分发挥紫砂器具的功能性，器物古朴典雅，肌理丰富，茶感醇厚多滋，茗香独特，颇受当代茶人与专业藏家追捧。</p>
       </div>
     </div>
   </div>
@@ -1237,7 +1243,7 @@ var _hmt = _hmt || [];
 
 </div>
 
-<script defer src="/js/board-nav.js"></script>
+<script defer src="/js/board-nav.js?v=20260821"></script>
 <script defer src="js/app.js"></script>
 <script defer src="js/search.js"></script>
 <script>

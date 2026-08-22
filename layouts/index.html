@@ -54,15 +54,28 @@
       <h2>还有几天到</h2>
       <span class="ln"></span>
     </div>
+    <!-- 近期节点：大节(法定)+小节(传统农历/节气)全部展示；组件按剩余天数升序排列；星期天为每周休息日不单列 -->
     <div class="lx-nodes" data-countdown-sort>
+      <!-- 大节·法定 -->
       <span class="lx-node" data-countdown data-annual="01-01" data-label="元旦"></span>
-      <span class="lx-node" data-countdown data-dates="2026-02-17,2027-02-06,2028-01-26,2029-02-13,2030-02-03" data-label="春节"></span>
+      <span class="lx-node" data-countdown data-dates="2025-01-29,2026-02-17,2027-02-06,2028-01-26,2029-02-13,2030-02-03,2031-01-23" data-label="春节"></span>
       <span class="lx-node" data-countdown data-annual="04-05" data-label="清明"></span>
       <span class="lx-node" data-countdown data-annual="05-01" data-label="劳动"></span>
-      <span class="lx-node" data-countdown data-dates="2026-06-19,2027-06-09,2028-05-28,2029-06-16,2030-06-05" data-label="端午"></span>
-      <span class="lx-node" data-countdown data-dates="2026-09-25,2027-09-15,2028-10-03,2029-09-22,2030-09-12" data-label="中秋"></span>
+      <span class="lx-node" data-countdown data-dates="2025-05-31,2026-06-19,2027-06-09,2028-05-28,2029-06-16,2030-06-05,2031-06-24" data-label="端午"></span>
+      <span class="lx-node" data-countdown data-dates="2025-10-06,2026-09-25,2027-09-15,2028-10-03,2029-09-22,2030-09-12,2031-10-01" data-label="中秋"></span>
       <span class="lx-node" data-countdown data-annual="10-01" data-label="国庆"></span>
       <span class="lx-node" data-countdown data-annual="06-07" data-label="高考"></span>
+      <!-- 小节·传统农历节日 -->
+      <span class="lx-node" data-countdown data-dates="2025-02-12,2026-03-03,2027-02-20,2028-02-09,2029-02-27,2030-02-17,2031-02-06" data-label="元宵"></span>
+      <span class="lx-node" data-countdown data-dates="2025-03-01,2026-03-20,2027-03-09,2028-02-26,2029-03-16,2030-03-05,2031-02-22" data-label="龙抬头"></span>
+      <span class="lx-node" data-countdown data-dates="2025-08-29,2026-08-19,2027-08-08,2028-08-26,2029-08-16,2030-08-05,2031-08-24" data-label="七夕"></span>
+      <span class="lx-node" data-countdown data-dates="2025-09-06,2026-08-27,2027-08-16,2028-09-03,2029-08-24,2030-08-13,2031-09-01" data-label="中元"></span>
+      <span class="lx-node" data-countdown data-dates="2025-10-29,2026-10-18,2027-10-08,2028-10-26,2029-10-16,2030-10-05,2031-10-24" data-label="重阳"></span>
+      <span class="lx-node" data-countdown data-dates="2025-11-20,2026-11-09,2027-10-29,2028-11-16,2029-11-06,2030-10-27,2031-11-15" data-label="寒衣节"></span>
+      <span class="lx-node" data-countdown data-dates="2026-01-26,2027-01-15,2028-01-04,2029-01-22,2030-01-11,2031-01-01,2032-01-20" data-label="腊八"></span>
+      <span class="lx-node" data-countdown data-dates="2026-02-10,2027-01-30,2028-01-19,2029-02-06,2030-01-26,2031-01-16,2032-02-04" data-label="小年"></span>
+      <!-- 小节·节气 -->
+      <span class="lx-node" data-countdown data-dates="2026-12-22,2027-12-22,2028-12-21,2029-12-21,2030-12-22" data-label="冬至"></span>
     </div>
   </section>
 

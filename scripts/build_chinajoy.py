@@ -723,8 +723,8 @@ def main():
 <link rel="dns-prefetch" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 __CRITICAL__
-<link rel="preload" href="css/style.css?v=20260821" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.css?v=20260821"></noscript>
+<link rel="preload" href="css/style.css?v=20260822" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260822"></noscript>
 <title>ChinaJoy 成长史 - 龙兄知识库</title><meta name="description" content="ChinaJoy 成长史：从 2004 年首届到 2026 年第 23 届的完整档案，逐届梳理展会主题、规模数据、参展品牌与代表游戏，以及二十余年的行业变迁。">
 <meta name="keywords" content="ChinaJoy,中国国际数码互动娱乐展览会,历届ChinaJoy,ChinaJoy主题,ChinaJoy参展游戏,游戏展,上海新国际博览中心">
 <style>__PAGECSS__</style>

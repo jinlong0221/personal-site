@@ -2,6 +2,17 @@
 
 
 :root {
+/* ============================================================
+   设计 TOKEN 治理（2026-08-21 收敛）
+   规范名（唯一事实来源，改色只改这里）：
+     底色   --bg --bg-secondary --card --card-hover
+     边框   --border-color --border-subtle
+     文字   --text-color --text-secondary --text-muted
+     强调   --accent-color(=--gold) --gold-light --gold-soft
+   历史别名（--text/--tx/--text-primary/--bubble-text/--tx-2/--tx-3/
+            --border/--border-light/--card-bg/--gold）已改为 var() 引用，
+   禁止新增同名别名，禁止内联写死主题色值（用 var() 跟踪明暗）。
+   ============================================================ */
   --bg: #12100C;
   --bg-secondary: #191510;
   --card: #191510;
@@ -12,12 +23,12 @@
   --border-subtle: #3A3225;
   --pink: #E26A9C;
   --accent-color: #C9A84C;
-  --border: #2E281E;
-  --border-light: #3A3225;
-  --text: #EDE6D6;
+  --border: var(--border-color);
+  --border-light: var(--border-subtle);
+  --text: var(--text-color);
   --text-secondary: #A2977F;
   --text-muted: #6C6353;
-  --gold: #C9A84C;
+  --gold: var(--accent-color);
   --gold-light: #E0C97A;
   --blue: #0078d4;
   --blue-light: #6FA8DC;
@@ -44,9 +55,9 @@
   --ink-4: #2A2318;
   --rule: #3A3225;
   --rule-soft: #2A2419;
-  --tx: #EDE6D6;
-  --tx-2: #A2977F;
-  --tx-3: #6C6353;
+  --tx: var(--text-color);
+  --tx-2: var(--text-secondary);
+  --tx-3: var(--text-muted);
   --cinnabar: #D14A36;
   --cinnabar-soft: rgba(209,74,54,0.14);
   --gold-soft: rgba(201,168,76,0.14);
@@ -54,14 +65,14 @@
   --serif: "Songti SC","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
   --grain: 0.05;
   /* 融合模块+聊天气泡变量（默认暗色） */
-  --text-primary: #EDE6D6;
+  --text-primary: var(--text-color);
   --border-light-new: #3A3225;
   --bubble-bg: #2A2118;
-  --bubble-text: #EDE6D6;
+  --bubble-text: var(--text-color);
   --chip-bg: #211C15;
   --chip-border: #3A3225;
   --chip-text: #EDE6D6;
-  --card-bg: #191510;
+  --card-bg: var(--card);
   --gold-text: #12100C;
 }
 
@@ -76,12 +87,12 @@
  --border-subtle: #E2D9C5;
  --pink: #E26A9C;
  --accent-color: #957425;
- --border: #D8CDB4;
- --border-light: #E2D9C5;
- --text: #1E1A13;
+ --border: var(--border-color);
+ --border-light: var(--border-subtle);
+ --text: var(--text-color);
  --text-secondary: #5A5343;
  --text-muted: #8B8168;
- --gold: #957425;
+ --gold: var(--accent-color);
  --gold-light: #C9A84C;
  --blue-light: #2A6FB0;
  --nav-bg: rgba(241,235,221,0.92);
@@ -94,16 +105,16 @@
  --ink-4: #FFFDF7;
  --rule: #D8CDB4;
  --rule-soft: #E2D9C5;
- --tx: #1E1A13;
- --tx-2: #5A5343;
- --tx-3: #8B8168;
+ --tx: var(--text-color);
+ --tx-2: var(--text-secondary);
+ --tx-3: var(--text-muted);
  --cinnabar: #B7301F;
  --cinnabar-soft: rgba(183,48,31,0.10);
  --gold-soft: rgba(149,116,37,0.12);
  --grain: 0.045;
 
   /* 融合模块颜色变量（白天模式） */
-  --text-primary: #1E1A13;
+  --text-primary: var(--text-color);
   --text-secondary-new: #5A5343;
   --text-muted-new: #8B8168;
   --bg-card: #FBF7EE;
@@ -111,11 +122,11 @@
   --border-light-new: #D8CDB4;
   --accent: #957425;
   --bubble-bg: #FBF3E4;
-  --bubble-text: #1E1A13;
+  --bubble-text: var(--text-color);
   --chip-bg: #FBF7EE;
   --chip-border: #D8CDB4;
   --chip-text: #5A5343;
-  --card-bg: #FBF7EE;
+  --card-bg: var(--card);
   --card-shadow: rgba(90,75,45,0.14);
   --gold-text: #4A3508;
 
@@ -1928,19 +1939,19 @@ p.plot-text {
   right: 18px;
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #e63946, #c1121f);
-  color: #fff;
-  border: none;
+  background: linear-gradient(135deg, #2c2c2c, #161616);
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.35);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(230,57,70,0.45), 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.20);
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px) scale(0.8);
-  transition: opacity 0.35s, visibility 0.35s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.25s;
+  transition: opacity 0.35s, visibility 0.35s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.25s, border-color 0.25s;
   z-index: 9999;
   -webkit-tap-highlight-color: transparent;
 }
@@ -1950,13 +1961,16 @@ p.plot-text {
   transform: translateY(0);
 }
 .back-to-top:hover {
-  background: linear-gradient(135deg, #c1121f, #9b2226);
+  background: linear-gradient(135deg, #3a3a3a, #1f1f1f);
+  border-color: rgba(201,168,76,0.6);
   transform: translateY(-3px) scale(1.08);
-  box-shadow: 0 6px 24px rgba(230,57,70,0.5), 0 2px 8px rgba(0,0,0,0.18);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.25);
 }
 [data-theme="light"] .back-to-top {
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(230,57,70,0.4), 0 2px 6px rgba(0,0,0,0.12);
+  color: var(--gold);
+  background: linear-gradient(135deg, #2c2c2c, #161616);
+  border: 1px solid rgba(201,168,76,0.35);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22), 0 2px 6px rgba(0,0,0,0.15);
 }
 @media (max-width:600px) {
   .back-to-top { bottom: 74px; right: 18px; width: 42px; height: 42px; }
@@ -5137,7 +5151,7 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 }
 .lx-hero-body{
   position:relative; z-index:2;
-  padding:32px 24px;
+  padding:32px 24px 44px;
   max-width:720px;
   color:#F4EEE2;
   text-shadow:0 2px 18px rgba(0,0,0,.5);
@@ -5179,17 +5193,26 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
   transform:translateY(-1px);
 }
 .lx-hero-dots{
-  position:absolute; z-index:3; left:0; right:0; bottom:16px;
-  display:flex; gap:10px; justify-content:center;
+  position:absolute; z-index:3; left:50%; bottom:18px;
+  transform:translateX(-50%);
+  display:flex; gap:7px; align-items:center; justify-content:center;
+  padding:8px 12px;
+  background:rgba(15,13,10,.38);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
 }
 .lx-hero-dot{
-  width:9px; height:9px; padding:0; border:0; border-radius:50%;
-  background:rgba(255,255,255,.42); cursor:pointer;
-  transition:width .3s ease, background .3s ease, border-radius .3s ease;
+  width:18px; height:3px; min-width:0; min-height:0; padding:0; border:0; border-radius:2px;
+  background:rgba(255,255,255,.30); cursor:pointer;
+  transition:width .3s ease, background .3s ease, opacity .3s ease;
 }
 .lx-hero-dot.is-active{
-  width:26px; border-radius:5px; background:var(--gold);
+  width:28px; background:var(--gold);
 }
+.lx-hero-dot:hover{ background:rgba(255,255,255,.55); }
+.lx-hero-dot.is-active:hover{ background:var(--gold); }
 .lx-hero-dot:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 
 /* 模块标题与留白：更大、更疏 */
@@ -5251,9 +5274,10 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 
 /* 移动端 */
 @media (max-width:560px){
-  .lx-hero{ border-radius:14px; min-height:260px; margin:14px 0 24px; }
-  .lx-hero-body{ padding:24px 18px; }
+  .lx-hero{ border-radius:14px; min-height:360px; margin:14px 0 24px; }
+  .lx-hero-body{ padding:24px 18px 56px; }
   .lx-hero-title{ font-size:clamp(26px,8vw,36px); }
+  .lx-hero-dots{ bottom:14px; padding:7px 11px; }
   .lx-mod{ margin:42px 0 10px; }
   .lx-divider{ margin:36px 0; }
   .lx-masthead{ padding:28px 0 18px; }
@@ -5376,6 +5400,51 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .bm-btn .bm-star{ transition:fill .15s, transform .15s; }
 .bm-btn.on{ border-color:var(--gold); color:var(--gold); background:color-mix(in srgb, var(--gold) 12%, transparent); }
 .bm-btn.on .bm-star{ fill:var(--gold); }
+
+/* ============================================================
+   本周精选 · 主编推荐（2026-08-21 信息架构主线）
+   与下方自动模块「热门精选/今日更新」形成「策展 vs 时效」双主线；
+   金仅作强调线/印记，不铺面（品牌沉浸感克制原则）。
+   ============================================================ */
+.lx-picks{ margin:24px 0 4px; }
+.lx-picks-hd{ display:flex; align-items:baseline; gap:12px; margin-bottom:14px; }
+.lx-picks-hd .kicker{ font-size:.76rem; letter-spacing:.2em; font-weight:700;
+  color:var(--accent-color); white-space:nowrap; }
+.lx-picks-hd h2{ margin:0; font-size:1.16rem; color:var(--text-color); font-weight:700; }
+.lx-picks-hd .ln{ flex:1; height:1px; background:linear-gradient(90deg,var(--border-color),transparent); }
+.lx-picks-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.lx-epick{ display:block; text-decoration:none; background:var(--card);
+  border:1px solid var(--border-color); border-radius:14px; overflow:hidden;
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.lx-epick:hover{ transform:translateY(-3px); border-color:var(--accent-color); box-shadow:var(--shadow-md); }
+.lx-epick:focus-visible{ outline:2px solid var(--accent-color); outline-offset:2px; }
+.lx-epick-media{ height:92px; display:flex; align-items:center; justify-content:center; }
+.lx-epick-brush{ font-size:2.6rem; color:#fff; line-height:1; text-shadow:0 2px 6px rgba(0,0,0,.25); }
+.lx-epick-body{ padding:12px 14px 15px; }
+.lx-epick-tag{ font-size:.72rem; letter-spacing:.04em; color:var(--text-secondary); }
+.lx-epick-title{ font-size:1.02rem; font-weight:700; color:var(--text-color); margin:3px 0 5px; }
+.lx-epick-desc{ font-size:.82rem; line-height:1.5; color:var(--text-muted); }
+@media (max-width:900px){ .lx-picks-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:480px){ .lx-picks-grid{ grid-template-columns:1fr 1fr; gap:10px; }
+  .lx-epick-media{ height:74px; } .lx-epick-brush{ font-size:2.1rem; }
+  .lx-epick-title{ font-size:.95rem; } .lx-epick-desc{ font-size:.76rem; } }
+
+/* ============================================================
+   微交互安全层（2026-08-21 · 对标苹果/特斯拉工程标准）
+   1) 动效减弱偏好：尊重系统设置，避免眩晕（无障碍硬指标）。
+   2) 键盘焦点：金色可见轮廓，兼顾可达性与品牌一致。
+   3) 统一过渡节奏：以 --transition 为基准，避免各组件节奏漂移。
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+:focus-visible{ outline:2px solid var(--accent-color); outline-offset:2px; border-radius:2px; }
+a, button, .lx-card, .lx-pick, .lx-toc a, .qt-item { transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease, background-color .25s ease; }
 .bm-btn:active .bm-star{ transform:scale(1.2); }
 
 /* ===== 我的收藏列表页（bookmarks.html） ===== */

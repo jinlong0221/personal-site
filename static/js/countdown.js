@@ -70,6 +70,7 @@
       return;
     }
     var diff = daysBetween(target);
+    el._cdDiff = diff; // 缓存剩余天数，供容器排序使用
     var label = el.getAttribute('data-label') || '';
     var past = el.getAttribute('data-past') || '已结束';
     var zero = el.getAttribute('data-zero') || '今天';
@@ -98,12 +99,35 @@
     el.classList.toggle('is-soon', diff <= 30);
   }
 
+  // 可选能力：容器加 data-countdown-sort 后，按剩余天数升序重排子节点
+  // （最近优先；已过期节点沉底）。不影响未开启该特性的页面。
+  function sortNodeContainers() {
+    var containers = document.querySelectorAll('[data-countdown-sort]');
+    for (var c = 0; c < containers.length; c++) {
+      var box = containers[c];
+      var kids = [];
+      for (var k = 0; k < box.children.length; k++) {
+        var ch = box.children[k];
+        if (ch.hasAttribute && ch.hasAttribute('data-countdown')) kids.push(ch);
+      }
+      if (kids.length < 2) continue;
+      kids.sort(function (a, b) {
+        var da = (a._cdDiff == null ? Infinity : (a._cdDiff < 0 ? Infinity : a._cdDiff));
+        var db = (b._cdDiff == null ? Infinity : (b._cdDiff < 0 ? Infinity : b._cdDiff));
+        return da - db;
+      });
+      for (var n = 0; n < kids.length; n++) box.appendChild(kids[n]); // 按序 append = 重排
+    }
+  }
+
   function init() {
     var els = document.querySelectorAll('[data-countdown]');
     for (var i = 0; i < els.length; i++) render(els[i]);
-    // 跨天校准
+    sortNodeContainers();
+    // 跨天校准（渲染 + 重排，保证跨天后顺序依旧最近优先）
     setInterval(function () {
       for (var j = 0; j < els.length; j++) render(els[j]);
+      sortNodeContainers();
     }, 60000);
   }
 

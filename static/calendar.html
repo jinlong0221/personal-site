@@ -239,6 +239,85 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       .year-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
       .hours-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}
     }
+
+    /* ===== 高级感改造：编辑式国风黑金 ===== */
+    /* 1. 页面 masthead */
+    .cal-hero { text-align:center; padding:1.2rem 0 1.7rem; margin-bottom:.6rem; }
+    .cal-hero-kicker { display:block; font-size:.72rem; letter-spacing:.12em; color:var(--cal-muted); text-transform:uppercase; margin-bottom:.55rem; }
+    .cal-hero-title { font-size:2.2rem; font-weight:800; letter-spacing:.06em; color:var(--cal-text); line-height:1.15; }
+    .cal-hero-sub { font-size:.95rem; color:var(--cal-muted); margin-top:.4rem; letter-spacing:.03em; }
+    .cal-hero-meta { display:block; font-size:.72rem; color:var(--cal-muted); margin-top:.95rem; }
+    .cal-hero::after { content:''; display:block; width:48px; height:2px; background:var(--cal-accent); margin:1.1rem auto 0; border-radius:1px; opacity:.6; }
+
+    /* 2. 统一章节标题：kicker + 标题 + 金线分隔 */
+    .cal-sec { position:relative; margin:2.5rem 0 1.1rem; padding-bottom:.7rem; border-bottom:1px solid var(--cal-border); }
+    .cal-sec-kicker { display:block; font-size:.66rem; letter-spacing:.1em; color:var(--cal-muted); margin-bottom:.25rem; padding-left:.7rem; }
+    .cal-sec-title { font-size:1.28rem; font-weight:700; color:var(--cal-text); padding-left:.7rem; border-left:2px solid var(--cal-accent); line-height:1.3; letter-spacing:.02em; }
+
+    /* 3. 月历：去重金 header，改用细金底边 + 周末微标 */
+    .cal-table { border-radius:14px; box-shadow:0 1px 5px rgba(0,0,0,0.04); border:1px solid var(--cal-border); }
+    .cal-table thead th { background:var(--cal-bg); color:var(--cal-muted); border-bottom:1px solid var(--cal-accent); font-weight:500; font-size:.78rem; letter-spacing:.04em; padding:.55rem .15rem; }
+    .cal-table thead th:first-child,
+    .cal-table thead th:last-child { color:var(--cal-accent); background:rgba(201,168,76,0.03); }
+    .cal-table td { border-color:var(--cal-border); }
+    .cal-table td .solar { font-size:1rem; font-weight:600; }
+    .cal-table td .lunar { font-size:.67rem; letter-spacing:.02em; margin-top:3px; }
+    .cal-table td.clickable:hover { background:rgba(201,168,76,0.07); }
+    .cal-table td.today { background:rgba(201,168,76,0.05); border:1px solid var(--cal-border); box-shadow:inset 0 0 0 1px var(--cal-accent); }
+    .cal-table td.today .solar { color:var(--cal-accent); font-weight:700; }
+    .cal-table td.active { background:rgba(201,168,76,0.08); border:1px solid var(--cal-border); box-shadow:inset 0 0 0 1px var(--cal-accent); }
+
+    /* 4. 导航按钮：去实心金，改用描边+微hover */
+    .cal-nav { gap:.6rem; margin-bottom:1.2rem; }
+    .cal-nav button, .year-nav button { background:transparent; color:var(--cal-text); border:1px solid var(--cal-border); border-radius:8px; font-size:.9rem; transition:.2s; }
+    .cal-nav button:hover, .year-nav button:hover { border-color:var(--cal-accent); color:var(--cal-accent); background:rgba(201,168,76,0.05); }
+    .cal-nav .month-label { color:var(--cal-text); font-weight:700; }
+    .cal-nav .today-btn, .year-nav .today-btn { background:transparent; color:var(--cal-accent); border-color:var(--cal-accent); font-weight:600; }
+    .cal-nav .today-btn:hover, .year-nav .today-btn:hover { background:rgba(201,168,76,0.08); }
+    .cal-mini-btn { background:transparent; color:var(--cal-accent); border:1px solid var(--cal-accent); font-weight:600; transition:.2s; }
+    .cal-mini-btn:hover { background:rgba(201,168,76,0.08); filter:none; }
+
+    /* 5. 工具 tab：去实心金，改用描边 */
+    .tool-tab { background:transparent; color:var(--cal-text); border:1px solid var(--cal-border); }
+    .tool-tab:hover { background:transparent; border-color:var(--cal-accent); color:var(--cal-accent); }
+    .tool-tab.active { background:transparent; color:var(--cal-accent); border-color:var(--cal-accent); box-shadow:none; }
+
+    /* 6. 今日概览：去渐变，改用顶金线+干净卡片 */
+    .cal-overview { background:var(--cal-bg); border:1px solid var(--cal-border); border-top:2px solid var(--cal-accent); border-radius:16px; box-shadow:0 1px 6px rgba(0,0,0,0.03); padding:1.5rem; margin:1.6rem 0; }
+    .ov-top { align-items:baseline; gap:.6rem; }
+    .ov-date { font-size:1.7rem; font-weight:800; letter-spacing:.02em; }
+    .ov-week { font-size:.95rem; color:var(--cal-muted); }
+    .ov-fest { font-size:.95rem; font-weight:600; }
+    .cd-chip { background:transparent; border:1px solid var(--cal-border); border-radius:10px; }
+    .cd-chip .n { color:var(--cal-accent); font-weight:700; }
+
+    /* 7. 拼假卡片微收敛 */
+    .pinjia-card { border:1px solid var(--cal-border); border-radius:14px; background:var(--cal-bg); }
+    .pinjia-opt { background:rgba(201,168,76,0.03); border:1px solid var(--cal-border); }
+    .pinjia-opt.best { border-color:var(--cal-accent); background:rgba(201,168,76,0.07); box-shadow:none; }
+
+    /* 8. 资料来源：统一卡片 */
+    .cal-source { margin:2rem 0 .5rem; padding:1.3rem 1.4rem; border:1px solid var(--cal-border); border-radius:14px; background:var(--cal-bg); }
+    .cal-source .cal-sec { margin:0 0 .7rem; padding-bottom:.45rem; border-bottom:none; }
+    .cal-source ul { margin:0; padding-left:1.1rem; color:var(--cal-muted); font-size:.9rem; line-height:1.9; }
+    .cal-source li { margin:.2rem 0; }
+    .cal-source a { color:var(--blue-light); }
+
+    /* 9. 宜/忌去 emoji，改用精致标签 */
+    .yi-ji-label { display:inline-block; min-width:1.5em; text-align:center; font-size:.75rem; font-weight:700; padding:.12rem .32rem; border-radius:4px; margin-right:.35rem; vertical-align:middle; }
+    .yi-ji-label.yi { background:rgba(39,174,96,0.12); color:var(--cal-yi); border:1px solid rgba(39,174,96,0.25); }
+    .yi-ji-label.ji { background:rgba(231,76,60,0.08); color:var(--cal-ji); border:1px solid rgba(231,76,60,0.2); }
+
+    @media (max-width:480px){
+      .cal-hero { padding:.8rem 0 1.1rem; }
+      .cal-hero-title { font-size:1.7rem; }
+      .cal-hero-sub { font-size:.86rem; }
+      .cal-sec { margin:1.8rem 0 .9rem; }
+      .cal-sec-title { font-size:1.12rem; }
+      .cal-overview { padding:1.1rem; }
+      .ov-date { font-size:1.4rem; }
+      .pinjia-opt { min-width:100%; }
+    }
   </style>
 
 <link rel="canonical" href="https://longxiong.vip/calendar.html">
@@ -344,8 +423,12 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
   <!-- ========== 主内容 ========== -->
   <main class="cal-page" id="main-content" role="main">
-    <h1>📅 万年历</h1>
-<p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 最后更新：2026 年 8 月</p>
+    <header class="cal-hero">
+      <span class="cal-hero-kicker">实用历法工具 · CALENDAR</span>
+      <h1 class="cal-hero-title">万年历</h1>
+      <p class="cal-hero-sub">公历 · 农历 · 节气 · 宜忌 · 吉时，一站查全</p>
+      <span class="cal-hero-meta">最后更新：2026 年 8 月</span>
+    </header>
     <div class="cal-nav">
       <button id="prevBtn" aria-label="上一个月">← 上月</button>
       <span class="month-label" id="monthLabel"></span>
@@ -373,7 +456,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <!-- 实用工具 -->
     <section class="cal-tools">
-      <h2 class="section-title">🛠 实用工具</h2>
+      <header class="cal-sec">
+        <span class="cal-sec-kicker">实用历法工具</span>
+        <h2 class="cal-sec-title">实用工具</h2>
+      </header>
       <div class="tool-tabs" role="tablist">
         <button type="button" class="tool-tab active" data-tab="convert">公历↔农历互查</button>
         <button type="button" class="tool-tab" data-tab="zodiac">生肖年龄</button>
@@ -425,7 +511,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <!-- 整年视图 -->
     <section class="cal-yearview">
-      <h2 class="section-title">🗓 整年视图</h2>
+      <header class="cal-sec">
+        <span class="cal-sec-kicker">全年概览</span>
+        <h2 class="cal-sec-title">整年视图</h2>
+      </header>
       <div class="year-nav">
         <button type="button" id="yearPrev">← 上一年</button>
         <span class="year-label" id="yearLabel"></span>
@@ -438,7 +527,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     <!-- 拼假攻略 -->
     <section class="cal-pinjia">
-      <h2 class="section-title">🧳 拼假攻略</h2>
+      <header class="cal-sec">
+        <span class="cal-sec-kicker">休假规划</span>
+        <h2 class="cal-sec-title">拼假攻略</h2>
+      </header>
       <p class="pinjia-sub">依据当年国务院办公厅放假安排，自动演算「请几天 → 连休几天」的最优方案。绿色为放假、橙色为补班日（补班为法定工作日，不可请假，会阻断拼假链）。</p>
       <div class="pinjia-controls">
         <label for="pinjiaYear">选择年份</label>
@@ -448,12 +540,15 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <p class="pinjia-foot" id="pinjiaFoot"></p>
     </section>
 
-    <section style="margin:28px 0 4px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
-    <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>
-    <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
-      <li><a href="https://www.ntsc.ac.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">中国科学院国家授时中心（ntsc.ac.cn）</a> — 北京时间（国家标准时间）的官方发布机构，提供授时、历法与时频权威数据</li>
-    </ul>
-  </section>
+    <section class="cal-source">
+      <header class="cal-sec">
+        <span class="cal-sec-kicker">实测溯源</span>
+        <h2 class="cal-sec-title">资料来源 · 延伸阅读</h2>
+      </header>
+      <ul>
+        <li><a href="https://www.ntsc.ac.cn/" target="_blank" rel="noopener">中国科学院国家授时中心（ntsc.ac.cn）</a> — 北京时间（国家标准时间）的官方发布机构，提供授时、历法与时频权威数据</li>
+      </ul>
+    </section>
 </main>
 
 
@@ -958,10 +1053,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
       // 宜忌
       var yjDiv = document.getElementById('detailYiJi');
-      var yjHTML = '<div class="yi-box"><div class="detail-section-title">✅ 宜</div><div class="tag-list">';
+      var yjHTML = '<div class="yi-box"><div class="detail-section-title"><span class="yi-ji-label yi">宜</span></div><div class="tag-list">';
       yiji.yi.forEach(function(v){ yjHTML += '<span class="tag-item yi">'+v+'</span>'; });
       yjHTML += '</div></div>';
-      yjHTML += '<div class="ji-box"><div class="detail-section-title">❌ 忌</div><div class="tag-list">';
+      yjHTML += '<div class="ji-box"><div class="detail-section-title"><span class="yi-ji-label ji">忌</span></div><div class="tag-list">';
       yiji.ji.forEach(function(v){ yjHTML += '<span class="tag-item ji">'+v+'</span>'; });
       yjHTML += '</div></div>';
       yjDiv.innerHTML = yjHTML;

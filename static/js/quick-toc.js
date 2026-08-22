@@ -28,7 +28,6 @@
       title: '更多栏目',
       items: [
         ['家庭旅行', 'travel.html'],
-        ['原创发布', 'original/'],
         ['标签聚合', 'tags.html'],
         ['ChinaJoy', 'chinajoy.html'],
         ['光辉电力', 'guanghui.html'],

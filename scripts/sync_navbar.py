@@ -39,7 +39,6 @@ DESKTOP = [
 # “更多”下拉
 DROPDOWN = [
     ("travel.html", "家庭旅行"),
-    ("original/", "原创发布"),
     ("tags.html", "标签聚合"),
     ("chinajoy.html", "ChinaJoy 成长史"),
     ("guanghui.html", "光辉电力"),

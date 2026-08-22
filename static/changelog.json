@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-08-22",
+    "title": "删除「原创发布」板块",
+    "content": "【板块精简】下线「原创发布」：导航与首页入口、原创中心(content/original + layouts/original)、14 个板块页「本板块原创」容器与 board_originals.js、专属后台 admin(含 admin.js) 全数移除；RSS/feed/content-index 中的原创条目一并重生清除。public 经 --cleanDestinationDir 彻底重建，全站无 /original/ 死链残留。"
+  },
+  {
+    "date": "2026-08-22",
     "content": "【全站协调性审计与首页视觉统一】基于 hugo --gc 构建产物跑全站基础+严格审计：P0=0、P1=0。修复首页 4 张「本周精选」卡片与 17 张分类入口卡的硬编码彩虹色，移除所有 inline background/color/stroke，统一使用 --accent-color 国风黑金主题变量；精选卡媒体区改为渐变底+金色书法字，分类卡统一金色顶线/印章/图标。修复 zisha.html 3 处 #hero 断裂锚点、admin 后台页 description。同步 css/style.css 根副本，bump style.css?v=20260822→20260823。"
   },
   {

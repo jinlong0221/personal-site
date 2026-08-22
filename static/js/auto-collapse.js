@@ -255,6 +255,9 @@
       if (items.length <= THRESHOLD) return;
       var head = findHead(el);
       if (!head) return;
+      // 防碰撞：同一标题已被另一折叠板占用（出现双 toggle），本容器不再挂键，
+      // 避免一个标题下叠两个折叠键（如光辉电力·产品体系全覆盖内两兄弟卡片组共享同一 h2）
+      if (head.querySelector('.lx-ac-toggle')) return;
       makeBoard(el, { body: el, head: head, itemSel: ':scope > *', threshold: THRESHOLD, def: 'auto', count: true });
       // 标记自身及祖先为已处理，避免外层容器重复折叠（仅折叠最内层板块）
       var a = el;

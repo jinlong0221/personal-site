@@ -56,7 +56,8 @@
       if (isHeadingNode(prev)) return prev;
       var inner = firstHeadingIn(prev); // 标题被包在 header 容器里（如 .cat-header > h2）
       if (inner) return inner;
-      if (looksLikeContentBlock(prev)) break;
+      // 注意：不得因「内容块」而在此 break —— 否则会跳过本板块自己的标题，
+      // 一路向上爬到上一个 section 的标题，造成折叠键错挂（万年历·拼假攻略误挂整年视图即此因）。
       prev = prev.previousElementSibling;
     }
     // 2) 父级的前一个兄弟链
@@ -67,7 +68,6 @@
         if (isHeadingNode(pp)) return pp;
         var inner2 = firstHeadingIn(pp);
         if (inner2) return inner2;
-        if (looksLikeContentBlock(pp)) break;
         pp = pp.previousElementSibling;
       }
     }

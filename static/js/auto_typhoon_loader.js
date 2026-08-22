@@ -229,17 +229,24 @@
     s.push('<circle class="tf-eye-wave" r="13" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.4"/>');
     s.push('</g>');
 
-    /* 射阳标记 */
+    /* 射阳标记：智能标签位置，避免与左上角/右上角图例、路径点标签重叠 */
+    var syBelow = sx < VB_W * 0.42 || sy < PAD_T + 78;
     s.push('<g transform="translate(' + n(sx) + ',' + n(sy) + ')">');
     s.push('<circle class="tf-sy-wave" r="9" fill="none" stroke="#ff4757" stroke-width="1.5" stroke-opacity=".9"/>');
     s.push('<circle r="6" fill="#ff4757" stroke="#fff" stroke-width="2"/>');
-    s.push('<rect x="11" y="-11" width="46" height="21" rx="5" fill="#ff4757" fill-opacity=".95"/>');
-    s.push('<text x="34" y="3.5" class="tf-sylabel" text-anchor="middle">射阳</text>');
+    if (syBelow) {
+      s.push('<rect x="-25" y="11" width="50" height="22" rx="6" fill="#ff4757" fill-opacity=".96" stroke="#fff" stroke-opacity=".35" stroke-width=".8"/>');
+      s.push('<text x="0" y="26" class="tf-sylabel" text-anchor="middle">射阳</text>');
+    } else {
+      s.push('<rect x="11" y="-11" width="46" height="21" rx="5" fill="#ff4757" fill-opacity=".95"/>');
+      s.push('<text x="34" y="3.5" class="tf-sylabel" text-anchor="middle">射阳</text>');
+    }
     s.push('</g>');
 
-    /* 图例 */
-    s.push('<g transform="translate(' + (PAD_L + 6) + ',' + (PAD_T + 6) + ')">');
-    s.push('<rect x="0" y="0" width="142" height="92" rx="8" fill="#000" fill-opacity=".4" stroke="#fff" stroke-opacity=".1"/>');
+    /* 图例：移到右上角，避开射阳常用左上区域 */
+    var legendW = 142, legendH = 92;
+    s.push('<g transform="translate(' + (VB_W - PAD_R - legendW - 8) + ',' + (PAD_T + 8) + ')">');
+    s.push('<rect x="0" y="0" width="' + legendW + '" height="' + legendH + '" rx="8" fill="#000" fill-opacity=".45" stroke="#fff" stroke-opacity=".12"/>');
     s.push('<line x1="11" y1="19" x2="31" y2="19" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>');
     s.push('<text x="38" y="23" class="tf-lg">实况路径</text>');
     s.push('<line x1="11" y1="38" x2="31" y2="38" stroke="#5db8ff" stroke-width="2.4" stroke-dasharray="6 5" stroke-linecap="round"/>');

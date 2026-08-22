@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="css/style.css?v=20260823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260823"></noscript>
+<title>中药材香料百科详细科普｜龙兄知识库</title>
+<meta name="keywords" content="中药材香料百科,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="中药材香料百科详细科普：实测溯源、实操图文、避坑指南。适合中药材香料百科爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="中药材香料">
+<meta name="article-tags" content="中药材,香料,科普">
+<meta name="article-updated" content="2026-08-01">
+<style>
+:root {
+  --herb-accent: #2d6a4f;
+  --herb-accent-light: #40916c;
+}
+
+.herbs-hero {
+  padding: 40px 0 24px;
+  text-align: center;
+}
+
+.herbs-hero .emoji {
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.herbs-hero h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  color: var(--herb-accent);
+}
+
+.herbs-hero .intro {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.herb-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin: 32px 0 48px;
+}
+
+.herb-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  border-top: 4px solid var(--herb-accent);
+}
+
+.herb-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--herb-accent-light);
+}
+
+.herb-card .emoji {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.herb-card .name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.herb-card .desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 992px) {
+  .herb-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 576px) {
+  .herb-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .herbs-hero h1 { font-size: 1.8rem; }
+  .herb-card { padding: 18px 12px; }
+  .herb-card .emoji { font-size: 32px; }
+}
+
+[data-theme="light"] .herbs-hero h1 { color: var(--herb-accent); }
+[data-theme="light"] .herb-card { background: var(--card); }
+[data-theme="light"] .herb-card .name { color: var(--text); }
+[data-theme="light"] .herb-card .desc { color: var(--text-secondary); }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:site_name" content="龙兄知识库">
+
+<link rel="canonical" href="https://longxiong.vip/herbs.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="中药材香料百科详细科普｜龙兄知识库">
+<meta property="og:description" content="中药材香料百科详细科普：实测溯源、实操图文、避坑指南。适合中药材香料百科爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/herbs.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="中药材香料百科 - 龙兄知识库">
+<meta name="twitter:description" content="龙兄知识库 - 中药材香料百科 - 龙兄知识库">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
+<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html" class="active">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+  <main id="main-content" role="main"><div class="container">
+  <div class="breadcrumb" id="breadcrumb">
+    <a href="index.html">首页</a>
+    <span class="sep">›</span>
+    <span class="current">中药材</span>
+  </div>
+
+  <div class="herbs-hero">
+    <div class="emoji">🌿</div>
+    <h1>中药材香料百科 <span class="tag tag-beginner">#入门</span></h1>
+<p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 最后更新：2026 年 8 月</p>
+    <p class="intro">
+      系统整理 10 种中药材与名贵香料的鉴别要点、功效用法与避坑指南。内容以通俗实用为主，便于日常查阅与购买决策。
+    </p>
+  </div>
+
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+<div class="section-title"><span class="icon">🌿</span><span>代表性药材</span></div>
+<div class="herb-grid" data-ac data-ac-items=".herb-card" data-ac-head=".section-title" data-ac-count="true">
+    <a class="herb-card" href="herbs/chenxiang.html">
+      <div class="emoji">🪵</div>
+      <div class="name">沉香</div>
+      <div class="desc">名贵香料之首，燃烧测试是核心鉴别法。</div>
+    </a>
+    <a class="herb-card" href="herbs/wulingzhi.html">
+      <div class="emoji">💊</div>
+      <div class="name">五灵脂</div>
+      <div class="desc">鼯鼠粪便入药，活血止痛，需防掺假。</div>
+    </a>
+    <a class="herb-card" href="herbs/maoshikafei.html">
+      <div class="emoji">☕</div>
+      <div class="name">猫屎咖啡</div>
+      <div class="desc">麝香猫消化后排泄，真假鉴别有讲究。</div>
+    </a>
+    <a class="herb-card" href="herbs/xiongdan.html">
+      <div class="emoji">🐻</div>
+      <div class="name">熊胆</div>
+      <div class="desc">珍稀药材，清热平肝，重点保护动物。</div>
+    </a>
+    <a class="herb-card" href="herbs/diguniu.html">
+      <div class="emoji">🦗</div>
+      <div class="name">地牯牛</div>
+      <div class="desc">蚁狮幼虫，消肿散结，民间用法多样。</div>
+    </a>
+    <a class="herb-card" href="herbs/huashicao.html">
+      <div class="emoji">🪨</div>
+      <div class="name">化石草</div>
+      <div class="desc">民间草药，化石排石，疗效需理性看待。</div>
+    </a>
+    <a class="herb-card" href="herbs/dilong.html">
+      <div class="emoji">🐛</div>
+      <div class="name">地龙</div>
+      <div class="desc">蚯蚓干燥体，清热定惊，通络平喘。</div>
+    </a>
+    <a class="herb-card" href="herbs/shuizhi.html">
+      <div class="emoji">🩸</div>
+      <div class="name">水蛭</div>
+      <div class="desc">破血逐瘀，通经消癥，抗凝活性受关注。</div>
+    </a>
+    <a class="herb-card" href="herbs/huashifen.html">
+      <div class="emoji">⚖️</div>
+      <div class="name">滑石粉</div>
+      <div class="desc">矿物药，利尿通淋，需区分药用与工业级。</div>
+    </a>
+    <a class="herb-card" href="herbs/jiangzhenxiang.html">
+      <div class="emoji">🪵</div>
+      <div class="name">降真香</div>
+      <div class="desc">古法香料，行气止痛，与沉香易混淆。</div>
+    </a>
+  </div>
+</div>
+
+<section style="margin:28px 0 4px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
+  <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>
+  <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
+    <li><a href="https://www.zyctd.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">中药材天地网（zyctd.com）</a> — 中药材价格指数、产地行情与行业资讯的权威平台</li>
+  </ul>
+</section>
+
+<!-- ===== 新增科普区块：中药材入门 + 代表性药材速查 ===== -->
+<div class="container">
+<section style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;">
+
+  <h2 style="font-size:1.35rem;margin:0 0 8px;color:var(--gold);">🌿 中药材入门：从「道地」到「饮片」，一次讲清</h2>
+  <p style="color:var(--text-muted);font-size:.82rem;line-height:1.8;margin:0 0 22px;">
+    本节依据现行《中华人民共和国药典》一部、《中华人民共和国中医药法》及国家部委公开文件整理，每条结论均可在文末「资料来源」中核查。
+  </p>
+
+  <!-- 一、道地药材 -->
+  <h3 style="font-size:1.08rem;margin:24px 0 10px;color:var(--gold-light);border-left:3px solid var(--gold);padding-left:10px;">一、什么是「道地药材」：它是法律概念，不是营销词</h3>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 12px;">
+    很多人以为「道地」只是商家话术。其实它写进了法律。《中华人民共和国中医药法》（2017 年 7 月 1 日施行）第二十三条明确规定：<strong style="color:var(--text)">道地中药材，是指经过中医临床长期应用优选出来的，产在特定地域，与其他地区所产同种中药材相比，品质和疗效更好，且质量稳定，具有较高知名度的中药材</strong>。同条还要求国家建立道地中药材评价体系，并鼓励用地理标志产品保护等措施加以保护。
+  </p>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 12px;">
+    落到产地上，2018 年农业农村部会同国家药监局、国家中医药管理局印发的《全国道地药材生产基地建设规划（2018—2025 年）》（农农发〔2018〕4 号），把全国道地药材基地划为<strong style="color:var(--text)">七大产区</strong>：
+  </p>
+  <ul style="margin:0 0 14px;padding-left:20px;color:var(--text-secondary);line-height:1.95;">
+    <li><strong style="color:var(--gold-light)">东北（关药）</strong>：人参、鹿茸、北五味、关黄柏、辽细辛、关防风等</li>
+    <li><strong style="color:var(--gold-light)">华北（北药）</strong>：黄芩、连翘、知母、酸枣仁、潞党参、柴胡、甘草、黄芪等</li>
+    <li><strong style="color:var(--gold-light)">华东（浙药·江南药·淮药）</strong>：浙贝母、杭白芷、浙白术、杭麦冬、牡丹皮、东银花等</li>
+    <li><strong style="color:var(--gold-light)">华中（怀药·蕲药）</strong>：怀山药、怀地黄、怀牛膝、怀菊花、密银花、蕲艾、茯苓等</li>
+    <li><strong style="color:var(--gold-light)">华南（南药）</strong>：阳春砂、新会皮、化橘红、高良姜、广藿香、肉桂、益智仁等</li>
+    <li><strong style="color:var(--gold-light)">西南（川药·贵药·云药）</strong>：川芎、黄连、川厚朴、三七、天麻、滇重楼、丹参等</li>
+    <li><strong style="color:var(--gold-light)">西北（秦药·藏药·维药）</strong>：当归、大黄、纹党参、枸杞、秦艽、红花、甘草、黄芪、肉苁蓉等</li>
+  </ul>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0;">
+    <strong style="color:var(--text)">买货时怎么用这条信息？</strong>先记住「品种—产区」的对应关系（比如当归看甘肃、枸杞看宁夏、人参看东北），再看包装是否按规定<strong style="color:var(--text)">标明产地</strong>——《中医药法》第二十四条要求中药材经营者建立进货查验和购销记录制度，并标明中药材产地。产地含糊、只写「精选」「特级」而无来源的，谨慎入手。
+  </p>
+
+  <!-- 二、炮制 -->
+  <h3 style="font-size:1.08rem;margin:28px 0 10px;color:var(--gold-light);border-left:3px solid var(--gold);padding-left:10px;">二、炮制：药材变成「饮片」这一步，决定了能不能直接用</h3>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 8px;">
+    《中国药典》四部通则 0213〈炮制通则〉写得很清楚：药材凡经<strong style="color:var(--text)">净制、切制或炮炙</strong>等处理后，均称为「饮片」；而且<strong style="color:var(--text)">药材必须先净制，才能进行切制或炮炙</strong>。炮制用水应为饮用水。
+  </p>
+
+  <svg viewBox="0 0 680 108" width="100%" role="img" aria-label="中药炮制流程示意：净制到切制到炮炙，处理后统称为饮片" style="max-width:680px;display:block;margin:10px auto 6px;height:auto;">
+    <defs>
+      <marker id="hbArrow" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--gold)"/></marker>
+    </defs>
+    <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif">
+      <rect x="12" y="18" width="145" height="62" rx="11" fill="none" stroke="var(--gold)" stroke-width="1.4" opacity=".85"/>
+      <text x="84" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="var(--gold)">净　制</text>
+      <text x="84" y="65" text-anchor="middle" font-size="11" fill="var(--text-secondary)">挑选 · 筛选 · 去非药用部位</text>
+      <line x1="161" y1="49" x2="176" y2="49" stroke="var(--gold)" stroke-width="1.4" marker-end="url(#hbArrow)"/>
+
+      <rect x="182" y="18" width="145" height="62" rx="11" fill="none" stroke="var(--gold)" stroke-width="1.4" opacity=".85"/>
+      <text x="254" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="var(--gold)">切　制</text>
+      <text x="254" y="65" text-anchor="middle" font-size="11" fill="var(--text-secondary)">软化 · 切片段丝块 · 干燥</text>
+      <line x1="331" y1="49" x2="346" y2="49" stroke="var(--gold)" stroke-width="1.4" marker-end="url(#hbArrow)"/>
+
+      <rect x="352" y="18" width="145" height="62" rx="11" fill="none" stroke="var(--gold)" stroke-width="1.4" opacity=".85"/>
+      <text x="424" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="var(--gold)">炮　炙</text>
+      <text x="424" y="65" text-anchor="middle" font-size="11" fill="var(--text-secondary)">炒 · 炙 · 煅 · 蒸 · 煮</text>
+      <line x1="501" y1="49" x2="516" y2="49" stroke="var(--gold)" stroke-width="1.4" marker-end="url(#hbArrow)"/>
+
+      <rect x="522" y="18" width="145" height="62" rx="11" fill="rgba(201,168,76,.10)" stroke="var(--gold)" stroke-width="2"/>
+      <text x="594" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="var(--gold)">饮　片</text>
+      <text x="594" y="65" text-anchor="middle" font-size="11" fill="var(--text-secondary)">临床配方使用的规格</text>
+    </g>
+  </svg>
+  <p style="color:var(--text-muted);font-size:.78rem;text-align:center;margin:0 0 16px;">▲ 依《中国药典》四部通则 0213〈炮制通则〉绘制</p>
+
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 10px;">
+    <strong style="color:var(--text)">几个能直接用上的细节：</strong>
+  </p>
+  <ul style="margin:0 0 14px;padding-left:20px;color:var(--text-secondary);line-height:1.95;">
+    <li><strong style="color:var(--gold-light)">片型有国家标准厚度</strong>——极薄片 0.5mm 以下，薄片 1~2mm，厚片 2~4mm；短段 5~10mm，长段 10~15mm；块为 8~12mm 见方；细丝 2~3mm，宽丝 5~10mm。所以「切得越厚越实在」是误解，厚薄本身就是标准的一部分。</li>
+    <li><strong style="color:var(--gold-light)">切制前要「少泡多润」</strong>——通则要求软化处理时规定温度、水量、时间，尽量少泡多润，防止有效成分流失；切后应及时干燥。长时间水泡的药材，成分是会跑掉的。</li>
+    <li><strong style="color:var(--gold-light)">「生熟异治」不是玄学</strong>——同一药材生用与炮制后功效侧重不同。以当归为例，《药典》记载生当归补血活血、调经止痛、润肠通便，而<strong style="color:var(--text)">酒当归</strong>则「活血通经」，用于经闭痛经、风湿痹痛、跌扑损伤。买饮片时看清是生品还是炮制品。</li>
+    <li><strong style="color:var(--gold-light)">辅料是有定量的</strong>——例如麸炒，除另有规定外，每 100kg 待炮炙品用麸皮 10~15kg，并非随手抓一把。</li>
+  </ul>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0;">
+    至于剂型，家庭最常接触的是<strong style="color:var(--text)">中药饮片</strong>（自己煎煮或代煎）、<strong style="color:var(--text)">中成药</strong>（丸、散、颗粒、口服液、片剂等）两类。需要提醒的是：饮片属药品，《中医药法》第二十八条还专门规定了医疗机构自行炮制饮片须向市级药监部门备案——也就是说，路边摊自制的「祖传饮片」并不具备合法炮制资质。
+  </p>
+
+  <!-- 三、储存 -->
+  <h3 style="font-size:1.08rem;margin:28px 0 10px;color:var(--gold-light);border-left:3px solid var(--gold);padding-left:10px;">三、家庭储存养护：先读懂包装上那几个词</h3>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 12px;">
+    《中国药典》凡例对「贮藏」项下的名词有统一定义，包装上写的不是模糊描述，而是有温度指标的：
+  </p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:0 0 16px;">
+    <div style="background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="color:var(--gold);font-weight:700;font-size:.92rem;">阴凉处</div><div style="color:var(--text-secondary);font-size:.85rem;line-height:1.7;">不超过 20℃</div></div>
+    <div style="background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="color:var(--gold);font-weight:700;font-size:.92rem;">凉暗处</div><div style="color:var(--text-secondary);font-size:.85rem;line-height:1.7;">避光并不超过 20℃</div></div>
+    <div style="background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="color:var(--gold);font-weight:700;font-size:.92rem;">冷处</div><div style="color:var(--text-secondary);font-size:.85rem;line-height:1.7;">2~10℃</div></div>
+    <div style="background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="color:var(--gold);font-weight:700;font-size:.92rem;">常温（室温）</div><div style="color:var(--text-secondary);font-size:.85rem;line-height:1.7;">10~30℃</div></div>
+    <div style="background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="color:var(--gold);font-weight:700;font-size:.92rem;">密闭 / 密封</div><div style="color:var(--text-secondary);font-size:.85rem;line-height:1.7;">密闭防尘土异物进入；密封还要防风化、吸潮、挥发</div></div>
+    <div style="background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="color:var(--gold);font-weight:700;font-size:.92rem;">遮光 / 避光</div><div style="color:var(--text-secondary);font-size:.85rem;line-height:1.7;">遮光指用不透光容器；避光指避免日光直射</div></div>
+  </div>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 12px;">
+    另外，《药品经营质量管理规范》（GSP）要求储存药品的相对湿度控制在 <strong style="color:var(--text)">35%~75%</strong>。凡例中未标注贮藏温度的，一般即指常温。
+  </p>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 10px;">
+    <strong style="color:var(--text)">中药材变质的五种常见形态，对照自查：</strong>
+  </p>
+  <ul style="margin:0 0 14px;padding-left:20px;color:var(--text-secondary);line-height:1.95;">
+    <li><strong style="color:var(--gold-light)">霉变</strong>——表面出现黄白、绿色或黑色霉斑并带霉味。霉菌毒素（如黄曲霉毒素）洗不掉，一旦发霉<strong style="color:var(--text)">整批丢弃</strong>，不要「洗洗晒晒接着用」。</li>
+    <li><strong style="color:var(--gold-light)">虫蛀</strong>——多发于富含淀粉、糖、蛋白质的品种，如大枣、莲子、当归、黄芪、山药、人参、党参、泽泻。表面见小蛀洞、缝隙里有「纤丝」或虫粪即是。</li>
+    <li><strong style="color:var(--gold-light)">泛油（走油）</strong>——质地变软、颜色变深、表面发黏渗油并有刺激性气味。易泛油的有柏子仁、桃仁、牛膝、麦冬、枸杞子、苦杏仁等。</li>
+    <li><strong style="color:var(--gold-light)">变色</strong>——由浅变深、由鲜艳变暗淡，说明有效成分已改变。玫瑰花、红花、菊花、金银花、白芷、山药、黄芪等尤易发生。</li>
+    <li><strong style="color:var(--gold-light)">气味散失</strong>——富含挥发油的品种最典型，如肉桂、豆蔻、砂仁、薄荷、紫苏叶、广藿香，闻着「没味了」基本就是药效走了。</li>
+  </ul>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 10px;">
+    <strong style="color:var(--text)">可落地的六条家庭做法：</strong>
+  </p>
+  <ol style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.95;">
+    <li><strong style="color:var(--gold-light)">先确认干燥再收纳</strong>：含水量偏高是霉变虫蛀的第一诱因，业内一般把中药材含水量控制在 15% 以下。收之前摊开晾透，别把潮气一起封进去。</li>
+    <li><strong style="color:var(--gold-light)">容器选玻璃、陶瓷或食品级密封罐</strong>：普通塑料袋透气，不适合长期存放；可放食品级干燥剂并定期更换。</li>
+    <li><strong style="color:var(--gold-light)">小包分装</strong>：按一次用量分装，避免反复开盖让整批受潮。</li>
+    <li><strong style="color:var(--gold-light)">该冷藏的冷藏</strong>：枸杞子等含糖高、易泛油虫蛀的品种，密封后 0~4℃ 冷藏更稳妥；<strong style="color:var(--text)">前提是入冰箱前必须干透且密封</strong>，否则反而吸潮。</li>
+    <li><strong style="color:var(--gold-light)">远离灶台、暖气与阳光直射</strong>：高温加速发霉、走油、虫蛀；强光会让花叶类褪色失效。</li>
+    <li><strong style="color:var(--gold-light)">按需购买、别囤</strong>：家用饮片建议一年内用完；新买的先检查有无虫蛀虫卵再入罐，避免把虫源带进去。</li>
+  </ol>
+
+  <!-- 四、代表性药材 -->
+  <h3 style="font-size:1.08rem;margin:28px 0 12px;color:var(--gold-light);border-left:3px solid var(--gold);padding-left:10px;">四、5 种常见药材速查（性味归经 · 功用 · 用量 · 禁忌）</h3>
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 14px;">
+    以下「性味与归经／功能与主治／用法与用量／贮藏」均取自《中国药典》一部品种正文。需要说明的是：<strong style="color:var(--text)">2025 年版《中国药典》已于 2025 年 10 月 1 日起施行</strong>（国家药监局、国家卫健委 2025 年第 29 号公告），这几味药的相关表述与上一版一致。
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:0 0 14px;">
+
+    <div style="background:rgba(45,106,79,.07);border:1px solid var(--border);border-top:3px solid var(--herb-accent);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.05rem;font-weight:800;color:var(--gold);margin-bottom:8px;">人参 <span style="font-size:.72rem;font-weight:600;color:var(--text-muted);">五加科人参的干燥根和根茎</span></div>
+      <div style="color:var(--text-secondary);font-size:.88rem;line-height:1.85;">
+        <div><strong style="color:var(--gold-light)">性味归经</strong>：甘、微苦，微温。归脾、肺、心、肾经。</div>
+        <div><strong style="color:var(--gold-light)">功能</strong>：大补元气，复脉固脱，补脾益肺，生津养血，安神益智。</div>
+        <div><strong style="color:var(--gold-light)">用量</strong>：3~9g，另煎兑服；也可研粉吞服，一次 2g，一日 2 次。</div>
+        <div><strong style="color:var(--gold-light)">注意</strong>：不宜与藜芦、五灵脂同用（十八反十九畏）。实证、热证而正气不虚者不宜服。</div>
+        <div><strong style="color:var(--gold-light)">贮藏</strong>：置阴凉干燥处，密闭保存，防蛀。</div>
+      </div>
+    </div>
+
+    <div style="background:rgba(45,106,79,.07);border:1px solid var(--border);border-top:3px solid var(--herb-accent);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.05rem;font-weight:800;color:var(--gold);margin-bottom:8px;">黄芪 <span style="font-size:.72rem;font-weight:600;color:var(--text-muted);">豆科蒙古黄芪或膜荚黄芪的干燥根</span></div>
+      <div style="color:var(--text-secondary);font-size:.88rem;line-height:1.85;">
+        <div><strong style="color:var(--gold-light)">性味归经</strong>：甘，微温。归肺、脾经。</div>
+        <div><strong style="color:var(--gold-light)">功能</strong>：补气升阳，固表止汗，利水消肿，生津养血，行滞通痹，托毒排脓，敛疮生肌。</div>
+        <div><strong style="color:var(--gold-light)">用量</strong>：9~30g。</div>
+        <div><strong style="color:var(--gold-light)">注意</strong>：表实邪盛（如感冒发热）、阴虚火旺、气滞湿阻者不宜。</div>
+        <div><strong style="color:var(--gold-light)">贮藏</strong>：置通风干燥处，防潮，防蛀。</div>
+        <div style="margin-top:6px;"><span style="display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:20px;background:rgba(77,166,232,.12);color:var(--blue-light);">2023 年第 9 号公告纳入食药物质目录</span></div>
+      </div>
+    </div>
+
+    <div style="background:rgba(45,106,79,.07);border:1px solid var(--border);border-top:3px solid var(--herb-accent);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.05rem;font-weight:800;color:var(--gold);margin-bottom:8px;">当归 <span style="font-size:.72rem;font-weight:600;color:var(--text-muted);">伞形科当归的干燥根</span></div>
+      <div style="color:var(--text-secondary);font-size:.88rem;line-height:1.85;">
+        <div><strong style="color:var(--gold-light)">性味归经</strong>：甘、辛，温。归肝、心、脾经。</div>
+        <div><strong style="color:var(--gold-light)">功能</strong>：补血活血，调经止痛，润肠通便。酒当归活血通经。</div>
+        <div><strong style="color:var(--gold-light)">用量</strong>：6~12g。</div>
+        <div><strong style="color:var(--gold-light)">注意</strong>：湿盛中满、大便泄泻者忌服；有活血作用，孕妇及月经过多者慎用。</div>
+        <div><strong style="color:var(--gold-light)">贮藏</strong>：置阴凉干燥处，防潮，防蛀。</div>
+        <div style="margin-top:6px;"><span style="display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:20px;background:rgba(77,166,232,.12);color:var(--blue-light);">2019 年第 8 号公告纳入食药物质目录</span></div>
+      </div>
+    </div>
+
+    <div style="background:rgba(45,106,79,.07);border:1px solid var(--border);border-top:3px solid var(--herb-accent);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.05rem;font-weight:800;color:var(--gold);margin-bottom:8px;">枸杞子 <span style="font-size:.72rem;font-weight:600;color:var(--text-muted);">茄科宁夏枸杞的干燥成熟果实</span></div>
+      <div style="color:var(--text-secondary);font-size:.88rem;line-height:1.85;">
+        <div><strong style="color:var(--gold-light)">性味归经</strong>：甘，平。归肝、肾经。</div>
+        <div><strong style="color:var(--gold-light)">功能</strong>：滋补肝肾，益精明目。用于虚劳精亏、腰膝酸痛、眩晕耳鸣、内热消渴、目昏不明等。</div>
+        <div><strong style="color:var(--gold-light)">用量</strong>：煎服 6~12g。《中国中医药报》建议健康人群日常食用每日不超过 10~15g。</div>
+        <div><strong style="color:var(--gold-light)">注意</strong>：脾胃虚弱、大便溏泻者不宜；外感发热期间应暂停。</div>
+        <div><strong style="color:var(--gold-light)">贮藏</strong>：置阴凉干燥处，防闷热，防潮，防蛀。</div>
+        <div style="margin-top:6px;"><span style="display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:20px;background:rgba(77,166,232,.12);color:var(--blue-light);">2002 年首批食药物质名单</span></div>
+      </div>
+    </div>
+
+    <div style="background:rgba(45,106,79,.07);border:1px solid var(--border);border-top:3px solid var(--herb-accent);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.05rem;font-weight:800;color:var(--gold);margin-bottom:8px;">金银花 <span style="font-size:.72rem;font-weight:600;color:var(--text-muted);">忍冬科忍冬的干燥花蕾或带初开的花</span></div>
+      <div style="color:var(--text-secondary);font-size:.88rem;line-height:1.85;">
+        <div><strong style="color:var(--gold-light)">性味归经</strong>：甘，寒。归肺、心、胃经。</div>
+        <div><strong style="color:var(--gold-light)">功能</strong>：清热解毒，疏散风热。用于痈肿疔疮、喉痹、丹毒、热毒血痢、风热感冒、温病发热。</div>
+        <div><strong style="color:var(--gold-light)">用量</strong>：6~15g。</div>
+        <div><strong style="color:var(--gold-light)">注意</strong>：性寒，脾胃虚寒及气虚疮疡脓清者忌用，不宜长期大量服用。</div>
+        <div><strong style="color:var(--gold-light)">贮藏</strong>：置阴凉干燥处，防潮，防蛀。</div>
+        <div style="margin-top:6px;"><span style="display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:20px;background:rgba(77,166,232,.12);color:var(--blue-light);">2002 年首批食药物质名单</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="color:var(--text-secondary);line-height:1.9;margin:0;">
+    <strong style="color:var(--text)">关于「药食同源」的一个常见误区：</strong>目前国家发布的「按照传统既是食品又是中药材的物质」目录，是分批公告扩容的（2002 年首批、2019 年第 8 号新增当归等 6 种、2023 年第 9 号新增党参黄芪等 9 种、2024 年第 4 号新增地黄麦冬等 4 种）。国家卫健委在解读中明确：这类物质<strong style="color:var(--text)">应按传统方式适量食用，孕妇、哺乳期妇女及婴幼儿等特殊人群不推荐食用</strong>；作为保健食品原料时按保健食品规定管理，作为中药材使用时按中药材规定管理。「能当食物吃」≠「可以无限量吃」，更不等于「有病可以不吃药」。
+  </p>
+
+  <!-- 免责 -->
+  <div style="margin:24px 0 4px;padding:14px 16px;border-radius:12px;background:rgba(255,140,0,.08);border:1px solid var(--border);border-left:3px solid var(--orange);">
+    <p style="margin:0;color:var(--text-secondary);font-size:.88rem;line-height:1.85;">
+      ⚠️ <strong style="color:var(--text)">本文为科普，不构成医疗建议，用药请遵医嘱。</strong>中药讲究辨证施治，同一味药在不同体质、不同证型下适宜性差异很大；文中剂量为《中国药典》通用范围，实际用量应由执业中医师根据病情、体质与配伍确定。孕妇、哺乳期妇女、婴幼儿、慢性病患者及正在服用其他药物者，服用前请先咨询医师或药师。
+    </p>
+  </div>
+
+  <!-- 资料来源 -->
+  <div style="margin:22px 0 0;padding-top:18px;border-top:1px solid var(--border);">
+    <h3 style="font-size:1rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h3>
+    <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.88rem;line-height:1.95;">
+      <li><a href="https://www.gov.cn/zhengce/zhengceku/202503/content_7015682.htm" target="_blank" rel="noopener" style="color:var(--blue-light)">中国政府网 · 关于颁布 2025 年版《中华人民共和国药典》的公告（2025 年第 29 号）</a> — 国家药监局、国家卫健委联合颁布，明确自 2025 年 10 月 1 日起施行，附四部目录。</li>
+      <li><a href="https://ydz.chp.org.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">国家药典委员会 ·《中国药典》在线数据库（ydz.chp.org.cn）</a> — 可逐条检索凡例与人参、黄芪、当归等品种正文的性味归经、用法用量与贮藏要求。</li>
+      <li><a href="https://www.gd.gov.cn/zwgk/wjk/zcfgk/content/post_2520682.html" target="_blank" rel="noopener" style="color:var(--blue-light)">《中华人民共和国中医药法》全文（广东省人民政府门户网站转载中国人大网）</a> — 第二十三条给出道地中药材的法定定义，第二十四、二十七、二十八条涉及产地标明与饮片炮制管理。</li>
+      <li><a href="https://www.gov.cn/zhengce/zhengceku/2018-12/31/content_5443381.htm" target="_blank" rel="noopener" style="color:var(--blue-light)">中国政府网 ·《全国道地药材生产基地建设规划（2018—2025 年）》（农农发〔2018〕4 号）</a> — 农业农村部等三部门联合印发，划定七大道地药材产区及各区优势品种。</li>
+      <li><a href="https://www.nhc.gov.cn/sps/c100088/202311/a7e49f9f0285437b82b842576fa8ede9.shtml" target="_blank" rel="noopener" style="color:var(--blue-light)">国家卫生健康委 · 《关于党参等 9 种新增按照传统既是食品又是中药材的物质公告》解读</a> — 说明食药物质的认定依据、食用方式与特殊人群提示。</li>
+      <li><a href="https://www.dayi.org.cn/drug/1157585" target="_blank" rel="noopener" style="color:var(--blue-light)">中国医药信息查询平台 · 人参词条（经国家中医药管理局名词术语规范推广项目审核认证）</a> — 性味归经、用法用量、配伍禁忌与贮藏方法的权威条目式说明。</li>
+      <li><a href="https://www.cntcm.com.cn/content/202504/23/c273457.html" target="_blank" rel="noopener" style="color:var(--blue-light)">中国中医药报 ·《枸杞：滋补肝肾 益精明目》</a> — 枸杞子功效、四季食疗方与「每日 10~15 克」等使用注意。</li>
+    </ul>
+  </div>
+
+</section>
+</div>
+<!-- ===== 新增科普区块结束 ===== -->
+</main><footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script defer src="/js/board-nav.js"></script>
+<script defer src="js/search.js"></script>
+<script defer src="js/app.js"></script>
+    <script defer src="js/share.js"></script>
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "中药材香料百科 - 龙兄知识库",
+      "url": "https://longxiong.vip/herbs.html",
+      "description": "龙兄知识库 - 中药材香料百科 - 龙兄知识库"
+    }
+  ]
+}
+</script>
+  
+
+  <script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+  </script>
+  <script defer src="js/auto_news_loader.js"></script>
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script defer src="js/auto-collapse.js?v=20260824"></script>
+<script src="js/quick-toc.js" defer></script>
+<script src="js/bookmark.js" defer></script>
+</body>
+</html>

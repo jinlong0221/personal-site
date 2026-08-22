@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="css/style.css?v=20260823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260823"></noscript>
+<title>ChinaJoy 成长史详细科普｜龙兄知识库</title>
+<meta name="keywords" content="ChinaJoy 成长史,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="ChinaJoy 成长史详细科普：实测溯源、实操图文、避坑指南。适合ChinaJoy 成长史爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="ChinaJoy">
+<meta name="article-tags" content="ChinaJoy,漫展,游戏">
+<meta name="article-updated" content="2026-08-01">
+<style>:root{--cj:#4f46e5;--cj-2:#7c3aed;--cj-soft:rgba(79,70,229,.12)}
+[data-theme="light"]{--cj:#4338ca;--cj-2:#6d28d9;--cj-soft:rgba(67,56,202,.09)}
+.cj-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:44px 28px 38px;text-align:center;background:linear-gradient(135deg,#1e1b4b 0%,#312e81 45%,#4c1d95 100%)}
+.cj-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 18% 22%,rgba(255,255,255,.16),transparent 46%),radial-gradient(circle at 82% 78%,rgba(124,58,237,.34),transparent 52%);pointer-events:none}
+.cj-hero>*{position:relative;z-index:1}
+.cj-hero .cj-kicker{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:2px;color:#c7d2fe;border:1px solid rgba(199,210,254,.45);border-radius:999px;padding:3px 14px;margin-bottom:14px}
+.cj-hero h1{font-size:2.15rem;color:#fff;margin-bottom:12px;line-height:1.3}
+.cj-hero p{max-width:660px;margin:0 auto;color:rgba(255,255,255,.82);font-size:.98rem;line-height:1.85}
+.cj-countdown{display:inline-flex;align-items:baseline;gap:.3em;margin-top:18px;padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);font-size:1.02rem;color:#fff}
+.cj-countdown .cd-label{color:rgba(255,255,255,.85);font-size:.9em}
+.cj-countdown .cd-num{color:#fde68a;font-size:1.5rem}
+.cj-countdown .cd-unit{color:rgba(255,255,255,.8)}
+.cj-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+.cj-kpi-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 10px;text-align:center}
+.cj-kpi-num{display:block;font-size:1.6rem;font-weight:900;color:var(--cj);line-height:1.2}
+.cj-kpi-label{display:block;font-size:.76rem;color:var(--text-secondary);margin-top:4px}
+.cj-sec{margin:44px 0 0}
+.cj-sec-title{display:flex;align-items:center;gap:10px;font-size:1.28rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid var(--cj)}
+.cj-sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+.cj-era-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.cj-era-card{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--cj);border-radius:12px;padding:16px 14px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.cj-era-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--cj)}
+.cj-era-span{font-size:.74rem;font-weight:700;color:var(--cj);letter-spacing:.5px}
+.cj-era-name{font-size:1rem;margin:6px 0 8px}
+.cj-era-desc{font-size:.8rem;color:var(--text-secondary);line-height:1.65}
+.cj-filter{position:sticky;top:var(--nav-height);z-index:60;margin:0 0 20px;padding:12px 14px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:12px}
+.cj-search-wrap{position:relative;margin-bottom:10px}
+.cj-search{width:100%;padding:9px 34px 9px 34px;font-size:.9rem;color:var(--text);background:var(--bg-secondary);border:1px solid var(--border);border-radius:9px;font-family:inherit}
+.cj-search:focus{outline:none;border-color:var(--cj);box-shadow:0 0 0 3px var(--cj-soft)}
+.cj-search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem;pointer-events:none}
+.cj-search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem;padding:2px 6px;display:none}
+.cj-chips{display:flex;flex-wrap:wrap;gap:7px}
+.cj-chip{font-size:.8rem;padding:5px 13px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .18s}
+.cj-chip b{font-weight:700;opacity:.6;margin-left:2px;font-size:.74rem}
+.cj-chip:hover{border-color:var(--cj);color:var(--cj)}
+.cj-chip.active{background:var(--cj);border-color:var(--cj);color:#fff}
+.cj-chip.active b{opacity:.85}
+.cj-count-bar{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--text-muted);margin-bottom:14px}
+.cj-reset{background:none;border:none;color:var(--cj);cursor:pointer;font-size:.8rem;font-family:inherit;text-decoration:underline}
+/* 年代卡真实现场照片（仅当用户放入对应年份真图才显示） */
+.cj-card-img-wrap{position:relative;margin:-20px -22px 14px;border-radius:14px 14px 0 0;overflow:hidden;aspect-ratio:320/200;background:var(--bg-secondary)}
+.cj-card-img{display:block;width:100%;height:100%;object-fit:cover}
+.cj-list{display:flex;flex-direction:column;gap:16px}
+.cj-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;border-left:4px solid var(--cj);transition:box-shadow .2s,transform .2s}
+.cj-card:hover{box-shadow:var(--shadow-md);transform:translateX(2px)}
+.cj-card-gap{border-left-style:dashed;border-left-color:var(--text-muted);opacity:.86}
+.cj-card-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.cj-card-no{flex:0 0 auto;font-size:.82rem;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--cj),var(--cj-2));padding:5px 13px;border-radius:999px}
+.cj-card-gap .cj-card-no{background:var(--text-muted)}
+.cj-card-meta{display:flex;align-items:baseline;gap:10px}
+.cj-card-year{font-size:1.5rem;font-weight:900;color:var(--text);line-height:1}
+.cj-card-date{font-size:.82rem;color:var(--text-secondary)}
+.cj-card-place{margin-left:auto;font-size:.82rem;color:var(--text-secondary);text-align:right}
+.cj-venue{display:block;font-size:.74rem;color:var(--text-muted)}
+.cj-theme{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;background:var(--cj-soft);border-radius:9px;padding:9px 13px;margin-bottom:12px}
+.cj-theme-label{font-size:.72rem;font-weight:700;color:var(--cj);flex:0 0 auto}
+.cj-theme-txt{font-size:1rem;font-weight:700;color:var(--text)}
+.cj-theme-en{font-size:.78rem;color:var(--text-muted);font-style:italic}
+.cj-theme-none{background:transparent;padding:0 0 4px}
+.cj-theme-none .cj-theme-txt{font-weight:400;font-size:.86rem;color:var(--text-muted)}
+/* 卡片折叠：详情默认收起，降低长内容压迫感 */
+.cj-card-teaser{font-size:.78rem;color:var(--text-muted);margin:2px 0 12px;padding-left:12px;border-left:3px solid var(--cj-soft)}
+.cj-card-toggle{display:inline-flex;align-items:center;gap:4px;margin:2px 0 6px;padding:5px 14px;font-size:.78rem;font-family:inherit;color:var(--cj);background:var(--cj-soft);border:1px solid transparent;border-radius:999px;cursor:pointer;transition:background .15s,border-color .15s}
+.cj-card-toggle:hover{border-color:var(--cj)}
+.cj-caret{display:inline-block;transition:transform .2s;font-size:.72rem;line-height:1}
+.cj-card.open .cj-caret{transform:rotate(180deg)}
+.cj-card-detail{display:none;margin-top:8px;animation:cjFade .2s ease}
+.cj-card.open .cj-card-detail{display:block}
+@keyframes cjFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.cj-count-actions{display:flex;gap:14px;align-items:center}
+.cj-scale{list-style:none;display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 12px}
+.cj-scale li{font-size:.78rem;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--border);border-radius:7px;padding:3px 10px}
+.cj-block{margin-top:11px}
+.cj-block-label{display:inline-block;font-size:.72rem;font-weight:700;color:var(--text-muted);letter-spacing:.5px;margin-bottom:6px}
+.cj-tags{display:flex;flex-wrap:wrap;gap:6px}
+.cj-tag{font-size:.76rem;padding:3px 9px;border-radius:6px;line-height:1.6}
+.cj-tag-game{background:rgba(79,70,229,.14);color:var(--cj)}
+.cj-tag-brand{background:rgba(194,65,12,.13);color:#c2410c}
+[data-theme="dark"] .cj-tag-brand{color:#fb923c}
+.cj-tag-hall{background:color-mix(in srgb,var(--hall) 15%,transparent);color:var(--hall)}
+[data-theme="dark"] .cj-tag-hall{background:color-mix(in srgb,var(--hall) 26%,transparent);color:#fff}
+.cj-points{margin:0;padding-left:18px}
+.cj-points li{font-size:.86rem;color:var(--text-secondary);line-height:1.8;margin-bottom:3px}
+.cj-empty{display:none;text-align:center;padding:46px 20px;color:var(--text-muted);font-size:.9rem}
+.cj-mile-list{list-style:none;margin:0;padding:0;position:relative}
+.cj-mile-list::before{content:'';position:absolute;left:74px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cj),var(--cj-2))}
+.cj-mile{display:flex;gap:18px;align-items:flex-start;padding:9px 0;position:relative}
+.cj-mile-year{flex:0 0 64px;text-align:right;font-size:.8rem;font-weight:800;color:var(--cj);padding-top:2px}
+.cj-mile::after{content:'';position:absolute;left:69px;top:14px;width:12px;height:12px;border-radius:50%;background:var(--cj);border:2px solid var(--bg)}
+.cj-mile-body{padding-left:16px}
+.cj-mile-body strong{display:block;font-size:.94rem;margin-bottom:2px}
+.cj-mile-body span{font-size:.83rem;color:var(--text-secondary);line-height:1.7}
+.cj-chart{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 18px}
+.cj-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:.8rem}
+.cj-bar-year{flex:0 0 40px;color:var(--text-muted);font-variant-numeric:tabular-nums}
+.cj-bar-track{flex:1;height:16px;background:var(--bg-secondary);border-radius:8px;overflow:hidden}
+.cj-bar-fill{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--cj),var(--cj-2))}
+.cj-bar-val{flex:0 0 54px;text-align:right;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.cj-bar-tip{flex:0 0 62px;color:var(--text-muted);font-size:.74rem}
+.cj-hall-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.cj-hall-card{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--hall);border-radius:12px;padding:16px 16px 18px}
+.cj-hall-card h3{font-size:.95rem;color:var(--hall);margin-bottom:10px}
+[data-theme="dark"] .cj-hall-card h3{color:#fff}
+.cj-note{margin:36px 0 8px;padding:16px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+.cj-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
+.cj-note ul{margin:0;padding-left:18px}
+@media(max-width:992px){.cj-era-grid{grid-template-columns:repeat(2,1fr)}.cj-kpi{grid-template-columns:repeat(2,1fr)}.cj-hall-grid{grid-template-columns:1fr}}
+@media(max-width:576px){.cj-hero{padding:32px 18px 28px}.cj-hero h1{font-size:1.55rem}.cj-era-grid{grid-template-columns:1fr}
+.cj-card{padding:16px 15px}.cj-card-place{margin-left:0;width:100%;text-align:left}.cj-card-year{font-size:1.25rem}
+.cj-mile-list::before{left:52px}.cj-mile-year{flex:0 0 44px}.cj-mile::after{left:47px}
+.cj-bar-tip{display:none}.cj-card-img-wrap{margin:-16px -15px 12px;border-radius:14px 14px 0 0;aspect-ratio:320/200}}</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta property="og:site_name" content="龙兄知识库">
+<link rel="canonical" href="https://longxiong.vip/chinajoy.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="ChinaJoy 成长史详细科普｜龙兄知识库">
+<meta property="og:description" content="ChinaJoy 成长史详细科普：实测溯源、实操图文、避坑指南。适合ChinaJoy 成长史爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/chinajoy.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChinaJoy 成长史 - 龙兄知识库">
+<meta name="twitter:description" content="从 2004 年首届到 2026 年第 23 届，ChinaJoy 逐届档案：主题、规模、参展品牌与代表游戏。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
+<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html" class="active">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+  <main id="main-content" role="main"><div class="container">
+  <div class="breadcrumb" id="breadcrumb">
+    <a href="index.html">首页</a>
+    <span class="sep">›</span>
+    <span class="current">ChinaJoy 成长史</span>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <div class="cj-hero">
+    <span class="cj-kicker">CHINA DIGITAL ENTERTAINMENT EXPO</span>
+    <h1>ChinaJoy 成长史</h1>
+<p>从 2004 年北京展览馆的第一届，到 2026 年上海新国际博览中心的第 23 届——
+    一份逐届梳理的完整档案：每一年的主题、规模、参展品牌与代表游戏，串起中国数字娱乐产业二十余年的变迁。</p>
+    <div class="cj-countdown" data-countdown data-annual="07-25" data-label="下一届 ChinaJoy（预计）"></div>
+  </div>
+
+  <div class="cj-kpi">
+    <div class="cj-kpi-item"><span class="cj-kpi-num">23</span><span class="cj-kpi-label">已举办届数</span></div>
+    <div class="cj-kpi-item"><span class="cj-kpi-num">2004</span><span class="cj-kpi-label">首届年份</span></div>
+    <div class="cj-kpi-item"><span class="cj-kpi-num">41.03<span style="font-size:.9rem">万</span></span><span class="cj-kpi-label">单届观众峰值</span></div>
+    <div class="cj-kpi-item"><span class="cj-kpi-num">17<span style="font-size:.9rem">万㎡</span></span><span class="cj-kpi-label">历届最大展出面积</span></div>
+  </div>
+
+  <!-- ===== 自动更新动态 ===== -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <!-- ===== 五个阶段 ===== -->
+  <section class="cj-sec">
+    <h2 class="cj-sec-title">五个阶段，一部产业断代史</h2>
+    <p class="cj-sec-sub">ChinaJoy 改口号的历史，差不多就是中国游戏产业换重心的历史。点击任一阶段可直接筛选下方档案。</p>
+    <div class="cj-era-grid">
+      <div class="cj-era-card" data-jump="start"><div class="cj-era-span">2004–2007</div><h3 class="cj-era-name">起步落沪</h3><p class="cj-era-desc">从北京到上海，韩流网游当道，国产逐步崛起</p></div>
+      <div class="cj-era-card" data-jump="indus"><div class="cj-era-span">2008–2012</div><h3 class="cj-era-name">产业化</h3><p class="cj-era-desc">BTOB 落地、国内展品反超，展会变成产业平台</p></div>
+      <div class="cj-era-card" data-jump="mobile"><div class="cj-era-span">2013–2016</div><h3 class="cj-era-name">移动泛娱乐</h3><p class="cj-era-desc">手游爆发，CAWAE 与 eSmart 让边界向动漫、硬件延伸</p></div>
+      <div class="cj-era-card" data-jump="tech"><div class="cj-era-span">2017–2021</div><h3 class="cj-era-name">科技驱动</h3><p class="cj-era-desc">规模冲上历史高点，5G、云、数字生活成为关键词</p></div>
+      <div class="cj-era-card" data-jump="newcy"><div class="cj-era-span">2023–2026</div><h3 class="cj-era-name">新周期</h3><p class="cj-era-desc">二十周年后回归玩家，AI 第一次被写进主题</p></div>
+    </div>
+  </section>
+
+  <!-- ===== 历届档案 ===== -->
+  <section class="cj-sec" id="cjArchive">
+    <h2 class="cj-sec-title">历届完整档案</h2>
+    <p class="cj-sec-sub">按年份倒序排列，支持关键词搜索（游戏名、厂商、主题、年份都能搜）与阶段筛选。</p>
+
+    <div class="cj-filter">
+      <div class="cj-search-wrap">
+        <span class="cj-search-ico">🔍</span>
+        <input type="search" class="cj-search" id="cjSearch" placeholder="搜索届次、主题、游戏或厂商，例如：魔兽世界 / 暴雪 / 泛娱乐 / 2016" aria-label="搜索历届 ChinaJoy">
+        <button class="cj-search-clear" id="cjClear" aria-label="清空搜索">✕</button>
+      </div>
+      <div class="cj-chips">
+        <button class="cj-chip active" data-era="all">全部 <b>24</b></button>
+        <button class="cj-chip" data-era="start">起步落沪 <b>5</b></button>
+        <button class="cj-chip" data-era="indus">产业化 <b>5</b></button>
+        <button class="cj-chip" data-era="mobile">移动泛娱乐 <b>4</b></button>
+        <button class="cj-chip" data-era="tech">科技驱动 <b>5</b></button>
+        <button class="cj-chip" data-era="newcy">新周期 <b>5</b></button>
+      </div>
+    </div>
+
+    <div class="cj-count-bar">
+      <span>共 <strong id="cjShown">24</strong> 条记录</span>
+      <span class="cj-count-actions">
+        <button class="cj-reset" id="cjExpand">展开全部</button>
+        <button class="cj-reset" id="cjReset">重置筛选</button>
+      </span>
+    </div>
+
+    <div class="cj-list" id="cjList">
+<article class="cj-card" data-era="newcy" data-year="2026" data-q="2026 第 23 届 与 ai 同游 level up with ai 上海 上海新国际博览中心 魔兽世界 炉石传说 守望先锋 暗黑破坏神 iv 星际争霸 ii 逃离塔科夫 腾讯游戏 网易游戏 暴雪游戏 世纪华通 巨人网络 完美世界 金山世游 咪咕互娱 朝夕光年 顺网科技 playstation 360 游戏 恺英网络 b站游戏 华为游戏中心 4399 &amp; 好游快爆 pocketpair 高通骁龙 tcl 华星 宇树科技 chinajoy 历史上第一次把「ai」写进展会主题 高通骁龙主题馆以「ai 驱动体验进化」为核心，联合三大运营商、中国广电与小米 / iqoo / 一加 / 荣耀 / 努比亚 / 红魔 / 联想 / 京东等品牌 宇树科技、逐际动力、魔法原子、露米智能、云幕智造等携人形机器人与具身智能产品集中亮相 新增「地偶街区」「chinajoy next play 创新游戏体验场」与国潮特色展区 同期举办第二届中国国际游戏开发者大会、全球电竞大会与 cdec 中国音数协游戏工委与清华大学调研：国内游戏企业研发环节 ai 应用率已达 86.36% 总展览面积超 14 万㎡ 近 900 家企业参展（外资 275 家） 覆盖 39 个国家和地区 btoc 近 12 万㎡ / 超 350 家 btob 2.5 万㎡ / 超 500 家（外资占 46.6%） 超 500 家厂商带来逾 1000 款游戏 steam 线上盛典报名超 600 款 chinajoy express 试玩区 88 款">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 23 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2026</div>
+      <div class="cj-card-date">2026.7.31 – 8.3</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">与 AI 同游</span><span class="cj-theme-en">Level Up With AI</span></div>
+  <div class="cj-card-teaser">参展游戏 6 · 品牌 20 · 看点 6</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>总展览面积超 14 万㎡</li>
+    <li>近 900 家企业参展（外资 275 家）</li>
+    <li>覆盖 39 个国家和地区</li>
+    <li>BTOC 近 12 万㎡ / 超 350 家</li>
+    <li>BTOB 2.5 万㎡ / 超 500 家（外资占 46.6%）</li>
+    <li>超 500 家厂商带来逾 1000 款游戏</li>
+    <li>Steam 线上盛典报名超 600 款</li>
+    <li>ChinaJoy Express 试玩区 88 款</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">魔兽世界</span><span class="cj-tag cj-tag-game">炉石传说</span><span class="cj-tag cj-tag-game">守望先锋</span><span class="cj-tag cj-tag-game">暗黑破坏神 IV</span><span class="cj-tag cj-tag-game">星际争霸 II</span><span class="cj-tag cj-tag-game">逃离塔科夫</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">腾讯游戏</span><span class="cj-tag cj-tag-brand">网易游戏</span><span class="cj-tag cj-tag-brand">暴雪游戏</span><span class="cj-tag cj-tag-brand">世纪华通</span><span class="cj-tag cj-tag-brand">巨人网络</span><span class="cj-tag cj-tag-brand">完美世界</span><span class="cj-tag cj-tag-brand">金山世游</span><span class="cj-tag cj-tag-brand">咪咕互娱</span><span class="cj-tag cj-tag-brand">朝夕光年</span><span class="cj-tag cj-tag-brand">顺网科技</span><span class="cj-tag cj-tag-brand">PlayStation</span><span class="cj-tag cj-tag-brand">360 游戏</span><span class="cj-tag cj-tag-brand">恺英网络</span><span class="cj-tag cj-tag-brand">B站游戏</span><span class="cj-tag cj-tag-brand">华为游戏中心</span><span class="cj-tag cj-tag-brand">4399 &amp; 好游快爆</span><span class="cj-tag cj-tag-brand">Pocketpair</span><span class="cj-tag cj-tag-brand">高通骁龙</span><span class="cj-tag cj-tag-brand">TCL 华星</span><span class="cj-tag cj-tag-brand">宇树科技</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>ChinaJoy 历史上第一次把「AI」写进展会主题</li>
+      <li>高通骁龙主题馆以「AI 驱动体验进化」为核心，联合三大运营商、中国广电与小米 / iQOO / 一加 / 荣耀 / 努比亚 / 红魔 / 联想 / 京东等品牌</li>
+      <li>宇树科技、逐际动力、魔法原子、露米智能、云幕智造等携人形机器人与具身智能产品集中亮相</li>
+      <li>新增「地偶街区」「ChinaJoy Next Play 创新游戏体验场」与国潮特色展区</li>
+      <li>同期举办第二届中国国际游戏开发者大会、全球电竞大会与 CDEC</li>
+      <li>中国音数协游戏工委与清华大学调研：国内游戏企业研发环节 AI 应用率已达 86.36%</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="newcy" data-year="2025" data-q="2025 第 22 届 聚 · 你所爱  上海 上海新国际博览中心 燕云十六声 逆水寒 第五人格 永劫无间 遗忘之海 命运：群星 无主星渊 异环 dota2 反恐精英：全球攻势 女神异闻录：夜幕魅影 诛仙世界 解限机 超自然行动组 金庸群侠传 无尽冬日 最终幻想 14 大航海时代：起源 鹅鸭杀 猫咪和汤 斗罗大陆：猎魂世界 无畏契约 dnf 明日方舟 腾讯游戏 网易游戏 暴雪游戏 世纪华通 完美世界 巨人网络 西山居 金山世游 三七互娱 万代南梦宫 playstation 华为游戏中心 4399 比亚迪 高通骁龙 暴雪搭建「暴雪街区」，5 米高的大天使泰瑞尔雕像与巫妖王无敌战马领衔 70 余尊角色雕像 网易把《燕云十六声》凉州「葡萄美酒夜光杯」场景搬进现场，《逆水寒》巨型水缸美人鱼表演出圈 比亚迪展台带来与《黑神话：悟空》联动的痛车 腾讯占据 n4 馆近一半空间，「cool 鹅夏日营地」主舞台 +《无畏契约》《符文战场》《dnf》专属展台 n5 馆为骁龙主题馆，聚合市面主流骁龙合作硬件品牌 主办方携《第五人格》《鸣潮》推出联名限定 ip 谷子门票 观众画像：男性 66% / 女性 34%，18–24 岁 33%、25–29 岁 31%，上海本地观众仅占 39% 启用 11.5 个展馆 / 13.5 万㎡ 799 家企业参展 btoc 313 家 / 11 万㎡ btob 486 家 / 2.5 万㎡，来自 37 个国家和地区，海外及外资占比近 43% 观众 41.03 万人次（历史新高） btob 商务馆 41231 人次，海外观众占 35.82%">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2025.webp" alt="第 22 届 ChinaJoy 现场" loading="lazy" width="480" height="320" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 22 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2025</div>
+      <div class="cj-card-date">2025.8.1 – 8.4</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">聚 · 你所爱</span></div>
+  <div class="cj-card-teaser">参展游戏 24 · 品牌 15 · 看点 7</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>启用 11.5 个展馆 / 13.5 万㎡</li>
+    <li>799 家企业参展</li>
+    <li>BTOC 313 家 / 11 万㎡</li>
+    <li>BTOB 486 家 / 2.5 万㎡，来自 37 个国家和地区，海外及外资占比近 43%</li>
+    <li>观众 41.03 万人次（历史新高）</li>
+    <li>BTOB 商务馆 41231 人次，海外观众占 35.82%</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">燕云十六声</span><span class="cj-tag cj-tag-game">逆水寒</span><span class="cj-tag cj-tag-game">第五人格</span><span class="cj-tag cj-tag-game">永劫无间</span><span class="cj-tag cj-tag-game">遗忘之海</span><span class="cj-tag cj-tag-game">命运：群星</span><span class="cj-tag cj-tag-game">无主星渊</span><span class="cj-tag cj-tag-game">异环</span><span class="cj-tag cj-tag-game">DOTA2</span><span class="cj-tag cj-tag-game">反恐精英：全球攻势</span><span class="cj-tag cj-tag-game">女神异闻录：夜幕魅影</span><span class="cj-tag cj-tag-game">诛仙世界</span><span class="cj-tag cj-tag-game">解限机</span><span class="cj-tag cj-tag-game">超自然行动组</span><span class="cj-tag cj-tag-game">金庸群侠传</span><span class="cj-tag cj-tag-game">无尽冬日</span><span class="cj-tag cj-tag-game">最终幻想 14</span><span class="cj-tag cj-tag-game">大航海时代：起源</span><span class="cj-tag cj-tag-game">鹅鸭杀</span><span class="cj-tag cj-tag-game">猫咪和汤</span><span class="cj-tag cj-tag-game">斗罗大陆：猎魂世界</span><span class="cj-tag cj-tag-game">无畏契约</span><span class="cj-tag cj-tag-game">DNF</span><span class="cj-tag cj-tag-game">明日方舟</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">腾讯游戏</span><span class="cj-tag cj-tag-brand">网易游戏</span><span class="cj-tag cj-tag-brand">暴雪游戏</span><span class="cj-tag cj-tag-brand">世纪华通</span><span class="cj-tag cj-tag-brand">完美世界</span><span class="cj-tag cj-tag-brand">巨人网络</span><span class="cj-tag cj-tag-brand">西山居</span><span class="cj-tag cj-tag-brand">金山世游</span><span class="cj-tag cj-tag-brand">三七互娱</span><span class="cj-tag cj-tag-brand">万代南梦宫</span><span class="cj-tag cj-tag-brand">PlayStation</span><span class="cj-tag cj-tag-brand">华为游戏中心</span><span class="cj-tag cj-tag-brand">4399</span><span class="cj-tag cj-tag-brand">比亚迪</span><span class="cj-tag cj-tag-brand">高通骁龙</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>暴雪搭建「暴雪街区」，5 米高的大天使泰瑞尔雕像与巫妖王无敌战马领衔 70 余尊角色雕像</li>
+      <li>网易把《燕云十六声》凉州「葡萄美酒夜光杯」场景搬进现场，《逆水寒》巨型水缸美人鱼表演出圈</li>
+      <li>比亚迪展台带来与《黑神话：悟空》联动的痛车</li>
+      <li>腾讯占据 N4 馆近一半空间，「Cool 鹅夏日营地」主舞台 +《无畏契约》《符文战场》《DNF》专属展台</li>
+      <li>N5 馆为骁龙主题馆，聚合市面主流骁龙合作硬件品牌</li>
+      <li>主办方携《第五人格》《鸣潮》推出联名限定 IP 谷子门票</li>
+      <li>观众画像：男性 66% / 女性 34%，18–24 岁 33%、25–29 岁 31%，上海本地观众仅占 39%</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="newcy" data-year="2024" data-q="2024 第 21 届 初心「游」在，精彩无限 stay true, game on. 上海 上海新国际博览中心   主打「游戏 + ip」跨界，推动游戏与中华传统文化、当代美学融合 口号回到玩家视角，强调行业在版号常态化后重拾「初心」 由国家新闻出版署与上海市人民政府共同指导">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 21 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2024</div>
+      <div class="cj-card-date">2024.7.26 – 7.29</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">初心「游」在，精彩无限</span><span class="cj-theme-en">Stay True, Game On.</span></div>
+  <div class="cj-card-teaser">看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>由国家新闻出版署与上海市人民政府共同指导</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>主打「游戏 + IP」跨界，推动游戏与中华传统文化、当代美学融合</li>
+      <li>口号回到玩家视角，强调行业在版号常态化后重拾「初心」</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="newcy" data-year="2023" data-q="2023 第 20 届 相伴二十载，越来悦精彩  上海 上海新国际博览中心   chinajoy 二十周年，同年 12 月中国游戏产业年会同期举办二十周年庆典 首次举办 aigc 产业大会，ai 正式进入同期会议议程（尚未成为主角） 疫情三年后的全面回归，线下人气迅速修复 四天展期吸引观众 33.8 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 20 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2023</div>
+      <div class="cj-card-date">2023.7.28 – 7.31</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">相伴二十载，越来悦精彩</span></div>
+  <div class="cj-card-teaser">看点 3</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>四天展期吸引观众 33.8 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>ChinaJoy 二十周年，同年 12 月中国游戏产业年会同期举办二十周年庆典</li>
+      <li>首次举办 AIGC 产业大会，AI 正式进入同期会议议程（尚未成为主角）</li>
+      <li>疫情三年后的全面回归，线下人气迅速修复</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card cj-card-gap" data-era="newcy" data-year="2022" data-q="2022 停办 因疫情未能举办  — —   受疫情影响，2022 年未举办，届次由第 19 届直接顺延至 2023 年的第 20 届 chinajoy 创办以来唯一一次中断">
+  <div class="cj-card-head">
+    <div class="cj-card-no">停办</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2022</div>
+      <div class="cj-card-date">停办</div>
+    </div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">状态</span><span class="cj-theme-txt">因疫情未能举办</span></div>
+  <div class="cj-card-teaser">看点 1</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>ChinaJoy 创办以来唯一一次中断</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>受疫情影响，2022 年未举办，届次由第 19 届直接顺延至 2023 年的第 20 届</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2021" data-q="2021 第 19 届 科技创梦，乐赢未来  上海 上海新国际博览中心   连续第四届把「科技」写进主题，云游戏与数字生活成为论坛焦点 ">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 19 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2021</div>
+      <div class="cj-card-date">2021.7.30 – 8.2</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">科技创梦，乐赢未来</span></div>
+  <div class="cj-card-teaser">看点 1</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>连续第四届把「科技」写进主题，云游戏与数字生活成为论坛焦点</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2020" data-q="2020 第 18 届 科技 · 引领数字娱乐新浪潮  上海 上海新国际博览中心  中国联通 高通 疫情之下如期线下举办，成为当年全球罕见的大型线下游戏展 中国联通携手高通联合布展呈现 5g 成果，「5g 快闪直播间」成为现场热点 ">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 18 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2020</div>
+      <div class="cj-card-date">2020.7.31 – 8.3</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">科技 · 引领数字娱乐新浪潮</span></div>
+  <div class="cj-card-teaser">品牌 2 · 看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">中国联通</span><span class="cj-tag cj-tag-brand">高通</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>疫情之下如期线下举办，成为当年全球罕见的大型线下游戏展</li>
+      <li>中国联通携手高通联合布展呈现 5G 成果，「5G 快闪直播间」成为现场热点</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2019" data-q="2019 第 17 届 数字新娱乐，科技新生活  上海 上海新国际博览中心   人气达到疫情前顶点，展会的「泛娱乐 + 科技」结构基本定型 观众 36.47 万人次（疫情前的历史峰值）">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 17 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2019</div>
+      <div class="cj-card-date">2019.8.2 – 8.5</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">数字新娱乐，科技新生活</span></div>
+  <div class="cj-card-teaser">看点 1</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>观众 36.47 万人次（疫情前的历史峰值）</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>人气达到疫情前顶点，展会的「泛娱乐 + 科技」结构基本定型</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2018" data-q="2018 第 16 届 新科技 新娱乐 新价值  上海 上海新国际博览中心   主题从「泛娱乐」切换到「科技」，此后连续四届延续科技主线 ">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2018.webp" alt="第 16 届 ChinaJoy 现场" loading="lazy" width="480" height="720" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 16 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2018</div>
+      <div class="cj-card-date">2018.8.3 – 8.6</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">新科技 新娱乐 新价值</span></div>
+  <div class="cj-card-teaser">看点 1</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>主题从「泛娱乐」切换到「科技」，此后连续四届延续科技主线</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="tech" data-year="2017" data-q="2017 第 15 届 娱乐升级，全民消费时代到来  上海 上海新国际博览中心   展出面积创下 chinajoy 历史纪录，至今未被超越 「全民消费」的提法标志游戏正式被视为大众消费品类 展出总面积 17 万㎡（历届最大） 15 个展馆，btoc 互动娱乐区 13 万㎡ 参展企业 900 多家 展品 4000 款、现场体验机 5000 台以上 观众超 30 万人次">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2017.webp" alt="第 15 届 ChinaJoy 现场" loading="lazy" width="480" height="719" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 15 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2017</div>
+      <div class="cj-card-date">2017.7.27 – 7.30</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">娱乐升级，全民消费时代到来</span></div>
+  <div class="cj-card-teaser">看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展出总面积 17 万㎡（历届最大）</li>
+    <li>15 个展馆，BTOC 互动娱乐区 13 万㎡</li>
+    <li>参展企业 900 多家</li>
+    <li>展品 4000 款、现场体验机 5000 台以上</li>
+    <li>观众超 30 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>展出面积创下 ChinaJoy 历史纪录，至今未被超越</li>
+      <li>「全民消费」的提法标志游戏正式被视为大众消费品类</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="mobile" data-year="2016" data-q="2016 第 14 届 游戏新时代，拥抱泛娱乐  上海 上海新国际博览中心   同期首次举办国际智能娱乐硬件展览会（esmart），完成「软硬兼备」战略布局 主办方发布展台着装「正误图示」，规范细到服装遮盖与模特互动 来自 30 多个国家和地区的千余家企业参展">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2016.webp" alt="第 14 届 ChinaJoy 现场" loading="lazy" width="480" height="320" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 14 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2016</div>
+      <div class="cj-card-date">2016.7.28 – 7.31</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">游戏新时代，拥抱泛娱乐</span></div>
+  <div class="cj-card-teaser">看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>来自 30 多个国家和地区的千余家企业参展</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>同期首次举办国际智能娱乐硬件展览会（eSmart），完成「软硬兼备」战略布局</li>
+      <li>主办方发布展台着装「正误图示」，规范细到服装遮盖与模特互动</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="mobile" data-year="2015" data-q="2015 第 13 届 让快乐更简单  上海 上海新国际博览中心   主题回归「快乐」本身，呼应手游把游戏门槛大幅拉低的行业变化 来自 30 多个国家和地区的 700 余家企业参展">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2015.webp" alt="第 13 届 ChinaJoy 现场" loading="lazy" width="480" height="320" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 13 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2015</div>
+      <div class="cj-card-date">2015.7.30 – 8.2</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">让快乐更简单</span></div>
+  <div class="cj-card-teaser">看点 1</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>来自 30 多个国家和地区的 700 余家企业参展</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>主题回归「快乐」本身，呼应手游把游戏门槛大幅拉低的行业变化</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="mobile" data-year="2014" data-q="2014 第 12 届 大作的时代，永不停歇的盛宴  上海 上海新国际博览中心   同期首次举办中国国际动漫及衍生品展览会（cawae），「游戏 + 动漫」双轮启动 ">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2014.webp" alt="第 12 届 ChinaJoy 现场" loading="lazy" width="420" height="560" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 12 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2014</div>
+      <div class="cj-card-date">2014.7.31 – 8.3</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">大作的时代，永不停歇的盛宴</span></div>
+  <div class="cj-card-teaser">看点 1</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>同期首次举办中国国际动漫及衍生品展览会（CAWAE），「游戏 + 动漫」双轮启动</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="mobile" data-year="2013" data-q="2013 第 11 届 游戏演绎梦想，移动畅想未来  上海 上海新国际博览中心   移动游戏爆发元年，上半年手游收入激增 主题第一次把「移动」写进标题，此后数年产品形态与商业模式彻底改写 ">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2013.webp" alt="第 11 届 ChinaJoy 现场" loading="lazy" width="480" height="269" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 11 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2013</div>
+      <div class="cj-card-date">2013.7.25 – 7.28</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">游戏演绎梦想，移动畅想未来</span></div>
+  <div class="cj-card-teaser">看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>移动游戏爆发元年，上半年手游收入激增</li>
+      <li>主题第一次把「移动」写进标题，此后数年产品形态与商业模式彻底改写</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2012" data-q="2012 第 10 届 十进位 · 新纪元  上海 上海新国际博览中心  索尼 ea 暴雪 intel amd nvidia crytek chinajoy 十周年，首次拥有编号式的纪念主题 芯片与硬件厂商大举进场，为四年后的 esmart 埋下伏笔 中、美、日、德、韩等 20 余个国家和地区 300 多家企业参展 展出面积约 7 万㎡">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2012.webp" alt="第 10 届 ChinaJoy 现场" loading="lazy" width="420" height="577" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 10 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2012</div>
+      <div class="cj-card-date">2012.7.26 – 7.29</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">十进位 · 新纪元</span></div>
+  <div class="cj-card-teaser">品牌 7 · 看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>中、美、日、德、韩等 20 余个国家和地区 300 多家企业参展</li>
+    <li>展出面积约 7 万㎡</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">Intel</span><span class="cj-tag cj-tag-brand">AMD</span><span class="cj-tag cj-tag-brand">NVIDIA</span><span class="cj-tag cj-tag-brand">Crytek</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>ChinaJoy 十周年，首次拥有编号式的纪念主题</li>
+      <li>芯片与硬件厂商大举进场，为四年后的 eSmart 埋下伏笔</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2011" data-q="2011 第 9 届   上海 上海新国际博览中心 火瀑 魔兽世界 星际争霸 2 最终幻想 14 黑金 巫师之怒 七龙珠 ol 地下城守护者 ol 第九城市 暴雪 网龙 ea 国际展商数量首次突破 70 家 开幕前主办方要求各展台严格审核演出人员数量、衣着与内容 展出面积 6 万㎡ 展商 283 家（国内 204 / 国际 79） 参展游戏 482 款 观众约 15 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 9 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2011</div>
+      <div class="cj-card-date">2011.7.28 – 7.31</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <div class="cj-card-teaser">参展游戏 8 · 品牌 4 · 看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展出面积 6 万㎡</li>
+    <li>展商 283 家（国内 204 / 国际 79）</li>
+    <li>参展游戏 482 款</li>
+    <li>观众约 15 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">火瀑</span><span class="cj-tag cj-tag-game">魔兽世界</span><span class="cj-tag cj-tag-game">星际争霸 2</span><span class="cj-tag cj-tag-game">最终幻想 14</span><span class="cj-tag cj-tag-game">黑金</span><span class="cj-tag cj-tag-game">巫师之怒</span><span class="cj-tag cj-tag-game">七龙珠 OL</span><span class="cj-tag cj-tag-game">地下城守护者 OL</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">网龙</span><span class="cj-tag cj-tag-brand">EA</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>国际展商数量首次突破 70 家</li>
+      <li>开幕前主办方要求各展台严格审核演出人员数量、衣着与内容</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2010" data-q="2010 第 8 届 与世博同行，共创美好生活  上海 上海新国际博览中心 龙之谷之天空战记 新浪微博 中国移动游戏基地 华友世纪 首次出现正式的展会主题，与上海世博会形成联动 新浪微博首次以展台形式亮相 chinajoy 展出面积 5 万㎡ 展商 195 家（国内 160 / 国际 35） 展品 407 款 观众约 14 万人次（含约 2 万专业观众）">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2010.webp" alt="第 8 届 ChinaJoy 现场" loading="lazy" width="480" height="320" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 8 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2010</div>
+      <div class="cj-card-date">2010.7.29 – 8.1</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">与世博同行，共创美好生活</span></div>
+  <div class="cj-card-teaser">参展游戏 1 · 品牌 3 · 看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展出面积 5 万㎡</li>
+    <li>展商 195 家（国内 160 / 国际 35）</li>
+    <li>展品 407 款</li>
+    <li>观众约 14 万人次（含约 2 万专业观众）</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">龙之谷之天空战记</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">新浪微博</span><span class="cj-tag cj-tag-brand">中国移动游戏基地</span><span class="cj-tag cj-tag-brand">华友世纪</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>首次出现正式的展会主题，与上海世博会形成联动</li>
+      <li>新浪微博首次以展台形式亮相 ChinaJoy</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2009" data-q="2009 第 7 届   上海 上海新国际博览中心   高峰论坛体系成型：产业高峰论坛 + 投资、移动娱乐、休闲游戏三大分论坛 电竞大赛、cosplay 嘉年华、miss chinajoy 成为固定配套活动 展商 192 家（国内 158 / 国际 34） 参展游戏 367 款 观众约 13 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 7 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2009</div>
+      <div class="cj-card-date">2009.7.23 – 7.26</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <div class="cj-card-teaser">看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展商 192 家（国内 158 / 国际 34）</li>
+    <li>参展游戏 367 款</li>
+    <li>观众约 13 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>高峰论坛体系成型：产业高峰论坛 + 投资、移动娱乐、休闲游戏三大分论坛</li>
+      <li>电竞大赛、Cosplay 嘉年华、Miss ChinaJoy 成为固定配套活动</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="indus" data-year="2008" data-q="2008 第 6 届   上海 上海新国际博览中心  盛大 网易 第九城市 巨人 久游网 完美时空 腾讯 金山 世纪天成 联众 育碧 索尼 首次设立 btob 商务洽谈展区，展会从「玩家嘉年华」升级为产业平台 国内展品数量首次超过国外展品，标志国产游戏完成反超 新闻出版总署副署长在高峰论坛上首次公开批评部分网游对青少年的影响 展出面积 4 万㎡ 169 家企业参展（国内 142 / 国际 27） 展品 354 款（国内 207 / 国际 147）">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2008.webp" alt="第 6 届 ChinaJoy 现场" loading="lazy" width="420" height="315" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 6 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2008</div>
+      <div class="cj-card-date">2008.7.17 – 7.19</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <div class="cj-card-teaser">品牌 12 · 看点 3</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展出面积 4 万㎡</li>
+    <li>169 家企业参展（国内 142 / 国际 27）</li>
+    <li>展品 354 款（国内 207 / 国际 147）</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">巨人</span><span class="cj-tag cj-tag-brand">久游网</span><span class="cj-tag cj-tag-brand">完美时空</span><span class="cj-tag cj-tag-brand">腾讯</span><span class="cj-tag cj-tag-brand">金山</span><span class="cj-tag cj-tag-brand">世纪天成</span><span class="cj-tag cj-tag-brand">联众</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">索尼</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>首次设立 BTOB 商务洽谈展区，展会从「玩家嘉年华」升级为产业平台</li>
+      <li>国内展品数量首次超过国外展品，标志国产游戏完成反超</li>
+      <li>新闻出版总署副署长在高峰论坛上首次公开批评部分网游对青少年的影响</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2007" data-q="2007 第 5 届   上海 上海新国际博览中心 魔兽世界：燃烧的远征 fifa online 命令与征服 3：泰伯利亚之战 模拟人生 — 生活物语 仙剑 ol 战锤 doa online 一骑当千 ea 网禅 世纪天成 《魔兽世界：燃烧的远征》中文版现场试玩，资料片时代到来 观众数量首次达到 10 万量级 展商 163 家（国内 139 / 国际 24） 参展游戏 345 款 观众约 10 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 5 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2007</div>
+      <div class="cj-card-date">2007.7.12 – 7.15</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <div class="cj-card-teaser">参展游戏 8 · 品牌 3 · 看点 2</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展商 163 家（国内 139 / 国际 24）</li>
+    <li>参展游戏 345 款</li>
+    <li>观众约 10 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">魔兽世界：燃烧的远征</span><span class="cj-tag cj-tag-game">FIFA Online</span><span class="cj-tag cj-tag-game">命令与征服 3：泰伯利亚之战</span><span class="cj-tag cj-tag-game">模拟人生 — 生活物语</span><span class="cj-tag cj-tag-game">仙剑 OL</span><span class="cj-tag cj-tag-game">战锤</span><span class="cj-tag cj-tag-game">DOA Online</span><span class="cj-tag cj-tag-game">一骑当千</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">网禅</span><span class="cj-tag cj-tag-brand">世纪天成</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>《魔兽世界：燃烧的远征》中文版现场试玩，资料片时代到来</li>
+      <li>观众数量首次达到 10 万量级</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2006" data-q="2006 第 4 届   上海 上海新国际博览中心 剑网 3 新大话西游 ii 暗黑之门 天下贰 奇迹世界 卓越之剑 一骑当千 莎木 ol 苍天 激战 索尼 世嘉 konami square enix ea 育碧 光荣 playstation 3 正式亮相 chinajoy 国际知名游戏公司参展数量创下当时之最 《剑网 3》《新大话西游 ii》首次曝光，《天下贰》现场发放内测号 展商 161 家（国内 138 / 国际 23） 参展游戏 338 款（国内 138 / 国际 200） 观众 134738 人次">
+  <div class="cj-card-img-wrap"><img class="cj-card-img" src="img/chinajoy/2006.webp" alt="第 4 届 ChinaJoy 现场" loading="lazy" width="480" height="349" decoding="async"></div>
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 4 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2006</div>
+      <div class="cj-card-date">2006.7.28 – 7.30</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <div class="cj-card-teaser">参展游戏 10 · 品牌 7 · 看点 3</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展商 161 家（国内 138 / 国际 23）</li>
+    <li>参展游戏 338 款（国内 138 / 国际 200）</li>
+    <li>观众 134738 人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">剑网 3</span><span class="cj-tag cj-tag-game">新大话西游 II</span><span class="cj-tag cj-tag-game">暗黑之门</span><span class="cj-tag cj-tag-game">天下贰</span><span class="cj-tag cj-tag-game">奇迹世界</span><span class="cj-tag cj-tag-game">卓越之剑</span><span class="cj-tag cj-tag-game">一骑当千</span><span class="cj-tag cj-tag-game">莎木 OL</span><span class="cj-tag cj-tag-game">苍天</span><span class="cj-tag cj-tag-game">激战</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">世嘉</span><span class="cj-tag cj-tag-brand">KONAMI</span><span class="cj-tag cj-tag-brand">Square Enix</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">光荣</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>PlayStation 3 正式亮相 ChinaJoy</li>
+      <li>国际知名游戏公司参展数量创下当时之最</li>
+      <li>《剑网 3》《新大话西游 II》首次曝光，《天下贰》现场发放内测号</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2005" data-q="2005 第 3 届   上海 上海新国际博览中心 梦幻西游 快乐西游 洛奇 完美世界 ea intel 索尼 世嘉 光荣 育碧 盛大 网易 第九城市 cosplay 嘉年华第一次面向全国海选，成为展会最具吸引力的配套活动 明星站台成风：杨千嬅、张韶涵、张娜拉、水木年华、周星驰、元华悉数到场 国产游戏势头强劲，市场份额肉眼可见地上升 展位面积 2.5 万㎡ 展商 156 家（国内 137 / 国际 19） 参展游戏 289 款（国内 97 / 国际 192） 观众约 8 万人次 门票 20 元">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 3 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2005</div>
+      <div class="cj-card-date">2005.7.20 – 7.23</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <div class="cj-card-teaser">参展游戏 4 · 品牌 9 · 看点 3</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展位面积 2.5 万㎡</li>
+    <li>展商 156 家（国内 137 / 国际 19）</li>
+    <li>参展游戏 289 款（国内 97 / 国际 192）</li>
+    <li>观众约 8 万人次</li>
+    <li>门票 20 元</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">梦幻西游</span><span class="cj-tag cj-tag-game">快乐西游</span><span class="cj-tag cj-tag-game">洛奇</span><span class="cj-tag cj-tag-game">完美世界</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">Intel</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">世嘉</span><span class="cj-tag cj-tag-brand">光荣</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">第九城市</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>Cosplay 嘉年华第一次面向全国海选，成为展会最具吸引力的配套活动</li>
+      <li>明星站台成风：杨千嬅、张韶涵、张娜拉、水木年华、周星驰、元华悉数到场</li>
+      <li>国产游戏势头强劲，市场份额肉眼可见地上升</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2004" data-q="2004 第 2 届   上海 上海新国际博览中心 魔兽世界 仙剑奇侠传 梦幻西游 暴雪 第九城市 索尼 育碧 ea 唯美德 网易 韩国游戏产业开发院（20 家） chinajoy 自本届起永久落户上海 九城代理的《魔兽世界》成为全场最大焦点，此后深刻改写中国网游与网吧生态 cosplay 比赛扩大规模并吸纳社会团体，22 家游戏厂商参赛 showgirl 文化自此萌芽，也为日后的争议埋下伏笔 展商 140 家（国内 126 / 国际 14） 参展游戏 167 款（国内 58 / 国际 109） 观众约 7 万人次">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 2 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2004</div>
+      <div class="cj-card-date">2004.10.5 – 10.7</div>
+    </div>
+    <div class="cj-card-place">上海<span class="cj-venue">上海新国际博览中心</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <div class="cj-card-teaser">参展游戏 3 · 品牌 8 · 看点 4</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展商 140 家（国内 126 / 国际 14）</li>
+    <li>参展游戏 167 款（国内 58 / 国际 109）</li>
+    <li>观众约 7 万人次</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">魔兽世界</span><span class="cj-tag cj-tag-game">仙剑奇侠传</span><span class="cj-tag cj-tag-game">梦幻西游</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">暴雪</span><span class="cj-tag cj-tag-brand">第九城市</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">育碧</span><span class="cj-tag cj-tag-brand">EA</span><span class="cj-tag cj-tag-brand">唯美德</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">韩国游戏产业开发院（20 家）</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>ChinaJoy 自本届起永久落户上海</li>
+      <li>九城代理的《魔兽世界》成为全场最大焦点，此后深刻改写中国网游与网吧生态</li>
+      <li>Cosplay 比赛扩大规模并吸纳社会团体，22 家游戏厂商参赛</li>
+      <li>Showgirl 文化自此萌芽，也为日后的争议埋下伏笔</li>
+    </ul>
+  </div>
+  </div>
+</article>
+
+<article class="cj-card" data-era="start" data-year="2004" data-q="2004 第 1 届   北京 北京展览馆 天堂 ii 大话西游 online ii 传奇 3 传奇世界 神迹 实况足球 7 凯旋 铁血三国志 新浪乐谷 网易 光通 盛大 索尼 腾讯 华义 原定 2003 年 7 月在北京举办，先因扩大规模改址北京展览馆，又因非典（sars）延期至 2004 年 1 月 全称为「中国国际数码互动娱乐产品及技术应用展览会」，当时国内市场以代理海外网游为主 韩国网游占据压倒性优势，同场展出的韩游超过 20 款 中央展厅领取《天堂 ii》内测账号的队伍排成长龙，一直蜿蜒到邻近展厅 首届 cosplay 嘉年华仅有游戏厂商参加 展商 129 家（国内 117 / 国际 12） 展品 145 款（国内 39 / 国际 106） 观众约 6 万人次 门票 20 元，在线预订 15 元">
+  <div class="cj-card-head">
+    <div class="cj-card-no">第 1 届</div>
+    <div class="cj-card-meta">
+      <div class="cj-card-year">2004</div>
+      <div class="cj-card-date">2004.1.16 – 1.18</div>
+    </div>
+    <div class="cj-card-place">北京<span class="cj-venue">北京展览馆</span></div>
+  </div>
+  <div class="cj-theme cj-theme-none"><span class="cj-theme-label">主题</span><span class="cj-theme-txt">未设置正式主题</span></div>
+  <div class="cj-card-teaser">参展游戏 8 · 品牌 7 · 看点 5</div>
+  <button type="button" class="cj-card-toggle" aria-expanded="false"><span class="cj-toggle-txt">展开详情</span> <span class="cj-caret">▾</span></button>
+  <div class="cj-card-detail">
+  <ul class="cj-scale">
+    <li>展商 129 家（国内 117 / 国际 12）</li>
+    <li>展品 145 款（国内 39 / 国际 106）</li>
+    <li>观众约 6 万人次</li>
+    <li>门票 20 元，在线预订 15 元</li>
+  </ul>
+  <div class="cj-block"><span class="cj-block-label">参展游戏</span><div class="cj-tags"><span class="cj-tag cj-tag-game">天堂 II</span><span class="cj-tag cj-tag-game">大话西游 Online II</span><span class="cj-tag cj-tag-game">传奇 3</span><span class="cj-tag cj-tag-game">传奇世界</span><span class="cj-tag cj-tag-game">神迹</span><span class="cj-tag cj-tag-game">实况足球 7</span><span class="cj-tag cj-tag-game">凯旋</span><span class="cj-tag cj-tag-game">铁血三国志</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">参展品牌</span><div class="cj-tags"><span class="cj-tag cj-tag-brand">新浪乐谷</span><span class="cj-tag cj-tag-brand">网易</span><span class="cj-tag cj-tag-brand">光通</span><span class="cj-tag cj-tag-brand">盛大</span><span class="cj-tag cj-tag-brand">索尼</span><span class="cj-tag cj-tag-brand">腾讯</span><span class="cj-tag cj-tag-brand">华义</span></div></div>
+  <div class="cj-block"><span class="cj-block-label">本届看点</span>
+    <ul class="cj-points">
+      <li>原定 2003 年 7 月在北京举办，先因扩大规模改址北京展览馆，又因非典（SARS）延期至 2004 年 1 月</li>
+      <li>全称为「中国国际数码互动娱乐产品及技术应用展览会」，当时国内市场以代理海外网游为主</li>
+      <li>韩国网游占据压倒性优势，同场展出的韩游超过 20 款</li>
+      <li>中央展厅领取《天堂 II》内测账号的队伍排成长龙，一直蜿蜒到邻近展厅</li>
+      <li>首届 Cosplay 嘉年华仅有游戏厂商参加</li>
+    </ul>
+  </div>
+  </div>
+</article>
+    </div>
+    <div class="cj-empty" id="cjEmpty">没有匹配的记录，换个关键词试试～</div>
+  </section>
+
+  <!-- ===== 观众规模 ===== -->
+  <section class="cj-sec">
+    <h2 class="cj-sec-title">观众规模变化</h2>
+    <p class="cj-sec-sub">单位：万人次。仅列出有公开数据的年份，2022 年停办。</p>
+    <div class="cj-chart">
+      <div class="cj-bar-row"><span class="cj-bar-year">2004</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:14.6%"></span></span><span class="cj-bar-val">6 万</span><span class="cj-bar-tip">第 1 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2004</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:17.1%"></span></span><span class="cj-bar-val">7 万</span><span class="cj-bar-tip">第 2 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2005</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:19.5%"></span></span><span class="cj-bar-val">8 万</span><span class="cj-bar-tip">第 3 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2006</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:32.9%"></span></span><span class="cj-bar-val">13.5 万</span><span class="cj-bar-tip">第 4 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2007</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:24.4%"></span></span><span class="cj-bar-val">10 万</span><span class="cj-bar-tip">第 5 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2009</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:31.7%"></span></span><span class="cj-bar-val">13 万</span><span class="cj-bar-tip">第 7 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2010</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:34.1%"></span></span><span class="cj-bar-val">14 万</span><span class="cj-bar-tip">第 8 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2011</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:36.6%"></span></span><span class="cj-bar-val">15 万</span><span class="cj-bar-tip">第 9 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2017</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:73.2%"></span></span><span class="cj-bar-val">30 万</span><span class="cj-bar-tip">第 15 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2019</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:89.0%"></span></span><span class="cj-bar-val">36.5 万</span><span class="cj-bar-tip">第 17 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2023</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:82.4%"></span></span><span class="cj-bar-val">33.8 万</span><span class="cj-bar-tip">第 20 届</span></div>
+      <div class="cj-bar-row"><span class="cj-bar-year">2025</span><span class="cj-bar-track"><span class="cj-bar-fill" style="width:100.0%"></span></span><span class="cj-bar-val">41 万</span><span class="cj-bar-tip">第 22 届</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 品牌里程碑 ===== -->
+  <section class="cj-sec">
+    <h2 class="cj-sec-title">展会体系里程碑</h2>
+    <p class="cj-sec-sub">从单一游戏展，到「游戏 + 动漫 + 硬件 + 潮玩」的综合数字娱乐平台。</p>
+    <ul class="cj-mile-list">
+      <li class="cj-mile"><span class="cj-mile-year">2003</span><div class="cj-mile-body"><strong>筹备立项</strong><span>网络游戏成为中国数字内容产业中发展最蓬勃的领域，ChinaJoy 应运而生</span></div></li>
+      <li class="cj-mile"><span class="cj-mile-year">2004.01</span><div class="cj-mile-body"><strong>首届开幕</strong><span>第一届 ChinaJoy 在北京展览馆举行，中国游戏第一次有了属于自己的产业盛会</span></div></li>
+      <li class="cj-mile"><span class="cj-mile-year">2004.10</span><div class="cj-mile-body"><strong>永久落沪</strong><span>第二届移师上海新国际博览中心，此后永久落户上海</span></div></li>
+      <li class="cj-mile"><span class="cj-mile-year">2008</span><div class="cj-mile-body"><strong>BTOB 展区</strong><span>设立商务洽谈展区，全面提升展会的商务服务功能，助力国产内容出海</span></div></li>
+      <li class="cj-mile"><span class="cj-mile-year">2014</span><div class="cj-mile-body"><strong>CAWAE</strong><span>同期举办中国国际动漫及衍生品展览会，向动漫与文创延伸</span></div></li>
+      <li class="cj-mile"><span class="cj-mile-year">2016</span><div class="cj-mile-body"><strong>eSmart</strong><span>国际智能娱乐硬件展览会成功举办，完成「软硬兼备」战略布局</span></div></li>
+      <li class="cj-mile"><span class="cj-mile-year">近年</span><div class="cj-mile-body"><strong>CJTS / CJFM</strong><span>组织潮流玩具及模型展，把娱乐边界拓展到二次元与潮玩</span></div></li>
+      <li class="cj-mile"><span class="cj-mile-year">2023</span><div class="cj-mile-body"><strong>AIGC 产业大会</strong><span>二十周年首办 AIGC 产业大会，AI 进入同期会议议程</span></div></li>
+      <li class="cj-mile"><span class="cj-mile-year">2026</span><div class="cj-mile-body"><strong>新展区上线</strong><span>新增地偶街区、ChinaJoy Next Play 创新游戏体验场与国潮特色展区</span></div></li>
+    </ul>
+  </section>
+
+  <!-- ===== 名人堂 ===== -->
+  <section class="cj-sec">
+    <h2 class="cj-sec-title">参展品牌名人堂</h2>
+    <p class="cj-sec-sub">二十余年间在 ChinaJoy 留下过展台的部分代表性企业。</p>
+    <div class="cj-hall-grid">
+      <div class="cj-hall-card" style="--hall:#4f46e5"><h3>国际主机与 3A</h3><div class="cj-tags"><span class="cj-tag cj-tag-hall">索尼 PlayStation</span><span class="cj-tag cj-tag-hall">暴雪娱乐</span><span class="cj-tag cj-tag-hall">世嘉</span><span class="cj-tag cj-tag-hall">KONAMI</span><span class="cj-tag cj-tag-hall">Square Enix</span><span class="cj-tag cj-tag-hall">育碧</span><span class="cj-tag cj-tag-hall">Electronic Arts</span><span class="cj-tag cj-tag-hall">万代南梦宫</span><span class="cj-tag cj-tag-hall">光荣</span><span class="cj-tag cj-tag-hall">Pocketpair</span></div></div>
+      <div class="cj-hall-card" style="--hall:#c2410c"><h3>国内头部厂商</h3><div class="cj-tags"><span class="cj-tag cj-tag-hall">腾讯游戏</span><span class="cj-tag cj-tag-hall">网易游戏</span><span class="cj-tag cj-tag-hall">盛大 / 世纪华通</span><span class="cj-tag cj-tag-hall">完美世界</span><span class="cj-tag cj-tag-hall">巨人网络</span><span class="cj-tag cj-tag-hall">西山居 / 金山世游</span><span class="cj-tag cj-tag-hall">三七互娱</span><span class="cj-tag cj-tag-hall">第九城市</span><span class="cj-tag cj-tag-hall">恺英网络</span><span class="cj-tag cj-tag-hall">朝夕光年</span><span class="cj-tag cj-tag-hall">4399</span></div></div>
+      <div class="cj-hall-card" style="--hall:#0f766e"><h3>硬件与科技</h3><div class="cj-tags"><span class="cj-tag cj-tag-hall">高通骁龙</span><span class="cj-tag cj-tag-hall">Intel</span><span class="cj-tag cj-tag-hall">AMD</span><span class="cj-tag cj-tag-hall">NVIDIA</span><span class="cj-tag cj-tag-hall">华为</span><span class="cj-tag cj-tag-hall">中国移动咪咕</span><span class="cj-tag cj-tag-hall">顺网科技</span><span class="cj-tag cj-tag-hall">TCL 华星</span><span class="cj-tag cj-tag-hall">宇树科技</span><span class="cj-tag cj-tag-hall">比亚迪</span></div></div>
+      <div class="cj-hall-card" style="--hall:#7e22ce"><h3>平台与渠道</h3><div class="cj-tags"><span class="cj-tag cj-tag-hall">B站游戏</span><span class="cj-tag cj-tag-hall">好游快爆</span><span class="cj-tag cj-tag-hall">360 游戏</span><span class="cj-tag cj-tag-hall">京东</span><span class="cj-tag cj-tag-hall">Steam 线上盛典</span><span class="cj-tag cj-tag-hall">新浪微博</span><span class="cj-tag cj-tag-hall">中国联通</span></div></div>
+    </div>
+  </section>
+
+  <div class="cj-note">
+    <h3>关于本页</h3>
+    <ul>
+      <li>数据来源于 ChinaJoy 官方公告与公开报道，早期届次的观众数字在不同信源间存在口径差异，本页取较常被引用的一组。</li>
+      <li>本页随每届展会持续更新，「每日自动更新」区块会跟进展会与行业的最新动态。</li>
+      <li>每届卡片顶部可放一张该届的<b>真实现场照片</b>：把照片放到 <code>static/img/chinajoy/&lt;年份&gt;.jpg</code>（或 .png/.webp），重新构建后会在对应卡片顶部自动显示。本站<b>绝不使用 AI 生成图</b>，照片必须是真实拍摄的现场图。</li>
+      <li>本页现有现场照片均来自 <b>Wikimedia Commons</b>（依据 CC BY-SA / CC BY 等自由许可使用），按年份一一对应；原作者与原始文件名见各图 alt 属性。未找到对应年份真图的届次暂以纯文字展示，绝不张冠李戴。</li>
+      <li>参考资料：</li>
+    </ul>
+    <ul>
+    <li><a href="https://www.chinajoy.net/" target="_blank" rel="noopener noreferrer">ChinaJoy 官方网站</a></li>
+    <li><a href="https://en.chinajoy.net/" target="_blank" rel="noopener noreferrer">ChinaJoy 英文官网（历届规模数据）</a></li>
+    <li><a href="https://www.cgigc.com.cn/" target="_blank" rel="noopener noreferrer">中国音像与数字出版协会 · 游戏工委</a></li>
+    </ul>
+    <p style="margin-top:10px">最后更新时间：<span id="lastNewsUpdate">2026-08-19</span></p>
+  </div>
+
+</div>
+</main><footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script defer src="/js/board-nav.js"></script>
+<script defer src="js/search.js"></script>
+<script defer src="js/app.js"></script>
+<script defer src="js/share.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "ChinaJoy 成长史 - 龙兄知识库",
+      "url": "https://longxiong.vip/chinajoy.html",
+      "description": "从 2004 年首届到 2026 年第 23 届，ChinaJoy 逐届档案：主题、规模、参展品牌与代表游戏。"
+    }
+  ]
+}
+</script>
+
+<script>
+if (typeof toggleHomeSection === 'undefined') {
+  function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+}
+</script>
+<script>(function(){
+  var list=document.getElementById('cjList');
+  if(!list)return;
+  var cards=[].slice.call(list.querySelectorAll('.cj-card'));
+  var chips=[].slice.call(document.querySelectorAll('.cj-chip'));
+  var input=document.getElementById('cjSearch');
+  var clear=document.getElementById('cjClear');
+  var shown=document.getElementById('cjShown');
+  var empty=document.getElementById('cjEmpty');
+  var reset=document.getElementById('cjReset');
+  var ALIAS={'cj':'chinajoy','中国国际数码互动娱乐展览会':'chinajoy','游戏展':'chinajoy',
+             'ps':'playstation','索尼':'playstation 索尼','ai':'ai 人工智能',
+             '魔兽':'魔兽世界','wow':'魔兽世界','暴雪':'暴雪 blizzard'};
+  var state={era:'all',q:''};
+
+  cards.forEach(function(c){ c._q=(c.getAttribute('data-q')||'')+' '+(c.getAttribute('data-year')||''); });
+
+  function render(){
+    var n=0;
+    cards.forEach(function(c){
+      var okEra=(state.era==='all')||c.getAttribute('data-era')===state.era;
+      var okQ=!state.q||c._q.indexOf(state.q)>-1;
+      var ok=okEra&&okQ;
+      c.style.display=ok?'':'none';
+      if(ok)n++;
+    });
+    shown.textContent=n;
+    empty.style.display=n?'none':'block';
+    clear.style.display=state.q?'block':'none';
+  }
+
+  chips.forEach(function(ch){
+    ch.addEventListener('click',function(){
+      chips.forEach(function(x){x.classList.remove('active');});
+      ch.classList.add('active');
+      state.era=ch.getAttribute('data-era');
+      render();
+    });
+  });
+
+  input.addEventListener('input',function(){
+    var v=input.value.trim().toLowerCase();
+    if(ALIAS[v])v=ALIAS[v];
+    state.q=v; render();
+  });
+  clear.addEventListener('click',function(){ input.value=''; state.q=''; render(); input.focus(); });
+  reset.addEventListener('click',function(){
+    input.value=''; state.q=''; state.era='all';
+    chips.forEach(function(x){x.classList.toggle('active',x.getAttribute('data-era')==='all');});
+    render();
+  });
+
+  // 卡片折叠 / 展开全部（默认收起详情，降低长内容压迫感）
+  var toggles=[].slice.call(list.querySelectorAll('.cj-card-toggle'));
+  function setToggleTxt(btn,open){ var t=btn.querySelector('.cj-toggle-txt'); if(t)t.textContent=open?'收起详情':'展开详情'; }
+  toggles.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var card=btn.closest('.cj-card');
+      var open=card.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+      setToggleTxt(btn,open);
+    });
+  });
+  var expandBtn=document.getElementById('cjExpand');
+  if(expandBtn){
+    expandBtn.addEventListener('click',function(){
+      var open=expandBtn.textContent.indexOf('收起')===-1;
+      cards.forEach(function(c){ c.classList.toggle('open',open); });
+      toggles.forEach(function(b){ b.setAttribute('aria-expanded',open?'true':'false'); setToggleTxt(b,open); });
+      expandBtn.textContent=open?'收起全部':'展开全部';
+    });
+  }
+
+  [].slice.call(document.querySelectorAll('.cj-era-card')).forEach(function(card){
+    card.addEventListener('click',function(){
+      var era=card.getAttribute('data-jump');
+      var target=chips.filter(function(x){return x.getAttribute('data-era')===era;})[0];
+      if(target){ target.click(); }
+      var anchor=document.getElementById('cjArchive');
+      if(anchor)anchor.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+
+  render();
+})();</script>
+<script defer src="js/auto_news_loader.js"></script>
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer></script>
+<script src="js/bookmark.js" defer></script>
+<script src="js/auto-collapse.js?v=20260824" defer></script>
+<script defer src="js/countdown.js?v=20260823"></script>
+</body>
+</html>

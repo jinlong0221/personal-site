@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+  <title>万年历详细科普｜龙兄知识库</title>
+<meta name="keywords" content="万年历,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="万年历详细科普：实测溯源、实操图文、避坑指南。适合万年历爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.container{padding:0 16px}footer{padding:24px 16px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+  <link rel="preload" href="css/style.css?v=20260823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/style.css?v=20260823"></noscript>
+  <style>
+    /* ===== 万年历专用样式 ===== */
+    :root {
+      --cal-bg: var(--card-bg, #1a1a1a);
+      --cal-border: var(--border-color, #333);
+      --cal-text: var(--text-color, #e0e0e0);
+      --cal-muted: var(--text-muted, #888);
+      --cal-accent: #c9a84c;
+      --cal-yi: #27ae60;
+      --cal-ji: #e74c3c;
+      --cal-festival: #e74c3c;
+    }
+    [data-theme="light"] {
+      --cal-bg: #ffffff;
+      --cal-border: #e5e7eb;
+      --cal-text: #1f2937;
+      --cal-muted: #9ca3af;
+      --cal-accent: #b8860b;
+    }
+
+    .cal-page { padding: 2rem 1rem; max-width: 900px; margin: 0 auto; }
+    .cal-page h1 { text-align: center; margin-bottom: 1.5rem; font-size: 1.8rem; }
+
+    /* 月历导航 */
+    .cal-nav {
+      display: flex; justify-content: center; align-items: center;
+      gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+    }
+    .cal-nav button {
+      background: var(--cal-bg); border: 1px solid var(--cal-border);
+      color: var(--cal-text); padding: 0.5rem 1rem;
+      border-radius: 8px; cursor: pointer; font-size: 1rem;
+      transition: background 0.2s, color 0.2s; font-family: inherit;
+    }
+    .cal-nav button:hover { background: var(--cal-accent); color: #fff; border-color: var(--cal-accent); }
+    .cal-nav .month-label { font-size: 1.4rem; font-weight: 700; min-width: 200px; text-align: center; color: var(--cal-text); }
+    .cal-nav .today-btn { background: var(--cal-accent); color: #fff; border-color: var(--cal-accent); font-weight: 600; }
+
+    /* 月历表格 */
+    .cal-table { width: 100%; border-collapse: collapse; background: var(--cal-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    .cal-table th, .cal-table td { padding: 0.5rem 0.2rem; text-align: center; border: 1px solid var(--cal-border); }
+    .cal-table th { background: var(--cal-accent); color: #fff; font-weight: 600; font-size: 0.9rem; }
+    .cal-table td { min-height: 72px; vertical-align: top; font-size: 0.95rem; }
+    .cal-table td .solar { font-weight: 600; display: block; color: var(--cal-text); }
+    .cal-table td .lunar { font-size: 0.7rem; display: block; color: var(--cal-muted); margin-top: 2px; line-height: 1.3; }
+    .cal-table td .tag { display: inline-block; font-size: 0.65rem; padding: 0 3px; border-radius: 2px; margin-top: 2px; }
+    .cal-table td .tag.term { background: rgba(52,152,219,0.15); color: #2980b9; }
+    .cal-table td .tag.festival { color: var(--cal-festival); font-weight: 600; }
+    .cal-table td .tag.term.dark { background: rgba(52,152,219,0.2); }
+    .cal-table td.other-month .solar { color: var(--cal-muted); opacity: 0.45; }
+    .cal-table td.today { background: rgba(201,168,76,0.12); border: 2px solid var(--cal-accent); }
+    .cal-table td.today .solar { color: var(--cal-accent); font-size: 1.05rem; }
+    .cal-table td.today .lunar { color: var(--cal-accent); opacity: 0.8; }
+    .cal-table td.clickable { cursor: pointer; transition: background 0.15s; }
+    .cal-table td.clickable:hover { background: rgba(201,168,76,0.15); }
+    .cal-table td.active { background: rgba(201,168,76,0.2); border-color: var(--cal-accent); }
+
+    /* 日期详情 */
+    .day-detail { margin-top: 1.5rem; padding: 1.2rem; background: var(--cal-bg); border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid var(--cal-border); display: none; }
+    .day-detail.show { display: block; }
+    .day-detail h3 { margin-bottom: 0.8rem; font-size: 1.15rem; color: var(--cal-text); }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.5rem; margin-bottom: 0.8rem; }
+    .detail-item { display: flex; gap: 0.5rem; }
+    .detail-item .label { font-weight: 600; color: var(--cal-muted); min-width: 60px; }
+    .detail-item .value { color: var(--cal-text); }
+    .detail-section { margin-top: 0.8rem; }
+    .detail-section-title { font-weight: 600; margin-bottom: 0.4rem; font-size: 0.95rem; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag-item { padding: 0.25rem 0.6rem; font-size: 0.8rem; border-radius: 4px; }
+    .tag-item.yi { background: rgba(39,174,96,0.12); color: var(--cal-yi); border: 1px solid rgba(39,174,96,0.25); }
+    .tag-item.ji { background: rgba(231,76,60,0.08); color: var(--cal-ji); border: 1px solid rgba(231,76,60,0.2); }
+    .yi-box { background: rgba(39,174,96,0.06); border: 1px solid rgba(39,174,96,0.15); padding: 0.6rem; border-radius: 8px; }
+    .ji-box { background: rgba(231,76,60,0.05); border: 1px solid rgba(231,76,60,0.12); padding: 0.6rem; border-radius: 8px; margin-top: 0.5rem; }
+
+    /* 移动端 */
+    @media (max-width: 480px) {
+      .cal-page { padding: 1rem 0.3rem; }
+      .cal-table td { min-height: 60px; padding: 0.3rem 0.1rem; }
+      .cal-table td .solar { font-size: 0.85rem; }
+      .cal-table td .lunar { font-size: 0.6rem; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .cal-nav .month-label { font-size: 1.2rem; min-width: 160px; }
+    }
+
+    /* ===== 新增功能样式（概览 / 工具 / 整年视图 / 法定节假日） ===== */
+    .section-title { text-align:center; font-size:1.15rem; margin:2rem 0 1rem; color:var(--cal-accent); }
+    .cal-overview {
+      margin:1.4rem 0; padding:1.4rem 1.6rem; border-radius:16px;
+      background:linear-gradient(135deg, rgba(201,168,76,0.10), rgba(201,168,76,0.02));
+      border:1px solid var(--cal-border); box-shadow:var(--shadow-md);
+    }
+    .ov-top { display:flex; align-items:baseline; flex-wrap:wrap; gap:.5rem .7rem; }
+    .ov-date { font-size:1.6rem; font-weight:800; color:var(--cal-text); }
+    .ov-week { font-size:1rem; color:var(--cal-muted); }
+    .ov-fest { font-size:1rem; color:var(--cal-festival); font-weight:600; }
+    .ov-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:.5rem .9rem; margin:.9rem 0; }
+    .ov-item { display:flex; gap:.4rem; font-size:.92rem; }
+    .ov-item .k { color:var(--cal-muted); min-width:48px; }
+    .ov-item .v { color:var(--cal-text); font-weight:600; }
+    .ov-countdowns { display:flex; gap:.8rem; flex-wrap:wrap; margin-top:.3rem; }
+    .cd-chip { flex:1; min-width:200px; padding:.7rem .9rem; border-radius:12px; background:rgba(201,168,76,0.08); border:1px solid var(--cal-border); }
+    .cd-chip .t { font-size:.8rem; color:var(--cal-muted); }
+    .cd-chip .n { font-size:1.05rem; font-weight:700; color:var(--cal-accent); }
+
+    .cal-tools { margin-top:.5rem; }
+    .tool-tabs { display:flex; gap:.4rem; justify-content:center; flex-wrap:wrap; margin-bottom:1rem; }
+    .tool-tab { background:var(--cal-bg); border:1px solid var(--cal-border); color:var(--cal-text); padding:.5rem .95rem; border-radius:20px; cursor:pointer; font-size:.9rem; font-family:inherit; transition:.2s; }
+    .tool-tab.active { background:var(--cal-accent); color:#fff; border-color:var(--cal-accent); }
+    .tool-panel { display:none; padding:1rem 1.2rem; border:1px solid var(--cal-border); border-radius:14px; background:var(--cal-bg); }
+    .tool-panel.active { display:block; animation:fadeUp .3s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+    .conv-row { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin-bottom:.8rem; }
+    .conv-row label { font-size:.88rem; color:var(--cal-muted); }
+    .conv-row input[type=date], .conv-row input[type=number], .conv-row select {
+      background:var(--bg); color:var(--cal-text); border:1px solid var(--cal-border); border-radius:8px; padding:.4rem .55rem; font-family:inherit; font-size:.9rem;
+    }
+    .cal-mini-btn { background:var(--cal-accent); color:#fff; border:none; border-radius:8px; padding:.45rem .95rem; cursor:pointer; font-size:.9rem; font-family:inherit; transition:.2s; }
+    .cal-mini-btn:hover { filter:brightness(1.08); }
+    .conv-sep { border:none; border-top:1px dashed var(--cal-border); margin:.9rem 0; }
+    .conv-result { font-size:.95rem; color:var(--cal-text); line-height:1.95; min-height:1.2rem; }
+    .conv-result .big { font-size:1.15rem; font-weight:700; color:var(--cal-accent); }
+
+    .hours-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:.6rem; margin-top:.8rem; }
+    .hour-card { padding:.6rem .7rem; border-radius:10px; border:1px solid var(--cal-border); background:var(--bg); }
+    .hour-card.luck-吉 { border-color:rgba(39,174,96,0.5); background:rgba(39,174,96,0.08); }
+    .hour-card.luck-凶 { opacity:.8; }
+    .hour-card .hn { font-weight:700; }
+    .hour-card .hr { font-size:.76rem; color:var(--cal-muted); }
+    .hour-card .hg { font-size:.85rem; color:var(--cal-accent); }
+    .hour-card .hs { font-size:.82rem; }
+    .hour-card .hl { float:right; font-weight:700; }
+    .hour-card .hl.吉 { color:var(--cal-yi); }
+    .hour-card .hl.凶 { color:var(--cal-ji); }
+
+    .year-nav { display:flex; justify-content:center; align-items:center; gap:.8rem; margin-bottom:1rem; flex-wrap:wrap; }
+    .year-label { font-size:1.3rem; font-weight:700; min-width:120px; text-align:center; }
+    .year-nav button { background:var(--cal-bg); border:1px solid var(--cal-border); color:var(--cal-text); padding:.45rem .95rem; border-radius:8px; cursor:pointer; font-family:inherit; transition:.2s; }
+    .year-nav button:hover { background:var(--cal-accent); color:#fff; border-color:var(--cal-accent); }
+    .year-nav .today-btn { background:var(--cal-accent); color:#fff; border-color:var(--cal-accent); }
+    .year-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1rem; }
+    .mini-month { padding:.5rem; border:1px solid var(--cal-border); border-radius:12px; background:var(--cal-bg); cursor:pointer; transition:.2s; }
+    .mini-month:hover { border-color:var(--cal-accent); transform:translateY(-2px); }
+    .mini-month-title { text-align:center; font-weight:700; margin-bottom:.3rem; color:var(--cal-accent); }
+    .mini-table { width:100%; border-collapse:collapse; font-size:.72rem; }
+    .mini-table th { color:var(--cal-muted); font-weight:500; padding:1px; }
+    .mini-table td { text-align:center; padding:1px; color:var(--cal-text); }
+    .mini-table td.mini-today { background:var(--cal-accent); color:#fff; border-radius:4px; }
+    .mini-table td.mini-holiday { color:var(--cal-yi); font-weight:700; }
+    .year-note { text-align:center; color:var(--cal-muted); font-size:.8rem; margin-top:1rem; }
+
+    /* 拼假攻略 */
+    .cal-pinjia { margin-top:1.4rem; }
+    .pinjia-sub { color:var(--cal-muted); font-size:.84rem; margin:.35rem 0 1rem; line-height:1.65; }
+    .pinjia-controls { display:flex; align-items:center; gap:.6rem; margin-bottom:1.1rem; flex-wrap:wrap; }
+    .pinjia-controls label { color:var(--cal-text); font-size:.9rem; }
+    .pinjia-controls .cal-select { background:var(--cal-bg); border:1px solid var(--cal-border); color:var(--cal-text); padding:.42rem .75rem; border-radius:8px; font-family:inherit; font-size:.9rem; cursor:pointer; }
+    .pinjia-controls .cal-select:focus { outline:none; border-color:var(--cal-accent); }
+    .pinjia-list { display:flex; flex-direction:column; gap:1rem; }
+    .pinjia-card { border:1px solid var(--cal-border); border-radius:14px; background:var(--cal-bg); padding:1rem 1.1rem; }
+    .pinjia-card-head { display:flex; align-items:baseline; justify-content:space-between; gap:.8rem; flex-wrap:wrap; }
+    .pinjia-name { font-size:1.05rem; font-weight:700; color:var(--cal-accent); }
+    .pinjia-range { font-size:.82rem; color:var(--cal-muted); }
+    .pinjia-opts { display:flex; gap:.8rem; flex-wrap:wrap; margin-top:.85rem; }
+    .pinjia-opt { flex:1; min-width:210px; padding:.7rem .9rem; border-radius:11px; border:1px solid var(--cal-border); background:rgba(201,168,76,0.05); }
+    .pinjia-opt .lab { font-size:.78rem; color:var(--cal-muted); }
+    .pinjia-opt .big { font-size:1.05rem; font-weight:800; color:var(--cal-accent); margin-top:.25rem; }
+    .pinjia-opt .big b { font-size:1.5rem; margin:0 .12rem; }
+    .pinjia-opt .desc { font-size:.76rem; color:var(--cal-muted); margin-top:.35rem; line-height:1.55; }
+    .pinjia-opt .dates { font-size:.8rem; color:var(--cal-text); margin-top:.5rem; line-height:1.6; font-variant-numeric:tabular-nums; }
+    .pinjia-opt.free { border-style:dashed; background:rgba(201,168,76,0.02); }
+    .pinjia-opt.free .big b { color:var(--cal-text); }
+    .pinjia-opt.best { border-color:var(--cal-accent); box-shadow:0 0 0 1px var(--cal-accent) inset; background:rgba(201,168,76,0.10); }
+    .pinjia-opt.best .lab::after { content:' · 推荐'; color:var(--cal-accent); font-weight:700; }
+    .pinjia-none { color:var(--cal-muted); font-size:.9rem; padding:.4rem 0; line-height:1.6; }
+    .pinjia-foot { color:var(--cal-muted); font-size:.78rem; margin-top:1.1rem; line-height:1.65; }
+    @media (max-width:560px){ .pinjia-opt{ min-width:100%; } }
+
+    .cal-table td .tag.legal-holiday { background:rgba(39,174,96,0.18); color:var(--cal-yi); font-weight:700; }
+    .cal-table td .tag.legal-work { background:rgba(255,140,0,0.16); color:var(--orange); font-weight:700; }
+
+    @media (max-width:480px){
+      .ov-date{font-size:1.3rem;}
+      .year-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
+      .hours-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}
+    }
+
+    /* ===== 高级感改造：编辑式国风黑金 ===== */
+    /* 1. 页面 masthead */
+    .cal-hero { text-align:center; padding:1.2rem 0 1.7rem; margin-bottom:.6rem; }
+    .cal-hero-kicker { display:block; font-size:.72rem; letter-spacing:.12em; color:var(--cal-muted); text-transform:uppercase; margin-bottom:.55rem; }
+    .cal-hero-title { font-size:2.2rem; font-weight:800; letter-spacing:.06em; color:var(--cal-text); line-height:1.15; }
+    .cal-hero-sub { font-size:.95rem; color:var(--cal-muted); margin-top:.4rem; letter-spacing:.03em; }
+    .cal-hero-meta { display:block; font-size:.72rem; color:var(--cal-muted); margin-top:.95rem; }
+    .cal-hero::after { content:''; display:block; width:48px; height:2px; background:var(--cal-accent); margin:1.1rem auto 0; border-radius:1px; opacity:.6; }
+
+    /* 2. 统一章节标题：kicker + 标题 + 金线分隔 */
+    .cal-sec { position:relative; margin:2.5rem 0 1.1rem; padding-bottom:.7rem; border-bottom:1px solid var(--cal-border); }
+    .cal-sec-kicker { display:block; font-size:.66rem; letter-spacing:.1em; color:var(--cal-muted); margin-bottom:.25rem; padding-left:.7rem; }
+    .cal-sec-title { font-size:1.28rem; font-weight:700; color:var(--cal-text); padding-left:.7rem; border-left:2px solid var(--cal-accent); line-height:1.3; letter-spacing:.02em; }
+
+    /* 3. 月历：去重金 header，改用细金底边 + 周末微标 */
+    .cal-table { border-radius:14px; box-shadow:0 1px 5px rgba(0,0,0,0.04); border:1px solid var(--cal-border); }
+    .cal-table thead th { background:var(--cal-bg); color:var(--cal-muted); border-bottom:1px solid var(--cal-accent); font-weight:500; font-size:.78rem; letter-spacing:.04em; padding:.55rem .15rem; }
+    .cal-table thead th:first-child,
+    .cal-table thead th:last-child { color:var(--cal-accent); background:rgba(201,168,76,0.03); }
+    .cal-table td { border-color:var(--cal-border); }
+    .cal-table td .solar { font-size:1rem; font-weight:600; }
+    .cal-table td .lunar { font-size:.67rem; letter-spacing:.02em; margin-top:3px; }
+    .cal-table td.clickable:hover { background:rgba(201,168,76,0.07); }
+    .cal-table td.today { background:rgba(201,168,76,0.05); border:1px solid var(--cal-border); box-shadow:inset 0 0 0 1px var(--cal-accent); }
+    .cal-table td.today .solar { color:var(--cal-accent); font-weight:700; }
+    .cal-table td.active { background:rgba(201,168,76,0.08); border:1px solid var(--cal-border); box-shadow:inset 0 0 0 1px var(--cal-accent); }
+
+    /* 4. 导航按钮：去实心金，改用描边+微hover */
+    .cal-nav { gap:.6rem; margin-bottom:1.2rem; }
+    .cal-nav button, .year-nav button { background:transparent; color:var(--cal-text); border:1px solid var(--cal-border); border-radius:8px; font-size:.9rem; transition:.2s; }
+    .cal-nav button:hover, .year-nav button:hover { border-color:var(--cal-accent); color:var(--cal-accent); background:rgba(201,168,76,0.05); }
+    .cal-nav .month-label { color:var(--cal-text); font-weight:700; }
+    .cal-nav .today-btn, .year-nav .today-btn { background:transparent; color:var(--cal-accent); border-color:var(--cal-accent); font-weight:600; }
+    .cal-nav .today-btn:hover, .year-nav .today-btn:hover { background:rgba(201,168,76,0.08); }
+    .cal-mini-btn { background:transparent; color:var(--cal-accent); border:1px solid var(--cal-accent); font-weight:600; transition:.2s; }
+    .cal-mini-btn:hover { background:rgba(201,168,76,0.08); filter:none; }
+
+    /* 5. 工具 tab：去实心金，改用描边 */
+    .tool-tab { background:transparent; color:var(--cal-text); border:1px solid var(--cal-border); }
+    .tool-tab:hover { background:transparent; border-color:var(--cal-accent); color:var(--cal-accent); }
+    .tool-tab.active { background:transparent; color:var(--cal-accent); border-color:var(--cal-accent); box-shadow:none; }
+
+    /* 6. 今日概览：去渐变，改用顶金线+干净卡片 */
+    .cal-overview { background:var(--cal-bg); border:1px solid var(--cal-border); border-top:2px solid var(--cal-accent); border-radius:16px; box-shadow:0 1px 6px rgba(0,0,0,0.03); padding:1.5rem; margin:1.6rem 0; }
+    .ov-top { align-items:baseline; gap:.6rem; }
+    .ov-date { font-size:1.7rem; font-weight:800; letter-spacing:.02em; }
+    .ov-week { font-size:.95rem; color:var(--cal-muted); }
+    .ov-fest { font-size:.95rem; font-weight:600; }
+    .cd-chip { background:transparent; border:1px solid var(--cal-border); border-radius:10px; }
+    .cd-chip .n { color:var(--cal-accent); font-weight:700; }
+
+    /* 7. 拼假卡片微收敛 */
+    .pinjia-card { border:1px solid var(--cal-border); border-radius:14px; background:var(--cal-bg); }
+    .pinjia-opt { background:rgba(201,168,76,0.03); border:1px solid var(--cal-border); }
+    .pinjia-opt.best { border-color:var(--cal-accent); background:rgba(201,168,76,0.07); box-shadow:none; }
+
+    /* 8. 资料来源：统一卡片 */
+    .cal-source { margin:2rem 0 .5rem; padding:1.3rem 1.4rem; border:1px solid var(--cal-border); border-radius:14px; background:var(--cal-bg); }
+    .cal-source .cal-sec { margin:0 0 .7rem; padding-bottom:.45rem; border-bottom:none; }
+    .cal-source ul { margin:0; padding-left:1.1rem; color:var(--cal-muted); font-size:.9rem; line-height:1.9; }
+    .cal-source li { margin:.2rem 0; }
+    .cal-source a { color:var(--blue-light); }
+
+    /* 9. 宜/忌去 emoji，改用精致标签 */
+    .yi-ji-label { display:inline-block; min-width:1.5em; text-align:center; font-size:.75rem; font-weight:700; padding:.12rem .32rem; border-radius:4px; margin-right:.35rem; vertical-align:middle; }
+    .yi-ji-label.yi { background:rgba(39,174,96,0.12); color:var(--cal-yi); border:1px solid rgba(39,174,96,0.25); }
+    .yi-ji-label.ji { background:rgba(231,76,60,0.08); color:var(--cal-ji); border:1px solid rgba(231,76,60,0.2); }
+
+    @media (max-width:480px){
+      .cal-hero { padding:.8rem 0 1.1rem; }
+      .cal-hero-title { font-size:1.7rem; }
+      .cal-hero-sub { font-size:.86rem; }
+      .cal-sec { margin:1.8rem 0 .9rem; }
+      .cal-sec-title { font-size:1.12rem; }
+      .cal-overview { padding:1.1rem; }
+      .ov-date { font-size:1.4rem; }
+      .pinjia-opt { min-width:100%; }
+    }
+  </style>
+
+<link rel="canonical" href="https://longxiong.vip/calendar.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="万年历详细科普｜龙兄知识库">
+<meta property="og:description" content="万年历详细科普：实测溯源、实操图文、避坑指南。适合万年历爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/calendar.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="万年历 - 龙兄知识库">
+<meta name="twitter:description" content="万年历查询，含农历、干支、节气、吉凶宜忌。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
+<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">跳到主要内容</a>
+  <!-- ========== 全局导航栏 ========== -->
+  <nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+  <!-- ========== 主内容 ========== -->
+  <main class="cal-page" id="main-content" role="main">
+    <header class="cal-hero">
+      <span class="cal-hero-kicker">实用历法工具 · CALENDAR</span>
+      <h1 class="cal-hero-title">万年历</h1>
+      <p class="cal-hero-sub">公历 · 农历 · 节气 · 宜忌 · 吉时，一站查全</p>
+      <span class="cal-hero-meta">最后更新：2026 年 8 月</span>
+    </header>
+    <div class="cal-nav">
+      <button id="prevBtn" aria-label="上一个月">← 上月</button>
+      <span class="month-label" id="monthLabel"></span>
+      <button id="nextBtn" aria-label="下一个月">下月 →</button>
+      <button id="todayBtn" class="today-btn" aria-label="回到今天">今天</button>
+    </div>
+    <div class="table-wrapper">
+<table class="cal-table">
+      <thead>
+        <tr>
+          <th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th>
+        </tr>
+      </thead>
+      <tbody id="calBody"></tbody>
+    </table>
+</div>
+    <div class="day-detail" id="dayDetail">
+      <h2 id="detailTitle"></h2>
+      <div class="detail-grid" id="detailGrid"></div>
+      <div id="detailYiJi"></div>
+    </div>
+
+    <!-- 今日概览卡 -->
+    <section class="cal-overview" id="overviewCard" aria-live="polite"></section>
+
+    <!-- 实用工具 -->
+    <section class="cal-tools" data-ac data-ac-body="#calToolsBody" data-ac-head=".cal-sec-title" data-ac-default="open" data-ac-count="false">
+      <header class="cal-sec">
+        <span class="cal-sec-kicker">实用历法工具</span>
+        <h2 class="cal-sec-title">实用工具</h2>
+      </header>
+      <div class="cal-tools-body" id="calToolsBody">
+      <div class="tool-tabs" role="tablist">
+        <button type="button" class="tool-tab active" data-tab="convert">公历↔农历互查</button>
+        <button type="button" class="tool-tab" data-tab="zodiac">生肖年龄</button>
+        <button type="button" class="tool-tab" data-tab="hours">十二时辰吉时</button>
+      </div>
+
+      <div class="tool-panel active" id="toolConvert">
+        <div class="conv-row">
+          <label for="convSolar">公历</label>
+          <input type="date" id="convSolar" min="1900-01-01" max="2100-12-31" />
+          <button type="button" id="convSolarBtn" class="cal-mini-btn">查农历</button>
+        </div>
+        <div class="conv-result" id="convSolarRes"></div>
+        <hr class="conv-sep" />
+        <div class="conv-row">
+          <label for="convYear">农历</label>
+          <input type="number" id="convYear" min="1900" max="2100" placeholder="年份" style="width:80px" />
+          <label for="convMonth">月</label>
+          <select id="convMonth"></select>
+          <label for="convDay">日</label>
+          <select id="convDay"></select>
+          <label class="conv-leap"><input type="checkbox" id="convLeap" /> 闰月</label>
+          <button type="button" id="convLunarBtn" class="cal-mini-btn">查公历</button>
+        </div>
+        <div class="conv-result" id="convLunarRes"></div>
+      </div>
+
+      <div class="tool-panel" id="toolZodiac">
+        <div class="conv-row">
+          <label for="zodiacYear">出生年份</label>
+          <input type="number" id="zodiacYear" min="1900" max="2100" placeholder="如 1990" style="width:90px" />
+          <span style="color:var(--cal-muted)">或</span>
+          <label for="zodiacAnimal">生肖</label>
+          <select id="zodiacAnimal"></select>
+          <button type="button" id="zodiacBtn" class="cal-mini-btn">计算</button>
+        </div>
+        <div class="conv-result" id="zodiacRes"></div>
+      </div>
+
+      <div class="tool-panel" id="toolHours">
+        <div class="conv-row">
+          <label for="hoursDate">查询日期</label>
+          <input type="date" id="hoursDate" />
+          <button type="button" id="hoursBtn" class="cal-mini-btn">查吉时</button>
+        </div>
+        <div class="hours-grid" id="hoursGrid"></div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 整年视图 -->
+    <section class="cal-yearview" data-ac data-ac-body="#yearGrid" data-ac-head=".cal-sec-title" data-ac-items="#yearGrid > *" data-ac-default="open" data-ac-count="false">
+      <header class="cal-sec">
+        <span class="cal-sec-kicker">全年概览</span>
+        <h2 class="cal-sec-title">整年视图</h2>
+      </header>
+      <div class="year-nav">
+        <button type="button" id="yearPrev">← 上一年</button>
+        <span class="year-label" id="yearLabel"></span>
+        <button type="button" id="yearNext">下一年 →</button>
+        <button type="button" id="yearToday" class="today-btn">今年</button>
+      </div>
+      <div class="year-grid" id="yearGrid"></div>
+      <p class="year-note" id="yearNote"></p>
+    </section>
+
+    <!-- 拼假攻略 -->
+    <section class="cal-pinjia">
+      <header class="cal-sec">
+        <span class="cal-sec-kicker">休假规划</span>
+        <h2 class="cal-sec-title">拼假攻略</h2>
+      </header>
+      <p class="pinjia-sub">依据当年国务院办公厅放假安排，自动演算「请几天 → 连休几天」的最优方案。绿色为放假、橙色为补班日（补班为法定工作日，不可请假，会阻断拼假链）。</p>
+      <div class="pinjia-controls">
+        <label for="pinjiaYear">选择年份</label>
+        <select id="pinjiaYear" class="cal-select"></select>
+      </div>
+      <div class="pinjia-list" id="pinjiaList"></div>
+      <p class="pinjia-foot" id="pinjiaFoot"></p>
+    </section>
+
+    <section class="cal-source">
+      <header class="cal-sec">
+        <span class="cal-sec-kicker">实测溯源</span>
+        <h2 class="cal-sec-title">资料来源 · 延伸阅读</h2>
+      </header>
+      <ul>
+        <li><a href="https://www.ntsc.ac.cn/" target="_blank" rel="noopener">中国科学院国家授时中心（ntsc.ac.cn）</a> — 北京时间（国家标准时间）的官方发布机构，提供授时、历法与时频权威数据</li>
+      </ul>
+    </section>
+</main>
+
+
+  <!-- js/style.js 已移除（文件不存在） -->
+  <script defer src="/js/board-nav.js"></script>
+<script defer src="js/app.js"></script>
+  <script>
+  /* =============================================================
+     万年历引擎 — 农历 + 节气 + 宜忌
+     算法来源：农历查表法（1900-2100年，经过生产环境验证）
+  ============================================================= */
+  (function() {
+    'use strict';
+
+    // ========== 1. 农历数据表 ==========
+    // LUNAR_INFO[y-1900] 按经典编码记录了 y 年的农历信息：
+    //   bit15 ~ bit4  = 12 个正常月的大小月（1=大月30天，0=小月29天），bit15=正月、bit4=腊月
+    //   bit0  ~ bit3  = 闰月月份（1~12），为 0 表示该年无闰月
+    //   bit16 (0x10000)= 闰月为大月（30天）标志，仅当存在闰月时有效
+    const LUNAR_INFO = [
+      0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2, //1900-1909
+      0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977, //1910-1919
+      0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970, //1920-1929
+      0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950, //1930-1939
+      0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557, //1940-1949
+      0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0, //1950-1959
+      0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0, //1960-1969
+      0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6, //1970-1979
+      0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570, //1980-1989
+      0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x05ac0,0x0ab60,0x096d5,0x092e0, //1990-1999
+      0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5, //2000-2009
+      0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930, //2010-2019
+      0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530, //2020-2029
+      0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45, //2030-2039
+      0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0, //2040-2049
+      0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06aa0,0x1a6c4,0x0aae0, //2050-2059
+      0x092e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4, //2060-2069
+      0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0, //2070-2079
+      0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160, //2080-2089
+      0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252, //2090-2099
+    ];
+
+    // ========== 2. 基础数据 ==========
+    const GAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+    const ZHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+    const ANIMALS = ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+    const LUNAR_MONTHS = ['正','二','三','四','五','六','七','八','九','十','冬','腊'];
+    const LUNAR_DAYS = ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十',
+      '十一','十二','十三','十四','十五','十六','十七','十八','十九','二十',
+      '廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'];
+    const SOLAR_TERMS = [
+      '小寒','大寒','立春','雨水','惊蛰','春分','清明','谷雨',
+      '立夏','小满','芒种','夏至','小暑','大暑','立秋','处暑',
+      '白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至'
+    ];
+
+    // ========== 3. 节气精确表（2020-2030，每月两个节气） ==========
+    // 格式：[月*2节气的日期]，每月两个数
+    const TERM_TABLE = {
+      2020:[6,20,4,19,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,7,21],
+      2021:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2022:[5,20,4,19,5,20,5,20,5,21,6,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2023:[5,20,4,19,6,21,5,20,6,21,6,21,7,23,8,23,8,23,8,24,8,22,7,22],
+      2024:[6,20,4,19,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2025:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2026:[5,20,4,18,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2027:[5,20,4,19,6,21,5,20,6,21,6,21,7,23,8,23,8,23,8,23,7,22,7,22],
+      2028:[6,20,4,19,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2029:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2030:[5,20,4,18,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+
+      2031:[5,20,4,19,6,21,5,20,6,21,6,21,7,23,8,23,8,23,8,23,7,22,7,22],
+      2032:[6,20,4,19,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2033:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2034:[5,20,4,18,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2035:[5,20,4,19,6,21,5,20,5,21,6,21,7,23,7,23,8,23,8,23,7,22,7,22],
+      2036:[6,20,4,19,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2037:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2038:[5,20,4,18,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2039:[5,20,4,19,6,21,5,20,5,21,6,21,7,23,7,23,8,23,8,23,7,22,7,22],
+      2040:[6,20,4,19,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2041:[5,20,3,18,5,20,4,20,5,20,5,21,7,22,7,23,7,22,8,23,7,22,7,21],
+      2042:[5,20,4,18,5,20,4,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2043:[5,20,4,19,6,21,5,20,5,21,6,21,7,23,7,23,8,23,8,23,7,22,7,22],
+      2044:[6,20,4,19,5,20,4,19,5,20,5,21,6,22,7,22,7,22,7,23,7,22,6,21],
+      2045:[5,20,3,18,5,20,4,19,5,20,5,21,6,22,7,23,7,22,8,23,7,22,7,21],
+      2046:[5,20,4,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,22],
+      2047:[5,20,4,19,5,21,5,20,5,21,6,21,7,23,7,23,8,23,8,23,7,22,7,22],
+      2048:[6,20,4,19,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,23,7,21,6,21],
+      2049:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,7,21],
+      2050:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,22],
+      2051:[5,20,4,19,5,21,5,20,5,21,6,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2052:[5,20,4,19,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,23,7,21,6,21],
+      2053:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,7,21],
+      2054:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,22],
+      2055:[5,20,4,19,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2056:[5,20,4,19,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,23,7,21,6,21],
+      2057:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2058:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2059:[5,20,4,19,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2060:[5,20,4,19,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,22,6,21,6,21],
+      2061:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2062:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2063:[5,20,4,18,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2064:[5,20,4,19,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,22,6,21,6,21],
+      2065:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2066:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2067:[5,20,4,18,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2068:[5,20,4,19,5,20,4,19,4,20,5,20,6,22,6,22,7,22,7,22,6,21,6,21],
+      2069:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2070:[5,20,3,18,5,20,4,20,5,20,5,21,7,22,7,23,7,22,8,23,7,22,7,21],
+      2071:[5,20,4,18,5,20,5,20,5,21,5,21,7,23,7,23,7,23,8,23,7,22,7,22],
+      2072:[5,20,4,19,5,20,4,19,4,20,5,20,6,22,6,22,7,22,7,22,6,21,6,21],
+      2073:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,7,23,7,22,6,21],
+      2074:[5,20,3,18,5,20,4,20,5,20,5,21,7,22,7,23,7,22,8,23,7,22,7,21],
+      2075:[5,20,4,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,22],
+      2076:[5,20,4,19,5,20,4,19,4,20,5,20,6,22,6,22,7,22,7,22,6,21,6,21],
+      2077:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,7,23,7,22,6,21],
+      2078:[5,20,3,18,5,20,4,19,5,20,5,21,6,22,7,23,7,22,8,23,7,22,7,21],
+      2079:[5,20,4,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,22],
+      2080:[5,20,4,19,5,20,4,19,4,20,5,20,6,22,6,22,7,22,7,22,6,21,6,21],
+      2081:[5,19,3,18,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,23,7,21,6,21],
+      2082:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,7,21],
+      2083:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,22],
+      2084:[5,20,4,19,4,19,4,19,4,20,5,20,6,22,6,22,6,22,7,22,6,21,6,21],
+      2085:[4,19,3,18,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,23,7,21,6,21],
+      2086:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,7,21],
+      2087:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,22],
+      2088:[5,20,4,19,4,19,4,19,4,20,4,20,6,22,6,22,6,22,7,22,6,21,6,21],
+      2089:[4,19,3,18,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,23,7,21,6,21],
+      2090:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2091:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2092:[5,20,4,19,4,19,4,19,4,20,4,20,6,22,6,22,6,22,7,22,6,21,6,21],
+      2093:[4,19,3,18,5,20,4,19,5,20,5,20,6,22,7,22,7,22,7,22,6,21,6,21],
+      2094:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2095:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+      2096:[5,20,4,18,4,19,4,19,4,20,4,20,6,22,6,22,6,22,7,22,6,21,6,21],
+      2097:[4,19,3,18,5,20,4,19,4,20,5,20,6,22,6,22,7,22,7,22,6,21,6,21],
+      2098:[5,19,3,18,5,20,4,19,5,20,5,21,6,22,7,22,7,22,8,23,7,22,6,21],
+      2099:[5,20,3,18,5,20,4,20,5,21,5,21,7,22,7,23,7,23,8,23,7,22,7,21],
+    };
+
+    // ========== 4. 主要节日（农历） ==========
+    // 固定阳历节日
+    const FIXED_FESTIVALS = {
+      '01-01':'元旦',
+      '02-14':'情人节',
+      '03-08':'妇女节',
+      '03-12':'植树节',
+      '04-01':'愚人节',
+      '05-01':'劳动节',
+      '05-04':'青年节',
+      '06-01':'儿童节',
+      '07-01':'建党节',
+      '08-01':'建军节',
+      '09-10':'教师节',
+      '10-01':'国庆节',
+      '12-25':'圣诞节',
+    };
+    // 农历节日映射（农历月日）
+    const LUNAR_FESTIVALS = {
+      '01-01':'春节',
+      '01-15':'元宵节',
+      '02-02':'龙抬头',
+      '03-03':'上巳节',
+      '05-05':'端午节',
+      '06-06':'天贶节',
+      '07-07':'七夕节',
+      '07-15':'中元节',
+      '08-15':'中秋节',
+      '09-09':'重阳节',
+      '10-01':'寒衣节',
+      '12-08':'腊八节',
+      '12-23':'小年',
+      '12-30':'除夕',
+      '12-29':'除夕',
+    };
+    // 农历节日日期（根据各年春节推算，实际用 solar2lunar 动态判断）
+    // 主要节日精确日期（阳历，2024-2026）
+    const FESTIVALS_SOLAR = {
+      2024: { '01-01':'元旦','02-10':'春节','02-24':'元宵节','04-04':'清明','05-01':'劳动节','06-10':'端午节','09-17':'中秋节','10-01':'国庆节' },
+      2025: { '01-01':'元旦','01-29':'春节','02-12':'元宵节','04-04':'清明','05-01':'劳动节','05-31':'端午节','10-06':'中秋节','10-01':'国庆节' },
+      2026: { '01-01':'元旦','02-17':'春节','03-03':'元宵节','04-05':'清明','05-01':'劳动节','06-20':'端午节','09-25':'中秋节','10-01':'国庆节' },
+    };
+
+    // ========== 5. 农历计算函数 ==========
+    function lunarYearDays(y) {
+      var sum = 348, i;
+      for(i=0x8000; i>0x8; i>>=1) { sum += (LUNAR_INFO[y-1900] & i) ? 1 : 0; }
+      return sum + leapDays(y);
+    }
+    function leapMonth(y) { return LUNAR_INFO[y-1900] & 0xf; }
+    function leapDays(y) { return leapMonth(y) ? ((LUNAR_INFO[y-1900] & 0x10000) ? 30 : 29) : 0; }
+    function monthDays(y,m) { return (LUNAR_INFO[y-1900] & (0x10000>>m)) ? 30 : 29; }
+
+    // 公历日期转农历
+    // 基准：1900-01-31 = 庚子年正月初一
+    function solar2lunar(y, m, d) {
+      // 支持范围下界前移：1900-01-01 ~ 1900-01-30 落在基准日（1900-01-31 庚子正月初一）
+      // 之前，属己亥年（1899）腊月；因正月初一=1/31 推出腊月为 30 天（腊月大），
+      // 故 1900-01-d 即 腊月 d 日。直接定位，避免 year 循环在负 offset 下失效。
+      if (y === 1900 && m === 1 && d >= 1 && d <= 30) {
+        return { year: 1899, month: 12, day: d, isLeap: false };
+      }
+      // 时间基准锁定为“北京日界”（东八区）：用 Date.UTC 以北京当日 12:00 构造，
+      // 跨时区/跨夏令时结果一致，用户在任意地区看到的农历与日柱都相同。
+      var baseDate = new Date(Date.UTC(1900, 0, 31, 4, 0, 0));
+      var objDate = new Date(Date.UTC(y, m-1, d, 4, 0, 0));
+      var offset = Math.floor((objDate - baseDate) / 86400000);
+      var i, temp = 0, ly;
+      for(i=1900; i<2101 && offset>0; i++) {
+        temp = lunarYearDays(i);
+        offset -= temp;
+      }
+      if(offset < 0) { offset += temp; i--; }
+      ly = i;
+      var leap = leapMonth(i);
+      var isLeap = false;
+      for(i=1; i<13 && offset>0; i++) {
+        if(leap>0 && i===leap+1 && !isLeap) {
+          --i; isLeap = true; temp = leapDays(ly);
+        } else {
+          temp = monthDays(ly, i);
+        }
+        if(isLeap && i===leap+1) isLeap = false;
+        offset -= temp;
+      }
+      if(offset===0 && leap>0 && i===leap+1) {
+        if(isLeap) { isLeap=false; }
+        else { isLeap=true; --i; }
+      }
+      if(offset<0) { offset += temp; --i; }
+      var lm = i;
+      var ld = offset + 1;
+      return { year: ly, month: lm, day: ld, isLeap: isLeap };
+    }
+
+    // 干支计算（年柱、月柱、日柱）
+    // 年柱：以农历年（春节为界）为准，最贴合大众认知的生肖/岁次
+    // 月柱：以二十四节气之“节”为界，按五虎遁推算月干（不再是简单公历月份）
+    function getGanzhi(y, m, d, ly) {
+      // 年柱/生肖：用农历年 ly（春节界）；未传时退回公历年兜底
+      var yl = ly || y;
+      var yearGan = (yl - 4) % 10;
+      var yearZhi = (yl - 4) % 12;
+      // 日柱：以 1900-01-01 甲戌日为锚点，并按北京日界（东八区）计算，跨时区一致
+      var baseDate2 = new Date(Date.UTC(1900, 0, 1, 4, 0, 0));
+      var curDate2 = new Date(Date.UTC(y, m - 1, d, 4, 0, 0));
+      var daysOffset = Math.floor((curDate2 - baseDate2) / 86400000) + 10;
+      var dayGan = daysOffset % 10;
+      var dayZhi = daysOffset % 12;
+      // 月柱：节气分界 + 五虎遁
+      var terms = TERM_TABLE[y];
+      var jieDay = terms ? terms[(m - 1) * 2] : 99;   // 当月“节”的日期（如立春、惊蛰…）
+      var sm = (d >= jieDay) ? m : (m - 1);            // 当前所属节气月（公历月序：2=寅月起算）
+      var monthZhi = ((sm % 12) + 12) % 12;            // 0..11（子=0,丑=1,寅=2…）
+      var monthOffset = (sm - 2 + 12) % 12;            // 相对寅月(公历2月)的偏移
+      var monthGan = ((yearGan * 2 + 2 + monthOffset) % 10 + 10) % 10; // 五虎遁：年干*2+2 起寅月
+      return {
+        year: GAN[((yearGan % 10) + 10) % 10] + ZHI[((yearZhi % 12) + 12) % 12],
+        yearAnimal: ANIMALS[((yearZhi % 12) + 12) % 12],
+        month: GAN[monthGan] + ZHI[monthZhi],
+        day: GAN[dayGan] + ZHI[dayZhi],
+        dayGanIdx: dayGan,   // 供十二时辰(五鼠遁)使用
+        dayZhiIdx: dayZhi    // 供黄道吉时(日支寻神)使用
+      };
+    }
+
+    // ========== 6. 节气计算 ==========
+    function getSolarTerm(y, m, d) {
+      var terms = TERM_TABLE[y];
+      if(!terms) return null;
+      var idx = (m-1)*2;
+      if(d === terms[idx]) return SOLAR_TERMS[idx];
+      if(d === terms[idx+1]) return SOLAR_TERMS[idx+1];
+      return null;
+    }
+
+    // ========== 7. 传统老黄历宜忌 ==========
+    // 宜忌规则基于：彭祖百忌、十二建除、二十八星宿等传统理论
+    // 此处实现为：基于农历日期特征生成"参考性"宜忌列表
+    var YI_BASE = ['嫁娶','纳采','订盟','祭祀','祈福','求嗣','出行','移徙','入学','立券','开市','交易','置产','求财','动土','修造','经络','纳财','开光','会亲友','安床'];
+    var JI_BASE = ['破土','安葬','动土','破屋','坏垣','求医','词讼','安门','馀事勿取'];
+
+    function getYiJi(lm, ld, y) {
+      var yi = YI_BASE.slice();
+      var ji = JI_BASE.slice();
+
+      // 初一、十五：宜祭祀、祈福
+      if(ld===1 || ld===15) {
+        yi = ['祭祀','祈福','斋醮','开光','塑绘'].concat(yi);
+      }
+      // 初一：宜开市
+      if(ld===1) { yi.push('开市','纳财'); }
+      // 初五：宜破除
+      if(ld===5) { yi.push('破屋','坏垣'); }
+      // 初八：宜安香
+      if(ld===8) { yi.push('安香','祭祀'); }
+      // 十四：宜嫁娶
+      if(ld===14) { yi.push('嫁娶','纳采'); }
+      // 十八：宜求嗣
+      if(ld===18) { yi.push('求嗣','祈福'); }
+      // 十九：宜入学
+      if(ld===19) { yi.push('入学','立券'); }
+      // 二十：宜出行
+      if(ld===20) { yi.push('出行','移徙'); }
+      // 廿三：忌动土
+      if(ld===23) { ji.push('动土','破土'); }
+      // 廿七：宜祭祀
+      if(ld===27) { yi.push('祭祀','祈福'); }
+      // 廿九/三十：宜求嗣
+      if(ld===29 || ld===30) { yi.push('求嗣','开光'); }
+      // 立春：宜祭祀
+      if(ld===4 && lm===1) { yi.push('祭祀','祈福'); }
+      // 端午：宜祭祀、驱邪
+      if(lm===5 && ld===5) {
+        yi = ['祭祀','驱邪','祈福','安香','出行'];
+        ji = ['动土','破土'];
+      }
+      // 中秋：宜团圆、赏月
+      if(lm===8 && ld===15) {
+        yi = ['团圆','赏月','出行','祭祀'];
+        ji = ['破土','动土','安葬'];
+      }
+      // 除夕：宜祭祀
+      if(ld===30 && lm===12) {
+        yi = ['祭祀','守岁','团圆','接福'];
+        ji = ['破土','动土','安葬','搬家'];
+      }
+
+      // 按农历/节气特征固定生成，保证同一天宜忌稳定（确定性，不做随机）
+      function uniqArr(a){ var seen={}, out=[]; a.forEach(function(v){ if(!seen[v]){ seen[v]=1; out.push(v); } }); return out; }
+      var yiOut = uniqArr(yi).slice(0, 8);
+      var jiOut = uniqArr(ji).slice(0, 5);
+      return { yi: yiOut, ji: jiOut };
+    }
+
+    function shuffle(arr) {
+      for(var i=arr.length-1; i>0; i--) {
+        var j = Math.floor(Math.random()*(i+1));
+        var t = arr[i]; arr[i]=arr[j]; arr[j]=t;
+      }
+      return arr;
+    }
+
+    // ========== 8. 渲染月历 ==========
+    var curY, curM;
+
+    function renderCalendar(y, m) {
+      curY = y; curM = m;
+      document.getElementById('monthLabel').textContent = y + '年 ' + m + '月';
+
+      var firstDay = new Date(y, m-1, 1).getDay();
+      var daysInMonth = new Date(y, m, 0).getDate();
+      var daysInPrev = new Date(y, m-1, 0).getDate();
+
+      var tbody = document.getElementById('calBody');
+      tbody.innerHTML = '';
+
+      var now = new Date();
+      var isCurrentMonth = (y===now.getFullYear() && m===now.getMonth()+1);
+
+      // 获取节日表
+      var festSolar = FESTIVALS_SOLAR[y] || {};
+      var key = function(mo,da) { return (mo<10?'0':'')+mo+'-'+(da<10?'0':'')+da; };
+
+      var date = 1;
+      var nextDate = 1;
+      for(var row=0; row<6; row++) {
+        var tr = document.createElement('tr');
+        for(var col=0; col<7; col++) {
+          var td = document.createElement('td');
+          if(row===0 && col < firstDay) {
+            // 上月日期
+            var pd = daysInPrev - firstDay + col + 1;
+            td.innerHTML = '<span class="solar">'+pd+'</span>';
+            td.classList.add('other-month');
+          } else if(date > daysInMonth) {
+            // 下月日期
+            td.innerHTML = '<span class="solar">'+nextDate+'</span>';
+            td.classList.add('other-month');
+            nextDate++;
+          } else {
+            var lunar = solar2lunar(y, m, date);
+            var term = getSolarTerm(y, m, date);
+            var isToday = isCurrentMonth && date===now.getDate();
+            var fest = festSolar[key(m,date)] || FIXED_FESTIVALS[key(m,date)] || '';
+            var lmd = (lunar.month<10?'0':'')+lunar.month + '-' + (lunar.day<10?'0':'')+lunar.day;
+            var lfest = LUNAR_FESTIVALS[lmd] || '';
+            var gz = getGanzhi(y, m, date, lunar.year);
+            var monthStr = (lunar.isLeap?'闰':'') + LUNAR_MONTHS[lunar.month-1] + '月';
+            var dayStr = LUNAR_DAYS[lunar.day-1];
+
+            var html = '<span class="solar">'+date+'</span>';
+
+            // 节气（优先显示）
+            if(term) {
+              html += '<span class="lunar"><span class="tag term">'+term+'</span></span>';
+            } else {
+              // 农历日期显示
+              var showLunar = false;
+              var tagClass = '';
+              // 初一、十五必显示
+              if(lunar.day===1 || lunar.day===15) { showLunar=true; tagClass='festival'; }
+              // 农历节日
+              else if(lfest) { showLunar=true; tagClass='festival'; }
+              // 阳历节日
+              else if(fest) { showLunar=true; tagClass='festival'; }
+              // 初十、二十、三十显示
+              else if(lunar.day===10 || lunar.day===20 || lunar.day===30) { showLunar=true; }
+              // 初八显示
+              else if(lunar.day===8) { showLunar=true; }
+
+              if(showLunar) {
+                var label = lfest || fest || (lunar.day===1?monthStr:dayStr);
+                html += '<span class="lunar"><span class="tag '+tagClass+'">'+label+'</span></span>';
+              }
+            }
+
+            // 法定节假日 / 调休补班 标记（仅已内置数据的年份显示）
+            var legal = legalFor(y, m, date);
+            if(legal) {
+              html += '<span class="lunar"><span class="tag '+(legal.type==='holiday'?'legal-holiday':'legal-work')+'">'+(legal.type==='holiday'?'休':'班')+'</span></span>';
+            }
+
+            td.innerHTML = html;
+            td.setAttribute('data-y', y);
+            td.setAttribute('data-m', m);
+            td.setAttribute('data-d', date);
+            td.setAttribute('data-lm', lunar.month);
+            td.setAttribute('data-ld', lunar.day);
+            td.setAttribute('data-li', lunar.isLeap?'1':'0');
+            td.setAttribute('data-term', term||'');
+            td.setAttribute('data-gzy', gz.year);
+            td.setAttribute('data-gzm', gz.month);
+            td.setAttribute('data-gzd', gz.day);
+            td.setAttribute('data-gzan', gz.yearAnimal);
+
+            if(isToday) td.classList.add('today');
+            td.classList.add('clickable');
+
+            td.addEventListener('click', function() { showDayDetail(this); });
+            date++;
+          }
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+        if(date > daysInMonth && row > 3) break;
+      }
+
+    }
+
+    // ========== 9. 显示日期详情 ==========
+    function showDayDetail(td) {
+      // 移除之前的 active
+      var prev = document.querySelector('.cal-table td.active');
+      if(prev) prev.classList.remove('active');
+      td.classList.add('active');
+
+      var y = +td.getAttribute('data-y');
+      var m = +td.getAttribute('data-m');
+      var d = +td.getAttribute('data-d');
+      var lm = +td.getAttribute('data-lm');
+      var ld = +td.getAttribute('data-ld');
+      var li = td.getAttribute('data-li')==='1';
+      var term = td.getAttribute('data-term');
+      var gzy = td.getAttribute('data-gzy');
+      var gzm = td.getAttribute('data-gzm');
+      var gzd = td.getAttribute('data-gzd');
+      var gzan = td.getAttribute('data-gzan');
+
+      var lunar = solar2lunar(y, m, d);
+      var yiji = getYiJi(lm, ld, y);
+
+      var weekDays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+      var week = weekDays[new Date(y, m-1, d).getDay()];
+
+      var monthStr = (li?'闰':'') + LUNAR_MONTHS[lm-1] + '月';
+      var dayStr = LUNAR_DAYS[ld-1];
+
+      // 节日
+      var festKey2 = (m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+      var festSolar = (FESTIVALS_SOLAR[y] || {})[festKey2] || FIXED_FESTIVALS[festKey2] || '';
+      // 农历节日键补零（与 LUNAR_FESTIVALS 的 '01-01' 等键对齐）
+      var lmd = (lm<10?'0':'')+lm + '-' + (ld<10?'0':'')+ld;
+      var lfest = LUNAR_FESTIVALS[lmd] || '';
+      var fest = festSolar || lfest || term || '';
+
+      document.getElementById('detailTitle').textContent = y + '年' + m + '月' + d + '日  ' + week + (fest?'  ·  '+fest:'');
+
+      // 基础信息
+      var grid = document.getElementById('detailGrid');
+      var gridHTML = '';
+      gridHTML += '<div class="detail-item"><span class="label">公历</span><span class="value">'+y+'-'+(m<10?'0':'')+m+'-'+(d<10?'0':'')+d+'</span></div>';
+      gridHTML += '<div class="detail-item"><span class="label">农历</span><span class="value">'+(li?'闰':'')+LUNAR_MONTHS[lm-1]+'月'+dayStr+'</span></div>';
+      gridHTML += '<div class="detail-item"><span class="label">岁次</span><span class="value">'+gzy+' ('+gzan+'年)</span></div>';
+      gridHTML += '<div class="detail-item"><span class="label">月建</span><span class="value">'+gzm+'</span></div>';
+      gridHTML += '<div class="detail-item"><span class="label">日柱</span><span class="value">'+gzd+'</span></div>';
+      if(term) gridHTML += '<div class="detail-item"><span class="label">节气</span><span class="value">'+term+'</span></div>';
+      if(fest) gridHTML += '<div class="detail-item"><span class="label">节日</span><span class="value" style="color:var(--cal-festival)">'+fest+'</span></div>';
+      grid.innerHTML = gridHTML;
+
+      // 宜忌
+      var yjDiv = document.getElementById('detailYiJi');
+      var yjHTML = '<div class="yi-box"><div class="detail-section-title"><span class="yi-ji-label yi">宜</span></div><div class="tag-list">';
+      yiji.yi.forEach(function(v){ yjHTML += '<span class="tag-item yi">'+v+'</span>'; });
+      yjHTML += '</div></div>';
+      yjHTML += '<div class="ji-box"><div class="detail-section-title"><span class="yi-ji-label ji">忌</span></div><div class="tag-list">';
+      yiji.ji.forEach(function(v){ yjHTML += '<span class="tag-item ji">'+v+'</span>'; });
+      yjHTML += '</div></div>';
+      yjDiv.innerHTML = yjHTML;
+
+      document.getElementById('dayDetail').classList.add('show');
+    }
+
+    // ========== 8.5 新增：农历→公历 反查 ==========
+    function lunar2solar(ly, lm, ld, isLeap) {
+      for (var y = ly; y <= ly + 1; y++) {
+        for (var m = 1; m <= 12; m++) {
+          var dim = new Date(y, m, 0).getDate();
+          for (var d = 1; d <= dim; d++) {
+            var L = solar2lunar(y, m, d);
+            if (L.year === ly && L.month === lm && L.day === ld && L.isLeap === isLeap) {
+              return { y: y, m: m, d: d };
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    // ========== 8.6 新增：法定节假日 / 调休（逐年数据；缺数据年份不标注） ==========
+    // 来源：国务院办公厅每年放假安排通知。
+    //   2024 → 国办发明电〔2023〕7号；2025 → 国办发明电〔2024〕11号；2026 → 国办发明电〔2025〕7号。
+    //   2027 及以后尚未由国务院办公厅公布，暂缺（保持"实测溯源"，不硬编码未发布数据）。
+    // type: 'holiday' 放假 / 'work' 调休补班
+    var LEGAL_HOLIDAYS = {
+      2024: [
+        {date:'01-01',type:'holiday',name:'元旦'},
+        {date:'02-04',type:'work',name:'补班'},
+        {date:'02-10',type:'holiday',name:'春节'},{date:'02-11',type:'holiday',name:'春节'},{date:'02-12',type:'holiday',name:'春节'},{date:'02-13',type:'holiday',name:'春节'},{date:'02-14',type:'holiday',name:'春节'},{date:'02-15',type:'holiday',name:'春节'},{date:'02-16',type:'holiday',name:'春节'},{date:'02-17',type:'holiday',name:'春节'},
+        {date:'02-18',type:'work',name:'补班'},
+        {date:'04-04',type:'holiday',name:'清明'},{date:'04-05',type:'holiday',name:'清明'},{date:'04-06',type:'holiday',name:'清明'},
+        {date:'04-07',type:'work',name:'补班'},
+        {date:'04-28',type:'work',name:'补班'},
+        {date:'05-01',type:'holiday',name:'劳动节'},{date:'05-02',type:'holiday',name:'劳动节'},{date:'05-03',type:'holiday',name:'劳动节'},{date:'05-04',type:'holiday',name:'劳动节'},{date:'05-05',type:'holiday',name:'劳动节'},
+        {date:'05-11',type:'work',name:'补班'},
+        {date:'06-10',type:'holiday',name:'端午'},
+        {date:'09-14',type:'work',name:'补班'},
+        {date:'09-15',type:'holiday',name:'中秋'},{date:'09-16',type:'holiday',name:'中秋'},{date:'09-17',type:'holiday',name:'中秋'},
+        {date:'09-29',type:'work',name:'补班'},
+        {date:'10-01',type:'holiday',name:'国庆'},{date:'10-02',type:'holiday',name:'国庆'},{date:'10-03',type:'holiday',name:'国庆'},{date:'10-04',type:'holiday',name:'国庆'},{date:'10-05',type:'holiday',name:'国庆'},{date:'10-06',type:'holiday',name:'国庆'},{date:'10-07',type:'holiday',name:'国庆'},
+        {date:'10-12',type:'work',name:'补班'}
+      ],
+      2025: [
+        {date:'01-01',type:'holiday',name:'元旦'},
+        {date:'01-26',type:'work',name:'补班'},
+        {date:'01-28',type:'holiday',name:'春节'},{date:'01-29',type:'holiday',name:'春节'},{date:'01-30',type:'holiday',name:'春节'},{date:'01-31',type:'holiday',name:'春节'},{date:'02-01',type:'holiday',name:'春节'},{date:'02-02',type:'holiday',name:'春节'},{date:'02-03',type:'holiday',name:'春节'},{date:'02-04',type:'holiday',name:'春节'},
+        {date:'02-08',type:'work',name:'补班'},
+        {date:'04-04',type:'holiday',name:'清明'},{date:'04-05',type:'holiday',name:'清明'},{date:'04-06',type:'holiday',name:'清明'},
+        {date:'04-27',type:'work',name:'补班'},
+        {date:'05-01',type:'holiday',name:'劳动节'},{date:'05-02',type:'holiday',name:'劳动节'},{date:'05-03',type:'holiday',name:'劳动节'},{date:'05-04',type:'holiday',name:'劳动节'},{date:'05-05',type:'holiday',name:'劳动节'},
+        {date:'05-31',type:'holiday',name:'端午'},{date:'06-01',type:'holiday',name:'端午'},{date:'06-02',type:'holiday',name:'端午'},
+        {date:'09-28',type:'work',name:'补班'},
+        {date:'10-01',type:'holiday',name:'国庆中秋'},{date:'10-02',type:'holiday',name:'国庆中秋'},{date:'10-03',type:'holiday',name:'国庆中秋'},{date:'10-04',type:'holiday',name:'国庆中秋'},{date:'10-05',type:'holiday',name:'国庆中秋'},{date:'10-06',type:'holiday',name:'国庆中秋'},{date:'10-07',type:'holiday',name:'国庆中秋'},{date:'10-08',type:'holiday',name:'国庆中秋'},
+        {date:'10-11',type:'work',name:'补班'}
+      ],
+      2026: [
+        {date:'01-01',type:'holiday',name:'元旦'},{date:'01-02',type:'holiday',name:'元旦'},{date:'01-03',type:'holiday',name:'元旦'},
+        {date:'01-04',type:'work',name:'补班'},
+        {date:'02-14',type:'work',name:'补班'},
+        {date:'02-15',type:'holiday',name:'春节'},{date:'02-16',type:'holiday',name:'春节'},{date:'02-17',type:'holiday',name:'春节'},
+        {date:'02-18',type:'holiday',name:'春节'},{date:'02-19',type:'holiday',name:'春节'},{date:'02-20',type:'holiday',name:'春节'},
+        {date:'02-21',type:'holiday',name:'春节'},{date:'02-22',type:'holiday',name:'春节'},{date:'02-23',type:'holiday',name:'春节'},
+        {date:'02-28',type:'work',name:'补班'},
+        {date:'04-04',type:'holiday',name:'清明'},{date:'04-05',type:'holiday',name:'清明'},{date:'04-06',type:'holiday',name:'清明'},
+        {date:'05-01',type:'holiday',name:'劳动节'},{date:'05-02',type:'holiday',name:'劳动节'},{date:'05-03',type:'holiday',name:'劳动节'},
+        {date:'05-04',type:'holiday',name:'劳动节'},{date:'05-05',type:'holiday',name:'劳动节'},
+        {date:'05-09',type:'work',name:'补班'},
+        {date:'06-19',type:'holiday',name:'端午'},{date:'06-20',type:'holiday',name:'端午'},{date:'06-21',type:'holiday',name:'端午'},
+        {date:'09-20',type:'work',name:'补班'},
+        {date:'09-25',type:'holiday',name:'中秋'},{date:'09-26',type:'holiday',name:'中秋'},{date:'09-27',type:'holiday',name:'中秋'},
+        {date:'10-01',type:'holiday',name:'国庆'},{date:'10-02',type:'holiday',name:'国庆'},{date:'10-03',type:'holiday',name:'国庆'},
+        {date:'10-04',type:'holiday',name:'国庆'},{date:'10-05',type:'holiday',name:'国庆'},{date:'10-06',type:'holiday',name:'国庆'},{date:'10-07',type:'holiday',name:'国庆'},
+        {date:'10-10',type:'work',name:'补班'}
+      ]
+    };
+    function legalFor(y, m, d) {
+      var arr = LEGAL_HOLIDAYS[y];
+      if (!arr) return null;
+      var key = (m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+      for (var i=0;i<arr.length;i++) if (arr[i].date===key) return arr[i];
+      return null;
+    }
+
+    // ========== 8.7 新增：十二时辰 + 黄道吉时 ==========
+    var SHICHEN = [
+      {name:'子时',range:'23:00–01:00'},{name:'丑时',range:'01:00–03:00'},{name:'寅时',range:'03:00–05:00'},
+      {name:'卯时',range:'05:00–07:00'},{name:'辰时',range:'07:00–09:00'},{name:'巳时',range:'09:00–11:00'},
+      {name:'午时',range:'11:00–13:00'},{name:'未时',range:'13:00–15:00'},{name:'申时',range:'15:00–17:00'},
+      {name:'酉时',range:'17:00–19:00'},{name:'戌时',range:'19:00–21:00'},{name:'亥时',range:'21:00–23:00'}
+    ];
+    var HUANG_SHEN = ['青龙','明堂','天刑','朱雀','金匮','天德','白虎','玉堂','天牢','玄武','司命','勾陈'];
+    var HUANG_LUCK = {0:1,1:1,4:1,5:1,7:1,10:1}; // 黄道(吉)
+    var SHEN_START = {0:0,4:0,8:0, 1:1,5:1,9:1, 2:4,6:4,10:4, 3:5,7:5,11:5}; // 日支→子时起始神
+    function getHours(y, m, d) {
+      var L = solar2lunar(y, m, d);
+      var gz = getGanzhi(y, m, d, L.year);
+      var dg = gz.dayGanIdx, dz = gz.dayZhiIdx;
+      var start = SHEN_START[dz];
+      var out = [];
+      for (var hz=0; hz<12; hz++) {
+        var idx = (start + hz) % 12;
+        var hg = ((dg % 5) * 2 + hz) % 10; // 五鼠遁：甲己日子时甲子
+        out.push({
+          zhi: ZHI[hz], name: SHICHEN[hz].name, range: SHICHEN[hz].range,
+          ganzhi: GAN[hg] + ZHI[hz], shen: HUANG_SHEN[idx],
+          luck: HUANG_LUCK[idx] ? '吉' : '凶'
+        });
+      }
+      return out;
+    }
+
+    // ========== 8.8 新增：生肖年龄计算 ==========
+    function zodiacInfo(birthYear, refYear) {
+      var z = ((birthYear - 4) % 12 + 12) % 12;
+      return {
+        animal: ANIMALS[z], zodiacIdx: z,
+        xusui: refYear - birthYear + 1,
+        zhousui: refYear - birthYear,
+        nextBen: (function(){ var n=birthYear; while(n<=refYear) n+=12; return n; })()
+      };
+    }
+
+    // ========== 8.9 新增：下一节气 / 最近节日 倒计时 ==========
+    function dayDiff(y, m, d, ty, tm, td) {
+      return Math.round((Date.UTC(ty, tm-1, td) - Date.UTC(y, m-1, d)) / 86400000);
+    }
+    function nextTerm(y, m, d) {
+      var best = null;
+      for (var yy=y; yy<=y+1; yy++) {
+        var terms = TERM_TABLE[yy];
+        if (!terms) continue;
+        for (var mi=0; mi<12; mi++) {
+          for (var k=0; k<2; k++) {
+            var td = terms[mi*2 + k];
+            var diff = dayDiff(y, m, d, yy, mi+1, td);
+            if (diff>0 && (!best || diff<best.diff)) best = {y:yy, m:mi+1, d:td, name:SOLAR_TERMS[mi*2+k], diff:diff};
+          }
+        }
+      }
+      return best;
+    }
+    function nextFestival(y, m, d) {
+      var list = [];
+      var yrs = [y, y+1];
+      for (var yi=0; yi<yrs.length; yi++) {
+        var yy = yrs[yi];
+        for (var fk in FIXED_FESTIVALS) {
+          var p = fk.split('-');
+          list.push({ y: yy, m: +p[0], d: +p[1], name: FIXED_FESTIVALS[fk] });
+        }
+        var luns = [['01-01','春节'],['01-15','元宵节'],['02-02','龙抬头'],['05-05','端午节'],['07-07','七夕'],['08-15','中秋节'],['09-09','重阳节'],['12-08','腊八节']];
+        for (var i=0; i<luns.length; i++) {
+          var mm = +luns[i][0].split('-')[0], dd = +luns[i][0].split('-')[1];
+          var s = lunar2solar(yy, mm, dd, false);
+          if (s) list.push({ y: s.y, m: s.m, d: s.d, name: luns[i][1] });
+        }
+      }
+      var best = null;
+      for (var j=0; j<list.length; j++) {
+        var diff = dayDiff(y, m, d, list[j].y, list[j].m, list[j].d);
+        if (diff>0 && (!best || diff<best.diff)) best = { y:list[j].y, m:list[j].m, d:list[j].d, name:list[j].name, diff:diff };
+      }
+      return best;
+    }
+
+    // ========== 8.10 新增：今日概览卡 ==========
+    function ovItem(k, v) { return '<div class="ov-item"><span class="k">'+k+'</span><span class="v">'+v+'</span></div>'; }
+    function renderOverview() {
+      var now = new Date();
+      var y = now.getFullYear(), m = now.getMonth()+1, d = now.getDate();
+      var L = solar2lunar(y, m, d);
+      var gz = getGanzhi(y, m, d, L.year);
+      var term = getSolarTerm(y, m, d);
+      var weekDays = ['日','一','二','三','四','五','六'];
+      var monthStr = (L.isLeap?'闰':'') + LUNAR_MONTHS[L.month-1] + '月';
+      var dayStr = LUNAR_DAYS[L.day-1];
+      var lmd = (L.month<10?'0':'')+L.month + '-' + (L.day<10?'0':'')+L.day;
+      var lfest = LUNAR_FESTIVALS[lmd] || '';
+      var festKey = (m<10?'0':'')+m + '-' + (d<10?'0':'')+d;
+      var fest = (FESTIVALS_SOLAR[y]||{})[festKey] || FIXED_FESTIVALS[festKey] || lfest || term || '';
+      var legal = legalFor(y, m, d);
+      var legalTxt = legal ? (legal.type==='holiday' ? '（法定假日）' : '（调休补班）') : '';
+      var nt = nextTerm(y, m, d);
+      var nf = nextFestival(y, m, d);
+      var html = '<div class="ov-top">'
+        + '<span class="ov-date">'+y+'年'+m+'月'+d+'日</span>'
+        + '<span class="ov-week">星期'+weekDays[now.getDay()]+'</span>'
+        + (fest ? '<span class="ov-fest">· '+fest+'</span>' : '')
+        + (legalTxt ? '<span class="ov-fest">'+legalTxt+'</span>' : '')
+        + '</div>';
+      html += '<div class="ov-grid">'
+        + ovItem('农历', monthStr + dayStr)
+        + ovItem('岁次', gz.year + '（' + gz.yearAnimal + '年）')
+        + ovItem('月建', gz.month)
+        + ovItem('日柱', gz.day)
+        + (term ? ovItem('节气', term) : '')
+        + '</div>';
+      if (nt || nf) {
+        html += '<div class="ov-countdowns">'
+          + (nt ? '<div class="cd-chip"><div class="t">下一节气 · '+nt.name+'</div><div class="n">'+nt.y+'/'+nt.m+'/'+nt.d+'（还有 '+nt.diff+' 天）</div></div>' : '')
+          + (nf ? '<div class="cd-chip"><div class="t">最近节日 · '+nf.name+'</div><div class="n">'+nf.y+'/'+nf.m+'/'+nf.d+'（还有 '+nf.diff+' 天）</div></div>' : '')
+          + '</div>';
+      }
+      document.getElementById('overviewCard').innerHTML = html;
+    }
+
+    // ========== 8.11 新增：整年视图 ==========
+    var yearViewYear = (new Date()).getFullYear();
+    function renderYearView(year) {
+      yearViewYear = year;
+      document.getElementById('yearLabel').textContent = year + '年';
+      var grid = document.getElementById('yearGrid');
+      grid.innerHTML = '';
+      var now = new Date();
+      for (var mo=1; mo<=12; mo++) {
+        var wrap = document.createElement('div');
+        wrap.className = 'mini-month';
+        var h = document.createElement('div');
+        h.className = 'mini-month-title';
+        h.textContent = mo + '月';
+        wrap.appendChild(h);
+        var tbl = document.createElement('table');
+        tbl.className = 'mini-table';
+        var thead = document.createElement('tr');
+        ['日','一','二','三','四','五','六'].forEach(function(w) {
+          var th = document.createElement('th'); th.textContent = w; thead.appendChild(th);
+        });
+        var theadRow = document.createElement('thead'); theadRow.appendChild(thead); tbl.appendChild(theadRow);
+        var first = new Date(year, mo-1, 1).getDay();
+        var dim = new Date(year, mo, 0).getDate();
+        var tbody = document.createElement('tbody');
+        var r = document.createElement('tr');
+        var cell = 0;
+        for (var i=0; i<first; i++) { r.appendChild(document.createElement('td')); cell++; }
+        for (var dd=1; dd<=dim; dd++) {
+          var td = document.createElement('td');
+          td.textContent = dd;
+          if (year===now.getFullYear() && mo===now.getMonth()+1 && dd===now.getDate()) td.className = 'mini-today';
+          var lg = legalFor(year, mo, dd);
+          if (lg && lg.type==='holiday') td.className += ' mini-holiday';
+          r.appendChild(td); cell++;
+          if (cell%7===0) { tbody.appendChild(r); r = document.createElement('tr'); }
+        }
+        if (cell%7!==0) tbody.appendChild(r);
+        tbl.appendChild(tbody);
+        wrap.appendChild(tbl);
+        (function(mo) {
+          wrap.addEventListener('click', function() {
+            renderCalendar(year, mo);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        })(mo);
+        grid.appendChild(wrap);
+      }
+      var has = LEGAL_HOLIDAYS[year];
+      document.getElementById('yearNote').textContent = has
+        ? (year + '年法定节假日已标注（绿字为放假、橙字为补班）；点击任意月份可跳转主日历')
+        : (year + '年法定节假日数据待补充（仅显示农历与节气；逐年数据随国务院通知更新）');
+    }
+
+    // ========== 拼假攻略（基于 LEGAL_HOLIDAYS 确定性演算，已修正节假日穿透/误算与推荐高亮） ==========
+    function pjDow(y, m, d) { return new Date(y, m - 1, d).getDay(); } // 0=周日
+    function pjKey(y, m, d) { return (m<10?'0':'')+m+'-'+(d<10?'0':'')+d; }
+    function pjIsHoliday(y, m, d) {
+      var arr = LEGAL_HOLIDAYS[y]; if (!arr) return false;
+      var k = pjKey(y, m, d);
+      for (var i=0;i<arr.length;i++) if (arr[i].date===k && arr[i].type==='holiday') return true;
+      return false;
+    }
+    function pjIsBuBan(y, m, d) {
+      var arr = LEGAL_HOLIDAYS[y]; if (!arr) return false;
+      var k = pjKey(y, m, d);
+      for (var i=0;i<arr.length;i++) if (arr[i].date===k && arr[i].type==='work') return true;
+      return false;
+    }
+    function pjAdd(y, m, d, n) {
+      var t = new Date(y, m - 1, d); t.setDate(t.getDate() + n);
+      return { y:t.getFullYear(), m:t.getMonth()+1, d:t.getDate() };
+    }
+    function pjStr(o) { return o.y + '-' + (o.m<10?'0':'')+o.m + '-' + (o.d<10?'0':'')+o.d; }
+    function pjIsWeekend(y, m, d) { var w = pjDow(y, m, d); return w===0 || w===6; }
+    function pjIsFree(y, m, d) { return (pjIsWeekend(y, m, d) && !pjIsBuBan(y, m, d)) || pjIsHoliday(y, m, d); }
+    function pjEarlier(a, b) { return a.y<b.y || (a.y===b.y && (a.m<b.m || (a.m===b.m && a.d<b.d))); }
+    function pjLater(a, b) { return a.y>b.y || (a.y===b.y && (a.m>b.m || (a.m===b.m && a.d>b.d))); }
+
+    // 向前扩展：从假期前一日倒推；遇补班阻断，遇周末/节假日则天然连休并停止（不跨多周桥接）
+    function pjExtendBack(y, m, d) {
+      if (pjIsBuBan(y, m, d)) return { leave:[], free:[] };
+      var leave = [], free = [], cur = { y:y, m:m, d:d };
+      while (true) {
+        if (pjIsBuBan(cur.y, cur.m, cur.d)) break;
+        if (pjIsHoliday(cur.y, cur.m, cur.d)) {           // 相邻节假日：天然延展，吃满连续免费段后停止
+          free.push(cur);
+          var prev = pjAdd(cur.y, cur.m, cur.d, -1);
+          while (pjIsFree(prev.y, prev.m, prev.d) && !pjIsBuBan(prev.y, prev.m, prev.d)) { free.push(prev); prev = pjAdd(prev.y, prev.m, prev.d, -1); }
+          break;
+        }
+        if (pjIsWeekend(cur.y, cur.m, cur.d) && !pjIsBuBan(cur.y, cur.m, cur.d)) {
+          if (pjDow(cur.y, cur.m, cur.d) === 0) {          // 周日：含前一周六（若非补班）
+            var sat = pjAdd(cur.y, cur.m, cur.d, -1);
+            if (pjIsWeekend(sat.y, sat.m, sat.d) && !pjIsBuBan(sat.y, sat.m, sat.d)) free.push(sat);
+            free.push(cur);
+          } else { free.push(cur); }                       // 周六：仅当天
+          break;
+        }
+        leave.push(cur); cur = pjAdd(cur.y, cur.m, cur.d, -1);
+      }
+      return { leave:leave, free:free };
+    }
+    // 向后扩展：从假期后一日顺推，逻辑与前向对称
+    function pjExtendFwd(y, m, d) {
+      if (pjIsBuBan(y, m, d)) return { leave:[], free:[] };
+      var leave = [], free = [], cur = { y:y, m:m, d:d };
+      while (true) {
+        if (pjIsBuBan(cur.y, cur.m, cur.d)) break;
+        if (pjIsHoliday(cur.y, cur.m, cur.d)) {
+          free.push(cur);
+          var nx = pjAdd(cur.y, cur.m, cur.d, 1);
+          while (pjIsFree(nx.y, nx.m, nx.d) && !pjIsBuBan(nx.y, nx.m, nx.d)) { free.push(nx); nx = pjAdd(nx.y, nx.m, nx.d, 1); }
+          break;
+        }
+        if (pjIsWeekend(cur.y, cur.m, cur.d) && !pjIsBuBan(cur.y, cur.m, cur.d)) {
+          if (pjDow(cur.y, cur.m, cur.d) === 6) {          // 周六：含后一周日（若非补班）
+            free.push(cur);
+            var sun = pjAdd(cur.y, cur.m, cur.d, 1);
+            if (pjIsWeekend(sun.y, sun.m, sun.d) && !pjIsBuBan(sun.y, sun.m, sun.d)) free.push(sun);
+          } else { free.push(cur); }
+          break;
+        }
+        leave.push(cur); cur = pjAdd(cur.y, cur.m, cur.d, 1);
+      }
+      return { leave:leave, free:free };
+    }
+    function pjRange(list) {
+      if (!list.length) return null;
+      var lo = list[0], hi = list[0];
+      list.forEach(function(x){ if (pjEarlier(x, lo)) lo = x; if (pjLater(x, hi)) hi = x; });
+      return [lo, hi];
+    }
+
+    function computePinjia(year) {
+      var arr = LEGAL_HOLIDAYS[year];
+      if (!arr) return [];
+      var hol = arr.filter(function(x){ return x.type==='holiday'; })
+        .map(function(x){ return { m:+x.date.slice(0,2), d:+x.date.slice(3,5), name:x.name }; })
+        .sort(function(a,b){ return (a.m-b.m) || (a.d-b.d); });
+      // 合并同名连续段
+      var groups = [];
+      for (var i=0;i<hol.length;i++) {
+        var cur = hol[i];
+        if (groups.length) {
+          var g = groups[groups.length-1];
+          if (g.name === cur.name) {
+            var last = g.days[g.days.length-1];
+            var nx = pjAdd(year, last.m, last.d, 1);
+            if (nx.m===cur.m && nx.d===cur.d) { g.days.push(cur); continue; }
+          }
+        }
+        groups.push({ name:cur.name, days:[cur], y:year });
+      }
+      var out = [];
+      groups.forEach(function(g) {
+        var s = g.days[0], e = g.days[g.days.length-1];
+        var len = g.days.length;
+        var ds = pjAdd(year, s.m, s.d, -1);
+        var de = pjAdd(year, e.m, e.d, 1);
+        var f = pjExtendBack(ds.y, ds.m, ds.d);
+        var b = pjExtendFwd(de.y, de.m, de.d);
+        var sD = { y:year, m:s.m, d:s.d }, eD = { y:year, m:e.m, d:e.d };
+        var fStart = sD; (f.leave.concat(f.free)).forEach(function(x){ if (pjEarlier(x, fStart)) fStart = x; });
+        var bEnd = eD; (b.leave.concat(b.free)).forEach(function(x){ if (pjLater(x, bEnd)) bEnd = x; });
+        function freeSplit(list){ var h=0,w=0; list.forEach(function(x){ if(pjIsHoliday(x.y,x.m,x.d)) h++; else if(pjIsWeekend(x.y,x.m,x.d)) w++; }); return {h:h,w:w}; }
+        var ff = freeSplit(f.free), bf = freeSplit(b.free);
+        out.push({
+          name:g.name,
+          range: s.m + '/' + s.d + '–' + e.m + '/' + e.d,
+          len:len,
+          front: {
+            leave:f.leave.length, free:f.free.length, freeHoliday:ff.h, freeWeekend:ff.w,
+            total: len + f.leave.length + f.free.length,
+            leaveRange: pjRange(f.leave), breakRange: [fStart, eD]
+          },
+          back: {
+            leave:b.leave.length, free:b.free.length, freeHoliday:bf.h, freeWeekend:bf.w,
+            total: len + b.leave.length + b.free.length,
+            leaveRange: pjRange(b.leave), breakRange: [sD, bEnd]
+          }
+        });
+      });
+      return out;
+    }
+
+    function pjMd(o, baseY) {
+      var p = (o.y && o.y !== baseY) ? (o.y + '/') : '';
+      return p + o.m + '/' + o.d;
+    }
+    function pjRangeStr(rng, baseY, days) {
+      if (!rng) return '';
+      return pjMd(rng[0], baseY) + '–' + pjMd(rng[1], baseY) + '（' + days + '天）';
+    }
+    function renderPinjia(year) {
+      var list = document.getElementById('pinjiaList');
+      var foot = document.getElementById('pinjiaFoot');
+      var data = computePinjia(year);
+      if (!data.length) {
+        list.innerHTML = '<p class="pinjia-none">' + year + ' 年法定节假日数据暂缺，拼假攻略待国务院放假安排公布后自动生成。</p>';
+        foot.textContent = '';
+        return;
+      }
+      var html = '';
+      data.forEach(function(g) {
+        var frontBest = g.front.total >= g.back.total;
+        var fb = g.front.leave > 0 ? g.front : (g.front.free > 0 ? g.front : null);
+        var bb = g.back.leave > 0 ? g.back : (g.back.free > 0 ? g.back : null);
+        if (!fb && !bb) {
+          var freeSide = g.front.free >= g.back.free ? g.front : g.back;
+          html += '<div class="pinjia-card"><div class="pinjia-card-head">'
+            + '<span class="pinjia-name">' + g.name + '</span>'
+            + '<span class="pinjia-range">' + g.range + '（' + g.len + '天）</span></div>'
+            + '<p class="pinjia-none" style="margin-top:.6rem">假期已含相邻周末/节假日，无需请假即可天然连休 ' + freeSide.total + ' 天（' + pjRangeStr(freeSide.breakRange, year, freeSide.total) + '）。</p></div>';
+          return;
+        }
+        html += '<div class="pinjia-card"><div class="pinjia-card-head">'
+          + '<span class="pinjia-name">' + g.name + '</span>'
+          + '<span class="pinjia-range">' + g.range + '（' + g.len + '天）</span></div>'
+          + '<div class="pinjia-opts">';
+        if (fb) html += pinjiaOpt('前拼（假期前请假）', fb, frontBest ? 'best' : '', year);
+        if (bb) html += pinjiaOpt('后拼（假期后请假）', bb, !frontBest ? 'best' : '', year);
+        html += '</div></div>';
+      });
+      list.innerHTML = html;
+      foot.textContent = '说明：计算以国务院公布的放假与补班安排为输入，按「请假天数 + 相邻周末/节假日 + 假期本身」推导最大连休天数；相邻节假日自动衔接（如中秋接国庆），补班日会阻断拼假链；不含事假/年假重叠、单位实际排班等情形，仅供参考。';
+    }
+    function pinjiaOpt(lab, opt, bestCls, year) {
+      if (opt.leave === 0) {
+        return '<div class="pinjia-opt free ' + bestCls + '">'
+          + '<div class="lab">' + lab + '</div>'
+          + '<div class="big">无需请假 · 天然连休 <b>' + opt.total + '</b> 天</div>'
+          + '<div class="dates">连休 ' + pjRangeStr(opt.breakRange, year, opt.total) + '</div>'
+          + '<div class="desc">' + (opt.freeHoliday>0 ? '假期与相邻节假日自然相连' : (opt.freeWeekend>0 ? '已包含相邻周末' : '假期本身即为连休')) + '，无需额外请假。</div>'
+          + '</div>';
+      }
+      var freeTxt = opt.freeWeekend > 0 ? ('含相邻周末 ' + opt.freeWeekend + ' 天') : (opt.freeHoliday > 0 ? ('衔接相邻假期 ' + opt.freeHoliday + ' 天') : '无相邻免费日');
+      return '<div class="pinjia-opt ' + bestCls + '">'
+        + '<div class="lab">' + lab + '</div>'
+        + '<div class="big">请 <b>' + opt.leave + '</b> 天 · 连休 <b>' + opt.total + '</b> 天</div>'
+        + '<div class="dates">请假 ' + pjRangeStr(opt.leaveRange, year, opt.leave) + ' ｜ 连休 ' + pjRangeStr(opt.breakRange, year, opt.total) + '</div>'
+        + '<div class="desc">' + freeTxt + '，覆盖 ' + opt.leave + ' 个工作日 + ' + opt.free + ' 个相邻免费日 + ' + (opt.total - opt.leave - opt.free) + ' 天法定假期。</div>'
+        + '</div>';
+    }
+
+    // ========== 8.12 新增：工具 UI 接线 ==========
+    function fillSelect(sel, items) {
+      sel.innerHTML = '';
+      items.forEach(function(it) {
+        var o = document.createElement('option');
+        o.value = it.v; o.textContent = it.t; sel.appendChild(o);
+      });
+    }
+    function isoToday() {
+      var n = new Date();
+      return n.getFullYear() + '-' + ('0'+(n.getMonth()+1)).slice(-2) + '-' + ('0'+n.getDate()).slice(-2);
+    }
+    function initTools() {
+      // 选项卡
+      var tabs = document.querySelectorAll('.tool-tab');
+      tabs.forEach(function(t) {
+        t.addEventListener('click', function() {
+          tabs.forEach(function(x){ x.classList.remove('active'); });
+          t.classList.add('active');
+          document.querySelectorAll('.tool-panel').forEach(function(p){ p.classList.remove('active'); });
+          document.getElementById('tool' + t.getAttribute('data-tab').charAt(0).toUpperCase() + t.getAttribute('data-tab').slice(1)).classList.add('active');
+        });
+      });
+      // 农历月/日下拉
+      var months = [];
+      for (var i=1;i<=12;i++) months.push({ v: i, t: LUNAR_MONTHS[i-1] + '月' });
+      fillSelect(document.getElementById('convMonth'), months);
+      var days = [];
+      for (var j=1;j<=30;j++) days.push({ v: j, t: LUNAR_DAYS[j-1] });
+      fillSelect(document.getElementById('convDay'), days);
+      // 生肖下拉
+      var animals = [];
+      for (var a=0;a<12;a++) animals.push({ v: a, t: ANIMALS[a] });
+      fillSelect(document.getElementById('zodiacAnimal'), animals);
+      // 默认日期
+      document.getElementById('convSolar').value = isoToday();
+      document.getElementById('hoursDate').value = isoToday();
+
+      // 公历→农历
+      function doSolar() {
+        var v = document.getElementById('convSolar').value;
+        if (!v) { v = isoToday(); }
+        var p = v.split('-');
+        var y = +p[0], m = +p[1], d = +p[2];
+        if (y < 1900 || y > 2100) {
+          document.getElementById('convSolarRes').innerHTML = '支持范围：1900-01-01 ~ 2100-12-31';
+          return;
+        }
+        var L = solar2lunar(y, m, d);
+        var gz = getGanzhi(y, m, d, L.year);
+        var weekDays = ['日','一','二','三','四','五','六'];
+        var out = '<span class="big">' + (L.isLeap?'闰':'') + LUNAR_MONTHS[L.month-1] + '月' + LUNAR_DAYS[L.day-1] + '</span>'
+          + ' ｜ ' + gz.year + '（' + gz.yearAnimal + '）· ' + gz.month + '月 · ' + gz.day + '日'
+          + ' ｜ 星期' + weekDays[new Date(y, m-1, d).getDay()];
+        document.getElementById('convSolarRes').innerHTML = out;
+      }
+      document.getElementById('convSolarBtn').addEventListener('click', doSolar);
+
+      // 农历→公历
+      function doLunar() {
+        var ly = +document.getElementById('convYear').value;
+        var lm = +document.getElementById('convMonth').value;
+        var ld = +document.getElementById('convDay').value;
+        var leap = document.getElementById('convLeap').checked;
+        if (!ly) { document.getElementById('convLunarRes').innerHTML = '请输入农历年份'; return; }
+        var s = lunar2solar(ly, lm, ld, leap);
+        if (!s) { document.getElementById('convLunarRes').innerHTML = '该农历日期不存在（可能落在闰月或非本年范围内）'; return; }
+        document.getElementById('convLunarRes').innerHTML = '<span class="big">' + s.y + '年' + s.m + '月' + s.d + '日</span>'
+          + ' ｜ 公历' + s.y + '-' + ('0'+s.m).slice(-2) + '-' + ('0'+s.d).slice(-2);
+      }
+      document.getElementById('convLunarBtn').addEventListener('click', doLunar);
+
+      // 生肖年龄
+      function doZodiac() {
+        var cur = (new Date()).getFullYear();
+        var by = +document.getElementById('zodiacYear').value;
+        var ai = +document.getElementById('zodiacAnimal').value;
+        if (!by) { by = cur - (((cur - 4 - ai) % 12 + 12) % 12); }
+        if (by > cur) {
+          document.getElementById('zodiacRes').innerHTML = '出生年份不能晚于今年（' + cur + '），请检查输入';
+          return;
+        }
+        var info = zodiacInfo(by, cur);
+        document.getElementById('zodiacRes').innerHTML = '<span class="big">属' + info.animal + '</span>'
+          + ' ｜ 出生年份参考 ' + by + ' 年'
+          + '<br>今年（' + cur + '）虚岁约 <b>' + info.xusui + '</b> 岁，周岁约 <b>' + info.zhousui + '</b> 岁'
+          + '<br>下一个本命年：<b>' + info.nextBen + '</b> 年（每 12 年一轮）';
+      }
+      document.getElementById('zodiacBtn').addEventListener('click', doZodiac);
+
+      // 吉时
+      function doHours() {
+        var v = document.getElementById('hoursDate').value;
+        if (!v) v = isoToday();
+        var p = v.split('-');
+        var y = +p[0], m = +p[1], d = +p[2];
+        var arr = getHours(y, m, d);
+        var g = document.getElementById('hoursGrid');
+        g.innerHTML = '';
+        arr.forEach(function(h) {
+          var c = document.createElement('div');
+          c.className = 'hour-card luck-' + h.luck;
+          c.innerHTML = '<span class="hl ' + h.luck + '">' + h.luck + '</span>'
+            + '<div class="hn">' + h.name + '</div>'
+            + '<div class="hr">' + h.range + '</div>'
+            + '<div class="hg">' + h.ganzhi + '时</div>'
+            + '<div class="hs">' + h.shen + '</div>';
+          g.appendChild(c);
+        });
+      }
+      document.getElementById('hoursBtn').addEventListener('click', doHours);
+
+      // 整年视图导航
+      document.getElementById('yearPrev').addEventListener('click', function(){ renderYearView(yearViewYear - 1); });
+      document.getElementById('yearNext').addEventListener('click', function(){ renderYearView(yearViewYear + 1); });
+      document.getElementById('yearToday').addEventListener('click', function(){ renderYearView((new Date()).getFullYear()); });
+
+      // 拼假攻略：年份选择 + 初始渲染
+      var pjSel = document.getElementById('pinjiaYear');
+      var pjYears = Object.keys(LEGAL_HOLIDAYS).map(Number).sort(function(a,b){ return b-a; });
+      pjYears.forEach(function(y){
+        var o = document.createElement('option'); o.value = y; o.textContent = y + ' 年'; pjSel.appendChild(o);
+      });
+      var pjCur = (new Date()).getFullYear();
+      if (pjYears.indexOf(pjCur) === -1 && pjYears.length) pjCur = pjYears[0];
+      pjSel.value = pjCur;
+      pjSel.addEventListener('change', function(){ renderPinjia(parseInt(pjSel.value,10)); });
+      renderPinjia(pjCur);
+
+      // 初始渲染
+      doSolar();
+      doHours();
+      renderYearView((new Date()).getFullYear());
+    }
+
+    // ========== 10. 导航 ==========
+    document.getElementById('prevBtn').addEventListener('click', function() {
+      var y = curY, m = curM - 1;
+      if(m < 1) { m=12; y--; }
+      if(y < 1900) { y = 1900; m = 1; }
+      renderCalendar(y, m);
+    });
+    document.getElementById('nextBtn').addEventListener('click', function() {
+      var y = curY, m = curM + 1;
+      if(m > 12) { m=1; y++; }
+      if(y > 2100) { y = 2100; m = 12; }
+      renderCalendar(y, m);
+    });
+    document.getElementById('todayBtn').addEventListener('click', function() {
+      var now = new Date();
+      renderCalendar(now.getFullYear(), now.getMonth()+1);
+    });
+
+    // 初始化
+    var init = new Date();
+    renderCalendar(init.getFullYear(), init.getMonth()+1);
+    renderOverview();
+    initTools();
+  })();
+  </script>
+
+  <!-- 功能脚本 -->
+  <script defer src="js/search.js"></script>
+  <!-- app.js already loaded above -->
+  <!-- Footer -->
+  <footer>
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+  <script defer src="js/share.js"></script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "万年历 - 龙兄知识库",
+      "url": "https://longxiong.vip/calendar.html",
+      "description": "万年历查询，含农历、干支、节气、吉凶宜忌。"
+    }
+  ]
+}
+</script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer></script>
+<script src="js/bookmark.js" defer></script>
+<script src="js/auto-collapse.js?v=20260824" defer></script>
+</body>
+</html>

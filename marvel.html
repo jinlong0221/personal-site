@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="css/style.css?v=20260823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260823"></noscript>
+<title>漫威宇宙 · 龙兄观影手账详细科普｜龙兄知识库</title>
+<meta name="keywords" content="漫威宇宙 · 龙兄观影手账,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="漫威宇宙 · 龙兄观影手账详细科普：实测溯源、实操图文、避坑指南。适合漫威宇宙 · 龙兄观影手账爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="漫威">
+<meta name="article-tags" content="漫威,电影,宇宙">
+<meta name="article-updated" content="2026-08-01">
+<style>:root{--mv:#e23636;--mv-2:#b3122b;--mv-soft:rgba(226,54,54,.12)}
+[data-theme="light"]{--mv:#c1121f;--mv-2:#9b0d1c;--mv-soft:rgba(193,18,31,.09)}
+.mv-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:44px 28px 38px;text-align:center;background:linear-gradient(135deg,#1a0608 0%,#3a0d12 45%,#7a1220 100%)}
+.mv-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.14),transparent 46%),radial-gradient(circle at 80% 80%,rgba(226,54,54,.34),transparent 52%);pointer-events:none}
+.mv-hero>*{position:relative;z-index:1}
+.mv-hero .mv-kicker{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:2px;color:#ffd2d2;border:1px solid rgba(255,210,210,.45);border-radius:999px;padding:3px 14px;margin-bottom:14px}
+.mv-hero h1{font-size:2.15rem;color:#fff;margin-bottom:12px;line-height:1.3}
+.mv-hero p{max-width:680px;margin:0 auto;color:rgba(255,255,255,.82);font-size:.98rem;line-height:1.85}
+.mv-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+.mv-kpi-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 10px;text-align:center}
+.mv-kpi-num{display:block;font-size:1.6rem;font-weight:900;color:var(--mv);line-height:1.2}
+.mv-kpi-label{display:block;font-size:.76rem;color:var(--text-secondary);margin-top:4px}
+.mv-sec{margin:44px 0 0}
+.mv-sec-title{display:flex;align-items:center;gap:10px;font-size:1.28rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid var(--mv)}
+.mv-sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+/* 观影顺序双 Tab */
+.mv-tabs{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.mv-tab{font-family:inherit;font-size:.9rem;padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text-secondary);cursor:pointer;transition:all .18s}
+.mv-tab:hover{border-color:var(--mv);color:var(--mv)}
+.mv-tab.active{background:var(--mv);border-color:var(--mv);color:#fff}
+.mv-order{list-style:none;margin:0;padding:0;counter-reset:mv;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.mv-order li{counter-increment:mv;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--mv);border-radius:10px;padding:10px 14px;font-size:.9rem;transition:transform .15s,box-shadow .15s}
+.mv-order li:hover{transform:translateX(2px);box-shadow:var(--shadow-sm)}
+.mv-order li::before{content:counter(mv);flex:0 0 26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--mv),var(--mv-2));border-radius:50%}
+.mv-order-t{font-weight:700;color:var(--text);flex:1;min-width:0}
+.mv-order-p{font-size:.72rem;color:var(--mv);background:var(--mv-soft);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.mv-order-y{font-size:.78rem;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* 观影顺序按阶段折叠 */
+.mv-order-groups{display:flex;flex-direction:column;gap:12px}
+.mv-phase-group{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card)}
+.mv-phase-group>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 16px;font-weight:800;font-size:.96rem;user-select:none;transition:background .15s}
+.mv-phase-group>summary::-webkit-details-marker{display:none}
+.mv-phase-group>summary:hover{background:var(--bg-secondary)}
+.mv-phase-group>summary::before{content:'▸';color:var(--mv);font-size:.8rem;transition:transform .2s}
+.mv-phase-group[open]>summary::before{content:'▾'}
+.mv-pg-no{color:var(--mv);font-weight:800;font-size:.8rem;letter-spacing:.5px}
+.mv-pg-count{margin-left:auto;font-size:.74rem;color:var(--text-muted);font-weight:500}
+.mv-phase-group .mv-order{padding:4px 14px 14px;gap:8px}
+/* 章节锚点导航 */
+html{scroll-behavior:smooth}
+.mv-toc{position:sticky;top:62px;z-index:5;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-sm)}
+.mv-toc a{font-size:.82rem;padding:6px 13px;border-radius:999px;background:var(--bg-secondary);color:var(--text-secondary);text-decoration:none;transition:all .15s}
+.mv-toc a:hover{background:var(--mv-soft);color:var(--mv)}
+.mv-sec{scroll-margin-top:74px}
+/* 大板块整体折叠 */
+.mv-sec>summary{position:relative;list-style:none;cursor:pointer;padding:6px 30px 8px 0;outline:none}
+.mv-sec>summary::-webkit-details-marker{display:none}
+.mv-sec>summary .mv-sec-title{margin-bottom:2px;transition:color .15s}
+.mv-sec>summary:hover .mv-sec-title{color:var(--mv)}
+.mv-sec>summary .mv-sec-sub{margin:0 0 0 16px}
+.mv-sec>summary::after{content:'▸';position:absolute;right:4px;top:10px;color:var(--mv);font-size:1.1rem;line-height:1;transition:transform .2s}
+.mv-sec[open]>summary::after{content:'▾'}
+/* 阶段时间线 */
+.mv-phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mv-phase-card{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--mv);border-radius:12px;padding:18px 16px;transition:transform .2s,box-shadow .2s}
+.mv-phase-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.mv-phase-emoji{font-size:1.8rem}
+.mv-phase-no{font-size:.74rem;font-weight:700;color:var(--mv);letter-spacing:.5px;margin:6px 0 2px}
+.mv-phase-name{font-size:1.02rem;margin-bottom:6px}
+.mv-phase-span{font-size:.76rem;color:var(--text-muted);margin-bottom:8px}
+.mv-phase-desc{font-size:.82rem;color:var(--text-secondary);line-height:1.65}
+/* 英雄档案卡沿用全局 .hero-grid / .hero-card / .hero-avatar / .hero-info */
+.hero-avatar{font-size:2.6rem}
+/* 私人评分 */
+.mv-rating{display:flex;flex-direction:column;gap:12px}
+.mv-rating-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.mv-rating-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mv-rating-name{font-size:1rem;font-weight:700;color:var(--text)}
+.mv-stars{color:#f5b301;letter-spacing:2px;font-size:1.05rem;white-space:nowrap}
+.mv-rating-note{font-size:.86rem;color:var(--text-secondary);line-height:1.7;margin:8px 0 0}
+/* 冷知识 */
+.mv-trivia{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.mv-trivia li{position:relative;padding:12px 14px 12px 40px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;font-size:.88rem;color:var(--text-secondary);line-height:1.7}
+.mv-trivia li::before{content:'🎬';position:absolute;left:12px;top:11px;font-size:1rem}
+.mv-note{margin:36px 0 8px;padding:16px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+/* 正在热映 & 未来计划 */
+.mv-soon{display:flex;flex-direction:column;gap:12px}
+.mv-soon-item{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:var(--card)}
+.mv-soon-now{border-left:4px solid var(--mv)}
+.mv-soon-soon{border-left:4px solid var(--text-muted)}
+.mv-soon-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mv-soon-name{font-size:1.05rem;font-weight:700;color:var(--text)}
+.mv-soon-badge{font-size:.72rem;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.mv-soon-now .mv-soon-badge{background:var(--mv-soft);color:var(--mv)}
+.mv-soon-soon .mv-soon-badge{background:var(--bg-secondary);color:var(--text-secondary)}
+.mv-soon-date{font-size:.8rem;color:var(--text-muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.mv-soon-note{font-size:.84rem;color:var(--text-secondary);line-height:1.65;margin:8px 0 0}
+.mv-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
+.mv-note ul{margin:0;padding-left:18px}
+@media(max-width:992px){.mv-phase-grid{grid-template-columns:repeat(2,1fr)}.mv-kpi{grid-template-columns:repeat(2,1fr)}}
+/* ===== 正在热映票房（每日自动更新） ===== */
+.mv-bo{margin-top:8px}
+.mv-bo-loading{color:var(--text-muted);font-size:.92rem;padding:6px 0}
+.mv-bo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:10px 0 4px}
+.mv-bo-card{background:rgba(226,54,54,.10);border:1px solid rgba(226,54,54,.35);border-radius:12px;padding:14px 16px;text-align:center}
+.mv-bo-card .mv-bo-val{font-size:1.5rem;font-weight:800;color:#e23636;line-height:1.25;word-break:break-word}
+.mv-bo-card .mv-bo-label{font-size:.82rem;color:var(--text-muted);margin-top:4px}
+.mv-bo-meta{margin:8px 0 2px;font-size:.92rem;color:var(--text-secondary);line-height:1.7}
+.mv-bo-meta b{color:var(--text)}
+.mv-bo-miles{list-style:none;padding:0;margin:10px 0 2px;display:grid;gap:8px}
+.mv-bo-miles li{position:relative;padding-left:20px;font-size:.9rem;line-height:1.7;color:var(--text-secondary)}
+.mv-bo-miles li::before{content:'★';position:absolute;left:0;top:1px;color:#e23636;font-size:.8rem}
+.mv-bo-note{font-size:.8rem;color:var(--text-muted);margin-top:10px;line-height:1.75;border-top:1px dashed var(--border);padding-top:8px}
+.mv-bo-updated{font-size:.8rem;color:var(--text-muted);margin-top:10px}
+@media(max-width:576px){.mv-hero{padding:32px 18px 28px}.mv-hero h1{font-size:1.55rem}.mv-phase-grid{grid-template-columns:1fr}.mv-order{grid-template-columns:1fr}.mv-bo-grid{grid-template-columns:1fr}}</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta property="og:site_name" content="龙兄知识库">
+<link rel="canonical" href="https://longxiong.vip/marvel.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="漫威宇宙 · 龙兄观影手账详细科普｜龙兄知识库">
+<meta property="og:description" content="漫威宇宙 · 龙兄观影手账详细科普：实测溯源、实操图文、避坑指南。适合漫威宇宙 · 龙兄观影手账爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/marvel.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="漫威宇宙 · 龙兄观影手账 - 龙兄知识库">
+<meta name="twitter:description" content="MCU 双轨观影指南、六阶段时间线、英雄档案卡、私人评分与冷知识。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
+<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html" class="active">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+  <main id="main-content" role="main"><div class="container">
+  <div class="breadcrumb" id="breadcrumb">
+    <a href="index.html">首页</a>
+    <span class="sep">›</span>
+    <span class="current">漫威宇宙</span>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <div class="mv-hero">
+    <span class="mv-kicker">MARVEL CINEMATIC UNIVERSE · 龙兄观影手账</span>
+    <h1>漫威宇宙</h1>
+<p>从 2008 年托尼·斯塔克在山洞里敲出第一套战甲，到今天横跨电影与剧集的多元宇宙——一份属于龙兄的观影手账：怎么看、按什么顺序看、谁值得记住，以及哪些片子最对胃口。</p>
+  </div>
+
+  <div class="mv-kpi">
+    <div class="mv-kpi-item"><span class="mv-kpi-num">39</span><span class="mv-kpi-label">已收录影剧</span></div>
+    <div class="mv-kpi-item"><span class="mv-kpi-num">6</span><span class="mv-kpi-label">阶段划分</span></div>
+    <div class="mv-kpi-item"><span class="mv-kpi-num">14</span><span class="mv-kpi-label">英雄档案</span></div>
+    <div class="mv-kpi-item"><span class="mv-kpi-num">8</span><span class="mv-kpi-label">私人评分</span></div>
+  </div>
+
+  <nav class="mv-toc" aria-label="章节导航">
+    <a href="#sec-order">🎬 观影顺序</a>
+    <a href="#sec-phase">📜 阶段</a>
+    <a href="#sec-hero">🦸 英雄</a>
+    <a href="#sec-rate">⭐ 评分</a>
+    <a href="#sec-trivia">💡 冷知识</a>
+    <a href="#sec-soon">🎟️ 热映/计划</a>
+  </nav>
+
+  <!-- ===== 观影顺序 ===== -->
+  <details class="mv-sec" id="sec-order">
+    <summary><h2 class="mv-sec-title">观影顺序：两条线任你选</h2>
+    <p class="mv-sec-sub">「上映顺序」按当年影院节奏看，「故事时间线」按宇宙内时间看；点标题展开，再点阶段标题看明细。</p></summary>
+    <div class="mv-tabs">
+      <button class="mv-tab active" data-order="release">🎬 上映顺序</button>
+      <button class="mv-tab" data-order="story">🕰️ 故事时间线</button>
+    </div>
+    <div class="mv-order-groups" id="mvRelease">
+      <details class="mv-phase-group" open><summary><span class="mv-pg-no">Phase 1</span> 无限传奇 · 起步<span class="mv-pg-count">6 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">钢铁侠</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2008</span></li>
+      <li><span class="mv-order-t">无敌浩克</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2008</span></li>
+      <li><span class="mv-order-t">钢铁侠 2</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2010</span></li>
+      <li><span class="mv-order-t">雷神</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2011</span></li>
+      <li><span class="mv-order-t">美国队长</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2011</span></li>
+      <li><span class="mv-order-t">复仇者联盟</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2012</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 2</span> 无限传奇 · 铺垫<span class="mv-pg-count">6 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">钢铁侠 3</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2013</span></li>
+      <li><span class="mv-order-t">雷神 2：黑暗世界</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2013</span></li>
+      <li><span class="mv-order-t">美国队长 2：冬日战士</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2014</span></li>
+      <li><span class="mv-order-t">银河护卫队</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2014</span></li>
+      <li><span class="mv-order-t">复仇者联盟 2：奥创纪元</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2015</span></li>
+      <li><span class="mv-order-t">蚁人</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2015</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 3</span> 无限传奇 · 终章<span class="mv-pg-count">11 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">美国队长 3：内战</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2016</span></li>
+      <li><span class="mv-order-t">奇异博士</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2016</span></li>
+      <li><span class="mv-order-t">银河护卫队 2</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2017</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：英雄归来</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2017</span></li>
+      <li><span class="mv-order-t">雷神 3：诸神黄昏</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2017</span></li>
+      <li><span class="mv-order-t">黑豹</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2018</span></li>
+      <li><span class="mv-order-t">复仇者联盟 3：无限战争</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2018</span></li>
+      <li><span class="mv-order-t">蚁人 2：黄蜂女现身</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2018</span></li>
+      <li><span class="mv-order-t">惊奇队长</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2019</span></li>
+      <li><span class="mv-order-t">复仇者联盟 4：终局之战</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2019</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：英雄远征</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2019</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 4</span> 多元宇宙 · 开启<span class="mv-pg-count">8 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">黑寡妇</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">尚气与十环传奇</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">永恒族</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：英雄无归</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">奇异博士 2：疯狂多元宇宙</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2022</span></li>
+      <li><span class="mv-order-t">雷神 4：爱与雷霆</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2022</span></li>
+      <li><span class="mv-order-t">黑豹 2：瓦坎达万岁</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2022</span></li>
+      <li><span class="mv-order-t">蚁人 3：量子狂潮</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2023</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 5</span> 多元宇宙 · 推进<span class="mv-pg-count">6 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">银河护卫队 3</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2023</span></li>
+      <li><span class="mv-order-t">惊奇队长 2</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2023</span></li>
+      <li><span class="mv-order-t">秘密入侵</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2023</span></li>
+      <li><span class="mv-order-t">洛基（第二季）</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2023</span></li>
+      <li><span class="mv-order-t">死侍与金刚狼</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2024</span></li>
+      <li><span class="mv-order-t">回声</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2024</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 6</span> 多元宇宙 · 收官<span class="mv-pg-count">2 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">神奇四侠：第一步</span><span class="mv-order-p">Phase 6</span><span class="mv-order-y">2025</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：崭新之日</span><span class="mv-order-p">Phase 6</span><span class="mv-order-y">2026</span></li>
+      </ol>
+      </details>
+    </div>
+    <div class="mv-order-groups" id="mvStory" style="display:none">
+      <details class="mv-phase-group" open><summary><span class="mv-pg-no">Phase 1</span> 无限传奇 · 起步<span class="mv-pg-count">6 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">美国队长</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2011</span></li>
+      <li><span class="mv-order-t">钢铁侠</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2008</span></li>
+      <li><span class="mv-order-t">无敌浩克</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2008</span></li>
+      <li><span class="mv-order-t">钢铁侠 2</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2010</span></li>
+      <li><span class="mv-order-t">雷神</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2011</span></li>
+      <li><span class="mv-order-t">复仇者联盟</span><span class="mv-order-p">Phase 1</span><span class="mv-order-y">2012</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 2</span> 无限传奇 · 铺垫<span class="mv-pg-count">6 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">钢铁侠 3</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2013</span></li>
+      <li><span class="mv-order-t">雷神 2：黑暗世界</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2013</span></li>
+      <li><span class="mv-order-t">美国队长 2：冬日战士</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2014</span></li>
+      <li><span class="mv-order-t">银河护卫队</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2014</span></li>
+      <li><span class="mv-order-t">复仇者联盟 2：奥创纪元</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2015</span></li>
+      <li><span class="mv-order-t">蚁人</span><span class="mv-order-p">Phase 2</span><span class="mv-order-y">2015</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 3</span> 无限传奇 · 终章<span class="mv-pg-count">11 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">美国队长 3：内战</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2016</span></li>
+      <li><span class="mv-order-t">奇异博士</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2016</span></li>
+      <li><span class="mv-order-t">银河护卫队 2</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2017</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：英雄归来</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2017</span></li>
+      <li><span class="mv-order-t">雷神 3：诸神黄昏</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2017</span></li>
+      <li><span class="mv-order-t">黑豹</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2018</span></li>
+      <li><span class="mv-order-t">复仇者联盟 3：无限战争</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2018</span></li>
+      <li><span class="mv-order-t">蚁人 2：黄蜂女现身</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2018</span></li>
+      <li><span class="mv-order-t">惊奇队长</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2019</span></li>
+      <li><span class="mv-order-t">复仇者联盟 4：终局之战</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2019</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：英雄远征</span><span class="mv-order-p">Phase 3</span><span class="mv-order-y">2019</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 4</span> 多元宇宙 · 开启<span class="mv-pg-count">10 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">黑寡妇</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">旺达幻视</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">尚气与十环传奇</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">永恒族</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：英雄无归</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      <li><span class="mv-order-t">奇异博士 2：疯狂多元宇宙</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2022</span></li>
+      <li><span class="mv-order-t">雷神 4：爱与雷霆</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2022</span></li>
+      <li><span class="mv-order-t">黑豹 2：瓦坎达万岁</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2022</span></li>
+      <li><span class="mv-order-t">蚁人 3：量子狂潮</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2023</span></li>
+      <li><span class="mv-order-t">洛基（全集）</span><span class="mv-order-p">Phase 4</span><span class="mv-order-y">2021</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 5</span> 多元宇宙 · 推进<span class="mv-pg-count">3 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">银河护卫队 3</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2023</span></li>
+      <li><span class="mv-order-t">秘密入侵</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2023</span></li>
+      <li><span class="mv-order-t">死侍与金刚狼</span><span class="mv-order-p">Phase 5</span><span class="mv-order-y">2024</span></li>
+      </ol>
+      </details>
+      <details class="mv-phase-group"><summary><span class="mv-pg-no">Phase 6</span> 多元宇宙 · 收官<span class="mv-pg-count">2 部</span></summary>
+      <ol class="mv-order">
+      <li><span class="mv-order-t">神奇四侠：第一步</span><span class="mv-order-p">Phase 6</span><span class="mv-order-y">2025</span></li>
+      <li><span class="mv-order-t">蜘蛛侠：崭新之日</span><span class="mv-order-p">Phase 6</span><span class="mv-order-y">2026</span></li>
+      </ol>
+      </details>
+    </div>
+  </details>
+
+  <!-- ===== 阶段时间线 ===== -->
+  <details class="mv-sec" id="sec-phase">
+    <summary><h2 class="mv-sec-title">六个阶段，一部传奇编年</h2>
+    <p class="mv-sec-sub">官方把 MCU 分成「无限传奇（Phase 1–3）」与「多元宇宙传奇（Phase 4–6）」两大篇章；以下阶段与年份为个人整理，官方计划可能调整。</p></summary>
+    <div class="mv-phase-grid">
+      <article class="mv-phase-card" data-phase="1"><div class="mv-phase-emoji">🚀</div><div class="mv-phase-no">Phase 1</div><h3 class="mv-phase-name">无限传奇 · 起步</h3><div class="mv-phase-span">2008–2012</div><p class="mv-phase-desc">从钢铁侠单枪匹马，到六位初代复仇者集结</p></article>
+      <article class="mv-phase-card" data-phase="2"><div class="mv-phase-emoji">💎</div><div class="mv-phase-no">Phase 2</div><h3 class="mv-phase-name">无限传奇 · 铺垫</h3><div class="mv-phase-span">2013–2015</div><p class="mv-phase-desc">无限宝石逐一登场，危机在笑声里暗涌</p></article>
+      <article class="mv-phase-card" data-phase="3"><div class="mv-phase-emoji">🏆</div><div class="mv-phase-no">Phase 3</div><h3 class="mv-phase-name">无限传奇 · 终章</h3><div class="mv-phase-span">2016–2019</div><p class="mv-phase-desc">无限战争到终局之战，十年布局一朝收束</p></article>
+      <article class="mv-phase-card" data-phase="4"><div class="mv-phase-emoji">🌌</div><div class="mv-phase-no">Phase 4</div><h3 class="mv-phase-name">多元宇宙 · 开启</h3><div class="mv-phase-span">2021–2023</div><p class="mv-phase-desc">后终局时代，Disney+ 剧集把边界推向多元宇宙</p></article>
+      <article class="mv-phase-card" data-phase="5"><div class="mv-phase-emoji">⏳</div><div class="mv-phase-no">Phase 5</div><h3 class="mv-phase-name">多元宇宙 · 推进</h3><div class="mv-phase-span">2023–2024</div><p class="mv-phase-desc">新老交替，康与秘密入侵搅动时间线</p></article>
+      <article class="mv-phase-card" data-phase="6"><div class="mv-phase-emoji">🌠</div><div class="mv-phase-no">Phase 6</div><h3 class="mv-phase-name">多元宇宙 · 收官</h3><div class="mv-phase-span">2025–</div><p class="mv-phase-desc">秘密战争等规划中的大事件，传奇阶段落幕</p></article>
+    </div>
+  </details>
+
+  <!-- ===== 英雄档案卡 ===== -->
+  <details class="mv-sec" id="sec-hero">
+    <summary><h2 class="mv-sec-title">英雄档案卡</h2>
+    <p class="mv-sec-sub">挑了些最常被提起的名字，纯文字卡片，绝不托管任何官方剧照或海报。</p></summary>
+    <div class="hero-grid">
+      <article class="hero-card">
+        <div class="hero-avatar">🤖</div>
+        <h3>钢铁侠</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 托尼·斯塔克</div>
+          <div class="hero-row"><span class="label">首登场</span> 《钢铁侠》(2008)</div>
+          <div class="hero-row"><span class="label">演员</span> 小罗伯特·唐尼</div>
+          <div class="hero-row"><span class="label">点评</span> 把嘴炮、天才与赎罪玩成英雄主义的灵魂人物，MCU 的原点。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🛡️</div>
+        <h3>美国队长</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 史蒂夫·罗杰斯</div>
+          <div class="hero-row"><span class="label">首登场</span> 《美国队长》(2011)</div>
+          <div class="hero-row"><span class="label">演员</span> 克里斯·埃文斯</div>
+          <div class="hero-row"><span class="label">点评</span> 老派正义感的化身，复仇者联盟的精神锚点。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">⚡</div>
+        <h3>雷神</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 索尔·奥丁森</div>
+          <div class="hero-row"><span class="label">首登场</span> 《雷神》(2011)</div>
+          <div class="hero-row"><span class="label">演员</span> 克里斯·海姆斯沃斯</div>
+          <div class="hero-row"><span class="label">点评</span> 从傲慢王子到能硬扛灭霸的锤哥，喜剧天赋拉满。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🟢</div>
+        <h3>浩克</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 布鲁斯·班纳</div>
+          <div class="hero-row"><span class="label">首登场</span> 《无敌浩克》(2008)</div>
+          <div class="hero-row"><span class="label">演员</span> 爱德华·诺顿 / 马克·鲁法洛</div>
+          <div class="hero-row"><span class="label">点评</span> 科学家的愤怒，越大越孤单的绿巨人。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🕷️</div>
+        <h3>蜘蛛侠</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 彼得·帕克</div>
+          <div class="hero-row"><span class="label">首登场</span> 《蜘蛛侠：英雄归来》(2017)</div>
+          <div class="hero-row"><span class="label">演员</span> 汤姆·赫兰德</div>
+          <div class="hero-row"><span class="label">点评</span> 最年轻的复仇者，话痨担当，邻家男孩的英雄梦。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🔮</div>
+        <h3>奇异博士</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 史蒂芬·斯特兰奇</div>
+          <div class="hero-row"><span class="label">首登场</span> 《奇异博士》(2016)</div>
+          <div class="hero-row"><span class="label">演员</span> 本尼迪克特·康伯巴奇</div>
+          <div class="hero-row"><span class="label">点评</span> 用魔法兜底多元宇宙的神经外科医生，时间线的守门人。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🐾</div>
+        <h3>黑豹</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 特查拉</div>
+          <div class="hero-row"><span class="label">首登场</span> 《黑豹》(2018)</div>
+          <div class="hero-row"><span class="label">演员</span> 查德维克·博斯曼</div>
+          <div class="hero-row"><span class="label">点评</span> 瓦坎达的科技与尊严，影史文化意义远超一部超级英雄片。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">✨</div>
+        <h3>惊奇队长</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 卡罗尔·丹弗斯</div>
+          <div class="hero-row"><span class="label">首登场</span> 《惊奇队长》(2019)</div>
+          <div class="hero-row"><span class="label">演员</span> 布丽·拉尔森</div>
+          <div class="hero-row"><span class="label">点评</span> 剧场版里战力天花板的存在，越宇宙如散步。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🌌</div>
+        <h3>星爵</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 彼得·奎尔</div>
+          <div class="hero-row"><span class="label">首登场</span> 《银河护卫队》(2014)</div>
+          <div class="hero-row"><span class="label">演员</span> 克里斯·帕拉特</div>
+          <div class="hero-row"><span class="label">点评</span> 靠一张混音带和贫嘴，把一队怪咖团结成家人。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🐜</div>
+        <h3>蚁人</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 斯科特·朗</div>
+          <div class="hero-row"><span class="label">首登场</span> 《蚁人》(2015)</div>
+          <div class="hero-row"><span class="label">演员</span> 保罗·路德</div>
+          <div class="hero-row"><span class="label">点评</span> 把量子物理拍成家庭喜剧，小人物的大冒险。</div>
+        </div>
+      </article>
+      <article class="hero-card villain-card">
+        <div class="hero-avatar">🗡️</div>
+        <h3>洛基</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 洛基·劳菲森</div>
+          <div class="hero-row"><span class="label">首登场</span> 《雷神》(2011)</div>
+          <div class="hero-row"><span class="label">演员</span> 汤姆·希德勒斯顿</div>
+          <div class="hero-row"><span class="label">点评</span> 反派写出顶流，时间变异管理局的常客，亦正亦邪的 trickster。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🔥</div>
+        <h3>死侍</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 韦德·威尔逊</div>
+          <div class="hero-row"><span class="label">首登场</span> 《死侍与金刚狼》(2024)</div>
+          <div class="hero-row"><span class="label">演员</span> 瑞安·雷诺兹</div>
+          <div class="hero-row"><span class="label">点评</span> 打破第四面墙的嘴炮雇佣兵，R 级狂欢的代言人。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🐺</div>
+        <h3>金刚狼</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 罗根</div>
+          <div class="hero-row"><span class="label">首登场</span> 《X 战警》系列 / 《死侍与金刚狼》</div>
+          <div class="hero-row"><span class="label">演员</span> 休·杰克曼</div>
+          <div class="hero-row"><span class="label">点评</span> 自愈因子加骨爪，几代人的漫画情怀。</div>
+        </div>
+      </article>
+      <article class="hero-card">
+        <div class="hero-avatar">🕸️</div>
+        <h3>黑寡妇</h3>
+        <div class="hero-info">
+          <div class="hero-row"><span class="label">真名</span> 娜塔莎·罗曼诺夫</div>
+          <div class="hero-row"><span class="label">首登场</span> 《钢铁侠 2》(2010 客串)</div>
+          <div class="hero-row"><span class="label">演员</span> 斯嘉丽·约翰逊</div>
+          <div class="hero-row"><span class="label">点评</span> 没有超能力的英雄，牺牲却最动人。</div>
+        </div>
+      </article>
+    </div>
+  </details>
+
+  <!-- ===== 私人评分 ===== -->
+  <details class="mv-sec" id="sec-rate">
+    <summary><h2 class="mv-sec-title">龙兄私人评分</h2>
+    <p class="mv-sec-sub">凭个人口味打的星，仅供参考，欢迎来辩。</p></summary>
+    <div class="mv-rating">
+      <div class="mv-rating-item"><div class="mv-rating-head"><span class="mv-rating-name">复仇者联盟 4：终局之战</span><span class="mv-stars" aria-label="5 星">★★★★★</span></div><p class="mv-rating-note">十年布局的句号，情怀拉满，影院里哭成一片。</p></div>
+      <div class="mv-rating-item"><div class="mv-rating-head"><span class="mv-rating-name">复仇者联盟 3：无限战争</span><span class="mv-stars" aria-label="5 星">★★★★★</span></div><p class="mv-rating-note">灭霸的代价与英雄的溃败，反派赢一次的震撼。</p></div>
+      <div class="mv-rating-item"><div class="mv-rating-head"><span class="mv-rating-name">美国队长 2：冬日战士</span><span class="mv-stars" aria-label="5 星">★★★★★</span></div><p class="mv-rating-note">谍战味最浓的一部，动作戏教科书级别。</p></div>
+      <div class="mv-rating-item"><div class="mv-rating-head"><span class="mv-rating-name">银河护卫队</span><span class="mv-stars" aria-label="4 星">★★★★☆</span></div><p class="mv-rating-note">最会整活的团队，混音带一响回忆杀。</p></div>
+      <div class="mv-rating-item"><div class="mv-rating-head"><span class="mv-rating-name">黑豹</span><span class="mv-stars" aria-label="4 星">★★★★☆</span></div><p class="mv-rating-note">文化符号大于电影本身，瓦坎达美学惊艳。</p></div>
+      <div class="mv-rating-item"><div class="mv-rating-head"><span class="mv-rating-name">蜘蛛侠：英雄无归</span><span class="mv-stars" aria-label="4 星">★★★★☆</span></div><p class="mv-rating-note">三代同框的眼泪，粉丝狂喜的一课。</p></div>
+      <div class="mv-rating-item"><div class="mv-rating-head"><span class="mv-rating-name">死侍与金刚狼</span><span class="mv-stars" aria-label="4 星">★★★★☆</span></div><p class="mv-rating-note">R 级狂欢，打破次元壁的粉丝盛宴。</p></div>
+      <div class="mv-rating-item"><div class="mv-rating-head"><span class="mv-rating-name">钢铁侠</span><span class="mv-stars" aria-label="4 星">★★★★☆</span></div><p class="mv-rating-note">一切的起点，唐尼一人撑起一个宇宙。</p></div>
+    </div>
+  </details>
+
+  <!-- ===== 冷知识 ===== -->
+  <details class="mv-sec" id="sec-trivia">
+    <summary><h2 class="mv-sec-title">冷知识</h2>
+    <p class="mv-sec-sub">几件看片时不一定会注意的小事。</p></summary>
+    <ul class="mv-trivia">
+      <li>钢铁侠是 MCU 第一部电影，当年没人料到它会长成一个电影宇宙。</li>
+      <li>宇宙魔方（空间宝石）最早在《美国队长：复仇者先锋》(2011) 正片登场，并在《雷神》片尾彩蛋埋下复联伏笔。</li>
+      <li>美国队长的振金盾牌，是漫画里最经典的道具之一。</li>
+      <li>洛基是少数靠个人剧集真正出圈的反派角色。</li>
+      <li>《复仇者联盟 4》大量使用 IMAX 胶片拍摄，画幅切换本身就是叙事。</li>
+      <li>Disney+ 的剧集把「电影宇宙」扩展成了「影视宇宙」，观看顺序从此多了维度。</li>
+    </ul>
+  </details>
+
+  <details class="mv-sec" id="sec-soon">
+    <summary><h2 class="mv-sec-title">正在热映 &amp; 未来计划</h2>
+    <p class="mv-sec-sub">现在正在映与已定档的院线新片，持续更新。</p></summary>
+    <div class="mv-soon">
+      <div class="mv-soon-item mv-soon-now"><div class="mv-soon-head"><span class="mv-soon-name">蜘蛛侠：崭新之日</span><span class="mv-soon-badge">正在热映</span></div><div class="mv-soon-date">2026-07-31</div><p class="mv-soon-note">MCU 第六阶段第 38 部，汤姆·赫兰德回归，「邻里英雄」基调重启，马克·鲁法洛饰绿巨人客串</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">复仇者联盟4：终局之战（重映）</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">2026-09-25</div><p class="mv-soon-note">院线重映并新增独家片段，专门铺垫《复联5》剧情（史蒂夫归还宝石、托尼经典台词）</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">复仇者联盟5：毁灭之日</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">2026-12-18</div><p class="mv-soon-note">罗素兄弟回归，小罗伯特·唐尼饰毁灭博士，集结复仇者 / 神奇四侠 / X战警 三大阵营</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">蜘蛛侠：超越宇宙</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">2027-06-18</div><p class="mv-soon-note">索尼动画（蜘蛛侠宇宙），平行宇宙三部曲终章，非 MCU 真人主线</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">复仇者联盟6：秘密战争</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">2027-12-17</div><p class="mv-soon-note">多元宇宙传奇收官之作，梳理纷乱时间线、开启英雄迭代新时代，与毁灭之日背靠背拍摄</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">恶灵骑士</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">2028（待定档）</div><p class="mv-soon-note">瑞恩·高斯林主演、肖恩·利维导演，划入 MCU 第七阶段，补齐暗黑超自然赛道</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">黑豹3</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">2028-12-15</div><p class="mv-soon-note">瑞恩·库格勒回归，大卫·荣松饰新一代黑豹特查拉二世，大画幅胶片打造史诗质感</p></div>
+      <div class="mv-soon-item mv-soon-soon"><div class="mv-soon-head"><span class="mv-soon-name">X战警（重启版）</span><span class="mv-soon-badge">待上映</span></div><div class="mv-soon-date">开发中·待 D23 揭晓</div><p class="mv-soon-note">已官宣开发并纳入第七阶段片单，具体阵容与档期留待 2026 年 8 月迪士尼 D23 博览会公布</p></div>
+    </div>
+  </details>
+
+  <!-- ===== 正在热映票房（每日自动更新） ===== -->
+  <details class="mv-sec" id="sec-boxoffice" open>
+    <summary><h2 class="mv-sec-title">正在热映票房 · 每日更新</h2>
+    <p class="mv-sec-sub">最新上映漫威电影实时票房，每日自动刷新（数据综合猫眼 / Box Office Mojo 等）。</p></summary>
+    <div id="mvBoxoffice" class="mv-bo">
+      <p class="mv-bo-loading">票房数据加载中…</p>
+    </div>
+    <p class="mv-bo-updated">最后更新：<span id="boUpdated">2026-08-19</span></p>
+  </details>
+
+  <!-- ===== 漫威每日资讯（每日自动更新 · 补全原先未显示的板块新闻） ===== -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin:24px 0 8px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <div class="mv-note">
+    <h3>关于本页</h3>
+    <ul>
+      <li>本页为<b>个人影迷手账</b>，全部以 emoji 与原创文字呈现，<b>不托管任何漫威官方剧照、海报或角色宣传图</b>，以此规避版权风险。</li>
+      <li>影片年份、阶段划分、观看顺序均为个人整理与偏好，<b>官方制作计划可能调整</b>，一切以官方最终上映为准。</li>
+      <li>英雄卡、评分、冷知识均为主观整理，如有出入欢迎指正。</li>
+      <li>参考资料：</li>
+    </ul>
+    <ul>
+    <li><a href="https://www.marvel.com/" target="_blank" rel="noopener noreferrer">Marvel 官方网站</a></li>
+    <li><a href="https://marvelcinematicuniverse.fandom.com/wiki/" target="_blank" rel="noopener noreferrer">漫威电影宇宙中文维基（粉丝整理）</a></li>
+    </ul>
+    <p style="margin-top:10px">最后更新时间：<span id="lastNewsUpdate">2026-08-19</span></p>
+  </div>
+
+</div>
+</main><footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script defer src="js/search.js"></script>
+<script defer src="js/app.js"></script>
+<script defer src="js/share.js"></script>
+<script defer src="js/marvel_boxoffice.js"></script>
+<script defer src="js/auto_news_loader.js"></script>
+<script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "漫威宇宙 · 龙兄观影手账 - 龙兄知识库",
+      "url": "https://longxiong.vip/marvel.html",
+      "description": "MCU 双轨观影指南、六阶段时间线、英雄档案卡、私人评分与冷知识。"
+    }
+  ]
+}
+</script>
+
+<script>(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.mv-tab'));
+  var rel=document.getElementById('mvRelease');
+  var sto=document.getElementById('mvStory');
+  if(!tabs.length||!rel||!sto)return;
+  tabs.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      tabs.forEach(function(x){x.classList.remove('active');});
+      btn.classList.add('active');
+      var kind=btn.getAttribute('data-order');
+      rel.style.display=kind==='release'?'block':'none';
+      sto.style.display=kind==='story'?'block':'none';
+    });
+  });
+  // 章节锚点：点击时自动展开目标板块并平滑滚动
+  var toc=document.querySelector('.mv-toc');
+  if(toc){
+    toc.addEventListener('click',function(e){
+      var a=e.target.closest('a');
+      if(!a)return;
+      var id=a.getAttribute('href');
+      if(id&&id.charAt(0)==='#'){
+        var sec=document.getElementById(id.slice(1));
+        if(sec){
+          if(sec.tagName==='DETAILS'){ sec.open=true; }
+          e.preventDefault();
+          sec.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      }
+    });
+  }
+})();</script>
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer></script>
+<script src="js/bookmark.js" defer></script>
+<script src="js/auto-collapse.js?v=20260824" defer></script>
+</body>
+</html>

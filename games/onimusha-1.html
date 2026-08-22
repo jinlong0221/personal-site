@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>鬼武者 | 龙兄的游戏库2026实测避坑｜龙兄知识库</title>
+<meta name="keywords" content="鬼武者 | 龙兄的游戏库,2026实测避坑,实测溯源,龙兄知识库">
+
+<meta name="description" content="鬼武者 | 龙兄的游戏库2026实测避坑：实测溯源、实操图文、避坑指南。适合鬼武者 | 龙兄的游戏库爱好者与从业者参考，掌握核心要点、规避常见误区。">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',h>=6&&h<18?'light':'dark')}}catch(e){}})();</script>
+<link rel="preload" href="../js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="../css/style.css?v=20260823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="../css/style.css?v=20260823"></noscript>
+<style>
+:root{--gc:#1a1a2e;--ga:#16213e;--ge:#0f3460;--gn:#e94560;--gs:#1db954;}
+[data-theme="light"]{--gbg:#f5f5f7;--gcard:#ffffff;--gt:#1a1a2e;--gm:#555;--gb:#e0e0e0;--gbg2:#f0f0f5;}
+[data-theme="dark"]{--gbg:#0d0d1a;--gcard:#1a1a2e;--gt:#f0f0f0;--gm:#a0a0b0;--gb:#2a2a3e;--gbg2:#141420;}
+body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}
+.breadcrumb{max-width:1100px;margin:20px auto 0;padding:0 24px;font-size:0.95rem;color:var(--gm)}
+.breadcrumb a{color:var(--gm);text-decoration:none}
+.breadcrumb a:hover{color:var(--gt)}
+.breadcrumb span{color:var(--gm);margin:0 8px}
+.detail-hero{max-width:1100px;margin:20px auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:700px){.detail-hero{grid-template-columns:1fr;}}
+.detail-cover{border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(233,69,96,0.2);cursor:zoom-in}
+.detail-cover img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.game-title-wrap h1{font-size:2.2rem;font-weight:800;margin:0 0 14px;color:var(--gt);letter-spacing:1px}
+.game-title-wrap .en-title{font-size:1rem;color:var(--gm);font-weight:400;margin-bottom:16px;display:block}
+.game-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.badge{background:var(--gcard);border:1px solid var(--gb);color:var(--gm);padding:5px 14px;border-radius:8px;font-size:0.95rem}
+.badge.platform{background:var(--ge);color:#fff;border:none}
+.badge.status-playing{background:#2ecc71;color:#fff;border:none}
+.badge.status-completed{background:#3498db;color:#fff;border:none}
+.badge.status-paused{background:#f39c12;color:#fff;border:none}
+.badge.status-dropped{background:#e74c3c;color:#fff;border:none}
+.info-table{width:100%;border-collapse:collapse;background:var(--gcard);border:1px solid var(--gb);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.info-table th,.info-table td{padding:11px 16px;text-align:left;border-bottom:1px solid var(--gb);font-size:0.98rem}
+.info-table th{background:var(--gc);color:#fff;width:100px}
+.info-table tr:last-child td{border-bottom:none}
+.rating{display:flex;align-items:center;gap:8px;font-size:1.1rem}
+.stars{color:#f39c12;letter-spacing:2px}
+.detail-section{max-width:1100px;margin:0 auto;padding:0 24px 40px}
+.section-label{font-size:1.2rem;color:var(--gc);letter-spacing:2px;margin:32px 0 14px;font-weight:700;border-left:4px solid var(--gn);padding-left:12px}
+.desc-box{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:20px 24px;font-size:1.05rem;line-height:1.85;color:var(--gt)}
+.desc-box p{margin:0 0 12px;text-indent:2em}
+.desc-box p:last-child{margin-bottom:0}
+.screenshot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:8px}
+.screenshot-item{border-radius:10px;overflow:hidden;border:1px solid var(--gb);cursor:zoom-in}
+.screenshot-item img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;transition:transform 0.2s}
+.screenshot-item:hover img{transform:scale(1.03)}
+.gameplay-notes{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:20px 24px}
+.gameplay-notes h3{font-size:1.1rem;margin:0 0 14px;color:var(--gt)}
+.gameplay-notes ul{margin:0;padding-left:20px;color:var(--gt);line-height:2}
+.gameplay-notes li{margin-bottom:6px}
+.gameplay-notes li:last-child{margin-bottom:0}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+@media(max-width:600px){.pros-cons{grid-template-columns:1fr}.detail-hero h1{font-size:1.7rem}.screenshot-grid{grid-template-columns:1fr}}
+.pros-box{background:#1db95415;border:1px solid #1db95440;border-radius:10px;padding:16px 20px}
+.cons-box{background:#e74c3c15;border:1px solid #e74c3c40;border-radius:10px;padding:16px 20px}
+.pros-box h4,.cons-box h4{font-size:1rem;margin:0 0 10px;font-weight:700}
+.pros-box h4{color:#1db954}
+.cons-box h4{color:#e74c3c}
+.pros-box ul,.cons-box ul{margin:0;padding-left:18px;line-height:1.9;font-size:0.98rem}
+@media(max-width:600px){.pros-cons{grid-template-columns:1fr}.game-title-wrap h1{font-size:1.7rem}}
+</style>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link rel="canonical" href="https://longxiong.vip/games/onimusha-1.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="鬼武者 | 龙兄的游戏库2026实测避坑｜龙兄知识库">
+<meta property="og:description" content="鬼武者 | 龙兄的游戏库2026实测避坑：实测溯源、实操图文、避坑指南。适合鬼武者 | 龙兄的游戏库爱好者与从业者参考，掌握核心要点、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/games/onimusha-1.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="鬼武者 | 龙兄的游戏库">
+<meta name="twitter:description" content="鬼武者(Onimusha: Warlords) 卡普空战国生存动作游戏——以金城武饰演的明智左马介为主角，系列开山之作，现已通关。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
+<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="../calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='../sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="../herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="../herbs.html">中药材</a></li>
+      <li><a href="../health-tea.html">养生茶</a></li>
+      <li><a href="../bracelet.html">文玩手串</a></li>
+      <li><a href="../tesla.html">特斯拉</a></li>
+      <li><a href="../apple.html">苹果新品</a></li>
+      <li><a href="../marvel.html">漫威宇宙</a></li>
+      <li><a href="../xintan-weather.html">农田气象</a></li>
+      <li><a href="../zisha.html">紫砂艺术</a></li>
+      <li><a href="../console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="../travel.html">家庭旅行</a>
+          <a href="../tags.html">标签聚合</a>
+          <a href="../chinajoy.html">ChinaJoy 成长史</a>
+          <a href="../guanghui.html">光辉电力</a>
+          <a href="../gaokao.html">高考查分</a>
+          <a href="../pitfalls.html">踩坑记</a>
+          <a href="../typhoon.html">台风监测</a>
+          <a href="../games.html">游戏库</a>
+          <a href="../status-history.html">站点状态</a>
+          <a href="../about.html">关于本站</a>
+          <a href="../bookmarks.html">我的收藏</a>
+          <a href="../rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">首页</a>
+  <a href="../herbs/chenxiang.html">沉香鉴别</a>
+  <a href="../herbs.html">中药材</a>
+  <a href="../health-tea.html">养生茶</a>
+  <a href="../bracelet.html">文玩手串</a>
+  <a href="../tesla.html">特斯拉</a>
+  <a href="../apple.html">苹果新品</a>
+  <a href="../marvel.html">漫威宇宙</a>
+  <a href="../xintan-weather.html">农田气象</a>
+  <a href="../zisha.html">紫砂艺术</a>
+  <a href="../console.html">游戏主机</a>
+  <a href="../travel.html">家庭旅行</a>
+  <a href="../tags.html">标签聚合</a>
+  <a href="../chinajoy.html">ChinaJoy 成长史</a>
+  <a href="../guanghui.html">光辉电力</a>
+  <a href="../gaokao.html">高考查分</a>
+  <a href="../pitfalls.html">踩坑记</a>
+  <a href="../typhoon.html">台风监测</a>
+  <a href="../games.html">游戏库</a>
+  <a href="../status-history.html">站点状态</a>
+  <a href="../about.html">关于本站</a>
+  <a href="../bookmarks.html">我的收藏</a>
+  <a href="../rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+<div class="breadcrumb">
+<a href="../index.html">首页</a><span>›</span>
+<a href="../games.html">游戏库</a><span>›</span>
+<span>鬼武者</span>
+</div>
+
+<div class="detail-hero">
+<div class="detail-cover" data-lightbox data-caption="鬼武者" data-src="../img/games/onimusha-1-cover.webp"><img width="1280" height="720" src="../img/games/onimusha-1-cover.webp" alt="鬼武者 封面" loading="lazy" decoding="async"></div>
+<div class="game-title-wrap">
+<h1>鬼武者</h1>
+<div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
+<span class="en-title">Onimusha: Warlords</span>
+<div class="game-meta">
+<span class="badge platform">🎮 PS2</span>
+<span class="badge status-completed">✅ 已通关</span>
+<span class="badge">战国生存动作</span>
+<span class="badge">动作</span>
+<span class="badge">幻魔</span>
+</div>
+<div class="table-wrapper">
+<table class="info-table">
+<tr><th>开发商</th><td>Capcom（卡普空）</td></tr>
+<tr><th>发行商</th><td>Capcom（卡普空）</td></tr>
+<tr><th>发售日期</th><td>2001年1月（PS2）/ 高清重制版 2018年</td></tr>
+<tr><th>平台</th><td>PS2（原版）/ PS4·Switch·Xbox·PC（重制版）</td></tr>
+<tr><th>游玩时长</th><td>待补充</td></tr>
+<tr><th>游戏人数</th><td>单人</td></tr>
+</table>
+</div>
+<div class="rating">
+<span>龙兄评分：</span>
+<span class="stars">★★★★☆</span>
+<span style="color:var(--gm)">4.5/5</span>
+</div>
+</div>
+</div>
+
+<div class="detail-section">
+
+<div class="section-label">🎮 游戏简介</div>
+<div class="desc-box">
+<p>《鬼武者》（Onimusha: Warlords）是卡普空于 2001 年推出的战国生存动作游戏，系列开山之作。主角明智左马介秀信以演员金城武为原型并亲自配音，讲述其与幻魔（Genma）一族周旋、拯救被掳走的雪姬的战国奇谭。</p>
+<p>游戏把"战国版生化危机"的箱庭探索与爽快的刀剑战斗结合，首创"一闪"反击系统——看准敌人攻击瞬间按键，可一击秒杀并吸取其鬼力。这一设计后来成为整个系列的灵魂，也被无数动作游戏借鉴。</p>
+<p>作为 PS2 早期代表作，鬼武者凭借金城武的明星效应、浓郁的日本妖怪美学和流畅的剑戟演出，全球累计销量突破 200 万套，是卡普空动作线的重要基石。</p>
+</div>
+
+<div class="section-label">🕹️ 核心玩法</div>
+<div class="gameplay-notes">
+<h2>战斗系统</h2>
+<ul>
+<li><strong>一闪（Issen）</strong>：敌人攻击前摇瞬间按键，触发一闪秒杀并吸取鬼力，是输出的核心手段</li>
+<li><strong>鬼力 / 吸魂</strong>：击败敌人积攒鬼力，用于强化武器与释放鬼战术</li>
+<li><strong>武器（刀）</strong>：以日本刀近战为主，招式简洁但时机要求高</li>
+<li><strong>鬼战术</strong>：消耗鬼力发动范围攻击或特殊招式，应对群敌</li>
+</ul>
+<h2>探索要素</h2>
+<ul>
+<li><strong>箱庭关卡</strong>：类似生化危机的锁定场景，解谜与战斗交替</li>
+<li><strong>木札 / 道具</strong>：收集补给与线索推进流程</li>
+<li><strong>隐藏要素</strong>：多周目解锁更强力武器与结局</li>
+</ul>
+</div>
+
+<div class="section-label">⚔️ 系列定位</div>
+<div class="desc-box">
+<p>鬼武者开创了卡普空"战国奇幻动作"的一条独立产品线，与《生化危机》共享生存动作基因，却用日本刀与妖魔题材走出了截然不同的味道。左马介的故事在三代中横跨战国与现代巴黎，是系列最完整的叙事弧线。</p>
+<p style="margin-top:12px;font-size:0.95rem;color:var(--gm)">📌 想接着看续作，可前往 <a href="../games/onimusha-2.html" style="color:var(--blue-light)">鬼武者2</a> 与 <a href="../games/onimusha-3.html" style="color:var(--blue-light)">鬼武者3</a>。</p>
+</div>
+
+<div class="section-label">📸 游戏截图</div>
+<div class="screenshot-grid">
+<div class="screenshot-item" data-lightbox data-caption="鬼武者 实机截图 1" data-src="../img/games/onimusha-1-shot-1.webp"><img width="1600" height="900" src="../img/games/onimusha-1-shot-1.webp" alt="鬼武者 实机截图 1" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="鬼武者 实机截图 2" data-src="../img/games/onimusha-1-shot-2.webp"><img width="1600" height="900" src="../img/games/onimusha-1-shot-2.webp" alt="鬼武者 实机截图 2" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="鬼武者 实机截图 3" data-src="../img/games/onimusha-1-shot-3.webp"><img width="1600" height="900" src="../img/games/onimusha-1-shot-3.webp" alt="鬼武者 实机截图 3" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="鬼武者 实机截图 4" data-src="../img/games/onimusha-1-shot-4.webp"><img width="1600" height="900" src="../img/games/onimusha-1-shot-4.webp" alt="鬼武者 实机截图 4" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="鬼武者 实机截图 5" data-src="../img/games/onimusha-1-shot-5.webp"><img width="1600" height="900" src="../img/games/onimusha-1-shot-5.webp" alt="鬼武者 实机截图 5" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="鬼武者 实机截图 6" data-src="../img/games/onimusha-1-shot-6.webp"><img width="1600" height="900" src="../img/games/onimusha-1-shot-6.webp" alt="鬼武者 实机截图 6" loading="lazy" decoding="async"></div>
+</div>
+<p style="margin-top:12px;font-size:.9rem;color:var(--gm)">📸 以上为卡普空官方公开实机截图与宣传图（来源：PlayStation 商店页），版权归 Capcom 所有。</p>
+
+<div class="section-label">⚖️ 优缺点</div>
+<div class="pros-cons">
+<div class="pros-box">
+<h3>✅ 优点</h3>
+<ul>
+<li>一闪系统爽快且耐钻研</li>
+<li>金城武主演带来强代入感</li>
+<li>日本妖怪美术氛围浓郁</li>
+<li>流程紧凑、节奏明快</li>
+<li>配乐与战国气质契合</li>
+</ul>
+</div>
+<div class="cons-box">
+<h3>❌ 缺点</h3>
+<ul>
+<li>原版视角与镜头偏固定</li>
+<li>迷宫偶尔容易卡解谜</li>
+<li>战斗深度相比续作较浅</li>
+<li>重制版主要是高清化，玩法未大改</li>
+</ul>
+</div>
+</div>
+
+<div class="section-label">💬 龙兄点评</div>
+<div class="desc-box">
+<p>鬼武者是我心里"战国动作"的启蒙作。一闪那个手感，按对的瞬间真的会上瘾——后来很多游戏都在抄这个设计，但卡普空自己做得最地道。</p>
+<p>金城武那张脸往主角上一放，当年简直降维打击，代入感拉满。剧情虽然不算多复杂，但幻魔、织田信长妖魔化这些改编够大胆，看得出卡普空想讲点不一样的战国故事。</p>
+<p><strong>缺点也有</strong>：原版的固定视角现在回头看有点古早，解谜偶尔让人摸不着头脑；战斗深度放到今天不算深。但作为开山之作，它的地位和爽快度都值得给高分。</p>
+<p><strong>适合人群：</strong>喜欢日本战国、刀剑动作、追求一击必杀爽感的玩家。</p>
+</div>
+
+</div>
+
+<footer style="text-align:center;padding:30px 20px;border-top:1px solid var(--border);color:var(--text-secondary);font-size:0.9rem;margin-top:20px" role="contentinfo">
+<p>龙兄知识库 · 让求知成为习惯 | <a href="../about.html" style="color:var(--text-secondary)">关于本站</a></p>
+<p style="margin-top:8px">
+<span style="font-size:13px;color:var(--text-muted)">访问 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次</span>
+<span style="font-size:13px;color:var(--text-muted);margin-left:16px;">访客 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人</span>
+</p>
+<p style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);">最后更新：2026-08-16</p>
+<p style="margin-top:6px;font-size:0.78rem;line-height:1.7;color:var(--text-muted);max-width:820px;margin-left:auto;margin-right:auto;"><a id="sources" class="src-anchor"></a>资料来源：<a href="https://store.playstation.com/zh-hant-hk/concept/231377" target="_blank" rel="noopener" style="color:var(--blue)">PlayStation 商店《鬼武者》页</a>（官方剧情设定与平台信息）、卡普空官方公开资料；通关流程、一闪手感与主观评价为本人一手游玩记录，不构成购买建议。（外部链接 2026-08-16 核验可达）</p>
+    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
+</footer>
+
+<script>
+(function(){var e=document.getElementById('navClock');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});setInterval(function(){var e=document.getElementById('navClock');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})},1000)})();
+function openLightbox(e){var s=e.querySelector?e.querySelector('img').src:e.src;var o=document.createElement('div');o.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';o.innerHTML='<img width="800" height="600" loading="lazy" src="'+s+'" alt="鬼武者详情图" style="max-width:92%;max-height:92vh;border-radius:8px;object-fit:contain" />';o.onclick=function(){document.body.removeChild(o)};document.body.appendChild(o);}
+</script>
+<script defer src="../js/search.js"></script>
+<script defer src="../js/share.js"></script>
+<script defer src="../js/app.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "鬼武者 | 龙兄的游戏库",
+      "url": "https://longxiong.vip/games/onimusha-1.html",
+      "description": "鬼武者(Onimusha: Warlords) 卡普空战国生存动作游戏——以金城武饰演的明智左马介为主角，系列开山之作，现已通关。"
+    }
+  ]
+}
+</script>
+<!-- Gitalk 评论（底部，第三方，存于 GitHub Issues；配置见 /js/gitalk-init.js） -->
+<div class="gitalk-container" aria-label="评论区"></div>
+<script src="/js/gitalk-init.js" defer></script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="../js/quick-toc.js" defer></script>
+<script src="../js/bookmark.js" defer></script>
+</body>
+</html>

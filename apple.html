@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略 -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>苹果新品 · 国内外全网实时监测详细科普｜龙兄知识库</title>
+<meta name="keywords" content="苹果新品 · 国内外全网实时监测,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="苹果新品 · 国内外全网实时监测详细科普：实测溯源、实操图文、避坑指南。适合苹果新品 · 国内外全网实时监测爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="苹果">
+<meta name="article-tags" content="苹果,新品,iPhone">
+<meta name="article-updated" content="2026-08-19">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:hidden;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:hidden;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="preload" href="css/style.css?v=20260823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260823"></noscript>
+<style>
+/* ===== 苹果新品板块专属样式 ===== */
+.ap-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:46px 28px 40px;text-align:center;
+  background:radial-gradient(120% 140% at 50% 0%,#2b2b2e 0%,#161617 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,255,255,.06);}
+.ap-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 18% 18%,rgba(255,255,255,.10),transparent 42%),radial-gradient(circle at 82% 82%,rgba(120,120,128,.18),transparent 50%);pointer-events:none}
+.ap-hero>*{position:relative;z-index:1}
+.ap-hero .ap-kicker{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:2px;color:#d6d6db;border:1px solid rgba(214,214,219,.35);border-radius:999px;padding:3px 14px;margin-bottom:14px}
+.ap-hero h1{font-size:2.15rem;color:#f5f5f7;margin-bottom:10px;line-height:1.3}
+.ap-hero p{max-width:680px;margin:0 auto;color:rgba(235,235,245,.78);font-size:.96rem;line-height:1.85}
+.ap-hero .ap-pulse{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:.78rem;color:#9be29b;background:rgba(64,200,64,.10);border:1px solid rgba(64,200,64,.32);padding:4px 12px;border-radius:999px}
+.ap-hero .ap-pulse .dot{width:8px;height:8px;border-radius:50%;background:#57d957;box-shadow:0 0 0 0 rgba(87,217,87,.6);animation:apPulse 1.8s infinite}
+@keyframes apPulse{0%{box-shadow:0 0 0 0 rgba(87,217,87,.55)}70%{box-shadow:0 0 0 8px rgba(87,217,87,0)}100%{box-shadow:0 0 0 0 rgba(87,217,87,0)}}
+
+.section{margin:34px 0 0}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:1.28rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid #c9a84c}
+.sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+.tip-box{background:var(--bg-secondary);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 16px;margin:14px 0;font-size:.88rem;color:var(--text-secondary);line-height:1.8}
+.tip-box b{color:var(--text)}
+
+/* 近期焦点网格 */
+.ap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:6px}
+.ap-card{background:var(--card);border:1px solid var(--border);border-top:3px solid #8e8e93;border-radius:12px;padding:16px 16px 14px;transition:transform .2s,box-shadow .2s}
+.ap-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.ap-card .ap-emoji{font-size:1.7rem}
+.ap-card h3{font-size:1.02rem;margin:6px 0 4px;color:var(--text)}
+.ap-card .ap-tag{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:8px;background:rgba(190,190,200,.14);color:#bdbdc6;margin-bottom:8px}
+.ap-card p{font-size:.84rem;color:var(--text-secondary);line-height:1.65}
+.ap-card .ap-r{font-size:.72rem;color:var(--text-muted);margin-top:8px}
+.ap-note{margin:28px 0 8px;padding:14px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+.ap-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
+.ap-note ul{margin:0;padding-left:18px}
+.ap-note a{color:var(--blue-light)}
+.ref-note{font-size:.76rem;color:var(--text-muted);margin-top:8px}
+@media(max-width:576px){.ap-hero{padding:32px 18px 28px}.ap-hero h1{font-size:1.55rem}.ap-grid{grid-template-columns:1fr}}
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link rel="canonical" href="https://longxiong.vip/apple.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="苹果新品 · 国内外全网实时监测详细科普｜龙兄知识库">
+<meta property="og:description" content="苹果新品 · 国内外全网实时监测详细科普：实测溯源、实操图文、避坑指南。适合苹果新品 · 国内外全网实时监测爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/apple.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="苹果新品 · 国内外全网实时监测 - 龙兄知识库">
+<meta name="twitter:description" content="苹果新品实时监测：每日自动检索国内外权威媒体与爆料，汇总 iPhone 18 系列、Apple Watch Series 12、AirPods Pro 3 等 2026 秋季发布会动态。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
+<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" onclick="location.href='sheyang.html'" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html" class="active">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+<main class="container" id="main-content" role="main">
+
+  <!-- 面包屑 -->
+  <div id="breadcrumb"></div>
+
+  <!-- ===== Hero ===== -->
+  <div class="ap-hero">
+    <span class="ap-kicker">APPLE NEW PRODUCTS · 实时监测</span>
+    <h1>🍎 苹果新品</h1>
+<p>国内外全网实时监测：每日自动检索权威媒体与爆料，汇总 iPhone 18 系列（含首款折叠 iPhone）、Apple Watch Series 12、AirPods Pro 3 等 2026 秋季发布会动态。传闻类信息均标注「待官方确认」。</p>
+    <span class="ap-pulse"><span class="dot"></span>每日自动更新 · 实时追踪</span>
+  </div>
+
+  <!-- ===== 本板块说明 ===== -->
+  <div class="section">
+    <h2 class="sec-title">📌 这个板块怎么用</h2>
+    <p class="sec-sub">它替你盯着苹果新品的全网消息，而不是让你自己刷爆料。</p>
+    <div class="tip-box">
+      <p>🍎 <b>监测范围：</b>聚焦<b>苹果新品</b>——以 2026 秋季发布会（iPhone 18 系列）为核心，同时覆盖 Apple Watch、AirPods、Mac 等任何新硬件的动态。每天自动从<b>国内（财新/36氪/今日头条等）+ 海外（彭博社/9to5Mac/The Verge 等）</b>多源检索，交叉核对后沉淀到下方「每日自动更新」信息流。</p>
+      <p style="margin-top:8px;">⚠️ <b>阅读须知：</b>发布会前的配置、价格、日期绝大多数仍是<b>爆料/供应链消息</b>，本页一律标注「待官方确认」；<b>一切以苹果官方发布与官网为准</b>，不构成任何购买或投资建议。</p>
+    </div>
+  </div>
+
+  <!-- ===== 近期焦点（秋季发布会前瞻） ===== -->
+  <div class="section">
+    <h2 class="sec-title">🔥 近期焦点 · 2026 秋季发布会前瞻</h2>
+    <p class="sec-sub">以下为多方爆料综合整理，具体以苹果官方为准（均待官方确认）。</p>
+    <div class="ap-grid">
+      <div class="ap-card"><div class="ap-emoji">📱</div><span class="ap-tag">iPhone 18 Pro</span><h3>A20 Pro 旗舰</h3><p>台积电 2nm 工艺 A20 Pro 芯片、主摄首搭物理可变光圈、灵动岛缩小约 35%、新增「暗樱桃」配色，约 1050–1250 美元起。</p><div class="ap-r">爆料 · 待官方确认</div></div>
+      <div class="ap-card"><div class="ap-emoji">📸</div><span class="ap-tag">iPhone 18 Pro Max</span><h3>最大电池</h3><p>6.9″ 屏、约 5000mAh（iPhone 史上最大电池）、可变光圈三摄、A20 Pro 芯片；机身略增厚以容纳大电池。</p><div class="ap-r">爆料 · 待官方确认</div></div>
+      <div class="ap-card"><div class="ap-emoji">📲</div><span class="ap-tag">首款折叠 iPhone</span><h3>Ultra / Fold</h3><p>网传 iPhone Ultra / iPhone Fold：书本式内折、约 7.8″ 内屏、侧边 Touch ID，国行或破 1.4 万元（约 $2000–2500）。</p><div class="ap-r">爆料 · 待官方确认</div></div>
+      <div class="ap-card"><div class="ap-emoji">⌚</div><span class="ap-tag">Apple Watch</span><h3>Series 12 / Ultra 4</h3><p>2026 款以芯片、续航与健康功能为主，外观无重大改动；SE 新一代或同步登场。功能上线时间待官方确认。</p><div class="ap-r">爆料 · 待官方确认</div></div>
+      <div class="ap-card"><div class="ap-emoji">🔄</div><span class="ap-tag">错峰发布</span><h3>标准版推迟</h3><p>多方供应链消息：9 月仅上 Pro 与折叠，标准版 iPhone 18 / 18 Air 或推迟至 2027 春季；原因指向 2nm 产能与折叠良率。</p><div class="ap-r">爆料 · 待官方确认</div></div>
+      <div class="ap-card"><div class="ap-emoji">🗓️</div><span class="ap-tag">发布会时间</span><h3>预计 9 月 8–9 日</h3><p>彭博社古尔曼等多方爆料指向 2026-09-08 至 09-09；具体日期以苹果官方邀请函为准。</p><div class="ap-r">爆料 · 待官方确认</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 每日自动更新（苹果新品资讯流） ===== -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+      <div class="hc-left"><span class="hc-icon">🍎</span><span class="hc-title">每日自动更新 · 苹果新品资讯</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <!-- ===== 资料来源 ===== -->
+  <div class="tip-box" style="margin-top:24px;">
+    <p>📌 <strong><a id="sources" class="src-anchor"></a>资料来源：</strong>彭博社、环球网科技、智通财经/和讯网、今日头条、The Mobile Times 等国内外公开报道与爆料人信息（2026-08）。价格、配置、发布日期均为爆料综合，已交叉核对；涉「预计 / 待官方确认」节点已明确标注，不构成购买或投资建议。</p>
+    <p class="ref-note">正文中的具体参数、价格与日期均引自上方来源，数据截至 2026-08-15，持续每日更新。</p>
+  </div>
+
+  <!-- 底部链接 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="index.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回首页</a>
+  </div>
+
+</main>
+
+<script defer src="js/search.js"></script>
+<script defer src="js/app.js"></script>
+<script defer src="js/share.js"></script>
+<script defer src="js/auto_news_loader.js"></script>
+<script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+</script>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
+<p style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);">最后更新：2026-08-19</p>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "苹果新品 · 国内外全网实时监测 - 龙兄知识库",
+      "url": "https://longxiong.vip/apple.html",
+      "description": "苹果新品实时监测：每日自动检索国内外权威媒体与爆料，汇总 iPhone 18 系列、Apple Watch Series 12、AirPods Pro 3 等 2026 秋季发布会动态。"
+    }
+  ]
+}
+</script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer></script>
+<script src="js/bookmark.js" defer></script>
+<script src="js/auto-collapse.js?v=20260824" defer></script>
+</body>
+</html>

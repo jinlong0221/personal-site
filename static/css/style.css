@@ -2252,7 +2252,8 @@ p.plot-text {
 /* 5. 导航栏滚动效果 */
 .navbar.scrolled {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 /* 6. 数字动态效果 */
@@ -5212,12 +5213,21 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .sheyang-zone{ border-radius:14px; }
 .lx-pick{ border-radius:14px; }
 
-/* 导航更透、更细毛玻璃 */
-.navbar{
-  backdrop-filter:blur(16px) saturate(180%);
-  -webkit-backdrop-filter:blur(16px) saturate(180%);
-  background:color-mix(in srgb,var(--nav-bg) 90%,transparent);
-  border-bottom-color:color-mix(in srgb,var(--rule-soft) 55%,transparent);
+/* 导航栏毛玻璃（托尼·视觉美化：克制版，规避暖色刺眼，含安全回退） */
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  .navbar{
+    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(12px);
+    background:color-mix(in srgb,var(--nav-bg) 72%,transparent);
+    border-bottom:1px solid color-mix(in srgb,var(--accent-color) 22%,var(--rule-soft));
+  }
+}
+@media (prefers-reduced-transparency:reduce){
+  .navbar{
+    -webkit-backdrop-filter:none; backdrop-filter:none;
+    background:var(--nav-bg);
+    border-bottom:1px solid var(--rule-soft);
+  }
 }
 
 /* 滚动渐显：html.js 前缀兜底——无 JS（或 html 未标记 js）时所有内容默认可见，

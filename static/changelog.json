@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026-08-19",
+    "content": "【通用倒计时组件 countdown.js】新增 static/js/countdown.js（与 lunar 引擎解耦）：支持 data-target（绝对日期）/data-annual（MM-DD 每年重复）/data-dates（显式候选列表，适配春节/端午/中秋等农历浮动节日）三种模式，自动每 60 秒校准、临近 30 天高亮。首页新增「近期节点」倒计时条（元旦/春节/清明/劳动/端午/中秋/国庆/高考）；高考页改为「距下届高考还有N天」；ChinaJoy 页新增「下一届 ChinaJoy（预计）」倒计时。"
+  },
+  {
+    "date": "2026-08-19",
+    "content": "【万年历·拼假攻略 + 多年份节假日】新增「拼假攻略」模块：依据当年国务院办公厅放假安排，自动演算「请几天 → 连休几天」的前拼/后拼最优方案（含补班日阻断逻辑）。同时补全 2024、2025 法定节假日数据（含调休补班），与既有 2026 数据形成三年连贯；2027 及以后待国务院公布后自动更新。"
+  },
+  {
     "date": "2026-08-22",
     "content": "【首页 Hero 轮播 indicator 精致化】用户反馈底部滚动条/分页点太大且 low。根因：全局 button 样式设置 min-width/min-height:44px，而 .lx-hero-dot 未覆盖，导致 indicator 被撑成 44×44px 大色块。修复：① 将圆点 indicator 改为现代细横线（inactive 18×3px，active 28×3px 金色胶囊）；② .lx-hero-dot 显式覆盖 min-width/min-height 为 0，解除全局 button 样式入侵；③ dots 容器加磨砂玻璃 pill 背景，与 CTA 按钮拉开间距；④ 移动端 hero 最小高度 260→360px，body 底部内边距加大，避免 CTA 与 indicator 重叠。同步 static/css/style.css 与根 css/style.css，全站 style.css?v= 20260821→20260822。"
   },

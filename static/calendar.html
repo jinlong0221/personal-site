@@ -55,8 +55,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .skip-link:focus{top:0}
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.container{padding:0 16px}footer{padding:24px 16px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-  <link rel="preload" href="css/style.css?v=20260822" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="css/style.css?v=20260822"></noscript>
+  <link rel="preload" href="css/style.css?v=20260819" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/style.css?v=20260819"></noscript>
   <style>
     /* ===== 万年历专用样式 ===== */
     :root {
@@ -206,6 +206,30 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .mini-table td.mini-today { background:var(--cal-accent); color:#fff; border-radius:4px; }
     .mini-table td.mini-holiday { color:var(--cal-yi); font-weight:700; }
     .year-note { text-align:center; color:var(--cal-muted); font-size:.8rem; margin-top:1rem; }
+
+    /* 拼假攻略 */
+    .cal-pinjia { margin-top:1.4rem; }
+    .pinjia-sub { color:var(--cal-muted); font-size:.84rem; margin:.35rem 0 1rem; line-height:1.65; }
+    .pinjia-controls { display:flex; align-items:center; gap:.6rem; margin-bottom:1.1rem; flex-wrap:wrap; }
+    .pinjia-controls label { color:var(--cal-text); font-size:.9rem; }
+    .pinjia-controls .cal-select { background:var(--cal-bg); border:1px solid var(--cal-border); color:var(--cal-text); padding:.42rem .75rem; border-radius:8px; font-family:inherit; font-size:.9rem; cursor:pointer; }
+    .pinjia-controls .cal-select:focus { outline:none; border-color:var(--cal-accent); }
+    .pinjia-list { display:flex; flex-direction:column; gap:1rem; }
+    .pinjia-card { border:1px solid var(--cal-border); border-radius:14px; background:var(--cal-bg); padding:1rem 1.1rem; }
+    .pinjia-card-head { display:flex; align-items:baseline; justify-content:space-between; gap:.8rem; flex-wrap:wrap; }
+    .pinjia-name { font-size:1.05rem; font-weight:700; color:var(--cal-accent); }
+    .pinjia-range { font-size:.82rem; color:var(--cal-muted); }
+    .pinjia-opts { display:flex; gap:.8rem; flex-wrap:wrap; margin-top:.85rem; }
+    .pinjia-opt { flex:1; min-width:210px; padding:.7rem .9rem; border-radius:11px; border:1px solid var(--cal-border); background:rgba(201,168,76,0.05); }
+    .pinjia-opt .lab { font-size:.78rem; color:var(--cal-muted); }
+    .pinjia-opt .big { font-size:1.05rem; font-weight:800; color:var(--cal-accent); margin-top:.25rem; }
+    .pinjia-opt .big b { font-size:1.5rem; margin:0 .12rem; }
+    .pinjia-opt .desc { font-size:.76rem; color:var(--cal-muted); margin-top:.35rem; line-height:1.55; }
+    .pinjia-opt.best { border-color:var(--cal-accent); box-shadow:0 0 0 1px var(--cal-accent) inset; background:rgba(201,168,76,0.10); }
+    .pinjia-opt.best .lab::after { content:' · 推荐'; color:var(--cal-accent); font-weight:700; }
+    .pinjia-none { color:var(--cal-muted); font-size:.9rem; padding:.4rem 0; line-height:1.6; }
+    .pinjia-foot { color:var(--cal-muted); font-size:.78rem; margin-top:1.1rem; line-height:1.65; }
+    @media (max-width:560px){ .pinjia-opt{ min-width:100%; } }
 
     .cal-table td .tag.legal-holiday { background:rgba(39,174,96,0.18); color:var(--cal-yi); font-weight:700; }
     .cal-table td .tag.legal-work { background:rgba(255,140,0,0.16); color:var(--orange); font-weight:700; }
@@ -411,6 +435,19 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       <div class="year-grid" id="yearGrid"></div>
       <p class="year-note" id="yearNote"></p>
     </section>
+
+    <!-- 拼假攻略 -->
+    <section class="cal-pinjia">
+      <h2 class="section-title">🧳 拼假攻略</h2>
+      <p class="pinjia-sub">依据当年国务院办公厅放假安排，自动演算「请几天 → 连休几天」的最优方案。绿色为放假、橙色为补班日（补班为法定工作日，不可请假，会阻断拼假链）。</p>
+      <div class="pinjia-controls">
+        <label for="pinjiaYear">选择年份</label>
+        <select id="pinjiaYear" class="cal-select"></select>
+      </div>
+      <div class="pinjia-list" id="pinjiaList"></div>
+      <p class="pinjia-foot" id="pinjiaFoot"></p>
+    </section>
+
     <section style="margin:28px 0 4px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
     <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>
     <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
@@ -949,9 +986,41 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     }
 
     // ========== 8.6 新增：法定节假日 / 调休（逐年数据；缺数据年份不标注） ==========
-    // 来源：国务院办公厅每年放假安排通知。2026 采用 国办发明电〔2025〕7号 原文。
+    // 来源：国务院办公厅每年放假安排通知。
+    //   2024 → 国办发明电〔2023〕7号；2025 → 国办发明电〔2024〕11号；2026 → 国办发明电〔2025〕7号。
+    //   2027 及以后尚未由国务院办公厅公布，暂缺（保持"实测溯源"，不硬编码未发布数据）。
     // type: 'holiday' 放假 / 'work' 调休补班
     var LEGAL_HOLIDAYS = {
+      2024: [
+        {date:'01-01',type:'holiday',name:'元旦'},
+        {date:'02-04',type:'work',name:'补班'},
+        {date:'02-10',type:'holiday',name:'春节'},{date:'02-11',type:'holiday',name:'春节'},{date:'02-12',type:'holiday',name:'春节'},{date:'02-13',type:'holiday',name:'春节'},{date:'02-14',type:'holiday',name:'春节'},{date:'02-15',type:'holiday',name:'春节'},{date:'02-16',type:'holiday',name:'春节'},{date:'02-17',type:'holiday',name:'春节'},
+        {date:'02-18',type:'work',name:'补班'},
+        {date:'04-04',type:'holiday',name:'清明'},{date:'04-05',type:'holiday',name:'清明'},{date:'04-06',type:'holiday',name:'清明'},
+        {date:'04-07',type:'work',name:'补班'},
+        {date:'04-28',type:'work',name:'补班'},
+        {date:'05-01',type:'holiday',name:'劳动节'},{date:'05-02',type:'holiday',name:'劳动节'},{date:'05-03',type:'holiday',name:'劳动节'},{date:'05-04',type:'holiday',name:'劳动节'},{date:'05-05',type:'holiday',name:'劳动节'},
+        {date:'05-11',type:'work',name:'补班'},
+        {date:'06-10',type:'holiday',name:'端午'},
+        {date:'09-14',type:'work',name:'补班'},
+        {date:'09-15',type:'holiday',name:'中秋'},{date:'09-16',type:'holiday',name:'中秋'},{date:'09-17',type:'holiday',name:'中秋'},
+        {date:'09-29',type:'work',name:'补班'},
+        {date:'10-01',type:'holiday',name:'国庆'},{date:'10-02',type:'holiday',name:'国庆'},{date:'10-03',type:'holiday',name:'国庆'},{date:'10-04',type:'holiday',name:'国庆'},{date:'10-05',type:'holiday',name:'国庆'},{date:'10-06',type:'holiday',name:'国庆'},{date:'10-07',type:'holiday',name:'国庆'},
+        {date:'10-12',type:'work',name:'补班'}
+      ],
+      2025: [
+        {date:'01-01',type:'holiday',name:'元旦'},
+        {date:'01-26',type:'work',name:'补班'},
+        {date:'01-28',type:'holiday',name:'春节'},{date:'01-29',type:'holiday',name:'春节'},{date:'01-30',type:'holiday',name:'春节'},{date:'01-31',type:'holiday',name:'春节'},{date:'02-01',type:'holiday',name:'春节'},{date:'02-02',type:'holiday',name:'春节'},{date:'02-03',type:'holiday',name:'春节'},{date:'02-04',type:'holiday',name:'春节'},
+        {date:'02-08',type:'work',name:'补班'},
+        {date:'04-04',type:'holiday',name:'清明'},{date:'04-05',type:'holiday',name:'清明'},{date:'04-06',type:'holiday',name:'清明'},
+        {date:'04-27',type:'work',name:'补班'},
+        {date:'05-01',type:'holiday',name:'劳动节'},{date:'05-02',type:'holiday',name:'劳动节'},{date:'05-03',type:'holiday',name:'劳动节'},{date:'05-04',type:'holiday',name:'劳动节'},{date:'05-05',type:'holiday',name:'劳动节'},
+        {date:'05-31',type:'holiday',name:'端午'},{date:'06-01',type:'holiday',name:'端午'},{date:'06-02',type:'holiday',name:'端午'},
+        {date:'09-28',type:'work',name:'补班'},
+        {date:'10-01',type:'holiday',name:'国庆中秋'},{date:'10-02',type:'holiday',name:'国庆中秋'},{date:'10-03',type:'holiday',name:'国庆中秋'},{date:'10-04',type:'holiday',name:'国庆中秋'},{date:'10-05',type:'holiday',name:'国庆中秋'},{date:'10-06',type:'holiday',name:'国庆中秋'},{date:'10-07',type:'holiday',name:'国庆中秋'},{date:'10-08',type:'holiday',name:'国庆中秋'},
+        {date:'10-11',type:'work',name:'补班'}
+      ],
       2026: [
         {date:'01-01',type:'holiday',name:'元旦'},{date:'01-02',type:'holiday',name:'元旦'},{date:'01-03',type:'holiday',name:'元旦'},
         {date:'01-04',type:'work',name:'补班'},
@@ -1157,6 +1226,125 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         : (year + '年法定节假日数据待补充（仅显示农历与节气；逐年数据随国务院通知更新）');
     }
 
+    // ========== 8.11b 新增：拼假攻略（基于 LEGAL_HOLIDAYS 确定性演算） ==========
+    function pjDow(y, m, d) { return new Date(y, m - 1, d).getDay(); } // 0=周日
+    function pjIsHoliday(y, m, d) {
+      var arr = LEGAL_HOLIDAYS[y]; if (!arr) return false;
+      var k = (m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+      for (var i=0;i<arr.length;i++) if (arr[i].date===k && arr[i].type==='holiday') return true;
+      return false;
+    }
+    function pjIsBuBan(y, m, d) {
+      var arr = LEGAL_HOLIDAYS[y]; if (!arr) return false;
+      var k = (m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+      for (var i=0;i<arr.length;i++) if (arr[i].date===k && arr[i].type==='work') return true;
+      return false;
+    }
+    function pjAdd(y, m, d, n) {
+      var t = new Date(y, m - 1, d); t.setDate(t.getDate() + n);
+      return { y:t.getFullYear(), m:t.getMonth()+1, d:t.getDate() };
+    }
+    function pjStr(o) { return o.y + '-' + (o.m<10?'0':'')+o.m + '-' + (o.d<10?'0':'')+o.d; }
+
+    function computePinjia(year) {
+      var arr = LEGAL_HOLIDAYS[year];
+      if (!arr) return [];
+      var hol = arr.filter(function(x){ return x.type==='holiday'; })
+        .map(function(x){ return { m:+x.date.slice(0,2), d:+x.date.slice(3,5), name:x.name }; })
+        .sort(function(a,b){ return (a.m-b.m) || (a.d-b.d); });
+      // 合并同名连续段
+      var groups = [];
+      for (var i=0;i<hol.length;i++) {
+        var cur = hol[i];
+        if (groups.length) {
+          var g = groups[groups.length-1];
+          if (g.name === cur.name) {
+            var last = g.days[g.days.length-1];
+            var nx = pjAdd(year, last.m, last.d, 1);
+            if (nx.m===cur.m && nx.d===cur.d) { g.days.push(cur); continue; }
+          }
+        }
+        groups.push({ name:cur.name, days:[cur], y:year });
+      }
+      var out = [];
+      groups.forEach(function(g) {
+        var s = g.days[0], e = g.days[g.days.length-1];
+        var len = g.days.length;
+        // 前拼：从假期前一日倒推
+        var fl=0, fw=0, d = pjAdd(year, s.m, s.d, -1);
+        while (true) {
+          if (pjIsBuBan(d.y,d.m,d.d)) break;
+          var w = pjDow(d.y,d.m,d.d);
+          if (w===0) { fw += 2; break; }   // 遇周日→含周六+周日
+          if (w===6) { fw += 1; break; }   // 遇周六→仅当天
+          fl++; d = pjAdd(d.y,d.m,d.d,-1);
+        }
+        // 后拼：从假期后一日顺推
+        var bl=0, bw=0, d2 = pjAdd(year, e.m, e.d, 1);
+        while (true) {
+          if (pjIsBuBan(d2.y,d2.m,d2.d)) break;
+          var w2 = pjDow(d2.y,d2.m,d2.d);
+          if (w2===0) { bw += 1; break; }  // 遇周日→仅当天
+          if (w2===6) { bw += 2; break; }  // 遇周六→含周六+周日
+          bl++; d2 = pjAdd(d2.y,d2.m,d2.d,1);
+        }
+        out.push({
+          name:g.name,
+          range: s.m + '/' + s.d + '–' + e.m + '/' + e.d,
+          len:len,
+          front:{ leave:fl, weekend:fw, total: len + fl + fw },
+          back:{ leave:bl, weekend:bw, total: len + bl + bw }
+        });
+      });
+      return out;
+    }
+
+    function renderPinjia(year) {
+      var list = document.getElementById('pinjiaList');
+      var foot = document.getElementById('pinjiaFoot');
+      var data = computePinjia(year);
+      if (!data.length) {
+        list.innerHTML = '<p class="pinjia-none">' + year + ' 年法定节假日数据暂缺，拼假攻略待国务院放假安排公布后自动生成。</p>';
+        foot.textContent = '';
+        return;
+      }
+      var html = '';
+      data.forEach(function(g) {
+        var frontBest = g.front.total >= g.back.total;
+        var fb = g.front.leave > 0 ? g.front : null;
+        var bb = g.back.leave > 0 ? g.back : null;
+        if (!fb && !bb) {
+          html += '<div class="pinjia-card"><div class="pinjia-card-head">'
+            + '<span class="pinjia-name">' + g.name + '</span>'
+            + '<span class="pinjia-range">' + g.range + '（' + g.len + '天）</span></div>'
+            + '<p class="pinjia-none" style="margin-top:.6rem">假期已包含周末，无需请假即可连休 ' + g.len + ' 天。</p></div>';
+          return;
+        }
+        html += '<div class="pinjia-card"><div class="pinjia-card-head">'
+          + '<span class="pinjia-name">' + g.name + '</span>'
+          + '<span class="pinjia-range">' + g.range + '（' + g.len + '天）</span></div>'
+          + '<div class="pinjia-opts">';
+        if (fb) {
+          html += pinjiaOpt('前拼（假期前请假）', fb, !frontBest ? 'best' : '');
+        }
+        if (bb) {
+          html += pinjiaOpt('后拼（假期后请假）', bb, frontBest ? 'best' : '');
+        }
+        html += '</div></div>';
+      });
+      list.innerHTML = html;
+      foot.textContent = '说明：计算以国务院公布的放假与补班安排为输入，按「请假天数 + 相邻周末 + 假期本身」推导最大连休天数；不含事假/年假重叠、单位实际排班等情形，仅供参考。';
+    }
+    function pinjiaOpt(lab, opt, bestCls) {
+      var leaveTxt = opt.leave + ' 天';
+      var weekendTxt = opt.weekend > 0 ? ('含周末 ' + opt.weekend + ' 天') : '无相邻周末';
+      return '<div class="pinjia-opt ' + bestCls + '">'
+        + '<div class="lab">' + lab + '</div>'
+        + '<div class="big">请 <b>' + opt.leave + '</b> 天 · 连休 <b>' + opt.total + '</b> 天</div>'
+        + '<div class="desc">' + weekendTxt + '，覆盖 ' + opt.leave + ' 个工作日 + ' + opt.weekend + ' 个周末 + ' + (opt.total - opt.leave - opt.weekend) + ' 天法定假期。</div>'
+        + '</div>';
+    }
+
     // ========== 8.12 新增：工具 UI 接线 ==========
     function fillSelect(sel, items) {
       sel.innerHTML = '';
@@ -1274,6 +1462,18 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       document.getElementById('yearNext').addEventListener('click', function(){ renderYearView(yearViewYear + 1); });
       document.getElementById('yearToday').addEventListener('click', function(){ renderYearView((new Date()).getFullYear()); });
 
+      // 拼假攻略：年份选择 + 初始渲染
+      var pjSel = document.getElementById('pinjiaYear');
+      var pjYears = Object.keys(LEGAL_HOLIDAYS).map(Number).sort(function(a,b){ return b-a; });
+      pjYears.forEach(function(y){
+        var o = document.createElement('option'); o.value = y; o.textContent = y + ' 年'; pjSel.appendChild(o);
+      });
+      var pjCur = (new Date()).getFullYear();
+      if (pjYears.indexOf(pjCur) === -1 && pjYears.length) pjCur = pjYears[0];
+      pjSel.value = pjCur;
+      pjSel.addEventListener('change', function(){ renderPinjia(parseInt(pjSel.value,10)); });
+      renderPinjia(pjCur);
+
       // 初始渲染
       doSolar();
       doHours();
@@ -1359,6 +1559,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <div id="quickToc"></div>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
-<script src="js/auto-collapse.js?v=20260825" defer></script>
+<script src="js/auto-collapse.js?v=20260819" defer></script>
 </body>
 </html>

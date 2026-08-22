@@ -112,8 +112,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="preload" href="css/style.css?v=20260822" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.css?v=20260822"></noscript>
+<link rel="preload" href="css/style.css?v=20260819" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="css/style.css?v=20260819"></noscript>
 <style>
 .gk-hero{background:linear-gradient(135deg,#e53935 0%,#ff6f00 50%,#ffb300 100%);border-radius:16px;padding:40px 32px;color:#fff;text-align:center;margin:24px 0;position:relative;overflow:hidden}
 .gk-hero h1{font-size:2rem;margin:0 0 8px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
@@ -264,7 +264,7 @@ var _hmt = _hmt || [];
     <h1>🎓 2026 江苏高考查分</h1>
 <p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 最后更新：2026 年 8 月</p>
     <p style="font-size:1rem;opacity:.9;margin:0">成绩查询 · 分数线 · 志愿填报 · 一站到位</p>
-    <div class="countdown" id="countdown"></div>
+    <div class="countdown" id="countdown" data-countdown data-annual="06-07" data-label="距下届高考"></div>
   </div>
 
   <!-- 查分渠道 -->
@@ -621,28 +621,6 @@ var _hmt = _hmt || [];
 <script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
 <script defer src="js/search.js"></script>
-<script>
-// 倒计时：距离 2026-06-28 08:00（本科批志愿填报开始）
-(function(){
-  var target = new Date('2026-06-28T08:00:00+08:00').getTime();
-  var el = document.getElementById('countdown');
-  function tick(){
-    var now = Date.now();
-    var diff = target - now;
-    if(diff <= 0){
-      el.innerHTML = '📝 <span>志愿填报已开启！</span> 点击上方入口开始填报';
-      return;
-    }
-    var d = Math.floor(diff/86400000);
-    var h = Math.floor((diff%86400000)/3600000);
-    var m = Math.floor((diff%3600000)/60000);
-    el.innerHTML = '距离本科批志愿填报还有 <span>'+d+'</span>天<span>'+h+'</span>时<span>'+m+'</span>分';
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
-</script>
-
     <script defer src="js/share.js"></script>
   
 <script type="application/ld+json">
@@ -672,6 +650,7 @@ var _hmt = _hmt || [];
 <div id="quickToc"></div>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
-<script src="js/auto-collapse.js?v=20260825" defer></script>
+<script src="js/auto-collapse.js?v=20260819" defer></script>
+<script defer src="js/countdown.js?v=20260819"></script>
 </body>
 </html>

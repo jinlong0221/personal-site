@@ -456,11 +456,12 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     <section class="cal-overview" id="overviewCard" aria-live="polite"></section>
 
     <!-- 实用工具 -->
-    <section class="cal-tools">
+    <section class="cal-tools" data-ac data-ac-body="#calToolsBody" data-ac-head=".cal-sec-title" data-ac-default="open" data-ac-count="false">
       <header class="cal-sec">
         <span class="cal-sec-kicker">实用历法工具</span>
         <h2 class="cal-sec-title">实用工具</h2>
       </header>
+      <div class="cal-tools-body" id="calToolsBody">
       <div class="tool-tabs" role="tablist">
         <button type="button" class="tool-tab active" data-tab="convert">公历↔农历互查</button>
         <button type="button" class="tool-tab" data-tab="zodiac">生肖年龄</button>
@@ -507,6 +508,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
           <button type="button" id="hoursBtn" class="cal-mini-btn">查吉时</button>
         </div>
         <div class="hours-grid" id="hoursGrid"></div>
+      </div>
       </div>
     </section>
 

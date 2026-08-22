@@ -225,6 +225,9 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .pinjia-opt .big { font-size:1.05rem; font-weight:800; color:var(--cal-accent); margin-top:.25rem; }
     .pinjia-opt .big b { font-size:1.5rem; margin:0 .12rem; }
     .pinjia-opt .desc { font-size:.76rem; color:var(--cal-muted); margin-top:.35rem; line-height:1.55; }
+    .pinjia-opt .dates { font-size:.8rem; color:var(--cal-text); margin-top:.5rem; line-height:1.6; font-variant-numeric:tabular-nums; }
+    .pinjia-opt.free { border-style:dashed; background:rgba(201,168,76,0.02); }
+    .pinjia-opt.free .big b { color:var(--cal-text); }
     .pinjia-opt.best { border-color:var(--cal-accent); box-shadow:0 0 0 1px var(--cal-accent) inset; background:rgba(201,168,76,0.10); }
     .pinjia-opt.best .lab::after { content:' · 推荐'; color:var(--cal-accent); font-weight:700; }
     .pinjia-none { color:var(--cal-muted); font-size:.9rem; padding:.4rem 0; line-height:1.6; }
@@ -1319,17 +1322,18 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         : (year + '年法定节假日数据待补充（仅显示农历与节气；逐年数据随国务院通知更新）');
     }
 
-    // ========== 8.11b 新增：拼假攻略（基于 LEGAL_HOLIDAYS 确定性演算） ==========
+    // ========== 拼假攻略（基于 LEGAL_HOLIDAYS 确定性演算，已修正节假日穿透/误算与推荐高亮） ==========
     function pjDow(y, m, d) { return new Date(y, m - 1, d).getDay(); } // 0=周日
+    function pjKey(y, m, d) { return (m<10?'0':'')+m+'-'+(d<10?'0':'')+d; }
     function pjIsHoliday(y, m, d) {
       var arr = LEGAL_HOLIDAYS[y]; if (!arr) return false;
-      var k = (m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+      var k = pjKey(y, m, d);
       for (var i=0;i<arr.length;i++) if (arr[i].date===k && arr[i].type==='holiday') return true;
       return false;
     }
     function pjIsBuBan(y, m, d) {
       var arr = LEGAL_HOLIDAYS[y]; if (!arr) return false;
-      var k = (m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+      var k = pjKey(y, m, d);
       for (var i=0;i<arr.length;i++) if (arr[i].date===k && arr[i].type==='work') return true;
       return false;
     }
@@ -1338,6 +1342,65 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       return { y:t.getFullYear(), m:t.getMonth()+1, d:t.getDate() };
     }
     function pjStr(o) { return o.y + '-' + (o.m<10?'0':'')+o.m + '-' + (o.d<10?'0':'')+o.d; }
+    function pjIsWeekend(y, m, d) { var w = pjDow(y, m, d); return w===0 || w===6; }
+    function pjIsFree(y, m, d) { return (pjIsWeekend(y, m, d) && !pjIsBuBan(y, m, d)) || pjIsHoliday(y, m, d); }
+    function pjEarlier(a, b) { return a.y<b.y || (a.y===b.y && (a.m<b.m || (a.m===b.m && a.d<b.d))); }
+    function pjLater(a, b) { return a.y>b.y || (a.y===b.y && (a.m>b.m || (a.m===b.m && a.d>b.d))); }
+
+    // 向前扩展：从假期前一日倒推；遇补班阻断，遇周末/节假日则天然连休并停止（不跨多周桥接）
+    function pjExtendBack(y, m, d) {
+      if (pjIsBuBan(y, m, d)) return { leave:[], free:[] };
+      var leave = [], free = [], cur = { y:y, m:m, d:d };
+      while (true) {
+        if (pjIsBuBan(cur.y, cur.m, cur.d)) break;
+        if (pjIsHoliday(cur.y, cur.m, cur.d)) {           // 相邻节假日：天然延展，吃满连续免费段后停止
+          free.push(cur);
+          var prev = pjAdd(cur.y, cur.m, cur.d, -1);
+          while (pjIsFree(prev.y, prev.m, prev.d) && !pjIsBuBan(prev.y, prev.m, prev.d)) { free.push(prev); prev = pjAdd(prev.y, prev.m, prev.d, -1); }
+          break;
+        }
+        if (pjIsWeekend(cur.y, cur.m, cur.d) && !pjIsBuBan(cur.y, cur.m, cur.d)) {
+          if (pjDow(cur.y, cur.m, cur.d) === 0) {          // 周日：含前一周六（若非补班）
+            var sat = pjAdd(cur.y, cur.m, cur.d, -1);
+            if (pjIsWeekend(sat.y, sat.m, sat.d) && !pjIsBuBan(sat.y, sat.m, sat.d)) free.push(sat);
+            free.push(cur);
+          } else { free.push(cur); }                       // 周六：仅当天
+          break;
+        }
+        leave.push(cur); cur = pjAdd(cur.y, cur.m, cur.d, -1);
+      }
+      return { leave:leave, free:free };
+    }
+    // 向后扩展：从假期后一日顺推，逻辑与前向对称
+    function pjExtendFwd(y, m, d) {
+      if (pjIsBuBan(y, m, d)) return { leave:[], free:[] };
+      var leave = [], free = [], cur = { y:y, m:m, d:d };
+      while (true) {
+        if (pjIsBuBan(cur.y, cur.m, cur.d)) break;
+        if (pjIsHoliday(cur.y, cur.m, cur.d)) {
+          free.push(cur);
+          var nx = pjAdd(cur.y, cur.m, cur.d, 1);
+          while (pjIsFree(nx.y, nx.m, nx.d) && !pjIsBuBan(nx.y, nx.m, nx.d)) { free.push(nx); nx = pjAdd(nx.y, nx.m, nx.d, 1); }
+          break;
+        }
+        if (pjIsWeekend(cur.y, cur.m, cur.d) && !pjIsBuBan(cur.y, cur.m, cur.d)) {
+          if (pjDow(cur.y, cur.m, cur.d) === 6) {          // 周六：含后一周日（若非补班）
+            free.push(cur);
+            var sun = pjAdd(cur.y, cur.m, cur.d, 1);
+            if (pjIsWeekend(sun.y, sun.m, sun.d) && !pjIsBuBan(sun.y, sun.m, sun.d)) free.push(sun);
+          } else { free.push(cur); }
+          break;
+        }
+        leave.push(cur); cur = pjAdd(cur.y, cur.m, cur.d, 1);
+      }
+      return { leave:leave, free:free };
+    }
+    function pjRange(list) {
+      if (!list.length) return null;
+      var lo = list[0], hi = list[0];
+      list.forEach(function(x){ if (pjEarlier(x, lo)) lo = x; if (pjLater(x, hi)) hi = x; });
+      return [lo, hi];
+    }
 
     function computePinjia(year) {
       var arr = LEGAL_HOLIDAYS[year];
@@ -1363,35 +1426,42 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       groups.forEach(function(g) {
         var s = g.days[0], e = g.days[g.days.length-1];
         var len = g.days.length;
-        // 前拼：从假期前一日倒推
-        var fl=0, fw=0, d = pjAdd(year, s.m, s.d, -1);
-        while (true) {
-          if (pjIsBuBan(d.y,d.m,d.d)) break;
-          var w = pjDow(d.y,d.m,d.d);
-          if (w===0) { fw += 2; break; }   // 遇周日→含周六+周日
-          if (w===6) { fw += 1; break; }   // 遇周六→仅当天
-          fl++; d = pjAdd(d.y,d.m,d.d,-1);
-        }
-        // 后拼：从假期后一日顺推
-        var bl=0, bw=0, d2 = pjAdd(year, e.m, e.d, 1);
-        while (true) {
-          if (pjIsBuBan(d2.y,d2.m,d2.d)) break;
-          var w2 = pjDow(d2.y,d2.m,d2.d);
-          if (w2===0) { bw += 1; break; }  // 遇周日→仅当天
-          if (w2===6) { bw += 2; break; }  // 遇周六→含周六+周日
-          bl++; d2 = pjAdd(d2.y,d2.m,d2.d,1);
-        }
+        var ds = pjAdd(year, s.m, s.d, -1);
+        var de = pjAdd(year, e.m, e.d, 1);
+        var f = pjExtendBack(ds.y, ds.m, ds.d);
+        var b = pjExtendFwd(de.y, de.m, de.d);
+        var sD = { y:year, m:s.m, d:s.d }, eD = { y:year, m:e.m, d:e.d };
+        var fStart = sD; (f.leave.concat(f.free)).forEach(function(x){ if (pjEarlier(x, fStart)) fStart = x; });
+        var bEnd = eD; (b.leave.concat(b.free)).forEach(function(x){ if (pjLater(x, bEnd)) bEnd = x; });
+        function freeSplit(list){ var h=0,w=0; list.forEach(function(x){ if(pjIsHoliday(x.y,x.m,x.d)) h++; else if(pjIsWeekend(x.y,x.m,x.d)) w++; }); return {h:h,w:w}; }
+        var ff = freeSplit(f.free), bf = freeSplit(b.free);
         out.push({
           name:g.name,
           range: s.m + '/' + s.d + '–' + e.m + '/' + e.d,
           len:len,
-          front:{ leave:fl, weekend:fw, total: len + fl + fw },
-          back:{ leave:bl, weekend:bw, total: len + bl + bw }
+          front: {
+            leave:f.leave.length, free:f.free.length, freeHoliday:ff.h, freeWeekend:ff.w,
+            total: len + f.leave.length + f.free.length,
+            leaveRange: pjRange(f.leave), breakRange: [fStart, eD]
+          },
+          back: {
+            leave:b.leave.length, free:b.free.length, freeHoliday:bf.h, freeWeekend:bf.w,
+            total: len + b.leave.length + b.free.length,
+            leaveRange: pjRange(b.leave), breakRange: [sD, bEnd]
+          }
         });
       });
       return out;
     }
 
+    function pjMd(o, baseY) {
+      var p = (o.y && o.y !== baseY) ? (o.y + '/') : '';
+      return p + o.m + '/' + o.d;
+    }
+    function pjRangeStr(rng, baseY, days) {
+      if (!rng) return '';
+      return pjMd(rng[0], baseY) + '–' + pjMd(rng[1], baseY) + '（' + days + '天）';
+    }
     function renderPinjia(year) {
       var list = document.getElementById('pinjiaList');
       var foot = document.getElementById('pinjiaFoot');
@@ -1404,37 +1474,42 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       var html = '';
       data.forEach(function(g) {
         var frontBest = g.front.total >= g.back.total;
-        var fb = g.front.leave > 0 ? g.front : null;
-        var bb = g.back.leave > 0 ? g.back : null;
+        var fb = g.front.leave > 0 ? g.front : (g.front.free > 0 ? g.front : null);
+        var bb = g.back.leave > 0 ? g.back : (g.back.free > 0 ? g.back : null);
         if (!fb && !bb) {
+          var freeSide = g.front.free >= g.back.free ? g.front : g.back;
           html += '<div class="pinjia-card"><div class="pinjia-card-head">'
             + '<span class="pinjia-name">' + g.name + '</span>'
             + '<span class="pinjia-range">' + g.range + '（' + g.len + '天）</span></div>'
-            + '<p class="pinjia-none" style="margin-top:.6rem">假期已包含周末，无需请假即可连休 ' + g.len + ' 天。</p></div>';
+            + '<p class="pinjia-none" style="margin-top:.6rem">假期已含相邻周末/节假日，无需请假即可天然连休 ' + freeSide.total + ' 天（' + pjRangeStr(freeSide.breakRange, year, freeSide.total) + '）。</p></div>';
           return;
         }
         html += '<div class="pinjia-card"><div class="pinjia-card-head">'
           + '<span class="pinjia-name">' + g.name + '</span>'
           + '<span class="pinjia-range">' + g.range + '（' + g.len + '天）</span></div>'
           + '<div class="pinjia-opts">';
-        if (fb) {
-          html += pinjiaOpt('前拼（假期前请假）', fb, !frontBest ? 'best' : '');
-        }
-        if (bb) {
-          html += pinjiaOpt('后拼（假期后请假）', bb, frontBest ? 'best' : '');
-        }
+        if (fb) html += pinjiaOpt('前拼（假期前请假）', fb, frontBest ? 'best' : '', year);
+        if (bb) html += pinjiaOpt('后拼（假期后请假）', bb, !frontBest ? 'best' : '', year);
         html += '</div></div>';
       });
       list.innerHTML = html;
-      foot.textContent = '说明：计算以国务院公布的放假与补班安排为输入，按「请假天数 + 相邻周末 + 假期本身」推导最大连休天数；不含事假/年假重叠、单位实际排班等情形，仅供参考。';
+      foot.textContent = '说明：计算以国务院公布的放假与补班安排为输入，按「请假天数 + 相邻周末/节假日 + 假期本身」推导最大连休天数；相邻节假日自动衔接（如中秋接国庆），补班日会阻断拼假链；不含事假/年假重叠、单位实际排班等情形，仅供参考。';
     }
-    function pinjiaOpt(lab, opt, bestCls) {
-      var leaveTxt = opt.leave + ' 天';
-      var weekendTxt = opt.weekend > 0 ? ('含周末 ' + opt.weekend + ' 天') : '无相邻周末';
+    function pinjiaOpt(lab, opt, bestCls, year) {
+      if (opt.leave === 0) {
+        return '<div class="pinjia-opt free ' + bestCls + '">'
+          + '<div class="lab">' + lab + '</div>'
+          + '<div class="big">无需请假 · 天然连休 <b>' + opt.total + '</b> 天</div>'
+          + '<div class="dates">连休 ' + pjRangeStr(opt.breakRange, year, opt.total) + '</div>'
+          + '<div class="desc">' + (opt.freeHoliday>0 ? '假期与相邻节假日自然相连' : (opt.freeWeekend>0 ? '已包含相邻周末' : '假期本身即为连休')) + '，无需额外请假。</div>'
+          + '</div>';
+      }
+      var freeTxt = opt.freeWeekend > 0 ? ('含相邻周末 ' + opt.freeWeekend + ' 天') : (opt.freeHoliday > 0 ? ('衔接相邻假期 ' + opt.freeHoliday + ' 天') : '无相邻免费日');
       return '<div class="pinjia-opt ' + bestCls + '">'
         + '<div class="lab">' + lab + '</div>'
         + '<div class="big">请 <b>' + opt.leave + '</b> 天 · 连休 <b>' + opt.total + '</b> 天</div>'
-        + '<div class="desc">' + weekendTxt + '，覆盖 ' + opt.leave + ' 个工作日 + ' + opt.weekend + ' 个周末 + ' + (opt.total - opt.leave - opt.weekend) + ' 天法定假期。</div>'
+        + '<div class="dates">请假 ' + pjRangeStr(opt.leaveRange, year, opt.leave) + ' ｜ 连休 ' + pjRangeStr(opt.breakRange, year, opt.total) + '</div>'
+        + '<div class="desc">' + freeTxt + '，覆盖 ' + opt.leave + ' 个工作日 + ' + opt.free + ' 个相邻免费日 + ' + (opt.total - opt.leave - opt.free) + ' 天法定假期。</div>'
         + '</div>';
     }
 

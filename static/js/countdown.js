@@ -27,7 +27,14 @@
     var now = startOfToday();
     var dates = [];
 
-    if (el.hasAttribute('data-dates')) {
+    // 单值绝对日期（首页近期节点：data/festivals.json 驱动，每个节日一个具体发生日）
+    if (el.hasAttribute('data-date')) {
+      var sd = parseISO(el.getAttribute('data-date').trim());
+      if (sd) {
+        if (sd < now) return { date: sd, passed: true };
+        return { date: sd, passed: false };
+      }
+    } else if (el.hasAttribute('data-dates')) {
       el.getAttribute('data-dates').split(',').forEach(function (s) {
         var p = s.trim(); if (!p) return;
         var t = parseISO(p); if (t) dates.push(t);
@@ -40,16 +47,16 @@
       if (cand < now) cand = new Date(y + 1, m - 1, d);
       dates.push(cand);
     } else if (el.hasAttribute('data-target')) {
-      var t = parseISO(el.getAttribute('data-target').trim());
-      if (t) dates.push(t);
+      var t2 = parseISO(el.getAttribute('data-target').trim());
+      if (t2) dates.push(t2);
     }
 
     if (!dates.length) return null;
     dates.sort(function (a, b) { return a - b; });
     for (var i = 0; i < dates.length; i++) {
-      if (dates[i] >= now) return dates[i];
+      if (dates[i] >= now) return { date: dates[i], passed: false };
     }
-    return dates[dates.length - 1]; // 全部已过期 → 取最后一个
+    return { date: dates[dates.length - 1], passed: true }; // 全部已过期
   }
 
   function parseISO(s) {
@@ -64,11 +71,18 @@
   }
 
   function render(el) {
-    var target = resolveTarget(el);
-    if (!target) {
+    var r = resolveTarget(el);
+    if (!r) {
       el.textContent = '—';
       return;
     }
+    // 已过期节日：隐藏节点（首页 data/festivals.json 由二米每日刷新剔除，这里为兜底，避免缓存窗口内残留）
+    if (r.passed) {
+      el.style.display = 'none';
+      el._cdDiff = -1;
+      return;
+    }
+    var target = r.date;
     var diff = daysBetween(target);
     el._cdDiff = diff; // 缓存剩余天数，供容器排序使用
     var label = el.getAttribute('data-label') || '';

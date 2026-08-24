@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-24",
+    "content": "【二米·台风实时监测】12:40 高频刷新：沙德尔(2618)11时fix落地（台北偏东约1420km·超强台风16级/52m/s/935hPa·西偏北25-30km/h·距射阳逾1700km）；中央气象台12时120h路径图锚定11时fix，路径明显转偏南（26日入东海后折向西偏南、趋浙江中南部-福建、27日夜间至28日上午登陆华东·forecast）；强对流窗口(8/23 14时-24日08时含射阳)已退出江苏、江苏方向大风/降雨落区不含苏北射阳；据此射阳风险由「中」下调至「中低」。更新 typhoon.json（updated→12:40、status/headline/summary/current/sheyang全套刷新）。"
+  },
+  {
+    "date": "2026-08-24",
     "content": "【小米·缺陷修复】漫威页「六个阶段」标题右侧出现无用折叠键：根因为 auto-collapse.js 自动探测未排除原生 <details>/<summary> 容器，导致在已有 summary 折叠的板块内再挂一个折叠按钮，与原 summary 折叠控件重叠、点击行为混乱。修复：auto-collapse.js 自动探测时跳过 <details> 内部容器，且 makeBoard 时若标题位于 <summary> 内直接放弃挂键；同步三副本并全量 bump auto-collapse.js?v=20260824→20260825。"
   },
   {

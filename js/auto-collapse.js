@@ -48,28 +48,42 @@
     return ctx.querySelector('h2,h3,h4,h5,h6,.section-title,.section-header,.sec-title,.sec-header,.cat-header,[class*="sec-title"],[class*="heading"]');
   }
 
+  // 返回元素所属「语义区块」：最近的 section/main/article 或带容器语义的类。
+  // 用于把 findHead 的标题探测限定在本区块内，杜绝折叠键错挂到外层/无关 section 的标题
+  // （万年历·拼假攻略误挂整年视图即用旧版跨区块攀爬所致）。
+  function enclosingSection(el) {
+    var a = el;
+    while (a) {
+      if (a.tagName === 'SECTION' || a.tagName === 'MAIN' || a.tagName === 'ARTICLE') return a;
+      var c = (a.className || '');
+      if (typeof c === 'string' && /(^|\s)(container|lx-section|cal-page|cat-section|board-section)(\s|$)/.test(c)) return a;
+      a = a.parentElement;
+    }
+    return null;
+  }
+
   // 仅返回位于容器之外的标题（保证折叠容器时标题仍可见）
   function findHead(board) {
-    // 1) 向上遍历前一个兄弟，直到标题或内容块
+    var sec = enclosingSection(board);
+    // 1) 在 board 所属区块内，向上遍历前一个兄弟，直到标题
     var prev = board.previousElementSibling;
-    while (prev) {
+    while (prev && prev !== sec) {
       if (isHeadingNode(prev)) return prev;
       var inner = firstHeadingIn(prev); // 标题被包在 header 容器里（如 .cat-header > h2）
       if (inner) return inner;
-      if (looksLikeContentBlock(prev)) break;
       prev = prev.previousElementSibling;
     }
-    // 2) 父级的前一个兄弟链
+    // 2) 父级的前一个兄弟链，但**不超过本区块边界**（不向上爬到外层 section 的标题）
     var p = board.parentElement;
-    if (p) {
+    while (p && p !== sec) {
       var pp = p.previousElementSibling;
-      while (pp) {
+      while (pp && pp !== sec) {
         if (isHeadingNode(pp)) return pp;
         var inner2 = firstHeadingIn(pp);
         if (inner2) return inner2;
-        if (looksLikeContentBlock(pp)) break;
         pp = pp.previousElementSibling;
       }
+      p = p.parentElement;
     }
     return null;
   }
@@ -115,7 +129,7 @@
 
   function makeBoard(board, opts) {
     var body = opts.body || board;
-    var head = opts.head || board.firstElementChild || board;
+    var head = opts.head || null;
     var itemSel = opts.itemSel || ':scope > *';
     var threshold = (typeof opts.threshold === 'number') ? opts.threshold : THRESHOLD;
     var def = opts.def || 'auto';
@@ -133,6 +147,23 @@
 
     // 自动模式且未超阈值：保持展开、不加折叠控件
     if (def === 'auto' && count <= threshold) {
+      board.setAttribute('data-ac-state', 'open');
+      return;
+    }
+
+    // 防错挂：找不到标题（如板块标题在本区块外）则不折叠，避免把 toggle 挂到卡片/容器上
+    if (!head) {
+      board.setAttribute('data-ac-state', 'open');
+      return;
+    }
+    // 防与原生 <details>/<summary> 折叠控件重叠
+    if (head.closest && head.closest('summary')) {
+      board.setAttribute('data-ac-state', 'open');
+      return;
+    }
+    // 防空板：body 无实质内容时不建折叠键（点了也看不见效果，属「没用」的一类）
+    var bodyText = (body.innerText || '').trim();
+    if (body.children.length === 0 && bodyText.length === 0) {
       board.setAttribute('data-ac-state', 'open');
       return;
     }
@@ -224,11 +255,16 @@
       Array.prototype.forEach.call(d, function (x) { handled.add(x); });
     });
 
-    function fold(el) {
-      var items = collectItems(el);
-      if (items.length <= THRESHOLD) return;
-      var head = findHead(el);
-      if (!head) return;
+  function fold(el) {
+    // 跳过原生 <details> 折叠容器，避免与 <summary> 冲突
+    if (el.closest && el.closest('details')) return;
+    var items = collectItems(el);
+    if (items.length <= THRESHOLD) return;
+    var head = findHead(el);
+    if (!head) return;
+      // 防碰撞：同一标题已被另一折叠板占用（出现双 toggle），本容器不再挂键，
+      // 避免一个标题下叠两个折叠键（如光辉电力·产品体系全覆盖内两兄弟卡片组共享同一 h2）
+      if (head.querySelector('.lx-ac-toggle')) return;
       makeBoard(el, { body: el, head: head, itemSel: ':scope > *', threshold: THRESHOLD, def: 'auto', count: true });
       // 标记自身及祖先为已处理，避免外层容器重复折叠（仅折叠最内层板块）
       var a = el;

@@ -156,6 +156,11 @@
       board.setAttribute('data-ac-state', 'open');
       return;
     }
+    // 防与原生 <details>/<summary> 折叠控件重叠
+    if (head.closest && head.closest('summary')) {
+      board.setAttribute('data-ac-state', 'open');
+      return;
+    }
     // 防空板：body 无实质内容时不建折叠键（点了也看不见效果，属「没用」的一类）
     var bodyText = (body.innerText || '').trim();
     if (body.children.length === 0 && bodyText.length === 0) {
@@ -250,11 +255,13 @@
       Array.prototype.forEach.call(d, function (x) { handled.add(x); });
     });
 
-    function fold(el) {
-      var items = collectItems(el);
-      if (items.length <= THRESHOLD) return;
-      var head = findHead(el);
-      if (!head) return;
+  function fold(el) {
+    // 跳过原生 <details> 折叠容器，避免与 <summary> 冲突
+    if (el.closest && el.closest('details')) return;
+    var items = collectItems(el);
+    if (items.length <= THRESHOLD) return;
+    var head = findHead(el);
+    if (!head) return;
       // 防碰撞：同一标题已被另一折叠板占用（出现双 toggle），本容器不再挂键，
       // 避免一个标题下叠两个折叠键（如光辉电力·产品体系全覆盖内两兄弟卡片组共享同一 h2）
       if (head.querySelector('.lx-ac-toggle')) return;

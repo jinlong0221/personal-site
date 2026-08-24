@@ -5528,3 +5528,13 @@ a, button, .lx-card, .lx-pick, .lx-toc a, .qt-item { transition:transform .25s e
 @media (prefers-reduced-motion: reduce){
   .lx-node, .lx-node:hover{ transition:none; transform:none; }
 }
+
+/* [托尼·视觉美化 2026-08-25] 主机详情页 hero 响应式统一：
+   部分 console-*.html 的 .image-side 固定 flex:0 0 380px 且不收缩，移动端溢出被 html{overflow-x:hidden} 裁切（图片右侧缺失）。
+   全局在 ≤768px 纵向堆叠、image-side 占满且限宽 320 居中，消除裁切 glitch，并令全部主机页视觉一致。
+   body 前缀提升特异性以覆盖页面内联 <style> 的同名规则。 */
+@media (max-width: 768px){
+  body .console-detail-hero{flex-direction:column}
+  body .console-detail-hero .image-side{flex:none;width:100%;max-width:320px;margin:0 auto}
+  body .console-detail-hero .info-side{flex:1 1 100%;min-width:0}
+}

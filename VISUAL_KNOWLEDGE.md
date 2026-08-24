@@ -19,6 +19,8 @@
 - 全站强调色一律走 `--accent-color`（金），**严禁 inline 彩虹色残留**（此前首页分类卡曾硬编码蓝/金/朱砂/红，已统一修复）。
 - **暖色刺眼红线**：黄/金/棕大面积高饱和背景或文字会刺眼，龙兄明确反感；金只作强调，不作大面积底色。
 - 深色底（--bg）配金（--accent-color）需保证正文可读性；浅色主题下金色的对比度边界要复核。
+- **暖色刺眼判定（P0 红线）**：须同时满足「大面积（整屏 hero / 通栏区块）+ 高饱和（纯红/橙/琥珀/亮金 `#ff6f00`·`#ffb300`·`#e65100` 级）+ 暖色相」才判刺眼；小尺寸语义色块（季节卡、板块色条、品牌徽标、警告框低透明度 tint）属合理分类编码，不在此列。判定顺序：**先量面积、再量饱和度**，勿见暖色即改。
+- **国风黑金 hero 标准做法**：墨底渐变（`var(--bg-secondary)→var(--card)`）+ 金顶边（`border-top:3px solid var(--accent-color)`）+ 金标题（`color:var(--accent-color)`）；如需一点朱红，用 `radial-gradient(circle,var(--cinnabar-soft),transparent 70%)` 作低饱和印章微光，**绝不**堆高饱和暖色渐变（红→橙→琥珀是典型反面）。
 
 ## 三、响应式与移动端美学
 
@@ -46,3 +48,16 @@
 - `body{overflow-x:hidden}` 致 sticky 失效 → 改 `overflow-x:clip`。
 - 刘海屏 safe-area 缺失导致内容插入导航栏下半部 → 同级 fixed/sticky 补 `@supports` 补偿。
 - 全局 44px 触控规则入侵自定义小按钮 → 显式 `min-width:0;min-height:0` 覆盖。
+- 高考页 `.gk-hero` 曾用 `linear-gradient(135deg,#e53935,#ff6f00,#ffb300)` 整屏红橙琥珀高饱和渐变 → 大面积暖色刺眼、违国风黑金；2026-08-25 巡检改为墨底+金顶边+金标题+朱红微光（见上「国风黑金 hero 标准做法」）。
+
+## 七、无头浏览器验证方法论（托尼自用）
+
+模型无法读图，用 puppeteer-core + Chrome for Testing 做 DOM 实测替代"看见"：
+
+- **本地构建必须改 baseURL**：`hugo --gc --baseURL "http://127.0.0.1:8199/" --destination /tmp/lx-pub`，否则线上绝对 URL 在本地 404。head.html 的 meta CSP `style-src 'self' 'unsafe-inline'` 在同源(localhost)下放行内联样式与同域 CSS，无需去 CSP、无需改资源本地化。
+- **横向溢出双指标**（html `overflow-x:hidden` 会裁剪掩盖，单信 scrollWidth 会漏报）：
+  1. 文档级 `document.documentElement.scrollWidth - window.innerWidth` 须 = 0；
+  2. "伸出视口"元素扫描：遍历 `*`，取 `getBoundingClientRect()`，`rect.right > innerWidth+1.5` 且不在 `overflow-x:auto/scroll` 祖先内部者 = 视觉溢出。后者能抓被 html clip 掉的裁切内容，比前者更可靠。
+- **遍历规模**：194 页 × 5 视口(390/375/360/1440/1920) × 2 主题 ≈ 1940 次加载，单进程约 12–20 分钟；务必后台跑、勿前台阻塞。
+- **undefined CSS 变量扫描坑**：只扫 `style.css` 会大量误报（页面内联 `<style>` 与 pagefind 自带 CSS 也定义了 `--xxx`）。正确做法：从「全部 .css + 全部 html 内联 `<style>` + JS `setProperty`」收集定义，再比对 `var()` 用法，并过滤带 fallback 的 `var(--x, 默认值)`。
+- **safe-area / sticky 用代码审查而非截图**：grep `position:sticky` 找所有 `top:var(--nav-height)` 元素，确认每个都在 `@supports(padding:env(safe-area-inset-top))` 内补 `top:calc(var(--nav-height)+env(safe-area-inset-top))`；并确认 body 是 `overflow-x:clip`（非 hidden），sticky 才能以视口为滚动祖先。

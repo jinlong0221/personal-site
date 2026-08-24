@@ -1,11 +1,29 @@
 {{ define "main" }}
 <div class="container" style="padding:2rem 1rem;">
   <h1>{{ .Title }}</h1>
-  <p class="section-description">{{ .Description }}</p>
-  <ul class="page-list">
+  <p class="section-description" style="color:var(--text-secondary);max-width:62em;line-height:1.8;">{{ .Description }}</p>
+
+  {{ with .Content }}
+  <div class="section-intro" style="max-width:62em;line-height:1.9;">{{ . }}</div>
+  {{ end }}
+
+  {{ $extra := .Params.extra_pages }}
+  {{ if or .Pages $extra }}
+  <h2 style="margin-top:2.2rem;">本栏目全部内容</h2>
+  <div class="card-grid">
     {{ range .Pages }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <a class="card" href="{{ .Permalink }}" style="text-decoration:none;display:block;color:inherit;">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem;color:var(--gold);">{{ .Title }}</h3>
+      <p style="margin:0;color:var(--text-secondary);font-size:.92rem;line-height:1.75;">{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 90 }}{{ end }}</p>
+    </a>
     {{ end }}
-  </ul>
+    {{ range $extra }}
+    <a class="card" href="{{ .url | relURL }}" style="text-decoration:none;display:block;color:inherit;">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem;color:var(--gold);">{{ .title }}</h3>
+      <p style="margin:0;color:var(--text-secondary);font-size:.92rem;line-height:1.75;">{{ .note }}</p>
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
 </div>
 {{ end }}

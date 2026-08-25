@@ -19,6 +19,7 @@
     'health-tea': 'health-tea-news.json',
     'sheyang':   'sheyang-news.json',
     'marvel':   'marvel-news.json',
+    'apple':    'apple-news.json',
   };
 
   // 获取当前页面对应的 JSON 文件
@@ -28,21 +29,33 @@
     return PAGE_MAP[page] || null;
   }
 
+  // 安全转义：防止仓库/自动化被篡改时的存储型 XSS
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  // 仅允许 http/https/mailto，阻断 javascript:/data: 等危险协议
+  function safeUrl(u) {
+    if (typeof u !== 'string') return '';
+    return /^(https?:|mailto:)/i.test(u.trim()) ? u.trim() : '';
+  }
+
   // 渲染新闻列表
   function renderNews(container, news) {
     let html = '';
     news.forEach(function (item) {
       let tagHtml = '';
       (item.tags || []).forEach(function (t) {
-        tagHtml += '<span class="news-tag ' + (t.class || 'default') + '">' + t.text + '</span>';
+        tagHtml += '<span class="news-tag ' + esc(t.class || 'default') + '">' + esc(t.text) + '</span>';
       });
-      let link = item.url
-        ? '<a href="' + item.url + '" target="_blank" rel="noopener" style="font-size:0.78rem;margin-left:6px;">🔗原文</a>'
+      let link = safeUrl(item.url)
+        ? '<a href="' + esc(item.url) + '" target="_blank" rel="noopener" style="font-size:0.78rem;margin-left:6px;">🔗原文</a>'
         : '';
       html += '<div class="news-item">' +
-                '<div class="news-date">' + item.date + '</div>' +
+                '<div class="news-date">' + esc(item.date) + '</div>' +
                 '<div class="news-content">' + tagHtml +
-                  '<p>' + item.content + link + '</p>' +
+                  '<p>' + esc(item.content) + link + '</p>' +
                 '</div>' +
               '</div>';
     });

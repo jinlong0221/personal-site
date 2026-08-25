@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net/npm/gitalk/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/gitalk/; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
@@ -141,7 +141,7 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <meta property="og:description" content="特斯拉动态新闻详细科普：实测溯源、实操图文、避坑指南。适合特斯拉动态新闻爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
   <meta property="og:site_name" content="龙兄知识库">
   <meta property="og:title" content="特斯拉动态新闻详细科普｜龙兄知识库">
@@ -149,8 +149,6 @@ var _hmt = _hmt || [];
   <meta property="og:url" content="https://longxiong.vip/tesla.html">
   <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 
-<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
-<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
 </head>
 <body>
 
@@ -586,7 +584,7 @@ function toggleHomeSection(el){
   </div>
 </footer>
     <script defer src="js/share.js?v=20260813"></script>
-    <script defer src="js/auto_news_loader.js?v=20260813"></script>
+    <script defer src="js/auto_news_loader.js?v=20260822"></script>
   <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
 <script defer src="js/auto-collapse.js?v=20260825"></script>

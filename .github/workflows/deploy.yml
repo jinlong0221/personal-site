@@ -39,10 +39,10 @@ jobs:
       - name: Build content index (tags + search filters)
         run: python3 scripts/build_content_index.py
 
-      - name: Inject third-party components (Umami + Gitalk)
-        run: |
-          python3 scripts/apply_umami.py
-          python3 scripts/apply_gitalk.py
+      # 第三方组件注入：仅 Gitalk（Umami 为未配置占位死配置，已于 2026-08-22 安全加固中
+      # 全站移除，apply_umami.py 已改为 no-op，不再注入任何内容）。
+      - name: Inject Gitalk comments
+        run: python3 scripts/apply_gitalk.py
 
       - name: Inject site widgets (floating TOC + local bookmark)
         run: python3 scripts/apply_site_widgets.py
@@ -62,6 +62,20 @@ jobs:
       # （2026-08-20 起 guard_changelog.py 同时内联执行板块新闻日期排序自愈。）
       - name: Guard changelog (strip empty records)
         run: python3 scripts/guard_changelog.py
+
+      # 安全/根因防御性护栏（红队加固 2026-08-22 落地，CI 强制不回归）：
+      #  - overflow: 禁止 overflow-x:hidden（sticky 失效根因），必须 overflow-x:clip
+      #  - theme_scope: 禁止非关键 <style> 块用全局 --bg/--text 等重定义污染全站 chrome
+      #  - csp_hygiene: 禁止 umami 死配置/协议相对外链/jsdelivr 过宽等 CSP 卫生回潮
+      #  - v_param: ?v 缓存版本必须一致且资源存在（travel-dist/{{ 模板变量已豁免）
+      - name: Guard overflow-x (sticky safety)
+        run: python3 scripts/guard_overflow.py
+      - name: Guard theme scope (no global var leak)
+        run: python3 scripts/guard_theme_scope.py
+      - name: Guard CSP hygiene
+        run: python3 scripts/guard_csp_hygiene.py
+      - name: Guard ?v cache-bust consistency
+        run: python3 scripts/guard_v_param.py
 
       # 板块新闻日期排序护栏：所有 *-news.json 的 news 数组按 date 倒序，
       # 根治「板块日期乱序」。部署前强制规范化，即使上游写入乱序也保证线上有序。

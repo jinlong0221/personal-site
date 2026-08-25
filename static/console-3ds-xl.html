@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://umami.example.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://umami.example.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net/npm/gitalk/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/gitalk/; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
@@ -103,15 +103,13 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <meta property="og:title" content="Nintendo 3DS XL - 游戏主机图鉴详细科普｜龙兄知识库">
   <meta property="og:description" content="Nintendo 3DS XL - 游戏主机图鉴详细科普：实测溯源、实操图文、避坑指南。适合Nintendo 3DS XL - 游戏主机图鉴爱好者与从业者系统了解核心要点与鉴别。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://longxiong.vip/console-3ds-xl.html">
   <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 
-<!-- Umami 轻量访问统计（第三方组件；替换 umami.example.com 与 UMAMI_WEBSITE_ID 后生效） -->
-<script async src="https://umami.example.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
 </head>
 <body>
 
@@ -317,7 +315,6 @@ var _hmt = _hmt || [];
 
 </main>
 
-
 <footer>
   <div class="footer-brand-row">
     🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
@@ -338,7 +335,6 @@ var _hmt = _hmt || [];
     如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
   </div>
 </footer>
-
 
 <script defer src="js/app.js"></script>
 

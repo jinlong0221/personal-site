@@ -767,3 +767,54 @@ if(document.readyState==='loading'){
     initSectionNav();
   }
 })();
+
+// ============================================================
+// 区域K - 事件委托（替代内联事件处理器，配合 CSP 移除 'unsafe-inline'）
+// 消费 data-nav / data-act / data-scroll / data-search-trigger
+// 捕获阶段处理图片 onerror（隐藏 / 重试一次）
+// ============================================================
+(function(){
+  // 点击委托：导航 / 行为 / 滚动 / 搜索触发
+  document.addEventListener('click', function(e){
+    var nav = e.target.closest('[data-nav]');
+    if(nav){ location.href = nav.getAttribute('data-nav'); return; }
+
+    var act = e.target.closest('[data-act]');
+    if(act){
+      var fn = act.getAttribute('data-act');
+      if(fn === 'xwCopy'){ if(window.xwCopy) window.xwCopy(); return; }
+      if(fn === 'doSearch'){ if(window.doSearch) window.doSearch(act.getAttribute('data-q') || ''); return; }
+      if(window[fn]){ window[fn](act); return; } // toggleHomeSection/toggleCollapse/togglePitfall/openLightbox 收元素本身
+    }
+
+    var sc = e.target.closest('[data-scroll]');
+    if(sc){ var t = document.getElementById(sc.getAttribute('data-scroll')); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+
+    var st = e.target.closest('[data-search-trigger]');
+    if(st){ var b = document.getElementById('searchBtn'); if(b) b.click(); return; }
+  });
+
+  // 一键复制：覆盖 .r-copy 与任意非 .copy-btn 的 [data-copy-text]（.copy-btn 由上方既有委托处理）
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.r-copy, [data-copy-text]:not(.copy-btn)');
+    if(!btn) return;
+    var text = btn.getAttribute('data-copy-text') || '';
+    if(!text) return;
+    function done(){ var o = btn.textContent; btn.textContent = '已复制 ✓'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent = o; btn.classList.remove('copied'); }, 2000); }
+    function fb(tx){ var ta = document.createElement('textarea'); ta.value = tx; ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0'; ta.setAttribute('readonly',''); document.body.appendChild(ta); var r = document.createRange(); r.selectNodeContents(ta); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); try{ document.execCommand('copy'); done(); }catch(x){} s.removeAllRanges(); document.body.removeChild(ta); }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fb(text); }); }
+    else { fb(text); }
+  });
+
+  // 图片 onerror 捕获阶段处理（隐藏 / 重试一次），替代内联 onerror 属性
+  document.addEventListener('error', function(e){
+    var el = e.target;
+    if(!el || el.tagName !== 'IMG') return;
+    if(el.hasAttribute('data-hide-onerror')){ el.style.display = 'none'; return; }
+    if(el.dataset.retry) return;
+    el.dataset.retry = '1';
+    var src = el.getAttribute('src') || '';
+    var sep = src.indexOf('?') === -1 ? '?' : '&';
+    el.src = src + sep + 'retry=' + Date.now();
+  }, true);
+})();

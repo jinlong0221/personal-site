@@ -130,7 +130,7 @@
     var container = document.getElementById('hot-tags');
     if (!container) return;
     container.innerHTML = hotKeywords.map(function(kw) {
-      return '<a class="hot-tag" onclick="doSearch(\'' + kw + '\')">' + kw + '</a>';
+      return '<a class="hot-tag" data-act="doSearch" data-q="' + kw + '">' + kw + '</a>';
     }).join('');
   }
 

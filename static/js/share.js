@@ -31,7 +31,7 @@
         '<div class="share-panel-body">' +
           '<p class="share-qr-label">' + escHtml(title) + '</p>' +
           '<div class="share-qr-wrap">' +
-            '<img src="' + qrUrl + '" alt="二维码" width="200" height="200" loading="lazy" onerror="this.style.display=\'none\'">' +
+            '<img src="' + qrUrl + '" alt="二维码" width="200" height="200" loading="lazy" data-hide-onerror="1">' +
           '</div>' +
           '<div class="share-url-row">' +
             '<textarea class="share-url-input" rows="2" readonly aria-label="页面链接">' + escHtml(url) + '</textarea>' +

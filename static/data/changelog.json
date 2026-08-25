@@ -1,11 +1,21 @@
 [
   {
     "date": "2026-08-25",
+    "content": "【二米·早班08:00】全站13板块巡检：特斯拉(内华达Semi工厂下月落成)、苹果(9/9发布会+标准版延至2027春·待官方确认)、漫威宇宙(复联5倒计时播客8/27+复联4重映官宣)、游戏主机(Switch2全球涨价收官·英国补齐)、ChinaJoy(湮灭之潮科隆43分钟实机+50家中国厂商)、漫威票房(全球23.58亿跻身影史第三·中国15亿)、中药材(处暑周报·总指数1486)、文玩手串(奇楠价格分档)、紫砂(上海国拍第812期8/25开拍)、FSD(入华终审过·8-9月分批OTA·待官方确认)、养生茶(药食同源642.7亿市场)、射阳(出伏晴好·无台风预警) 12板块前置08-25交叉验证新闻；台风(板8)已由独立台风自动化于06:40续报、本班不重复改写。"
+  },
+  {
+    "date": "2026-08-25",
     "time": "08:00",
     "type": "缺陷修复",
     "title": "首页样式加载异常：微信/Safari 下 CSS preload 导致布局错乱",
     "content": "用户反馈首页在微信内置浏览器/iPhone Safari 中出现样式部分未加载：hero 背景黑块、近期节点数字与文字合并、本周精选卡片布局错乱。Playwright/WebKit 均无法复现；判断为 <link rel=\"preload\" as=\"style\" onload=\"this.rel='stylesheet'\"> 异步加载 CSS 在微信/Safari 弱网环境下触发 FOUC 或加载失败。修复：将 layouts/partials/head.html 及全部 static 子页的 style.css 引用从 preload 异步加载改为普通同步 <link rel=\"stylesheet\">，确保 CSS 阻塞渲染、立即应用。",
-    "tags": ["CSS", "preload", "微信", "Safari", "FOUC"]
+    "tags": [
+      "CSS",
+      "preload",
+      "微信",
+      "Safari",
+      "FOUC"
+    ]
   },
   {
     "date": "2026-08-25",

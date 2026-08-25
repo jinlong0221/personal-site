@@ -7,6 +7,7 @@
       <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-TCireLiEqeKiQGIFN34jYmaEpZpuRJgKauNNRhg1Lxk='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'"/>
         <title>订阅龙兄知识库 - RSS</title>
         <meta name="description" content="订阅龙兄知识库 RSS，获取沉香、中药材、文玩紫砂、特斯拉、射阳民生等更新。"/>
         <link rel="stylesheet" href="/css/style.css?v=20260825"/>
@@ -48,7 +49,7 @@
             <p>龙兄知识库 RSS 订阅源，涵盖沉香鉴别、中药材、文玩紫砂、特斯拉、射阳本地民生等实用图文。把下方地址复制到你喜欢的 RSS 阅读器即可订阅。</p>
             <div class="rss-url-box">
               <code id="rssUrl">https://longxiong.vip/rss.xml</code>
-              <button class="rss-copy-btn" onclick="copyRssUrl()">复制地址</button>
+              <button class="rss-copy-btn" id="rssCopyBtn">复制地址</button>
             </div>
           </section>
 
@@ -116,6 +117,7 @@
               setTimeout(function(){ btn.textContent = old; }, 1500);
             }
           }
+          document.getElementById('rssCopyBtn').addEventListener('click', copyRssUrl);
         </script>
       </body>
     </html>

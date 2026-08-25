@@ -723,8 +723,7 @@ def main():
 <link rel="dns-prefetch" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 __CRITICAL__
-<link rel="preload" href="css/style.css?v=20260825" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.css?v=20260825"></noscript>
+<link rel="stylesheet" href="css/style.css?v=20260825">
 <title>ChinaJoy 成长史 - 龙兄知识库</title><meta name="description" content="ChinaJoy 成长史：从 2004 年首届到 2026 年第 23 届的完整档案，逐届梳理展会主题、规模数据、参展品牌与代表游戏，以及二十余年的行业变迁。">
 <meta name="keywords" content="ChinaJoy,中国国际数码互动娱乐展览会,历届ChinaJoy,ChinaJoy主题,ChinaJoy参展游戏,游戏展,上海新国际博览中心">
 <style>__PAGECSS__</style>
@@ -780,7 +779,7 @@ __NAVBAR__
 
   <!-- ===== 自动更新动态 ===== -->
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
-    <div class="home-collapsible-header" onclick="toggleHomeSection(this)">
+    <div class="home-collapsible-header" data-act="toggleHomeSection">
       <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
       <span class="hc-arrow">▼</span>
     </div>

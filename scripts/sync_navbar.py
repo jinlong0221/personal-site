@@ -83,7 +83,7 @@ def build_nav(prefix, active_bare):
       <span>龙兄知识库</span>
     </a>
     <a href="{href('calendar.html')}" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
-    <span class="nav-weather" id="navWeather" onclick="location.href='{href('sheyang.html')}'" style="cursor:pointer;" title="点击查看当地天气详情">{SVG_WEATHER}</span>
+    <span class="nav-weather" id="navWeather" data-nav="{href('sheyang.html')}" style="cursor:pointer;" title="点击查看当地天气详情">{SVG_WEATHER}</span>
     <ul class="nav-links">
 {nav_links}
       <li class="nav-more-wrap">

@@ -34,6 +34,7 @@ DATA = os.path.join(STATIC, "data")
 SITEMAP_EXTRA = os.path.join(ROOT, "data", "sitemap_extra.json")
 CONTENT = os.path.join(ROOT, "content")
 OUT = os.path.join(DATA, "content-index.json")
+SEARCH_INDEX_OUT = os.path.join(STATIC, "search-index.json")
 
 # 不进入搜索/标签索引的功能性或私有页
 EXCLUDE_FILES = {
@@ -196,6 +197,21 @@ def main():
         json.dump(merged, f, ensure_ascii=False, indent=2)
     tagged = sum(1 for x in merged if x["tags"])
     print(f"已生成 {OUT}：共 {len(merged)} 条（其中已打标签 {tagged} 条）。")
+
+    # 同步生成 search.js 旧版回退索引（schema: url/title/description/content/paragraphs）
+    search_items = [
+        {
+            "url": it["url"],
+            "title": it["title"],
+            "description": it["desc"],
+            "content": "",
+            "paragraphs": [],
+        }
+        for it in merged
+    ]
+    with open(SEARCH_INDEX_OUT, "w", encoding="utf-8") as f:
+        json.dump(search_items, f, ensure_ascii=False, indent=2)
+    print(f"已生成 {SEARCH_INDEX_OUT}：共 {len(search_items)} 条。")
 
 
 if __name__ == "__main__":

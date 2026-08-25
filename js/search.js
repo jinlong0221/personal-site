@@ -196,7 +196,7 @@ function ensureSearchModal(){
 // 搜索初始化（自动执行）
 // ============================================================
 (function initSearch(){
-  loadSearchIndex(function(){});
+  // 不再预取 search-index.json；按需搜索时若 Pagefind 失败才懒加载
   var modal=ensureSearchModal();
   var input=modal.querySelector('.search-modal-input');
   var results=modal.querySelector('.search-modal-results');

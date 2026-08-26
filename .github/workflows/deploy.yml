@@ -90,6 +90,13 @@ jobs:
       - name: Build Hugo
         run: hugo --gc
 
+      # 部署前站点冒烟测试（后端回归闸，无需密钥）：
+      # 静态校验 hugo 产出的 public/ 中本地资源引用（img/script/css/字体/link）是否全部可解析，
+      # 并确认 public/index.html 已产出。任何本地资源 404 都会导致线上页面渲染断裂，
+      # 故发现即构建失败、阻断部署；内链死链仅 WARN 不阻断。
+      - name: Smoke test built site (no broken local assets)
+        run: python3 scripts/smoke_test.py public
+
       # 旅行板块部署前防御闸（key-free，无需 TRAVEL_KEY）：
       # 禁止「明文/不完整外壳」被照常部署上线——曾发生陈旧明文 travel.html 被直接发布、
       # 导致私照泄露与 hero 裂图。CI 不能解密校验，故只做无需密钥的明文/完整性检查

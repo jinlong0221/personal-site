@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-26",
+    "content": "【台风实时监测·高频08:40刷新】沙德尔（2618）中央气象台台风快讯2026总1387期（08:33）确认26日08时定点27.7°N/127.3°E·强台风14级/42m/s/955hPa·西偏北15km/h·较05时继续西偏北推进0.4°、距岸更近680km、强度不变；入东海状态延续06时橙警正文官方确认。06时橙警维持橙色未升级、登陆窗口仍锁浙闽（27日夜间-28日上午象山-福清·35-42m/s）；三项预警落区仍不含江苏/盐城/射阳；江苏侧四项指向（自然资源部四级响应含江苏沿海／省厅27-28增水30-70cm含射阳／省气象27起陆上4-5级／28-31淮河以南强对流含射阳）全维持；射阳本地（中国天气网射阳站8/25）晴、东南风3-4级、零预警。风险维持「中」(warn·statusShort=中风险监测)。typhoon.json 已更新 current/track(新增08时实况点·obs46+fc7)/feed/sheyang各研判段/status；仅台风板块相关文件 + 本变更进 changelog。"
+  },
+  {
+    "date": "2026-08-26",
     "content": "【工程修复·hygiene】① 首页信息流 home-feed.js 子页相对路径 404 修复：原 loadJSON('home-feed.json'/'hot-picks.json') 在 /herbs/chenxiang.html 等子页解析为 /herbs/home-feed.json（404），改为绝对路径 /home-feed.json、/hot-picks.json，子页「今日精选/热门」卡片恢复加载；② 旅行相册 travel-dist/travel.html 清除遗留 umami.example.com 占位死配置（CSP script-src/img-src/connect-src 三处 + 占位 <script>），消除线上控制台 REQFAIL 报错；③ 同步 bump head.html 中 home-feed.js?v=20260826 强制缓存刷新。"
   },
   {

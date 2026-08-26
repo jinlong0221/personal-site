@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-26",
+    "content": "【工程修复·hygiene】① 首页信息流 home-feed.js 子页相对路径 404 修复：原 loadJSON('home-feed.json'/'hot-picks.json') 在 /herbs/chenxiang.html 等子页解析为 /herbs/home-feed.json（404），改为绝对路径 /home-feed.json、/hot-picks.json，子页「今日精选/热门」卡片恢复加载；② 旅行相册 travel-dist/travel.html 清除遗留 umami.example.com 占位死配置（CSP script-src/img-src/connect-src 三处 + 占位 <script>），消除线上控制台 REQFAIL 报错；③ 同步 bump head.html 中 home-feed.js?v=20260826 强制缓存刷新。"
+  },
+  {
+    "date": "2026-08-26",
     "content": "【自动更新·早班08:00】全站13板块巡检：特斯拉(Model Y L续航751→776km/8·25-26综合)、苹果(9/8官宣·无新增·仅刷新updated)、漫威宇宙(复联5定档2026-12-18)、游戏主机(Gamescom 2026开幕夜/Switch2美版9·1涨价$499.99)、ChinaJoy(湮灭之潮/国产3A出海)、中药材(康美指数1483.6点·淡季震荡)、文玩手串(沉香市场分化·海南料走高)、紫砂(顾景舟精品成交402万)、养生茶(药食同源430亿·备案合规化)、射阳(出伏多云·陆上无台风预警)、FSD(四部门联合终审·Q3分批OTA)、漫威票房(8月北美月度纪录$1.1B·蜘蛛侠贡献约62%) 共12板块前置08-26交叉验证新闻(每条≥2源、保留8条)；台风由06:40独立自动化续报橙色预警、本班不重写。红线遵守：FSD入华/苹果发布会/复联5档期均标待官方确认。"
   },
   {

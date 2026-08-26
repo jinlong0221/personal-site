@@ -69,8 +69,8 @@
   }
 
   function init() {
-    loadJSON('home-feed.json', renderToday);
-    loadJSON('hot-picks.json', renderPicks);
+    loadJSON('/home-feed.json', renderToday);
+    loadJSON('/hot-picks.json', renderPicks);
   }
 
   if (document.readyState === 'loading') {

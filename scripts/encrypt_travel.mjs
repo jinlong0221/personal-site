@@ -227,10 +227,17 @@ async function main() {
   // —— 6b. 解密脚本是内联 <script>，其内容随 BLOB 每次重建而变；严格 CSP(sha256 白名单)
   //        会拦截它，导致解锁按钮事件不绑定、相册永远打不开。故把本页解密脚本自身的
   //        哈希动态注入 CSP 白名单（仍无 unsafe-inline，仅精确放行本段脚本）。 ——
+  //        注意：必须用「含 var BLOB= 的那个 <script> 块的内部文本」算哈希，与浏览器
+  //        CSP 计算口径一致；不可用从首个 <script> 贪婪跨到 var BLOB 的大段（会包含
+  //        <head> 等其他内容，哈希错误导致放行失效）。
   {
-    const dm = shell.match(/<script>\s*(\(function\(\)\s*\{[\s\S]*?var BLOB="[^"]*"[\s\S]*?)<\/script>/);
-    if (dm) {
-      const decHash = sha256b64(dm[1]);
+    const blocks = shell.match(/<script>([\s\S]*?)<\/script>/g) || [];
+    let decScript = null;
+    for (const blk of blocks) {
+      if (blk.includes('var BLOB=')) { decScript = blk.slice('<script>'.length, blk.length - '</script>'.length); break; }
+    }
+    if (decScript) {
+      const decHash = sha256b64(decScript);
       const patched = shell.replace(/(script-src\s+'self')(\s|;)/, `$1 'sha256-${decHash}'$2`);
       // 自校验：注入后解密脚本哈希必须在 CSP 白名单中，否则部署出去仍是打不开的废页
       const csp2 = patched.match(/content-security-policy[^>]*content="([^"]*)"/i);

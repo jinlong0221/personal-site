@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-26",
+    "content": "【旅行板块·部署加固】CI 新增 travel-dist 部署前防御闸（scripts/guard_travel_dist.sh，key-free 无需密钥）：禁止明文/不完整外壳被照常发布上线（此前曾因陈旧明文副本被直接部署，导致私照泄露与 hero 裂图）。校验 data-tl-wrap 明文标记 / 明文 img 引用 / 缺 noindex / 缺密码门 tlGate / 分片目录混入明文 / 无 album-*.tlpk 分片，任一不过即阻断部署。"
+  },
+  {
+    "date": "2026-08-26",
     "content": "【旅行板块·隐私加固】修复首页/旅行页 hero 轮播缩略图线上 404 裂图：原缩略图引用明文 img/travel/*.webp，部署时明文私照按隐私红线 gitignore 永不入公开仓库导致缺图。现已与相册统一机制——缩略图由加密 .tlpk 分片在客户端解密后渲染（明文永不出库）；重生成 travel-dist 密文（32 张照片分 15 片 album-*.tlpk，均≤300KB），校验自洽、零明文泄漏。"
   },
   {

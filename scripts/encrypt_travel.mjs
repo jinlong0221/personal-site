@@ -27,7 +27,7 @@
  * 密码学：Node WebCrypto (AES-GCM 256 + PBKDF2 SHA-256, 1M iters)，
  *         与浏览器 crypto.subtle 字节级一致，解密逻辑在浏览器端复用同一套原语。
  */
-import { webcrypto as crypto } from 'node:crypto';
+import { webcrypto as crypto, createHash } from 'node:crypto';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { readFileSync, writeFileSync, rmSync, existsSync, readdirSync, statSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -43,6 +43,8 @@ const enc = new TextEncoder();
 
 function b64(buf) { return Buffer.from(buf).toString('base64'); }
 function fromB64(s) { return new Uint8Array(Buffer.from(s, 'base64')); }
+// 计算字符串的 sha256(base64)，用于把内联解密脚本自身的哈希注入 CSP 白名单
+function sha256b64(s) { return createHash('sha256').update(s, 'utf8').digest('base64'); }
 
 async function deriveKey(password, salt) {
   const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
@@ -221,7 +223,26 @@ async function main() {
   head = head.replace("img-src 'self' data:", "img-src 'self' data: blob:");
   head = head.replace('<body>', '<body data-pagefind-ignore>');
 
-  const shell = head + buildGate(blobB64, saltB64, nShards) + tail;
+  let shell = head + buildGate(blobB64, saltB64, nShards) + tail;
+  // —— 6b. 解密脚本是内联 <script>，其内容随 BLOB 每次重建而变；严格 CSP(sha256 白名单)
+  //        会拦截它，导致解锁按钮事件不绑定、相册永远打不开。故把本页解密脚本自身的
+  //        哈希动态注入 CSP 白名单（仍无 unsafe-inline，仅精确放行本段脚本）。 ——
+  {
+    const dm = shell.match(/<script>\s*(\(function\(\)\s*\{[\s\S]*?var BLOB="[^"]*"[\s\S]*?)<\/script>/);
+    if (dm) {
+      const decHash = sha256b64(dm[1]);
+      const patched = shell.replace(/(script-src\s+'self')(\s|;)/, `$1 'sha256-${decHash}'$2`);
+      // 自校验：注入后解密脚本哈希必须在 CSP 白名单中，否则部署出去仍是打不开的废页
+      const csp2 = patched.match(/content-security-policy[^>]*content="([^"]*)"/i);
+      if (!csp2 || !new RegExp('sha256-' + decHash.replace(/[+/=]/g, '\\$&')).test(csp2[1])) {
+        console.error('[encrypt_travel] 自检失败：解密脚本哈希未成功注入 CSP，终止部署以免线上相册打不开。');
+        process.exit(1);
+      }
+      shell = patched;
+    } else {
+      console.warn('[encrypt_travel] 未匹配到内联解密脚本，跳过 CSP 注入（解锁按钮可能受 CSP 拦截，请检查 buildGate）。');
+    }
+  }
   writeFileSync(TRAVEL_HTML, shell);
 
   // —— 5. 删除明文私有数据文件 ——

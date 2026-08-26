@@ -116,6 +116,15 @@ jobs:
             echo "[travel] travel-dist 缺失，跳过旅行页部署"
           fi
 
+      # 资源自动版本化（后构建内容哈希，免手动 bump ?v）：
+      # 在 hugo 构建产物 public/ 上把 src/href/url() 里的 ?v=YYYYMMDD
+      # 改写为 ?v=h<内容sha256前12位>，哈希由"被引用的资源文件内容"算出。
+      # 文件内容变 → 哈希必变 → 浏览器精准拉新；文件不变 → 哈希不变 → 缓存命中。
+      # 只改 public/ 产物、绝不碰源码，故 guard_v_param.py（只扫源码、强制 \d{8}）继续 PASS。
+      # 改写后内置自校验：凡可解析本地资源仍带日期版本、或已哈希与文件不符 → 构建失败阻断。
+      - name: Hash ?v cache-bust (content-based auto versioning)
+        run: python3 scripts/bump_v_hash.py public
+
       - name: Build Pagefind index
         run: npx pagefind --site public --verbose
 

@@ -49,6 +49,7 @@
 - 刘海屏 safe-area 缺失导致内容插入导航栏下半部 → 同级 fixed/sticky 补 `@supports` 补偿。
 - 全局 44px 触控规则入侵自定义小按钮 → 显式 `min-width:0;min-height:0` 覆盖。
 - 高考页 `.gk-hero` 曾用 `linear-gradient(135deg,#e53935,#ff6f00,#ffb300)` 整屏红橙琥珀高饱和渐变 → 大面积暖色刺眼、违国风黑金；2026-08-25 巡检改为墨底+金顶边+金标题+朱红微光（见上「国风黑金 hero 标准做法」）。
+- **子页内联 `:root` 被外部 `style.css` 覆盖（2026-08-26 发现）**：各 static 子页自带 `<style id="critical-css">` 内联 `:root{--bg:#0f0f0f…}`（偏冷灰），但因随后 `<link rel="stylesheet" href="css/style.css">` 加载更晚、同特异性，外部 `:root`（`--bg:#12100C` 国风墨黑）胜出 → 子页正确继承站点基色（实测 15 页均解析为 `bg=rgb(18,16,12)`）。⚠️ 例外：若子页在外部 link **之后**还有第二段 `<style>` 并重定义 `:root`（如 `sheyang.html` 第 115 行后、`games.html`），该第二段胜出 → 基色漂移（sheyang→`rgb(10,10,10)` 冷黑；games→`rgb(13,13,26)` 蓝黑）。二者均自巡检 `944bf85` 前已存在、属既定"板块主题色"被接受，**勿盲改**（无图难验、易引入回归），本巡检仅记录为已知项。
 
 ## 七、无头浏览器验证方法论（托尼自用）
 
@@ -61,3 +62,24 @@
 - **遍历规模**：194 页 × 5 视口(390/375/360/1440/1920) × 2 主题 ≈ 1940 次加载，单进程约 12–20 分钟；务必后台跑、勿前台阻塞。
 - **undefined CSS 变量扫描坑**：只扫 `style.css` 会大量误报（页面内联 `<style>` 与 pagefind 自带 CSS 也定义了 `--xxx`）。正确做法：从「全部 .css + 全部 html 内联 `<style>` + JS `setProperty`」收集定义，再比对 `var()` 用法，并过滤带 fallback 的 `var(--x, 默认值)`。
 - **safe-area / sticky 用代码审查而非截图**：grep `position:sticky` 找所有 `top:var(--nav-height)` 元素，确认每个都在 `@supports(padding:env(safe-area-inset-top))` 内补 `top:calc(var(--nav-height)+env(safe-area-inset-top))`；并确认 body 是 `overflow-x:clip`（非 hidden），sticky 才能以视口为滚动祖先。
+
+## 八、CSP × 视觉渲染关系（2026-08-26 复盘）
+
+本站 CSP（head.html meta，经安全加固）：
+`default-src 'self'; script-src 'self' + 约 47 个 sha256 白名单; style-src 'self' 'unsafe-inline' + gitalk CDN; img-src 'self' data: + 二维码/头像源; …`。
+
+- **关键结论**：`style-src` 含 `'unsafe-inline'` → **内联 `<style>` 与 `style="…"` 属性全部放行**。全站 181 页 / 2704 处 inline style 正常渲染，不受 `default-src 'self'` 影响。⚠️ 勿误判"default-src 'self' 会封杀内联样式"——必须先 `grep -oE "(style-src|style-src-attr)[^;]*"` 确认有无 `style-src` 指令再下结论。
+- **script-src 已去 'unsafe-inline'**，改用 sha256 白名单（约 47 个哈希）。`scripts/verify_csp_headless.cjs` 全量 194 页扫描 → **0 处 script-src 拒绝**，说明主题切换脚本、`document.documentElement.classList.add('js')` 等内联脚本均被正确哈希放行。
+- **对托尼巡检的影响**：
+  1. 内联样式正常 → 视觉继承/卡片/暖色判定与加固前一致，无系统性回归。
+  2. 主题脚本被放行 → `data-theme` 正常设置，明暗双主题均按设计渲染；`.js` 类正常注入 → `.js .reveal{opacity:0}` 生效（首屏无 reveal，安全）。
+  3. 无头实测时用 `page.evaluateOnNewDocument(()=>localStorage.setItem('theme',T))` 强制主题，绕过渲染时序差异，数据更稳。
+
+## 九、协调探针：子页基色继承客观验证（2026-08-26 新增）
+
+不依赖读图，用 puppeteer 对样本子页读取 computed token，客观判定"子页是否像另一个站"：
+
+- **读取值**：`getComputedStyle(document.body).backgroundColor` + `getComputedStyle(document.documentElement).getPropertyValue('--accent-color' / '--card' / '--nav-height')`。
+- **2026-08-26 抽样 15 页**（台风/主机/中药材/紫砂/漫威/旅行/游戏/射阳/健康茶/ChinaJoy/特斯拉/手办/关于/万年历/bracelet）→ 全部解析为 `bg=rgb(18, 16, 12)`（国风墨黑）、`accent=#C9A84C`（金）、`card=#1C1711` → **子页继承国风黑金设计语言、金主调一致**。
+- **唯一漂移**：`sheyang.html`(`rgb(10,10,10)` 冷黑)、`games.html`(`rgb(13,13,26)` 蓝黑) — 见第六节，属既定板块主题色、已知接受。
+- **此法价值**：把"协调性"从主观读图转为可量化指标（基色 token 一致性），适合无图环境每周复验。

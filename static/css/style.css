@@ -562,6 +562,15 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .code-copy-btn:hover { opacity:1; }
 .code-copy-btn.copied { color:var(--green)!important; border-color:var(--green)!important; }
 
+/* [TONY-FIX 2026-08-28] 代码块长行溢出：Hugo Chroma 的 pre/code 默认 white-space:pre（不换行），
+   超长命令/路径（如 /checklist/ 的 `cd ~/陈金龙/代码与脚本/...`）在移动端伸出视口，
+   被 body{overflow-x:clip} 裁切导致右侧文字丢失（实测 390px 下溢出 49px）。
+   改为代码块内部横向滚动（与 .table-wrapper/.lx-ticker-inner 同范式），避免页面级横向溢出；
+   隐藏滚动条保持视觉整洁。 */
+.code-block-wrapper, .highlight { overflow-x:auto; max-width:100%; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.code-block-wrapper::-webkit-scrollbar, .highlight::-webkit-scrollbar { display:none; }
+.code-block-wrapper pre, .highlight pre { overflow-x:auto; max-width:100%; }
+
 .warning-box {
  background:rgba(232,17,35,0.08); border-left:4px solid var(--red);
  border-radius:0 var(--radius-sm) var(--radius-sm) 0;

@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-28",
+    "content": "【视觉协调/美化巡检·托尼】无头实测 197 页×5 视口(390/375/360/1440/1920)×2 主题=1970 组合，文档级横向溢出全 0；扫描 19009 处 var() 用法/213 定义，undefined CSS 变量 0；暖色仅余既定小尺寸语义色（year-badge 红/橙胶囊、季节卡、联系邮箱绿 #42b883、警示红 #e57373、status-bubble 红徽标），维持不动。修复：/checklist/ 代码块长命令（cd ~/陈金龙/…）移动端伸出视口被 body{overflow-x:clip} 裁切（实测 390px 溢出 49px）→ 代码块改内部横向滚动（.code-block-wrapper/.highlight/pre{overflow-x:auto}，与 .table-wrapper 同范式）。CSS 版本 ?v=20260825→?v=20260828 全量 bump（187 处源文件）+ 同步根副本 css/style.css。知识储备 VISUAL_KNOWLEDGE.md 增量：SRI 加固未覆盖主 style.css link（无去样式风险）、App 独立品牌页（shesi-landing/shesi-privacy/privacy）为协调性例外、复验规模升至 197 页。交付视觉层面 P0=P1=0 ✅。"
+  },
+  {
+    "date": "2026-08-28",
     "content": "台风实时监测更新（高频轮 02:40）：多源复核确认沙德尔仍强台风级、中央气象台台风网实时序列推进至28日01时、27日23时—28日01时连续报45m/s偏西强台风级稳定未减（跨午夜延续）、登陆窗进入「清晨至中午」倒计时（距预期登陆约3—9小时·温岭—平阳·forecast·待官方确认）、截至02:40仍未登陆；最新带坐标定点仍为22时（28.0°N/123.3°E·温州偏东255km·偏西20km/h）、00/01时仅报time/wind/dir/intensity无坐标（严守不编造铁律·不补登track）。射阳侧：盐城17:54强对流黄警已随时段过期、本地零在效台风类/强对流预警；省台29日20时—30日08时沿淮东部大雨局部暴雨仍覆盖射阳（forecast·待官方确认）；陆上4级左右、远在七级风圈外。本地风险维持「中低」(statusLevel=danger·statusShort=高风险预警·riskLevel=中低)。"
   },
   {

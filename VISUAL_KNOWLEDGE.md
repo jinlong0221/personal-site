@@ -59,7 +59,7 @@
 - **横向溢出双指标**（html `overflow-x:hidden` 会裁剪掩盖，单信 scrollWidth 会漏报）：
   1. 文档级 `document.documentElement.scrollWidth - window.innerWidth` 须 = 0；
   2. "伸出视口"元素扫描：遍历 `*`，取 `getBoundingClientRect()`，`rect.right > innerWidth+1.5` 且不在 `overflow-x:auto/scroll` 祖先内部者 = 视觉溢出。后者能抓被 html clip 掉的裁切内容，比前者更可靠。
-- **遍历规模**：194 页 × 5 视口(390/375/360/1440/1920) × 2 主题 ≈ 1940 次加载，单进程约 12–20 分钟；务必后台跑、勿前台阻塞。
+- **遍历规模**：197 页 × 5 视口(390/375/360/1440/1920) × 2 主题 ≈ 1970 次加载，单进程约 12–20 分钟；务必后台跑、勿前台阻塞。
 - **undefined CSS 变量扫描坑**：只扫 `style.css` 会大量误报（页面内联 `<style>` 与 pagefind 自带 CSS 也定义了 `--xxx`）。正确做法：从「全部 .css + 全部 html 内联 `<style>` + JS `setProperty`」收集定义，再比对 `var()` 用法，并过滤带 fallback 的 `var(--x, 默认值)`。
 - **safe-area / sticky 用代码审查而非截图**：grep `position:sticky` 找所有 `top:var(--nav-height)` 元素，确认每个都在 `@supports(padding:env(safe-area-inset-top))` 内补 `top:calc(var(--nav-height)+env(safe-area-inset-top))`；并确认 body 是 `overflow-x:clip`（非 hidden），sticky 才能以视口为滚动祖先。
 
@@ -83,3 +83,28 @@
 - **2026-08-26 抽样 15 页**（台风/主机/中药材/紫砂/漫威/旅行/游戏/射阳/健康茶/ChinaJoy/特斯拉/手办/关于/万年历/bracelet）→ 全部解析为 `bg=rgb(18, 16, 12)`（国风墨黑）、`accent=#C9A84C`（金）、`card=#1C1711` → **子页继承国风黑金设计语言、金主调一致**。
 - **唯一漂移**：`sheyang.html`(`rgb(10,10,10)` 冷黑)、`games.html`(`rgb(13,13,26)` 蓝黑) — 见第六节，属既定板块主题色、已知接受。
 - **此法价值**：把"协调性"从主观读图转为可量化指标（基色 token 一致性），适合无图环境每周复验。
+- **2026-08-28 复验规模**：站点已 197 页（较 08-25 的 194 页 +3），新增 3 页均为「脚趾抠地」App 独立品牌页（见第六节），基色协调探针抽样仍全绿、金主调一致。
+
+## 十、SRI 安全加固与全局样式表风险（2026-08-28 复盘）
+
+安全加固 commit `c9e0fb7`（逐资源验签）给站内资源加了 SRI `integrity`，但**主 `style.css` 的 `<link>`（head.html:267）未加 `integrity`/`crossorigin`**——仅 `css/style.css?v=20260828` 普通引用。结论：
+
+- **当前无风险**：主样式表不受哈希失配影响，全站正常加载（headless 实测 `document.styleSheets` 含该 href）。
+- **⚠️ 未来红线**：若某次加固给 `style.css` 也加 SRI，则每次 bump `?v=` 或改 CSS 后**必须同步重算 integrity 哈希**；哈希与文件不符时浏览器会静默拒绝加载 → 全站去样式（headless 只表现为"未样式"而非普通 glitch，极易误判为其他 bug）。给主 CSS 加 SRI 前务必配套"改完即重算哈希"的脚本。
+- 影响范围仅限主样式表；页面内联 `<style>`/`<style id="critical-css">` 与小脚本不受 SRI 约束（见第八节 CSP 关系）。
+
+## 十一、协调性例外：App 独立品牌页（2026-08-28 明确）
+
+「脚趾抠地」App 分享/隐私落地页 `static/shesi-landing.html`、`static/shesi-privacy.html`、`static/privacy.html`（commit `3044835` 等引入）为**刻意独立于 longxiong.vip 国风黑金家族**的 App 品牌页：浅色纸感底（`--paper:#f4efe6`）+ coral(`#ff5a5f`)/purple(`#7b5cff`) 撞色 + brutalist 描边卡片（`box-shadow:5px 5px 0`）。
+
+- **设计意图**：分享卡要在社媒/微信里独立传播，需与 App 自身视觉一致、与知识站区分；无站点导航、无国风元素，属预期。
+- **巡检处理**：排除在「首页↔子页协调 / 子页像另一个站」红线之外，**勿强行改回国风黑金**；仅验证其自身无 glitch（无横向滚动、无遮挡、无溢出）即可。
+- **资产边界**：依用户硬性规则，App 内容不应挂在 longxiong.vip 下承载——此 3 页属既有历史放置，托尼巡检只管视觉无破损、不迁移域名（迁移归 legal/架构）。
+
+## 十二、本周（2026-08-28）巡检结论速记
+
+- 横向溢出：197 页 × 5 视口 × 2 主题 = 1970 组合，文档级 `scrollWidth-innerWidth` 全 0（headless 实测）。
+- undefined CSS 变量：19009 处 `var()` 用法 / 213 定义，0 处未定义（带 fallback 已过滤）。
+- 暖色刺眼：仅余既定小尺寸语义色（year-badge 红/橙胶囊、季节卡、`#42b883` 联系邮箱绿、`#e57373` 警示红、status-bubble 红徽标），均非大面积高饱和，按第六节"保持不动"准则维持。
+- safe-area / sticky：navbar、mobile-nav、body、`.lx-search-wrap` 的 `top/height` 均在 `@supports(padding:env(safe-area-inset-top))` 内补 `calc(var(--nav-height)+env(...))`；body 用 `overflow-x:clip`（非 hidden），sticky 以视口为祖先，无失效。
+- 交付门槛：视觉层面 **P0=P1=0** ✅。

@@ -32,24 +32,43 @@ import { gzipSync, gunzipSync } from 'node:zlib';
 import { readFileSync, writeFileSync, rmSync, existsSync, readdirSync, statSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+// Argon2id（内存硬 KDF）——自包含 vendored 模块，无运行期 npm 依赖。
+// 浏览器解密脚本 import 同一份 /js/vendor/argon2.mjs，保证加解密字节级一致。
+import { argon2id } from './vendor/argon2.mjs';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const PUBLIC = process.env.PUBLIC ? process.env.PUBLIC : join(ROOT, 'public');
 const TRAVEL_HTML = join(PUBLIC, 'travel.html');
 const PASSWORD = process.env.TRAVEL_KEY;
 
-const PBKDF2_ITERS = 1000000; // 抗离线爆破：解锁时只做一次密钥派生，1M 在手机上约亚秒级；爆破弱密码成本约为 250k 的 4 倍
+// —— KDF 策略（2026-08-27 升级：PBKDF2 → Argon2id）——
+// PBKDF2 仅抗 CPU，GPU/ASIC 可大规模并行把弱密码爆破成本压到极低（黑莓自身 CVE-2010-3741
+// 即因 PBKDF2 迭代仅 1 次被破）。Argon2id（RFC 9106）是 OWASP 2023 首选内存硬 KDF：
+// 派生需占用 m KiB 内存，迫使攻击者无法并行——1 台 GPU 同时只能跑极少数实例。
+const PBKDF2_ITERS = 1000000; // 仅保留用于兼容「已部署的旧 PBKDF2 外壳」可解（浏览器双分支）
+// 新加密统一使用 Argon2id；参数: t=3 轮, m=32768 KiB(32MiB) 内存, p=1 并行, 输出 32 字节(AES-256 密钥)
+const ARGON2 = { t: 3, m: 32768, p: 1, dkLen: 32, version: 0x13 };
+const KDF_TAG = 'ARG2';                 // 密文头算法标记
+const KDF_PARAMS = `${ARGON2.t}.${ARGON2.m}.${ARGON2.p}`; // "3.32768.1"，供浏览器按同参派生
 const enc = new TextEncoder();
 
 function b64(buf) { return Buffer.from(buf).toString('base64'); }
 function fromB64(s) { return new Uint8Array(Buffer.from(s, 'base64')); }
 // 计算字符串的 sha256(base64)，用于把内联解密脚本自身的哈希注入 CSP 白名单
 function sha256b64(s) { return createHash('sha256').update(s, 'utf8').digest('base64'); }
+// 计算文件 sha384(base64)，用于给同源 vendored 模块注入 SRI（与 bump_v_hash 同口径）
+function sha384b64File(p) { return 'sha384-' + createHash('sha384').update(readFileSync(p)).digest('base64'); }
 
+// 新标准密钥派生：Argon2id（内存硬）。返回可供 AES-GCM 256 使用的 CryptoKey。
 async function deriveKey(password, salt) {
+  const raw = argon2id(enc.encode(password), salt, ARGON2); // 同步、内存硬；浏览器侧用 argon2idAsync 不卡 UI
+  return crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['encrypt', 'decrypt']);
+}
+// 旧 PBKDF2 派生（仅供 --selftest 验证「已部署旧外壳」可解，不参与新加密）
+async function deriveKeyPBKDF2(password, salt, iters) {
   const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
   return crypto.subtle.deriveKey(
-    { name: 'PBKDF2', salt, iterations: PBKDF2_ITERS, hash: 'SHA-256' },
+    { name: 'PBKDF2', salt, iterations: iters, hash: 'SHA-256' },
     base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
 }
 
@@ -223,6 +242,19 @@ async function main() {
   head = head.replace("img-src 'self' data:", "img-src 'self' data: blob:");
   head = head.replace('<body>', '<body data-pagefind-ignore>');
 
+  // 注入同源 Argon2 模块（SRI 覆盖）：解密脚本 import 同一份 vendored 模块，保证字节级一致；
+  // SRI(integrity) 防止 CDN/传输层篡改该模块；模块本身静态不动，哈希由「实际部署文件」算出。
+  {
+    const argonFile = join(PUBLIC, 'js', 'vendor', 'argon2.mjs');
+    if (existsSync(argonFile)) {
+      const integ = sha384b64File(argonFile);
+      const tag = `<script type="module" src="/js/vendor/argon2.mjs" integrity="${integ}" crossorigin="anonymous"><\/script>`;
+      head = head.replace('</head>', tag + '\n</head>');
+    } else {
+      console.warn('[encrypt_travel] 未找到 public/js/vendor/argon2.mjs，跳过 Argon2 模块 SRI 注入（解密 import 将失败）。请先执行 hugo 构建。');
+    }
+  }
+
   let shell = head + buildGate(blobB64, saltB64, nShards) + tail;
   // —— 6b. 解密脚本是内联 <script>，其内容随 BLOB 每次重建而变；严格 CSP(sha256 白名单)
   //        会拦截它，导致解锁按钮事件不绑定、相册永远打不开。故把本页解密脚本自身的
@@ -231,10 +263,11 @@ async function main() {
   //        CSP 计算口径一致；不可用从首个 <script> 贪婪跨到 var BLOB 的大段（会包含
   //        <head> 等其他内容，哈希错误导致放行失效）。
   {
-    const blocks = shell.match(/<script>([\s\S]*?)<\/script>/g) || [];
-    let decScript = null;
-    for (const blk of blocks) {
-      if (blk.includes('var BLOB=')) { decScript = blk.slice('<script>'.length, blk.length - '</script>'.length); break; }
+    // 匹配任意 <script ...>（含 type="module"）并取内部文本；仅取含 var BLOB= 的解密脚本算哈希
+    const re = /<script\b([^>]*)>([\s\S]*?)<\/script>/g;
+    let m, decScript = null;
+    while ((m = re.exec(shell))) {
+      if (m[2].includes('var BLOB=')) { decScript = m[2]; break; }
     }
     if (decScript) {
       const decHash = sha256b64(decScript);
@@ -312,14 +345,29 @@ function buildGate(blobB64, saltB64, nShards) {
 .tl-prog-bar{height:5px;background:#26242a;border-radius:99px;overflow:hidden}
 .tl-prog-fill{height:100%;width:0;background:#C9A84C;border-radius:99px;transition:width .4s ease}
 </style>
-<script>
+<script type="module">
+import { argon2idAsync } from '/js/vendor/argon2.mjs';
 (function(){
   var BLOB="${blobB64}";
   var SALT="${saltB64}";
+  var KDF="${KDF_TAG}";
+  var KPARAMS="${KDF_PARAMS}";
   var ALBUM_COUNT=${nShards || 0};
   var enc=new TextEncoder();
   function b64ToU8(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
-  function derive(pw,salt){return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:1000000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);});}
+  function derive(pw,salt){
+    if(KDF==="ARG2"){
+      // 新标准：Argon2id 内存硬派生（与 encrypt_travel 同一份 vendored 模块，字节级一致）
+      var p=KPARAMS.split(".").map(Number);
+      return argon2idAsync(enc.encode(pw),salt,{t:p[0],m:p[1],p:p[2],dkLen:32,version:0x13})
+        .then(function(h){return crypto.subtle.importKey("raw",h,"AES-GCM",false,["encrypt","decrypt"]);});
+    }
+    // 兼容已部署的旧 PBKDF2 外壳：用头里记录的迭代次数（缺省 1M）
+    var iters=(KDF==="PBK2")?(parseInt(KPARAMS,10)||1000000):1000000;
+    return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){
+      return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:iters,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);
+    });
+  }
   function decBytes(key,blob){var iv=blob.slice(0,12),ct=blob.slice(12);return crypto.subtle.decrypt({name:"AES-GCM",iv:iv},key,ct).then(function(pt){return new Uint8Array(pt);});}
   function gunzip(u){return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream("gzip"))).text();}
   function reRun(root){
@@ -602,6 +650,17 @@ if (process.argv.includes('--selftest')) {
   (async () => {
     const pw = '测试密码-Abc123-🔑';
     const salt = crypto.getRandomValues(new Uint8Array(16));
+    // 复刻浏览器解密脚本的 derive 双分支（保证 Node 自检与浏览器行为字节级一致）
+    async function browserDerive(kdf, kparams, password, s) {
+      if (kdf === 'ARG2') {
+        const p = kparams.split('.').map(Number);
+        const h = argon2id(enc.encode(password), s, { t: p[0], m: p[1], p: p[2], dkLen: 32, version: 0x13 });
+        return crypto.subtle.importKey('raw', h, 'AES-GCM', false, ['encrypt', 'decrypt']);
+      }
+      const iters = kdf === 'PBK2' ? (parseInt(kparams, 10) || PBKDF2_ITERS) : PBKDF2_ITERS;
+      const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: s, iterations: iters, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+    }
     const key = await deriveKey(pw, salt);
     const orig = enc.encode('<main>家庭旅行 <img src="img/travel/a.webp"> 测试内容 123</main>');
     const blob = await encryptBytes(key, orig);
@@ -614,6 +673,15 @@ if (process.argv.includes('--selftest')) {
     let failed = false;
     try { await decryptBytes(badKey, blob); } catch (e) { failed = true; }
     if (!failed) { console.error('SELFTEST FAIL: 错误密码竟能解密'); process.exit(1); }
+    // —— 旧 PBKDF2 外壳兼容：用 deriveKeyPBKDF2 加密，再以「浏览器双分支 derive」按标记选择正确算法解密 ——
+    const pbBlob = await encryptBytes(await deriveKeyPBKDF2(pw, salt, PBKDF2_ITERS), orig);
+    const pbKey = await browserDerive('PBK2', String(PBKDF2_ITERS), pw, salt);
+    const pbBack = await decryptBytes(pbKey, pbBlob);
+    if (Buffer.compare(Buffer.from(pbBack), Buffer.from(orig)) !== 0) { console.error('SELFTEST FAIL: 旧 PBKDF2 外壳不可解'); process.exit(1); }
+    // 新 ARG2 密文绝不能被 PBK2 派生解开（证明双分支严格按 KDF 标记分流，不会误用旧算法）
+    let mismatchRejected = false;
+    try { await decryptBytes(await browserDerive('PBK2', String(PBKDF2_ITERS), pw, salt), blob); } catch (e) { mismatchRejected = true; }
+    if (!mismatchRejected) { console.error('SELFTEST FAIL: 用 PBK2 竟能解开 ARG2 密文'); process.exit(1); }
     // —— 相册分片打包/解包往返（模拟浏览器端完整链路：分片→gzip→加密→解密→gunzip→解析）——
     const fakePhotos = [
       { rel: '2025-japan/mario-block.webp', data: new TextEncoder().encode('fake-webp-data-1-' + 'x'.repeat(300000)) },
@@ -659,7 +727,7 @@ if (process.argv.includes('--selftest')) {
       }
       if (uoff !== pu.byteLength) { console.error('SELFTEST FAIL: 片数据区长度不闭合'); process.exit(1); }
     }
-    console.log('SELFTEST OK ✅ (加解密往返 / gzip / 错误密码被拒 / 分片打包解包 gzip 往返一致)');
+    console.log('SELFTEST OK ✅ (ARG2 往返 / 旧 PBK2 外壳兼容 / 双分支严格分流 / gzip / 错误密码被拒 / 分片打包解包 gzip 往返一致)');
   })();
 }
 

@@ -31,6 +31,7 @@ import os
 import re
 import sys
 import hashlib
+import base64
 
 # 扫描的文件类型（均为文本）
 SCAN_EXTS = {".html", ".css", ".js", ".xsl"}
@@ -51,6 +52,9 @@ HASH_RE = re.compile(
 )
 
 HASH_LEN = 12
+
+# 同域 <script src> / <link rel=stylesheet href> 的 SRI 注入：匹配标签名 + 整段属性串
+SRI_TAG_RE = re.compile(r"<(script|link)\b([^>]*)>", re.IGNORECASE)
 
 
 def sha12(path):
@@ -85,6 +89,67 @@ def resolve(asset_path, from_file, root):
     return cand2 if os.path.exists(cand2) else None
 
 
+def sha384_of(path):
+    """同域资源文件的 sha384(base64)，用于 SRI integrity 属性（Web 世界的强制代码签名）。"""
+    h = hashlib.sha384()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return "sha384-" + base64.b64encode(h.digest()).decode("ascii")
+
+
+def attr_val(attrs, name):
+    """从标签属性串中取出 name="..." / name='...' / name=token 的值；取不到返回 None。"""
+    m = re.search(r"\b" + name + r"\s*=\s*(\"([^\"]*)\"|'([^']*)'|([^\s>]+))", attrs, re.IGNORECASE)
+    if not m:
+        return None
+    return m.group(2) if m.group(2) is not None else (m.group(3) if m.group(3) is not None else m.group(4))
+
+
+def inject_sri(text, fpath, root, cache_sri):
+    """对同域 <script src>/<link rel=stylesheet href> 注入 integrity="sha384-…" + crossorigin。
+    跨域(CDN/统计)/内联/data:/已含 integrity 的标签跳过。返回 (new_text, added, skipped)。
+    """
+    added = 0
+    skipped = 0
+
+    def repl(m):
+        nonlocal added, skipped
+        tag = m.group(1).lower()
+        attrs = m.group(2)
+        if "integrity=" in attrs.lower():
+            return m.group(0)  # 已有 integrity（如 encrypt_travel 注入的 argon2 模块），不重复注入
+        if tag == "script":
+            path = attr_val(attrs, "src")
+            if not path:
+                return m.group(0)
+        else:  # link：仅样式表需要 SRI；其他 rel（preload/icon…）不参与
+            rel = attr_val(attrs, "rel")
+            if not rel or "stylesheet" not in rel.lower():
+                return m.group(0)
+            path = attr_val(attrs, "href")
+            if not path:
+                return m.group(0)
+        # 去除查询串/片段后解析到 public/ 内真实文件；解析不到（外部/CDN）跳过
+        clean = path.split("?", 1)[0].split("#", 1)[0]
+        real = resolve(clean, fpath, root)
+        if real is None or not os.path.exists(real):
+            skipped += 1
+            return m.group(0)
+        integ = cache_sri.get(real)
+        if integ is None:
+            integ = sha384_of(real)
+            cache_sri[real] = integ
+        new_attrs = attrs.rstrip()
+        if not new_attrs.endswith(" "):
+            new_attrs += " "
+        prefix = "" if new_attrs.startswith(" ") else " "
+        added += 1
+        return "<" + m.group(1) + prefix + new_attrs + 'integrity="' + integ + '" crossorigin="anonymous">'
+
+    return SRI_TAG_RE.sub(repl, text), added, skipped
+
+
 def collect_files(root):
     out = []
     for dirpath, dirnames, filenames in os.walk(root):
@@ -95,19 +160,22 @@ def collect_files(root):
 
 
 def transform(root, dry_run):
-    """改写 public/ 内可解析本地资源的 ?v=DATE → ?v=h<hash>。返回 (changed_files, replaced, skipped)。"""
-    cache = {}  # 资源绝对路径 -> hash（保证同文件同哈希）
+    """改写 public/ 内可解析本地资源的 ?v=DATE → ?v=h<hash>，并注入 SRI。
+    返回 (changed_files, replaced, skipped, sri_added, sri_skipped)。
+    """
+    cache = {}       # 资源绝对路径 -> ?v 哈希（保证同文件同哈希）
+    cache_sri = {}   # 资源绝对路径 -> sha384 integrity（保证同文件同哈希）
     changed_files = []
     replaced = 0
-    skipped = 0  # 解析不到的外部/未知引用（保持原样，不算错误）
+    skipped = 0      # 解析不到的外部/未知引用（?v 阶段，保持原样，不算错误）
+    sri_added = 0
+    sri_skipped = 0  # 跨域/已含 integrity/解析不到（SRI 阶段，保持原样）
 
     for fpath in collect_files(root):
         try:
             with open(fpath, "r", encoding="utf-8") as fh:
                 text = fh.read()
         except (UnicodeDecodeError, OSError):
-            continue
-        if "?v=" not in text:
             continue
 
         def repl(m):
@@ -134,12 +202,23 @@ def transform(root, dry_run):
             return new
 
         new_text = ATTR_RE.sub(repl, text)
+        # SRI 注入（独立于 ?v；同源 script/link 加 integrity，跨域跳过）。
+        # 仅对 HTML/XSL 文档生效：.js/.css 内的 <script>/<link> 多为字符串字面量
+        # （如 board-nav.js 动态注入自身的 '<script src=...>'），对它们注入会污染
+        # 文件自身内容、且因文件遍历顺序导致跨文件哈希错配，故严格限制文档类型。
+        ext = os.path.splitext(fpath)[1].lower()
+        if ext in (".html", ".xsl"):
+            new_text, sa, ss = inject_sri(new_text, fpath, root, cache_sri)
+        else:
+            sa, ss = 0, 0
+        sri_added += sa
+        sri_skipped += ss
         if new_text != text:
             changed_files.append(fpath)
             if not dry_run:
                 with open(fpath, "w", encoding="utf-8") as fh:
                     fh.write(new_text)
-    return changed_files, replaced, skipped
+    return changed_files, replaced, skipped, sri_added, sri_skipped
 
 
 def verify(root):
@@ -148,7 +227,9 @@ def verify(root):
     - 已带 ?v=h<hash> 但与其文件内容重算不一致 → 完整性错误。
     """
     errors = []
-    checked = 0
+    errors = []
+    checked = 0       # ?v=h 完整性校验计数
+    sri_checked = 0   # SRI integrity 完整性校验计数
     for fpath in collect_files(root):
         try:
             with open(fpath, "r", encoding="utf-8") as fh:
@@ -177,7 +258,34 @@ def verify(root):
                 errors.append(
                     f"{os.path.relpath(fpath, root)} -> ?v=h{h} 与文件内容不符（应为 h{sha12(real)}）: {path}"
                 )
-    return errors, checked
+
+        # 3) SRI integrity 完整性（仅 HTML/XSL 文档：.js/.css 内的标签为字符串字面量，不校验）
+        if os.path.splitext(fpath)[1].lower() in (".html", ".xsl"):
+            for m in SRI_TAG_RE.finditer(text):
+                attrs = m.group(2)
+                integ = attr_val(attrs, "integrity")
+                if not integ or not integ.startswith("sha384-"):
+                    continue
+                tag = m.group(1).lower()
+                if tag == "script":
+                    path = attr_val(attrs, "src")
+                else:
+                    rel = attr_val(attrs, "rel")
+                    if not rel or "stylesheet" not in rel.lower():
+                        continue
+                    path = attr_val(attrs, "href")
+                if not path:
+                    continue
+                clean = path.split("?", 1)[0].split("#", 1)[0]
+                real = resolve(clean, fpath, root)
+                if real is None or not os.path.exists(real):
+                    continue  # 跨域/解析不到不校验
+                sri_checked += 1
+                if sha384_of(real) != integ:
+                    errors.append(
+                        f"{os.path.relpath(fpath, root)} -> SRI integrity 与文件内容不符（应为 {sha384_of(real)}）: {path}"
+                    )
+    return errors, checked, sri_checked
 
 
 def main():
@@ -193,28 +301,28 @@ def main():
         sys.exit(2)
 
     if check_only:
-        errors, checked = verify(root)
+        errors, checked, sri_checked = verify(root)
         if errors:
             print(f"[bump_v_hash] CHECK FAIL: {len(errors)} 处问题")
             for e in errors:
                 print(f"  - {e}")
             sys.exit(1)
-        print(f"[bump_v_hash] CHECK PASS: {checked} 处 ?v=h 哈希完整、无残留日期版本")
+        print(f"[bump_v_hash] CHECK PASS: {checked} 处 ?v=h 哈希完整、{sri_checked} 处 SRI integrity 完整、无残留日期版本")
         sys.exit(0)
 
-    changed_files, replaced, skipped = transform(root, dry_run)
+    changed_files, replaced, skipped, sri_added, sri_skipped = transform(root, dry_run)
     if dry_run:
-        print(f"[bump_v_hash] DRY-RUN: 将改写 {replaced} 处引用、{len(changed_files)} 个文件；{skipped} 处外部/未知引用保持原样")
+        print(f"[bump_v_hash] DRY-RUN: 将改写 {replaced} 处 ?v 引用、注入 {sri_added} 处 SRI；{len(changed_files)} 个文件受影响；{skipped} 处 ?v 外部/未知引用、{sri_skipped} 处 SRI 跨域/已注入引用保持原样")
         sys.exit(0)
 
     # 改写后自校验
-    errors, checked = verify(root)
+    errors, checked, sri_checked = verify(root)
     if errors:
         print(f"[bump_v_hash] FAIL: 改写完成但自校验发现 {len(errors)} 处问题")
         for e in errors:
             print(f"  - {e}")
         sys.exit(1)
-    print(f"[bump_v_hash] PASS: 改写 {replaced} 处引用、{len(changed_files)} 个文件；{skipped} 处外部/未知引用保持原样；{checked} 处哈希自校验通过")
+    print(f"[bump_v_hash] PASS: 改写 {replaced} 处 ?v 引用、{len(changed_files)} 个文件；注入 {sri_added} 处 SRI、{sri_skipped} 处跨域/已注入跳过；{checked} 处 ?v 哈希 + {sri_checked} 处 SRI 自校验通过")
     sys.exit(0)
 
 

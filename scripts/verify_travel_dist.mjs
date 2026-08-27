@@ -8,10 +8,11 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { homedir } from 'node:os';
 import { gunzipSync } from 'node:zlib';
+import { argon2id } from './vendor/argon2.mjs'; // Argon2id（内存硬 KDF），与 encrypt_travel.mjs 同参派生
 
 const SHELL = process.argv[2] || '/Users/chenjinlong/陈金龙/代码与脚本/个人知识网站/hugo-site/travel-dist/travel.html';
 const KEY_FILE = join(homedir(), '.config/longxiong/travel_key');
-let PASSWORD = process.argv[3];
+let PASSWORD = process.argv[3] || process.env.TRAVEL_KEY;
 if (!PASSWORD) {
   try { PASSWORD = readFileSync(KEY_FILE, 'utf8').trim(); }
   catch { throw new Error('需要 TRAVEL_KEY（或先写入 ~/.config/longxiong/travel_key）'); }
@@ -27,6 +28,13 @@ if (!blobM || !saltM) { console.error('❌ 未找到 BLOB/SALT'); process.exit(1
 const blobB64 = blobM[1], saltB64 = saltM[1];
 const albumCount = countM ? parseInt(countM[1], 10) : 0;
 console.log(`✓ 提取 BLOB(${blobB64.length} chars) + SALT(${saltB64.length} chars) + ALBUM_COUNT=${albumCount}`);
+
+// 读取 KDF 算法标记与参数（与 encrypt_travel.mjs 写入一致；缺省视为旧 PBKDF2 外壳）
+const kdfM = html.match(/var KDF="([^"]+)"/);
+const kparamsM = html.match(/var KPARAMS="([^"]+)"/);
+const kdf = kdfM ? kdfM[1] : 'PBK2';
+const kparams = kparamsM ? kparamsM[1] : String(1000000);
+console.log(`✓ KDF 算法标记: ${kdf} (params=${kparams})`);
 
 const b64ToU8 = (s) => { const b = Buffer.from(s, 'base64'); return new Uint8Array(b); };
 const enc = new TextEncoder();
@@ -59,10 +67,21 @@ async function decryptShard(key, path) {
 }
 
 async function main() {
-  const key = await crypto.subtle.importKey('raw', enc.encode(PASSWORD), 'PBKDF2', false, ['deriveKey'])
-    .then(k => crypto.subtle.deriveKey(
-      { name: 'PBKDF2', salt: b64ToU8(saltB64), iterations: 1000000, hash: 'SHA-256' },
-      k, { name: 'AES-GCM', length: 256 }, false, ['decrypt']));
+  // 双分支密钥派生：与 encrypt_travel.mjs 保持字节级一致（同一密码 + 同 KDF/同参 → 同密钥）
+  let key;
+  if (kdf === 'ARG2') {
+    const p = kparams.split('.').map(Number); // "t.m.p"
+    const raw = argon2id(enc.encode(PASSWORD), b64ToU8(saltB64), { t: p[0], m: p[1], p: p[2], dkLen: 32, version: 0x13 });
+    key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+    console.log(`✓ 密钥派生: Argon2id(t=${p[0]}, m=${p[1]}, p=${p[2]})`);
+  } else {
+    const iters = parseInt(kparams, 10) || 1000000;
+    key = await crypto.subtle.importKey('raw', enc.encode(PASSWORD), 'PBKDF2', false, ['deriveKey'])
+      .then(k => crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: b64ToU8(saltB64), iterations: iters, hash: 'SHA-256' },
+        k, { name: 'AES-GCM', length: 256 }, false, ['decrypt']));
+    console.log(`✓ 密钥派生: PBKDF2(iters=${iters})`);
+  }
 
   const blob = b64ToU8(blobB64);
   const iv = blob.slice(0, 12), ct = blob.slice(12);

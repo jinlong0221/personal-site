@@ -278,8 +278,8 @@ var _hmt = _hmt || [];
 
 /* 俄罗斯方块 */
 .tt-layout { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; align-items:flex-start; }
-.tt-canvas { background:#14110f; border:1px solid rgba(200,168,107,.3); border-radius:8px; max-width:100%; height:auto; touch-action: manipulation; }
-.tt-main { display:flex; flex-direction:column; align-items:center; gap:12px; flex:0 0 auto; }
+.tt-canvas { display:block; background:#14110f; border:1px solid rgba(200,168,107,.3); border-radius:8px; width:240px; max-width:calc(100vw - 56px); aspect-ratio:1/2; touch-action: manipulation; }
+.tt-main { display:flex; flex-direction:column; align-items:center; gap:14px; flex:0 0 auto; }
 .tt-side { display:flex; flex-direction:column; gap:10px; min-width:150px; }
 .tt-next-box { background:rgba(255,255,255,.03); border:1px solid rgba(200,168,107,.22); border-radius:12px; padding:8px; text-align:center; }
 .tt-next-box .lbl { color:var(--text-muted); font-size:.78rem; }

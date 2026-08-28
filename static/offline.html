@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>离线 · 龙兄知识库</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --off-bg:#12100C; --off-card:#191510; --off-rule:#322B20; --off-text:#EDE6D6;
+    --off-muted:#A2977F; --off-gold:#C9A84C; --off-cinnabar:#D14A36;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--off-bg);color:var(--off-text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:clip;
+    display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;
+  }
+  .off{width:100%;max-width:420px;text-align:center}
+  .seal{
+    width:84px;height:84px;margin:0 auto 22px;border-radius:18px;
+    background:linear-gradient(135deg,#1565C0,#0D47A1);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Kaiti SC","STKaiti",KaiTi,serif;font-size:42px;color:#fff;
+    box-shadow:0 8px 24px rgba(0,0,0,.5)
+  }
+  h1{font-size:22px;font-weight:700;letter-spacing:1px;margin-bottom:10px}
+  .kicker{font-size:11px;letter-spacing:3px;color:var(--off-cinnabar);text-transform:uppercase;margin-bottom:14px}
+  p{font-size:14px;line-height:1.8;color:var(--off-muted);margin-bottom:8px}
+  .actions{display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+  a.btn,.retry{
+    display:inline-block;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:700;
+    text-decoration:none;cursor:pointer;border:1px solid var(--off-rule);background:var(--off-card);color:var(--off-text);
+    transition:border-color .2s,transform .2s
+  }
+  a.btn{background:var(--off-gold);color:#1a1206;border-color:var(--off-gold)}
+  a.btn:hover{border-color:var(--off-gold);transform:translateY(-1px)}
+  .retry:hover{border-color:var(--off-gold);transform:translateY(-1px)}
+  .hint{font-size:12px;color:var(--off-muted);margin-top:18px;line-height:1.7}
+</style>
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=20260826" defer></script>
+</head>
+<body>
+  <div class="off">
+    <div class="seal">龙</div>
+    <div class="kicker">OFFLINE</div>
+    <h1>您已离线</h1>
+    <p>当前网络不可用，但您之前浏览过的页面仍可在此阅读。</p>
+    <p>返回首页或重试以加载最新内容。</p>
+    <div class="actions">
+      <a class="btn" href="/">返回首页</a>
+      <span class="retry" onclick="location.reload()">重试连接</span>
+    </div>
+    <div class="hint">龙兄知识库 · 实测溯源图文库<br>已为您缓存部分内容，连接恢复后自动更新。</div>
+  </div>
+</body>
+</html>

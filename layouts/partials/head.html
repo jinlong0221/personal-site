@@ -288,6 +288,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.78r
 <!-- 全站小组件：悬浮栏目目录 + 本地收藏（纯前端，无后端） -->
 <script src="{{ .Site.BaseURL }}js/quick-toc.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/bookmark.js" defer></script>
+<!-- PWA：注册 Service Worker 以支持离线阅读（脚本同源，受 script-src 'self' 允许；apply_pwa.py 对静态页注入同款） -->
+<script src="{{ .Site.BaseURL }}js/pwa-register.js?v=20260826" defer></script>
 <!-- 非关键交互脚本（搜索/灯箱/分享/更新日志）：空闲时再加载，释放首屏主线程，缓解卡顿 -->
 <script>
 (function () {

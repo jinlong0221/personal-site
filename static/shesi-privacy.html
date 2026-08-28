@@ -20,6 +20,41 @@
   .foot { margin-top:36px; border-top:1px solid var(--line); padding-top:16px; color:var(--muted); font-size:12px; }
   a { color:var(--brand); }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip/",
+      "description": "AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、中药养生茶、特斯拉动态新闻、射阳天气等实用内容。",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://longxiong.vip/search.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "隐私政策 · 脚趾抠地",
+      "description": "脚趾抠地 App 隐私政策：以匿名社区为原则，仅记录匿名身份与创作内容，不收集真实身份信息，说明信息存储、内容审核、未成年人保护及你享有的权利与控制方式。",
+      "url": "https://longxiong.vip/shesi-privacy.html",
+      "author": {
+        "@type": "Person",
+        "name": "龙兄"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "龙兄知识库"
+      }
+    }
+  ]
+}
+</script>
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=20260826" defer></script>
 </head>
 <body>
 <div class="wrap">

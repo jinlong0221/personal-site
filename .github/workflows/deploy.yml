@@ -47,6 +47,15 @@ jobs:
       - name: Inject site widgets (floating TOC + local bookmark)
         run: python3 scripts/apply_site_widgets.py
 
+      # 结构化数据（发现增长）：为缺失 JSON-LD 的静态页注入 schema.org @graph
+      # （WebSite + Article），已含的页跳过、绝不覆盖。Hugo 渲染页由 head.html 注入。
+      - name: Inject JSON-LD structured data (static pages)
+        run: python3 scripts/apply_jsonld.py
+
+      # PWA 离线阅读：为全部静态页注入 SW 注册脚本（travel 加密页跳过）；Hugo 页由 head.html 注册。
+      - name: Inject PWA Service Worker registration (static pages)
+        run: python3 scripts/apply_pwa.py
+
       - name: Build RSS feed
         run: python3 scripts/build_rss.py
 

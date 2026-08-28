@@ -21,17 +21,20 @@
 </script>
 
 <title>游艺厅｜龙兄知识库</title>
-<meta name="keywords" content="游艺厅,小游戏,贪吃蛇,2048,数独,网页游戏,龙兄知识库">
-<meta name="description" content="龙兄知识库的游艺厅：贪吃蛇、2048、数独等纯网页小游戏，不用下载、点开即玩，配一杯茶慢慢搓。">
+<meta name="keywords" content="游艺厅,小游戏,扫雷,五子棋,俄罗斯方块,记忆翻牌,龙兄知识库">
+
+<meta name="description" content="龙兄知识库的游艺厅：扫雷、五子棋、俄罗斯方块、国风记忆翻牌，不用下载、点开即玩，还能领一张专属身份卡记住你的最佳战绩。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
 <meta name="article-category" content="游艺厅">
-<meta name="article-tags" content="游艺厅,小游戏,贪吃蛇,2048,数独">
+<meta name="article-tags" content="游艺厅,小游戏,扫雷,五子棋">
 <meta name="article-updated" content="2026-08-28">
-<meta name="article-tags" content="游戏主机,主机,评测">
+
 <link rel="canonical" href="https://longxiong.vip/arcade.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="游艺厅 - 龙兄知识库">
-<meta name="twitter:description" content="任天堂、索尼、微软、世嘉、雅达利等游戏主机完整图鉴，从1977年至今的全部家用主机与掌机，包含详细参数、销量、经典游戏。">
+<meta name="twitter:title" content="游艺厅｜龙兄知识库">
+<meta name="twitter:description" content="扫雷、五子棋、俄罗斯方块、国风记忆翻牌，点开即玩的纯网页小游戏。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 <script type="application/ld+json">
 {
@@ -50,9 +53,9 @@
     },
     {
       "@type": "Article",
-      "headline": "游艺厅 - 龙兄知识库",
+      "headline": "游戏主机图鉴 - 龙兄知识库",
       "description": "任天堂、索尼、微软、世嘉、雅达利等游戏主机完整图鉴，从1977年至今的全部家用主机与掌机，包含详细参数、销量、经典游戏。",
-      "url": "https://longxiong.vip/arcade.html",
+      "url": "https://longxiong.vip/console.html",
       "author": { "@type": "Person", "name": "龙兄" },
       "publisher": { "@type": "Organization", "name": "龙兄知识库" }
     }
@@ -189,7 +192,7 @@ var _hmt = _hmt || [];
 </script>
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <meta property="og:description" content="龙兄知识库的游艺厅：贪吃蛇、2048、数独等纯网页小游戏，点开即玩。">
+  <meta property="og:description" content="龙兄知识库的游艺厅：扫雷、五子棋、俄罗斯方块、国风记忆翻牌，点开即玩，还能领专属身份卡记住最佳战绩。">
   <meta property="og:site_name" content="龙兄知识库">
   <meta property="og:title" content="游艺厅｜龙兄知识库">
   <meta property="og:type" content="website">
@@ -198,43 +201,94 @@ var _hmt = _hmt || [];
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
 <script src="/js/pwa-register.js?v=20260826" defer></script>
-<style>
-.arcade-hero { text-align:center; padding:48px 0 28px; }
-.arcade-hero .emoji-big { font-size:54px; line-height:1; margin-bottom:10px; }
-.arcade-hero h1 { font-size:2.2rem; font-weight:900; color:var(--text); margin-bottom:8px; }
-.arcade-hero p { color:var(--text-muted); font-size:.95rem; }
-.arcade-tabs { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:8px 0 22px; }
-.arcade-tab { background:var(--card); border:1px solid var(--border); color:var(--text-secondary); border-radius:999px; padding:9px 20px; font-size:.9rem; font-family:inherit; cursor:pointer; transition:all .2s; }
-.arcade-tab:hover { border-color:var(--gold); color:var(--text); }
-.arcade-tab.active { background:var(--gold); border-color:var(--gold); color:#1a1206; font-weight:700; }
-.game-panel { display:none; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; margin-bottom:24px; }
-.game-panel.active { display:block; }
-.gc-bar { display:flex; align-items:center; gap:16px; margin-bottom:14px; flex-wrap:wrap; }
-.gc-score { color:var(--text-secondary); font-size:.9rem; }
-.gc-score b { color:var(--gold); font-size:1.1rem; font-variant-numeric:tabular-nums; }
-.gc-start { margin-left:auto; background:var(--gold); border:0; color:#1a1206; font-weight:700; border-radius:8px; padding:8px 18px; font-family:inherit; cursor:pointer; font-size:.88rem; }
-.gc-start:hover { filter:brightness(1.08); }
-.gc-stage { display:flex; justify-content:center; padding:8px 0; }
-.gc-canvas { background:var(--bg-secondary); border:1px solid var(--border); border-radius:10px; max-width:100%; touch-action:none; }
-.gc-hint { color:var(--text-muted); font-size:.82rem; text-align:center; margin:12px 0 0; min-height:1.2em; }
-.g24-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; max-width:340px; margin:0 auto; background:var(--bg-secondary); padding:8px; border-radius:10px; border:1px solid var(--border); }
-.g24-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--card); border-radius:6px; font-size:1.6rem; font-weight:800; color:var(--text); }
-.g24-cell.v1{color:#c9a84c}.g24-cell.v2{color:#d8b85e}.g24-cell.v3{color:#e0c97a}.g24-cell.v4{color:#e6d28c}.g24-cell.v5{color:#ead9a0}.g24-cell.v6{color:#efd9b0}.g24-cell.v7{color:#f0c890}.g24-cell.v8{color:#e8a86a}.g24-cell.v9{color:#e08a3c}.g24-cell.v10{color:#d9643a}.g24-cell.v11{color:#d14a36}.g24-cell.v12{color:#b8324a}
-.sd-board { display:grid; grid-template-columns:repeat(9,1fr); gap:2px; max-width:380px; margin:0 auto; background:var(--gold); padding:3px; border-radius:8px; }
-.sd-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--card); font-size:.95rem; font-weight:700; color:var(--text); cursor:pointer; user-select:none; }
-.sd-cell.fixed { color:var(--text-muted); cursor:default; background:var(--bg-secondary); }
-.sd-cell.sel { outline:2px solid var(--gold); outline-offset:-2px; }
-.sd-cell.wrong { color:#fff; background:var(--red); }
-.sd-pad { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; max-width:380px; margin:16px auto 0; }
-.sd-num { width:42px; height:42px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text); font-size:1.1rem; font-weight:700; font-family:inherit; cursor:pointer; }
-.sd-num:hover { border-color:var(--gold); }
-.sd-erase { color:var(--red); }
-.arcade-foot { text-align:center; color:var(--text-muted); font-size:.8rem; margin:18px 0 0; }
-@media (max-width:480px){ .arcade-hero h1{font-size:1.7rem} .g24-cell{font-size:1.2rem} }
-</style>
 </head>
-<body>
+<style>
+/* ===== 游艺厅专属样式 ===== */
+.arcade-hero { text-align:center; padding: 30px 16px 8px; }
+.arcade-hero .emoji-big { font-size: 54px; line-height:1; }
+.arcade-hero h1 { font-size: 1.9rem; color: var(--gold); margin: 10px 0 4px; letter-spacing: 3px; }
+.arcade-hero p { color: var(--text-muted); font-size:.88rem; }
 
+.visitor-card {
+  display:flex; align-items:center; gap:14px;
+  background: linear-gradient(135deg, rgba(200,168,107,.14), rgba(200,168,107,.04));
+  border:1px solid rgba(200,168,107,.4); border-radius:16px;
+  padding:14px 18px; margin: 18px auto; max-width: 720px;
+}
+.vc-avatar { font-size:30px; background:rgba(200,168,107,.16); border-radius:50%; width:54px; height:54px; flex:0 0 54px; display:flex; align-items:center; justify-content:center; }
+.vc-name { color: var(--gold); font-weight:600; font-size:1.05rem; }
+.vc-id { color: var(--text-muted); font-size:.8rem; margin-top:3px; }
+
+.best-row { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin: 4px auto 22px; max-width:720px; }
+.best-chip { background: rgba(255,255,255,.04); border:1px solid rgba(200,168,107,.25); border-radius:20px; padding:6px 14px; font-size:.82rem; color: var(--text); }
+.best-chip b { color: var(--gold); font-weight:600; }
+
+.arcade-tabs { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:18px; }
+.arcade-tab { background:transparent; border:1px solid rgba(200,168,107,.35); color:var(--text-muted); padding:8px 18px; border-radius:22px; cursor:pointer; font-size:.9rem; transition:.2s; }
+.arcade-tab:hover { border-color: var(--gold); color: var(--gold); }
+.arcade-tab.active { background: var(--gold); color:#1a140d; border-color: var(--gold); font-weight:600; }
+
+.arcade-panel { display:none; }
+.arcade-panel.active { display:block; animation: arcfade .3s ease; }
+@keyframes arcfade { from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.game-card { background: rgba(255,255,255,.03); border:1px solid rgba(200,168,107,.22); border-radius:18px; padding:20px; max-width: 720px; margin: 0 auto; }
+.game-head { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
+.game-title { color: var(--gold); font-size:1.15rem; font-weight:600; }
+.game-hint { color: var(--text-muted); font-size:.8rem; }
+.arcade-msg { text-align:center; margin-top:14px; color: var(--gold); min-height:1.2em; font-size:.95rem; }
+
+/* 扫雷 */
+.ms-bar { display:flex; align-items:center; gap:16px; margin-bottom:14px; flex-wrap:wrap; justify-content:center; }
+.ms-stat { font-variant-numeric: tabular-nums; color: var(--text); font-size:.95rem; }
+.ms-face { font-size:1.5rem; cursor:pointer; background:none; border:1px solid rgba(200,168,107,.3); border-radius:10px; padding:2px 12px; line-height:1; }
+.ms-diff { display:flex; gap:8px; }
+.ms-diff button { background:rgba(255,255,255,.05); border:1px solid rgba(200,168,107,.3); color:var(--text); border-radius:8px; padding:5px 12px; cursor:pointer; font-size:.82rem; transition:.2s; }
+.ms-diff button:hover { border-color: var(--gold); color: var(--gold); }
+.ms-grid { display:grid; gap:2px; margin:0 auto; max-width: 360px; touch-action: manipulation; user-select:none; }
+.ms-cell { aspect-ratio:1; background:#2a2118; border:1px solid #3a2e20; color:var(--text); font-weight:700; border-radius:3px; cursor:pointer; font-size: .95rem; display:flex; align-items:center; justify-content:center; padding:0; }
+.ms-cell.open { background:#1c1712; border-color:#241d15; cursor:default; }
+.ms-cell.mine { background:#5a1d1d; }
+.ms-cell[data-n="1"]{color:#5ab0f0;} .ms-cell[data-n="2"]{color:#5ad1c8;} .ms-cell[data-n="3"]{color:#e85d75;}
+.ms-cell[data-n="4"]{color:#7b6cf0;} .ms-cell[data-n="5"]{color:#f0a04b;} .ms-cell[data-n="6"]{color:#9bdc52;}
+.ms-cell[data-n="7"]{color:#f0d04b;} .ms-cell[data-n="8"]{color:#cccccc;}
+
+/* 记忆翻牌 */
+.mem-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; max-width: 430px; margin:0 auto; }
+.mem-card { aspect-ratio:3/4; background:none; border:none; padding:0; cursor:pointer; perspective:600px; }
+.mem-inner { position:relative; width:100%; height:100%; transition: transform .45s; transform-style: preserve-3d; }
+.mem-card.flipped .mem-inner, .mem-card.matched .mem-inner { transform: rotateY(180deg); }
+.mem-front, .mem-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.mem-front { background: linear-gradient(135deg,#2a2118,#3a2e20); border:1px solid rgba(200,168,107,.4); color: var(--gold); font-size:1.8rem; }
+.mem-back { background: linear-gradient(135deg, rgba(200,168,107,.20), rgba(200,168,107,.06)); border:1px solid var(--gold); transform: rotateY(180deg); }
+.mem-back .mem-emoji { font-size:2.1rem; }
+.mem-back .mem-name { font-size:.9rem; color: var(--gold); margin-top:4px; font-weight:600; }
+.mem-card.matched .mem-back { box-shadow:0 0 0 2px #9bdc52 inset; }
+.mem-meta { display:flex; gap:18px; justify-content:center; align-items:center; margin-top:16px; color: var(--text-muted); font-size:.85rem; flex-wrap:wrap; }
+.mem-meta b { color: var(--gold); }
+.mini-btn { background:rgba(255,255,255,.05); border:1px solid rgba(200,168,107,.3); color:var(--gold); border-radius:8px; padding:6px 16px; cursor:pointer; font-size:.85rem; }
+
+/* 五子棋 */
+.gm-wrap { display:flex; flex-direction:column; align-items:center; gap:14px; }
+.gm-canvas { background:#e8c98f; border-radius:8px; max-width:100%; height:auto; touch-action: manipulation; box-shadow:0 6px 22px rgba(0,0,0,.45); }
+.gm-restart { background:rgba(255,255,255,.05); border:1px solid rgba(200,168,107,.3); color:var(--text); border-radius:8px; padding:7px 18px; cursor:pointer; font-size:.9rem; transition:.2s; }
+.gm-restart:hover { border-color:var(--gold); color:var(--gold); }
+
+/* 俄罗斯方块 */
+.tt-layout { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; align-items:flex-start; }
+.tt-canvas { background:#14110f; border:1px solid rgba(200,168,107,.3); border-radius:8px; max-width:100%; height:auto; touch-action: manipulation; }
+.tt-side { display:flex; flex-direction:column; gap:10px; min-width:150px; }
+.tt-next-box { background:rgba(255,255,255,.03); border:1px solid rgba(200,168,107,.22); border-radius:12px; padding:8px; text-align:center; }
+.tt-next-box .lbl { color:var(--text-muted); font-size:.78rem; }
+.tt-next { display:block; margin:6px auto 0; }
+.tt-stat { color:var(--text); font-size:.9rem; } .tt-stat b{color:var(--gold);}
+.tt-ctrls { display:grid; grid-template-columns: repeat(3,1fr); gap:8px; margin-top:6px; }
+.tt-ctrls button { background:rgba(255,255,255,.05); border:1px solid rgba(200,168,107,.3); color:var(--gold); border-radius:10px; padding:11px 0; font-size:1.1rem; cursor:pointer; transition:.15s; }
+.tt-ctrls button:active { background:rgba(200,168,107,.25); }
+.tt-restart { background:var(--gold); color:#1a140d; border:none; border-radius:10px; padding:9px; cursor:pointer; font-weight:600; }
+</style>
+
+<body>
 <nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner">
     <a href="index.html" class="logo" aria-label="龙兄知识库首页">
@@ -257,7 +311,6 @@ var _hmt = _hmt || [];
       <li class="nav-more-wrap">
         <button type="button" class="nav-more-btn">更多 ▾</button>
         <div class="nav-more-dropdown">
-          <a href="arcade.html" class="active">游艺厅</a>
           <a href="travel.html">家庭旅行</a>
           <a href="tags.html">标签聚合</a>
           <a href="chinajoy.html">ChinaJoy 成长史</a>
@@ -266,6 +319,7 @@ var _hmt = _hmt || [];
           <a href="pitfalls.html">踩坑记</a>
           <a href="typhoon.html">台风监测</a>
           <a href="games.html">游戏库</a>
+          <a href="arcade.html" class="active">游艺厅</a>
           <a href="status-history.html">站点状态</a>
           <a href="about.html">关于本站</a>
           <a href="bookmarks.html">我的收藏</a>
@@ -290,83 +344,131 @@ var _hmt = _hmt || [];
     </div>
   </div>
   <div class="mobile-nav" id="mobileNav">
-    <a href="arcade.html">游艺厅</a>
-    <a href="index.html">首页</a>
-    <a href="herbs/chenxiang.html">沉香鉴别</a>
-    <a href="herbs.html">中药材</a>
-    <a href="health-tea.html">养生茶</a>
-    <a href="bracelet.html">文玩手串</a>
-    <a href="tesla.html">特斯拉</a>
-    <a href="apple.html">苹果新品</a>
-    <a href="marvel.html">漫威宇宙</a>
-    <a href="xintan-weather.html">农田气象</a>
-    <a href="zisha.html">紫砂艺术</a>
-    <a href="console.html">游戏主机</a>
-    <a href="travel.html">家庭旅行</a>
-    <a href="tags.html">标签聚合</a>
-    <a href="chinajoy.html">ChinaJoy 成长史</a>
-    <a href="guanghui.html">光辉电力</a>
-    <a href="gaokao.html">高考查分</a>
-    <a href="pitfalls.html">踩坑记</a>
-    <a href="typhoon.html">台风监测</a>
-    <a href="games.html">游戏库</a>
-    <a href="status-history.html">站点状态</a>
-    <a href="about.html">关于本站</a>
-    <a href="bookmarks.html">我的收藏</a>
-    <a href="rss.xml">RSS 订阅</a>
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="arcade.html" class="active">游艺厅</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
   </div>
 </nav>
 
 <main class="container">
-
   <div class="arcade-hero">
-    <div class="emoji-big">🎮</div>
+    <div class="emoji-big">🎲</div>
     <h1>游艺厅</h1>
-    <p>点开即玩 · 不用下载 · 分数自动存在你浏览器里</p>
+    <p>不用下载 · 点开即玩 · 还能领一张专属身份卡，替你记住每局最佳战绩</p>
+  </div>
+
+  <div class="visitor-card">
+    <div class="vc-avatar">🪪</div>
+    <div>
+      <div class="vc-name">江湖雅号 · 加载中…</div>
+      <div class="vc-id">编号 #---- · 结伴于 ----</div>
+    </div>
+  </div>
+  <div class="best-row">
+    <span class="best-chip">💣 扫雷 <b data-best="minesweeper">暂无记录</b></span>
+    <span class="best-chip">🎴 翻牌 <b data-best="memory">暂无记录</b></span>
+    <span class="best-chip">⚫ 五子棋 <b data-best="gomoku">暂无记录</b></span>
+    <span class="best-chip">🧱 方块 <b data-best="tetris">暂无记录</b></span>
   </div>
 
   <div class="arcade-tabs">
-    <button class="arcade-tab active" data-tab="snake">🐍 贪吃蛇</button>
-    <button class="arcade-tab" data-tab="g2048">🔢 2048</button>
-    <button class="arcade-tab" data-tab="sudoku">🧩 数独</button>
+    <button class="arcade-tab active" data-game="minesweeper">💣 扫雷</button>
+    <button class="arcade-tab" data-game="memory">🎴 记忆翻牌</button>
+    <button class="arcade-tab" data-game="gomoku">⚫ 五子棋</button>
+    <button class="arcade-tab" data-game="tetris">🧱 俄罗斯方块</button>
   </div>
 
-  <div class="game-panel active" data-panel="snake" id="game-snake">
-    <div class="gc-bar">
-      <div class="gc-score">得分 <b class="gc-score-val">0</b></div>
-      <div class="gc-score">最高 <b class="gc-best-val">0</b></div>
-      <button class="gc-start">开始</button>
-    </div>
-    <div class="gc-stage"><canvas class="gc-canvas"></canvas></div>
-    <p class="gc-hint"></p>
-  </div>
+  <div class="arcade-panels">
+    <!-- 扫雷 -->
+    <section class="arcade-panel active" data-game="minesweeper">
+      <div class="game-card" id="game-minesweeper">
+        <div class="game-head"><span class="game-title">💣 扫雷</span><span class="game-hint">左键翻开 · 右键 / 长按插旗</span></div>
+        <div class="ms-bar">
+          <span class="ms-stat">💣 <span class="ms-mines">010</span></span>
+          <span class="ms-stat">⏱ <span class="ms-time">000</span></span>
+          <button class="ms-face">🙂</button>
+          <span class="ms-diff"><button class="ms-easy">初级</button><button class="ms-medium">中级</button></span>
+        </div>
+        <div class="ms-grid"></div>
+        <div class="arcade-msg ms-msg"></div>
+      </div>
+    </section>
 
-  <div class="game-panel" data-panel="g2048" id="game-g2048">
-    <div class="gc-bar">
-      <div class="gc-score">得分 <b class="gc-score-val">0</b></div>
-      <div class="gc-score">最高 <b class="gc-best-val">0</b></div>
-      <button class="gc-start">重开</button>
-    </div>
-    <div class="g24-grid"></div>
-    <p class="gc-hint"></p>
-  </div>
+    <!-- 记忆翻牌 -->
+    <section class="arcade-panel" data-game="memory">
+      <div class="game-card" id="game-memory">
+        <div class="game-head"><span class="game-title">🎴 记忆翻牌（国风）</span><span class="game-hint">翻开两张，图案相同则留住</span></div>
+        <div class="mem-grid"></div>
+        <div class="mem-meta">
+          <span>步数 <b class="mem-moves">0</b></span>
+          <span>用时 <b class="mem-time">0</b> 秒</span>
+          <button class="mini-btn mem-restart">重开</button>
+        </div>
+        <div class="arcade-msg mem-msg"></div>
+      </div>
+    </section>
 
-  <div class="game-panel" data-panel="sudoku" id="game-sudoku">
-    <div class="gc-bar">
-      <button class="sd-check gc-start">检查对错</button>
-    </div>
-    <div class="sd-board"></div>
-    <div class="sd-pad"></div>
-    <p class="gc-hint"></p>
-  </div>
+    <!-- 五子棋 -->
+    <section class="arcade-panel" data-game="gomoku">
+      <div class="game-card" id="game-gomoku">
+        <div class="game-head"><span class="game-title">⚫ 五子棋（人机）</span><span class="game-hint">你执黑先手 · 任意方向连成五子即胜</span></div>
+        <div class="gm-wrap">
+          <canvas class="gm-canvas"></canvas>
+          <button class="gm-restart">重开一局</button>
+          <div class="arcade-msg gm-msg"></div>
+        </div>
+      </div>
+    </section>
 
-  <p class="arcade-foot">小游戏纯前端运行，分数存在你自己的浏览器里，换设备不互通～</p>
+    <!-- 俄罗斯方块 -->
+    <section class="arcade-panel" data-game="tetris">
+      <div class="game-card" id="game-tetris">
+        <div class="game-head"><span class="game-title">🧱 俄罗斯方块</span><span class="game-hint">← → 移动 · ↑ 旋转 · ↓ 下落 · 空格硬降</span></div>
+        <div class="tt-layout">
+          <canvas class="tt-canvas"></canvas>
+          <div class="tt-side">
+            <div class="tt-next-box"><div class="lbl">下一个</div><canvas class="tt-next"></canvas></div>
+            <div class="tt-stat">得分 <b class="tt-score">0</b></div>
+            <div class="tt-stat">等级 <b class="tt-level">1</b></div>
+            <div class="tt-stat">消行 <b class="tt-lines">0</b></div>
+            <div class="tt-ctrls">
+              <button class="tt-left" aria-label="左移">←</button>
+              <button class="tt-rot" aria-label="旋转">⟳</button>
+              <button class="tt-right" aria-label="右移">→</button>
+              <button class="tt-down" aria-label="下落">↓</button>
+              <button class="tt-hard" aria-label="硬降">⤓</button>
+              <button class="tt-restart" style="grid-column:1/-1">重开</button>
+            </div>
+          </div>
+        </div>
+        <div class="arcade-msg tt-msg"></div>
+      </div>
+    </section>
+  </div>
 </main>
 
-<footer>
-  <div class="footer-brand-row">
-    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
-  </div>
+<footer class="site-footer">
   <div class="footer-info-row">
     © 2026 龙兄知识库 <span class="sep">·</span>
     <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
@@ -384,14 +486,14 @@ var _hmt = _hmt || [];
   </div>
 </footer>
 
-  <script defer src="/js/board-nav.js"></script>
+<script defer src="js/visitor.js"></script>
+<script defer src="js/games/minesweeper.js"></script>
+<script defer src="js/games/memory.js"></script>
+<script defer src="js/games/gomoku.js"></script>
+<script defer src="js/games/tetris.js"></script>
+<script defer src="js/games/lab.js"></script>
+<script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
-  <script defer src="js/search.js"></script>
-  <script defer src="js/share.js"></script>
-  <script defer src="js/games/snake.js"></script>
-  <script defer src="js/games/g2048.js"></script>
-  <script defer src="js/games/sudoku.js"></script>
-  <script defer src="js/games/lab.js"></script>
-
+<script defer src="js/search.js"></script>
+<script defer src="js/share.js"></script>
 </body>
-</html>

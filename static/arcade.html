@@ -279,6 +279,7 @@ var _hmt = _hmt || [];
 /* 俄罗斯方块 */
 .tt-layout { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; align-items:flex-start; }
 .tt-canvas { background:#14110f; border:1px solid rgba(200,168,107,.3); border-radius:8px; max-width:100%; height:auto; touch-action: manipulation; }
+.tt-main { display:flex; flex-direction:column; align-items:center; gap:12px; flex:0 0 auto; }
 .tt-side { display:flex; flex-direction:column; gap:10px; min-width:150px; }
 .tt-next-box { background:rgba(255,255,255,.03); border:1px solid rgba(200,168,107,.22); border-radius:12px; padding:8px; text-align:center; }
 .tt-next-box .lbl { color:var(--text-muted); font-size:.78rem; }
@@ -450,12 +451,8 @@ var _hmt = _hmt || [];
       <div class="game-card" id="game-tetris">
         <div class="game-head"><span class="game-title">🧱 俄罗斯方块</span><span class="game-hint">← → 移动 · ↑ 旋转 · ↓ 下落 · 空格硬降</span></div>
         <div class="tt-layout">
-          <canvas class="tt-canvas"></canvas>
-          <div class="tt-side">
-            <div class="tt-next-box"><div class="lbl">下一个</div><canvas class="tt-next"></canvas></div>
-            <div class="tt-stat">得分 <b class="tt-score">0</b></div>
-            <div class="tt-stat">等级 <b class="tt-level">1</b></div>
-            <div class="tt-stat">消行 <b class="tt-lines">0</b></div>
+          <div class="tt-main">
+            <canvas class="tt-canvas"></canvas>
             <div class="tt-ctrls">
               <button class="tt-left" aria-label="左移">←</button>
               <button class="tt-rot" aria-label="旋转">⟳</button>
@@ -465,6 +462,12 @@ var _hmt = _hmt || [];
               <button class="tt-pause" aria-label="暂停">⏸</button>
               <button class="tt-restart" style="grid-column:1/-1">重开</button>
             </div>
+          </div>
+          <div class="tt-side">
+            <div class="tt-next-box"><div class="lbl">下一个</div><canvas class="tt-next"></canvas></div>
+            <div class="tt-stat">得分 <b class="tt-score">0</b></div>
+            <div class="tt-stat">等级 <b class="tt-level">1</b></div>
+            <div class="tt-stat">消行 <b class="tt-lines">0</b></div>
           </div>
         </div>
         <div class="arcade-msg tt-msg"></div>

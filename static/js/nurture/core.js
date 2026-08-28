@@ -197,6 +197,8 @@
 
   function save() {
     try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+    // 通知外部（云端同步等）：本地存档已更新
+    try { window.dispatchEvent(new CustomEvent('nurture:save', { detail: S })); } catch (e) {}
   }
 
   function init() {

@@ -62,6 +62,7 @@
       '<div><div class="vc-name">江湖雅号 · ' + v.name + '</div>' +
       '<div class="vc-id">编号 #' + v.id + ' · 结伴于 ' + window.Visitor.dateStr(v.joinedAt) + '</div></div>';
   }
+  window.renderVisitorCard = renderVisitor;
 
   // ---------- 总渲染 ----------
   function renderAll() {
@@ -275,7 +276,8 @@
         '<div class="coll-type">' + p.type + '</div>' +
         '<div class="coll-grade">' + p.grade + '</div>' +
         '<div class="coll-weight">' + p.weight + ' g</div>' +
-        '<div class="coll-meta">树龄 ' + p.ageDays + ' 天</div>';
+        '<div class="coll-meta">树龄 ' + p.ageDays + ' 天</div>' +
+        '<button class="coll-share" data-pid="' + p.id + '" type="button">晒</button>';
       box.appendChild(card);
     });
   }

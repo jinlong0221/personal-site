@@ -7,6 +7,16 @@
  */
 
 (function () {
+  // 全局 API：折叠/展开 .home-collapsible 卡片
+  // 委托入口在 app.js：点击 [data-act="toggleHomeSection"] 触发本函数
+  // 复用 CSS 已就绪的 .open class 控制展开（grid-template-rows: 1fr），
+  // 箭头由 CSS .home-collapsible.open .hc-arrow { transform: rotate(180deg) } 自动翻转
+  window.toggleHomeSection = function (el) {
+    var wrap = el && el.closest ? el.closest('.home-collapsible') : null;
+    if (!wrap) return;
+    wrap.classList.toggle('open');
+  };
+
   // 页面 → JSON 文件映射
   const PAGE_MAP = {
     'herbs':     'herbs-news.json',

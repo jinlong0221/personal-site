@@ -373,6 +373,37 @@ var _hmt = _hmt || [];
 .garden-tools .act-incense { background:rgba(255,255,255,.1); border-color:rgba(201,138,58,.55); color:#fff; }
 .garden-tools .act-care:hover, .garden-tools .act-incense:hover { color: var(--gold); }
 .garden-tools .hint { color:rgba(255,255,255,.62); }
+
+/* 香谱·合香 */
+.section-sub { color:var(--text-muted); font-size:.86rem; margin:-6px 0 16px; line-height:1.6; }
+.recipe-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+.recipe-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px; transition:border-color .2s, transform .2s; }
+.recipe-card:hover { border-color:rgba(200,168,107,.5); }
+.recipe-card.locked { opacity:.62; }
+.recipe-head { display:flex; align-items:center; justify-content:space-between; }
+.recipe-name { font-size:1.05rem; font-weight:700; color:var(--text); }
+.recipe-klass { font-size:.72rem; color:var(--gold); border:1px solid rgba(200,168,107,.4); border-radius:10px; padding:1px 8px; }
+.recipe-flavor { font-size:.82rem; color:var(--text-muted); line-height:1.5; }
+.recipe-needs { display:flex; flex-wrap:wrap; gap:6px; }
+.recipe-needs .need { font-size:.78rem; padding:2px 8px; border-radius:9px; background:rgba(255,255,255,.04); border:1px solid var(--border); }
+.recipe-needs .need.ok { color:#7fd18a; border-color:rgba(127,209,138,.45); }
+.recipe-needs .need.no { color:#e08a8a; border-color:rgba(224,138,138,.45); }
+.recipe-needs .need.adj { color:var(--text-muted); }
+.recipe-eff { font-size:.8rem; color:var(--gold); line-height:1.5; }
+.recipe-craft { margin-top:2px; background:linear-gradient(135deg,#d4af6a,#c8a86b); color:#1a140d; border:none; border-radius:10px; padding:9px; cursor:pointer; font-weight:700; letter-spacing:2px; transition:.15s; }
+.recipe-craft:hover { filter:brightness(1.07); }
+.recipe-craft.disabled, .recipe-craft:disabled { background:rgba(255,255,255,.06); color:var(--text-muted); cursor:not-allowed; letter-spacing:0; border:1px solid var(--border); }
+.creations .creation-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px; }
+.creation-card.active { border-color:var(--gold); box-shadow:0 0 0 1px rgba(200,168,107,.35) inset, 0 6px 18px rgba(200,168,107,.12); }
+.creation-name { font-size:1.02rem; font-weight:700; color:var(--text); }
+.creation-eff { font-size:.8rem; color:var(--gold); line-height:1.5; }
+.creation-seat { background:rgba(255,255,255,.06); border:1px solid rgba(200,168,107,.4); color:var(--text); border-radius:10px; padding:8px; cursor:pointer; font-weight:600; letter-spacing:2px; transition:.15s; }
+.creation-seat:hover { border-color:var(--gold); color:var(--gold); }
+.creation-seat.on { background:var(--gold); color:#1a140d; border-color:var(--gold); }
+.creation-seat.disabled, .creation-seat:disabled { opacity:.5; cursor:not-allowed; }
+.seat-aura { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; min-height:20px; }
+.seat-chip { font-size:.82rem; color:#1a140d; background:linear-gradient(135deg,#e8cd95,#d4af6a); border-radius:20px; padding:4px 14px; font-weight:600; box-shadow:0 2px 8px rgba(200,168,107,.25); }
+.seat-empty { color:var(--text-muted); font-size:.84rem; }
 </style>
 
 </head>
@@ -508,6 +539,19 @@ var _hmt = _hmt || [];
   <section class="nurture-section">
     <div class="section-header"><span class="icon">🗄️</span><h2>收藏阁</h2></div>
     <div class="coll-grid" id="collection"></div>
+  </section>
+
+  <section class="nurture-section">
+    <div class="section-header"><span class="icon">🪔</span><h2>香谱 · 合香</h2></div>
+    <p class="section-sub">采下的沉香，按古方合香，反哺灵圃——养、结、收、合，自此成环。</p>
+    <div class="recipe-grid" id="recipes"></div>
+  </section>
+
+  <section class="nurture-section">
+    <div class="section-header"><span class="icon">🗃️</span><h2>香橱 · 香席</h2><span class="count"><span id="creationsCount">0</span> 炉 · 设席 <span id="seatCount">0</span>/<span id="seatMax">1</span></span></div>
+    <p class="section-sub">已合之香存于香橱；设席（点亮）其香，灵圃受用其效。香席位随香道等级递增。</p>
+    <div class="recipe-grid creations" id="creations"></div>
+    <div class="seat-aura" id="seatAura"></div>
   </section>
 
   <section class="nurture-section">

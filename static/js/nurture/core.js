@@ -71,7 +71,58 @@
     { id: 'petal',   name: '落英',     icon: '🌸', desc: '惹得树精落英缤纷' },
     { id: 'fest',    name: '节气之子', icon: '📅', desc: '赶上任一节气彩蛋' },
     { id: 'worm',    name: '虫师',     icon: '🐛', desc: '用“蚁蛀”采收 10 次' },
-    { id: 'master',  name: '香道大宗', icon: '👑', desc: '香道等级达“香宗”' }
+    { id: 'master',  name: '香道大宗', icon: '👑', desc: '香道等级达“香宗”' },
+    { id: 'blend',   name: '初通合香', icon: '🪔', desc: '第一次合香' },
+    { id: 'sacrifice', name: '舍香成道', icon: '💠', desc: '用一块奇楠合香' }
+  ];
+
+  // 辅料（常备，无限取用）
+  var ADJUVANTS = {
+    '檀香': { name: '檀香', note: '常备' },
+    '艾草': { name: '艾草', note: '常备' },
+    '甘松': { name: '甘松', note: '常备' },
+    '藿香': { name: '藿香', note: '常备' }
+  };
+
+  // 香方：以所结沉香 + 常备辅料，按古法合香，反哺灵圃
+  // effect 字段：growthPct/vigorPct/incenseYieldPct/incenseCostPct(均为加成%/递减%)
+  //   riskReduce(造香枯风险递减%) / qinanPct(奇楠率加成%) / beastPct(夜兽率加成%)
+  //   offlineCapAdd(离线成长上限+) / noDeath(造香永不再枯)
+  var RECIPES = [
+    { id: 'sihe', name: '四和香', klass: '入门',
+      flavor: '古法和香之首，四气和合。沉檀并用，温润不燥。',
+      need: [ { type: '生结', grade: '中', n: 1 }, { type: '熟结', grade: '中', n: 1 }, { adj: '檀香', n: 1 } ],
+      effect: { growthPct: 8, vigorPct: 10 } },
+    { id: 'anshen', name: '安神香', klass: '安养',
+      flavor: '沉香安神，艾草辟恶。夜坐焚之，心定神闲。',
+      need: [ { type: '熟结', grade: '上', n: 1 }, { adj: '艾草', n: 1 } ],
+      effect: { riskReduce: 50, vigorPct: 15 } },
+    { id: 'xingshen', name: '醒神香', klass: '清明',
+      flavor: '生结清扬，甘松醒脑。白日焚之，倍添精神。',
+      need: [ { type: '生结', grade: '上', n: 1 }, { adj: '甘松', n: 1 } ],
+      effect: { growthPct: 15, offlineCapAdd: 30 } },
+    { id: 'jingxin', name: '静心香', klass: '凝炼',
+      flavor: '虫漏幽远，藿香化浊。造香时焚，脂液更沛。',
+      need: [ { type: '虫漏', grade: '上', n: 1 }, { adj: '藿香', n: 1 } ],
+      effect: { incenseYieldPct: 20, incenseCostPct: 20 } },
+    { id: 'tongyou', name: '通幽香', klass: '古木·秘',
+      flavor: '脱落沉于幽处，久久而通。非古木不得此香。',
+      need: [ { type: '脱落', grade: '特级', n: 1 }, { adj: '檀香', n: 1 } ],
+      unlock: { ancient: true },
+      effect: { qinanPct: 3, beastPct: 25 } },
+    { id: 'changchun', name: '长春香', klass: '久养',
+      flavor: '生结特级，气韵绵长。离圃亦自生长。',
+      need: [ { type: '生结', grade: '特级', n: 1 } ],
+      effect: { offlineCapAdd: 60, growthPct: 10, vigorPct: 10 } },
+    { id: 'qinan', name: '奇楠引', klass: '豪举',
+      flavor: '舍一块奇楠，引万香来朝。胆识之香。',
+      need: [ { type: '奇楠', grade: '奇楠', n: 1 } ],
+      effect: { incenseYieldPct: 25, qinanPct: 5 } },
+    { id: 'shide', name: '香十德·净', klass: '香师·极',
+      flavor: '《香十德》云：感格鬼神、清净心身。非香师不能窥其境。',
+      need: [ { type: '熟结', grade: '特级', n: 1 }, { type: '生结', grade: '特级', n: 1 } ],
+      unlock: { rank: 3 },
+      effect: { growthPct: 10, vigorPct: 10, incenseYieldPct: 10, incenseCostPct: 10, riskReduce: 30, qinanPct: 2, noDeath: true } }
   ];
 
   // 24 节气（近似公历，2026）—— 当天首访触发彩蛋
@@ -180,7 +231,10 @@
       festSeen: {},            // 'MM-DD' -> true
       log: [],                 // {t, text, kind}
       beast: null,             // 当前/上次来访小兽
-      petalSkin: 0             // 夜兽赠予的装饰（0 无 / 1 奇花）
+      petalSkin: 0,            // 夜兽赠予的装饰（0 无 / 1 奇花）
+      recipesMade: [],         // 已合香品 [{id,recipeId,ts}]
+      activeSeat: [],          // 当前设席（crafted id 列表）
+      pantry: {}               // 辅料库存（常备无限，字段预留）
     };
   }
 
@@ -264,8 +318,9 @@
     if (def.dayOnly && night) vigorGain = def.nightVigor;
     if (def.nightOnly && !night) vigorGain = def.dayVigor;
 
-    S.growth = clamp(S.growth + def.growth, 0, 99999);
-    S.vigor = clamp(S.vigor + vigorGain, 0, 100);
+    var au = aura();
+    S.growth = clamp(S.growth + def.growth * (1 + au.growthPct / 100), 0, 99999);
+    S.vigor = clamp(S.vigor + vigorGain * (1 + au.vigorPct / 100), 0, 100);
     S.lastCare[action] = now();
 
     // 连续养护天数
@@ -301,11 +356,14 @@
     if (left > 0) return { ok: false, msg: def.name + '冷却中，还需 ' + left + ' 秒。' };
     if (S.vigor < def.cost) return { ok: false, msg: '元气不足（需 ' + def.cost + '），先浇水沐阳养一养。' };
 
-    S.vigor = clamp(S.vigor - def.cost, 0, 100);
+    var au = aura();
+    S.vigor = clamp(S.vigor - def.cost * (1 - au.incenseCostPct / 100), 0, 100);
     S.lastCare[method] = now();
 
     // 折损风险：元气被掏空或概率触发 → 枯
-    var dead = (S.vigor <= 0) || (Math.random() < def.risk);
+    var risk = def.risk * (1 - au.riskReduce / 100);
+    if (au.noDeath) risk = 0;
+    var dead = (S.vigor <= 0) || (Math.random() < risk);
     if (dead) {
       S.dead = true;
       S.deaths += 1;
@@ -316,7 +374,7 @@
     }
 
     var vf = 0.6 + 0.4 * (S.vigor / 100);
-    S.resin = clamp(S.resin + def.yield * vf, 0, 100);
+    S.resin = clamp(S.resin + def.yield * vf * (1 + au.incenseYieldPct / 100), 0, 100);
     var msg = def.tip + '（结香 +' + Math.round(def.yield * vf) + '）';
     if (S.resin >= 95) msg += ' 脂已将满，可采收了。';
     logPush(def.name + '造香，结香至 ' + Math.round(S.resin) + '。', 'incense');
@@ -348,6 +406,7 @@
     if (stageOf(S.growth).key === 'ancient') qnChance += 0.03;
     var pity = Math.min(0.06, S.totalHarvest > 0 ? (S.totalHarvest % 25) * 0.002 : 0);
     qnChance += pity;
+    qnChance += aura().qinanPct / 100;
     var isQinan = Math.random() < qnChance;
 
     var grade, weight, typeFinal;
@@ -407,7 +466,10 @@
       lastCare: {}, careStreak: S.careStreak, lastCareDay: S.lastCareDay,
       clicks: 0, clickAt: 0,
       nightSeen: {}, festSeen: {},
-      log: S.log, beast: null, petalSkin: S.petalSkin
+      log: S.log, beast: null, petalSkin: S.petalSkin,
+      recipesMade: S.recipesMade,   // 香橱永存
+      activeSeat: S.activeSeat,
+      pantry: S.pantry
     };
     S = keep;
     logPush('🌱 新株入土。旧香犹在阁中，来日再结新香。', 'info');
@@ -422,12 +484,13 @@
     var t = now();
     var elapsed = (t - S.lastSeen) / 1000;
     if (elapsed > 5 && !S.dead) {
-      var g = Math.min(CFG.offlineGrowthCap, CFG.offlineGrowthPerSec * elapsed);
+      var cap = CFG.offlineGrowthCap + aura().offlineCapAdd;
+      var g = Math.min(cap, CFG.offlineGrowthPerSec * elapsed);
       if (g > 0.5) {
         S.growth = clamp(S.growth + g, 0, 99999);
         events.push({ type: 'offline', text: '离圃期间，树自生长 +' + Math.round(g) + ' 成长。' });
       }
-      var v = Math.min(CFG.vigorRegenCap, CFG.vigorRegenPerSec * elapsed);
+      var v = Math.min(CFG.vigorRegenCap, CFG.vigorRegenPerSec * elapsed * (1 + aura().vigorPct / 100));
       if (v > 0.5) S.vigor = clamp(S.vigor + v, 0, 100);
     }
 
@@ -445,7 +508,7 @@
 
     // 深夜小兽（23:00–05:00，当天未访，60% 概率）
     var dk = dayKey(t);
-    if (isNight(t) && !S.nightSeen[dk] && Math.random() < 0.6) {
+    if (isNight(t) && !S.nightSeen[dk] && Math.random() < (0.6 + aura().beastPct / 100)) {
       S.nightSeen[dk] = true;
       var beast = pick(NIGHT_BEASTS);
       S.beast = beast;
@@ -478,17 +541,111 @@
     return { triggered: false };
   }
 
+  // ---------- 香谱·合香 ----------
+  function rankIdx(total) {
+    var idx = 0;
+    for (var i = 0; i < RANKS.length; i++) if (total >= RANKS[i].min) idx = i;
+    return idx;
+  }
+  function recipeById(id) {
+    for (var i = 0; i < RECIPES.length; i++) if (RECIPES[i].id === id) return RECIPES[i];
+    return null;
+  }
+  function findMade(cid) {
+    for (var i = 0; i < S.recipesMade.length; i++) if (S.recipesMade[i].id === cid) return S.recipesMade[i];
+    return null;
+  }
+  function countPiece(type, grade) {
+    var n = 0;
+    for (var i = 0; i < S.collection.length; i++) if (S.collection[i].type === type && S.collection[i].grade === grade) n++;
+    return n;
+  }
+  function removeOnePiece(type, grade) {
+    for (var i = S.collection.length - 1; i >= 0; i--) {
+      if (S.collection[i].type === type && S.collection[i].grade === grade) { S.collection.splice(i, 1); return true; }
+    }
+    return false;
+  }
+  function seatMax() { return [1, 2, 2, 3, 3, 4][rankIdx(S.totalHarvest)]; }
+
+  // 当前设席香品叠加出的光环
+  function aura() {
+    var a = { growthPct: 0, vigorPct: 0, incenseYieldPct: 0, incenseCostPct: 0, riskReduce: 0, qinanPct: 0, beastPct: 0, offlineCapAdd: 0, noDeath: false };
+    for (var i = 0; i < S.activeSeat.length; i++) {
+      var c = findMade(S.activeSeat[i]); if (!c) continue;
+      var r = recipeById(c.recipeId); if (!r) continue;
+      var e = r.effect || {};
+      a.growthPct += (e.growthPct || 0);
+      a.vigorPct += (e.vigorPct || 0);
+      a.incenseYieldPct += (e.incenseYieldPct || 0);
+      a.incenseCostPct += (e.incenseCostPct || 0);
+      a.riskReduce += (e.riskReduce || 0);
+      a.qinanPct += (e.qinanPct || 0);
+      a.beastPct += (e.beastPct || 0);
+      a.offlineCapAdd += (e.offlineCapAdd || 0);
+      if (e.noDeath) a.noDeath = true;
+    }
+    return a;
+  }
+
+  function canCraft(id) {
+    var r = recipeById(id);
+    if (!r) return { ok: false, reason: '未知香方' };
+    if (r.unlock) {
+      if (r.unlock.rank && rankIdx(S.totalHarvest) < r.unlock.rank) return { ok: false, reason: '需香道「' + RANKS[r.unlock.rank].name + '」' };
+      if (r.unlock.ancient && stageOf(S.growth).key !== 'ancient') return { ok: false, reason: '需养成「古木」' };
+    }
+    for (var i = 0; i < r.need.length; i++) {
+      var nd = r.need[i];
+      if (nd.type) {
+        var have = countPiece(nd.type, nd.grade);
+        if (have < nd.n) return { ok: false, reason: '缺 ' + nd.type + '·' + nd.grade + ' ×' + nd.n + '（现有 ' + have + '）' };
+      }
+      // 辅料常备，无需校验
+    }
+    return { ok: true };
+  }
+
+  function craft(id) {
+    var c = canCraft(id);
+    if (!c.ok) return { ok: false, msg: c.reason };
+    var r = recipeById(id);
+    for (var i = 0; i < r.need.length; i++) {
+      var nd = r.need[i];
+      if (nd.type) for (var j = 0; j < nd.n; j++) removeOnePiece(nd.type, nd.grade);
+    }
+    var made = { id: 'c' + now() + Math.floor(Math.random() * 1000), recipeId: id, ts: now() };
+    S.recipesMade.unshift(made);
+    logPush('🪔 合香成：「' + r.name + '」', 'recipe');
+    achieve('blend');
+    if (id === 'qinan') achieve('sacrifice');
+    save();
+    return { ok: true, recipe: r, made: made };
+  }
+
+  function toggleSeat(cid) {
+    var i = S.activeSeat.indexOf(cid);
+    if (i >= 0) { S.activeSeat.splice(i, 1); save(); return { ok: true, active: false }; }
+    if (S.activeSeat.length >= seatMax()) return { ok: false, msg: '香席已满（' + seatMax() + '），先撤一炉再设。' };
+    S.activeSeat.push(cid); save();
+    return { ok: true, active: true };
+  }
+
   // ---------- 导出 ----------
   window.Nurture = {
     CFG: CFG, STAGES: STAGES, CARE: CARE, INCENSE: INCENSE,
     TYPES: TYPES, GRADES: GRADES, RANKS: RANKS, ACHV: ACHV,
     FESTIVALS: FESTIVALS, NIGHT_BEASTS: NIGHT_BEASTS, LORE: LORE,
+    ADJUVANTS: ADJUVANTS, RECIPES: RECIPES,
     init: init, get: get, save: save,
     stageOf: stageOf, nextStage: nextStage, rankOf: rankOf, ageDays: ageDays,
     cdLeft: cdLeft, care: care, incense: incense, harvest: harvest,
     replant: replant, tick: tick, registerClick: registerClick,
     isNight: isNight, seasonOf: seasonOf, festivalKey: festivalKey,
     achieve: achieve, logPush: logPush,
-    dayKey: dayKey
+    dayKey: dayKey,
+    rankIdx: rankIdx, recipeById: recipeById, findMade: findMade,
+    countPiece: countPiece, seatMax: seatMax, aura: aura,
+    canCraft: canCraft, craft: craft, toggleSeat: toggleSeat
   };
 })();

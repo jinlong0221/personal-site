@@ -50,6 +50,7 @@
     startParticles();
     startTicker();
     bindStaticButtons();
+    bindRecipeEvents();
   });
 
   // ---------- 身份卡 ----------
@@ -73,6 +74,9 @@
     renderCollection();
     renderAchv();
     renderLog();
+    renderRecipes();
+    renderCreations();
+    renderSeatAura();
     refreshActions();
   }
 
@@ -190,6 +194,27 @@
     if (incHint) incHint.style.display = S.growth < N.CFG.incenseUnlockGrowth ? '' : 'none';
   }
 
+  // ---------- 香谱事件（委托） ----------
+  function bindRecipeEvents() {
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var cb = t.closest('[data-rid]');
+      if (cb) {
+        var rr = N.craft(cb.dataset.rid);
+        if (rr.ok) { msg('🪔 合香成：「' + rr.recipe.name + '」已入香橱。', 'ok'); renderAll(); }
+        else msg(rr.msg, 'warn');
+        return;
+      }
+      var sb = t.closest('[data-cid]');
+      if (sb) {
+        var ts = N.toggleSeat(sb.dataset.cid);
+        if (ts.ok) { msg(ts.active ? '🪔 设席，香风已满灵圃。' : '🪔 撤席。', 'ok'); renderAll(); }
+        else msg(ts.msg, 'warn');
+      }
+    });
+  }
+
   // ---------- 收藏阁 ----------
   function renderCollection() {
     var box = $('#collection');
@@ -227,6 +252,84 @@
         '<div class="achv-desc">' + a.desc + '</div>' +
         (got ? '<div class="achv-flag">✓</div>' : '');
       box.appendChild(card);
+    });
+  }
+
+  // ---------- 香谱·合香 ----------
+  function effectText(e) {
+    if (!e) return '';
+    var p = [];
+    if (e.growthPct) p.push('成长 +' + e.growthPct + '%');
+    if (e.vigorPct) p.push('元气 +' + e.vigorPct + '%');
+    if (e.incenseYieldPct) p.push('结香 +' + e.incenseYieldPct + '%');
+    if (e.incenseCostPct) p.push('造香耗元气 -' + e.incenseCostPct + '%');
+    if (e.riskReduce) p.push('造香枯风险 -' + e.riskReduce + '%');
+    if (e.qinanPct) p.push('奇楠率 +' + e.qinanPct + '%');
+    if (e.beastPct) p.push('夜兽率 +' + e.beastPct + '%');
+    if (e.offlineCapAdd) p.push('离线成长上限 +' + e.offlineCapAdd);
+    if (e.noDeath) p.push('造香永不再枯');
+    return p.join(' · ');
+  }
+
+  function renderRecipes() {
+    var box = $('#recipes'); if (!box) return;
+    box.innerHTML = '';
+    N.RECIPES.forEach(function (r) {
+      var can = N.canCraft(r.id);
+      var locked = !!r.unlock && !can.ok;
+      var needs = r.need.map(function (nd) {
+        if (nd.type) {
+          var have = N.countPiece(nd.type, nd.grade);
+          var okk = have >= nd.n;
+          return '<span class="need ' + (okk ? 'ok' : 'no') + '">' + nd.type + '·' + nd.grade + ' ×' + nd.n + (okk ? '' : '（' + have + '）') + '</span>';
+        }
+        return '<span class="need adj">' + nd.adj + '（常备）</span>';
+      }).join('');
+      var btn = locked
+        ? '<button class="recipe-craft disabled" type="button" disabled>未解锁 · ' + can.reason + '</button>'
+        : (can.ok
+          ? '<button class="recipe-craft" data-rid="' + r.id + '" type="button">合 香</button>'
+          : '<button class="recipe-craft disabled" type="button" disabled>' + can.reason + '</button>');
+      var card = el('div', 'recipe-card' + (locked ? ' locked' : ''));
+      card.innerHTML =
+        '<div class="recipe-head"><span class="recipe-name">' + r.name + '</span><span class="recipe-klass">' + r.klass + '</span></div>' +
+        '<div class="recipe-flavor">' + r.flavor + '</div>' +
+        '<div class="recipe-needs">' + needs + '</div>' +
+        '<div class="recipe-eff">效 · ' + (effectText(r.effect) || '—') + '</div>' +
+        btn;
+      box.appendChild(card);
+    });
+  }
+
+  function renderCreations() {
+    var box = $('#creations'); if (!box) return;
+    box.innerHTML = '';
+    var max = N.seatMax();
+    var cc = $('#creationsCount'); if (cc) cc.textContent = S.recipesMade.length;
+    var sc = $('#seatCount'); if (sc) sc.textContent = S.activeSeat.length;
+    var sm = $('#seatMax'); if (sm) sm.textContent = max;
+    if (!S.recipesMade.length) { box.appendChild(el('div', 'empty-hint', '香橱空空。先去「香谱」里合你的第一炉香。')); return; }
+    S.recipesMade.forEach(function (c) {
+      var r = N.recipeById(c.recipeId); if (!r) return;
+      var active = S.activeSeat.indexOf(c.id) >= 0;
+      var full = !active && S.activeSeat.length >= max;
+      var card = el('div', 'creation-card' + (active ? ' active' : ''));
+      card.innerHTML =
+        '<div class="creation-name">' + r.name + '</div>' +
+        '<div class="creation-eff">' + effectText(r.effect) + '</div>' +
+        '<button class="creation-seat' + (active ? ' on' : '') + (full ? ' disabled' : '') + '" data-cid="' + c.id + '" type="button"' + (full ? ' disabled' : '') + '>' + (active ? '撤 席' : '设 席') + '</button>';
+      box.appendChild(card);
+    });
+  }
+
+  function renderSeatAura() {
+    var box = $('#seatAura'); if (!box) return;
+    box.innerHTML = '';
+    if (!S.activeSeat.length) { box.appendChild(el('div', 'seat-empty', '香席空置——去「香橱」点亮一炉香，灵圃便受其庇佑。')); return; }
+    S.activeSeat.forEach(function (cid) {
+      var c = N.findMade(cid); if (!c) return;
+      var r = N.recipeById(c.recipeId); if (!r) return;
+      box.appendChild(el('span', 'seat-chip', '🪔 ' + r.name));
     });
   }
 

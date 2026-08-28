@@ -20,21 +20,21 @@
 })();
 </script>
 
-<title>游艺厅｜龙兄知识库</title>
-<meta name="keywords" content="游艺厅,小游戏,扫雷,五子棋,俄罗斯方块,记忆翻牌,龙兄知识库">
+<title>灵圃·沉香养成｜龙兄知识库</title>
+<meta name="keywords" content="灵圃,沉香养成,沉香树,结香,收藏阁,国风养成,龙兄知识库">
 
-<meta name="description" content="龙兄知识库的游艺厅：扫雷、五子棋、俄罗斯方块、国风记忆翻牌，不用下载、点开即玩，还能领一张专属身份卡记住你的最佳战绩。">
+<meta name="description" content="龙兄知识库的灵圃：领养一棵沉香树，浇水听风、受伤结香，收一阁奇香、养一段香道。纯网页、零登录，进度存在你浏览器里。">
 
 <!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
-<meta name="article-category" content="游艺厅">
-<meta name="article-tags" content="游艺厅,小游戏,扫雷,五子棋">
+<meta name="article-category" content="灵圃">
+<meta name="article-tags" content="灵圃,沉香养成,结香,国风">
 <meta name="article-updated" content="2026-08-28">
 
-<link rel="canonical" href="https://longxiong.vip/arcade.html">
+<link rel="canonical" href="https://longxiong.vip/nurture.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="游艺厅｜龙兄知识库">
-<meta name="twitter:description" content="扫雷、五子棋、俄罗斯方块、国风记忆翻牌，点开即玩的纯网页小游戏。">
+<meta name="twitter:title" content="灵圃·沉香养成｜龙兄知识库">
+<meta name="twitter:description" content="领养一棵沉香树，浇水听风、受伤结香，收一阁奇香、养一段香道。点开即玩。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 <script type="application/ld+json">
 {
@@ -53,9 +53,9 @@
     },
     {
       "@type": "Article",
-      "headline": "游戏主机图鉴 - 龙兄知识库",
-      "description": "任天堂、索尼、微软、世嘉、雅达利等游戏主机完整图鉴，从1977年至今的全部家用主机与掌机，包含详细参数、销量、经典游戏。",
-      "url": "https://longxiong.vip/console.html",
+      "headline": "灵圃·沉香养成 - 龙兄知识库",
+      "description": "领养一棵沉香树，浇水听风、受伤结香，收一阁奇香、养一段香道。纯网页养成，进度存于浏览器。",
+      "url": "https://longxiong.vip/nurture.html",
       "author": { "@type": "Person", "name": "龙兄" },
       "publisher": { "@type": "Organization", "name": "龙兄知识库" }
     }
@@ -192,15 +192,132 @@ var _hmt = _hmt || [];
 </script>
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <meta property="og:description" content="龙兄知识库的游艺厅：扫雷、五子棋、俄罗斯方块、国风记忆翻牌，点开即玩，还能领专属身份卡记住最佳战绩。">
+  <meta property="og:description" content="领养一棵沉香树，浇水听风、受伤结香，收一阁奇香、养一段香道。">
   <meta property="og:site_name" content="龙兄知识库">
-  <meta property="og:title" content="游艺厅｜龙兄知识库">
+  <meta property="og:title" content="灵圃·沉香养成｜龙兄知识库">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://longxiong.vip/arcade.html">
+  <meta property="og:url" content="https://longxiong.vip/nurture.html">
   <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
 <script src="/js/pwa-register.js?v=20260826" defer></script>
+
+<style>
+/* ===== 灵圃·沉香养成 专属样式 ===== */
+.nurture-hero { text-align:center; padding: 30px 16px 8px; }
+.nurture-hero .emoji-big { font-size: 52px; line-height:1; }
+.nurture-hero h1 { font-size: 1.9rem; color: var(--gold); margin: 10px 0 4px; letter-spacing: 4px; }
+.nurture-hero p { color: var(--text-muted); font-size:.88rem; }
+
+.nurture-top { display:grid; grid-template-columns: minmax(0,1fr) 360px; gap:22px; align-items:start; margin-top:10px; }
+.garden { position:relative; border-radius:18px; overflow:hidden; min-height:380px; border:1px solid rgba(200,168,107,.25); background:linear-gradient(180deg,#1a2b4a,#0f1726); display:flex; align-items:flex-end; justify-content:center; }
+.garden[data-season="spring"] { background:linear-gradient(180deg,#2a3a5a,#16223a); }
+.garden[data-season="summer"] { background:linear-gradient(180deg,#1f4a4a,#102626); }
+.garden[data-season="autumn"] { background:linear-gradient(180deg,#4a3320,#241608); }
+.garden[data-season="winter"] { background:linear-gradient(180deg,#2b3550,#121826); }
+#particles { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+.tree-wrap { width:240px; height:300px; margin-bottom:34px; cursor:pointer; z-index:2; position:relative; }
+.tree-svg { width:100%; height:100%; display:block; }
+.tree-svg.is-dead { opacity:.8; }
+.garden-hint { position:absolute; bottom:10px; left:0; right:0; text-align:center; color:rgba(255,255,255,.5); font-size:.76rem; z-index:1; }
+
+.nurture-panel { display:flex; flex-direction:column; gap:16px; }
+.status-card, .actions-card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:18px; }
+.status-row { display:flex; align-items:baseline; justify-content:space-between; }
+.status-stage { font-size:1.15rem; font-weight:700; color: var(--gold); }
+.status-rank { font-size:.8rem; color: var(--text-muted); background:rgba(200,168,107,.12); padding:2px 10px; border-radius:12px; }
+.status-tip { font-size:.8rem; color: var(--text-muted); margin:6px 0 14px; min-height:1.2em; }
+.bar-line { display:flex; align-items:center; gap:10px; margin:8px 0; }
+.bar-label { width:36px; font-size:.8rem; color: var(--text-muted); flex:0 0 36px; }
+.bar { flex:1; height:12px; background:rgba(255,255,255,.06); border-radius:8px; overflow:hidden; }
+.bar-fill { height:100%; width:0; border-radius:8px; transition:width .4s ease; }
+.bar-growth { background:linear-gradient(90deg,#7cc079,#5fae5f); }
+.bar-vigor  { background:linear-gradient(90deg,#f0c060,#e0a020); }
+.bar-resin  { background:linear-gradient(90deg,#c98a3a,#8a5a1d); }
+.bar-val { width:60px; text-align:right; font-size:.8rem; color: var(--text); font-variant-numeric:tabular-nums; flex:0 0 60px; }
+.status-sub { font-size:.78rem; color: var(--text-muted); margin-top:12px; }
+.status-meta { display:flex; gap:16px; flex-wrap:wrap; font-size:.8rem; color: var(--text-muted); margin-top:8px; }
+.status-meta b { color: var(--gold); }
+
+.actions-title { font-size:.92rem; color: var(--text); font-weight:600; margin:4px 0 10px; }
+.actions-title .hint { color: var(--text-muted); font-weight:400; font-size:.78rem; }
+.actions-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:6px; }
+.act-care, .act-incense { background:rgba(255,255,255,.05); border:1px solid rgba(200,168,107,.3); color: var(--text); border-radius:10px; padding:10px; cursor:pointer; font-size:.88rem; transition:.18s; font-family:inherit; }
+.act-care:hover, .act-incense:hover { border-color: var(--gold); color: var(--gold); }
+.act-incense { border-color:rgba(201,138,58,.4); }
+.act-care:disabled, .act-incense:disabled { opacity:.45; cursor:not-allowed; }
+.cd { font-size:.72rem; color: var(--text-muted); }
+.actions-foot { margin-top:14px; }
+.btn-harvest { background: var(--gold); color:#1a140d; border:none; border-radius:10px; padding:11px; font-weight:600; cursor:pointer; font-family:inherit; width:100%; transition:.18s; }
+.btn-harvest:hover { filter:brightness(1.06); }
+.btn-harvest:disabled { opacity:.4; cursor:not-allowed; background:rgba(200,168,107,.3); color: var(--text-muted); }
+.btn-replant { background:rgba(255,255,255,.06); border:1px solid var(--border); color: var(--text); border-radius:10px; padding:9px; cursor:pointer; font-family:inherit; width:100%; margin-top:8px; }
+
+.nurture-msg { margin-top:14px; padding:10px 14px; border-radius:10px; font-size:.88rem; min-height:1.2em; line-height:1.5; }
+.nurture-msg.ok { background:rgba(200,168,107,.12); color: var(--gold); }
+.nurture-msg.warn { background:rgba(240,160,60,.12); color:#e0a020; }
+.nurture-msg.bad { background:rgba(209,52,56,.14); color:#e0606a; }
+
+.nurture-section { margin:34px 0; }
+.section-header { display:flex; align-items:center; gap:10px; border-bottom:2px solid var(--gold); padding-bottom:10px; margin-bottom:16px; }
+.section-header .icon { font-size:24px; }
+.section-header h2 { font-size:1.2rem; color: var(--text); margin:0; font-weight:700; }
+
+.coll-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:12px; }
+.coll-card { background: var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center; }
+.coll-card.qn { border-color: var(--gold); box-shadow:0 0 0 1px var(--gold) inset; background:linear-gradient(135deg,rgba(200,168,107,.16),rgba(200,168,107,.04)); }
+.coll-icon { font-size:1.6rem; }
+.coll-type { font-size:.85rem; color: var(--text); margin-top:4px; font-weight:600; }
+.coll-grade { font-size:.8rem; color: var(--gold); }
+.coll-weight { font-size:.78rem; color: var(--text-muted); }
+.coll-meta { font-size:.7rem; color: var(--text-muted); margin-top:2px; }
+.empty-hint { color: var(--text-muted); font-size:.86rem; padding:18px; text-align:center; background: var(--card); border:1px dashed var(--border); border-radius:12px; }
+
+.achv-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; }
+.achv-card { background: var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; position:relative; opacity:.5; }
+.achv-card.got { opacity:1; border-color:rgba(200,168,107,.5); }
+.achv-icon { font-size:1.5rem; }
+.achv-name { font-size:.9rem; font-weight:600; color: var(--text); margin:4px 0 2px; }
+.achv-desc { font-size:.74rem; color: var(--text-muted); line-height:1.4; }
+.achv-flag { position:absolute; top:8px; right:10px; color: var(--gold); font-weight:700; }
+
+.lore-item { background: var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 16px; margin-bottom:8px; }
+.lore-item summary { cursor:pointer; font-weight:600; color: var(--gold); font-size:.92rem; outline:none; }
+.lore-a { font-size:.84rem; color: var(--text-secondary); line-height:1.7; margin-top:8px; }
+
+.log { max-height:320px; overflow:auto; display:flex; flex-direction:column; gap:6px; }
+.log-row { display:flex; gap:10px; font-size:.82rem; padding:8px 12px; background: var(--card); border-radius:8px; border-left:3px solid var(--border); }
+.log-t { color: var(--text-muted); font-variant-numeric:tabular-nums; flex:0 0 auto; }
+.log-x { color: var(--text-secondary); line-height:1.5; }
+.log-achv { border-left-color: var(--gold); }
+.log-night { border-left-color:#7aa0d0; }
+.log-fest { border-left-color:#d08a3a; }
+.log-petal { border-left-color:#d07ab0; }
+.log-bad { border-left-color:#d05050; }
+
+.toast-wrap { position:fixed; left:50%; bottom:28px; transform:translateX(-50%); z-index:200; display:flex; flex-direction:column; gap:10px; align-items:center; pointer-events:none; }
+.toast { background:rgba(20,16,12,.94); border:1px solid rgba(200,168,107,.5); color: var(--text); padding:12px 18px; border-radius:12px; max-width:88vw; opacity:0; transform:translateY(12px); transition:.35s; box-shadow:0 8px 28px rgba(0,0,0,.5); }
+.toast.show { opacity:1; transform:none; }
+.toast-t { font-weight:700; color: var(--gold); font-size:.92rem; }
+.toast-x { font-size:.82rem; color: var(--text-secondary); margin-top:3px; line-height:1.4; }
+.toast-fest .toast-t { color:#e0a020; }
+.toast-night .toast-t { color:#7aa0d0; }
+.toast-petal .toast-t { color:#d07ab0; }
+.toast-achv .toast-t { color: var(--gold); }
+
+.beast-pop { position:fixed; inset:0; background:rgba(0,0,0,.5); display:none; align-items:center; justify-content:center; z-index:210; }
+.beast-pop.show { display:flex; }
+.beast-card { background:linear-gradient(135deg,#1c2438,#101626); border:1px solid rgba(200,168,107,.5); border-radius:18px; padding:26px 30px; text-align:center; max-width:320px; position:relative; animation:beastIn .4s ease; }
+@keyframes beastIn { from { opacity:0; transform:scale(.9);} to { opacity:1; transform:none;} }
+.beast-close { position:absolute; top:8px; right:12px; background:none; border:none; color: var(--text-muted); font-size:1.4rem; cursor:pointer; }
+.beast-icon { font-size:3rem; }
+.beast-name { color: var(--gold); font-weight:700; margin:6px 0 8px; }
+.beast-say { color: var(--text-secondary); font-size:.9rem; line-height:1.6; }
+
+@media (max-width:820px) { .nurture-top { grid-template-columns:1fr; } }
+@media (max-width:480px) { .actions-grid { grid-template-columns:1fr; } .coll-grid { grid-template-columns:repeat(auto-fill,minmax(92px,1fr)); } }
+</style>
+
 </head>
 <style>
 /* ===== 游艺厅专属样式 ===== */
@@ -321,8 +438,8 @@ var _hmt = _hmt || [];
           <a href="pitfalls.html">踩坑记</a>
           <a href="typhoon.html">台风监测</a>
           <a href="games.html">游戏库</a>
-          <a href="nurture.html">灵圃·养成</a>
-          <a href="arcade.html" class="active">游艺厅</a>
+          <a href="nurture.html" class="active">灵圃·养成</a>
+          <a href="arcade.html">游艺厅</a>
           <a href="status-history.html">站点状态</a>
           <a href="about.html">关于本站</a>
           <a href="bookmarks.html">我的收藏</a>
@@ -358,8 +475,8 @@ var _hmt = _hmt || [];
   <a href="xintan-weather.html">农田气象</a>
   <a href="zisha.html">紫砂艺术</a>
   <a href="console.html">游戏主机</a>
-  <a href="nurture.html">灵圃·养成</a>
-  <a href="arcade.html" class="active">游艺厅</a>
+  <a href="nurture.html" class="active">灵圃·养成</a>
+  <a href="arcade.html">游艺厅</a>
   <a href="travel.html">家庭旅行</a>
   <a href="tags.html">标签聚合</a>
   <a href="chinajoy.html">ChinaJoy 成长史</a>
@@ -376,102 +493,78 @@ var _hmt = _hmt || [];
 </nav>
 
 <main class="container">
-  <div class="arcade-hero">
-    <div class="emoji-big">🎲</div>
-    <h1>游艺厅</h1>
-    <p>不用下载 · 点开即玩 · 还能领一张专属身份卡，替你记住每局最佳战绩</p>
+  <div class="nurture-hero">
+    <div class="emoji-big">🌳</div>
+    <h1>灵圃</h1>
+    <p>领养一棵沉香树 · 浇水听风、受伤结香 · 收一阁奇香，养一段香道</p>
   </div>
 
-  <div class="visitor-card">
-    <div class="vc-avatar">印</div>
-    <div>
-      <div class="vc-name">江湖雅号 · 加载中…</div>
-      <div class="vc-id">编号 #---- · 结伴于 ----</div>
-    </div>
-  </div>
-  <div class="best-row">
-    <span class="best-chip">💣 扫雷 <b data-best="minesweeper">暂无记录</b></span>
-    <span class="best-chip">🎴 翻牌 <b data-best="memory">暂无记录</b></span>
-    <span class="best-chip">⚫ 五子棋 <b data-best="gomoku">暂无记录</b></span>
-    <span class="best-chip">🧱 方块 <b data-best="tetris">暂无记录</b></span>
-  </div>
+  <div class="visitor-card" id="visitor"></div>
 
-  <div class="arcade-tabs">
-    <button class="arcade-tab active" data-game="minesweeper">💣 扫雷</button>
-    <button class="arcade-tab" data-game="memory">🎴 记忆翻牌</button>
-    <button class="arcade-tab" data-game="gomoku">⚫ 五子棋</button>
-    <button class="arcade-tab" data-game="tetris">🧱 俄罗斯方块</button>
-  </div>
-
-  <div class="arcade-panels">
-    <!-- 扫雷 -->
-    <section class="arcade-panel active" data-game="minesweeper">
-      <div class="game-card" id="game-minesweeper">
-        <div class="game-head"><span class="game-title">💣 扫雷</span><span class="game-hint">左键翻开 · 右键 / 长按插旗</span></div>
-        <div class="ms-bar">
-          <span class="ms-stat">💣 <span class="ms-mines">010</span></span>
-          <span class="ms-stat">⏱ <span class="ms-time">000</span></span>
-          <button class="ms-face">🙂</button>
-          <span class="ms-diff"><button class="ms-easy">初级</button><button class="ms-medium">中级</button><button class="ms-hard">高级</button></span>
-        </div>
-        <div class="ms-grid"></div>
-        <div class="arcade-msg ms-msg"></div>
-      </div>
+  <div class="nurture-top">
+    <section class="garden" data-season="spring" aria-label="灵圃">
+      <canvas id="particles"></canvas>
+      <div class="tree-wrap" id="tree" title="点点树身，或有惊喜"></div>
+      <div class="garden-hint">点击树身试试 · 深夜与节气另有际遇</div>
     </section>
 
-    <!-- 记忆翻牌 -->
-    <section class="arcade-panel" data-game="memory">
-      <div class="game-card" id="game-memory">
-        <div class="game-head"><span class="game-title">🎴 记忆翻牌（国风）</span><span class="game-hint">翻开两张，图案相同则留住</span></div>
-        <div class="mem-grid"></div>
-        <div class="mem-meta">
-          <span>步数 <b class="mem-moves">0</b></span>
-          <span>用时 <b class="mem-time">0</b> 秒</span>
-          <button class="mini-btn mem-restart">重开</button>
-        </div>
-        <div class="arcade-msg mem-msg"></div>
+    <section class="nurture-panel">
+      <div class="status-card">
+        <div class="status-row"><span class="status-stage" id="stageName">—</span><span class="status-rank" id="rankName">初学弟子</span></div>
+        <div class="status-tip" id="stageTip"></div>
+        <div class="bar-line"><span class="bar-label">成长</span><div class="bar"><div class="bar-fill bar-growth" id="bar-growth"></div></div><span class="bar-val" id="val-growth">0</span></div>
+        <div class="bar-line"><span class="bar-label">元气</span><div class="bar"><div class="bar-fill bar-vigor" id="bar-vigor"></div></div><span class="bar-val" id="val-vigor">100</span></div>
+        <div class="bar-line"><span class="bar-label">结香</span><div class="bar"><div class="bar-fill bar-resin" id="bar-resin"></div></div><span class="bar-val" id="val-resin">0</span></div>
+        <div class="status-sub" id="stageNext"></div>
+        <div class="status-meta"><span>树龄 <b id="ageDays">0</b> 天</span><span>采收 <b id="totalHarvest">0</b></span><span>藏 <b id="collCount">0</b></span></div>
       </div>
-    </section>
 
-    <!-- 五子棋 -->
-    <section class="arcade-panel" data-game="gomoku">
-      <div class="game-card" id="game-gomoku">
-        <div class="game-head"><span class="game-title">⚫ 五子棋（人机）</span><span class="game-hint">你执黑先手 · 任意方向连成五子即胜</span></div>
-        <div class="gm-wrap">
-          <canvas class="gm-canvas"></canvas>
-          <button class="gm-restart">重开一局</button>
-          <div class="arcade-msg gm-msg"></div>
+      <div class="actions-card">
+        <div class="actions-title">日常打理</div>
+        <div class="actions-grid" id="careActions"></div>
+        <div class="actions-title">造香（成树解锁）<span class="hint" id="incenseHint">· 先把树养到成树</span></div>
+        <div class="actions-grid" id="incenseActions"></div>
+        <div class="actions-foot">
+          <button class="btn-harvest" id="btn-harvest">🌟 采收沉香</button>
+          <button class="btn-replant" id="btn-replant" style="display:none">🌱 重新栽一株</button>
         </div>
       </div>
-    </section>
 
-    <!-- 俄罗斯方块 -->
-    <section class="arcade-panel" data-game="tetris">
-      <div class="game-card" id="game-tetris">
-        <div class="game-head"><span class="game-title">🧱 俄罗斯方块</span><span class="game-hint">← → 移动 · ↑ 旋转 · ↓ 下落 · 空格硬降</span></div>
-        <div class="tt-layout">
-          <canvas class="tt-canvas"></canvas>
-          <div class="tt-side">
-            <div class="tt-next-box"><div class="lbl">下一个</div><canvas class="tt-next"></canvas></div>
-            <div class="tt-stat">得分 <b class="tt-score">0</b></div>
-            <div class="tt-stat">等级 <b class="tt-level">1</b></div>
-            <div class="tt-stat">消行 <b class="tt-lines">0</b></div>
-            <div class="tt-ctrls">
-              <button class="tt-left" aria-label="左移">←</button>
-              <button class="tt-rot" aria-label="旋转">⟳</button>
-              <button class="tt-right" aria-label="右移">→</button>
-              <button class="tt-down" aria-label="下落">↓</button>
-              <button class="tt-hard" aria-label="硬降">⤓</button>
-              <button class="tt-pause" aria-label="暂停">⏸</button>
-              <button class="tt-restart" style="grid-column:1/-1">重开</button>
-            </div>
-          </div>
-        </div>
-        <div class="arcade-msg tt-msg"></div>
-      </div>
+      <div class="nurture-msg ok" id="msg">初入灵圃，先浇水听风，把树养大。</div>
     </section>
   </div>
+
+  <section class="nurture-section">
+    <div class="section-header"><span class="icon">🗄️</span><h2>收藏阁</h2></div>
+    <div class="coll-grid" id="collection"></div>
+  </section>
+
+  <section class="nurture-section">
+    <div class="section-header"><span class="icon">🏅</span><h2>香道成就</h2></div>
+    <div class="achv-grid" id="achv"></div>
+  </section>
+
+  <section class="nurture-section">
+    <div class="section-header"><span class="icon">📜</span><h2>沉香小识</h2></div>
+    <div class="lore" id="lore"></div>
+  </section>
+
+  <section class="nurture-section">
+    <div class="section-header"><span class="icon">🌙</span><h2>夜话 · 古卷</h2></div>
+    <div class="log" id="log"></div>
+  </section>
 </main>
+
+<div class="beast-pop" id="beast">
+  <div class="beast-card">
+    <button class="beast-close" id="beastClose" aria-label="关闭">×</button>
+    <div class="beast-icon" id="beastIcon">🐱</div>
+    <div class="beast-name" id="beastName">夜访</div>
+    <div class="beast-say" id="beastSay"></div>
+  </div>
+</div>
+<div class="toast-wrap" id="toast"></div>
+
 
 <footer class="site-footer">
   <div class="footer-info-row">
@@ -492,11 +585,8 @@ var _hmt = _hmt || [];
 </footer>
 
 <script defer src="js/visitor.js"></script>
-<script defer src="js/games/minesweeper.js"></script>
-<script defer src="js/games/memory.js"></script>
-<script defer src="js/games/gomoku.js"></script>
-<script defer src="js/games/tetris.js"></script>
-<script defer src="js/games/lab.js"></script>
+<script defer src="js/nurture/core.js"></script>
+<script defer src="js/nurture/ui.js"></script>
 <script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
 <script defer src="js/search.js"></script>

@@ -81,79 +81,10 @@
     var g = $('.garden');
     if (g) g.setAttribute('data-season', curSeason);
     var wrap = $('#tree');
-    if (wrap) wrap.innerHTML = buildTreeSVG();
-  }
-
-  function buildTreeSVG() {
-    var stage = N.stageOf(S.growth);
-    var dead = S.dead;
-    var season = CANOPY[curSeason];
-    var c = season.fill, e = season.edge;
-    var W = 200, H = 240, gy = 205;
-    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="tree-svg' + (dead ? ' is-dead' : '') + '" aria-label="沉香树">';
-    svg += '<ellipse cx="100" cy="' + (gy + 8) + '" rx="70" ry="12" fill="rgba(0,0,0,.18)"/>';
-
-    if (dead) {
-      // 枯木
-      svg += '<path d="M94 205 L96 120 Q98 95 110 80" stroke="#6b6b6b" stroke-width="9" fill="none" stroke-linecap="round"/>';
-      svg += '<path d="M100 150 L78 128 M104 130 L128 112 M99 110 L88 92" stroke="#6b6b6b" stroke-width="5" fill="none" stroke-linecap="round"/>';
-      svg += '<text x="100" y="232" text-anchor="middle" font-size="11" fill="#9a9a9a">枯木 · 待新绿</text>';
-      svg += '</svg>';
-      return svg;
+    if (wrap && window.Tree) {
+      var stage = N.stageOf(S.growth);
+      wrap.innerHTML = window.Tree.render({ stage: stage.key, season: curSeason, dead: S.dead, S: S });
     }
-
-    if (stage.key === 'seed') {
-      svg += '<path d="M70 ' + gy + ' Q100 ' + (gy + 14) + ' 130 ' + gy + '" stroke="#7a5a3a" stroke-width="6" fill="none"/>';
-      svg += '<path d="M100 ' + gy + ' q-6 -16 4 -26" stroke="#5fae5f" stroke-width="3" fill="none" stroke-linecap="round"/>';
-      svg += '<circle cx="104" cy="' + (gy - 28) + '" r="4" fill="#9ed79b"/>';
-      svg += '</svg>';
-      return svg;
-    }
-    if (stage.key === 'sprout') {
-      svg += '<path d="M100 ' + gy + ' L100 150" stroke="#7a5a3a" stroke-width="6" fill="none" stroke-linecap="round"/>';
-      svg += '<path d="M100 160 Q80 150 74 132" stroke="#5fae5f" stroke-width="5" fill="none" stroke-linecap="round"/>';
-      svg += '<path d="M100 152 Q120 142 126 124" stroke="#5fae5f" stroke-width="5" fill="none" stroke-linecap="round"/>';
-      svg += '<ellipse cx="74" cy="130" rx="10" ry="6" fill="' + c + '" transform="rotate(-30 74 130)"/>';
-      svg += '<ellipse cx="126" cy="122" rx="10" ry="6" fill="' + c + '" transform="rotate(30 126 122)"/>';
-      svg += '</svg>';
-      return svg;
-    }
-
-    // 有树冠的阶段
-    var cx = 100, trunkTop = stage.key === 'sapling' ? 150 : (stage.key === 'tree' ? 110 : 95);
-    var trunkW = stage.key === 'sapling' ? 9 : (stage.key === 'tree' ? 14 : 20);
-    svg += '<path d="M' + (cx - trunkW / 2) + ' ' + gy + ' L' + (cx - trunkW / 3) + ' ' + trunkTop + ' M' + (cx + trunkW / 2) + ' ' + gy + ' L' + (cx + trunkW / 3) + ' ' + trunkTop + '" stroke="#7a5a3a" stroke-width="' + trunkW + '" fill="none" stroke-linecap="round"/>';
-
-    var r = stage.key === 'sapling' ? 34 : (stage.key === 'tree' ? 52 : 64);
-    svg += '<circle cx="' + cx + '" cy="' + (trunkTop - r * 0.5) + '" r="' + r + '" fill="' + c + '"/>';
-    svg += '<circle cx="' + (cx - r * 0.6) + '" cy="' + (trunkTop - r * 0.1) + '" r="' + (r * 0.72) + '" fill="' + c + '"/>';
-    svg += '<circle cx="' + (cx + r * 0.62) + '" cy="' + (trunkTop - r * 0.15) + '" r="' + (r * 0.78) + '" fill="' + c + '"/>';
-    svg += '<circle cx="' + cx + '" cy="' + (trunkTop - r * 0.95) + '" r="' + (r * 0.7) + '" fill="' + e + '" opacity="0.55"/>';
-
-    // 结香油斑（树脂>0 且已成树）
-    if (S.resin > 0 && stage.key !== 'sapling') {
-      var n = Math.max(1, Math.min(5, Math.round(S.resin / 20)));
-      var spots = [[cx, trunkTop + 30], [cx - 14, trunkTop + 46], [cx + 16, trunkTop + 40], [cx - 6, trunkTop + 60], [cx + 10, trunkTop + 64]];
-      for (var i = 0; i < n; i++) {
-        var p = spots[i];
-        svg += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (5 + (S.resin / 100) * 4) + '" fill="#6b3f1d" opacity="0.85"/>';
-        svg += '<circle cx="' + (p[0] - 1.5) + '" cy="' + (p[1] - 1.5) + '" r="1.6" fill="#c98a3a"/>';
-      }
-    }
-
-    // 夜兽赠予的奇花（装饰）
-    if (S.petalSkin) {
-      svg += '<g transform="translate(' + (cx + r * 0.7) + ',' + (trunkTop - r * 0.7) + ')">' +
-        '<circle r="3" fill="#f6c5e0"/><circle cx="6" r="3" fill="#f6c5e0"/><circle cx="3" cy="6" r="3" fill="#f6c5e0"/><circle cx="-3" cy="6" r="3" fill="#f6c5e0"/><circle cx="3" cy="3" r="2.2" fill="#ffd35a"/></g>';
-    }
-
-    if (season.snow) {
-      for (var s = 0; s < 5; s++) {
-        svg += '<circle cx="' + (30 + s * 35) + '" cy="' + (40 + (s % 2) * 30) + '" r="2" fill="#fff" opacity="0.8"/>';
-      }
-    }
-    svg += '</svg>';
-    return svg;
   }
 
   // ---------- 状态条 ----------

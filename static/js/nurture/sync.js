@@ -13,7 +13,7 @@
   'use strict';
 
   // ====== 部署后改成你的 Worker 地址 ======
-  var API = 'https://longxiong-nurture.YOURSUB.workers.dev';
+  var API = 'https://longxiong-nurture.longxiong-nurture.workers.dev';
   // =========================================
 
   var EP = API + '/api/nurture';

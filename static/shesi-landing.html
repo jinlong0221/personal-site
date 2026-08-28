@@ -29,6 +29,7 @@
     padding:16px;font-size:18px;font-weight:900;margin:30px 0 10px;
     box-shadow:5px 5px 0 var(--coral)}
   .download small{display:block;font-size:12px;font-weight:600;color:#d8d2c6;margin-top:4px}
+  .download[aria-disabled="true"]{opacity:.55;cursor:not-allowed;box-shadow:none}
   .legal{text-align:center;margin-top:18px;font-size:13px}
   .legal a{color:var(--purple);font-weight:700;text-decoration:none}
   footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
@@ -73,10 +74,10 @@
       <p>不爽的内容一键屏蔽，本机缓存随时清除，卸载即抹除全部本地数据。匿名，意味着你随时都能全身而退。</p>
     </div>
 
-    <!-- 上架后把 href 替换为真实 App Store 下载短链 -->
-    <a class="download" href="#" onclick="alert('App Store 下载即将开放，敬请期待');return false;">
+    <!-- 上架后把下方元素的 href 替换为真实 App Store 下载短链（当前 App 未上架：合规的「即将开放」占位，无内联 JS，规避严格 CSP 拦截） -->
+    <a class="download" role="button" aria-disabled="true" tabindex="-1">
       在 App Store 下载
-      <small>iPhone · 免费 · 匿名优先</small>
+      <small>iPhone · 免费 · 匿名优先 · 即将开放</small>
     </a>
 
     <p class="legal"><a href="https://longxiong.vip/shesi-privacy.html">隐私政策</a></p>

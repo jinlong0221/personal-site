@@ -6,7 +6,8 @@ window.initMinesweeper = function () {
 
   var DIFF = {
     easy:   { r: 9,  c: 9,  m: 10 },
-    medium: { r: 16, c: 16, m: 40 }
+    medium: { r: 16, c: 16, m: 40 },
+    hard:   { r: 16, c: 30, m: 99 }
   };
   var cur = DIFF.easy;
 
@@ -165,6 +166,7 @@ window.initMinesweeper = function () {
 
   root.querySelector('.ms-easy').addEventListener('click', function () { newGame('easy'); });
   root.querySelector('.ms-medium').addEventListener('click', function () { newGame('medium'); });
+  root.querySelector('.ms-hard').addEventListener('click', function () { newGame('hard'); });
   elFace.addEventListener('click', function () { newGame(); });
 
   newGame('easy');

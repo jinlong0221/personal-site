@@ -79,8 +79,9 @@ window.initMemory = function () {
         if (matched === ICONS.length) win();
       } else {
         lock = true;
+        a.classList.add('shake'); b.classList.add('shake');
         setTimeout(function () {
-          a.classList.remove('flipped'); b.classList.remove('flipped');
+          a.classList.remove('flipped', 'shake'); b.classList.remove('flipped', 'shake');
           flipped = []; lock = false;
         }, 800);
       }

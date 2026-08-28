@@ -264,6 +264,8 @@ var _hmt = _hmt || [];
 .mem-back .mem-emoji { font-size:2.1rem; }
 .mem-back .mem-name { font-size:.9rem; color: var(--gold); margin-top:4px; font-weight:600; }
 .mem-card.matched .mem-back { box-shadow:0 0 0 2px #9bdc52 inset; }
+.mem-card.shake { animation: memshake .4s; }
+@keyframes memshake { 0%,100%{transform:translateX(0);} 20%{transform:translateX(-6px);} 40%{transform:translateX(6px);} 60%{transform:translateX(-4px);} 80%{transform:translateX(4px);} }
 .mem-meta { display:flex; gap:18px; justify-content:center; align-items:center; margin-top:16px; color: var(--text-muted); font-size:.85rem; flex-wrap:wrap; }
 .mem-meta b { color: var(--gold); }
 .mini-btn { background:rgba(255,255,255,.05); border:1px solid rgba(200,168,107,.3); color:var(--gold); border-radius:8px; padding:6px 16px; cursor:pointer; font-size:.85rem; }
@@ -379,7 +381,7 @@ var _hmt = _hmt || [];
   </div>
 
   <div class="visitor-card">
-    <div class="vc-avatar">🪪</div>
+    <div class="vc-avatar">印</div>
     <div>
       <div class="vc-name">江湖雅号 · 加载中…</div>
       <div class="vc-id">编号 #---- · 结伴于 ----</div>
@@ -408,7 +410,7 @@ var _hmt = _hmt || [];
           <span class="ms-stat">💣 <span class="ms-mines">010</span></span>
           <span class="ms-stat">⏱ <span class="ms-time">000</span></span>
           <button class="ms-face">🙂</button>
-          <span class="ms-diff"><button class="ms-easy">初级</button><button class="ms-medium">中级</button></span>
+          <span class="ms-diff"><button class="ms-easy">初级</button><button class="ms-medium">中级</button><button class="ms-hard">高级</button></span>
         </div>
         <div class="ms-grid"></div>
         <div class="arcade-msg ms-msg"></div>
@@ -458,6 +460,7 @@ var _hmt = _hmt || [];
               <button class="tt-right" aria-label="右移">→</button>
               <button class="tt-down" aria-label="下落">↓</button>
               <button class="tt-hard" aria-label="硬降">⤓</button>
+              <button class="tt-pause" aria-label="暂停">⏸</button>
               <button class="tt-restart" style="grid-column:1/-1">重开</button>
             </div>
           </div>

@@ -12,15 +12,18 @@ window.initGomoku = function () {
   var N = 15;               // 交叉点数
   var PAD = 20, GAP = 28;   // 边距、格距
   var SIZE = PAD * 2 + GAP * (N - 1);
-  canvas.width = SIZE; canvas.height = SIZE;
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = SIZE * dpr; canvas.height = SIZE * dpr;
+  ctx.scale(dpr, dpr);
 
-  var board, over, myTurn;
+  var board, over, myTurn, lastMove;
   var EMPTY = 0, BLACK = 1, WHITE = 2;
   var winCount = (window.Visitor && window.Visitor.getBest('gomoku')) ? window.Visitor.getBest('gomoku').score : 0;
 
   function setBest() { if (window.refreshArcadeBest) window.refreshArcadeBest(); }
 
   function draw() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, SIZE, SIZE);
     // 木色底
     ctx.fillStyle = '#e8c98f';
@@ -42,6 +45,12 @@ window.initGomoku = function () {
     for (var r = 0; r < N; r++) for (var c = 0; c < N; c++) {
       if (board[r][c]) place(r, c, board[r][c]);
     }
+    // 最后一手标记
+    if (lastMove) {
+      var lx = PAD + lastMove.c * GAP, ly = PAD + lastMove.r * GAP;
+      ctx.strokeStyle = '#e85d75'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(lx, ly, GAP * 0.5, 0, 7); ctx.stroke();
+    }
   }
 
   function place(r, c, color) {
@@ -55,7 +64,7 @@ window.initGomoku = function () {
 
   function newGame() {
     board = []; for (var i = 0; i < N; i++) { board.push([]); for (var j = 0; j < N; j++) board[i].push(EMPTY); }
-    over = false; myTurn = true;
+    over = false; myTurn = true; lastMove = null;
     msg.textContent = '你执黑，先手落子';
     draw();
   }
@@ -102,6 +111,7 @@ window.initGomoku = function () {
       var s = score(r, c, WHITE) * 1.0 + score(r, c, BLACK) * 1.2; // 重防守
       if (s > bestScore) { bestScore = s; br = r; bc = c; }
     }
+    lastMove = { r: br, c: bc };
     board[br][bc] = WHITE;
     draw();
     if (winAt(br, bc, WHITE)) { over = true; msg.textContent = '电脑赢了，再战一局？'; return; }
@@ -111,11 +121,12 @@ window.initGomoku = function () {
   function onPlay(e) {
     if (over || !myTurn) return;
     var rect = canvas.getBoundingClientRect();
-    var x = (e.clientX - rect.left) * (canvas.width / rect.width);
-    var y = (e.clientY - rect.top) * (canvas.height / rect.height);
+    var x = (e.clientX - rect.left) * (SIZE / rect.width);
+    var y = (e.clientY - rect.top) * (SIZE / rect.height);
     var c = Math.round((x - PAD) / GAP), r = Math.round((y - PAD) / GAP);
     if (r < 0 || r >= N || c < 0 || c >= N) return;
     if (board[r][c] !== EMPTY) return;
+    lastMove = { r: r, c: c };
     board[r][c] = BLACK; draw();
     if (winAt(r, c, BLACK)) {
       over = true; winCount++;

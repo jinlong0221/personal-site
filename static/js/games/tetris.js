@@ -12,10 +12,12 @@ window.initTetris = function () {
   var levelEl = root.querySelector('.tt-level');
   var linesEl = root.querySelector('.tt-lines');
   var msg = root.querySelector('.tt-msg');
+  var pauseBtn = root.querySelector('.tt-pause');
 
   var COLS = 10, ROWS = 20, CELL = 24;
-  canvas.width = COLS * CELL; canvas.height = ROWS * CELL;
-  nextCv.width = 4 * CELL; nextCv.height = 4 * CELL;
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = COLS * CELL * dpr; canvas.height = ROWS * CELL * dpr;
+  nextCv.width = 4 * CELL * dpr; nextCv.height = 4 * CELL * dpr;
 
   var COLORS = ['', '#5ad1c8', '#f0a04b', '#e85d75', '#7b6cf0', '#f0d04b', '#5ab0f0', '#9bdc52'];
   var SHAPES = [
@@ -107,7 +109,8 @@ window.initTetris = function () {
   }
 
   function draw() {
-    ctx.fillStyle = '#14110f'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = '#14110f'; ctx.fillRect(0, 0, COLS * CELL, ROWS * CELL);
     for (var r = 0; r < ROWS; r++) for (var c = 0; c < COLS; c++) if (grid[r][c]) drawCell(ctx, c, r, grid[r][c]);
     if (cur) {
       var m = SHAPES[cur.type];
@@ -118,7 +121,8 @@ window.initTetris = function () {
   }
 
   function drawNext() {
-    nctx.fillStyle = '#14110f'; nctx.fillRect(0, 0, nextCv.width, nextCv.height);
+    nctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    nctx.fillStyle = '#14110f'; nctx.fillRect(0, 0, 4 * CELL, 4 * CELL);
     var m = SHAPES[next], off = (4 - m[0].length) / 2;
     for (var r = 0; r < m.length; r++) for (var c = 0; c < m[r].length; c++) {
       if (m[r][c]) { nctx.fillStyle = COLORS[next]; nctx.fillRect((c + off) * CELL + 1, (r + 1) * CELL + 1, CELL - 2, CELL - 2); }
@@ -142,8 +146,16 @@ window.initTetris = function () {
   function newGame() {
     grid = emptyGrid(); score = 0; level = 1; lines = 0; over = false; paused = false;
     speed = 800; next = randShape();
+    if (pauseBtn) pauseBtn.textContent = '⏸';
     scoreEl.textContent = 0; levelEl.textContent = 1; linesEl.textContent = 0; msg.textContent = '';
     spawn(); draw(); restartTimer();
+  }
+
+  function togglePause() {
+    if (over) return;
+    paused = !paused;
+    if (pauseBtn) pauseBtn.textContent = paused ? '▶' : '⏸';
+    msg.textContent = paused ? '已暂停' : '';
   }
 
   // 键盘（仅本 tab 激活时）
@@ -155,7 +167,7 @@ window.initTetris = function () {
     else if (k === 'ArrowUp') { rotate(); draw(); }
     else if (k === 'ArrowDown') { drop(); draw(); }
     else if (k === ' ') { e.preventDefault(); hardDrop(); draw(); }
-    else if (k === 'p' || k === 'P') { paused = !paused; msg.textContent = paused ? '已暂停' : ''; }
+    else if (k === 'p' || k === 'P') { togglePause(); }
     else return;
     e.preventDefault();
   });
@@ -166,6 +178,7 @@ window.initTetris = function () {
   root.querySelector('.tt-rot').addEventListener('click', function () { if (!over && !paused) { rotate(); draw(); } });
   root.querySelector('.tt-down').addEventListener('click', function () { if (!over && !paused) { drop(); draw(); } });
   root.querySelector('.tt-hard').addEventListener('click', function () { if (!over && !paused) { hardDrop(); draw(); } });
+  if (pauseBtn) pauseBtn.addEventListener('click', togglePause);
   root.querySelector('.tt-restart').addEventListener('click', newGame);
 
   newGame();

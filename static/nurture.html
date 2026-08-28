@@ -319,8 +319,15 @@ var _hmt = _hmt || [];
 
 /* ===== 云端·身份 / 香道榜 / 访客晒图 ===== */
 .cloud-card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:18px; }
-.cloud-status { font-size:.9rem; color: var(--text-muted); margin-bottom:12px; padding:8px 12px; background:rgba(255,255,255,.04); border-radius:10px; }
-.cloud-status.ok { color: var(--gold); }
+.cloud-line { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.cloud-dot { width:8px; height:8px; border-radius:50%; background: var(--text-muted); flex:0 0 8px; transition:.3s; }
+.cloud-dot.syncing { background: var(--gold); animation: pulse 1.2s ease-in-out infinite; }
+.cloud-dot.ok { background:#7ec47a; box-shadow:0 0 6px rgba(126,196,122,.5); }
+.cloud-dot.warn { background:#e0a020; }
+.cloud-dot.bad { background:#e0606a; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.cloud-status { font-size:.82rem; color: var(--text-muted); font-variant-numeric:tabular-nums; }
+.cloud-status.ok { color: var(--text-secondary); }
 .cloud-status.warn { color:#e0a020; }
 .cloud-status.bad { color:#e0606a; }
 .cloud-actions { display:flex; flex-wrap:wrap; gap:8px; }
@@ -594,17 +601,19 @@ var _hmt = _hmt || [];
   </section>
 
   <section class="nurture-section" id="cloudSection">
-    <div class="section-header"><span class="icon">☁️</span><h2>云端 · 身份</h2></div>
+    <div class="section-header"><span class="icon">☁️</span><h2>云端 · 档案</h2></div>
     <div class="cloud-card">
-      <div class="cloud-status" id="cloudStatus">未连接云端</div>
+      <div class="cloud-line">
+        <span class="cloud-dot" id="cloudDot"></span>
+        <span class="cloud-status" id="cloudStatus">云端同步中…</span>
+      </div>
       <div class="cloud-actions">
-        <button class="cf-btn" id="btnBackup" type="button">立即备份</button>
-        <button class="cf-btn" id="btnRestore" type="button">恢复云端</button>
+        <button class="cf-btn" id="btnRestore" type="button">从云端拉取</button>
         <button class="cf-btn" id="btnExport" type="button">导出身份卡</button>
         <button class="cf-btn" id="btnImport" type="button">导入身份卡</button>
       </div>
       <div class="cloud-code" id="cloudCode" style="display:none"></div>
-      <div class="cloud-hint">导出身份卡会得到一串「密令」。在另一台设备（或清过缓存的本机）导入这串密令，即可读回同一份云端存档——换手机、换浏览器，树都不丢。操作养成会每 15 秒自动备份，离开页面也会兜底保存。</div>
+      <div class="cloud-hint">树每长一步、每结一块香，都自动入云。换手机、换浏览器，点「导出身份卡」带走密令；到新设备点「导入身份卡」即可读回。</div>
     </div>
   </section>
 

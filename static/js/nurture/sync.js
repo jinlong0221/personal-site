@@ -1,13 +1,10 @@
-// 灵圃·沉香养成 —— 云端同步客户端
+// 灵圃·沉香养成 —— 云端同步客户端（零感自动同步）
 // 依赖：window.Visitor（身份卡，含 token / exportCard / importCard）、window.Nurture（core.js）
 // 后端：Cloudflare Workers + KV（见 backend/nurture-worker/worker.js）
 //
-// 功能：
-//   1) 自动/手动云端备份（离开页面用 sendBeacon 兜底，防丢）
-//   2) 进入页面检测远程是否有更新的存档，可一键恢复（跨设备）
-//   3) 香道榜、访客晒图 的拉取与发布
-//
-// 部署后请把下面的 API 改成你的 Worker 地址。
+// 设计：每步操作（浇水/造香/采收/触发彩蛋/解锁成就…）后 3 秒内自动入云，
+// 状态栏只有一个小圆点 + 时间戳，不打扰用户。
+// 只有「换设备」才需要主动操作：导出身份卡 → 另一台导入 → 自动拉取。
 
 (function () {
   'use strict';
@@ -46,9 +43,11 @@
   }
   function setStatus(text, kind) {
     var el = $('#cloudStatus');
-    if (!el) return;
-    el.textContent = text;
-    el.className = 'cloud-status' + (kind ? ' ' + kind : '');
+    if (el) { el.textContent = text; el.className = 'cloud-status' + (kind ? ' ' + kind : ''); }
+    var dot = $('#cloudDot');
+    if (dot) {
+      dot.className = 'cloud-dot' + (kind ? ' ' + kind : (text === '云端同步中…' ? ' syncing' : ''));
+    }
   }
 
   // ---------- 网络 ----------
@@ -72,7 +71,7 @@
     } catch (e) { return false; }
   }
 
-  // ---------- 备份 ----------
+  // ---------- 备份（完全自动，不暴露手动按钮） ----------
   function flush() {
     if (!dirty) return;
     dirty = false;
@@ -81,45 +80,39 @@
     var state = window.Nurture.get();
     if (!state) return;
     apiPost('', { id: v.id, token: v.token, name: v.name, state: state }).then(function (r) {
-      if (r && r.ok) setStatus('已备份云端 · ' + nowStr(), 'ok');
+      if (r && r.ok) setStatus('已自动同步 · ' + nowStr(), 'ok');
       else if (r && r.reason === 'auth') setStatus('身份不符，请重新导入身份卡', 'bad');
-      else setStatus('备份失败，稍后重试', 'warn');
-    }).catch(function () { setStatus('备份失败（网络）', 'warn'); });
+      else setStatus('同步失败，稍后重试', 'warn');
+    }).catch(function () { setStatus('同步失败（网络）', 'warn'); });
   }
   function scheduleFlush() {
     if (flushTimer) return;
-    flushTimer = setTimeout(function () { flushTimer = null; flush(); }, 15000);
-  }
-  function backupNow() {
-    var v = creds();
-    if (!v) { setStatus('请先导出并导入身份卡以启用云端', 'warn'); return; }
-    setStatus('备份中…');
-    var state = window.Nurture.get();
-    apiPost('', { id: v.id, token: v.token, name: v.name, state: state }).then(function (r) {
-      if (r && r.ok) { setStatus('已备份云端 · ' + nowStr(), 'ok'); loadLeaderboard(); }
-      else if (r && r.reason === 'auth') setStatus('身份不符，请重新导入身份卡', 'bad');
-      else setStatus('备份失败，稍后重试', 'warn');
-    }).catch(function () { setStatus('备份失败（网络）', 'warn'); });
+    flushTimer = setTimeout(function () { flushTimer = null; flush(); }, 3000);
   }
 
-  // ---------- 恢复 ----------
+  // ---------- 恢复 / 启动连接 ----------
   function checkRemote() {
     var v = creds();
-    if (!v) { setStatus('未启用云端（导出身份卡可启用）', ''); return; }
-    setStatus('连接云端中…');
+    if (!v) { setStatus('本地模式', ''); return; }
+    setStatus('云端同步中…');
     fetch(EP + '?id=' + encodeURIComponent(v.id) + '&token=' + encodeURIComponent(v.token))
       .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
       .then(function (r) {
-        if (!r || !r.ok || !r.state) { setStatus('云端暂无存档，操作后会自动备份', ''); return; }
+        if (!r || !r.ok || !r.state) {
+          // 云端没存档——直接把本地最新状态推上去（首次启用）
+          dirty = true; scheduleFlush();
+          setStatus('已连接云端', 'ok');
+          return;
+        }
         var local = window.Nurture.get();
         var remoteAt = r.updatedAt || 0;
         var localAt = (local && local.lastSeen) || 0;
         if (remoteAt > localAt + 1000) {
-          setStatus('云端有更新的存档', 'ok');
+          setStatus('云端有更新存档', 'ok');
           showRestore(r.state, remoteAt);
         } else {
-          setStatus('已与云端同步 · ' + nowStr(), 'ok');
-          loadLeaderboard();
+          // 本地就是最新的——也推一次，确保云端不留旧版本
+          dirty = true; scheduleFlush();
         }
       })
       .catch(function () { setStatus('云端连接失败', 'warn'); });
@@ -225,7 +218,7 @@
   }
   function showcasePost(piece) {
     var v = creds();
-    if (!v) { toast('需先启用云端', '导出并导入身份卡后即可晒图', 'warn'); return; }
+    if (!v) { toast('稍后再试', '云端未就绪', 'warn'); return; }
     var caption = window.prompt('为这块沉香写句寄语（可选）：', '');
     if (caption === null) return; // 取消
     apiPost('/showcase/post', { id: v.id, token: v.token, piece: piece, caption: caption }).then(function (r) {
@@ -265,11 +258,10 @@
       if (dirty) { var s = window.Nurture.get(); if (s) beaconSave(s); dirty = false; }
     });
 
-    // 按钮
-    var b = $('#btnBackup'); if (b) b.addEventListener('click', backupNow);
-    var im = $('#btnImport'); if (im) im.addEventListener('click', importCard);
-    var ex = $('#btnExport'); if (ex) ex.addEventListener('click', exportCard);
+    // 按钮（只有"换设备"才用：拉取/导出/导入）
     var rs = $('#btnRestore'); if (rs) rs.addEventListener('click', checkRemote);
+    var ex = $('#btnExport'); if (ex) ex.addEventListener('click', exportCard);
+    var im = $('#btnImport'); if (im) im.addEventListener('click', importCard);
 
     // 收藏卡「晒」按钮（事件委托）
     var coll = $('#collection');
@@ -293,6 +285,6 @@
     return null;
   }
 
-  // 暴露给 ui.js 调用（渲染完身份卡后刷新显示）
-  window.NurtureSync = { backupNow: backupNow, checkRemote: checkRemote };
+  // 暴露给 ui.js 调用（导入身份卡后刷新显示 + 重新拉取存档）
+  window.NurtureSync = { checkRemote: checkRemote };
 })();

@@ -68,6 +68,24 @@ export default {
         }
         return json({ ok: false, reason: 'method' }, cors, 405);
       }
+      // —— 游艺成绩榜（公开排名，匿名雅号）——
+      if (path === '/api/arcade/submit' || path === '/api/arcade/submit/') {
+        if (request.method !== 'POST') return json({ ok: false, reason: 'method' }, cors, 405);
+        const body = await readJSON(request);
+        if (!body || !body.id || !body.token || typeof body.xiuwei !== 'number') {
+          return json({ ok: false, reason: 'bad_request' }, cors, 400);
+        }
+        if (body.token.length < 8 || body.token.length > 128) {
+          return json({ ok: false, reason: 'bad_token' }, cors, 400);
+        }
+        const res = await saveArcade(env, String(body.id), String(body.token), String(body.name || ''), Math.max(0, Math.floor(body.xiuwei)), String(body.rank || ''), body.scores || null);
+        return json(res, cors);
+      }
+      if (path === '/api/arcade/rank' || path === '/api/arcade/rank/') {
+        const limit = clampInt(url.searchParams.get('limit'), 20, 1, 100);
+        const data = await getArcadeRank(env, limit);
+        return json(data, cors);
+      }
       // 根路径：状态
       if (path === '/' || path === '') {
         return json({ ok: true, service: 'longxiong-nurture', ts: Date.now() }, cors);
@@ -239,5 +257,44 @@ async function getShowcase(env, limit) {
     if (Array.isArray(arr)) for (const e of arr) out.push(e);
   }
   out.sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+  return { ok: true, list: out.slice(0, limit) };
+}
+
+// ---------- 游艺成绩榜 ----------
+async function saveArcade(env, id, token, name, xiuwei, rank, scores) {
+  const key = 'a:' + id;
+  const existing = await env.NURTURE.get(key);
+  let rec = null;
+  if (existing) {
+    try { rec = JSON.parse(existing); } catch (e) {}
+    if (rec && rec.token && rec.token !== token) {
+      return { ok: false, reason: 'auth' };
+    }
+  }
+  rec = {
+    id: id,
+    name: name.slice(0, 40),
+    token: token,
+    xiuwei: xiuwei,
+    rank: rank,
+    scores: scores,
+    updatedAt: Date.now()
+  };
+  await env.NURTURE.put(key, JSON.stringify(rec));
+  return { ok: true, updatedAt: rec.updatedAt };
+}
+
+async function getArcadeRank(env, limit) {
+  const out = [];
+  const list = await env.NURTURE.list({ prefix: 'a:' });
+  for (const k of list.keys) {
+    const raw = await env.NURTURE.get(k.name);
+    if (!raw) continue;
+    try {
+      const r = JSON.parse(raw);
+      out.push({ id: r.id, name: r.name, xiuwei: r.xiuwei || 0, rank: r.rank || '', updatedAt: r.updatedAt || 0 });
+    } catch (e) {}
+  }
+  out.sort(function (a, b) { return (b.xiuwei || 0) - (a.xiuwei || 0); });
   return { ok: true, list: out.slice(0, limit) };
 }

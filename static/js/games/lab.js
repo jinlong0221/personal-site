@@ -27,6 +27,7 @@
       var opt = map[key] || { hb: true, unit: '' };
       el.textContent = window.Visitor ? window.Visitor.fmt(key, opt) : '暂无记录';
     });
+    if (window.Cultivation) window.Cultivation.refresh();
   };
 
   document.addEventListener('DOMContentLoaded', function () {

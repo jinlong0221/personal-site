@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>离线 · 龙兄知识库</title>
+<meta name="description" content="龙兄知识库离线提示页。当您的设备处于无网络状态时显示此页，此前浏览过的文章已自动缓存可继续阅读；恢复连接后内容会自动更新。">
 <meta name="robots" content="noindex, nofollow">
 <style>
   :root{
@@ -39,6 +40,12 @@
   a.btn:hover{border-color:var(--off-gold);transform:translateY(-1px)}
   .retry:hover{border-color:var(--off-gold);transform:translateY(-1px)}
   .hint{font-size:12px;color:var(--off-muted);margin-top:18px;line-height:1.7}
+  .off-tips{margin-top:22px;padding:16px 18px;background:var(--off-card);border:1px solid var(--off-rule);border-radius:10px;text-align:left}
+  .off-tips-t{font-size:13px;font-weight:700;color:var(--off-text);margin-bottom:10px;letter-spacing:.5px}
+  .off-tips ul{list-style:none;margin:0 0 12px;padding:0}
+  .off-tips li{font-size:13px;line-height:1.9;color:var(--off-muted);padding-left:18px;position:relative}
+  .off-tips li::before{content:"";position:absolute;left:2px;top:13px;width:6px;height:6px;border-radius:50%;background:var(--off-gold)}
+  .off-tips p{font-size:12.5px;line-height:1.8;color:var(--off-muted)}
 </style>
 <!-- PWA: 注册 Service Worker（离线阅读） -->
 <script src="/js/pwa-register.js?v=20260826" defer></script>
@@ -55,6 +62,17 @@
       <span class="retry" onclick="location.reload()">重试连接</span>
     </div>
     <div class="hint">龙兄知识库 · 实测溯源图文库<br>已为您缓存部分内容，连接恢复后自动更新。</div>
+    <div class="off-tips">
+      <p class="off-tips-t">离线时您可以：</p>
+      <ul>
+        <li>继续阅读此前打开过的沉香、紫砂、中药材等科普文章；</li>
+        <li>查看已缓存的站长手记与站点更新日志；</li>
+        <li>收藏喜欢的页面，联网后自动同步到「我的收藏」。</li>
+      </ul>
+      <p>本页为离线兜底页，仅作提示用途。恢复 Wi-Fi 或移动网络后，点击「重试连接」即可回到最新内容。龙兄知识库会持续为您缓存常读页面，让没有信号的地方也能随手翻看。</p>
+      <p>小提示：缓存空间有限，更早的访问记录可能会被新内容替换；如果某篇文章打不开，多半是它从未在联网时加载过。遇到重要资料，建议联网时先打开一次，离线时就能安心重读。</p>
+      <p>若反复提示离线但网络正常，可尝试关闭浏览器「省流量 / 数据节省」模式，或清除本站 Service Worker 后重试。缓存与离线能力由本站 PWA 提供，不影响您设备上的其他应用。</p>
+    </div>
   </div>
 </body>
 </html>

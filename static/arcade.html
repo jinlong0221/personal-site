@@ -325,6 +325,53 @@ var _hmt = _hmt || [];
 .tt-ctrls button:hover { background:rgba(200,168,107,.18); border-color:var(--gold); }
 .tt-ctrls button:active { background:rgba(200,168,107,.4); transform:scale(.94); }
 .tt-restart { background:linear-gradient(135deg,#d4af6a 0%,#c8a86b 100%) !important; color:#1a140d !important; border:none !important; border-radius:14px !important; padding:12px !important; cursor:pointer; font-weight:700; font-size:1.05rem; box-shadow:0 4px 12px rgba(200,168,107,.3); letter-spacing:2px; }
+
+/* 沉香·放置修炼 */
+.xx-card { max-width:760px; margin:0 auto; }
+.xx-top { text-align:center; padding:6px 0 12px; }
+.xx-realm { display:flex; align-items:baseline; justify-content:center; gap:12px; }
+.xx-realm-name { font-size:1.7rem; font-weight:700; color:var(--gold); letter-spacing:3px; }
+.xx-gm { font-size:.82rem; color:var(--text-muted); padding:2px 8px; border:1px solid rgba(200,168,107,.3); border-radius:10px; }
+.xx-flav { color:var(--text-muted); font-size:.82rem; margin:4px 0 10px; }
+.xx-xp { display:flex; align-items:center; gap:10px; max-width:420px; margin:0 auto; }
+.xx-xp-bar { flex:1; height:9px; background:rgba(255,255,255,.07); border-radius:6px; overflow:hidden; }
+.xx-xp-fill { height:100%; background:linear-gradient(90deg,#c8a86b,#e6c98a); width:0; transition:width .3s; }
+.xx-xp-txt { font-size:.78rem; color:var(--text-muted); white-space:nowrap; }
+.xx-res { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:14px 0; }
+.xx-res-cell { flex:1 1 150px; max-width:170px; background:rgba(255,255,255,.03); border:1px solid rgba(200,168,107,.2); border-radius:12px; padding:10px 12px; text-align:center; }
+.xx-res-ico { font-size:1.1rem; }
+.xx-res-name { display:block; color:var(--text-muted); font-size:.74rem; letter-spacing:1px; margin:2px 0; }
+.xx-res-val { display:block; color:var(--text); font-size:1.2rem; font-weight:700; }
+.xx-vigor-bar { height:5px; background:rgba(255,255,255,.08); border-radius:4px; margin-top:6px; overflow:hidden; }
+.xx-vigor-fill { height:100%; background:linear-gradient(90deg,#7bd88f,#5fb87a); width:50%; transition:width .3s; }
+.xx-actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:6px 0 18px; }
+.xx-act { background:rgba(20,17,15,.6); border:1px solid rgba(200,168,107,.38); color:var(--gold); border-radius:14px; padding:13px 18px; font-size:1rem; cursor:pointer; transition:all .15s; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); min-width:104px; }
+.xx-act small { display:block; font-size:.66rem; color:var(--text-muted); margin-top:2px; font-weight:400; }
+.xx-act:hover { background:rgba(200,168,107,.18); border-color:var(--gold); }
+.xx-act:active { transform:scale(.95); }
+.xx-act.dim { opacity:.42; }
+.xx-draw { background:linear-gradient(135deg,#3a6ea5,#4f8fc7); color:#fff; border-color:transparent; }
+.xx-break { background:linear-gradient(135deg,#b8843a,#d4af6a); color:#1a140d; border-color:transparent; font-weight:700; }
+.xx-prestige { background:linear-gradient(135deg,#7a5bbf,#9b7bd4); color:#fff; border-color:transparent; font-weight:700; }
+.xx-auto { background:rgba(255,255,255,.05); color:var(--text); border-color:rgba(200,168,107,.3); }
+.xx-tech-title { color:var(--text); font-size:.95rem; font-weight:600; margin:10px 0 8px; padding-bottom:6px; border-bottom:1px solid rgba(200,168,107,.2); }
+.xx-tech-sub { font-size:.76rem; color:var(--text-muted); font-weight:400; margin-left:8px; }
+.xx-tech-sub b { color:var(--gold); }
+.xx-tech { display:grid; grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:10px; }
+.xx-tech { /* dedicated grid container */ }
+.xx-tech-cell { background:rgba(255,255,255,.03); border:1px solid rgba(200,168,107,.2); border-radius:12px; padding:11px 12px; }
+.xx-tech-cell.maxed { border-color:rgba(123,216,143,.4); }
+.xx-tech-head { display:flex; align-items:center; gap:8px; }
+.xx-tech-ico { font-size:1.15rem; }
+.xx-tech-name { color:var(--text); font-size:.92rem; }
+.xx-tech-name b { color:var(--gold); }
+.xx-tech-desc { color:var(--text-muted); font-size:.72rem; margin:5px 0 8px; min-height:1.4em; }
+.xx-tech-btn { width:100%; background:rgba(20,17,15,.6); border:1px solid rgba(200,168,107,.35); color:var(--text-muted); border-radius:10px; padding:8px; font-size:.82rem; cursor:pointer; transition:all .15s; }
+.xx-tech-btn.on { color:var(--gold); border-color:var(--gold); }
+.xx-tech-btn.on:hover { background:rgba(200,168,107,.18); }
+.xx-tech-btn:disabled { opacity:.6; cursor:default; }
+.xx-log { margin-top:14px; padding:10px 12px; background:rgba(0,0,0,.2); border-radius:10px; border:1px solid rgba(200,168,107,.14); min-height:40px; }
+.xx-log-line { color:var(--text-muted); font-size:.78rem; line-height:1.7; }
 </style>
 
 <body>
@@ -467,6 +514,7 @@ var _hmt = _hmt || [];
     <button class="arcade-tab" data-game="memory">🍂 香材辨识</button>
     <button class="arcade-tab" data-game="gomoku">⚫ 对弈</button>
     <button class="arcade-tab" data-game="tetris">🧱 叠香</button>
+    <button class="arcade-tab" data-game="xiuxiang">🌿 沉香·放置修炼</button>
   </div>
 
   <div class="arcade-panels">
@@ -538,6 +586,14 @@ var _hmt = _hmt || [];
         <div class="arcade-msg tt-msg"></div>
       </div>
     </section>
+
+    <!-- 沉香·放置修炼 -->
+    <section class="arcade-panel" data-game="xiuxiang">
+      <div class="game-card xx-card">
+        <div class="game-head"><span class="game-title">🌿 沉香·放置修炼</span><span class="game-hint">汲水 → 结香(耗元气) → 炼香 → 突破境界 → 转生获香魂</span></div>
+        <div id="xx-root"></div>
+      </div>
+    </section>
   </div>
 </main>
 
@@ -566,6 +622,7 @@ var _hmt = _hmt || [];
 <script defer src="js/games/tetris.js"></script>
 <script defer src="js/games/lab.js"></script>
 <script defer src="js/games/cultivation.js"></script>
+<script defer src="js/games/xiuxiang.js"></script>
 <script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
 <script defer src="js/search.js"></script>

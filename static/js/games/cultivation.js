@@ -3,7 +3,7 @@
 // 在 lab.js 的 refreshArcadeBest 末尾调用 window.Cultivation.refresh() 即可刷新。
 (function () {
   if (!window.Visitor) return;
-  var GAMES = ['minesweeper', 'memory', 'gomoku', 'tetris'];
+  var GAMES = ['minesweeper', 'memory', 'gomoku', 'tetris', 'xiuxiang'];
   var API = 'https://longxiong-nurture.longxiong-nurture.workers.dev';
   var ENROLL_KEY = 'lx_arcade_enrolled_v1';
 
@@ -12,6 +12,7 @@
     if (!b || b.score == null) return 0;
     var s = b.score;
     if (game === 'tetris') return Math.floor(s / 50);
+    if (game === 'xiuxiang') return Math.floor(s / 25);   // 沉香·累计香品
     if (game === 'gomoku') return s * 30;
     if (game === 'minesweeper') {
       var bonus = Math.max(0, 120 - s) * 2;        // ≤120秒起，每快1秒+2
@@ -56,6 +57,8 @@
     { id: 'gomoku', name: '棋高一着', icon: '⚫', test: function (b) { return b.gomoku && b.gomoku.score >= 10; } },
     { id: 'mine', name: '排雷快手', icon: '💣', test: function (b) { return b.minesweeper && b.minesweeper.score <= 60; } },
     { id: 'mem', name: '过目不忘', icon: '🎴', test: function (b) { return b.memory && b.memory.score <= 20; } },
+    { id: 'xx1', name: '初闻其香', icon: '🌿', test: function (b) { return b.xiuxiang && b.xiuxiang.realm >= 1; } },
+    { id: 'xx2', name: '香魂不灭', icon: '🕊', test: function (b) { return b.xiuxiang && b.xiuxiang.soul >= 1; } },
     { id: 'weekly', name: '周课', icon: '📜', test: function (b, ctx) { return ctx.weekDone; } }
   ];
 
@@ -70,7 +73,8 @@
     { game: 'tetris', label: '叠香 · 单局 ≥ 1500 分', test: function (b) { return b.tetris && b.tetris.score >= 1500; } },
     { game: 'gomoku', label: '对弈 · 胜 1 局', test: function (b) { return b.gomoku && b.gomoku.score >= 1; } },
     { game: 'minesweeper', label: '沉香探秘 · ≤ 90 秒通关', test: function (b) { return b.minesweeper && b.minesweeper.score <= 90; } },
-    { game: 'memory', label: '香材辨识 · ≤ 28 步通关', test: function (b) { return b.memory && b.memory.score <= 28; } }
+    { game: 'memory', label: '香材辨识 · ≤ 28 步通关', test: function (b) { return b.memory && b.memory.score <= 28; } },
+    { game: 'xiuxiang', label: '沉香 · 本周累计香品 ≥ 300', test: function (b) { return b.xiuxiang && b.xiuxiang.score >= 300; } }
   ];
   function weekGoal() {
     var d = new Date();

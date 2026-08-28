@@ -4,7 +4,8 @@
     { key: 'minesweeper', name: '扫雷', init: function () { if (window.initMinesweeper) window.initMinesweeper(); } },
     { key: 'memory',      name: '记忆翻牌', init: function () { if (window.initMemory) window.initMemory(); } },
     { key: 'gomoku',      name: '五子棋', init: function () { if (window.initGomoku) window.initGomoku(); } },
-    { key: 'tetris',      name: '俄罗斯方块', init: function () { if (window.initTetris) window.initTetris(); } }
+    { key: 'tetris',      name: '俄罗斯方块', init: function () { if (window.initTetris) window.initTetris(); } },
+    { key: 'xiuxiang',    name: '沉香·放置修炼', init: function () { if (window.XiuXiang) window.XiuXiang.init(); } }
   ];
 
   function renderVisitor() {

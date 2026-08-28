@@ -210,16 +210,16 @@ var _hmt = _hmt || [];
 .nurture-hero p { color: var(--text-muted); font-size:.88rem; }
 
 .nurture-top { display:grid; grid-template-columns: minmax(0,1fr) 360px; gap:22px; align-items:start; margin-top:10px; }
-.garden { position:relative; border-radius:18px; overflow:hidden; min-height:440px; border:1px solid rgba(200,168,107,.25); background:linear-gradient(180deg,#1a2b4a,#0f1726); display:flex; align-items:flex-end; justify-content:center; }
+.garden { position:relative; border-radius:18px; overflow:hidden; min-height:560px; border:1px solid rgba(200,168,107,.25); background:linear-gradient(180deg,#1a2b4a,#0f1726); display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
 .garden[data-season="spring"] { background:linear-gradient(180deg,#2a3a5a,#16223a); }
 .garden[data-season="summer"] { background:linear-gradient(180deg,#1f4a4a,#102626); }
 .garden[data-season="autumn"] { background:linear-gradient(180deg,#4a3320,#241608); }
 .garden[data-season="winter"] { background:linear-gradient(180deg,#2b3550,#121826); }
 #particles { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
-.tree-wrap { width:280px; height:320px; margin-bottom:30px; cursor:pointer; z-index:2; position:relative; }
+.tree-wrap { width:300px; height:300px; margin:16px 0 6px; cursor:pointer; z-index:2; position:relative; flex:0 0 auto; }
 .tree-svg { width:100%; height:100%; display:block; }
 .tree-svg.is-dead { opacity:.8; }
-.garden-hint { position:absolute; bottom:10px; left:0; right:0; text-align:center; color:rgba(255,255,255,.5); font-size:.76rem; z-index:1; }
+.garden-hint { text-align:center; color:rgba(255,255,255,.55); font-size:.74rem; margin-bottom:10px; }
 
 .nurture-panel { display:flex; flex-direction:column; gap:16px; }
 .status-card, .actions-card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:18px; }
@@ -362,6 +362,15 @@ var _hmt = _hmt || [];
 .coll-share { position:absolute; top:8px; right:8px; background:rgba(200,168,107,.16); border:1px solid rgba(200,168,107,.4); color: var(--gold); border-radius:8px; padding:3px 10px; font-size:.74rem; cursor:pointer; font-family:inherit; opacity:0; transition:.18s; }
 .coll-card:hover .coll-share { opacity:1; }
 .coll-share:hover { background: var(--gold); color:#1a140d; }
+
+/* 树下操作台：把日常打理紧贴树脚 */
+.garden-tools { width:100%; margin-top:auto; position:relative; z-index:3; padding:14px 16px 16px; background:linear-gradient(180deg, rgba(8,12,22,0) 0%, rgba(8,12,22,.5) 24%, rgba(8,12,22,.84) 100%); border-top:1px solid rgba(200,168,107,.2); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+.tools-block { margin-bottom:12px; }
+.garden-tools .actions-title { color:rgba(255,255,255,.92); margin:0 0 8px; }
+.garden-tools .actions-grid { margin-bottom:0; }
+.garden-tools .actions-foot { margin-top:12px; }
+.garden-tools .act-care { background:rgba(255,255,255,.07); border-color:rgba(200,168,107,.38); }
+.garden-tools .act-incense { background:rgba(255,255,255,.07); border-color:rgba(201,138,58,.46); }
 </style>
 
 </head>
@@ -551,7 +560,21 @@ var _hmt = _hmt || [];
     <section class="garden" data-season="spring" aria-label="灵圃">
       <canvas id="particles"></canvas>
       <div class="tree-wrap" id="tree" title="点点树身，或有惊喜"></div>
-      <div class="garden-hint">点击树身试试 · 深夜与节气另有际遇</div>
+      <div class="garden-tools">
+        <div class="garden-hint">点击树身试试 · 深夜与节气另有际遇</div>
+        <div class="tools-block">
+          <div class="actions-title">日常打理</div>
+          <div class="actions-grid" id="careActions"></div>
+        </div>
+        <div class="tools-block">
+          <div class="actions-title">造香<span class="hint" id="incenseHint">（成树解锁 · 先把树养到成树）</span></div>
+          <div class="actions-grid" id="incenseActions"></div>
+        </div>
+        <div class="actions-foot">
+          <button class="btn-harvest" id="btn-harvest">🌟 采收沉香</button>
+          <button class="btn-replant" id="btn-replant" style="display:none">🌱 重新栽一株</button>
+        </div>
+      </div>
     </section>
 
     <section class="nurture-panel">
@@ -563,17 +586,6 @@ var _hmt = _hmt || [];
         <div class="bar-line"><span class="bar-label">结香</span><div class="bar"><div class="bar-fill bar-resin" id="bar-resin"></div></div><span class="bar-val" id="val-resin">0</span></div>
         <div class="status-sub" id="stageNext"></div>
         <div class="status-meta"><span>树龄 <b id="ageDays">0</b> 天</span><span>采收 <b id="totalHarvest">0</b></span><span>藏 <b id="collCount">0</b></span></div>
-      </div>
-
-      <div class="actions-card">
-        <div class="actions-title">日常打理</div>
-        <div class="actions-grid" id="careActions"></div>
-        <div class="actions-title">造香（成树解锁）<span class="hint" id="incenseHint">· 先把树养到成树</span></div>
-        <div class="actions-grid" id="incenseActions"></div>
-        <div class="actions-foot">
-          <button class="btn-harvest" id="btn-harvest">🌟 采收沉香</button>
-          <button class="btn-replant" id="btn-replant" style="display:none">🌱 重新栽一株</button>
-        </div>
       </div>
 
       <div class="nurture-msg ok" id="msg">初入灵圃，先浇水听风，把树养大。</div>

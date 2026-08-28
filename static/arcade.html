@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net/npm/gitalk/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/gitalk/; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>游艺厅｜龙兄知识库</title>
+<meta name="keywords" content="游艺厅,小游戏,贪吃蛇,2048,数独,网页游戏,龙兄知识库">
+<meta name="description" content="龙兄知识库的游艺厅：贪吃蛇、2048、数独等纯网页小游戏，不用下载、点开即玩，配一杯茶慢慢搓。">
+<meta name="article-category" content="游艺厅">
+<meta name="article-tags" content="游艺厅,小游戏,贪吃蛇,2048,数独">
+<meta name="article-updated" content="2026-08-28">
+<meta name="article-tags" content="游戏主机,主机,评测">
+<link rel="canonical" href="https://longxiong.vip/arcade.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="游艺厅 - 龙兄知识库">
+<meta name="twitter:description" content="任天堂、索尼、微软、世嘉、雅达利等游戏主机完整图鉴，从1977年至今的全部家用主机与掌机，包含详细参数、销量、经典游戏。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip/",
+      "description": "AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、中药养生茶、特斯拉动态新闻、射阳天气等实用内容。",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://longxiong.vip/search.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "游艺厅 - 龙兄知识库",
+      "description": "任天堂、索尼、微软、世嘉、雅达利等游戏主机完整图鉴，从1977年至今的全部家用主机与掌机，包含详细参数、销量、经典游戏。",
+      "url": "https://longxiong.vip/arcade.html",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "publisher": { "@type": "Organization", "name": "龙兄知识库" }
+    }
+  ]
+}
+</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css?v=20260828">
+<style>
+.console-hero { text-align: center; padding: 48px 0 32px; }
+.console-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
+.console-hero h1 { font-size: 2.2rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+.console-hero p { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+.section-header { display: flex; align-items: center; gap: 12px; margin: 40px 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--blue); }
+.section-header .icon { font-size: 28px; }
+.section-header h2 { font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 0; }
+.section-header .count { font-size: 0.8rem; color: var(--text-muted); background: var(--card); padding: 2px 10px; border-radius: 12px; font-weight: 600; }
+.card-grid-console { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.card-console { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; text-decoration: none; color: inherit; position: relative; overflow: hidden; }
+.card-console::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
+.card-console:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,120,212,0.15); }
+.card-console .card-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.card-console .card-year { font-size: 0.75rem; color: var(--blue); font-weight: 600; margin-bottom: 8px; }
+.card-console .card-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+.card-console .card-specs { font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.card-console .tag { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 7px; }
+.card-console .tag-nintendo { background: rgba(230,0,18,0.12); color: #e60012; }
+.card-console .tag-sony { background: rgba(0,48,135,0.12); color: #003087; }
+.card-console .tag-microsoft { background: rgba(16,124,16,0.12); color: #107c10; }
+.card-console .tag-sega { background: rgba(0,85,165,0.12); color: #0055a5; }
+.card-console .tag-atari { background: rgba(232,92,24,0.12); color: #e85c18; }
+.card-console .tag-other { background: rgba(107,105,214,0.12); color: #6b69d6; }
+.card-console .tag-home { background: rgba(0,120,212,0.12); color: var(--blue); }
+.card-console .tag-handheld { background: rgba(255,140,0,0.12); color: var(--orange); }
+.card-console .year-badge { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; background: rgba(0,120,212,0.1); color: var(--blue); padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+/* 品牌色条 */
+.card-console.nintendo::before { background: #e60012; }
+.card-console.sony::before { background: #003087; }
+.card-console.microsoft::before { background: #107c10; }
+.card-console.sega::before { background: #0055a5; }
+.card-console.atari::before { background: #e85c18; }
+.card-console.other::before { background: #6b69d6; }
+.brand-note { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: var(--radius-sm); padding: 20px 24px; margin: 32px 0; }
+.brand-note h3 { font-size: 1rem; color: var(--blue); margin-bottom: 8px; }
+.brand-note p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+.key-stats { display: flex; gap: 14px; flex-wrap: wrap; margin: 24px 0; }
+.stat-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 18px; flex: 1; min-width: 130px; text-align: center; }
+.stat-item .stat-num { font-size: 1.5rem; font-weight: 900; color: var(--blue); }
+.stat-item .stat-label { font-size: 0.73rem; color: var(--text-muted); margin-top: 3px; }
+[data-theme="light"] .card-console { background: #ffffff; border-color: #e0e0e0; }
+[data-theme="light"] .brand-note, [data-theme="light"] .stat-item { background: #ffffff; }
+@media (max-width: 768px) { .console-hero h1 { font-size: 1.6rem; } }
+@media (max-width: 480px) { .card-grid-console { grid-template-columns: 1fr; } }
+
+/* 主机卡片封面图 */
+.card-console-img {
+  width: 100%; height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  display: block;
+  background: transparent;
+}
+@media (max-width: 480px) {
+  .card-console-img { height: 80px; }
+}
+
+/* ===== 筛选控制台 ===== */
+.cf-wrap { position: sticky; top: var(--cf-top, 56px); z-index: 30; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 8px 0 22px; box-shadow: 0 4px 18px rgba(0,0,0,.18); }
+[data-theme="light"] .cf-wrap { background: rgba(255,255,255,.94); box-shadow: 0 4px 18px rgba(0,0,0,.07); }
+@supports (backdrop-filter: blur(10px)) { .cf-wrap { background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); } }
+.cf-searchbar { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 12px; height: 40px; margin-bottom: 12px; transition: border-color .2s, box-shadow .2s; }
+.cf-searchbar:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,120,212,.14); }
+.cf-sicon { font-size: .9rem; opacity: .65; flex-shrink: 0; }
+.cf-searchbar input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text); font-size: .9rem; font-family: inherit; height: 100%; }
+.cf-searchbar input::placeholder { color: var(--text-muted); }
+.cf-searchbar input::-webkit-search-cancel-button { display: none; }
+.cf-clear { background: none; border: 0; color: var(--text-muted); cursor: pointer; font-size: .8rem; padding: 4px 6px; line-height: 1; border-radius: 4px; }
+.cf-clear:hover { color: var(--text); background: var(--border); }
+.cf-rows { display: flex; flex-direction: column; gap: 7px; }
+.cf-row { display: flex; align-items: center; gap: 10px; }
+.cf-label { flex-shrink: 0; width: 30px; font-size: .72rem; color: var(--text-muted); font-weight: 700; letter-spacing: .5px; }
+.cf-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; flex: 1; }
+.cf-chips::-webkit-scrollbar { display: none; }
+.cf-chip { flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; font-size: .78rem; color: var(--text-secondary); cursor: pointer; font-family: inherit; white-space: nowrap; transition: all .18s ease; }
+.cf-chip:hover { border-color: var(--blue); color: var(--text); }
+.cf-chip i { font-style: normal; font-size: .68rem; opacity: .55; font-variant-numeric: tabular-nums; }
+.cf-chip i:empty { display: none; }
+.cf-chip.is-on { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 600; }
+.cf-chip.is-on i { opacity: .8; }
+.cf-status { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--border); }
+.cf-count { font-size: .8rem; color: var(--text-muted); }
+.cf-count b { color: var(--blue); font-size: 1.02rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+.cf-actions { display: flex; gap: 7px; }
+.cf-btn { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 5px 11px; font-size: .76rem; color: var(--text-secondary); cursor: pointer; font-family: inherit; transition: all .18s; white-space: nowrap; }
+.cf-btn:hover { border-color: var(--blue); color: var(--text); }
+.cf-btn-reset:hover { border-color: #d13438; color: #d13438; }
+
+/* 卡片入场 */
+.card-console.cf-in { animation: cfIn .32s ease both; }
+@keyframes cfIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.card-console[hidden] { display: none !important; }
+
+/* 空状态 */
+.cf-empty { text-align: center; padding: 56px 20px; }
+.cf-empty-icon { font-size: 2.6rem; margin-bottom: 12px; opacity: .5; }
+.cf-empty-t { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.cf-empty-s { font-size: .84rem; color: var(--text-muted); margin-bottom: 18px; }
+
+/* 显示更多 */
+.cf-more-wrap { display: flex; justify-content: center; margin: 26px 0 8px; }
+.cf-more { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 11px 30px; font-size: .88rem; font-weight: 600; color: var(--text); cursor: pointer; font-family: inherit; transition: all .2s; }
+.cf-more:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,120,212,.16); }
+.cf-more em { font-style: normal; font-size: .76rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 768px) {
+  .cf-wrap { padding: 12px; margin-bottom: 18px; border-radius: 8px; }
+  .cf-label { display: none; }
+  .cf-chips { margin: 0 -12px; padding: 2px 12px; }
+  .cf-status { margin-top: 10px; padding-top: 9px; }
+  .cf-btn { padding: 5px 9px; font-size: .72rem; }
+}
+@media (prefers-reduced-motion: reduce) { .card-console.cf-in { animation: none; } }
+
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta property="og:description" content="龙兄知识库的游艺厅：贪吃蛇、2048、数独等纯网页小游戏，点开即玩。">
+  <meta property="og:site_name" content="龙兄知识库">
+  <meta property="og:title" content="游艺厅｜龙兄知识库">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longxiong.vip/arcade.html">
+  <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=20260826" defer></script>
+<style>
+.arcade-hero { text-align:center; padding:48px 0 28px; }
+.arcade-hero .emoji-big { font-size:54px; line-height:1; margin-bottom:10px; }
+.arcade-hero h1 { font-size:2.2rem; font-weight:900; color:var(--text); margin-bottom:8px; }
+.arcade-hero p { color:var(--text-muted); font-size:.95rem; }
+.arcade-tabs { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:8px 0 22px; }
+.arcade-tab { background:var(--card); border:1px solid var(--border); color:var(--text-secondary); border-radius:999px; padding:9px 20px; font-size:.9rem; font-family:inherit; cursor:pointer; transition:all .2s; }
+.arcade-tab:hover { border-color:var(--gold); color:var(--text); }
+.arcade-tab.active { background:var(--gold); border-color:var(--gold); color:#1a1206; font-weight:700; }
+.game-panel { display:none; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; margin-bottom:24px; }
+.game-panel.active { display:block; }
+.gc-bar { display:flex; align-items:center; gap:16px; margin-bottom:14px; flex-wrap:wrap; }
+.gc-score { color:var(--text-secondary); font-size:.9rem; }
+.gc-score b { color:var(--gold); font-size:1.1rem; font-variant-numeric:tabular-nums; }
+.gc-start { margin-left:auto; background:var(--gold); border:0; color:#1a1206; font-weight:700; border-radius:8px; padding:8px 18px; font-family:inherit; cursor:pointer; font-size:.88rem; }
+.gc-start:hover { filter:brightness(1.08); }
+.gc-stage { display:flex; justify-content:center; padding:8px 0; }
+.gc-canvas { background:var(--bg-secondary); border:1px solid var(--border); border-radius:10px; max-width:100%; touch-action:none; }
+.gc-hint { color:var(--text-muted); font-size:.82rem; text-align:center; margin:12px 0 0; min-height:1.2em; }
+.g24-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; max-width:340px; margin:0 auto; background:var(--bg-secondary); padding:8px; border-radius:10px; border:1px solid var(--border); }
+.g24-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--card); border-radius:6px; font-size:1.6rem; font-weight:800; color:var(--text); }
+.g24-cell.v1{color:#c9a84c}.g24-cell.v2{color:#d8b85e}.g24-cell.v3{color:#e0c97a}.g24-cell.v4{color:#e6d28c}.g24-cell.v5{color:#ead9a0}.g24-cell.v6{color:#efd9b0}.g24-cell.v7{color:#f0c890}.g24-cell.v8{color:#e8a86a}.g24-cell.v9{color:#e08a3c}.g24-cell.v10{color:#d9643a}.g24-cell.v11{color:#d14a36}.g24-cell.v12{color:#b8324a}
+.sd-board { display:grid; grid-template-columns:repeat(9,1fr); gap:2px; max-width:380px; margin:0 auto; background:var(--gold); padding:3px; border-radius:8px; }
+.sd-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--card); font-size:.95rem; font-weight:700; color:var(--text); cursor:pointer; user-select:none; }
+.sd-cell.fixed { color:var(--text-muted); cursor:default; background:var(--bg-secondary); }
+.sd-cell.sel { outline:2px solid var(--gold); outline-offset:-2px; }
+.sd-cell.wrong { color:#fff; background:var(--red); }
+.sd-pad { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; max-width:380px; margin:16px auto 0; }
+.sd-num { width:42px; height:42px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text); font-size:1.1rem; font-weight:700; font-family:inherit; cursor:pointer; }
+.sd-num:hover { border-color:var(--gold); }
+.sd-erase { color:var(--red); }
+.arcade-foot { text-align:center; color:var(--text-muted); font-size:.8rem; margin:18px 0 0; }
+@media (max-width:480px){ .arcade-hero h1{font-size:1.7rem} .g24-cell{font-size:1.2rem} }
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="arcade.html" class="active">游艺厅</a>
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="arcade.html">游艺厅</a>
+    <a href="index.html">首页</a>
+    <a href="herbs/chenxiang.html">沉香鉴别</a>
+    <a href="herbs.html">中药材</a>
+    <a href="health-tea.html">养生茶</a>
+    <a href="bracelet.html">文玩手串</a>
+    <a href="tesla.html">特斯拉</a>
+    <a href="apple.html">苹果新品</a>
+    <a href="marvel.html">漫威宇宙</a>
+    <a href="xintan-weather.html">农田气象</a>
+    <a href="zisha.html">紫砂艺术</a>
+    <a href="console.html">游戏主机</a>
+    <a href="travel.html">家庭旅行</a>
+    <a href="tags.html">标签聚合</a>
+    <a href="chinajoy.html">ChinaJoy 成长史</a>
+    <a href="guanghui.html">光辉电力</a>
+    <a href="gaokao.html">高考查分</a>
+    <a href="pitfalls.html">踩坑记</a>
+    <a href="typhoon.html">台风监测</a>
+    <a href="games.html">游戏库</a>
+    <a href="status-history.html">站点状态</a>
+    <a href="about.html">关于本站</a>
+    <a href="bookmarks.html">我的收藏</a>
+    <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="arcade-hero">
+    <div class="emoji-big">🎮</div>
+    <h1>游艺厅</h1>
+    <p>点开即玩 · 不用下载 · 分数自动存在你浏览器里</p>
+  </div>
+
+  <div class="arcade-tabs">
+    <button class="arcade-tab active" data-tab="snake">🐍 贪吃蛇</button>
+    <button class="arcade-tab" data-tab="g2048">🔢 2048</button>
+    <button class="arcade-tab" data-tab="sudoku">🧩 数独</button>
+  </div>
+
+  <div class="game-panel active" data-panel="snake" id="game-snake">
+    <div class="gc-bar">
+      <div class="gc-score">得分 <b class="gc-score-val">0</b></div>
+      <div class="gc-score">最高 <b class="gc-best-val">0</b></div>
+      <button class="gc-start">开始</button>
+    </div>
+    <div class="gc-stage"><canvas class="gc-canvas"></canvas></div>
+    <p class="gc-hint"></p>
+  </div>
+
+  <div class="game-panel" data-panel="g2048" id="game-g2048">
+    <div class="gc-bar">
+      <div class="gc-score">得分 <b class="gc-score-val">0</b></div>
+      <div class="gc-score">最高 <b class="gc-best-val">0</b></div>
+      <button class="gc-start">重开</button>
+    </div>
+    <div class="g24-grid"></div>
+    <p class="gc-hint"></p>
+  </div>
+
+  <div class="game-panel" data-panel="sudoku" id="game-sudoku">
+    <div class="gc-bar">
+      <button class="sd-check gc-start">检查对错</button>
+    </div>
+    <div class="sd-board"></div>
+    <div class="sd-pad"></div>
+    <p class="gc-hint"></p>
+  </div>
+
+  <p class="arcade-foot">小游戏纯前端运行，分数存在你自己的浏览器里，换设备不互通～</p>
+</main>
+
+<footer>
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span>
+    <a href="https://github.com/jinlong0221/personal-site" target="_blank" rel="noopener noreferrer">GitHub 开源</a>
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a href="mailto:799958000@qq.com" style="color:#42b883">799958000@qq.com</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+  <script defer src="/js/board-nav.js"></script>
+<script defer src="js/app.js"></script>
+  <script defer src="js/search.js"></script>
+  <script defer src="js/share.js"></script>
+  <script defer src="js/games/snake.js"></script>
+  <script defer src="js/games/g2048.js"></script>
+  <script defer src="js/games/sudoku.js"></script>
+  <script defer src="js/games/lab.js"></script>
+
+</body>
+</html>

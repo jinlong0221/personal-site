@@ -12,7 +12,6 @@ window.initMinesweeper = function () {
 
   var board, revealed, flagged, started, over, timer, secs, revealedCount, longPressTimer, pressedCell;
 
-  var elStatus = root.querySelector('.ms-status');
   var elMines  = root.querySelector('.ms-mines');
   var elTime   = root.querySelector('.ms-time');
   var elFace   = root.querySelector('.ms-face');

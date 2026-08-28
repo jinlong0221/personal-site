@@ -277,18 +277,20 @@ var _hmt = _hmt || [];
 .gm-restart:hover { border-color:var(--gold); color:var(--gold); }
 
 /* 俄罗斯方块 */
-.tt-layout { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; align-items:flex-start; }
-.tt-canvas { display:block; background:#14110f; border:1px solid rgba(200,168,107,.3); border-radius:8px; width:240px; max-width:calc(100vw - 56px); aspect-ratio:1/2; touch-action: manipulation; }
+.tt-layout { display:flex; gap:22px; justify-content:center; flex-wrap:wrap; align-items:flex-start; }
+.tt-canvas { display:block; background:radial-gradient(ellipse at center,#1a1612 0%,#14110f 100%); border:1px solid rgba(200,168,107,.42); border-radius:12px; width:240px; max-width:calc(100vw - 56px); max-height:58vh; aspect-ratio:1/2; touch-action:manipulation; box-shadow:0 8px 24px rgba(0,0,0,.55),inset 0 0 0 1px rgba(200,168,107,.12); }
 .tt-main { display:flex; flex-direction:column; align-items:center; gap:14px; flex:0 0 auto; }
-.tt-side { display:flex; flex-direction:column; gap:10px; min-width:150px; }
-.tt-next-box { background:rgba(255,255,255,.03); border:1px solid rgba(200,168,107,.22); border-radius:12px; padding:8px; text-align:center; }
-.tt-next-box .lbl { color:var(--text-muted); font-size:.78rem; }
-.tt-next { display:block; margin:6px auto 0; }
-.tt-stat { color:var(--text); font-size:.9rem; } .tt-stat b{color:var(--gold);}
-.tt-ctrls { display:grid; grid-template-columns: repeat(3,1fr); gap:8px; margin-top:6px; }
-.tt-ctrls button { background:rgba(255,255,255,.05); border:1px solid rgba(200,168,107,.3); color:var(--gold); border-radius:10px; padding:11px 0; font-size:1.1rem; cursor:pointer; transition:.15s; }
-.tt-ctrls button:active { background:rgba(200,168,107,.25); }
-.tt-restart { background:var(--gold); color:#1a140d; border:none; border-radius:10px; padding:9px; cursor:pointer; font-weight:600; }
+.tt-side { display:flex; flex-direction:column; gap:10px; min-width:158px; }
+.tt-next-box { background:rgba(255,255,255,.04); border:1px solid rgba(200,168,107,.25); border-radius:14px; padding:10px; text-align:center; }
+.tt-next-box .lbl { color:var(--text-muted); font-size:.78rem; letter-spacing:1px; }
+.tt-next { display:block; margin:6px auto 0; border-radius:6px; background:#14110f; }
+.tt-stat { color:var(--text); font-size:.95rem; padding:9px 12px; background:rgba(255,255,255,.03); border:1px solid rgba(200,168,107,.18); border-radius:10px; display:flex; justify-content:space-between; align-items:center; }
+.tt-stat b { color:var(--gold); font-size:1.1rem; font-weight:600; }
+.tt-ctrls { width:100%; display:grid; grid-template-columns:repeat(3,1fr); gap:8px; align-self:stretch; }
+.tt-ctrls button { background:rgba(20,17,15,.65); border:1px solid rgba(200,168,107,.4); color:var(--gold); border-radius:14px; padding:14px 0; font-size:1.25rem; cursor:pointer; transition:all .15s; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); line-height:1; }
+.tt-ctrls button:hover { background:rgba(200,168,107,.18); border-color:var(--gold); }
+.tt-ctrls button:active { background:rgba(200,168,107,.4); transform:scale(.94); }
+.tt-restart { background:linear-gradient(135deg,#d4af6a 0%,#c8a86b 100%) !important; color:#1a140d !important; border:none !important; border-radius:14px !important; padding:12px !important; cursor:pointer; font-weight:700; font-size:1.05rem; box-shadow:0 4px 12px rgba(200,168,107,.3); letter-spacing:2px; }
 </style>
 
 <body>

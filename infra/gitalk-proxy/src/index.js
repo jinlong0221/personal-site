@@ -58,21 +58,26 @@ export default {
       return jsonResponse({ error: 'missing_code' }, 400);
     }
 
-    // server-to-server 调 GitHub,Accept: application/json 让 GitHub 返回 JSON
+    // server-to-server 调 GitHub。
+    // 关键: GitHub 的 /login/oauth/access_token 端点只接受
+    //   application/x-www-form-urlencoded (不接受 JSON,否则返回 404),
+    //   且必须带 User-Agent (否则 403)。Gitalk 发来的是 JSON,
+    //   这里转成 form-urlencoded 再转发。
     let upstream;
     try {
+      const params = new URLSearchParams();
+      params.set('client_id', body.client_id);
+      params.set('client_secret', body.client_secret);
+      params.set('code', body.code);
+      if (body.redirect_uri) params.set('redirect_uri', body.redirect_uri);
       upstream = await fetch('https://github.com/login/oauth/access_token', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'Accept': 'application/json',
           'User-Agent': 'gitalk-proxy-longxiong (Cloudflare Worker)'
         },
-        body: JSON.stringify({
-          client_id: body.client_id,
-          client_secret: body.client_secret,
-          code: body.code
-        })
+        body: params.toString()
       });
     } catch (e) {
       return jsonResponse({ error: 'upstream_fetch_failed', detail: e.message }, 502);

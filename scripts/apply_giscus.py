@@ -54,28 +54,40 @@ CSP_META_RE = re.compile(
     r'(<meta http-equiv="Content-Security-Policy" content=")([^"]*)(")'
 )
 
-# giscus 需要放行的三个 CSP 指令
+# giscus 需要放行的 CSP 指令（frame-src 在 fix_csp 里单独处理，因为原值是 'none'）
 CSP_TARGETS = ("script-src", "style-src", "connect-src")
 
 
 def fix_csp(txt: str) -> str:
-    """给内联 CSP 的 script-src / style-src / connect-src 各补上 giscus.app。
+    """给内联 CSP 补齐 giscus 所需放行：script-src / style-src / connect-src / frame-src。
 
-    注意：这里必须只针对 CSP meta 的 content 判断，不能用整份文件文本判断——
-    否则注入/替换出的 giscus 脚本会让"已含 giscus.app"误判，导致 CSP 漏改。
+    两个易踩的坑：
+    1. 不能拿"整份文件文本"判断是否已含 giscus.app——注入的 giscus 脚本本身就
+       含该域名，会导致提前返回、CSP 漏改。这里只解析 CSP meta 的 content。
+    2. frame-src 必须单独处理：站点原 CSP 是 frame-src 'none'（禁止一切 iframe），
+       而 giscus 是在 iframe 里渲染的，不把 'none' 换掉的话评论区整个被浏览器屏蔽。
+       同样不能用"整体是否已含 giscus.app"提前返回，否则补完前三项后就轮不到它。
     """
     m = CSP_META_RE.search(txt)
     if not m:
         return txt
     csp = m.group(2)
-    if "giscus.app" in csp:
-        return txt
     parts = []
+    changed = False
     for part in csp.split("; "):
         name = part.split(" ")[0]
-        if name in CSP_TARGETS and "giscus.app" not in part:
+        if name == "frame-src" and "giscus.app" not in part:
+            if "'none'" in part:
+                part = " ".join(part.replace("'none'", "").split()) + " https://giscus.app"
+            else:
+                part = part + " https://giscus.app"
+            changed = True
+        elif name in CSP_TARGETS and "giscus.app" not in part:
             part = part + " https://giscus.app"
+            changed = True
         parts.append(part)
+    if not changed:
+        return txt
     new_csp = "; ".join(parts)
     return txt[: m.start(2)] + new_csp + txt[m.end(2) :]
 

@@ -1,19 +1,23 @@
 // =====================================================================
 // Gitalk 评论组件初始化（纯前端，评论存储于 GitHub Issues，无自有后端）
 // ---------------------------------------------------------------------
-// 配置占位：请把 clientID 换成你的 GitHub OAuth App Client ID。
-//   - 在 GitHub → Settings → Developer settings → OAuth Apps 新建应用，
-//     Authorization callback URL 填 https://longxiong.vip/
-//   - 拿到的 Client ID 填到下方 clientID。Client Secret 仅服务端用，勿暴露。
-// owner / repo / admin 已按本站默认填写；若想用独立评论仓库，改 repo 与 admin 即可。
-// 注意：首次需在 GitHub 登录后以管理员身份发一条评论，Gitalk 才会创建对应 Issue，
-//       之后访客登录 GitHub 即可在该 Issue 下评论。
+// 配置（GitHub OAuth App 凭据）已填入下方。
+//   - App 名称: longxiong
+//   - 在 GitHub → Settings → Developer settings → OAuth Apps 创建
+//   - Authorization callback URL: https://longxiong.vip/
+//   - 说明：Gitalk 是纯前端组件，必须拿 clientSecret 到浏览器里换临时令牌，
+//     所以这把 secret 会随网页源码对全网公开（这是 Gitalk 的设计，不是疏漏）。
+//     风险面有限：他人最多用它往你 personal-site 仓库的 Issues 发评论。
+//   - owner / repo / admin 已按本站默认填写；若想用独立评论仓库，改 repo 与 admin 即可。
+//   - 首次需你本人以 GitHub 登录后在该页面发一条评论，Gitalk 才会创建对应 Issue，
+//     之后访客登录 GitHub 即可在该 Issue 下评论。
 // =====================================================================
 window.GITALK_CONFIG = {
-  clientID: 'GITHUB_OAUTH_CLIENT_ID', // ← 替换为你的 GitHub OAuth Client ID
-  owner: 'jinlong0221',               // 仓库所有者（GitHub 用户名）
-  repo: 'personal-site',              // 存放评论 Issue 的仓库
-  admin: ['jinlong0221'],             // 有写权限的管理员（用于初始化 Issue）
+  clientID: '0v231iqSjAYPsiAMbxx6',          // GitHub OAuth App Client ID (longxiong)
+  clientSecret: '21134a9c91ffebb742a80aec644959ca65b27380', // GitHub OAuth App Client Secret (longxiong)
+  owner: 'jinlong0221',                     // 仓库所有者（GitHub 用户名）
+  repo: 'personal-site',                    // 存放评论 Issue 的仓库
+  admin: ['jinlong0221'],                   // 有写权限的管理员（用于初始化 Issue）
   distractionFreeMode: false
 };
 
@@ -41,9 +45,10 @@ window.GITALK_CONFIG = {
     var box = document.querySelector('.gitalk-container');
     if (!box) return;
     var cfg = window.GITALK_CONFIG || {};
-    if (!cfg.clientID || cfg.clientID === 'GITHUB_OAUTH_CLIENT_ID') {
+    if (!cfg.clientID || cfg.clientID === 'GITHUB_OAUTH_CLIENT_ID' ||
+        !cfg.clientSecret || cfg.clientSecret === 'GITHUB_OAUTH_CLIENT_SECRET') {
       box.innerHTML = '<p style="color:var(--text-muted);font-size:.85rem;padding:8px 0">' +
-        '评论功能待配置（请在 static/js/gitalk-init.js 填写 GitHub OAuth Client ID）。</p>';
+        '评论功能待配置（请在 static/js/gitalk-init.js 填写 GitHub OAuth Client ID / Client Secret）。</p>';
       return;
     }
     var g = new Gitalk(Object.assign({}, cfg, { id: shortId() }));

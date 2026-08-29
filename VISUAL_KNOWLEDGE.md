@@ -61,6 +61,7 @@
   2. "伸出视口"元素扫描：遍历 `*`，取 `getBoundingClientRect()`，`rect.right > innerWidth+1.5` 且不在 `overflow-x:auto/scroll` 祖先内部者 = 视觉溢出。后者能抓被 html clip 掉的裁切内容，比前者更可靠。
 - **遍历规模**：197 页 × 5 视口(390/375/360/1440/1920) × 2 主题 ≈ 1970 次加载，单进程约 12–20 分钟；务必后台跑、勿前台阻塞。
 - **undefined CSS 变量扫描坑**：只扫 `style.css` 会大量误报（页面内联 `<style>` 与 pagefind 自带 CSS 也定义了 `--xxx`）。正确做法：从「全部 .css + 全部 html 内联 `<style>` + JS `setProperty`」收集定义，再比对 `var()` 用法，并过滤带 fallback 的 `var(--x, 默认值)`。
+- **⚠️ 2026-08-29 扫描 refinement（必看，否则误报）**：定义收集源**还须包含内联 `style="--x:值"` 属性里的自定义属性**。chinajoy.html 的 `.cj-hall-card` 用 `style="--hall:#4f46e5"` 逐卡片定义、在 `.cj-tag-hall`/`.cj-hall-card` 内 `var(--hall)` 引用——若只扫 `:root`/`<style>`/`setProperty` 会误报 10 处「未定义」。完整定义源 = `.css` + html 内联 `<style>` + **html 内联 `style="--x:.."` 属性** + JS `setProperty`。本周全站 34951 处 `var()` / 161 定义，真实未定义 = 0。
 - **safe-area / sticky 用代码审查而非截图**：grep `position:sticky` 找所有 `top:var(--nav-height)` 元素，确认每个都在 `@supports(padding:env(safe-area-inset-top))` 内补 `top:calc(var(--nav-height)+env(safe-area-inset-top))`；并确认 body 是 `overflow-x:clip`（非 hidden），sticky 才能以视口为滚动祖先。
 
 ## 八、CSP × 视觉渲染关系（2026-08-26 复盘）
@@ -84,6 +85,7 @@
 - **唯一漂移**：`sheyang.html`(`rgb(10,10,10)` 冷黑)、`games.html`(`rgb(13,13,26)` 蓝黑) — 见第六节，属既定板块主题色、已知接受。
 - **此法价值**：把"协调性"从主观读图转为可量化指标（基色 token 一致性），适合无图环境每周复验。
 - **2026-08-28 复验规模**：站点已 197 页（较 08-25 的 194 页 +3），新增 3 页均为「脚趾抠地」App 独立品牌页（见第六节），基色协调探针抽样仍全绿、金主调一致。
+- **2026-08-29 复验规模**：站点已 199 页（较 08-28 的 197 页 +2）。新增：① commit `39901d8e` 首页「今时·节气 / 每日一物 / 站长手记」活起来带（gold 驱动、复用 .lx-mod 卡片体系、无 reveal 隐藏、JS 失效有静态兜底文案）；② 小米 新增 `offline.html`（PWA 离线兜底页，系统页）。基色协调探针仍全绿、金主调一致。
 
 ## 十、SRI 安全加固与全局样式表风险（2026-08-28 复盘）
 

@@ -48,6 +48,16 @@ jobs:
       - name: Inject related-reading blocks into articles
         run: python3 scripts/apply_related.py
 
+      # 紫砂深度解读：由 build_zisha_insight.py 基于真实规格（泥料/容量/工艺/器型）
+      # 推导每把壶的「适什么茶 / 养壶要点 / 什么场合用 / 器型说 / 工艺鉴别」。
+      # 紫砂养壶记录时间线：等数据填了再注入（empty 时不渲染）。
+      - name: Generate zisha deep-reading insights
+        run: python3 scripts/build_zisha_insight.py
+      - name: Inject zisha deep-reading blocks
+        run: python3 scripts/apply_zisha_insight.py
+      - name: Inject zisha patina (conditional, only if data exists)
+        run: python3 scripts/apply_zisha_patina.py
+
       - name: Inject site widgets (floating TOC + local bookmark)
         run: python3 scripts/apply_site_widgets.py
 

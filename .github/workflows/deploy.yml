@@ -39,8 +39,14 @@ jobs:
       - name: Build content index (tags + search filters)
         run: python3 scripts/build_content_index.py
 
-      # 评论区已于 2026-08-29 永久移除（先 Gitalk 后 giscus，均已下线）。
-      # 不再注入任何第三方评论组件，静态页保持纯净、CSP 已收紧（frame-src 'none'）。
+      # 文章关联：基于 content-index 算每篇的「相关阅读」（同板块 + 主题组 +
+      # 品牌/系列词 + 标题主体 bigram），把 185 页孤岛连成网。零依赖、纯静态注入。
+      - name: Build article related-reading data
+        run: python3 scripts/build_related.py
+
+      # 把上面算好的相关阅读静态写入每个文章页正文末尾（幂等：已注入则跳过）
+      - name: Inject related-reading blocks into articles
+        run: python3 scripts/apply_related.py
 
       - name: Inject site widgets (floating TOC + local bookmark)
         run: python3 scripts/apply_site_widgets.py

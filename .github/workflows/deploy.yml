@@ -56,7 +56,7 @@ jobs:
       - name: Inject zisha deep-reading blocks
         run: python3 scripts/apply_zisha_insight.py
       - name: Inject zisha patina (conditional, only if data exists)
-        run: python3 scripts/apply_zisha_patina.py
+        run: python3 scripts/apply_zisha_patina.py --refresh
 
       - name: Inject site widgets (floating TOC + local bookmark)
         run: python3 scripts/apply_site_widgets.py

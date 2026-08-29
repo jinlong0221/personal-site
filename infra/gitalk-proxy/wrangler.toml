@@ -1,0 +1,13 @@
+name = "gitalk-proxy"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+
+# 部署命令（需要先 `npx wrangler login` 一次）:
+#   cd infra/gitalk-proxy && npx wrangler deploy
+#
+# 部署后输出的 URL 形如:
+#   https://gitalk-proxy.<your-cf-subdomain>.workers.dev
+# 把这个 URL 填到 static/js/gitalk-init.js 的 GITALK_CONFIG.proxy。
+
+[observability]
+enabled = true

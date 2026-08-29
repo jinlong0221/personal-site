@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>授权中... - 龙兄知识库</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #f5efe1; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #3a2a1a; }
+  .auth-card { background: #fffaf0; border: 1px solid #d8c7a3; border-radius: 12px; padding: 28px 36px;
+    box-shadow: 0 4px 18px rgba(80,50,20,.08); text-align: center; max-width: 460px; }
+  .auth-card h1 { margin: 0 0 8px; font-size: 1.1rem; color: #8a5a1a; letter-spacing: .04em; }
+  .auth-card p { margin: 6px 0; color: #5a4632; font-size: .92rem; line-height: 1.6; }
+  .auth-card .hint { font-size: .82rem; color: #8a7a5e; margin-top: 14px; }
+</style>
+</head>
+<body>
+  <div class="auth-card">
+    <h1>授权中</h1>
+    <p>正在完成 GitHub 评论授权,马上回到原页面…</p>
+    <p id="status" class="hint"></p>
+  </div>
+<script>
+(function () {
+  var qs = new URLSearchParams(location.search);
+  var code = qs.get('code');
+  var ret = qs.get('return') || '/';
+  var status = document.getElementById('status');
+
+  // 防御:return 必须是同源路径,避免被劫持跳到外站
+  try {
+    var u = new URL(ret, location.origin);
+    if (u.origin !== location.origin) ret = '/';
+  } catch (e) { ret = '/'; }
+
+  if (!code) {
+    status.textContent = '未收到授权码(code),将返回 ' + ret;
+    setTimeout(function () { location.replace(ret); }, 1500);
+    return;
+  }
+
+  try {
+    sessionStorage.setItem('gitalk_code', code);
+  } catch (e) {
+    status.textContent = '存储授权码失败(' + e.message + '),请允许本站的 sessionStorage 后重试。';
+    return;
+  }
+
+  status.textContent = '授权完成,正在返回 ' + ret;
+  // 给浏览器一点时间把 sessionStorage 落盘,再跳转
+  setTimeout(function () { location.replace(ret); }, 300);
+})();
+</script>
+</body>
+</html>

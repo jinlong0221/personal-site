@@ -39,10 +39,12 @@ jobs:
       - name: Build content index (tags + search filters)
         run: python3 scripts/build_content_index.py
 
-      # 第三方组件注入：仅 Gitalk（Umami 为未配置占位死配置，已于 2026-08-22 安全加固中
-      # 全站移除，apply_umami.py 已改为 no-op，不再注入任何内容）。
-      - name: Inject Gitalk comments
-        run: python3 scripts/apply_gitalk.py
+      # 第三方组件注入：仅 giscus 评论（2026-08-29 由 Gitalk 迁移而来）。
+      # Gitalk 依赖 *.workers.dev 自建 CORS 代理换 token，该域名在大陆被墙；
+      # 且 GitHub 已删除改 OAuth callback URL 的 API。giscus 纯前端直连 GitHub
+      # Discussions，无需自建代理。脚本幂等：已注入则跳过，新增文章页自动带上。
+      - name: Inject giscus comments
+        run: python3 scripts/apply_giscus.py
 
       - name: Inject site widgets (floating TOC + local bookmark)
         run: python3 scripts/apply_site_widgets.py

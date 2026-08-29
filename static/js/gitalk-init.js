@@ -44,7 +44,7 @@ window.GITALK_CONFIG = {
   // 必须 https,允许 POST 跨域返回 application/json。
   // 部署后把 worker URL 填这里,并把 OAuth App 的 callback URL 同步设为:
   //   https://longxiong.vip/oauth-callback.html
-  proxy: 'https://gitalk-proxy.longxiong-vip.workers.dev',
+  proxy: 'https://gitalk-proxy.longxiong-nurture.workers.dev',
   distractionFreeMode: false
 };
 

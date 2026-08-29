@@ -1,0 +1,31 @@
+{
+ "_说明": "养壶记录——让紫砂页面随时间生长。往 works 里对应壶的 records 数组追加一条，页面就会多一节。",
+ "_字段": {
+  "date": "必填，YYYY-MM-DD。渲染时按日期倒序（最新在上）",
+  "stage": "阶段名，如「开壶」「一个月」「三个月」「一年」",
+  "note": "文字记录：这时的壶是什么状态（包浆、色泽、水色变化等）",
+  "photo": "可选。照片路径，建议放在 /img/zisha/<壶slug>/ 下，如 /img/zisha/sifangchuanlu/2026-08-29.webp"
+ },
+ "_规则": [
+  "works 的 key 必须是作品页路径，如 /pages/zisha/detail-sifangchuanlu.html",
+  "works 里没有记录、或 records 为空的壶，页面不会渲染「养壶记录」区块——保持干净",
+  "改完本文件后跑：python3 scripts/apply_zisha_patina.py --refresh，再提交推送即可"
+ ],
+ "works": {
+  "/pages/zisha/detail-sifangchuanlu.html": {
+   "title": "四方传炉",
+   "records": [
+    {
+     "date": "2026-08-29",
+     "stage": "开壶",
+     "note": "清水煮沸两小时，自然晾干，土味褪去大半。壶身还是生的，颜色偏哑。"
+    },
+    {
+     "date": "2026-06-01",
+     "stage": "入手",
+     "note": "到手第一天的样子，天星泥的颗粒感很明显，棱线挺括。"
+    }
+   ]
+  }
+ }
+}

@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-08-30",
+    "content": "【视觉协调/美化周巡检】全站 199 页 × 5 视口(390/375/360/1440/1920) × 2 主题 = 1990 组合无头实测（puppeteer-core + Chrome for Testing 149）：文档级横向溢出 0、真实元素溢出（向上遍历祖先查 overflow 裁剪过滤后）0、errors 0；undefined CSS 变量 0（refined 扫描含 inline style=\"--x\" + JS setProperty + fallback 过滤，仅 --cf-top 为 console.html 运行时 setProperty+56px fallback 安全范式）；static/*.html 零 inline 彩虹/暖色；safe-area（navbar/mobile-nav/body/.lx-search-wrap/FAB 全 @supports 补偿）与 sticky（body/html overflow-x:clip）完整无失效；暖色仅余既定小尺寸语义色（.long-avatar 48px 橙头像、year-badge 红橙胶囊、季节卡、#42b883 邮箱绿、#e57373 警示红等）维持不动；.lx-card/.lx-epick/.artist-card 卡片体系跨页一致无漂移。视觉层面 P0=P1=0 达标。知识储备：VISUAL_KNOWLEDGE.md 第七/九/十三节增量（--cf-top 安全范式、元素溢出「祖先裁剪」误报补漏、本周结论速记）。"
+  },
+  {
+    "date": "2026-08-30",
     "content": "【台风实时监测 02:40 高频刷新】沙德尔(2618)捕获中央气象台台风快讯(2026总1507期·08月30日02时36分)02时官方实况定点：02时位于湖南省郴州市境内（25.6°N/112.3°E、TD 6级12m/s、998hPa、南偏西20-25km/h、缓慢减弱），较23时定点(26.1/112.9、TD 7级15m/s、995hPa)西移0.5°南压0.5°、风力降1级、气压升3hPa，残涡深入湖南内陆、距射阳逾1100km本体威胁解除；已补登02时实况轨迹点(轨迹95/实况93)、顶层current锚定02时。截至02:40 2618仍在编未停编(快讯仍列编号2618号)，是否停编待05时30分新版快讯确认。暴雨黄警(29日20时-30日20时·江苏北部大到暴雨)仍在效、射阳在落区；强对流第三时段(8/31 20:00-9/1 20:00)点名「江苏北部」→风险延至9/1；盐城/江苏台维持30日大雨到暴雨局部大暴雨、31日大雨到暴雨。射阳站前次可靠实况23:30：0.0mm、27.1℃、1007hPa、湿度93%、东北风(雨未起但前兆具备)；NMC findAlarm接口前轮已恢复、江苏省在效预警数=0、本地零预警。综合：riskLevel 维持「高」、statusLevel danger、徽标「暴雨黄警」。"
   },
   {

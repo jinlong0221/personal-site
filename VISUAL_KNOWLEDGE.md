@@ -62,6 +62,8 @@
 - **遍历规模**：197 页 × 5 视口(390/375/360/1440/1920) × 2 主题 ≈ 1970 次加载，单进程约 12–20 分钟；务必后台跑、勿前台阻塞。
 - **undefined CSS 变量扫描坑**：只扫 `style.css` 会大量误报（页面内联 `<style>` 与 pagefind 自带 CSS 也定义了 `--xxx`）。正确做法：从「全部 .css + 全部 html 内联 `<style>` + JS `setProperty`」收集定义，再比对 `var()` 用法，并过滤带 fallback 的 `var(--x, 默认值)`。
 - **⚠️ 2026-08-29 扫描 refinement（必看，否则误报）**：定义收集源**还须包含内联 `style="--x:值"` 属性里的自定义属性**。chinajoy.html 的 `.cj-hall-card` 用 `style="--hall:#4f46e5"` 逐卡片定义、在 `.cj-tag-hall`/`.cj-hall-card` 内 `var(--hall)` 引用——若只扫 `:root`/`<style>`/`setProperty` 会误报 10 处「未定义」。完整定义源 = `.css` + html 内联 `<style>` + **html 内联 `style="--x:.."` 属性** + JS `setProperty`。本周全站 34951 处 `var()` / 161 定义，真实未定义 = 0。
+- **2026-08-30 复盘：`--cf-top` 是「JS 运行时 setProperty」典型安全范式**：`console.html` 用 `document.documentElement.style.setProperty('--cf-top', h+'px')` 在运行时写入、引用处 `var(--cf-top, 56px)` 带 56px fallback。扫描器在静态源码里看不到定义会误报「未定义」，但它运行时必被赋值、且 fallback 兜底 → **非缺陷**。结论：凡 `var(--x, <默认值>)` 带 fallback 且由 `setProperty` 运行时填充的，一律按「安全、不计入未定义」。
+- **2026-08-30 补漏：元素伸出视口的「祖先裁剪」误报陷阱（P0 判定关键）**：仅测 `rect.right > innerWidth` 会把**预期内的横向滚动容器后代**也标成溢出——本站实测 43 页出现 `over` 标记，但全部是：① 主机页 `.timeline-dot`/`.tl-year`（时间轴装饰点，父级 `.timeline` 已 overflow 裁切）；② 特斯拉页 `.version-tag`（表格内小标签，父级 `.table-wrapper` overflow-x:auto）；③ `xintan-weather.html` 的 `.xw-h-*`（逐时天气横滑行，本就 intended 横滑）；④ 首页 `.lx-vchip`（活体首页横滑胶囊，intended）。**正确 P0 判定 = 文档级 `docOverflow==0` 为硬闸门，元素扫描须向上遍历祖先，凡祖先含 `overflow-x:auto/scroll/hidden/clip` 即视为「已收纳」，不计入真实溢出**。本周用祖先感知重扫 43 页 → 真实元素溢出 = 0。
 - **safe-area / sticky 用代码审查而非截图**：grep `position:sticky` 找所有 `top:var(--nav-height)` 元素，确认每个都在 `@supports(padding:env(safe-area-inset-top))` 内补 `top:calc(var(--nav-height)+env(safe-area-inset-top))`；并确认 body 是 `overflow-x:clip`（非 hidden），sticky 才能以视口为滚动祖先。
 
 ## 八、CSP × 视觉渲染关系（2026-08-26 复盘）
@@ -86,6 +88,7 @@
 - **此法价值**：把"协调性"从主观读图转为可量化指标（基色 token 一致性），适合无图环境每周复验。
 - **2026-08-28 复验规模**：站点已 197 页（较 08-25 的 194 页 +3），新增 3 页均为「脚趾抠地」App 独立品牌页（见第六节），基色协调探针抽样仍全绿、金主调一致。
 - **2026-08-29 复验规模**：站点已 199 页（较 08-28 的 197 页 +2）。新增：① commit `39901d8e` 首页「今时·节气 / 每日一物 / 站长手记」活起来带（gold 驱动、复用 .lx-mod 卡片体系、无 reveal 隐藏、JS 失效有静态兜底文案）；② 小米 新增 `offline.html`（PWA 离线兜底页，系统页）。基色协调探针仍全绿、金主调一致。
+- **2026-08-30 复验**：站点仍为 199 页；本轮以 docOverflow/祖先感知元素溢出硬指标为主，协调探针结论延续（国风墨黑基色 + 金主调一致、sheyang/games 蓝黑为既定板块主题色已知接受）。
 
 ## 十、SRI 安全加固与全局样式表风险（2026-08-28 复盘）
 
@@ -110,3 +113,15 @@
 - 暖色刺眼：仅余既定小尺寸语义色（year-badge 红/橙胶囊、季节卡、`#42b883` 联系邮箱绿、`#e57373` 警示红、status-bubble 红徽标），均非大面积高饱和，按第六节"保持不动"准则维持。
 - safe-area / sticky：navbar、mobile-nav、body、`.lx-search-wrap` 的 `top/height` 均在 `@supports(padding:env(safe-area-inset-top))` 内补 `calc(var(--nav-height)+env(...))`；body 用 `overflow-x:clip`（非 hidden），sticky 以视口为祖先，无失效。
 - 交付门槛：视觉层面 **P0=P1=0** ✅。
+
+## 十三、本周（2026-08-30）巡检结论速记
+
+- 横向溢出（硬闸门）：199 页 × 5 视口(390/375/360/1440/1920) × 2 主题 = **1990 组合**，文档级 `documentElement.scrollWidth - innerWidth` 全 = 0，0 errors。
+- 元素伸出视口（祖先感知重扫）：首轮标记 43 页含 `over`，经「向上遍历祖先查 overflow 裁剪」过滤后，**真实元素溢出 = 0**（全部为时间轴装饰点 / 表格内 version-tag / 逐时天气横滑行 / 首页横滑胶囊等预期内滚动容器后代）。
+- undefined CSS 变量（refined，含 inline `style="--x"` + JS `setProperty` + fallback 过滤）：仅 `--cf-top`（console.html 运行时 setProperty + 56px fallback，安全），**真实未定义 = 0**。
+- 暖色刺眼：全站无大面积高饱和暖色渐变；唯一暖色为 `.long-avatar`（48px 圆形头像，`linear-gradient(var(--orange),#FF8C42)`）属小尺寸语义头像、与 year-badge/季节卡同列「保持不动」；其余既定小尺寸语义色（year-badge 红橙胶囊、季节卡、`#42b883` 联系邮箱绿、`#e57373` 警示红、status-bubble 红徽标、footer 邮箱绿）维持。
+- inline 颜色：static/*.html 零彩虹/暖色 inline 颜色；layouts/footer.html 仅一处 `color:#42b883`（联系邮箱绿，已知小语义色）。
+- safe-area / sticky：`@supports(padding:env(safe-area-inset-top))` 完整覆盖 navbar(`height+padding-top`)、mobile-nav(`top+max-height`)、body(`padding-top`)、`.lx-search-wrap`(`top`)、theme-toggle/back-to-top/search-modal(`bottom/right` + safe-area 补偿)；body/html 均 `overflow-x:clip`（非 hidden），sticky 以视口为滚动祖先、无失效。
+- 卡片系统：`.lx-card`/`.lx-epick`/`.artist-card` 跨页一致、无内联重定义漂移；新增组件复用 `.lx-*` 体系。
+- 知识储备：本节 + 第七节新增 `--cf-top` 安全范式与「祖先裁剪误报」补漏（见上）。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 3 周达标：08-25 / 08-28 / 08-30）。

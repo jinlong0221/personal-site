@@ -124,6 +124,14 @@ jobs:
       - name: Build homepage feed (today's updates + hot picks)
         run: python3 scripts/build_home_feed.py
 
+      # 用 git 真实提交日期自动同步页面的「最后更新时间」。
+      # 该字段原本手工硬编码，无任何同步机制——文玩手串 9 个详情页曾停留在
+      # 2026-07-07，而 git 实际提交是 2026-08-29（脱节 54 天），读者会误以为
+      # 内容陈旧。改为自动回填后不会再漏；JS 动态填充的 span 也同步兜底值，
+      # 让源码（爬虫所见）与运行时一致。
+      - name: Sync last-updated timestamps from git
+        run: python3 scripts/sync_update_time.py
+
       - name: Build Hugo
         run: hugo --gc
 

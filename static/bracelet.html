@@ -236,28 +236,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   .cat-material .bracelet-card:nth-child(5) .emoji,
   .cat-material .bracelet-card:nth-child(6) .emoji { font-size: 34px; }
 
-  /* 更新日志压缩 */
-  .update-compact {
-    max-width: 860px;
-    margin: 32px auto;
-    padding: 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-  }
-  .update-compact h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--text-muted);
-  }
-  .log-item {
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .log-item:last-child { border-bottom: none; }
-  .log-item .date { font-size: 12px; color: var(--blue); font-weight: 700; }
-  .log-item .text { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
   /* 亮色模式卡片 */
   [data-theme="light"] .bracelet-card:hover {
@@ -282,7 +260,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .cat-header .lx-ac-toggle { padding: 3px 10px; font-size: 0.75rem; }
     /* 长文科普卡片移动端收紧 */
     .bracelet-science { padding: 22px 18px !important; }
-    .update-compact { padding: 16px; }
   }
   @media (max-width: 480px) {
     .bracelet-grid { grid-template-columns: 1fr; gap: 10px; }
@@ -303,9 +280,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .bracelet-card { min-height: 180px; }
     .bracelet-card .desc { font-size: 0.92rem; }
     .bracelet-card .tag { font-size: 0.72rem; }
-    .update-compact h3 { font-size: 1.1rem; }
-    .log-item .text { font-size: 0.9rem; }
-    .log-item .date { font-size: 0.82rem; }
     .bracelet-science p,
     .bracelet-science li { font-size: 1rem !important; }
     .bracelet-science h3 { font-size: 1.18rem !important; }
@@ -527,34 +501,7 @@ var _hmt = _hmt || [];
     </a>
   </div>
 
-  <!-- 更新日志 -->
-  <div class="update-compact">
-    <h3>更新记录</h3>
-    <div class="log-item">
-      <div class="date">2026-08-30</div>
-      <div class="text">手串 9 个详情页的「最后更新时间」从手工硬编码改为 git 自动同步（从 2026-07-07 跳到 2026-08-29），根治 54 天的日期脱节；接入全站 <code>scripts/sync_update_time.py</code> 自动化流程（CI 已串联），以后不会再漏更新。</div>
-    </div>
-    <div class="log-item">
-      <div class="date">2026-08-29</div>
-      <div class="text">接入全站「相关阅读」改造（commit 433c4afb），9 个详情页与板块首页互相关联——星月/凤眼/龙眼/猛犸等同类手串在正文末尾自动出现"你可能还想看"推荐。</div>
-    </div>
-    <div class="log-item">
-      <div class="date">2026-08-05</div>
-      <div class="text">文玩手串接入每日自动新闻更新；全站质量审计通过（meta description / 标题层级 / 导航 js 链接）。</div>
-    </div>
-    <div class="log-item">
-      <div class="date">2026-06-22</div>
-      <div class="text">拆分文玩手串为独立子页面系统，创建9个专题子页面，首页改为卡片索引。</div>
-    </div>
-    <div class="log-item">
-      <div class="date">2026-06-21</div>
-      <div class="text">创建文玩手串专题，完成星月/凤眼/龙眼鉴别表、盘玩方法、黄藤果加工工序、品牌溢价分析。</div>
-    </div>
-    <div class="log-item">
-      <div class="date">2026-06-20</div>
-      <div class="text">完成欢见品牌研究，用户持有3串星月菩提盘玩方案确定。</div>
-    </div>
-  </div>
+  
 
   <section style="margin:28px auto 4px;padding:18px 20px;max-width:860px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
     <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>

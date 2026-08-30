@@ -836,13 +836,6 @@ footer a:hover { color:var(--gold-light); }
 #weeklyChangelog .cl-detail summary::after { content:"▾"; margin-left:6px; color:var(--gold); }
 #weeklyChangelog .cl-detail[open] summary::after { content:"▴"; }
 #weeklyChangelog .cl-detail p { font-size:.85rem; color:var(--text-secondary); line-height:1.6; white-space:pre-wrap; }
-.log-item {
- background:var(--card); border-left:3px solid var(--gold);
- border-radius:0 var(--radius-sm) var(--radius-sm) 0;
- padding:12px 16px; margin:12px 0;
-}
-.log-item .date { font-size:0.8rem; color:var(--gold); font-weight:700; }
-.log-item .text { font-size:0.9rem; color:var(--text-secondary); margin-top:4px; }
 
 .error-page {
  display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -945,17 +938,17 @@ button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {
  }
 }
 
-.card, .tile, .method-tile, .step-tile, .phase-tile, .log-item, .timeline-item {
+.card, .tile, .method-tile, .step-tile, .phase-tile, .timeline-item {
  opacity:1; transform:none;
  transition:opacity 0.6s, transform 0.6s, background var(--transition), box-shadow var(--transition);
 }
 /* Scroll-in animation: JS adds .animate class to enable */
 .card.animate, .tile.animate, .method-tile.animate, .step-tile.animate,
-.phase-tile.animate, .log-item.animate, .timeline-item.animate {
+.phase-tile.animate, .timeline-item.animate {
  opacity:0; transform:translateY(20px);
 }
 .card.visible, .tile.visible, .method-tile.visible, .step-tile.visible,
-.phase-tile.visible, .log-item.visible, .timeline-item.visible {
+.phase-tile.visible, .timeline-item.visible {
  opacity:1; transform:translateY(0);
 }
 

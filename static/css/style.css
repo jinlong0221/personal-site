@@ -700,14 +700,6 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .phase-desc, .step-desc { font-size:0.9rem; color:var(--text-secondary); }
 .phase-time, .step-time { font-size:0.8rem; color:var(--text-muted); margin-top:4px; }
 
-.theme-toggle {
- position:fixed; bottom:126px; right:18px; z-index:9999;
- width:48px; height:48px; border-radius:50%; border:none; cursor:pointer;
- font-size:22px; display:flex; align-items:center; justify-content:center;
- box-shadow:var(--shadow-md); transition:transform 0.2s, background var(--transition);
- background:var(--card); color:var(--text);
-}
-.theme-toggle:hover { transform:scale(1.15); box-shadow:var(--shadow-lg); }
 
 footer {
  text-align:center; padding:48px 20px 32px; color:var(--text-muted);
@@ -913,7 +905,6 @@ footer a:hover { color:var(--gold-light); }
  .home-header .site-title { font-size:2rem; }
  .page-header { padding:24px 0 12px; }
  .page-header h1 { font-size:1.4rem; }
- .theme-toggle { bottom:126px; right:18px; width:44px; height:44px; font-size:20px; }
  .error-code { font-size:5rem; }
  .hero-slogan { font-size:0.9rem; letter-spacing:1px; }
  .search-modal { padding-top:3vh; }
@@ -4695,11 +4686,7 @@ body.dark .new-badge {
     max-height: calc(100dvh - var(--nav-height) - env(safe-area-inset-top));
   }
   body { padding-top: calc(var(--nav-height) + env(safe-area-inset-top)); }
-  /* 右下角三枚浮动键统一竖向堆叠，避免与栏目目录键（qt-fab）重叠 */
-  .theme-toggle {
-    bottom: calc(126px + env(safe-area-inset-bottom));
-    right: calc(18px + env(safe-area-inset-right));
-  }
+  /* 右下浮动键（回顶）避开 iOS 底部安全区 */
   .back-to-top {
     bottom: calc(74px + env(safe-area-inset-bottom));
     right: calc(18px + env(safe-area-inset-right));
@@ -5447,6 +5434,18 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
   .lx-insight-k{ font-size:.8rem; }
   /* 右下浮动键占右侧约 66px，末行留出不遮挡 */
   .lx-insight-row:last-child .lx-insight-v{ padding-right:8px; }
+}
+
+/* 移动端/平板：右下浮动键（栏目目录 qt-fab + 回顶 back-to-top）合计占底部 18~116px。
+   给正文容器留底部空间，滚动到底时浮动键压在空白上，
+   不再遮挡「相关阅读 / 深度解读」末条内容。
+   （!important 是因为部分页面 main 上有内联 style="padding:40px 20px" 会覆盖普通规则） */
+@media (max-width:768px){
+  #main-content{ padding-bottom:calc(124px + env(safe-area-inset-bottom)) !important; }
+  /* 首页有底部书签栏 .lx-dock（高约 64px、贴底显示）。把两个浮动键整体上移 64px，
+     避免「栏目目录」盖在书签栏右端之上 */
+  body:has(.lx-dock) .qt-fab{ bottom:calc(82px + env(safe-area-inset-bottom)); }
+  body:has(.lx-dock) .back-to-top{ bottom:calc(138px + env(safe-area-inset-bottom)); }
 }
 
 /* ===== 相关阅读（scripts/apply_related.py 静态注入的文章内链区块） ===== */

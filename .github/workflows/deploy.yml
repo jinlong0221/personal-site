@@ -65,6 +65,13 @@ jobs:
       - name: Inject console buying-guide blocks
         run: python3 scripts/apply_console_guide.py
 
+      # 游戏库「值不值得玩」：全站最薄的板块（只有战斗/探索/属性/装备+优缺点），
+      # 补「这是什么游戏 / 适合谁 / 上手门槛」三条决策信息。
+      - name: Generate game worth-playing insights
+        run: python3 scripts/build_game_guide.py
+      - name: Inject game worth-playing blocks
+        run: python3 scripts/apply_game_guide.py
+
       - name: Inject site widgets (floating TOC + local bookmark)
         run: python3 scripts/apply_site_widgets.py
 

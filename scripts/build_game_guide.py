@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+build_game_guide.py — 给游戏库页面生成「值不值得玩」解读
+
+背景：游戏库 11 页是全站最薄的板块——只有战斗系统/探索要素/核心属性/装备系统
++ 优缺点清单，既没有「这是什么游戏」，也没有「适合谁」「难不难上手」。
+（对比：特斯拉页已有 4 版本对比/充电建议/适合人群/推荐配置/保养，
+手串页已有盘玩时间线/禁忌/鉴别/分级——这两个板块都不需要再套公式。）
+
+本脚本补的是玩家做决策时最想知道的三件事：
+  1. 这是什么游戏 / 适合谁 —— 类型定位与目标受众
+  2. 上手门槛        —— 难度、时长、需注意的点
+  3. 在系列里的位置   —— 续作/重制/独立作品，以及这一作的特点
+
+内容基于各作品公开的类型与设计特点，不臆测发售状态与未公布信息。
+
+用法：
+  python3 scripts/build_game_guide.py            # 写入 static/data/game-guide.json
+  python3 scripts/build_game_guide.py --check    # 只打印统计与抽样
+"""
+import glob
+import json
+import os
+import re
+import sys
+from collections import Counter
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC = os.path.join(ROOT, "static")
+GAMES_DIR = os.path.join(STATIC, "games")
+OUT = os.path.join(STATIC, "data", "game-guide.json")
+
+# ---------------------------------------------------------------------------
+# 各作品的定位 / 上手门槛 / 系列位置
+# key 为标题关键词（按 specificity 从长到短匹配，避免「鬼武者」命中「鬼武者2」）
+# ---------------------------------------------------------------------------
+GAMES = [
+    ("死亡搁浅 2", {
+        "genre": "小岛秀夫的「连接」主题续作：本质是送货模拟 + 基建建造，"
+                 "战斗是配菜，真正的主线是在荒原上把一个个聚点接进网络",
+        "who": "适合能接受慢节奏、愿意花时间修路架桥的玩家；"
+               "想找爽快战斗的话，这台游戏会让你失望",
+        "bar": "门槛不在操作而在耐心——单次送货动辄十几分钟，"
+               "前几小时几乎都在走路和看剧情，需要熬过开场",
+    }),
+    ("黑夜君临", {
+        "genre": "《艾尔登法环》的多人衍生作：把魂系战斗与 Roguelike 揉在一起，"
+                 "三人小队在缩圈地图上抢时间刷装备、打 Boss",
+        "who": "适合喜欢魂系战斗、且有固定队友的玩家；"
+               "单人体验会明显打折，这作是围绕三人协作设计的",
+        "bar": "既要懂魂系的翻滚与读招，又要适应 Roguelike 的随机性，"
+               "对没接触过魂系的新手不友好",
+    }),
+    ("羊蹄山之魂", {
+        "genre": "《对马岛之魂》的精神续作：开放世界武士动作，"
+                 "换成了北海道的虾夷舞台与全新的复仇主线",
+        "who": "适合喜欢和风美学、享受「骑马走在风景里」的玩家；"
+               "战斗手感扎实但不算硬核",
+        "bar": "难度亲民，有完整的难度选项与引导，"
+               "是这一批里最容易上手的一个",
+    }),
+    ("侠盗猎车手 VI", {
+        "genre": "Rockstar 的开放世界犯罪系列正统续作，"
+                 "回到罪恶都市，双主角叙事 + 海量支线是这个系列的招牌",
+        "who": "适合喜欢在开放城市里胡闹、看剧情、听电台的玩家；"
+               "对线性叙事或快节奏竞技没兴趣的话，它的慢热节奏未必对味",
+        "bar": "操作本身不难，但内容量极大，"
+               "容易在主线之外被各种随机事件带跑几十小时",
+    }),
+    ("怪物猎人荒野", {
+        "genre": "共斗狩猎的正统新作：14 种武器、大型开放地图、"
+                 "可以无缝切换主副武器的狩猎体验",
+        "who": "适合喜欢「刷素材—做装备—打更强的怪」循环的玩家；"
+               "有朋友一起开黑乐趣翻倍，单人也完全能玩",
+        "bar": "武器手感差异极大，选错武器会劝退——"
+               "建议先在训练场把 14 种武器都试一遍再决定主武器",
+    }),
+    ("鬼武者3", {
+        "genre": "系列的 3D 化升级作：把一刀斩从固定机位带进更流畅的动作系统，"
+                 "并加入了现代巴黎的双线叙事",
+        "who": "适合想体验完整「鬼武者」三部曲的玩家；"
+               "单看这一作也能玩，但剧情与前两作关联",
+        "bar": "操作比前作顺手，难度适中，"
+               "是三部曲里最现代、最好上手的一作",
+    }),
+    ("鬼武者2", {
+        "genre": "系列公认的完成度巅峰：固定机位 + 一刀斩系统成熟，"
+                 "叙事与关卡节奏在二代达到最好的平衡",
+        "who": "适合想补 Capcom 和风动作老经典的玩家；"
+               "如果只玩一作，多数老玩家会推荐这一作",
+        "bar": "固定机位与坦克式移动是 PS2 时代的设计，"
+               "习惯现代动作游戏的玩家需要适应期",
+    }),
+    ("鬼武者", {
+        "genre": "Capcom 的和风生存恐怖动作，"
+                 "把《生化危机》的 fixed camera 换成了日本战国舞台，"
+                 "「一刀斩」是它最出名的系统",
+        "who": "适合对 PS2 时代老游戏、和风题材有兴趣的玩家；"
+               "想看画面表现的话，它的年代感很明显",
+        "bar": "固定机位 + 坦克操作是主要门槛，"
+               "另外资源管理与解谜比重比现代动作游戏高",
+    }),
+    ("帕拉迪泽", {
+        "genre": "僵尸生存 + 基地建造：白天搜刮造家，"
+                 "晚上顶住尸潮，属于生存建造那一挂",
+        "who": "适合喜欢《七日杀》《僵尸毁灭工程》这类生存建造的玩家；"
+               "想要强剧情的话它不是那个方向",
+        "bar": "上手要看懂建造与物资循环，"
+               "前期死几次是常态，建议先看攻略再开局",
+    }),
+    ("丝之歌", {
+        "genre": "Team Cherry 的类银河恶魔城续作："
+                 "主角从「空洞骑士」换成了大黄蜂，动作性与机动性都更强",
+        "who": "适合喜欢探索型 2D 动作、能接受高难度的玩家；"
+               "前作粉丝基本不用犹豫",
+        "bar": "难度是这一批里偏高的——"
+               "Boss 战与平台跳跃都有硬要求，手残党会卡关",
+    }),
+    ("黑神话", {
+        "genre": "游戏科学的国产 3A 动作 RPG："
+                 "以《西游记》为底，魂系战斗框架 + 变身系统",
+        "who": "适合喜欢魂系动作、想看中国神话视觉呈现的玩家；"
+               "对线性关卡有意见的玩家也能接受——它不是开放世界",
+        "bar": "战斗偏硬核，Boss 连招密度高，"
+               "但有变身与法术可以降难度，比纯粹魂系宽容一些",
+    }),
+]
+
+
+def pick(title):
+    """按 key 长度降序匹配，避免「鬼武者」命中「鬼武者2」这类短 key 抢先。"""
+    for key, info in sorted(GAMES, key=lambda kv: -len(kv[0])):
+        if key in title:
+            return info
+    return None
+
+
+def extract(path):
+    h = open(path, encoding="utf-8").read()
+    t = re.search(r"<title>([^<]+)</title>", h)
+    raw = t.group(1) if t else ""
+    title = raw.split("|")[0].strip()
+    plats = sorted(set(re.findall(r"\b(PS5|PS4|Xbox|Switch|PC)\b", h)))
+    return {"title": title, "raw": raw, "platforms": plats}
+
+
+def build(d):
+    info = pick(d["title"])
+    if not info:
+        return []
+    # 只留三条真增量：页面通常已列平台，重复它没意义，
+    # 而且正则从正文抓的平台词未必准确（可能是展望或传闻）
+    return [
+        {"k": "这是什么游戏", "v": info["genre"]},
+        {"k": "适合谁", "v": info["who"]},
+        {"k": "上手门槛", "v": info["bar"]},
+    ]
+
+
+def main():
+    check_only = "--check" in sys.argv
+    files = sorted(glob.glob(os.path.join(GAMES_DIR, "*.html")))
+    out, missing = {}, []
+    for f in files:
+        d = extract(f)
+        rows = build(d)
+        if not rows:
+            missing.append(d["title"])
+            continue
+        key = "/games/" + os.path.basename(f)
+        out[key] = {"title": d["title"], "rows": rows}
+
+    print(f"游戏页总数: {len(files)}")
+    print(f"生成解读:   {len(out)}")
+    if missing:
+        print(f"未匹配(需补知识库): {missing}")
+
+    if not check_only:
+        json.dump(out, open(OUT, "w", encoding="utf-8"),
+                  ensure_ascii=False, indent=1)
+        print(f"已写入 {OUT}")
+
+    c = Counter()
+    for v in out.values():
+        for r in v["rows"]:
+            c[r["k"]] += 1
+    print("\n覆盖统计:")
+    for k, n in c.most_common():
+        print(f"  {k}: {n}/{len(out)}")
+
+    print("\n=== 抽样 ===")
+    for k in ["/games/wukong.html", "/games/silksong.html"]:
+        if k in out:
+            print(f"\n{out[k]['title']}")
+            for r in out[k]["rows"]:
+                print(f"   · {r['k']}：{r['v'][:88]}")
+
+
+if __name__ == "__main__":
+    main()

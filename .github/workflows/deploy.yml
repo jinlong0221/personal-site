@@ -58,6 +58,13 @@ jobs:
       - name: Inject zisha patina (conditional, only if data exists)
         run: python3 scripts/apply_zisha_patina.py --refresh
 
+      # 游戏主机「选购与避坑」：基于发售年份/机型类型推导世代定位、机型通病、
+      # 年代价值判断。主机图鉴正文已很完整，这里补的是决策信息而非内容量。
+      - name: Generate console buying-guide insights
+        run: python3 scripts/build_console_guide.py
+      - name: Inject console buying-guide blocks
+        run: python3 scripts/apply_console_guide.py
+
       - name: Inject site widgets (floating TOC + local bookmark)
         run: python3 scripts/apply_site_widgets.py
 

@@ -85,7 +85,7 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .subtitle{color:var(--text-secondary);font-size:.95rem}
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.page-header h1{font-size:1.4rem}}
 </style>
-<link rel="stylesheet" href="css/style.css?v=20260830">
+<link rel="stylesheet" href="css/style.css?v=20260901">
 
 <!-- ===== 充电桩工具专属样式 ===== -->
 <style>
@@ -148,7 +148,6 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
    关键：地图不再吸顶、不再浮在页面中间，避免手指滑动被地图吃掉导致滑不到列表底部 */
 .ev-map-pane{position:relative;width:100%;height:420px;border-radius:14px;overflow:hidden;margin:0 0 16px;background:var(--bg-secondary);border:1px solid var(--border)}
 #evMap{width:100%;height:100%;border-radius:14px;overflow:hidden}
-.ev-map-tip{position:absolute;left:12px;bottom:12px;z-index:6;padding:5px 11px;border-radius:14px;font-size:.72rem;color:var(--text);background:rgba(20,18,14,.92);border:1px solid rgba(201,168,76,.5);box-shadow:0 2px 9px rgba(0,0,0,.5);pointer-events:none}
 /* 筛选药丸：放在页面深色工具栏里（不再浮在亮地图上），对比度天然达标、字永远清楚 */
 .ev-pill{border:1px solid rgba(201,168,76,.5);background:var(--bg-secondary);color:var(--text);border-radius:20px;padding:6px 14px;font-size:.78rem;font-weight:600;cursor:pointer;min-height:34px;display:inline-flex;align-items:center;transition:all .25s;white-space:nowrap;font-family:inherit}
 .ev-pill:hover{color:var(--gold);border-color:var(--gold)}
@@ -334,7 +333,6 @@ body:not(.ev-has-map) .ev-map-pane{display:none}
   <!-- 地图：置于页面最上方，不吸顶，避免手指滑动被地图吃掉、滑不到列表底部 -->
   <div class="ev-map-pane" id="evMapPane">
     <div id="evMap"></div>
-    <div class="ev-map-tip">双指缩放地图 · 单指滑动看列表</div>
   </div>
 
   <!-- 定位状态 -->

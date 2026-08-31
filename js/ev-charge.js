@@ -245,6 +245,22 @@
    * 适配器：高德
    * 统一输出 {id, name, addr, lng, lat, tel, cat} 的 POI 数组
    * ============================================================ */
+  /* 是否触屏设备：触屏上要禁用地图「单指拖拽」，否则手指一滑就被地图吃掉，页面滑不到底 */
+  var IS_TOUCH = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+  /* 滚轮默认归页面滚动；只有按住 Ctrl / Cmd 再滚才缩放地图。
+     这样即使鼠标停在地图上，页面也照样能翻，不会出现「滑不动」。 */
+  function bindWheelZoom(el, getZ, setZ) {
+    if (!el || el.getAttribute('data-wheel-bound')) return;
+    el.setAttribute('data-wheel-bound', '1');
+    el.addEventListener('wheel', function (e) {
+      if (!(e.ctrlKey || e.metaKey)) return;          // 没按修饰键 → 交给页面正常滚动
+      e.preventDefault();
+      var z = getZ();
+      setZ(e.deltaY < 0 ? Math.min(20, z + 1) : Math.max(3, z - 1));
+    }, { passive: false });
+  }
+
   var AMAP_PLUGINS = 'AMap.Geolocation,AMap.PlaceSearch,AMap.Geocoder,AMap.CitySearch';
 
   var Amap = {
@@ -433,8 +449,14 @@
           state.map = new A.Map(el, {
             zoom: 14,
             center: [state.center.lng, state.center.lat],
-            mapStyle: Amap.mapStyle()
+            mapStyle: Amap.mapStyle(),
+            scrollWheel: false,     // 滚轮交给页面滚动，避免页面滑不动
+            dragEnable: !IS_TOUCH,  // 触屏禁用单指拖拽，单指滑动留给页面
+            touchZoom: true,        // 双指缩放地图仍可用
+            zoomEnable: true
           });
+          bindWheelZoom(el, function () { return state.map.getZoom(); },
+                            function (z) { state.map.setZoom(z); });
         } else {
           state.map.setCenter([state.center.lng, state.center.lat]);
           state.map.setMapStyle(Amap.mapStyle());
@@ -659,7 +681,16 @@
         var Q = window.qq.maps;
         var center = new Q.LatLng(state.center.lat, state.center.lng);
         if (!state.map) {
-          state.map = new Q.Map(el, { center: center, zoom: 14, mapStyleId: Tx.mapStyle() });
+          state.map = new Q.Map(el, {
+            center: center,
+            zoom: 14,
+            mapStyleId: Tx.mapStyle(),
+            scrollwheel: false,     // 滚轮交给页面滚动
+            draggable: !IS_TOUCH,   // 触屏禁用单指拖拽
+            zoomControl: true
+          });
+          bindWheelZoom(el, function () { return state.map.getZoom(); },
+                            function (z) { state.map.setZoom(z); });
         } else {
           state.map.setCenter(center);
           try { state.map.setMapStyleId(Tx.mapStyle()); } catch (e) { /* 老版本无此方法，忽略 */ }

@@ -50,6 +50,11 @@
 - 全局 44px 触控规则入侵自定义小按钮 → 显式 `min-width:0;min-height:0` 覆盖。
 - 高考页 `.gk-hero` 曾用 `linear-gradient(135deg,#e53935,#ff6f00,#ffb300)` 整屏红橙琥珀高饱和渐变 → 大面积暖色刺眼、违国风黑金；2026-08-25 巡检改为墨底+金顶边+金标题+朱红微光（见上「国风黑金 hero 标准做法」）。
 - **子页内联 `:root` 被外部 `style.css` 覆盖（2026-08-26 发现）**：各 static 子页自带 `<style id="critical-css">` 内联 `:root{--bg:#0f0f0f…}`（偏冷灰），但因随后 `<link rel="stylesheet" href="css/style.css">` 加载更晚、同特异性，外部 `:root`（`--bg:#12100C` 国风墨黑）胜出 → 子页正确继承站点基色（实测 15 页均解析为 `bg=rgb(18,16,12)`）。⚠️ 例外：若子页在外部 link **之后**还有第二段 `<style>` 并重定义 `:root`（如 `sheyang.html` 第 115 行后、`games.html`），该第二段胜出 → 基色漂移（sheyang→`rgb(10,10,10)` 冷黑；games→`rgb(13,13,26)` 蓝黑）。二者均自巡检 `944bf85` 前已存在、属既定"板块主题色"被接受，**勿盲改**（无图难验、易引入回归），本巡检仅记录为已知项。
+- **昼白主题语义色洗白（2026-09-01 发现，P1 级对比度缺陷）**：`--orange/--green/--blue/--purple/--teal/--yellow/--pink` 这批语义色**原先只在 `:root`（墨夜）定义**，`[data-theme="light"]`（昼白 `#F1EBDD` 米色底）未覆盖 → 直接继承为「近黑底优化」的高明度值，落到米色底上全部洗白。实测对比度：`--gold-light` 1.92 / `--yellow` 1.85 / `--orange` 2.24 / `--pink` 2.61 / `--purple` 2.89 / `--teal` 3.24 / `--green` 3.49 / `--red` 3.72 / `--blue` 3.81，**全部低于 WCAG AA 4.5**。修复法（**HSV hue 保持、只压明度**）：在 `[data-theme="light"]` 内逐一重定义为深化值 `--gold-light:#79652E / --blue:#0068B8 / --blue-light:#286AA8 / --green:#407240 / --orange:#925A27 / --yellow:#7D6423 / --purple:#675E9F / --teal:#317066 / --pink:#9E4A6D / --red:#B4402E`，统一校准到 vs `--bg` ≥4.75、vs `--card` ≥5.28。⚠️ `--accent-color` **保持 `#957425` 不动**：它同时充当「金色文字」与「金色填充底」两角色，对比度需求数学互斥（文字需 L≤0.139、深字底需 L≥0.211），无单值解；现值 3.68 已满足大字/装饰 AA(3.0)，深化会破坏金底深字组件（`.section-chip:hover`/`.fusion-pick .pick-tag` 的 `--gold-text` 搭配）。**教训**：任何语义色若只在 `:root` 定义，务必同时在昼白主题覆盖，否则浅色模式必洗白。
+- **原生控件系统蓝（2026-09-01 发现，彩虹残留）**：全站 checkbox/radio 未设 `accent-color`，走浏览器默认蓝——是国风黑金主调里**唯一**的彩虹色残留。根治：`html{ accent-color: var(--accent-color); }` 让原生控件跟随金主调（明暗双主题自动切换），并把尺寸 13×13 → 20×20 提升可见/可点性。
+- **触控命中区 24px 达标清单（WCAG 2.5.8，2026-09-01 系统化）**：探针量得 4+ 类交互元素命中区 <24px → 按「视觉零改动、只扩命中区」范式逐个修：① `nav-clock-link` 78×23 → `min-height:26px`（navbar 56px 内居中，位移不可见）；② `input[type=checkbox]/[type=radio]` 13×13 → 20×20（`min-width:0;min-height:0` 防全局 44px 规则入侵）；③ `a.back-link` 20 → `display:inline-flex;align-items:center;min-height:24px`；④ `input.tf-range` 滑块可拖区 5px → 输入框 `height:24px;background:transparent`，视觉轨道仍 `::-webkit-slider-runnable-track{height:5px}` 渐变（`input.tf-range` 的 (0,1,1) 特异性高于页面内 `.tf-range`(0,1,0)，放全局表可避免与台风自动化对 typhoon.html 的重写冲突）；⑤ `.lx-hero-dot` 视觉保持 18×3px 细金条，命中区用 `position:relative` + 透明 `::after{width:calc(100% + 7px);height:24px}` 撑到 25×24（与 7px gap 齐平、互不重叠）；⑥ `a.upd-link`（index.html 页脚，实测高 21px）→ `min-height:24px;display:inline-flex;align-items:center`。
+- **滑块旋钮居中偏移公式（2026-09-01 补）**：webkit range 自定义轨道后，旋钮默认贴在轨道顶部，**必须** `::-webkit-slider-thumb{margin-top:(trackHeight − thumbHeight)/2}` 才居中。本站 `tf-range` 轨道 5px、默认旋钮 16px → `margin-top:-5.5px`（**非 -8.5px**，多偏 3px 会把旋钮顶出可见轨道）。moz 端 `::-moz-range-thumb` 自动居中，无需 margin。
+- **根副本 `css/style.css` 缺失（2026-09-01 修复）**：本站双副本机制要求「源码 `css/` 与 `static/css/` 保持同步」（head.html 以 `{{ .Site.BaseURL }}css/style.css` 引用，hugo 构建自 `static/css/style.css` → `public/css/style.css`）。巡检发现仓库根 `css/` 目录丢失，仅剩 `static/css/style.css`，双副本断裂。已 `mkdir css && cp static/css/style.css css/style.css` 恢复根副本，今后改 CSS 须两处同步。⚠️ 此根副本**不进 public 部署**，仅作源码镜像与 diff 基准，别误删。
 
 ## 七、无头浏览器验证方法论（托尼自用）
 
@@ -59,7 +64,7 @@
 - **横向溢出双指标**（html `overflow-x:hidden` 会裁剪掩盖，单信 scrollWidth 会漏报）：
   1. 文档级 `document.documentElement.scrollWidth - window.innerWidth` 须 = 0；
   2. "伸出视口"元素扫描：遍历 `*`，取 `getBoundingClientRect()`，`rect.right > innerWidth+1.5` 且不在 `overflow-x:auto/scroll` 祖先内部者 = 视觉溢出。后者能抓被 html clip 掉的裁切内容，比前者更可靠。
-- **遍历规模**：197 页 × 5 视口(390/375/360/1440/1920) × 2 主题 ≈ 1970 次加载，单进程约 12–20 分钟；务必后台跑、勿前台阻塞。
+- **遍历规模**：208 页 × 6 视口(iphone14 390 / iphoneSE 375 / android 360 / ipad 768 / laptop 1440 / desktop 1920) × 2 主题 = **2496 组合**，单进程约 12–20 分钟；务必后台跑、勿前台阻塞。本地服务 `python3 -m http.server 8399 --directory /tmp/lx-test`，探针 `lx-probe.mjs` 走 `127.0.0.1:8399`；每轮重建后须 `rm -rf /tmp/lx-test && cp -R public /tmp/lx-test` 并重写绝对 URL（去 CSP meta + `https://longxiong.vip/`→`/`）。
 - **undefined CSS 变量扫描坑**：只扫 `style.css` 会大量误报（页面内联 `<style>` 与 pagefind 自带 CSS 也定义了 `--xxx`）。正确做法：从「全部 .css + 全部 html 内联 `<style>` + JS `setProperty`」收集定义，再比对 `var()` 用法，并过滤带 fallback 的 `var(--x, 默认值)`。
 - **⚠️ 2026-08-29 扫描 refinement（必看，否则误报）**：定义收集源**还须包含内联 `style="--x:值"` 属性里的自定义属性**。chinajoy.html 的 `.cj-hall-card` 用 `style="--hall:#4f46e5"` 逐卡片定义、在 `.cj-tag-hall`/`.cj-hall-card` 内 `var(--hall)` 引用——若只扫 `:root`/`<style>`/`setProperty` 会误报 10 处「未定义」。完整定义源 = `.css` + html 内联 `<style>` + **html 内联 `style="--x:.."` 属性** + JS `setProperty`。本周全站 34951 处 `var()` / 161 定义，真实未定义 = 0。
 - **2026-08-30 复盘：`--cf-top` 是「JS 运行时 setProperty」典型安全范式**：`console.html` 用 `document.documentElement.style.setProperty('--cf-top', h+'px')` 在运行时写入、引用处 `var(--cf-top, 56px)` 带 56px fallback。扫描器在静态源码里看不到定义会误报「未定义」，但它运行时必被赋值、且 fallback 兜底 → **非缺陷**。结论：凡 `var(--x, <默认值>)` 带 fallback 且由 `setProperty` 运行时填充的，一律按「安全、不计入未定义」。
@@ -125,3 +130,19 @@
 - 卡片系统：`.lx-card`/`.lx-epick`/`.artist-card` 跨页一致、无内联重定义漂移；新增组件复用 `.lx-*` 体系。
 - 知识储备：本节 + 第七节新增 `--cf-top` 安全范式与「祖先裁剪误报」补漏（见上）。
 - 交付门槛：视觉层面 **P0=P1=0** ✅（连续 3 周达标：08-25 / 08-28 / 08-30）。
+
+## 十四、本周（2026-09-01）巡检结论速记
+
+- **规模升级**：站点已 208 页（较 08-30 的 199 页 +9，含新增电动车充电桩页 `charging.html` 等）。本轮探针扩到 **6 视口 × 2 主题 = 2496 组合**（新增 ipad 768 / android 360 已在列，补齐 ipad 与桌面 1920），全量无头实测。
+- **硬指标（修复后复验）**：文档级 `scrollWidth - innerWidth` 全 = 0；祖先感知元素溢出 = 0；大面积暖色扫描 = 0；JS 报错 = 0；goto 错误 = 0。
+- **本轮实修缺陷（4 类）**：
+  1. **昼白主题语义色洗白（P1 对比度）**：9 色原只 :root 定义、昼白未覆盖，落到米色底洗白（CR 1.85~3.81）→ 沿 hue 压明度校准到 CR ≥4.75/≥5.28（详见第六节）。
+  2. **原生控件系统蓝（彩虹残留）**：`html{accent-color:var(--accent-color)}` 跟金主调 + 尺寸 13→20px。
+  3. **触控命中区 4+ 类不达标（WCAG 2.5.8）**：nav-clock-link / checkbox·radio / back-link / tf-range / lx-hero-dot / upd-link 六个选择器按「视觉零改动、只扩命中区」范式修到 ≥24px（详见第六节清单）。
+  4. **根副本 `css/style.css` 缺失**：恢复双副本机制（`mkdir css && cp static/css/style.css css/style.css`）。
+- **滑块旋钮居中校验**：`input.tf-range::-webkit-slider-thumb` 由误写的 `-8.5px` 修正为 `(5−16)/2 = -5.5px`，旋钮正确落在 5px 渐变轨道中心。
+- **版本戳**：全站 `style.css?v=` 全量 bump 至 `20260901`（197 个 html + head.html，0 处旧戳残留）。
+- **暖色刺眼复核**：全站无大面积高饱和暖色渐变；既有小尺寸语义色（`.long-avatar` 橙渐变头像、year-badge 红橙胶囊、季节卡、`#42b883` 邮箱绿、`#e57373` 警示红、status-bubble 红徽标）均维持「保持不动」准则，属合理分类编码。
+- **卡片系统**：`.lx-card`/`.lx-epick`/`.lx-hero-dot`/`.artist-card` 跨页一致；新增 `charging.html` 复用 `.lx-*` 体系、无内联重定义漂移。
+- **知识储备增量**：本节 + 第六节（语义色 hue 保持法 / accent-color 金化 / 24px 命中区清单 / 滑块偏移公式 / css 根副本恢复）+ 第七节（6 视口 2496 组合基线、本地服务与 URL 重写流程）。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 4 周达标：08-25 / 08-28 / 08-30 / **09-01**）。

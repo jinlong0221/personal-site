@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-TCireLiEqeKiQGIFN34jYmaEpZpuRJgKauNNRhg1Lxk='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'"/>
         <title>订阅龙兄知识库 - RSS</title>
         <meta name="description" content="订阅龙兄知识库 RSS，获取沉香、中药材、文玩紫砂、特斯拉、射阳民生等更新。"/>
-        <link rel="stylesheet" href="/css/style.css?v=20260828"/>
+        <link rel="stylesheet" href="/css/style.css?v=20260901"/>
         <link rel="alternate" type="application/rss+xml" title="龙兄知识库 RSS" href="/rss.xml"/>
         <style>
           .rss-wrap{ max-width:760px; margin:0 auto; padding:28px 18px 60px; }

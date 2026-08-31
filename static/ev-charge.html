@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<!-- 安全加固①：内容安全策略（meta CSP）。本站基线 + 高德地图所需域名（充电桩定位/搜索/地图瓦片） -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info https://webapi.amap.com https://restapi.amap.com; style-src 'self' 'unsafe-inline' https://webapi.amap.com; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com https://*.amap.com https://*.autonavi.com https://webapi.amap.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://restapi.amap.com https://webapi.amap.com https://*.amap.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests ; worker-src 'self' blob:">
+<!-- 安全加固①：内容安全策略（meta CSP）。本站基线 + 高德/腾讯两家地图所需域名。
+     注意：本页 script-src 额外放开了 unsafe-eval，因为高德地图 JS 组件内部用 eval/Function 动态构造代码，
+     不放开则定位插件与检索组件加载不出来（实测报 EvalError）。仅本页放开，不影响站内其他页面。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info https://map.qq.com https://apis.map.qq.com https://webapi.amap.com https://*.amap.com; style-src 'self' 'unsafe-inline' https://map.qq.com https://webapi.amap.com https://*.amap.com; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com https://*.map.qq.com https://*.gtimg.com https://map.qq.com https://*.qq.com https://webapi.amap.com https://*.amap.com https://*.autonavi.com https://longxiong.vip; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://apis.map.qq.com https://*.map.qq.com https://*.gtimg.com https://*.qq.com https://restapi.amap.com https://*.amap.com https://*.autonavi.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; worker-src 'self' blob:">
 <!-- 安全加固②：Referrer 策略 -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- 安全加固③：防 iframe 点击劫持 -->
@@ -35,6 +37,8 @@
 <link rel="preconnect" href="https://hm.baidu.com">
 <link rel="dns-prefetch" href="https://hm.baidu.com">
 <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+<link rel="dns-prefetch" href="https://map.qq.com">
+<link rel="dns-prefetch" href="https://apis.map.qq.com">
 <link rel="dns-prefetch" href="https://webapi.amap.com">
 <link rel="dns-prefetch" href="https://restapi.amap.com">
 <style id="critical-css">/* CRITICAL CSS - Above the fold */
@@ -137,6 +141,11 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .ev-pill{display:inline-block;font-size:.68rem;padding:1px 7px;border-radius:8px;margin-left:6px;vertical-align:1px}
 .ev-pill.dc{background:rgba(77,166,232,.15);color:var(--blue-light);border:1px solid rgba(77,166,232,.3)}
 .ev-pill.fast{background:rgba(201,168,76,.15);color:var(--gold);border:1px solid rgba(201,168,76,.3)}
+.ev-pin{width:24px;height:24px;border-radius:50%;background:var(--gold);color:#111;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);box-shadow:0 2px 6px rgba(0,0,0,.35);cursor:pointer}
+.ev-info{padding:8px 10px;font-size:13px;line-height:1.8;max-width:240px;color:var(--text);word-break:break-word}
+.ev-info-price{color:var(--gold)}
+.ev-info a{color:var(--gold);text-decoration:none}
+.ev-map-fail{padding:36px 20px;text-align:center;font-size:.85rem;color:var(--text-muted);line-height:1.9}
 </style>
 
 <link rel="canonical" href="https://longxiong.vip/ev-charge.html">
@@ -307,7 +316,7 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
   <section class="ev-note" style="margin-top:16px">
     <h2>📚 数据来源 · 延伸阅读</h2>
     <ul>
-      <li><a href="https://lbs.amap.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">高德开放平台</a> — 本页充电站位置、名称、地址、距离的地图数据来源（POI 检索）</li>
+      <li><a href="https://lbs.amap.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">高德开放平台</a> — 本页充电站位置、名称、地址、距离的地图数据来源（POI 检索 + 地理编码 + 定位）</li>
       <li><a href="https://www.sheyang.gov.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">射阳县人民政府</a> — 《射阳县"十四五"电动汽车充电设施布局规划》，射阳本地站点与价格核实来源</li>
       <li><a href="https://ev.sgcc.com.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">国家电网 e 充电</a> ·
           <a href="https://www.teld.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">特来电</a> ·
@@ -340,6 +349,7 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 <script defer src="/js/board-nav.js"></script>
 <script defer src="js/search.js"></script>
 <script defer src="js/app.js"></script>
+<script src="js/ev-prices-yancheng.js?v=20260831"></script>
 <script defer src="js/ev-charge.js?v=20260831"></script>
 <script defer src="js/share.js"></script>
 <script src="js/quick-toc.js" defer></script>

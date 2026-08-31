@@ -71,7 +71,7 @@ GAMES = [
         "genre_full": "开放世界 / 黑暗奇幻动作 RPG",
         "price": "标准版 / 数字豪华版（Eclipse）/ 实体版 / 收藏版（定价以各平台商店为准）",
         "en_subtitle": "The Blood of Dawnwalker",
-        "platform_badge": "🎮 PS5 / PC",
+        "platform_badge": "🎮 PS5 / Xbox / PC",
         "badges": ['<span class="badge">开放世界</span>', '<span class="badge">动作 RPG</span>', '<span class="badge">吸血鬼</span>'],
         "intro_paras": [
             "<p>《<strong>The Blood of Dawnwalker</strong>》（破晓行者之血）是波兰新工作室 <strong>Rebel Wolves</strong> 的首部作品，"
@@ -107,7 +107,7 @@ GAMES = [
         "genre_full": "心理恐怖 / 第一人称生存",
         "price": "标准版 USD 49.99 / 数字豪华版 USD 59.99（含 48 小时提前体验）",
         "en_subtitle": "Silent Hill: Townfall",
-        "platform_badge": "🎮 PS5 / Xbox / PC",
+        "platform_badge": "🎮 PS5 / PC",
         "badges": ['<span class="badge">心理恐怖</span>', '<span class="badge">第一人称</span>', '<span class="badge">Konami</span>'],
         "intro_paras": [
             "<p>《<strong>Silent Hill: Townfall</strong>》由苏格兰工作室 <strong>Screen Burn</strong>（原名 No Code，"

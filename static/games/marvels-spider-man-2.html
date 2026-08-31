@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>漫威蜘蛛侠 2 | 龙兄的游戏库2026实测避坑｜龙兄知识库</title>
+<meta name="keywords" content="漫威蜘蛛侠 2 | 龙兄的游戏库,2026实测避坑,实测溯源,龙兄知识库">
+
+<meta name="description" content="漫威蜘蛛侠 2 | 龙兄的游戏库2026实测避坑：实测溯源、实操图文、避坑指南。适合漫威蜘蛛侠 2 | 龙兄的游戏库爱好者与从业者参考，掌握核心要点、规避常见误区。">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',h>=6&&h<18?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="../js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="../css/style.css?v=20260828">
+<style>
+:root{--gc:#1a1a2e;--ga:#16213e;--ge:#0f3460;--gn:#e94560;--gs:#1db954;}
+[data-theme="light"]{--gbg:#f5f5f7;--gcard:#ffffff;--gt:#1a1a2e;--gm:#555;--gb:#e0e0e0;--gbg2:#f0f0f5;}
+[data-theme="dark"]{--gbg:#0d0d1a;--gcard:#1a1a2e;--gt:#f0f0f0;--gm:#a0a0b0;--gb:#2a2a3e;--gbg2:#141420;}
+body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}
+.breadcrumb{max-width:1100px;margin:20px auto 0;padding:0 24px;font-size:0.95rem;color:var(--gm)}
+.breadcrumb a{color:var(--gm);text-decoration:none}
+.breadcrumb a:hover{color:var(--gt)}
+.breadcrumb span{color:var(--gm);margin:0 8px}
+.detail-hero{max-width:1100px;margin:20px auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:700px){.detail-hero{grid-template-columns:1fr;}}
+.detail-cover{border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(233,69,96,0.2);cursor:zoom-in}
+.detail-cover img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.game-title-wrap h1{font-size:2.2rem;font-weight:800;margin:0 0 14px;color:var(--gt);letter-spacing:1px}
+.game-title-wrap .en-title{font-size:1rem;color:var(--gm);font-weight:400;margin-bottom:16px;display:block}
+.game-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.badge{background:var(--gcard);border:1px solid var(--gb);color:var(--gm);padding:5px 14px;border-radius:8px;font-size:0.95rem}
+.badge.platform{background:var(--ge);color:#fff;border:none}
+.badge.status-playing{background:#2ecc71;color:#fff;border:none}
+.badge.status-completed{background:#3498db;color:#fff;border:none}
+.badge.status-paused{background:#f39c12;color:#fff;border:none}
+.badge.status-dropped{background:#e74c3c;color:#fff;border:none}
+.info-table{width:100%;border-collapse:collapse;background:var(--gcard);border:1px solid var(--gb);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.info-table th,.info-table td{padding:11px 16px;text-align:left;border-bottom:1px solid var(--gb);font-size:0.98rem}
+.info-table th{background:var(--gc);color:#fff;width:100px}
+.info-table tr:last-child td{border-bottom:none}
+.rating{display:flex;align-items:center;gap:8px;font-size:1.1rem}
+.stars{color:#f39c12;letter-spacing:2px}
+.detail-section{max-width:1100px;margin:0 auto;padding:0 24px 40px}
+.section-label{font-size:1.2rem;color:var(--gc);letter-spacing:2px;margin:32px 0 14px;font-weight:700;border-left:4px solid var(--gn);padding-left:12px}
+.desc-box{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:20px 24px;font-size:1.05rem;line-height:1.85;color:var(--gt)}
+.desc-box p{margin:0 0 12px;text-indent:2em}
+.desc-box p:last-child{margin-bottom:0}
+.screenshot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:8px}
+.screenshot-item{border-radius:10px;overflow:hidden;border:1px solid var(--gb);cursor:zoom-in}
+.screenshot-item img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;transition:transform 0.2s}
+.screenshot-item:hover img{transform:scale(1.03)}
+.gameplay-notes{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:20px 24px}
+.gameplay-notes h3{font-size:1.1rem;margin:0 0 14px;color:var(--gt)}
+.gameplay-notes ul{margin:0;padding-left:20px;color:var(--gt);line-height:2}
+.gameplay-notes li{margin-bottom:6px}
+.gameplay-notes li:last-child{margin-bottom:0}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+@media(max-width:600px){.pro-cons{grid-template-columns:1fr}.detail-hero h1{font-size:1.7rem}.screenshot-grid{grid-template-columns:1fr}}
+.pros-box{background:#1db95415;border:1px solid #1db95440;border-radius:10px;padding:16px 20px}
+.cons-box{background:#e74c3c15;border:1px solid #e74c3c40;border-radius:10px;padding:16px 20px}
+.pros-box h4,.cons-box h4{font-size:1rem;margin:0 0 10px;font-weight:700}
+.pros-box h4{color:#1db954}
+.cons-box h4{color:#e74c3c}
+.pros-box ul,.cons-box ul{margin:0;padding-left:18px;line-height:1.9;font-size:0.98rem}
+@media(max-width:600px){.pro-cons{grid-template-columns:1fr}.game-title-wrap h1{font-size:1.7rem}}
+</style>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link rel="canonical" href="https://longxiong.vip/games/marvels-spider-man-2.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="漫威蜘蛛侠 2 | 龙兄的游戏库2026实测避坑｜龙兄知识库">
+<meta property="og:description" content="漫威蜘蛛侠 2 | 龙兄的游戏库2026实测避坑：实测溯源、实操图文、避坑指南。适合漫威蜘蛛侠 2 | 龙兄的游戏库爱好者与从业者参考，掌握核心要点、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/games/marvels-spider-man-2.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="漫威蜘蛛侠 2 | 龙兄的游戏库">
+<meta name="twitter:description" content="漫威蜘蛛侠 2(Marvel's Spider-Man 2) PS5/PC开放世界动作冒险——彼得与迈尔斯双主角、共生体战衣、蛛丝翼滑翔，现已通关。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=20260826" defer></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="../calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="../sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="../herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="../herbs.html">中药材</a></li>
+      <li><a href="../health-tea.html">养生茶</a></li>
+      <li><a href="../bracelet.html">文玩手串</a></li>
+      <li><a href="../tesla.html">特斯拉</a></li>
+      <li><a href="../apple.html">苹果新品</a></li>
+      <li><a href="../marvel.html">漫威宇宙</a></li>
+      <li><a href="../xintan-weather.html">农田气象</a></li>
+      <li><a href="../zisha.html">紫砂艺术</a></li>
+      <li><a href="../console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="../travel.html">家庭旅行</a>
+          <a href="../tags.html">标签聚合</a>
+          <a href="../chinajoy.html">ChinaJoy 成长史</a>
+          <a href="../guanghui.html">光辉电力</a>
+          <a href="../gaokao.html">高考查分</a>
+          <a href="../pitfalls.html">踩坑记</a>
+          <a href="../typhoon.html">台风监测</a>
+          <a href="../games.html">游戏库</a>
+          <a href="../status-history.html">站点状态</a>
+          <a href="../about.html">关于本站</a>
+          <a href="../bookmarks.html">我的收藏</a>
+          <a href="../rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">首页</a>
+  <a href="../herbs/chenxiang.html">沉香鉴别</a>
+  <a href="../herbs.html">中药材</a>
+  <a href="../health-tea.html">养生茶</a>
+  <a href="../bracelet.html">文玩手串</a>
+  <a href="../tesla.html">特斯拉</a>
+  <a href="../apple.html">苹果新品</a>
+  <a href="../marvel.html">漫威宇宙</a>
+  <a href="../xintan-weather.html">农田气象</a>
+  <a href="../zisha.html">紫砂艺术</a>
+  <a href="../console.html">游戏主机</a>
+  <a href="../travel.html">家庭旅行</a>
+  <a href="../tags.html">标签聚合</a>
+  <a href="../chinajoy.html">ChinaJoy 成长史</a>
+  <a href="../guanghui.html">光辉电力</a>
+  <a href="../gaokao.html">高考查分</a>
+  <a href="../pitfalls.html">踩坑记</a>
+  <a href="../typhoon.html">台风监测</a>
+  <a href="../games.html">游戏库</a>
+  <a href="../status-history.html">站点状态</a>
+  <a href="../about.html">关于本站</a>
+  <a href="../bookmarks.html">我的收藏</a>
+  <a href="../rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+<div class="breadcrumb">
+<a href="../index.html">首页</a><span>›</span>
+<a href="../games.html">游戏库</a><span>›</span>
+<span>漫威蜘蛛侠 2</span>
+</div>
+
+<div class="detail-hero">
+<div class="detail-cover" data-lightbox data-caption="漫威蜘蛛侠 2" data-src="../img/games/marvels-spider-man-2-cover.webp"><img width="1600" height="900" src="../img/games/marvels-spider-man-2-cover.webp" alt="漫威蜘蛛侠 2 封面" loading="lazy" decoding="async"></div><div class="game-title-wrap">
+<h1>漫威蜘蛛侠 2</h1>
+<div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
+<span class="en-title">Marvel's Spider-Man 2</span>
+<div class="game-meta">
+<span class="badge platform">🎮 PS5</span>
+<span class="badge status-completed">✅ 已通关</span>
+<span>开放世界</span>
+<span>动作冒险</span>
+<span>双主角</span>
+</div>
+<div class="table-wrapper">
+<table class="info-table">
+<tr><th>开发商</th><td>Insomniac Games</td></tr>
+<tr><th>发行商</th><td>Sony Interactive Entertainment</td></tr>
+<tr><th>发售日期</th><td>PS5 版 2023 年 10 月 20 日<br>PC 版 2025 年 1 月 30 日</td></tr>
+<tr><th>平台</th><td>PS5 / PC（Steam · Epic）</td></tr>
+<tr><th>游玩时长</th><td>主线约 17 小时，含支线约 24 小时，全收集约 29 小时</td></tr>
+<tr><th>游戏人数</th><td>单人</td></tr>
+</table>
+</div>
+<div class="rating">
+<span>龙兄评分：</span>
+<span>★★★★☆</span>
+<span style="color:var(--gm)">4.5/5</span>
+</div>
+</div>
+</div>
+<div class="detail-section">
+<div class="section-label">🎮 游戏简介</div>
+<div class="desc-box">
+<p>Insomniac 在 2023 年 10 月交出的正统续作，PS5 独占首发，2025 年 1 月才由 Nixxes 移植到 PC。这次是真正的双主角——彼得·帕克与迈尔斯·莫拉莱斯都能操作，主线里按下方向键就能近乎即时地切换，两人各有一套独立技能树和专属任务。</p>
+<p>最大变化是毒液。彼得在中段穿上共生体战衣，攻击方式、移动方式、连招节奏全部改写，那一段的手感跟普通蜘蛛侠完全是两个游戏；另一边迈尔斯拿到了自己的生物电能力，蓄满力一拳能把一排人炸飞。战斗系统上这代新增了「格挡」（Parry），敌人出黄圈提示时挡回去，能直接打断连段。</p>
+<p>地图从一代的曼哈顿扩到皇后区和布鲁克林，还加了科尼岛，面积接近翻倍，摆荡途中能张开蛛丝翼滑翔。反派由猎人克莱文打头阵，蜥蜴博士与毒液跟进。主线约 17 小时，比一代紧凑，但支线的分量和密度不如前作——这也是它最常被吐槽的地方。</p>
+</div>
+
+<div class="section-label">🕹️ 核心玩法</div>
+<div class="gameplay-notes">
+<h2>双主角切换</h2>
+<ul>
+<li><strong>近即时切换</strong>：主线推进中可随时切换，切换有专属过场但不打断节奏</li>
+<li><strong>独立成长</strong>：两人技能树分开、任务分开，部分支线指定由某一位完成</li>
+<li><strong>双人终结技</strong>：攒满后同时触发，画面分屏演出，伤害与观感都拉满</li>
+<li><strong>双线叙事</strong>：切换不只是换操作手，两条角色线各自推进、互为补充</li>
+</ul>
+<h2>新增能力</h2>
+<ul>
+<li><strong>蛛丝翼（Web Wings）</strong>：摆荡中展开滑翔，配合上升气流能一路爬高</li>
+<li><strong>毒液共生体战衣</strong>：彼得专属，触手范围攻击、爆发与机动力暴涨，代价是剧情上的人格侵蚀</li>
+<li><strong>迈尔斯生物电</strong>：毒液冲拳可蓄力成范围电击，还能电击滑行</li>
+<li><strong>格挡（Parry）</strong>：敌人出黄圈提示时挡反，是本作最关键的防御手段</li>
+</ul>
+<h2>地图与探索</h2>
+<ul>
+<li><strong>四大区域</strong>：曼哈顿 + 皇后区 + 布鲁克林 + 科尼岛，面积较前作接近翻倍</li>
+<li><strong>地铁快速旅行</strong>：解锁站点后跨区移动，不用一路摆过去</li>
+<li><strong>三类主要活动</strong>：猎人基地、共生体巢穴、EMF 实验</li>
+<li><strong>战衣 60 套以上</strong>：跨两代风格混搭，含电影版与漫画经典造型</li>
+</ul>
+</div>
+
+<div class="section-label">⚔️ Boss战攻略</div>
+<div class="desc-box">
+<p>本作的 Boss 战更强调「判读 + 格挡」，光靠闪避会被追着打。以下按主线推进顺序列出主要对手：</p>
+<div class="table-wrapper">
+<table class="info-table" style="margin:12px 0 0 0">
+<tr><th style="width:88px">阶段</th><th>对手</th><th>攻略要点</th></tr>
+<tr><td>前期</td><td>猎人克莱文（初次遭遇）</td><td>招式朴实，是练格挡的最佳靶子，别硬碰</td></tr>
+<tr><td>前期</td><td>蜥蜴博士（科特·康纳斯）</td><td>体型大、判定广，多用蛛丝牵引拉开，盯住甩尾起手</td></tr>
+<tr><td>中期</td><td>猎人克莱文（正式决斗）</td><td>分阶段变速，二阶段投掷多，格挡后反击窗口很短，稳着打</td></tr>
+<tr><td>中期</td><td>迈尔斯 vs 毒液（追逃）</td><td>以潜行与脱离为主而非正面对抗，跟着提示走</td></tr>
+<tr><td>后期</td><td>蜥蜴博士（最终形态）</td><td>场地水域多，注意冲撞与横扫，空中连击效率高</td></tr>
+<tr><td>后期</td><td>毒液（共生体合战）</td><td>注意触手的横扫范围，双人配合是关键</td></tr>
+<tr><td>终局</td><td>毒液 / 共生体群</td><td>小怪密集，先清杂兵再打本体，专注值优先处决大只的</td></tr>
+<tr><td>支线</td><td>神秘客（Mysterio）</td><td>幻象机制，注意分身与场景真假，别乱追</td></tr>
+</table>
+</div>
+<p style="margin-top:12px;font-size:0.95rem;color:var(--gm)">💡 <strong>通用思路：</strong>这代的格挡比前作的闪避更重要——很多敌人的连段只有格挡才能中断，纯闪避会被一路追打。共生体战衣爆发极高但有冷却，别浪费在杂兵身上。</p>
+</div>
+
+<div class="section-label">📊 属性与装备</div>
+<div class="gameplay-notes">
+<h2>技能树（三套）</h2>
+<ul>
+<li><strong>彼得技能树</strong>：蛛丝与基础战斗强化，含共生体相关分支</li>
+<li><strong>迈尔斯技能树</strong>：生物电与隐身，主打范围控场</li>
+<li><strong>共同技能树</strong>：格挡、处决、装置共用，两位主角都吃得到</li>
+<li><strong>技能点来源</strong>：主线、支线、开放世界活动、等级提升</li>
+</ul>
+<h2>战衣与装置</h2>
+<ul>
+<li><strong>战衣 60 套以上</strong>：涵盖一代经典造型与电影版造型</li>
+<li><strong>战衣技能被削弱</strong>：本作多数战衣只剩数值与外观差异，换打法的作用弱于前作</li>
+<li><strong>装置</strong>：沿用前作框架并新增变体，升级消耗技术零件</li>
+<li><strong>技术零件</strong>：拆装备、做活动、完成 EMF 实验</li>
+</ul>
+</div>
+
+<div class="section-label">🎮 平台对比</div>
+<div class="desc-box">
+<div class="table-wrapper">
+<table class="info-table" style="margin:0">
+<tr><th style="width:74px">平台</th><th>画质</th><th>帧数</th><th>特色</th><th>适合人群</th></tr>
+<tr><td>PS5</td><td>保真模式（光追）/ 性能模式 / 性能模式+（需 VRR）</td><td>保真 30fps / 性能 60fps（时域重建）</td><td>自适应扳机、触觉反馈、Tempest 3D 音效、无读盘过区</td><td>主机玩家、想第一时间玩到</td></tr>
+<tr><td>PS5 Pro</td><td>支持 PSSR 上采样，画质与帧数兼顾</td><td>保真模式可到 60fps 档</td><td>光影与人群密度更高</td><td>已在用 Pro 的玩家</td></tr>
+<tr><td>PC</td><td>超宽屏支持、光追档位更细、DLSS / FSR / 帧生成</td><td>取决于显卡（推荐 RTX 3070 及以上）</td><td>Mod、高帧、键鼠自定义</td><td>追求高帧率与画质的玩家</td></tr>
+</table>
+</div>
+<p style="margin-top:12px;font-size:0.95rem;color:var(--gm)">📌 PC 版首发优化一般，1.0 版本有较明显的卡顿与显存问题，后续补丁已大幅改善；配置一般的话，PS5 版更省心。</p>
+</div>
+
+<div class="section-label">💡 实用技巧</div>
+<div class="gameplay-notes">
+<ul>
+<li><strong>蛛丝翼先练熟</strong>：展开后借上升气流能一路爬到高处，赶路效率比纯摆荡高一截</li>
+<li><strong>格挡优先于闪避</strong>：黄圈一出现就挡，格挡成功还能攒专注，把它练成条件反射</li>
+<li><strong>共生体战衣留给精英怪</strong>：冷却不短，杂兵用普通形态清掉就行</li>
+<li><strong>地铁早点解锁</strong>：地图大了一倍，不开地铁跨区跑图会很痛苦</li>
+<li><strong>迈尔斯的隐身很实用</strong>：据点潜入直接隐身放倒，能省下大量时间</li>
+<li><strong>支线挑着做</strong>：本作支线密度不如一代，主线优先，支线只挑有剧情的</li>
+<li><strong>双人终结技别忘用</strong>：攒满就用掉，演出好看、伤害也不低</li>
+<li><strong>难度别硬扛</strong>：终极难度敌人伤害很高，卡关就降档</li>
+</ul>
+</div>
+
+<div class="section-label">❓ 常见问题</div>
+<div class="faq-box" style="background:var(--gcard);border:1px solid var(--gb);border-radius:12px;overflow:hidden">
+<details style="padding:16px 20px;border-bottom:1px solid var(--gb)"><summary style="cursor:pointer;font-weight:600;color:var(--gt);list-style:none">Q: 需要玩过前作吗？</summary><div style="margin-top:10px;color:var(--gm);line-height:1.8;font-size:0.98rem">强烈建议。本作直接接续《漫威蜘蛛侠》与《迈尔斯·莫拉莱斯》的剧情，迈尔斯那条线尤其接他自己那部的结局。没玩过也能看懂主线，但好几处情感点的分量会打折扣。最快的补法是玩《漫威蜘蛛侠 重制版》主线加《迈尔斯·莫拉莱斯》主线，合计约 25 小时。</div></details>
+<details style="padding:16px 20px;border-bottom:1px solid var(--gb)"><summary style="cursor:pointer;font-weight:600;color:var(--gt);list-style:none">Q: 主线是不是太短了？</summary><div style="margin-top:10px;color:var(--gm);line-height:1.8;font-size:0.98rem">确实是常见吐槽。HowLongToBeat 统计：主线约 17 小时、含支线约 24 小时、全收集约 29 小时，对比一代的 18 / 29 / 45 全面缩短，全收集更是少了近 16 小时。这代把资源更多投在战斗深度与地图扩展上，支线的数量与设计密度都不如一代。</div></details>
+<details style="padding:16px 20px;border-bottom:1px solid var(--gb)"><summary style="cursor:pointer;font-weight:600;color:var(--gt);list-style:none">Q: PS5 和 PC 版怎么选？</summary><div style="margin-top:10px;color:var(--gm);line-height:1.8;font-size:0.98rem">要 DualSense 的自适应扳机与触觉反馈（摆荡的阻尼感、共生体触手的震感），只能选 PS5；要高帧率、超宽屏、Mod，选 PC。PC 版 2025 年 1 月首发时优化口碑一般，几个大补丁之后才稳定，配置卡在及格线上的话 PS5 版更省心。</div></details>
+<details style="padding:16px 20px;border-bottom:1px solid var(--gb)"><summary style="cursor:pointer;font-weight:600;color:var(--gt);list-style:none">Q: PS5 Pro 有增强吗？</summary><div style="margin-top:10px;color:var(--gm);line-height:1.8;font-size:0.98rem">有。2024 年 11 月 PS5 Pro 上市时本作即获得增强，支持 PSSR 上采样，保真模式可以跑到 60fps 档，光影质量与人群密度都比基础版更高。</div></details>
+<details style="padding:16px 20px"><summary style="cursor:pointer;font-weight:600;color:var(--gt);list-style:none">Q: 通关后还有什么可玩的？</summary><div style="margin-top:10px;color:var(--gm);line-height:1.8;font-size:0.98rem">New Game+（保留全部技能、战衣与装置重开主线，敌人配置升级）、终极难度、全部战衣与技能解锁，以及大量未清的开放世界活动。白金需要把大部分支线与收集做完，整体比一代轻松一些。</div></details>
+</div>
+
+<div class="section-label">📸 游戏截图</div>
+<div class="screenshot-grid">
+<div class="screenshot-item" data-lightbox data-caption="漫威蜘蛛侠 2 实机截图 1" data-src="../img/games/marvels-spider-man-2-shot-1.webp"><img width="1600" height="900" src="../img/games/marvels-spider-man-2-shot-1.webp" alt="漫威蜘蛛侠 2 实机截图 1" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="漫威蜘蛛侠 2 实机截图 2" data-src="../img/games/marvels-spider-man-2-shot-2.webp"><img width="1600" height="900" src="../img/games/marvels-spider-man-2-shot-2.webp" alt="漫威蜘蛛侠 2 实机截图 2" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="漫威蜘蛛侠 2 实机截图 3" data-src="../img/games/marvels-spider-man-2-shot-3.webp"><img width="1600" height="900" src="../img/games/marvels-spider-man-2-shot-3.webp" alt="漫威蜘蛛侠 2 实机截图 3" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="漫威蜘蛛侠 2 实机截图 4" data-src="../img/games/marvels-spider-man-2-shot-4.webp"><img width="1600" height="900" src="../img/games/marvels-spider-man-2-shot-4.webp" alt="漫威蜘蛛侠 2 实机截图 4" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="漫威蜘蛛侠 2 实机截图 5" data-src="../img/games/marvels-spider-man-2-shot-5.webp"><img width="1600" height="900" src="../img/games/marvels-spider-man-2-shot-5.webp" alt="漫威蜘蛛侠 2 实机截图 5" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="漫威蜘蛛侠 2 实机截图 6" data-src="../img/games/marvels-spider-man-2-shot-6.webp"><img width="1600" height="900" src="../img/games/marvels-spider-man-2-shot-6.webp" alt="漫威蜘蛛侠 2 实机截图 6" loading="lazy" decoding="async"></div>
+</div>
+<p style="margin-top:12px;font-size:.9rem;color:var(--gm)">📸 以上为 Insomniac Games / 索尼互动娱乐官方公开宣传图与实机截图（来源：PlayStation 官方游戏页），版权归 Marvel 与索尼互动娱乐所有。</p>
+
+<div class="section-label">⚖️ 优缺点</div>
+<div class="pro-cons">
+<div class="pros-box">
+<h3>✅ 优点</h3>
+<ul>
+<li>摆荡 + 蛛丝翼滑翔，移动体验再上一层</li>
+<li>双主角切换顺滑，两条线都有戏份</li>
+<li>共生体战衣段落手感炸裂，是全作高光</li>
+<li>格挡系统让战斗深度明显提升</li>
+<li>地图扩大近一倍，区域风格有区分</li>
+<li>PS5 无读盘过区，技术实现漂亮</li>
+<li>画面处在 PS5 第一梯队</li>
+</ul>
+</div>
+<div class="cons-box">
+<h3>❌ 缺点</h3>
+<ul>
+<li>主线偏短，全收集时长明显少于一代</li>
+<li>支线数量少、设计偏平淡</li>
+<li>战衣技能被削弱，换装差异感下降</li>
+<li>后期敌人种类重复，战斗套路化</li>
+<li>PC 移植首发优化不稳</li>
+<li>部分剧情转折略显仓促</li>
+</ul>
+</div>
+</div>
+
+<div class="section-label">💬 龙兄点评</div>
+<div class="desc-box">
+<p>更强、更快、更爽，但也更短——这大概是我对它的总评。</p>
+<p>先说好的。蛛丝翼一展开，整个移动逻辑就变了：以前是贴着楼荡，现在是能借气流一路爬到高空再俯冲下来，皇后区和布鲁克林那种矮楼区的体验跟曼哈顿完全不同。格挡这个改动也关键，一代战斗到后期基本是「闪避 + 处决」一招鲜，这代你得看敌人的连段节奏，什么时候挡、什么时候闪，是有讲究的。至于共生体战衣那十几二十分钟——不用多说，玩过就知道，触手扫出去那一下的反馈值回票价。</p>
+<p>问题是它结束得太快。主线 17 个小时，我还想多待会儿就没了；支线做得也明显不如一代用心，数量少、设计平，很多就是「换个地方清据点」。战衣倒是给到 60 多套，但这代把战衣技能砍弱了，换装更多是换个外观而不是换套打法，这点挺可惜。</p>
+<p><strong>适合人群：</strong>玩过前两作、想看剧情收束、追求战斗手感的玩家。</p>
+<p><strong>不适合：</strong>没玩过前作的新玩家（情感点会大量流失）、期待长流程与大体量支线的玩家。</p>
+</div>
+
+</div>
+
+<!-- game:begin -->
+<section class="lx-insight lx-insight-guide" aria-label="值不值得玩">
+  <div class="lx-insight-head">
+    <span class="lx-insight-kicker">玩之前先看这个</span>
+    <h2 class="lx-insight-title">值不值得玩</h2>
+  </div>
+  <dl class="lx-insight-list">
+    <div class="lx-insight-row">
+      <dt class="lx-insight-k">这是什么游戏</dt>
+      <dd class="lx-insight-v">Insomniac 的正统续作，2023 年 PS5 独占、2025 年才上 PC。双主角彼得与迈尔斯可近即时切换，新增蛛丝翼滑翔、毒液共生体战衣与格挡系统，地图从曼哈顿扩到皇后区与布鲁克林</dd>
+    </div>
+    <div class="lx-insight-row">
+      <dt class="lx-insight-k">适合谁</dt>
+      <dd class="lx-insight-v">适合玩过前两作、想看剧情收束的人——它直接接续前作结局，没玩过能看懂主线但好几处情感点会打折；追求战斗深度的也会满意，共生体战衣那一段是系列高光</dd>
+    </div>
+    <div class="lx-insight-row">
+      <dt class="lx-insight-k">上手门槛</dt>
+      <dd class="lx-insight-v">比一代多了格挡，需要判读敌人的连段节奏，但难度选项齐全、卡关随时降档；要注意主线约 17 小时偏短、支线密度也不如一代</dd>
+    </div>
+  </dl>
+</section>
+<!-- game:end -->
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../games/marvels-spider-man-remastered.html">
+        <span class="lx-related-board">游戏</span>
+        <span class="lx-related-name">漫威蜘蛛侠 重制版</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../games/marvels-wolverine.html">
+        <span class="lx-related-board">游戏</span>
+        <span class="lx-related-name">漫威金刚狼</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../games/gta6.html">
+        <span class="lx-related-board">游戏</span>
+        <span class="lx-related-name">侠盗猎车手 VI</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../games/silent-hill-townfall.html">
+        <span class="lx-related-board">游戏</span>
+        <span class="lx-related-name">寂静岭：Townfall</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+<footer style="text-align:center;padding:30px 20px;border-top:1px solid var(--border);color:var(--text-secondary);font-size:0.9rem;margin-top:20px" role="contentinfo">
+<p>龙兄知识库 · 让求知成为习惯 | <a href="../about.html" style="color:var(--text-secondary)">关于本站</a></p>
+<p style="margin-top:8px">
+<span style="font-size:13px;color:var(--text-muted)">访问 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次</span>
+<span style="font-size:13px;color:var(--text-muted);margin-left:16px;">访客 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人</span>
+</p>
+<p style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);">最后更新：2026-08-31</p>
+<p style="margin-top:6px;font-size:0.78rem;line-height:1.7;color:var(--text-muted);max-width:820px;margin-left:auto;margin-right:auto;"><a id="sources" class="src-anchor"></a>资料来源：<a href="https://www.playstation.com/en-us/games/marvels-spider-man-2/" target="_blank" rel="noopener" style="color:var(--blue)">PlayStation 官方游戏页</a>（官方公布的系统、发售与销量信息）、<a href="https://www.insomniac.games/" target="_blank" rel="noopener" style="color:var(--blue)">Insomniac Games 官网</a>、<a href="https://howlongtobeat.com/" target="_blank" rel="noopener" style="color:var(--blue)">HowLongToBeat</a> 时长统计；通关流程、Boss 打法与主观评价为本人一手游玩记录，不构成购买建议。（外部链接 2026-08-31 核验可达）</p>
+    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
+</footer>
+
+<script>
+(function(){var e=document.getElementById('navClock');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});setInterval(function(){var e=document.getElementById('navClock');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})},1000)})();
+function openLightbox(e){var s=e.querySelector?e.querySelector('img').src:e.src;var o=document.createElement('div');o.style='position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer';o.innerHTML='<img width="800" height="600" loading="lazy" src="'+s+'" alt="黑神话：折空详情图" style="max-width:92%;max-height:92vh;border-radius:8px;object-fit:contain" />';o.onclick=function(){document.body.removeChild(o)};document.body.appendChild(o);}
+</script>
+<script defer src="../js/search.js"></script>
+<script defer src="../js/share.js"></script>
+<script defer src="../js/app.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "漫威蜘蛛侠 2 | 龙兄的游戏库",
+      "url": "https://longxiong.vip/games/marvels-spider-man-2.html",
+      "description": "漫威蜘蛛侠 2(Marvel's Spider-Man 2) PS5/PC开放世界动作冒险——彼得与迈尔斯双主角、共生体战衣、蛛丝翼滑翔，现已通关。"
+    }
+  ]
+}
+</script>
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="../js/quick-toc.js" defer></script>
+<script src="../js/bookmark.js" defer></script>
+</body>
+</html>

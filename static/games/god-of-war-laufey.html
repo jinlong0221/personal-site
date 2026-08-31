@@ -130,7 +130,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
 .badge.status-paused{background:#f39c12;color:#fff;border:none}
 .badge.status-dropped{background:#e74c3c;color:#fff;border:none}
 .info-table{width:100%;border-collapse:collapse;background:var(--gcard);border:1px solid var(--gb);border-radius:10px;overflow:hidden;margin-bottom:20px}
-.info-table th,.info-table td{padding:11px 16px;text-align:left;border-bottom:1px solid var(--gb);font-size:0.98rem}
+.info-table th,.info-table td{padding:11px 16px;text-align:left;border-bottom:1px solid var(--gb);font-size:0.98rem;word-break:break-word}
 .info-table th{background:var(--gc);color:#fff;width:100px}
 .info-table tr:last-child td{border-bottom:none}
 .rating{display:flex;align-items:center;gap:8px;font-size:1.1rem}
@@ -150,14 +150,14 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
 .gameplay-notes li{margin-bottom:6px}
 .gameplay-notes li:last-child{margin-bottom:0}
 .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
-@media(max-width:600px){.pro-cons{grid-template-columns:1fr}.detail-hero h1{font-size:1.7rem}.screenshot-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.info-table{table-layout:fixed}.pro-cons{grid-template-columns:1fr}.detail-hero h1{font-size:1.7rem}.screenshot-grid{grid-template-columns:1fr}.info-table th{width:60px !important}.info-table th,.info-table td{padding:8px 10px;font-size:.9rem}}
 .pros-box{background:#1db95415;border:1px solid #1db95440;border-radius:10px;padding:16px 20px}
 .cons-box{background:#e74c3c15;border:1px solid #e74c3c40;border-radius:10px;padding:16px 20px}
 .pros-box h4,.cons-box h4{font-size:1rem;margin:0 0 10px;font-weight:700}
 .pros-box h4{color:#1db954}
 .cons-box h4{color:#e74c3c}
 .pros-box ul,.cons-box ul{margin:0;padding-left:18px;line-height:1.9;font-size:0.98rem}
-@media(max-width:600px){.pro-cons{grid-template-columns:1fr}.game-title-wrap h1{font-size:1.7rem}}
+@media(max-width:600px){.info-table{table-layout:fixed}.pro-cons{grid-template-columns:1fr}.game-title-wrap h1{font-size:1.7rem}.info-table th{width:60px !important}.info-table th,.info-table td{padding:8px 10px;font-size:.9rem}}
 </style>
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 

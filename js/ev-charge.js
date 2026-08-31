@@ -934,33 +934,90 @@
     return list;
   }
 
+  /* 分时电价时段（一般规律，仅供参考：电价随尖峰/高峰/平段/低谷浮动） */
+  var TOU_RULES = [
+    { p: '低谷', test: function (h) { return h >= 23 || h < 7; } },
+    { p: '平段', test: function (h) { return (h >= 7 && h < 10) || (h >= 15 && h < 18) || (h >= 21 && h < 23); } },
+    { p: '高峰', test: function (h) { return (h >= 10 && h < 11) || (h >= 13 && h < 15) || (h >= 18 && h < 21); } },
+    { p: '尖峰', test: function (h) { return h >= 11 && h < 13; } }
+  ];
+  function touPeriod(h) {
+    for (var i = 0; i < TOU_RULES.length; i++) { if (TOU_RULES[i].test(h)) return TOU_RULES[i].p; }
+    return '平段';
+  }
+
+  /* 运营商配色（国风黑金体系内的冷/暖区分，仅作视觉标识） */
+  var OP_CLASS = {
+    '国网': 'op-grid', '国家电网': 'op-grid',
+    '特来电': 'op-teld',
+    '星星充电': 'op-starcharge',
+    '蔚来': 'op-nio', 'NIO': 'op-nio', 'NIO Power': 'op-nio',
+    '特斯拉': 'op-tesla', 'Tesla': 'op-tesla'
+  };
+  function opClass(op) { return 'ev-op ' + (OP_CLASS[op] || 'op-default'); }
+
+  function setText(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
+
+  function renderStats(list) {
+    var total = list.length;
+    var withPrice = 0, ops = {};
+    list.forEach(function (s) {
+      if (s.price != null) withPrice++;
+      if (s.op) ops[s.op] = 1;
+    });
+    setText('evStatTotal', total);
+    setText('evStatPrice', withPrice);
+    setText('evStatOp', Object.keys(ops).length);
+  }
+
+  function renderTou() {
+    var now = new Date();
+    var p = touPeriod(now.getHours());
+    var hh = String(now.getHours()).padStart(2, '0');
+    var mm = String(now.getMinutes()).padStart(2, '0');
+    setText('evTouNow', '现在约 ' + hh + ':' + mm + ' · 当前【' + p + '】');
+    var segs = document.querySelectorAll('#evTou .ev-tou-seg');
+    Array.prototype.forEach.call(segs, function (seg) {
+      seg.classList.toggle('on', seg.getAttribute('data-p') === p);
+    });
+  }
+
   function cardHtml(s, i) {
     var priceHtml = s.price != null
-      ? '<span class="ev-price">' + s.price.toFixed(2) + ' <span style="font-size:.75rem;font-weight:400">元/度</span></span>' +
-        '<span class="ev-pill fast">本站核实</span>'
-      : '<span class="ev-price none">价格以现场为准</span>';
+      ? '<span class="ev-price"><i>￥</i>' + s.price.toFixed(2) + '<i class="ev-unit">/度</i></span>' +
+        '<span class="ev-seal">本站核实</span>'
+      : '<span class="ev-price-none">价格以现场为准</span>';
 
-    var meta = '<div class="ev-meta">' +
-      (isFinite(s.dist) ? '<div><span class="k">距离</span> <span class="ev-dist">' + fmtDist(s.dist) + '</span></div>' : '') +
-      (s.addr ? '<div><span class="k">地址</span> ' + esc(s.addr) + '</div>' : '') +
-      (s.tel ? '<div><span class="k">电话</span> ' + esc(s.tel) + '</div>' : '') +
-      (s.priceNote ? '<div><span class="k">备注</span> ' + esc(s.priceNote) +
-        (s.priceDate ? '（' + esc(s.priceDate) + '采集）' : '') + '</div>' : '') +
-      '</div>';
+    var srcHtml = (s.priceSrc || s.priceDate)
+      ? '<div class="ev-src">来源：' + esc(s.priceSrc || '本站核实') +
+        (s.priceDate ? ' · ' + esc(s.priceDate) + '采集' : '') + '</div>'
+      : '';
+    var noteHtml = s.priceNote
+      ? '<div class="ev-note-line">📝 ' + esc(s.priceNote) + '</div>'
+      : '';
 
     return '<article class="ev-card">' +
-      '<div class="ev-card-top"><div class="ev-rank">' + (i + 1) + '</div>' +
-      '<div style="flex:1;min-width:0"><div class="ev-name">' + esc(s.name) + '</div>' +
-      '<span class="ev-op">' + esc(s.op) + '</span></div></div>' +
-      '<div style="margin:8px 0">' + priceHtml + '</div>' + meta +
-      '<div class="ev-actions">' +
-      '<a href="' + P.navUri(s) + '" target="_blank" rel="noopener">🧭 导航去这里</a>' +
-      '<a href="' + P.poiUri(s) + '" target="_blank" rel="noopener">💰 查实时价</a>' +
+      '<div class="ev-card-head">' +
+        '<div class="ev-rank">' + (i + 1) + '</div>' +
+        '<div class="ev-head-main"><div class="ev-name">' + esc(s.name) + '</div>' +
+        '<span class="' + opClass(s.op) + '">' + esc(s.op) + '</span></div>' +
+        (isFinite(s.dist) ? '<div class="ev-dist">' + fmtDist(s.dist) + '</div>' : '') +
+      '</div>' +
+      '<div class="ev-card-body">' +
+        '<div class="ev-price-row">' + priceHtml + '</div>' +
+        (s.addr ? '<div class="ev-addr">📍 ' + esc(s.addr) + '</div>' : '') +
+        (s.tel ? '<div class="ev-addr">☎ ' + esc(s.tel) + '</div>' : '') +
+        noteHtml + srcHtml +
+      '</div>' +
+      '<div class="ev-card-foot">' +
+        '<a class="ghost" href="' + P.navUri(s) + '" target="_blank" rel="noopener">🧭 导航去这里</a>' +
+        '<a class="gold" href="' + P.poiUri(s) + '" target="_blank" rel="noopener">💰 查实时价</a>' +
       '</div></article>';
   }
 
   function render() {
     var list = sorted();
+    renderStats(list);
     var box = $('evList');
 
     var withPrice = list.filter(function (s) { return s.price != null; }).length;
@@ -1117,6 +1174,7 @@
    * ============================================================ */
   function init() {
     bind();
+    renderTou();
     if (HAS_KEY) {
       doLocate();
     } else {

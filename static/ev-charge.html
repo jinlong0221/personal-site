@@ -89,7 +89,19 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 
 <!-- ===== 充电桩工具专属样式 ===== -->
 <style>
-.ev-locate{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:18px 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+/* ===== 充电桩工具专属样式（国风黑金 · 高端版） ===== */
+.ev-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:24px 22px;margin:18px 0 14px;background:linear-gradient(135deg,var(--card),var(--bg-secondary));border:1px solid var(--border);border-radius:16px;position:relative;overflow:hidden}
+.ev-hero::after{content:'';position:absolute;right:-46px;top:-46px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.14),transparent 70%);pointer-events:none}
+.ev-hero-left{display:flex;align-items:center;gap:14px;min-width:0}
+.ev-hero-badge{flex:0 0 48px;width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:rgba(201,168,76,.14);border:1px solid rgba(201,168,76,.32);box-shadow:0 0 18px rgba(201,168,76,.18)}
+.ev-title{font-size:1.7rem;color:var(--gold);letter-spacing:1px;line-height:1.2}
+.ev-sub{color:var(--text-secondary);font-size:.86rem;margin-top:4px}
+.ev-stats{display:flex;gap:10px;flex-wrap:wrap}
+.ev-stat{flex:1 1 84px;min-width:84px;text-align:center;padding:10px 8px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px}
+.ev-stat b{display:block;font-size:1.35rem;color:var(--gold);font-weight:800;line-height:1.1}
+.ev-stat span{font-size:.72rem;color:var(--text-muted)}
+
+.ev-locate{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin:0 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .ev-locate-icon{width:38px;height:38px;flex:0 0 38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.3)}
 .ev-locate-main{flex:1 1 220px;min-width:0}
 .ev-locate-title{font-size:.95rem;font-weight:600;color:var(--text);line-height:1.5;word-break:break-all}
@@ -102,32 +114,74 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .ev-search{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}
 .ev-search input{flex:1 1 240px;min-width:0;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text);font-size:.9rem;font-family:inherit;min-height:42px}
 .ev-search input:focus{outline:none;border-color:var(--gold)}
-.ev-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+
+/* 工具栏（分段控件） */
+.ev-toolbar{display:flex;gap:14px 22px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+.ev-tool-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ev-tool-label{font-size:.8rem;color:var(--text-muted);white-space:nowrap}
+.ev-seg{display:inline-flex;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:3px;gap:2px}
+.ev-seg .ev-chip{border:none;background:transparent;border-radius:8px;padding:6px 13px;min-height:32px;color:var(--text-secondary)}
+.ev-seg .ev-chip:hover{color:var(--gold)}
+.ev-seg .ev-chip.on{background:var(--gold);color:#111;font-weight:600}
 .ev-chip{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:.8rem;color:var(--text-secondary);cursor:pointer;min-height:34px;display:inline-flex;align-items:center;transition:all var(--transition);white-space:nowrap}
 .ev-chip:hover{border-color:var(--gold);color:var(--gold)}
 .ev-chip.on{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
+.ev-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
 .ev-bar-label{font-size:.8rem;color:var(--text-muted);margin-right:2px}
 .ev-summary{font-size:.85rem;color:var(--text-secondary);margin:0 0 12px;padding:10px 14px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--gold)}
 .ev-summary b{color:var(--gold)}
+
+/* 分时电价时段参考 */
+.ev-tou{margin:0 0 14px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:14px}
+.ev-tou-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.ev-tou-title{font-size:.9rem;font-weight:600;color:var(--text)}
+.ev-tou-now{font-size:.78rem;color:var(--gold);white-space:nowrap}
+.ev-tou-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ev-tou-seg{position:relative;text-align:center;padding:9px 4px 8px;border-radius:9px;font-size:.78rem;font-weight:600;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--border);transition:all .25s}
+.ev-tou-seg::before{content:'';display:block;width:100%;height:4px;border-radius:3px;margin-bottom:6px;background:currentColor;opacity:.45}
+.ev-tou-seg.z-valley{color:#5fb0e8}.ev-tou-seg.z-flat{color:var(--gold)}.ev-tou-seg.z-high{color:#e0a64a}.ev-tou-seg.z-peak{color:#e06a6a}
+.ev-tou-seg.on{color:var(--text);background:var(--card-hover);border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset,0 2px 10px rgba(201,168,76,.18);transform:translateY(-2px)}
+.ev-tou-seg.on::before{opacity:1}
+.ev-tou-note{margin:10px 0 0;font-size:.74rem;color:var(--text-muted);line-height:1.7}
+
 #evMap{width:100%;height:420px;border-radius:12px;border:1px solid var(--border);margin:0 0 18px;background:var(--bg-secondary);display:none}
 #evMap.show{display:block}
 @media(max-width:768px){#evMap{height:300px}}
-.ev-list{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.ev-list{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
 @media(max-width:560px){.ev-list{grid-template-columns:1fr}}
-.ev-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;transition:border-color var(--transition),transform var(--transition);min-width:0}
-.ev-card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.ev-card-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
-.ev-rank{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:rgba(201,168,76,.14);color:var(--gold);font-size:.76rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,168,76,.3)}
-.ev-name{flex:1;min-width:0;font-size:.95rem;font-weight:600;color:var(--text);line-height:1.5;word-break:break-word}
-.ev-op{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);margin-top:4px;white-space:nowrap}
-.ev-meta{font-size:.8rem;color:var(--text-secondary);line-height:1.75;min-width:0;word-break:break-word}
-.ev-meta .k{color:var(--text-muted)}
-.ev-dist{color:var(--gold);font-weight:600}
-.ev-price{font-size:1.05rem;font-weight:700;color:var(--gold)}
-.ev-price.none{font-size:.8rem;font-weight:400;color:var(--text-muted)}
-.ev-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.ev-actions a{flex:1 1 auto;text-align:center;font-size:.8rem;padding:7px 10px;border-radius:7px;border:1px solid var(--border);color:var(--text-secondary);background:var(--bg-secondary);min-height:34px;display:inline-flex;align-items:center;justify-content:center;transition:all var(--transition)}
-.ev-actions a:hover{border-color:var(--gold);color:var(--gold);background:var(--card)}
+
+/* 卡片（玻璃拟态 + 金线） */
+.ev-card{position:relative;background:linear-gradient(160deg,var(--card),var(--bg-secondary));border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:14px;padding:16px 18px;transition:border-color .25s,transform .25s,box-shadow .25s;min-width:0;overflow:hidden}
+.ev-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.32)}
+.ev-card-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.ev-rank{flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:rgba(201,168,76,.14);color:var(--gold);font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,168,76,.3)}
+.ev-head-main{flex:1;min-width:0}
+.ev-name{font-size:1rem;font-weight:700;color:var(--text);line-height:1.45;word-break:break-word}
+.ev-op{display:inline-block;margin-top:5px;font-size:.7rem;padding:2px 9px;border-radius:10px;background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border)}
+.ev-op.op-grid{color:#6db0ef;border-color:rgba(77,166,232,.4);background:rgba(77,166,232,.12)}
+.ev-op.op-teld{color:#7fd49a;border-color:rgba(127,212,154,.4);background:rgba(127,212,154,.12)}
+.ev-op.op-starcharge{color:#e0a64a;border-color:rgba(224,166,74,.4);background:rgba(224,166,74,.12)}
+.ev-op.op-nio{color:#7fd0d6;border-color:rgba(127,208,214,.4);background:rgba(127,208,214,.12)}
+.ev-op.op-tesla{color:#ef8a8a;border-color:rgba(239,138,138,.4);background:rgba(239,138,138,.12)}
+.ev-op.op-default{color:var(--gold);border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.12)}
+.ev-dist{flex:0 0 auto;font-size:.82rem;font-weight:700;color:var(--gold);white-space:nowrap;padding-top:2px}
+.ev-card-body{margin-bottom:12px}
+.ev-price-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;min-height:30px}
+.ev-price{font-size:1.5rem;font-weight:800;color:var(--gold);line-height:1}
+.ev-price i{font-style:normal}
+.ev-price .ev-unit{font-size:.8rem;font-weight:400;color:var(--text-muted);margin-left:2px}
+.ev-price-none{font-size:.84rem;color:var(--text-secondary);padding:3px 10px;border:1px dashed var(--border);border-radius:8px}
+.ev-seal{flex:0 0 auto;font-size:.64rem;font-weight:700;letter-spacing:1px;color:var(--gold);border:1.5px solid var(--gold);border-radius:6px;padding:2px 7px;transform:rotate(-3deg);box-shadow:0 0 0 1px rgba(201,168,76,.15) inset;white-space:nowrap}
+.ev-addr{font-size:.8rem;color:var(--text-secondary);line-height:1.6;word-break:break-word}
+.ev-note-line{font-size:.72rem;color:var(--text-muted);margin-top:5px;line-height:1.6}
+.ev-src{margin-top:6px;font-size:.7rem;color:var(--text-muted)}
+.ev-card-foot{display:flex;gap:10px}
+.ev-card-foot a{flex:1;text-align:center;font-size:.82rem;padding:9px 10px;border-radius:9px;min-height:38px;display:inline-flex;align-items:center;justify-content:center;transition:all .25s;border:1px solid var(--border);text-decoration:none}
+.ev-card-foot a.ghost{background:var(--bg-secondary);color:var(--text-secondary)}
+.ev-card-foot a.ghost:hover{border-color:var(--gold);color:var(--gold)}
+.ev-card-foot a.gold{background:var(--gold);color:#111;font-weight:600;border-color:var(--gold)}
+.ev-card-foot a.gold:hover{background:var(--gold-light);color:#111}
+
 .ev-note{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0 0}
 .ev-note h2{font-size:1.05rem;color:var(--gold);margin:0 0 10px}
 .ev-note ul{margin:0;padding-left:18px;color:var(--text-secondary);font-size:.88rem;line-height:1.95}
@@ -138,9 +192,6 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .ev-warn{background:rgba(255,140,0,.08);border:1px solid rgba(255,140,0,.3);border-radius:10px;padding:12px 16px;font-size:.85rem;color:var(--text-secondary);margin:0 0 14px;line-height:1.8}
 .ev-skel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;min-height:120px;animation:evpulse 1.4s ease-in-out infinite}
 @keyframes evpulse{0%,100%{opacity:1}50%{opacity:.5}}
-.ev-pill{display:inline-block;font-size:.68rem;padding:1px 7px;border-radius:8px;margin-left:6px;vertical-align:1px}
-.ev-pill.dc{background:rgba(77,166,232,.15);color:var(--blue-light);border:1px solid rgba(77,166,232,.3)}
-.ev-pill.fast{background:rgba(201,168,76,.15);color:var(--gold);border:1px solid rgba(201,168,76,.3)}
 .ev-pin{width:24px;height:24px;border-radius:50%;background:var(--gold);color:#111;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);box-shadow:0 2px 6px rgba(0,0,0,.35);cursor:pointer}
 .ev-info{padding:8px 10px;font-size:13px;line-height:1.8;max-width:240px;color:var(--text);word-break:break-word}
 .ev-info-price{color:var(--gold)}
@@ -247,11 +298,21 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 </nav>
 
 <main id="main-content" role="main"><div class="page-wrap">
-  <div class="page-header">
-    <h1>⚡ 充电桩查询</h1>
-    <div class="subtitle">打开即定位 · 自动显示你所在地区的全部充电站 · 各品牌一站聚合</div>
-    <p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 站点数据实时调取 · 页面更新：2026 年 8 月 31 日</p>
-  </div>
+  <!-- 头部：标题 + 实时数据概览 -->
+  <header class="ev-hero">
+    <div class="ev-hero-left">
+      <div class="ev-hero-badge" aria-hidden="true">⚡</div>
+      <div class="ev-hero-text">
+        <h1 class="ev-title">充电桩查询</h1>
+        <p class="ev-sub">打开即定位 · 附近充电站一键聚合 · 各品牌比价</p>
+      </div>
+    </div>
+    <div class="ev-stats">
+      <div class="ev-stat"><b id="evStatTotal">–</b><span>当前站点</span></div>
+      <div class="ev-stat"><b id="evStatPrice">–</b><span>已核实价</span></div>
+      <div class="ev-stat"><b id="evStatOp">–</b><span>覆盖品牌</span></div>
+    </div>
+  </header>
 
   <!-- 定位状态 -->
   <div class="ev-locate">
@@ -271,27 +332,52 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
     <button type="button" class="ev-btn primary" id="evAddrGo">搜索这里</button>
   </div>
 
-  <!-- 控制条 -->
-  <div class="ev-bar">
-    <span class="ev-bar-label">半径</span>
-    <button type="button" class="ev-chip" data-radius="1000">1 km</button>
-    <button type="button" class="ev-chip on" data-radius="3000">3 km</button>
-    <button type="button" class="ev-chip" data-radius="5000">5 km</button>
-    <button type="button" class="ev-chip" data-radius="10000">10 km</button>
-    <button type="button" class="ev-chip" data-radius="20000">20 km</button>
-  </div>
-  <div class="ev-bar">
-    <span class="ev-bar-label">排序</span>
-    <button type="button" class="ev-chip on" data-sort="dist">距离最近</button>
-    <button type="button" class="ev-chip" data-sort="price">价格最低</button>
-    <button type="button" class="ev-chip" data-sort="priceDesc">价格最高</button>
-    <span class="ev-bar-label" style="margin-left:8px">视图</span>
-    <button type="button" class="ev-chip on" data-view="list">列表</button>
-    <button type="button" class="ev-chip" data-view="map">地图</button>
+  <!-- 控制工具栏 -->
+  <div class="ev-toolbar">
+    <div class="ev-tool-group">
+      <span class="ev-tool-label">排序</span>
+      <div class="ev-seg">
+        <button type="button" class="ev-chip on" data-sort="dist">距离最近</button>
+        <button type="button" class="ev-chip" data-sort="price">价格最低</button>
+        <button type="button" class="ev-chip" data-sort="priceDesc">价格最高</button>
+      </div>
+    </div>
+    <div class="ev-tool-group">
+      <span class="ev-tool-label">视图</span>
+      <div class="ev-seg">
+        <button type="button" class="ev-chip on" data-view="list">列表</button>
+        <button type="button" class="ev-chip" data-view="map">地图</button>
+      </div>
+    </div>
+    <div class="ev-tool-group ev-tool-radius">
+      <span class="ev-tool-label">半径</span>
+      <div class="ev-seg">
+        <button type="button" class="ev-chip" data-radius="1000">1km</button>
+        <button type="button" class="ev-chip on" data-radius="3000">3km</button>
+        <button type="button" class="ev-chip" data-radius="5000">5km</button>
+        <button type="button" class="ev-chip" data-radius="10000">10km</button>
+        <button type="button" class="ev-chip" data-radius="20000">20km</button>
+      </div>
+    </div>
   </div>
   <div class="ev-bar" id="evOpBar">
     <span class="ev-bar-label">品牌</span>
     <button type="button" class="ev-chip on" data-op="">全部</button>
+  </div>
+
+  <!-- 分时电价时段参考 -->
+  <div class="ev-tou" id="evTou">
+    <div class="ev-tou-head">
+      <span class="ev-tou-title">⏱️ 分时电价时段参考</span>
+      <span class="ev-tou-now" id="evTouNow">正在校准时间…</span>
+    </div>
+    <div class="ev-tou-bar">
+      <span class="ev-tou-seg z-valley" data-p="低谷">低谷</span>
+      <span class="ev-tou-seg z-flat" data-p="平段">平段</span>
+      <span class="ev-tou-seg z-high" data-p="高峰">高峰</span>
+      <span class="ev-tou-seg z-peak" data-p="尖峰">尖峰</span>
+    </div>
+    <p class="ev-tou-note">电价随尖峰 / 高峰 / 平段 / 低谷浮动，同一根枪白天和半夜能差近一倍。上图按一般规律标注，仅供参考，实际以各运营商现场公示为准。</p>
   </div>
 
   <div class="ev-summary" id="evSummary" hidden></div>

@@ -630,8 +630,13 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
   min-width: 90px;
 }
 .m-table th:first-child { z-index: 3; }
-/* scoreline-table 适配 */
-.scoreline-table { min-width: 400px; width: 100%; }
+/* scoreline-table 适配
+   横向滚动范式同 .m-table：min-width 撑开 + 首列 sticky 吸附。
+   2026-08-30：min-width 由 400px 提到 560px，并给首列补 76px 保底宽度。
+   原因——高考「3+1+2」那张 5 列表格在 390px 视口下首列被压到 49px，
+   减去左右各 12px 内边距只剩 25px，中文一个字就占满一行，
+   「统考科目」被拆成「统 / 考 / 科 / 目」四行。 */
+.scoreline-table { min-width: 560px; width: 100%; }
 .scoreline-table th:first-child,
 .scoreline-table td:first-child {
   position: sticky;
@@ -639,8 +644,14 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
   background: var(--card);
   z-index: 2;
   font-weight: 600;
+  min-width: 76px;
 }
 .scoreline-table th:first-child { z-index: 3; }
+/* 窄屏收紧内边距，把省下的宽度让给文字 */
+@media (max-width: 768px) {
+  .scoreline-table th,
+  .scoreline-table td { padding: 8px 10px; font-size: 0.85rem; }
+}
 
 /* ===== 新闻条目（特斯拉动态页） ===== */
 .news-item {

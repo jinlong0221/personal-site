@@ -179,8 +179,11 @@
     stations: [],        // 全量站点
     radius: 3000,
     sort: 'dist',
-    view: 'list',
+    view: 'list',        // 已废弃：现改为地图与卡片栏常驻联动，不再二选一
+    onlyPrice: false,    // 「仅显示有价」筛选
+    onlyFast: false,     // 「仅快充」筛选（仅对已知功率的站点生效，绝不编造）
     op: '',
+    lastList: [],        // 最近一次渲染的列表，供卡片→地图联动
     fallback: false,
     hiddenByStatus: 0,   // 因「暂停营业」被过滤掉的站点数
     map: null,
@@ -450,13 +453,7 @@
             });
             mk.on('click', function () {
               new A.InfoWindow({
-                content: '<div class="ev-info"><b>' + esc(s.name) + '</b><br>' +
-                  esc(s.op) + ' · ' + fmtDist(s.dist) + '<br>' +
-                  (s.price != null
-                    ? '<b class="ev-info-price">' + s.price.toFixed(2) + ' 元/度</b>'
-                    : '价格以现场为准') +
-                  '<br><a href="' + Amap.navUri(s) + '" target="_blank" rel="noopener">导航去这里</a> · ' +
-                  '<a href="' + Amap.poiUri(s) + '" target="_blank" rel="noopener">查实时价</a></div>',
+                content: stationInfoHTML(s),
                 offset: new A.Pixel(0, -20)
               }).open(state.map, [s.lng, s.lat]);
             });
@@ -464,6 +461,16 @@
             state.markers.push(mk);
           });
       });
+    },
+
+    // 卡片→地图联动：点卡片把地图移到那个站并弹出信息窗
+    panTo: function (s) {
+      if (!state.map || !isFinite(s.lng) || !isFinite(s.lat)) return;
+      state.map.setZoomAndCenter(16, [s.lng, s.lat]);
+      new window.AMap.InfoWindow({
+        content: stationInfoHTML(s),
+        offset: new window.AMap.Pixel(0, -20)
+      }).open(state.map, [s.lng, s.lat]);
     },
 
     mapStyle: function () {
@@ -673,21 +680,25 @@
             });
             Q.event.addListener(mk, 'click', function () {
               if (!state.infoW) state.infoW = new Q.InfoWindow({ map: state.map });
-              state.infoW.setContent(
-                '<div class="ev-info"><b>' + esc(s.name) + '</b><br>' +
-                esc(s.op) + ' · ' + fmtDist(s.dist) + '<br>' +
-                (s.price != null
-                  ? '<b class="ev-info-price">' + s.price.toFixed(2) + ' 元/度</b>'
-                  : '价格以现场为准') +
-                '<br><a href="' + Tx.navUri(s) + '" target="_blank" rel="noopener">导航去这里</a> · ' +
-                '<a href="' + Tx.poiUri(s) + '" target="_blank" rel="noopener">查实时价</a></div>'
-              );
+              state.infoW.setContent(stationInfoHTML(s));
               state.infoW.setPosition(pos);
               state.infoW.open();
             });
             state.markers.push(mk);
           });
       });
+    },
+
+    // 卡片→地图联动：点卡片把地图移到那个站并弹出信息窗
+    panTo: function (s) {
+      if (!state.map || !isFinite(s.lat) || !isFinite(s.lng)) return;
+      var pos = new window.qq.maps.LatLng(s.lat, s.lng);
+      state.map.setCenter(pos);
+      if (state.map.setZoom) { try { state.map.setZoom(16); } catch (e) { } }
+      if (!state.infoW) state.infoW = new window.qq.maps.InfoWindow({ map: state.map });
+      state.infoW.setContent(stationInfoHTML(s));
+      state.infoW.setPosition(pos);
+      state.infoW.open();
     },
 
     mapStyle: function () {
@@ -817,7 +828,8 @@
         priceNote: priceNoteOf(vp),
         priceSrc: vp ? vp.src : '',
         priceDate: vp ? vp.date : '',
-        verified: !!vp
+        verified: !!vp,
+        fast: false, slow: false   // 实时检索拿不到功率，一律未知，绝不编造快慢
       });
     });
 
@@ -913,6 +925,9 @@
 
   function sorted() {
     var list = state.stations.filter(function (s) { return !state.op || s.op === state.op; });
+    if (state.onlyPrice) list = list.filter(function (s) { return s.price != null; });
+    // 仅快充：只剔除「确定是纯慢充」的站点；功率未知的站点（实时检索）一律保留，绝不编造
+    if (state.onlyFast) list = list.filter(function (s) { return !(s.slow && !s.fast); });
     if (state.sort === 'dist') {
       list.sort(function (a, b) { return a.dist - b.dist; });
     } else if (state.sort === 'price') {
@@ -982,6 +997,17 @@
     });
   }
 
+  /* 地图信息窗 / 卡片联动共用的站点信息 HTML（保证两端一致） */
+  function stationInfoHTML(s) {
+    return '<div class="ev-info"><b>' + esc(s.name) + '</b><br>' +
+      esc(s.op) + ' · ' + fmtDist(s.dist) + '<br>' +
+      (s.price != null
+        ? '<b class="ev-info-price">' + s.price.toFixed(2) + ' 元/度</b>'
+        : '价格以现场为准') +
+      '<br><a href="' + P.navUri(s) + '" target="_blank" rel="noopener">导航去这里</a> · ' +
+      '<a href="' + P.poiUri(s) + '" target="_blank" rel="noopener">查实时价</a></div>';
+  }
+
   function cardHtml(s, i) {
     var priceHtml = s.price != null
       ? '<span class="ev-price"><i>￥</i>' + s.price.toFixed(2) + '<i class="ev-unit">/度</i></span>' +
@@ -996,11 +1022,16 @@
       ? '<div class="ev-note-line">📝 ' + esc(s.priceNote) + '</div>'
       : '';
 
-    return '<article class="ev-card">' +
+    var tagHtml = (s.fast || s.slow)
+      ? '<span class="ev-tag ' +
+          (s.slow && !s.fast ? 'ev-tag-slow' : (s.fast && !s.slow ? 'ev-tag-fast' : 'ev-tag-both')) +
+          '">' + (s.fast && !s.slow ? '快充' : (s.slow && !s.fast ? '慢充' : '快充·慢充')) + '</span>'
+      : '';
+    return '<article class="ev-card" data-i="' + i + '">' +
       '<div class="ev-card-head">' +
         '<div class="ev-rank">' + (i + 1) + '</div>' +
         '<div class="ev-head-main"><div class="ev-name">' + esc(s.name) + '</div>' +
-        '<span class="' + opClass(s.op) + '">' + esc(s.op) + '</span></div>' +
+        '<div class="ev-head-meta"><span class="' + opClass(s.op) + '">' + esc(s.op) + '</span>' + tagHtml + '</div></div>' +
         (isFinite(s.dist) ? '<div class="ev-dist">' + fmtDist(s.dist) + '</div>' : '') +
       '</div>' +
       '<div class="ev-card-body">' +
@@ -1017,6 +1048,7 @@
 
   function render() {
     var list = sorted();
+    state.lastList = list;
     renderStats(list);
     var box = $('evList');
 
@@ -1035,7 +1067,7 @@
     } else {
       box.innerHTML = list.map(cardHtml).join('');
     }
-    renderMap(list);
+    if (HAS_KEY) renderMap(list);
   }
 
   /* ---------- 地图（按需：只在切到地图视图时才初始化） ---------- */
@@ -1048,17 +1080,16 @@
     return mapPromise;
   }
 
+  /* ---------- 地图（常驻：有 Key 即与卡片栏联动显示） ---------- */
   function renderMap(list) {
+    if (!HAS_KEY) return;   // 无 Key 时地图栏整体隐藏，不初始化
     var el = $('evMap');
-    if (state.view !== 'map') { el.classList.remove('show'); return; }
-    el.classList.add('show');
-
     mapGuard().then(function () {
       if (el.querySelector('.ev-map-fail')) el.innerHTML = '';
       return P.drawMap(el, list);
     }).catch(function (e) {
       el.innerHTML = '<div class="ev-map-fail">地图组件暂不可用（' + esc(e && e.message ? e.message : '未知原因') +
-        '）。<br>下面的列表数据不受影响，点卡片上的「导航去这里」可在' + esc(P.label) + '里查看。</div>';
+        '）。<br>下面的卡片数据不受影响，点卡片上的「导航去这里」可在' + esc(P.label) + '里查看。</div>';
     });
   }
 
@@ -1094,7 +1125,8 @@
         op: s.op, tel: '',
         price: vp ? vp.price : null,
         priceNote: [s.n, (s.kw ? s.kw + ' kW' : ''), s.kind, priceNoteOf(vp)].filter(Boolean).join(' · '),
-        priceSrc: vp ? vp.src : '', priceDate: vp ? vp.date : '', verified: !!vp
+        priceSrc: vp ? vp.src : '', priceDate: vp ? vp.date : '', verified: !!vp,
+        fast: /快/.test(s.n || ''), slow: /慢/.test(s.n || '')
       };
     }).filter(Boolean);
 
@@ -1132,12 +1164,6 @@
         render();
         return;
       }
-      if (chip.hasAttribute('data-view')) {
-        state.view = chip.getAttribute('data-view');
-        setOn(chip.parentNode, chip, 'data-view');
-        render();
-        return;
-      }
       if (chip.hasAttribute('data-op')) {
         state.op = chip.getAttribute('data-op');
         var bar = $('evOpBar');
@@ -1153,6 +1179,28 @@
     if (tbtn) tbtn.addEventListener('click', function () {
       setTimeout(function () { P.syncStyle(); }, 60);
     });
+
+    // 地图浮层筛选药丸（仅显示有价 / 仅快充）：切换即重渲染，地图与卡片同步过滤
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-pill'), function (p) {
+      p.addEventListener('click', function () {
+        var f = p.getAttribute('data-filter');
+        if (f === 'price') { state.onlyPrice = !state.onlyPrice; p.classList.toggle('on', state.onlyPrice); }
+        if (f === 'fast') { state.onlyFast = !state.onlyFast; p.classList.toggle('on', state.onlyFast); }
+        render();
+      });
+    });
+
+    // 卡片→地图联动：点卡片把地图移到对应站点（点卡片上的按钮/链接不触发）
+    var listEl = $('evList');
+    if (listEl) {
+      listEl.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return;
+        var card = e.target.closest('.ev-card');
+        if (!card) return;
+        var i = parseInt(card.getAttribute('data-i'), 10);
+        if (!isNaN(i)) focusStation(i, card);
+      });
+    }
   }
 
   function setOn(scope, chip, attr) {
@@ -1169,6 +1217,16 @@
     });
   }
 
+  /* 卡片→地图联动：高亮卡片并让地图聚焦到该站 */
+  function focusStation(i, card) {
+    var s = (state.lastList || [])[i];
+    if (!s) return;
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-card'), function (c) { c.classList.remove('ev-card-focus'); });
+    if (card) card.classList.add('ev-card-focus');
+    if (!HAS_KEY || !isFinite(s.lng) || !isFinite(s.lat)) return;
+    mapGuard().then(function () { P.panTo(s); }).catch(function () {});
+  }
+
   /* ============================================================
    * 启动
    * ============================================================ */
@@ -1176,6 +1234,7 @@
     bind();
     renderTou();
     if (HAS_KEY) {
+      document.body.classList.add('ev-has-map');
       doLocate();
     } else {
       renderFallback();

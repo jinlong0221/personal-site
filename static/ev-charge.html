@@ -30,7 +30,7 @@
 <!-- 文章标签（手动维护） -->
 <meta name="article-category" content="实用工具">
 <meta name="article-tags" content="充电桩,新能源,定位,便民工具">
-<meta name="article-updated" content="2026-08-31">
+<meta name="article-updated" content="2026-08-30">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
 <link rel="preload" href="js/app.js" as="script">
@@ -144,11 +144,26 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .ev-tou-seg.on::before{opacity:1}
 .ev-tou-note{margin:10px 0 0;font-size:.74rem;color:var(--text-muted);line-height:1.7}
 
-#evMap{width:100%;height:420px;border-radius:12px;border:1px solid var(--border);margin:0 0 18px;background:var(--bg-secondary);display:none}
-#evMap.show{display:block}
-@media(max-width:768px){#evMap{height:300px}}
-.ev-list{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+/* 地图 + 卡片栏联动布局（借鉴充电 App 大地图+底部卡片栏版式，国风黑金化） */
+.ev-split{display:flex;gap:16px;align-items:stretch;margin:0 0 18px}
+.ev-map-pane{position:sticky;top:calc(var(--nav-height) + 16px);flex:0 0 46%;align-self:flex-start;height:calc(100vh - var(--nav-height) - 48px);min-height:380px;border-radius:14px;overflow:hidden;z-index:5;background:var(--bg-secondary);border:1px solid var(--border)}
+#evMap{width:100%;height:100%;border-radius:14px;overflow:hidden}
+.ev-map-filters{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:8px;flex-wrap:wrap;z-index:6;pointer-events:none}
+.ev-map-filters .ev-pill{pointer-events:auto}
+.ev-pill{border:1px solid rgba(201,168,76,.5);background:rgba(15,15,15,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--text-secondary);border-radius:20px;padding:6px 13px;font-size:.78rem;cursor:pointer;min-height:34px;display:inline-flex;align-items:center;transition:all .25s;white-space:nowrap;font-family:inherit}
+.ev-pill:hover{color:var(--gold);border-color:var(--gold)}
+.ev-pill.on{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
+.ev-cards-pane{flex:1;min-width:0}
+.ev-list{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+@media(max-width:980px){
+  .ev-split{flex-direction:column}
+  .ev-map-pane{position:sticky;top:var(--nav-height);flex:none;width:100%;height:42vh;min-height:260px}
+  .ev-map-filters{top:10px;left:10px;right:10px}
+  .ev-list{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+}
 @media(max-width:560px){.ev-list{grid-template-columns:1fr}}
+body:not(.ev-has-map) .ev-map-pane{display:none}
+body:not(.ev-has-map) .ev-cards-pane{flex:1 1 100%}
 
 /* 卡片（玻璃拟态 + 金线） */
 .ev-card{position:relative;background:linear-gradient(160deg,var(--card),var(--bg-secondary));border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:14px;padding:16px 18px;transition:border-color .25s,transform .25s,box-shadow .25s;min-width:0;overflow:hidden}
@@ -164,6 +179,12 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .ev-op.op-nio{color:#7fd0d6;border-color:rgba(127,208,214,.4);background:rgba(127,208,214,.12)}
 .ev-op.op-tesla{color:#ef8a8a;border-color:rgba(239,138,138,.4);background:rgba(239,138,138,.12)}
 .ev-op.op-default{color:var(--gold);border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.12)}
+.ev-head-meta{display:flex;gap:6px;align-items:center;margin-top:5px;flex-wrap:wrap}
+.ev-tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.5px;padding:2px 8px;border-radius:9px;border:1px solid var(--border);line-height:1.4}
+.ev-tag-fast{color:#7fd49a;border-color:rgba(127,212,154,.45);background:rgba(127,212,154,.12)}
+.ev-tag-slow{color:#9db4d6;border-color:rgba(157,180,214,.4);background:rgba(157,180,214,.1)}
+.ev-tag-both{color:var(--gold);border-color:rgba(201,168,76,.45);background:rgba(201,168,76,.12)}
+.ev-card-focus{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset,0 10px 26px rgba(0,0,0,.34);transform:translateY(-3px)}
 .ev-dist{flex:0 0 auto;font-size:.82rem;font-weight:700;color:var(--gold);white-space:nowrap;padding-top:2px}
 .ev-card-body{margin-bottom:12px}
 .ev-price-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;min-height:30px}
@@ -342,13 +363,6 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
         <button type="button" class="ev-chip" data-sort="priceDesc">价格最高</button>
       </div>
     </div>
-    <div class="ev-tool-group">
-      <span class="ev-tool-label">视图</span>
-      <div class="ev-seg">
-        <button type="button" class="ev-chip on" data-view="list">列表</button>
-        <button type="button" class="ev-chip" data-view="map">地图</button>
-      </div>
-    </div>
     <div class="ev-tool-group ev-tool-radius">
       <span class="ev-tool-label">半径</span>
       <div class="ev-seg">
@@ -383,9 +397,19 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
   <div class="ev-summary" id="evSummary" hidden></div>
   <div class="ev-warn" id="evWarn" hidden></div>
 
-  <div id="evMap"></div>
-  <div class="ev-list" id="evList">
-    <div class="ev-skel"></div><div class="ev-skel"></div><div class="ev-skel"></div>
+  <div class="ev-split" id="evSplit">
+    <div class="ev-map-pane">
+      <div id="evMap"></div>
+      <div class="ev-map-filters">
+        <button type="button" class="ev-pill" data-filter="price">仅显示有价</button>
+        <button type="button" class="ev-pill" data-filter="fast">仅快充</button>
+      </div>
+    </div>
+    <div class="ev-cards-pane">
+      <div class="ev-list" id="evList">
+        <div class="ev-skel"></div><div class="ev-skel"></div><div class="ev-skel"></div>
+      </div>
+    </div>
   </div>
 
   <!-- 说明区 -->
@@ -436,7 +460,7 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 <script defer src="js/search.js"></script>
 <script defer src="js/app.js"></script>
 <script src="js/ev-prices-yancheng.js?v=20260831"></script>
-<script defer src="js/ev-charge.js?v=20260831"></script>
+<script defer src="js/ev-charge.js?v=20260830"></script>
 <script defer src="js/share.js"></script>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>

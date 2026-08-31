@@ -46,6 +46,13 @@
     VERIFIED_PRICES = window.EV_PRICES_YANCHENG;
   }
 
+  // 城市 → 下辖区县 映射：用于「城市级（IP）定位」时，仍能匹配该城市下各区县的核实价。
+  // 价格库的 region 是区县名（射阳县/亭湖区…），而 IP 定位只给到城市名（盐城市），
+  // 没有这层映射，regionHit 四项全 false，会导致「城市级定位下 0 条价格匹配」的致命 bug。
+  var CITY_DISTRICTS = {
+    '盐城市': ['亭湖区', '盐都区', '大丰区', '盐城经济技术开发区', '射阳县', '建湖县', '阜宁县', '滨海县', '响水县', '东台市']
+  };
+
   // 停车费口径 → 页面上的说法
   var PARK_TEXT = {
     '免费': '停车免费',
@@ -732,14 +739,30 @@
       state.city = pos.city || '';
       state.district = pos.district || '';
 
+      // IP 城市级定位：以市中心为参考点，距离只是「到市中心」的参考值，不代表身边。
+      // 先把检索半径放大到覆盖全市，搜索完成后再弹出明确提示（search 内部会先 hide 掉提示横幅）。
+      if (pos.src === 'ip') {
+        state.radius = 20000;
+        syncRadiusChip();
+      }
+
       var where = state.district || state.city || (state.address || '已定位');
       t.textContent = '📍 ' + (state.address || (pos.lng.toFixed(5) + ', ' + pos.lat.toFixed(5)));
       s.textContent = '定位成功 · ' + where +
-        (pos.src === 'ip' ? '（IP 粗略定位，精度约到区县，手动输入地点可更精确）' : '') +
+        (pos.src === 'ip' ? '（城市级定位 · 距离为到市中心参考值）' : '') +
         (HAS_KEY ? ' · 数据来自' + P.label : '（未配置地图服务 Key，当前显示内置射阳数据）');
       s.className = 'ev-locate-sub ok';
 
       await search();
+
+      // IP 定位提示必须在 search() 之后弹出，否则会被其内部 hide($('evWarn')) 清掉
+      if (pos.src === 'ip') {
+        var warn = $('evWarn');
+        warn.hidden = false;
+        warn.innerHTML = '⚠️ <b>当前为城市级定位</b>（定位授权未开启或获取失败）：下面以' +
+          esc(state.city || '市中心') + '为中心展示全市充电站，<b>距离仅为到市中心的参考值，不代表你身边的桩</b>。' +
+          '在上方输入框输入你的具体地点（如「射阳县吾悦广场」）可精确到米。';
+      }
     } catch (e) {
       t.textContent = '⚠️ ' + (e && e.message ? e.message : '定位失败');
       s.textContent = '可在下方输入框手动输入地点，或点「重新定位」再试一次';
@@ -776,7 +799,7 @@
       // 关键词检索偶尔带回「XX新能源公司」这类擦边结果，轻过滤一下
       if (!/充电|加电|换电|超充/.test(name) && !/充电/.test(poi.cat || '')) return;
 
-      var vp = matchVerified(name);
+      var vp = matchVerified(name, poi.addr || '');
       // 明确标注暂停营业的站点不展示（找桩的人要的是能用的）
       if (vp && vp.status && /暂停|停用|在建/.test(vp.status)) { state.hiddenByStatus++; return; }
 
@@ -815,27 +838,55 @@
     return parts.join(' · ');
   }
 
+  /* 区县名是否出现在 POI 文本（站名+地址）里：用于消解「同名地标跨区县」歧义。
+   * 高德站名常写「大丰」而非「大丰区」，故同时尝试去掉末尾 区/县/市 的短名。 */
+  function regionInText(region, text) {
+    if (!region || !text) return false;
+    if (text.indexOf(region) !== -1) return true;
+    var short = region.replace(/(区|县|市)$/, '');
+    return short.length >= 2 && text.indexOf(short) !== -1;
+  }
+
   /* ---------- 价格匹配：站名关键词 + 地区限定 + 品牌一致性，避免张冠李戴 ---------- */
-  function matchVerified(name) {
+  function matchVerified(name, addr) {
     if (!state.district && !state.city) return null;
     var here = state.district || '';
     var city = state.city || '';
+    // 城市级（IP）定位时，here 为空、city 为「盐城市」；此时允许匹配该城市下任意区县的价格。
+    // 注意：仅在「无精确区县（here 为空）」时才放开全市——若已精确到区县，必须只匹配该区县，
+    // 否则会出现「亭湖的站套上射阳的价」这类跨区县误匹配。
+    var districtsOfCity = (city && CITY_DISTRICTS[city]) || [];
+    var cityWide = !here && districtsOfCity.length;
     var guessed = guessOp(name);   // 站名前缀通常就是运营商，如「星星充电汽车充电站(……)」
+    var text = name + ' ' + (addr || '');
+    var candidates = [];
     for (var i = 0; i < VERIFIED_PRICES.length; i++) {
       var v = VERIFIED_PRICES[i];
       // 地区门槛：本条价格只在对应地区生效
+      //   · 精确区县定位（here=射阳县）→ 只看射阳县的价格
+      //   · 城市级定位（city=盐城市，here 为空）→ 看盐城市下全部区县的价格
       var regionHit = (v.region === here) || (v.region === city) ||
-        (here && v.region.indexOf(here) === 0) || (city && city.indexOf(v.region) === 0);
+        (here && v.region.indexOf(here) === 0) || (city && city.indexOf(v.region) === 0) ||
+        (cityWide && districtsOfCity.indexOf(v.region) >= 0);
       if (!regionHit) continue;
-      var allHit = v.kw.every(function (k) { return name.indexOf(k) !== -1; });
+      // 关键词命中：站名 OR 地址里包含全部关键词片段即可（高德有时把地标写在地址而非站名）
+      var allHit = v.kw.every(function (k) {
+        return name.indexOf(k) !== -1 || (addr && addr.indexOf(k) !== -1);
+      });
       if (!allHit) continue;
       // 品牌冲突保护：站名里明明写着另一家运营商（如「星星充电…(晨光路充电站)」），
       // 说明它和价格库里那条国网晨光路站不是同一个站，价格不能套用。
       // 宁可显示「价格以现场为准」，也不能把别家的价安到这家头上。
       if (guessed !== '其他' && v.op && guessed !== v.op) continue;
-      return v;
+      candidates.push(v);
     }
-    return null;
+    if (!candidates.length) return null;
+    // 城市级下「吾悦广场」这类同名地标可能跨区县都有价：优先选 POI 文本里出现了对应区县的，
+    // 把"大丰吾悦"正确归到 大丰区 而非 射阳县。精确区县下 candidates 本就只有一个区县，无歧义。
+    for (var c = 0; c < candidates.length; c++) {
+      if (regionInText(candidates[c].region, text)) return candidates[c];
+    }
+    return candidates[0];
   }
 
   /* ============================================================
@@ -1047,6 +1098,13 @@
       if (c.hasAttribute(attr)) c.classList.remove('on');
     });
     chip.classList.add('on');
+  }
+
+  // 让半径筛选条的高亮与 state.radius 保持一致（IP 定位自动放大半径后调用）
+  function syncRadiusChip() {
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-chip[data-radius]'), function (c) {
+      c.classList.toggle('on', parseInt(c.getAttribute('data-radius'), 10) === state.radius);
+    });
   }
 
   /* ============================================================

@@ -408,14 +408,19 @@
         encodeURIComponent(s.name) + '&mode=car&coordinate=gaode&callnative=1&src=longxiong';
     },
     poiUri: function (s) {
+      // 优先用「精确坐标」落点：坐标来自高德检索结果，100% 准确，保证一点就钉在那个站的位置上
+      // （poi?id= 深链在桌面端/部分情况下不会精准落到该站，故改为坐标 marker 为主）
+      if (isFinite(s.lng) && isFinite(s.lat)) {
+        return 'https://uri.amap.com/marker?position=' + s.lng + ',' + s.lat +
+          '&name=' + encodeURIComponent(s.name) + '&coordinate=gaode&src=longxiong&callnative=1';
+      }
+      // 无坐标但 POI id 有效 → 走 POI 详情深链
       if (s.id && String(s.id).indexOf('fb') !== 0) {
         return 'https://uri.amap.com/poi?id=' + encodeURIComponent(s.id) + '&src=longxiong&callnative=1';
       }
-      if (!isFinite(s.lng) || !isFinite(s.lat)) {
-        return 'https://uri.amap.com/search?keyword=' + encodeURIComponent(s.name) + '&src=longxiong';
-      }
-      return 'https://uri.amap.com/marker?position=' + s.lng + ',' + s.lat +
-        '&name=' + encodeURIComponent(s.name) + '&coordinate=gaode&src=longxiong&callnative=1';
+      // 兜底：按站名 + 城市搜索（带城市限定更精准）
+      return 'https://uri.amap.com/search?keyword=' + encodeURIComponent(s.name) +
+        (state.city ? '&city=' + encodeURIComponent(state.city) : '') + '&src=longxiong';
     },
 
     drawMap: function (el, list) {

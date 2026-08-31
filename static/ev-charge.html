@@ -159,6 +159,18 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 }
 @media(max-width:560px){.ev-list{grid-template-columns:1fr}}
 body:not(.ev-has-map) .ev-map-pane{display:none}
+/* 「回到地图」：地图不再吸顶后，往下翻列表会看不见地图，用它一键跳回。
+   放左下角胶囊位，避开右下角已有的「回顶部」「快捷入口」两个圆按钮，避免挤在一起误点 */
+.ev-to-map{position:fixed;left:calc(16px + env(safe-area-inset-left));bottom:calc(18px + env(safe-area-inset-bottom));z-index:300;
+  display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px;border-radius:20px;
+  border:1px solid rgba(201,168,76,.5);background:rgba(20,18,14,.94);color:var(--text);
+  font-size:.82rem;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(0,0,0,.45);
+  visibility:hidden;opacity:0;pointer-events:none;transform:translateY(8px);
+  transition:opacity .25s,transform .25s,visibility .25s,color .25s,border-color .25s}
+.ev-to-map.show{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0)}
+.ev-to-map:hover{color:var(--gold);border-color:var(--gold)}
+body:not(.ev-has-map) .ev-to-map{display:none}
 
 /* 卡片（玻璃拟态 + 金线） */
 .ev-card{position:relative;background:linear-gradient(160deg,var(--card),var(--bg-secondary));border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:14px;padding:16px 18px;transition:border-color .25s,transform .25s,box-shadow .25s;min-width:0;overflow:hidden}
@@ -428,6 +440,9 @@ body:not(.ev-has-map) .ev-map-pane{display:none}
           <a href="https://www.starcharge.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">星星充电</a> — 各运营商官方渠道，查询自家桩的实时价格与空闲状态</li>
     </ul>
   </section>
+
+  <!-- 回到地图：往下翻列表时地图看不见了，点它一键跳回顶部看地图 -->
+  <button type="button" class="ev-to-map" id="evToMap" aria-label="回到地图">↑ 回到地图</button>
 
 </div></main>
 

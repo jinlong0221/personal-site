@@ -1258,6 +1258,26 @@
     mapGuard().then(function () { P.panTo(s); }).catch(function () {});
   }
 
+  /* 「回到地图」悬浮按钮：地图不再吸顶，往下翻列表就看不见地图了。
+     这里只在地图滚出视口后才淡出显示入口，不自动跳，免得打断浏览列表。 */
+  function bindBackToMap() {
+    var btn = $('evToMap'), pane = $('evMapPane');
+    if (!btn || !pane) return;
+    // 老浏览器没有 IntersectionObserver：退化成常显，至少功能可用
+    if (!('IntersectionObserver' in window)) { btn.classList.add('show'); }
+    else {
+      new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        if (!e) return;
+        // top < 0 表示地图已经滚过头（而不是还在下方没滚到）
+        btn.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0);
+      }, { threshold: 0 }).observe(pane);
+    }
+    btn.addEventListener('click', function () {
+      pane.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
   /* ============================================================
    * 启动
    * ============================================================ */
@@ -1266,6 +1286,7 @@
     renderTou();
     if (HAS_KEY) {
       document.body.classList.add('ev-has-map');
+      bindBackToMap();
       doLocate();
     } else {
       renderFallback();

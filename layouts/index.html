@@ -313,8 +313,10 @@
 
   <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
 
-  <!-- ===== [需求1] 板块④ · 站点工具 ===== -->
-  <section class="lx-vol" id="board-tools" data-ac data-ac-body=".lx-toc" data-ac-items=".lx-toc a" data-ac-head=".lx-vol-hd">
+  <!-- ===== [需求1] 板块④ · 站点工具 =====
+       阈值调到 5：这一栏每行就一句话，总共也就 5 条，没必要藏两条在「展开」后面。
+       以后再加第 6 个工具时，组件会按「超过阈值才折叠」自动收起，不用再回来改。 -->
+  <section class="lx-vol" id="board-tools" data-ac data-ac-threshold="5" data-ac-body=".lx-toc" data-ac-items=".lx-toc a" data-ac-head=".lx-vol-hd">
     <div class="lx-vol-hd">
       <span class="lx-vol-no">④</span>
       <span class="lx-vol-name lx-brush">站点工具</span>
@@ -322,6 +324,7 @@
       <span class="lx-vol-en">SITE TOOLS</span>
     </div>
     <div class="lx-toc">
+      <a href="ev-charge.html"><span class="fish">❰</span>充电桩查询<span class="dots"></span><span class="n">全国充电站 · 按距离或价格排</span></a>
       <a href="changelog.html"><span class="fish">❰</span>更新日志<span class="dots"></span><span class="n">每一次改动都有记录</span></a>
       <a href="#searchBtn" data-search-trigger="1"><span class="fish">❰</span>全站搜索<span class="dots"></span><span class="n">按标题与正文检索</span></a>
       <a href="about.html"><span class="fish">❰</span>关于本站<span class="dots"></span><span class="n">站主自述 · 建站缘由</span></a>

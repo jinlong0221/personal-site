@@ -86,6 +86,12 @@
     '盐城市': ['亭湖区', '盐都区', '大丰区', '盐城经济技术开发区', '射阳县', '建湖县', '阜宁县', '滨海县', '响水县', '东台市']
   };
 
+  /* 核实价库的真实覆盖范围：从 CITY_DISTRICTS 现算，不写死在文案里。
+     写死的后果是以后加了新城市忘了改句子，明明有价却告诉用户"没收录"，那是自己骗自己。 */
+  var COVERED_CITIES = Object.keys(CITY_DISTRICTS).map(function (c) {
+    return c.replace(/(市|地区|自治州|盟)$/, '');
+  }).join('、');
+
   // 停车费口径 → 页面上的说法
   var PARK_TEXT = {
     '免费': '停车免费',
@@ -95,33 +101,59 @@
     '未公布': '停车费以现场为准'
   };
 
-  /* ---------- 无 Key / 定位失败时的兜底数据（射阳县，来源：县政府《"十四五"电动汽车充电设施布局规划》表 2-3） ---------- */
-  var FALLBACK_STATIONS = [
-    { name: '滨湖大道充电站（万帮充电）', addr: '射阳县滨湖大道9号', op: '万帮充电', n: '6台快充', kw: 720, kind: '公用' },
-    { name: '机场路罾塘居委会充电站（万帮充电）', addr: '射阳县机场路罾塘居委会', op: '万帮充电', n: '5台快充', kw: 600, kind: '公用' },
-    { name: '海河镇高铁站北充电站', addr: '射阳县海河镇高铁站北边', op: '国家电网', n: '9台快充', kw: 960, kind: '公用' },
-    { name: '海河镇高铁站南充电站', addr: '射阳县海河镇高铁站南边', op: '国家电网', n: '4台快充', kw: 480, kind: '公用' },
-    { name: '汽车客运站充电站', addr: '射阳县汽车客运站', op: '国家电网', n: '5台快充', kw: 480, kind: '公用' },
-    { name: '射阳县政府充电站', addr: '射阳县幸福大道', op: '国家电网', n: '5台快充', kw: 450, kind: '公用' },
-    { name: '晨光路停车场充电站', addr: '射阳县合德镇晨光路17号', op: '国家电网', n: '12台快充', kw: 1080, kind: '公用' },
-    { name: '黄海路停车场充电站', addr: '射阳县合德镇黄海路停车场', op: '国家电网', n: '8台快充', kw: 720, kind: '公用' },
-    { name: '合德供电所充电站', addr: '射阳县解放东路合德供电所', op: '国家电网', n: '2快2慢', kw: 240, kind: '公用' },
-    { name: '兴桥供电所充电站', addr: '射阳县兴桥镇冈合路', op: '国家电网', n: '2快2慢', kw: 240, kind: '公用' },
-    { name: '陈洋供电所充电站', addr: '射阳县陈洋镇人民西路27号', op: '国家电网', n: '8台快充', kw: 720, kind: '公用' },
-    { name: '经济开发区科技服务中心充电站', addr: '射阳县幸福大道经开区管委会', op: '国家电网', n: '8台快充', kw: 720, kind: '公用' },
-    { name: '千鹤湖酒店充电站', addr: '射阳县千鹤湖酒店', op: '特来电', n: '6台快充', kw: 540, kind: '公用' },
-    { name: '新城实验幼儿园充电站', addr: '射阳县开放大道新城实验幼儿园停车场', op: '特来电', n: '38台快充', kw: 3420, kind: '公用' },
-    { name: '港城实验小学充电站', addr: '射阳县解放东路港城实验小学停车场', op: '特来电', n: '37台快充', kw: 3330, kind: '公用' },
-    { name: '特庸镇卫生院充电站', addr: '射阳县特庸镇码中街171号', op: '特来电', n: '1快2慢', kw: 120, kind: '公用' },
-    { name: '潇洋汽车销售公司充电站', addr: '射阳县人民东路100号', op: '特来电', n: '1台快充', kw: 90, kind: '公用' },
-    { name: '吾悦广场停车场充电站', addr: '射阳县吾悦广场负一层', op: '国家电网', n: '6快6慢', kw: 660, kind: '公用' },
-    { name: '滨湖会议中心充电站', addr: '射阳县滨湖会议中心', op: '星星充电', n: '12台快充', kw: 1080, kind: '公用' },
-    { name: '三维交通场站充电站', addr: '射阳县合德镇江苏三维交通集团', op: '星星充电', n: '10台快充', kw: 900, kind: '公用' },
-    { name: '景隆生态农业充电站', addr: '射阳县盘湾镇南沃村', op: '星星充电', n: '15台慢充', kw: 105, kind: '公用' },
-    { name: '沈海高速射阳服务区充电站（沈阳方向）', addr: '沈海高速射阳服务区', op: '国家电网', n: '4台快充', kw: 480, kind: '高速服务区' },
-    { name: '沈海高速射阳服务区充电站（海口方向）', addr: '沈海高速射阳服务区', op: '国家电网', n: '4台快充', kw: 480, kind: '高速服务区' },
-    { name: '黄沙港政府大院充电点', addr: '黄沙港政府大院内停车场', op: '国家电网', n: '1快1慢', kw: 67, kind: '公用' }
+  /* ---------- 离线兜底数据 ----------
+   * 按「城市」分组存放，而不是一坨写死在射阳。
+   * 为什么必须分组：兜底数据是**离线示例**，只有我们真查到过公开规划文件的城市才有。
+   * 上海的用户定位失败，却看到江苏射阳的 24 个桩——那不叫兜底，那叫误导。
+   * 所以取用前一律先走 pickFallbackSet()：命中才用，没命中就老老实实给空态 + 城市快选。
+   * 以后要给新城市补离线数据，直接在下面加一组，取用逻辑一行都不用改。 */
+  var FALLBACK_SETS = [
+    {
+      city: '盐城市',
+      district: '射阳县',
+      src: '射阳县政府《"十四五"电动汽车充电设施布局规划》表 2-3',
+      list: [
+        { name: '滨湖大道充电站（万帮充电）', addr: '射阳县滨湖大道9号', op: '万帮充电', n: '6台快充', kw: 720, kind: '公用' },
+        { name: '机场路罾塘居委会充电站（万帮充电）', addr: '射阳县机场路罾塘居委会', op: '万帮充电', n: '5台快充', kw: 600, kind: '公用' },
+        { name: '海河镇高铁站北充电站', addr: '射阳县海河镇高铁站北边', op: '国家电网', n: '9台快充', kw: 960, kind: '公用' },
+        { name: '海河镇高铁站南充电站', addr: '射阳县海河镇高铁站南边', op: '国家电网', n: '4台快充', kw: 480, kind: '公用' },
+        { name: '汽车客运站充电站', addr: '射阳县汽车客运站', op: '国家电网', n: '5台快充', kw: 480, kind: '公用' },
+        { name: '射阳县政府充电站', addr: '射阳县幸福大道', op: '国家电网', n: '5台快充', kw: 450, kind: '公用' },
+        { name: '晨光路停车场充电站', addr: '射阳县合德镇晨光路17号', op: '国家电网', n: '12台快充', kw: 1080, kind: '公用' },
+        { name: '黄海路停车场充电站', addr: '射阳县合德镇黄海路停车场', op: '国家电网', n: '8台快充', kw: 720, kind: '公用' },
+        { name: '合德供电所充电站', addr: '射阳县解放东路合德供电所', op: '国家电网', n: '2快2慢', kw: 240, kind: '公用' },
+        { name: '兴桥供电所充电站', addr: '射阳县兴桥镇冈合路', op: '国家电网', n: '2快2慢', kw: 240, kind: '公用' },
+        { name: '陈洋供电所充电站', addr: '射阳县陈洋镇人民西路27号', op: '国家电网', n: '8台快充', kw: 720, kind: '公用' },
+        { name: '经济开发区科技服务中心充电站', addr: '射阳县幸福大道经开区管委会', op: '国家电网', n: '8台快充', kw: 720, kind: '公用' },
+        { name: '千鹤湖酒店充电站', addr: '射阳县千鹤湖酒店', op: '特来电', n: '6台快充', kw: 540, kind: '公用' },
+        { name: '新城实验幼儿园充电站', addr: '射阳县开放大道新城实验幼儿园停车场', op: '特来电', n: '38台快充', kw: 3420, kind: '公用' },
+        { name: '港城实验小学充电站', addr: '射阳县解放东路港城实验小学停车场', op: '特来电', n: '37台快充', kw: 3330, kind: '公用' },
+        { name: '特庸镇卫生院充电站', addr: '射阳县特庸镇码中街171号', op: '特来电', n: '1快2慢', kw: 120, kind: '公用' },
+        { name: '潇洋汽车销售公司充电站', addr: '射阳县人民东路100号', op: '特来电', n: '1台快充', kw: 90, kind: '公用' },
+        { name: '吾悦广场停车场充电站', addr: '射阳县吾悦广场负一层', op: '国家电网', n: '6快6慢', kw: 660, kind: '公用' },
+        { name: '滨湖会议中心充电站', addr: '射阳县滨湖会议中心', op: '星星充电', n: '12台快充', kw: 1080, kind: '公用' },
+        { name: '三维交通场站充电站', addr: '射阳县合德镇江苏三维交通集团', op: '星星充电', n: '10台快充', kw: 900, kind: '公用' },
+        { name: '景隆生态农业充电站', addr: '射阳县盘湾镇南沃村', op: '星星充电', n: '15台慢充', kw: 105, kind: '公用' },
+        { name: '沈海高速射阳服务区充电站（沈阳方向）', addr: '沈海高速射阳服务区', op: '国家电网', n: '4台快充', kw: 480, kind: '高速服务区' },
+        { name: '沈海高速射阳服务区充电站（海口方向）', addr: '沈海高速射阳服务区', op: '国家电网', n: '4台快充', kw: 480, kind: '高速服务区' },
+        { name: '黄沙港政府大院充电点', addr: '黄沙港政府大院内停车场', op: '国家电网', n: '1快1慢', kw: 67, kind: '公用' }
+      ]
+    }
   ];
+
+  /* 按城市取兜底集：取不到就返回 null，由调用方自己决定给空态还是别的，绝不自作主张换城市。 */
+  function pickFallbackSet(city) {
+    if (!city) return null;
+    for (var i = 0; i < FALLBACK_SETS.length; i++) {
+      if (FALLBACK_SETS[i].city === city) return FALLBACK_SETS[i];
+    }
+    return null;
+  }
+
+  /* 热门城市快选：一行按钮，让「这是个全国工具」一眼看得出来，也省掉用户手打城市名。
+     纯功能增强、不掺任何数据——点它就等于拿城市名去地理编码，走的还是同一套检索链路。 */
+  var HOT_CITIES = ['北京市', '上海市', '广州市', '深圳市', '成都市', '杭州市',
+    '武汉市', '西安市', '南京市', '苏州市', '重庆市', '天津市', '长沙市', '青岛市', '盐城市'];
 
   /* ---------- 运营商识别（从站名反推品牌） ---------- */
   var OP_RULES = [
@@ -396,7 +428,7 @@
                 city: c.city || c.province || '',
                 district: c.district || ''
               });
-            } else { reject(new Error('没找到这个地方，换个说法试试（如「射阳县吾悦广场」）')); }
+            } else { reject(new Error('没找到这个地方，换个说法试试（如「北京市朝阳区三里屯」「射阳县吾悦广场」）')); }
           });
         });
       });
@@ -658,7 +690,7 @@
     geocode: function (text) {
       return jsonp('/ws/geocoder/v1/', { address: text }).then(function (d) {
         if (d.status !== 0 || !d.result || !d.result.location) {
-          throw new Error('没找到这个地方，换个说法试试（如「射阳县吾悦广场」）');
+          throw new Error('没找到这个地方，换个说法试试（如「北京市朝阳区三里屯」「射阳县吾悦广场」）');
         }
         var c = d.result.address_components || d.result.address_component || {};
         return {
@@ -861,7 +893,7 @@
       t.textContent = '📍 ' + (state.address || (pos.lng.toFixed(5) + ', ' + pos.lat.toFixed(5)));
       s.textContent = '定位成功 · ' + where +
         (pos.src === 'ip' ? '（城市级定位 · 距离为到市中心参考值）' : '') +
-        (HAS_KEY ? ' · 数据来自' + P.label : '（未配置地图服务 Key，当前显示内置射阳数据）');
+        (HAS_KEY ? ' · 数据来自' + P.label : '');
       s.className = 'ev-locate-sub ok';
 
       await search();
@@ -872,14 +904,14 @@
         warn.hidden = false;
         warn.innerHTML = '⚠️ <b>当前为城市级定位</b>（定位授权未开启或获取失败）：下面以' +
           esc(state.city || '市中心') + '为中心展示全市充电站，<b>距离仅为到市中心的参考值，不代表你身边的桩</b>。' +
-          '在上方输入框输入你的具体地点（如「射阳县吾悦广场」）可精确到米。';
+          '在上方输入框输入你的具体地点（如「朝阳区三里屯」「射阳县吾悦广场」）可精确到米。';
       }
     } catch (e) {
       t.textContent = '⚠️ ' + (e && e.message ? e.message : '定位失败');
       s.textContent = '可在下方输入框手动输入地点，或点「重新定位」再试一次';
       s.className = 'ev-locate-sub';
-      // 定位失败也要给内容：直接上兜底数据
-      renderFallback();
+      // 定位失败也要给内容：有该城市的离线数据就给，没有就给空态 + 城市快选
+      renderFallback(e && e.message);
     }
   }
 
@@ -929,6 +961,8 @@
     });
 
     state.fallback = false;
+    // 有真实位置了，地图栏恢复（定位失败时被 renderFallback 收起来过）
+    document.body.classList.add('ev-has-map');
     hide($('evWarn'));
     state.stations = all;
     buildOpBar();
@@ -1168,7 +1202,7 @@
       esc(s.op) + ' · ' + fmtDist(s.dist) + '<br>' +
       (s.price != null
         ? '<b class="ev-info-price">' + s.price.toFixed(2) + ' 元/度</b>'
-        : '价格以现场为准') +
+        : '本站暂无核实价') +
       '<br><a href="' + P.navUri(s) + '" target="_blank" rel="noopener">导航去这里</a> · ' +
       '<a href="' + P.priceUri(s) + '" target="_blank" rel="noopener">查实时价</a></div>';
   }
@@ -1239,6 +1273,13 @@
       (noPrice
         ? '，其余 ' + noPrice + ' 个公开渠道查不到逐站价，点卡片上的「查实时价」看当前真实价格'
         : '') + '。' +
+      /* 没收录的城市，把话挑明：不是"没查到"，是"我们压根还没收录这个城市的价"。
+         用户最怕的是不知道为什么没有——说清楚，他才敢放心用「查实时价」。 */
+      (!state.fallback && state.city && !CITY_DISTRICTS[state.city]
+        ? '<br>ℹ️ 本站已核实价库目前只收录了 <b>' + esc(COVERED_CITIES) + '</b>，' +
+          esc(state.city.replace(/市$/, '')) + ' 尚未收录。' +
+          '这里的站点全部标注「本站暂无核实价」，点卡片上的「查实时价」可直接看到各家此刻的挂牌价。'
+        : '') +
       (state.sort !== 'dist' && withPrice === 0 ? '<br>⚠️ 这一片没有已核实价格的站点，已按距离排列。' : '') +
       (state.hiddenByStatus ? '<br>（已过滤 ' + state.hiddenByStatus + ' 个标注暂停营业的站点）' : '');
 
@@ -1273,26 +1314,54 @@
     });
   }
 
-  /* ---------- 无 Key / 定位失败兜底 ---------- */
-  function renderFallback() {
+  /* ---------- 无 Key / 定位失败兜底 ----------
+   * 一句话原则：**不给用户错误的东西，哪怕空着。**
+   * 以前不管你在哪儿，定位失败一律甩 24 个射阳的站——对盐城人是兜底，对上海人是误导。
+   * 现在按城市取：取得到就给，取不到就给空态 + 城市快选，让用户自己挑。 */
+  function renderFallback(reason) {
     state.fallback = true;
+    // 没有位置 = 没有地图可画。留个空框比不给更难看，这里直接收起来（CSS 靠 .ev-has-map 控制）。
+    document.body.classList.remove('ev-has-map');
     var warn = $('evWarn');
     warn.hidden = false;
-    warn.innerHTML = HAS_KEY
-      ? '⚠️ 定位没成功，下面先显示<b>射阳县</b>的已知充电站（来源：县政府《"十四五"电动汽车充电设施布局规划》）。手动输入地点可查别处。'
-      : '⚠️ 本页的实时定位检索需要地图服务授权，眼下未启用，下面先显示<b>射阳县</b>的已知充电站（来源：县政府《"十四五"电动汽车充电设施布局规划》表 2-3）。这些站点没有在线坐标，故按列表呈现、不做距离和地图。';
 
+    // ① 无 Key：整页就是离线示例模式，把唯一一组内置数据摆出来，并说清它是什么
     if (!HAS_KEY) {
-      $('evLocTitle').textContent = '📋 当前为内置数据模式';
-      $('evLocSub').textContent = '实时定位检索需配置地图服务授权，启用后可查全国任意地点';
+      var g0 = FALLBACK_SETS[0];
+      warn.innerHTML = '⚠️ <b>离线示例模式</b>：本页的实时定位检索需要地图服务授权，眼下未启用，' +
+        '下面显示的是内置示例数据（<b>' + esc(g0.city + g0.district) + '</b>，来源：' + esc(g0.src) +
+        '）。这些站点没有在线坐标，故按列表呈现、不做距离和地图。';
+      $('evLocTitle').textContent = '📋 当前为内置示例数据';
+      $('evLocSub').textContent = '联网授权后可查全国任意地点，此处仅作示例';
       $('evLocSub').className = 'ev-locate-sub';
+      buildFallbackList(g0);
+      return;
     }
 
-    // 兜底数据都是射阳的，价格匹配按射阳县限定，避免把别处同名站的价格安上来
-    var region = '射阳县';
+    // ② 有 Key 但定位失败：先看用户所在城市有没有内置数据，有才给
+    var set = pickFallbackSet(state.city);
+    if (set) {
+      warn.innerHTML = '⚠️ 定位没成功，下面先显示<b>' + esc(set.city + set.district) +
+        '</b>的已知充电站（来源：' + esc(set.src) + '）。手动输入地点可查别处。';
+      buildFallbackList(set);
+      return;
+    }
+
+    // ③ 完全没底：给空态 + 城市快选，一句"没数据"解决不了问题，得给用户下一步
+    warn.innerHTML = '⚠️ ' + esc(reason || '没能拿到你的位置') +
+      '。<b>全国任意城市都能查</b>，只是需要你告诉我是哪儿——点下面的城市，或在上方输入具体地址（如「北京市朝阳区三里屯」）。';
+    $('evLocTitle').textContent = '⚠️ 定位没成功';
+    $('evLocSub').textContent = '选一个城市，或直接输入地点，全国都能查';
+    $('evLocSub').className = 'ev-locate-sub';
+    renderPickCity();
+  }
+
+  /* 把某一组离线数据渲染成卡片（价格仍按该组所属区县限定匹配，防止别处同名站被套价） */
+  function buildFallbackList(set) {
+    var region = set.district || set.city;
     state.hiddenByStatus = 0;
 
-    state.stations = FALLBACK_STATIONS.map(function (s, i) {
+    state.stations = set.list.map(function (s, i) {
       var vp = null;
       for (var j = 0; j < VERIFIED_PRICES.length; j++) {
         var v = VERIFIED_PRICES[j];
@@ -1312,6 +1381,37 @@
 
     buildOpBar();
     render();
+  }
+
+  /* 顶部常驻城市快选条：让「全国都能查」这件事在页面上有个实体入口，不只是嘴上说说 */
+  function renderCityBar() {
+    var bar = $('evCityBar');
+    if (!bar) return;
+    bar.innerHTML = '<span class="ev-bar-label">热门城市</span>' + cityChipsHtml();
+  }
+
+  /* 定位失败的空态：不是"没数据"，是"你还没告诉我在哪儿"。
+     与其甩一句干巴巴的"没找到"，不如把城市快选直接摆出来，一步到位。 */
+  function renderPickCity() {
+    state.stations = [];
+    state.hiddenByStatus = 0;
+    buildOpBar();
+    renderStats([]);
+    hide($('evSummary'));
+    $('evList').innerHTML = '<div class="ev-empty">' +
+      '<div style="font-size:1.7rem;margin-bottom:8px">🗺️</div>' +
+      '<b>全国任意城市都能查，挑一个开始</b>' +
+      '<div class="ev-city-tip">也可以在上方的输入框里直接填具体地址，比如「上海市人民广场」。</div>' +
+      '<div class="ev-city-wrap">' + cityChipsHtml() + '</div>' +
+      '</div>';
+  }
+
+  /* 城市快选按钮（顶部常驻条 + 空态里复用同一份城市清单，避免两处各维护一遍） */
+  function cityChipsHtml() {
+    return HOT_CITIES.map(function (c) {
+      return '<button type="button" class="ev-chip" data-city="' + esc(c) + '">' +
+        esc(c.replace(/市$/, '')) + '</button>';
+    }).join('');
   }
 
   /* ============================================================
@@ -1342,6 +1442,19 @@
         state.sort = chip.getAttribute('data-sort');
         setOn(chip.parentNode, chip, 'data-sort');
         render();
+        return;
+      }
+      // 城市快选：把城市名塞进输入框再检索，让用户看得见"我现在查的是哪个城市"
+      if (chip.hasAttribute('data-city')) {
+        var city = chip.getAttribute('data-city');
+        if (!HAS_KEY) {
+          var w = $('evWarn');
+          w.hidden = false;
+          w.innerHTML = '⚠️ 当前是离线示例模式，切换城市需要地图服务授权（联网检索）。';
+          return;
+        }
+        $('evAddrInput').value = city;
+        doLocate(city);
         return;
       }
       if (chip.hasAttribute('data-op')) {
@@ -1433,6 +1546,7 @@
   function init() {
     bind();
     renderTou();
+    renderCityBar();
     if (HAS_KEY) {
       document.body.classList.add('ev-has-map');
       bindBackToMap();

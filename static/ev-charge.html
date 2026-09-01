@@ -23,7 +23,7 @@
 </script>
 
 <title>充电桩查询｜全国新能源充电站实时地图 · 按价格排序｜龙兄知识库</title>
-<meta name="keywords" content="充电桩查询,充电站地图,新能源充电,电费价格,附近充电桩,射阳充电桩,龙兄知识库">
+<meta name="keywords" content="充电桩查询,充电站地图,全国充电桩,新能源充电,电费价格,附近充电桩,充电站比价,盐城充电桩,射阳充电桩,龙兄知识库">
 
 <meta name="description" content="打开即定位，自动显示你所在地区的全部新能源充电站：国家电网、特来电、星星充电、蔚来、特斯拉等各品牌一站聚合，支持按距离或价格排序、一键导航、一键查实时电价。">
 
@@ -126,6 +126,9 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .ev-chip.on{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
 .ev-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
 .ev-bar-label{font-size:.8rem;color:var(--text-muted);margin-right:2px}
+/* 城市快选：让页面一眼看得出是「全国都能查」，而不是某个县的本地页 */
+.ev-city-wrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.ev-city-tip{font-size:.76rem;color:var(--text-muted);margin-top:8px;line-height:1.7}
 .ev-summary{font-size:.85rem;color:var(--text-secondary);margin:0 0 12px;padding:10px 14px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--gold)}
 .ev-summary b{color:var(--gold)}
 
@@ -157,6 +160,9 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 }
 @media(max-width:560px){.ev-list{grid-template-columns:1fr}}
 body:not(.ev-has-map) .ev-map-pane{display:none}
+/* 没有位置就没有地图：此时左列是空的，还按 42% 占着位会让列表挤在右边一半，
+   所以直接取消分栏，让列表占满宽度。定位成功后 .ev-has-map 回来，分栏自动恢复。 */
+body:not(.ev-has-map) .ev-split{display:block}
 /* 「回到地图」：地图不再吸顶后，往下翻列表会看不见地图，用它一键跳回。
    放左下角胶囊位，避开右下角已有的「回顶部」「快捷入口」两个圆按钮，避免挤在一起误点。
    颜色硬编码深底+亮字，不跟主题走 —— 浅色页面下 var(--text) 是深色字，
@@ -354,7 +360,7 @@ body:not(.ev-has-map) .ev-to-map{display:none}
       <div class="ev-hero-badge" aria-hidden="true">⚡</div>
       <div class="ev-hero-text">
         <h1 class="ev-title">充电桩查询</h1>
-        <p class="ev-sub">打开即定位 · 附近充电站一键聚合 · 各品牌比价</p>
+        <p class="ev-sub">打开即定位 · 全国任意城市都能查 · 各品牌比价</p>
       </div>
     </div>
     <div class="ev-stats">
@@ -389,8 +395,14 @@ body:not(.ev-has-map) .ev-to-map{display:none}
 
   <!-- 手动搜索 -->
   <div class="ev-search">
-    <input type="text" id="evAddrInput" placeholder="或手动输入地点，如：射阳县吾悦广场 / 盐城市 / 北京市朝阳区" aria-label="手动输入地点">
+    <input type="text" id="evAddrInput" placeholder="全国任意地点都行，如：北京市朝阳区三里屯 / 上海市人民广场 / 盐城市吾悦广场" aria-label="手动输入地点">
     <button type="button" class="ev-btn primary" id="evAddrGo">搜索这里</button>
+  </div>
+
+  <!-- 热门城市快选：点一下直接切到那个城市，不用手打。
+       这一行也是「本页面向全国」最直观的证据——不是只有某一个县能用。 -->
+  <div class="ev-bar" id="evCityBar">
+    <span class="ev-bar-label">热门城市</span>
   </div>
 
   <!-- 控制工具栏 -->
@@ -454,6 +466,10 @@ body:not(.ev-has-map) .ev-to-map{display:none}
   <section class="ev-note">
     <h2>📖 价格是怎么来的？先说清楚</h2>
     <ul>
+      <li><strong style="color:var(--text)">先说覆盖范围，免得你白等：</strong>
+        <b>找桩这件事，全国都能用</b>——充电站的位置、名称、地址、距离来自高德地图的 POI 数据，覆盖全国，你定位在哪个城市就查哪个城市，也可以直接点「热门城市」一行切换。
+        但<b>本站已核实的电价，目前只收录了盐城市（9 个区县）</b>，其余城市正在一条条补。<br>
+        没收录的城市，本页<b>不会拿别处的价来顶替</b>，站点一律标注「本站暂无核实价」，并把「查实时价」设成主按钮，一点就跳到该站的高德详情页看此刻真实挂牌价。</li>
       <li><strong style="color:var(--text)">充电桩的电费不是一口价。</strong>一度的总价 = <b>电费</b> + <b>服务费</b>，而且按<b>尖峰 / 高峰 / 平段 / 低谷</b>分时段浮动，同一根枪白天和半夜能差一倍。</li>
       <li><strong style="color:var(--text)">实时电价属于运营商的商业数据</strong>，国家电网、特来电、星星充电等都不对外提供数据，只能在其自家软件里，或高德、百度地图里查看。所以本页的做法是：<b>能核到价的直接显示，核不到的明写「本站暂无核实价」并给一键跳转按钮</b>，绝不编数字。</li>
       <li>本页标注「<b style="color:var(--gold)">本站核实</b>」的价格，<strong style="color:var(--text)">来自第三方充电聚合平台「无敌电动网」的公开挂牌价</strong>，逐条核对无误后收录，每张卡片下方都写明<b>具体来源与采集日期</b>，你可以自己点进去查证。</li>
@@ -468,7 +484,8 @@ body:not(.ev-has-map) .ev-to-map{display:none}
     <h2>📚 数据来源 · 延伸阅读</h2>
     <ul>
       <li><a href="https://lbs.amap.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">高德开放平台</a> — 本页充电站位置、名称、地址、距离的地图数据来源（地点搜索 + 地址解析 + 定位）</li>
-      <li><a href="https://www.modiauto.com.cn/cdz/c1239.html" target="_blank" rel="noopener" style="color:var(--blue-light)">无敌电动网</a> — <strong style="color:var(--text)">本页全部 244 条已核实电价的唯一来源</strong>：盐城 9 区县的公开挂牌价（含电费 + 服务费、快慢充桩数、停车费），本站逐条核对后收录</li>
+      <li><a href="https://www.modiauto.com.cn/cdz/c1239.html" target="_blank" rel="noopener" style="color:var(--blue-light)">无敌电动网</a> — <strong style="color:var(--text)">本页全部 244 条已核实电价的唯一来源</strong>：盐城 9 区县的公开挂牌价（含电费 + 服务费、快慢充桩数、停车费），本站逐条核对后收录。<br>
+        <span style="color:var(--text-muted)">也正因为这个来源目前只覆盖盐城，本页核实价的范围暂时就到盐城为止；其他城市不是查不到，是<b>我们还没逐条核过，所以不敢往页面上写</b>。</span></li>
       <li><a href="https://www.sheyang.gov.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">射阳县人民政府</a> — 《射阳县"十四五"电动汽车充电设施布局规划》，射阳本地充电站<b>布点规划</b>的参考依据（该规划讲的是站点布局，<b>不含逐站电价</b>）</li>
       <li><a href="https://ev.sgcc.com.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">国家电网 e 充电</a> ·
           <a href="https://www.teld.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">特来电</a> ·

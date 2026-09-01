@@ -83,7 +83,7 @@ git push origin main
 | 项目 | 说明 |
 |------|------|
 | 域名 | longxiong.vip（阿里云） |
-| DNS | CNAME → jinlong0221.github.io |
+| DNS | CNAME → longxiong.vip |
 | HTTPS | GitHub Pages 免费证书，自动续期 |
 | ICP 备案 | 不需要（境外托管 + 非 .cn 域名） |
 
@@ -102,14 +102,8 @@ git push origin main
 | 漫威版权图片 | 全部替换为 emoji（54 处） |
 | 养生茶功效声明 | 添加免责声明 |
 | 医疗相关（熊胆/沉香） | 添加"不构成用药建议" |
-| 个人信息（邮箱） | 使用 799958000@qq.com |
+| 个人信息（邮箱） | 见页脚「侵权联系」加密邮箱（运行时拼合，源码不含明文） |
 | ICP 备案 | 确认无需备案（境外 + 非 .cn） |
-
-## 八、GitHub 仓库
-
-- **仓库**：[jinlong0221/personal-site](https://github.com/jinlong0221/personal-site)
-- **旧站分支**：`backup-2026-06-22`（commit 8295b1f，可回滚）
-- **Hugo 分支**：main（当前主分支，2026-07-06 起）
 
 ## 九、持续优化方向
 
@@ -135,6 +129,6 @@ git push origin main
 
 ---
 
-*内容来源：本页为本站自有建设记录，条目均对应仓库中的真实提交与文件，可在 [GitHub 仓库](https://github.com/jinlong0221/personal-site) 逐条比对核实。*
+*内容来源：本页为本站自有建设记录，条目均对应站内的真实提交与文件。*
 
 *最后更新：2026-08-07 | 建站天数：48 天 | 累计页面：168 个 HTML*

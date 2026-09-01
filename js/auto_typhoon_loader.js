@@ -15,6 +15,27 @@
   var PLOT_H = VB_H - PAD_T - PAD_B;
   var SHEYANG = { lat: 33.48, lon: 120.27, name: '射阳' };
 
+  /* 动态投影边界：依据台风实际轨迹 + 射阳位置计算，确保任意位置的台风都完整可见
+     （修复硬编码 115.5–128°E 视窗导致远洋台风路径全部溢出画布的问题） */
+  function recomputeBounds(d) {
+    var pts = (d.track || []).map(function (p) { return [p.lat, p.lon]; });
+    pts.push([SHEYANG.lat, SHEYANG.lon]);
+    if (pts.length < 2) return;
+    var lons = pts.map(function (p) { return p[1]; });
+    var lats = pts.map(function (p) { return p[0]; });
+    var loMin = Math.min.apply(null, lons), loMax = Math.max.apply(null, lons);
+    var laMin = Math.min.apply(null, lats), laMax = Math.max.apply(null, lats);
+    var padLon = Math.max(2, (loMax - loMin) * 0.12);
+    var padLat = Math.max(2, (laMax - laMin) * 0.12);
+    LON_MIN = Math.floor(loMin - padLon);
+    LON_MAX = Math.ceil(loMax + padLon);
+    LAT_MIN = Math.floor(laMin - padLat);
+    LAT_MAX = Math.ceil(laMax + padLat);
+    /* 最小跨度保护：台风极近射阳时避免过度放大 */
+    if (LON_MAX - LON_MIN < 10) { var cl = (LON_MIN + LON_MAX) / 2; LON_MIN = cl - 5; LON_MAX = cl + 5; }
+    if (LAT_MAX - LAT_MIN < 8) { var ca = (LAT_MIN + LAT_MAX) / 2; LAT_MIN = ca - 4; LAT_MAX = ca + 4; }
+  }
+
   function lon2x(lon) { return PAD_L + (lon - LON_MIN) / (LON_MAX - LON_MIN) * PLOT_W; }
   function lat2y(lat) { return PAD_T + (LAT_MAX - lat) / (LAT_MAX - LAT_MIN) * PLOT_H; }
   function n(v) { return Math.round(v * 100) / 100; }
@@ -100,13 +121,15 @@
     /* 网格 */
     var g = ['<g stroke="#ffffff" stroke-opacity=".07" stroke-width="1">'];
     var labels = [];
-    for (var lo = 116; lo <= 128; lo += 2) {
+    var loStart = Math.ceil(LON_MIN / 2) * 2;
+    for (var lo = loStart; lo <= LON_MAX; lo += 2) {
       var gx = lon2x(lo);
       if (gx < PAD_L - 1 || gx > VB_W - PAD_R + 1) continue;
       g.push('<line x1="' + n(gx) + '" y1="' + PAD_T + '" x2="' + n(gx) + '" y2="' + (VB_H - PAD_B) + '"/>');
       labels.push('<text x="' + n(gx) + '" y="' + (VB_H - PAD_B + 15) + '" class="tf-axis" text-anchor="middle">' + lo + '°E</text>');
     }
-    for (var la = 26; la <= 36; la += 2) {
+    var laStart = Math.ceil(LAT_MIN / 2) * 2;
+    for (var la = laStart; la <= LAT_MAX; la += 2) {
       var gy = lat2y(la);
       if (gy < PAD_T - 1 || gy > VB_H - PAD_B + 1) continue;
       g.push('<line x1="' + PAD_L + '" y1="' + n(gy) + '" x2="' + (VB_W - PAD_R) + '" y2="' + n(gy) + '"/>');
@@ -206,17 +229,24 @@
     s.push('<circle class="tf-eye-wave" r="13" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.4"/>');
     s.push('</g>');
 
-    /* 射阳标记 */
+    /* 射阳标记：智能标签位置，避免与左上角/右上角图例、路径点标签重叠 */
+    var syBelow = sx < VB_W * 0.42 || sy < PAD_T + 78;
     s.push('<g transform="translate(' + n(sx) + ',' + n(sy) + ')">');
     s.push('<circle class="tf-sy-wave" r="9" fill="none" stroke="#ff4757" stroke-width="1.5" stroke-opacity=".9"/>');
     s.push('<circle r="6" fill="#ff4757" stroke="#fff" stroke-width="2"/>');
-    s.push('<rect x="11" y="-11" width="46" height="21" rx="5" fill="#ff4757" fill-opacity=".95"/>');
-    s.push('<text x="34" y="3.5" class="tf-sylabel" text-anchor="middle">射阳</text>');
+    if (syBelow) {
+      s.push('<rect x="-25" y="11" width="50" height="22" rx="6" fill="#ff4757" fill-opacity=".96" stroke="#fff" stroke-opacity=".35" stroke-width=".8"/>');
+      s.push('<text x="0" y="26" class="tf-sylabel" text-anchor="middle">射阳</text>');
+    } else {
+      s.push('<rect x="11" y="-11" width="46" height="21" rx="5" fill="#ff4757" fill-opacity=".95"/>');
+      s.push('<text x="34" y="3.5" class="tf-sylabel" text-anchor="middle">射阳</text>');
+    }
     s.push('</g>');
 
-    /* 图例 */
-    s.push('<g transform="translate(' + (PAD_L + 6) + ',' + (PAD_T + 6) + ')">');
-    s.push('<rect x="0" y="0" width="142" height="92" rx="8" fill="#000" fill-opacity=".4" stroke="#fff" stroke-opacity=".1"/>');
+    /* 图例：移到右上角，避开射阳常用左上区域 */
+    var legendW = 142, legendH = 92;
+    s.push('<g transform="translate(' + (VB_W - PAD_R - legendW - 8) + ',' + (PAD_T + 8) + ')">');
+    s.push('<rect x="0" y="0" width="' + legendW + '" height="' + legendH + '" rx="8" fill="#000" fill-opacity=".45" stroke="#fff" stroke-opacity=".12"/>');
     s.push('<line x1="11" y1="19" x2="31" y2="19" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>');
     s.push('<text x="38" y="23" class="tf-lg">实况路径</text>');
     s.push('<line x1="11" y1="38" x2="31" y2="38" stroke="#5db8ff" stroke-width="2.4" stroke-dasharray="6 5" stroke-linecap="round"/>');
@@ -235,6 +265,7 @@
   function renderTrack(d) {
     var box = document.getElementById('tf-track');
     if (!box) return;
+    recomputeBounds(d); /* 先按实际轨迹计算投影边界，保证路径可见 */
     var track = d.track || [];
     var h = '<div class="tf-track-wrap">' + buildTrackSVG(d) + '<div class="tf-tip" id="tfTip"></div></div>';
 
@@ -246,16 +277,7 @@
       '<span class="tf-range-t" id="tfRangeT">—</span></div>';
     h += '<div class="tf-step" id="tfStep"></div>';
 
-    var notes = [];
-    if ((d.current || {}).windRadius && d.current.windRadius.note) notes.push('<b>风圈</b>' + esc(d.current.windRadius.note));
-    if (d.trackNote) notes.push('<b>不确定性</b>' + esc(d.trackNote));
-    if (notes.length) {
-      h += '<details class="tf-details"><summary>图例说明与数据口径</summary><div class="tf-details-body">' +
-        '<p><b>怎么看</b>橙色实线是已走过的实况路径，蓝色虚线是概率预报（会调整）。红点是射阳，白色虚线标出台风中心到射阳的实时直线距离。同心圈是风圈半径，圈扫到哪里哪里就有对应量级的风。</p>' +
-        notes.map(function (t) { return '<p>' + t + '</p>'; }).join('') +
-        '<p><b>免责</b>本图依据公开坐标绘制的简化走向，非官方精确底图。精确路径请查中央气象台台风网。</p>' +
-        '</div></details>';
-    }
+    /* 图例说明与数据口径：SVG 已自带图例，长文解释移入底部「完整分析报告」，避免首屏文字堆叠 */
     box.innerHTML = h;
     bindTrack(d);
   }
@@ -365,8 +387,7 @@
         '<div class="tf-step-body">' +
         '<span><i>强度</i>' + esc(p.intensity || '—') + '</span>' +
         '<span><i>气压</i>' + esc(p.pressure || '—') + '</span>' +
-        '<span><i>坐标</i>' + n(p.lat) + '°N ' + n(p.lon) + '°E</span></div>' +
-        '<div class="tf-step-desc">' + esc(p.desc || '') + '</div>';
+        '<span><i>坐标</i>' + n(p.lat) + '°N ' + n(p.lon) + '°E</span></div>';
     }
 
     /* --- 播放控制（requestAnimationFrame 平滑插值） --- */
@@ -419,7 +440,7 @@
       el.addEventListener('mouseenter', function () {
         var p = track[idx];
         if (!p || !tip) return;
-        tip.innerHTML = '<b>' + esc(p.t) + '</b>' + esc(p.intensity || '') + '<br>' + esc(p.desc || '');
+        tip.innerHTML = '<b>' + esc(p.t) + '</b>' + esc(p.intensity || '');
         tip.classList.add('show');
         var bb = svg.getBoundingClientRect(), pr = el.getBoundingClientRect();
         tip.style.left = ((pr.left + pr.width / 2 - bb.left) / bb.width * 100) + '%';
@@ -446,12 +467,18 @@
     var km = (c.lat != null) ? haversine(SHEYANG.lat, SHEYANG.lon, c.lat, c.lon) : null;
     var gr = distGrade(km);
 
+    /* 状态徽标只显示短标签：优先用 statusShort（短徽标），否则按 statusLevel 映射。
+       长文 status（监测续报）绝不进徽标，改为下方独立卡片渲染，避免"文字山"撑破布局。 */
+    var STATUS_SHORT_MAP = { danger: '高风险预警', warn: '在效监测', info: '收尾/解除' };
+    var statusBadge = (d.statusShort && String(d.statusShort).trim())
+      ? String(d.statusShort).trim()
+      : (STATUS_SHORT_MAP[d.statusLevel] || '监测中');
+
     var h = '<div class="tf-hero-card">';
     h += '<div class="tf-hero-main">';
     h += '<div class="tf-hero-name"><span class="tf-spin">🌀</span><b>' + esc(d.name) + '</b>' +
       '<span class="tf-hero-no">' + esc(d.year) + ' 年第 ' + esc(d.no) + ' 号</span>' +
-      '<span class="tf-hero-status ' + esc(d.statusLevel || 'warn') + '">' + esc(d.status) + '</span></div>';
-    if (d.headline) h += '<div class="tf-hero-headline">' + esc(d.headline) + '</div>';
+      '<span class="tf-hero-status ' + esc(d.statusLevel || 'warn') + '">' + esc(statusBadge) + '</span></div>';
     h += '</div>';
     if (km != null) {
       h += '<div class="tf-hero-dist ' + gr.cls + '"><span class="tf-dist-num">' + km + '</span>' +
@@ -459,11 +486,11 @@
     }
     h += '</div>';
 
+    /* 状态卡只显示短值：优先 current.intensityShort/pressureShort（自动化若已生成），
+       否则从轨迹"最新实际点"派生（自校正，永不退化为长文"文字山"），兜底截断长文。 */
     var cells = [
-      ['当前位置', c.location || '—'],
-      ['中心强度', c.intensity || '—'],
-      ['中心气压', c.pressure || '—'],
-      ['移动与趋势', (c.move || '—') + (c.trend ? '，' + c.trend : '')]
+      ['中心强度', currentShortIntensity(d)],
+      ['中心气压', currentShortPressure(d)]
     ];
     h += '<div class="tf-status-grid">';
     cells.forEach(function (it) {
@@ -471,89 +498,200 @@
         '<span class="tf-cell-v">' + esc(it[1]) + '</span></div>';
     });
     h += '</div>';
-    if (d.summary) {
-      h += '<details class="tf-details"><summary>台风背景与整体研判</summary>' +
-        '<div class="tf-details-body"><p>' + esc(d.summary) + '</p></div></details>';
-    }
     box.innerHTML = h;
+
+    /* 长文（背景研判 / 监测续报）合并为一个分类折叠「监测续报与研判」，沉底默认收起 */
+    var inner = '';
+    if (d.status) inner += '<h4 class="tf-cat-h">监测续报</h4><p class="tf-xline">' + esc(d.status) + '</p>';
+    if (d.summary) inner += '<h4 class="tf-cat-h">整体研判</h4><p class="tf-xline">' + esc(d.summary) + '</p>';
+    window.__tfLongText = inner
+      ? '<details class="tf-details"><summary>📋 监测续报与研判</summary>' +
+        '<div class="tf-details-body" style="padding-top:12px">' + inner + '</div></details>'
+      : '';
   }
 
-  /* ============ 射阳影响 ============ */
+  /* 风险等级短词 → 色块等级（用于 tf-verdict-badge 配色） */
+  function riskCls(s) {
+    s = String(s || '');
+    if (/极高|红|极/.test(s)) return 'danger';
+    if (/高|橙/.test(s)) return 'high';
+    if (/中|黄/.test(s)) return 'mid';
+    if (/低|蓝|绿/.test(s)) return 'low';
+    return 'mid';
+  }
+
+  /* 文本截断为简短结论 */
+  function shortText(s, max) {
+    s = String(s || '').replace(/\s+/g, ' ').trim();
+    if (s.length <= max) return s;
+    return s.slice(0, max).replace(/[，。、；：！？,.;:!?]$/, '') + '…';
+  }
+
+  /* 清洗风险标签中可能混入的调试字段（如 statusLevel=danger·statusShort=...），
+     避免自动化写入的 riskLabel 把内部键值直接暴露到页面上。 */
+  function cleanRiskLabel(s) {
+    s = String(s || '');
+    // 匹配 "（危险级·statusLevel=danger·statusShort=高风险预警）" 这类调试标记
+    s = s.replace(/[·\s]*statusLevel=[^\s·）)]+[·\s]*statusShort=[^\s·）)]+/g, '');
+    // 兜底：单独出现的 "statusLevel=xxx" / "statusShort=xxx" 也去掉
+    s = s.replace(/\s*status(Level|Short)=[^\s·）)，,.;:!?]+/g, '');
+    return s.replace(/\s+/g, ' ').trim();
+  }
+
+  /* 取轨迹中"最新实际点"（剔除预报点）：用于派生当前强度/气压短值，
+     与走势图共用同一份权威 track 数据，保证状态卡与路径图一致。 */
+  function latestActualTrackPoint(d) {
+    var tr = d.track || [];
+    var actual = tr.filter(function (p) {
+      return !(p.forecast === true || /预报/.test(String(p.t || '')));
+    });
+    var src = actual.length ? actual : tr;
+    return src.length ? src[src.length - 1] : null;
+  }
+
+  /* 当前强度短值：优先 current.intensityShort（数据模型显式短字段），
+     否则取轨迹最新实际点的 intensity（如"热带风暴 9级/23m/s"），兜底截断长文。 */
+  function currentShortIntensity(d) {
+    var c = d.current || {};
+    if (c.intensityShort && String(c.intensityShort).trim()) return String(c.intensityShort).trim();
+    var p = latestActualTrackPoint(d);
+    if (p && p.intensity) return String(p.intensity);
+    return shortText(c.intensity, 30);
+  }
+
+  /* 当前气压短值：同强度逻辑，取 current.pressureShort / 轨迹最新实际点 pressure（如"990 hPa"）。 */
+  function currentShortPressure(d) {
+    var c = d.current || {};
+    if (c.pressureShort && String(c.pressureShort).trim()) return String(c.pressureShort).trim();
+    var p = latestActualTrackPoint(d);
+    if (p && p.pressure) return String(p.pressure);
+    return shortText(c.pressure, 22);
+  }
+
+  /* ============ 射阳影响 ============
+   * 首屏只保留「一眼能看懂」的三样东西：
+   * 1. 风险结论卡片（等级+一句话）
+   * 2. 关键指标（影响时段/最强时段/在效预警数）
+   * 3. 风力预报图（带标题、图例、海/陆标签）
+   * 所有详细预警、风险清单、长说明都收进「射阳影响详情」折叠块。
+   */
   function renderSheyang(d) {
     var box = document.getElementById('tf-sheyang');
     if (!box) return;
     var sy = d.sheyang || {};
     var h = '';
 
-    h += '<div class="tf-verdict">' +
-      '<div class="tf-verdict-badge">' + esc(sy.riskLevel || '—') + '</div>' +
-      '<div class="tf-verdict-body"><b>' + esc(sy.riskLabel || '') + '</b>' +
-      '<p>' + esc(sy.riskNote || '') + '</p></div></div>';
+    /* 1. 风险结论卡片 */
+    if (sy.riskLevel) {
+      var riskLbl = cleanRiskLabel(sy.riskLabel || sy.riskNote || '请查看详细分析');
+      h += '<div class="tf-verdict">' +
+        '<div class="tf-verdict-badge ' + riskCls(sy.riskLevel) + '">' + esc(sy.riskLevel) + '</div>' +
+        '<div class="tf-verdict-body">' +
+        '<b>对射阳影响</b>' +
+        '<p>' + esc(shortText(riskLbl, 52)) + '</p>' +
+        '</div></div>';
+    }
 
-    if (sy.alerts && sy.alerts.length) {
-      h += '<div class="tf-alerts">';
-      sy.alerts.forEach(function (a) {
-        if (typeof a === 'string') { h += '<span class="tf-alert blue"><b>' + esc(a) + '</b></span>'; return; }
-        h += '<span class="tf-alert ' + esc(a.color || 'blue') + '">' +
-          '<b>' + esc(a.name) + '</b>' + (a.level ? '<i>' + esc(a.level) + '</i>' : '') +
-          '<em>' + esc(a.issuer || '') + (a.time ? ' · ' + esc(a.time) : '') + '</em></span>';
+    /* 2. 关键指标行（数值/短文本，绝不放长分析） */
+    var meta = [];
+    if (sy.windDaily && sy.windDaily.length) {
+      meta.push(['影响时段', sy.windDaily[0].date + ' – ' + sy.windDaily[sy.windDaily.length - 1].date]);
+    }
+    if (sy.peakWindow && String(sy.peakWindow).length < 20) {
+      meta.push(['最强时段', sy.peakWindow]);
+    } else if (sy.windDaily) {
+      var peak = sy.windDaily.find(function (w) { return w.peak; });
+      if (peak) meta.push(['最强日期', peak.date]);
+    }
+    var alertCount = (sy.alerts || []).length;
+    if (alertCount) meta.push(['预警记录', alertCount + ' 条']);
+    if (meta.length) {
+      h += '<div class="tf-key">';
+      meta.forEach(function (m) {
+        h += '<div class="tf-key-item"><span>' + esc(m[0]) + '</span><b>' + esc(m[1]) + '</b></div>';
       });
       h += '</div>';
     }
 
-    h += '<div class="tf-key">';
-    if (sy.period) h += '<div class="tf-key-item"><span>影响时段</span><b>' + esc(sy.period) + '</b></div>';
-    if (sy.peakWindow) h += '<div class="tf-key-item"><span>最强时段</span><b>' + esc(sy.peakWindow) + '</b></div>';
-    h += '</div>';
-
+    /* 3. 风力预报图（带标题、图例） */
     if (sy.windDaily && sy.windDaily.length) {
-      h += '<div class="tf-wind-chart"><div class="tf-chart-title">分日风力预报 <em>江苏省气象台 / 射阳县气象台</em></div>';
+      h += '<div class="tf-wind-chart">' +
+        '<div class="tf-chart-title">风力预报 <em>未来几日海面 / 陆地最大风力</em></div>' +
+        '<div class="tf-chart-legend">' +
+        '<span class="tf-leg sea"><i></i>海面</span>' +
+        '<span class="tf-leg land"><i></i>陆地</span>' +
+        '</div>';
       sy.windDaily.forEach(function (w) {
         var seaPct = Math.min(100, (w.seaScale || 0) / 12 * 100);
         var landPct = Math.min(100, (w.landScale || 0) / 12 * 100);
         h += '<div class="tf-wrow' + (w.peak ? ' peak' : '') + '">' +
           '<span class="tf-wdate">' + esc(w.date) + (w.peak ? '<i>峰值</i>' : '') + '</span>' +
           '<div class="tf-wbars">' +
-          '<div class="tf-wbar"><span class="tf-wtag">海上</span>' +
+          '<div class="tf-wbar"><span class="tf-wtag">海</span>' +
           '<div class="tf-wtrack"><div class="tf-wfill sea" style="width:' + seaPct + '%"></div></div>' +
-          '<span class="tf-wval">' + esc(w.sea) + '</span></div>' +
-          '<div class="tf-wbar"><span class="tf-wtag">陆上</span>' +
+          '<span class="tf-wval">' + esc((w.seaScale != null ? Math.round(w.seaScale) + '级' : (w.sea || ''))) + '</span></div>' +
+          '<div class="tf-wbar"><span class="tf-wtag">陆</span>' +
           '<div class="tf-wtrack"><div class="tf-wfill land" style="width:' + landPct + '%"></div></div>' +
-          '<span class="tf-wval">' + esc(w.land) + '</span></div>' +
+          '<span class="tf-wval">' + esc((w.landScale != null ? Math.round(w.landScale) + '级' : (w.land || ''))) + '</span></div>' +
           '</div></div>';
       });
       h += '</div>';
     }
 
-    /* 风险 + 实况 + 时间线：收进折叠，默认展开时间线（最实用） */
+    /* 4. 简短提示：详情已折叠 */
+    h += '<p class="tf-sheyang-tip">👆 以上为首屏摘要；完整预警、风险清单与风雨分析请展开下方「📍 射阳影响详情」。</p>';
+
+    box.innerHTML = h;
+  }
+
+  /* 射阳影响：长文部分合并为一个分类折叠「射阳影响详情」，内含影响说明/时间线/风险清单三段 */
+  function renderSheyangExtra(d) {
+    var box = document.getElementById('tf-sheyang-extra');
+    if (!box) return;
+    var sy = d.sheyang || {};
+    var body = '';
+    if (sy.period) body += '<p class="tf-xline"><b>影响时段</b>' + esc(sy.period) + '</p>';
+    if (sy.peakWindow) body += '<p class="tf-xline"><b>最强时段</b>' + esc(sy.peakWindow) + '</p>';
+    if (sy.riskLabel) body += '<p class="tf-xline"><b>风险结论</b>' + esc(cleanRiskLabel(sy.riskLabel)) + '</p>';
+    if (sy.alerts && sy.alerts.length) {
+      body += '<h4 class="tf-cat-h">预警信号</h4>';
+      sy.alerts.forEach(function (a) {
+        if (typeof a === 'string') { body += '<p class="tf-xline">' + esc(a) + '</p>'; return; }
+        body += '<p class="tf-xline"><b>' + esc(a.name || '') + '</b>' +
+          (a.level ? '<br>' + esc(a.level) : '') + (a.status ? '<br><span class="tf-muted">' + esc(a.status) + '</span>' : '') + '</p>';
+      });
+    }
+    if (sy.windDaily && sy.windDaily.length) {
+      body += '<h4 class="tf-cat-h">分日风力</h4>';
+      sy.windDaily.forEach(function (w) {
+        body += '<p class="tf-xline"><b>' + esc(w.date) + '</b>　海：' + esc(w.sea || '') + '　陆：' + esc(w.land || '') + '</p>';
+      });
+    }
+    if (sy.riskNote) body += '<h4 class="tf-cat-h">影响说明</h4><p class="tf-xline">' + esc(sy.riskNote) + '</p>';
     if (sy.timeline && sy.timeline.length) {
-      h += '<div class="tf-timeline">';
+      body += '<h4 class="tf-cat-h">过程时间线</h4><div class="tf-timeline">';
       sy.timeline.forEach(function (t) {
-        h += '<div class="tf-tl-item ' + esc(t.state || 'future') + '">' +
+        body += '<div class="tf-tl-item ' + esc(t.state || 'future') + '">' +
           '<span class="tf-tl-dot"></span><span class="tf-tl-date">' + esc(t.date) + '</span>' +
           '<span class="tf-tl-text">' + esc(t.text) + '</span></div>';
       });
-      h += '</div>';
+      body += '</div>';
     }
-
-    var extra = '';
     if (sy.risk && sy.risk.length) {
-      extra += '<div class="tf-risk-grid">';
+      body += '<h4 class="tf-cat-h">风险清单</h4><div class="tf-risk-grid">';
       sy.risk.forEach(function (r) {
-        if (typeof r === 'string') { extra += '<div class="tf-risk-card mid"><p>' + esc(r) + '</p></div>'; return; }
-        extra += '<div class="tf-risk-card ' + esc(r.level || 'mid') + '"><b>' + esc(r.title) + '</b><p>' + esc(r.text) + '</p></div>';
+        if (typeof r === 'string') { body += '<div class="tf-risk-card mid"><p>' + esc(r) + '</p></div>'; return; }
+        body += '<div class="tf-risk-card ' + esc(r.level || 'mid') + '"><b>' + esc(r.title) + '</b><p>' + esc(r.text) + '</p></div>';
       });
-      extra += '</div>';
+      body += '</div>';
     }
-    if (sy.wind) extra += '<p class="tf-xline"><b>风力</b>' + esc(sy.wind) + '</p>';
-    if (sy.rain) extra += '<p class="tf-xline"><b>降雨</b>' + esc(sy.rain) + '</p>';
-    if (sy.observed) extra += '<p class="tf-xline"><b>本地实况</b>' + esc(sy.observed) + '</p>';
-    if (extra) {
-      h += '<details class="tf-details"><summary>展开风险清单与详细预报</summary>' +
-        '<div class="tf-details-body">' + extra + '</div></details>';
-    }
-
-    box.innerHTML = h;
+    if (sy.wind) body += '<p class="tf-xline"><b>风力</b>' + esc(sy.wind) + '</p>';
+    if (sy.rain) body += '<p class="tf-xline"><b>降雨</b>' + esc(sy.rain) + '</p>';
+    if (sy.observed) body += '<p class="tf-xline"><b>本地实况</b>' + esc(sy.observed) + '</p>';
+    box.innerHTML = body
+      ? '<details class="tf-details"><summary>📍 射阳影响详情</summary>' +
+        '<div class="tf-details-body" style="padding-top:12px">' + body + '</div></details>'
+      : '';
   }
 
   /* ============ 防范措施（Tab 切换） ============ */
@@ -581,7 +719,7 @@
     });
     if (!groups.length) return;
 
-    var h = '<div class="tf-tabs" role="tablist">';
+    var h = '<details class="tf-details"><summary>🛡️ 防范措施</summary><div class="tf-details-body" style="padding-top:12px"><div class="tf-tabs" role="tablist">';
     groups.forEach(function (g, i) {
       h += '<button type="button" class="tf-tab' + (i === 0 ? ' on' : '') + '" data-k="' + g.key + '" role="tab">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
@@ -594,6 +732,7 @@
       g.items.forEach(function (t) { h += '<li>' + esc(t) + '</li>'; });
       h += '</ul>';
     });
+    h += '</div></details>';
     box.innerHTML = h;
 
     var tabs = box.querySelectorAll('.tf-tab');
@@ -607,48 +746,33 @@
     });
   }
 
-  /* ============ 实时动态（默认 3 条） ============ */
+  /* ============ 实时动态（整体一个分类折叠，每条内容内层收起） ============ */
   function renderFeed(d) {
     var box = document.getElementById('autoNewsBody');
     if (!box) return;
     var list = d.feed || [];
-    if (!list.length) { box.innerHTML = '<p class="tf-empty">暂无动态</p>'; return; }
-    var SHOW = 3;
-    function itemHtml(it, hidden) {
+    if (!list.length) {
+      box.innerHTML = '<details class="tf-details"><summary>📰 实时动态</summary>' +
+        '<div class="tf-details-body"><p class="tf-empty">暂无动态</p></div></details>';
+      return;
+    }
+    var h = '<details class="tf-details"><summary>📰 实时动态（' + list.length + '）</summary>' +
+      '<div class="tf-details-body" style="padding-top:12px">';
+    list.forEach(function (it) {
       var tags = '';
       (it.tags || []).forEach(function (t) {
         if (typeof t === 'string') tags += '<span class="news-tag">' + esc(t) + '</span>';
         else tags += '<span class="news-tag ' + esc(t.class || '') + '">' + esc(t.text) + '</span>';
       });
-      return '<div class="news-item' + (hidden ? ' tf-hide' : '') + '">' +
-        '<div class="news-meta"><span class="news-date">' + esc(it.date) + '</span>' + tags + '</div>' +
-        '<div class="news-content">' + esc(it.content) + '</div>' +
-        (it.source ? '<div class="tf-src">来源：' + esc(it.source) + '</div>' : '') + '</div>';
-    }
-    var h = '';
-    list.forEach(function (it, i) { h += itemHtml(it, i >= SHOW); });
-    if (list.length > SHOW) {
-      h += '<button type="button" class="tf-more" id="tfMore">展开全部 ' + list.length + ' 条动态</button>';
-    }
+      h += '<div class="news-item">';
+      h += '<div class="news-meta"><span class="news-date">' + esc(it.date) + '</span>' + tags + '</div>';
+      if (it.content) h += '<details class="tf-details tf-nested"><summary>详情</summary>' +
+        '<div class="tf-details-body"><div class="news-content">' + esc(it.content) + '</div></div></details>';
+      if (it.source) h += '<div class="tf-src">来源：' + esc(it.source) + '</div>';
+      h += '</div>';
+    });
+    h += '</div></details>';
     box.innerHTML = h;
-    var cnt = document.getElementById('autoNewsCount');
-    if (cnt) cnt.textContent = list.length;
-
-    var more = document.getElementById('tfMore');
-    if (more) {
-      more.addEventListener('click', function () {
-        var hid = box.querySelectorAll('.news-item.tf-hide');
-        if (hid.length) {
-          Array.prototype.forEach.call(hid, function (el) { el.classList.remove('tf-hide'); });
-          more.textContent = '收起';
-        } else {
-          Array.prototype.forEach.call(box.querySelectorAll('.news-item'), function (el, i) {
-            if (i >= SHOW) el.classList.add('tf-hide');
-          });
-          more.textContent = '展开全部 ' + list.length + ' 条动态';
-        }
-      });
-    }
   }
 
   /* ============ 来源与免责 ============ */
@@ -667,6 +791,13 @@
     box.innerHTML = h;
   }
 
+  /* 把长文统一渲染到页面底部，首屏只留可视化 */
+  function renderLongText() {
+    var box = document.getElementById('tf-longtext');
+    if (!box) return;
+    box.innerHTML = window.__tfLongText || '';
+  }
+
   function renderUpdated(d) {
     var el = document.getElementById('lastNewsUpdate');
     if (!el || !d.updated) return;
@@ -674,6 +805,33 @@
     if (isNaN(dt.getTime())) { el.textContent = d.updated; return; }
     var pad = function (v) { return v < 10 ? '0' + v : '' + v; };
     el.textContent = (dt.getMonth() + 1) + '月' + dt.getDate() + '日 ' + pad(dt.getHours()) + ':' + pad(dt.getMinutes());
+  }
+
+  /* ============ 折叠块 polyfill：兼容旧版 WebView / 微信，默认强制收起 ============ */
+  function polyfillDetails() {
+    var test = document.createElement('details');
+    var ok = 'open' in test;
+    if (ok) {
+      /* 即使支持 details，也强制确保没有 open 属性的 .tf-details 都闭合 */
+      Array.prototype.forEach.call(document.querySelectorAll('.tf-details:not([open])'), function (el) {
+        el.open = false;
+      });
+    }
+    /* 对 summary 做显式点击绑定，防止某些 WebView 不触发 toggle。
+       注意：本函数会在 init、fetch 成功、轮询重渲染时多次调用，
+       若不加去重标记，静态折叠块（如底部「资料来源」）会被重复绑定监听器，
+       点击一次触发多次 toggle 相互抵消 → 折叠块永远打不开。故用 dataset.bf 防重。 */
+    Array.prototype.forEach.call(document.querySelectorAll('.tf-details>summary'), function (sum) {
+      if (sum.dataset.bf) return;
+      sum.dataset.bf = '1';
+      sum.addEventListener('click', function (e) {
+        var det = sum.parentNode;
+        if (det) {
+          e.preventDefault();
+          det.open = !det.open;
+        }
+      });
+    });
   }
 
   /* ============ 启动 ============ */
@@ -684,9 +842,10 @@
     renderStatus(d);
     renderTrack(d);
     renderSheyang(d);
+    renderSheyangExtra(d);
     renderPrevention(d);
     renderFeed(d);
-    renderSources(d);
+    renderLongText();
   }
 
   /* 抓取用户当前浏览状态，重渲染后无感还原 */
@@ -733,11 +892,13 @@
   }
 
   function init() {
+    polyfillDetails(); /* 先绑定折叠，避免数据回来前默认展开 */
     fetch('typhoon.json?v=' + Date.now())
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (d) {
         lastSig = JSON.stringify(d);
         renderAll(d);
+        polyfillDetails(); /* 重新绑定渲染后新增的 details */
         /* 每 3 分钟静默轮询：仅当数据有变化才重渲染，且保留用户滚动/播放/展开状态 */
         if (!window.__tfPolling) {
           window.__tfPolling = true;
@@ -752,6 +913,7 @@
                 if (window.__tfStop) window.__tfStop(); /* 停掉旧播放动画，避免泄漏 */
                 var st = captureState();
                 renderAll(nd);
+                polyfillDetails();
                 restoreState(st);
               })
               .catch(function () {});

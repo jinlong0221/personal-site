@@ -106,10 +106,7 @@
   "url": "{{ .Site.BaseURL }}",
   "logo": "{{ .Site.BaseURL }}favicon.svg",
   "image": "{{ .Site.BaseURL }}img/og-image.png",
-  "description": "{{ .Site.Params.description }}",
-  "sameAs": [
-    "https://github.com/{{ .Site.Params.github }}"
-  ]
+  "description": "{{ .Site.Params.description }}"
 }
 </script>
 
@@ -128,8 +125,7 @@
 <link rel="preload" href="{{ .Site.BaseURL }}js/app.js" as="script">
 <link rel="preconnect" href="https://hm.baidu.com">
 <link rel="dns-prefetch" href="https://hm.baidu.com">
-<link rel="preconnect" href="https://busuanzi.ibruce.info">
-<link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+<!-- 不蒜子已自托管，无需再对外部 CDN 预连接 -->
 <!-- 导航栏实时天气（射阳）数据源 open-meteo：全站首屏组件，提前建链可降低首字温度出现时间 -->
 <link rel="preconnect" href="https://api.open-meteo.com" crossorigin>
 <link rel="dns-prefetch" href="https://api.open-meteo.com">
@@ -266,8 +262,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.78r
 <!-- 百度统计 -->
 <script async>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
 
-<!-- 不蒜子统计 -->
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- 不蒜子统计（已自托管 + SRI 校验，杜绝第三方 CDN 被篡改投毒） -->
+<script async src="{{ .Site.BaseURL }}js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
 
 <!-- 核心脚本：首屏交互/视觉，defer 不阻塞解析 -->
 <script src="{{ .Site.BaseURL }}js/app.js" defer></script>

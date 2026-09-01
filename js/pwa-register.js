@@ -1,4 +1,4 @@
-/* 龙兄知识库 PWA 注册器 — 离线阅读（源码副本；与 static/js/pwa-register.js 保持同步）
+/* 龙兄知识库 PWA 注册器 — 离线阅读
  * 同源外部脚本（/sw.js），受 meta CSP 的 script-src 'self' 允许。
  * 在页面 load 后注册 Service Worker；失败仅告警，不影响站点正常功能。
  */

@@ -318,7 +318,7 @@
    * 适配器：高德
    * 统一输出 {id, name, addr, lng, lat, tel, cat} 的 POI 数组
    * ============================================================ */
-  /* 是否触屏设备：触屏上要禁用地图「单指拖拽」，否则手指一滑就被地图吃掉，页面滑不到底 */
+  /* 是否触屏设备：手机上单指滑动默认要留给页面，不能一上手就被地图吃掉 */
   var IS_TOUCH = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
   /* 滚轮默认归页面滚动；只有按住 Ctrl / Cmd 再滚才缩放地图。
@@ -332,6 +332,211 @@
       var z = getZ();
       setZ(e.deltaY < 0 ? Math.min(20, z + 1) : Math.max(3, z - 1));
     }, { passive: false });
+  }
+
+  /* ------------------------------------------------------------
+   * 地图到底能不能用手拖？这是个两难题，用一个开关同时满足两头
+   *
+   * 两头的需求是打架的，必须一起满足，不能牺牲任何一个：
+   *   A. 要是手指一落到地图上就被地图吃掉 → 页面永远滑不到下面的列表底部
+   *      （这个老毛病以前修过一次，不能让它复发）
+   *   B. 要是地图干脆不许拖 → 地图就成了张死图，除了双指缩放啥也干不了，
+   *      明明就在眼前却哪也去不了
+   *
+   * 所以不做二选一，做「一个开关、两种模式」：
+   *   页面优先（默认）：单指滑动归页面，列表照常顺畅翻到底 —— 守住 A
+   *   地图优先（点一下）：单指拖的是地图，双指可缩放，地图同时长高一点更好拖 —— 满足 B
+   * 拖完点「完成」就回到页面优先；就算忘了点，地图一滚出屏幕也会自动退回来，
+   * 所以 A 那个老毛病不会因为这次放开而复发。
+   * ------------------------------------------------------------ */
+  var mapFree = false;   // true = 地图优先（手拖地图）；false = 页面优先（手滑页面）
+
+  /* 当前到底该不该让地图接管拖动？
+     电脑：永远是 true —— 鼠标不存在「一不小心就把页面滑飞」的问题，直接拖就行。
+     手机：只有切成拖图模式才 true，平时把单指滑动让给页面。
+     建图和后续对齐都必须走这一个判断，不能各写各的 ——
+     否则会出现「建图时开着、后面又被按 mapFree 关掉」这种自己打自己的情况。 */
+  function mapDragShouldEnable() { return !IS_TOUCH || mapFree; }
+
+  /* 地图高度一变，它下面的内容就会跟着挪，页面看着像「跳」了一下。
+     等动画走完，把滚动位置按高度差补回去，用户眼前就还是同一屏内容。
+     这里用「合并」而不是「每次各补各的」：连着快点几下时，若每次都拿当时的瞬时高度当基准，
+     会补出好几个零碎偏移、累加起来反而把页面滚乱。
+     所以第一次进来记下起点，之后只刷新计时器，最后按「起点→终点」一次性补总差。 */
+  var compBaseH = null, compToken = 0;
+
+  /* 记下起点高度。**必须在改 class 之前调用** ——
+     改完再读的话，读到的已经是「动画目标值」，起点和终点一样，算出来的差值就是 0，
+     补偿等于白写。这个坑踩过一次，别再踩。
+     合并语义：连着快点几下时只认第一次的起点，后面几次复用它。 */
+  function markScrollBase(pane) {
+    if (compBaseH === null) compBaseH = pane.getBoundingClientRect().height;
+  }
+
+  /* 地图高度一变，它下面的内容就会跟着挪，页面看着像「跳」了一下。
+     等高度稳下来，把滚动位置按高度差补回去，用户眼前就还是同一屏内容。
+
+     为什么不固定等 400 毫秒：地图滚出屏幕时，浏览器会干脆跳过动画、高度一帧就到位，
+     死等固定时长的话，这几百毫秒里内容已经先跳走、再被补回来，反而更晃眼。
+     所以这里逐帧盯着高度，一停下就立刻补。
+     连续快点时用 token 作废上一轮监控，保证只按「第一次的起点 → 最后的终点」补一次总差。 */
+  function compensateScroll(pane) {
+    if (compBaseH === null) compBaseH = pane.getBoundingClientRect().height;
+    var myToken = ++compToken;                 // 新一轮接管，旧监控自动作废
+    var base = compBaseH;
+    var lastH = pane.getBoundingClientRect().height;
+    var sawMove = false;                       // 高度是否真的动过
+    var t0 = Date.now();
+
+    (function tick() {
+      if (myToken !== compToken) return;       // 已被后一次切换接管，直接退出
+      var h = pane.getBoundingClientRect().height;
+      if (Math.abs(h - base) > 0.5) sawMove = true;
+
+      /* 判「高度已经稳定」有个坑：CSS 过渡的第一帧上报的还是**起始高度**，
+         只看「这一帧和上一帧一不一样」的话，第一帧就会误判成已经到位，
+         算出差值 0，补偿直接被跳过 —— 等于白写。
+         所以必须先等高度真的动起来（sawMove），才允许收工。 */
+      var stable = sawMove && Math.abs(h - lastH) < 0.5;
+      if (!stable && Date.now() - t0 < 700) {
+        lastH = h;                             // 高度还在变（动画中），继续盯
+        requestAnimationFrame(tick);
+        return;
+      }
+      compBaseH = null;                        // 高度稳了（或超时兜底），这一轮结束
+      var d = h - base;
+      if (Math.abs(d) <= 2) return;
+      try { window.scrollBy({ top: d, behavior: 'instant' }); }
+      catch (e) { window.scrollBy(0, d); }     // 老浏览器不认对象参数
+    })();
+  }
+
+  /* 切换模式。要同时改三处：地图库的拖动开关、按钮文字、地图外框的金色高亮。 */
+  function setMapFree(on) {
+    var pane = $('evMapPane');
+    if (pane) markScrollBase(pane);   // 先记起点，再动样式，顺序不能反
+
+    mapFree = !!on;
+    document.body.classList.toggle('ev-map-free', mapFree);
+    setMapDragEnable(mapDragShouldEnable());
+    var btn = $('evMapDrag');
+    if (btn) {
+      btn.setAttribute('aria-pressed', mapFree ? 'true' : 'false');
+      btn.textContent = mapFree ? '✓ 完成拖图' : '✋ 拖地图';
+    }
+    // 高矮切换是 0.28 秒的动画，动画期间得让地图库跟着重新铺瓦片；
+    // 不这么做的话瓦片还按老尺寸算，会留白边或者被拉花 —— 这一步就是「丝滑」的关键。
+    resizeMapDuring(400);
+
+    // 地图一高一矮，它下面的内容会跟着上下挪，页面看着就「跳」一下。
+    // 最常见的情形：拖完地图往下翻列表，地图一滚出视野就自动退回，
+    // 高度缩回去的瞬间列表会突然往上蹿一截，很打断人。
+    // 所以等高度动画走完，把滚动位置按高度差补回来 —— 眼前始终是同一屏内容。
+    if (pane) compensateScroll(pane);
+
+    // 地图要是只露出一条边，拖的时候手会别在屏幕边缘，很别扭。
+    // 所以进入拖图模式时先把它平滑挪到屏幕中间，露得够多就不动，免得无端打断浏览。
+    if (mapFree && pane && pane.scrollIntoView) {
+      var r = pane.getBoundingClientRect();
+      var vis = Math.max(0, Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0));
+      if (r.height > 0 && vis / r.height < 0.6) {
+        pane.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }
+
+  /* 告诉地图库「容器尺寸变了，重铺一下」。
+     高德和腾讯的方法都叫 resize，个别老版本叫 updateSize，哪个在就用哪个。 */
+  function resizeMapDuring(ms) {
+    var t0 = Date.now();
+    (function tick() {
+      var m = state.map;
+      if (m) {
+        try {
+          if (m.resize) m.resize();
+          else if (m.updateSize) m.updateSize();
+        } catch (e) { /* 地图还没建好，忽略 */ }
+      }
+      if (Date.now() - t0 < ms) requestAnimationFrame(tick);
+    })();
+  }
+
+  /* 打开/关闭地图自己的单指拖动（两家地图的开关名字不一样，挨个试） */
+  function setMapDragEnable(on) {
+    var m = state.map;
+    if (!m) return;
+    try {
+      if (m.setStatus) m.setStatus({ dragEnable: !!on });          // 高德
+      else if (m.setOptions) m.setOptions({ draggable: !!on });    // 腾讯
+      else if (m.setDraggable) m.setDraggable(!!on);               // 腾讯老版本
+    } catch (e) { /* 个别版本没这个开关，忽略 */ }
+  }
+
+  /* ± 缩放：不用去记「Ctrl/Cmd + 滚轮」这个组合键，手机上单指也能点着放大缩小 */
+  function zoomMap(d) {
+    var m = state.map;
+    if (!m) return;
+    try {
+      var z = (typeof m.getZoom === 'function' ? m.getZoom() : 14) + d;
+      m.setZoom(Math.max(3, Math.min(20, z)));
+    } catch (e) { /* 忽略 */ }
+  }
+
+  /* 点一下就响应：触屏走 touchend（没有那 300 毫秒的延迟，跟手），鼠标走 click。
+     注意不能两个都生效，所以触屏上触发过就把随后的 click 挡掉。 */
+  function onTap(el, fn) {
+    var sx = 0, sy = 0, moved = false, teTs = 0;
+    el.addEventListener('touchstart', function (e) {
+      var t = e.touches[0];
+      if (t) { sx = t.clientX; sy = t.clientY; }
+      moved = false;
+    }, { passive: true });
+    // 手指是划过去的（比如正拖着地图划过按钮），不算点击
+    el.addEventListener('touchmove', function (e) {
+      var t = e.touches[0];
+      if (t && (Math.abs(t.clientX - sx) > 10 || Math.abs(t.clientY - sy) > 10)) moved = true;
+    }, { passive: true });
+    el.addEventListener('touchend', function (e) {
+      if (moved) return;
+      teTs = Date.now();
+      e.preventDefault();      // 顺手挡掉「穿透」到地图上，免得被地图当成点了一下
+      e.stopPropagation();
+      fn();
+    }, { passive: false });
+    el.addEventListener('click', function (e) {
+      // 手指点完之后，有些浏览器和 App 内置浏览器还会慢半拍补发一个 click
+      // （老安卓 WebView、iOS Safari、读屏等辅助功能都见过，晚到的时间还不定）。
+      // 这个补发的 click 必须挡掉，否则一次点击被当成两次，按钮会「闪一下又弹回去」。
+      // 用时间戳而不是固定 400 毫秒的计时器：窗口放宽到 1 秒也不怕 ——
+      // 真鼠标用户压根不会触发 touchend，撞不上这个判断。
+      if (Date.now() - teTs < 1000) return;
+      e.preventDefault();
+      e.stopPropagation();
+      fn();
+    });
+  }
+
+  /* 地图上的三个小按钮：± 缩放（电脑手机都有）、「拖地图」开关（只有触屏有） */
+  function bindMapControls() {
+    // 是不是触屏由 JS 认出来再打个标记，CSS 靠它决定要不要显示「拖地图」按钮。
+    // 为什么不写死在 CSS 媒体查询里：屏幕窄不等于能用手戳，两者不是一回事。
+    if (IS_TOUCH) document.body.classList.add('ev-touch');
+
+    var btnDrag = $('evMapDrag'), btnIn = $('evMapZoomIn'), btnOut = $('evMapZoomOut');
+    if (btnDrag) onTap(btnDrag, function () { setMapFree(!mapFree); });
+    if (btnIn) onTap(btnIn, function () { zoomMap(1); });
+    if (btnOut) onTap(btnOut, function () { zoomMap(-1); });
+
+    // 地图一滚出视野就自动退回「页面优先」：
+    // 防的是有人拖完忘了点「完成」，下次手一落到地图上页面又滑不动了（老毛病复发）。
+    var pane = $('evMapPane');
+    if (pane && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (!entries[i].isIntersecting && mapFree) setMapFree(false);
+        }
+      }, { threshold: 0.25 }).observe(pane);
+    }
   }
 
   var AMAP_PLUGINS = 'AMap.Geolocation,AMap.PlaceSearch,AMap.Geocoder,AMap.CitySearch';
@@ -544,8 +749,9 @@
             center: [state.center.lng, state.center.lat],
             mapStyle: Amap.mapStyle(),
             scrollWheel: false,     // 滚轮交给页面滚动，避免页面滑不动
-            dragEnable: !IS_TOUCH,  // 触屏禁用单指拖拽，单指滑动留给页面
-            touchZoom: true,        // 双指缩放地图仍可用
+            // 手机上默认把单指滑动让给页面，点「拖地图」按钮后才放开由地图接管
+            dragEnable: mapDragShouldEnable(),
+            touchZoom: true,        // 双指缩放地图始终可用
             zoomEnable: true
           });
           bindWheelZoom(el, function () { return state.map.getZoom(); },
@@ -575,6 +781,8 @@
             state.map.add(mk);
             state.markers.push(mk);
           });
+        // 地图对象是复用的，重画一遍不会重置拖动开关，所以按当前模式再对齐一次
+        setMapDragEnable(mapDragShouldEnable());
       });
     },
 
@@ -782,7 +990,7 @@
             zoom: 14,
             mapStyleId: Tx.mapStyle(),
             scrollwheel: false,     // 滚轮交给页面滚动
-            draggable: !IS_TOUCH,   // 触屏禁用单指拖拽
+            draggable: mapDragShouldEnable(),   // 同高德：电脑上直接拖，手机上点「拖地图」后才放开
             zoomControl: true
           });
           bindWheelZoom(el, function () { return state.map.getZoom(); },
@@ -813,6 +1021,7 @@
             });
             state.markers.push(mk);
           });
+        setMapDragEnable(mapDragShouldEnable());
       });
     },
 
@@ -1547,6 +1756,9 @@
     bind();
     renderTou();
     renderCityBar();
+    // 地图上的 ± 和「拖地图」开关：不管有没有地图授权都先挂好，
+    // 没地图时整块地图框是隐藏的，按钮自然也跟着藏起来，不会露在外面
+    bindMapControls();
     if (HAS_KEY) {
       document.body.classList.add('ev-has-map');
       bindBackToMap();

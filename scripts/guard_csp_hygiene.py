@@ -4,7 +4,7 @@
 guard_csp_hygiene.py — 安全基线守卫（退出码 1 = 失败，0 = 通过）
 锁定红队加固成果，防止回归：
   [FAIL] 源码残留占位死配置 https://umami.example.com（含 umami 孤儿 partial）
-  [FAIL] CSP 中 cdn.jsdelivr.net 未收窄到 /npm/gitalk/（整站 CDN 放行过宽）
+  [FAIL] CSP 中 cdn.jsdelivr.net 未收窄到 /npm/ 子路径（整站 CDN 裸放行过宽）
   [FAIL] HTML 中仍用协议相对外链 //hm.baidu.com / //busuanzi.ibruce.info
   [FAIL] head.html 延迟加载清单仍引用死代码 js/umami-hot.js
   [FAIL] 任一 CSP 的 script-src 仍含 'unsafe-inline'（内联事件处理器/页面脚本须改为
@@ -64,9 +64,9 @@ def main():
         # 1) 占位死配置
         if "umami.example.com" in text:
             errors.append(f"[FAIL] {rel}: 残留 umami.example.com")
-        # 2) jsdelivr 未收窄
-        if "cdn.jsdelivr.net" in text and "cdn.jsdelivr.net/npm/gitalk" not in text:
-            errors.append(f"[FAIL] {rel}: cdn.jsdelivr.net 未收窄到 /npm/gitalk/")
+        # 2) jsdelivr 未收窄（裸 CDN 放行过宽，必须锁定到 /npm/ 具体包路径）
+        if "cdn.jsdelivr.net" in text and "cdn.jsdelivr.net/npm/" not in text:
+            errors.append(f"[FAIL] {rel}: cdn.jsdelivr.net 未收窄到 /npm/ 子路径")
         # 3) 协议相对外链
         if re.search(r'(src|href)="//(hm\.baidu\.com|busuanzi\.ibruce\.info)', text):
             errors.append(f"[FAIL] {rel}: 协议相对外链 //hm.baidu.com / //busuanzi.ibruce.info")

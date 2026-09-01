@@ -3,7 +3,7 @@
 """
 harden_csp_hygiene.py — longxiong.vip 安全加固（幂等）
 1) 从 CSP 移除死配置占位域名 https://umami.example.com（script-src / img-src / connect-src）
-2) 将 script-src / style-src 中的 https://cdn.jsdelivr.net 收窄为 https://cdn.jsdelivr.net/npm/gitalk/
+2) 将 script-src / style-src 中的裸 https://cdn.jsdelivr.net 收窄为 https://cdn.jsdelivr.net/npm/（锁定具体包路径）
 3) 协议相对地址 //hm.baidu.com、//busuanzi.ibruce.info 改为显式 https://（纵深防御，不依赖 upgrade-insecure-requests）
 4) 删除所有 umami.example.com/script.js 的 <script> 标签（head.html 的 {{ partial "umami.html" . }} 及 static 页的内联标签）
 5) head.html 的延迟加载清单移除死代码 js/umami-hot.js
@@ -43,10 +43,10 @@ def transform_csp(content):
         before = c
         # 移除死配置域名（带前导空白）
         c = re.sub(r"\s+https://umami\.example\.com", "", c)
-        # 收窄 jsdelivr（script-src / style-src 中均指向 gitalk 包）
-        c = c.replace("https://cdn.jsdelivr.net", "https://cdn.jsdelivr.net/npm/gitalk/")
+        # 收窄第三方 CDN（若未来引入 jsdelivr，必须锁定到 /npm/ 具体包路径）
+        c = re.sub(r"https://cdn\.jsdelivr\.net(?!/npm/)", "https://cdn.jsdelivr.net/npm/", c)
         if c != before:
-            notes.append("CSP 改写：移除 umami.example.com + 收窄 cdn.jsdelivr.net→gitalk")
+            notes.append("CSP 改写：移除 umami.example.com")
         return f'<meta http-equiv="Content-Security-Policy" content="{c}">'
     new, n = re.subn(r'<meta http-equiv="Content-Security-Policy" content="([^"]*)">', csp_repl, content)
     content = new

@@ -67,7 +67,7 @@ def main():
         inject(hashes)
 
 def inject(hashes):
-    external = "https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net/npm/gitalk/"
+    external = "https://hm.baidu.com https://busuanzi.ibruce.info"
     new_script_src = "'self' " + " ".join(hashes) + " " + external
     # head.html (Hugo pages)
     head = os.path.join(ROOT, "layouts", "partials", "head.html")

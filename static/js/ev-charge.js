@@ -483,6 +483,26 @@
         (state.city ? '&city=' + encodeURIComponent(state.city) : '') + '&src=longxiong';
     },
 
+    /* 「查实时价」专用：目标是**能看见价格的页面**，不是地图上孤零零一个点。
+       poiUri 走 marker（精准落点，但只是地图上一个图钉，还得再点一次才进详情）；
+       这里优先走 POI 详情页——高德详情页带营业时间、充电价格等字段，
+       才是用户点「查实时价」真正想看的东西。
+       详情页深链偶尔不如 marker 精准，但它是"查价"入口；
+       精准导航交给 navUri，两者分工不同，互不耽误。 */
+    priceUri: function (s) {
+      // 内置数据（无 POI id）没有详情页可去，退回 marker / 站名搜索
+      if (s.id && String(s.id).indexOf('fb') !== 0) {
+        return 'https://uri.amap.com/poi?id=' + encodeURIComponent(s.id) +
+          '&src=longxiong&callnative=1';
+      }
+      if (isFinite(s.lng) && isFinite(s.lat)) {
+        return 'https://uri.amap.com/marker?position=' + s.lng + ',' + s.lat +
+          '&name=' + encodeURIComponent(s.name) + '&coordinate=gaode&src=longxiong&callnative=1';
+      }
+      return 'https://uri.amap.com/search?keyword=' + encodeURIComponent(s.name) +
+        (state.city ? '&city=' + encodeURIComponent(state.city) : '') + '&src=longxiong';
+    },
+
     drawMap: function (el, list) {
       return Amap.ready().then(function () {
         var A = window.AMap;
@@ -716,6 +736,9 @@
         ';title:' + encodeURIComponent(s.name) + ';addr:' + encodeURIComponent(s.addr || s.name) +
         '&coord_type=2&referer=' + encodeURIComponent(TENCENT_REFERER);
     },
+    /* 腾讯地图 URI 没有独立的「POI 详情页」入口（详情页 id 是高德的），
+       故查价沿用 marker：点开气泡后仍可进详情看价。逻辑与 poiUri 一致。 */
+    priceUri: function (s) { return Tx.poiUri(s); },
 
     drawMap: function (el, list) {
       return Tx.ready().then(function () {
@@ -1147,14 +1170,16 @@
         ? '<b class="ev-info-price">' + s.price.toFixed(2) + ' 元/度</b>'
         : '价格以现场为准') +
       '<br><a href="' + P.navUri(s) + '" target="_blank" rel="noopener">导航去这里</a> · ' +
-      '<a href="' + P.poiUri(s) + '" target="_blank" rel="noopener">查实时价</a></div>';
+      '<a href="' + P.priceUri(s) + '" target="_blank" rel="noopener">查实时价</a></div>';
   }
 
   function cardHtml(s, i) {
-    var priceHtml = s.price != null
+    var hasPrice = s.price != null;
+    var priceHtml = hasPrice
       ? '<span class="ev-price"><i>￥</i>' + s.price.toFixed(2) + '<i class="ev-unit">/度</i></span>' +
         '<span class="ev-seal">本站核实</span>'
-      : '<span class="ev-price-none">价格以现场为准</span>';
+      : '<span class="ev-price-none">本站暂无核实价</span>' +
+        '<span class="ev-price-tip">点下面的「查实时价」看这家现在的价</span>';
 
     var srcHtml = (s.priceSrc || s.priceDate)
       ? '<div class="ev-src">来源：' + esc(s.priceSrc || '未注明') +
@@ -1169,11 +1194,14 @@
           (s.slow && !s.fast ? 'ev-tag-slow' : (s.fast && !s.slow ? 'ev-tag-fast' : 'ev-tag-both')) +
           '">' + (s.fast && !s.slow ? '快充' : (s.slow && !s.fast ? '慢充' : '快充·慢充')) + '</span>'
       : '';
+    // 没核实价时，运营商是用户唯一能靠的线索（不同运营商 App 里的价差别很大），
+    // 所以把标签放大加亮；有价时价格本身是主角，标签退回常规大小免得喧宾夺主。
+    var opCls = opClass(s.op) + (hasPrice ? '' : ' op-lead');
     return '<article class="ev-card" data-i="' + i + '">' +
       '<div class="ev-card-head">' +
         '<div class="ev-rank">' + (i + 1) + '</div>' +
         '<div class="ev-head-main"><div class="ev-name">' + esc(s.name) + '</div>' +
-        '<div class="ev-head-meta"><span class="' + opClass(s.op) + '">' + esc(s.op) + '</span>' + tagHtml + '</div></div>' +
+        '<div class="ev-head-meta"><span class="' + opCls + '">' + esc(s.op) + '</span>' + tagHtml + '</div></div>' +
         (isFinite(s.dist) ? '<div class="ev-dist">' + fmtDist(s.dist) + '</div>' : '') +
       '</div>' +
       '<div class="ev-card-body">' +
@@ -1182,9 +1210,14 @@
         (s.tel ? '<div class="ev-addr">☎ ' + esc(s.tel) + '</div>' : '') +
         noteHtml + srcHtml +
       '</div>' +
+      /* 主按钮跟着"用户下一步最该干什么"走：
+         查到价了 → 重点是出发去充，导航当主按钮；
+         没查到价 → 重点是先去查价，别白跑一趟，「查实时价」当主按钮。 */
       '<div class="ev-card-foot">' +
-        '<a class="ghost" href="' + P.navUri(s) + '" target="_blank" rel="noopener">🧭 导航去这里</a>' +
-        '<a class="gold" href="' + P.poiUri(s) + '" target="_blank" rel="noopener">💰 查实时价</a>' +
+        '<a class="' + (hasPrice ? 'gold' : 'ghost') + '" href="' + P.navUri(s) +
+          '" target="_blank" rel="noopener">🧭 导航去这里</a>' +
+        '<a class="' + (hasPrice ? 'ghost' : 'gold') + '" href="' + P.priceUri(s) +
+          '" target="_blank" rel="noopener">💰 查实时价</a>' +
       '</div></article>';
   }
 
@@ -1195,13 +1228,18 @@
     var box = $('evList');
 
     var withPrice = list.filter(function (s) { return s.price != null; }).length;
+    var noPrice = list.length - withPrice;
+    var pct = list.length ? Math.round(withPrice * 100 / list.length) : 0;
     var sum = $('evSummary');
     sum.hidden = false;
     sum.innerHTML = '找到 <b>' + list.length + '</b> 个充电站' +
       (state.fallback ? '' : '（半径 ' + (state.radius / 1000) + ' km）') +
       (state.op ? ' · 品牌筛选：' + esc(state.op) : '') +
-      ' · 其中 <b>' + withPrice + '</b> 个有本站核实价，其余点「查实时价」看当前真实价格。' +
-      (state.sort !== 'dist' && withPrice === 0 ? '<br>⚠️ 当前范围内没有已核实价格的站点，已按距离排列。' : '') +
+      ' · 其中 <b>' + withPrice + '</b> 个有本站核实价（' + pct + '%）' +
+      (noPrice
+        ? '，其余 ' + noPrice + ' 个公开渠道查不到逐站价，点卡片上的「查实时价」看当前真实价格'
+        : '') + '。' +
+      (state.sort !== 'dist' && withPrice === 0 ? '<br>⚠️ 这一片没有已核实价格的站点，已按距离排列。' : '') +
       (state.hiddenByStatus ? '<br>（已过滤 ' + state.hiddenByStatus + ' 个标注暂停营业的站点）' : '');
 
     if (!list.length) {

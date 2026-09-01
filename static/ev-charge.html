@@ -205,6 +205,8 @@ body:not(.ev-has-map) .ev-to-map{display:none}
 .ev-op.op-nio{color:#7fd0d6;border-color:rgba(127,208,214,.4);background:rgba(127,208,214,.12)}
 .ev-op.op-tesla{color:#ef8a8a;border-color:rgba(239,138,138,.4);background:rgba(239,138,138,.12)}
 .ev-op.op-default{color:var(--gold);border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.12)}
+/* 没核实价的站点：运营商是用户唯一能靠的线索，所以放大加亮 */
+.ev-op.op-lead{font-size:.78rem;font-weight:700;padding:3px 11px}
 .ev-head-meta{display:flex;gap:6px;align-items:center;margin-top:5px;flex-wrap:wrap}
 .ev-tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.5px;padding:2px 8px;border-radius:9px;border:1px solid var(--border);line-height:1.4}
 .ev-tag-fast{color:#7fd49a;border-color:rgba(127,212,154,.45);background:rgba(127,212,154,.12)}
@@ -218,6 +220,7 @@ body:not(.ev-has-map) .ev-to-map{display:none}
 .ev-price i{font-style:normal}
 .ev-price .ev-unit{font-size:.8rem;font-weight:400;color:var(--text-muted);margin-left:2px}
 .ev-price-none{font-size:.84rem;color:var(--text-secondary);padding:3px 10px;border:1px dashed var(--border);border-radius:8px}
+.ev-price-tip{font-size:.72rem;color:var(--text-muted);line-height:1.5;max-width:100%}
 .ev-seal{flex:0 0 auto;font-size:.64rem;font-weight:700;letter-spacing:1px;color:var(--gold);border:1.5px solid var(--gold);border-radius:6px;padding:2px 7px;transform:rotate(-3deg);box-shadow:0 0 0 1px rgba(201,168,76,.15) inset;white-space:nowrap}
 .ev-addr{font-size:.8rem;color:var(--text-secondary);line-height:1.6;word-break:break-word}
 .ev-note-line{font-size:.72rem;color:var(--text-muted);margin-top:5px;line-height:1.6}
@@ -452,8 +455,9 @@ body:not(.ev-has-map) .ev-to-map{display:none}
     <h2>📖 价格是怎么来的？先说清楚</h2>
     <ul>
       <li><strong style="color:var(--text)">充电桩的电费不是一口价。</strong>一度的总价 = <b>电费</b> + <b>服务费</b>，而且按<b>尖峰 / 高峰 / 平段 / 低谷</b>分时段浮动，同一根枪白天和半夜能差一倍。</li>
-      <li><strong style="color:var(--text)">实时电价属于运营商的商业数据</strong>，国家电网、特来电、星星充电等都不对外提供数据，只能在其自家软件里，或高德、百度地图里查看。所以本页的做法是：<b>能核到价的直接显示，核不到的明写"以现场为准"并给一键跳转按钮</b>，绝不编数字。</li>
+      <li><strong style="color:var(--text)">实时电价属于运营商的商业数据</strong>，国家电网、特来电、星星充电等都不对外提供数据，只能在其自家软件里，或高德、百度地图里查看。所以本页的做法是：<b>能核到价的直接显示，核不到的明写「本站暂无核实价」并给一键跳转按钮</b>，绝不编数字。</li>
       <li>本页标注「<b style="color:var(--gold)">本站核实</b>」的价格，<strong style="color:var(--text)">来自第三方充电聚合平台「无敌电动网」的公开挂牌价</strong>，逐条核对无误后收录，每张卡片下方都写明<b>具体来源与采集日期</b>，你可以自己点进去查证。</li>
+      <li><strong style="color:var(--text)">已核实价只覆盖一部分站点</strong>，而且各家运营商分布不均——像云快充这类，公开渠道查不到逐站挂牌价。查不到的站点本页<b>不猜、不估、不用别家的价顶替</b>，一律标「本站暂无核实价」并放大显示运营商：<strong style="color:var(--text)">宁可让你多点一次「查实时价」，也不给你一个可能是错的价</strong>。</li>
       <li><strong style="color:var(--text)">「核实」到底核的是什么，也说清楚：</strong>它指的是<b>这个价有可查的出处，不是我们编的</b>，而且经过<b>三重校验</b>——地区对得上、站名对得上、运营商对得上——确保不会把 A 站的价套到 B 站头上。<br>
       但它<b>不等于本站到现场实测过</b>，也不代表此刻的实时价（运营商调价、分时浮动我们都跟不上）。实际要付多少，请以现场或「查实时价」为准。</li>
       <li><strong>省钱小提示：</strong>大部分地区的低谷时段在 <b>23:00–次日 7:00</b>，此时充电通常最便宜；高速服务区充电桩价格普遍高于市区；商场停车场的桩常有"充电免停车费"优惠。</li>

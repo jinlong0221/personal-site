@@ -384,19 +384,27 @@
     if (compBaseH === null) compBaseH = pane.getBoundingClientRect().height;
     var myToken = ++compToken;                 // 新一轮接管，旧监控自动作废
     var base = compBaseH;
-    var lastH = pane.getBoundingClientRect().height;
-    var sawMove = false;                       // 高度是否真的动过
+    /* 本轮开始时的高度。**判「动过没有」只能拿它当参照，不能拿 base** ——
+       base 是上一次稳住时的高度；动画还没走完就再点一下的话，本轮是从半路上起步的，
+       起始高度跟 base 本来就不一样。拿 base 比的话，第一帧就会误判成「已经动过了」，
+       紧接着又因为「这一帧和上一帧一样」误判成「已经稳了」，
+       于是按半路的错误高度补一把，页面单向乱跳且不会自己回来。
+       （实测：连点两次会跳 200 像素上下。） */
+    var startH = pane.getBoundingClientRect().height;
+    var lastH = startH;
+    var sawMove = false;                       // 本轮里高度是否真的动过
     var t0 = Date.now();
 
     (function tick() {
       if (myToken !== compToken) return;       // 已被后一次切换接管，直接退出
       var h = pane.getBoundingClientRect().height;
-      if (Math.abs(h - base) > 0.5) sawMove = true;
+      if (Math.abs(h - startH) > 0.5) sawMove = true;
 
       /* 判「高度已经稳定」有个坑：CSS 过渡的第一帧上报的还是**起始高度**，
          只看「这一帧和上一帧一不一样」的话，第一帧就会误判成已经到位，
          算出差值 0，补偿直接被跳过 —— 等于白写。
-         所以必须先等高度真的动起来（sawMove），才允许收工。 */
+         所以必须先等高度真的动起来（sawMove），才允许收工。
+         而 sawMove 比的是本轮起点 startH，不是 base（理由见上）。 */
       var stable = sawMove && Math.abs(h - lastH) < 0.5;
       if (!stable && Date.now() - t0 < 700) {
         lastH = h;                             // 高度还在变（动画中），继续盯

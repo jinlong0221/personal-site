@@ -14,3 +14,13 @@ static/img/travel/
 # WorkBuddy 运行时数据（automation 记忆 / 项目记忆等），非网站源码，
 # 不应进入公开仓库。仅从 git 移除跟踪，磁盘文件保留。
 .workbuddy/
+
+# 全站搜索索引：由 CI 在 hugo 构建之后执行 `npx pagefind --site public` 现场生成，
+# 产物落在 public/pagefind/，仓库里不需要留副本。
+#
+# 之前这里提交过一份索引，有两个坏处：
+#   1. 冗余：Hugo 会把它拷进 public/，随后 pagefind 再生成一份新的，两份并存；
+#   2. 污染：pagefind 生成时**不会清理**旧分片（实测：删掉页面后旧 fragment 仍留在原地），
+#      于是每次部署都带着一批上一版残留的孤儿索引文件。
+# 现在改为不入库，public/ 里只保留当次构建生成的干净索引。
+static/pagefind/

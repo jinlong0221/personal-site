@@ -609,8 +609,9 @@ def main():
 <script defer src="js/app.js"></script>
 <script defer src="js/ev-sales.js?v=__VJS__"></script>
 <script defer src="js/share.js"></script>
-<script src="js/quick-toc.js" defer></script>
-<script src="js/bookmark.js" defer></script>
+<!-- 悬浮栏目目录 quick-toc.js 与本地收藏 bookmark.js 由
+     scripts/apply_site_widgets.py 统一注入（含 #quickToc 容器）。
+     这里不要再写一遍，否则组件脚本会被重复加载两次。 -->
 </body>
 </html>
 """.replace("__VJS__", V_JS)

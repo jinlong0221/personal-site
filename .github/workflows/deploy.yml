@@ -105,6 +105,7 @@ jobs:
       #  - theme_scope: 禁止非关键 <style> 块用全局 --bg/--text 等重定义污染全站 chrome
       #  - csp_hygiene: 禁止 umami 死配置/协议相对外链/jsdelivr 过宽等 CSP 卫生回潮
       #  - v_param: ?v 缓存版本必须一致且资源存在（travel-dist/{{ 模板变量已豁免）
+      #  - editor_noise: 禁止 data-page-node-id 等 IDE 注入的编辑器元数据
       - name: Guard overflow-x (sticky safety)
         run: python3 scripts/guard_overflow.py
       - name: Guard theme scope (no global var leak)
@@ -113,6 +114,15 @@ jobs:
         run: python3 scripts/guard_csp_hygiene.py
       - name: Guard ?v cache-bust consistency
         run: python3 scripts/guard_v_param.py
+
+      # 编辑器元数据护栏（2026-09-02 落地）：
+      # IDE（Codebuddy Code 等带元素定位能力的编辑器）打开过页面后，会给几乎每个标签
+      # 注入 data-page-node-id 属性。那是编辑器自己的实现细节，站点不需要，且每次检出
+      # 都会反复写回（实测 git checkout 还原后立刻又被写回 616 处），手工删治不住。
+      # 分工：本地 pre-commit 走 --fix 自动剥离（提交者无感）；CI 这里只检查不自愈——
+      # 若此处报错，说明有人绕过了本地 hook，需人工跑 --fix 后重新提交。
+      - name: Guard editor-injected metadata
+        run: python3 scripts/guard_editor_noise.py
 
       # 板块新闻日期排序护栏：所有 *-news.json 的 news 数组按 date 倒序，
       # 根治「板块日期乱序」。部署前强制规范化，即使上游写入乱序也保证线上有序。

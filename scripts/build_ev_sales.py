@@ -237,7 +237,8 @@ def build_body(d):
     kpis = [
         ('新能源零售渗透率', pct(nev_d.get('rtShare')),
          '%s 国内零售，创阶段新高' % (last_ni.get('label', '').replace('2026-', '') or '本期')),
-        ('新能源零售', '%s 万' % fmt(nev_d.get('retail')), '辆，上月口径同比'),
+        ('新能源零售', '%s 万' % fmt(nev_d.get('retail')),
+         '辆，%s 国内零售（上险量）' % (mon_lb or '本期')),
         ('新能源批发', '%s 万' % fmt(nev_d.get('wholesale')), '辆，含出口'),
         ('乘用车出口', '%s 万' % fmt(last_ov.get('出口')), '辆，%s' % (mon_lb or '本期')),
         ('自主品牌份额', pct(own.get('rtShare')), '国内零售口径'),

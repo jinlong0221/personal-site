@@ -322,6 +322,39 @@ body:not(.ev-has-map) .ev-to-map{display:none}
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
 <script src="/js/pwa-register.js?v=20260828" defer></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip/",
+      "description": "AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、中药养生茶、特斯拉动态新闻、射阳天气等实用内容。",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://longxiong.vip/search.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "充电桩查询｜全国新能源充电站实时地图 · 按价格排序｜龙兄知识库",
+      "description": "打开即定位，自动显示你所在地区的全部新能源充电站：国家电网、特来电、星星充电、蔚来、特斯拉等各品牌一站聚合，支持按距离或价格排序、一键导航、一键查实时电价。",
+      "url": "https://longxiong.vip/ev-charge.html",
+      "author": {
+        "@type": "Person",
+        "name": "龙兄"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "龙兄知识库"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -625,6 +658,11 @@ body:not(.ev-has-map) .ev-to-map{display:none}
 <script src="js/ev-prices-yancheng.js?v=20260901"></script>
 <script defer src="js/ev-charge.js?v=20260901"></script>
 <script defer src="js/share.js"></script>
+<script src="js/quick-toc.js" defer></script>
+<script src="js/bookmark.js" defer></script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
 </body>

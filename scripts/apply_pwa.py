@@ -6,7 +6,12 @@ apply_pwa.py — 为静态页注入 Service Worker 注册脚本（幂等、通�
 设计要点：
 - 扫描全部 static/**/*.html，在 </head> 之前幂等注入：
       <!-- PWA: 注册 Service Worker（离线阅读） -->
-      <script src="/js/pwa-register.js?v=20260826" defer></script>
+      <script src="/js/pwa-register.js?v=<git 最后改动日>" defer></script>
+- ?v 不再硬编码：改为运行时取 static/js/pwa-register.js 的 git 最后改动日
+  （与 scripts/sync_v_param.py 同口径）。历史教训：这里曾写死 20260826，
+  而全站页面早已被同步到 20260828 —— 于是任何「新建的静态页」被本脚本注入
+  后都会得到过期版本号，造成同一资源两种 ?v，guard_v_param.py 判 ERROR、
+  CI 直接红（2026-09-02 新增 ev-sales.html 时踩到）。写死日期必然再次过期。
 - 用上方注释 MARKER 去重：已含 MARKER 的页跳过，绝不重复注入。
 - 旅行加密页 travel.html 跳过（由 encrypt 流水线控制）。
 - 注入的是「同源外部脚本」（src=/js/pwa-register.js），受 meta CSP 的 script-src 'self' 允许，
@@ -22,12 +27,43 @@ apply_pwa.py — 为静态页注入 Service Worker 注册脚本（幂等、通�
 import os
 import re
 import sys
+from datetime import datetime
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    from v_param import version_for as _version_for
+except Exception:
+    _version_for = None
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC = os.path.join(ROOT, "static")
 
 MARKER = "<!-- PWA: 注册 Service Worker（离线阅读） -->"
-SNIPPET = MARKER + '\n<script src="/js/pwa-register.js?v=20260826" defer></script>\n'
+SW_REL = "static/js/pwa-register.js"
+
+
+def sw_version():
+    """pwa-register.js 的 ?v：git 最后改动日，与 sync_v_param.py 同口径。
+
+    git 查不到（新文件尚未提交等）时退回当天日期，保证注入的版本号与
+    当前其它页面一致，不引入「过期死常量」。
+    """
+    if _version_for is not None:
+        return _version_for(SW_REL)
+    try:
+        out = subprocess.run(
+            ["git", "log", "-1", "--format=%cd", "--date=format:%Y%m%d", "--", SW_REL],
+            cwd=ROOT, capture_output=True, text=True, timeout=30,
+        )
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout.strip()
+    except Exception:
+        pass
+    return datetime.now().strftime("%Y%m%d")
+
+
+def snippet():
+    return MARKER + '\n<script src="/js/pwa-register.js?v=%s" defer></script>\n' % sw_version()
 
 
 def rel_of(path):
@@ -52,7 +88,7 @@ def process_file(path, check_only=False):
     if check_only:
         print("  ~ 将注入:", rel)
         return True
-    new_html = html[:idx] + SNIPPET + html[idx:]
+    new_html = html[:idx] + snippet() + html[idx:]
     with open(path, "w", encoding="utf-8") as f:
         f.write(new_html)
     print("  + 已注入:", rel)

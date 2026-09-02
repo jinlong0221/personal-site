@@ -20,6 +20,16 @@
 import os
 import html as htmllib
 
+# ?v 版本号运行时计算，绝不写死（写死必然过期 → 同一资源两种 ?v → CI 红）
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+try:
+    from v_param import css_version as _css_version
+except Exception:
+    _css_version = None
+CSS_V = _css_version() if _css_version else "20260901"
+
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'static', 'marvel.html')
 DONOR = os.path.join(ROOT, 'static', 'herbs.html')
@@ -468,7 +478,7 @@ html{scroll-behavior:smooth}
 <link rel="dns-prefetch" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 __CRITICAL__
-<link rel="stylesheet" href="css/style.css?v=20260901">
+<link rel="stylesheet" href="css/style.css?v=__CSSV__">
 <title>漫威宇宙 · 龙兄观影手账 - 龙兄知识库</title><meta name="description" content="龙兄的漫威观影手账：MCU 上映顺序与故事时间线双轨观影指南、六个阶段的时间线、英雄档案卡、私人评分与冷知识。纯文字与 emoji 呈现，规避版权风险。">
 <meta name="keywords" content="漫威,Marvel,MCU,漫威观影顺序,漫威电影宇宙,复仇者联盟,钢铁侠,美国队长,银河护卫队,观影指南">
 <style>__PAGECSS__</style>
@@ -639,6 +649,7 @@ __SOURCES__
 
     html = (html
             .replace('__CRITICAL__', critical)
+            .replace('__CSSV__', CSS_V)
             .replace('__NAVBAR__', navbar)
             .replace('__FOOTER__', footer)
             .replace('__PAGECSS__', page_css.strip())

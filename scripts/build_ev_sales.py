@@ -30,12 +30,19 @@ DATA = os.path.join(ROOT, 'static', 'ev-sales.json')
 OUT = os.path.join(ROOT, 'static', 'ev-sales.html')
 DONOR = os.path.join(ROOT, 'static', 'ev-charge.html')
 
-# 缓存破坏版本号。本页引用 css/style.css 与 js/ev-sales.js 两个资源，二者的 git
-# 最后改动日不同时会各自不同 —— 所以这里只写一个「初值」，真正的一致性由
-# scripts/sync_v_param.py 负责。重新生成本页之后，必须跑：
-#     python3 scripts/sync_v_param.py --write
-# 否则 guard_v_param.py 会判「同一资源两种版本号」导致 CI 红。
-V = '20260901'
+# 缓存破坏版本号：运行时按资源各自的 git 最后改动日计算，绝不写死。
+# （写死的日期必然过期 → 同一资源两种 ?v → guard_v_param 判 ERROR → CI 红。）
+# 详见 scripts/v_param.py 的说明。
+import sys as _sys
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    from v_param import css_version as _css_version, version_for as _version_for
+except Exception:
+    _css_version = None
+    _version_for = None
+V_CSS = _css_version() if _css_version else datetime.now(timezone(timedelta(hours=8))).strftime('%Y%m%d')
+V_JS = (_version_for('static/js/ev-sales.js')
+        if _version_for else V_CSS)
 
 
 def esc(s):
@@ -600,15 +607,15 @@ def main():
 <script defer src="/js/board-nav.js"></script>
 <script defer src="js/search.js"></script>
 <script defer src="js/app.js"></script>
-<script defer src="js/ev-sales.js?v=%s"></script>
+<script defer src="js/ev-sales.js?v=__VJS__"></script>
 <script defer src="js/share.js"></script>
 <script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
 </body>
 </html>
-""" % V
+""".replace("__VJS__", V_JS)
 
-    out = head + CSS + '\n<link rel="stylesheet" href="css/style.css?v=%s">\n</head>\n\n' % V \
+    out = head + CSS + '\n<link rel="stylesheet" href="css/style.css?v=%s">\n</head>\n\n' % V_CSS \
         + body_head + body + '\n' + footer + '\n' + scripts
 
     with open(OUT, 'w', encoding='utf-8') as f:

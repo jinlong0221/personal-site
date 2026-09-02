@@ -19,6 +19,16 @@ import json
 from collections import OrderedDict
 import html as htmllib
 
+# ?v 版本号运行时计算，绝不写死（写死必然过期 → 同一资源两种 ?v → CI 红）
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+try:
+    from v_param import css_version as _css_version
+except Exception:
+    _css_version = None
+CSS_V = _css_version() if _css_version else "20260901"
+
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'static', 'travel.html')
 DONOR = os.path.join(ROOT, 'static', 'herbs.html')
@@ -714,7 +724,7 @@ def main():
 <link rel="dns-prefetch" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 __CRITICAL__
-<link rel="stylesheet" href="css/style.css?v=20260901">
+<link rel="stylesheet" href="css/style.css?v=__CSSV__">
 <title>足迹 · 家庭旅行 - 龙兄知识库</title><meta name="description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案，按年份记录每一次出行的城市、瞬间与孩子的笑容。">
 <meta name="keywords" content="家庭旅行,亲子游,足迹,带着孩子去旅行,龙兄知识库">
 <style>__PAGECSS__</style>
@@ -848,6 +858,7 @@ __CARDS__
 
     html = (html
             .replace('__CRITICAL__', critical)
+            .replace('__CSSV__', CSS_V)
             .replace('__NAVBAR__', navbar)
             .replace('__FOOTER__', footer)
             .replace('__PAGECSS__', page_css.strip())

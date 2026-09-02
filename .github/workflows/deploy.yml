@@ -194,6 +194,41 @@ jobs:
           user_name: github-actions
           user_email: actions@github.com
 
+      # 同步发布到腾讯云 COS（2026-09-02 新增，可选）
+      #
+      # 为什么要这一棒：站点原本只放在 GitHub Pages，可国内网络到 GitHub Pages
+      # 的 IP 长期不通（2026-09-02 实测：185.199.108~111.153 四个 IP 直连 443，
+      # 三轮重试 0/4 全超时；同一网络下百度、腾讯均正常；GitHub 官方状态页无故障）。
+      # 结果就是国内访客整站打不开，而国外一切正常——很容易误判成"网站挂了"。
+      #
+      # 这里把同一份构建产物额外同步一份到腾讯云，DNS 指过去即可恢复访问。
+      #
+      # 与上面的 GitHub Pages 部署是并存关系，不是替换：
+      #   · 没配 COS 密钥 → 脚本直接跳过并返回 0，现有流程一个字不受影响
+      #   · 配了          → 两边同时更新，将来切 DNS 时零停机
+      #   · 配了一半      → 脚本报错，CI 变红（配置不全必须让人看见，不能假绿）
+      #
+      # 密钥只从仓库 Secrets 读取，不进代码、不进日志。
+      # 配置步骤见 docs/腾讯云搬家手册.md。
+      - name: Sync to Tencent Cloud COS (optional)
+        if: ${{ github.event_name == 'push' }}
+        env:
+          TENCENTCLOUD_SECRET_ID: ${{ secrets.TENCENTCLOUD_SECRET_ID }}
+          TENCENTCLOUD_SECRET_KEY: ${{ secrets.TENCENTCLOUD_SECRET_KEY }}
+          COS_BUCKET: ${{ secrets.COS_BUCKET }}
+          COS_REGION: ${{ secrets.COS_REGION }}
+        run: |
+          # 没启用就别白装 SDK，省几十秒构建时间
+          if [ -z "${TENCENTCLOUD_SECRET_ID}" ] && [ -z "${COS_BUCKET}" ]; then
+            echo "未配置腾讯云 COS 密钥，跳过（现有 GitHub Pages 流程不受影响）"
+            exit 0
+          fi
+          # Ubuntu 新版镜像默认不让往系统 Python 里装包（PEP 668），
+          # 常规装法会直接失败，所以留一条 --break-system-packages 兜底。
+          python3 -m pip install --quiet cos-python-sdk-v5 \
+            || python3 -m pip install --quiet --break-system-packages cos-python-sdk-v5
+          python3 scripts/deploy_cos.py public --delete --workers 16
+
   # 部署后自动推送 sitemap 到搜索引擎（解决"幽灵站"不收录问题）
   # 密钥未配置时对应步骤自动跳过，不会报错；配置方法见提交说明。
   notify-search-engines:

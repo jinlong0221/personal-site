@@ -438,6 +438,36 @@ def main():
 
     result['errors'] = []
 
+    # ---------- 期次一致性闸（关键，防「跨月拼盘」）----------
+    # 同一页会同时展示「自动抓取的渗透率/结构/阵营」与「人工核对的新能源厂商榜」。
+    # 一旦接口翻到新月而人工快照还停在旧月，页面就会变成
+    # 「8 月的渗透率 + 7 月的厂商榜」—— 两种期次的数据混排，读者无从分辨，
+    # 属于实质误导。因此：期次对不上就拒绝写入，保留上一版（上一版内部自洽），
+    # 并明确告知该怎么修。宁可不更新，也不做跨月拼盘。
+    snap_period = str(NEV_MAKER_SNAPSHOT.get('period', '')).strip()
+    m = re.match(r'^(\d{4})年(\d{1,2})月$', snap_period)
+    if not m:
+        sys.stderr.write('[fetch_ev_sales] 快照期次格式无法识别：%r\n' % snap_period)
+        sys.stderr.write('  期望形如「2026年7月」，请检查 NEV_MAKER_SNAPSHOT[\'period\']\n')
+        return 1
+    snap_year, snap_month = int(m.group(1)), int(m.group(2))
+    per = result.get('period') or {}
+    api_year, api_month = int(per.get('year', 0)), int(per.get('latestMonth', 0))
+    if api_year != snap_year or api_month != snap_month:
+        sys.stderr.write(
+            '[fetch_ev_sales] 期次不一致 → 未写入任何文件（保留上一版）：\n'
+            '  接口最新期次：%d年%d月\n'
+            '  人工核对快照：%s\n'
+            '\n'
+            '  新能源厂商榜是人工核对的（官方原文以图片发布、月初快讯为初步数据，\n'
+            '  官网明示不可与历史终稿直接对比），不会随接口自动更新。\n'
+            '  请先在本脚本顶部更新 NEV_MAKER_SNAPSHOT：period / verifiedOn /\n'
+            '  批发榜 / 零售榜 / 各自来源链接，并用批发口径下比亚迪、零跑、特斯拉\n'
+            '  三家纯新能源车企的数字与接口交叉校验通过，再重跑本脚本。\n'
+            '  在快照更新前，站点继续展示上一期完整自洽的数据。\n'
+            % (api_year, api_month, snap_period))
+        return 1
+
     # 新能源厂商榜：人工核对快照（不随接口自动变化，见文件顶部说明）
     result['nevMaker'] = dict(NEV_MAKER_SNAPSHOT)
 

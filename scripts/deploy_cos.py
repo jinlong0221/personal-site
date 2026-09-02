@@ -41,6 +41,7 @@ import argparse
 import hashlib
 import mimetypes
 import os
+import re
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -87,6 +88,54 @@ def build_client(secret_id, secret_key, region):
 
     config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key)
     return CosS3Client(config)
+
+
+def diagnose(args, exc):
+    """把腾讯云 SDK 的报错翻译成人话。
+
+    自己到控制台填配置时，翻车点基本就那几个，可 SDK 甩出来的是一长串 XML，
+    根本看不出哪儿不对。这里对症下药，让 CI 日志直接告诉你该去哪儿改。
+
+    拿不到有效信息时返回空串——宁可不提示，也不瞎猜一个原因误导人。
+    """
+    code = ""
+    getter = getattr(exc, "get_error_code", None)
+    if callable(getter):
+        try:
+            code = (getter() or "").strip()
+        except Exception:
+            code = ""
+    text = f"{code} {type(exc).__name__} {exc}".lower()
+
+    if code == "NoSuchBucket" or "nosuchbucket" in text:
+        return (f"桶在「{args.region}」这个地域下找不到。要么桶名抄错了，"
+                f"要么桶建在了别的地域——COS_REGION 必须和建桶时选的地域一致"
+                f"（香港是 ap-hongkong，上海是 ap-shanghai，广州是 ap-guangzhou）。")
+    if code in ("AccessDenied", "AuthFailure") or "accessdenied" in text:
+        return ("这把钥匙没有访问该桶的权限。去 CAM 控制台给这个子账号挂上 "
+                "COS 的读写权限（QcloudCOSDataFullControl 或 CosFullAccess）。")
+    if code == "SignatureDoesNotMatch" or "signaturedoesnotmatch" in text:
+        return ("SecretId 和 SecretKey 对不上，多半是从两把不同的钥匙各抄了一半。"
+                "这两个值必须来自同一把钥匙。")
+    if "invalidaccesskey" in text or ("secretid" in text and "invalid" in text):
+        return ("SecretId 无效——可能已被删除或禁用。去 CAM 控制台重新建一把钥匙，"
+                "把新的两个值填进来。")
+    if "cosclienterror" in text or "connection" in text or "timeout" in text:
+        return ("连不上腾讯云。GitHub Actions 的机器偶尔抽风，重跑一次就好；"
+                "连续失败再回头查地域填对没有。")
+    return ""
+
+
+def check_bucket_format(bucket):
+    """检查桶名是不是 COS 要求的「桶名-APPID」完整形式。
+
+    这是最常见的填错项：控制台桶列表里显示的是完整名字（site-1258000000），
+    但很容易只抄前半截。缺了 APPID 那一串，SDK 不会给你人话提示，
+    只会甩一长串 XML 出来，白白浪费半天排查。
+    """
+    # 规则：小写字母或数字开头，中间允许小写字母/数字/点/短横线，
+    # 结尾必须是「- 加至少 6 位数字」的 APPID。
+    return re.match(r"^[a-z0-9][a-z0-9.\-]{0,60}-\d{6,}$", bucket) is not None
 
 
 def remote_objects(client, bucket):
@@ -212,6 +261,17 @@ def main(argv=None):
               f" 要么补全配置，要么把已填的那几项也一并去掉（全空即视为不启用）。")
         return 1
 
+    # 先查桶名格式。这一闸特意放在建客户端「之前」：
+    # 桶名格式是纯本地就能判断的事，不该依赖 SDK 装没装。
+    # 否则环境一旦缺 SDK，只会报“未安装 SDK”，把真正的原因（桶名抄错）盖住，
+    # 让人误以为要去装依赖，白白绕远路。
+    if not check_bucket_format(args.bucket):
+        print(f"[deploy_cos] 桶名格式不对：COS_BUCKET 要填「桶名-APPID」的完整形式，")
+        print(f"                          例如 site-1258000000。你现在填的是：{args.bucket!r}")
+        print(f"                          完整名字在 COS 控制台的桶列表里能看到，")
+        print(f"                          结尾那串数字是账号 APPID，不能省。")
+        return 1
+
     try:
         client = build_client(args.secret_id, args.secret_key, args.region)
     except ImportError:
@@ -225,6 +285,9 @@ def main(argv=None):
         remote = remote_objects(client, args.bucket)
     except Exception as e:
         print(f"[deploy_cos] 拉取远端清单失败: {type(e).__name__}: {e}")
+        hint = diagnose(args, e)
+        if hint:
+            print(f"[deploy_cos] 大概率是这个原因 —— {hint}")
         return 1
     print(f"[deploy_cos] 远端对象 {len(remote)} 个")
 

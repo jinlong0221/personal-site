@@ -1,8 +1,9 @@
 /* 新能源车销量排行榜 —— 榜单 Tab 切换
  *
- * 页面上只有两组 Tab：
+ * 页面上有三组 Tab：
  *   第壹节 新能源厂商榜（批发 / 零售）  -> data-evtab
- *   第伍节 乘用车总榜  （批发 / 零售）  -> data-evtab2
+ *   第贰节 新能源车型榜（零售 / 批发）  -> data-evtab3
+ *   第陆节 乘用车总榜  （批发 / 零售）  -> data-evtab2
  *
  * 数据已在服务端静态渲染进 HTML，这里只负责显示/隐藏，不发起任何网络请求。
  * 全部走事件委托，兼容站内 app.js 的 data-act 机制。
@@ -36,6 +37,7 @@
 
   function init() {
     bindTabs('[data-evtab]', { attr: 'data-evtab', ids: { w: 'evp-w', r: 'evp-r' } });
+    bindTabs('[data-evtab3]', { attr: 'data-evtab3', ids: { r: 'evm-r', w: 'evm-w' } });
     bindTabs('[data-evtab2]', { attr: 'data-evtab2', ids: { w: 'evt-w', r: 'evt-r' } });
   }
 

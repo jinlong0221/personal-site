@@ -30,6 +30,10 @@ DATA = os.path.join(ROOT, 'static', 'ev-sales.json')
 OUT = os.path.join(ROOT, 'static', 'ev-sales.html')
 DONOR = os.path.join(ROOT, 'static', 'ev-charge.html')
 
+# 车型级销量（懂车帝接口全自动抓取，与上面的厂商级数据互相独立）。
+# 这个文件拿不到时页面照常生成，只是不出车型榜 —— 绝不因此让整页失败。
+MODEL_DATA = os.path.join(ROOT, 'static', 'ev-model-sales.json')
+
 # 缓存破坏版本号：运行时按资源各自的 git 最后改动日计算，绝不写死。
 # （写死的日期必然过期 → 同一资源两种 ?v → guard_v_param 判 ERROR → CI 红。）
 # 详见 scripts/v_param.py 的说明。
@@ -208,6 +212,106 @@ def api_rank_table(rows, period_label):
             '<tbody>%s</tbody></table></div>' % (th, ''.join(trs)))
 
 
+# ------------------------------------------------------- 车型级销量（懂车帝）
+def load_model_data():
+    """
+    读车型级数据。这个文件是独立抓取的，拿不到/解析失败时返回 None，
+    页面照常生成，只是不出车型榜 —— 绝不因为一个板块失败拖垮整页。
+    """
+    try:
+        with open(MODEL_DATA, encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:                              # noqa: BLE001
+        _sys.stderr.write('[build_ev_sales] 未加载车型级数据（%s），跳过车型榜板块\n' % e)
+        return None
+
+
+def _rank_delta(cur, prev):
+    """名次变化。cur 小 = 上升（好），显示绿色箭头。"""
+    if prev is None or cur is None:
+        return '<td class="vl sub">—</td>'
+    try:
+        c, p = int(cur), int(prev)
+    except (TypeError, ValueError):
+        return '<td class="vl sub">—</td>'
+    if p <= 0:
+        return '<td class="vl sub">新</td>'
+    d = p - c                      # 正数 = 名次前进
+    if d > 0:
+        return '<td class="vl up">↑%d</td>' % d
+    if d < 0:
+        return '<td class="vl down">↓%d</td>' % (-d)
+    return '<td class="vl sub">—</td>'
+
+
+def model_rank_table(rows):
+    """
+    车型销量榜表格。
+
+    两个刻意的设计：
+    1. 同系合计：懂车帝按动力版本分列（如 宋Ultra EV / 宋Ultra DM），
+       单看一条会让人低估该车系。同系的在车型名下补一行"合计 X"，
+       分列数字保持原样不合并 —— 既不撒谎也不误导。
+    2. 名次变化：用接口自带的 last_rank 算，不自己推算。
+    """
+    if not rows:
+        return '<p class="ev-note">暂无数据。</p>'
+    th = ('<tr><th scope="col">排名</th><th scope="col">车型</th>'
+          '<th scope="col">品牌</th><th scope="col">销量</th>'
+          '<th scope="col">名次变化</th><th scope="col">指导价</th></tr>')
+    trs = []
+    shown_groups = set()
+    for r in rows:
+        name = r.get('name') or ''
+        grp = r.get('seriesGroup')
+        grp_html = ''
+        # 同系合计：每个车系只在首次出现的那行显示一次，避免重复刷屏
+        if grp and grp not in shown_groups:
+            shown_groups.add(grp)
+            parts = r.get('seriesGroupParts') or []
+            if len(parts) > 1 and r.get('seriesGroupTotal'):
+                detail = ' ＋ '.join(
+                    '%s %s' % (esc(p.get('name')), '{:,}'.format(p.get('units') or 0))
+                    for p in parts)
+                grp_html = ('<span class="ev-grp">%s 系合计 <b>%s</b> 辆'
+                            '<span class="ev-grp-parts">（%s）</span></span>'
+                            % (esc(grp), '{:,}'.format(r['seriesGroupTotal']), detail))
+        # 车型名：有 seriesId 就链到该平台车型页，方便用户自己核原始页面。
+        # 没有就不链 —— 绝不拼一个打不开的 URL 充数。
+        sid = r.get('seriesId')
+        if sid:
+            name_html = ('<a href="https://www.dongchedi.com/auto/series/%s" '
+                         'target="_blank" rel="noopener noreferrer" '
+                         'title="在懂车帝查看该车型页">%s</a>' % (esc(str(sid)), esc(name)))
+        else:
+            name_html = esc(name)
+        name_cell = '<td class="nm">%s%s</td>' % (name_html, grp_html)
+        trs.append(
+            '<tr><td class="rk">%d</td>%s<td class="bd">%s</td>'
+            '<td class="vl">%s</td>%s<td class="vl sub">%s</td></tr>'
+            % (r.get('rank') or 0, name_cell, esc(r.get('brand') or ''),
+               '{:,}'.format(r['units']) if r.get('units') is not None else '—',
+               _rank_delta(r.get('rank'), r.get('lastRank')),
+               esc(r.get('priceRange') or '—')))
+    return ('<div class="ev-table-wrap"><table class="ev-rank ev-model"><thead>%s</thead>'
+            '<tbody>%s</tbody></table></div>' % (th, ''.join(trs)))
+
+
+def model_source_badge(tier):
+    """
+    来源等级标识。这是本板块最要紧的一处诚实性设计：
+    批发榜的数字能溯源到乘联会终稿，零售榜不能 —— 两者在页面上
+    必须一眼可辨，不能让用户以为它们同样官方。
+    """
+    if tier == 'traceable':
+        return ('<span class="ev-tier ev-tier-traceable" title="车型数字经与乘联会官方'
+                '《全国乘用车市场分析》抽样比对，厂商级加总逐位一致">'
+                '可溯源 · 与乘联会官方数字交叉验证</span>')
+    return ('<span class="ev-tier ev-tier-platform" title="该平台未公开上游数据来源，'
+            '本站按其自身口径如实引用，不与乘联会官方数据混用">'
+            '平台口径 · 上游来源未公开</span>')
+
+
 def build_body(d):
     period = d.get('period') or {}
     nev = d.get('nev') or {}
@@ -300,6 +404,80 @@ def build_body(d):
 
     src = d.get('source') or {}
 
+    # ---- 车型级销量（独立数据源，拿不到就整块不出现）
+    md = load_model_data()
+    model_sec = ''
+    if md:
+        md_period = ((md.get('period') or {}).get('label')) or ''
+        md_rt = md.get('retail') or {}
+        md_ws = md.get('wholesale') or {}
+        md_rt_rows = md_rt.get('rows') or []
+        md_ws_rows = md_ws.get('rows') or []
+
+        # 默认展开哪个：优先零售（反映真实终端交付），零售没数据才退回批发
+        default_tab = 'r' if md_rt_rows else ('w' if md_ws_rows else '')
+        if default_tab:
+            md_cal = md.get('caliber') or {}
+            md_srcs = md.get('source') or []
+            if isinstance(md_srcs, dict):
+                md_srcs = [md_srcs]
+            src_txt = '；'.join(
+                '%s%s' % (esc(s.get('name') or ''),
+                          ('（%s）' % esc(s.get('role'))) if s.get('role') else '')
+                for s in md_srcs) or '懂车帝车型销量榜'
+
+            md_notes = ''.join('<li>%s</li>' % esc(x) for x in (md.get('notes') or []))
+            model_sec = """
+  <section class="ev-sec" id="sec-nev-model">
+    <div class="ev-sec-hd"><span class="ev-sec-no">贰</span><h2>新能源车型销量 TOP50</h2>
+      <span class="ev-sec-tag">{md_period}</span></div>
+    <p class="ev-lead">上面是<b>厂商</b>排行，这一节细到<b>具体车型</b>：哪一款车卖了多少辆、名次比上月涨了还是跌了。
+       批发榜看出货（含出口），零售榜看国内真实上牌，<b>两者成员和排序都不同，不要混着比</b>。</p>
+
+    <div class="ev-tabs" role="tablist">
+      <button class="ev-tab{rt_on}" role="tab" data-evtab3="r" aria-selected="{rt_sel}">零售榜（国内上牌）</button>
+      <button class="ev-tab{ws_on}" role="tab" data-evtab3="w" aria-selected="{ws_sel}">批发榜（含出口）</button>
+    </div>
+
+    <div class="ev-panel{rt_show}" id="evm-r"{rt_hide}>
+      <p class="ev-tier-line">{rt_badge}</p>
+      <p class="ev-panel-note">口径：{rt_cal}。单位：辆。</p>
+      {rt_table}
+      <p class="ev-src">来源：{src_txt} · 抓取时间 {md_time}</p>
+    </div>
+
+    <div class="ev-panel{ws_show}" id="evm-w"{ws_hide}>
+      <p class="ev-tier-line">{ws_badge}</p>
+      <p class="ev-panel-note">口径：{ws_cal}。单位：辆。</p>
+      {ws_table}
+      <p class="ev-src">来源：{src_txt} · 抓取时间 {md_time}</p>
+    </div>
+
+    <details class="ev-fold"><summary>关于这张车型榜，有几件事得先说清楚</summary>
+      <ul class="ev-list">{md_notes}</ul>
+    </details>
+  </section>
+""".format(
+                md_period=esc(md_period),
+                rt_on=' active' if default_tab == 'r' else '',
+                ws_on=' active' if default_tab == 'w' else '',
+                rt_sel='true' if default_tab == 'r' else 'false',
+                ws_sel='true' if default_tab == 'w' else 'false',
+                rt_show=' active' if default_tab == 'r' else '',
+                ws_show=' active' if default_tab == 'w' else '',
+                rt_hide='' if default_tab == 'r' else ' hidden',
+                ws_hide='' if default_tab == 'w' else ' hidden',
+                rt_badge=model_source_badge(md_rt.get('sourceTier')),
+                ws_badge=model_source_badge(md_ws.get('sourceTier')),
+                rt_cal=esc(md_cal.get('零售') or '终端交付/上险口径，不含出口'),
+                ws_cal=esc(md_cal.get('批发') or '厂商出货口径，含出口，不等于终端交付'),
+                rt_table=model_rank_table(md_rt_rows),
+                ws_table=model_rank_table(md_ws_rows),
+                src_txt=src_txt,
+                md_time=esc(md.get('updatedAt') or md.get('updated') or ''),
+                md_notes=md_notes,
+            )
+
     return """
 <main id="main-content" role="main"><div class="page-wrap">
 
@@ -346,9 +524,9 @@ def build_body(d):
       <ul class="ev-list">{notes_html}</ul>
     </details>
   </section>
-
+{model_sec}
   <section class="ev-sec" id="sec-penetration">
-    <div class="ev-sec-hd"><span class="ev-sec-no">贰</span><h2>新能源渗透率走势</h2>
+    <div class="ev-sec-hd"><span class="ev-sec-no">叁</span><h2>新能源渗透率走势</h2>
       <span class="ev-sec-tag">近 12 个月</span></div>
     <p class="ev-lead">新能源车在国内零售中的占比。{pen_txt}</p>
     <div class="ev-chart-box">{chart_pen}</div>
@@ -356,7 +534,7 @@ def build_body(d):
   </section>
 
   <section class="ev-sec" id="sec-structure">
-    <div class="ev-sec-hd"><span class="ev-sec-no">叁</span><h2>纯电 / 插混结构</h2>
+    <div class="ev-sec-hd"><span class="ev-sec-no">肆</span><h2>纯电 / 插混结构</h2>
       <span class="ev-sec-tag">{struct_lb}</span></div>
     <p class="ev-lead">新能源内部的技术路线分布（零售口径）。</p>
     <div class="ev-chart-box">{chart_struct}</div>
@@ -365,7 +543,7 @@ def build_body(d):
   </section>
 
   <section class="ev-sec" id="sec-camp">
-    <div class="ev-sec-hd"><span class="ev-sec-no">肆</span><h2>品牌阵营份额</h2>
+    <div class="ev-sec-hd"><span class="ev-sec-no">伍</span><h2>品牌阵营份额</h2>
       <span class="ev-sec-tag">{camp_lb}</span></div>
     <p class="ev-lead">按国别划分的乘用车零售销量与份额。自主品牌份额 {own_share}，
       合资阵营持续承压。</p>
@@ -374,7 +552,7 @@ def build_body(d):
   </section>
 
   <section class="ev-sec" id="sec-total">
-    <div class="ev-sec-hd"><span class="ev-sec-no">伍</span><h2>乘用车厂商总销量榜</h2>
+    <div class="ev-sec-hd"><span class="ev-sec-no">陆</span><h2>乘用车厂商总销量榜</h2>
       <span class="ev-sec-tag">{mon_label}</span></div>
     <p class="ev-warn"><b>这不是新能源榜。</b>下面这张是<b>全部乘用车</b>（含燃油车）的厂商排名，
       用来对照看各家的基本盘。要看新能源排行请回到页首第壹节。</p>
@@ -389,7 +567,7 @@ def build_body(d):
   </section>
 
   <section class="ev-sec" id="sec-caliber">
-    <div class="ev-sec-hd"><span class="ev-sec-no">陆</span><h2>口径说明与数据来源</h2></div>
+    <div class="ev-sec-hd"><span class="ev-sec-no">柒</span><h2>口径说明与数据来源</h2></div>
     <div class="ev-cal">
       <dl>
         <dt>批发</dt><dd>厂商开给经销商及出口的出货量，<b>含出口</b>，不等于终端实际交付。</dd>
@@ -413,6 +591,7 @@ def build_body(d):
 """.format(
         period_txt='%d年%s' % (y, cum_lb or mon_lb or ''),
         kpis=kpi_html,
+        model_sec=model_sec,
         nm_period=esc(nm.get('period') or ''),
         ws_cal=esc(ws.get('caliber') or ''),
         ws_html=ws_html,
@@ -531,6 +710,33 @@ svg.ev-chart{display:block;width:100%;height:auto;max-width:100%;overflow:visibl
 .ev-list{margin:0;padding:2px 16px 14px 30px;color:var(--text-secondary);font-size:.83rem;line-height:1.85}
 .ev-list li{margin:5px 0}
 
+/* ===== 车型销量榜（第贰节） ===== */
+/* 车型表 6 列，比厂商表密：给车型名列留白、允许换行，窄屏才不至于横向拖 */
+table.ev-model{min-width:300px}
+table.ev-model td.nm{white-space:normal;font-weight:600;line-height:1.45;min-width:104px}
+table.ev-model td.bd{text-align:left;color:var(--text-secondary);font-size:.8rem;white-space:nowrap}
+table.ev-model td.vl{white-space:nowrap}
+
+/* 同系合计：懂车帝按动力版本分列，单看一条会低估整个车系，
+   故在车系首次出现的那行补一行合计，分列数字保持原样不合并 */
+.ev-grp{display:block;margin-top:3px;font-size:.72rem;color:var(--text-muted);
+  line-height:1.5;font-weight:400}
+.ev-grp b{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
+.ev-grp-parts{display:block;color:var(--text-muted);opacity:.85;font-size:.68rem}
+
+/* 来源等级标识：批发能溯源到乘联会终稿、零售不能，两者必须一眼可辨，
+   不能让用户以为这两张榜同样官方 */
+.ev-tier-line{margin:0 0 7px}
+.ev-tier{display:inline-block;font-size:.73rem;line-height:1.5;padding:3px 10px;border-radius:20px;
+  border:1px solid var(--border);cursor:help}
+.ev-tier-traceable{color:#3aa76d;background:rgba(58,167,109,.10);border-color:rgba(58,167,109,.38)}
+.ev-tier-platform{color:var(--text-secondary);background:var(--bg-secondary);
+  border-color:var(--border);border-style:dashed}
+
+/* 车型名外链（懂车帝车型页），仅在有 seriesId 时出现 */
+table.ev-model td.nm a{color:var(--text);text-decoration:none;border-bottom:1px dotted var(--border)}
+table.ev-model td.nm a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+
 @media(max-width:600px){
   .ev-title{font-size:1.35rem}
   .ev-hero{padding:18px 15px;gap:14px}
@@ -542,6 +748,14 @@ svg.ev-chart{display:block;width:100%;height:auto;max-width:100%;overflow:visibl
   table.ev-rank th,table.ev-rank td{padding:8px 6px}
   .ev-cal dl{grid-template-columns:1fr;gap:3px}
   .ev-cal dd{padding-bottom:8px}
+  /* 车型表在窄屏彻底放弃横向滚动：缩字号 + 让车型名换行 */
+  table.ev-model{min-width:0;font-size:.78rem}
+  table.ev-model th,table.ev-model td{padding:7px 4px}
+  table.ev-model td.nm{min-width:0;font-size:.78rem}
+  table.ev-model td.bd{font-size:.72rem;white-space:normal}
+  .ev-grp{font-size:.68rem}
+  .ev-grp-parts{font-size:.64rem}
+  .ev-tier{font-size:.7rem;padding:3px 8px}
 }
 </style>
 """

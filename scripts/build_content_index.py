@@ -41,6 +41,12 @@ EXCLUDE_FILES = {
     "about.html", "changelog.html", "status-history.html", "search.html",
     "tags.html", "tag.html", "404.html", "calendar.html", "index.html",
     "microblog.html", "checklist.html",
+    # 功能性页：PWA 离线兜底
+    "offline.html",
+    # 私密家庭旅行相册（仅家人可见）
+    "travel.html",
+    # iOS App「脚趾抠地」资产：与本站是两套独立资产，不进站内搜索/标签
+    "privacy.html", "shesi-landing.html", "shesi-privacy.html",
 }
 EXCLUDE_PREFIXES = ("admin/", "pagefind/", "js/", "css/", "img/", "data/", "fonts/")
 

@@ -78,7 +78,15 @@
         <div class="lx-epick-media"><span class="lx-epick-brush lx-brush">台</span></div>
         <div class="lx-epick-body">
           <div class="lx-epick-tag">实时 · 射阳影响</div>
-          <div class="lx-epick-title">台风「沙德尔」走向</div>
+          {{/* 台风名不写死：构建时直读 static/typhoon.json（台风自动化每 3 小时更新并推送→触发重建）。
+               读不到就退回「实时」，避免"首页还挂着上一个台风名"的过期问题。 */}}
+          {{- $tyName := "实时" -}}
+          {{- with os.ReadFile "static/typhoon.json" -}}
+            {{- with . | transform.Unmarshal -}}
+              {{- with .name -}}{{- $tyName = . -}}{{- end -}}
+            {{- end -}}
+          {{- end -}}
+          <div class="lx-epick-title">台风「{{ $tyName }}」走向</div>
           <div class="lx-epick-desc">白海豚实时路径图 · 风雨影响与防范要点。</div>
         </div>
       </a>

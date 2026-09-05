@@ -41,6 +41,18 @@
     return 'old';
   }
 
+  // 状态是否过期：手写状态超过 3 天就不再当"今日状态"展示，
+  // 改由 updates.json 的最新板块动态顶上（兑现文件头注释里"过期回退"的承诺）
+  var STATUS_TTL_MS = 3 * 24 * 60 * 60 * 1000;
+  function isStale(data) {
+    if (!data) return true;
+    var ts = data.updatedAt || data.timestamp || '';
+    if (!ts) return false;              // 没有时间戳的老数据不判过期，照常显示
+    var d = new Date(ts);
+    if (isNaN(d.getTime())) return false;
+    return (new Date() - d) > STATUS_TTL_MS;
+  }
+
   // 获取基础路径
   function getBasePath() {
     var base = '';
@@ -163,7 +175,12 @@
       try {
         var data = JSON.parse(embedded.textContent);
         if (data && data.status) {
-          showStatusBubble(data);
+          if (isStale(data)) {
+            // 手写状态超过 3 天：不再冒充"今日状态"，回退到最新板块动态
+            fallbackXhr(base);
+          } else {
+            showStatusBubble(data);
+          }
           loadUpdatesListFromUrl(base); // 近期动态仍从 updates.json 读取
           return;
         }
@@ -180,7 +197,12 @@
 
     statusXhr.onload = function () {
       if (statusXhr.status === 200 && statusXhr.response && statusXhr.response.status) {
-        showStatusBubble(statusXhr.response);
+        if (isStale(statusXhr.response)) {
+          // 手写状态超过 3 天，回退到最新板块动态
+          fallbackXhr(base);
+        } else {
+          showStatusBubble(statusXhr.response);
+        }
       } else {
         // status.json 无数据，回退到 updates.json
         fallbackXhr(base);

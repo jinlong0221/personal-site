@@ -805,6 +805,9 @@
     if (isNaN(dt.getTime())) { el.textContent = d.updated; return; }
     var pad = function (v) { return v < 10 ? '0' + v : '' + v; };
     el.textContent = (dt.getMonth() + 1) + '月' + dt.getDate() + '日 ' + pad(dt.getHours()) + ':' + pad(dt.getMinutes());
+    // 页脚「核验时点」同步填充（历史写死"2026 年 8 月"，与实际数据严重脱节）
+    var vd = document.getElementById('tyfVerifyDate');
+    if (vd) vd.textContent = dt.getFullYear() + ' 年 ' + (dt.getMonth() + 1) + ' 月 ' + dt.getDate() + ' 日 ' + pad(dt.getHours()) + ':' + pad(dt.getMinutes());
   }
 
   /* ============ 折叠块 polyfill：兼容旧版 WebView / 微信，默认强制收起 ============ */

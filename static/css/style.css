@@ -5472,6 +5472,9 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
    （!important 是因为部分页面 main 上有内联 style="padding:40px 20px" 会覆盖普通规则） */
 @media (max-width:768px){
   #main-content{ padding-bottom:calc(124px + env(safe-area-inset-bottom)) !important; }
+  /* 没有 <main> 结构的页面（紫砂详情页 / 游戏页 / 状态历史 等）：
+     直接在 body 上留底部空间，同样避免被右下浮动键遮挡末尾内容 */
+  body.fab-safe{ padding-bottom:calc(124px + env(safe-area-inset-bottom)); }
   /* 首页有底部书签栏 .lx-dock（高约 64px、贴底显示）。把两个浮动键整体上移 64px，
      避免「栏目目录」盖在书签栏右端之上 */
   body:has(.lx-dock) .qt-fab{ bottom:calc(82px + env(safe-area-inset-bottom)); }

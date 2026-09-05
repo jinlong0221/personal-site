@@ -21,8 +21,14 @@ OUT = os.path.join(BASE, 'data', 'sitemap_extra.json')
 EXCLUDE = {
     '404.html',        # 错误页
     'search.html',     # 站内搜索结果页（无独立内容价值）
+    'offline.html',    # PWA 离线兜底页（无内容价值）
     'travel.html',     # 私密家庭旅行相册（仅家人可见，不收录）
     'console.html.bak',
+    # iOS App「脚趾抠地」资产：与 longxiong.vip 是两套独立资产，
+    # 不进本站 sitemap / 搜索索引（隐私政策应独立托管）
+    'privacy.html',
+    'shesi-landing.html',
+    'shesi-privacy.html',
 }
 EXCLUDE_DIRS = {'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
 

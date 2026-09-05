@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP）。本站基线 + 高德/腾讯两家地图所需域名。
+     注意：本页 script-src 额外放开了 unsafe-eval，因为高德地图 JS 组件内部用 eval/Function 动态构造代码，
+     不放开则定位插件与检索组件加载不出来（实测报 EvalError）。仅本页放开，不影响站内其他页面。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info https://map.qq.com https://apis.map.qq.com https://webapi.amap.com https://*.amap.com; style-src 'self' 'unsafe-inline' https://map.qq.com https://webapi.amap.com https://*.amap.com; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com https://*.map.qq.com https://*.gtimg.com https://map.qq.com https://*.qq.com https://webapi.amap.com https://*.amap.com https://*.autonavi.com https://longxiong.vip; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://apis.map.qq.com https://*.map.qq.com https://*.gtimg.com https://*.qq.com https://restapi.amap.com https://*.amap.com https://*.autonavi.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; worker-src 'self' blob:">
+<!-- 安全加固②：Referrer 策略 -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>新能源车销量排行榜｜厂商 TOP10 · 渗透率走势｜龙兄知识库</title>
+<meta name="keywords" content="新能源汽车销量排行,新能源厂商销量TOP10,电动车销量榜,新能源渗透率,乘联会,比亚迪销量,特斯拉销量,理想蔚来小鹏销量,龙兄知识库">
+
+<meta name="description" content="新能源乘用车厂商销量排行榜：批发与零售双口径 TOP10、新能源渗透率走势、纯电插混结构、品牌阵营份额。数据取自乘联会官方接口并交叉核验，口径标注清晰，不混淆批发与零售。">
+
+<!-- 文章标签（手动维护） -->
+<meta name="article-category" content="数据榜单">
+<meta name="article-tags" content="新能源汽车,销量排行,乘联会,渗透率,数据榜单">
+<meta name="article-updated" content="2026-09-02">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><link rel="dns-prefetch" href="https://map.qq.com">
+<link rel="dns-prefetch" href="https://apis.map.qq.com">
+<link rel="dns-prefetch" href="https://webapi.amap.com">
+<link rel="dns-prefetch" href="https://restapi.amap.com">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.page-wrap{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.page-header{padding:32px 0 20px;text-align:center}
+.page-header h1{font-size:2rem;color:var(--gold);margin-bottom:8px}
+.subtitle{color:var(--text-secondary);font-size:.95rem}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.page-header h1{font-size:1.4rem}}
+</style>
+
+<style>
+/* ===== 新能源销量榜专属样式（国风黑金） ===== */
+.ev-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:24px 22px;margin:18px 0 14px;background:var(--card);border:1px solid var(--border);
+  border-radius:16px;position:relative;overflow:hidden}
+.ev-hero::after{content:'';position:absolute;right:-46px;top:-46px;width:170px;height:170px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.13),transparent 70%);pointer-events:none}
+.ev-hero-left{display:flex;align-items:center;gap:14px;min-width:0}
+.ev-hero-badge{flex:0 0 48px;width:48px;height:48px;border-radius:14px;display:flex;align-items:center;
+  justify-content:center;font-size:1.5rem;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.28)}
+.ev-title{font-size:1.7rem;color:var(--gold);letter-spacing:1px;line-height:1.2;margin:0}
+.ev-sub{color:var(--text-secondary);font-size:.86rem;margin-top:4px}
+.ev-stats{display:flex;gap:10px;flex-wrap:wrap}
+.ev-stat{flex:1 1 96px;min-width:96px;text-align:center;padding:10px 8px;background:var(--bg-secondary);
+  border:1px solid var(--border);border-radius:10px}
+.ev-stat b{display:block;font-size:1.28rem;color:var(--gold);font-weight:800;line-height:1.15;
+  word-break:break-all}
+.ev-stat-lb{display:block;font-size:.74rem;color:var(--text-secondary);margin-top:3px}
+.ev-stat-sub{display:block;font-size:.66rem;color:var(--text-muted);margin-top:2px;line-height:1.35}
+
+.ev-sec{margin:26px 0;padding:20px 18px;background:var(--card);border:1px solid var(--border);border-radius:14px}
+.ev-sec-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;
+  padding-bottom:9px;border-bottom:1px solid var(--border)}
+.ev-sec-no{flex:0 0 auto;width:26px;height:26px;border-radius:7px;display:flex;align-items:center;
+  justify-content:center;font-size:.82rem;color:#111;background:var(--gold);font-weight:700}
+.ev-sec-hd h2{font-size:1.12rem;color:var(--text);margin:0;flex:1 1 auto}
+.ev-sec-tag{font-size:.72rem;color:var(--text-muted);border:1px solid var(--border);
+  border-radius:20px;padding:2px 10px}
+.ev-lead{color:var(--text-secondary);font-size:.88rem;line-height:1.75;margin:0 0 12px}
+.ev-lead b{color:var(--gold)}
+.ev-note{color:var(--text-muted);font-size:.79rem;line-height:1.7;margin:9px 0 0}
+.ev-note b{color:var(--text-secondary)}
+.ev-warn{background:rgba(193,64,64,.09);border:1px solid rgba(193,64,64,.3);border-radius:9px;
+  padding:10px 13px;color:var(--text-secondary);font-size:.83rem;line-height:1.7;margin:0 0 13px}
+.ev-warn b{color:var(--cinnabar)}
+.ev-src{color:var(--text-muted);font-size:.76rem;margin-top:10px;line-height:1.7}
+.ev-src a{color:var(--blue-light)}
+.ev-unit{color:var(--text-muted);font-size:.73rem;margin-top:5px;text-align:right}
+
+.ev-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.ev-tab{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);
+  border-radius:9px;padding:8px 15px;font-size:.84rem;cursor:pointer;min-height:38px;
+  transition:all .18s ease}
+.ev-tab:hover{border-color:var(--gold);color:var(--gold)}
+.ev-tab.active{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
+.ev-panel{display:none}
+.ev-panel.active{display:block}
+.ev-panel-note{color:var(--text-muted);font-size:.78rem;margin:0 0 8px;padding-left:9px;
+  border-left:3px solid var(--gold)}
+
+.ev-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px}
+table.ev-rank{width:100%;border-collapse:collapse;font-size:.85rem;min-width:320px}
+table.ev-rank th{background:var(--bg-secondary);color:var(--text-secondary);font-weight:600;
+  font-size:.76rem;text-align:right;padding:9px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+table.ev-rank th:first-child,table.ev-rank th:nth-child(2){text-align:left}
+table.ev-rank td{padding:9px 10px;border-bottom:1px solid var(--border);text-align:right;
+  color:var(--text);vertical-align:middle}
+table.ev-rank td.nm{text-align:left;font-weight:600;white-space:nowrap}
+table.ev-rank td.rk{text-align:center;color:var(--text-muted);font-size:.78rem;width:38px}
+table.ev-rank td.rk::before{content:none}
+table.ev-rank tbody tr:nth-child(1) td.rk{color:var(--gold);font-weight:800}
+table.ev-rank tbody tr:nth-child(2) td.rk,table.ev-rank tbody tr:nth-child(3) td.rk{color:var(--gold);font-weight:700}
+table.ev-rank td.vl{font-variant-numeric:tabular-nums;font-weight:600}
+table.ev-rank td.vl.sub{color:var(--text-muted);font-weight:400;font-size:.8rem}
+table.ev-rank td.up{color:#e04b4b;font-weight:600;font-variant-numeric:tabular-nums}
+table.ev-rank td.down{color:#3aa76d;font-weight:600;font-variant-numeric:tabular-nums}
+table.ev-rank td.flat{color:var(--text-muted);font-variant-numeric:tabular-nums}
+
+.ev-chart-box{margin:6px 0 0;color:var(--text)}
+svg.ev-chart{display:block;width:100%;height:auto;max-width:100%;overflow:visible}
+.ev-chart text{font-family:inherit}
+
+.ev-cal{margin:4px 0 12px}
+.ev-cal dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
+.ev-cal dt{color:var(--gold);font-size:.83rem;font-weight:600;white-space:nowrap}
+.ev-cal dd{margin:0;color:var(--text-secondary);font-size:.83rem;line-height:1.7}
+.ev-cal dd b{color:var(--text)}
+
+.ev-fold{margin:14px 0 0;border:1px solid var(--border);border-radius:9px;background:var(--bg-secondary)}
+.ev-fold summary{cursor:pointer;padding:10px 14px;font-size:.84rem;color:var(--text-secondary);
+  list-style:none;display:flex;align-items:center;gap:7px;min-height:40px}
+.ev-fold summary::-webkit-details-marker{display:none}
+.ev-fold summary::before{content:'▸';color:var(--gold);font-size:.8rem;transition:transform .18s}
+.ev-fold[open] summary::before{transform:rotate(90deg)}
+.ev-list{margin:0;padding:2px 16px 14px 30px;color:var(--text-secondary);font-size:.83rem;line-height:1.85}
+.ev-list li{margin:5px 0}
+
+/* ===== 车型销量榜（第贰节） ===== */
+/* 车型表 6 列，比厂商表密：给车型名列留白、允许换行，窄屏才不至于横向拖 */
+table.ev-model{min-width:300px}
+table.ev-model td.nm{white-space:normal;font-weight:600;line-height:1.45;min-width:104px}
+table.ev-model td.bd{text-align:left;color:var(--text-secondary);font-size:.8rem;white-space:nowrap}
+table.ev-model td.vl{white-space:nowrap}
+
+/* 同系合计：懂车帝按动力版本分列，单看一条会低估整个车系，
+   故在车系首次出现的那行补一行合计，分列数字保持原样不合并 */
+.ev-grp{display:block;margin-top:3px;font-size:.72rem;color:var(--text-muted);
+  line-height:1.5;font-weight:400}
+.ev-grp b{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
+.ev-grp-parts{display:block;color:var(--text-muted);opacity:.85;font-size:.68rem}
+
+/* 来源等级标识：批发能溯源到乘联会终稿、零售不能，两者必须一眼可辨，
+   不能让用户以为这两张榜同样官方 */
+.ev-tier-line{margin:0 0 7px}
+.ev-tier{display:inline-block;font-size:.73rem;line-height:1.5;padding:3px 10px;border-radius:20px;
+  border:1px solid var(--border);cursor:help}
+.ev-tier-traceable{color:#3aa76d;background:rgba(58,167,109,.10);border-color:rgba(58,167,109,.38)}
+.ev-tier-platform{color:var(--text-secondary);background:var(--bg-secondary);
+  border-color:var(--border);border-style:dashed}
+
+/* 车型名外链（懂车帝车型页），仅在有 seriesId 时出现 */
+table.ev-model td.nm a{color:var(--text);text-decoration:none;border-bottom:1px dotted var(--border)}
+table.ev-model td.nm a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+
+@media(max-width:600px){
+  .ev-title{font-size:1.35rem}
+  .ev-hero{padding:18px 15px;gap:14px}
+  .ev-stat{flex:1 1 76px;min-width:76px;padding:9px 5px}
+  .ev-stat b{font-size:1.05rem}
+  .ev-sec{padding:16px 13px;border-radius:12px}
+  .ev-sec-hd h2{font-size:1rem}
+  table.ev-rank{font-size:.8rem}
+  table.ev-rank th,table.ev-rank td{padding:8px 6px}
+  .ev-cal dl{grid-template-columns:1fr;gap:3px}
+  .ev-cal dd{padding-bottom:8px}
+  /* 车型表在窄屏彻底放弃横向滚动：缩字号 + 让车型名换行 */
+  table.ev-model{min-width:0;font-size:.78rem}
+  table.ev-model th,table.ev-model td{padding:7px 4px}
+  table.ev-model td.nm{min-width:0;font-size:.78rem}
+  table.ev-model td.bd{font-size:.72rem;white-space:normal}
+  .ev-grp{font-size:.68rem}
+  .ev-grp-parts{font-size:.64rem}
+  .ev-tier{font-size:.7rem;padding:3px 8px}
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css?v=hf6eb856b4355" integrity="sha384-kEj87zyOMAnIVEKGoF9yOHFkhcEtaNi94BzaFAvzehjVhvHwfu871PKnEjHvKIVF" crossorigin="anonymous">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip/",
+      "description": "AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、中药养生茶、特斯拉动态新闻、射阳天气等实用内容。",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://longxiong.vip/search.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "新能源车销量排行榜｜厂商 TOP10 · 渗透率走势｜龙兄知识库",
+      "description": "新能源乘用车厂商销量排行榜：批发与零售双口径 TOP10、新能源渗透率走势、纯电插混结构、品牌阵营份额。数据取自乘联会官方接口并交叉核验，口径标注清晰，不混淆批发与零售。",
+      "url": "https://longxiong.vip/ev-sales.html",
+      "author": {
+        "@type": "Person",
+        "name": "龙兄"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "龙兄知识库"
+      }
+    }
+  ]
+}
+</script>
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li><a href="ev-sales.html" class="active">销量排行</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+    <a href="ev-sales.html">销量排行</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+
+<main id="main-content" role="main"><div class="page-wrap">
+
+  <header class="ev-hero">
+    <div class="ev-hero-left">
+      <div class="ev-hero-badge" aria-hidden="true">📊</div>
+      <div class="ev-hero-txt">
+        <h1 class="ev-title">新能源车销量排行榜</h1>
+        <p class="ev-sub">乘联会官方数据 · 批发与零售双口径 · 数据截至 2026年1-7月</p>
+      </div>
+    </div>
+    <div class="ev-stats"><div class="ev-stat"><b>65.1%</b><span class="ev-stat-lb">新能源零售渗透率</span><span class="ev-stat-sub">7月 国内零售，创阶段新高</span></div><div class="ev-stat"><b>95.13 万</b><span class="ev-stat-lb">新能源零售</span><span class="ev-stat-sub">辆，7月 国内零售（上险量）</span></div><div class="ev-stat"><b>144.57 万</b><span class="ev-stat-lb">新能源批发</span><span class="ev-stat-sub">辆，含出口</span></div><div class="ev-stat"><b>91.83 万</b><span class="ev-stat-lb">乘用车出口</span><span class="ev-stat-sub">辆，7月</span></div><div class="ev-stat"><b>71.1%</b><span class="ev-stat-lb">自主品牌份额</span><span class="ev-stat-sub">国内零售口径</span></div></div>
+  </header>
+
+  <section class="ev-sec" id="sec-nev-maker">
+    <div class="ev-sec-hd"><span class="ev-sec-no">壹</span><h2>新能源厂商销量 TOP10</h2>
+      <span class="ev-sec-tag">2026年7月</span></div>
+    <p class="ev-lead">这是本页的核心榜单：<b>新能源乘用车</b>厂商排行。批发榜看出货（含出口），
+      零售榜看国内真实上牌，两者成员差异很大，合起来看才完整。</p>
+
+    <div class="ev-tabs" role="tablist">
+      <button class="ev-tab active" role="tab" data-evtab="w" aria-selected="true">批发榜（含出口）</button>
+      <button class="ev-tab" role="tab" data-evtab="r" aria-selected="false">零售榜（国内上牌）</button>
+    </div>
+
+    <div class="ev-panel active" id="evp-w">
+      <p class="ev-panel-note">口径：狭义乘用车批发销量（含出口，非终端交付）</p>
+      <div class="ev-table-wrap"><table class="ev-rank"><thead><tr><th scope="col">排名</th><th scope="col">厂商</th><th scope="col">当月销量</th><th scope="col">本年累计</th><th scope="col">同比</th></tr></thead><tbody><tr><td class="rk">1</td><td class="nm">比亚迪汽车</td><td class="vl">410,612</td><td class="vl sub">2,187,987</td><td class="up">+20.40%</td></tr><tr><td class="rk">2</td><td class="nm">吉利汽车</td><td class="vl">163,678</td><td class="vl sub">1,713,591</td><td class="down">-32.85%</td></tr><tr><td class="rk">3</td><td class="nm">奇瑞汽车</td><td class="vl">108,014</td><td class="vl sub">1,427,119</td><td class="down">-48.58%</td></tr><tr><td class="rk">4</td><td class="nm">零跑汽车</td><td class="vl">101,267</td><td class="vl sub">457,754</td><td class="up">+102.01%</td></tr><tr><td class="rk">5</td><td class="nm">特斯拉汽车</td><td class="vl">93,579</td><td class="vl sub">561,528</td><td class="up">+37.85%</td></tr><tr><td class="rk">6</td><td class="nm">上汽通用五菱</td><td class="vl">61,539</td><td class="vl sub">494,434</td><td class="down">-20.30%</td></tr><tr><td class="rk">7</td><td class="nm">长安汽车</td><td class="vl">60,977</td><td class="vl sub">722,387</td><td class="down">-55.32%</td></tr><tr><td class="rk">8</td><td class="nm">上汽乘用车</td><td class="vl">59,406</td><td class="vl sub">701,568</td><td class="down">-17.26%</td></tr><tr><td class="rk">9</td><td class="nm">长城汽车</td><td class="vl">40,140</td><td class="vl sub">582,891</td><td class="down">-55.69%</td></tr><tr><td class="rk">10</td><td class="nm">小鹏汽车</td><td class="vl">38,027</td><td class="vl sub">204,004</td><td class="up">+3.57%</td></tr></tbody></table></div><p class="ev-unit">单位：辆</p>
+      <p class="ev-src">来源：<a href="https://m.gasgoo.com/qcxl/article/81426.html" target="_blank" rel="noopener noreferrer">盖世汽车（转载乘联会终稿数据）</a>
+        （转载乘联会终稿数据）· 人工核对日期 2026-09-02</p>
+    </div>
+
+    <div class="ev-panel" id="evp-r" hidden>
+      <p class="ev-panel-note">口径：国内零售口径（上牌/开票，不含出口）</p>
+      <div class="ev-table-wrap"><table class="ev-rank"><thead><tr><th scope="col">排名</th><th scope="col">厂商</th><th scope="col">当月销量</th><th scope="col">同比</th></tr></thead><tbody><tr><td class="rk">1</td><td class="nm">比亚迪汽车</td><td class="vl">223,461</td><td class="down">-0.45%</td></tr><tr><td class="rk">2</td><td class="nm">吉利汽车</td><td class="vl">105,526</td><td class="down">-2.30%</td></tr><tr><td class="rk">3</td><td class="nm">零跑汽车</td><td class="vl">83,698</td><td class="up">+15.60%</td></tr><tr><td class="rk">4</td><td class="nm">长安汽车</td><td class="vl">59,907</td><td class="flat">—</td></tr><tr><td class="rk">5</td><td class="nm">上汽通用五菱</td><td class="vl">48,967</td><td class="flat">—</td></tr><tr><td class="rk">6</td><td class="nm">鸿蒙智行</td><td class="vl">45,422</td><td class="flat">—</td></tr><tr><td class="rk">7</td><td class="nm">奇瑞汽车</td><td class="vl">39,079</td><td class="flat">—</td></tr><tr><td class="rk">8</td><td class="nm">蔚来汽车</td><td class="vl">35,842</td><td class="flat">—</td></tr><tr><td class="rk">9</td><td class="nm">上汽乘用车</td><td class="vl">31,471</td><td class="flat">—</td></tr><tr><td class="rk">10</td><td class="nm">小米汽车</td><td class="vl">31,267</td><td class="flat">—</td></tr></tbody></table></div><p class="ev-unit">单位：辆</p>
+      <p class="ev-src">来源：<a href="https://auto.news18a.com/news/storys_285699.html" target="_blank" rel="noopener noreferrer">网通社汽车（转载乘联会）、新浪汽车</a>
+        、<a href="https://www.sina.cn/gc/article/ninhait2961667.html" target="_blank" rel="noopener noreferrer">新浪汽车</a>
+        （均转载乘联会数据，两家报道逐位比对一致）· 人工核对日期 2026-09-02</p>
+    </div>
+
+    <details class="ev-fold"><summary>数据交叉校验记录（3 条）</summary><ul class="ev-list"><li>交叉校验通过 比亚迪汽车：接口 410612 辆 ≈ 快照 410612 辆</li><li>交叉校验通过 零跑汽车：接口 101267 辆 ≈ 快照 101267 辆</li><li>交叉校验通过 特斯拉汽车：接口 93579 辆 ≈ 快照 93579 辆</li></ul></details>
+
+    <details class="ev-fold"><summary>关于这两张榜的几点说明</summary>
+      <ul class="ev-list"><li>批发榜与零售榜成员差异很大，这是正常的：批发含出口，零售只算国内上牌。</li><li>小鹏 7月全球交付 38,027 辆，但其中近 1 万辆来自出口，国内零售仅 28,327 辆，故未进零售榜前十。</li><li>蔚来、小米只出现在零售榜而未进批发榜前十，是两家媒体各自榜单口径与名单长度不同所致，非数据矛盾。</li></ul>
+    </details>
+  </section>
+
+  <section class="ev-sec" id="sec-nev-model">
+    <div class="ev-sec-hd"><span class="ev-sec-no">贰</span><h2>新能源车型销量 TOP50</h2>
+      <span class="ev-sec-tag">2026年7月</span></div>
+    <p class="ev-lead">上面是<b>厂商</b>排行，这一节细到<b>具体车型</b>：哪一款车卖了多少辆、名次比上月涨了还是跌了。
+       批发榜看出货（含出口），零售榜看国内真实上牌，<b>两者成员和排序都不同，不要混着比</b>。</p>
+
+    <div class="ev-tabs" role="tablist">
+      <button class="ev-tab active" role="tab" data-evtab3="r" aria-selected="true">零售榜（国内上牌）</button>
+      <button class="ev-tab" role="tab" data-evtab3="w" aria-selected="false">批发榜（含出口）</button>
+    </div>
+
+    <div class="ev-panel active" id="evm-r">
+      <p class="ev-tier-line"><span class="ev-tier ev-tier-platform" title="该平台未公开上游数据来源，本站按其自身口径如实引用，不与乘联会官方数据混用">平台口径 · 上游来源未公开</span></p>
+      <p class="ev-panel-note">口径：终端销量（上牌/上险），反映真实需求。单位：辆。</p>
+      <div class="ev-table-wrap"><table class="ev-rank ev-model"><thead><tr><th scope="col">排名</th><th scope="col">车型</th><th scope="col">品牌</th><th scope="col">销量</th><th scope="col">名次变化</th><th scope="col">指导价</th></tr></thead><tbody><tr><td class="rk">1</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/20154" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">星愿</a></td><td class="bd">吉利银河</td><td class="vl">32,306</td><td class="vl up">↑1</td><td class="vl sub">5.98-9.18万</td></tr><tr><td class="rk">2</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9267" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑A10</a></td><td class="bd">零跑汽车</td><td class="vl">26,424</td><td class="vl up">↑1</td><td class="vl sub">6.58-8.68万</td></tr><tr><td class="rk">3</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/4363" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">Model Y</a></td><td class="bd">特斯拉</td><td class="vl">25,158</td><td class="vl down">↓2</td><td class="vl sub">26.35-31.35万</td></tr><tr><td class="rk">4</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/6187" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">小米SU7</a></td><td class="bd">小米汽车</td><td class="vl">21,044</td><td class="vl up">↑1</td><td class="vl sub">21.99-30.39万</td></tr><tr><td class="rk">5</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9689" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">元UP</a></td><td class="bd">比亚迪</td><td class="vl">20,275</td><td class="vl up">↑2</td><td class="vl sub">6.78-10.28万</td></tr><tr><td class="rk">6</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25634" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">长安启源Q05</a></td><td class="bd">长安启源</td><td class="vl">18,871</td><td class="vl sub">—</td><td class="vl sub">6.99-10.99万</td></tr><tr><td class="rk">7</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25557" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">理想i6</a></td><td class="bd">理想汽车</td><td class="vl">15,420</td><td class="vl down">↓3</td><td class="vl sub">24.98-26.98万</td></tr><tr><td class="rk">8</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5008" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海豚</a></td><td class="bd">比亚迪</td><td class="vl">13,910</td><td class="vl up">↑13</td><td class="vl sub">9.18-11.78万</td></tr><tr><td class="rk">9</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/3504" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">宋Pro DM</a></td><td class="bd">比亚迪</td><td class="vl">13,757</td><td class="vl down">↓1</td><td class="vl sub">9.58-12.99万</td></tr><tr><td class="rk">10</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5828" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">MG4</a></td><td class="bd">MG</td><td class="vl">13,157</td><td class="vl up">↑5</td><td class="vl sub">6.58-9.58万</td></tr><tr><td class="rk">11</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/26039" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">缤果Pro</a></td><td class="bd">五菱汽车</td><td class="vl">12,225</td><td class="vl up">↑8</td><td class="vl sub">5.68-7.08万</td></tr><tr><td class="rk">12</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25643" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">AION i60</a></td><td class="bd">埃安</td><td class="vl">11,186</td><td class="vl up">↑32</td><td class="vl sub">9.88-12.78万</td></tr><tr><td class="rk">13</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25559" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">钛7 PHEV</a><span class="ev-grp">钛7 系合计 <b>20,320</b> 辆<span class="ev-grp-parts">（钛7 PHEV 10,820 ＋ 钛7 EV 9,500）</span></span></td><td class="bd">方程豹</td><td class="vl">10,820</td><td class="vl down">↓1</td><td class="vl sub">17.98-22.58万</td></tr><tr><td class="rk">14</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25678" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">QQ3 EV</a></td><td class="bd">奇瑞QQ</td><td class="vl">10,780</td><td class="vl up">↑25</td><td class="vl sub">5.59-7.59万</td></tr><tr><td class="rk">15</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/4499" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">五菱宏光MINIEV</a></td><td class="bd">五菱汽车</td><td class="vl">10,458</td><td class="vl up">↑10</td><td class="vl sub">3.28-5.28万</td></tr><tr><td class="rk">16</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/1616" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">蔚来ES8</a></td><td class="bd">蔚来</td><td class="vl">10,284</td><td class="vl up">↑32</td><td class="vl sub">38.28-44.68万</td></tr><tr><td class="rk">17</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/10170" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">小鹏MONA M03</a></td><td class="bd">小鹏汽车</td><td class="vl">10,237</td><td class="vl up">↑1</td><td class="vl sub">11.98-15.18万</td></tr><tr><td class="rk">18</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/20041" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">小米YU7</a></td><td class="bd">小米汽车</td><td class="vl">10,223</td><td class="vl down">↓2</td><td class="vl sub">23.35-38.99万</td></tr><tr><td class="rk">19</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9307" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑C10</a></td><td class="bd">零跑汽车</td><td class="vl">10,053</td><td class="vl down">↓6</td><td class="vl sub">11.58-14.28万</td></tr><tr><td class="rk">20</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25718" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑D19</a></td><td class="bd">零跑汽车</td><td class="vl">10,043</td><td class="vl up">↑33</td><td class="vl sub">21.98-26.98万</td></tr><tr><td class="rk">21</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/6325" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">问界M9</a></td><td class="bd">AITO问界</td><td class="vl">9,639</td><td class="vl up">↑20</td><td class="vl sub">47.98-65.98万</td></tr><tr><td class="rk">22</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25994" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">钛7 EV</a></td><td class="bd">方程豹</td><td class="vl">9,500</td><td class="vl up">↑91</td><td class="vl sub">19.98-23.98万</td></tr><tr><td class="rk">23</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5248" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">元PLUS</a></td><td class="bd">比亚迪</td><td class="vl">9,246</td><td class="vl up">↑73</td><td class="vl sub">10.98-14.99万</td></tr><tr><td class="rk">24</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/8987" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">铂智3X</a></td><td class="bd">丰田</td><td class="vl">9,010</td><td class="vl up">↑34</td><td class="vl sub">9.48-14.48万</td></tr><tr><td class="rk">25</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25886" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">智界V9</a></td><td class="bd">智界</td><td class="vl">8,974</td><td class="vl up">↑112</td><td class="vl sub">38.98-51.98万</td></tr><tr><td class="rk">26</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25400" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海狮06EV</a><span class="ev-grp">海狮06 系合计 <b>15,395</b> 辆<span class="ev-grp-parts">（海狮06EV 8,892 ＋ 海狮06DM 6,503）</span></span></td><td class="bd">比亚迪</td><td class="vl">8,892</td><td class="vl up">↑3</td><td class="vl sub">14.38-17.99万</td></tr><tr><td class="rk">27</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5952" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海鸥</a></td><td class="bd">比亚迪</td><td class="vl">8,879</td><td class="vl up">↑16</td><td class="vl sub">6.08-7.99万</td></tr><tr><td class="rk">28</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9268" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑B10</a></td><td class="bd">零跑汽车</td><td class="vl">8,731</td><td class="vl up">↑125</td><td class="vl sub">9.28-12.58万</td></tr><tr><td class="rk">29</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25401" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">极狐 贝塔T1</a></td><td class="bd">ARCFOX极狐</td><td class="vl">8,628</td><td class="vl up">↑35</td><td class="vl sub">5.98-8.68万</td></tr><tr><td class="rk">30</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25139" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海狮05EV</a><span class="ev-grp">海狮05 系合计 <b>15,601</b> 辆<span class="ev-grp-parts">（海狮05EV 8,088 ＋ 海狮05DM 7,513）</span></span></td><td class="bd">比亚迪</td><td class="vl">8,088</td><td class="vl up">↑32</td><td class="vl sub">11.78-14.59万</td></tr><tr><td class="rk">31</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25172" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">ZEEKR 007GT</a></td><td class="bd">极氪</td><td class="vl">7,691</td><td class="vl up">↑28</td><td class="vl sub">20.29-25.29万</td></tr><tr><td class="rk">32</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25922" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">宋Ultra EV</a><span class="ev-grp">宋Ultra 系合计 <b>13,955</b> 辆<span class="ev-grp-parts">（宋Ultra EV 7,661 ＋ 宋Ultra DM 6,294）</span></span></td><td class="bd">比亚迪</td><td class="vl">7,661</td><td class="vl up">↑20</td><td class="vl sub">15.19-17.99万</td></tr><tr><td class="rk">33</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5859" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">长安Lumin</a></td><td class="bd">长安启源</td><td class="vl">7,596</td><td class="vl up">↑187</td><td class="vl sub">3.69-6.19万</td></tr><tr><td class="rk">34</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/4802" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">秦PLUS DM</a></td><td class="bd">比亚迪</td><td class="vl">7,568</td><td class="vl up">↑1</td><td class="vl sub">6.78-9.48万</td></tr><tr><td class="rk">35</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/20138" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海狮05DM</a></td><td class="bd">比亚迪</td><td class="vl">7,513</td><td class="vl down">↓4</td><td class="vl sub">9.58-12.79万</td></tr><tr><td class="rk">36</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25628" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">深蓝L06</a></td><td class="bd">深蓝汽车</td><td class="vl">7,258</td><td class="vl up">↑19</td><td class="vl sub">11.89-14.99万</td></tr><tr><td class="rk">37</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25695" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">华境S</a></td><td class="bd">华境</td><td class="vl">7,203</td><td class="vl up">↑56</td><td class="vl sub">14.98-19.38万</td></tr><tr><td class="rk">38</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/10213" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">深蓝S05</a></td><td class="bd">深蓝汽车</td><td class="vl">7,059</td><td class="vl down">↓12</td><td class="vl sub">11.59-14.49万</td></tr><tr><td class="rk">39</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25621" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">小鹏GX</a></td><td class="bd">小鹏汽车</td><td class="vl">7,016</td><td class="vl up">↑35</td><td class="vl sub">26.98-34.98万</td></tr><tr><td class="rk">40</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/4731" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑C11</a></td><td class="bd">零跑汽车</td><td class="vl">6,996</td><td class="vl up">↑35</td><td class="vl sub">14.08-15.98万</td></tr><tr><td class="rk">41</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25573" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">极狐 贝塔S3</a></td><td class="bd">ARCFOX极狐</td><td class="vl">6,941</td><td class="vl up">↑20</td><td class="vl sub">8.08-12.18万</td></tr><tr><td class="rk">42</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9266" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑B01</a></td><td class="bd">零跑汽车</td><td class="vl">6,930</td><td class="vl up">↑99</td><td class="vl sub">8.98-11.98万</td></tr><tr><td class="rk">43</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25399" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海狮06DM</a></td><td class="bd">比亚迪</td><td class="vl">6,503</td><td class="vl up">↑57</td><td class="vl sub">12.99-15.99万</td></tr><tr><td class="rk">44</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/10125" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑C16</a></td><td class="bd">零跑汽车</td><td class="vl">6,462</td><td class="vl up">↑39</td><td class="vl sub">14.08-17.08万</td></tr><tr><td class="rk">45</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9778" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">ZEEKR 7X</a></td><td class="bd">极氪</td><td class="vl">6,415</td><td class="vl up">↑99</td><td class="vl sub">22.98-26.98万</td></tr><tr><td class="rk">46</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25904" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">蔚来ES9</a></td><td class="bd">蔚来</td><td class="vl">6,311</td><td class="vl up">↑3</td><td class="vl sub">49.80-62.80万</td></tr><tr><td class="rk">47</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/26027" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">宋Ultra DM</a></td><td class="bd">比亚迪</td><td class="vl">6,294</td><td class="vl up">↑103</td><td class="vl sub">12.99-15.99万</td></tr><tr><td class="rk">48</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25920" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">尚界Z7</a></td><td class="bd">尚界</td><td class="vl">6,225</td><td class="vl up">↑32</td><td class="vl sub">21.98-29.98万</td></tr><tr><td class="rk">49</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/6095" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">理想L8</a></td><td class="bd">理想汽车</td><td class="vl">6,210</td><td class="vl up">↑305</td><td class="vl sub">36.98-42.98万</td></tr><tr><td class="rk">50</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9113" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">哈弗猛龙PHEV</a></td><td class="bd">哈弗</td><td class="vl">6,183</td><td class="vl up">↑13</td><td class="vl sub">13.08-17.38万</td></tr></tbody></table></div>
+      <p class="ev-src">来源：懂车帝销量榜 · 抓取时间 2026-09-03 08:30</p>
+    </div>
+
+    <div class="ev-panel" id="evm-w" hidden>
+      <p class="ev-tier-line"><span class="ev-tier ev-tier-traceable" title="车型数字经与乘联会官方《全国乘用车市场分析》抽样比对，厂商级加总逐位一致">可溯源 · 与乘联会官方数字交叉验证</span></p>
+      <p class="ev-panel-note">口径：厂商开给经销商及出口的出货量，含出口，不等于终端实际交付量。单位：辆。</p>
+      <div class="ev-table-wrap"><table class="ev-rank ev-model"><thead><tr><th scope="col">排名</th><th scope="col">车型</th><th scope="col">品牌</th><th scope="col">销量</th><th scope="col">名次变化</th><th scope="col">指导价</th></tr></thead><tbody><tr><td class="rk">1</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/4363" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">Model Y</a></td><td class="bd">特斯拉</td><td class="vl">59,836</td><td class="vl sub">—</td><td class="vl sub">26.35-31.35万</td></tr><tr><td class="rk">2</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/20154" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">星愿</a></td><td class="bd">吉利银河</td><td class="vl">55,105</td><td class="vl sub">—</td><td class="vl sub">5.98-9.18万</td></tr><tr><td class="rk">3</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9689" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">元UP</a></td><td class="bd">比亚迪</td><td class="vl">37,658</td><td class="vl up">↑2</td><td class="vl sub">6.78-10.28万</td></tr><tr><td class="rk">4</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5008" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海豚</a></td><td class="bd">比亚迪</td><td class="vl">34,910</td><td class="vl down">↓1</td><td class="vl sub">9.18-11.78万</td></tr><tr><td class="rk">5</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/3762" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">Model 3</a></td><td class="bd">特斯拉</td><td class="vl">33,743</td><td class="vl down">↓1</td><td class="vl sub">23.55-33.95万</td></tr><tr><td class="rk">6</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9267" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑A10</a></td><td class="bd">零跑汽车</td><td class="vl">28,593</td><td class="vl up">↑2</td><td class="vl sub">6.58-8.68万</td></tr><tr><td class="rk">7</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5952" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海鸥</a></td><td class="bd">比亚迪</td><td class="vl">27,971</td><td class="vl up">↑3</td><td class="vl sub">6.08-7.99万</td></tr><tr><td class="rk">8</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25634" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">长安启源Q05</a></td><td class="bd">长安启源</td><td class="vl">24,512</td><td class="vl up">↑4</td><td class="vl sub">6.99-10.99万</td></tr><tr><td class="rk">9</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/6187" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">小米SU7</a></td><td class="bd">小米汽车</td><td class="vl">21,044</td><td class="vl up">↑6</td><td class="vl sub">21.99-30.39万</td></tr><tr><td class="rk">10</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/3504" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">宋Pro DM</a></td><td class="bd">比亚迪</td><td class="vl">20,888</td><td class="vl down">↓4</td><td class="vl sub">9.58-12.99万</td></tr><tr><td class="rk">11</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5248" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">元PLUS</a></td><td class="bd">比亚迪</td><td class="vl">20,180</td><td class="vl up">↑8</td><td class="vl sub">10.98-14.99万</td></tr><tr><td class="rk">12</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/26039" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">缤果Pro</a></td><td class="bd">五菱汽车</td><td class="vl">19,396</td><td class="vl up">↑2</td><td class="vl sub">5.68-7.08万</td></tr><tr><td class="rk">13</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/5828" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">MG4</a></td><td class="bd">MG</td><td class="vl">19,176</td><td class="vl down">↓2</td><td class="vl sub">6.58-9.58万</td></tr><tr><td class="rk">14</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25559" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">钛7 PHEV</a><span class="ev-grp">钛7 系合计 <b>27,320</b> 辆<span class="ev-grp-parts">（钛7 PHEV 17,820 ＋ 钛7 EV 9,500）</span></span></td><td class="bd">方程豹</td><td class="vl">17,820</td><td class="vl up">↑3</td><td class="vl sub">17.98-22.58万</td></tr><tr><td class="rk">15</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25557" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">理想i6</a></td><td class="bd">理想汽车</td><td class="vl">15,420</td><td class="vl down">↓2</td><td class="vl sub">24.98-26.98万</td></tr><tr><td class="rk">16</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/24788" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">银河星舰7 EM-i</a></td><td class="bd">吉利银河</td><td class="vl">15,236</td><td class="vl sub">—</td><td class="vl sub">8.78-12.38万</td></tr><tr><td class="rk">17</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/10213" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">深蓝S05</a></td><td class="bd">深蓝汽车</td><td class="vl">14,735</td><td class="vl up">↑3</td><td class="vl sub">11.59-14.49万</td></tr><tr><td class="rk">18</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/6068" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海狮07EV</a></td><td class="bd">比亚迪</td><td class="vl">14,002</td><td class="vl up">↑17</td><td class="vl sub">18.18-23.18万</td></tr><tr><td class="rk">19</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9268" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑B10</a></td><td class="bd">零跑汽车</td><td class="vl">13,167</td><td class="vl up">↑39</td><td class="vl sub">9.28-12.58万</td></tr><tr><td class="rk">20</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25922" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">宋Ultra EV</a><span class="ev-grp">宋Ultra 系合计 <b>22,000</b> 辆<span class="ev-grp-parts">（宋Ultra EV 12,500 ＋ 宋Ultra DM 9,500）</span></span></td><td class="bd">比亚迪</td><td class="vl">12,500</td><td class="vl up">↑30</td><td class="vl sub">15.19-17.99万</td></tr><tr><td class="rk">21</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25678" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">QQ3 EV</a></td><td class="bd">奇瑞QQ</td><td class="vl">12,499</td><td class="vl up">↑22</td><td class="vl sub">5.59-7.59万</td></tr><tr><td class="rk">22</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/8974" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">探索06 C-DM</a></td><td class="bd">奇瑞</td><td class="vl">12,241</td><td class="vl up">↑10</td><td class="vl sub">11.99-13.99万</td></tr><tr><td class="rk">23</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/10026" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">银河E5</a></td><td class="bd">吉利银河</td><td class="vl">11,479</td><td class="vl up">↑8</td><td class="vl sub">9.18-16.48万</td></tr><tr><td class="rk">24</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9307" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑C10</a></td><td class="bd">零跑汽车</td><td class="vl">11,446</td><td class="vl down">↓3</td><td class="vl sub">11.58-14.28万</td></tr><tr><td class="rk">25</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25400" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海狮06EV</a></td><td class="bd">比亚迪</td><td class="vl">11,398</td><td class="vl up">↑16</td><td class="vl sub">14.38-17.99万</td></tr><tr><td class="rk">26</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/20138" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海狮05DM</a></td><td class="bd">比亚迪</td><td class="vl">11,200</td><td class="vl up">↑21</td><td class="vl sub">9.58-12.79万</td></tr><tr><td class="rk">27</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25643" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">AION i60</a></td><td class="bd">埃安</td><td class="vl">10,544</td><td class="vl up">↑24</td><td class="vl sub">9.88-12.78万</td></tr><tr><td class="rk">28</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/10170" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">小鹏MONA M03</a></td><td class="bd">小鹏汽车</td><td class="vl">10,357</td><td class="vl sub">—</td><td class="vl sub">11.98-15.18万</td></tr><tr><td class="rk">29</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/1616" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">蔚来ES8</a></td><td class="bd">蔚来</td><td class="vl">10,288</td><td class="vl up">↑39</td><td class="vl sub">38.28-44.68万</td></tr><tr><td class="rk">30</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9778" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">ZEEKR 7X</a></td><td class="bd">极氪</td><td class="vl">10,253</td><td class="vl up">↑53</td><td class="vl sub">22.98-26.98万</td></tr><tr><td class="rk">31</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25172" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">ZEEKR 007GT</a></td><td class="bd">极氪</td><td class="vl">10,224</td><td class="vl up">↑31</td><td class="vl sub">20.29-25.29万</td></tr><tr><td class="rk">32</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/20041" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">小米YU7</a></td><td class="bd">小米汽车</td><td class="vl">10,223</td><td class="vl down">↓5</td><td class="vl sub">23.35-38.99万</td></tr><tr><td class="rk">33</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/6076" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">瑞虎7 PLUS PHEV</a></td><td class="bd">奇瑞</td><td class="vl">10,145</td><td class="vl up">↑24</td><td class="vl sub">12.99-16.69万</td></tr><tr><td class="rk">34</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25934" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">大唐EV</a></td><td class="bd">比亚迪</td><td class="vl">10,102</td><td class="vl up">↑74</td><td class="vl sub">23.99-30.99万</td></tr><tr><td class="rk">35</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25886" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">智界V9</a></td><td class="bd">智界</td><td class="vl">10,101</td><td class="vl up">↑99</td><td class="vl sub">38.98-51.98万</td></tr><tr><td class="rk">36</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/6325" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">问界M9</a></td><td class="bd">AITO问界</td><td class="vl">10,078</td><td class="vl up">↑19</td><td class="vl sub">47.98-65.98万</td></tr><tr><td class="rk">37</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25718" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑D19</a></td><td class="bd">零跑汽车</td><td class="vl">10,043</td><td class="vl up">↑39</td><td class="vl sub">21.98-26.98万</td></tr><tr><td class="rk">38</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/8987" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">铂智3X</a></td><td class="bd">丰田</td><td class="vl">9,546</td><td class="vl down">↓2</td><td class="vl sub">9.48-14.48万</td></tr><tr><td class="rk">39</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/26027" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">宋Ultra DM</a></td><td class="bd">比亚迪</td><td class="vl">9,500</td><td class="vl up">↑27</td><td class="vl sub">12.99-15.99万</td></tr><tr><td class="rk">40</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25994" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">钛7 EV</a></td><td class="bd">方程豹</td><td class="vl">9,500</td><td class="vl up">↑106</td><td class="vl sub">19.98-23.98万</td></tr><tr><td class="rk">41</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25401" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">极狐 贝塔T1</a></td><td class="bd">ARCFOX极狐</td><td class="vl">8,628</td><td class="vl up">↑41</td><td class="vl sub">5.98-8.68万</td></tr><tr><td class="rk">42</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9824" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海豹06DM</a></td><td class="bd">比亚迪</td><td class="vl">8,543</td><td class="vl up">↑90</td><td class="vl sub">8.98-14.19万</td></tr><tr><td class="rk">43</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/4499" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">五菱宏光MINIEV</a></td><td class="bd">五菱汽车</td><td class="vl">7,958</td><td class="vl down">↓20</td><td class="vl sub">3.28-5.28万</td></tr><tr><td class="rk">44</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25137" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">海豹05DM</a></td><td class="bd">比亚迪</td><td class="vl">7,400</td><td class="vl up">↑21</td><td class="vl sub">7.48-9.58万</td></tr><tr><td class="rk">45</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25695" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">华境S</a></td><td class="bd">华境</td><td class="vl">7,262</td><td class="vl up">↑44</td><td class="vl sub">14.98-19.38万</td></tr><tr><td class="rk">46</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25621" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">小鹏GX</a></td><td class="bd">小鹏汽车</td><td class="vl">7,140</td><td class="vl up">↑44</td><td class="vl sub">26.98-34.98万</td></tr><tr><td class="rk">47</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25628" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">深蓝L06</a></td><td class="bd">深蓝汽车</td><td class="vl">7,065</td><td class="vl up">↑24</td><td class="vl sub">11.89-14.99万</td></tr><tr><td class="rk">48</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/4731" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑C11</a></td><td class="bd">零跑汽车</td><td class="vl">7,003</td><td class="vl up">↑44</td><td class="vl sub">14.08-15.98万</td></tr><tr><td class="rk">49</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/25573" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">极狐 贝塔S3</a></td><td class="bd">ARCFOX极狐</td><td class="vl">6,941</td><td class="vl up">↑29</td><td class="vl sub">8.08-12.18万</td></tr><tr><td class="rk">50</td><td class="nm"><a href="https://www.dongchedi.com/auto/series/9266" target="_blank" rel="noopener noreferrer" title="在懂车帝查看该车型页">零跑B01</a></td><td class="bd">零跑汽车</td><td class="vl">6,930</td><td class="vl up">↑128</td><td class="vl sub">8.98-11.98万</td></tr></tbody></table></div>
+      <p class="ev-src">来源：懂车帝销量榜 · 抓取时间 2026-09-03 08:30</p>
+    </div>
+
+    <details class="ev-fold"><summary>关于这张车型榜，有几件事得先说清楚</summary>
+      <ul class="ev-list"><li>榜单每行按懂车帝的「车系（series_id）」粒度原样呈现，各行数字不做合并、不做拆分、不做推算。其他平台按动力版本拆分统计时，同一车系的数字可能对不上，这是统计粒度不同，不是错误。</li><li>本站已用乘联会官方发布的车型级数字做过抽样比对：18 款中 12 款闭合，6 款对不上（其中 2 款原因不明）。因此本榜车型数字只能用于横向比较，不能当作乘联会官方数字引用。</li><li>动力类型字段仅有 26% 覆盖率（该平台接口未提供动力类型字段，仅能从车名后缀识别，车名不含动力标识的一律留空），故本榜不提供纯电/插混/增程分类。</li><li>同一车系若被按动力版本拆成多行（如钛7 拆为 PHEV 与 EV），本站会在该组名次最靠前的一行额外给出 seriesGroupTotal，即同源同期各成员行数字之和，用于避免只看单行低估该车系。这是本站对同源数字的加总，不是数据源发布的数字；成员行本身仍各自原样保留，不合并、不拆分。</li><li>元UP：懂车帝记为一条（2026年7月零售 20,275 / 批发 37,658）；盖世汽车批发榜拆为「比亚迪元UP 37,658」+「元UP DM-i 25,600」。两边粒度不同，本站不合并、不拆分，原样呈现懂车帝口径。</li><li>宋PLUS DM：盖世汽车批发榜有此车（16,242），懂车帝榜单内无对应条目，属「别家有、本站数据源没有」，不硬凑、不从别处补数。</li><li>海豚：懂车帝为车系合并口径（零售 13,910 / 批发 34,910）；盖世汽车拆为「海豚 22,910」+「海豚G PHEV 12,000」（批发）。本站取懂车帝原口径。</li><li>长安Lumin 在批发口径下未进入抓取深度（全车型 300 名之后），故只出现在零售榜。</li><li>站长提到的「秦PLUS DM-i」在懂车帝里叫「秦PLUS DM」，检索时请用榜单上的名字。</li><li>energy 字段由车型名后缀推断（PHEV/REEV/BEV/EV/DM/C-DM/EM-i/EREV/增程/纯电）；车名不含动力标识的一律为 null，不做推断。</li></ul>
+    </details>
+  </section>
+
+  <section class="ev-sec" id="sec-penetration">
+    <div class="ev-sec-hd"><span class="ev-sec-no">叁</span><h2>新能源渗透率走势</h2>
+      <span class="ev-sec-tag">近 12 个月</span></div>
+    <p class="ev-lead">新能源车在国内零售中的占比。最新月份为 7月，渗透率 65.1%。</p>
+    <div class="ev-chart-box"><svg class="ev-chart" viewBox="0 0 660 200" role="img" aria-label="新能源渗透率月度走势" preserveAspectRatio="xMidYMid meet"><line x1="44" y1="170.0" x2="646" y2="170.0" stroke="currentColor" stroke-opacity=".13" stroke-width="1"/><text x="38" y="173.5" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="end">38%</text><line x1="44" y1="131.5" x2="646" y2="131.5" stroke="currentColor" stroke-opacity=".13" stroke-width="1"/><text x="38" y="135.0" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="end">45%</text><line x1="44" y1="93.0" x2="646" y2="93.0" stroke="currentColor" stroke-opacity=".13" stroke-width="1"/><text x="38" y="96.5" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="end">52%</text><line x1="44" y1="54.5" x2="646" y2="54.5" stroke="currentColor" stroke-opacity=".13" stroke-width="1"/><text x="38" y="58.0" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="end">58%</text><line x1="44" y1="16.0" x2="646" y2="16.0" stroke="currentColor" stroke-opacity=".13" stroke-width="1"/><text x="38" y="19.5" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="end">65%</text><polygon points="44.0,73.3 98.7,57.7 153.5,62.9 208.2,49.6 262.9,50.7 317.6,170.0 372.4,132.9 427.1,93.6 481.8,38.0 536.5,28.7 591.3,29.3 646.0,16.0 646.0,170.0 44.0,170.0" fill="#C9A84C" fill-opacity=".13"/><polyline points="44.0,73.3 98.7,57.7 153.5,62.9 208.2,49.6 262.9,50.7 317.6,170.0 372.4,132.9 427.1,93.6 481.8,38.0 536.5,28.7 591.3,29.3 646.0,16.0" fill="none" stroke="#C9A84C" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="44.0" cy="73.3" r="3.2" fill="#C9A84C"/><circle cx="98.7" cy="57.7" r="3.2" fill="#C9A84C"/><circle cx="153.5" cy="62.9" r="3.2" fill="#C9A84C"/><circle cx="208.2" cy="49.6" r="3.2" fill="#C9A84C"/><circle cx="262.9" cy="50.7" r="3.2" fill="#C9A84C"/><circle cx="317.6" cy="170.0" r="3.2" fill="#C9A84C"/><circle cx="372.4" cy="132.9" r="3.2" fill="#C9A84C"/><circle cx="427.1" cy="93.6" r="3.2" fill="#C9A84C"/><circle cx="481.8" cy="38.0" r="3.2" fill="#C9A84C"/><circle cx="536.5" cy="28.7" r="3.2" fill="#C9A84C"/><circle cx="591.3" cy="29.3" r="3.2" fill="#C9A84C"/><circle cx="646.0" cy="16.0" r="3.2" fill="#C9A84C"/><circle cx="646.0" cy="16.0" r="5.5" fill="#C9A84C" fill-opacity=".22"/><text x="642.0" y="6.0" fill="#C9A84C" font-size="12" font-weight="700" text-anchor="end">65.1%</text><text x="44.0" y="190" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="middle">25/8月</text><text x="153.5" y="190" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="middle">25/10月</text><text x="262.9" y="190" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="middle">25/12月</text><text x="372.4" y="190" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="middle">2月</text><text x="481.8" y="190" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="middle">4月</text><text x="591.3" y="190" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="middle">6月</text><text x="646.0" y="190" fill="currentColor" fill-opacity=".55" font-size="10" text-anchor="middle">7月</text></svg></div>
+    <p class="ev-note">口径：NEV 指纯电 + 插混 + 增程，占狭义乘用车国内零售的比例；数据来自乘联会官方接口。</p>
+  </section>
+
+  <section class="ev-sec" id="sec-structure">
+    <div class="ev-sec-hd"><span class="ev-sec-no">肆</span><h2>纯电 / 插混结构</h2>
+      <span class="ev-sec-tag">7月</span></div>
+    <p class="ev-lead">新能源内部的技术路线分布（零售口径）。</p>
+    <div class="ev-chart-box"><svg class="ev-chart" viewBox="0 0 660 110" role="img" preserveAspectRatio="xMidYMid meet"><text x="104" y="20" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">BEV 纯电</text><rect x="112" y="9" width="486" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="112" y="9" width="486.0" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="606.0" y="21" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">64.72 万</text><text x="104" y="54" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">PHEV 插混</text><rect x="112" y="43" width="486" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="112" y="43" width="164.3" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="284.3" y="55" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">21.88 万</text><text x="104" y="88" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">增程 EREV（推算）</text><rect x="112" y="77" width="486" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="112" y="77" width="64.0" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="184.0" y="89" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">8.53 万</text></svg></div>
+    <p class="ev-note"><b>注意：</b>纯电 + 插混 <b>不等于</b>新能源总量，差额主要是增程式（EREV）。
+      上表中的增程为总量倒推值，仅供参考；总量请以乘联会公布口径为准。</p>
+  </section>
+
+  <section class="ev-sec" id="sec-camp">
+    <div class="ev-sec-hd"><span class="ev-sec-no">伍</span><h2>品牌阵营份额</h2>
+      <span class="ev-sec-tag">7月</span></div>
+    <p class="ev-lead">按国别划分的乘用车零售销量与份额。自主品牌份额 71.1%，
+      合资阵营持续承压。</p>
+    <div class="ev-chart-box"><svg class="ev-chart" viewBox="0 0 660 200" role="img" preserveAspectRatio="xMidYMid meet"><text x="72" y="20" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">自主</text><rect x="80" y="9" width="518" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="80" y="9" width="518.0" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="606.0" y="21" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">103.83 万（71.1%）</text><text x="72" y="52" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">德系</text><rect x="80" y="41" width="518" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="80" y="41" width="90.5" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="178.5" y="53" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">18.14 万（12.4%）</text><text x="72" y="84" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">日系</text><rect x="80" y="73" width="518" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="80" y="73" width="79.6" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="167.6" y="85" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">15.95 万（10.9%）</text><text x="72" y="116" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">美系</text><rect x="80" y="105" width="518" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="80" y="105" width="30.4" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="118.4" y="117" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">6.1 万（4.2%）</text><text x="72" y="148" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">韩系</text><rect x="80" y="137" width="518" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="80" y="137" width="6.6" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="94.6" y="149" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">1.31 万（0.9%）</text><text x="72" y="180" fill="currentColor" fill-opacity=".85" font-size="12" text-anchor="end">法系</text><rect x="80" y="169" width="518" height="15" rx="4" fill="currentColor" fill-opacity=".08"/><rect x="80" y="169" width="1.0" height="15" rx="4" fill="#C9A84C" fill-opacity=".82"/><text x="89.0" y="181" fill="currentColor" fill-opacity=".9" font-size="12" font-weight="600">0.2 万（0.1%）</text></svg></div>
+    <p class="ev-note">口径：狭义乘用车国内零售。德系、日系等按品牌归属国别划分。</p>
+  </section>
+
+  <section class="ev-sec" id="sec-total">
+    <div class="ev-sec-hd"><span class="ev-sec-no">陆</span><h2>乘用车厂商总销量榜</h2>
+      <span class="ev-sec-tag">2026年7月</span></div>
+    <p class="ev-warn"><b>这不是新能源榜。</b>下面这张是<b>全部乘用车</b>（含燃油车）的厂商排名，
+      用来对照看各家的基本盘。要看新能源排行请回到页首第壹节。</p>
+
+    <div class="ev-tabs" role="tablist">
+      <button class="ev-tab active" role="tab" data-evtab2="w" aria-selected="true">批发</button>
+      <button class="ev-tab" role="tab" data-evtab2="r" aria-selected="false">零售</button>
+    </div>
+    <div class="ev-panel active" id="evt-w"><div class="ev-table-wrap"><table class="ev-rank"><thead><tr><th scope="col">排名</th><th scope="col">厂商</th><th scope="col">销量（万辆）</th><th scope="col">去年同期</th><th scope="col">同比</th></tr></thead><tbody><tr><td class="rk">1</td><td class="nm">比亚迪汽车</td><td class="vl">41.06</td><td class="vl sub">34.1</td><td class="up">+20.40%</td></tr><tr><td class="rk">2</td><td class="nm">奇瑞汽车</td><td class="vl">26.65</td><td class="vl sub">21.53</td><td class="up">+23.78%</td></tr><tr><td class="rk">3</td><td class="nm">吉利汽车</td><td class="vl">24.81</td><td class="vl sub">23.77</td><td class="up">+4.38%</td></tr><tr><td class="rk">4</td><td class="nm">上汽乘用车</td><td class="vl">10.68</td><td class="vl sub">5.99</td><td class="up">+78.21%</td></tr><tr><td class="rk">5</td><td class="nm">零跑汽车</td><td class="vl">10.13</td><td class="vl sub">5.01</td><td class="up">+102.01%</td></tr><tr><td class="rk">6</td><td class="nm">特斯拉中国</td><td class="vl">9.36</td><td class="vl sub">6.79</td><td class="up">+37.85%</td></tr><tr><td class="rk">7</td><td class="nm">长城汽车</td><td class="vl">9.2</td><td class="vl sub">9.06</td><td class="up">+1.61%</td></tr><tr><td class="rk">8</td><td class="nm">长安汽车</td><td class="vl">8.64</td><td class="vl sub">13.65</td><td class="down">-36.73%</td></tr><tr><td class="rk">9</td><td class="nm">上汽通用五菱</td><td class="vl">8.19</td><td class="vl sub">7.72</td><td class="up">+6.08%</td></tr><tr><td class="rk">10</td><td class="nm">一汽大众</td><td class="vl">6.7</td><td class="vl sub">10.45</td><td class="down">-35.89%</td></tr></tbody></table></div></div>
+    <div class="ev-panel" id="evt-r" hidden><div class="ev-table-wrap"><table class="ev-rank"><thead><tr><th scope="col">排名</th><th scope="col">厂商</th><th scope="col">销量（万辆）</th><th scope="col">去年同期</th><th scope="col">同比</th></tr></thead><tbody><tr><td class="rk">1</td><td class="nm">比亚迪汽车</td><td class="vl">22.35</td><td class="vl sub">27.46</td><td class="down">-18.64%</td></tr><tr><td class="rk">2</td><td class="nm">吉利汽车</td><td class="vl">16.06</td><td class="vl sub">20.24</td><td class="down">-20.65%</td></tr><tr><td class="rk">3</td><td class="nm">零跑汽车</td><td class="vl">8.37</td><td class="vl sub">4.55</td><td class="up">+83.85%</td></tr><tr><td class="rk">4</td><td class="nm">长安汽车</td><td class="vl">8.02</td><td class="vl sub">10.85</td><td class="down">-26.08%</td></tr><tr><td class="rk">5</td><td class="nm">一汽大众</td><td class="vl">7.34</td><td class="vl sub">11.1</td><td class="down">-33.88%</td></tr><tr><td class="rk">6</td><td class="nm">奇瑞汽车</td><td class="vl">6.49</td><td class="vl sub">9.79</td><td class="down">-33.65%</td></tr><tr><td class="rk">7</td><td class="nm">上汽通用五菱</td><td class="vl">5.6</td><td class="vl sub">5.98</td><td class="down">-6.45%</td></tr><tr><td class="rk">8</td><td class="nm">广汽丰田</td><td class="vl">5.31</td><td class="vl sub">6.6</td><td class="down">-19.54%</td></tr><tr><td class="rk">9</td><td class="nm">一汽丰田</td><td class="vl">5.01</td><td class="vl sub">6.79</td><td class="down">-26.15%</td></tr><tr><td class="rk">10</td><td class="nm">上汽大众</td><td class="vl">4.8</td><td class="vl sub">8.26</td><td class="down">-41.88%</td></tr></tbody></table></div></div>
+    <p class="ev-src">来源：乘联会官方数据接口 · 狭义乘用车口径 · 单位万辆</p>
+  </section>
+
+  <section class="ev-sec" id="sec-caliber">
+    <div class="ev-sec-hd"><span class="ev-sec-no">柒</span><h2>口径说明与数据来源</h2></div>
+    <div class="ev-cal">
+      <dl>
+        <dt>批发</dt><dd>厂商开给经销商及出口的出货量，<b>含出口</b>，不等于终端实际交付。</dd>
+        <dt>零售</dt><dd>经销商卖给最终用户的上险/上牌量，反映真实终端需求。</dd>
+        <dt>狭义乘用车</dt><dd>轿车 + SUV + MPV，不含微客。</dd>
+        <dt>新能源</dt><dd>BEV（纯电）+ PHEV（插混）+ EREV（增程），不含普通混动 HEV。</dd>
+      </dl>
+    </div>
+    <p class="ev-note">
+      主数据来自<b>乘用车市场信息联席会（乘联会 / CPCA）</b>官方数据中心
+      <a href="http://data.cpcadata.com/" target="_blank" rel="noopener noreferrer">http://data.cpcadata.com/</a>，
+      每月中旬更新上月数据，本站通过官方接口自动同步（当前数据期：2026年1-7月）。<br>
+      新能源厂商榜因官方原文以图片发布、且月初「快讯」为初步数据（官方明确提示不可与终稿直接对比），
+      故采用转载终稿的媒体报道并<b>人工核对</b>后录入，核对日期 2026-09-02。<br>
+      <b>本站不生产数据</b>，所有数字均标注出处；口径不同会导致排名差异，请以官方原文为准。
+      数据版权归乘联会所有。
+    </p>
+  </section>
+
+</div><!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="ev-charge.html">
+        <span class="lx-related-board">实用工具</span>
+        <span class="lx-related-name">充电桩查询｜全国新能源充电站实时地图 · 按价格排序</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">龙兄知识库</div>
+  <div class="footer-info-row">记录真实生活 · 分享实用知识<br>本站内容均为个人整理，仅供参考</div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站</a> ·
+    <a href="notes.html">站长手记</a> ·
+    <a href="tags.html">标签聚合</a> ·
+    <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    销量数据版权归乘用车市场信息联席会（乘联会）所有，本站仅作引用并注明出处；批发与零售口径不同，排名会有差异，请以官方原文为准。<br>
+    © 2026 龙兄知识库 · longxiong.vip
+  </div>
+</footer>
+
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+<script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/search.js" integrity="sha384-KlyQTIlhMVcxcXVIuprq+jYVUnLzTeO30hiJKKrfW11fCgdxtQo8Inu3+jQgIE7s" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-8kad3MrSHYcCCCZ1Mju3iU6Ajj1HCTYJRfHirejZyp0edAx40wtgqxIltO4sIw2F" crossorigin="anonymous"></script>
+<script defer src="js/ev-sales.js?v=h85da2132069d" integrity="sha384-2TLSgC5M8/eZCIfYisgUOV5/C22WCJ7IkYM2XkQ/6M7AwETTk3bZ2uyC9nujDN1J" crossorigin="anonymous"></script>
+<script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+<!-- 悬浮栏目目录 quick-toc.js 与本地收藏 bookmark.js 由
+     scripts/apply_site_widgets.py 统一注入（含 #quickToc 容器）。
+     这里不要再写一遍，否则组件脚本会被重复加载两次。 -->
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+</body>
+</html>

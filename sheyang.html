@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>射阳天气详细科普｜龙兄知识库</title>
+<meta name="keywords" content="射阳天气,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="射阳天气详细科普：实测溯源、实操图文、避坑指南。适合射阳天气爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="射阳本地民生">
+<meta name="article-tags" content="射阳,本地民生,便民">
+<meta name="article-updated" content="2026-08-10">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=hf6eb856b4355" integrity="sha384-kEj87zyOMAnIVEKGoF9yOHFkhcEtaNi94BzaFAvzehjVhvHwfu871PKnEjHvKIVF" crossorigin="anonymous">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --sy-bg: #0a0a0a;
+  --sy-text: #ffffff;
+  --metro-blue: #0078d4;
+  --metro-green: #107c10;
+  --metro-orange: #ff8c00;
+  --metro-red: #e81123;
+  --metro-purple: #6b69d6;
+  --metro-cyan: #008272;
+  --metro-pink: #c30052;
+  --metro-yellow: #ffb900;
+  --metro-dark: #1a1a1a;
+  --tile-gap: 4px;
+}
+[data-theme="light"] {
+  --sy-bg: #f5f5f5;
+  --sy-text: #1a1a1a;
+  --metro-dark: #ffffff;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--sy-bg);
+  color: var(--sy-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-weight: 700;
+}
+/* 浅色模式全局样式修复 */
+[data-theme="light"] .page-header h1 { color: #1a1a1a; }
+[data-theme="light"] .page-header .subtitle { color: #555; }
+[data-theme="light"] .tile-blue { background: #e8f4fd; color: #0a4a7a; }
+[data-theme="light"] .tile-green { background: #e8f5e9; color: #1b5e20; }
+[data-theme="light"] .tile-orange { background: #fff3e0; color: #bf5700; }
+[data-theme="light"] .tile-red { background: #fce4ec; color: #b71c1c; }
+[data-theme="light"] .tile-purple { background: #ede7f6; color: #4a148c; }
+[data-theme="light"] .tile-cyan { background: #e0f7fa; color: #006064; }
+[data-theme="light"] .tile-pink { background: #fce4ec; color: #880e4f; }
+[data-theme="light"] .tile-yellow { background: #fff8e1; color: #5d4037; }
+[data-theme="light"] .tile-dark { background: #ffffff; color: #333; border-color: #ddd; }
+[data-theme="light"] .tile { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+[data-theme="light"] .tile:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+[data-theme="light"] .weather-main .temp { color: #0a4a7a; }
+[data-theme="light"] .weather-main .desc { color: #1565c0; }
+[data-theme="light"] .weather-main .details { color: #455a64; }
+[data-theme="light"] .weather-main .update-time { color: #888; }
+[data-theme="light"] .forecast-tile .day { color: inherit; }
+[data-theme="light"] .forecast-tile .forecast-desc { color: inherit; }
+[data-theme="light"] .forecast-tile .forecast-temp { color: inherit; }
+[data-theme="light"] .forecast-tile .forecast-rain { color: inherit; }
+[data-theme="light"] .advice-tile h4 { color: #1a1a1a; }
+[data-theme="light"] .advice-tile p { color: #444; }
+[data-theme="light"] .tip-tile strong { color: #1a1a1a; }
+[data-theme="light"] .tip-tile p { color: #444; }
+[data-theme="light"] .loading-tile { color: #666; }
+[data-theme="light"] .loading-tile::after { border-color: #ddd; border-top-color: #0078d4; }
+[data-theme="light"] .error-tile { color: #c62828; }
+.page-wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.page-header { margin-bottom: 24px; }
+.page-header h1 { font-size: 48px; font-weight: 900; line-height: 1.1; margin-bottom: 8px; }
+.page-header .subtitle { font-size: 18px; opacity: 0.7; font-weight: 400; }
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--tile-gap);
+  margin-bottom: 24px;
+}
+.tile {
+  border: none;
+  overflow: hidden;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  position: relative;
+}
+.tile:hover { transform: scale(1.02); filter: brightness(1.1); }
+.tile-large {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 280px;
+}
+.tile-wide {
+  grid-column: span 2;
+  padding: 20px;
+}
+.tile-small {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 140px;
+}
+.tile-blue { background: var(--metro-blue); color: #fff; }
+.tile-green { background: var(--metro-green); color: #fff; }
+.tile-orange { background: var(--metro-orange); color: #fff; }
+.tile-red { background: var(--metro-red); color: #fff; }
+.tile-purple { background: var(--metro-purple); color: #fff; }
+.tile-cyan { background: var(--metro-cyan); color: #fff; }
+.tile-pink { background: var(--metro-pink); color: #fff; }
+.tile-yellow { background: var(--metro-yellow); color: #1a1a1a; }
+.tile-dark { background: var(--metro-dark); border: 1px solid #333; color: #fff; }
+
+.weather-main .temp {
+  font-size: clamp(64px, 12vw, 120px);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+.weather-main .desc {
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 700;
+  margin-bottom: 24px;
+  opacity: 0.95;
+}
+.weather-main .details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+.weather-main .update-time {
+  font-size: 13px;
+  font-weight: 400;
+  opacity: 0.7;
+  margin-top: 20px;
+}
+
+.forecast-tile .day { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+.forecast-tile .forecast-desc { font-size: 16px; font-weight: 700; margin-bottom: 8px; opacity: 0.95; }
+.forecast-tile .forecast-temp { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+.forecast-tile .forecast-rain { font-size: 14px; font-weight: 400; opacity: 0.85; }
+
+.advice-tile { grid-column: span 4; padding: 24px 32px; }
+.advice-tile h4 { font-size: 22px; font-weight: 900; margin-bottom: 12px; }
+.advice-tile p { font-size: 17px; font-weight: 400; line-height: 1.8; opacity: 0.95; }
+
+.tip-tile { grid-column: span 4; padding: 20px 28px; border-left: 4px solid var(--metro-blue); }
+.tip-tile strong { font-size: 18px; font-weight: 900; }
+.tip-tile p { font-size: 16px; font-weight: 400; margin-top: 4px; opacity: 0.9; }
+
+.loading-tile {
+  grid-column: span 4;
+  padding: 60px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 0.7;
+}
+.loading-tile::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #333;
+  border-top-color: var(--metro-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.error-tile {
+  grid-column: span 4;
+  padding: 60px;
+  text-align: center;
+  font-size: 18px;
+  color: var(--metro-red);
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .tile-large { grid-column: span 2; grid-row: span 2; }
+  .tile-wide { grid-column: span 2; }
+  .tile-small { grid-column: span 1; }
+  .advice-tile, .tip-tile, .loading-tile, .error-tile { grid-column: span 2; }
+}
+@media (max-width: 520px) {
+  .page-header h1 { font-size: 36px; }
+  .tile-grid { grid-template-columns: 1fr; }
+  .tile-large, .tile-wide, .tile-small, .advice-tile, .tip-tile, .loading-tile, .error-tile { grid-column: span 1; }
+  .tile-large { grid-row: span 1; }
+}
+</style>
+  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<link rel="canonical" href="https://longxiong.vip/sheyang.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="射阳天气详细科普｜龙兄知识库">
+<meta property="og:description" content="射阳天气详细科普：实测溯源、实操图文、避坑指南。适合射阳天气爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/sheyang.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="射阳天气 - 龙兄知识库">
+<meta name="twitter:description" content="龙兄知识库 - 射阳天气 - 龙兄知识库">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+<main id="main-content" role="main"><div class="page-wrap">
+  <div class="page-header">
+    <h1>射阳天气</h1>
+<div class="subtitle">🌦️ 实时气象数据 · Open-Meteo API</div>
+<p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 最后更新：2026 年 8 月</p>
+  </div>
+
+  <!-- 4. 实时时钟 -->
+  <div class="clock-wrap">
+    <div class="clock-display" id="liveClock">--:--:--</div>
+    <div class="clock-date" id="liveDate">加载中...</div>
+  </div>
+
+  <div class="tile-grid" id="tile-grid">
+    <div class="loading-tile" id="loading">正在获取天气数据</div>
+  </div>
+</div>
+
+  <section style="margin:28px 0 4px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
+    <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>
+    <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
+      <li><a href="https://open-meteo.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">Open-Meteo</a> — 免费开放的气象数据 API，本页天气数据来源（全球逐小时预报，无需 API Key）</li>
+    </ul>
+  </section>
+
+  <!-- ===== 新增：射阳县百科科普区块 ===== -->
+  <section style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;font-weight:400;">
+    <h2 style="color:var(--gold);font-size:1.35rem;margin:0 0 6px;">🦩 射阳县百科：黄海之滨的「鹤乡」与苏北粮仓</h2>
+    <p style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0 0 20px;">
+      看天气之余，顺手把这座县城本身讲清楚。以下内容以<strong style="color:var(--text)">射阳县人民政府发布的统计公报与官方概况</strong>为准，主要数据为 <strong style="color:var(--text)">2025 年度</strong>（2026 年 6 月发布），每条关键数字都标了年份与出处口径。
+    </p>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:22px 0 10px;">一、地理位置：江苏海域面积最大的县</h3>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">在哪儿</strong>：江苏省盐城市下辖县，位于江苏沿海中部、黄海之滨，处在中国大陆南北地理分界线（秦岭—淮河一线）的<strong style="color:var(--text)">东部起点</strong>。本页天气坐标取 33.77°N / 120.26°E。</li>
+      <li><strong style="color:var(--text)">面积</strong>：县域总面积约 <strong style="color:var(--text)">7730 平方公里</strong>，其中<strong style="color:var(--text)">海域约 5130 平方公里</strong>，是江苏海域面积最大的县；陆上土地总面积约 <strong style="color:var(--text)">2605.72 平方公里</strong>（含陆地 1948.23、水域 482.09 平方公里）。</li>
+      <li><strong style="color:var(--text)">海岸与滩涂</strong>：县政府《射阳概况》给出海岸线 <strong style="color:var(--text)">107.8 公里</strong>、滩涂 109.7 万亩、生态湿地 7.3 万公顷、沿海湿地廊道 23 公里；百度百科等资料另有"海岸线 100.4 公里"的旧口径。差异源于统计年份与量算基准不同，引用时建议以政府最新表述为准。</li>
+      <li><strong style="color:var(--text)">气候</strong>：处于暖温带与北亚热带过渡地带，兼受海洋性与大陆性气候影响。据县政府公开规划文件，年均气温约 <strong style="color:var(--text)">14.1℃</strong>，年均降水量约 <strong style="color:var(--text)">1068.2 毫米</strong>，年日照约 2380.5 小时，无霜期约 225 天；8—9 月常有台风暴雨——这也是本页实时天气值得多看一眼的原因。</li>
+      <li><strong style="color:var(--text)">县名由来</strong>：相传因"精卫填海"而成陆、由"后羿射日"而得名（民间传说，非考据结论）。</li>
+    </ul>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:22px 0 10px;">二、行政区划与人口（2025 年末）</h3>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">下辖 13 个镇 + 2 个省级经济开发区</strong>：合德、临海、千秋、四明、海河、海通、兴桥、新坍、长荡、盘湾、特庸、洋马、黄沙港；开发区为江苏射阳经济开发区、江苏射阳港经济开发区。县人民政府驻<strong style="color:var(--text)">合德镇</strong>。境内另有 3 家省属农场、1 座市属盐场。</li>
+      <li><strong style="color:var(--text)">户籍人口 89.11 万人</strong>（2025 年末，比上年减少 6605 人）；<strong style="color:var(--text)">常住人口 74.64 万人</strong>，城镇化率 <strong style="color:var(--text)">63.66%</strong>。</li>
+      <li><strong style="color:var(--text)">人口趋势</strong>：2025 年出生率 2.80‰、死亡率 8.15‰，自然增长率 −5.34‰，已连续多年自然负增长。户籍人口大于常住人口，说明存在净流出。</li>
+      <li><strong style="color:var(--text)">居民收入</strong>：2025 年全体居民人均可支配收入 <strong style="color:var(--text)">40616 元</strong>（+5.0%），其中城镇 46750 元、农村 32233 元，城乡收入比 1.45，差距逐年收窄。</li>
+    </ul>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:22px 0 10px;">三、经济总量与产业结构（2025 年）</h3>
+    <div style="overflow-x:auto;margin:0 0 12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:.88rem;color:var(--text-secondary);line-height:1.7;font-weight:400;">
+        <thead>
+          <tr style="background:rgba(201,168,76,.10);">
+            <th style="text-align:left;padding:9px 10px;border:1px solid var(--border);color:var(--gold);font-weight:700;">指标（2025 年）</th>
+            <th style="text-align:left;padding:9px 10px;border:1px solid var(--border);color:var(--gold);font-weight:700;">数值</th>
+            <th style="text-align:left;padding:9px 10px;border:1px solid var(--border);color:var(--gold);font-weight:700;">同比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">地区生产总值（GDP）</td><td style="padding:9px 10px;border:1px solid var(--border);">808.16 亿元</td><td style="padding:9px 10px;border:1px solid var(--border);">+5.7%</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">人均 GDP</td><td style="padding:9px 10px;border:1px solid var(--border);">107704 元</td><td style="padding:9px 10px;border:1px solid var(--border);">+4.2%</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">三次产业结构</td><td style="padding:9px 10px;border:1px solid var(--border);">14.83 : 33.12 : 52.05</td><td style="padding:9px 10px;border:1px solid var(--border);">三产过半</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">工业开票销售</td><td style="padding:9px 10px;border:1px solid var(--border);">869.4 亿元</td><td style="padding:9px 10px;border:1px solid var(--border);">+8.0%</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">一般公共预算收入</td><td style="padding:9px 10px;border:1px solid var(--border);">34.62 亿元</td><td style="padding:9px 10px;border:1px solid var(--border);">+3.1%</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">社会消费品零售总额</td><td style="padding:9px 10px;border:1px solid var(--border);">292.8 亿元</td><td style="padding:9px 10px;border:1px solid var(--border);">+4.0%</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">粮食总产量</td><td style="padding:9px 10px;border:1px solid var(--border);">114.8 万吨（播种 236.6 万亩）</td><td style="padding:9px 10px;border:1px solid var(--border);">连年丰收</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">水产品产量</td><td style="padding:9px 10px;border:1px solid var(--border);">26.3 万吨（渔业产值 68.4 亿元）</td><td style="padding:9px 10px;border:1px solid var(--border);">+2.0%</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">接待游客</td><td style="padding:9px 10px;border:1px solid var(--border);">678 万人次</td><td style="padding:9px 10px;border:1px solid var(--border);">+7.6%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--text-secondary);line-height:1.9;font-size:.88rem;margin:0;">
+      数据来源：《2025 年射阳县国民经济和社会发展统计公报》（射阳县统计局，2026-06-09 发布）。作为对比，2024 年该县 GDP 为 <strong style="color:var(--text)">781.13 亿元</strong>（+6.8%），常住人口 75.43 万人——两年数据可交叉验证增速与人口走势。
+    </p>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:22px 0 10px;">四、特色产业：一粒米、一朵菊、一尾苗、一株桑，外加风电</h3>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">射阳大米</strong>：全国首个大米类地理标志集体商标（射阳县大米协会，2005 年注册）。县政府文章披露其品牌价值达 <strong style="color:var(--text)">357.12 亿元</strong>（2024 年口径），列"苏米"首位；2025 年获上海农博会金奖。粮食播种面积常年稳定在 235 万亩以上，是名副其实的"吨粮县"。</li>
+      <li><strong style="color:var(--text)">洋马菊花</strong>：国家地理标志商标（射阳县菊花研究会，2014 年注册）。据县政府《数字乡村发展规划》，核心产区约 2 万亩，<strong style="color:var(--text)">产销量占全国约 70%</strong>，是全国最大的药用菊花生产基地，当地有"中国药材之乡"之称。</li>
+      <li><strong style="color:var(--text)">大闸蟹苗</strong>：同一份规划显示，射阳大闸蟹苗<strong style="color:var(--text)">占全国市场约 70%</strong>，获"中国蟹苗之乡"称号；全县水产种苗繁育企业 87 家。</li>
+      <li><strong style="color:var(--text)">特庸蚕桑</strong>：桑园面积约 3.6 万亩，规模总量列江苏省第 3，特庸镇获评省蚕桑特色小镇。</li>
+      <li><strong style="color:var(--text)">海上风电与新能源</strong>：县政府《射阳概况》称射阳是江苏乃至全国海上风电开发核心区域，正打造以新能源汽车、风电全产业链为核心的 500 亿级新能源地标产业集群，并布局海工装备、高端纺织、电子信息、健康食品等特色产业。（"装机规模位居全球第一"为官方概况原文表述，属地方宣传口径，引用时建议注明出处。）</li>
+      <li><strong style="color:var(--text)">电力器材 / 机械电子</strong>：合德镇一带聚集了变压器铁芯、电力金具等电力电气配套制造企业，代表企业如江苏光辉电力器材有限公司（国家高新技术企业，产品覆盖 35kV—220kV 变压器铁芯，供应国家电网、南方电网及风电光伏企业）。这是射阳传统工业中辨识度较高的一块。</li>
+      <li><strong style="color:var(--text)">港口与渔业</strong>：2025 年沿海港口货物吞吐量 2398.0 万吨。县"十五五"规划纲要提出发挥国家一类开放口岸、国家中心渔港、现代海洋渔业产业园"两港一园"载体作用，建设海洋强县。</li>
+    </ul>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:22px 0 10px;">五、地标与文旅：鹤乡、湿地与世界自然遗产</h3>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">"中国鹤乡"与丹顶鹤</strong>：射阳地处东亚—澳大利亚候鸟迁徙通道，每年有大批丹顶鹤在此越冬。<strong style="color:var(--text)">江苏盐城湿地珍禽国家级自然保护区</strong>总面积 247260 公顷，涉及盐城沿海 6 个县（市、区），射阳段是其重要组成；据盐城官方媒体报道，保护区每年约有 <strong style="color:var(--text)">400—600 只丹顶鹤</strong>越冬，2000 多万只候鸟迁飞经过。</li>
+      <li><strong style="color:var(--text)">⚠️ 常见误解澄清</strong>：游客常去的"<strong style="color:var(--text)">丹顶鹤湿地生态旅游区</strong>"售票景区，行政上位于<strong style="color:var(--text)">盐城市亭湖区黄尖镇</strong>，并不在射阳县境内；保护区管理机构也设在亭湖。射阳境内可去的是黄沙港、日月岛等湿地与滨海景点。做旅行规划时别把两者混为一谈。</li>
+      <li><strong style="color:var(--text)">世界自然遗产</strong>：射阳滨海湿地是世界自然遗产"中国黄（渤）海候鸟栖息地"的组成部分之一（县政府《射阳概况》表述）。</li>
+      <li><strong style="color:var(--text)">县内主要打卡点</strong>：泊心·黄沙港（渔港文旅街区，2025 年列入国家 4A 级景区创建单位）、日月岛旅游度假区（列入 3A 级创建单位，全国森林康养基地试点）、安徒生童话乐园、洋马"鹤乡菊海"现代农业产业园（万亩菊海）、千鹤湖公园、息心寺等。</li>
+      <li><strong style="color:var(--text)">生态成绩</strong>：2025 年全县空气质量优良天数比例 <strong style="color:var(--text)">87.1%</strong>（公报称空气优良率全省第一），PM2.5 年均浓度 28.1 微克/立方米，5 个国省考断面水质均达 Ⅲ 类。县域曾连续入选"中国最美县域"。</li>
+      <li><strong style="color:var(--text)">怎么到</strong>：2025 年末全县公路总里程 3739.2 公里，其中高速公路 80.6 公里；盐射高速贯通全境，可经盐城站（高铁）、盐城南洋国际机场中转。</li>
+    </ul>
+
+    <div style="background:rgba(77,166,232,.07);border:1px solid var(--border);border-left:3px solid var(--blue-light);border-radius:10px;padding:14px 16px;margin:22px 0 0;">
+      <p style="color:var(--text-secondary);line-height:1.9;font-size:.86rem;margin:0;">
+        <strong style="color:var(--blue-light)">📌 数据口径说明</strong>：统计公报中部分数据为快报数，最终以《射阳统计年鉴》为准；GDP 绝对值按现行价格计算、增速按不变价计算。不同来源（政府概况 / 统计公报 / 百科）在面积、海岸线、人口等指标上口径与更新时点不一致，本文已优先采用县政府最新公开表述，并对差异做了标注。引用请回查原始链接。
+      </p>
+    </div>
+  </section>
+
+  <section style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;font-weight:400;">
+    <h2 style="color:var(--gold);font-size:1.15rem;margin:0 0 12px;">📚 资料来源 · 延伸阅读（射阳县百科）</h2>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.9rem;margin:0;padding-left:20px;">
+      <li><a href="https://www.sheyang.gov.cn/art/2026/6/9/art_12162_4430459.html" target="_blank" rel="noopener" style="color:var(--blue-light)">2025 年射阳县国民经济和社会发展统计公报</a> — 射阳县统计局发布，本文 GDP、人口、粮食、水产、旅游、环境等 2025 年数据的第一来源。</li>
+      <li><a href="https://www.sheyang.gov.cn/col/col12081/index.html" target="_blank" rel="noopener" style="color:var(--blue-light)">射阳县人民政府 · 射阳概况</a> — 官方对区位、海域滩涂面积、行政区划、产业定位与城市品牌的权威表述。</li>
+      <li><a href="https://www.sheyang.gov.cn/art/2025/4/21/art_12162_4315321.html" target="_blank" rel="noopener" style="color:var(--blue-light)">2024 年射阳县国民经济和社会发展统计公报</a> — 用于与 2025 年数据交叉比对，验证增速与人口变化趋势。</li>
+      <li><a href="https://tjj.yancheng.gov.cn/art/2025/3/14/art_1773_4301591.html" target="_blank" rel="noopener" style="color:var(--blue-light)">盐城市统计局：2024 年射阳县经济运行情况简析</a> — 上级统计部门口径，独立印证县级公报的主要经济指标。</li>
+      <li><a href="https://baike.baidu.com/view/1002994.htm" target="_blank" rel="noopener" style="color:var(--blue-light)">百度百科：射阳县</a> — 补充历史沿革、区划调整过程与土地/海域面积的细分口径。</li>
+    </ul>
+    <p style="color:var(--text-muted);font-size:.8rem;line-height:1.8;margin:14px 0 0;">
+      本区块内容整理于 2026 年 8 月，所有数字均标注了统计年份。统计口径可能随年报修订调整，如与官方最新发布不符，以官方为准。
+    </p>
+  </section>
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="typhoon.html">
+        <span class="lx-related-board">射阳气象</span>
+        <span class="lx-related-name">台风实时监测详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="xintan-weather.html">
+        <span class="lx-related-board">射阳气象</span>
+        <span class="lx-related-name">新坍镇农田气象 ·详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="chinajoy.html">
+        <span class="lx-related-board">ChinaJoy</span>
+        <span class="lx-related-name">ChinaJoy 成长史详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="pitfalls.html">
+        <span class="lx-related-board">踩坑记</span>
+        <span class="lx-related-name">龙兄踩坑记详细科普</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main><footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com" style="color:#42b883">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/search.js" integrity="sha384-KlyQTIlhMVcxcXVIuprq+jYVUnLzTeO30hiJKKrfW11fCgdxtQo8Inu3+jQgIE7s" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-8kad3MrSHYcCCCZ1Mju3iU6Ajj1HCTYJRfHirejZyp0edAx40wtgqxIltO4sIw2F" crossorigin="anonymous"></script>
+<script>if(window.initClock)initClock();</script>
+<script>
+const LAT = 33.77, LON = 120.26;
+
+const WMO = {
+  0: "晴", 1: "晴", 2: "多云", 3: "阴",
+  45: "雾", 48: "雾凇",
+  51: "小毛毛雨", 53: "中毛毛雨", 55: "大毛毛雨",
+  61: "小雨", 63: "中雨", 65: "大雨",
+  71: "小雪", 73: "中雪", 75: "大雪",
+  80: "小阵雨", 81: "中阵雨", 82: "大阵雨",
+  95: "雷暴", 96: "雷暴+冰雹", 99: "雷暴+大冰雹"
+};
+
+const WIND = ["北风", "东北风", "东风", "东南风", "南风", "西南风", "西风", "西北风"];
+
+function weatherDesc(code) { return WMO[code] || "未知"; }
+function windDir(deg) { return WIND[Math.round(deg / 45) % 8]; }
+
+function dressAdvice(temp, hum, code) {
+  let tips = [];
+  if (temp >= 35) tips.push("高温酷热，减少外出，注意防暑");
+  else if (temp >= 30) tips.push("炎热，室外注意防晒补水");
+  else if (temp >= 25) tips.push("较热，适合短袖");
+  else if (temp >= 18) tips.push("舒适，适宜户外活动");
+  else if (temp >= 10) tips.push("微凉，建议加件外套");
+  else if (temp >= 0) tips.push("较冷，注意保暖");
+  else tips.push("严寒，尽量减少外出");
+
+  if (hum >= 90) tips.push("湿度极高，体感闷热，注意防潮");
+  else if (hum >= 75) tips.push("湿度偏高，略闷");
+  else if (hum <= 30) tips.push("空气干燥，注意保湿");
+
+  if ([61, 63, 65, 80, 81, 82, 95, 96, 99].includes(code)) tips.push("有雨/雷暴，外出带伞");
+  if ([71, 73, 75, 85, 86].includes(code)) tips.push("有雪，注意路滑");
+
+  return tips.join("；");
+}
+
+function getWeekDay(dateStr) {
+  const days = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  return days[new Date(dateStr).getDay()];
+}
+
+const tileColors = ["tile-green", "tile-orange", "tile-purple", "tile-cyan", "tile-pink", "tile-yellow"];
+let colorIndex = 0;
+function nextColor() { return tileColors[colorIndex++ % tileColors.length]; }
+
+async function loadWeather() {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum&timezone=Asia/Shanghai&forecast_days=4`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('API ' + resp.status);
+    const data = await resp.json();
+
+    const c = data.current;
+    const temp = c.temperature_2m;
+    const hum = c.relative_humidity_2m;
+    const code = c.weather_code;
+    const ws = c.wind_speed_10m;
+    const wd = windDir(c.wind_direction_10m);
+    const desc = weatherDesc(code);
+    const advice = dressAdvice(temp, hum, code);
+
+    const now = new Date();
+    const ts = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+    let html = `
+    <div class="tile tile-large tile-blue weather-main">
+      <div class="temp">${temp}°</div>
+      <div class="desc">${desc}</div>
+      <div class="details">
+        <span>💧 湿度 ${hum}%</span>
+        <span>🌬️ ${wd} ${ws.toFixed(1)} km/h</span>
+      </div>
+      <div class="update-time">更新于 ${ts}</div>
+    </div>`;
+
+    if (data.daily) {
+      for (let i = 1; i < Math.min(4, data.daily.time.length); i++) {
+        const dayName = getWeekDay(data.daily.time[i]);
+        const hi = data.daily.temperature_2m_max[i];
+        const lo = data.daily.temperature_2m_min[i];
+        const wd2 = weatherDesc(data.daily.weather_code[i]);
+        const rain = data.daily.precipitation_sum[i];
+        const rainStr = rain > 0 ? `降水 ${rain}mm` : '';
+        html += `
+        <div class="tile tile-small ${nextColor()} forecast-tile">
+          <div class="day">${dayName}</div>
+          <div class="forecast-desc">${wd2}</div>
+          <div class="forecast-temp">${lo}~${hi}°</div>
+          <div class="forecast-rain">${rainStr}</div>
+        </div>`;
+      }
+    }
+
+    html += `
+    <div class="tile tile-dark advice-tile">
+      <h3>👔 出行建议</h3>
+      <p>${advice}</p>
+    </div>
+    <div class="tile tile-dark tip-tile">
+      <strong>💡 说明</strong>
+      <p>天气数据来自 Open-Meteo 开放气象 API，每次打开页面自动获取最新数据，每10分钟自动刷新。</p>
+    </div>`;
+
+    document.getElementById('tile-grid').innerHTML = html;
+  } catch (e) {
+    document.getElementById('tile-grid').innerHTML = `<div class="error-tile">⚠️ 天气数据获取失败，请稍后刷新</div>`;
+    console.error('Weather load error:', e);
+  }
+}
+
+loadWeather();
+setInterval(loadWeather, 10 * 60 * 1000);
+</script>
+    <script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "射阳天气 - 龙兄知识库",
+      "url": "https://longxiong.vip/sheyang.html",
+      "description": "龙兄知识库 - 射阳天气 - 龙兄知识库"
+    }
+  ]
+}
+</script>
+
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" data-act="toggleHomeSection">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+  </script>
+  <script defer src="js/auto_news_loader.js?v=h9f056b4e7546" integrity="sha384-AG13VKdGq6GUzYjudxh4OMmeOEDIhzA7AVTe2eZG9tbggE1PJX0ncpWEK5nuslNt" crossorigin="anonymous"></script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+</body>
+</html>

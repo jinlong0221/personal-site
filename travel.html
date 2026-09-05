@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-5mV2rAfKQEWlDgNXmYd+xhG0IO9aCXtbwGo4UlBLEDE=' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-HmR8qFsl9Y2JRUzjyauGKPjxQCIZnTqqjzGNJkWCxYA=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KKarDHItcKkCOPGC9t0qwpPFx3Q1FqUMwz+WgkkdEY0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-NQIsMrBaaTWm4egGr55bSr60z0L+tZZcQmFM3l3xqhE=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-f6h1uyn+6vD+sXT3xjRI6N24ES+UXCx0z0B3okQga5c=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info https://cdn.jsdelivr.net/npm/gitalk/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/gitalk/; img-src 'self' data: blob: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=hf6eb856b4355" integrity="sha384-kEj87zyOMAnIVEKGoF9yOHFkhcEtaNi94BzaFAvzehjVhvHwfu871PKnEjHvKIVF" crossorigin="anonymous">
+<title>足迹 · 家庭旅行详细科普｜龙兄知识库</title>
+<meta name="keywords" content="足迹 · 家庭旅行,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="足迹 · 家庭旅行详细科普：实测溯源、实操图文、避坑指南。适合足迹 · 家庭旅行爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+
+<style>:root{--tl:#c9a84c;--tl-2:#d98a4e;--tl-soft:rgba(201,168,76,.12)}
+[data-theme="light"]{--tl:#a68a3c;--tl-2:#c2763a;--tl-soft:rgba(166,138,60,.10)}
+.tl-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;
+  height:clamp(340px,34vw,440px);
+  display:flex;align-items:flex-end;background:linear-gradient(135deg,#231c0e 0%,#2e2512 50%,#3a2a14 100%)}
+.tl-hero-slides{position:absolute;inset:0;z-index:1}
+.tl-hero-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 1.1s ease;display:block}
+.tl-hero-slide.active{opacity:1}
+.tl-hero::after{content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.55) 38%,rgba(0,0,0,.1) 72%);pointer-events:none}
+.tl-hero-inner{position:relative;z-index:2;padding:24px 28px 26px;max-width:780px;
+  background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.38) 55%,rgba(0,0,0,0) 100%);border-radius:12px}
+.tl-kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:3px;color:#f1deaa;
+  border:1px solid rgba(241,222,170,.55);border-radius:999px;padding:4px 16px;margin-bottom:14px;
+  text-shadow:0 1px 6px rgba(0,0,0,.55)}
+.tl-hero h1{font-size:2.35rem;color:#fff;margin:0 0 10px;line-height:1.2;
+  text-shadow:0 2px 20px rgba(0,0,0,.65),0 1px 3px rgba(0,0,0,.55)}
+.tl-hero p.tl-sub{color:rgba(255,255,255,.94);font-size:1.05rem;margin:0 0 12px;font-weight:600;
+  text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.tl-hero p.tl-intro{color:rgba(255,255,255,.85);font-size:.93rem;line-height:1.85;margin:0;max-width:640px;
+  text-shadow:0 1px 8px rgba(0,0,0,.55)}
+.tl-gallery-block{margin-top:20px;padding-top:16px;border-top:1px dashed var(--border)}
+.tl-gallery-title{font-size:.78rem;font-weight:700;letter-spacing:2px;color:var(--text-secondary);margin:0 0 12px;
+  display:flex;align-items:center;gap:8px}
+.tl-gallery-title::before{content:'';display:inline-block;width:14px;height:2px;background:var(--tl);border-radius:1px}
+.tl-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.tl-gallery a{display:block;line-height:0}
+.tl-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--border);
+  display:block;background:#222;transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease}
+.tl-gallery img:hover{transform:scale(1.04);border-color:var(--tl);box-shadow:0 8px 22px rgba(0,0,0,.5)}
+.tl-gallery-captioned{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.tl-photo{margin:0;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s,border-color .25s}
+.tl-photo:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--tl)}
+.tl-photo a{display:block;line-height:0}
+.tl-gallery-captioned .tl-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#222;
+  border:none;border-radius:0}
+.tl-gallery-captioned .tl-photo img:hover{transform:none}
+.tl-photo-cap{font-size:.82rem;color:var(--text-secondary);line-height:1.6;padding:10px 12px 12px}
+.tl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 10px}
+.tl-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 12px;text-align:center}
+.tl-stat-num{display:block;font-size:1.65rem;font-weight:800;color:var(--tl);line-height:1.2}
+.tl-stat-label{display:block;font-size:.76rem;color:var(--text-secondary);margin-top:4px}
+.tl-sec{margin:42px 0 0}
+.tl-sec-title{display:flex;align-items:center;gap:10px;font-size:1.28rem;font-weight:800;margin:0 0 6px;padding-left:12px;border-left:4px solid var(--tl)}
+.tl-sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+.tl-filter{margin:0 0 20px;padding:12px 14px;background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:12px}
+.tl-search-wrap{position:relative;margin-bottom:10px}
+.tl-search{width:100%;padding:9px 34px 9px 34px;font-size:.9rem;color:var(--text);background:var(--card);
+  border:1px solid var(--border);border-radius:9px;font-family:inherit}
+.tl-search:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tl-soft)}
+.tl-search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem;pointer-events:none}
+.tl-search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;
+  color:var(--text-muted);cursor:pointer;font-size:1rem;padding:2px 6px;display:none}
+.tl-chips{display:flex;flex-wrap:wrap;gap:7px}
+.tl-chip{font-size:.8rem;padding:5px 13px;border-radius:999px;border:1px solid var(--border);background:var(--card);
+  color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .18s}
+.tl-chip b{font-weight:700;opacity:.6;margin-left:2px;font-size:.74rem}
+.tl-chip:hover{border-color:var(--tl);color:var(--tl)}
+.tl-chip.active{background:var(--tl);border-color:var(--tl);color:#1a1408}
+.tl-chip.active b{opacity:.85}
+.tl-count-bar{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--text-muted);margin-bottom:14px}
+.tl-reset{background:none;border:none;color:var(--tl);cursor:pointer;font-size:.8rem;font-family:inherit;text-decoration:underline}
+.tl-list{display:flex;flex-direction:column;gap:20px}
+.tl-trip{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  transition:box-shadow .25s ease,border-color .25s ease}
+.tl-trip.open{border-color:var(--tl);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.tl-trip-head{position:relative;display:flex;width:100%;text-align:left;cursor:pointer;border:none;
+  -webkit-appearance:none;appearance:none;background:linear-gradient(135deg,#231c0e 0%,#2e2512 50%,#3a2a14 100%);
+  color:#fff;padding:0;font-family:inherit;-webkit-tap-highlight-color:transparent;outline:none}
+.tl-trip-head:focus-visible{box-shadow:0 0 0 3px var(--tl-soft)}
+.tl-trip-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;z-index:0}
+.tl-trip-head::before{content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.22) 100%)}
+.tl-trip-head-inner{position:relative;z-index:2;flex:1;display:flex;justify-content:space-between;align-items:center;
+  gap:16px;padding:20px 22px;min-height:120px}
+.tl-trip-titles{display:flex;flex-direction:column;gap:3px}
+.tl-trip-head .tl-trip-title{font-size:1.24rem;font-weight:800;color:#fff;line-height:1.3;margin:0;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.tl-trip-head .tl-trip-meta{font-size:.82rem;color:rgba(255,255,255,.86);margin-top:2px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.tl-trip-hint{font-size:.76rem;color:rgba(255,255,255,.7);margin-top:3px;letter-spacing:.3px}
+.tl-trip-caret{flex:0 0 auto;font-size:1.1rem;color:rgba(255,255,255,.9);transition:transform .25s ease;line-height:1}
+.tl-trip.open .tl-trip-caret{transform:rotate(180deg)}
+.tl-trip-body{display:none;padding:18px 22px 22px}
+.tl-trip.open .tl-trip-body{display:block;animation:tlSlide .3s ease}
+@keyframes tlSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.tl-visit{padding-top:14px;margin-top:14px;border-top:1px dashed var(--border)}
+.tl-visit:first-of-type{padding-top:2px;margin-top:0;border-top:none}
+.tl-visit-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%;text-align:left;
+  cursor:pointer;margin:0 0 10px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;
+  background:var(--bg);color:var(--text);font-family:inherit;-webkit-appearance:none;appearance:none;
+  -webkit-tap-highlight-color:transparent;transition:border-color .18s,background .18s}
+.tl-visit-head:hover{border-color:var(--tl)}
+.tl-visit.open .tl-visit-head{border-color:var(--tl);background:var(--tl-soft)}
+.tl-visit-date{font-size:1.06rem;font-weight:800;color:var(--text);line-height:1.3;display:flex;align-items:center;gap:8px}
+.tl-visit-meta{font-size:.8rem;color:var(--text-muted)}
+.tl-visit-caret{margin-left:auto;font-size:1rem;color:var(--text-muted);transition:transform .2s ease;line-height:1}
+.tl-visit.open .tl-visit-caret{transform:rotate(180deg);color:var(--tl)}
+.tl-visit-body{display:none;padding:2px 2px 4px}
+.tl-visit.open .tl-visit-body{display:block;animation:tlFade .2s ease}
+.tl-trip-region{font-size:.8rem;font-weight:500;color:rgba(255,255,255,.6);margin-left:4px}
+.tl-season{flex:0 0 auto;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.05rem;font-weight:800}
+.tl-trip-titles{display:flex;flex-direction:column}
+.tl-trip-title{font-size:1.22rem;font-weight:800;color:var(--text);line-height:1.3;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tl-latest{flex:0 0 auto;font-size:.7rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--tl),var(--tl-2));
+  padding:2px 10px;border-radius:999px;letter-spacing:.5px}
+.tl-trip-meta{font-size:.82rem;color:var(--text-secondary);margin-top:2px}
+.tl-trip-note{font-size:.92rem;color:var(--text-secondary);line-height:1.8;margin:0 0 14px;padding:10px 14px;
+  background:var(--tl-soft);border-left:3px solid var(--tl);border-radius:0 9px 9px 0;font-style:italic}
+.tl-cities{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.tl-city{background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  transition:box-shadow .2s,transform .2s}
+.tl-city:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.tl-city-img-wrap{position:relative;aspect-ratio:320/200;background:var(--card);overflow:hidden}
+.tl-city-img{display:block;width:100%;height:100%;object-fit:cover}
+.tl-city-body{padding:12px 14px 14px}
+.tl-city-name{font-size:1.05rem;font-weight:800;color:var(--text);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.tl-city-meta{font-size:.76rem;font-weight:400;color:var(--text-muted)}
+.tl-city-memory{font-size:.88rem;color:var(--text-secondary);line-height:1.7;margin:6px 0 2px}
+.tl-city-kids{font-size:.78rem;color:var(--tl);margin:4px 0 6px;font-weight:600}
+.tl-rating{display:inline-flex;gap:1px;color:var(--tl);vertical-align:middle;margin-bottom:4px}
+.tl-rating .tl-star{color:var(--text-muted)}
+.tl-rating .tl-star.on{color:var(--tl)}
+.tl-city-toggle{display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:4px 12px;font-size:.76rem;
+  font-family:inherit;color:var(--tl);background:var(--tl-soft);border:1px solid transparent;border-radius:999px;cursor:pointer;transition:border-color .15s}
+.tl-city-toggle:hover{border-color:var(--tl)}
+.tl-caret{display:inline-block;transition:transform .2s;font-size:.7rem;line-height:1}
+.tl-city.open .tl-caret{transform:rotate(180deg)}
+.tl-city-detail{display:none;margin-top:8px;animation:tlFade .2s ease}
+.tl-city.open .tl-city-detail{display:block}
+.tl-highlights{margin:0;padding-left:18px}
+.tl-highlights li{font-size:.84rem;color:var(--text-secondary);line-height:1.8}
+.tl-empty{display:none;text-align:center;padding:46px 20px;color:var(--text-muted);font-size:.9rem}
+@keyframes tlFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.tl-reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.tl-reveal.in{opacity:1;transform:none}
+.tl-note{margin:36px 0 8px;padding:16px 18px;background:var(--bg);border:1px solid var(--border);border-radius:12px;
+  font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+.tl-note h3{font-size:.9rem;margin:0 0 8px;color:var(--text)}
+.tl-note code{background:var(--card);padding:1px 6px;border-radius:5px;font-size:.78rem;color:var(--tl)}
+.tl-empty-state{text-align:center;padding:54px 20px;color:var(--text-muted)}
+.tl-empty-state svg{color:var(--tl);opacity:.7;margin-bottom:14px}
+.tl-empty-title{font-size:1.15rem;font-weight:800;color:var(--text);margin:0 0 8px}
+.tl-empty-sub{font-size:.9rem;line-height:1.85;max-width:440px;margin:0 auto;color:var(--text-secondary)}
+.tl-more-wrap{display:none;text-align:center;margin:22px 0 4px}
+.tl-more-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 28px;font-size:.92rem;font-family:inherit;
+  color:var(--tl);background:var(--tl-soft);border:1px solid var(--tl);border-radius:999px;cursor:pointer;transition:all .18s}
+.tl-more-btn:hover{background:var(--tl);color:#1a1408}
+.tl-cities-more{display:inline-flex;align-items:center;gap:4px;margin:12px 0 2px;padding:4px 14px;font-size:.78rem;
+  font-family:inherit;color:var(--tl);background:var(--tl-soft);border:1px solid transparent;border-radius:999px;cursor:pointer}
+.tl-cities-more:hover{border-color:var(--tl)}
+.tl-cities.tl-collapsible{position:relative}
+@media(max-width:992px){.tl-stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:576px){.tl-hero{min-height:200px}.tl-hero-inner{padding:22px 16px 20px}.tl-hero h1{font-size:1.5rem}
+  .tl-trip{padding:16px 15px}.tl-cities{grid-template-columns:1fr}.tl-stat-num{font-size:1.35rem}}</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta property="og:site_name" content="龙兄知识库">
+<link rel="canonical" href="https://longxiong.vip/travel.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="足迹 · 家庭旅行详细科普｜龙兄知识库">
+<meta property="og:description" content="足迹 · 家庭旅行详细科普：实测溯源、实操图文、避坑指南。适合足迹 · 家庭旅行爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/travel.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="足迹 · 家庭旅行 - 龙兄知识库">
+<meta name="twitter:description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<meta name="robots" content="noindex">
+<script type="module" src="/js/vendor/argon2.mjs" integrity="sha384-z5gmVEBwa470HRttPPWaPPSmX3ezDjhqlPRVejXhBI3c19nSz5DvcttZf6jIVLXP" crossorigin="anonymous"></script>
+</head>
+<body data-pagefind-ignore>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html" class="active">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+
+<div id="tlLightbox" class="tl-lb" hidden>
+  <div class="tl-lb-backdrop" data-lb-close></div>
+  <div class="tl-lb-stage">
+    <img id="tlLbImg" alt="旅行大图">
+    <div class="tl-lb-bar">
+      <button type="button" id="tlLbNew" class="tl-lb-btn">在新标签页打开</button>
+      <button type="button" class="tl-lb-btn" data-lb-close>关闭 (Esc)</button>
+    </div>
+  </div>
+</div>
+<div id="tlContent" data-pagefind-ignore></div>
+<div id="tlProgress" class="tl-prog" hidden>
+  <span id="tlProgTxt">相册加载中…</span>
+  <div class="tl-prog-bar"><div id="tlProgFill"></div></div>
+</div>
+<div id="tlGate" class="tl-gate">
+  <div class="tl-gate-card">
+    <div class="tl-gate-lock" aria-hidden="true">🔒</div>
+    <h2>家庭旅行 · 私密相册</h2>
+    <p class="tl-gate-sub">本页仅限家人查看，请输入访问密码。</p>
+    <input type="password" id="tlPw" class="tl-gate-input" placeholder="请输入密码" autocomplete="off" aria-label="访问密码" inputmode="text">
+    <button id="tlUnlock" class="tl-gate-btn" type="button">解锁查看</button>
+    <p id="tlErr" class="tl-gate-err" hidden>密码错误，请重试。</p>
+  </div>
+</div>
+<style>
+.tl-gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0e0e10;z-index:9999;padding:24px}
+.tl-gate-card{background:#16161a;border:1px solid #322b20;border-radius:18px;padding:34px 30px;max-width:360px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.tl-gate-lock{font-size:38px;margin-bottom:6px}
+.tl-gate-card h2{margin:.2em 0;font-size:1.3rem;color:#EDE6D6}
+.tl-gate-sub{color:#A89F8C;font-size:.9rem;margin:.4em 0 1.1em}
+.tl-gate-input{width:100%;padding:11px 14px;border-radius:10px;border:1px solid #322b20;background:#0e0e10;color:#EDE6D6;font-size:1rem;box-sizing:border-box}
+.tl-gate-input:focus{outline:none;border-color:#C9A84C}
+.tl-gate-input::placeholder{color:#6C6353}
+.tl-gate-btn{margin-top:12px;width:100%;padding:11px;border:none;border-radius:10px;background:#C9A84C;color:#1a1408;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit}
+.tl-gate-btn:hover{filter:brightness(1.06)}
+.tl-gate-err{color:#e0777a;font-size:.85rem;margin:.7em 0 0}
+.tl-lb{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.92);padding:24px}
+.tl-lb[hidden]{display:none}
+.tl-lb-backdrop{position:absolute;inset:0;cursor:zoom-out}
+.tl-lb-stage{position:relative;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;gap:12px;align-items:center}
+.tl-lb-stage img{max-width:94vw;max-height:80vh;width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.6);background:#111}
+.tl-lb-bar{display:flex;gap:10px}
+.tl-lb-btn{padding:9px 16px;border:1px solid rgba(255,255,255,.28);border-radius:10px;background:rgba(28,28,32,.92);color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.tl-lb-btn:hover{border-color:#D8B25E;color:#fff}
+.tl-prog{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:10001;background:rgba(16,16,20,.94);border:1px solid #322b20;border-radius:12px;padding:10px 16px;min-width:220px;max-width:86vw;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.tl-prog[hidden]{display:none}
+.tl-prog span{display:block;color:#EDE6D6;font-size:.85rem;margin-bottom:7px;text-align:center}
+.tl-prog-bar{height:5px;background:#26242a;border-radius:99px;overflow:hidden}
+.tl-prog-fill{height:100%;width:0;background:#C9A84C;border-radius:99px;transition:width .4s ease}
+</style>
+<script type="module">
+import { argon2idAsync } from '/js/vendor/argon2.mjs';
+(function(){
+  var BLOB="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";
+  var SALT="4mjXjZVuZx0y7RX8SOXWNg==";
+  var KDF="ARG2";
+  var KPARAMS="3.32768.1";
+  var ALBUM_COUNT=15;
+  var enc=new TextEncoder();
+  function b64ToU8(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+  function derive(pw,salt){
+    if(KDF==="ARG2"){
+      // 新标准：Argon2id 内存硬派生（与 encrypt_travel 同一份 vendored 模块，字节级一致）
+      var p=KPARAMS.split(".").map(Number);
+      return argon2idAsync(enc.encode(pw),salt,{t:p[0],m:p[1],p:p[2],dkLen:32,version:0x13})
+        .then(function(h){return crypto.subtle.importKey("raw",h,"AES-GCM",false,["encrypt","decrypt"]);});
+    }
+    // 兼容已部署的旧 PBKDF2 外壳：用头里记录的迭代次数（缺省 1M）
+    var iters=(KDF==="PBK2")?(parseInt(KPARAMS,10)||1000000):1000000;
+    return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){
+      return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:iters,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);
+    });
+  }
+  function decBytes(key,blob){var iv=blob.slice(0,12),ct=blob.slice(12);return crypto.subtle.decrypt({name:"AES-GCM",iv:iv},key,ct).then(function(pt){return new Uint8Array(pt);});}
+  function gunzip(u){return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream("gzip"))).text();}
+  function reRun(root){
+    var s=root.querySelectorAll("script");
+    for(var i=0;i<s.length;i++){
+      var n=document.createElement("script");
+      var attrs=s[i].attributes;
+      for(var a=0;a<attrs.length;a++){ n.setAttribute(attrs[a].name, attrs[a].value); }
+      n.textContent=s[i].textContent;
+      s[i].replaceWith(n);
+    }
+  }
+  function photoType(rel){
+    var s=rel.toLowerCase();
+    if(s.endsWith(".png")) return "image/png";
+    if(s.endsWith(".jpg")||s.endsWith(".jpeg")) return "image/jpeg";
+    if(s.endsWith(".gif")) return "image/gif";
+    if(s.endsWith(".avif")) return "image/avif";
+    return "image/webp";
+  }
+  // 带超时 + 指数退避重试的 fetch：相册分片片级加载（每片 ≤300KB）。
+  // 2026-08-19 实测：GitHub Pages 链路速度波动大，album-1（~327KB）时而 45KB/s、
+  // 时而冷启动仅 6-12KB/s，原 30s 超时会让大分片反复超时，进度卡在 0/20。
+  // 故每片独立 fetch：120s 超时 + 5 次退避（0.6s/1.2s/1.8s/2.4s/3.0s），单片失败可单独重试。
+  // 硬错误（HTTP 4xx/5xx，如文件确实不存在）不重试。
+  function fetchWithRetry(url, tries, timeoutMs){
+    var ctrl=(typeof AbortController!=="undefined")?new AbortController():null;
+    var timer=ctrl?setTimeout(function(){ctrl.abort();}, timeoutMs||120000):null;
+    var p=fetch(url, ctrl?{signal:ctrl.signal}:{});
+    var done=p.then(function(r){
+      if(!r.ok) return Promise.reject(Object.assign(new Error("HTTP "+r.status),{http:true}));
+      return r;
+    });
+    if(timer) done=done.then(function(v){clearTimeout(timer);return v;});
+    return done.catch(function(e){
+      if(timer) clearTimeout(timer);
+      if(e && e.http) throw e;
+      if(tries>1) return new Promise(function(res,rej){setTimeout(function(){fetchWithRetry(url,tries-1,timeoutMs).then(res,rej);},600*(6-tries));});
+      throw e;
+    });
+  }
+  function gunzipBytes(u){
+    return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()
+      .then(function(b){ return new Uint8Array(b); });
+  }
+  var tlUrls={};   // rel → BlobURL 字典（逐片合并；页面生命周期内有效）
+  var tlDone=0;    // 已处理（成功或失败）片数，驱动进度条
+  var tlOk=0;      // 成功加载片数
+  var tlMissing={}; // 最终仍缺失的照片 rel（rel → true）
+  // —— 懒加载状态（2026-08-19 第四轮：IO 按需加载 + 并发 3 + 密码聚焦预取）——
+  var currentKey=null;
+  var loadedShards={};   // shardNum → true
+  var loadingShards={};  // shardNum → true
+  var pendingShards=[];  // 待加载分片队列
+  var bgStarted=false;   // 后台预取剩余分片是否已启动
+  var MAX_CONCURRENT=3;  // 并发窗口（v3 的 2→3：照片降质后分片更小，3 并发更稳）
+  var preFetched={};     // shardNum → ArrayBuffer（密码聚焦时预取的原始密文字节）
+  // 解析相册分片：解密 + gunzip 后为 magic "TLPK"(4B) + manifestLen(4B,BE) + manifest JSON + 照片数据区
+  function parseAlbum(pt){
+    var dv=new DataView(pt.buffer,pt.byteOffset,pt.byteLength);
+    if(dv.getUint32(0,false)!==0x544C504B) throw new Error("相册分片格式错误(magic)");
+    var mlen=dv.getUint32(4,false);
+    var manifest=JSON.parse(new TextDecoder().decode(pt.subarray(8,8+mlen)));
+    var off=8+mlen,map={};
+    for(var i=0;i<manifest.length;i++){
+      var it=manifest[i];
+      map[it.rel]=URL.createObjectURL(new Blob([pt.subarray(off,off+it.size)],{type:photoType(it.rel)}));
+      off+=it.size;
+    }
+    return map;
+  }
+  // —— IO 懒加载分片体系（2026-08-19 第四轮改造）——
+  // 核心改进：
+  //   a) IntersectionObserver：只加载视口内可见照片所属的分片，折叠区不下载；
+  //   b) 并发窗口 3：照片降质后分片更小（~170KB），3 并发吞吐更高且不超时；
+  //   c) 密码聚焦预取：用户输入密码时并行下载前 2 片密文，解锁后直接解密；
+  //   d) 后台补全：可见分片加载完后自动后台拉取剩余分片，展开折叠区时零等待。
+  function loadShard(key,i){
+    var fetchPromise;
+    if(preFetched[i]){
+      fetchPromise=Promise.resolve(preFetched[i]);
+      preFetched[i]=null;
+    } else {
+      fetchPromise=fetchWithRetry("img/travel/album-"+i+".tlpk",5,120000).then(function(r){return r.arrayBuffer();});
+    }
+    return fetchPromise
+      .then(function(buf){ return decBytes(key,new Uint8Array(buf)); })
+      .then(gunzipBytes)
+      .then(parseAlbum)
+      .then(function(map){
+        tlOk++;
+        loadedShards[i]=true;
+        for(var k in map) tlUrls[k]=map[k];
+      })
+      .catch(function(e){
+        console.error("分片加载失败（已重试 5 次）album-"+i+".tlpk", e);
+      })
+      .then(function(){
+        delete loadingShards[i];
+        tlDone++;
+        renderAll();
+        progressUI();
+        if(pendingShards.length>0) scheduleShards();
+        if(pendingShards.length===0 && Object.keys(loadingShards).length===0 && !bgStarted){
+          bgStarted=true;
+          backgroundLoadRemaining();
+        }
+        if(tlDone>=ALBUM_COUNT) finishUI();
+      });
+  }
+  function scheduleShards(){
+    var loadingCount=0;
+    for(var k in loadingShards){ if(loadingShards[k]) loadingCount++; }
+    while(loadingCount<MAX_CONCURRENT && pendingShards.length>0){
+      var sn=pendingShards.shift();
+      if(loadedShards[sn]||loadingShards[sn]) continue;
+      loadingShards[sn]=true;
+      loadShard(currentKey,sn);
+      loadingCount++;
+    }
+  }
+  function requestShard(shardNum){
+    if(loadedShards[shardNum]||loadingShards[shardNum]) return;
+    for(var i=0;i<pendingShards.length;i++){ if(pendingShards[i]===shardNum) return; }
+    pendingShards.push(shardNum);
+    scheduleShards();
+  }
+  function backgroundLoadRemaining(){
+    for(var i=1;i<=ALBUM_COUNT;i++){
+      if(!loadedShards[i]&&!loadingShards[i]){
+        var inQueue=false;
+        for(var j=0;j<pendingShards.length;j++){ if(pendingShards[j]===i){inQueue=true;break;} }
+        if(!inQueue) pendingShards.push(i);
+      }
+    }
+    scheduleShards();
+  }
+  function setupLazyLoad(key){
+    currentKey=key;
+    var idx=window.__tlShardIdx||{};
+    if(!('IntersectionObserver' in window)||Object.keys(idx).length===0){
+      // 不支持 IO 或无索引：回退到全量加载
+      for(var i=1;i<=ALBUM_COUNT;i++) pendingShards.push(i);
+      scheduleShards();
+      return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        if(entries[i].isIntersecting){
+          var img=entries[i].target;
+          var rel=img.getAttribute('data-enc');
+          if(rel&&idx[rel]) requestShard(idx[rel]);
+          io.unobserve(img);
+        }
+      }
+    },{rootMargin:'300px'});
+    var imgs=document.querySelectorAll('#tlContent img[data-enc]');
+    for(var i=0;i<imgs.length;i++) io.observe(imgs[i]);
+    // 折叠展开时手动触发可见检查（IO 对 display:none→block 的检测有延迟）
+    var heads=document.querySelectorAll('#tlContent .tl-trip-head, #tlContent .tl-visit-head');
+    for(var h=0;h<heads.length;h++){
+      heads[h].addEventListener('click',function(){
+        setTimeout(function(){
+          var vis=document.querySelectorAll('#tlContent img[data-enc]');
+          for(var i=0;i<vis.length;i++){
+            var rel=vis[i].getAttribute('data-enc');
+            if(rel&&idx[rel]) requestShard(idx[rel]);
+          }
+        },50);
+      });
+    }
+    // 2 秒后若无分片被请求，加载前 3 片（保险）
+    setTimeout(function(){
+      if(Object.keys(loadedShards).length===0&&Object.keys(loadingShards).length===0&&pendingShards.length===0){
+        for(var i=1;i<=Math.min(3,ALBUM_COUNT);i++) requestShard(i);
+      }
+    },2000);
+  }
+  function progressUI(){
+    var txt=document.getElementById("tlProgTxt");
+    var fill=document.getElementById("tlProgFill");
+    if(!txt||!fill) return;
+    txt.textContent="相册加载中… "+tlDone+"/"+ALBUM_COUNT+" 片";
+    fill.style.width=Math.round(tlDone/ALBUM_COUNT*100)+"%";
+  }
+  function finishUI(){
+    var p=document.getElementById("tlProgress");
+    var txt=document.getElementById("tlProgTxt");
+    var fill=document.getElementById("tlProgFill");
+    if(!p||!txt||!fill) return;
+    var missing=Object.keys(tlMissing);
+    if(tlOk<ALBUM_COUNT||missing.length){
+      txt.textContent="相册加载完成："+tlOk+"/"+ALBUM_COUNT+" 片，"+(missing.length||"部分")+" 张照片暂不可用，请刷新重试";
+      fill.style.width="100%";
+    } else {
+      txt.textContent="相册已全部加载完成";
+      fill.style.width="100%";
+      setTimeout(function(){ p.hidden=true; },1500); // 全部成功，稍后自动隐藏
+    }
+  }
+  // 渲染所有已就绪照片 + 绑定大图灯箱（幂等：已渲染的 img 已移除 data-enc，不会重复处理）
+  function renderAll(){
+    var imgs=document.querySelectorAll("#tlContent img[data-enc]");
+    for(var i=0;i<imgs.length;i++){
+      var img=imgs[i],rel=img.getAttribute("data-enc");
+      var url=tlUrls[rel];
+      if(url){ img.removeAttribute("loading"); img.src=url; img.removeAttribute("data-enc"); delete tlMissing[rel]; }
+      else if(rel){ tlMissing[rel]=true; }
+    }
+    var as=document.querySelectorAll("#tlContent a[data-enc-href]");
+    for(var i=0;i<as.length;i++){
+      var a=as[i];
+      var rel=a.getAttribute("data-enc-href");
+      if(rel && tlUrls[rel]){
+        a.removeAttribute("data-enc-href");
+        (function(rel,a){ a.addEventListener("click",function(e){ e.preventDefault(); openLightbox(rel); }); })(rel,a);
+      }
+    }
+  }
+  // 画廊「点开看大图」：直接使用已解密的 Blob URL（零网络、零解密延迟）
+  var lb=document.getElementById("tlLightbox");
+  var lbImg=document.getElementById("tlLbImg");
+  var lbNew=document.getElementById("tlLbNew");
+  function openLightbox(rel){
+    var url=tlUrls[rel];
+    if(!url){ console.error("相册缺少照片", rel); return; }
+    lbImg.setAttribute("data-rel",rel);
+    lbImg.src=url;
+    lb.hidden=false;
+  }
+  function closeLightbox(){ lb.hidden=true; }
+  lb.addEventListener("click",function(e){ if(e.target.hasAttribute("data-lb-close")) closeLightbox(); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !lb.hidden) closeLightbox(); });
+  // 「在新标签页打开」在点击同步瞬间触发，保留 user activation，不会被弹窗拦截
+  lbNew.addEventListener("click",function(){ var rel=lbImg.getAttribute("data-rel"); if(rel&&tlUrls[rel]) window.open(tlUrls[rel],"_blank","noopener"); });
+  // —— 密码框聚焦时预取前 2 片原始密文（网络与用户输入时间重叠，省 3-5s）——
+  var pwEl=document.getElementById("tlPw");
+  if(pwEl){
+    pwEl.addEventListener("focus",function(){
+      for(var i=1;i<=Math.min(2,ALBUM_COUNT);i++){
+        if(!preFetched[i]){
+          (function(sn){
+            fetchWithRetry("img/travel/album-"+sn+".tlpk",5,120000)
+              .then(function(r){return r.arrayBuffer();})
+              .then(function(buf){ preFetched[sn]=buf; })
+              .catch(function(){/* 解锁后正常加载会重试 */});
+          })(i);
+        }
+      }
+    });
+  }
+  // 解锁：解密内容 BLOB → 立即渲染页面骨架 + 移除密码门 → IO 懒加载可见照片分片
+  function unlock(){
+    var err=document.getElementById("tlErr"); err.hidden=true;
+    var pw=document.getElementById("tlPw").value;
+    derive(pw,b64ToU8(SALT)).then(function(key){
+      return decBytes(key,b64ToU8(BLOB)).then(function(u){return gunzip(u);}).then(function(html){
+        var c=document.getElementById("tlContent");
+        c.innerHTML=html; reRun(c);
+        var g=document.getElementById("tlGate"); if(g) g.remove();
+        tlUrls={}; tlDone=0; tlOk=0; tlMissing={};
+        loadedShards={}; loadingShards={}; pendingShards=[]; bgStarted=false;
+        if(ALBUM_COUNT>0){
+          var p=document.getElementById("tlProgress"); if(p) p.hidden=false;
+          progressUI();
+          setupLazyLoad(key);
+        }
+      });
+    }).catch(function(e){ err.hidden=false; console.error("解锁失败", e); });
+  }
+  document.getElementById("tlUnlock").addEventListener("click",unlock);
+  document.getElementById("tlPw").addEventListener("keydown",function(e){if(e.key==="Enter")unlock();});
+})();
+</script>
+
+<script src="js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+</body>
+</html>

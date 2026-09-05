@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>五行搭配指南2026实测避坑｜龙兄知识库</title>
+<meta name="keywords" content="五行搭配指南,2026实测避坑,实测溯源,龙兄知识库">
+
+<meta name="description" content="五行搭配指南2026实测避坑：实测溯源、实操图文、避坑指南。适合五行搭配指南爱好者与从业者参考，掌握核心要点、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="../js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="../css/style.css?v=hf6eb856b4355" integrity="sha384-kEj87zyOMAnIVEKGoF9yOHFkhcEtaNi94BzaFAvzehjVhvHwfu871PKnEjHvKIVF" crossorigin="anonymous">
+<style>
+  .wx-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--tile-gap);margin:16px 0}
+  .wx-card{border-radius:var(--radius-sm);padding:20px;text-align:center;transition:transform .15s}
+  .wx-card:hover{transform:scale(1.05)}
+  .wx-card .elem{font-size:36px;font-weight:700;margin-bottom:6px;color:#fff!important}
+  .wx-card .ename{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:4px}
+  .wx-card .c-info{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5}
+  .wx-wood{background:linear-gradient(135deg,#1a5a1a,#2d8a2d)}
+  .wx-fire{background:linear-gradient(135deg,#8a2020,#c03333)}
+  .wx-earth{background:linear-gradient(135deg,#8a6a20,#c09a33)}
+  .wx-metal{background:linear-gradient(135deg,#5a5a6a,#8a8a9a)}
+  .wx-water{background:linear-gradient(135deg,#1a2d5a,#2d4a8a)}
+  .match-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
+  .match-card{border-radius:var(--radius-sm);padding:16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--gold);transition:transform .15s}
+  .match-card:hover{transform:scale(1.02)}
+  .match-card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--gold)}
+  .match-card p{font-size:13px;color:var(--text-secondary);line-height:1.6}
+  .tip-bg{background:linear-gradient(135deg,#3d2d0d,#5a4a1a);border-left:4px solid var(--yellow);border-radius:var(--radius-sm);padding:18px;margin:16px 0}
+  .tip-bg p{color:rgba(255,255,255,.9);font-size:14px;line-height:1.7}
+  .tip-bg strong{color:var(--yellow)}
+  @media(max-width:768px){.wx-grid{grid-template-columns:repeat(3,1fr)}.match-grid{grid-template-columns:1fr}}
+  @media(max-width:480px){.wx-grid{grid-template-columns:repeat(2,1fr)}}
+  [data-theme="light"] .wx-card{filter:brightness(.85)}[data-theme="light"] .wx-card .elem,[data-theme="light"] .wx-card .ename,[data-theme="light"] .wx-card .c-info{color:#fff!important}[data-theme="light"] .tip-bg{background:rgba(255,200,0,.1);color:#7a5000}[data-theme="light"] .tip-bg p{color:#7a5000}
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<link rel="canonical" href="https://longxiong.vip/bracelet/wuxing.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="五行搭配指南2026实测避坑｜龙兄知识库">
+<meta property="og:description" content="五行搭配指南2026实测避坑：实测溯源、实操图文、避坑指南。适合五行搭配指南爱好者与从业者参考，掌握核心要点、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/bracelet/wuxing.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="五行搭配指南 - 龙兄知识库">
+<meta name="twitter:description" content="文玩手串五行搭配指南。材质五行属性表、相生相克搭配建议、配珠选择、色彩美学原则。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="../calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="../sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="../herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="../herbs.html">中药材</a></li>
+      <li><a href="../health-tea.html">养生茶</a></li>
+      <li><a href="../bracelet.html">文玩手串</a></li>
+      <li><a href="../tesla.html">特斯拉</a></li>
+      <li><a href="../apple.html">苹果新品</a></li>
+      <li><a href="../marvel.html">漫威宇宙</a></li>
+      <li><a href="../xintan-weather.html">农田气象</a></li>
+      <li><a href="../zisha.html">紫砂艺术</a></li>
+      <li><a href="../console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="../travel.html">家庭旅行</a>
+          <a href="../tags.html">标签聚合</a>
+          <a href="../chinajoy.html">ChinaJoy 成长史</a>
+          <a href="../guanghui.html">光辉电力</a>
+          <a href="../gaokao.html">高考查分</a>
+          <a href="../pitfalls.html">踩坑记</a>
+          <a href="../typhoon.html">台风监测</a>
+          <a href="../games.html">游戏库</a>
+          <a href="../status-history.html">站点状态</a>
+          <a href="../about.html">关于本站</a>
+          <a href="../bookmarks.html">我的收藏</a>
+          <a href="../rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">首页</a>
+  <a href="../herbs/chenxiang.html">沉香鉴别</a>
+  <a href="../herbs.html">中药材</a>
+  <a href="../health-tea.html">养生茶</a>
+  <a href="../bracelet.html">文玩手串</a>
+  <a href="../tesla.html">特斯拉</a>
+  <a href="../apple.html">苹果新品</a>
+  <a href="../marvel.html">漫威宇宙</a>
+  <a href="../xintan-weather.html">农田气象</a>
+  <a href="../zisha.html">紫砂艺术</a>
+  <a href="../console.html">游戏主机</a>
+  <a href="../travel.html">家庭旅行</a>
+  <a href="../tags.html">标签聚合</a>
+  <a href="../chinajoy.html">ChinaJoy 成长史</a>
+  <a href="../guanghui.html">光辉电力</a>
+  <a href="../gaokao.html">高考查分</a>
+  <a href="../pitfalls.html">踩坑记</a>
+  <a href="../typhoon.html">台风监测</a>
+  <a href="../games.html">游戏库</a>
+  <a href="../status-history.html">站点状态</a>
+  <a href="../about.html">关于本站</a>
+  <a href="../bookmarks.html">我的收藏</a>
+  <a href="../rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+<div class="container"><div id="breadcrumb"></div></div>
+
+<main class="container" id="main-content" role="main">
+
+  <div class="breadcrumb">
+    <a href="../index.html">首页</a>
+    <span class="sep">›</span>
+    <a href="../bracelet.html">文玩手串</a>
+    <span class="sep">›</span>
+    <span class="current">五行搭配指南</span>
+  </div>
+
+  <div class="page-header">
+    <h1>五行搭配指南</h1>
+<div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
+    <p class="subtitle">手串不止看材质，还可以根据五行来选择。传统文化中的美学体系——色彩、材质、能量的和谐统一</p>
+  </div>
+
+  <div class="section">
+    <h2>什么是五行文玩搭配？</h2>
+    <p>五行（金木水火土）是中国传统文化中的核心概念，代表世间万物的五种基本元素和能量状态。在文玩搭配中，五行可以指导我们选择手串材质、颜色、配珠，达到视觉上的和谐与能量上的平衡。</p>
+    <p>这不是封建迷信，而是一套成熟的美学体系——五行对应色、形、质的搭配原则，本质上是寻求和谐与平衡。</p>
+  </div>
+
+  <div class="section">
+    <h2>五行与材质对应表</h2>
+    <div class="wx-grid">
+      <div class="wx-card wx-wood">
+        <div class="elem">木</div>
+        <div class="ename">Wood</div>
+        <div class="c-info">🟢 绿/青<br>菩提类、竹木类</div>
+      </div>
+      <div class="wx-card wx-fire">
+        <div class="elem">火</div>
+        <div class="ename">Fire</div>
+        <div class="c-info">🔴 红/紫<br>南红玛瑙、红珊瑚</div>
+      </div>
+      <div class="wx-card wx-earth">
+        <div class="elem">土</div>
+        <div class="ename">Earth</div>
+        <div class="c-info">🟡 黄/褐<br>蜜蜡、黄水晶、骨料</div>
+      </div>
+      <div class="wx-card wx-metal">
+        <div class="elem">金</div>
+        <div class="ename">Metal</div>
+        <div class="c-info">⚪ 白/金<br>猛犸牙、白水晶</div>
+      </div>
+      <div class="wx-card wx-water">
+        <div class="elem">水</div>
+        <div class="ename">Water</div>
+        <div class="c-info">🔵 蓝/黑<br>青金石、黑曜石</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>材质五行详细对照</h2>
+    <div class="match-grid">
+      <div class="match-card">
+        <h3>🟢 木属性（菩提类）</h3>
+        <p>星月菩提、凤眼菩提、龙眼菩提、金刚菩提、紫金钵盂菩提、黄藤果、无患子。适合生发、创新、求成长的人。五行缺木可选。</p>
+      </div>
+      <div class="match-card">
+        <h3>🔴 火属性（红系材质）</h3>
+        <p>南红玛瑙、红珊瑚、红檀木、血珀、朱砂。适合热情、表现、求名气的人。五行缺火者旺运。</p>
+      </div>
+      <div class="match-card">
+        <h3>🟡 土属性（黄褐系）</h3>
+        <p>蜜蜡、黄水晶、琥珀、马骨、驼骨、黄杨木、黄檀。适合稳重、求稳定、守成的人。脾胃不好的也适合。</p>
+      </div>
+      <div class="match-card">
+        <h3>⚪ 金属性（白系）</h3>
+        <p>猛犸牙、白水晶、白玉、砗磲、银饰、白金。适合决断、求财运的人。缺金者戴白色最旺。</p>
+      </div>
+      <div class="match-card">
+        <h3>🔵 水属性（蓝黑系）</h3>
+        <p>青金石、海蓝宝、黑曜石、煤精、黑玛瑙、黑檀。适合智慧、求人缘、求沟通顺畅的人。缺水果断入黑色系。</p>
+      </div>
+      <div class="match-card">
+        <h3>🎨 混搭（多种材质）</h3>
+        <p>最常见的是"木+土"或"金+水"组合。主串选一种属性，配珠选相生属性。比如星月菩提（木）配蜜蜡（土）——木生火、火生土。按相生关系搭配最和顺。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>相生搭配建议</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <tr><th>主材质</th><th>属性</th><th>推荐配珠</th><th>相生关系</th></tr>
+        <tr><td>星月菩提</td><td>木</td><td>蜜蜡/黄水晶（土）</td><td>木生火→火生土</td></tr>
+        <tr><td>凤眼/龙眼菩提</td><td>木</td><td>蜜蜡/琥珀（土）</td><td>木生火→火生土</td></tr>
+        <tr><td>南红玛瑙</td><td>火</td><td>黄水晶/蜜蜡（土）</td><td>火生土</td></tr>
+        <tr><td>猛犸牙</td><td>金</td><td>黑曜石/青金石（水）</td><td>金生水</td></tr>
+        <tr><td>蜜蜡/琥珀</td><td>土</td><td>白水晶/白玉（金）</td><td>土生金</td></tr>
+        <tr><td>黑曜石/青金石</td><td>水</td><td>星月菩提（木）</td><td>水生木</td></tr>
+        <tr><td>马骨/驼骨</td><td>土</td><td>白水晶（金）</td><td>土生金</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>相克关系（避免搭配）</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <tr><th>避免组合</th><th>原因</th><th>建议替代</th></tr>
+        <tr><td>菩提（木）＋ 黑曜石（水）</td><td>水生木，水多木漂</td><td>菩提配蜜蜡（木生火→火生土）</td></tr>
+        <tr><td>猛犸牙（金）＋ 南红（火）</td><td>火克金</td><td>猛犸牙配青金石（金生水）</td></tr>
+        <tr><td>南红（火）＋ 黑曜石（水）</td><td>水克火</td><td>南红配蜜蜡（火生土）</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="tip-bg">
+    <strong>💡 搭配原则：</strong>不要搞得太杂。一串手串最多两种材质（主串+配珠），避免"五行大乱炖"。浓淡对比要出来——主串颜色＞配珠颜色＞隔片颜色。简单即是高级。最重要的是——你喜欢就好，不必被规则束缚。
+  </div>
+
+  <!-- 尺寸参考 -->
+  <div class="section">
+    <h2>尺寸参考</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <tr><th>手围（mm）</th><th>适合长度（mm）</th><th>推荐颗数（8mm）</th><th>推荐颗数（10mm）</th><th>推荐颗数（12mm）</th></tr>
+        <tr><td>150-155</td><td>160-170</td><td>20-21</td><td>16-17</td><td>13-14</td></tr>
+        <tr><td>155-160</td><td>170-175</td><td>21-22</td><td>17-18</td><td>14-15</td></tr>
+        <tr><td>160-165</td><td>175-180</td><td>22-23</td><td>18-19</td><td>15-16</td></tr>
+        <tr><td>165-170</td><td>180-185</td><td>23-24</td><td>19-20</td><td>16-17</td></tr>
+        <tr><td>170-175</td><td>185-190</td><td>24-25</td><td>20-21</td><td>17-18</td></tr>
+        <tr><td>175-180</td><td>190-195</td><td>25-26</td><td>21-22</td><td>18-19</td></tr>
+        <tr><td>180-185</td><td>195-200</td><td>26-27</td><td>22-23</td><td>19-20</td></tr>
+        <tr><td>185-190</td><td>200-205</td><td>27-28</td><td>23-24</td><td>20-21</td></tr>
+      </table>
+    </div>
+    <div class="tip-box"><strong>💡 注意：</strong>搭配配珠后手串总长度会增加2-5mm，穿串时需注意预留。</div>
+  </div>
+
+  <div style="margin:32px 0;text-align:center;">
+    <a href="../bracelet.html" style="color:var(--gold);font-weight:700;font-size:15px;">← 返回文玩手串首页</a>
+  </div>
+
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../bracelet/pinxiang.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">文玩手串品相辨别指南2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../bracelet/fengyan.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">凤眼菩提2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../bracelet/xingyue.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">星月菩提2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../bracelet/magu.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">马骨手串2026实测避坑</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <p>© 2026 龙兄知识库</p>
+    <p style="margin-top:4px;">AI驱动的个人知识库</p>
+  </div>
+<div class="page-meta">
+    <div class="source">信息来源与免责说明：五行学说属中国传统民俗文化范畴，<strong>并非现代科学结论</strong>，本页内容仅作文化与审美搭配参考，不构成健康、医疗、投资或运势建议。材质与工艺部分参考<a href="https://www.cnacs.net.cn/" target="_blank" rel="noopener">中国工艺美术学会</a>公开资料，配色与搭配心得为本人一手佩戴记录。来源链接经 2026-08-07 人工核验可达。</div>
+    <div class="update-time">最后更新时间：2026-09-01</div>
+  </div>
+<footer>
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="../about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com" style="color:#42b883">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script>
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+</script>
+
+<script defer src="../js/search.js" integrity="sha384-KlyQTIlhMVcxcXVIuprq+jYVUnLzTeO30hiJKKrfW11fCgdxtQo8Inu3+jQgIE7s" crossorigin="anonymous"></script>
+<script defer src="../js/app.js" integrity="sha384-8kad3MrSHYcCCCZ1Mju3iU6Ajj1HCTYJRfHirejZyp0edAx40wtgqxIltO4sIw2F" crossorigin="anonymous"></script>
+    <script defer src="../js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  <div style="margin-top:60px;padding:20px;text-align:center;border-top:1px solid var(--border-color);font-size:0.85rem;">
+  <a href="../about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "dateModified": "2026-07-07",
+      "headline": "五行搭配指南 - 龙兄知识库",
+      "url": "https://longxiong.vip/bracelet/wuxing.html",
+      "description": "文玩手串五行搭配指南。材质五行属性表、相生相克搭配建议、配珠选择、色彩美学原则。"
+    }
+  ]
+}
+</script>
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="../js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="../js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+</body>
+</html>

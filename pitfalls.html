@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+  <title>龙兄踩坑记详细科普｜龙兄知识库</title>
+<meta name="keywords" content="龙兄踩坑记,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="龙兄踩坑记详细科普：实测溯源、实操图文、避坑指南。适合龙兄踩坑记爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=hf6eb856b4355" integrity="sha384-kEj87zyOMAnIVEKGoF9yOHFkhcEtaNi94BzaFAvzehjVhvHwfu871PKnEjHvKIVF" crossorigin="anonymous">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
+  <meta property="og:site_name" content="龙兄知识库">
+  <style>
+    .pitfall-hero {
+      text-align: center;
+      padding: 48px 20px 32px;
+    }
+    .pitfall-hero h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .pitfall-hero p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+    .pitfall-list {
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+    .pitfall-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .pitfall-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255,140,0,0.1);
+    }
+    .pitfall-header {
+      padding: 20px 24px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .pitfall-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+    }
+    .pitfall-meta {
+      flex: 1;
+    }
+    .pitfall-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .pitfall-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pitfall-tag {
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .pitfall-tag.money { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.tesla { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.agarwood { border-color: #c9a84c; color: #c9a84c; }
+    .pitfall-tag.bracelet { border-color: #9b59b6; color: #9b59b6; }
+    .pitfall-body {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .pitfall-body.open { display: block; }
+    .pitfall-body p {
+      margin-top: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pitfall-body p:first-child { margin-top: 20px; }
+    .pitfall-body blockquote {
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: rgba(255,140,0,0.08);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      color: var(--gold-light);
+      font-size: 0.95rem;
+    }
+    .pitfall-body blockquote strong {
+      color: var(--orange);
+    }
+    .pitfall-lesson {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(16,124,16,0.1);
+      border: 1px solid rgba(16,124,16,0.3);
+      border-radius: 8px;
+    }
+    .pitfall-lesson-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pitfall-lesson p {
+      margin: 0 !important;
+      color: var(--text) !important;
+    }
+    .pitfall-expand {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      padding-top: 4px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .pitfall-card.expanded .pitfall-expand {
+      transform: rotate(180deg);
+    }
+    .pitfall-divider {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 8px 0 24px;
+    }
+    .more-stories {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .more-stories span { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+  </style>
+
+<link rel="canonical" href="https://longxiong.vip/pitfalls.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="龙兄踩坑记详细科普｜龙兄知识库">
+<meta property="og:description" content="龙兄踩坑记详细科普：实测溯源、实操图文、避坑指南。适合龙兄踩坑记爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/pitfalls.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="龙兄踩坑记 | 龙兄知识库">
+<meta name="twitter:description" content="龙兄在沉香、手串、特斯拉、中药材等领域踩过的坑和经验教训，帮你避开同样的坑。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+  <main id="main-content" role="main">
+    <div class="container">
+      <div class="pitfall-hero">
+        <h1>🚧 龙兄踩坑记</h1>
+<p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 最后更新：2026 年 8 月</p>
+<p style="margin-top:6px;font-size:0.78rem;line-height:1.7;color:var(--text-muted);max-width:860px;margin-left:auto;margin-right:auto;"><a id="sources" class="src-anchor"></a>内容来源：本页全部为本人在本站开发与运维过程中的一手踩坑记录，问题现象、报错信息与解决方案均来自真实操作复现，非转载或二手整理；涉及的工具版本会随上游更新变化，实践时请以官方文档为准。</p>
+    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
+        <p>花冤枉钱买的教训，帮你省回去</p>
+      </div>
+
+      <div class="pitfall-list">
+
+        <!-- 踩坑1：随车充功率 -->
+        <div class="pitfall-card" id="pit-car-charger">
+          <div class="pitfall-header" data-act="togglePitfall">
+            <div class="pitfall-icon">⚡</div>
+            <div class="pitfall-meta">
+              <div class="pitfall-title">买了随车充才发现插16A插座才能用</div>
+              <div class="pitfall-tags">
+                <span class="pitfall-tag tesla">🚗 特斯拉</span>
+                <span class="pitfall-tag money">💰 损失约 ¥500</span>
+                <span class="pitfall-tag">📅 2025年</span>
+              </div>
+            </div>
+            <div class="pitfall-expand">▼</div>
+          </div>
+          <div class="pitfall-body">
+            <p>提了特斯拉之后，心里那个美，觉得自己终于跟上时代了。4S店那个销售当时说："随车充备一个，临时用方便。"我想想也是，万一回老家农村没充电桩怎么办？</p>
+            <p>当时网购随便搜了一个，89块钱，图片上写的是"新能源通用"，评论也都不错，果断下单。</p>
+            <p>到货那天晚上兴冲冲拆开包装，插上我家那个10A的普通插座——充了10分钟，App显示"充电功率1.4kW"。我算了算，一小时充7%，充满要14个小时。</p>
+            <p>然后我去翻说明书，发现我这车的随车充是16A的……我家那插座是10A的，插上去电流就那么大，它不会爆炸，但是它就这么慢。</p>
+            <p>后来才知道，这个"新能源通用"的意思是"能插进去就能充电"，而不是"插进去就能满功率充电"。10A插座最大2.2kW，16A随车充插上去自动降速到1.4kW，全程充当一个大型充电宝角色。</p>
+            <blockquote>
+              <strong>🔑 关键教训：</strong>随车充分10A和16A两种。10A插座（普通三眼）→ 买10A随车充（功率约2.2kW）；16A插座（空调大三眼）→ 买16A随车充（功率约3.5kW）。买之前先看看家里插座是哪种，别买错了。
+            </blockquote>
+            <div class="pitfall-lesson">
+              <div class="pitfall-lesson-title">💡 正确做法</div>
+              <p>买随车充之前，先数数家里有几种插座。一般客厅/卧室是10A，普通空调是16A，农村老宅可能是10A。问清楚客服你买的随车充是几A的，再对应准备插座。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 踩坑2：网购沉香 -->
+        <div class="pitfall-card" id="pit-agarwood-online">
+          <div class="pitfall-header" data-act="togglePitfall">
+            <div class="pitfall-icon">🪵</div>
+            <div class="pitfall-meta">
+              <div class="pitfall-title">花3000块买回来的"沉香手串"，烧着冒黑烟</div>
+              <div class="pitfall-tags">
+                <span class="pitfall-tag agarwood">🪵 沉香</span>
+                <span class="pitfall-tag money">💰 损失约 ¥3000</span>
+                <span class="pitfall-tag">📅 2024年</span>
+              </div>
+            </div>
+            <div class="pitfall-expand">▼</div>
+          </div>
+          <div class="pitfall-body">
+            <p>这事说出来我都替自己丢人。</p>
+            <p>那会儿刚迷上沉香，看网上说"沉香能安神、能养生、还能传家"，心里就痒痒。逛贴吧看到一个帖子，说"自家渠道，一手货源，比市场价便宜50%"，配图那手串油油亮亮的，颜色深沉，拿放大镜一拍，纹理细腻。</p>
+            <p>评论区一片"求私信"，我也就跟着求了。加了微信，转账3000块，等了两周到手。</p>
+            <p>拿到手第一感觉：颜色挺深，沉甸甸的，有点成就感。闻了闻，有股香味——但说实话，不像书里写的那种"甜凉带蜜"，更像是……香水味？</p>
+            <p>我没死心，按照书上的方法，拿打火机烧了一下。</p>
+            <p>白烟？没有。香味？没有。冒出来的是一股黑烟，刺鼻，像烧塑料。灰烬是硬的、黑的、结成块的。</p>
+            <p>我那时候才明白：这是一串泡了沉香油的普通木头，可能是杂木，也可能是越南藤，总之外面那层东西绝对不是沉香。</p>
+            <p>去找那个"渠道商"理论，微信已被拉黑。</p>
+            <blockquote>
+              <strong>🔑 关键教训：</strong>网上99%的"一手货源沉香"是假的。真正沉香的价格体系：入门级碎料几百元可以，沉水级手串没有大几千下不来。能便宜50%的"一手货源"，99%是泡油、注油、压缩的假货。记住：沉香不是越便宜越值得买。
+            </blockquote>
+            <div class="pitfall-lesson">
+              <div class="pitfall-lesson-title">💡 正确做法</div>
+              <p>新手买沉香，只做一件事：要求对方提供"明火燃烧视频"——真沉香烧起来是白烟、燃后灰烬松散、火烧时有层次分明的香甜味（不是香水味）。不敢给你烧的，一律不买。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 踩坑3：星月菩提泡油 -->
+        <div class="pitfall-card" id="pit-bracelet-oil">
+          <div class="pitfall-header" data-act="togglePitfall">
+            <div class="pitfall-icon">📿</div>
+            <div class="pitfall-meta">
+              <div class="pitfall-title">"高密顺白"星月菩提，盘了三个月变花了</div>
+              <div class="pitfall-tags">
+                <span class="pitfall-tag bracelet">📿 手串</span>
+                <span class="pitfall-tag money">💰 损失约 ¥800</span>
+                <span class="pitfall-tag">📅 2024年</span>
+              </div>
+            </div>
+            <div class="pitfall-expand">▼</div>
+          </div>
+          <div class="pitfall-body">
+            <p>盘手串这件事，我是有执念的。</p>
+            <p>那会儿刚开始玩，某宝搜"星月菩提"，看上一串标注"高密顺白海南籽，精挑品质"，月销量600+，评价里有图，看起来颗颗正月、白白净净、粒粒分明。价格680，领券减100，580到手。</p>
+            <p>到货之后确实漂亮，朋友圈发了一圈，收获一堆点赞。开始盘，每天手套盘半小时，净手盘半小时，虔诚得像在修行。</p>
+            <p>第一个月：变色正常，有点包浆的意思，自我感觉良好。</p>
+            <p>第二个月：开始感觉不对，有几颗颜色明显比其他颗深，像是沾了脏东西。仔细看，不是脏——是那几颗本身的颜色，和其他颗开始分层了。</p>
+            <p>第三个月：彻底花了。深浅不一，一串手串像拼凑来的。有的地方已经包浆发亮，有的地方还是白的，有的直接发黑。</p>
+            <p>后来才知道：这叫"脱油"。有些星月菩提在出厂前泡过油，让它看起来更白更亮更"顺"，但这种油会慢慢渗出来，遇到手汗就发花，尤其是密度低的籽，吸油不均匀，几个月后必然花脸。</p>
+            <p>而真正的高密海南籽，是不需要泡油的——密度够高，自然白，自然变色，按部就班包浆就行。</p>
+            <blockquote>
+              <strong>🔑 关键教训：</strong>买星月菩提，看到"精挑"、"高密"、"顺白"这种词，第一反应应该是"有没有泡油"。一个简单的鉴别方法：用指甲轻轻刮一下珠子的凹槽（正月位置），如果表面有黏腻感或者泛油光，大概率是泡过油的。价格特别便宜的"高密"，基本都有问题。
+            </blockquote>
+            <div class="pitfall-lesson">
+              <div class="pitfall-lesson-title">💡 正确做法</div>
+              <p>买星月先问清楚产地（海南最好），然后看价格——单圈10mm左右海南籽，正常价格300-800元。低于200的"高密"，基本有猫腻。收到货先用手指感受珠子表面，黏腻的不对，干涩有阻尼感的才是原生态。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 踩坑4：中药养生茶配方 -->
+        <div class="pitfall-card" id="pit-tea-wrong">
+          <div class="pitfall-header" data-act="togglePitfall">
+            <div class="pitfall-icon">🍵</div>
+            <div class="pitfall-meta">
+              <div class="pitfall-title">给痛风老爸喝了三个月土茯苓茶，尿酸反而高了</div>
+              <div class="pitfall-tags">
+                <span class="pitfall-tag">🌿 养生茶</span>
+                <span class="pitfall-tag money">💰 走了弯路，时间成本为主</span>
+                <span class="pitfall-tag">📅 2025年</span>
+              </div>
+            </div>
+            <div class="pitfall-expand">▼</div>
+          </div>
+          <div class="pitfall-body">
+            <p>我爸痛风，这个我心里一直记着。听说土茯苓能降尿酸，就在网上搜"土茯苓痛风"，找到一篇文章说"每天用30克土茯苓煮水喝，两个月尿酸降100"。</p>
+            <p>照着做了，每天煮水，早晚一杯。第一个月我爸说感觉还行，关节不那么酸了。我还特地买了电砂锅，方便又省心。</p>
+            <p>第二个月去体检，尿酸从480升到了510。</p>
+            <p>我当场懵了，不是说降尿酸吗？怎么还涨了？</p>
+            <p>后来认真研究了一下：土茯苓确实有降尿酸的作用，但它主要是通过"利湿"来排泄尿酸——也就是说，它会增加排尿。问题是，我爸那段时间喝水少了，排尿是多了，但身体整体水分补充跟不上，尿酸反而浓缩了，指标更高。</p>
+            <p>而且土茯苓性偏寒，脾胃虚寒的人长期喝，会伤脾胃，脾胃运化不好，湿气反而更难排。这是一个系统问题，不是喝一个东西就能解决的。</p>
+            <blockquote>
+              <strong>🔑 关键教训：</strong>中医调理讲"整体观"，不是"头痛医头脚痛医脚"。尿酸高的人往往同时有湿气重、脾胃弱、代谢差等问题，单喝一味药茶大概率是"按下葫芦浮起瓢"。喝利尿的东西，一定要保证整体水量充足，而且要看体质。
+            </blockquote>
+            <div class="pitfall-lesson">
+              <div class="pitfall-lesson-title">💡 正确做法</div>
+              <p>痛风/尿酸高的人，调理思路应该是：①多喝水（每天2.5L以上）②健脾祛湿（茯苓/薏米配合）③必要时找中医辨证体质后再出方案。自己搜文章照着喝，不做体质判断，大概率走弯路。</p>
+            </div>
+          </div>
+        </div>
+
+        
+<!-- 踩坑5：紫砂"全手工" -->
+<div class="pitfall-card" id="pit-zisha-handmade">
+<div class="pitfall-header" data-act="togglePitfall">
+<div class="pitfall-icon">🫖</div>
+<div class="pitfall-meta">
+<div class="pitfall-title">「全手工」三个字，可能是这把壶最贵的部分</div>
+<div class="pitfall-tags">
+<span class="pitfall-tag">🫖 紫砂</span>
+<span class="pitfall-tag">📚 知识补充</span>
+<span class="pitfall-tag">📅 长期</span>
+</div>
+</div>
+<div class="pitfall-expand">▼</div>
+</div>
+<div class="pitfall-body">
+<p>紫砂市场上，"全手工"是溢价最高的三个字。同样器型、同样泥料，标"全手工"和标"半手工"，价差可以是好几倍。问题在于：这三个字没有任何强制认证，卖家说它是全手工，它就是全手工。</p>
+<p>常见的三种以次充好：</p>
+<p><strong>① 灌浆壶</strong>——把泥浆灌进石膏模，批量成型。特点是内壁异常光滑、没有泥片接缝，壶身轻飘、透气性极差。这是最低端的一种。</p>
+<p><strong>② 机车壶</strong>——机器滚压成型。身筒很规整，但壶内壁会留下一圈圈规则的螺旋纹（手工拍打是深浅不一的手拍纹，不是机器那种等距螺旋）。</p>
+<p><strong>③ 半手工（模具辅助）</strong>——身筒借模具定型，再手工修整。业内其实承认这类，但它<strong>不该按全手工的价卖</strong>。</p>
+<blockquote>
+<strong>🔑 关键教训：</strong>真正的全手工壶，内壁一定留有手拍的螺旋纹与泥片接缝的痕迹，而且正因为不借模具，壶口不会规整得毫无破绽。<strong>"太完美"本身就是破绽。</strong>另外，全手工方器（如传炉、六方宫灯）因需泥片镶接，成型难度远高于圆器，价格本就更高，遇到"便宜的方器全手工"要多想一层。</blockquote>
+<div class="pitfall-lesson">
+<div class="pitfall-lesson-title">💡 正确做法</div>
+<p>上手看三点：一看内壁（有无手拍纹与泥片接缝），二摸壶口（是否规整得反常），三问能否提供制作过程图。价格明显低于同器型行情的"全手工"，基本可以直接排除。</p>
+</div>
+</div>
+</div>
+
+<!-- 踩坑6：二手主机翻新 -->
+<div class="pitfall-card" id="pit-console-refurb">
+<div class="pitfall-header" data-act="togglePitfall">
+<div class="pitfall-icon">🎮</div>
+<div class="pitfall-meta">
+<div class="pitfall-title">"成色 99 新"的二手主机，可能是翻新壳</div>
+<div class="pitfall-tags">
+<span class="pitfall-tag">🎮 游戏主机</span>
+<span class="pitfall-tag">📚 知识补充</span>
+<span class="pitfall-tag">📅 长期</span>
+</div>
+</div>
+<div class="pitfall-expand">▼</div>
+</div>
+<div class="pitfall-body">
+<p>老主机（PS2、Xbox 360、NDS、PSP 这一代）现在基本只能在二手市场找，"成色"就成了定价的主要依据。但成色是最容易造假的一环。</p>
+<p>常见手法：换壳（副厂外壳几块钱一件）、抛光（把划痕磨掉，代价是外壳变薄、字迹模糊）、换贴纸（伪造序列号标签）。<strong>外壳新，不代表主板新。</strong></p>
+<p>更要命的是"修过的机器当没修过卖"：Xbox 360 的三红（RRoD）、PS3 的黄灯（YLOD）本质都是虚焊，有些机器被补焊过能点亮，但用一阵还会复发。这类机器外观完全看不出问题。</p>
+<blockquote>
+<strong>🔑 关键教训：</strong>二手机的核心风险从来不在外壳，而在<strong>主板与光驱</strong>。外壳可以换、可以抛、可以贴，主板修没修过看不出来。卖家拍一百张外观图，都不如一段通电实测的视频有说服力。</blockquote>
+<div class="pitfall-lesson">
+<div class="pitfall-lesson-title">💡 正确做法</div>
+<p>只做两件事：①要求<strong>通电实测视频</strong>（光驱机必须看到读盘进游戏，不能只看开机画面）；②问清主板版本——360 看 Jasper 之后的改版，PS3 优先 Slim/Super Slim。不肯拍实测视频的，直接放弃。</p>
+</div>
+</div>
+</div>
+
+<!-- 踩坑7：硫熏药材 -->
+<div class="pitfall-card" id="pit-herb-sulfur">
+<div class="pitfall-header" data-act="togglePitfall">
+<div class="pitfall-icon">🌿</div>
+<div class="pitfall-meta">
+<div class="pitfall-title">颜色越白净漂亮的药材，越要多看一眼</div>
+<div class="pitfall-tags">
+<span class="pitfall-tag">🌿 中药材</span>
+<span class="pitfall-tag">📚 知识补充</span>
+<span class="pitfall-tag">⚠️ 健康相关</span>
+</div>
+</div>
+<div class="pitfall-expand">▼</div>
+</div>
+<div class="pitfall-body">
+<p>硫磺熏蒸在中药材的储存与加工里是个老问题：熏过之后药材不容易虫蛀、不容易发霉，卖相还特别好——颜色白净、个头饱满。但它改变的不只是卖相。</p>
+<p>容易中招的品种：白芷、白术、当归、党参、山药、百合、枸杞这类<strong>本来该偏黄或偏暗、却白得反常</strong>的。</p>
+<p>怎么判断：一看色（过白、过亮、色泽均匀得不自然），二闻味（有酸味或刺激性气味，而不是药材本身的甘香），三尝（入口发酸）。</p>
+<blockquote>
+<strong>🔑 关键教训：</strong>药材不是越"好看"越好。<strong>自然晾晒的药材颜色往往不均、甚至带点土气和斑点</strong>——那才是正常的。遇到白得发亮、闻着有酸味的，别买。另外提醒一句：本页其他条目讲的是"花冤枉钱"，这条是少数涉及健康的，宁可贵一点，也要找能说清来源的渠道。</blockquote>
+<div class="pitfall-lesson">
+<div class="pitfall-lesson-title">💡 正确做法</div>
+<p>优先选有检测报告的渠道；自己判断就三条：色不过白、味不带酸、来源说得清。拿不准时宁可不买，也别拿健康去试。</p>
+</div>
+</div>
+</div>
+
+<!-- 踩坑8：CSP frame-src（本站真实案例） -->
+<div class="pitfall-card" id="pit-csp-iframe">
+<div class="pitfall-header" data-act="togglePitfall">
+<div class="pitfall-icon">🛠️</div>
+<div class="pitfall-meta">
+<div class="pitfall-title">嵌入组件"加载成功"却看不见——CSP 把 iframe 拦了</div>
+<div class="pitfall-tags">
+<span class="pitfall-tag">🛠️ 建站</span>
+<span class="pitfall-tag">💰 半天排查</span>
+<span class="pitfall-tag">📅 2026年8月</span>
+</div>
+</div>
+<div class="pitfall-expand">▼</div>
+</div>
+<div class="pitfall-body">
+<p>这是本站真实踩的一个坑，记在这里给同样做静态站的朋友省点时间。</p>
+<p>当时给全站接入第三方评论组件，脚本改完、CSP 也按文档放行了 script-src / style-src / connect-src，然后用 curl 抓页面——脚本在，域名能通，接口返回正常，<strong>所有命令行层面的检查都是绿的</strong>。</p>
+<p>结果在浏览器里打开，评论区位置显示的是"该内容被屏蔽了。请联系网站所有者以解决此问题"。</p>
+<p>原因：站点的 CSP 里有 <code>frame-src 'none'</code>（禁止一切 iframe，这是安全加固的常见默认值），而那个评论组件恰恰是<strong>渲染在 iframe 里的</strong>。脚本确实加载成功了，但它创建的 iframe 被浏览器拦死——所以表现是"能加载、看不见"。</p>
+<p>教训有两条：<strong>一是 CSP 要放行得完整</strong>（script/style/connect/<strong>frame</strong> 四件套，漏一个就出这种半死不活的故障）；<strong>二是命令行验证不等于渲染验证</strong>，curl 全绿说明不了页面长什么样。</p>
+<blockquote>
+<strong>🔑 关键教训：</strong>涉及"页面里实际显示什么"的改动，<strong>必须用真实浏览器验证</strong>，而且要模拟真实设备的视口尺寸。命令行只能证明资源可达，证明不了渲染正确。另外 <code>frame-src 'none'</code> 这种安全加固默认值，是嵌入类组件最常见的隐形杀手。</blockquote>
+<div class="pitfall-lesson">
+<div class="pitfall-lesson-title">💡 正确做法</div>
+<p>① 嵌入 iframe 类组件时，CSP 四件套（script-src / style-src / connect-src / <strong>frame-src</strong>）逐个确认；② 改完用真实浏览器 + 设备视口截图验收；③ 线上验证时加 cache-buster（<code>?v=时间戳</code>），否则可能看到的是 CDN 缓存的旧页面，白排查半天。</p>
+</div>
+</div>
+</div>
+
+<div class="more-stories">
+          <span>🔨</span>
+          更多踩坑经历整理中……<br>
+          龙兄踩过的坑，都会变成你绕过的路。
+        </div>
+
+      </div>
+    </div>
+  <!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="games.html">
+        <span class="lx-related-board">游戏</span>
+        <span class="lx-related-name">龙兄的游戏库详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="chinajoy.html">
+        <span class="lx-related-board">ChinaJoy</span>
+        <span class="lx-related-name">ChinaJoy 成长史详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="sheyang.html">
+        <span class="lx-related-board">射阳本地</span>
+        <span class="lx-related-name">射阳天气详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="marvel.html">
+        <span class="lx-related-board">漫威</span>
+        <span class="lx-related-name">漫威宇宙 · 龙兄观影手账详细科普</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+  <footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com" style="color:#42b883">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+  <script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-8kad3MrSHYcCCCZ1Mju3iU6Ajj1HCTYJRfHirejZyp0edAx40wtgqxIltO4sIw2F" crossorigin="anonymous"></script>
+  <script defer src="js/search.js" integrity="sha384-KlyQTIlhMVcxcXVIuprq+jYVUnLzTeO30hiJKKrfW11fCgdxtQo8Inu3+jQgIE7s" crossorigin="anonymous"></script>
+  <script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  <script defer src="js/interactions.js" integrity="sha384-AGS8xO6XpKdkUK7KbSpFuYc0tDfhZz9tg6hskjwkLO5TLazy+0p+erOs6oXk8DGG" crossorigin="anonymous"></script>
+  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "龙兄踩坑记 | 龙兄知识库",
+      "url": "https://longxiong.vip/pitfalls.html",
+      "description": "龙兄在沉香、手串、特斯拉、中药材等领域踩过的坑和经验教训，帮你避开同样的坑。"
+    }
+  ]
+}
+</script>
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+</body>
+</html>

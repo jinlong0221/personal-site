@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>文玩手串百科详细科普｜龙兄知识库</title>
+<meta name="keywords" content="文玩手串百科,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="文玩手串百科详细科普：实测溯源、实操图文、避坑指南。适合文玩手串百科爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="文玩手串">
+<meta name="article-tags" content="文玩,手串,收藏">
+<meta name="article-updated" content="2026-07-20">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=hf6eb856b4355" integrity="sha384-kEj87zyOMAnIVEKGoF9yOHFkhcEtaNi94BzaFAvzehjVhvHwfu871PKnEjHvKIVF" crossorigin="anonymous">
+<style>
+  /* 文玩手串首页特定样式 */
+  .bracelet-hero {
+    padding: 48px 0 24px;
+    text-align: center;
+  }
+  .bracelet-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .bracelet-hero .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .bracelet-hero .tagline {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  /* 分类标题 */
+  .cat-header {
+    margin: 40px 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cat-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0;
+    border: none;
+    padding: 0;
+    position: relative;
+  }
+  /* 屏蔽全局 h2::before 竖线与 h2::after 下划线，标题区只保留 cat-header 底边框 */
+  .cat-header h2::before,
+  .cat-header h2::after { display: none; }
+  .cat-header .badge {
+    background: var(--accent);
+    color: #1a1407;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+
+  /* 卡片网格 */
+  .bracelet-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .bracelet-card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px 20px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s;
+    text-decoration: none;
+    color: var(--text);
+    overflow: hidden;
+  }
+  .bracelet-card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
+  }
+
+  .bracelet-card .emoji {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .bracelet-card .title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .bracelet-card .desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .bracelet-card .tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: fit-content;
+  }
+
+  /* 卡片紫色边框和悬停效果 */
+  .card-purple { border-left: 4px solid #5b2c8d; }
+  .card-purple .tag { background: rgba(91, 44, 141, 0.15); color: #9c6ede; }
+  .card-purple:hover { border-color: #5b2c8d; }
+
+  .card-amber { border-left: 4px solid #c9a84c; }
+  .card-amber .tag { background: rgba(201, 168, 76, 0.15); color: var(--gold); }
+
+  /* 分类背景 */
+  .cat-material .bracelet-card:nth-child(1) .emoji,
+  .cat-material .bracelet-card:nth-child(2) .emoji,
+  .cat-material .bracelet-card:nth-child(3) .emoji,
+  .cat-material .bracelet-card:nth-child(4) .emoji,
+  .cat-material .bracelet-card:nth-child(5) .emoji,
+  .cat-material .bracelet-card:nth-child(6) .emoji { font-size: 34px; }
+
+
+  /* 亮色模式卡片 */
+  [data-theme="light"] .bracelet-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+
+  /* 响应式 */
+  @media (max-width: 768px) {
+    .bracelet-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .bracelet-hero h1 { font-size: 1.8rem; }
+    /* 卡片竖线与文字拉开间距 */
+    .bracelet-card { padding: 20px 18px 20px 24px; min-height: 140px; }
+    .bracelet-card .emoji { font-size: 28px; margin-bottom: 8px; }
+    .bracelet-card .title { font-size: 1rem; }
+    .bracelet-card .desc { font-size: 0.78rem; }
+    .card-purple, .card-amber { border-left-width: 3px; }
+    /* 标题区允许换行，防止折叠按钮挤压文字 */
+    .cat-header { margin: 32px 0 14px; gap: 8px 10px; flex-wrap: wrap; padding-bottom: 10px; }
+    .cat-header h2 { font-size: 1.2rem; }
+    .cat-header .badge { font-size: 0.65rem; padding: 2px 8px; }
+    /* 折叠按钮在窄屏下不挤占标题空间 */
+    .cat-header .lx-ac-toggle { padding: 3px 10px; font-size: 0.75rem; }
+    /* 长文科普卡片移动端收紧 */
+    .bracelet-science { padding: 22px 18px !important; }
+  }
+  @media (max-width: 480px) {
+    .bracelet-grid { grid-template-columns: 1fr; gap: 10px; }
+    .bracelet-card { padding: 18px 16px 18px 22px; min-height: auto; }
+    .bracelet-card .emoji { font-size: 26px; }
+    .bracelet-card .title { font-size: 0.95rem; }
+    .cat-header h2 { font-size: 1.1rem; }
+    .bracelet-science { padding: 18px 14px !important; border-radius: 12px !important; }
+    .bracelet-science > h2 { font-size: 1.1rem !important; }
+    .bracelet-science h3 { font-size: 0.95rem !important; }
+    .bracelet-science p,
+    .bracelet-science li { font-size: 0.85rem !important; line-height: 1.8 !important; }
+  }
+
+  /* 桌面端字号增强（2026-08-11）：与全站 17.5px 正文基线对齐，修正固定小字号 */
+  @media (min-width: 1024px) {
+    .bracelet-hero .subtitle { font-size: 1.2rem; font-weight: 500; letter-spacing: .3px; }
+    .bracelet-card { min-height: 180px; }
+    .bracelet-card .desc { font-size: 0.92rem; }
+    .bracelet-card .tag { font-size: 0.72rem; }
+    .bracelet-science p,
+    .bracelet-science li { font-size: 1rem !important; }
+    .bracelet-science h3 { font-size: 1.18rem !important; }
+    .bracelet-science table,
+    .bracelet-science td,
+    .bracelet-science th { font-size: 0.95rem !important; }
+  }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+  <meta property="og:site_name" content="龙兄知识库">
+
+<link rel="canonical" href="https://longxiong.vip/bracelet.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="文玩手串百科详细科普｜龙兄知识库">
+<meta property="og:description" content="文玩手串百科详细科普：实测溯源、实操图文、避坑指南。适合文玩手串百科爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/bracelet.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="文玩手串百科 - 龙兄知识库">
+<meta name="twitter:description" content="文玩手串百科全书，星月菩提、凤眼菩提、龙眼菩提、骨料手串鉴别与盘玩全攻略。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html" class="active">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+<main class="container" id="main-content" role="main">
+  <div id="breadcrumb"></div>
+
+  <!-- 面包屑 -->
+  <div class="breadcrumb">
+    <a href="index.html">首页</a>
+    <span class="sep">›</span>
+    <span class="current">文玩手串</span>
+  </div>
+
+  <!-- 标题区 -->
+  <div class="bracelet-hero">
+    <h1>文玩手串百科</h1>
+<p class="subtitle">菩提·骨料·五行，手串材质鉴别与盘玩全攻略</p>
+  </div>
+
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" data-act="toggleHomeSection">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+<!-- 材质养护分类 -->
+  <div class="cat-header">
+    <h2>材质养护</h2>
+    <span class="badge">6种材质</span>
+  </div>
+
+  <div class="bracelet-grid" data-ac data-ac-head=".cat-header" data-ac-items=".bracelet-card" data-ac-count="false">
+    <a href="bracelet/xingyue.html" class="bracelet-card card-purple">
+      <div class="emoji">🌟</div>
+      <div class="title">星月菩提</div>
+      <div class="desc">白底星点如繁星伴月，选料、盘玩、包浆、色差处理全套知识</div>
+      <div class="tag">海南毛感料</div>
+    </a>
+
+    <a href="bracelet/fengyan.html" class="bracelet-card card-purple">
+      <div class="emoji">👁️</div>
+      <div class="title">凤眼菩提</div>
+      <div class="desc">深褐底深棕眼，三大菩提中最珍贵，尺寸越小越贵重</div>
+      <div class="tag">尼泊尔产</div>
+    </a>
+
+    <a href="bracelet/longyan.html" class="bracelet-card card-purple">
+      <div class="emoji">🐉</div>
+      <div class="title">龙眼菩提</div>
+      <div class="desc">浅褐底两条交叉眼线，凤眼变异种，比凤眼更稀缺</div>
+      <div class="tag">变异珍品</div>
+    </a>
+
+    <a href="bracelet/magu.html" class="bracelet-card card-purple">
+      <div class="emoji">🦴</div>
+      <div class="title">马骨手串</div>
+      <div class="desc">骨料新星，价格亲民纹理独特，纵向纤维纹鉴别要点</div>
+      <div class="tag">入门50+</div>
+    </a>
+
+    <a href="bracelet/mengma.html" class="bracelet-card card-purple">
+      <div class="emoji">🦷</div>
+      <div class="title">猛犸牙手串</div>
+      <div class="desc">合法象牙替代品，勒兹纹（裂帛纹/雷纹）鉴别全解析</div>
+      <div class="tag">合法化石</div>
+    </a>
+
+    <a href="bracelet/zijinboyu.html" class="bracelet-card card-purple">
+      <div class="emoji">🏺</div>
+      <div class="title">紫金钵盂菩提</div>
+      <div class="desc">小众菩提籽，半圆钵盂形似倒扣碗，紫褐至棕红色</div>
+      <div class="tag">小众入门</div>
+    </a>
+  </div>
+
+  <!-- 知识指南分类 -->
+  <div class="cat-header">
+    <h2>知识指南</h2>
+    <span class="badge">3个专题</span>
+  </div>
+
+  <div class="bracelet-grid" data-ac data-ac-head=".cat-header" data-ac-items=".bracelet-card" data-ac-count="false">
+    <a href="bracelet/quanao.html" class="bracelet-card card-amber">
+      <div class="emoji">📖</div>
+      <div class="title">星月全套攻略</div>
+      <div class="desc">选料→上手→包浆→保养，星月菩提完整生命周期，配包浆图谱</div>
+      <div class="tag">完整指南</div>
+    </a>
+
+    <a href="bracelet/pinxiang.html" class="bracelet-card card-amber">
+      <div class="emoji">🔍</div>
+      <div class="title">品相辨别指南</div>
+      <div class="desc">六维评分系统：密度、油性、做工、均匀度、瑕疵、完整性</div>
+      <div class="tag">选购必读</div>
+    </a>
+
+    <a href="bracelet/wuxing.html" class="bracelet-card card-amber">
+      <div class="emoji">🎯</div>
+      <div class="title">五行搭配指南</div>
+      <div class="desc">材质五行属性对照表，相生搭配建议，色彩美学原则</div>
+      <div class="tag">美学体系</div>
+    </a>
+  </div>
+
+  
+
+  <section style="margin:28px auto 4px;padding:18px 20px;max-width:860px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
+    <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>
+    <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
+      <li><a href="https://www.cnaca.org/" target="_blank" rel="noopener" style="color:var(--blue-light)">中国工艺美术协会（cnaca.org）</a> — 国家级工艺美术行业组织，涵盖文玩、手串、雕刻等品类的行业资讯与标准</li>
+      <li><a href="https://www.cnacs.net.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">中国工艺美术学会（cnacs.net.cn）</a> — 工艺美术领域学术与行业研究机构，发布非遗与手工艺研究</li>
+    </ul>
+  </section>
+
+  <!-- ===== 新增科普区块：木质/菩提手串材质科普 ===== -->
+  <section class="bracelet-science" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px auto;max-width:860px;">
+    <h2 style="color:var(--gold);font-size:1.3rem;margin:0 0 6px;">🪵 木质与菩提手串材质科普：辨识、养护与避坑</h2>
+    <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 18px;font-size:.92rem;">
+      文玩圈里最容易吃亏的，往往不是眼力，而是概念没搞清。下面这些结论均以国家/行业标准文本、林业科研机构与官方消费提示为依据，尽量只写“查得到出处”的部分。
+    </p>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:22px 0 10px;">一、两个必须先纠正的常识</h3>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">“红木”是个标准名词，不是形容词。</strong>现行国家标准 GB/T 18107—2017《红木》把红木界定为 <strong style="color:var(--text)">5 属 8 类 29 种</strong>木材的<strong style="color:var(--text)">心材</strong>（豆科紫檀属、黄檀属、崖豆属、决明属，柿树科柿树属）。也就是说，商家口中的“红木手串”必须能对上其中某一个树种的学名，否则就是修辞。</li>
+      <li style="margin-top:8px;"><strong style="color:var(--text)">绝大多数“菩提子”都不是菩提树结的。</strong>真正的菩提树是桑科榕属的 <em>Ficus religiosa</em>，果实是类似无花果的聚花果，长不出硬珠子。市面上的“菩提子”其实是多种植物的果实或种子——星月是棕榈科黄藤的种子，金刚是杜英科圆果杜英的内果皮，白玉菩提是油棕果籽，莲花菩提是某种酸枣类植物的内果皮。</li>
+    </ul>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">二、六种常见材质的硬指标</h3>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;min-width:640px;border-collapse:collapse;font-size:.86rem;color:var(--text-secondary);line-height:1.75;">
+        <thead>
+          <tr style="background:rgba(201,168,76,.08);">
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);white-space:nowrap;">材质</th>
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);white-space:nowrap;">学名 / 科属</th>
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);">辨识要点</th>
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);white-space:nowrap;">主要产地</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">小叶紫檀</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">檀香紫檀<br><em>Pterocarpus santalinus</em><br>豆科紫檀属</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">国标紫檀木类<strong style="color:var(--text)">唯一</strong>树种。气干密度（含水率 12%）约 <strong style="color:var(--text)">1.05~1.26 g/cm³</strong>，普遍沉水；心材新切面橘红，久置转深紫至紫黑并带深色条纹；纹理交错、结构甚细，局部卷曲即所谓“牛毛纹”；木屑水浸出液呈紫红色并有荧光；香气无或极微弱</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">印度安得拉邦，东高止山脉南段周边</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">海南黄花梨</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">降香黄檀<br><em>Dalbergia odorifera</em><br>豆科黄檀属</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">国标香枝木类<strong style="color:var(--text)">唯一</strong>树种。<strong style="color:var(--text)">新鲜切面有独特降香气味、口尝微辛辣</strong>，火烧边角清香浓郁、烟气呈白色，这是海南省地方标准 DB46/T 328—2015 列出的主要鉴定特征；弦切面可见抛物线、涡纹、乱纹、鬼脸纹；气干密度多在 0.82~0.94 g/cm³ 区间，该标准将“心材气干密度 ≥0.80 g/cm³”列为<strong style="color:var(--text)">次要</strong>特征——所以<strong style="color:var(--text)">别拿沉不沉水当唯一标尺</strong></td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">海南吊罗山、尖峰岭等林区</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">沉香</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">沉香属 <em>Aquilaria</em><br>国内基原为白木香<br><em>A. sinensis</em>（土沉香）</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);"><strong style="color:var(--text)">沉香不是树种名</strong>：按 LY/T 2904—2017，它是沉香属树种在生长中形成的“木质部组织及其分泌物共同组成的天然混合物质”。行业标准把沉香分为<strong style="color:var(--text)">特级、一级、二级、三级、四级共 5 个等级</strong>，判据是感官特征＋沉香乙醇提取物含量＋两种色酮的相对含量之和；乙醇提取物低于 4.0% 的直接叫“白木”。未结香的沉香属木材气干密度仅约 0.40 g/cm³，<strong style="color:var(--text)">“沉水”只是结油程度的侧面反映，不等于品质等级</strong></td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">海南、广东、广西、香港；东南亚各国</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">星月菩提</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">黄藤<br><em>Daemonorops margaritae</em><br>棕榈科（藤本）</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">把玩的是种子里的<strong style="color:var(--text)">胚乳</strong>。“月”是胚所在的位置，胚正好位于珠子侧面正中就是市场追捧的“正月”，因果实形状不规则而产量偏低；“星”来自棕榈科的<strong style="color:var(--text)">嚼烂状胚乳</strong>——胚乳表面凹凸很深，种皮和部分内果皮陷了进去，磨光后就成了星点，所以剖开会发现很多“星”并不通到核心。树上直采的加工后偏白/绿，落地自然腐熟后收集的偏黄褐至黑</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">以海南为主（五指山当地称“红藤子”）</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">金刚菩提</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">圆果杜英<br><em>Elaeocarpus ganitrus</em><br>（部分文献记作 <em>E. sphaericus</em>）<br>杜英科</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">玩的是它<strong style="color:var(--text)">硬骨质的内果皮</strong>。瓣数由花期心皮数量变异决定，正常子房五室即五瓣，<strong style="color:var(--text)">五瓣最常见</strong>，市面可见 1~21 瓣；八瓣以上稀少、溢价高，因此<strong style="color:var(--text)">存在人工锯开再拼接的假货</strong>。市场习惯以直径约 22mm 为界，大金刚多来自尼泊尔、小金刚多来自印尼</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">尼泊尔、印尼、印度；我国海南、云南、广西亦有分布</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">凤眼菩提</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">枣属 <em>Ziziphus</em> spp.<br>鼠李科（不止一种）</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">同样不是菩提树产物，玩的是枣类植物果核坚硬的<strong style="color:var(--text)">内果皮</strong>。“眼睛”两侧是两枚心皮的一部分，上下“眼睑”内各为子房的一室——打磨后可清晰看到<strong style="color:var(--text)">二心皮二室</strong>结构；出现三、四、五心皮变异的，就被叫作龙眼菩提、麒麟眼菩提等。本站另有专页详述，见上方「凤眼菩提」卡片</td>
+            <td style="padding:10px 12px;border:1px solid var(--border);">尼泊尔等地；我国云南产大果枣核较大</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">三、盘玩养护：先懂原理，再谈手法</h3>
+    <p style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0 0 10px;">
+      木材是典型的吸湿性材料。中国林科院木材工业研究所在木材吸湿尺寸稳定性的研究中指出：木材含水率会随环境相对湿度变化而吸湿、解吸，含水率一变，尺寸就跟着变；而木材径向与弦向的干缩率并不相同（差异干缩），这正是开裂与变形的物理根源。<strong style="color:var(--text)">明白这一点，下面几条“老规矩”就不再是玄学：</strong>
+    </p>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">怕的是“骤变”，不是“干”或“湿”本身。</strong>空调出风口、暖气片旁、阳光直射的窗台、潮湿的卫生间——这些环境让含水率短时间来回横跳，最容易炸裂。长期不戴就装棉布袋收在阴凉稳定处；南北跨地区携带尤其要留缓冲时间。</li>
+      <li style="margin-top:6px;"><strong style="color:var(--text)">净手盘玩、盘放结合。</strong>手上的汗液与灰尘混合物会被揉进导管和纹理，形成难以逆转的暗沉。手汗大的人建议前期以棉布手套打底；盘一段时间就静置氧化，让析出物有时间硬化定型。</li>
+      <li style="margin-top:6px;"><strong style="color:var(--text)">忌泡水、忌暴晒、忌随手上油上蜡。</strong>人工油脂会覆盖木质导管，掩盖本色与气味，多数材质并不建议主动上油。表面浮灰用软毛刷轻扫即可，不建议湿布擦。</li>
+      <li style="margin-top:6px;"><strong style="color:var(--text)">按“核心价值”决定盘或不盘</strong>（玩家群体的通行共识，非标准规定）：<br>
+        · <strong style="color:var(--text)">以香为核心</strong>（沉香、老山檀）——重佩戴、轻盘搓，靠体温缓慢发香，过度摩擦会消耗表层结油；<br>
+        · <strong style="color:var(--text)">以纹理为核心</strong>（海南黄花梨）——少盘多放，重点是保住鬼脸、荧光与清晰花纹，大汗手最忌；<br>
+        · <strong style="color:var(--text)">以变色为乐趣</strong>（小叶紫檀、星月、金刚）——可适度盘玩，紫檀前期戴手套防汗，菩提籽类讲究“刷盘结合”，先把沟壑里的残留刷净再上手。</li>
+    </ul>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">四、新手避坑：官方点名的三类套路</h3>
+    <div style="background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:0 0 14px;">
+      <p style="color:var(--text-secondary);line-height:1.9;font-size:.9rem;margin:0;">
+        2026 年市场监管总局与公安部在全国开展传统工艺市场“打假清源”联合执法行动，重点整治红木制品等领域的“<strong style="color:var(--text)">假证书、假机构、假产品、假网站</strong>”。中消协与《中国消费者报》通报的典型手法包括：<strong style="color:var(--text)">用紫檀柳、血檀等低价木材冒充小叶紫檀与海南黄花梨</strong>；批量伪造鉴定证书（媒体报道有以每张 0.8 元的价格成批制作）；甚至自建假网站为假证书提供“查询验证”。
+      </p>
+    </div>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">材质陷阱——只认学名，不认商品名。</strong>“XX 紫檀”“XX 花梨”这类俗称满天飞：印度紫檀、大果紫檀（缅甸花梨）、刺猬紫檀（非洲花梨）虽然都在紫檀属，但按国标属于<strong style="color:var(--text)">花梨木类而非紫檀木类</strong>；染料紫檀（俗称非洲血檀）压根没被 GB/T 18107—2017 收录。要求商家提供标注<strong style="color:var(--text)">材质学名</strong>的检测报告，而不是听一句“正宗小叶紫檀”。</li>
+      <li style="margin-top:6px;"><strong style="color:var(--text)">工艺陷阱——警惕染色、注胶、顺纹拼接。</strong>市场监管部门在红木制品消费警示中明确提示手串需防这三种处理；星月菩提在加工环节也存在用水和酸处理果实的现象，会造成油脂与水分流失、影响成品品质。</li>
+      <li style="margin-top:6px;"><strong style="color:var(--text)">价格与渠道陷阱。</strong>官方提示明确点名：景区地摊、无资质直播间、私域转账、“上门回收”售后无保障；直播间的“捡漏福利”“限量秒杀”、美颜滤镜、强光打光、剧情演绎都是诱导话术。一个朴素的判断是——<strong style="color:var(--text)">当价格明显低于该材质的原料成本时，先怀疑材质，而不是庆幸运气</strong>。</li>
+      <li style="margin-top:6px;"><strong style="color:var(--text)">证书怎么核？</strong>市场监管部门给出“四步法”：① 登录市场监管部门官网核查检验机构是否具备 <strong style="color:var(--text)">CMA 资质认定 / CNAS 认可</strong>；② 核对报告上的名称、型号、批次、照片、重量与实物是否一致；③ 通过<strong style="color:var(--text)">官方渠道</strong>（机构官网或电话）核实报告编号真伪，不要点商家私发的查询链接；④ 发现虚假报告通过 12315 平台举报。</li>
+      <li style="margin-top:6px;"><strong style="color:var(--text)">合规红线别踩。</strong>沉香属（<em>Aquilaria</em> spp.）全属被列入 CITES 附录 Ⅱ，白木香（土沉香）与降香黄檀均为我国国家重点保护野生植物（二级）。涉及跨境携带、邮寄、交易的，务必先确认许可手续，海关对无证濒危物种制品会依法处置。</li>
+    </ul>
+
+    <p style="color:var(--text-secondary);line-height:1.9;font-size:.86rem;margin:18px 0 0;padding:12px 14px;border-left:3px solid var(--gold);background:rgba(201,168,76,.05);border-radius:0 8px 8px 0;">
+      ⚠️ <strong style="color:var(--text)">免责声明：</strong>本页内容为科普整理，密度、等级、瓣数等参数均引自公开标准文本与权威科普资料，仅供学习参考，<strong style="color:var(--text)">不作为交易依据</strong>。手串的实际价值受料质、工艺、品相、行情多重因素影响，<strong style="color:var(--text)">贵重物品请送具备 CMA / CNAS 资质的专业机构鉴定</strong>后再做决策。
+    </p>
+
+    <h3 style="color:var(--gold);font-size:1.02rem;margin:26px 0 10px;">📚 资料来源 · 延伸阅读</h3>
+    <ul style="margin:0;padding-left:20px;color:var(--text-secondary);font-size:.88rem;line-height:1.95;">
+      <li><a href="https://www.forestry.gov.cn/html/lykj/lykj_1708/20200910085214307757451/file/20200910094130986645647.pdf" target="_blank" rel="noopener" style="color:var(--blue-light)">国家林业和草原局｜林业行业标准《沉香质量分级》标准文本（PDF）</a> — 沉香五级分级的感官特征、乙醇提取物与色酮含量判据，以及“白木”“低分泌物沉香木”的官方定义</li>
+      <li><a href="https://amr.hainan.gov.cn/zw/dfbz/201902/W020160602567842369547.pdf" target="_blank" rel="noopener" style="color:var(--blue-light)">海南省市场监督管理局｜DB46/T 328—2015《降香黄檀（海南黄花梨）心材鉴定规程》（PDF）</a> — 海南黄花梨心材的宏观/微观/气味/密度鉴定特征与判定流程，权威可查</li>
+      <li><a href="https://criwi.caf.ac.cn/index.htm" target="_blank" rel="noopener" style="color:var(--blue-light)">中国林业科学研究院木材工业研究所（criwi.caf.ac.cn）</a> — 国家级木材科学研究机构，木材含水率、干缩湿胀与尺寸稳定性研究的来源，也是多项木材行业标准的起草单位</li>
+      <li><a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&amp;ar_id=344572" target="_blank" rel="noopener" style="color:var(--blue-light)">科普中国｜海南黄花梨</a> — 中国科协主管的国家级科普平台，介绍降香黄檀的产地、气干密度、香味与花纹特征</li>
+      <li><a href="https://www.guokr.com/article/438411/" target="_blank" rel="noopener" style="color:var(--blue-light)">果壳网｜你知道“菩提子”是什么吗？</a> — 从植物学角度逐一考据星月、金刚、莲花等菩提子的真实原植物，本文“星”“月”成因即据此</li>
+      <li><a href="https://www.zhuhai.gov.cn/scjgj/gkmlpt/content/3/3925/post_3925533.html" target="_blank" rel="noopener" style="color:var(--blue-light)">珠海市市场监督管理局｜关于珠宝玉石、贵金属饰品等传统工艺商品的消费提示</a> — 官方发布的“四假”整治要点、典型案例与证书核验方法</li>
+    </ul>
+  </section>
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="herbs.html">
+        <span class="lx-related-board">中药材香料</span>
+        <span class="lx-related-name">中药材香料百科详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="bracelet/pinxiang.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">文玩手串品相辨别指南2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="herbs/chenxiang.html">
+        <span class="lx-related-board">中药材香料</span>
+        <span class="lx-related-name">沉香鉴别完全指南2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="zisha.html">
+        <span class="lx-related-board">紫砂</span>
+        <span class="lx-related-name">吴昊天紫砂艺术详细科普</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+<div class="page-meta">
+    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：中国工艺美术协会（cnaca.org）、中国工艺美术学会（cnacs.net.cn）；品类鉴别与行情参考公开市场资料</div>
+    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
+    <div class="update-time">最后更新时间：<span id="lastNewsUpdate">2026-09-05</span></div>
+  </div>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com" style="color:#42b883">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script>
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+</script>
+
+<script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/search.js" integrity="sha384-KlyQTIlhMVcxcXVIuprq+jYVUnLzTeO30hiJKKrfW11fCgdxtQo8Inu3+jQgIE7s" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-8kad3MrSHYcCCCZ1Mju3iU6Ajj1HCTYJRfHirejZyp0edAx40wtgqxIltO4sIw2F" crossorigin="anonymous"></script>
+    <script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "文玩手串百科 - 龙兄知识库",
+      "url": "https://longxiong.vip/bracelet.html",
+      "description": "文玩手串百科全书，星月菩提、凤眼菩提、龙眼菩提、骨料手串鉴别与盘玩全攻略。"
+    }
+  ]
+}
+</script>
+  
+
+  <script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+  </script>
+  <script defer src="js/auto_news_loader.js?v=h9f056b4e7546" integrity="sha384-AG13VKdGq6GUzYjudxh4OMmeOEDIhzA7AVTe2eZG9tbggE1PJX0ncpWEK5nuslNt" crossorigin="anonymous"></script>
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+</body>
+</html>

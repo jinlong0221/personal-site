@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>中药养生茶配方详细科普｜龙兄知识库</title>
+<meta name="keywords" content="中药养生茶配方,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="中药养生茶配方详细科普：实测溯源、实操图文、避坑指南。适合中药养生茶配方爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="养生茶">
+<meta name="article-tags" content="养生茶,茶饮,调理">
+<meta name="article-updated" content="2026-08-01">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=hf6eb856b4355" integrity="sha384-kEj87zyOMAnIVEKGoF9yOHFkhcEtaNi94BzaFAvzehjVhvHwfu871PKnEjHvKIVF" crossorigin="anonymous">
+<style>
+/* ===== 养生茶页面专用样式 ===== */
+.tea-nav { display:flex; flex-wrap:wrap; gap:6px; margin:20px 0 8px; padding:12px; background:var(--dark-tile); border-radius:12px; position:sticky; top:68px; z-index:50; }
+[data-theme="light"] .tea-nav { background:#e8e8e3; }
+.tea-nav a { display:block; padding:6px 14px; border-radius:20px; font-size:14px; font-weight:700; text-decoration:none; color:var(--text); background:rgba(255,255,255,0.08); white-space:nowrap; transition:all .15s; }
+.tea-nav a:hover,.tea-nav a:active { background:var(--blue); color:#fff; }
+[data-theme="light"] .tea-nav a { background:rgba(0,0,0,0.06); }
+[data-theme="light"] .tea-nav a:hover { background:var(--blue); color:#fff; }
+
+/* 配方卡片网格 */
+.recipe-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; margin:16px 0; }
+
+.recipe-card { background:var(--dark-tile); border-radius:12px; padding:16px; border-left:4px solid var(--blue); position:relative; }
+[data-theme="light"] .recipe-card { background:#fff; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
+.recipe-card .r-name { font-size:16px; font-weight:900; margin-bottom:6px; }
+.recipe-card .r-ingred { font-size:14px; color:var(--text-secondary); margin-bottom:8px; line-height:1.5; }
+.recipe-card .r-effect { font-size:14px; color:var(--text-secondary); line-height:1.5; margin-bottom:4px; }
+.recipe-card .r-note { font-size:14px; color:var(--orange); line-height:1.4; }
+.recipe-card .r-copy { position:absolute; top:12px; right:12px; font-size:14px; padding:3px 10px; border-radius:14px; background:rgba(255,255,255,0.08); cursor:pointer; border:none; color:var(--text); font-weight:700; transition:all .15s; }
+.recipe-card .r-copy:active { background:var(--blue); color:#fff; }
+[data-theme="light"] .recipe-card .r-copy { background:rgba(0,0,0,0.06); }
+
+/* 食材卡片 */
+.ingred-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px; margin:16px 0; }
+.ingred-item { background:var(--dark-tile); border-radius:10px; padding:12px; text-align:center; }
+[data-theme="light"] .ingred-item { background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+.ingred-item .i-name { font-weight:900; font-size:15px; }
+.ingred-item .i-xing { font-size:14px; color:var(--text-secondary); }
+.ingred-item .i-gong { font-size:14px; color:var(--text-secondary); margin-top:4px; }
+
+/* 四季方案 */
+.season-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; margin:16px 0; }
+.season-card { padding:16px; border-radius:12px; text-align:center; font-weight:900; font-size:15px; color:#fff; }
+.season-card .s-icon { font-size:28px; display:block; margin-bottom:4px; }
+.season-card .s-recipe { font-size:14px; opacity:0.9; margin-top:4px; font-weight:400; }
+.season-spring { background:linear-gradient(135deg,#f48fb1,#ce93d8); }
+.season-summer { background:linear-gradient(135deg,#ff8a65,#ffb74d); }
+.season-autumn { background:linear-gradient(135deg,#81d4fa,#4dd0e1); }
+.season-winter { background:linear-gradient(135deg,#90caf9,#64b5f6); }
+
+/* 体质辨识卡 */
+.constitution-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:10px; margin:16px 0; }
+.constitution-card { background:var(--dark-tile); border-radius:12px; padding:14px; }
+[data-theme="light"] .constitution-card { background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+.constitution-card .c-type { font-weight:900; font-size:15px; margin-bottom:4px; }
+.constitution-card .c-desc { font-size:14px; color:var(--text-secondary); margin-bottom:4px; }
+.constitution-card .c-rec { font-size:14px; color:var(--green); }
+.constitution-card .c-ban { font-size:14px; color:var(--orange); }
+
+/* 手机端：配方分类标题 stick */
+.cat-header { font-size:18px; font-weight:900; margin:24px 0 8px; padding-bottom:8px; border-bottom:2px solid var(--blue); display:flex; align-items:center; gap:8px; scroll-margin-top:130px; }
+
+@media(max-width:600px){
+  .tea-nav { top:62px; margin:16px -4px; border-radius:10px; padding:10px; gap:4px; }
+  .tea-nav a { font-size:14px; padding:5px 10px; }
+  .recipe-grid { grid-template-columns:1fr; gap:10px; }
+  .ingred-grid { grid-template-columns:repeat(2,1fr); gap:6px; }
+  .season-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
+  .constitution-grid { grid-template-columns:1fr; gap:8px; }
+  .ingred-item { padding:10px 6px; }
+}
+@media(max-width:380px){
+  .ingred-grid { grid-template-columns:1fr 1fr; gap:4px; }
+  .recipe-card { padding:12px 10px; }
+}
+
+/* 配料表：简单提示但占用小 */
+.section-desc { font-size:14px; color:var(--text-secondary); margin-bottom:4px; }
+
+/* 症状快速匹配 */
+.symptom-quick { margin:20px 0 16px; padding:16px; background:var(--dark-tile); border-radius:12px; }
+[data-theme="light"] .symptom-quick { background:#fff; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
+.symptom-quick .sq-title { font-size:15px; font-weight:900; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+.symptom-quick .sq-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.symptom-quick .sq-tag { display:inline-flex; align-items:center; gap:4px; padding:7px 16px; border-radius:20px; font-size:14px; font-weight:700; cursor:pointer; background:rgba(255,255,255,0.08); color:var(--text); border:none; transition:all .2s; white-space:nowrap; }
+[data-theme="light"] .symptom-quick .sq-tag { background:rgba(0,0,0,0.06); }
+.symptom-quick .sq-tag:hover,.symptom-quick .sq-tag:active { transform:translateY(-2px); }
+.symptom-quick .sq-tag:active { transform:scale(0.95); }
+/* 每个标签的颜色 */
+.sq-tag-liver { border-left:3px solid #ce93d8; }.sq-tag-liver:hover,.sq-tag-liver:active { background:#ce93d8;color:#000 !important; }
+.sq-tag-sleep { border-left:3px solid #64b5f6; }.sq-tag-sleep:hover,.sq-tag-sleep:active { background:#64b5f6;color:#000 !important; }
+.sq-tag-damp { border-left:3px solid #81c784; }.sq-tag-damp:hover,.sq-tag-damp:active { background:#81c784;color:#000 !important; }
+.sq-tag-lung { border-left:3px solid #e57373; }.sq-tag-lung:hover,.sq-tag-lung:active { background:#e57373;color:#000 !important; }
+.sq-tag-blood { border-left:3px solid #ffb74d; }.sq-tag-blood:hover,.sq-tag-blood:active { background:#ffb74d;color:#000 !important; }
+.sq-tag-pressure { border-left:3px solid #f06292; }.sq-tag-pressure:hover,.sq-tag-pressure:active { background:#f06292;color:#000 !important; }
+.sq-tag-beauty { border-left:3px solid #ba68c8; }.sq-tag-beauty:hover,.sq-tag-beauty:active { background:#ba68c8;color:#000 !important; }
+.sq-tag-gout { border-left:3px solid #4db6ac; }.sq-tag-gout:hover,.sq-tag-gout:active { background:#4db6ac;color:#000 !important; }
+</style>
+  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  <meta property="og:site_name" content="龙兄知识库">
+
+<link rel="canonical" href="https://longxiong.vip/health-tea.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="中药养生茶配方详细科普｜龙兄知识库">
+<meta property="og:description" content="中药养生茶配方详细科普：实测溯源、实操图文、避坑指南。适合中药养生茶配方爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/health-tea.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="中药养生茶配方 - 龙兄知识库">
+<meta name="twitter:description" content="中药养生茶配方大全，涵盖养肝明目、安神助眠、健脾祛湿、清热润肺、补气养血、降脂降压等经典方剂。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html" class="active">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+<main id="main-content" role="main"><div class="container">
+  <div class="breadcrumb" data-path="home:首页 / health-tea:中药养生茶"></div>
+
+  <!-- ========= 页面头部 ========= -->
+  <div class="page-header">
+    <h1>🍵 中药养生茶配方</h1>
+<p class="subtitle">药食同源 · 辨证施饮 · 四季养生</p>
+  </div>
+
+  <!-- ========= 每日自动更新（置于正文顶部，与 herbs 等板块一致） ========= -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" data-act="toggleHomeSection">
+      <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <!-- ========= 前言 ========= -->
+  <div class="section">
+    <h2>📖 什么是中药养生茶？</h2>
+    <p>中药养生茶（也称"代茶饮"）是将药食同源材料以沸水冲泡饮用的养生方式，源自唐代"药茶"传统。用量小、气味轻，适合日常保健。</p>
+    <div class="warning-box">
+      <p>⚠️ <strong>重要提醒：</strong>养生茶不能替代药物治疗。孕妇、儿童、慢性病患者及正在服药者建议先咨询中医师。首次饮用少量试饮，观察身体反应。</p>
+    </div>
+  </div>
+
+  <!-- ========= 快速症状匹配 ========= -->
+  <div class="symptom-quick section">
+    <div class="sq-title">💡 我适合喝什么茶？</div>
+    <div class="sq-tags">
+      <button class="sq-tag sq-tag-liver" data-scroll="cat-liver">👁️ 眼疲劳/用眼过度</button>
+      <button class="sq-tag sq-tag-sleep" data-scroll="cat-sleep">😴 失眠/睡眠差</button>
+      <button class="sq-tag sq-tag-damp" data-scroll="cat-damp">💧 湿气重/身体困重</button>
+      <button class="sq-tag sq-tag-lung" data-scroll="cat-lung">🌬️ 咽喉不适/咳嗽</button>
+      <button class="sq-tag sq-tag-blood" data-scroll="cat-blood">💪 气血不足/面色差</button>
+      <button class="sq-tag sq-tag-pressure" data-scroll="cat-pressure">🫀 高血压/高血脂</button>
+      <button class="sq-tag sq-tag-beauty" data-scroll="cat-beauty">🌸 皮肤差/长痘</button>
+      <button class="sq-tag sq-tag-gout" data-scroll="cat-gout">🦶 痛风/尿酸高</button>
+    </div>
+  </div>
+
+  <!-- ========= 悬浮目录导航 ========= -->
+  <div class="section">
+    <nav class="tea-nav" aria-label="养生茶目录">
+      <a href="#ingred">🌿 食材速查</a>
+      <a href="#cat-liver">👁️ 养肝明目</a>
+      <a href="#cat-sleep">😴 安神助眠</a>
+      <a href="#cat-damp">💧 健脾祛湿</a>
+      <a href="#cat-lung">🌬️ 清热润肺</a>
+      <a href="#cat-blood">💪 补气养血</a>
+      <a href="#cat-pressure">🫀 降压降脂</a>
+      <a href="#cat-beauty">🌸 排毒养颜</a>
+      <a href="#cat-hangover">🍷 解酒护肝</a>
+      <a href="#cat-gout">🦶 痛风调理</a>
+      <a href="#cat-season">🌱 四季方案</a>
+      <a href="#cat-constitution">🧑‍⚕️ 体质辨识</a>
+    </nav>
+  </div>
+
+  <!-- ========= 食材速查 ========= -->
+  <div class="section" id="ingred">
+    <h2 class="cat-header">🌿 常用药食同源食材速查</h2>
+    <p class="section-desc">以下均属国家卫健委"药食同源"目录常用品，日常泡茶安全可靠：</p>
+    <div class="ingred-grid">
+      <div class="ingred-item"><div class="i-name">枸杞子</div><div class="i-xing">甘平 · 肝、肾</div><div class="i-gong">滋补肝肾，益精明目</div></div>
+      <div class="ingred-item"><div class="i-name">菊花</div><div class="i-xing">甘苦微寒 · 肺、肝</div><div class="i-gong">疏散风热，清肝明目</div></div>
+      <div class="ingred-item"><div class="i-name">黄芪</div><div class="i-xing">甘微温 · 脾、肺</div><div class="i-gong">补气升阳，益卫固表</div></div>
+      <div class="ingred-item"><div class="i-name">红枣</div><div class="i-xing">甘温 · 脾、胃</div><div class="i-gong">补中益气，养血安神</div></div>
+      <div class="ingred-item"><div class="i-name">桂圆</div><div class="i-xing">甘温 · 心、脾</div><div class="i-gong">补益心脾，养血安神</div></div>
+      <div class="ingred-item"><div class="i-name">陈皮</div><div class="i-xing">辛苦温 · 脾、肺</div><div class="i-gong">理气健脾，燥湿化痰</div></div>
+      <div class="ingred-item"><div class="i-name">山楂</div><div class="i-xing">酸甘微温 · 脾、胃</div><div class="i-gong">消食化积，行气散瘀</div></div>
+      <div class="ingred-item"><div class="i-name">茯苓</div><div class="i-xing">甘淡平 · 心、脾、肾</div><div class="i-gong">利水渗湿，健脾宁心</div></div>
+      <div class="ingred-item"><div class="i-name">百合</div><div class="i-xing">甘微寒 · 心、肺</div><div class="i-gong">养阴润肺，清心安神</div></div>
+      <div class="ingred-item"><div class="i-name">金银花</div><div class="i-xing">甘寒 · 肺、心、胃</div><div class="i-gong">清热解毒，疏散风热</div></div>
+      <div class="ingred-item"><div class="i-name">玫瑰花</div><div class="i-xing">甘微苦温 · 肝、脾</div><div class="i-gong">理气解郁，活血散瘀</div></div>
+      <div class="ingred-item"><div class="i-name">决明子</div><div class="i-xing">甘苦咸微寒 · 肝、大肠</div><div class="i-gong">清肝明目，润肠通便</div></div>
+      <div class="ingred-item"><div class="i-name">甘草</div><div class="i-xing">甘平 · 心、肺、脾、胃</div><div class="i-gong">补脾益气，调和诸药</div></div>
+      <div class="ingred-item"><div class="i-name">麦冬</div><div class="i-xing">甘微苦微寒 · 心、肺、胃</div><div class="i-gong">养阴生津，润肺清心</div></div>
+      <div class="ingred-item"><div class="i-name">酸枣仁</div><div class="i-xing">甘酸平 · 心、肝</div><div class="i-gong">养心安神，敛汗生津</div></div>
+      <div class="ingred-item"><div class="i-name">薏苡仁</div><div class="i-xing">甘淡凉 · 脾、胃、肺</div><div class="i-gong">健脾渗湿，除痹止泻</div></div>
+      <div class="ingred-item"><div class="i-name">荷叶</div><div class="i-xing">苦涩平 · 肝、脾、胃</div><div class="i-gong">清暑利湿，升发清阳</div></div>
+      <div class="ingred-item"><div class="i-name">生姜</div><div class="i-xing">辛微温 · 肺、脾、胃</div><div class="i-gong">解表散寒，温中止呕</div></div>
+      <div class="ingred-item"><div class="i-name">乌梅</div><div class="i-xing">酸平 · 肝、脾、肺</div><div class="i-gong">敛肺止咳，生津止渴</div></div>
+      <div class="ingred-item"><div class="i-name">西洋参</div><div class="i-xing">甘微苦凉 · 心、肺、肾</div><div class="i-gong">补气养阴，清热生津</div></div>
+    </div>
+  </div>
+
+  <!-- ========= 3. 经典配方 ========= -->
+  <div class="section">
+    <h2>📋 经典养生茶配方</h2>
+
+    <!-- 养肝明目 -->
+    <h3 class="cat-header" id="cat-liver">👁️ 养肝明目类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--purple);"><button class="r-copy"  data-copy-text="杞菊明目茶：枸杞10g、菊花5g、决明子5g，沸水冲泡10分钟。清肝明目，适合用眼过度人群。">📋 复制</button><div class="r-name">杞菊明目茶</div><div class="r-ingred">枸杞 10g · 菊花 5g · 决明子 5g</div><div class="r-effect">清肝明目，缓解眼干涩、视物模糊。适用长期用电脑/手机人群</div><div class="r-note">⚠️ 决明子性寒，脾胃虚寒者减量或加 2 颗红枣</div></div>
+      <div class="recipe-card" style="border-left-color:var(--purple);"><button class="r-copy"  data-copy-text="桑菊清肝茶：桑叶5g、菊花5g、夏枯草3g、薄荷3g。清肝降火，目赤肿痛、口干口苦。">📋 复制</button><div class="r-name">桑菊清肝茶</div><div class="r-ingred">桑叶 5g · 菊花 5g · 夏枯草 3g · 薄荷 3g</div><div class="r-effect">疏散风热，清肝降火。适用肝火旺引起的目赤肿痛、口干口苦</div><div class="r-note">⚠️ 夏枯草性寒，每周≤5次。孕妇禁用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--purple);"><button class="r-copy"  data-copy-text="二至明目茶：女贞子6g、旱莲草6g、枸杞6g。滋补肝肾明目，视力减退、须发早白。">📋 复制</button><div class="r-name">二至明目茶</div><div class="r-ingred">女贞子 6g · 旱莲草 6g · 枸杞 6g</div><div class="r-effect">滋补肝肾，明目乌发。适用肝肾阴虚型视力减退、须发早白</div><div class="r-note">⚠️ 大便溏泄者慎用</div></div>
+    </div>
+
+    <!-- 安神助眠 -->
+    <h3 class="cat-header" id="cat-sleep">😴 安神助眠类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--blue);"><button class="r-copy"  data-copy-text="甘麦大枣汤：甘草6g、小麦15g、大枣5枚。养心安神，烦躁不安、失眠多梦。源自《金匮要略》。">📋 复制</button><div class="r-name">甘麦大枣汤</div><div class="r-ingred">甘草 6g · 小麦 15g · 大枣 5 枚</div><div class="r-effect">养心安神，和中缓急。源自《金匮要略》，适用烦躁不安、失眠多梦</div><div class="r-note">⚠️ 糖尿病患者去枣或减量</div></div>
+      <div class="recipe-card" style="border-left-color:var(--blue);"><button class="r-copy"  data-copy-text="酸枣仁安神茶：炒酸枣仁15g（捣碎）、茯苓10g、百合10g，沸水泡15分钟。睡前1小时饮用。">📋 复制</button><div class="r-name">酸枣仁安神茶</div><div class="r-ingred">炒酸枣仁 15g · 茯苓 10g · 百合 10g</div><div class="r-effect">养心安神，改善入睡困难、睡眠浅、易醒</div><div class="r-note">⚠️ 炒酸枣仁捣碎后冲泡效果更佳。孕妇慎用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--blue);"><button class="r-copy"  data-copy-text="安神忘忧茶：合欢花6g、百合10g、茯神10g、乌梅3g。疏肝解郁宁心，情绪低落、虚烦不寐。">📋 复制</button><div class="r-name">安神忘忧茶</div><div class="r-ingred">合欢花 6g · 百合 10g · 茯神 10g · 乌梅 3g</div><div class="r-effect">疏肝解郁，宁心安神。适用情绪低落、虚烦不寐</div><div class="r-note">⚠️ 合欢花用量不宜过大</div></div>
+      <div class="recipe-card" style="border-left-color:var(--blue);"><button class="r-copy"  data-copy-text="桂圆红枣茶：桂圆肉10g、红枣5枚、枸杞5g。补益心脾养血安神，气血不足引起的失眠心悸。">📋 复制</button><div class="r-name">桂圆红枣茶</div><div class="r-ingred">桂圆肉 10g · 红枣 5 枚 · 枸杞 5g</div><div class="r-effect">补益心脾，养血安神。适用气血不足引起的失眠、心悸</div><div class="r-note">⚠️ 湿热体质、易上火者少用</div></div>
+    </div>
+
+    <!-- 健脾祛湿 -->
+    <h3 class="cat-header" id="cat-damp">💧 健脾祛湿类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--green);"><button class="r-copy"  data-copy-text="陈皮茯苓茶：陈皮5g、茯苓10g、薏苡仁10g。健脾利湿，身体困重、舌苔厚腻。薏苡仁可炒至微黄减寒性。">📋 复制</button><div class="r-name">陈皮茯苓茶</div><div class="r-ingred">陈皮 5g · 茯苓 10g · 薏苡仁 10g</div><div class="r-effect">健脾利湿，化痰祛浊。适用身体困重、舌苔厚腻、大便黏腻</div><div class="r-note">💡 薏苡仁可提前炒至微黄减其寒性</div></div>
+      <div class="recipe-card" style="border-left-color:var(--green);"><button class="r-copy"  data-copy-text="四神汤料茶：芡实10g、山药10g、莲子10g、茯苓10g。健脾益胃渗湿止泻，脾虚食少便溏。">📋 复制</button><div class="r-name">四神汤料茶</div><div class="r-ingred">芡实 10g · 山药 10g · 莲子 10g · 茯苓 10g</div><div class="r-effect">健脾益胃，渗湿止泻。适用脾虚食少、便溏、面色萎黄。性质平和</div><div class="r-note">💡 经典"四神汤"简化茶饮版，可长期饮用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--green);"><button class="r-copy"  data-copy-text="荷叶祛湿减脂茶：荷叶5g、山楂10g、决明子5g、陈皮3g。消食降脂祛湿，腹部肥胖高血脂。">📋 复制</button><div class="r-name">荷叶祛湿减脂茶</div><div class="r-ingred">荷叶 5g · 山楂 10g · 决明子 5g · 陈皮 3g</div><div class="r-effect">消食化积，降脂祛湿。适用腹部肥胖、高血脂、消化不良</div><div class="r-note">💡 脾胃虚寒者加 2 片生姜</div></div>
+      <div class="recipe-card" style="border-left-color:var(--green);"><button class="r-copy"  data-copy-text="参苓白术茶：党参5g、茯苓10g、白术5g、甘草3g、山药10g。健脾益气和胃渗湿。">📋 复制</button><div class="r-name">参苓白术茶</div><div class="r-ingred">党参 5g · 茯苓 10g · 白术 5g · 甘草 3g · 山药 10g</div><div class="r-effect">健脾益气，和胃渗湿。适用脾虚湿盛、食欲不振、乏力</div><div class="r-note">⚠️ 党参不宜与藜芦同用</div></div>
+    </div>
+
+    <!-- 清热润肺 -->
+    <h3 class="cat-header" id="cat-lung">🌬️ 清热润肺类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--red);"><button class="r-copy"  data-copy-text="银花甘草茶：金银花5g、甘草3g、桔梗5g。清热解毒利咽，咽喉肿痛、风热感冒初起。">📋 复制</button><div class="r-name">银花甘草茶</div><div class="r-ingred">金银花 5g · 甘草 3g · 桔梗 5g</div><div class="r-effect">清热解毒，利咽消肿。适用咽喉肿痛、风热感冒初起</div><div class="r-note">⚠️ 脾胃虚寒者不宜长期</div></div>
+      <div class="recipe-card" style="border-left-color:var(--red);"><button class="r-copy"  data-copy-text="百合麦冬润肺茶：百合10g、麦冬10g、玉竹6g、沙参6g。养阴润肺，干咳少痰、咽干。">📋 复制</button><div class="r-name">百合麦冬润肺茶</div><div class="r-ingred">百合 10g · 麦冬 10g · 玉竹 6g · 沙参 6g</div><div class="r-effect">养阴润肺，生津止渴。适用干咳少痰、咽干口燥、秋燥</div><div class="r-note">⚠️ 痰多清稀者不适合</div></div>
+      <div class="recipe-card" style="border-left-color:var(--red);"><button class="r-copy"  data-copy-text="罗汉果茶：罗汉果1/4个、胖大海2枚。清热润肺利咽开音，咽喉干痛声音嘶哑。">📋 复制</button><div class="r-name">罗汉果茶</div><div class="r-ingred">罗汉果 1/4 个 · 胖大海 2 枚</div><div class="r-effect">清热润肺，利咽开音。适用咽喉干痛、声音嘶哑</div><div class="r-note">⚠️ 罗汉果极甜，糖尿病患者慎用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--red);"><button class="r-copy"  data-copy-text="生地黄百合汤：生地6g、百合10g、麦冬6g。凉血润肺养阴止咳。">📋 复制</button><div class="r-name">生地黄百合汤</div><div class="r-ingred">生地 6g · 百合 10g · 麦冬 6g</div><div class="r-effect">凉血润肺，养阴止咳</div><div class="r-note">⚠️ 生地性寒，脾胃虚寒、便溏者慎用</div></div>
+    </div>
+
+    <!-- 补气养血 -->
+    <h3 class="cat-header" id="cat-blood">💪 补气养血类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--orange);"><button class="r-copy"  data-copy-text="黄芪红枣茶：黄芪10g、红枣5枚、枸杞5g。补气固表，气虚乏力、自汗、易感冒。感冒发热停用。">📋 复制</button><div class="r-name">黄芪红枣茶</div><div class="r-ingred">黄芪 10g · 红枣 5 枚 · 枸杞 5g</div><div class="r-effect">补气升阳，益卫固表。适用气虚乏力、自汗、易感冒</div><div class="r-note">⚠️ 感冒发热停用。高血压慎用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--orange);"><button class="r-copy"  data-copy-text="当归补血茶：当归3g、黄芪10g、红枣5枚、桂圆5g。补气生血，血虚面黄、经后调养。孕妇禁用。">📋 复制</button><div class="r-name">当归补血茶</div><div class="r-ingred">当归 3g · 黄芪 10g · 红枣 5 枚 · 桂圆 5g</div><div class="r-effect">补气生血。适用血虚面色萎黄、头晕心悸、经后调养</div><div class="r-note">⚠️ 经量多者慎用。孕妇禁用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--orange);"><button class="r-copy"  data-copy-text="西洋参补气茶：西洋参3g、枸杞5g、麦冬5g。补气养阴清虚热，气阴两虚口干乏力。">📋 复制</button><div class="r-name">西洋参补气茶</div><div class="r-ingred">西洋参 3g · 枸杞 5g · 麦冬 5g</div><div class="r-effect">补气养阴，清虚热。适用气阴两虚、口干乏力、虚烦</div><div class="r-note">⚠️ 西洋参性凉，不宜与藜芦同用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--orange);"><button class="r-copy"  data-copy-text="龙眼洋参茶：桂圆肉10g、西洋参3g。补气养血宁心安神。源自清代名方玉灵膏简化版。">📋 复制</button><div class="r-name">龙眼洋参茶</div><div class="r-ingred">桂圆肉 10g · 西洋参 3g</div><div class="r-effect">补气养血，宁心安神。源自清代名方"玉灵膏"简化版</div><div class="r-note">⚠️ 湿热内盛者慎用</div></div>
+    </div>
+
+    <!-- 降压降脂 -->
+    <h3 class="cat-header" id="cat-pressure">🫀 降压降脂类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--red);"><button class="r-copy"  data-copy-text="三降茶：地骨皮3g、葛根3g、丹参3g、山楂3g、牛蒡3g。保温杯泡20分钟。辅助降三高，不替代药。">📋 复制</button><div class="r-name">三降茶</div><div class="r-ingred">地骨皮 3g · 葛根 3g · 丹参 3g · 山楂 3g · 牛蒡 3g</div><div class="r-effect">辅助降血压、降血脂、降血糖。三高人群日常保健</div><div class="r-note">⚠️ 保温杯冲泡 20 分钟以上。不替代降压药</div></div>
+      <div class="recipe-card" style="border-left-color:var(--red);"><button class="r-copy"  data-copy-text="绞股蓝降脂茶：绞股蓝5g、山楂10g、荷叶5g。化浊降脂，高血脂脂肪肝。绞股蓝性寒不宜久服。">📋 复制</button><div class="r-name">绞股蓝降脂茶</div><div class="r-ingred">绞股蓝 5g · 山楂 10g · 荷叶 5g</div><div class="r-effect">化浊降脂，健脾消食。适用高血脂、脂肪肝</div><div class="r-note">⚠️ 绞股蓝性寒，脾胃虚寒者不宜久服</div></div>
+      <div class="recipe-card" style="border-left-color:var(--red);"><button class="r-copy"  data-copy-text="菊明降压茶：菊花5g、决明子10g、夏枯草5g。清肝降压，肝阳上亢型高血压。孕妇禁用、低血压慎用。">📋 复制</button><div class="r-name">菊明降压茶</div><div class="r-ingred">菊花 5g · 决明子 10g · 夏枯草 5g</div><div class="r-effect">清肝降压，平抑肝阳。适用肝阳上亢型高血压</div><div class="r-note">⚠️ 孕妇禁用。低血压者慎用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--red);"><button class="r-copy"  data-copy-text="槐花茶：槐花5g、菊花5g、绿茶3g。凉血降压清肝明目，高血压头晕目眩。">📋 复制</button><div class="r-name">槐花茶</div><div class="r-ingred">槐花 5g · 菊花 5g · 绿茶 3g</div><div class="r-effect">凉血降压，清肝明目。改善高血压引起的头晕目眩</div><div class="r-note">⚠️ 脾胃虚寒者慎用</div></div>
+    </div>
+
+    <!-- 排毒养颜 -->
+    <h3 class="cat-header" id="cat-beauty">🌸 排毒养颜类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--pink);"><button class="r-copy"  data-copy-text="玫瑰养颜茶：玫瑰花5g、枸杞5g、红枣3枚、桂圆3g。疏肝养血美容，面色暗黄色斑。经期量多减量。">📋 复制</button><div class="r-name">玫瑰养颜茶</div><div class="r-ingred">玫瑰花 5g · 枸杞 5g · 红枣 3 枚 · 桂圆 3g</div><div class="r-effect">疏肝解郁，养血美容。适用面色暗黄、色斑、情绪不佳</div><div class="r-note">⚠️ 玫瑰花活血，经期量多者减量</div></div>
+      <div class="recipe-card" style="border-left-color:var(--pink);"><button class="r-copy"  data-copy-text="三花悦颜茶：玫瑰花5g、金银花3g、茉莉花3g、陈皮3g。疏肝清热，肤色暗沉痘痘。手足冰凉减金银花。">📋 复制</button><div class="r-name">三花悦颜茶</div><div class="r-ingred">玫瑰花 5g · 金银花 3g · 茉莉花 3g · 陈皮 3g</div><div class="r-effect">疏肝清热，理气和中。改善肤色暗沉、痘痘</div><div class="r-note">⚠️ 金银花性寒，手足冰凉者减少用量</div></div>
+      <div class="recipe-card" style="border-left-color:var(--pink);"><button class="r-copy"  data-copy-text="蒲公英清痘茶：蒲公英5g、金银花3g、甘草3g。清热解毒消肿，面部痤疮。性寒不宜久服。">📋 复制</button><div class="r-name">蒲公英清痘茶</div><div class="r-ingred">蒲公英 5g · 金银花 3g · 甘草 3g</div><div class="r-effect">清热解毒，消肿散结。适用面部痤疮、皮肤红肿</div><div class="r-note">⚠️ 蒲公英性寒，不宜长期连续饮用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--pink);"><button class="r-copy"  data-copy-text="黄精枸杞养颜茶：黄精5g、枸杞5g、丹参3g、百合5g、玫瑰花3g。滋补肝肾活血养颜。">📋 复制</button><div class="r-name">黄精枸杞养颜茶</div><div class="r-ingred">黄精 5g · 枸杞 5g · 丹参 3g · 百合 5g · 玫瑰花 3g</div><div class="r-effect">滋补肝肾，活血养颜。改善面色无华、皮肤干燥</div><div class="r-note">⚠️ 脾虚腹胀者减量</div></div>
+    </div>
+
+    <!-- 痛风调理 -->
+    <h3 class="cat-header" id="cat-gout">🦶 痛风调理类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--teal);"><button class="r-copy"  data-copy-text="土茯苓玉米须茶：土茯苓15g、玉米须10g、车前草5g。沸水煮15分钟代茶。清热利湿排尿酸，痛风间歇期日常饮用。肾虚者加枸杞5g。">📋 复制</button><div class="r-name">土茯苓玉米须茶</div><div class="r-ingred">土茯苓 15g · 玉米须 10g · 车前草 5g</div><div class="r-effect">清热利湿，通利关节，促进尿酸排泄。痛风间歇期日常代茶饮</div><div class="r-note">⚠️ 急性发作期加重用量可至土茯苓30g。肾虚者加枸杞5g。脾胃虚寒加生姜2片</div></div>
+      <div class="recipe-card" style="border-left-color:var(--teal);"><button class="r-copy"  data-copy-text="萆薢泽泻茶：萆薢10g、泽泻10g、土茯苓10g、苍术5g。煮20分钟。利湿浊分清泌浊，尿酸高舌苔厚腻。">📋 复制</button><div class="r-name">萆薢泽泻茶</div><div class="r-ingred">萆薢 10g · 泽泻 10g · 土茯苓 10g · 苍术 5g</div><div class="r-effect">利湿浊，分清泌浊。适用尿酸偏高、舌苔厚腻、关节沉重</div><div class="r-note">⚠️ 泽泻有轻微肾毒性，不宜长期大量使用。建议连用不超过2周</div></div>
+      <div class="recipe-card" style="border-left-color:var(--teal);"><button class="r-copy"  data-copy-text="菊苣栀子茶：菊苣10g、栀子5g、桑叶5g、葛根5g。煮15分钟。清热利湿降尿酸，湿热型痛风关节红肿热痛。">📋 复制</button><div class="r-name">菊苣栀子茶</div><div class="r-ingred">菊苣 10g · 栀子 5g · 桑叶 5g · 葛根 5g</div><div class="r-effect">清热利湿，凉血消肿。适用湿热型痛风，关节红肿热痛</div><div class="r-note">⚠️ 脾胃虚寒者加红枣3枚。栀子用量不宜过大</div></div>
+      <div class="recipe-card" style="border-left-color:var(--teal);"><button class="r-copy"  data-copy-text="薏仁木瓜茶：炒薏苡仁15g、木瓜10g、威灵仙5g、甘草3g。煮20分钟。健脾利湿舒筋活络，痛风慢性期关节酸痛。孕妇禁用。">📋 复制</button><div class="r-name">薏仁木瓜茶</div><div class="r-ingred">炒薏苡仁 15g · 木瓜 10g · 威灵仙 5g · 甘草 3g</div><div class="r-effect">健脾利湿，舒筋活络。适用痛风慢性期关节酸痛、屈伸不利</div><div class="r-note">⚠️ 威灵仙辛散走窜，孕妇禁用。急性期不宜用</div></div>
+      <div class="recipe-card" style="border-left-color:var(--teal);"><button class="r-copy"  data-copy-text="百合车前茶：百合15g、车前子10g（包煎）、知母5g。煮20分钟。滋阴清热利尿排酸，痛风反复发作肾阴不足。">📋 复制</button><div class="r-name">百合车前茶</div><div class="r-ingred">百合 15g · 车前子 10g（包煎）· 知母 5g</div><div class="r-effect">滋阴清热，利尿排酸。适用痛风反复发作、肾阴不足、口干</div><div class="r-note">⚠️ 百合含秋水仙碱微量，对痛风有益。车前子需纱布包煎</div></div>
+      <div class="recipe-card" style="border-left-color:var(--teal);"><button class="r-copy"  data-copy-text="樱桃柠檬茶：新鲜车厘子10颗（或干樱桃5g）、柠檬2片。泡水饮用，可加蜂蜜。富含花青素抗炎止痛，痛风急性期辅助缓解。">📋 复制</button><div class="r-name">樱桃柠檬茶</div><div class="r-ingred">新鲜车厘子 10 颗（或干樱桃 5g）· 柠檬 2 片</div><div class="r-effect">富含花青素与维C，抗炎止痛，降低尿酸。急性期可辅助缓解</div><div class="r-note">💡 最温和的痛风茶饮，所有体质均可饮用。车厘子优于樱桃</div></div>
+    </div>
+    <div class="info-box" style="margin:8px 0 16px;padding:12px 16px;border-radius:10px;background:var(--dark-tile);font-size:14px;color:var(--text-secondary);">
+      <p><strong>🦶 痛风茶饮要点：</strong></p>
+      <ul style="padding-left:16px;margin:4px 0;line-height:1.6;">
+        <li>间歇期（不疼时）以利湿排酸为主，可长期饮用土茯苓玉米须茶</li>
+        <li>急性期（红肿热痛）加量清热药，菊苣栀子茶 + 樱桃柠檬茶配合</li>
+        <li>慢性期反复发作加舒筋活络，薏仁木瓜茶</li>
+        <li>所有痛风茶饮必须 <strong>大量饮水</strong>（每日2500-3000ml）</li>
+        <li>忌酒（尤其啤酒）、少海鲜内脏、少果糖饮料</li>
+      </ul>
+    </div>
+
+    <!-- 解酒护肝 -->
+    <h3 class="cat-header" id="cat-hangover">🍷 解酒护肝类</h3>
+    <div class="recipe-grid">
+      <div class="recipe-card" style="border-left-color:var(--yellow);"><button class="r-copy"  data-copy-text="葛花醒酒茶：葛花5g、葛根5g、枳椇子5g、陈皮3g。醒脾和胃解酒，酒后头痛恶心胃胀。重度醉酒需就医。">📋 复制</button><div class="r-name">葛花醒酒茶</div><div class="r-ingred">葛花 5g · 葛根 5g · 枳椇子 5g · 陈皮 3g</div><div class="r-effect">醒脾和胃，解酒除烦。酒后头痛、恶心、胃胀</div><div class="r-note">⚠️ 酒前酒后均可，重度醉酒需就医</div></div>
+      <div class="recipe-card" style="border-left-color:var(--yellow);"><button class="r-copy"  data-copy-text="调酒护肝茶：五味子3g、枸杞5g、陈皮3g、茯苓5g、葛根5g。调理酒后肝损伤促进酒精代谢。适合常饮酒人群。">📋 复制</button><div class="r-name">调酒护肝茶</div><div class="r-ingred">五味子 3g · 枸杞 5g · 陈皮 3g · 茯苓 5g · 葛根 5g</div><div class="r-effect">调理酒后肝损伤，促进酒精代谢</div><div class="r-note">💡 适合常饮酒人群日常保健</div></div>
+      <div class="recipe-card" style="border-left-color:var(--yellow);"><button class="r-copy"  data-copy-text="五味子护肝茶：五味子5g、枸杞5g、决明子3g。养肝护肝降低转氨酶。胃酸过多者慎用。">📋 复制</button><div class="r-name">五味子护肝茶</div><div class="r-ingred">五味子 5g · 枸杞 5g · 决明子 3g</div><div class="r-effect">养肝护肝，降低转氨酶。五味子有研究证实的保肝作用</div><div class="r-note">⚠️ 五味子酸涩，胃酸过多者慎用</div></div>
+    </div>
+  </div>
+
+  <!-- ========= 四季方案 ========= -->
+  <div class="section" id="cat-season">
+    <h2 class="cat-header">🌱 四季养生茶方案</h2>
+    <div class="season-grid">
+      <div class="season-card season-spring"><span class="s-icon">🌸</span>春季<br>养肝<div class="s-recipe">菊花+枸杞+决明子</div></div>
+      <div class="season-card season-summer"><span class="s-icon">🌻</span>夏季<br>清心<div class="s-recipe">金银花+薄荷+荷叶</div></div>
+      <div class="season-card season-autumn"><span class="s-icon">🍂</span>秋季<br>润肺<div class="s-recipe">百合+麦冬+沙参</div></div>
+      <div class="season-card season-winter"><span class="s-icon">❄️</span>冬季<br>温阳<div class="s-recipe">黄芪+红枣+桂圆</div></div>
+    </div>
+    <ul style="padding-left:18px;color:var(--text-secondary);font-size:14px;margin-top:8px;">
+      <li><strong>春季</strong>（立春~立夏）肝气旺盛 → 疏肝理气：杞菊茶、三花悦颜茶</li>
+      <li><strong>夏季</strong>（立夏~立秋）暑热湿重 → 清热解暑祛湿：银花甘草、荷叶祛湿茶</li>
+      <li><strong>秋季</strong>（立秋~立冬）秋燥伤肺 → 养阴润肺：百合麦冬茶、罗汉果茶</li>
+      <li><strong>冬季</strong>（立冬~立春）寒邪袭人 → 温阳补气：黄芪红枣茶、桂圆红枣茶</li>
+    </ul>
+  </div>
+
+  <!-- ========= 体质辨识 ========= -->
+  <div class="section" id="cat-constitution">
+    <h2 class="cat-header">🧑‍⚕️ 简单体质辨识</h2>
+    <p class="section-desc">喝什么茶看体质，选对更有效：</p>
+    <div class="constitution-grid">
+      <div class="constitution-card"><div class="c-type">气虚质</div><div class="c-desc">乏力、气短、自汗、易感冒</div><div class="c-rec">✅ 黄芪红枣茶、西洋参茶</div><div class="c-ban">❌ 薄荷、金银花等发散类</div></div>
+      <div class="constitution-card"><div class="c-type">阳虚质</div><div class="c-desc">怕冷、手脚凉、大便溏稀</div><div class="c-rec">✅ 桂圆红枣茶、生姜红糖茶</div><div class="c-ban">❌ 菊花、决明子、夏枯草</div></div>
+      <div class="constitution-card"><div class="c-type">阴虚质</div><div class="c-desc">口干、手心热、盗汗、便干</div><div class="c-rec">✅ 百合麦冬茶、西洋参枸杞茶</div><div class="c-ban">❌ 陈皮、黄芪过量易伤阴</div></div>
+      <div class="constitution-card"><div class="c-type">痰湿质</div><div class="c-desc">体胖、舌苔厚、易困、大便黏</div><div class="c-rec">✅ 陈皮茯苓茶、荷叶减脂茶</div><div class="c-ban">❌ 桂圆、红枣（滋腻碍湿）</div></div>
+      <div class="constitution-card"><div class="c-type">湿热质</div><div class="c-desc">口苦、长痘、大便黏臭</div><div class="c-rec">✅ 金银花茶、蒲公英清痘茶</div><div class="c-ban">❌ 黄芪、桂圆（温补助热）</div></div>
+      <div class="constitution-card"><div class="c-type">血瘀质</div><div class="c-desc">面色暗、易瘀青、痛经</div><div class="c-rec">✅ 玫瑰花茶、山楂茶</div><div class="c-ban">️‍—</div></div>
+      <div class="constitution-card"><div class="c-type">气郁质</div><div class="c-desc">情绪低落、叹气、胀痛</div><div class="c-rec">✅ 三花悦颜茶、甘麦大枣汤</div><div class="c-ban">️‍—</div></div>
+      <div class="constitution-card"><div class="c-type">平和质</div><div class="c-desc">精力充沛、面色红润</div><div class="c-rec">✅ 四季均可，不过量为原则</div><div class="c-ban">—</div></div>
+    </div>
+  </div>
+
+  <!-- ========= 饮用须知 ========= -->
+  <div class="section">
+    <h2 class="cat-header">⚠️ 养生茶饮用须知</h2>
+    <ul style="padding-left:18px;color:var(--text-secondary);font-size:14px;">
+      <li><strong>适可而止：</strong>同一款茶方连续饮用 ≤ 2 周，建议轮换。长期固定易致偏性过强。</li>
+      <li><strong>不可代药：</strong>确诊疾病需遵医嘱，养生茶仅为日常辅助。</li>
+      <li><strong>孕期慎饮：</strong>孕妇应避免大多数中药材茶饮，可咨询医师是否适合饮用淡红枣水等温和饮品。</li>
+      <li><strong>经期注意：</strong>活血类（当归、玫瑰花、丹参）经量多者慎用。寒性药（决明子、金银花）痛经者慎用。</li>
+      <li><strong>服药间隔：</strong>与西药至少间隔 1-2 小时。</li>
+      <li><strong>儿童酌减：</strong>用量为成人 1/3~1/2，婴幼儿不宜。</li>
+      <li><strong>保存方法：</strong>药材密封避光，每次按需取量，开封后不超过 3 个月。</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- 信息来源 -->
+<div class="container">
+  <div class="page-meta">
+    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：中医典籍《本草纲目》《金匮要略》《药典》· 国家卫健委药食同源目录 · 整理自网络公开资料</div>
+    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
+    <div class="update-time">最后更新时间：2026-09-01</div>
+  </div>
+</div>
+
+<div class="warning-box" style="margin-top:32px">
+  <strong>⚠️ 免责声明：</strong>本站所有养生茶配方仅供科普参考，不构成医疗建议。
+  个体体质差异较大，使用前建议咨询中医师或专业医生。
+  如患有疾病，请前往正规医疗机构就诊，切勿以此替代专业医疗。
+</div>
+<section style="margin:28px 0 4px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
+  <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>
+  <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
+    <li><a href="https://www.zyctd.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">中药材天地网（zyctd.com）</a> — 养生茶原料（药材/花草茶）行情与科普的权威参考</li>
+  </ul>
+</section>
+
+<!-- ========= 新增科普：常见养生茶逐味详解 ========= -->
+<section id="common-tea-guide" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;">
+  <h2 style="font-size:1.25rem;margin:0 0 6px;color:var(--gold);">🍵 六种最常喝的养生茶：适合谁、管什么用、谁别喝</h2>
+  <p style="margin:0 0 18px;color:var(--text-secondary);line-height:1.9;font-size:.94rem;">
+    上面的配方讲的是"怎么配"，这一节回到最基础的问题——单独一味药材泡水，到底适合什么人。
+    下面六种是办公室出镜率最高的代茶饮，性味功效以《中华人民共和国药典》为准，
+    禁忌与用量部分参考国家中医药管理局、广东省中医药局、北京市中医管理局及《中国中医药报》的公开科普，均已交叉核对。
+    每味都标了"别喝的人"，那一栏往往比功效更重要。
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;">
+
+    <!-- 菊花茶 -->
+    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.02rem;font-weight:900;color:var(--gold);margin-bottom:2px;">① 菊花茶</div>
+      <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:10px;">甘、苦，微寒 · 归肺、肝经 · 常用 5~10g（一次 3~5g）</div>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">功效：</strong>散风清热、平肝明目、清热解毒。缓解用眼过度的干涩疲劳，
+        秋天口鼻干燥时也能补水降燥；与枸杞同泡可增强养肝明目的作用。
+      </p>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">适宜：</strong>体质偏热、肝火偏旺者——急躁易怒、面色偏红、眼干眼屎多、舌苔发黄。
+        选品上，白菊、滁菊偏清热明目，黄菊、杭菊多用于外感风热。
+      </p>
+      <p style="margin:0;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:#e57373">别喝的人：</strong>脾胃虚寒、阳虚体质（畏寒肢冷、倦怠乏力、食欲不振、舌苔白腻）；
+        低血压者（菊花有一定降压作用，易头晕眼花）；风寒感冒期间；孕妇慎用；花粉过敏史者慎用。
+        另外要随沏随喝，别喝隔夜的；健康人也不宜长期连服，连续饮用别超过 2 个月，出现便稀腹泻立即停。
+        <br><span style="color:var(--text-muted);font-size:.84rem;">※ 野菊花是近缘植物，味极苦、主攻清热解毒，不适合当日常茶饮。</span>
+      </p>
+    </div>
+
+    <!-- 枸杞茶 -->
+    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.02rem;font-weight:900;color:var(--gold);margin-bottom:2px;">② 枸杞茶</div>
+      <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:10px;">甘，平 · 归肝、肾、肺经 · 日常泡饮约 10g</div>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">功效：</strong>《中国药典》记载"滋补肝肾，益精明目"，用于肝肾亏虚的头晕目眩、
+        视物不清、腰膝酸软。现代研究显示其含枸杞多糖、甜菜碱、胡萝卜素及维生素 C 等成分。
+      </p>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">泡对了才有用：</strong>水温别超过 70℃，太烫会损失部分营养；
+        更关键的是——<strong style="color:var(--gold-light)">泡过的枸杞要连果肉一起吃掉</strong>，
+        因为叶黄素、玉米黄质、维生素 A 这类护眼成分是脂溶性的，根本泡不出来。
+      </p>
+      <p style="margin:0;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:#e57373">别喝的人：</strong>正在感冒发热、腹泻的人；脾虚便溏者；
+        体内湿热明显的人（口气重、舌苔厚腻、面部油腻爱长痘、大便又干又黏）。
+        每日用量控制在 10g 上下，过量容易上火、眼睛红肿。孕妇、哺乳期缺乏充分安全性数据，建议避免。
+      </p>
+    </div>
+
+    <!-- 陈皮茶 -->
+    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.02rem;font-weight:900;color:var(--gold);margin-bottom:2px;">③ 陈皮茶</div>
+      <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:10px;">辛、苦，温 · 归脾、肺经 · 常用 3~10g</div>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">先分清真假：</strong>《中华人民共和国药典》（2025 年版）规定，陈皮须为芸香科橘及其栽培变种的
+        干燥成熟果皮，且<strong style="color:var(--gold-light)">必须陈化至少 3 年</strong>。
+        自己晒的鲜橘皮辛温燥烈、挥发油刺激性强，不具备陈皮的药用价值。也不必迷信"越黑越老越好"，
+        3~10 年、来源可靠、储存得当的性价比与安全性最合适。
+      </p>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">功效与适宜：</strong>理气健脾、燥湿化痰。对应脾胃气滞、湿阻中焦——
+        腹胀、嗳气、食欲差、恶心呕吐，以及痰白质稀的湿痰寒痰咳嗽、舌苔厚腻、大便溏薄。
+      </p>
+      <p style="margin:0;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:#e57373">别喝的人：</strong>陈皮辛散苦燥、易伤津助热。
+        阴虚内热、气虚、胃火炽盛及实热证人群（发热、口干、便秘、尿黄、舌赤少津）不宜单用陈皮泡水；
+        阴虚燥咳、咳血吐血者慎用。它管的是寒痰湿痰，<strong>热痰、燥咳不但无效还可能加重</strong>。
+        孕妇及哺乳期应在医师指导下使用。
+        <br><span style="color:var(--text-muted);font-size:.84rem;">※ 服药者注意：陈皮不宜与呋喃唑酮等单胺氧化酶抑制剂、洋地黄类强心苷同用，
+        也不宜与含钙、镁、铁、铝的西药制剂同服（黄酮类成分会形成络合物影响吸收）。</span>
+      </p>
+    </div>
+
+    <!-- 玫瑰花茶 -->
+    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.02rem;font-weight:900;color:var(--gold);margin-bottom:2px;">④ 玫瑰花茶</div>
+      <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:10px;">甘、微苦，温 · 归肝、脾经 · 常用 3~6g（约 5~10 朵）</div>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">功效：</strong>行气解郁、和血、止痛。中医评价它"理气而不辛燥，和血而不破血"，
+        药性温和，用于肝胃气痛、食少呕恶、乳房胀痛、月经不调、跌扑伤痛。
+      </p>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">适宜：</strong>肝郁气滞者——情绪压抑、易烦易怒、胸胁胀痛、总想叹气；
+        血瘀或气滞的女性，常见月经不调、经前乳房胀痛、痛经；胃脘胀痛、食欲不佳伴轻微恶心者。
+        沸水冲泡加盖闷一会儿，温度合适再喝，每日 1~2 杯。
+      </p>
+      <p style="margin:0;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:#e57373">别喝的人：</strong>玫瑰性温，阴虚火旺（口干、潮热盗汗）、面赤舌红苔黄的实热人群不宜；
+        它能行气活血、可能刺激子宫，<strong>月经过多者及孕妇禁用</strong>；
+        含鞣酸有收敛作用，便秘严重者避免；对花粉或玫瑰过敏者禁用；胃寒腹泻、身体虚弱者也不宜。
+        长期大量喝可能耗伤津液，出现口干、长痤疮，最好间隔着喝，燥热时少喝。
+      </p>
+    </div>
+
+    <!-- 决明子茶 -->
+    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.02rem;font-weight:900;color:var(--gold);margin-bottom:2px;">⑤ 决明子茶</div>
+      <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:10px;">甘、苦、咸，微寒 · 归肝、大肠经 · 药典内服 9~15g，代茶饮 3~10g</div>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">功效：</strong>《中国药典》（2025 年版）载"清热明目，润肠通便"，
+        用于目赤涩痛、羞明多泪、头痛眩晕、目暗不明、大便秘结。所含大黄酚、大黄素等成分有降压作用，
+        蒽苷有缓下作用，因此也常被血脂异常、体重偏高的人群用作辅助调理。
+      </p>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">小技巧：</strong>生决明子偏寒，用小火炒香后再泡，寒性减弱、香气更足，
+        脾胃稍弱的人耐受度也更高；种子坚硬，用时捣碎更容易出味。
+      </p>
+      <p style="margin:0;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:#e57373">别喝的人：</strong>性寒凉，外感风寒、内伤生冷、脾胃虚寒、气虚便溏者不宜单味大量服用；
+        慢性肠炎、慢性腹泻者慎用；有降压作用，低血压者不宜长期大量服用；
+        会促进胃液分泌，胃溃疡患者不宜长期大量服用；能兴奋子宫平滑肌，<strong>孕妇、先兆流产者慎用</strong>。
+        <br><span style="color:var(--text-muted);font-size:.84rem;">※ 最容易被忽略的一条：决明子含蒽醌类物质，
+        把它当"通便神器"长期盲目服用，存在结肠黑变病风险。慢性便秘不一定是内热，别不辨证就长喝；
+        正在吃降压药的人合用需控制剂量，事先问医生。</span>
+      </p>
+    </div>
+
+    <!-- 桂圆红枣茶 -->
+    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:12px;padding:16px 16px 14px;">
+      <div style="font-size:1.02rem;font-weight:900;color:var(--gold);margin-bottom:2px;">⑥ 桂圆红枣茶</div>
+      <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:10px;">龙眼肉：甘，温 · 归心、脾经 · 药典 9~15g；配红枣 3~5 枚</div>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">功效：</strong>龙眼肉（桂圆肉）补益心脾、养血安神，用于气血不足、心悸怔忡、健忘失眠、血虚萎黄；
+        红枣补中益气、养血安神。两者相配，是心脾两虚证最平实的一味日常调理。
+      </p>
+      <p style="margin:0 0 8px;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:var(--text)">适宜：</strong>思虑过度、劳伤心脾的人——精神疲倦、失眠多梦、心悸健忘、面色无华、食欲不振；
+        女性经后、产后或大病初愈的气血亏虚阶段；畏寒体质在秋冬温补。
+      </p>
+      <p style="margin:0;color:var(--text-secondary);line-height:1.9;font-size:.88rem;">
+        <strong style="color:#e57373">别喝的人：</strong>性温助火、含糖偏高，这两点决定了它的禁忌面很广。
+        阴虚火旺、湿热痰湿体质（舌苔厚腻、口苦口气重、面部油腻长痘）不宜；
+        已有上火发炎症状、便秘、大便黏腻、腹胀、口干舌燥、小便黄赤者少喝；
+        风寒感冒、消化不良、恶心呕吐期间忌服；<strong>糖尿病患者慎用且不加糖</strong>；孕妇慎食；
+        小儿与青少年阳气偏旺，无明显虚证不宜长期喝。
+        另外它质地滋腻，别空腹喝，饭后 1 小时左右更合适。
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========= 新增科普：饮茶通用原则 ========= -->
+<section id="tea-common-rules" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;">
+  <h2 style="font-size:1.25rem;margin:0 0 6px;color:var(--gold);">📌 喝养生茶的七条通用原则</h2>
+  <p style="margin:0 0 18px;color:var(--text-secondary);line-height:1.9;font-size:.94rem;">
+    同一杯茶，有人喝了神清气爽，有人喝了胃疼腹泻——差别往往不在配方，而在这几条基本功。
+  </p>
+
+  <ol style="margin:0;padding-left:20px;color:var(--text-secondary);line-height:1.9;font-size:.9rem;">
+    <li style="margin-bottom:12px;">
+      <strong style="color:var(--gold-light)">先辨体质，再选茶。</strong>
+      这是最容易被跳过、却最要命的一步。体质偏寒者慎用寒凉配方（菊花、决明子、金银花），
+      体质偏热者少用温性方剂（桂圆、红枣、黄芪）。花类药材总体偏发散，
+      气血薄弱的人和过敏体质者天天喝，等于天天在耗散气血，反而越喝越虚。拿不准就先问中医师。
+    </li>
+    <li style="margin-bottom:12px;">
+      <strong style="color:var(--gold-light)">不要空腹喝。</strong>
+      空腹饮茶会刺激消化道黏膜引起胃痛，也可能出现头晕、心慌、手脚无力，
+      《本草纲目》所谓"饮茶宜热宜少，空腹最忌之"说的就是这件事。
+      脾胃虚寒、有慢性腹泻等消化道问题的人尤其要避开。饭后一段时间再喝更稳妥。
+    </li>
+    <li style="margin-bottom:12px;">
+      <strong style="color:var(--gold-light)">睡前不喝。</strong>
+      含茶叶的茶饮含咖啡碱、茶碱，对中枢神经有兴奋作用，睡前喝容易失眠；
+      国家中医药管理局公开科普中给出的时间参考是<strong>晚上 9 点后不宜再喝茶</strong>。
+      桂圆红枣这类含糖偏高的甜茶，临睡前也不建议大量喝。安神类代茶饮宜在睡前 1 小时左右少量温服。
+    </li>
+    <li style="margin-bottom:12px;">
+      <strong style="color:var(--gold-light)">不要用茶水送服药物。</strong>
+      茶叶中的鞣酸（单宁）能与金属离子、蛋白质、生物碱强力结合：
+      补铁剂会生成难吸收的鞣酸铁沉淀，含钙/铝的制剂同理；
+      胃蛋白酶、多酶片等酶制剂会被凝固失活；黄连素、麻黄碱等生物碱类药物会沉淀减效。
+      咖啡因则会直接拮抗地西泮等镇静催眠药的作用。
+      北京市中医管理局的建议是<strong>服药后两小时内都不要饮茶</strong>，一般以服药前后间隔 2~3 小时、
+      用温白开水送服为准。慢性病长期服药者，请提前向医生或药师确认。
+    </li>
+    <li style="margin-bottom:12px;">
+      <strong style="color:var(--gold-light)">随泡随饮，不喝隔夜。</strong>
+      放久了容易滋生细菌霉菌，菊花等含黄酮类的茶汤久泡还会氧化变色。
+      冲泡容器以陶瓷、玻璃制品为宜，煎煮避免用铁锅和铝锅，也不要用塑料杯冲泡。
+    </li>
+    <li style="margin-bottom:12px;">
+      <strong style="color:var(--gold-light)">适量、不过浓、间断轮换。</strong>
+      代茶饮常规饮用量约每天 400~500 毫升，特殊情况酌情增加也不宜超过 1000 毫升；
+      每天 4~5 杯为上限，过浓会增加心、肾负担。
+      同一个方子不宜长期天天喝——药材都有偏性，久服偏性累积反而伤身，建议喝一段时间就停一停或换方。
+    </li>
+    <li style="margin-bottom:0;">
+      <strong style="color:var(--gold-light)">特殊人群先问医生，药材走正规渠道。</strong>
+      孕妇、哺乳期女性、儿童、老年人、慢性病患者以及正在服药的人，饮用前应咨询医师或药师。
+      买药材时注意硫熏问题：过量硫磺熏制的菊花往往又大又白、卖相过于漂亮，
+      正常自然干燥的菊花色泽不均、花托偏绿、质地松软，选购时优先认准正规药店或有资质的商家。
+    </li>
+  </ol>
+
+  <div style="margin-top:20px;padding:14px 16px;border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:10px;background:var(--bg-secondary);">
+    <p style="margin:0;color:var(--text-secondary);line-height:1.9;font-size:.9rem;">
+      ⚠️ <strong style="color:var(--orange)">请务必记住：</strong>代茶饮仅作日常调理，体质因人而异，不能替代药物治疗，身体不适请及时就医。
+      本节内容为科普整理，不构成任何诊疗建议；已确诊疾病或正在服药，请遵医嘱执行。
+    </p>
+  </div>
+</section>
+
+<!-- ========= 新增科普：资料来源 ========= -->
+<section style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px 0;">
+  <h2 style="font-size:1.08rem;margin:0 0 12px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>
+  <p style="margin:0 0 12px;color:var(--text-muted);line-height:1.8;font-size:.85rem;">
+    本节"六种常见养生茶"与"七条通用原则"的性味、功效、用量及禁忌，均取自以下公开可查的权威来源，并经多来源交叉核对。
+  </p>
+  <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
+    <li><a href="http://www.natcm.gov.cn/hudongjiaoliu/guanfangweixin/2019-05-15/9801.html" target="_blank" rel="noopener" style="color:var(--blue-light)">国家中医药管理局 · 《喝茶养生有讲究，先看"三张表"》</a> — 通用原则的主要依据：看体质、看时间（晚 9 点后不宜再喝）、看禁忌（空腹最忌、隔夜不喝、服药不用茶水）。</li>
+    <li><a href="https://www.cntcm.com.cn/content/202511/27/c288759.html" target="_blank" rel="noopener" style="color:var(--blue-light)">中国中医药网（《中国中医药报》）· 《服用陈皮的五个常见误区》</a> — 陈皮须陈化 3 年以上、适用与禁忌人群、"陈皮非万能"的权威澄清。</li>
+    <li><a href="https://cntcm.com.cn/2018-12/17/content_54363.htm" target="_blank" rel="noopener" style="color:var(--blue-light)">中国中医药网 · 《朋友圈的养生帖靠谱吗？》</a> — 不喝浓茶、不喝隔夜茶、空腹与睡前不宜饮茶、不用茶水服药的科学解释。</li>
+    <li><a href="https://zyj.beijing.gov.cn/ylfw/ysbj/201912/t20191223_1414751.html" target="_blank" rel="noopener" style="color:var(--blue-light)">北京市中医管理局 · 《能用茶水服药吗？》</a> — 逐类列出忌与茶水同服的药物，并给出"服药后两小时内不饮茶"的具体建议。</li>
+    <li><a href="https://szyyj.gd.gov.cn/zyyfw/ysbj/content/post_4276791.html" target="_blank" rel="noopener" style="color:var(--blue-light)">广东省中医药局 · 《秋末喝杯菊花茶，降火除秋燥、护眼解秋乏》</a> — 菊花的六类慎用人群、随沏随喝的道理，以及硫熏菊花的辨别方法。</li>
+    <li><a href="https://szyyj.gd.gov.cn/zyyfw/ysbj/content/post_4849679.html" target="_blank" rel="noopener" style="color:var(--blue-light)">广东省中医药局 · 《药食推荐丨不止清肝明目、润肠通便，决明子还安神助眠》</a> — 引《中国药典》2025 版说明决明子性味功效，并完整列出五类注意事项。</li>
+    <li><a href="https://szyyj.gd.gov.cn/zyyfw/ysbj/content/post_4419783.html" target="_blank" rel="noopener" style="color:var(--blue-light)">广东省中医药局 · 《观赏价值高的玫瑰花，也是一味中药》</a> — 玫瑰花的性味归经、冲泡水温建议与三条特殊禁忌（便秘、经量多与孕妇、胃寒阴虚）。</li>
+    <li><a href="https://szyyj.gd.gov.cn/zyyfw/ysbj/content/post_3170274.html" target="_blank" rel="noopener" style="color:var(--blue-light)">广东省中医药局 · 《益脾长智，养心保血——龙眼肉》</a> — 依药典给出龙眼肉功效与 9~15g 用量，并提示选购时警惕掺糖增重。</li>
+    <li><a href="https://www.dayi.org.cn/cmedical/300175" target="_blank" rel="noopener" style="color:var(--blue-light)">中国医药信息查询平台 · 陈皮词条</a> — 由国家中医药管理局名词术语成果转化与规范推广项目审核，含陈皮与西药的六条配伍禁忌。</li>
+    <li><a href="https://www.dayi.org.cn/qa/367220" target="_blank" rel="noopener" style="color:var(--blue-light)">中国医药信息查询平台 · 《什么是决明子》</a> — 同一项目审核认证，明确"气虚便溏不宜、孕妇慎用、不宜长期久服"及与降压药合用需控量。</li>
+  </ul>
+  <p style="margin:14px 0 0;color:var(--text-muted);line-height:1.8;font-size:.82rem;">
+    本节内容整理于 2026-08，链接均为原始出处，如遇改版失效可按标题在对应机构官网检索。
+  </p>
+</section>
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="herbs.html">
+        <span class="lx-related-board">中药材香料</span>
+        <span class="lx-related-name">中药材香料百科详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="bracelet.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">文玩手串百科详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="chinajoy.html">
+        <span class="lx-related-board">ChinaJoy</span>
+        <span class="lx-related-name">ChinaJoy 成长史详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="sheyang.html">
+        <span class="lx-related-board">射阳本地</span>
+        <span class="lx-related-name">射阳天气详细科普</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main><footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com" style="color:#42b883">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/search.js" integrity="sha384-KlyQTIlhMVcxcXVIuprq+jYVUnLzTeO30hiJKKrfW11fCgdxtQo8Inu3+jQgIE7s" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-8kad3MrSHYcCCCZ1Mju3iU6Ajj1HCTYJRfHirejZyp0edAx40wtgqxIltO4sIw2F" crossorigin="anonymous"></script>
+<script>
+// 复制功能
+function copyText(btn){
+  var t=btn.getAttribute('data-text');
+  if(!t)return;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){
+      btn.textContent='✅ 已复制';
+      setTimeout(function(){btn.textContent='📋 复制';},2000);
+    });
+  }else{
+    var ta=document.createElement('textarea');
+    ta.value=t;ta.style.position='fixed';ta.style.left='-9999px';
+    document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    btn.textContent='✅ 已复制';
+    setTimeout(function(){btn.textContent='📋 复制';},2000);
+  }
+}
+// 导航栏点击平滑滚动
+document.querySelectorAll('.tea-nav a').forEach(function(a){
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    var id=this.getAttribute('href').slice(1);
+    var el=document.getElementById(id);
+    if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+    <script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  
+<script>
+// 养生茶页面折叠功能
+document.addEventListener('DOMContentLoaded', function() {
+  // 找到所有 cat-header（h2和h3）
+  var headers = document.querySelectorAll('.cat-header');
+  headers.forEach(function(h) {
+    // 跳过"什么是中药养生茶"的header（它是介绍，不需要折叠）
+    if (h.textContent.indexOf('什么是') === 0) return;
+    
+    // 创建折叠按钮
+    h.style.cursor = 'pointer';
+    
+    // 找到要折叠的内容（header后面的第一个grid或下一个header前的所有内容）
+    var content = h.nextElementSibling;
+    if (!content) return;
+    
+    // 给内容加包装
+    var wrapper = document.createElement('div');
+    wrapper.className = 'collapsible-content';
+    h.parentNode.insertBefore(wrapper, h);
+    wrapper.appendChild(h);
+    
+    // 把所有后续内容（直到下一个cat-header或section结束）移入wrapper
+    var next = wrapper.nextSibling;
+    while (next) {
+      if (next.classList && (next.classList.contains('cat-header') || next.classList.contains('section'))) break;
+      var toMove = next;
+      next = next.nextSibling;
+      wrapper.appendChild(toMove);
+    }
+    
+    // 默认折叠（除了前两个分类）
+    if (h.tagName === 'H3' && !h.id.match(/cat-liver|cat-sleep/)) {
+      wrapper.classList.add('collapsed');
+      h.classList.add('collapsed');
+    }
+    
+    // 点击折叠/展开
+    h.addEventListener('click', function() {
+      wrapper.classList.toggle('collapsed');
+      h.classList.toggle('collapsed');
+    });
+  });
+});
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "dateModified": "2026-07-07",
+      "headline": "中药养生茶配方 - 龙兄知识库",
+      "url": "https://longxiong.vip/health-tea.html",
+      "description": "中药养生茶配方大全，涵盖养肝明目、安神助眠、健脾祛湿、清热润肺、补气养血、降脂降压等经典方剂。"
+    }
+  ]
+}
+</script>
+
+  <script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+  </script>
+  <script defer src="js/auto_news_loader.js?v=h9f056b4e7546" integrity="sha384-AG13VKdGq6GUzYjudxh4OMmeOEDIhzA7AVTe2eZG9tbggE1PJX0ncpWEK5nuslNt" crossorigin="anonymous"></script>
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+</body>
+</html>

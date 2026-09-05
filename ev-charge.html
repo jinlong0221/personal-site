@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP）。本站基线 + 高德/腾讯两家地图所需域名。
+     注意：本页 script-src 额外放开了 unsafe-eval，因为高德地图 JS 组件内部用 eval/Function 动态构造代码，
+     不放开则定位插件与检索组件加载不出来（实测报 EvalError）。仅本页放开，不影响站内其他页面。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-2hONagzbjxl84V/yDx46bIMdbtr5BcQnaolyfkAvm9A=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-5M8LR4dEW3ZxNguzFKLFBpIqu5bliu6vLifNOq4ij9s=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bAoxVnxEF9FnvBvvTenBo40jjQmUBgD/XUXyu41karQ=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4=' https://hm.baidu.com https://busuanzi.ibruce.info https://map.qq.com https://apis.map.qq.com https://webapi.amap.com https://*.amap.com; style-src 'self' 'unsafe-inline' https://map.qq.com https://webapi.amap.com https://*.amap.com; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com https://*.map.qq.com https://*.gtimg.com https://map.qq.com https://*.qq.com https://webapi.amap.com https://*.amap.com https://*.autonavi.com https://longxiong.vip; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://apis.map.qq.com https://*.map.qq.com https://*.gtimg.com https://*.qq.com https://restapi.amap.com https://*.amap.com https://*.autonavi.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; worker-src 'self' blob:">
+<!-- 安全加固②：Referrer 策略 -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>充电桩查询｜全国新能源充电站实时地图 · 按价格排序｜龙兄知识库</title>
+<meta name="keywords" content="充电桩查询,充电站地图,全国充电桩,新能源充电,电费价格,附近充电桩,充电站比价,盐城充电桩,射阳充电桩,龙兄知识库">
+
+<meta name="description" content="打开即定位，自动显示你所在地区的全部新能源充电站：国家电网、特来电、星星充电、蔚来、特斯拉等各品牌一站聚合，支持按距离或价格排序、一键导航、一键查实时电价。">
+
+<!-- 文章标签（手动维护） -->
+<meta name="article-category" content="实用工具">
+<meta name="article-tags" content="充电桩,新能源,定位,便民工具">
+<meta name="article-updated" content="2026-08-30">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><link rel="dns-prefetch" href="https://map.qq.com">
+<link rel="dns-prefetch" href="https://apis.map.qq.com">
+<link rel="dns-prefetch" href="https://webapi.amap.com">
+<link rel="dns-prefetch" href="https://restapi.amap.com">
+<style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.page-wrap{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.page-header{padding:32px 0 20px;text-align:center}
+.page-header h1{font-size:2rem;color:var(--gold);margin-bottom:8px}
+.subtitle{color:var(--text-secondary);font-size:.95rem}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.page-header h1{font-size:1.4rem}}
+</style>
+<link rel="stylesheet" href="css/style.css?v=hf6eb856b4355" integrity="sha384-kEj87zyOMAnIVEKGoF9yOHFkhcEtaNi94BzaFAvzehjVhvHwfu871PKnEjHvKIVF" crossorigin="anonymous">
+
+<!-- ===== 充电桩工具专属样式 ===== -->
+<style>
+/* ===== 充电桩工具专属样式（国风黑金 · 高端版） ===== */
+.ev-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:24px 22px;margin:18px 0 14px;background:linear-gradient(135deg,var(--card),var(--bg-secondary));border:1px solid var(--border);border-radius:16px;position:relative;overflow:hidden}
+.ev-hero::after{content:'';position:absolute;right:-46px;top:-46px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.14),transparent 70%);pointer-events:none}
+.ev-hero-left{display:flex;align-items:center;gap:14px;min-width:0}
+.ev-hero-badge{flex:0 0 48px;width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:rgba(201,168,76,.14);border:1px solid rgba(201,168,76,.32);box-shadow:0 0 18px rgba(201,168,76,.18)}
+.ev-title{font-size:1.7rem;color:var(--gold);letter-spacing:1px;line-height:1.2}
+.ev-sub{color:var(--text-secondary);font-size:.86rem;margin-top:4px}
+.ev-stats{display:flex;gap:10px;flex-wrap:wrap}
+.ev-stat{flex:1 1 84px;min-width:84px;text-align:center;padding:10px 8px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px}
+.ev-stat b{display:block;font-size:1.35rem;color:var(--gold);font-weight:800;line-height:1.1}
+.ev-stat span{font-size:.72rem;color:var(--text-muted)}
+
+.ev-locate{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin:0 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ev-locate-icon{width:38px;height:38px;flex:0 0 38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.3)}
+.ev-locate-main{flex:1 1 220px;min-width:0}
+.ev-locate-title{font-size:.95rem;font-weight:600;color:var(--text);line-height:1.5;word-break:break-all}
+.ev-locate-sub{font-size:.78rem;color:var(--text-muted);margin-top:2px}
+.ev-locate-sub.ok{color:var(--gold)}
+.ev-btn{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:.84rem;cursor:pointer;min-height:38px;transition:all var(--transition);white-space:nowrap;font-family:inherit}
+.ev-btn:hover{border-color:var(--gold);color:var(--gold)}
+.ev-btn.primary{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
+.ev-btn.primary:hover{background:var(--gold-light);color:#111}
+.ev-search{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}
+.ev-search input{flex:1 1 240px;min-width:0;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text);font-size:.9rem;font-family:inherit;min-height:42px}
+.ev-search input:focus{outline:none;border-color:var(--gold)}
+
+/* 工具栏（分段控件） */
+.ev-toolbar{display:flex;gap:14px 22px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+.ev-tool-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ev-tool-label{font-size:.8rem;color:var(--text-muted);white-space:nowrap}
+.ev-seg{display:inline-flex;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:3px;gap:2px}
+.ev-seg .ev-chip{border:none;background:transparent;border-radius:8px;padding:6px 13px;min-height:32px;color:var(--text-secondary)}
+.ev-seg .ev-chip:hover{color:var(--gold)}
+.ev-seg .ev-chip.on{background:var(--gold);color:#111;font-weight:600}
+.ev-chip{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:.8rem;color:var(--text-secondary);cursor:pointer;min-height:34px;display:inline-flex;align-items:center;transition:all var(--transition);white-space:nowrap}
+.ev-chip:hover{border-color:var(--gold);color:var(--gold)}
+.ev-chip.on{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
+.ev-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.ev-bar-label{font-size:.8rem;color:var(--text-muted);margin-right:2px}
+/* 城市快选：让页面一眼看得出是「全国都能查」，而不是某个县的本地页 */
+.ev-city-wrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.ev-city-tip{font-size:.76rem;color:var(--text-muted);margin-top:8px;line-height:1.7}
+.ev-summary{font-size:.85rem;color:var(--text-secondary);margin:0 0 12px;padding:10px 14px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--gold)}
+.ev-summary b{color:var(--gold)}
+
+/* 分时电价时段参考 */
+.ev-tou{margin:0 0 14px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:14px}
+.ev-tou-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.ev-tou-title{font-size:.9rem;font-weight:600;color:var(--text)}
+.ev-tou-now{font-size:.78rem;color:var(--gold);white-space:nowrap}
+.ev-tou-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ev-tou-seg{position:relative;text-align:center;padding:9px 4px 8px;border-radius:9px;font-size:.78rem;font-weight:600;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--border);transition:all .25s}
+.ev-tou-seg::before{content:'';display:block;width:100%;height:4px;border-radius:3px;margin-bottom:6px;background:currentColor;opacity:.45}
+.ev-tou-seg.z-valley{color:#5fb0e8}.ev-tou-seg.z-flat{color:var(--gold)}.ev-tou-seg.z-high{color:#e0a64a}.ev-tou-seg.z-peak{color:#e06a6a}
+.ev-tou-seg.on{color:var(--text);background:var(--card-hover);border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset,0 2px 10px rgba(201,168,76,.18);transform:translateY(-2px)}
+.ev-tou-seg.on::before{opacity:1}
+.ev-tou-note{margin:10px 0 0;font-size:.74rem;color:var(--text-muted);line-height:1.7}
+
+/* 地图置顶 + 卡片列表（借鉴充电 App 大地图版式，国风黑金化）
+   关键：地图不再吸顶、不再浮在页面中间，避免手指滑动被地图吃掉导致滑不到列表底部 */
+.ev-map-pane{position:relative;width:100%;height:420px;border-radius:14px;overflow:hidden;margin:0 0 16px;background:var(--bg-secondary);border:1px solid var(--border);transition:height .28s cubic-bezier(.22,.61,.36,1),border-color .25s,box-shadow .25s}
+#evMap{width:100%;height:100%;border-radius:14px;overflow:hidden}
+
+/* 地图上的操作按钮。
+   颜色一律硬编码「深底亮字」：这几个按钮是浮在地图上的，而地图是一张图、
+   底色不归主题管 —— 跟着主题变量走的话，浅色主题下会变成浅底浅字的「盲文」。
+   ± 缩放：电脑手机都给，省得去记「Ctrl/Cmd + 滚轮」那个组合键。
+   「拖地图」：只有触屏设备才显示（JS 认出触屏后给 body 打上 .ev-touch 标记），
+   因为电脑上鼠标本来就能直接拖地图，多给一个开关反而是干扰。 */
+.ev-map-ctl{position:absolute;right:10px;top:10px;z-index:60;display:flex;flex-direction:column;gap:6px}
+.ev-map-btn{width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  border-radius:10px;border:1px solid rgba(201,168,76,.55);background:rgba(15,15,15,.9);color:#EDE6D6;
+  font-size:1.05rem;font-weight:700;font-family:inherit;line-height:1;cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.45);transition:color .2s,border-color .2s,background .2s}
+.ev-map-btn:hover{color:#FFD86A;border-color:#FFD86A;background:rgba(28,24,14,.96)}
+.ev-map-btn:active{transform:scale(.93)}
+.ev-map-drag{position:absolute;left:10px;bottom:10px;z-index:60;
+  display:none;align-items:center;height:36px;padding:0 14px;border-radius:18px;
+  border:1px solid rgba(201,168,76,.6);background:rgba(15,15,15,.9);color:#EDE6D6;
+  font-size:.8rem;font-weight:600;font-family:inherit;white-space:nowrap;cursor:pointer;
+  box-shadow:0 3px 12px rgba(0,0,0,.5);transition:color .2s,border-color .2s,background .2s}
+.ev-map-drag:hover{color:#FFD86A;border-color:#FFD86A}
+/* 只有能被手指戳的设备才需要这个开关。为什么不写在屏幕宽度的媒体查询里：
+   屏幕窄不等于能戳 —— 把判断交给 JS，它比 CSS 更清楚这台设备到底有没有触屏。 */
+body.ev-touch .ev-map-drag{display:inline-flex}
+/* 地图用法说明：只给触屏设备看，且没有地图（.ev-has-map 缺失）时一并藏起来 */
+.ev-map-hint{display:none;margin:10px 0 0;font-size:.74rem;line-height:1.7;color:var(--text-muted)}
+body.ev-touch .ev-map-hint{display:block}
+body:not(.ev-has-map) .ev-map-hint{display:none}
+/* 已经切成拖图：按钮反过来变金色实心，让人一眼看出「现在手指归地图管」 */
+body.ev-map-free .ev-map-drag{background:#C9A84C;color:#1A1408;border-color:#C9A84C;font-weight:700}
+body.ev-map-free .ev-map-drag:hover{background:#D8B75C;color:#1A1408;border-color:#D8B75C}
+/* 筛选药丸：放在页面深色工具栏里（不再浮在亮地图上），对比度天然达标、字永远清楚 */
+.ev-pill{border:1px solid rgba(201,168,76,.5);background:var(--bg-secondary);color:var(--text);border-radius:20px;padding:6px 14px;font-size:.78rem;font-weight:600;cursor:pointer;min-height:34px;display:inline-flex;align-items:center;transition:all .25s;white-space:nowrap;font-family:inherit}
+.ev-pill:hover{color:var(--gold);border-color:var(--gold)}
+.ev-pill.on{background:var(--gold);color:#1a1408;border-color:var(--gold);font-weight:700;box-shadow:0 2px 12px rgba(201,168,76,.45)}
+.ev-list{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+@media(max-width:980px){
+  .ev-map-pane{height:38vh;min-height:240px}
+  .ev-list{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+}
+/* 切成拖图模式后，地图要「看得出来的变化」，分两件事：
+
+   一、镀金边（下面第一条，不写在媒体查询里）。
+   它是「手指现在归地图管」的状态提示，**任何屏幕都得给**。
+   平板横屏（1024 宽）这类设备地图本来就够大、不需要再长高，
+   但点了按钮总得有点反应，否则用户根本不知道到底切没切成功。
+
+   二、把地图放高一些（写在媒体查询里），手指能挪动的余地更大、拖着更跟手。
+   高度带 0.28 秒过渡（写在 .ev-map-pane 上），所以是撑开而不是硬跳一下。
+   边界取 1023 而不是 980：平板常见的宽度是 1000 上下，卡在 980 和 1024 中间，
+   按 980 切的话平板用户点了按钮却毫无变化，等于功能白做。
+   1024 以上是电脑的吸顶大图布局，高度由它自己管，这里不去碰。 */
+body.ev-map-free .ev-map-pane{border-color:#C9A84C;box-shadow:0 0 0 2px rgba(201,168,76,.3)}
+@media(max-width:1023px){
+  /* 横屏手机（844×390 这类）屏幕高度太小：62vh 算出来才 241px，
+     跟默认那条 240px 下限几乎相等，点了按钮地图纹丝不动，看着就像坏了。
+     所以给展开态再压一道下限，保证再矮的屏幕也能看出「地图撑开了」。
+     写成 min() 是防超矮屏把页面挤没了；老浏览器不认 min() 会整条忽略，
+     自动回退到原来那条下限，不会出错。
+     （别用"把 62vh 调大"来解决 —— 那会连竖屏大屏一起撑爆，实测过。） */
+  body.ev-map-free .ev-map-pane{height:62vh;min-height:min(300px,78vh)}
+}
+@media(max-width:560px){.ev-list{grid-template-columns:1fr}}
+body:not(.ev-has-map) .ev-map-pane{display:none}
+/* 没有位置就没有地图：此时左列是空的，还按 42% 占着位会让列表挤在右边一半，
+   所以直接取消分栏，让列表占满宽度。定位成功后 .ev-has-map 回来，分栏自动恢复。 */
+body:not(.ev-has-map) .ev-split{display:block}
+/* 「回到地图」：地图不再吸顶后，往下翻列表会看不见地图，用它一键跳回。
+   放左下角胶囊位，避开右下角已有的「回顶部」「快捷入口」两个圆按钮，避免挤在一起误点。
+   颜色硬编码深底+亮字，不跟主题走 —— 浅色页面下 var(--text) 是深色字，
+   跟深色背景压在一起会变成"盲文"，所以这里彻底固定深底亮字，跨主题都清晰 */
+.ev-to-map{position:fixed;left:calc(16px + env(safe-area-inset-left));bottom:calc(18px + env(safe-area-inset-bottom));z-index:300;
+  display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px;border-radius:20px;
+  border:1px solid rgba(201,168,76,.6);background:rgba(15,15,15,.94);color:#EDE6D6;
+  font-size:.82rem;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(0,0,0,.55);
+  visibility:hidden;opacity:0;pointer-events:none;transform:translateY(8px);
+  transition:opacity .25s,transform .25s,visibility .25s,color .25s,border-color .25s}
+.ev-to-map.show{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0)}
+.ev-to-map:hover{color:#FFD86A;border-color:#FFD86A}
+body:not(.ev-has-map) .ev-to-map{display:none}
+
+/* 桌面端（≥1024px）：左右分栏——地图常驻左列不滚走，列表在右列独立滚动。
+   为什么桌面能吸顶而手机不能：鼠标滚轮不会像手指触摸那样被地图整个吃掉，
+   且已把地图 scrollWheel 关掉（Ctrl/Cmd+滚轮才缩放），所以地图一直可见也不会挡路。
+   手机上屏幕窄、手指滑动会被地图吞掉，所以移动端保持上下堆叠 + 地图随页面滚走。 */
+@media(min-width:1024px){
+  /* sticky 的硬前提：祖先链上不能有任何非 visible 的 overflow，否则粘性定位失效。
+     全站容器 .page-wrap 默认是 overflow:auto，必须在本页桌面端放开，
+     否则地图的 sticky 会静默失效（看着写了 sticky，实际跟着页面一起滚走）。 */
+  .page-wrap{overflow:visible}
+  .ev-split{display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);gap:18px;align-items:start}
+  .ev-col-map{position:sticky;top:calc(var(--nav-height) + 12px)}
+  .ev-map-pane{height:calc(100vh - var(--nav-height) - 36px);min-height:360px;margin:0}
+  /* 右列刻意不设 max-height / overflow —— 让它自然撑开、由页面整体滚动来翻列表。
+     因为 sticky 只在父容器高度范围内有效：若把右列限高，.ev-split 就只有那么高，
+     页面一滚过这个高度地图就会跟着溜走。不限高才能让地图一路粘到底。 */
+  /* 地图已经常驻可见，「回到地图」按钮在桌面端没有意义 */
+  .ev-to-map{display:none}
+}
+
+/* 卡片（玻璃拟态 + 金线） */
+.ev-card{position:relative;background:linear-gradient(160deg,var(--card),var(--bg-secondary));border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:14px;padding:16px 18px;transition:border-color .25s,transform .25s,box-shadow .25s;min-width:0;overflow:hidden}
+.ev-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.32)}
+.ev-card-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.ev-rank{flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:rgba(201,168,76,.14);color:var(--gold);font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,168,76,.3)}
+.ev-head-main{flex:1;min-width:0}
+.ev-name{font-size:1rem;font-weight:700;color:var(--text);line-height:1.45;word-break:break-word}
+.ev-op{display:inline-block;margin-top:5px;font-size:.7rem;padding:2px 9px;border-radius:10px;background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border)}
+.ev-op.op-grid{color:#6db0ef;border-color:rgba(77,166,232,.4);background:rgba(77,166,232,.12)}
+.ev-op.op-teld{color:#7fd49a;border-color:rgba(127,212,154,.4);background:rgba(127,212,154,.12)}
+.ev-op.op-starcharge{color:#e0a64a;border-color:rgba(224,166,74,.4);background:rgba(224,166,74,.12)}
+.ev-op.op-nio{color:#7fd0d6;border-color:rgba(127,208,214,.4);background:rgba(127,208,214,.12)}
+.ev-op.op-tesla{color:#ef8a8a;border-color:rgba(239,138,138,.4);background:rgba(239,138,138,.12)}
+.ev-op.op-default{color:var(--gold);border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.12)}
+/* 没核实价的站点：运营商是用户唯一能靠的线索，所以放大加亮 */
+.ev-op.op-lead{font-size:.78rem;font-weight:700;padding:3px 11px}
+.ev-head-meta{display:flex;gap:6px;align-items:center;margin-top:5px;flex-wrap:wrap}
+.ev-tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.5px;padding:2px 8px;border-radius:9px;border:1px solid var(--border);line-height:1.4}
+.ev-tag-fast{color:#7fd49a;border-color:rgba(127,212,154,.45);background:rgba(127,212,154,.12)}
+.ev-tag-slow{color:#9db4d6;border-color:rgba(157,180,214,.4);background:rgba(157,180,214,.1)}
+.ev-tag-both{color:var(--gold);border-color:rgba(201,168,76,.45);background:rgba(201,168,76,.12)}
+.ev-card-focus{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset,0 10px 26px rgba(0,0,0,.34);transform:translateY(-3px)}
+.ev-dist{flex:0 0 auto;font-size:.82rem;font-weight:700;color:var(--gold);white-space:nowrap;padding-top:2px}
+.ev-card-body{margin-bottom:12px}
+.ev-price-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;min-height:30px}
+.ev-price{font-size:1.5rem;font-weight:800;color:var(--gold);line-height:1}
+.ev-price i{font-style:normal}
+.ev-price .ev-unit{font-size:.8rem;font-weight:400;color:var(--text-muted);margin-left:2px}
+.ev-price-none{font-size:.84rem;color:var(--text-secondary);padding:3px 10px;border:1px dashed var(--border);border-radius:8px}
+.ev-price-tip{font-size:.72rem;color:var(--text-muted);line-height:1.5;max-width:100%}
+.ev-seal{flex:0 0 auto;font-size:.64rem;font-weight:700;letter-spacing:1px;color:var(--gold);border:1.5px solid var(--gold);border-radius:6px;padding:2px 7px;transform:rotate(-3deg);box-shadow:0 0 0 1px rgba(201,168,76,.15) inset;white-space:nowrap}
+.ev-addr{font-size:.8rem;color:var(--text-secondary);line-height:1.6;word-break:break-word}
+.ev-note-line{font-size:.72rem;color:var(--text-muted);margin-top:5px;line-height:1.6}
+.ev-src{margin-top:6px;font-size:.7rem;color:var(--text-muted)}
+.ev-card-foot{display:flex;gap:10px}
+.ev-card-foot a{flex:1;text-align:center;font-size:.82rem;padding:9px 10px;border-radius:9px;min-height:38px;display:inline-flex;align-items:center;justify-content:center;transition:all .25s;border:1px solid var(--border);text-decoration:none}
+.ev-card-foot a.ghost{background:var(--bg-secondary);color:var(--text-secondary)}
+.ev-card-foot a.ghost:hover{border-color:var(--gold);color:var(--gold)}
+.ev-card-foot a.gold{background:var(--gold);color:#111;font-weight:600;border-color:var(--gold)}
+.ev-card-foot a.gold:hover{background:var(--gold-light);color:#111}
+
+.ev-note{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0 0}
+.ev-note h2{font-size:1.05rem;color:var(--gold);margin:0 0 10px}
+.ev-note ul{margin:0;padding-left:18px;color:var(--text-secondary);font-size:.88rem;line-height:1.95}
+.ev-note li{margin-bottom:2px}
+.ev-empty{text-align:center;padding:48px 20px;color:var(--text-muted);font-size:.9rem;background:var(--card);border:1px dashed var(--border);border-radius:12px}
+.ev-spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:evspin .7s linear infinite;vertical-align:-3px;margin-right:6px}
+@keyframes evspin{to{transform:rotate(360deg)}}
+.ev-warn{background:rgba(255,140,0,.08);border:1px solid rgba(255,140,0,.3);border-radius:10px;padding:12px 16px;font-size:.85rem;color:var(--text-secondary);margin:0 0 14px;line-height:1.8}
+.ev-skel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;min-height:120px;animation:evpulse 1.4s ease-in-out infinite}
+@keyframes evpulse{0%,100%{opacity:1}50%{opacity:.5}}
+.ev-pin{width:24px;height:24px;border-radius:50%;background:var(--gold);color:#111;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);box-shadow:0 2px 6px rgba(0,0,0,.35);cursor:pointer}
+.ev-info{padding:8px 10px;font-size:13px;line-height:1.8;max-width:240px;color:var(--text);word-break:break-word}
+.ev-info-price{color:var(--gold)}
+.ev-info a{color:var(--gold);text-decoration:none}
+.ev-map-fail{padding:36px 20px;text-align:center;font-size:.85rem;color:var(--text-muted);line-height:1.9}
+</style>
+
+<link rel="canonical" href="https://longxiong.vip/ev-charge.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="充电桩查询｜全国新能源充电站实时地图｜龙兄知识库">
+<meta property="og:description" content="打开即定位，自动显示你所在地区的全部新能源充电站，各品牌一站聚合，支持按距离或价格排序、一键导航。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://longxiong.vip/ev-charge.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="充电桩查询 - 龙兄知识库">
+<meta name="twitter:description" content="打开即定位，自动显示你所在地区的全部新能源充电站，按距离或价格排序。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip/",
+      "description": "AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、中药养生茶、特斯拉动态新闻、射阳天气等实用内容。",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://longxiong.vip/search.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "充电桩查询｜全国新能源充电站实时地图 · 按价格排序｜龙兄知识库",
+      "description": "打开即定位，自动显示你所在地区的全部新能源充电站：国家电网、特来电、星星充电、蔚来、特斯拉等各品牌一站聚合，支持按距离或价格排序、一键导航、一键查实时电价。",
+      "url": "https://longxiong.vip/ev-charge.html",
+      "author": {
+        "@type": "Person",
+        "name": "龙兄"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "龙兄知识库"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄知识库</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
+      <li><a href="herbs.html">中药材</a></li>
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="herbs/chenxiang.html">沉香鉴别</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+<main id="main-content" role="main"><div class="page-wrap">
+  <!-- 头部：标题 + 实时数据概览 -->
+  <header class="ev-hero">
+    <div class="ev-hero-left">
+      <div class="ev-hero-badge" aria-hidden="true">⚡</div>
+      <div class="ev-hero-text">
+        <h1 class="ev-title">充电桩查询</h1>
+        <p class="ev-sub">打开即定位 · 全国任意城市都能查 · 各品牌比价</p>
+      </div>
+    </div>
+    <div class="ev-stats">
+      <div class="ev-stat"><b id="evStatTotal">–</b><span>当前站点</span></div>
+      <div class="ev-stat"><b id="evStatPrice">–</b><span>已核实价</span></div>
+      <div class="ev-stat"><b id="evStatOp">–</b><span>覆盖品牌</span></div>
+    </div>
+  </header>
+
+  <!-- 桌面端左右分栏：地图常驻左列不滚走，列表在右列独立滚动。
+       手机端自动退化为上下堆叠（地图在上、随页面滚走），不占用手指滑动手势。 -->
+  <div class="ev-split">
+    <div class="ev-col-map">
+      <div class="ev-map-pane" id="evMapPane">
+        <div id="evMap"></div>
+        <!-- 地图上的操作按钮（配色全部硬编码深底亮字，原因见上面那段 CSS 注释）。
+             ± 缩放：两端都给，不用去记「Ctrl/Cmd + 滚轮」。
+             「拖地图」：手机上默认把单指滑动让给页面，点它才切成拖地图；
+             再点一次（按钮变成「完成拖图」）就切回翻列表。只在触屏上出现。 -->
+        <div class="ev-map-ctl">
+          <button type="button" class="ev-map-btn" id="evMapZoomIn" aria-label="放大地图">＋</button>
+          <button type="button" class="ev-map-btn" id="evMapZoomOut" aria-label="缩小地图">－</button>
+        </div>
+        <button type="button" class="ev-map-drag" id="evMapDrag" aria-pressed="false">✋ 拖地图</button>
+      </div>
+      <!-- 手机上把话说在明处，省得用户对着地图乱试还以为它坏了。
+           刻意放在地图框「下面」的页面背景上，而不是浮在地图上 ——
+           地图是一张图、底色不可控，字压上去深浅都说不准；放回页面背景就没这问题。
+           电脑上鼠标本来就能直接拖地图，不需要这句，所以只在触屏设备显示。 -->
+      <p class="ev-map-hint">单指上下滑翻列表，双指可缩放地图；想拖着看周边，点地图上的「✋ 拖地图」。</p>
+    </div>
+
+    <div class="ev-col-list">
+
+  <!-- 定位状态 -->
+  <div class="ev-locate">
+    <div class="ev-locate-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <div class="ev-locate-main">
+      <div class="ev-locate-title" id="evLocTitle">正在获取你的位置…</div>
+      <div class="ev-locate-sub" id="evLocSub">首次访问请允许浏览器定位授权</div>
+    </div>
+    <button type="button" class="ev-btn primary" id="evRelocate">重新定位</button>
+  </div>
+
+  <!-- 手动搜索 -->
+  <div class="ev-search">
+    <input type="text" id="evAddrInput" placeholder="全国任意地点都行，如：北京市朝阳区三里屯 / 上海市人民广场 / 盐城市吾悦广场" aria-label="手动输入地点">
+    <button type="button" class="ev-btn primary" id="evAddrGo">搜索这里</button>
+  </div>
+
+  <!-- 热门城市快选：点一下直接切到那个城市，不用手打。
+       这一行也是「本页面向全国」最直观的证据——不是只有某一个县能用。 -->
+  <div class="ev-bar" id="evCityBar">
+    <span class="ev-bar-label">热门城市</span>
+  </div>
+
+  <!-- 控制工具栏 -->
+  <div class="ev-toolbar">
+    <div class="ev-tool-group">
+      <span class="ev-tool-label">排序</span>
+      <div class="ev-seg">
+        <button type="button" class="ev-chip on" data-sort="dist">距离最近</button>
+        <button type="button" class="ev-chip" data-sort="price">价格最低</button>
+        <button type="button" class="ev-chip" data-sort="priceDesc">价格最高</button>
+      </div>
+    </div>
+    <div class="ev-tool-group ev-tool-radius">
+      <span class="ev-tool-label">半径</span>
+      <div class="ev-seg">
+        <button type="button" class="ev-chip" data-radius="1000">1km</button>
+        <button type="button" class="ev-chip on" data-radius="3000">3km</button>
+        <button type="button" class="ev-chip" data-radius="5000">5km</button>
+        <button type="button" class="ev-chip" data-radius="10000">10km</button>
+        <button type="button" class="ev-chip" data-radius="20000">20km</button>
+      </div>
+    </div>
+  </div>
+  <div class="ev-bar" id="evOpBar">
+    <span class="ev-bar-label">品牌</span>
+    <button type="button" class="ev-chip on" data-op="">全部</button>
+  </div>
+  <div class="ev-bar" id="evFilterBar">
+    <span class="ev-bar-label">筛选</span>
+    <button type="button" class="ev-pill" data-filter="price">仅显示有价</button>
+    <button type="button" class="ev-pill" data-filter="fast">仅快充</button>
+  </div>
+
+  <!-- 分时电价时段参考 -->
+  <div class="ev-tou" id="evTou">
+    <div class="ev-tou-head">
+      <span class="ev-tou-title">⏱️ 分时电价时段参考</span>
+      <span class="ev-tou-now" id="evTouNow">正在校准时间…</span>
+    </div>
+    <div class="ev-tou-bar">
+      <span class="ev-tou-seg z-valley" data-p="低谷">低谷</span>
+      <span class="ev-tou-seg z-flat" data-p="平段">平段</span>
+      <span class="ev-tou-seg z-high" data-p="高峰">高峰</span>
+      <span class="ev-tou-seg z-peak" data-p="尖峰">尖峰</span>
+    </div>
+    <p class="ev-tou-note">电价随尖峰 / 高峰 / 平段 / 低谷浮动，同一根枪白天和半夜能差近一倍。上图按一般规律标注，仅供参考，实际以各运营商现场公示为准。</p>
+  </div>
+
+  <div class="ev-summary" id="evSummary" hidden></div>
+  <div class="ev-warn" id="evWarn" hidden></div>
+
+  <!-- 充电站卡片列表 -->
+  <div class="ev-list" id="evList">
+    <div class="ev-skel"></div><div class="ev-skel"></div><div class="ev-skel"></div>
+  </div>
+
+    </div><!-- /.ev-col-list -->
+  </div><!-- /.ev-split -->
+
+  <!-- 说明区 -->
+  <section class="ev-note">
+    <h2>📖 价格是怎么来的？先说清楚</h2>
+    <ul>
+      <li><strong style="color:var(--text)">先说覆盖范围，免得你白等：</strong>
+        <b>找桩这件事，全国都能用</b>——充电站的位置、名称、地址、距离来自高德地图的 POI 数据，覆盖全国，你定位在哪个城市就查哪个城市，也可以直接点「热门城市」一行切换。
+        但<b>本站已核实的电价，目前只收录了盐城市（9 个区县）</b>，其余城市正在一条条补。<br>
+        没收录的城市，本页<b>不会拿别处的价来顶替</b>，站点一律标注「本站暂无核实价」，并把「查实时价」设成主按钮，一点就跳到该站的高德详情页看此刻真实挂牌价。</li>
+      <li><strong style="color:var(--text)">充电桩的电费不是一口价。</strong>一度的总价 = <b>电费</b> + <b>服务费</b>，而且按<b>尖峰 / 高峰 / 平段 / 低谷</b>分时段浮动，同一根枪白天和半夜能差一倍。</li>
+      <li><strong style="color:var(--text)">实时电价属于运营商的商业数据</strong>，国家电网、特来电、星星充电等都不对外提供数据，只能在其自家软件里，或高德、百度地图里查看。所以本页的做法是：<b>能核到价的直接显示，核不到的明写「本站暂无核实价」并给一键跳转按钮</b>，绝不编数字。</li>
+      <li>本页标注「<b style="color:var(--gold)">本站核实</b>」的价格，<strong style="color:var(--text)">来自第三方充电聚合平台「无敌电动网」的公开挂牌价</strong>，逐条核对无误后收录，每张卡片下方都写明<b>具体来源与采集日期</b>，你可以自己点进去查证。</li>
+      <li><strong style="color:var(--text)">已核实价只覆盖一部分站点</strong>，而且各家运营商分布不均——像云快充这类，公开渠道查不到逐站挂牌价。查不到的站点本页<b>不猜、不估、不用别家的价顶替</b>，一律标「本站暂无核实价」并放大显示运营商：<strong style="color:var(--text)">宁可让你多点一次「查实时价」，也不给你一个可能是错的价</strong>。</li>
+      <li><strong style="color:var(--text)">「核实」到底核的是什么，也说清楚：</strong>它指的是<b>这个价有可查的出处，不是我们编的</b>，而且经过<b>三重校验</b>——地区对得上、站名对得上、运营商对得上——确保不会把 A 站的价套到 B 站头上。<br>
+      但它<b>不等于本站到现场实测过</b>，也不代表此刻的实时价（运营商调价、分时浮动我们都跟不上）。实际要付多少，请以现场或「查实时价」为准。</li>
+      <li><strong>省钱小提示：</strong>大部分地区的低谷时段在 <b>23:00–次日 7:00</b>，此时充电通常最便宜；高速服务区充电桩价格普遍高于市区；商场停车场的桩常有"充电免停车费"优惠。</li>
+    </ul>
+  </section>
+
+  <section class="ev-note" style="margin-top:16px">
+    <h2>📚 数据来源 · 延伸阅读</h2>
+    <ul>
+      <li><a href="https://lbs.amap.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">高德开放平台</a> — 本页充电站位置、名称、地址、距离的地图数据来源（地点搜索 + 地址解析 + 定位）</li>
+      <li><a href="https://www.modiauto.com.cn/cdz/c1239.html" target="_blank" rel="noopener" style="color:var(--blue-light)">无敌电动网</a> — <strong style="color:var(--text)">本页全部 244 条已核实电价的唯一来源</strong>：盐城 9 区县的公开挂牌价（含电费 + 服务费、快慢充桩数、停车费），本站逐条核对后收录。<br>
+        <span style="color:var(--text-muted)">也正因为这个来源目前只覆盖盐城，本页核实价的范围暂时就到盐城为止；其他城市不是查不到，是<b>我们还没逐条核过，所以不敢往页面上写</b>。</span></li>
+      <li><a href="https://www.sheyang.gov.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">射阳县人民政府</a> — 《射阳县"十四五"电动汽车充电设施布局规划》，射阳本地充电站<b>布点规划</b>的参考依据（该规划讲的是站点布局，<b>不含逐站电价</b>）</li>
+      <li><a href="https://www.echargenet.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">国家电网 e 充电</a> ·
+          <a href="https://www.teld.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">特来电</a> ·
+          <a href="https://www.starcharge.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">星星充电</a> — 各运营商官方渠道，查询自家桩的实时价格与空闲状态</li>
+    </ul>
+  </section>
+
+  <!-- 回到地图：往下翻列表时地图看不见了，点它一键跳回顶部看地图 -->
+  <button type="button" class="ev-to-map" id="evToMap" aria-label="回到地图">↑ 回到地图</button>
+
+</div><!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="ev-sales.html">
+        <span class="lx-related-board">数据榜单</span>
+        <span class="lx-related-name">新能源车销量排行榜｜厂商 TOP10 · 渗透率走势</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="typhoon.html">
+        <span class="lx-related-board">射阳气象</span>
+        <span class="lx-related-name">台风实时监测详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/charging.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">充电指南 · 特斯拉2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="apple.html">
+        <span class="lx-related-board">苹果</span>
+        <span class="lx-related-name">苹果新品 · 国内外全网实时监测详细科普</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">龙兄知识库</div>
+  <div class="footer-info-row">记录真实生活 · 分享实用知识<br>本站内容均为个人整理，仅供参考</div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站</a> ·
+    <a href="notes.html">站长手记</a> ·
+    <a href="tags.html">标签聚合</a> ·
+    <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    充电桩位置数据由高德地图提供，价格信息以各运营商现场公示为准，本页不承担因数据变动导致的任何责任。<br>
+    © 2026 龙兄知识库 · longxiong.vip
+  </div>
+</footer>
+
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+<script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/search.js" integrity="sha384-KlyQTIlhMVcxcXVIuprq+jYVUnLzTeO30hiJKKrfW11fCgdxtQo8Inu3+jQgIE7s" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-8kad3MrSHYcCCCZ1Mju3iU6Ajj1HCTYJRfHirejZyp0edAx40wtgqxIltO4sIw2F" crossorigin="anonymous"></script>
+<script src="js/ev-prices-yancheng.js?v=hce94d3a80f41" integrity="sha384-awRumoeaJUDuHGsXavmRPYJHQZALKTJ16NuJ9v7PQLD13vF8UTnPkTceEOGVYWBa" crossorigin="anonymous"></script>
+<script defer src="js/ev-charge.js?v=hd48372d4bf45" integrity="sha384-WevyQ3utfbtETgES3zVZEPGUXoeFH3YBApiy5CjU15n/UFiHyf+BAl7zJ8ruzMOj" crossorigin="anonymous"></script>
+<script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+<script src="js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer integrity="sha384-bPo0N11lEe11NGWaMIyL9hUARXWqgnrYLW9KMHnjVnJ/zS1QuQamhCBkaXxwvMgd" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+</body>
+</html>

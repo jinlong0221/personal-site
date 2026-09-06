@@ -13,6 +13,7 @@ static/data/changelog.json）中所有 `content` 为空 / 空白 / 缺失的记�
 
 退出码 0 表示清洗成功（无解析失败）。
 """
+import hashlib
 import json
 import sys
 
@@ -40,6 +41,34 @@ def clean(path: str) -> str:
         json.dump(out, f, ensure_ascii=False, indent=2)
 
     return f"{path}: {before} 条 -> {len(out)} 条 (删除空记录 {dropped})"
+
+
+def verify_identical() -> list[str]:
+    """同步后回读三副本，确认字节完全一致。
+
+    2026-09-06 加：sync_canonical 只是「写过」，不等于「真的一致」。
+    实测曾出现三副本差一个末尾换行、护栏却报「已同步」的情况——
+    根因不在本脚本，而在 pre-commit 钩子重加暂存时漏了一个文件，
+    导致提交里装的还是旧内容。这里加一道回读断言，让这类偏差下次直接暴露。
+    """
+    digests = {}
+    for path in TARGETS:
+        try:
+            with open(path, "rb") as f:
+                digests[path] = hashlib.md5(f.read()).hexdigest()
+        except FileNotFoundError:
+            digests[path] = None
+    missing = [p for p, d in digests.items() if d is None]
+    if missing:
+        print("  回读失败(文件缺失): " + ", ".join(missing))
+        return missing
+    if len(set(digests.values())) != 1:
+        print("  ⚠️ 三副本字节不一致:")
+        for p, d in digests.items():
+            print(f"      {d}  {p}")
+        return ["三副本不一致"]
+    print(f"  ✅ 三副本字节一致 (md5 {next(iter(digests.values()))[:12]}…)")
+    return []
 
 
 def sync_canonical(canonical: str = "static/changelog.json") -> list[str]:
@@ -83,6 +112,9 @@ if __name__ == "__main__":
         print("  已同步至: " + ", ".join(synced))
     else:
         print("  三副本已一致，无需同步")
+
+    # 回读断言：同步完必须真的一致，不一致就阻断提交
+    failures.extend(verify_identical())
     print("=== 同步完成 ===")
 
     # —— 板块新闻日期排序（自愈护栏，2026-08-20 接入）——

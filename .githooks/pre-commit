@@ -1,0 +1,49 @@
+#!/bin/sh
+# 提交前护栏（pre-commit hook）
+#
+#  1. changelog：拦截 static/changelog.json / data/changelog.json 中的空 content 记录，
+#     避免更新日志页出现空白条目。覆盖 automation 自动提交与手动提交。
+#  2. 编辑器元数据：自动剥离 IDE 注入的 data-page-node-id 等属性。
+#     背景详见 scripts/guard_editor_noise.py —— 这类属性每次检出都会被编辑器写回，
+#     靠人手工 git checkout 治不住，所以在提交环节自动清干净。
+#
+# ⚠️ 2026-09-06 修复：护栏改完文件后必须把「三份 changelog 全部」重新 git add。
+#    旧版只 add 了 static/changelog.json 与 data/changelog.json，漏掉
+#    static/data/changelog.json —— 结果护栏在工作区修好了，提交里装的却还是索引里的
+#    旧内容，三副本长期差一个末尾换行却一切「看起来正常」。
+#    教训：凡是 hook 里 --fix 改了文件，改了哪些就要 add 哪些，一个都不能漏。
+set -e
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+echo "[pre-commit] 运行 changelog 护栏..."
+
+/usr/bin/python3 scripts/guard_changelog.py 2>/dev/null \
+  || python3 scripts/guard_changelog.py 2>/dev/null \
+  || /Users/chenjinlong/.workbuddy/binaries/python/versions/3.13.12/bin/python3 scripts/guard_changelog.py
+
+# 若护栏清洗改动了文件，将干净版本重新纳入本次提交。
+# 必须与 scripts/guard_changelog.py 的 TARGETS 完全一致，三份一个都不能少。
+git add static/changelog.json data/changelog.json static/data/changelog.json 2>/dev/null || true
+
+# ── 编辑器注入元数据清理 ─────────────────────────────────────────────
+echo "[pre-commit] 清理编辑器注入元数据..."
+
+PY3=""
+for c in /usr/bin/python3 python3 /Users/chenjinlong/.workbuddy/binaries/python/versions/3.13.12/bin/python3; do
+  if command -v "$c" >/dev/null 2>&1; then PY3="$c"; break; fi
+done
+[ -z "$PY3" ] && PY3=/Users/chenjinlong/.workbuddy/binaries/python/versions/3.13.12/bin/python3
+
+if [ -f scripts/guard_editor_noise.py ]; then
+  LIST_FILE="$(mktemp -t editor_noise)"
+  "$PY3" scripts/guard_editor_noise.py --fix --list-file="$LIST_FILE" | sed 's/^/    /' || true
+  # 只 add 护栏实际清理过的文件，不碰其他未暂存改动
+  while IFS= read -r f; do
+    [ -n "$f" ] && git add "$f" 2>/dev/null || true
+  done < "$LIST_FILE"
+  rm -f "$LIST_FILE"
+fi
+
+echo "[pre-commit] 护栏通过"

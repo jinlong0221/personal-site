@@ -27,6 +27,7 @@ import os
 import re
 import sys
 import json
+import subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC = os.path.join(ROOT, "static")
@@ -90,6 +91,21 @@ def resolve_category(bare, meta_cat):
     return DIR_CAT.get(seg, seg or "未分类")
 
 
+def git_date(abs_path):
+    """取文件最后一次提交的日期（YYYY-MM-DD）；取不到返回空串。
+    与 scripts/sync_update_time.py 同源：用 git 真实提交日期作为「最后更新时间」，
+    避免手工硬编码脱节。CI 已 fetch-depth:0，历史完整可用。"""
+    try:
+        out = subprocess.run(
+            ["git", "log", "-1", "--format=%cd", "--date=short", "--", abs_path],
+            cwd=ROOT, capture_output=True, text=True, timeout=30,
+        )
+        d = (out.stdout or "").strip()
+        return d if re.fullmatch(r"\d{4}-\d{2}-\d{2}", d) else ""
+    except Exception:
+        return ""
+
+
 def collect_static():
     out = []
     with open(SITEMAP_EXTRA, "r", encoding="utf-8") as f:
@@ -109,12 +125,15 @@ def collect_static():
         cat = resolve_category(url, meta_content(html, "article-category"))
         tags_raw = meta_content(html, "article-tags")
         tags = [t.strip() for t in tags_raw.split(",") if t.strip()] if tags_raw else []
+        # article-updated 缺失时回退到 git 真实提交日期（与 sync_update_time 同源），
+        # 让站内搜索「按更新时间筛选」对这些页不再空白。
+        updated = meta_content(html, "article-updated") or git_date(src)
         out.append({
             "url": "/" + url,
             "title": title,
             "category": cat,
             "tags": tags,
-            "updated": meta_content(html, "article-updated"),
+            "updated": updated,
             "desc": meta_content(html, "description"),
         })
     return out
@@ -175,12 +194,15 @@ def collect_hugo():
                 seg = rel.split("/", 1)[0]
                 cat = DIR_CAT.get(seg, seg or "未分类")
             tags = fm_tags(fm.get("tags", ""))
+            # frontmatter 缺 updated 时回退 git 真实提交日期（与静态页同源逻辑）
+            md_path = os.path.join(dirpath, fn)
+            updated = fm.get("updated", "").strip().strip('"').strip("'") or git_date(md_path)
             out.append({
                 "url": url,
                 "title": fm["title"].strip().strip('"').strip("'"),
                 "category": cat,
                 "tags": tags,
-                "updated": fm.get("updated", "").strip().strip('"').strip("'"),
+                "updated": updated,
                 "desc": fm.get("description", "").strip().strip('"').strip("'"),
             })
     return out

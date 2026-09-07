@@ -5025,6 +5025,9 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .lx-mod-no{ font-size:1.1rem; color:var(--gold); flex:0 0 auto; }
 .lx-mod-title{ font-family:var(--brush); font-size:clamp(20px,5vw,26px); letter-spacing:3px; color:var(--tx); margin:0; line-height:1; flex:0 0 auto; }
 .lx-mod-sub{ font-size:.78rem; color:var(--tx-3); letter-spacing:1px; min-width:0; }
+/* 热门精选「更新于」标：嵌在 .lx-mod-sub 内，继承其字号与配色，略小略淡 */
+.lx-mod-updated{ font-size:.92em; opacity:.8; margin-left:8px; white-space:nowrap; }
+.lx-mod-updated:empty{ display:none; }
 
 /* 模块一 · 今日更新（占位 8 条：标题 / 更新时间 / 简短摘要） */
 .upd-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
@@ -5172,6 +5175,13 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
   background:var(--gold); color:#1a140a; border-color:var(--gold);
   transform:translateY(-1px);
 }
+/* 头图「更新于」标：CTA 下方一行小字，无内容时完全不占位 */
+.lx-hero-updated{
+  display:block; margin-top:12px;
+  font-size:.72rem; letter-spacing:1px;
+  color:rgba(244,238,226,.62);
+}
+.lx-hero-updated:empty{ display:none; }
 .lx-hero-dots{
   position:absolute; z-index:3; left:50%; bottom:18px;
   transform:translateX(-50%);

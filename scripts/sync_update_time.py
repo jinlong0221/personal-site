@@ -36,6 +36,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC = os.path.join(ROOT, "static")
 UPDATES_JSON = os.path.join(STATIC, "data", "updates.json")
 
+# 人工策展数据的「更新于」时点来源：顶层 updated 字段由 git 提交日期自动刷新
+# （仓库相对路径，供 git_date() 使用）
+CURATED_JSON = [
+    "static/hot-picks.json",
+    "static/hero.json",
+]
+
 # JS 模板占位（如 sheyang.html 的「更新于 ${ts}」）运行时填充，跳过
 JS_PLACEHOLDER = re.compile(r"\$\{|\{\{")
 
@@ -179,11 +186,42 @@ def sync_dynamic_spans(check_only):
     return changed
 
 
+def sync_curated_json(check_only):
+    """热门精选/头图的「更新于」时点：用各文件 git 提交日期刷新顶层 updated 字段。
+
+    这两份是人工策展数据（/hot-picks.json、/hero.json），文件内容的变更日就是它
+    真实的「最后更新」日——改一次自动跟一次，不会像手工硬编码那样脱节。
+    首页 static/js/home-feed.js 与 static/js/hero.js 读取该字段渲染「更新于」标。
+    """
+    changed = []
+    for rel in CURATED_JSON:
+        path = os.path.join(ROOT, rel)
+        if not os.path.exists(path):
+            continue
+        try:
+            data = json.load(open(path, encoding="utf-8"))
+        except Exception:
+            continue
+        if not isinstance(data, dict):
+            continue
+        real = git_date(rel)
+        if not real or real == data.get("updated"):
+            continue
+        old = data.get("updated", "")
+        data["updated"] = real
+        changed.append((rel, old, real))
+        if not check_only:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+    return changed
+
+
 def main():
     check_only = "--check" in sys.argv
     pages = sync_pages(check_only)
     spans = sync_dynamic_spans(check_only)
     jsons = sync_updates_json(check_only)
+    curated = sync_curated_json(check_only)
     tag = "[check] " if check_only else "[done] "
     print(f"{tag}页面 .update-time 同步: {len(pages)} 处")
     for rel, old, new in pages[:25]:
@@ -194,6 +232,9 @@ def main():
     print(f"{tag}data/updates.json lastUpdate 同步: {len(jsons)} 处")
     for key, old, new in jsons[:25]:
         print(f"   {key}: {old or '(空)'} -> {new}")
+    print(f"{tag}策展 JSON(hot-picks/hero) updated 同步: {len(curated)} 处")
+    for rel, old, new in curated[:25]:
+        print(f"   {rel}: {old or '(空)'} -> {new}")
 
 
 if __name__ == "__main__":

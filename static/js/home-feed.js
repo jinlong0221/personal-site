@@ -19,7 +19,8 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
-  function renderToday(items) {
+  function renderToday(d) {
+    var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
     var grid = document.getElementById('updGrid');
     if (!grid) return;
     if (!items || !items.length) {
@@ -38,7 +39,12 @@
     }).join('');
   }
 
-  function renderPicks(items) {
+  function renderPicks(d) {
+    var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
+    // 把「更新于」填进热门精选区标题旁的标（hero/home-feed 同源：部署时由 git 日期刷新）
+    var upd = d && d.updated ? d.updated : '';
+    var updEl = document.getElementById('hotUpdated');
+    if (updEl) updEl.textContent = upd ? '更新于 ' + upd : '';
     var grid = document.getElementById('hotGrid');
     if (!grid) return;
     if (!items || !items.length) {
@@ -64,7 +70,7 @@
   function loadJSON(url, ok) {
     fetch(url + CACHE)
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function (d) { ok(d && d.items ? d.items : d); })
+      .then(function (d) { ok(d); })
       .catch(function (e) { console.log('[home-feed] 加载失败:', url, e); });
   }
 

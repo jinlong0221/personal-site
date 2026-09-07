@@ -274,12 +274,17 @@ def model_rank_table(rows):
             shown_groups.add(grp)
             parts = r.get('seriesGroupParts') or []
             if len(parts) > 1 and r.get('seriesGroupTotal'):
-                detail = ' ＋ '.join(
-                    '%s %s' % (esc(p.get('name')), '{:,}'.format(p.get('units') or 0))
-                    for p in parts)
-                grp_html = ('<span class="ev-grp">%s 系合计 <b>%s</b> 辆'
-                            '<span class="ev-grp-parts">（%s）</span></span>'
-                            % (esc(grp), '{:,}'.format(r['seriesGroupTotal']), detail))
+                # 内联只显「系名 + 合计 + 共 N 款」一行（窄屏不被拆成单字）。
+                # 完整分车型明细放进 title 悬停提示：桌面悬停可见，手机无悬停但合计数已够用。
+                tooltip = '%s：%s' % (
+                    grp,
+                    ' ＋ '.join('%s %s' % (p.get('name') or '',
+                                          '{:,}'.format(p.get('units') or 0))
+                                for p in parts))
+                grp_html = ('<span class="ev-grp" title="%s">%s 系合计 <b>%s</b> 辆'
+                            '<span class="ev-grp-parts"> · 共 %d 款</span></span>'
+                            % (esc(tooltip), esc(grp),
+                               '{:,}'.format(r['seriesGroupTotal']), len(parts)))
         # 车型名：有 seriesId 就链到该平台车型页，方便用户自己核原始页面。
         # 没有就不链 —— 绝不拼一个打不开的 URL 充数。
         sid = r.get('seriesId')
@@ -749,9 +754,10 @@ table.ev-model td.vl{white-space:nowrap}
 /* 同系合计：懂车帝按动力版本分列，单看一条会低估整个车系，
    故在车系首次出现的那行补一行合计，分列数字保持原样不合并 */
 .ev-grp{display:block;margin-top:3px;font-size:.72rem;color:var(--text-muted);
-  line-height:1.5;font-weight:400}
+  line-height:1.5;font-weight:400;word-break:keep-all}
 .ev-grp b{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
-.ev-grp-parts{display:block;color:var(--text-muted);opacity:.85;font-size:.72rem}
+.ev-grp-parts{display:block;color:var(--text-muted);opacity:.85;font-size:.72rem;
+  word-break:keep-all}
 
 /* 来源等级标识：批发能溯源到乘联会终稿、零售不能，两者必须一眼可辨，
    不能让用户以为这两张榜同样官方 */

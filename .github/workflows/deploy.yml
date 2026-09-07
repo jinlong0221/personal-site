@@ -23,6 +23,15 @@ on:
 permissions:
   contents: write
 
+# 同一时刻只允许一个部署在跑：并发推送（如多个自动化代理几十秒内连推）时，
+# 后续运行自动排队而非并行，避免两个运行同时 push gh-pages 互相踩踏。
+# 根因依据：2026-09-08 凌晨 02:13-02:14 三连败，全部挂在最后一步
+# "Deploy to GitHub Pages"，报 git exit code 1（非快进推送冲突）；
+# 构建与全部 guard 步骤均绿，4:29 并发高峰过后自动恢复成功。
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

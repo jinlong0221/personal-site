@@ -101,7 +101,7 @@
 
     s.push('<svg class="tf-track-svg" id="tfSvg" viewBox="0 0 ' + VB_W + ' ' + VB_H + '" ' +
       'preserveAspectRatio="xMidYMid meet" role="img" ' +
-      'aria-label="台风白海豚路径示意图，含射阳位置标注">');
+      'aria-label="台风' + (d.name || '实时') + '路径示意图，含射阳位置标注">');
 
     s.push('<defs>');
     s.push('<linearGradient id="tfSea" x1="0" y1="0" x2="0" y2="1">' +

@@ -157,11 +157,12 @@ def hbar(rows, width=660, row_h=30, max_label_w=96):
         y = i * row_h + 6
         w = max(0, bar_w * ((val or 0) / hi))
         out.append('<text x="%d" y="%d" fill="currentColor" fill-opacity=".85" font-size="12" '
-                   'text-anchor="end">%s</text>' % (max_label_w, y + 14, esc(name)))
-        out.append('<rect x="%d" y="%d" width="%d" height="15" rx="4" fill="currentColor" '
-                   'fill-opacity=".08"/>' % (bar_x, y + 3, bar_w))
-        out.append('<rect x="%d" y="%d" width="%.1f" height="15" rx="4" fill="%s" '
-                   'fill-opacity=".82"/>' % (bar_x, y + 3, w, '#C9A84C'))
+                   'text-anchor="end">%s</text>' % (max_label_w, y + 13, esc(name)))
+        out.append('<rect x="%d" y="%d" width="%d" height="9" rx="4" fill="currentColor" '
+                   'fill-opacity=".08"/>' % (bar_x, y + 6, bar_w))
+        # 金仅作细强调条（高度9、半透明），避免大面积暖色实块
+        out.append('<rect x="%d" y="%d" width="%.1f" height="9" rx="4" fill="%s" '
+                   'fill-opacity=".5"/>' % (bar_x, y + 6, w, '#C9A84C'))
         out.append('<text x="%.1f" y="%d" fill="currentColor" fill-opacity=".9" font-size="12" '
                    'font-weight="600">%s</text>' % (bar_x + w + 8, y + 15, esc(txt)))
     out.append('</svg>')
@@ -176,6 +177,7 @@ def rank_table(rows, unit_label='辆', with_cum=False):
     head = ['排名', '厂商', '当月销量']
     if with_cum:
         head.append('本年累计')
+    head.append('环比')
     head.append('同比')
     th = ''.join('<th scope="col">%s</th>' % esc(h) for h in head)
     trs = []
@@ -186,6 +188,8 @@ def rank_table(rows, unit_label='辆', with_cum=False):
         if with_cum:
             tds.append('<td class="vl sub">%s</td>'
                        % ('{:,}'.format(r['cumulative']) if r.get('cumulative') else '—'))
+        # 环比：数据已有（mom），未披露则显示「—」，绝不编造
+        tds.append('<td class="%s">%s</td>' % (yoy_cls(r.get('mom')), yoy_txt(r.get('mom'))))
         tds.append('<td class="%s">%s</td>' % (yoy_cls(r.get('yoy')), yoy_txt(r.get('yoy'))))
         trs.append('<tr>%s</tr>' % ''.join(tds))
     return ('<div class="ev-table-wrap"><table class="ev-rank"><thead><tr>%s</tr></thead>'
@@ -434,22 +438,31 @@ def build_body(d):
     <p class="ev-lead">上面是<b>厂商</b>排行，这一节细到<b>具体车型</b>：哪一款车卖了多少辆、名次比上月涨了还是跌了。
        批发榜看出货（含出口），零售榜看国内真实上牌，<b>两者成员和排序都不同，不要混着比</b>。</p>
 
-    <div class="ev-tabs" role="tablist">
-      <button class="ev-tab{rt_on}" role="tab" data-evtab3="r" aria-selected="{rt_sel}">零售榜（国内上牌）</button>
-      <button class="ev-tab{ws_on}" role="tab" data-evtab3="w" aria-selected="{ws_sel}">批发榜（含出口）</button>
+    <div class="ev-model-tools">
+      <input type="search" id="evm-search" class="ev-search" placeholder="搜车型 / 品牌…" aria-label="搜索车型或品牌" autocomplete="off">
+      <span class="ev-search-hint">实时过滤下方两张榜</span>
     </div>
 
-    <div class="ev-panel{rt_show}" id="evm-r"{rt_hide}>
+    <div class="ev-tabs" role="tablist" aria-label="新能源车型榜口径切换">
+      <button class="ev-tab{rt_on}" id="evtab3-r" role="tab" aria-controls="evm-r" data-evtab3="r" aria-selected="{rt_sel}">零售榜（国内上牌）</button>
+      <button class="ev-tab{ws_on}" id="evtab3-w" role="tab" aria-controls="evm-w" data-evtab3="w" aria-selected="{ws_sel}">批发榜（含出口）</button>
+    </div>
+
+    <div class="ev-panel{rt_show}" id="evm-r" role="tabpanel" aria-labelledby="evtab3-r" tabindex="0">
       <p class="ev-tier-line">{rt_badge}</p>
       <p class="ev-panel-note">口径：{rt_cal}。单位：辆。</p>
-      {rt_table}
+      <div class="ev-model-box" data-evkey="r">{rt_table}
+        <button type="button" class="ev-more" data-evmore="r" hidden></button>
+      </div>
       <p class="ev-src">来源：{src_txt} · 抓取时间 {md_time}</p>
     </div>
 
-    <div class="ev-panel{ws_show}" id="evm-w"{ws_hide}>
+    <div class="ev-panel{ws_show}" id="evm-w" role="tabpanel" aria-labelledby="evtab3-w" tabindex="0">
       <p class="ev-tier-line">{ws_badge}</p>
       <p class="ev-panel-note">口径：{ws_cal}。单位：辆。</p>
-      {ws_table}
+      <div class="ev-model-box" data-evkey="w">{ws_table}
+        <button type="button" class="ev-more" data-evmore="w" hidden></button>
+      </div>
       <p class="ev-src">来源：{src_txt} · 抓取时间 {md_time}</p>
     </div>
 
@@ -465,8 +478,8 @@ def build_body(d):
                 ws_sel='true' if default_tab == 'w' else 'false',
                 rt_show=' active' if default_tab == 'r' else '',
                 ws_show=' active' if default_tab == 'w' else '',
-                rt_hide='' if default_tab == 'r' else ' hidden',
-                ws_hide='' if default_tab == 'w' else ' hidden',
+                rt_hide='',
+                ws_hide='',
                 rt_badge=model_source_badge(md_rt.get('sourceTier')),
                 ws_badge=model_source_badge(md_ws.get('sourceTier')),
                 rt_cal=esc(md_cal.get('零售') or '终端交付/上险口径，不含出口'),
@@ -498,21 +511,22 @@ def build_body(d):
     <p class="ev-lead">这是本页的核心榜单：<b>新能源乘用车</b>厂商排行。批发榜看出货（含出口），
       零售榜看国内真实上牌，两者成员差异很大，合起来看才完整。</p>
 
-    <div class="ev-tabs" role="tablist">
-      <button class="ev-tab active" role="tab" data-evtab="w" aria-selected="true">批发榜（含出口）</button>
-      <button class="ev-tab" role="tab" data-evtab="r" aria-selected="false">零售榜（国内上牌）</button>
+    <div class="ev-tabs" role="tablist" aria-label="新能源厂商榜口径切换">
+      <button class="ev-tab active" id="evtab-w" role="tab" aria-controls="evp-w" data-evtab="w" aria-selected="true">批发榜（含出口）</button>
+      <button class="ev-tab" id="evtab-r" role="tab" aria-controls="evp-r" data-evtab="r" aria-selected="false">零售榜（国内上牌）</button>
     </div>
 
-    <div class="ev-panel active" id="evp-w">
+    <div class="ev-panel active" id="evp-w" role="tabpanel" aria-labelledby="evtab-w" tabindex="0">
       <p class="ev-panel-note">口径：{ws_cal}</p>
       {ws_html}
       <p class="ev-src">来源：<a href="{ws_url}" target="_blank" rel="noopener noreferrer">{ws_src}</a>
-        （转载乘联会终稿数据）· 人工核对日期 {verified}</p>
+        · 人工核对日期 {verified}</p>
     </div>
 
-    <div class="ev-panel" id="evp-r" hidden>
+    <div class="ev-panel" id="evp-r" role="tabpanel" aria-labelledby="evtab-r" tabindex="0">
       <p class="ev-panel-note">口径：{rt_cal}</p>
       {rt_html}
+      <p class="ev-note">零售榜的「同比 / 环比」来源媒体未披露，表中以「—」表示，并非数据缺失。</p>
       <p class="ev-src">来源：<a href="{rt_url}" target="_blank" rel="noopener noreferrer">{rt_src}</a>
         、<a href="{rt_url2}" target="_blank" rel="noopener noreferrer">新浪汽车</a>
         （均转载乘联会数据，两家报道逐位比对一致）· 人工核对日期 {verified}</p>
@@ -530,7 +544,8 @@ def build_body(d):
       <span class="ev-sec-tag">近 12 个月</span></div>
     <p class="ev-lead">新能源车在国内零售中的占比。{pen_txt}</p>
     <div class="ev-chart-box">{chart_pen}</div>
-    <p class="ev-note">口径：NEV 指纯电 + 插混 + 增程，占狭义乘用车国内零售的比例；数据来自乘联会官方接口。</p>
+    <p class="ev-note">口径：NEV 指纯电 + 插混 + 增程，占狭义乘用车国内零售的比例；数据来自乘联会官方接口。<br>
+      <b>关于 2026 年初的低点：</b>2026 年 1 月渗透率一度回落至约 38.5%，并非数据异常，而是 2025 年底「以旧换新」等政策到期前的消费透支、叠加春节淡季所致，随后逐月回升，最新月份已重回高位。</p>
   </section>
 
   <section class="ev-sec" id="sec-structure">
@@ -557,12 +572,12 @@ def build_body(d):
     <p class="ev-warn"><b>这不是新能源榜。</b>下面这张是<b>全部乘用车</b>（含燃油车）的厂商排名，
       用来对照看各家的基本盘。要看新能源排行请回到页首第壹节。</p>
 
-    <div class="ev-tabs" role="tablist">
-      <button class="ev-tab active" role="tab" data-evtab2="w" aria-selected="true">批发</button>
-      <button class="ev-tab" role="tab" data-evtab2="r" aria-selected="false">零售</button>
+    <div class="ev-tabs" role="tablist" aria-label="乘用车总榜口径切换">
+      <button class="ev-tab active" id="evtab2-w" role="tab" aria-controls="evt-w" data-evtab2="w" aria-selected="true">批发</button>
+      <button class="ev-tab" id="evtab2-r" role="tab" aria-controls="evt-r" data-evtab2="r" aria-selected="false">零售</button>
     </div>
-    <div class="ev-panel active" id="evt-w">{api_ws}</div>
-    <div class="ev-panel" id="evt-r" hidden>{api_rt}</div>
+    <div class="ev-panel active" id="evt-w" role="tabpanel" aria-labelledby="evtab2-w" tabindex="0">{api_ws}</div>
+    <div class="ev-panel" id="evt-r" role="tabpanel" aria-labelledby="evtab2-r" tabindex="0">{api_rt}</div>
     <p class="ev-src">来源：乘联会官方数据接口 · 狭义乘用车口径 · 单位万辆</p>
   </section>
 
@@ -641,7 +656,7 @@ CSS = """
 .ev-stat b{display:block;font-size:1.28rem;color:var(--gold);font-weight:800;line-height:1.15;
   word-break:break-all}
 .ev-stat-lb{display:block;font-size:.74rem;color:var(--text-secondary);margin-top:3px}
-.ev-stat-sub{display:block;font-size:.66rem;color:var(--text-muted);margin-top:2px;line-height:1.35}
+.ev-stat-sub{display:block;font-size:.72rem;color:var(--text-muted);margin-top:2px;line-height:1.35}
 
 .ev-sec{margin:26px 0;padding:20px 18px;background:var(--card);border:1px solid var(--border);border-radius:14px}
 .ev-sec-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;
@@ -668,10 +683,24 @@ CSS = """
   transition:all .18s ease}
 .ev-tab:hover{border-color:var(--gold);color:var(--gold)}
 .ev-tab.active{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
-.ev-panel{display:none}
-.ev-panel.active{display:block}
+/* 渐进增强：默认全部面板可见（无 JS 也不丢数据）；
+   脚本初始化后给 <html> 加 .tabs-ready，才隐藏非激活面板 */
+.ev-panel{display:block}
+.tabs-ready .ev-panel:not(.active){display:none}
 .ev-panel-note{color:var(--text-muted);font-size:.78rem;margin:0 0 8px;padding-left:9px;
   border-left:3px solid var(--gold)}
+
+/* 车型榜搜索 + 展开/收起 */
+.ev-model-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.ev-search{flex:1 1 200px;min-width:160px;max-width:320px;padding:9px 13px;font-size:.86rem;
+  color:var(--text);background:var(--bg-secondary);border:1px solid var(--border);border-radius:9px;
+  outline:none;transition:border-color .18s}
+.ev-search:focus{border-color:var(--gold)}
+.ev-search-hint{color:var(--text-muted);font-size:.74rem}
+.ev-more{display:block;margin:10px 0 2px;padding:8px 16px;font-size:.82rem;cursor:pointer;
+  color:var(--gold);background:transparent;border:1px solid var(--gold);border-radius:20px;
+  transition:all .18s}
+.ev-more:hover{background:rgba(201,168,76,.12)}
 
 .ev-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px}
 table.ev-rank{width:100%;border-collapse:collapse;font-size:.85rem;min-width:320px}
@@ -722,7 +751,7 @@ table.ev-model td.vl{white-space:nowrap}
 .ev-grp{display:block;margin-top:3px;font-size:.72rem;color:var(--text-muted);
   line-height:1.5;font-weight:400}
 .ev-grp b{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
-.ev-grp-parts{display:block;color:var(--text-muted);opacity:.85;font-size:.68rem}
+.ev-grp-parts{display:block;color:var(--text-muted);opacity:.85;font-size:.72rem}
 
 /* 来源等级标识：批发能溯源到乘联会终稿、零售不能，两者必须一眼可辨，
    不能让用户以为这两张榜同样官方 */

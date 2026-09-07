@@ -20,9 +20,8 @@
     var cta = document.getElementById('heroCta');
     var dotsWrap = document.getElementById('heroDots');
     if (!hero || !link || !imgA || !imgB || !dotsWrap) return;
-    // 头图区「更新于」标（部署时由 git 日期刷新）
+    // 头图区「更新于」标（值来自 hero.json，在 setup 内 fill）
     var updEl = document.getElementById('heroUpdated');
-    if (updEl) updEl.textContent = updated ? '更新于 ' + updated : '';
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -37,6 +36,8 @@
       .catch(function () { /* 拉取失败则保留静态首屏，不报错 */ });
 
     function setup(slides, updated) {
+      // 头图区「更新于」标：来自 hero.json 的 updated 字段（部署时由 git 日期刷新）
+      if (updEl) updEl.textContent = updated ? '更新于 ' + updated : '';
       // 预加载全部图片，避免切换时闪烁
       slides.forEach(function (s) { var im = new Image(); im.src = s.img; });
 

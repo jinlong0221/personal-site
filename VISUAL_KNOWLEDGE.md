@@ -55,6 +55,7 @@
 - **触控命中区 24px 达标清单（WCAG 2.5.8，2026-09-01 系统化）**：探针量得 4+ 类交互元素命中区 <24px → 按「视觉零改动、只扩命中区」范式逐个修：① `nav-clock-link` 78×23 → `min-height:26px`（navbar 56px 内居中，位移不可见）；② `input[type=checkbox]/[type=radio]` 13×13 → 20×20（`min-width:0;min-height:0` 防全局 44px 规则入侵）；③ `a.back-link` 20 → `display:inline-flex;align-items:center;min-height:24px`；④ `input.tf-range` 滑块可拖区 5px → 输入框 `height:24px;background:transparent`，视觉轨道仍 `::-webkit-slider-runnable-track{height:5px}` 渐变（`input.tf-range` 的 (0,1,1) 特异性高于页面内 `.tf-range`(0,1,0)，放全局表可避免与台风自动化对 typhoon.html 的重写冲突）；⑤ `.lx-hero-dot` 视觉保持 18×3px 细金条，命中区用 `position:relative` + 透明 `::after{width:calc(100% + 7px);height:24px}` 撑到 25×24（与 7px gap 齐平、互不重叠）；⑥ `a.upd-link`（index.html 页脚，实测高 21px）→ `min-height:24px;display:inline-flex;align-items:center`。
 - **滑块旋钮居中偏移公式（2026-09-01 补）**：webkit range 自定义轨道后，旋钮默认贴在轨道顶部，**必须** `::-webkit-slider-thumb{margin-top:(trackHeight − thumbHeight)/2}` 才居中。本站 `tf-range` 轨道 5px、默认旋钮 16px → `margin-top:-5.5px`（**非 -8.5px**，多偏 3px 会把旋钮顶出可见轨道）。moz 端 `::-moz-range-thumb` 自动居中，无需 margin。
 - **根副本 `css/style.css` 缺失（2026-09-01 修复）**：本站双副本机制要求「源码 `css/` 与 `static/css/` 保持同步」（head.html 以 `{{ .Site.BaseURL }}css/style.css` 引用，hugo 构建自 `static/css/style.css` → `public/css/style.css`）。巡检发现仓库根 `css/` 目录丢失，仅剩 `static/css/style.css`，双副本断裂。已 `mkdir css && cp static/css/style.css css/style.css` 恢复根副本，今后改 CSS 须两处同步。⚠️ 此根副本**不进 public 部署**，仅作源码镜像与 diff 基准，别误删。
+- **闭包作用域 ReferenceError 会中断整段初始化（2026-09-08 发现，P0 严重）**：`js/hero.js` 在 `init()` 里引用仅定义于嵌套函数 `setup(slides, updated)` 形参的 `updated`，`"use strict"` 下抛 `ReferenceError: updated is not defined` → `init` 中断、首页头图轮播静默失效（09-07 引入「更新于」功能起约 1 天，用户无感但属功能层视觉缺失）。⚠️ **教训**：① 用到变量前必须确认它在当前作用域已声明，外层函数不可引用内层函数形参；② 无头探针的 `pageerror` 监听器是抓这类"功能层视觉缺失"的关键——一个被抛出的脚本错误会让依赖它的整块 UI（轮播/标签）不渲染，肉眼难察但属 P0；③ 修复优先级：把逻辑移入变量确有定义的作用域，而非在外层补 `var updated`（那会拿到 `undefined` 而非接口值）。
 
 ## 七、无头浏览器验证方法论（托尼自用）
 
@@ -146,3 +147,15 @@
 - **卡片系统**：`.lx-card`/`.lx-epick`/`.lx-hero-dot`/`.artist-card` 跨页一致；新增 `charging.html` 复用 `.lx-*` 体系、无内联重定义漂移。
 - **知识储备增量**：本节 + 第六节（语义色 hue 保持法 / accent-color 金化 / 24px 命中区清单 / 滑块偏移公式 / css 根副本恢复）+ 第七节（6 视口 2496 组合基线、本地服务与 URL 重写流程）。
 - 交付门槛：视觉层面 **P0=P1=0** ✅（连续 4 周达标：08-25 / 08-28 / 08-30 / **09-01**）。
+
+## 十五、本周（2026-09-08）巡检结论速记
+
+- **规模**：站点已 209 页（较 09-01 的 208 页 +1），本轮探针 6 视口 × 2 主题 = **2508 组合**（探针实测 combos=2508 / pages=209）。
+- **硬指标（修复前首轮）**：文档级 `scrollWidth - innerWidth` 全 = 0；祖先感知元素溢出 = 0；大面积暖色扫描初标 1 处（`sheyang.html` 暗色 `.tile-orange`）；JS 报错 = 2 处（均在 `index.html` 两主题，同源 `ReferenceError: updated is not defined`）；goto 错误 = 0；tinyTap 2496 为内联链接/标签关联控件等预期假阳性（见第七节判定法）。
+- **本轮实修缺陷（1 类，JS 层视觉 P0）**：
+  1. **`js/hero.js` 闭包作用域 ReferenceError（P0，严重）**：`init()` 第 25 行引用 `updated` 变量，但该变量仅定义在嵌套函数 `setup(slides, updated)` 形参内，外层 `init` 作用域根本不存在该变量；脚本头 `"use strict"` 下直接抛 `ReferenceError: updated is not defined`。**致命副作用**：该报错发生在 `init()` 同步执行期，一旦抛出，`init` 整个中断，后续 `fetch('/hero.json')` 与 `setup()` 轮播初始化全部不执行 → 首页头图轮播自 09-07 引入「更新于」功能（`98cab69e`）起已静默失效约 1 天。修复：把 `#heroUpdated` 标签赋值从 `init` 移入 `setup`（变量确有定义处），`setup` 收到 `d.updated` 后正确写入「更新于 2026-08-17」。三副本 `js/hero.js` / `static/js/hero.js`（源）+ `public/js/hero.js`（构建重生）同步修复；并 bump `layouts/partials/head.html` 中 `hero.js?v=20260907→20260908` 完成缓存失效。
+- **暖色刺眼复核（判定为已知接受，非 P0）**：唯一暖色标记 `sheyang.html` 暗色 `.tile-orange`（`rgb(255,140,0)` 纯橙、约 19% 面积）属该板块自有的「metro 磁贴仪表盘」多色配色体系（`--metro-orange/blue/green/red/purple/cyan` 并列），非「整屏 hero / 通栏 + 高饱和暖色」P0 形态，沿用第六节"板块主题色已知接受、勿盲改"准则维持。全站其余小尺寸语义色（`.long-avatar` / year-badge / 季节卡 / 邮箱绿 / 警示红 / status-bubble）维持「保持不动」。
+- **复验（修复后）**：重建后复跑探针 → JS 报错 = 0，文档/元素溢出 = 0，暖色仅余上述已知接受项，goto 错误 = 0 → **P0=P1=0 ✅**。
+- **版本戳**：本次仅改 `hero.js`（非 CSS），故 `style.css?v=20260907` 维持不动；`hero.js?v=20260908` 已 bump。
+- **知识储备增量**：本节 + 第六节「闭包作用域 ReferenceError 中断初始化」一条 + 第七节补「pageerror 监听器是抓功能层视觉缺失的关键」。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 5 周达标：08-25 / 08-28 / 08-30 / 09-01 / **09-08**）。

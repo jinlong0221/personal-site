@@ -195,6 +195,11 @@ for f in html_files:
         # 空 alt（仅内部图；装饰背景 alt="" 视为遗留，记录 P2 不强制）
         if alt is None:
             issues[rel].append(('P1','empty_alt', f'L{ln}: {s} (alt 缺失)'))
+        # lazy/fetch 启发式仅对“存在真正首屏外图片”的页面有意义：
+        # 单图页（仅一张 hero）整页即首屏，hero 本就该 eager（不 lazy），
+        # 此时 ratio=1.0 会误报 img_no_lazy；故 n_imgs<=1 时跳过该规则。
+        if n_imgs <= 1:
+            continue
         # lazy（首屏已带 fetchpriority=high 的 hero 属有意 eager，豁免）
         pos_ratio = (i+1)/n_imgs if n_imgs else 1
         if pos_ratio > 0.30 and loading != 'lazy' and fetch != 'high':

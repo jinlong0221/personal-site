@@ -137,8 +137,30 @@ async function main() {
 
   const bodyIdx = html.lastIndexOf('</body>');
   if (bodyIdx < 0) { console.error('[encrypt_travel] 未找到 </body>，终止。'); process.exit(1); }
-  const cdi = html.lastIndexOf('</div>', bodyIdx); // tlWrap 的闭合 </div>（紧邻 </body>）
-  if (cdi < 0) { console.error('[encrypt_travel] 未找到 tlWrap 闭合标记，终止。'); process.exit(1); }
+  // 定位 tlWrap 的「真闭合」</div>：必须从开标签起按 div 配平向后扫，
+  // 不能 lastIndexOf('</div>') —— 页尾若有自闭合空 div（如 <div id="quickToc"></div>），
+  // 它自己的 </div> 会被误认成 tlWrap 闭合，把 tlWrap 真闭合之后、该 div 之前的
+  // 全局脚本（board-nav/search/app/share）全部划进加密区；解密走 innerHTML 注入、
+  // 不执行 script，导航收纳/搜索热键/分享按钮等整站功能随之失效。
+  // （2026-09-08 全站视觉审计实测命中：/travel.html 830px 导航溢出、更多菜单无响应。）
+  function findDivClose(html, oi) {
+    const re = /<!--[\s\S]*?-->|<script\b[\s\S]*?<\/script\s*>|<style\b[\s\S]*?<\/style\s*>|<\/?[a-zA-Z][^>]*>/gi;
+    re.lastIndex = oi + openTag.length; // 从 tlWrap 开标签之后开始
+    let depth = 0;
+    let m;
+    while ((m = re.exec(html))) {
+      const t = m[0];
+      if (t.startsWith('<!--') || t.startsWith('<script') || t.startsWith('<style')) continue; // 注释/脚本/样式内出现的 <div 不计
+      if (/^<div\b/i.test(t) && !/\/>$/.test(t.trim())) depth++; // 开 div（排除自闭合写法）
+      else if (/^<\/div\s*>/i.test(t)) {
+        depth--;
+        if (depth === 0) return m.index;
+      }
+    }
+    return -1;
+  }
+  const cdi = findDivClose(html, oi); // tlWrap 的闭合 </div>
+  if (cdi < 0) { console.error('[encrypt_travel] 未找到 tlWrap 配平闭合 </div>，终止。'); process.exit(1); }
 
   const content = html.slice(oi + openTag.length, cdi);
 
@@ -202,7 +224,13 @@ async function main() {
         for (const m of sh.manifest) { shardIdx[m.rel] = s + 1; }
       }
       // 删除明文照片
-      for (const f of photos) rmSync(f);
+      // KEEP_PHOTOS=1 时跳过删除，由调用方（bash）兜底——用于本机安全删除护栏
+      // 与 fs.rmSync 冲突的沙箱环境。CI 默认不设，行为不变。
+      if (!process.env.KEEP_PHOTOS) {
+        for (const f of photos) rmSync(f);
+      } else {
+        console.warn('[encrypt_travel] KEEP_PHOTOS=1 已设置，跳过明文照片删除（调用方需自行 bash rm 兜底）');
+      }
       nPhotos = photos.length;
     } else {
       console.log('[encrypt_travel] public/img/travel 无明文照片（可能已有 album-*.tlpk），跳过。');

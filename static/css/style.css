@@ -4695,10 +4695,26 @@ body.dark .new-badge {
 @media (max-width: 768px) {
   .navbar .logo { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 }
-/* ≤480px 隐藏时钟（价值最低），把宽度让给站名，手机上「龙兄知识库」尽量完整
-   （用 .navbar 前缀抬高优先级：基础 .nav-clock-link 规则在更后面声明，否则会被覆盖） */
+/* ≤480px：2026-09-09 龙兄反馈「手机顶栏时间不见了」——之前为给站名腾位把时钟整个藏了。
+   现改为：时钟保留（字号微收）、天气隐藏（射阳页有完整天气）、操作区按钮收窄、
+   站名字号微降——实测 390px 站名完整 + 时钟可见（.navbar 前缀抬优先级，防后置基础规则覆盖） */
 @media (max-width: 480px) {
-  .navbar .nav-clock-link { display: none; }
+  .navbar .nav-weather { display: none; }
+  .navbar .nav-clock { font-size: 0.72rem; }
+  /* ⚠ 基础 .icon-btn 有 min-width:36px（L914），只改 width 压不过它，必须连 min-width 一起收 */
+  .navbar .nav-actions .icon-btn { width: 32px; min-width: 32px; padding: 4px 2px; }
+  .navbar .nav-actions .hamburger { width: 40px; min-width: 40px; }
+  .navbar .navbar-inner { padding: 0 10px; }
+  .navbar .navbar-inner .logo { font-size: 1.0625rem; }
+}
+/* ≤360px（老款小屏）：再收一档并隐藏「分享」图标（手机系统自带分享、页内另有分享入口），
+   保站名与时间同时完整 */
+@media (max-width: 360px) {
+  .navbar .navbar-inner .logo { font-size: 0.9375rem; }
+  .navbar .nav-actions .icon-btn { width: 28px; min-width: 28px; padding: 4px 1px; }
+  .navbar .nav-actions .hamburger { width: 38px; min-width: 38px; }
+  .navbar .nav-clock { font-size: 0.68rem; }
+  .navbar .nav-actions #shareBtn { display: none; }
 }
 
 /* 杂志首页网格：平板双列、手机单列，恢复正常阅读宽度 */

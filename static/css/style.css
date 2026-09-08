@@ -4685,8 +4685,21 @@ body.dark .new-badge {
 
 /* 导航栏操作区不被压缩，保证汉堡按钮始终可见 */
 .nav-actions { flex-shrink: 0; }
-/* Logo 在极窄屏可收缩省略，避免把右侧按钮挤出可视区 */
-.navbar .logo { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+/* 站名绝不裁切（桌面）：曾被全局 overflow:hidden 当"牺牲品"，
+   导致 769-1250px 区间站名「龙兄知识库」被裁掉尾巴。桌面端 logo 禁止收缩，
+   空间不足由 JS 把导航项收进"更多"下拉。 */
+@media (min-width: 769px) {
+  .navbar .logo { flex-shrink: 0; }
+}
+/* ≤768px 已切手机菜单，logo 恢复可收缩省略（老行为），保右侧按钮完整 */
+@media (max-width: 768px) {
+  .navbar .logo { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+}
+/* ≤480px 隐藏时钟（价值最低），把宽度让给站名，手机上「龙兄知识库」尽量完整
+   （用 .navbar 前缀抬高优先级：基础 .nav-clock-link 规则在更后面声明，否则会被覆盖） */
+@media (max-width: 480px) {
+  .navbar .nav-clock-link { display: none; }
+}
 
 /* 杂志首页网格：平板双列、手机单列，恢复正常阅读宽度 */
 @media (max-width: 768px) {

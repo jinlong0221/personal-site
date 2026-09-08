@@ -500,6 +500,66 @@ if(document.readyState==='loading'){
 })();
 
 // ============================================================
+// 区域H2 - 导航自适应收纳：空间不够时把靠后的顶级导航项收进"更多"下拉
+// 根治：769~1250px 区间导航总宽超出容器、站名曾被裁切的问题。
+// 收进下拉的是真实 <li>（原样搬移），窗口拉宽自动放回原位，任何宽度不丢链接。
+// 时序要点：时钟 JS 异步填数字、毛笔字体会晚到——这些都让子元素变宽，
+// 所以用 ResizeObserver 盯住导航全部子元素，宽度一变就重测，不靠单一时机。
+// ============================================================
+(function(){
+  var inner = document.querySelector('.navbar-inner');
+  var ul = document.querySelector('.nav-links');
+  var moreLi = document.querySelector('.nav-more-wrap');
+  var dd = document.querySelector('.nav-more-dropdown');
+  if(!inner || !ul || !moreLi || !dd) return;
+
+  var moved = []; // 已收进下拉的 li；moved[0] 是最后收进去的（还原时最先放回）
+  var ticking = false;
+
+  function fits(){
+    return inner.scrollWidth <= inner.clientWidth + 1;
+  }
+  function relayout(){
+    ticking = false;
+    // 收：溢出则从"更多"前一项开始逐个收进下拉
+    // （下拉 absolute 不占布局宽，收纳严格减宽，单调收敛）
+    var guard = 0;
+    while(!fits() && guard++ < 15){
+      var lis = ul.children;
+      if(lis.length <= 1) break;          // 只剩"更多"就不再收
+      var li = lis[lis.length - 2];
+      ul.removeChild(li);
+      dd.insertBefore(li, dd.firstChild); // 收进下拉最上方
+      moved.unshift(li);
+    }
+    // 放：有余量时尝试还原一项。带 20px 安全余量防抖动：
+    // 余量不足以容纳"该项宽 + 12px 项间距 + 20px 缓冲"就不放，
+    // 避免放回→溢出→收走→放回的死循环。
+    if(fits() && moved.length){
+      var spare = inner.clientWidth - inner.scrollWidth; // 当前富余宽度
+      var cand = moved[0];
+      var w = cand.getBoundingClientRect().width; // 下拉里 block 展示宽≈顶栏宽
+      if(spare >= w + 32){
+        dd.removeChild(cand);
+        ul.insertBefore(cand, moreLi);
+        moved.shift();
+      }
+    }
+  }
+  function schedule(){
+    if(!ticking){ ticking = true; requestAnimationFrame(relayout); }
+  }
+  window.addEventListener('resize', schedule, { passive: true });
+  window.addEventListener('load', schedule);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(schedule); }
+  if(window.ResizeObserver){
+    var ro = new ResizeObserver(schedule);
+    Array.prototype.forEach.call(inner.children, function(el){ ro.observe(el); });
+  }
+  relayout();
+})();
+
+// ============================================================
 // 区域I - 不蒜子访客统计 → 更新首页 magVisitorCount
 // ============================================================
 (function(){

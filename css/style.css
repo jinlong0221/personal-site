@@ -5029,8 +5029,8 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .lx-mod-updated{ font-size:.92em; opacity:.8; margin-left:8px; white-space:nowrap; }
 .lx-mod-updated:empty{ display:none; }
 
-/* 模块一 · 今日更新（占位 8 条：标题 / 更新时间 / 简短摘要） */
-.upd-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+/* 模块一 · 今日更新（桌面 2 列：卡片加宽留白；摘要超 4 行截断，全文走「阅读原文」） */
+.upd-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
 .upd-card{
   background:var(--ink-3); border:1px solid var(--rule-soft); border-radius:2px;
   padding:13px 13px 14px; transition:border-color .2s, transform .2s;
@@ -5039,7 +5039,8 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .upd-card:hover,.upd-card:focus-visible{ border-color:var(--gold); transform:translateY(-2px); outline:none; }
 .upd-date{ font-size:.72rem; color:var(--tx-3); font-variant-numeric:tabular-nums; letter-spacing:.5px; }
 .upd-title{ font-size:.95rem; font-weight:600; color:var(--tx); line-height:1.45; }
-.upd-sum{ font-size:.78rem; color:var(--tx-2); line-height:1.65; }
+.upd-sum{ font-size:.78rem; color:var(--tx-2); line-height:1.65;
+  display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
 
 /* 模块二 · 热门精选（占位 8 个专题图文卡片，封面用 CSS 占位块，不引入图片资源） */
 .hot-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }

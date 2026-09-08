@@ -641,10 +641,13 @@ if(document.readyState==='loading'){
         '.toc-top.visible{opacity:1;visibility:visible;}',
         '.toc-top:hover{background:var(--gold);color:#1a1a1a;transform:translateY(-2px);}',
         '.toc-top svg{width:20px;height:20px;}',
-        '@media (max-width:900px){',
+        /* 目录浮层宽约 214px（右缘 20px + 本体约 194px），正文容器 1200px 居中：
+           视口 < 1200/2 + 214 ≈ 1628px 时右侧余量不足，侧目录会压住正文，
+           此时隐藏侧目录、改用底部目录条（与窄屏同一套交互） */
+        '@media (max-width:1628px){',
         '.secnav-side{display:none;}.secnav-bottom.visible{display:flex;}',
         'body.has-secnav{padding-bottom:52px;}.toc-top{bottom:64px;}}',
-        '@media (min-width:901px){.secnav-bottom{display:none;}}',
+        '@media (min-width:1629px){.secnav-bottom{display:none;}}',
         '.secnav-side::-webkit-scrollbar{width:4px;}',
         '.secnav-side::-webkit-scrollbar-track{background:transparent;}',
         '.secnav-side::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px;}'
@@ -739,7 +742,8 @@ if(document.readyState==='loading'){
             a.classList.toggle('active', a.getAttribute('data-target') === activeId);
           });
         });
-        if(activeId && window.innerWidth <= 900){
+        /* 断点与上方 CSS 一致：≤1628px 显示的是底部条而非侧目录 */
+        if(activeId && window.innerWidth <= 1628){
           var activeLink = bottomNav.querySelector('a.active');
           if(activeLink){
             var nr = bottomNav.getBoundingClientRect();

@@ -8,13 +8,6 @@
   // （养生茶/天气/高考 三条因仓库无对应真实照片、且外网取图被限流，暂移除以杜绝错配）
   const pickPool = [
     {
-      name: '沉香鉴别指南',
-      desc: '天然沉香四大鉴别方法，告别假货少走弯路',
-      tag: '🔬 药材与手串',
-      url: 'herbs/chenxiang.html',
-      img: 'img/herbs/chenxiang/chenxiang_p1_0.webp'
-    },
-    {
       name: '特斯拉 Model Y',
       desc: '用车科普·充电指南·配件推荐一网打尽',
       tag: '🚗 数码科技',
@@ -41,23 +34,14 @@
       tag: '🎮 游戏主机',
       url: 'console-switch-2.html',
       img: 'img/consoles/switch-2.webp'
-    },
-    {
-      name: '中药材香料',
-      desc: '10种名贵药材香料知识，从入门到精通',
-      tag: '🌿 生活百科',
-      url: 'herbs.html',
-      img: 'img/herbs/chenxiang/chenxiang_p1_0.webp'
     }
   ];
 
   // ===== 热门搜索词 =====
   const hotKeywords = [
-    '沉香怎么辨真假',
     'Model Y 充电攻略',
     '2026高考分数线',
     'PS5 必玩游戏',
-    '中药养生茶配方',
     '漫威观影顺序',
     '紫砂壶怎么养',
     '文玩手串真假分辨',

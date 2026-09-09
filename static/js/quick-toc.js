@@ -12,8 +12,6 @@
     {
       title: '核心栏目',
       items: [
-        ['沉香鉴别', 'herbs/chenxiang.html'],
-        ['中药材', 'herbs.html'],
         ['养生茶', 'health-tea.html'],
         ['文玩手串', 'bracelet.html'],
         ['特斯拉', 'tesla.html'],

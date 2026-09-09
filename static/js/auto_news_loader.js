@@ -19,7 +19,6 @@
 
   // 页面 → JSON 文件映射
   const PAGE_MAP = {
-    'herbs':     'herbs-news.json',
     'bracelet':  'bracelet-news.json',
     'zisha':     'zisha-news.json',
     'console':   'console-news.json',

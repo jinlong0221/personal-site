@@ -25,8 +25,6 @@ STATIC_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file
 
 # 桌面主导航（顺序即展示顺序）
 DESKTOP = [
-    ("herbs/chenxiang.html", "沉香鉴别"),
-    ("herbs.html", "中药材"),
     ("health-tea.html", "养生茶"),
     ("bracelet.html", "文玩手串"),
     ("tesla.html", "特斯拉"),

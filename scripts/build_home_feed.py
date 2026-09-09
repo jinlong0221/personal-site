@@ -20,7 +20,6 @@ BOARD_FILES = {
     "tesla-news.json": "特斯拉",
     "apple-news.json": "苹果新品",
     "marvel-news.json": "漫威宇宙",
-    "herbs-news.json": "中药材",
     "health-tea-news.json": "养生茶",
     "zisha-news.json": "紫砂艺术",
     "bracelet-news.json": "文玩手串",

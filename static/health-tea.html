@@ -110,7 +110,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="css/style.css?v=20260908">
+<link rel="stylesheet" href="css/style.css?v=20260909">
 <style>
 /* ===== 养生茶页面专用样式 ===== */
 .tea-nav { display:flex; flex-wrap:wrap; gap:6px; margin:20px 0 8px; padding:12px; background:var(--dark-tile); border-radius:12px; position:sticky; top:68px; z-index:50; }
@@ -238,8 +238,6 @@ var _hmt = _hmt || [];
     <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
     <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
     <ul class="nav-links">
-      <li><a href="herbs/chenxiang.html">沉香鉴别</a></li>
-      <li><a href="herbs.html">中药材</a></li>
       <li><a href="health-tea.html" class="active">养生茶</a></li>
       <li><a href="bracelet.html">文玩手串</a></li>
       <li><a href="tesla.html">特斯拉</a></li>
@@ -284,8 +282,6 @@ var _hmt = _hmt || [];
   </div>
   <div class="mobile-nav" id="mobileNav">
   <a href="index.html">首页</a>
-  <a href="herbs/chenxiang.html">沉香鉴别</a>
-  <a href="herbs.html">中药材</a>
   <a href="health-tea.html">养生茶</a>
   <a href="bracelet.html">文玩手串</a>
   <a href="tesla.html">特斯拉</a>
@@ -318,7 +314,7 @@ var _hmt = _hmt || [];
 <p class="subtitle">药食同源 · 辨证施饮 · 四季养生</p>
   </div>
 
-  <!-- ========= 每日自动更新（置于正文顶部，与 herbs 等板块一致） ========= -->
+  <!-- ========= 每日自动更新（置于正文顶部，与其他板块一致） ========= -->
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
     <div class="home-collapsible-header" data-act="toggleHomeSection">
       <div class="hc-left"><span class="hc-icon">🤖</span><span class="hc-title">每日自动更新</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
@@ -800,12 +796,6 @@ var _hmt = _hmt || [];
     <span class="lx-rule1"></span>
   </div>
   <ul class="lx-related-list">
-    <li class="lx-related-item">
-      <a class="lx-related-link" href="herbs.html">
-        <span class="lx-related-board">中药材香料</span>
-        <span class="lx-related-name">中药材香料百科详细科普</span>
-      </a>
-    </li>
     <li class="lx-related-item">
       <a class="lx-related-link" href="bracelet.html">
         <span class="lx-related-board">文玩手串</span>

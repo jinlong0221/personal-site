@@ -244,10 +244,13 @@ def main():
 
     # 抽查
     print("\n=== 抽查 ===")
-    for u in ["/herbs/dilong.html", "/pages/zisha/detail-sifangchuanlu.html",
-              "/console-switch.html", "/games/wukong.html"]:
-        if u in related:
-            print(f"\n{u}")
+    for u in ["/pages/zisha/detail-sifangchuanlu.html",
+              "/console-switch.html", "/games/wukong.html", "/bracelet.html"]:
+        print(f"\n{u}")
+        if u not in related:
+            # 板块下线后抽查列表可能命中不存在的页面，跳过即可（不要 KeyError 中断构建）
+            print("  （本轮无相关阅读 / 页面已下线，跳过）")
+            continue
         for r in related[u]:
             print(f"  → [{r['board']}] {r['name']}  {r['url']}")
 

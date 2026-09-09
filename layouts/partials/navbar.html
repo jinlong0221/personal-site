@@ -18,7 +18,9 @@
       <li><a href="{{ .Site.BaseURL }}zisha.html">紫砂艺术</a></li>
       <li><a href="{{ .Site.BaseURL }}console.html">游戏主机</a></li>
       <li class="nav-more-wrap">
-        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <button type="button" class="icon-btn nav-more-btn" id="navMoreBtn" aria-label="更多" title="更多">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>
+        </button>
         <div class="nav-more-dropdown">
           <a href="{{ .Site.BaseURL }}ev-charge.html">充电桩查询</a>
           <a href="{{ .Site.BaseURL }}ev-sales.html">新能源销量榜</a>

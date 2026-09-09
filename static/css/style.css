@@ -299,8 +299,8 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 
 /* 更多下拉菜单 */
 .nav-more-wrap { position:relative; }
-.nav-more-btn { cursor:pointer; color:var(--text-secondary) !important; border-bottom:2px solid transparent !important; user-select:none; }
-.nav-more-btn:hover { color:var(--gold) !important; }
+.nav-more-btn { cursor:pointer; user-select:none; }
+.nav-more-btn:hover { color:var(--gold); }
 .nav-more-dropdown {
   display:none; position:absolute; top:calc(100% + 4px); right:0; min-width:130px;
   background:var(--nav-bg); border:1px solid var(--border); border-radius:var(--radius-sm);
@@ -4901,8 +4901,8 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .icon-btn{color:var(--tx-2);border-radius:2px}
 .icon-btn:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
 .hamburger span{background:var(--tx)}
-.nav-more-btn{color:var(--tx-2);font-size:.86rem;border:1px solid var(--rule-soft);padding:5px 10px;border-radius:2px}
-.nav-more-wrap.open .nav-more-btn,.nav-more-btn:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
+.nav-more-btn{color:var(--tx-2)}
+.nav-more-wrap.open .nav-more-btn,.nav-more-btn:hover{color:var(--cinnabar)}
 .nav-more-dropdown{background:var(--ink-3);border:1px solid var(--rule);border-radius:2px;padding:6px;min-width:160px;box-shadow:var(--shadow-md)}
 .nav-more-dropdown a{display:block;padding:8px 10px;color:var(--tx-2);font-size:.84rem;border-radius:2px}
 .nav-more-dropdown a:hover{background:var(--ink-4);color:var(--cinnabar)}

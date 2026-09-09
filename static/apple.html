@@ -113,7 +113,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <link rel="stylesheet" href="css/style.css?v=20260909">
 <style>
 /* ===== 苹果新品板块专属样式 ===== */
-.ap-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:46px 28px 40px;text-align:center;
+.ap-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:32px 24px 28px;text-align:center;
   background:radial-gradient(120% 140% at 50% 0%,#2b2b2e 0%,#161617 55%,#0a0a0a 100%);
   border:1px solid rgba(255,255,255,.06);}
 .ap-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 18% 18%,rgba(255,255,255,.10),transparent 42%),radial-gradient(circle at 82% 82%,rgba(120,120,128,.18),transparent 50%);pointer-events:none}
@@ -132,37 +132,19 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .tip-box b{color:var(--text)}
 
 /* 近期焦点网格 */
-.ap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:6px}
-.ap-card{background:var(--card);border:1px solid var(--border);border-top:3px solid #8e8e93;border-radius:12px;padding:16px 16px 14px;transition:transform .2s,box-shadow .2s}
-.ap-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
-.ap-card .ap-emoji{font-size:1.7rem}
-.ap-card h3{font-size:1.02rem;margin:6px 0 4px;color:var(--text)}
-.ap-card .ap-tag{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:8px;background:rgba(190,190,200,.14);color:#bdbdc6;margin-bottom:8px}
-.ap-card p{font-size:.84rem;color:var(--text-secondary);line-height:1.65}
-.ap-card .ap-r{font-size:.72rem;color:var(--text-muted);margin-top:8px}
 .ap-note{margin:28px 0 8px;padding:14px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
 .ap-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
 .ap-note ul{margin:0;padding-left:18px}
 .ap-note a{color:var(--blue-light)}
-.ap-figure{margin:14px 0 4px}
-.ap-figure img{width:100%;height:auto;border-radius:12px;border:1px solid var(--border);display:block;background:var(--bg-secondary)}
-.ap-figure figcaption{font-size:.74rem;color:var(--text-muted);margin-top:7px;line-height:1.65}
-.ap-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
 .ref-note{font-size:.76rem;color:var(--text-muted);margin-top:8px}
 
 /* ===== Hero 数据条 ===== */
-.ap-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:660px;margin:18px auto 0}
+.ap-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:640px;margin:15px auto 0}
 .ap-stat{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:11px 8px;position:relative;z-index:1}
 .ap-stat b{display:block;font-size:1.22rem;color:#f5f5f7;line-height:1.25;letter-spacing:.5px}
 .ap-stat span{display:block;font-size:.7rem;color:rgba(235,235,245,.62);margin-top:2px}
 
 /* ===== 新品卡：品类色 + 亮点标签 ===== */
-.ap-card.k-phone{border-top-color:#5ac8fa}
-.ap-card.k-fold{border-top-color:#c9a84c}
-.ap-card.k-watch{border-top-color:#ff9f5a}
-.ap-card.k-audio{border-top-color:#a78bfa}
-.ap-card .ap-hl{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
-.ap-card .ap-hl i{font-style:normal;font-size:.66rem;padding:2px 7px;border-radius:6px;background:rgba(201,168,76,.12);color:#c9a84c;border:1px solid rgba(201,168,76,.26);line-height:1.5}
 
 /* ===== 价格总表 ===== */
 .ap-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:4px}
@@ -195,20 +177,45 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .ap-tl-item.done .ap-tl-date{color:var(--text-muted)}
 .ap-tl-txt{font-size:.84rem;color:var(--text-secondary);line-height:1.65;margin-top:1px}
 
-/* ===== 官方图集 ===== */
-.ap-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:12px;margin-top:6px}
-.ap-shot{margin:0;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .2s,box-shadow .2s}
-.ap-shot:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
-.ap-shot img{width:100%;height:auto;display:block;background:var(--bg-secondary)}
-.ap-shot figcaption{font-size:.72rem;color:var(--text-muted);padding:9px 11px;line-height:1.6;border-top:1px solid var(--border)}
+/* ===== 新品卡（首屏主角） ===== */
+.ap-products{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:14px;margin-top:6px}
+.ap-prod{--ap-accent:#8e8e93;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.ap-prod:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.ap-prod.k-phone{--ap-accent:#5ac8fa}
+.ap-prod.k-fold{--ap-accent:#c9a84c}
+.ap-prod.k-watch{--ap-accent:#ff9f5a}
+.ap-prod.k-audio{--ap-accent:#a78bfa}
+.ap-prod-img{height:176px;display:flex;align-items:center;justify-content:center;background:var(--bg-secondary);border-bottom:1px solid var(--border);padding:10px}
+.ap-prod-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.ap-prod-body{padding:14px 15px 15px;display:flex;flex-direction:column;flex:1}
+.ap-prod-name{font-size:.98rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ap-prod-name::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ap-accent);flex:0 0 auto}
+.ap-prod-badge{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(201,168,76,.14);color:#c9a84c;border:1px solid rgba(201,168,76,.3)}
+.ap-prod-price{font-size:1.45rem;font-weight:800;color:#c9a84c;margin:5px 0 0;letter-spacing:.5px;line-height:1.2}
+.ap-prod-price em{font-style:normal;font-size:.7rem;color:var(--text-muted);font-weight:600;margin-left:4px}
+.ap-prod-pts{margin:10px 0 0;padding:0;list-style:none;flex:1}
+.ap-prod-pts li{font-size:.8rem;color:var(--text-secondary);line-height:1.62;padding-left:14px;position:relative;margin-bottom:5px}
+.ap-prod-pts li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--ap-accent);opacity:.85}
+.ap-prod-date{font-size:.72rem;color:var(--text-muted);margin-top:11px;padding-top:9px;border-top:1px dashed var(--border)}
+.ap-h3{font-size:.92rem;font-weight:800;color:var(--text);margin:20px 0 8px;padding-left:10px;border-left:3px solid #c9a84c}
+.ap-h3:first-of-type{margin-top:4px}
+
+/* ===== 折叠说明（放最后，不抢首屏） ===== */
+.ap-fold{margin-top:30px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+.ap-fold summary{cursor:pointer;padding:13px 16px;font-size:.88rem;font-weight:700;color:var(--text);list-style:none;display:flex;align-items:center;gap:8px;min-height:44px}
+.ap-fold summary::-webkit-details-marker{display:none}
+.ap-fold summary::before{content:'▸';color:#c9a84c;transition:transform .2s;display:inline-block}
+.ap-fold[open] summary::before{transform:rotate(90deg)}
+.ap-fold-body{padding:0 16px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.85}
+.ap-fold-body b{color:var(--text)}
 
 @media(max-width:576px){
-  .ap-hero{padding:32px 18px 28px}.ap-hero h1{font-size:1.55rem}.ap-grid{grid-template-columns:1fr}
-  .ap-2col{grid-template-columns:1fr}
+  .ap-hero{padding:26px 16px 22px}.ap-hero h1{font-size:1.55rem}
   .ap-stats{grid-template-columns:repeat(3,1fr);gap:7px}
   .ap-stat b{font-size:1.02rem}
   .ap-stat span{font-size:.64rem}
-  .ap-gallery{grid-template-columns:1fr}
+  .ap-products{grid-template-columns:1fr}
+  .ap-prod-img{height:156px}
 }
 </style>
 <script>
@@ -321,12 +328,11 @@ var _hmt = _hmt || [];
   <!-- 面包屑 -->
   <div id="breadcrumb"></div>
 
-  <!-- ===== Hero ===== -->
+  <!-- ===== Hero（精简） ===== -->
   <div class="ap-hero">
-    <span class="ap-kicker">APPLE NEW PRODUCTS · 实时监测</span>
+    <span class="ap-kicker">APPLE · 2026 秋季发布会</span>
     <h1>🍎 苹果新品</h1>
-<p>国内外全网实时监测：每日自动检索权威媒体与爆料，汇总 iPhone 18 Pro/Pro Max、首款折叠屏 iPhone Duo、Apple Watch Series 12/Ultra 4、AirPods 5 等 2026 秋季发布会新品动态。尚未官宣的传闻一律标注「待官方确认」。</p>
-    <span class="ap-pulse"><span class="dot"></span>每日自动更新 · 实时追踪</span>
+    <p>9 月 10 日凌晨，苹果发布 6 款新品。本页按「<b>新品 → 参数 → 价格 → 发售时间</b>」排列，均为官方公布数据，每日自动刷新。</p>
     <div class="ap-stats">
       <div class="ap-stat"><b>6 款</b><span>本届发布新品</span></div>
       <div class="ap-stat"><b>999 元起</b><span>最低入手门槛</span></div>
@@ -334,39 +340,112 @@ var _hmt = _hmt || [];
     </div>
   </div>
 
-  <figure class="ap-figure">
-    <img src="img/apple/iphone18pro-hero.webp" width="1200" height="600" alt="iPhone 18 Pro 官方产品图" loading="eager" decoding="async">
-    <figcaption>iPhone 18 Pro 官方产品图 · 图片来源：苹果中国官网（apple.com.cn）。图片版权归 Apple Inc. 所有，本页仅作新品资讯介绍之用。</figcaption>
-  </figure>
-
-  <!-- ===== 本板块说明 ===== -->
+  <!-- ===== 1. 新品一览 ===== -->
   <div class="section">
-    <h2 class="sec-title">📌 这个板块怎么用</h2>
-    <p class="sec-sub">它替你盯着苹果新品的全网消息，而不是让你自己刷爆料。</p>
-    <div class="tip-box">
-      <p>🍎 <b>监测范围：</b>聚焦<b>苹果新品</b>——以 2026 秋季发布会（iPhone 18 系列与 iPhone Duo）为核心，同时覆盖 Apple Watch、AirPods、Mac 等任何新硬件的动态。每天自动从<b>国内（财新/36氪/今日头条等）+ 海外（彭博社/9to5Mac/The Verge 等）</b>多源检索，交叉核对后沉淀到下方「每日自动更新」信息流。</p>
-      <p style="margin-top:8px;">⚠️ <b>阅读须知：</b>2026 秋季发布会已于 <b>9 月 10 日凌晨</b>召开，下方「已发布新品」均为<b>官方已公布</b>信息（价格引自苹果中国官网与现场报道）；<b>尚未官宣的传闻一律标注「待官方确认」</b>，一切以苹果官网为准，不构成购买或投资建议。</p>
+    <h2 class="sec-title">📱 本届新品一览</h2>
+    <p class="sec-sub">6 款全部列出：官方图 + 国行起售价 + 三个最值得看的点 + 开卖时间。</p>
+    <div class="ap-products">
+      <article class="ap-prod k-phone">
+        <div class="ap-prod-img"><img src="img/apple/iphone18pro-hero.webp" alt="iPhone 18 Pro 官方产品图" loading="eager" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone 18 Pro</div>
+          <div class="ap-prod-price">9999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>业界首款 2nm 工艺 A20 Pro，图形性能 +40%</li><li>主摄首次支持四档物理可变光圈</li><li>0.5×–8× 光学品质变焦</li></ul>
+          <div class="ap-prod-date">9 月 12 日 20:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-phone">
+        <div class="ap-prod-img"><img src="img/apple/iphone18promax.webp" alt="iPhone 18 Pro Max 官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone 18 Pro Max</div>
+          <div class="ap-prod-price">10999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>6.9″ 大屏，本届续航最强</li><li>视频播放最长 43 小时（上代 37 小时）</li><li>影像规格与 Pro 完全相同</li></ul>
+          <div class="ap-prod-date">9 月 12 日 20:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-fold">
+        <div class="ap-prod-img"><img src="img/apple/iphone-duo.webp" alt="iPhone Duo 折叠屏官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone Duo<span class="ap-prod-badge">首款折叠屏</span></div>
+          <div class="ap-prod-price">15999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>7.6″ 内屏 + 5.4″ 外屏，书本式横向内折</li><li>纳米纹理表层减轻折痕，铰链 100+ 精密部件</li><li>全球仅 eSIM，侧边 Touch ID 解锁</li></ul>
+          <div class="ap-prod-date">10 月 16 日 20:00 预购 · 10 月 23 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-watch">
+        <div class="ap-prod-img"><img src="img/apple/watch-s12.webp" alt="Apple Watch Series 12 官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">Apple Watch Series 12</div>
+          <div class="ap-prod-price">2999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>全新 S11 芯片 + 全新健康感测系统</li><li>后台心率采样频率提升到上代 60 倍</li><li>新增「准备指数」，售价与上代持平</li></ul>
+          <div class="ap-prod-date">9 月 11 日 9:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-watch">
+        <div class="ap-prod-img"><img src="img/apple/watch-ultra4.webp" alt="Apple Watch Ultra 4 官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">Apple Watch Ultra 4</div>
+          <div class="ap-prod-price">6499<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>49mm 钛金属，峰值亮度 3000 尼特</li><li>常规续航最长 50 小时，低电量 84 小时</li><li>100 米防水 + 双频 GPS</li></ul>
+          <div class="ap-prod-date">9 月 11 日 9:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-audio">
+        <div class="ap-prod-img"><img src="img/apple/airpods-5.webp" alt="AirPods 5 官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">AirPods 5</div>
+          <div class="ap-prod-price">999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>无耳塞式设计首次支持主动降噪</li><li>降噪效果较 AirPods 4 降噪版提升最高 50%</li><li>本届价格最低的新品</li></ul>
+          <div class="ap-prod-date">已开放订购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+    </div>
+    <p class="ref-note">以上 6 张官方图分别取自苹果中国官网 iphone-18-pro / iphone-duo / apple-watch-series-12 / apple-watch-ultra-4 / airpods-5 产品页与商店机型图，版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
+  </div>
+
+  <!-- ===== 2. 核心参数 ===== -->
+  <div class="section">
+    <h2 class="sec-title">📐 核心参数</h2>
+    <p class="sec-sub">先看三款新 iPhone 的逐项对比，再看手表与耳机；表格可左右滑动。</p>
+    <h3 class="ap-h3">三款新 iPhone 逐项对比</h3>
+    <div class="ap-spec">
+      <table class="ap-spec-tb">
+        <thead><tr><th>项目</th><th>iPhone 18 Pro</th><th>iPhone 18 Pro Max</th><th>iPhone Duo</th></tr></thead>
+        <tbody>
+          <tr><td>屏幕</td><td>6.3″ 超视网膜 XDR</td><td>6.9″ 超视网膜 XDR</td><td>7.6″ 内屏 + 5.4″ 外屏（可折叠）</td></tr>
+          <tr><td>芯片</td><td colspan="3">A20 Pro（台积电 2nm，6 核 CPU + 7 核 GPU + 双 16 核神经网络引擎）· 自研 C2 基带</td></tr>
+          <tr><td>影像</td><td colspan="2">4800 万三摄：主摄四档物理可变光圈（ƒ/1.48 / ƒ/1.8 / ƒ/2.8 / ƒ/4.0）+ 超广角 + 长焦，0.5×–8× 光学品质变焦</td><td>4800 万主摄 + 4800 万超广角（无长焦）</td></tr>
+          <tr><td>续航</td><td>视频播放最长 34 小时</td><td>视频播放最长 43 小时</td><td>内屏 31 小时 / 外屏 44 小时</td></tr>
+          <tr><td>解锁</td><td colspan="2">Face ID</td><td>侧边 Touch ID</td></tr>
+          <tr><td>SIM</td><td colspan="2">双实体卡 / 实体卡 + eSIM / 双 eSIM</td><td>全球仅 eSIM</td></tr>
+          <tr><td>配色</td><td colspan="2">黑色、银色、冰川蓝、勃艮第酒红</td><td>星光白、夜空色</td></tr>
+          <tr><td>国行起售</td><td>9999 元</td><td>10999 元</td><td>15999 元</td></tr>
+          <tr><td>发售</td><td colspan="2">9 月 18 日</td><td>10 月 23 日</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ref-note">「0.5×–8× 光学品质变焦」中的 8 倍画面由 4 倍长焦截取传感器中央区域、结合图像处理输出（1200 万像素），并非独立的 8 倍镜头。国行视频播放续航为 34 / 43 小时；发布会提到的 45 小时对应部分市场的纯 eSIM 版本。</p>
+
+    <h3 class="ap-h3">手表与耳机</h3>
+    <div class="ap-spec">
+      <table class="ap-spec-tb">
+        <thead><tr><th>项目</th><th>Apple Watch Series 12</th><th>Apple Watch Ultra 4</th><th>AirPods 5</th></tr></thead>
+        <tbody>
+          <tr><td>芯片</td><td>S11</td><td>S11</td><td>H2</td></tr>
+          <tr><td>形态 / 屏幕</td><td>42 / 46mm，2000 尼特全天候视网膜屏</td><td>49mm 钛金属，3000 尼特</td><td>无耳塞式入耳</td></tr>
+          <tr><td>关键升级</td><td>全新健康感测系统，后台心率采样频率提升到上代 60 倍，新增「准备指数」与睡眠评分</td><td>同款健康感测系统，双频 GPS、100 米防水、内置警笛</td><td>首次标配主动降噪，降噪较上代提升最高 50%；支持头部动作回应 Siri</td></tr>
+          <tr><td>续航</td><td>24 小时（低电量模式 38 小时）</td><td>50 小时（低电量模式 84 小时）</td><td>降噪聆听 5 小时，配充电盒最长 22 小时</td></tr>
+          <tr><td>国行起售</td><td>2999 元（铝金属 42mm GPS）</td><td>6499 元</td><td>999 元</td></tr>
+          <tr><td>发售</td><td>9 月 18 日</td><td>9 月 18 日</td><td>9 月 18 日</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- ===== 近期焦点（2026 秋季发布会 · 已发布） ===== -->
+  <!-- ===== 3. 国行价格 ===== -->
   <div class="section">
-    <h2 class="sec-title">🔥 2026 秋季发布会 · 已发布新品</h2>
-    <p class="sec-sub">北京时间 <strong>9 月 10 日凌晨 1 点</strong>，苹果在 Apple Park 乔布斯剧院举行秋季发布会（主题「Surprise and shine / 亮新篇，来耀眼」），这是新任 CEO 约翰·特努斯（John Ternus）接任后的首场发布会。以下为国行官方价格与关键规格。</p>
-    <div class="ap-grid">
-      <div class="ap-card k-phone"><div class="ap-emoji">📱</div><span class="ap-tag">iPhone 18 Pro</span><h3>9999 元起</h3><p>6.3″ 超视网膜 XDR，灵动岛进一步缩小、可同时显示三项实时活动。搭载业界首款 2nm 工艺 <b>A20 Pro</b>：6 核 CPU、7 核 GPU（图形性能提升 40%）、双 16 核神经网络引擎共 32 核，配自研 C2 基带。四配色：黑色、银色、冰川蓝、勃艮第酒红。</p><div class="ap-hl"><i>2nm A20 Pro</i><i>四档可变光圈</i><i>0.5×–8× 变焦</i></div><div class="ap-r">9 月 12 日 20:00 预购 · 9 月 18 日发售</div></div>
-      <div class="ap-card k-phone"><div class="ap-emoji">📸</div><span class="ap-tag">iPhone 18 Pro Max</span><h3>10999 元起</h3><p>6.9″ 大屏，本届续航最强：视频播放最长 <b>43 小时</b>（上代 Pro Max 为 37 小时）。影像与 Pro 同规格——4800 万像素主摄首次支持 <b>四档物理可变光圈</b>（ƒ/1.48 / ƒ/1.8 / ƒ/2.8 / ƒ/4.0，六片叶片），配 4800 万超广角与 4800 万长焦，实现 0.5×–8× 光学品质变焦，暗光拍摄提升 50%。</p><div class="ap-hl"><i>6.9″ 大屏</i><i>43 小时续航</i><i>暗光 +50%</i></div><div class="ap-r">9 月 12 日 20:00 预购 · 9 月 18 日发售</div></div>
-      <div class="ap-card k-fold"><div class="ap-emoji">📲</div><span class="ap-tag">iPhone Duo（首款折叠屏）</span><h3>15999 元起</h3><p>苹果首款折叠屏：书本式横向内折，<b>7.6″ 内屏 + 5.4″ 外屏</b>（内屏面积比 Pro Max 大 50%，外屏约为 Pro 的 90%）。定制纳米纹理表层最大程度减轻折痕，屏幕覆膜聚合物刚度比行业常用材料高 40%；铰链由 100 多个精密部件组成，展开状态为迄今最薄 iPhone。全球<b>仅支持 eSIM</b>，侧边 Touch ID。星光白、夜空色两色。</p><div class="ap-hl"><i>7.6″ 可折叠</i><i>纳米纹理减折痕</i><i>侧边 Touch ID</i></div><div class="ap-r">10 月 16 日 20:00 预购 · 10 月 23 日发售</div></div>
-      <div class="ap-card k-watch"><div class="ap-emoji">⌚</div><span class="ap-tag">Apple Watch Series 12</span><h3>2999 元起</h3><p>42 / 46mm 铝金属 2999 / 3399 元起；钛金属 5799 / 6199 元起；陶瓷 7499 / 7899 元起。全新 S11 芯片 + 全新健康感测系统：后台心率读取频率提升到上一代的 60 倍，新增「准备指数」与睡眠评分。售价与上一代持平。</p><div class="ap-hl"><i>S11 芯片</i><i>心率采样 ×60</i><i>准备指数</i></div><div class="ap-r">9 月 11 日 9:00 预购 · 9 月 18 日发售</div></div>
-      <div class="ap-card k-watch"><div class="ap-emoji">⛰️</div><span class="ap-tag">Apple Watch Ultra 4</span><h3>6499 元起</h3><p>49mm 钛金属表壳，峰值亮度 3000 尼特。高山回环式、野径回环式、海洋表带均为 6499 元起；钛金属米兰尼斯表带 7499 元起。常规续航最长 50 小时、低电量模式最长 84 小时，支持 100 米防水与双频 GPS。</p><div class="ap-hl"><i>3000 尼特</i><i>50 小时续航</i><i>100 米防水</i></div><div class="ap-r">9 月 11 日 9:00 预购 · 9 月 18 日发售</div></div>
-      <div class="ap-card k-audio"><div class="ap-emoji">🎧</div><span class="ap-tag">AirPods 5</span><h3>999 元起</h3><p>标准版 999 元、配无线充电盒版 1149 元，是本届发布会价格最低的新品。无耳塞式设计首次支持主动降噪，降噪效果较 AirPods 4 降噪版提升最高 50%；支持头部动作回应 Siri 与实时翻译。</p><div class="ap-hl"><i>首次标配降噪</i><i>降噪 +50%</i><i>H2 芯片</i></div><div class="ap-r">即日起订购 · 9 月 18 日发售</div></div>
-    </div>
-  </div>
-
-  <!-- ===== 国行价格总表 ===== -->
-  <div class="section">
-    <h2 class="sec-title">💰 国行价格总表（官方公布）</h2>
-    <p class="sec-sub">以下为发布会公布的国行建议零售价，单位：元。</p>
+    <h2 class="sec-title">💰 国行价格</h2>
+    <p class="sec-sub">发布会公布的国行建议零售价，单位：元；金色为起售价。</p>
     <div class="ap-note">
       <div class="ap-table-wrap">
         <table class="ap-price-tb">
@@ -384,35 +463,13 @@ var _hmt = _hmt || [];
         <li><b>标准版 iPhone 18 缺席</b>：多方报道称标准版与 18e 将推迟至 2027 年春季发布。</li>
       </ul>
     </div>
-    <p class="ref-note">价格与规格引自苹果中国官网（apple.com.cn）在售页与新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻等现场报道，已交叉核对（2026-09-10）。AirPods 5 无线充电盒版多数报道为 1149 元，IT之家等记为 1199 元，最终以苹果官网标价为准。</p>
+    <p class="ref-note">价格引自苹果中国官网（apple.com.cn）在售页与新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻等现场报道，已交叉核对（2026-09-10）。AirPods 5 无线充电盒版多数报道为 1149 元、IT之家等记为 1199 元，最终以苹果官网标价为准。</p>
   </div>
 
-  <!-- ===== 三款新机核心规格对比 ===== -->
+  <!-- ===== 4. 发售时间 ===== -->
   <div class="section">
-    <h2 class="sec-title">📐 三款新机核心规格对比</h2>
-    <p class="sec-sub">三款同为 A20 Pro 芯片，差异集中在屏幕、影像与续航；表格可左右滑动查看完整内容。</p>
-    <div class="ap-spec">
-      <table class="ap-spec-tb">
-        <thead><tr><th>项目</th><th>iPhone 18 Pro</th><th>iPhone 18 Pro Max</th><th>iPhone Duo</th></tr></thead>
-        <tbody>
-          <tr><td>屏幕</td><td>6.3″ 超视网膜 XDR</td><td>6.9″ 超视网膜 XDR</td><td>7.6″ 内屏 + 5.4″ 外屏（可折叠）</td></tr>
-          <tr><td>芯片</td><td colspan="3">A20 Pro（台积电 2nm，6 核 CPU + 7 核 GPU + 双 16 核神经网络引擎）· 自研 C2 基带</td></tr>
-          <tr><td>影像</td><td colspan="2">4800 万三摄：主摄四档物理可变光圈（ƒ/1.48 / ƒ/1.8 / ƒ/2.8 / ƒ/4.0）+ 超广角 + 长焦，0.5×–8× 光学品质变焦</td><td>4800 万主摄 + 4800 万超广角（无长焦）</td></tr>
-          <tr><td>续航</td><td>视频播放最长 34 小时</td><td>视频播放最长 43 小时</td><td>内屏 31 小时 / 外屏 44 小时</td></tr>
-          <tr><td>解锁</td><td colspan="2">Face ID</td><td>侧边 Touch ID</td></tr>
-          <tr><td>SIM</td><td colspan="2">双实体卡 / 实体卡 + eSIM / 双 eSIM</td><td>全球仅 eSIM</td></tr>
-          <tr><td>国行起售</td><td>9999 元</td><td>10999 元</td><td>15999 元</td></tr>
-          <tr><td>发售</td><td colspan="2">9 月 18 日</td><td>10 月 23 日</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="ref-note">「0.5×–8× 光学品质变焦」中的 8 倍画面由 4 倍长焦截取传感器中央区域、结合图像处理输出（1200 万像素），并非独立的 8 倍镜头。国行视频播放续航为 34 / 43 小时；发布会提到的 45 小时对应部分市场的纯 eSIM 版本。</p>
-  </div>
-
-  <!-- ===== 发售时间轴 ===== -->
-  <div class="section">
-    <h2 class="sec-title">🗓️ 发售与预购时间轴</h2>
-    <p class="sec-sub">按时间先后排列，灰色节点表示已经过去。</p>
+    <h2 class="sec-title">🗓️ 发售时间</h2>
+    <p class="sec-sub">按先后排列，灰色节点表示已经过去。</p>
     <div class="ap-timeline">
       <div class="ap-tl-item done"><div class="ap-tl-date">9 月 10 日 01:00（已举行）</div><div class="ap-tl-txt">2026 秋季发布会 · Apple Park 乔布斯剧院，新任 CEO 约翰·特努斯首次主持年度发布会</div></div>
       <div class="ap-tl-item"><div class="ap-tl-date">9 月 11 日 09:00</div><div class="ap-tl-txt">Apple Watch Series 12 / Ultra 4 开始预购</div></div>
@@ -424,31 +481,7 @@ var _hmt = _hmt || [];
     <p class="ref-note">AirPods 5 已在发布会后开放订购，9 月 18 日统一发售。档期引自苹果中国官网与现场报道，若苹果后续调整以官网公告为准。</p>
   </div>
 
-  <div class="section">
-    <h2 class="sec-title">🖼️ 新品官方图</h2>
-    <p class="sec-sub">以下均为苹果中国官网各产品页公布的官方图，按发布顺序排列。</p>
-    <div class="ap-gallery">
-      <figure class="ap-shot">
-        <img src="img/apple/iphone-duo.webp" width="1200" height="600" alt="iPhone Duo 折叠屏官方产品图" loading="lazy" decoding="async">
-        <figcaption><b>iPhone Duo</b> · 苹果首款折叠屏<br>图源：苹果中国官网 iphone-duo 产品页</figcaption>
-      </figure>
-      <figure class="ap-shot">
-        <img src="img/apple/watch-s12.webp" width="1200" height="600" alt="Apple Watch Series 12 官方产品图" loading="lazy" decoding="async">
-        <figcaption><b>Apple Watch Series 12</b> · 2999 元起<br>图源：苹果中国官网 apple-watch-series-12 产品页</figcaption>
-      </figure>
-      <figure class="ap-shot">
-        <img src="img/apple/watch-ultra4.webp" width="1200" height="600" alt="Apple Watch Ultra 4 官方产品图" loading="lazy" decoding="async">
-        <figcaption><b>Apple Watch Ultra 4</b> · 6499 元起<br>图源：苹果中国官网 apple-watch-ultra-4 产品页</figcaption>
-      </figure>
-      <figure class="ap-shot">
-        <img src="img/apple/airpods-5.webp" width="1200" height="600" alt="AirPods 5 官方产品图" loading="lazy" decoding="async">
-        <figcaption><b>AirPods 5</b> · 999 元起<br>图源：苹果中国官网 airpods-5 产品页</figcaption>
-      </figure>
-    </div>
-    <p class="ref-note">以上 5 张图（含顶部 iPhone 18 Pro 首图）全部取自苹果中国官网对应产品页的官方宣传图，版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
-  </div>
-
-  <!-- ===== 每日自动更新（苹果新品资讯流） ===== -->
+  <!-- ===== 5. 每日自动更新（苹果新品资讯流） ===== -->
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
     <div class="home-collapsible-header" data-act="toggleHomeSection">
       <div class="hc-left"><span class="hc-icon">🍎</span><span class="hc-title">每日自动更新 · 苹果新品资讯</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
@@ -457,17 +490,22 @@ var _hmt = _hmt || [];
     <div class="home-collapsible-body" id="autoNewsBody"></div>
   </div>
 
-  <!-- ===== 资料来源 ===== -->
-  <div class="tip-box" style="margin-top:24px;">
-    <p>📌 <strong><a id="sources" class="src-anchor"></a>资料来源与核实方式</strong></p>
-    <ul style="margin:8px 0 0;padding-left:20px;">
-      <li><b>价格与规格（第一来源）：</b>苹果中国官网 apple.com.cn 的在售页与产品页（iPhone 18 Pro / iPhone Duo / Apple Watch / AirPods），本页所有价格与官方规格均以此为最终依据。</li>
-      <li><b>现场报道（交叉核验）：</b>新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻·CNMO、太平洋科技、财联社等；同一数字需 ≥2 个独立来源一致才写入正文，来源冲突时并列标注。</li>
-      <li><b>海外信源：</b>彭博社（马克·古尔曼）、The Apple Post、Gadgets Now（Times of India 集团）等，用于发布会前爆料的溯源与存档。</li>
-      <li><b>标注规则：</b>官方已公布的信息写明「官方公布」；发布会前的媒体爆料一律保留原始日期并标注「待官方确认」，不做回溯改写。</li>
-    </ul>
-    <p class="ref-note">正文中的参数、价格与日期均引自上述来源，数据截至 2026-09-10，每日自动刷新。若苹果官网后续调整，以官网为准。本页内容仅供资讯参考，不构成购买或投资建议。</p>
-  </div>
+  <!-- ===== 6. 关于本板块 + 资料来源（折叠，放最后） ===== -->
+  <details class="ap-fold">
+    <summary>关于这个板块 / 资料来源与核实方式</summary>
+    <div class="ap-fold-body">
+      <p><b>🍎 这个板块怎么用：</b>它替你盯着苹果新品的全网消息，而不是让你自己刷爆料。每天自动从国内（财新 / 36氪 / 今日头条等）+ 海外（彭博社 / 9to5Mac / The Verge 等）多源检索，交叉核对后沉淀到上方「每日自动更新」信息流。</p>
+      <p style="margin-top:8px;"><b>⚠️ 阅读须知：</b>2026 秋季发布会已于 9 月 10 日凌晨召开，本页「新品 / 参数 / 价格」均为<b>官方已公布</b>信息；尚未官宣的传闻一律标注「待官方确认」。一切以苹果官网为准，不构成购买或投资建议。</p>
+      <p style="margin-top:10px;"><b>📌 资料来源：</b></p>
+      <ul style="margin:6px 0 0;padding-left:20px;">
+        <li><b>价格与规格（第一来源）：</b>苹果中国官网 apple.com.cn 的在售页与产品页，本页所有价格与官方规格均以此为最终依据。</li>
+        <li><b>现场报道（交叉核验）：</b>新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻·CNMO、太平洋科技、财联社等；同一数字需 ≥2 个独立来源一致才写入正文，来源冲突时并列标注。</li>
+        <li><b>海外信源：</b>彭博社（马克·古尔曼）、The Apple Post、Gadgets Now（Times of India 集团）等，用于发布会前爆料的溯源与存档。</li>
+        <li><b>标注规则：</b>官方已公布的信息写明「官方公布」；发布会前的媒体爆料一律保留原始日期并标注「待官方确认」，不做回溯改写。</li>
+      </ul>
+      <p class="ref-note">正文参数、价格与日期均引自上述来源，数据截至 2026-09-10，每日自动刷新。若苹果官网后续调整，以官网为准。</p>
+    </div>
+  </details>
 
   <!-- 底部链接 -->
   <div style="text-align:center; margin:40px 0;">

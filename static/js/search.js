@@ -179,7 +179,7 @@ function ensureSearchModal(){
   m.innerHTML=
     '<div class="search-modal-content">'+
       '<div class="search-modal-header">'+
-        '<input type="text" class="search-modal-input" placeholder="搜索药材、手串、车型、沉香…" autocomplete="off" aria-label="搜索">'+
+        '<input type="text" class="search-modal-input" placeholder="搜索手串、车型、紫砂…" autocomplete="off" aria-label="搜索">'+
         '<button class="search-modal-clear" aria-label="清空" style="display:none;background:none;border:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;padding:4px 8px;min-height:44px;min-width:44px;">✕</button>'+
         '<button class="search-modal-close" aria-label="关闭">&times;</button>'+
       '</div>'+

@@ -1,7 +1,7 @@
 
 
 
-:root {
+:root{
 /* ============================================================
    设计 TOKEN 治理（2026-08-21 收敛）
    规范名（唯一事实来源，改色只改这里）：
@@ -22,12 +22,16 @@
   --text-color: #EDE6D6;
   --border-subtle: #3A3225;
   --pink: #E26A9C;
-  --accent-color: #C9A84C;
+  --accent-color: var(--gold);
   --border: var(--border-color);
   --border-light: var(--border-subtle);
   --text: var(--text-color);
   --text-secondary: #A2977F;
-  --text-muted: #6C6353;
+  /* [BUG-FIX] 原 #6C6353 是「浅底弱化灰」，墨夜默认主题沿用后变成黑底黑字
+     （vs --card #1C1711 仅 3.01，远低于 WCAG AA 4.5）。改为 #948A76：
+     vs --bg 5.57 / --bg-secondary 5.33 / --card 5.22 / --tile 4.96 / --card-hover 4.94，
+     且仍低于 --text-secondary #B3A88F(7.55)，保持三级文字层次。 */
+  --text-muted: #948A76;
   --gold: var(--accent-color);
   --gold-light: #E0C97A;
   --blue: #0078d4;
@@ -74,9 +78,11 @@
   --chip-text: #EDE6D6;
   --card-bg: var(--card);
   --gold-text: #12100C;
+  --tag-hot: #F87171;
+  --email-green: #42B883;
 }
 
-[data-theme="light"] {
+[data-theme="light"]{
  --bg: #F1EBDD;
  --bg-secondary: #E9E1CE;
  --card: #FBF7EE;
@@ -90,7 +96,7 @@
  --border-light: var(--border-subtle);
  --text: var(--text-color);
  --text-secondary: #5A5343;
- --text-muted: #8B8168;
+ --text-muted: #69624F;
  --gold: var(--accent-color);
  /* ------------------------------------------------------------------
     昼白主题语义色补齐（2026-09-01 托尼·视觉美化 · 对比度合规）
@@ -135,7 +141,7 @@
   /* 融合模块颜色变量（白天模式） */
   --text-primary: var(--text-color);
   --text-secondary-new: #5A5343;
-  --text-muted-new: #8B8168;
+  --text-muted-new: #69624F;
   --bg-card: #FBF7EE;
   --bg-section: #F4EEE2;
   --border-light-new: #D8CDB4;
@@ -148,11 +154,13 @@
   --card-bg: var(--card);
   --card-shadow: rgba(90,75,45,0.14);
   --gold-text: #4A3508;
+  --tag-hot: #B91C1C;
+  --email-green: #1A6E44;
 
 }
 
 /* [BUG-FIX:二-2] 深色模式独立配色：确保文字/卡片/导航栏全部同步 */
-[data-theme="dark"] {
+[data-theme="dark"]{
  --orange: #E08A3C;
  --orange-light: #3d2817;
  --card: #1C1711;
@@ -161,9 +169,9 @@
  --border: #322B20;
  --border-light: #3D3527;
  --text: #EDE6D6;
- --text-secondary: #B3A88F;
- --text-muted: #6C6353;
- --gold: #C9A84C;
+  --text-secondary: #B3A88F;
+  --text-muted: #948A76;
+  --gold: #C9A84C;
  --gold-light: #E0C97A;
  --blue-light: #6FA8DC;
  --nav-bg: rgba(18,16,12,0.92);
@@ -171,8 +179,8 @@
  --shadow-md: 0 6px 18px rgba(0,0,0,0.5);
  --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
  --text-primary: #EDE6D6;
- --text-secondary-new: #B3A88F;
- --text-muted-new: #6C6353;
+  --text-secondary-new: #B3A88F;
+  --text-muted-new: #948A76;
  --bg-card: #211C15;
  --bg-section: #191510;
  --border-light-new: #3A3225;
@@ -369,7 +377,7 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .breadcrumb { padding:12px 0; font-size:0.85rem; color:var(--text-muted); }
 .breadcrumb a { color:var(--text-muted); }
 .breadcrumb a:hover { color:var(--gold); }
-.breadcrumb .sep { margin:0 8px; color:var(--text-muted); opacity:0.5; }
+.breadcrumb .sep { margin:0 8px; color:var(--text-muted); }
 .breadcrumb .current { color:var(--gold); }
 
 .card {
@@ -700,7 +708,7 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
   margin-right: 6px;
   vertical-align: middle;
 }
-.news-tag.hot   { background: rgba(220,38,38,0.15); color: #dc2626; }
+.news-tag.hot   { background: rgba(220,38,38,0.15); color: var(--tag-hot); }
 .news-tag.fsd   { background: rgba(168,85,247,0.15); color: #a855f7; }
 .news-tag.china { background: rgba(239,68,68,0.12); color: #ef4444; }
 .news-tag.product { background: rgba(59,130,246,0.12); color: #3b82f6; }
@@ -745,7 +753,7 @@ footer {
  font-size:0.78rem; color:var(--text-muted); margin-bottom:12px; line-height:2;
 }
 .footer-info-row a { color:var(--gold); }
-.footer-info-row .sep { margin:0 8px; opacity:0.4; }
+.footer-info-row .sep { margin:0 8px; }
 .footer-stats-row {
  display:flex; justify-content:center; gap:24px; margin-bottom:16px;
  padding:10px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
@@ -755,7 +763,7 @@ footer {
 .footer-links-row { margin-bottom:12px; }
 .footer-links-row a { color:var(--text-muted); font-size:0.78rem; }
 .footer-links-row a:hover { color:var(--gold); }
-.footer-legal { font-size:0.72rem; color:var(--text-muted); opacity:0.7; line-height:1.8; }
+.footer-legal { font-size:0.72rem; color:var(--text-muted);  line-height:1.8; }
 footer a { color:var(--gold); }
 footer a:hover { color:var(--gold-light); }
 
@@ -905,9 +913,9 @@ footer a:hover { color:var(--gold-light); }
 @media (max-width:768px) {
  .nav-links { display:none; }
  .hamburger { display:flex; }
- .nav-clock { display:inline; font-size:0.7rem; opacity:0.6; }
+ .nav-clock { display:inline; font-size:0.7rem; }
  .nav-clock-link { text-decoration:none; color:inherit; cursor:pointer; }
- .nav-clock-link:hover .nav-clock { text-decoration:underline; opacity:0.9; }
+ .nav-clock-link:hover .nav-clock { text-decoration:underline;  }
  .nav-weather { display:inline; font-size:0.7rem; padding:1px 4px; margin:0; }
  .navbar .logo { font-size:1.05rem; letter-spacing:0; }
  .nav-actions { gap:0; }
@@ -1690,7 +1698,7 @@ p.plot-text {
   background: linear-gradient(90deg, color-mix(in srgb, var(--blue) 9%, transparent), transparent 55%);
 }
 #hc-auto-news .hc-title {
-  color: var(--blue);
+  color: var(--blue-light);
 }
 .hc-live {
   display: inline-flex;
@@ -1941,7 +1949,7 @@ p.plot-text {
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--text);
-  opacity: 0.75;
+  
   white-space: nowrap;
   padding: 0 6px;
   user-select: none;
@@ -1949,7 +1957,6 @@ p.plot-text {
 }
 [data-theme="light"] .nav-clock {
   color: #374151;
-  opacity: 0.8;
 }
 
 
@@ -5825,3 +5832,6 @@ input.tf-range::-moz-range-track{
 /* 5px 轨道在 24px 输入框内垂直居中；默认 16px 旋钮居中偏移 = (5−16)/2 = −5.5px */
 input.tf-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; margin-top:-5.5px; }
 input.tf-range::-moz-range-thumb{ -webkit-appearance:none; appearance:none; }
+
+/* [BUG-FIX] 导航「更多」按钮沿用浏览器默认按钮外观（浅灰底+黑边），深色模式下是一块亮斑，且文字对比度仅 2.05 */
+.nav-more-btn{background:none;border:none;font:inherit;color:var(--text-secondary)}

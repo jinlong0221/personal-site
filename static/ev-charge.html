@@ -40,8 +40,8 @@
 <link rel="dns-prefetch" href="https://webapi.amap.com">
 <link rel="dns-prefetch" href="https://restapi.amap.com">
 <style id="critical-css">/* CRITICAL CSS - Above the fold */
-:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
-[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
 [data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
@@ -177,7 +177,7 @@ body.ev-touch .ev-map-drag{display:inline-flex}
 body.ev-touch .ev-map-hint{display:block}
 body:not(.ev-has-map) .ev-map-hint{display:none}
 /* 已经切成拖图：按钮反过来变金色实心，让人一眼看出「现在手指归地图管」 */
-body.ev-map-free .ev-map-drag{background:#C9A84C;color:#1A1408;border-color:#C9A84C;font-weight:700}
+body.ev-map-free .ev-map-drag{background:#C9A84C;color:#1A1408;border-color:var(--gold);font-weight:700}
 body.ev-map-free .ev-map-drag:hover{background:#D8B75C;color:#1A1408;border-color:#D8B75C}
 /* 筛选药丸：放在页面深色工具栏里（不再浮在亮地图上），对比度天然达标、字永远清楚 */
 .ev-pill{border:1px solid rgba(201,168,76,.5);background:var(--bg-secondary);color:var(--text);border-radius:20px;padding:6px 14px;font-size:.78rem;font-weight:600;cursor:pointer;min-height:34px;display:inline-flex;align-items:center;transition:all .25s;white-space:nowrap;font-family:inherit}
@@ -200,7 +200,7 @@ body.ev-map-free .ev-map-drag:hover{background:#D8B75C;color:#1A1408;border-colo
    边界取 1023 而不是 980：平板常见的宽度是 1000 上下，卡在 980 和 1024 中间，
    按 980 切的话平板用户点了按钮却毫无变化，等于功能白做。
    1024 以上是电脑的吸顶大图布局，高度由它自己管，这里不去碰。 */
-body.ev-map-free .ev-map-pane{border-color:#C9A84C;box-shadow:0 0 0 2px rgba(201,168,76,.3)}
+body.ev-map-free .ev-map-pane{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.3)}
 @media(max-width:1023px){
   /* 横屏手机（844×390 这类）屏幕高度太小：62vh 算出来才 241px，
      跟默认那条 240px 下限几乎相等，点了按钮地图纹丝不动，看着就像坏了。

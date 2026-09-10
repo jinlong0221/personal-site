@@ -2,6 +2,31 @@
   "updated": "2026-09-11",
   "news": [
     {
+      "date": "09-11",
+      "tags": [
+        {
+          "text": "Cybertruck 备电联动",
+          "class": "hot"
+        },
+        {
+          "text": "Powerwall 3",
+          "class": "info"
+        },
+        {
+          "text": "跳票近三年落地",
+          "class": "info"
+        }
+      ],
+      "content": "9月10日（美国当地）／北京时间 9月10日夜间至11日凌晨（TeslaNorth、eletric-vehicles.com、GearOpen 多源，另有特斯拉官方 @Cybertruck 账号与 Cybertruck 首席工程师 Wes Morrill 在 X 的确认）特斯拉正式向 Powerwall 3 用户开放 Cybertruck Powershare 家庭备电联动。官方 X 账号原文：「Powerwall 3 和我现在可以一起给你的房子供电，这把家庭备电时长延长 3 天以上，相当于多出 9 块 Powerwall。」官方演示视频显示电网中断状态下：卡车输出 11.5 kW、家庭负载 3.0 kW、光伏 1.0 kW、电网为 0，并以 9.5 kW 反向为 Powerwall 充电，App 状态行显示「Cybertruck 正在提供备电」且剩余备电时间超过 24 小时。需厘清的是这属于「电量」叠加而非「功率」叠加——系统总功率上限仍为 11.5 kW，与单台 Powerwall 3 持平，房子能同时带多少电器并未改变；Cybertruck 电池约 123 kWh，Powerwall 3 单块 13.5 kWh，「9 块」即由此换算而来。开启条件：需 Powerwall 3 系统（Gateway 3／Backup Gateway 2／Backup Switch）＋ 第三代或 Universal Wall Connector 处于被备份回路，并通过特斯拉 App 内的意向问卷分站点分批开通，并非一次性全量 OTA，部分车主查询时仍显示「尚未为 Powerwall 车主启用」。Powerwall 2／Powerwall+ 兼容性官方口径为「今年晚些时候」（Sawyer Merritt 转述车主邮件为 2026 年年底）。该功能自 2023 年 11 月随 Cybertruck 发布即被承诺，先后从 2025 年推迟至 2026 年年中，本次为最终落地；同期加州虚拟电厂刚出现约 6.9 万台 Powerwall 在热浪中向电网放电超 500 MW 的记录。",
+      "url": "https://teslanorth.com/2026/09/10/cybertruck-powershare-powerwall-3",
+      "sources": [
+        "TeslaNorth（2026-09-10，官方 X 账号原文引用与 Wes Morrill 确认、加州 VPP 500 MW 背景）",
+        "eletric-vehicles.com（2026-09-10，车主邮件全文、硬件门槛、11.5 kW 功率上限与 13.5 kWh 换算）",
+        "GearOpen（2026-09-10，跳票时间线：2024 年称 2025 年、2025 年 12 月推至 2026 年年中）",
+        "特斯拉官方 X 账号 @Cybertruck（2026-09-10，功能发布与「Powerwall 2+ 今年晚些时候」回复）"
+      ]
+    },
+    {
       "date": "09-10",
       "tags": [
         {
@@ -171,28 +196,6 @@
         "智通财经（2026-09-09，引特斯拉欧洲 FSD 扩张与斯洛文尼亚获批）",
         "Barron's 经 TradingView（2026-09-09，Cybercab 欧洲前景）",
         "IT之家（2026-09-09，马斯克 X 回应）"
-      ]
-    },
-    {
-      "date": "09-09",
-      "tags": [
-        {
-          "text": "OTA 2026.27.6",
-          "class": "hot"
-        },
-        {
-          "text": "FSD v14.3.9",
-          "class": "info"
-        },
-        {
-          "text": "自动碰撞规避",
-          "class": "warn"
-        }
-      ],
-      "content": "9月9日（新浪财经 09-09 引 Model3情报）特斯拉海外开始推送新一轮 OTA 更新 2026.27.6：FSD 监督版随版本带来 FSD v14.2 Lite（HW3.0 车型）与 v14.3.9（HW4.0 车型），并新增「自动碰撞规避（Automatic Collision Avoidance）」主动安全功能——当检测到即将发生正面碰撞、且仅靠制动可能不足以避免时，在受控高速公路（无横向交通、车速低于 85mph／137km/h、路面干燥、未检测到行人骑行者等易受伤害道路使用者、FSD 监督版已启用但未激活即手动驾驶中）的条件下，系统可绕过障碍物转向避让并继续行驶；期间踩制动仅减速不取消，需坚定故意转动方向盘才能接管。该能力属车辆避让碰撞安全性的再次提升（已发生事实更新，非预测）。",
-      "url": "https://finance.sina.com.cn/wm/2026-09-09/doc-inirfcpy8678394.shtml",
-      "sources": [
-        "新浪财经（2026-09-09，引 Model3情报）"
       ]
     }
   ]

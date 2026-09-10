@@ -245,8 +245,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .ap-tabs::-webkit-scrollbar{display:none}
 .ap-tab{flex:1 1 auto;min-width:72px;padding:11px 10px;background:none;border:none;font:inherit;font-size:.86rem;font-weight:700;color:var(--text-secondary);cursor:pointer;position:relative;white-space:nowrap;transition:color .2s;min-height:44px;border-radius:8px 8px 0 0}
 .ap-tab::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .22s ease}
-.ap-tab.is-active{color:var(--gold)}
-.ap-tab.is-active::after{transform:scaleX(1)}
+.ap-tab.is-active{color:var(--text)}
+.ap-tab.is-active::after{transform:scaleX(1);height:2.5px}
 .ap-tab:hover{color:var(--text)}
 .ap-tab:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
 
@@ -269,6 +269,50 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(min-width:700px){.ap-products{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1040px){.ap-products{grid-template-columns:repeat(3,1fr)}}
 @media print{.ap-tabs{display:none}.ap-tabs-on .ap-panel{display:block!important}}
+
+/* ===== 视觉升级：对齐苹果级克制（去装饰 / 去描边 / 大留白 / 金只给价格） ===== */
+/* 1) 删装饰噪音：品类色圆点、金色左边框；层级靠字号与留白，不靠图标 */
+.ap-prod-name::before{display:none}
+.ap-prod-pts li::before{background:var(--text-muted);opacity:.45;width:4px;height:4px;top:.66em}
+.ap-h3{border-left:0;padding-left:0;font-size:.95rem;letter-spacing:.01em;margin:26px 0 12px}
+
+/* 2) 去描边、去阴影：层级靠背景色差，不靠 1px 边框（苹果：borderless + zero shadow） */
+.ap-prod{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:20px;box-shadow:none}
+.ap-prod:hover{transform:none;box-shadow:none;background:var(--bg-secondary)}
+.ap-prod-img{border-bottom:0}
+.ap-prod-img img{border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.10)}
+.ap-shot{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:18px}
+.ap-shot:hover{transform:none;box-shadow:none;background:var(--bg-secondary)}
+.ap-shot-img img{border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.10)}
+.ap-shot-cap{border-top:0}
+.ap-note{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:18px}
+
+/* 3) 大留白：间距按「觉得够了再翻倍」加（苹果 / Linear / Vercel 共同原则） */
+.ap-panel .section{margin-top:48px}
+.ap-products{gap:18px}
+.ap-prod-body{padding:16px 18px 18px}
+.ap-shots-track{gap:16px}
+.ap-hero{padding:44px 26px 34px}
+
+/* 4) 排版：价格是主角，大字号 + 负字距 + 等宽数字 */
+.ap-prod-price{font-size:1.9rem;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ap-prod-name{font-size:1rem;letter-spacing:-.01em}
+.ap-hero h1{letter-spacing:-.02em;line-height:1.12}
+.sec-title{letter-spacing:-.01em}
+
+/* 5) 单一点缀色：金色只给价格，其余走中性；条形图去渐变 */
+.ap-bar-fill{background:var(--gold)}
+.ap-bar-fill.blue,.ap-bar-fill.green{background:var(--text-secondary)}
+.ap-bar-track{background:rgba(128,128,128,.13);border:0}
+
+/* 6) 表格改发丝线，去掉重描边 */
+.ap-price-tb th,.ap-price-tb td,.ap-spec-tb th,.ap-spec-tb td{border-color:rgba(128,128,128,.18)}
+@media(max-width:576px){
+  .ap-panel .section{margin-top:36px}
+  .ap-products{gap:14px}
+  .ap-prod-price{font-size:1.62rem}
+  .ap-hero{padding:30px 18px 26px}
+}
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -383,7 +427,7 @@ var _hmt = _hmt || [];
   <!-- ===== Hero（精简） ===== -->
   <div class="ap-hero">
     <span class="ap-kicker">APPLE · 2026 秋季发布会</span>
-    <h1>🍎 苹果新品</h1>
+    <h1>苹果新品</h1>
     <p>9 月 10 日凌晨苹果发布 6 款新品。<b>门槛最低的是 999 元的 AirPods 5，最受关注的折叠屏 iPhone Duo 15999 元起。</b>本页按「新品 → 图集 → 参数 → 价格 → 发售时间」排列，均为官方公布数据，每日自动刷新。</p>
     <div class="ap-stats">
       <div class="ap-stat"><b>6 款</b><span>本届发布新品</span></div>
@@ -402,7 +446,7 @@ var _hmt = _hmt || [];
   <div class="ap-panel is-active" id="ap-panel-new" role="tabpanel" aria-labelledby="ap-tab-new" data-panel="new">
   <!-- ===== 1. 新品一览 ===== -->
   <div class="section">
-    <h2 class="sec-title">📱 本届新品一览</h2>
+    <h2 class="sec-title">本届新品一览</h2>
     <p class="sec-sub">6 款全部列出：官方图 + 国行起售价 + 三个最值得看的点 + 开卖时间。</p>
     <div class="ap-products">
       <article class="ap-prod k-phone">
@@ -467,7 +511,7 @@ var _hmt = _hmt || [];
   <div class="ap-panel" id="ap-panel-gallery" role="tabpanel" aria-labelledby="ap-tab-gallery" data-panel="gallery">
   <!-- ===== 2. 官方产品图集 ===== -->
   <div class="section">
-    <h2 class="sec-title">🖼️ 官方产品图集</h2>
+    <h2 class="sec-title">官方产品图集</h2>
     <p class="sec-sub">10 张苹果官网真图，左右滑动查看；点任意一张可打开高清原图。</p>
     <h3 class="ap-h3">iPhone 18 Pro / Pro Max · 4 张</h3>
     <div class="ap-shots"><div class="ap-shots-track">
@@ -528,7 +572,7 @@ var _hmt = _hmt || [];
   <div class="ap-panel" id="ap-panel-spec" role="tabpanel" aria-labelledby="ap-tab-spec" data-panel="spec">
   <!-- ===== 3. 一眼看懂 ===== -->
   <div class="section">
-    <h2 class="sec-title">📊 一眼看懂</h2>
+    <h2 class="sec-title">一眼看懂</h2>
     <p class="sec-sub">三组最常被问的对比，看图就够（均为官方公布数据）。</p>
     <h3 class="ap-h3">国行起售价（元）</h3>
     <div class="ap-bars">
@@ -559,7 +603,7 @@ var _hmt = _hmt || [];
 
   <!-- ===== 4. 核心参数 ===== -->
   <div class="section">
-    <h2 class="sec-title">📐 核心参数</h2>
+    <h2 class="sec-title">核心参数</h2>
     <p class="sec-sub">先看三款新 iPhone 的逐项对比，再看手表与耳机；表格可左右滑动。</p>
     <h3 class="ap-h3">三款新 iPhone 逐项对比</h3>
     <div class="ap-spec">
@@ -600,7 +644,7 @@ var _hmt = _hmt || [];
   <div class="ap-panel" id="ap-panel-price" role="tabpanel" aria-labelledby="ap-tab-price" data-panel="price">
   <!-- ===== 5. 国行价格 ===== -->
   <div class="section">
-    <h2 class="sec-title">💰 国行价格</h2>
+    <h2 class="sec-title">国行价格</h2>
     <p class="sec-sub">发布会公布的国行建议零售价，单位：元；金色为起售价。</p>
     <div class="ap-note">
       <div class="ap-table-wrap">
@@ -624,7 +668,7 @@ var _hmt = _hmt || [];
 
   <!-- ===== 6. 发售时间 ===== -->
   <div class="section">
-    <h2 class="sec-title">🗓️ 发售时间</h2>
+    <h2 class="sec-title">发售时间</h2>
     <p class="sec-sub">按先后排列，灰色节点表示已经过去。</p>
     <div class="ap-timeline">
       <div class="ap-tl-item done"><div class="ap-tl-date">9 月 10 日 01:00（已举行）</div><div class="ap-tl-txt">2026 秋季发布会 · Apple Park 乔布斯剧院，新任 CEO 约翰·特努斯首次主持年度发布会</div></div>
@@ -641,7 +685,7 @@ var _hmt = _hmt || [];
   <!-- ===== 7. 每日自动更新（苹果新品资讯流） ===== -->
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
     <div class="home-collapsible-header" data-act="toggleHomeSection">
-      <div class="hc-left"><span class="hc-icon">🍎</span><span class="hc-title">每日自动更新 · 苹果新品资讯</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <div class="hc-left"><span class="hc-title">每日自动更新 · 苹果新品资讯</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
       <span class="hc-arrow">▼</span>
     </div>
     <div class="home-collapsible-body" id="autoNewsBody"></div>
@@ -651,9 +695,9 @@ var _hmt = _hmt || [];
   <details class="ap-fold">
     <summary>关于这个板块 / 资料来源与核实方式</summary>
     <div class="ap-fold-body">
-      <p><b>🍎 这个板块怎么用：</b>它替你盯着苹果新品的全网消息，而不是让你自己刷爆料。每天自动从国内（财新 / 36氪 / 今日头条等）+ 海外（彭博社 / 9to5Mac / The Verge 等）多源检索，交叉核对后沉淀到上方「每日自动更新」信息流。</p>
-      <p style="margin-top:8px;"><b>⚠️ 阅读须知：</b>2026 秋季发布会已于 9 月 10 日凌晨召开，本页「新品 / 参数 / 价格」均为<b>官方已公布</b>信息；尚未官宣的传闻一律标注「待官方确认」。一切以苹果官网为准，不构成购买或投资建议。</p>
-      <p style="margin-top:10px;"><b>📌 资料来源：</b></p>
+      <p><b>这个板块怎么用：</b>它替你盯着苹果新品的全网消息，而不是让你自己刷爆料。每天自动从国内（财新 / 36氪 / 今日头条等）+ 海外（彭博社 / 9to5Mac / The Verge 等）多源检索，交叉核对后沉淀到上方「每日自动更新」信息流。</p>
+      <p style="margin-top:8px;"><b>阅读须知：</b>2026 秋季发布会已于 9 月 10 日凌晨召开，本页「新品 / 参数 / 价格」均为<b>官方已公布</b>信息；尚未官宣的传闻一律标注「待官方确认」。一切以苹果官网为准，不构成购买或投资建议。</p>
+      <p style="margin-top:10px;"><b>资料来源：</b></p>
       <ul style="margin:6px 0 0;padding-left:20px;">
         <li><b>价格与规格（第一来源）：</b>苹果中国官网 apple.com.cn 的在售页与产品页，本页所有价格与官方规格均以此为最终依据。</li>
         <li><b>现场报道（交叉核验）：</b>新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻·CNMO、太平洋科技、财联社等；同一数字需 ≥2 个独立来源一致才写入正文，来源冲突时并列标注。</li>

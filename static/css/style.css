@@ -5523,6 +5523,10 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
      避免「栏目目录」盖在书签栏右端之上 */
   body:has(.lx-dock) .qt-fab{ bottom:calc(82px + env(safe-area-inset-bottom)); }
   body:has(.lx-dock) .back-to-top{ bottom:calc(138px + env(safe-area-inset-bottom)); }
+  /* [BUG-FIX] 首页 lx-dock 高度约 64px，固定贴底。若 body 没有底部内边距，
+     页面滚到末尾时最后一段内容会被 lx-dock 永远遮挡。
+     仅当存在 .lx-dock 时才让位（不污染其他无 dock 的页面）。 */
+  body:has(.lx-dock){ padding-bottom:calc(64px + env(safe-area-inset-bottom)); }
 }
 
 /* ===== 相关阅读（scripts/apply_related.py 静态注入的文章内链区块） ===== */

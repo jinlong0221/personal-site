@@ -323,9 +323,13 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   left:calc(50% - 50vw);width:100vw;
   background:var(--bg-secondary);z-index:0;pointer-events:none;
 }
-/* 深色下 --bg-secondary 与页面底色只差 1.05，色带几乎看不见；
-   这两个色带里没有卡片（参数表 / 时间轴），可以放心提亮到 1.24 */
-[data-theme="dark"] .ap-panel .section.is-alt::before{background:#2A241A}
+/* 加力版：色带与页面底色拉开可感知差距（原 1.10/1.24 倍肉眼难辨）
+   - 浅色：页面 #F1EBDD，色带改沉米灰 #D8CDB4（约 1.32 倍，明显但不脏）
+   - 深色：页面 #12100C，色带提暖棕 #3A301D（约 1.45 倍，明显不刺眼）
+   两个色带里都是文字/表格（无卡片），安全；上下发丝线强化分界 */
+[data-theme="dark"] .ap-panel .section.is-alt::before{background:#3A301D}
+[data-theme="light"] .ap-panel .section.is-alt::before{background:#D8CDB4}
+.ap-panel .section.is-alt{border-top:1px solid rgba(128,128,128,.16);border-bottom:1px solid rgba(128,128,128,.16)}
 @media(max-width:576px){
   .ap-panel .section.is-alt{margin-top:40px;padding:30px 0}
 }

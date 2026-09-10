@@ -240,6 +240,35 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   .ap-products{grid-template-columns:1fr}
   .ap-prod-img{height:156px}
 }
+/* ===== 分栏导航（国风黑金：金色下划线，与全站卡片同圆角） ===== */
+.ap-tabs{display:flex;gap:2px;margin:20px 0 4px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ap-tabs::-webkit-scrollbar{display:none}
+.ap-tab{flex:1 1 auto;min-width:72px;padding:11px 10px;background:none;border:none;font:inherit;font-size:.86rem;font-weight:700;color:var(--text-secondary);cursor:pointer;position:relative;white-space:nowrap;transition:color .2s;min-height:44px;border-radius:8px 8px 0 0}
+.ap-tab::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .22s ease}
+.ap-tab.is-active{color:var(--gold)}
+.ap-tab.is-active::after{transform:scaleX(1)}
+.ap-tab:hover{color:var(--text)}
+.ap-tab:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+
+/* 面板显隐：JS 接管后才隐藏。没 JS 时四个面板全部展开，内容一张不丢 */
+.ap-tabs-on .ap-panel{display:none}
+.ap-tabs-on .ap-panel.is-active{display:block;animation:apFade .22s ease}
+@keyframes apFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.ap-tabs-on .ap-panel.is-active{animation:none}.ap-tab::after{transition:none}}
+
+/* 新品卡：窄屏压缩省滚动，宽屏双列更饱满（图片一张不减） */
+@media(max-width:576px){
+  .ap-prod-img{height:132px;padding:10px}
+  .ap-prod-body{padding:11px 13px 13px}
+  .ap-prod-name{font-size:.9rem}
+  .ap-prod-price{font-size:1.28rem}
+  .ap-prod-pts{margin-top:8px}
+  .ap-prod-pts li{font-size:.78rem;line-height:1.55;margin-bottom:4px}
+  .ap-prod-date{margin-top:9px;padding-top:8px}
+}
+@media(min-width:700px){.ap-products{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.ap-products{grid-template-columns:repeat(3,1fr)}}
+@media print{.ap-tabs{display:none}.ap-tabs-on .ap-panel{display:block!important}}
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -363,6 +392,14 @@ var _hmt = _hmt || [];
     </div>
   </div>
 
+  <!-- ===== 分栏导航：一次只看一类，页面不再一眼望不到头 ===== -->
+  <div class="ap-tabs" role="tablist" aria-label="苹果板块内容分栏">
+    <button class="ap-tab is-active" type="button" role="tab" id="ap-tab-new" aria-controls="ap-panel-new" aria-selected="true" data-target="new">看新品</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-gallery" aria-controls="ap-panel-gallery" aria-selected="false" tabindex="-1" data-target="gallery">看图</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-spec" aria-controls="ap-panel-spec" aria-selected="false" tabindex="-1" data-target="spec">看参数</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-price" aria-controls="ap-panel-price" aria-selected="false" tabindex="-1" data-target="price">看价格</button>
+  </div>
+  <div class="ap-panel is-active" id="ap-panel-new" role="tabpanel" aria-labelledby="ap-tab-new" data-panel="new">
   <!-- ===== 1. 新品一览 ===== -->
   <div class="section">
     <h2 class="sec-title">📱 本届新品一览</h2>
@@ -425,11 +462,13 @@ var _hmt = _hmt || [];
     </div>
     <p class="ref-note">以上 6 张官方图分别取自苹果中国官网 iphone-18-pro / iphone-duo / apple-watch-series-12 / apple-watch-ultra-4 / airpods-5 产品页与商店机型图，版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
   </div>
+  </div><!-- /panel new -->
 
+  <div class="ap-panel" id="ap-panel-gallery" role="tabpanel" aria-labelledby="ap-tab-gallery" data-panel="gallery">
   <!-- ===== 2. 官方产品图集 ===== -->
   <div class="section">
     <h2 class="sec-title">🖼️ 官方产品图集</h2>
-    <p class="sec-sub">11 张苹果官网真图，左右滑动查看；点任意一张可打开高清原图。</p>
+    <p class="sec-sub">10 张苹果官网真图，左右滑动查看；点任意一张可打开高清原图。</p>
     <h3 class="ap-h3">iPhone 18 Pro / Pro Max · 4 张</h3>
     <div class="ap-shots"><div class="ap-shots-track">
         <a class="ap-shot" href="img/apple/pro-g1.webp" target="_blank" rel="noopener">
@@ -482,9 +521,11 @@ var _hmt = _hmt || [];
           <span class="ap-shot-cap"><span>AirPods 5 · 官方产品图</span><span class="zoom">看大图 ↗</span></span>
         </a>
     </div></div>
-    <p class="ref-note">以上 11 张图均取自苹果中国官网各产品页与苹果官方图片服务器（storeimages.cdn-apple.com），版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
+    <p class="ref-note">以上 10 张图均取自苹果中国官网各产品页与苹果官方图片服务器（storeimages.cdn-apple.com），版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
   </div>
+  </div><!-- /panel gallery -->
 
+  <div class="ap-panel" id="ap-panel-spec" role="tabpanel" aria-labelledby="ap-tab-spec" data-panel="spec">
   <!-- ===== 3. 一眼看懂 ===== -->
   <div class="section">
     <h2 class="sec-title">📊 一眼看懂</h2>
@@ -554,7 +595,9 @@ var _hmt = _hmt || [];
       </table>
     </div>
   </div>
+  </div><!-- /panel spec -->
 
+  <div class="ap-panel" id="ap-panel-price" role="tabpanel" aria-labelledby="ap-tab-price" data-panel="price">
   <!-- ===== 5. 国行价格 ===== -->
   <div class="section">
     <h2 class="sec-title">💰 国行价格</h2>
@@ -593,6 +636,7 @@ var _hmt = _hmt || [];
     </div>
     <p class="ref-note">AirPods 5 已在发布会后开放订购，9 月 18 日统一发售。档期引自苹果中国官网与现场报道，若苹果后续调整以官网公告为准。</p>
   </div>
+  </div><!-- /panel price -->
 
   <!-- ===== 7. 每日自动更新（苹果新品资讯流） ===== -->
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
@@ -720,5 +764,6 @@ var _hmt = _hmt || [];
 <script src="js/bookmark.js" defer></script>
 <script src="js/auto-collapse.js?v=20260824" defer></script>
 <script src="/js/obfuscate-email.js"></script>
+<script src="js/apple-tabs.js?v=20260910" defer></script>
 </body>
 </html>

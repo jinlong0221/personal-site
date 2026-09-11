@@ -609,6 +609,8 @@ if(document.readyState==='loading'){
 // ============================================================
 (function(){
   function initSectionNav(){
+    // 页面级显式禁用自动章节导航（长页面自身已有导航/筛选条时避免重复浮层）
+    if(document.body.getAttribute('data-no-secnav') === 'true') return;
     // 跳过已有自定义侧边导航的页面
     if(document.querySelector('.gh-sidenav') || document.querySelector('.gh-page')) return;
     // zisha.html 的 .section-nav 为页内水平导航，避免重复生成
@@ -693,6 +695,17 @@ if(document.readyState==='loading'){
         '.secnav-bottom a:hover{color:var(--text);}',
         '.secnav-bottom a.active{color:var(--gold);border-color:var(--gold);',
         'background:rgba(201,168,76,0.12);}',
+        '.secnav-bottom .secnav-toggle{flex-shrink:0;width:30px;height:30px;',
+        'display:flex;align-items:center;justify-content:center;border-radius:50%;',
+        'background:var(--card);border:1px solid var(--border);color:var(--text-secondary);',
+        'cursor:pointer;margin-left:4px;transition:transform .2s,background .2s,color .2s;}',
+        '.secnav-bottom .secnav-toggle:hover{background:var(--card-hover);color:var(--text);}',
+        '.secnav-bottom.is-expanded .secnav-toggle{transform:rotate(180deg);}',
+        '.secnav-bottom .secnav-toggle svg{width:16px;height:16px;}',
+        '.secnav-bottom .secnav-current{flex-shrink:0;padding:6px 14px;border-radius:20px;',
+        'font-size:0.75rem;color:var(--gold);white-space:nowrap;',
+        'background:rgba(201,168,76,0.12);border:1px solid var(--gold);',
+        'display:none;cursor:pointer;}',
         '.toc-top{position:fixed;right:22px;bottom:24px;z-index:95;width:44px;height:44px;',
         'display:flex;align-items:center;justify-content:center;border-radius:50%;',
         'background:var(--card);border:1px solid var(--gold);color:var(--gold);',
@@ -707,6 +720,14 @@ if(document.readyState==='loading'){
         '@media (max-width:1628px){',
         '.secnav-side{display:none;}.secnav-bottom.visible{display:flex;}',
         'body.has-secnav{padding-bottom:52px;}.toc-top{bottom:64px;}}',
+        /* 移动端默认折叠底部目录条，只显示当前章节 + 展开按钮，避免占屏 */
+        '@media (max-width:768px){',
+        '.secnav-bottom:not(.is-expanded){padding:8px 14px;}',
+        '.secnav-bottom:not(.is-expanded) a{display:none;}',
+        '.secnav-bottom:not(.is-expanded) .secnav-current{display:inline-flex;}',
+        '.secnav-bottom.is-expanded .secnav-current{display:none;}',
+        '.secnav-bottom:not(.is-expanded) .secnav-toggle{margin-left:auto;}}',
+        '@media (min-width:769px){.secnav-bottom .secnav-current{display:none;}.secnav-bottom .secnav-toggle{display:none;}}',
         '@media (min-width:1629px){.secnav-bottom{display:none;}}',
         '.secnav-side::-webkit-scrollbar{width:4px;}',
         '.secnav-side::-webkit-scrollbar-track{background:transparent;}',
@@ -741,14 +762,22 @@ if(document.readyState==='loading'){
     var bottomNav = document.createElement('nav');
     bottomNav.className = 'secnav-bottom';
     bottomNav.setAttribute('aria-label', '页面目录');
-    var bottomHtml = '';
+    var chevronSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+    var bottomHtml = '<button class="secnav-current" aria-label="展开目录"></button>';
     all.forEach(function(node){
       bottomHtml += '<a href="#' + node.el.id + '" data-target="' + node.el.id + '">' +
         clean(node.text, 14) + '</a>';
     });
+    bottomHtml += '<button class="secnav-toggle" aria-label="展开/收起目录" aria-expanded="false">' + chevronSvg + '</button>';
     bottomNav.innerHTML = bottomHtml;
     document.body.appendChild(bottomNav);
     document.body.classList.add('has-secnav');
+    // 移动端默认折叠，桌面/平板默认展开
+    if(window.innerWidth <= 768){
+      bottomNav.classList.remove('is-expanded');
+    } else {
+      bottomNav.classList.add('is-expanded');
+    }
 
     // 阅读进度条
     var progress = document.createElement('div');
@@ -764,13 +793,43 @@ if(document.readyState==='loading'){
       var top = window.scrollY + rect.top - navH - 12;
       window.scrollTo({ top: top, behavior: 'smooth' });
     }
+    var currentBtn = bottomNav.querySelector('.secnav-current');
+    var toggleBtn = bottomNav.querySelector('.secnav-toggle');
+    function setBottomExpanded(expanded){
+      bottomNav.classList.toggle('is-expanded', expanded);
+      if(toggleBtn) toggleBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      if(currentBtn) currentBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+    if(toggleBtn){
+      toggleBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        setBottomExpanded(!bottomNav.classList.contains('is-expanded'));
+      });
+    }
+    if(currentBtn){
+      currentBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        setBottomExpanded(true);
+      });
+    }
     [sideNav, bottomNav].forEach(function(nav){
       nav.querySelectorAll('a').forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
           scrollToId(a.getAttribute('data-target'));
+          // 移动端点击目录项后自动收起底部条
+          if(nav === bottomNav && window.innerWidth <= 768){
+            setBottomExpanded(false);
+          }
         });
       });
+    });
+    // 点击页面其它区域收起底部目录条
+    document.addEventListener('click', function(e){
+      if(window.innerWidth > 768) return;
+      if(!bottomNav.classList.contains('is-expanded')) return;
+      if(bottomNav.contains(e.target)) return;
+      setBottomExpanded(false);
     });
 
     // 滚动处理：显示/隐藏 + scroll spy + 进度条
@@ -802,6 +861,11 @@ if(document.readyState==='loading'){
             a.classList.toggle('active', a.getAttribute('data-target') === activeId);
           });
         });
+        // 更新折叠状态下底部目录当前章节文本
+        if(currentBtn && activeId){
+          var activeNode = all.find(function(n){ return n.el.id === activeId; });
+          currentBtn.textContent = activeNode ? clean(activeNode.text, 14) : '目录';
+        }
         /* 断点与上方 CSS 一致：≤1628px 显示的是底部条而非侧目录 */
         if(activeId && window.innerWidth <= 1628){
           var activeLink = bottomNav.querySelector('a.active');

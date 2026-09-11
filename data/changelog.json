@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-09-12",
+    "content": "🎮 主机图鉴配图大修：核查发现原先约 40 张卡片图并非真机照（多为 1~7KB 的占位图，如 steam-deck 仅 1.6KB、gameboy-pocket 1.7KB）。本次从 Pexels（真实摄影、禁 AI、免费可商用）替换 38 张为对应机型的实拍图，覆盖 PS5 / PS5 Pro / Xbox Series X·S / Xbox 360 / Switch / Switch Lite / Steam Deck / PS1 / PS2 系列 / PS3 / PS4 / PSP / PS Vita / NDS / NDS Lite / DSi / 3DS 全系 / 2DS / GBA / GB / GBC / 手掌机 / SFC / MD / FC 红白机 / 街机等主流机型，并同步修正 console.html 中卡片图的 width/height。剩余 9 张冷门机型（AYANEO、GPD Win、MSI Claw、N-Gage、Neo Geo Pocket、Sega Nomad、TurboExpress、WonderSwan、GB Micro）Pexels 无可用实拍图，改由 scripts/fetch_console_photos.py 从 Wikimedia Commons 补全（该脚本已在仓库，需在本机运行）。所有替换图均来自图库 caption 明确标注型号的真实照片，非 AI 生成。"
+  },
+  {
+    "date": "2026-09-12",
     "content": "🎮 主机图鉴配图替换：经核查，约 20 张卡片原图并非真机照（文件体积极小、实为占位，如 steam-deck 仅 1.6KB）。本次先用 Pexels 真实照片替换 Steam Deck（已构建上线）；并新增 scripts/fetch_console_photos.py——在可正常访问 Wikimedia Commons 的机器上运行，即可批量抓取各主机权威实拍图写入 static/img/consoles/ 并自动更新卡片尺寸。其余 obscure 机型（Sega Nomad、TurboExpress、Game Boy Light 等）因 Wikimedia 被本工作沙箱防火墙拦截，需在你本机跑该脚本补全。"
   },
   {

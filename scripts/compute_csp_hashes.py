@@ -60,38 +60,67 @@ def main():
     for i, (h, info) in enumerate(sorted(blocks.items(), key=lambda kv: -kv[1]["len"]), 1):
         print(f"[{i}] sha256-{h}  (len={info['len']}, pages={len(info['pages'])})")
         print(f"     sample: {info['sample']!r}")
-    hashes = ["'sha256-%s'" % h for h in sorted(blocks)]
+    raw_hashes = sorted(blocks)
+    hashes = ["'sha256-%s'" % h for h in raw_hashes]
     print("\n=== script-src whitelist (%d hashes) ===" % len(hashes))
     print(" ".join(hashes))
     if "--inject" in sys.argv:
-        inject(hashes)
+        inject(raw_hashes)
 
 def inject(hashes):
-    external = "https://hm.baidu.com https://busuanzi.ibruce.info"
-    new_script_src = "'self' " + " ".join(hashes) + " " + external
+    # hashes 此处为原始 base64（无 'sha256-' 前缀），由本函数统一加前缀，避免双重前缀。
+    new_hashes = ["'sha256-%s'" % h for h in sorted(hashes)]
     # head.html (Hugo pages)
     head = os.path.join(ROOT, "layouts", "partials", "head.html")
-    rewrite_csp(head, new_script_src)
+    rewrite_csp(head, new_hashes)
     # every static page CSP meta
     n = 0
     for f in glob_html(os.path.join(ROOT, "static")):
-        if rewrite_csp(f, new_script_src):
+        if rewrite_csp(f, new_hashes):
             n += 1
     print(f"\nInjected script-src into head.html + {n} static pages.")
 
-def rewrite_csp(path, new_script_src):
+def rewrite_csp(path, new_hashes):
+    """Rewrite the CSP `script-src` of one file, preserving page-specific tokens.
+
+    旧逻辑用固定基列表「'self' + 全部哈希 + 外链」整体覆写 script-src，会把各页面
+    独有的令牌（如地图页的 'unsafe-eval'、map.qq.com、*.amap.com）整段抹掉，导致地图
+    直接崩。修正为：只移除旧的 'sha256-...' 哈希与 'unsafe-inline'，其余既有令牌
+    （'self'、'unsafe-eval'、外链域名等）原样保留，再追加当前全站哈希。
+
+    匹配锚定在 CSP 的 meta `content="..."` 属性内，绝不会误伤 HTML 注释里的
+    `script-src` 字样（旧版单行/跨行正则都曾踩这个坑导致整页 CSP 错乱）。
+    """
     try:
         s = open(path, encoding="utf-8").read()
     except Exception:
         return False
-    if "Content-Security-Policy" not in s:
+    # 只匹配 CSP meta 的 content 属性
+    meta_pat = re.compile(
+        r'(<meta\b[^>]*Content-Security-Policy[^>]*content=")([^"]*)(")',
+        re.IGNORECASE)
+    mm = meta_pat.search(s)
+    if not mm:
         return False
-    pat = re.compile(r"(script-src\s+)([^;]*)(;)", re.IGNORECASE)
-    if not pat.search(s):
+    csp = mm.group(2)
+    csp_pat = re.compile(r"(script-src[ \t]+)([^;\n]*)(;)", re.IGNORECASE)
+    cm = csp_pat.search(csp)
+    if not cm:
         return False
-    new = pat.sub(lambda m: m.group(1) + new_script_src + m.group(3), s, count=1)
-    if new == s:
+    old_tokens = cm.group(2).split()
+    # 保留非哈希、非 unsafe-inline 的既有令牌（'self'、'unsafe-eval'、地图域名等）
+    keep = [t for t in old_tokens
+            if t != "'unsafe-inline'" and not t.startswith("'sha256-")]
+    merged, seen = [], set()
+    for t in keep + new_hashes:
+        if t not in seen:
+            seen.add(t)
+            merged.append(t)
+    new_value = " ".join(merged)
+    if new_value == cm.group(2):
         return False
+    new_csp = csp_pat.sub(lambda mc: mc.group(1) + new_value + mc.group(3), csp, count=1)
+    new = s[:mm.start(2)] + new_csp + s[mm.start(3):]
     open(path, "w", encoding="utf-8").write(new)
     return True
 

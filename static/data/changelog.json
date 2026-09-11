@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-09-11",
+    "content": "🤖 新闻接力 2026-09-11（22:40 夜间轮）：全站 12 个板块 updated 均已为 2026-09-11，体检无空刷（11 个带 news 数组的板块当日条目均 ≥1，marvel-boxoffice 为单对象结构只看 updated）。本轮按「低增量定向补强」处理 2 个板块、新增 2 条：① 主机——任天堂披露 Switch 旧版固件 CVE-2026-82079 漏洞，攻击者可在近距离扫描主机/电视屏幕二维码执行未授权代码，涉及「相册·发送至智能手机」与《马力欧卡丁车实况：家庭赛车场》配对机制，官方已推 23.0.0 修复并确认 Switch 2 不受影响（4 源交叉）；② 漫威——《漫威金刚狼》媒体评分 9 月 10 日晚间解禁，Metacritic 78 分、OpenCritic 81 分，IGN 与 GameSpot 均 6 分，为 Insomniac Games 近十年评分最低作品，官方公布 9 月 15 日登陆 PS5（5 源交叉）。剩余未处理板块：无（12 板全部已更新至 9/11）。遗留事项三项：① 康美·中国中药材价格指数 9/11 日指数连续第 4 轮仅康美自有站点单一来源（该站搜索缓存仍停留在 08-27 的 1478.99），按 ≥2 源铁律继续未写入；② 摩根士丹利苹果目标价 360 美元一条，各家口径冲突（「上调至 360」与「由 364 下调／维持 360」并存），判定存疑未写入；③ apple-news.json 末条（09-09 微博条目）仅 1 个来源，属历史遗留，待补第二源。"
+  },
+  {
     "date": "2026-09-12",
     "content": "🎮 主机图鉴配图大修：核查发现原先约 40 张卡片图并非真机照（多为 1~7KB 的占位图，如 steam-deck 仅 1.6KB、gameboy-pocket 1.7KB）。本次从 Pexels（真实摄影、禁 AI、免费可商用）替换 38 张为对应机型的实拍图，覆盖 PS5 / PS5 Pro / Xbox Series X·S / Xbox 360 / Switch / Switch Lite / Steam Deck / PS1 / PS2 系列 / PS3 / PS4 / PSP / PS Vita / NDS / NDS Lite / DSi / 3DS 全系 / 2DS / GBA / GB / GBC / 手掌机 / SFC / MD / FC 红白机 / 街机等主流机型，并同步修正 console.html 中卡片图的 width/height。剩余 9 张冷门机型（AYANEO、GPD Win、MSI Claw、N-Gage、Neo Geo Pocket、Sega Nomad、TurboExpress、WonderSwan、GB Micro）Pexels 无可用实拍图，改由 scripts/fetch_console_photos.py 从 Wikimedia Commons 补全（该脚本已在仓库，需在本机运行）。所有替换图均来自图库 caption 明确标注型号的真实照片，非 AI 生成。"
   },

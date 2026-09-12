@@ -41,16 +41,14 @@ HTML = os.path.join(REPO, "static", "console.html")
 #       以免重跑脚本把这些已核验的图覆盖掉。本表只保留 Pexels 无货、必须靠
 #       Wikimedia Commons 补全的冷门机型。
 CANON = {
-    # —— Pexels 无可用实拍图，需从 Commons 补（当前 9 张）——
+    # —— 2026-09-12 更新：原先 9 个已用别的源解决 5 个 ——
+    #   ngage / sega-nomad / turboexpress / wonderswan / gb-micro
+    #   已改用 Kiddle（kids.kiddle.co，维基图文的可达镜像）取到真机图。
+    #   下面 4 个 Kiddle 与 Pexels 都没有，只能靠 Commons：
     "ayaneo": "AYANEO handheld",
     "gpd-win": "GPD Win",
     "msi-claw": "MSI Claw",
-    "ngage": "Nokia N-Gage",
     "ngpc": "Neo Geo Pocket Color",
-    "sega-nomad": "Sega Nomad",
-    "turboexpress": "TurboExpress",
-    "wonderswan": "Bandai WonderSwan",
-    "gb-micro": "Game Boy micro",
     # —— 以下亦为 Pexels 未覆盖机型，可按需解注一并抓取 ——
     # "legion-go": "Lenovo Legion Go",
     # "rog-ally": "Asus ROG Ally",

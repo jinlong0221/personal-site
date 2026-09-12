@@ -5,6 +5,31 @@
       "date": "09-12",
       "tags": [
         {
+          "text": "美国监管加压",
+          "class": "warn"
+        },
+        {
+          "text": "NHTSA查320万辆",
+          "class": "hot"
+        },
+        {
+          "text": "睡觉驾驶视频",
+          "class": "info"
+        }
+      ],
+      "content": "9月12日（美国众议员官网 krishnamoorthi.house.gov 官方信函、Electrek 9/10、MotorTimes 9/11、腾讯新闻 9/11 多源交叉）特斯拉 FSD 在美国面临监管加压。伊利诺伊州民主党众议员 Raja Krishnamoorthi 于 9月9日致信交通部长 Sean Duffy，援引 NBC 调查披露的 43 段司机在行驶中特斯拉内疑似熟睡视频（其中 17 段发布于 2026 年），要求 NHTSA 在 9月30日前答复五大问题：是否知悉此类视频、是否构成系统性监控漏洞、是否与特斯拉沟通、2024 年以来事故数据、车内摄像头（墨镜/遮挡可绕过）有效性及何种结论会触发召回。背景：NHTSA 对约 320 万辆搭载 FSD 的特斯拉的工程分析（EA26002）已于 3 月升级为召回前最后阶段，已确认 9 起低能见度事故（含 1 死 1 伤）。议员另质疑特斯拉提示「检测到困倦，请用 FSD 保持专注」可能反向鼓励疲劳驾驶。⚠️ 该事件与 FSD 中国入华是两条独立监管线，均属进展性事实，本站持续跟踪。",
+      "url": "https://krishnamoorthi.house.gov/media/press-releases/krishnamoorthi-demands-nhtsa-action-after-tesla-drivers-caught-sleeping-behind",
+      "sources": [
+        "美国众议员 Raja Krishnamoorthi 官网信函（2026-09-09，致交通部长、五问 NHTSA、43 段睡觉驾驶视频）",
+        "Electrek（2026-09-10，EA26002 工程分析覆盖约 320 万辆、9 起事故含 1 死 1 伤）",
+        "MotorTimes（2026-09-11，9/9 致信、9/30 截止、NHTSA 现状）",
+        "腾讯新闻转译（2026-09-11，中文综述）"
+      ]
+    },
+    {
+      "date": "09-12",
+      "tags": [
+        {
           "text": "中国仍卡审批",
           "class": "warn"
         },
@@ -170,30 +195,6 @@
         "新浪汽车（2026-09-07/09-09 综合）",
         "今日头条（2026-09-09 FSD 入华 6 道审批梳理）",
         "特斯拉中国官方客服公开回应"
-      ]
-    },
-    {
-      "date": "09-09",
-      "tags": [
-        {
-          "text": "v14.2 Lite 登陆 HW3",
-          "class": "hot"
-        },
-        {
-          "text": "2026.27.6 推送",
-          "class": "info"
-        },
-        {
-          "text": "自动避撞仅限 HW4",
-          "class": "warn"
-        }
-      ],
-      "content": "9月9日（Teslascope 推送追踪 @teslascope 2026-09-09；BASENOR 2026-09-09；GearMusk 2026-09-09）特斯拉开始向 Hardware 3（HW3）老车型推送 FSD（监督版）v14.2 Lite，随软件版本 2026.27.6 下发——这是 v14 世代首次落地 HW3 车型，兑现了特斯拉在三季度财报电话会上的承诺。Teslascope 记录该构建包含五项：官方版 FSD v14.2 Lite、Start Self-Driving from Park（设好目的地后挂 P 档即可一键启动，无需先驶出再介入）、Speed Profiles（Sloth／Chill／Standard／Hurry／Mad Max 五档，可用右滚轮切换，新激活默认 Sloth）、Arrival Options（停车场／路边／车道／停车楼／路边停靠，按目的地分别记忆）、UI 改进（速度档与到达选项可从自动驾驶可视化界面快捷访问，并新增自驾统计）。此前这些能力仅限 HW4。同期 HW4 车辆在 v14.3.9 上获得 Automatic Collision Evasion（自动避撞）：即便驾驶员正在手动驾驶，若系统判定前方碰撞即将发生且单纯制动无法避免，FSD 可主动接管转向绕开障碍（必要时制动或加速）。第一种触发场景限定严格——须在封闭道路（无平面交叉与横向车流）、路径内未检测到行人或骑行者、车速低于 85 mph、转向系统正常且路面未判定湿滑、FSD 已开启但未激活；第二种场景为检测到驾驶员严重分心或误退出 FSD，适用场景更广，车速区间 22.5—85 mph。避让过程中踩油门无效、踩刹车仅增加减速度而不取消接管，需用大于常规退出 FSD 的转向力道才能中断。特斯拉称其为「最后手段」的主动安全功能，明确不替代专注的驾驶员，且需有效 FSD 授权；官方重申 FSD 监督版仍属 L2，责任在驾驶员。注：本次推送为分批灰度，具体覆盖范围及各国落地时间待官方确认。",
-      "url": "https://www.basenor.com/blogs/news/tesla-update-v14-2-lite",
-      "sources": [
-        "Teslascope 软件推送追踪（@teslascope，2026-09-09 逐项记录五项功能）",
-        "BASENOR《Tesla FSD v14.2 Lite Rolls Out to HW3》（2026-09-09）",
-        "GearMusk《Tesla FSD V14.3.9 Automatic Collision Evasion》（2026-09-09）"
       ]
     }
   ]

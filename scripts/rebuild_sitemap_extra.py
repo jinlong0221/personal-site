@@ -29,6 +29,11 @@ EXCLUDE = {
     'privacy.html',
     'shesi-landing.html',
     'shesi-privacy.html',
+    # 主机图鉴别名页：已 301 合并到主名（console-gamecube / nintendo-64 / wii-u），
+    # 不再收录进 sitemap（其静态文件保留为跳转页，仅供旧链接/书签重定向）。
+    'console-gc.html',
+    'console-n64.html',
+    'console-wiiu.html',
 }
 EXCLUDE_DIRS = {'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
 

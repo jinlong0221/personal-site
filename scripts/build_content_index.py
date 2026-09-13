@@ -48,6 +48,8 @@ EXCLUDE_FILES = {
     "travel.html",
     # iOS App「脚趾抠地」资产：与本站是两套独立资产，不进站内搜索/标签
     "privacy.html", "shesi-landing.html", "shesi-privacy.html",
+    # 主机图鉴别名页：已 301 合并到主名（console-wii-u / gamecube / nintendo-64），不进索引
+    "console-wiiu.html", "console-gc.html", "console-n64.html",
 }
 EXCLUDE_PREFIXES = ("admin/", "pagefind/", "js/", "css/", "img/", "data/", "fonts/")
 

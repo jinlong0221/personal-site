@@ -36,6 +36,12 @@ BRAND_PAGES = {
     "索尼 Sony", "其他品牌",
 }
 
+# 主机图鉴别名页：已 301 合并到主名（console-wii-u / gamecube / nintendo-64），
+# 不再作为独立机型生成选购建议（其静态文件已改写为跳转页）。
+ALIAS_CONSOLE_FILES = {
+    "console-wiiu.html", "console-gc.html", "console-n64.html",
+}
+
 # ---------------------------------------------------------------------------
 # 具体机型的公认通病（按标题关键词匹配，取第一个命中的）
 # 每条都是该机型在玩家群体中出了名的问题，可核验
@@ -456,6 +462,7 @@ def build_guide(d):
 def main():
     check_only = "--check" in sys.argv
     files = sorted(glob.glob(os.path.join(STATIC, "console-*.html")))
+    files = [f for f in files if os.path.basename(f) not in ALIAS_CONSOLE_FILES]
     out = {}
     skipped = []
     for f in files:

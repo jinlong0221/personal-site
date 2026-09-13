@@ -1,0 +1,1721 @@
+{
+  "updated": "2026-09-03",
+  "updatedAt": "2026-09-03 08:30",
+  "autoFetched": true,
+  "source": {
+    "name": "懂车帝销量榜",
+    "platform": "懂车帝（字节跳动旗下汽车信息与服务平台）",
+    "home": "https://www.dongchedi.com/sales/rank",
+    "api": "https://www.dongchedi.com/motor/pc/car/rank_data",
+    "licence": "数据版权归懂车帝所有，本站仅作引用并注明出处"
+  },
+  "units": "辆",
+  "caliber": {
+    "批发": "厂商开给经销商及出口的出货量，含出口，不等于终端实际交付量",
+    "零售": "终端销量（上牌/上险），反映真实需求",
+    "新能源": "BEV（纯电）+ PHEV（插电混动）+ EREV（增程），不含普通混动（HEV）",
+    "sourceNote": "本站车型销量数字取自懂车帝销量榜（商业平台，非行业统计机构）。该平台未公开其上游数据来源。零售口径按其自身口径如实引用；批发口径经抽样比对，与乘联会官方《全国乘用车市场分析》发布的车型级数字 18 款中 12 款闭合。两个口径下的车型级数字均不等同于乘联会官方发布物，不与官方数据混用或相互推算，引用请以官方原文为准。"
+  },
+  "period": {
+    "year": 2026,
+    "month": 7,
+    "label": "2026年7月",
+    "requestedMonth": 202608,
+    "periodMatched": false,
+    "availableMonths": [
+      202602,
+      202603,
+      202604,
+      202605,
+      202606,
+      202607
+    ],
+    "note": "期次取自接口返回的 sells_rank_month 清单，非本地日期推算。若 periodMatched 为 false，说明请求月份尚未发布，接口已静默回退，本文件记录的是它实际返回的期次。"
+  },
+  "classify": {
+    "note": "接口返回的是全车型榜（含燃油车）且无新能源筛选参数，故新能源归类由本站按下列规则整理，不是数据源官方口径。",
+    "order": [
+      "MIXED 排除",
+      "品牌白名单",
+      "车型白名单",
+      "名称后缀",
+      "燃油名单",
+      "UNK 拒绝写入"
+    ],
+    "nevBrands": [
+      "AITO问界",
+      "ARCFOX极狐",
+      "Polestar极星",
+      "ROX极石",
+      "firefly萤火虫",
+      "iCAR",
+      "smart",
+      "东风奕派",
+      "乐道",
+      "享界",
+      "华境",
+      "吉利银河",
+      "埃安",
+      "奇瑞QQ",
+      "奇瑞风云",
+      "小米汽车",
+      "小鹏汽车",
+      "尚界",
+      "岚图",
+      "方程豹",
+      "智己汽车",
+      "智界",
+      "极氪",
+      "极狐",
+      "欧拉",
+      "比亚迪",
+      "深蓝汽车",
+      "特斯拉",
+      "理想汽车",
+      "瑞驰",
+      "蓝电",
+      "蔚来",
+      "长安启源",
+      "阿维塔",
+      "零跑汽车",
+      "魏牌"
+    ],
+    "nevModels": [
+      "MG4",
+      "五菱宏光MINIEV",
+      "星光730",
+      "缤果Pro",
+      "铂智3X"
+    ],
+    "nevSuffix": "(PHEV|REEV|EREV|BEV|EV|C-DM|DM|EM-i|EREV|Hi4-T|Hi4-Z|增程|纯电)",
+    "mixedModels": [
+      "北京越野BJ30"
+    ],
+    "iceModels": [
+      "212 T01",
+      "MG5",
+      "RAV4荣放",
+      "五菱宏光",
+      "五菱宏光V",
+      "五菱星驰",
+      "五菱荣光",
+      "亚洲龙",
+      "伊兰特",
+      "传祺GS3",
+      "传祺GS4",
+      "传祺GS8",
+      "传祺M6",
+      "传祺M8",
+      "凌渡",
+      "凯美瑞",
+      "凯迪拉克XT5",
+      "别克GL8",
+      "北京越野BJ30",
+      "北京越野BJ40",
+      "博越L",
+      "卡罗拉",
+      "卡罗拉锐放",
+      "君威",
+      "君越",
+      "哈弗H6",
+      "哈弗H9",
+      "哈弗大狗",
+      "哈弗猛龙燃油版",
+      "坦克300",
+      "坦克500",
+      "天籁",
+      "奇骏",
+      "奔驰C级",
+      "奔驰E级",
+      "奔驰GLC",
+      "奥迪A3",
+      "奥迪A5L",
+      "奥迪A6L",
+      "奥迪Q3",
+      "奥迪Q5L",
+      "威兰达",
+      "宝来",
+      "宝马3系",
+      "宝马5系",
+      "宝马X1",
+      "宝马X3",
+      "宝马X5",
+      "帕萨特",
+      "帝豪",
+      "影豹",
+      "思域",
+      "捷达VA3",
+      "捷达VS5",
+      "捷达VS8",
+      "捷途X70",
+      "捷途旅行者",
+      "捷途自由者",
+      "探岳",
+      "探歌",
+      "揽巡",
+      "昂科威",
+      "星瑞",
+      "星越L",
+      "星途凌云",
+      "普拉多",
+      "朗逸",
+      "本田CR-V",
+      "本田HR-V",
+      "格瑞维亚",
+      "欧萌达",
+      "汉兰达",
+      "江淮A5 PLUS",
+      "江淮X8 PLUS",
+      "焕驰",
+      "狮铂拓界",
+      "现代ix35",
+      "瑞虎3x",
+      "瑞虎5x",
+      "瑞虎7",
+      "瑞虎8",
+      "瑞虎9",
+      "皇冠陆放",
+      "皓影",
+      "睿蓝X3 PRO",
+      "索纳塔",
+      "红旗H5",
+      "红旗HS5",
+      "缤越",
+      "航海家",
+      "艾瑞泽5",
+      "艾瑞泽8",
+      "英仕派",
+      "荣威RX5",
+      "荣威RX9",
+      "荣威i6",
+      "蒙迪欧",
+      "豪越L",
+      "赛图斯",
+      "赛那",
+      "起亚K3",
+      "轩逸",
+      "迈腾",
+      "逍客",
+      "途岳",
+      "途胜",
+      "途观L",
+      "速腾",
+      "逸动",
+      "锋兰达",
+      "锐界",
+      "长安CS55 PLUS",
+      "长安CS75 PLUS",
+      "长安UNI-V",
+      "长安X5 PLUS",
+      "雅阁",
+      "领地",
+      "领睿",
+      "马自达CX-5",
+      "高尔夫"
+    ],
+    "maintenance": "纯新能源品牌下的新车型自动命中，零维护；只有混合品牌（MG/丰田/别克/哈弗/奇瑞/五菱等）推出新新能源车型时才需补 nevModels。排在出榜名次之前的车型若落入 UNK，脚本会拒绝写入并保留上一版，不会自动猜判。",
+    "unkBelowCutoff": {
+      "retail": 38,
+      "wholesale": 40
+    },
+    "unkBelowCutoffNote": "名次在出榜名次之后的 UNK 数量（多为冷门燃油车或本站尚未收录的新能源车）。它们进不了 TOP50，故不阻断抓取；等榜单变长或排名变化时再补名单。"
+  },
+  "retail": {
+    "title": "中国新能源乘用车车型零售销量 TOP50",
+    "caliber": "终端销量（上牌/上险），反映真实需求",
+    "sourceTier": "platform",
+    "disclaimer": "零售口径：懂车帝未公开其上游数据来源，本站按其自身口径如实引用。厂商级数字已与乘联会官方零售数据交叉验证（特斯拉、零跑等纯新能源品牌的在售车型加总与官方厂商级数字逐位一致），但车型级数字未经官方逐条确认。本榜不等同于乘联会官方发布物，仅供横向比较参考。",
+    "rankDataType": 11,
+    "fetchedRows": 300,
+    "nevRowsFound": 164,
+    "rows": [
+      {
+        "rank": 1,
+        "globalRank": 1,
+        "name": "星愿",
+        "brand": "吉利银河",
+        "seriesId": 20154,
+        "units": 32306,
+        "lastRank": 2,
+        "priceRange": "5.98-9.18万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 2,
+        "globalRank": 2,
+        "name": "零跑A10",
+        "brand": "零跑汽车",
+        "seriesId": 9267,
+        "units": 26424,
+        "lastRank": 3,
+        "priceRange": "6.58-8.68万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 3,
+        "globalRank": 3,
+        "name": "Model Y",
+        "brand": "特斯拉",
+        "seriesId": 4363,
+        "units": 25158,
+        "lastRank": 1,
+        "priceRange": "26.35-31.35万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 4,
+        "globalRank": 4,
+        "name": "小米SU7",
+        "brand": "小米汽车",
+        "seriesId": 6187,
+        "units": 21044,
+        "lastRank": 5,
+        "priceRange": "21.99-30.39万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 5,
+        "globalRank": 5,
+        "name": "元UP",
+        "brand": "比亚迪",
+        "seriesId": 9689,
+        "units": 20275,
+        "lastRank": 7,
+        "priceRange": "6.78-10.28万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 6,
+        "globalRank": 6,
+        "name": "长安启源Q05",
+        "brand": "长安启源",
+        "seriesId": 25634,
+        "units": 18871,
+        "lastRank": 6,
+        "priceRange": "6.99-10.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 7,
+        "globalRank": 7,
+        "name": "理想i6",
+        "brand": "理想汽车",
+        "seriesId": 25557,
+        "units": 15420,
+        "lastRank": 4,
+        "priceRange": "24.98-26.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 8,
+        "globalRank": 9,
+        "name": "海豚",
+        "brand": "比亚迪",
+        "seriesId": 5008,
+        "units": 13910,
+        "lastRank": 21,
+        "priceRange": "9.18-11.78万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 9,
+        "globalRank": 10,
+        "name": "宋Pro DM",
+        "brand": "比亚迪",
+        "seriesId": 3504,
+        "units": 13757,
+        "lastRank": 8,
+        "priceRange": "9.58-12.99万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 10,
+        "globalRank": 12,
+        "name": "MG4",
+        "brand": "MG",
+        "seriesId": 5828,
+        "units": 13157,
+        "lastRank": 15,
+        "priceRange": "6.58-9.58万",
+        "energy": null,
+        "matchRule": "model"
+      },
+      {
+        "rank": 11,
+        "globalRank": 16,
+        "name": "缤果Pro",
+        "brand": "五菱汽车",
+        "seriesId": 26039,
+        "units": 12225,
+        "lastRank": 19,
+        "priceRange": "5.68-7.08万",
+        "energy": null,
+        "matchRule": "model"
+      },
+      {
+        "rank": 12,
+        "globalRank": 19,
+        "name": "AION i60",
+        "brand": "埃安",
+        "seriesId": 25643,
+        "units": 11186,
+        "lastRank": 44,
+        "priceRange": "9.88-12.78万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 13,
+        "globalRank": 20,
+        "name": "钛7 PHEV",
+        "brand": "方程豹",
+        "seriesId": 25559,
+        "units": 10820,
+        "lastRank": 12,
+        "priceRange": "17.98-22.58万",
+        "energy": "PHEV",
+        "matchRule": "brand",
+        "seriesGroup": "钛7",
+        "seriesGroupTotal": 20320,
+        "seriesGroupMembers": 2,
+        "seriesGroupParts": [
+          {
+            "name": "钛7 PHEV",
+            "units": 10820,
+            "rank": 13
+          },
+          {
+            "name": "钛7 EV",
+            "units": 9500,
+            "rank": 22
+          }
+        ]
+      },
+      {
+        "rank": 14,
+        "globalRank": 21,
+        "name": "QQ3 EV",
+        "brand": "奇瑞QQ",
+        "seriesId": 25678,
+        "units": 10780,
+        "lastRank": 39,
+        "priceRange": "5.59-7.59万",
+        "energy": "BEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 15,
+        "globalRank": 24,
+        "name": "五菱宏光MINIEV",
+        "brand": "五菱汽车",
+        "seriesId": 4499,
+        "units": 10458,
+        "lastRank": 25,
+        "priceRange": "3.28-5.28万",
+        "energy": "BEV",
+        "matchRule": "model"
+      },
+      {
+        "rank": 16,
+        "globalRank": 26,
+        "name": "蔚来ES8",
+        "brand": "蔚来",
+        "seriesId": 1616,
+        "units": 10284,
+        "lastRank": 48,
+        "priceRange": "38.28-44.68万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 17,
+        "globalRank": 28,
+        "name": "小鹏MONA M03",
+        "brand": "小鹏汽车",
+        "seriesId": 10170,
+        "units": 10237,
+        "lastRank": 18,
+        "priceRange": "11.98-15.18万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 18,
+        "globalRank": 29,
+        "name": "小米YU7",
+        "brand": "小米汽车",
+        "seriesId": 20041,
+        "units": 10223,
+        "lastRank": 16,
+        "priceRange": "23.35-38.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 19,
+        "globalRank": 30,
+        "name": "零跑C10",
+        "brand": "零跑汽车",
+        "seriesId": 9307,
+        "units": 10053,
+        "lastRank": 13,
+        "priceRange": "11.58-14.28万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 20,
+        "globalRank": 31,
+        "name": "零跑D19",
+        "brand": "零跑汽车",
+        "seriesId": 25718,
+        "units": 10043,
+        "lastRank": 53,
+        "priceRange": "21.98-26.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 21,
+        "globalRank": 32,
+        "name": "问界M9",
+        "brand": "AITO问界",
+        "seriesId": 6325,
+        "units": 9639,
+        "lastRank": 41,
+        "priceRange": "47.98-65.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 22,
+        "globalRank": 34,
+        "name": "钛7 EV",
+        "brand": "方程豹",
+        "seriesId": 25994,
+        "units": 9500,
+        "lastRank": 113,
+        "priceRange": "19.98-23.98万",
+        "energy": "BEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 23,
+        "globalRank": 36,
+        "name": "元PLUS",
+        "brand": "比亚迪",
+        "seriesId": 5248,
+        "units": 9246,
+        "lastRank": 96,
+        "priceRange": "10.98-14.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 24,
+        "globalRank": 39,
+        "name": "铂智3X",
+        "brand": "丰田",
+        "seriesId": 8987,
+        "units": 9010,
+        "lastRank": 58,
+        "priceRange": "9.48-14.48万",
+        "energy": null,
+        "matchRule": "model"
+      },
+      {
+        "rank": 25,
+        "globalRank": 40,
+        "name": "智界V9",
+        "brand": "智界",
+        "seriesId": 25886,
+        "units": 8974,
+        "lastRank": 137,
+        "priceRange": "38.98-51.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 26,
+        "globalRank": 41,
+        "name": "海狮06EV",
+        "brand": "比亚迪",
+        "seriesId": 25400,
+        "units": 8892,
+        "lastRank": 29,
+        "priceRange": "14.38-17.99万",
+        "energy": "BEV",
+        "matchRule": "brand",
+        "seriesGroup": "海狮06",
+        "seriesGroupTotal": 15395,
+        "seriesGroupMembers": 2,
+        "seriesGroupParts": [
+          {
+            "name": "海狮06EV",
+            "units": 8892,
+            "rank": 26
+          },
+          {
+            "name": "海狮06DM",
+            "units": 6503,
+            "rank": 43
+          }
+        ]
+      },
+      {
+        "rank": 27,
+        "globalRank": 42,
+        "name": "海鸥",
+        "brand": "比亚迪",
+        "seriesId": 5952,
+        "units": 8879,
+        "lastRank": 43,
+        "priceRange": "6.08-7.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 28,
+        "globalRank": 44,
+        "name": "零跑B10",
+        "brand": "零跑汽车",
+        "seriesId": 9268,
+        "units": 8731,
+        "lastRank": 153,
+        "priceRange": "9.28-12.58万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 29,
+        "globalRank": 45,
+        "name": "极狐 贝塔T1",
+        "brand": "ARCFOX极狐",
+        "seriesId": 25401,
+        "units": 8628,
+        "lastRank": 64,
+        "priceRange": "5.98-8.68万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 30,
+        "globalRank": 50,
+        "name": "海狮05EV",
+        "brand": "比亚迪",
+        "seriesId": 25139,
+        "units": 8088,
+        "lastRank": 62,
+        "priceRange": "11.78-14.59万",
+        "energy": "BEV",
+        "matchRule": "brand",
+        "seriesGroup": "海狮05",
+        "seriesGroupTotal": 15601,
+        "seriesGroupMembers": 2,
+        "seriesGroupParts": [
+          {
+            "name": "海狮05EV",
+            "units": 8088,
+            "rank": 30
+          },
+          {
+            "name": "海狮05DM",
+            "units": 7513,
+            "rank": 35
+          }
+        ]
+      },
+      {
+        "rank": 31,
+        "globalRank": 53,
+        "name": "ZEEKR 007GT",
+        "brand": "极氪",
+        "seriesId": 25172,
+        "units": 7691,
+        "lastRank": 59,
+        "priceRange": "20.29-25.29万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 32,
+        "globalRank": 55,
+        "name": "宋Ultra EV",
+        "brand": "比亚迪",
+        "seriesId": 25922,
+        "units": 7661,
+        "lastRank": 52,
+        "priceRange": "15.19-17.99万",
+        "energy": "BEV",
+        "matchRule": "brand",
+        "seriesGroup": "宋Ultra",
+        "seriesGroupTotal": 13955,
+        "seriesGroupMembers": 2,
+        "seriesGroupParts": [
+          {
+            "name": "宋Ultra EV",
+            "units": 7661,
+            "rank": 32
+          },
+          {
+            "name": "宋Ultra DM",
+            "units": 6294,
+            "rank": 47
+          }
+        ]
+      },
+      {
+        "rank": 33,
+        "globalRank": 56,
+        "name": "长安Lumin",
+        "brand": "长安启源",
+        "seriesId": 5859,
+        "units": 7596,
+        "lastRank": 220,
+        "priceRange": "3.69-6.19万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 34,
+        "globalRank": 57,
+        "name": "秦PLUS DM",
+        "brand": "比亚迪",
+        "seriesId": 4802,
+        "units": 7568,
+        "lastRank": 35,
+        "priceRange": "6.78-9.48万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 35,
+        "globalRank": 58,
+        "name": "海狮05DM",
+        "brand": "比亚迪",
+        "seriesId": 20138,
+        "units": 7513,
+        "lastRank": 31,
+        "priceRange": "9.58-12.79万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 36,
+        "globalRank": 59,
+        "name": "深蓝L06",
+        "brand": "深蓝汽车",
+        "seriesId": 25628,
+        "units": 7258,
+        "lastRank": 55,
+        "priceRange": "11.89-14.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 37,
+        "globalRank": 60,
+        "name": "华境S",
+        "brand": "华境",
+        "seriesId": 25695,
+        "units": 7203,
+        "lastRank": 93,
+        "priceRange": "14.98-19.38万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 38,
+        "globalRank": 61,
+        "name": "深蓝S05",
+        "brand": "深蓝汽车",
+        "seriesId": 10213,
+        "units": 7059,
+        "lastRank": 26,
+        "priceRange": "11.59-14.49万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 39,
+        "globalRank": 62,
+        "name": "小鹏GX",
+        "brand": "小鹏汽车",
+        "seriesId": 25621,
+        "units": 7016,
+        "lastRank": 74,
+        "priceRange": "26.98-34.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 40,
+        "globalRank": 63,
+        "name": "零跑C11",
+        "brand": "零跑汽车",
+        "seriesId": 4731,
+        "units": 6996,
+        "lastRank": 75,
+        "priceRange": "14.08-15.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 41,
+        "globalRank": 65,
+        "name": "极狐 贝塔S3",
+        "brand": "ARCFOX极狐",
+        "seriesId": 25573,
+        "units": 6941,
+        "lastRank": 61,
+        "priceRange": "8.08-12.18万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 42,
+        "globalRank": 66,
+        "name": "零跑B01",
+        "brand": "零跑汽车",
+        "seriesId": 9266,
+        "units": 6930,
+        "lastRank": 141,
+        "priceRange": "8.98-11.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 43,
+        "globalRank": 70,
+        "name": "海狮06DM",
+        "brand": "比亚迪",
+        "seriesId": 25399,
+        "units": 6503,
+        "lastRank": 100,
+        "priceRange": "12.99-15.99万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 44,
+        "globalRank": 71,
+        "name": "零跑C16",
+        "brand": "零跑汽车",
+        "seriesId": 10125,
+        "units": 6462,
+        "lastRank": 83,
+        "priceRange": "14.08-17.08万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 45,
+        "globalRank": 72,
+        "name": "ZEEKR 7X",
+        "brand": "极氪",
+        "seriesId": 9778,
+        "units": 6415,
+        "lastRank": 144,
+        "priceRange": "22.98-26.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 46,
+        "globalRank": 73,
+        "name": "蔚来ES9",
+        "brand": "蔚来",
+        "seriesId": 25904,
+        "units": 6311,
+        "lastRank": 49,
+        "priceRange": "49.80-62.80万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 47,
+        "globalRank": 74,
+        "name": "宋Ultra DM",
+        "brand": "比亚迪",
+        "seriesId": 26027,
+        "units": 6294,
+        "lastRank": 150,
+        "priceRange": "12.99-15.99万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 48,
+        "globalRank": 76,
+        "name": "尚界Z7",
+        "brand": "尚界",
+        "seriesId": 25920,
+        "units": 6225,
+        "lastRank": 80,
+        "priceRange": "21.98-29.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 49,
+        "globalRank": 77,
+        "name": "理想L8",
+        "brand": "理想汽车",
+        "seriesId": 6095,
+        "units": 6210,
+        "lastRank": 354,
+        "priceRange": "36.98-42.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 50,
+        "globalRank": 78,
+        "name": "哈弗猛龙PHEV",
+        "brand": "哈弗",
+        "seriesId": 9113,
+        "units": 6183,
+        "lastRank": 63,
+        "priceRange": "13.08-17.38万",
+        "energy": "PHEV",
+        "matchRule": "suffix"
+      }
+    ],
+    "brandTotals": [
+      {
+        "brand": "比亚迪",
+        "units": 170628
+      },
+      {
+        "brand": "零跑汽车",
+        "units": 83698
+      },
+      {
+        "brand": "吉利银河",
+        "units": 69288
+      },
+      {
+        "brand": "长安启源",
+        "units": 35554
+      },
+      {
+        "brand": "五菱汽车",
+        "units": 33103
+      },
+      {
+        "brand": "小米汽车",
+        "units": 31267
+      },
+      {
+        "brand": "理想汽车",
+        "units": 29530
+      },
+      {
+        "brand": "方程豹",
+        "units": 28980
+      },
+      {
+        "brand": "小鹏汽车",
+        "units": 27769
+      },
+      {
+        "brand": "特斯拉",
+        "units": 27249
+      },
+      {
+        "brand": "极氪",
+        "units": 26039
+      },
+      {
+        "brand": "ARCFOX极狐",
+        "units": 22685
+      },
+      {
+        "brand": "AITO问界",
+        "units": 22460
+      },
+      {
+        "brand": "埃安",
+        "units": 22327
+      },
+      {
+        "brand": "蔚来",
+        "units": 18150
+      }
+    ],
+    "brandTotalsNote": "按本榜新能源车型加总，仅含排在抓取深度内的车型；在售车型数量多、有车型跌出深度的品牌会偏小，不代表该品牌官方总量。"
+  },
+  "wholesale": {
+    "title": "中国新能源乘用车车型批发销量 TOP50",
+    "caliber": "厂商开给经销商及出口的出货量，含出口，不等于终端实际交付",
+    "sourceTier": "traceable",
+    "disclaimer": "批发口径：厂商级加总与乘联会官方批发数字逐位一致（特斯拉 93,579、零跑 101,267 等已逐位验证）。车型级以官方《2026年7月全国乘用车市场分析》中「批发超两万辆车型」18 款为样本抽样比对，12 款闭合（9 款逐位相等、3 款合并动力版本后相等），另 6 款存在差异，其中 4 款可归因于系列拆分与出口车型（JAECOO J5、MG ZS 为纯出口）、2 款（元UP、海豚）原因不明。因此本榜车型级数字仅供横向比较参考，不等同于乘联会官方发布物。",
+    "rankDataType": 2,
+    "fetchedRows": 300,
+    "nevRowsFound": 158,
+    "rows": [
+      {
+        "rank": 1,
+        "globalRank": 1,
+        "name": "Model Y",
+        "brand": "特斯拉",
+        "seriesId": 4363,
+        "units": 59836,
+        "lastRank": 1,
+        "priceRange": "26.35-31.35万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 2,
+        "globalRank": 2,
+        "name": "星愿",
+        "brand": "吉利银河",
+        "seriesId": 20154,
+        "units": 55105,
+        "lastRank": 2,
+        "priceRange": "5.98-9.18万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 3,
+        "globalRank": 3,
+        "name": "元UP",
+        "brand": "比亚迪",
+        "seriesId": 9689,
+        "units": 37658,
+        "lastRank": 5,
+        "priceRange": "6.78-10.28万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 4,
+        "globalRank": 4,
+        "name": "海豚",
+        "brand": "比亚迪",
+        "seriesId": 5008,
+        "units": 34910,
+        "lastRank": 3,
+        "priceRange": "9.18-11.78万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 5,
+        "globalRank": 5,
+        "name": "Model 3",
+        "brand": "特斯拉",
+        "seriesId": 3762,
+        "units": 33743,
+        "lastRank": 4,
+        "priceRange": "23.55-33.95万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 6,
+        "globalRank": 7,
+        "name": "零跑A10",
+        "brand": "零跑汽车",
+        "seriesId": 9267,
+        "units": 28593,
+        "lastRank": 8,
+        "priceRange": "6.58-8.68万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 7,
+        "globalRank": 8,
+        "name": "海鸥",
+        "brand": "比亚迪",
+        "seriesId": 5952,
+        "units": 27971,
+        "lastRank": 10,
+        "priceRange": "6.08-7.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 8,
+        "globalRank": 10,
+        "name": "长安启源Q05",
+        "brand": "长安启源",
+        "seriesId": 25634,
+        "units": 24512,
+        "lastRank": 12,
+        "priceRange": "6.99-10.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 9,
+        "globalRank": 11,
+        "name": "小米SU7",
+        "brand": "小米汽车",
+        "seriesId": 6187,
+        "units": 21044,
+        "lastRank": 15,
+        "priceRange": "21.99-30.39万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 10,
+        "globalRank": 12,
+        "name": "宋Pro DM",
+        "brand": "比亚迪",
+        "seriesId": 3504,
+        "units": 20888,
+        "lastRank": 6,
+        "priceRange": "9.58-12.99万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 11,
+        "globalRank": 13,
+        "name": "元PLUS",
+        "brand": "比亚迪",
+        "seriesId": 5248,
+        "units": 20180,
+        "lastRank": 19,
+        "priceRange": "10.98-14.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 12,
+        "globalRank": 14,
+        "name": "缤果Pro",
+        "brand": "五菱汽车",
+        "seriesId": 26039,
+        "units": 19396,
+        "lastRank": 14,
+        "priceRange": "5.68-7.08万",
+        "energy": null,
+        "matchRule": "model"
+      },
+      {
+        "rank": 13,
+        "globalRank": 15,
+        "name": "MG4",
+        "brand": "MG",
+        "seriesId": 5828,
+        "units": 19176,
+        "lastRank": 11,
+        "priceRange": "6.58-9.58万",
+        "energy": null,
+        "matchRule": "model"
+      },
+      {
+        "rank": 14,
+        "globalRank": 16,
+        "name": "钛7 PHEV",
+        "brand": "方程豹",
+        "seriesId": 25559,
+        "units": 17820,
+        "lastRank": 17,
+        "priceRange": "17.98-22.58万",
+        "energy": "PHEV",
+        "matchRule": "brand",
+        "seriesGroup": "钛7",
+        "seriesGroupTotal": 27320,
+        "seriesGroupMembers": 2,
+        "seriesGroupParts": [
+          {
+            "name": "钛7 PHEV",
+            "units": 17820,
+            "rank": 14
+          },
+          {
+            "name": "钛7 EV",
+            "units": 9500,
+            "rank": 40
+          }
+        ]
+      },
+      {
+        "rank": 15,
+        "globalRank": 19,
+        "name": "理想i6",
+        "brand": "理想汽车",
+        "seriesId": 25557,
+        "units": 15420,
+        "lastRank": 13,
+        "priceRange": "24.98-26.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 16,
+        "globalRank": 20,
+        "name": "银河星舰7 EM-i",
+        "brand": "吉利银河",
+        "seriesId": 24788,
+        "units": 15236,
+        "lastRank": 16,
+        "priceRange": "8.78-12.38万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 17,
+        "globalRank": 21,
+        "name": "深蓝S05",
+        "brand": "深蓝汽车",
+        "seriesId": 10213,
+        "units": 14735,
+        "lastRank": 20,
+        "priceRange": "11.59-14.49万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 18,
+        "globalRank": 25,
+        "name": "海狮07EV",
+        "brand": "比亚迪",
+        "seriesId": 6068,
+        "units": 14002,
+        "lastRank": 35,
+        "priceRange": "18.18-23.18万",
+        "energy": "BEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 19,
+        "globalRank": 28,
+        "name": "零跑B10",
+        "brand": "零跑汽车",
+        "seriesId": 9268,
+        "units": 13167,
+        "lastRank": 58,
+        "priceRange": "9.28-12.58万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 20,
+        "globalRank": 29,
+        "name": "宋Ultra EV",
+        "brand": "比亚迪",
+        "seriesId": 25922,
+        "units": 12500,
+        "lastRank": 50,
+        "priceRange": "15.19-17.99万",
+        "energy": "BEV",
+        "matchRule": "brand",
+        "seriesGroup": "宋Ultra",
+        "seriesGroupTotal": 22000,
+        "seriesGroupMembers": 2,
+        "seriesGroupParts": [
+          {
+            "name": "宋Ultra EV",
+            "units": 12500,
+            "rank": 20
+          },
+          {
+            "name": "宋Ultra DM",
+            "units": 9500,
+            "rank": 39
+          }
+        ]
+      },
+      {
+        "rank": 21,
+        "globalRank": 30,
+        "name": "QQ3 EV",
+        "brand": "奇瑞QQ",
+        "seriesId": 25678,
+        "units": 12499,
+        "lastRank": 43,
+        "priceRange": "5.59-7.59万",
+        "energy": "BEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 22,
+        "globalRank": 33,
+        "name": "探索06 C-DM",
+        "brand": "奇瑞",
+        "seriesId": 8974,
+        "units": 12241,
+        "lastRank": 32,
+        "priceRange": "11.99-13.99万",
+        "energy": "PHEV",
+        "matchRule": "suffix"
+      },
+      {
+        "rank": 23,
+        "globalRank": 36,
+        "name": "银河E5",
+        "brand": "吉利银河",
+        "seriesId": 10026,
+        "units": 11479,
+        "lastRank": 31,
+        "priceRange": "9.18-16.48万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 24,
+        "globalRank": 37,
+        "name": "零跑C10",
+        "brand": "零跑汽车",
+        "seriesId": 9307,
+        "units": 11446,
+        "lastRank": 21,
+        "priceRange": "11.58-14.28万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 25,
+        "globalRank": 38,
+        "name": "海狮06EV",
+        "brand": "比亚迪",
+        "seriesId": 25400,
+        "units": 11398,
+        "lastRank": 41,
+        "priceRange": "14.38-17.99万",
+        "energy": "BEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 26,
+        "globalRank": 39,
+        "name": "海狮05DM",
+        "brand": "比亚迪",
+        "seriesId": 20138,
+        "units": 11200,
+        "lastRank": 47,
+        "priceRange": "9.58-12.79万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 27,
+        "globalRank": 42,
+        "name": "AION i60",
+        "brand": "埃安",
+        "seriesId": 25643,
+        "units": 10544,
+        "lastRank": 51,
+        "priceRange": "9.88-12.78万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 28,
+        "globalRank": 43,
+        "name": "小鹏MONA M03",
+        "brand": "小鹏汽车",
+        "seriesId": 10170,
+        "units": 10357,
+        "lastRank": 28,
+        "priceRange": "11.98-15.18万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 29,
+        "globalRank": 44,
+        "name": "蔚来ES8",
+        "brand": "蔚来",
+        "seriesId": 1616,
+        "units": 10288,
+        "lastRank": 68,
+        "priceRange": "38.28-44.68万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 30,
+        "globalRank": 45,
+        "name": "ZEEKR 7X",
+        "brand": "极氪",
+        "seriesId": 9778,
+        "units": 10253,
+        "lastRank": 83,
+        "priceRange": "22.98-26.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 31,
+        "globalRank": 46,
+        "name": "ZEEKR 007GT",
+        "brand": "极氪",
+        "seriesId": 25172,
+        "units": 10224,
+        "lastRank": 62,
+        "priceRange": "20.29-25.29万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 32,
+        "globalRank": 47,
+        "name": "小米YU7",
+        "brand": "小米汽车",
+        "seriesId": 20041,
+        "units": 10223,
+        "lastRank": 27,
+        "priceRange": "23.35-38.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 33,
+        "globalRank": 48,
+        "name": "瑞虎7 PLUS PHEV",
+        "brand": "奇瑞",
+        "seriesId": 6076,
+        "units": 10145,
+        "lastRank": 57,
+        "priceRange": "12.99-16.69万",
+        "energy": "PHEV",
+        "matchRule": "suffix"
+      },
+      {
+        "rank": 34,
+        "globalRank": 49,
+        "name": "大唐EV",
+        "brand": "比亚迪",
+        "seriesId": 25934,
+        "units": 10102,
+        "lastRank": 108,
+        "priceRange": "23.99-30.99万",
+        "energy": "BEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 35,
+        "globalRank": 50,
+        "name": "智界V9",
+        "brand": "智界",
+        "seriesId": 25886,
+        "units": 10101,
+        "lastRank": 134,
+        "priceRange": "38.98-51.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 36,
+        "globalRank": 51,
+        "name": "问界M9",
+        "brand": "AITO问界",
+        "seriesId": 6325,
+        "units": 10078,
+        "lastRank": 55,
+        "priceRange": "47.98-65.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 37,
+        "globalRank": 53,
+        "name": "零跑D19",
+        "brand": "零跑汽车",
+        "seriesId": 25718,
+        "units": 10043,
+        "lastRank": 76,
+        "priceRange": "21.98-26.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 38,
+        "globalRank": 56,
+        "name": "铂智3X",
+        "brand": "丰田",
+        "seriesId": 8987,
+        "units": 9546,
+        "lastRank": 36,
+        "priceRange": "9.48-14.48万",
+        "energy": null,
+        "matchRule": "model"
+      },
+      {
+        "rank": 39,
+        "globalRank": 58,
+        "name": "宋Ultra DM",
+        "brand": "比亚迪",
+        "seriesId": 26027,
+        "units": 9500,
+        "lastRank": 66,
+        "priceRange": "12.99-15.99万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 40,
+        "globalRank": 59,
+        "name": "钛7 EV",
+        "brand": "方程豹",
+        "seriesId": 25994,
+        "units": 9500,
+        "lastRank": 146,
+        "priceRange": "19.98-23.98万",
+        "energy": "BEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 41,
+        "globalRank": 64,
+        "name": "极狐 贝塔T1",
+        "brand": "ARCFOX极狐",
+        "seriesId": 25401,
+        "units": 8628,
+        "lastRank": 82,
+        "priceRange": "5.98-8.68万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 42,
+        "globalRank": 65,
+        "name": "海豹06DM",
+        "brand": "比亚迪",
+        "seriesId": 9824,
+        "units": 8543,
+        "lastRank": 132,
+        "priceRange": "8.98-14.19万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 43,
+        "globalRank": 71,
+        "name": "五菱宏光MINIEV",
+        "brand": "五菱汽车",
+        "seriesId": 4499,
+        "units": 7958,
+        "lastRank": 23,
+        "priceRange": "3.28-5.28万",
+        "energy": "BEV",
+        "matchRule": "model"
+      },
+      {
+        "rank": 44,
+        "globalRank": 77,
+        "name": "海豹05DM",
+        "brand": "比亚迪",
+        "seriesId": 25137,
+        "units": 7400,
+        "lastRank": 65,
+        "priceRange": "7.48-9.58万",
+        "energy": "PHEV",
+        "matchRule": "brand"
+      },
+      {
+        "rank": 45,
+        "globalRank": 78,
+        "name": "华境S",
+        "brand": "华境",
+        "seriesId": 25695,
+        "units": 7262,
+        "lastRank": 89,
+        "priceRange": "14.98-19.38万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 46,
+        "globalRank": 80,
+        "name": "小鹏GX",
+        "brand": "小鹏汽车",
+        "seriesId": 25621,
+        "units": 7140,
+        "lastRank": 90,
+        "priceRange": "26.98-34.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 47,
+        "globalRank": 81,
+        "name": "深蓝L06",
+        "brand": "深蓝汽车",
+        "seriesId": 25628,
+        "units": 7065,
+        "lastRank": 71,
+        "priceRange": "11.89-14.99万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 48,
+        "globalRank": 82,
+        "name": "零跑C11",
+        "brand": "零跑汽车",
+        "seriesId": 4731,
+        "units": 7003,
+        "lastRank": 92,
+        "priceRange": "14.08-15.98万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 49,
+        "globalRank": 84,
+        "name": "极狐 贝塔S3",
+        "brand": "ARCFOX极狐",
+        "seriesId": 25573,
+        "units": 6941,
+        "lastRank": 78,
+        "priceRange": "8.08-12.18万",
+        "energy": null,
+        "matchRule": "brand"
+      },
+      {
+        "rank": 50,
+        "globalRank": 85,
+        "name": "零跑B01",
+        "brand": "零跑汽车",
+        "seriesId": 9266,
+        "units": 6930,
+        "lastRank": 178,
+        "priceRange": "8.98-11.98万",
+        "energy": null,
+        "matchRule": "brand"
+      }
+    ],
+    "brandTotals": [
+      {
+        "brand": "比亚迪",
+        "units": 288024
+      },
+      {
+        "brand": "吉利银河",
+        "units": 105678
+      },
+      {
+        "brand": "零跑汽车",
+        "units": 96408
+      },
+      {
+        "brand": "特斯拉",
+        "units": 93579
+      },
+      {
+        "brand": "方程豹",
+        "units": 41213
+      },
+      {
+        "brand": "五菱汽车",
+        "units": 38397
+      },
+      {
+        "brand": "小鹏汽车",
+        "units": 38027
+      },
+      {
+        "brand": "极氪",
+        "units": 34926
+      },
+      {
+        "brand": "小米汽车",
+        "units": 31267
+      },
+      {
+        "brand": "长安启源",
+        "units": 29887
+      },
+      {
+        "brand": "理想汽车",
+        "units": 28504
+      },
+      {
+        "brand": "奇瑞",
+        "units": 26281
+      },
+      {
+        "brand": "深蓝汽车",
+        "units": 25970
+      },
+      {
+        "brand": "ARCFOX极狐",
+        "units": 22685
+      },
+      {
+        "brand": "MG",
+        "units": 20664
+      }
+    ],
+    "brandTotalsNote": "按本榜新能源车型加总，仅含排在抓取深度内的车型；在售车型数量多、有车型跌出深度的品牌会偏小，不代表该品牌官方总量。"
+  },
+  "crossCheck": {
+    "status": "current",
+    "verifiedPeriod": "2026年7月",
+    "verifiedOn": "2026-09-03",
+    "method": "取「在售车型全部进入榜单」的纯新能源品牌，把其车型销量加总，与乘联分会官方发布的厂商级新能源数字逐位比对。",
+    "officialSource": "中国汽车流通协会乘用车市场信息联席分会（乘联分会）官方发布的厂商新能源销量",
+    "items": [
+      {
+        "brand": "特斯拉",
+        "caliber": "retail",
+        "official": 27249,
+        "autoSum": 27249,
+        "note": "Model Y 25,158 + Model 3 2,091，2 款全部在榜",
+        "result": "match",
+        "diff": 0
+      },
+      {
+        "brand": "特斯拉",
+        "caliber": "wholesale",
+        "official": 93579,
+        "autoSum": 93579,
+        "note": "Model Y 59,836 + Model 3 33,743，2 款全部在榜",
+        "result": "match",
+        "diff": 0
+      },
+      {
+        "brand": "零跑汽车",
+        "caliber": "retail",
+        "official": 83698,
+        "autoSum": 83698,
+        "note": "10 款全部在榜",
+        "result": "match",
+        "diff": 0
+      },
+      {
+        "brand": "零跑汽车",
+        "caliber": "wholesale",
+        "official": 101267,
+        "autoSum": 96408,
+        "note": "第 300 名后的「零跑B10 REEV」4,859 辆不在抓取深度内，故本站加总为 96,408",
+        "result": "match",
+        "diff": 0,
+        "expectedDelta": 4859
+      }
+    ],
+    "staleHint": null
+  },
+  "notes": [
+    "榜单每行按懂车帝的「车系（series_id）」粒度原样呈现，各行数字不做合并、不做拆分、不做推算。其他平台按动力版本拆分统计时，同一车系的数字可能对不上，这是统计粒度不同，不是错误。",
+    "本站已用乘联会官方发布的车型级数字做过抽样比对：18 款中 12 款闭合，6 款对不上（其中 2 款原因不明）。因此本榜车型数字只能用于横向比较，不能当作乘联会官方数字引用。",
+    "动力类型字段仅有 26% 覆盖率（该平台接口未提供动力类型字段，仅能从车名后缀识别，车名不含动力标识的一律留空），故本榜不提供纯电/插混/增程分类。",
+    "同一车系若被按动力版本拆成多行（如钛7 拆为 PHEV 与 EV），本站会在该组名次最靠前的一行额外给出 seriesGroupTotal，即同源同期各成员行数字之和，用于避免只看单行低估该车系。这是本站对同源数字的加总，不是数据源发布的数字；成员行本身仍各自原样保留，不合并、不拆分。",
+    "元UP：懂车帝记为一条（2026年7月零售 20,275 / 批发 37,658）；盖世汽车批发榜拆为「比亚迪元UP 37,658」+「元UP DM-i 25,600」。两边粒度不同，本站不合并、不拆分，原样呈现懂车帝口径。",
+    "宋PLUS DM：盖世汽车批发榜有此车（16,242），懂车帝榜单内无对应条目，属「别家有、本站数据源没有」，不硬凑、不从别处补数。",
+    "海豚：懂车帝为车系合并口径（零售 13,910 / 批发 34,910）；盖世汽车拆为「海豚 22,910」+「海豚G PHEV 12,000」（批发）。本站取懂车帝原口径。",
+    "长安Lumin 在批发口径下未进入抓取深度（全车型 300 名之后），故只出现在零售榜。",
+    "站长提到的「秦PLUS DM-i」在懂车帝里叫「秦PLUS DM」，检索时请用榜单上的名字。",
+    "energy 字段由车型名后缀推断（PHEV/REEV/BEV/EV/DM/C-DM/EM-i/EREV/增程/纯电）；车名不含动力标识的一律为 null，不做推断。"
+  ],
+  "errors": []
+}

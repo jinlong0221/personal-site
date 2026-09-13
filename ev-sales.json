@@ -1,0 +1,1525 @@
+{
+  "updated": "2026-09-02",
+  "updatedAt": "2026-09-02 17:19",
+  "source": {
+    "name": "乘用车市场信息联合会（乘联会 / CPCA）官方数据中心",
+    "home": "http://data.cpcadata.com/",
+    "org": "http://www.cpcaauto.com/",
+    "api": "http://data.cpcadata.com/api/chartlist",
+    "licence": "数据版权归乘联会所有，本站仅作引用并注明出处"
+  },
+  "units": "万辆",
+  "caliber": {
+    "批发": "厂商开给经销商及出口的出货量，含出口，不等于终端实际交付量",
+    "零售": "经销商卖给最终用户的上险/上牌量，反映真实终端需求",
+    "狭义乘用车": "轿车 + SUV + MPV，不含微客",
+    "新能源": "BEV（纯电）+ PHEV（插电混动），不含普通混动（HEV）",
+    "单位说明": "接口数值单位为万辆"
+  },
+  "period": {
+    "year": 2026,
+    "latestMonth": 7,
+    "cumulativeLabel": "1-7月",
+    "monthlyLabel": "7月"
+  },
+  "maker": {
+    "cumulative": {
+      "label": "2026年 1-7月",
+      "wholesale": [
+        {
+          "rank": 1,
+          "name": "比亚迪汽车",
+          "value": 218.7987,
+          "prev": 245.4301,
+          "yoy": -10.85
+        },
+        {
+          "rank": 2,
+          "name": "吉利汽车",
+          "value": 166.6181,
+          "prev": 164.5459,
+          "yoy": 1.26
+        },
+        {
+          "rank": 3,
+          "name": "奇瑞汽车",
+          "value": 157.2073,
+          "prev": 142.9166,
+          "yoy": 10.0
+        },
+        {
+          "rank": 4,
+          "name": "长安汽车",
+          "value": 71.5428,
+          "prev": 97.6156,
+          "yoy": -26.71
+        },
+        {
+          "rank": 5,
+          "name": "上汽乘用车",
+          "value": 65.5996,
+          "prev": 42.7708,
+          "yoy": 53.37
+        },
+        {
+          "rank": 6,
+          "name": "长城汽车",
+          "value": 58.2891,
+          "prev": 56.4075,
+          "yoy": 3.34
+        },
+        {
+          "rank": 7,
+          "name": "一汽大众",
+          "value": 58.2044,
+          "prev": 85.1006,
+          "yoy": -31.61
+        },
+        {
+          "rank": 8,
+          "name": "特斯拉中国",
+          "value": 56.1528,
+          "prev": 43.236,
+          "yoy": 29.88
+        },
+        {
+          "rank": 9,
+          "name": "上汽通用五菱",
+          "value": 49.4421,
+          "prev": 57.5808,
+          "yoy": -14.13
+        },
+        {
+          "rank": 10,
+          "name": "零跑汽车",
+          "value": 45.7754,
+          "prev": 27.1793,
+          "yoy": 68.42
+        }
+      ],
+      "retail": [
+        {
+          "rank": 1,
+          "name": "比亚迪汽车",
+          "value": 121.434,
+          "prev": 188.4686,
+          "yoy": -35.57
+        },
+        {
+          "rank": 2,
+          "name": "吉利汽车",
+          "value": 118.199,
+          "prev": 142.812,
+          "yoy": -17.23
+        },
+        {
+          "rank": 3,
+          "name": "一汽大众",
+          "value": 63.1402,
+          "prev": 85.4569,
+          "yoy": -26.11
+        },
+        {
+          "rank": 4,
+          "name": "长安汽车",
+          "value": 62.6607,
+          "prev": 79.1698,
+          "yoy": -20.85
+        },
+        {
+          "rank": 5,
+          "name": "奇瑞汽车",
+          "value": 45.8092,
+          "prev": 70.0296,
+          "yoy": -34.59
+        },
+        {
+          "rank": 6,
+          "name": "上汽大众",
+          "value": 42.878,
+          "prev": 60.5473,
+          "yoy": -29.18
+        },
+        {
+          "rank": 7,
+          "name": "广汽丰田",
+          "value": 39.4227,
+          "prev": 43.0235,
+          "yoy": -8.37
+        },
+        {
+          "rank": 8,
+          "name": "零跑汽车",
+          "value": 34.3891,
+          "prev": 24.6813,
+          "yoy": 39.33
+        },
+        {
+          "rank": 9,
+          "name": "一汽丰田",
+          "value": 32.388,
+          "prev": 44.5061,
+          "yoy": -27.23
+        },
+        {
+          "rank": 10,
+          "name": "上汽通用五菱",
+          "value": 32.0549,
+          "prev": 43.7165,
+          "yoy": -26.68
+        }
+      ]
+    },
+    "monthly": {
+      "label": "2026年7月",
+      "wholesale": [
+        {
+          "rank": 1,
+          "name": "比亚迪汽车",
+          "value": 41.0612,
+          "prev": 34.103,
+          "yoy": 20.4
+        },
+        {
+          "rank": 2,
+          "name": "奇瑞汽车",
+          "value": 26.6466,
+          "prev": 21.5278,
+          "yoy": 23.78
+        },
+        {
+          "rank": 3,
+          "name": "吉利汽车",
+          "value": 24.8141,
+          "prev": 23.7735,
+          "yoy": 4.38
+        },
+        {
+          "rank": 4,
+          "name": "上汽乘用车",
+          "value": 10.6808,
+          "prev": 5.9934,
+          "yoy": 78.21
+        },
+        {
+          "rank": 5,
+          "name": "零跑汽车",
+          "value": 10.1267,
+          "prev": 5.0129,
+          "yoy": 102.01
+        },
+        {
+          "rank": 6,
+          "name": "特斯拉中国",
+          "value": 9.3579,
+          "prev": 6.7886,
+          "yoy": 37.85
+        },
+        {
+          "rank": 7,
+          "name": "长城汽车",
+          "value": 9.2045,
+          "prev": 9.0586,
+          "yoy": 1.61
+        },
+        {
+          "rank": 8,
+          "name": "长安汽车",
+          "value": 8.6357,
+          "prev": 13.6484,
+          "yoy": -36.73
+        },
+        {
+          "rank": 9,
+          "name": "上汽通用五菱",
+          "value": 8.191,
+          "prev": 7.7217,
+          "yoy": 6.08
+        },
+        {
+          "rank": 10,
+          "name": "一汽大众",
+          "value": 6.7003,
+          "prev": 10.451,
+          "yoy": -35.89
+        }
+      ],
+      "retail": [
+        {
+          "rank": 1,
+          "name": "比亚迪汽车",
+          "value": 22.3461,
+          "prev": 27.4644,
+          "yoy": -18.64
+        },
+        {
+          "rank": 2,
+          "name": "吉利汽车",
+          "value": 16.0647,
+          "prev": 20.2447,
+          "yoy": -20.65
+        },
+        {
+          "rank": 3,
+          "name": "零跑汽车",
+          "value": 8.3698,
+          "prev": 4.5524,
+          "yoy": 83.85
+        },
+        {
+          "rank": 4,
+          "name": "长安汽车",
+          "value": 8.0201,
+          "prev": 10.8502,
+          "yoy": -26.08
+        },
+        {
+          "rank": 5,
+          "name": "一汽大众",
+          "value": 7.3408,
+          "prev": 11.1026,
+          "yoy": -33.88
+        },
+        {
+          "rank": 6,
+          "name": "奇瑞汽车",
+          "value": 6.4929,
+          "prev": 9.7864,
+          "yoy": -33.65
+        },
+        {
+          "rank": 7,
+          "name": "上汽通用五菱",
+          "value": 5.5986,
+          "prev": 5.9843,
+          "yoy": -6.45
+        },
+        {
+          "rank": 8,
+          "name": "广汽丰田",
+          "value": 5.312,
+          "prev": 6.6018,
+          "yoy": -19.54
+        },
+        {
+          "rank": 9,
+          "name": "一汽丰田",
+          "value": 5.015,
+          "prev": 6.7912,
+          "yoy": -26.15
+        },
+        {
+          "rank": 10,
+          "name": "上汽大众",
+          "value": 4.8,
+          "prev": 8.259,
+          "yoy": -41.88
+        }
+      ]
+    }
+  },
+  "overall": [
+    {
+      "month": 1,
+      "产量": 200.364,
+      "批发": 197.3017,
+      "零售": 153.9064,
+      "出口": 58.069
+    },
+    {
+      "month": 2,
+      "产量": 136.9741,
+      "批发": 151.5363,
+      "零售": 103.2466,
+      "出口": 55.3501
+    },
+    {
+      "month": 3,
+      "产量": 236.4929,
+      "批发": 237.804,
+      "零售": 164.6138,
+      "出口": 68.8049
+    },
+    {
+      "month": 4,
+      "产量": 219.3199,
+      "批发": 211.0049,
+      "零售": 138.2462,
+      "出口": 77.0164
+    },
+    {
+      "month": 5,
+      "产量": 221.3854,
+      "批发": 221.4855,
+      "零售": 151.0033,
+      "出口": 78.6547
+    },
+    {
+      "month": 6,
+      "产量": 233.6703,
+      "批发": 235.6967,
+      "零售": 160.1924,
+      "出口": 87.5462
+    },
+    {
+      "month": 7,
+      "产量": 222.2072,
+      "批发": 225.1529,
+      "零售": 146.0941,
+      "出口": 91.8265
+    }
+  ],
+  "nev": {
+    "overall": [
+      {
+        "month": 1,
+        "产量": 93.815,
+        "批发": 86.4732,
+        "零售": 59.1814,
+        "出口": 28.9543
+      },
+      {
+        "month": 2,
+        "产量": 64.2294,
+        "批发": 72.0258,
+        "零售": 46.3209,
+        "出口": 26.8086
+      },
+      {
+        "month": 3,
+        "产量": 112.3524,
+        "批发": 114.4031,
+        "零售": 85.1761,
+        "出口": 34.2884
+      },
+      {
+        "month": 4,
+        "产量": 120.9229,
+        "批发": 122.4602,
+        "零售": 84.8085,
+        "出口": 40.6743
+      },
+      {
+        "month": 5,
+        "产量": 139.7415,
+        "批发": 135.2027,
+        "零售": 95.017,
+        "出口": 42.4464
+      },
+      {
+        "month": 6,
+        "产量": 143.9218,
+        "批发": 148.1452,
+        "零售": 100.6753,
+        "出口": 49.912
+      },
+      {
+        "month": 7,
+        "产量": 144.8809,
+        "批发": 144.5674,
+        "零售": 95.1277,
+        "出口": 53.9724
+      }
+    ],
+    "bevPhev": [
+      {
+        "label": "2025-8月",
+        "BEV": {
+          "wholesale": 81.5513,
+          "retail": 69.0003,
+          "wsShare": 68.5,
+          "rtShare": 68.3
+        },
+        "PHEV": {
+          "wholesale": 37.4845,
+          "retail": 32.0235,
+          "wsShare": 31.5,
+          "rtShare": 31.7
+        }
+      },
+      {
+        "label": "2025-9月",
+        "BEV": {
+          "wholesale": 94.5931,
+          "retail": 82.91,
+          "wsShare": 69.1,
+          "rtShare": 69.7
+        },
+        "PHEV": {
+          "wholesale": 42.3957,
+          "retail": 36.0392,
+          "wsShare": 30.9,
+          "rtShare": 30.3
+        }
+      },
+      {
+        "label": "2025-10月",
+        "BEV": {
+          "wholesale": 100.6917,
+          "retail": 81.0206,
+          "wsShare": 67.8,
+          "rtShare": 69.2
+        },
+        "PHEV": {
+          "wholesale": 47.9238,
+          "retail": 36.0448,
+          "wsShare": 32.2,
+          "rtShare": 30.8
+        }
+      },
+      {
+        "label": "2025-11月",
+        "BEV": {
+          "wholesale": 103.7707,
+          "retail": 82.7349,
+          "wsShare": 66.1,
+          "rtShare": 68.7
+        },
+        "PHEV": {
+          "wholesale": 53.1689,
+          "retail": 37.7771,
+          "wsShare": 33.9,
+          "rtShare": 31.3
+        }
+      },
+      {
+        "label": "2025-12月",
+        "BEV": {
+          "wholesale": 94.0062,
+          "retail": 78.1565,
+          "wsShare": 66.4,
+          "rtShare": 65.6
+        },
+        "PHEV": {
+          "wholesale": 47.5608,
+          "retail": 41.0423,
+          "wsShare": 33.6,
+          "rtShare": 34.4
+        }
+      },
+      {
+        "label": "2026-1月",
+        "BEV": {
+          "wholesale": 51.1226,
+          "retail": 35.1567,
+          "wsShare": 65.1,
+          "rtShare": 67.8
+        },
+        "PHEV": {
+          "wholesale": 27.4255,
+          "retail": 16.69,
+          "wsShare": 34.9,
+          "rtShare": 32.2
+        }
+      },
+      {
+        "label": "2026-2月",
+        "BEV": {
+          "wholesale": 42.3697,
+          "retail": 28.1066,
+          "wsShare": 63.5,
+          "rtShare": 68.4
+        },
+        "PHEV": {
+          "wholesale": 24.3656,
+          "retail": 13.0148,
+          "wsShare": 36.5,
+          "rtShare": 31.6
+        }
+      },
+      {
+        "label": "2026-3月",
+        "BEV": {
+          "wholesale": 70.7215,
+          "retail": 57.8655,
+          "wsShare": 67.5,
+          "rtShare": 74.4
+        },
+        "PHEV": {
+          "wholesale": 34.0498,
+          "retail": 19.9219,
+          "wsShare": 32.5,
+          "rtShare": 25.6
+        }
+      },
+      {
+        "label": "2026-4月",
+        "BEV": {
+          "wholesale": 77.6673,
+          "retail": 57.8059,
+          "wsShare": 68.3,
+          "rtShare": 75.1
+        },
+        "PHEV": {
+          "wholesale": 36.1105,
+          "retail": 19.1725,
+          "wsShare": 31.7,
+          "rtShare": 24.9
+        }
+      },
+      {
+        "label": "2026-5月",
+        "BEV": {
+          "wholesale": 88.5937,
+          "retail": 63.7192,
+          "wsShare": 70.5,
+          "rtShare": 73.6
+        },
+        "PHEV": {
+          "wholesale": 37.1511,
+          "retail": 22.824,
+          "wsShare": 29.5,
+          "rtShare": 26.4
+        }
+      },
+      {
+        "label": "2026-6月",
+        "BEV": {
+          "wholesale": 98.0937,
+          "retail": 68.4571,
+          "wsShare": 70.7,
+          "rtShare": 74.0
+        },
+        "PHEV": {
+          "wholesale": 40.6104,
+          "retail": 24.0655,
+          "wsShare": 29.3,
+          "rtShare": 26.0
+        }
+      },
+      {
+        "label": "2026-7月",
+        "BEV": {
+          "wholesale": 95.7757,
+          "retail": 64.7161,
+          "wsShare": 71.2,
+          "rtShare": 74.7
+        },
+        "PHEV": {
+          "wholesale": 38.7499,
+          "retail": 21.8843,
+          "wsShare": 28.8,
+          "rtShare": 25.3
+        }
+      }
+    ],
+    "nevIce": [
+      {
+        "label": "2025-8月",
+        "NEV": {
+          "wholesale": 129.4166,
+          "retail": 111.4901,
+          "wsShare": 52.2,
+          "rtShare": 55.2
+        },
+        "ICE": {
+          "wholesale": 118.7003,
+          "retail": 90.3575,
+          "wsShare": 47.8,
+          "rtShare": 44.8
+        }
+      },
+      {
+        "label": "2025-9月",
+        "NEV": {
+          "wholesale": 149.3767,
+          "retail": 129.8529,
+          "wsShare": 53.4,
+          "rtShare": 57.9
+        },
+        "ICE": {
+          "wholesale": 130.2284,
+          "retail": 94.5129,
+          "wsShare": 46.6,
+          "rtShare": 42.1
+        }
+      },
+      {
+        "label": "2025-10月",
+        "NEV": {
+          "wholesale": 161.2213,
+          "retail": 128.2267,
+          "wsShare": 55.0,
+          "rtShare": 57.0
+        },
+        "ICE": {
+          "wholesale": 131.6776,
+          "retail": 96.789,
+          "wsShare": 45.0,
+          "rtShare": 43.0
+        }
+      },
+      {
+        "label": "2025-11月",
+        "NEV": {
+          "wholesale": 170.6382,
+          "retail": 132.074,
+          "wsShare": 56.9,
+          "rtShare": 59.3
+        },
+        "ICE": {
+          "wholesale": 129.1731,
+          "retail": 90.4666,
+          "wsShare": 43.1,
+          "rtShare": 40.7
+        }
+      },
+      {
+        "label": "2025-12月",
+        "NEV": {
+          "wholesale": 156.2813,
+          "retail": 133.6882,
+          "wsShare": 56.0,
+          "rtShare": 59.1
+        },
+        "ICE": {
+          "wholesale": 122.6848,
+          "retail": 92.4457,
+          "wsShare": 44.0,
+          "rtShare": 40.9
+        }
+      },
+      {
+        "label": "2026-1月",
+        "NEV": {
+          "wholesale": 86.4732,
+          "retail": 59.1814,
+          "wsShare": 43.8,
+          "rtShare": 38.5
+        },
+        "ICE": {
+          "wholesale": 110.8285,
+          "retail": 94.725,
+          "wsShare": 56.2,
+          "rtShare": 61.5
+        }
+      },
+      {
+        "label": "2026-2月",
+        "NEV": {
+          "wholesale": 72.0258,
+          "retail": 46.3209,
+          "wsShare": 47.5,
+          "rtShare": 44.9
+        },
+        "ICE": {
+          "wholesale": 79.5105,
+          "retail": 56.9257,
+          "wsShare": 52.5,
+          "rtShare": 55.1
+        }
+      },
+      {
+        "label": "2026-3月",
+        "NEV": {
+          "wholesale": 114.4031,
+          "retail": 85.1761,
+          "wsShare": 48.1,
+          "rtShare": 51.7
+        },
+        "ICE": {
+          "wholesale": 123.4009,
+          "retail": 79.4377,
+          "wsShare": 51.9,
+          "rtShare": 48.3
+        }
+      },
+      {
+        "label": "2026-4月",
+        "NEV": {
+          "wholesale": 122.4602,
+          "retail": 84.8085,
+          "wsShare": 58.0,
+          "rtShare": 61.3
+        },
+        "ICE": {
+          "wholesale": 88.5447,
+          "retail": 53.4377,
+          "wsShare": 42.0,
+          "rtShare": 38.7
+        }
+      },
+      {
+        "label": "2026-5月",
+        "NEV": {
+          "wholesale": 135.2027,
+          "retail": 95.017,
+          "wsShare": 61.0,
+          "rtShare": 62.9
+        },
+        "ICE": {
+          "wholesale": 86.2828,
+          "retail": 55.9863,
+          "wsShare": 39.0,
+          "rtShare": 37.1
+        }
+      },
+      {
+        "label": "2026-6月",
+        "NEV": {
+          "wholesale": 148.1452,
+          "retail": 100.6753,
+          "wsShare": 62.9,
+          "rtShare": 62.8
+        },
+        "ICE": {
+          "wholesale": 87.5515,
+          "retail": 59.5171,
+          "wsShare": 37.1,
+          "rtShare": 37.2
+        }
+      },
+      {
+        "label": "2026-7月",
+        "NEV": {
+          "wholesale": 144.5674,
+          "retail": 95.1277,
+          "wsShare": 64.2,
+          "rtShare": 65.1
+        },
+        "ICE": {
+          "wholesale": 80.5855,
+          "retail": 50.9664,
+          "wsShare": 35.8,
+          "rtShare": 34.9
+        }
+      }
+    ]
+  },
+  "segment": [
+    {
+      "label": "2025-8月",
+      "自主": {
+        "wholesale": 172.6852,
+        "retail": 132.5934,
+        "wsShare": 69.6,
+        "rtShare": 65.7
+      },
+      "德系": {
+        "wholesale": 31.3465,
+        "retail": 29.3654,
+        "wsShare": 12.6,
+        "rtShare": 14.5
+      },
+      "日系": {
+        "wholesale": 23.704,
+        "retail": 24.8655,
+        "wsShare": 9.6,
+        "rtShare": 12.3
+      },
+      "美系": {
+        "wholesale": 14.4007,
+        "retail": 11.7422,
+        "wsShare": 5.8,
+        "rtShare": 5.8
+      },
+      "韩系": {
+        "wholesale": 3.6234,
+        "retail": 1.5881,
+        "wsShare": 1.5,
+        "rtShare": 0.8
+      },
+      "法系": {
+        "wholesale": 0.2957,
+        "retail": 0.3223,
+        "wsShare": 0.1,
+        "rtShare": 0.2
+      },
+      "其他欧系": {
+        "wholesale": 2.0614,
+        "retail": 1.3707,
+        "wsShare": 0.8,
+        "rtShare": 0.7
+      }
+    },
+    {
+      "label": "2025-9月",
+      "自主": {
+        "wholesale": 196.5677,
+        "retail": 150.3577,
+        "wsShare": 70.3,
+        "rtShare": 67.0
+      },
+      "德系": {
+        "wholesale": 33.6941,
+        "retail": 31.9876,
+        "wsShare": 12.1,
+        "rtShare": 14.3
+      },
+      "日系": {
+        "wholesale": 27.0654,
+        "retail": 25.9419,
+        "wsShare": 9.7,
+        "rtShare": 11.6
+      },
+      "美系": {
+        "wholesale": 15.9594,
+        "retail": 12.9976,
+        "wsShare": 5.7,
+        "rtShare": 5.8
+      },
+      "韩系": {
+        "wholesale": 3.989,
+        "retail": 1.4805,
+        "wsShare": 1.4,
+        "rtShare": 0.7
+      },
+      "法系": {
+        "wholesale": 0.4021,
+        "retail": 0.3107,
+        "wsShare": 0.1,
+        "rtShare": 0.1
+      },
+      "其他欧系": {
+        "wholesale": 1.9274,
+        "retail": 1.2898,
+        "wsShare": 0.7,
+        "rtShare": 0.6
+      }
+    },
+    {
+      "label": "2025-10月",
+      "自主": {
+        "wholesale": 212.3682,
+        "retail": 154.2487,
+        "wsShare": 72.5,
+        "rtShare": 68.6
+      },
+      "德系": {
+        "wholesale": 31.6974,
+        "retail": 31.018,
+        "wsShare": 10.8,
+        "rtShare": 13.8
+      },
+      "日系": {
+        "wholesale": 28.3345,
+        "retail": 27.5299,
+        "wsShare": 9.7,
+        "rtShare": 12.2
+      },
+      "美系": {
+        "wholesale": 14.2739,
+        "retail": 8.4197,
+        "wsShare": 4.9,
+        "rtShare": 3.7
+      },
+      "韩系": {
+        "wholesale": 4.0153,
+        "retail": 1.9506,
+        "wsShare": 1.4,
+        "rtShare": 0.9
+      },
+      "法系": {
+        "wholesale": 0.364,
+        "retail": 0.3005,
+        "wsShare": 0.1,
+        "rtShare": 0.1
+      },
+      "其他欧系": {
+        "wholesale": 1.8456,
+        "retail": 1.5483,
+        "wsShare": 0.6,
+        "rtShare": 0.7
+      }
+    },
+    {
+      "label": "2025-11月",
+      "自主": {
+        "wholesale": 213.6389,
+        "retail": 149.1118,
+        "wsShare": 71.3,
+        "rtShare": 67.0
+      },
+      "德系": {
+        "wholesale": 33.6303,
+        "retail": 31.2217,
+        "wsShare": 11.2,
+        "rtShare": 14.0
+      },
+      "日系": {
+        "wholesale": 29.392,
+        "retail": 25.9291,
+        "wsShare": 9.8,
+        "rtShare": 11.7
+      },
+      "美系": {
+        "wholesale": 16.7273,
+        "retail": 12.4672,
+        "wsShare": 5.6,
+        "rtShare": 5.6
+      },
+      "韩系": {
+        "wholesale": 4.0456,
+        "retail": 1.9223,
+        "wsShare": 1.3,
+        "rtShare": 0.9
+      },
+      "法系": {
+        "wholesale": 0.4484,
+        "retail": 0.3254,
+        "wsShare": 0.1,
+        "rtShare": 0.1
+      },
+      "其他欧系": {
+        "wholesale": 1.9288,
+        "retail": 1.5631,
+        "wsShare": 0.6,
+        "rtShare": 0.7
+      }
+    },
+    {
+      "label": "2025-12月",
+      "自主": {
+        "wholesale": 190.9966,
+        "retail": 145.7351,
+        "wsShare": 68.5,
+        "rtShare": 64.4
+      },
+      "德系": {
+        "wholesale": 33.144,
+        "retail": 33.7323,
+        "wsShare": 11.9,
+        "rtShare": 14.9
+      },
+      "日系": {
+        "wholesale": 30.0748,
+        "retail": 27.2508,
+        "wsShare": 10.8,
+        "rtShare": 12.1
+      },
+      "美系": {
+        "wholesale": 17.9823,
+        "retail": 15.2611,
+        "wsShare": 6.4,
+        "rtShare": 6.7
+      },
+      "韩系": {
+        "wholesale": 3.8728,
+        "retail": 2.052,
+        "wsShare": 1.4,
+        "rtShare": 0.9
+      },
+      "法系": {
+        "wholesale": 0.4541,
+        "retail": 0.3461,
+        "wsShare": 0.2,
+        "rtShare": 0.2
+      },
+      "其他欧系": {
+        "wholesale": 2.4415,
+        "retail": 1.7565,
+        "wsShare": 0.9,
+        "rtShare": 0.8
+      }
+    },
+    {
+      "label": "2026-1月",
+      "自主": {
+        "wholesale": 132.3989,
+        "retail": 88.5391,
+        "wsShare": 67.1,
+        "rtShare": 57.5
+      },
+      "德系": {
+        "wholesale": 27.8168,
+        "retail": 30.5736,
+        "wsShare": 14.1,
+        "rtShare": 19.9
+      },
+      "日系": {
+        "wholesale": 18.3623,
+        "retail": 23.8958,
+        "wsShare": 9.3,
+        "rtShare": 15.5
+      },
+      "美系": {
+        "wholesale": 13.7248,
+        "retail": 7.5555,
+        "wsShare": 7.0,
+        "rtShare": 4.9
+      },
+      "韩系": {
+        "wholesale": 3.2181,
+        "retail": 1.8121,
+        "wsShare": 1.6,
+        "rtShare": 1.2
+      },
+      "法系": {
+        "wholesale": 0.4073,
+        "retail": 0.3904,
+        "wsShare": 0.2,
+        "rtShare": 0.3
+      },
+      "其他欧系": {
+        "wholesale": 1.3735,
+        "retail": 1.1399,
+        "wsShare": 0.7,
+        "rtShare": 0.7
+      }
+    },
+    {
+      "label": "2026-2月",
+      "自主": {
+        "wholesale": 107.2844,
+        "retail": 63.2788,
+        "wsShare": 70.8,
+        "rtShare": 61.3
+      },
+      "德系": {
+        "wholesale": 17.0102,
+        "retail": 18.8587,
+        "wsShare": 11.2,
+        "rtShare": 18.3
+      },
+      "日系": {
+        "wholesale": 12.5332,
+        "retail": 12.5541,
+        "wsShare": 8.3,
+        "rtShare": 12.2
+      },
+      "美系": {
+        "wholesale": 10.7223,
+        "retail": 6.8559,
+        "wsShare": 7.1,
+        "rtShare": 6.6
+      },
+      "韩系": {
+        "wholesale": 2.7924,
+        "retail": 1.0711,
+        "wsShare": 1.8,
+        "rtShare": 1.0
+      },
+      "法系": {
+        "wholesale": 0.2399,
+        "retail": 0.2128,
+        "wsShare": 0.2,
+        "rtShare": 0.2
+      },
+      "其他欧系": {
+        "wholesale": 0.9539,
+        "retail": 0.4152,
+        "wsShare": 0.6,
+        "rtShare": 0.4
+      }
+    },
+    {
+      "label": "2026-3月",
+      "自主": {
+        "wholesale": 160.8722,
+        "retail": 101.8497,
+        "wsShare": 67.6,
+        "rtShare": 61.9
+      },
+      "德系": {
+        "wholesale": 28.8034,
+        "retail": 26.3626,
+        "wsShare": 12.1,
+        "rtShare": 16.0
+      },
+      "日系": {
+        "wholesale": 26.4511,
+        "retail": 21.8747,
+        "wsShare": 11.1,
+        "rtShare": 13.3
+      },
+      "美系": {
+        "wholesale": 15.916,
+        "retail": 11.2469,
+        "wsShare": 6.7,
+        "rtShare": 6.8
+      },
+      "韩系": {
+        "wholesale": 3.4598,
+        "retail": 1.5112,
+        "wsShare": 1.5,
+        "rtShare": 0.9
+      },
+      "法系": {
+        "wholesale": 0.4078,
+        "retail": 0.3608,
+        "wsShare": 0.2,
+        "rtShare": 0.2
+      },
+      "其他欧系": {
+        "wholesale": 1.8937,
+        "retail": 1.4079,
+        "wsShare": 0.8,
+        "rtShare": 0.9
+      }
+    },
+    {
+      "label": "2026-4月",
+      "自主": {
+        "wholesale": 159.4137,
+        "retail": 96.3741,
+        "wsShare": 75.5,
+        "rtShare": 69.7
+      },
+      "德系": {
+        "wholesale": 17.7677,
+        "retail": 18.4242,
+        "wsShare": 8.4,
+        "rtShare": 13.3
+      },
+      "日系": {
+        "wholesale": 15.581,
+        "retail": 15.12,
+        "wsShare": 7.4,
+        "rtShare": 10.9
+      },
+      "美系": {
+        "wholesale": 13.6065,
+        "retail": 6.0358,
+        "wsShare": 6.4,
+        "rtShare": 4.4
+      },
+      "韩系": {
+        "wholesale": 3.0919,
+        "retail": 1.1432,
+        "wsShare": 1.5,
+        "rtShare": 0.8
+      },
+      "法系": {
+        "wholesale": 0.3169,
+        "retail": 0.2902,
+        "wsShare": 0.2,
+        "rtShare": 0.2
+      },
+      "其他欧系": {
+        "wholesale": 1.2272,
+        "retail": 0.8587,
+        "wsShare": 0.6,
+        "rtShare": 0.6
+      }
+    },
+    {
+      "label": "2026-5月",
+      "自主": {
+        "wholesale": 166.7489,
+        "retail": 103.8766,
+        "wsShare": 75.3,
+        "rtShare": 68.8
+      },
+      "德系": {
+        "wholesale": 18.8238,
+        "retail": 20.2336,
+        "wsShare": 8.5,
+        "rtShare": 13.4
+      },
+      "日系": {
+        "wholesale": 16.4388,
+        "retail": 15.8081,
+        "wsShare": 7.4,
+        "rtShare": 10.5
+      },
+      "美系": {
+        "wholesale": 14.2913,
+        "retail": 8.7604,
+        "wsShare": 6.5,
+        "rtShare": 5.8
+      },
+      "韩系": {
+        "wholesale": 3.8932,
+        "retail": 1.2543,
+        "wsShare": 1.8,
+        "rtShare": 0.8
+      },
+      "法系": {
+        "wholesale": 0.2792,
+        "retail": 0.2732,
+        "wsShare": 0.1,
+        "rtShare": 0.2
+      },
+      "其他欧系": {
+        "wholesale": 1.0103,
+        "retail": 0.7971,
+        "wsShare": 0.5,
+        "rtShare": 0.5
+      }
+    },
+    {
+      "label": "2026-6月",
+      "自主": {
+        "wholesale": 178.276,
+        "retail": 109.9981,
+        "wsShare": 75.6,
+        "rtShare": 68.7
+      },
+      "德系": {
+        "wholesale": 19.6921,
+        "retail": 20.5105,
+        "wsShare": 8.4,
+        "rtShare": 12.8
+      },
+      "日系": {
+        "wholesale": 16.9509,
+        "retail": 17.6722,
+        "wsShare": 7.2,
+        "rtShare": 11.0
+      },
+      "美系": {
+        "wholesale": 15.1188,
+        "retail": 9.1622,
+        "wsShare": 6.4,
+        "rtShare": 5.7
+      },
+      "韩系": {
+        "wholesale": 4.3075,
+        "retail": 1.5286,
+        "wsShare": 1.8,
+        "rtShare": 1.0
+      },
+      "法系": {
+        "wholesale": 0.2337,
+        "retail": 0.2554,
+        "wsShare": 0.1,
+        "rtShare": 0.2
+      },
+      "其他欧系": {
+        "wholesale": 1.1177,
+        "retail": 1.0654,
+        "wsShare": 0.5,
+        "rtShare": 0.7
+      }
+    },
+    {
+      "label": "2026-7月",
+      "自主": {
+        "wholesale": 173.4585,
+        "retail": 103.8336,
+        "wsShare": 77.0,
+        "rtShare": 71.1
+      },
+      "德系": {
+        "wholesale": 18.6975,
+        "retail": 18.1439,
+        "wsShare": 8.3,
+        "rtShare": 12.4
+      },
+      "日系": {
+        "wholesale": 13.8712,
+        "retail": 15.953,
+        "wsShare": 6.2,
+        "rtShare": 10.9
+      },
+      "美系": {
+        "wholesale": 14.6948,
+        "retail": 6.0961,
+        "wsShare": 6.5,
+        "rtShare": 4.2
+      },
+      "韩系": {
+        "wholesale": 3.4408,
+        "retail": 1.313,
+        "wsShare": 1.5,
+        "rtShare": 0.9
+      },
+      "法系": {
+        "wholesale": 0.2411,
+        "retail": 0.2022,
+        "wsShare": 0.1,
+        "rtShare": 0.1
+      },
+      "其他欧系": {
+        "wholesale": 0.749,
+        "retail": 0.5523,
+        "wsShare": 0.3,
+        "rtShare": 0.4
+      }
+    }
+  ],
+  "errors": [],
+  "nevMaker": {
+    "period": "2026年7月",
+    "verifiedOn": "2026-09-02",
+    "unit": "辆",
+    "autoFetched": false,
+    "wholesale": {
+      "title": "新能源乘用车厂商批发销量 TOP10",
+      "caliber": "狭义乘用车批发销量（含出口，非终端交付）",
+      "sourceName": "盖世汽车（转载乘联会终稿数据）",
+      "sourceUrl": "https://m.gasgoo.com/qcxl/article/81426.html",
+      "rows": [
+        {
+          "rank": 1,
+          "name": "比亚迪汽车",
+          "units": 410612,
+          "cumulative": 2187987,
+          "yoy": 20.4,
+          "mom": 3.35
+        },
+        {
+          "rank": 2,
+          "name": "吉利汽车",
+          "units": 163678,
+          "cumulative": 1713591,
+          "yoy": -32.85,
+          "mom": -33.99
+        },
+        {
+          "rank": 3,
+          "name": "奇瑞汽车",
+          "units": 108014,
+          "cumulative": 1427119,
+          "yoy": -48.58,
+          "mom": -48.24
+        },
+        {
+          "rank": 4,
+          "name": "零跑汽车",
+          "units": 101267,
+          "cumulative": 457754,
+          "yoy": 102.01,
+          "mom": 8.45
+        },
+        {
+          "rank": 5,
+          "name": "特斯拉汽车",
+          "units": 93579,
+          "cumulative": 561528,
+          "yoy": 37.85,
+          "mom": 5.04
+        },
+        {
+          "rank": 6,
+          "name": "上汽通用五菱",
+          "units": 61539,
+          "cumulative": 494434,
+          "yoy": -20.3,
+          "mom": -30.01
+        },
+        {
+          "rank": 7,
+          "name": "长安汽车",
+          "units": 60977,
+          "cumulative": 722387,
+          "yoy": -55.32,
+          "mom": -45.31
+        },
+        {
+          "rank": 8,
+          "name": "上汽乘用车",
+          "units": 59406,
+          "cumulative": 701568,
+          "yoy": -17.26,
+          "mom": -51.74
+        },
+        {
+          "rank": 9,
+          "name": "长城汽车",
+          "units": 40140,
+          "cumulative": 582891,
+          "yoy": -55.69,
+          "mom": -57.3
+        },
+        {
+          "rank": 10,
+          "name": "小鹏汽车",
+          "units": 38027,
+          "cumulative": 204004,
+          "yoy": 3.57,
+          "mom": -5.23
+        }
+      ]
+    },
+    "retail": {
+      "title": "新能源乘用车厂商零售销量 TOP10",
+      "caliber": "国内零售口径（上牌/开票，不含出口）",
+      "sourceName": "网通社汽车（转载乘联会）、新浪汽车",
+      "sourceUrl": "https://auto.news18a.com/news/storys_285699.html",
+      "extraSourceUrl": "https://www.sina.cn/gc/article/ninhait2961667.html",
+      "rows": [
+        {
+          "rank": 1,
+          "name": "比亚迪汽车",
+          "units": 223461,
+          "cumulative": null,
+          "yoy": -0.45,
+          "mom": null
+        },
+        {
+          "rank": 2,
+          "name": "吉利汽车",
+          "units": 105526,
+          "cumulative": null,
+          "yoy": -2.3,
+          "mom": null
+        },
+        {
+          "rank": 3,
+          "name": "零跑汽车",
+          "units": 83698,
+          "cumulative": null,
+          "yoy": 15.6,
+          "mom": null
+        },
+        {
+          "rank": 4,
+          "name": "长安汽车",
+          "units": 59907,
+          "cumulative": null,
+          "yoy": null,
+          "mom": null
+        },
+        {
+          "rank": 5,
+          "name": "上汽通用五菱",
+          "units": 48967,
+          "cumulative": null,
+          "yoy": null,
+          "mom": null
+        },
+        {
+          "rank": 6,
+          "name": "鸿蒙智行",
+          "units": 45422,
+          "cumulative": null,
+          "yoy": null,
+          "mom": null
+        },
+        {
+          "rank": 7,
+          "name": "奇瑞汽车",
+          "units": 39079,
+          "cumulative": null,
+          "yoy": null,
+          "mom": null
+        },
+        {
+          "rank": 8,
+          "name": "蔚来汽车",
+          "units": 35842,
+          "cumulative": null,
+          "yoy": null,
+          "mom": null
+        },
+        {
+          "rank": 9,
+          "name": "上汽乘用车",
+          "units": 31471,
+          "cumulative": null,
+          "yoy": null,
+          "mom": null
+        },
+        {
+          "rank": 10,
+          "name": "小米汽车",
+          "units": 31267,
+          "cumulative": null,
+          "yoy": null,
+          "mom": null
+        }
+      ]
+    },
+    "notes": [
+      "批发榜与零售榜成员差异很大，这是正常的：批发含出口，零售只算国内上牌。",
+      "小鹏 7月全球交付 38,027 辆，但其中近 1 万辆来自出口，国内零售仅 28,327 辆，故未进零售榜前十。",
+      "蔚来、小米只出现在零售榜而未进批发榜前十，是两家媒体各自榜单口径与名单长度不同所致，非数据矛盾。"
+    ]
+  },
+  "crossCheck": [
+    "交叉校验通过 比亚迪汽车：接口 410612 辆 ≈ 快照 410612 辆",
+    "交叉校验通过 零跑汽车：接口 101267 辆 ≈ 快照 101267 辆",
+    "交叉校验通过 特斯拉汽车：接口 93579 辆 ≈ 快照 93579 辆"
+  ]
+}

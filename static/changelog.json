@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-09-14",
+    "content": "2026-09-14 午班（14:00）自动更新：带当日日期复搜并≥2源交叉验证，本班新增 4 板块 distinct 新稿——特斯拉（Cybercab 9/17-27 京沪静态展示）、苹果（iPhone 18 标准版推迟至2027春）、中药材（岷县当归黄芪党参疲软/白芷白术产新承压）、漫威票房（刷新9/14口径：全球约24.5亿、北美距影史纪录仅$1.5M）。台风续验确认『贝碧嘉』系2024年台风（中央气象台2026列表不含）、排除为旧稿重投陷阱，维持射阳低风险；其余9板块（游戏主机/FSD/紫砂/文玩/养生茶/射阳/ChinaJoy/漫威宇宙/台风）早班已精准覆盖当日头条，合法沿用、未重复前置。"
+  },
+  {
     "date": "2026-09-14 13:15",
     "content": "🤖 新闻补漏接力（13:11 轮·体检后仅做字段修复）：① 体检结果——12 个板块 updated 全部已到 2026-09-14，日期落后板块 0 个，按接力规则第 2 条不做全量补稿；内容层复核显示 11 个带 news 数组的板块今日条目合计 16 条（tesla 2、apple 3、console 2、marvel 2，bracelet/herbs/zisha/fsd/health-tea/sheyang/chinajoy 各 1），均有 09-14 当日稿，跨日期重复 content 前缀 0 条，无「改日期冒充新稿」。② 本轮唯一改动（缺陷修复，非补稿）——质检发现全站仅 2 条今日条目缺 url 与 sources 字段、来源只内嵌在正文里，与其余 86 条条目的字段结构不一致：FSD 板 #0「FSD v15 参数十倍」已补齐 url = Not a Tesla App《Tesla Robotaxis to Get FSD V15, Start 24/7 Rides Next Month》（另交叉 Tesla Briefing、Pivot News、新浪汽车），主机板 #1「Dragonwilds 明日 1.0」已补齐 url = Jagex 官方公告（另交叉 PlayStation Blog、Xbox Wire、Game Launch Hub、GPDS GAME SHOP）；两条链接均经本轮实时检索复核为真实可达，正文内容一字未改。③ 未处理（无需处理）板块：tesla、herbs、bracelet、zisha、marvel、boxoffice、health-tea、sheyang、chinajoy、apple —— 原因是 updated 已到今日且当日已有经 ≥2 源交叉的稿件，按铁律不无源凑数；其中 marvel-boxoffice.json 为票房数据对象（无 news 数组，updated 为 ISO 时间戳 2026-09-14T07:30:00+08:00），属 schema 差异而非落后。④ 合规声明：本轮未编造任何数字、日期或来源；FSD 面向消费车的 v15 推送时间、Robotaxi 24/7 起始月份、Jagex 2027 路线图等远期规划一律保留「待官方确认」标注。提交 8ac3ff62。"
   },

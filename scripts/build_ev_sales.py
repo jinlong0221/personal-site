@@ -53,6 +53,20 @@ def esc(s):
     return H.escape(str(s if s is not None else ''), quote=True)
 
 
+def src2_html(block):
+    """
+    第二个独立来源的链接片段。
+    链接文字必须取自数据里的 extraSourceName，绝不写死某个媒体名 ——
+    否则换源后会出现「文字写 A、链接指向 B」的假出处。
+    """
+    url = block.get('extraSourceUrl')
+    name = block.get('extraSourceName') or '第二来源'
+    if not url:
+        return ''
+    return ('\n        、<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>'
+            % (esc(url), esc(name)))
+
+
 def fmt(v, nd=2):
     """数字格式化：None 一律显示占位符，绝不编造。"""
     if v is None:
@@ -524,17 +538,17 @@ def build_body(d):
     <div class="ev-panel active" id="evp-w" role="tabpanel" aria-labelledby="evtab-w" tabindex="0">
       <p class="ev-panel-note">口径：{ws_cal}</p>
       {ws_html}
-      <p class="ev-src">来源：<a href="{ws_url}" target="_blank" rel="noopener noreferrer">{ws_src}</a>
+      <p class="ev-src">来源：<a href="{ws_url}" target="_blank" rel="noopener noreferrer">{ws_src}</a>{ws_src2_html}
         · 人工核对日期 {verified}</p>
     </div>
 
     <div class="ev-panel" id="evp-r" role="tabpanel" aria-labelledby="evtab-r" tabindex="0">
       <p class="ev-panel-note">口径：{rt_cal}</p>
       {rt_html}
-      <p class="ev-note">零售榜的「同比 / 环比」来源媒体未披露，表中以「—」表示，并非数据缺失。</p>
-      <p class="ev-src">来源：<a href="{rt_url}" target="_blank" rel="noopener noreferrer">{rt_src}</a>
-        、<a href="{rt_url2}" target="_blank" rel="noopener noreferrer">新浪汽车</a>
-        （均转载乘联会数据，两家报道逐位比对一致）· 人工核对日期 {verified}</p>
+      <p class="ev-note">两张榜的「本年累计 / 同比 / 环比」若来源方未逐家披露，表中以「—」表示，
+        宁可留空也不推算，并非数据缺失。</p>
+      <p class="ev-src">来源：<a href="{rt_url}" target="_blank" rel="noopener noreferrer">{rt_src}</a>{rt_src2_html}
+        （均转载乘联分会终稿，多源逐位比对一致）· 人工核对日期 {verified}</p>
     </div>
 
     {cross_html}
@@ -617,11 +631,12 @@ def build_body(d):
         ws_html=ws_html,
         ws_url=esc(ws.get('sourceUrl') or '#'),
         ws_src=esc(ws.get('sourceName') or ''),
+        ws_src2_html=src2_html(ws),
         rt_cal=esc(rt.get('caliber') or ''),
         rt_html=rt_html,
         rt_url=esc(rt.get('sourceUrl') or '#'),
-        rt_url2=esc(rt.get('extraSourceUrl') or '#'),
         rt_src=esc(rt.get('sourceName') or ''),
+        rt_src2_html=src2_html(rt),
         verified=esc(nm.get('verifiedOn') or ''),
         notes_html=notes_html,
         cross_html=cross_html,

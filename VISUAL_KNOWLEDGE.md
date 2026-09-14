@@ -56,6 +56,8 @@
 - **滑块旋钮居中偏移公式（2026-09-01 补）**：webkit range 自定义轨道后，旋钮默认贴在轨道顶部，**必须** `::-webkit-slider-thumb{margin-top:(trackHeight − thumbHeight)/2}` 才居中。本站 `tf-range` 轨道 5px、默认旋钮 16px → `margin-top:-5.5px`（**非 -8.5px**，多偏 3px 会把旋钮顶出可见轨道）。moz 端 `::-moz-range-thumb` 自动居中，无需 margin。
 - **根副本 `css/style.css` 缺失（2026-09-01 修复）**：本站双副本机制要求「源码 `css/` 与 `static/css/` 保持同步」（head.html 以 `{{ .Site.BaseURL }}css/style.css` 引用，hugo 构建自 `static/css/style.css` → `public/css/style.css`）。巡检发现仓库根 `css/` 目录丢失，仅剩 `static/css/style.css`，双副本断裂。已 `mkdir css && cp static/css/style.css css/style.css` 恢复根副本，今后改 CSS 须两处同步。⚠️ 此根副本**不进 public 部署**，仅作源码镜像与 diff 基准，别误删。
 - **闭包作用域 ReferenceError 会中断整段初始化（2026-09-08 发现，P0 严重）**：`js/hero.js` 在 `init()` 里引用仅定义于嵌套函数 `setup(slides, updated)` 形参的 `updated`，`"use strict"` 下抛 `ReferenceError: updated is not defined` → `init` 中断、首页头图轮播静默失效（09-07 引入「更新于」功能起约 1 天，用户无感但属功能层视觉缺失）。⚠️ **教训**：① 用到变量前必须确认它在当前作用域已声明，外层函数不可引用内层函数形参；② 无头探针的 `pageerror` 监听器是抓这类"功能层视觉缺失"的关键——一个被抛出的脚本错误会让依赖它的整块 UI（轮播/标签）不渲染，肉眼难察但属 P0；③ 修复优先级：把逻辑移入变量确有定义的作用域，而非在外层补 `var updated`（那会拿到 `undefined` 而非接口值）。
+- **同语义链接色须统一 var()、勿硬编码 hex（2026-09-15 发现，一致性）**：全站"联系邮箱链接"颜色约定为 `--email-green`（#42B883 / 昼白 #1A6E44），404.html 与 apple.html 均遵守；但 about.html 联系邮箱曾硬编码 `#1565C0` 蓝，属"同语义不同色"漂移。⚠️ **教训**：站内既有"语义色约定"（邮箱=绿、强调=金）应一律 `var()` 化、复制既有片段时务必对齐约定。**同轮把 404.html 龙形 SVG 渐变 100% 停靠点 `#e0c97a`→`var(--gold-light)`**，与 0% 停靠点 `var(--gold)` 同为调色板变量——提醒：**SVG 内联 `style="stop-color:..."` 也要走 var()**，不要裸 hex（裸 hex 在调色板演进/主题切换时会脱节）。
+- **板块主题色（多色磁贴）与全局金主调的边界（2026-09-15 明确）**：`chinajoy.html` 用内联 `--hall:#4f46e5/#c2410c/#0f766e/#7e22ce` 四色磁贴标签，属该板块自有的"展会分馆"多色体系；`console-*.html` 产品图框 `background:#fff` 为中性白底框（非暖、非装饰）；`console-gc/n64` 降级提示 `color:#666/#888` 为中性灰字。三者均**非大面积高饱和暖色**（探针 warm=0 佐证），与"国风黑金主调"不冲突——沿用"板块主题色已知接受、勿盲改"准则维持。判定红线仍是：整屏/通栏 + 高饱和暖色 = P0；小尺寸语义编码色 / 板块内功能性多色 = 接受。
 
 ## 七、无头浏览器验证方法论（托尼自用）
 
@@ -159,3 +161,18 @@
 - **版本戳**：本次仅改 `hero.js`（非 CSS），故 `style.css?v=20260907` 维持不动；`hero.js?v=20260908` 已 bump。
 - **知识储备增量**：本节 + 第六节「闭包作用域 ReferenceError 中断初始化」一条 + 第七节补「pageerror 监听器是抓功能层视觉缺失的关键」。
 - 交付门槛：视觉层面 **P0=P1=0** ✅（连续 5 周达标：08-25 / 08-28 / 08-30 / 09-01 / **09-08**）。
+
+## 十六、本周（2026-09-15）巡检结论速记
+
+- **规模**：本轮构建 15 个 Hugo 页 + 1002 静态文件，全站 `public/` 共 **194 个 HTML**；探针 **6 视口 × 2 主题 = 2328 组合**（实测 combos=2328 / pages=194），puppeteer-core + chrome-headless-shell mac-149。
+- **硬指标（首轮即达标，无需返修 P0/P1）**：文档级 `scrollWidth - innerWidth` 全 = 0；祖先感知元素溢出 = 0；大面积暖色扫描 = 0；JS 报错 = 0；goto 错误 = 0。四类硬指标**首轮全绿**，无需迭代即可收工。
+- **自 09-08 以来视觉改动复盘（均经探针复验无 glitch）**：期间累计 60+ commits，视觉相关大项包括——① 苹果板块大改版（"苹果式克制"：明暗背景交替、展品化图集、参数表，强调色用 `--blue` 蓝，与国风金主调并存无冲突）；② 顶栏站名统一为「龙兄」（181 个 static 页 + navbar 模板，`647a9412`）；③ 深色模式"黑底黑字"对比度修复（`b9b8c2c3`，全站文字对比度达标）；④ 导航重构（"更多"纯图标按钮、`f2bce134`；logo 桌面禁收缩 / 自适应收纳 `6fb10455`）；⑤ 主机图鉴配图大修（38+ 张占位假图换 Pexels/Wikimedia 实拍真机图，消除"照片贴上去"违和感）；⑥ 全站 CSP 注入修复（`7e395175`，保留各页专属令牌 + 修正哈希双重前缀）；⑦ 首页 `body` 加 `lx-dock` 让位 padding 修末尾内容被遮挡（`328281ed`）；⑧ 桌面端侧目录在 901–1628px 遮挡正文→改 1629px 起显示、以下用底部目录条（`a6c6a508`）。以上改动经本轮 2328 组合探针验证：无溢出、无暖色、无 JS 报错。
+- **本轮实修缺陷（2 类，极小一致性修复，非 P0/P1，属"统一/协调"范畴）**：
+  1. **about.html 联系邮箱硬编码蓝 → `--email-green`（一致性）**：联系邮箱链接全站约定色为 `--email-green`（404.html / apple.html 均遵守），但 about.html 邮箱 `<p>` 曾硬编码 `color:#1565C0` 蓝，属"同语义不同色"漂移。改为 `color:var(--email-green)` 对齐约定（见第六节新增条目）。
+  2. **404.html 龙形 SVG 渐变停靠点 `#e0c97a` → `var(--gold-light)`（一致性）**：该龙形渐变 0% 停靠点已用 `var(--gold)`，100% 停靠点却裸 hex `#e0c97a`（= `--gold-light`）——同梯度内变量/裸值混用。改为 `var(--gold-light)` 统一走调色板（见第六节"SVG 内联 stop-color 也要 var()"）。
+- **配色系统复核（无破绽）**：static/*.html 共 98 处内联 `style`，几乎全部 `var()` 驱动；`--blue/--blue-light/--email-green/--text-muted/--text-secondary/--text/--border/--card-hover/--radius-sm/--card-bg/--gold-text` 等全部在墨夜+昼白双主题 `:root` 内定义（**无未定义 var 破绽**，探针 undefined 衍生度量 0）；`apple.html:733 color:#fff` 为蓝按钮白字、属板上强调色、非暖；`console-*.html background:#fff` 为产品图中性白底框；`console-gc/n64 color:#666/#888` 为降级提示灰字——三者中性非暖，按"板块功能性中性色"维持。
+- **板块主题色边界（本轮明确）**：`chinajoy.html` 内联 `--hall:#4f46e5/#c2410c/#0f766e/#7e22ce` 四色磁贴属"展会分馆"既定多色体系，探针 warm=0 佐证非大面积暖色，与金主调不冲突，沿用"板块主题色已知接受"维持（详见第六节第三条）。
+- **卡片系统**：`.lx-card` / `.lx-epick` / `.artist-card` 跨页一致、无内联重定义漂移；苹果板块"苹果式克制"采用语义 `--blue` 强调而非自起一套，探针无溢出确认协调。
+- **版本戳**：本轮仅改 static HTML 内联（非 CSS），`style.css?v=20260908` 维持不动；重建即生效（static 文件由 Hugo 直拷 public）。
+- **知识储备增量**：第六节新增 3 条（邮箱链接色统一 / SVG 渐变 var() 化 / 板块主题色边界）；本节为第 16 次巡检结论。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 6 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / **09-15**）。

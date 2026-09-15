@@ -1,6 +1,30 @@
 {
-  "updated": "2026-09-15",
+  "updated": "2026-09-16",
   "news": [
+    {
+      "date": "09-16",
+      "tags": [
+        {
+          "text": "特斯拉官宣无障碍案例",
+          "class": "hot"
+        },
+        {
+          "text": "FSD Supervised",
+          "class": "info"
+        },
+        {
+          "text": "马斯克转发",
+          "class": "info"
+        }
+      ],
+      "content": "9月16日（特斯拉官方 X 账号 @Tesla 2026-09-15 发布、埃隆·马斯克同日转发、TeslaNorth 2026-09-15 报道 多源交叉）特斯拉官方账号于 9月15日 发布视频，讲述出生即无双臂的车主 John Foppe 使用 FSD Supervised（受监督版完全自动驾驶）出行的真实案例。Foppe 驾驶特斯拉已超过七年，如今依靠 FSD Supervised 完成日常通勤与长途探亲——包括每日往返其非营利机构的工作岗位，以及驾车 500 多英里探望女儿。特斯拉在官方文案中强调，FSD Supervised 让他无需依靠传统方向盘操作即可在路上通行；马斯克在数分钟后以爱心表情转发了同一段视频，令这一无障碍视角同时出现在特斯拉与马斯克的主信息流中。特斯拉方面未在本次发布中说明 Foppe 车辆所运行的具体软件栈。目前 Hardware 4 车主获得的是 v14.3.x 系列（含 v14.3.7）的 FSD Supervised 版本，而大量 Hardware 3 车辆则通过 2026.21.6 软件路径运行 FSD Supervised v14.1 Lite。需要说明的是，Supervised 仍意味着驾驶员需保持注意并承担主体责任，该功能不等于无人驾驶；相关功能的可用性与推送范围仍取决于研发进度与行政审批，以官方公布为准。",
+      "url": "https://teslanorth.com/2026/09/15/tesla-fsd-driver-born-without-arms",
+      "sources": [
+        "特斯拉官方 X 账号 @Tesla（2026-09-15）：发布无臂车主 John Foppe 使用 FSD Supervised 通勤与 500 余英里探亲的官方视频",
+        "埃隆·马斯克 X 账号（2026-09-15）：数分钟后以爱心表情转发同一视频",
+        "TeslaNorth（2026-09-15 报道）：补充 HW4 车主运行 v14.3.x（含 v14.3.7）、HW3 车辆经 2026.21.6 路径运行 v14.1 Lite，官方未说明 Foppe 所用软件栈"
+      ]
+    },
     {
       "date": "09-15",
       "tags": [
@@ -168,31 +192,6 @@
         "Tesla Briefing（2026-09-12《Tesla's Automatic Collision Evasion sparks debate — paywalled, HW4-only》：ACE 随 FSD 14.3.9 于 9 月 4 日上线、仅限 FSD 订阅 + AI4/HW4、HW3 与非订阅不可用、特斯拉未正式回应）",
         "The Hindu 技术通讯（NHTSA 确认就 Cybercab 自我认证展开调查、同时评估逾 300 万辆车的 FSD 低能见度表现）",
         "ET Auto 转 Reuters（豁免路径年上限 2500 辆、Zoox 四年流程与 2026 年 7 月 30 日获批先例、南卡罗来纳大学法学教授 Bryant Walker Smith 评论）"
-      ]
-    },
-    {
-      "date": "09-12",
-      "tags": [
-        {
-          "text": "美国监管加压",
-          "class": "warn"
-        },
-        {
-          "text": "NHTSA查320万辆",
-          "class": "hot"
-        },
-        {
-          "text": "睡觉驾驶视频",
-          "class": "info"
-        }
-      ],
-      "content": "9月12日（美国众议员官网 krishnamoorthi.house.gov 官方信函、Electrek 9/10、MotorTimes 9/11、腾讯新闻 9/11 多源交叉）特斯拉 FSD 在美国面临监管加压。伊利诺伊州民主党众议员 Raja Krishnamoorthi 于 9月9日致信交通部长 Sean Duffy，援引 NBC 调查披露的 43 段司机在行驶中特斯拉内疑似熟睡视频（其中 17 段发布于 2026 年），要求 NHTSA 在 9月30日前答复五大问题：是否知悉此类视频、是否构成系统性监控漏洞、是否与特斯拉沟通、2024 年以来事故数据、车内摄像头（墨镜/遮挡可绕过）有效性及何种结论会触发召回。背景：NHTSA 对约 320 万辆搭载 FSD 的特斯拉的工程分析（EA26002）已于 3 月升级为召回前最后阶段，已确认 9 起低能见度事故（含 1 死 1 伤）。议员另质疑特斯拉提示「检测到困倦，请用 FSD 保持专注」可能反向鼓励疲劳驾驶。⚠️ 该事件与 FSD 中国入华是两条独立监管线，均属进展性事实，本站持续跟踪。",
-      "url": "https://krishnamoorthi.house.gov/media/press-releases/krishnamoorthi-demands-nhtsa-action-after-tesla-drivers-caught-sleeping-behind",
-      "sources": [
-        "美国众议员 Raja Krishnamoorthi 官网信函（2026-09-09，致交通部长、五问 NHTSA、43 段睡觉驾驶视频）",
-        "Electrek（2026-09-10，EA26002 工程分析覆盖约 320 万辆、9 起事故含 1 死 1 伤）",
-        "MotorTimes（2026-09-11，9/9 致信、9/30 截止、NHTSA 现状）",
-        "腾讯新闻转译（2026-09-11，中文综述）"
       ]
     }
   ]

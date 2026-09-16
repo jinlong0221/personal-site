@@ -66,7 +66,7 @@ FILE_CAT = {
 DIR_CAT = {
     "herbs": "中药材香料", "bracelet": "文玩手串", "zisha": "紫砂", "tesla": "特斯拉",
     "health-tea": "养生茶", "marvel": "漫威", "apple": "苹果", "chinajoy": "ChinaJoy",
-    "console": "主机图鉴", "games": "游戏测评", "gaokao": "高考志愿",
+    "console": "主机图鉴", "games": "玩过的游戏", "gaokao": "高考志愿",
     "guanghui": "光辉电力", "pitfalls": "踩坑记", "sheyang": "射阳本地民生",
     "typhoon": "射阳气象", "xintan-weather": "射阳气象", "original": "原创",
     "pages": "紫砂",
@@ -77,7 +77,7 @@ DIR_CAT = {
 PREFIX_CAT = [
     ("console-", "主机图鉴"),
     ("pages/zisha/", "紫砂"),
-    ("games/", "游戏测评"),
+    ("games/", "玩过的游戏"),
     ("tesla/", "特斯拉"),
     ("bracelet/", "文玩手串"),
 ]

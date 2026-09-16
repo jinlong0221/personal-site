@@ -1057,7 +1057,7 @@ button, .btn, a.btn, .copy-btn, .search-modal-close, .hamburger {
 
 /* [BUG-FIX:四-2] 加宽手机文字留白 */
 
-/* 游戏测评卡片 - 主题感知 */
+/* 玩过的游戏卡片 - 主题感知 */
 .tile-game {
   background: #1a1a2e !important;
 }
@@ -5851,6 +5851,13 @@ input.tf-range::-moz-range-thumb{ -webkit-appearance:none; appearance:none; }
 .nav-more-hd:first-child{border-top:none;padding-top:6px}
 .nav-more-dropdown a{padding-left:18px}
 .mobile-nav .nav-hd{display:block;padding:14px 16px 5px;font-size:.75rem;font-weight:600;letter-spacing:.06em;color:var(--gold);opacity:.9}
+/* 独立入口分隔线：导航末尾的「家庭旅行」等隐私入口，刻意低调、不与主题类目混排 */
+.nav-more-div{display:block;height:1px;background:var(--border);margin:6px 12px;opacity:.55}
+.nav-hd-div{display:block;height:1px;background:var(--rule-soft);margin:8px 0 4px;opacity:.45}
+/* 首页独立入口：加密相册（不归入任一主题类目，低调呈现） */
+.lx-private{display:flex;justify-content:center;padding:2px 0 16px;margin-top:-4px}
+.lx-private-link{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;color:var(--text-muted);text-decoration:none;opacity:.6;transition:opacity var(--transition),color var(--transition)}
+.lx-private-link:hover{opacity:1;color:var(--gold)}
 /* ===== 首页卡片 · 内容标识（实时 / 自动更新） =====
    让读者一眼看出哪些栏目是「活的」：is-live = 打开即取最新数据（气象/台风/充电桩），
    无类名 = 编辑与自动化定期刷新（各资讯板）。放在 .lx-card-ft 左侧，右侧仍是「阅读 ❯」。 */

@@ -31,7 +31,7 @@
       title: '游戏影游',
       items: [
         ['主机图鉴', 'console.html'],
-        ['游戏测评', 'games.html'],
+        ['玩过的游戏', 'games.html'],
         ['ChinaJoy', 'chinajoy.html'],
         ['漫威宇宙', 'marvel.html']
       ]
@@ -60,8 +60,13 @@
         ['踩坑记', 'pitfalls.html'],
         ['更新日志', 'changelog.html'],
         ['站点状态', 'status-history.html'],
-        ['家庭旅行', 'travel.html'],
         ['关于本站', 'about.html']
+      ]
+    },
+    {
+      title: '私密',
+      items: [
+        ['家庭旅行', 'travel.html']
       ]
     }
   ];

@@ -41,7 +41,7 @@ CATEGORIES = [
     ]),
     ("游戏影游", [
         ("console.html", "主机图鉴"),
-        ("games.html", "游戏测评"),
+        ("games.html", "玩过的游戏"),
         ("chinajoy.html", "ChinaJoy 成长史"),
         ("marvel.html", "漫威宇宙"),
     ]),
@@ -62,10 +62,13 @@ CATEGORIES = [
         ("pitfalls.html", "踩坑记"),
         ("changelog.html", "更新日志"),
         ("status-history.html", "站点状态"),
-        ("travel.html", "家庭旅行"),
         ("about.html", "关于本站"),
         ("rss.xml", "RSS 订阅"),
     ]),
+]
+# 独立入口：刻意低调、不归入任一主题类目（加密相册等隐私内容）
+INDEPENDENT = [
+    ("travel.html", "家庭旅行"),
 ]
 # 顶栏直达：每个类目一个入口（指向该类目旗舰页），顺序即展示顺序
 DESKTOP = [
@@ -103,6 +106,10 @@ def build_nav(prefix, active_bare):
         _drop.append(f'          <span class="nav-more-hd">{_cat}</span>')
         for t, name in _items:
             _drop.append(f'          <a href="{href(t)}"{cls(t)}>{name}</a>')
+    if INDEPENDENT:
+        _drop.append('          <span class="nav-more-div"></span>')
+        for t, name in INDEPENDENT:
+            _drop.append(f'          <a href="{href(t)}"{cls(t)}>{name}</a>')
     drop_links = "\n".join(_drop)
     # 移动端：首页 + 分组标题 + 成员
     _home = href("index.html")
@@ -110,6 +117,10 @@ def build_nav(prefix, active_bare):
     for _cat, _items in CATEGORIES:
         _mob.append(f'  <span class="nav-hd">{_cat}</span>')
         for t, name in _items:
+            _mob.append(f'  <a href="{href(t)}">{name}</a>')
+    if INDEPENDENT:
+        _mob.append('  <span class="nav-hd-div"></span>')
+        for t, name in INDEPENDENT:
             _mob.append(f'  <a href="{href(t)}">{name}</a>')
     mob_links = "\n".join(_mob)
     return f'''<nav class="navbar" role="navigation" aria-label="主导航">

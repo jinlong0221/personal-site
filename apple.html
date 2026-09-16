@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略 -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>苹果新品 · 国内外全网实时监测详细科普｜龙兄知识库</title>
+<meta name="keywords" content="苹果新品 · 国内外全网实时监测,实测溯源,避坑指南,图文科普,龙兄知识库">
+
+<meta name="description" content="苹果新品 · 国内外全网实时监测详细科普：实测溯源、实操图文、避坑指南。适合苹果新品 · 国内外全网实时监测爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="苹果">
+<meta name="article-tags" content="苹果,新品,iPhone">
+<meta name="article-updated" content="2026-09-10">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=h2bc58a831eba" integrity="sha384-pdO5wy3kHx7X42lKi7+kJaFlLpR65UPqm4Ci/xDeQU89HYn8G6e2XHLNRaxaz9a9" crossorigin="anonymous">
+<style>
+/* ===== 苹果新品板块专属样式 ===== */
+.ap-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:32px 24px 28px;text-align:center;
+  background:radial-gradient(120% 140% at 50% 0%,#2b2b2e 0%,#161617 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,255,255,.06);}
+.ap-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 18% 18%,rgba(255,255,255,.10),transparent 42%),radial-gradient(circle at 82% 82%,rgba(120,120,128,.18),transparent 50%);pointer-events:none}
+.ap-hero>*{position:relative;z-index:1}
+.ap-hero .ap-kicker{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:2px;color:#d6d6db;border:1px solid rgba(214,214,219,.35);border-radius:999px;padding:3px 14px;margin-bottom:14px}
+.ap-hero h1{font-size:2.15rem;color:#f5f5f7;margin-bottom:10px;line-height:1.3}
+.ap-hero p{max-width:680px;margin:0 auto;color:rgba(245,245,250,.94);font-size:.96rem;line-height:1.85}
+.ap-hero p b{color:#ffffff;font-weight:700}
+.ap-hero .ap-pulse{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:.78rem;color:#9be29b;background:rgba(64,200,64,.10);border:1px solid rgba(64,200,64,.32);padding:4px 12px;border-radius:999px}
+.ap-hero .ap-pulse .dot{width:8px;height:8px;border-radius:50%;background:#57d957;box-shadow:0 0 0 0 rgba(87,217,87,.6);animation:apPulse 1.8s infinite}
+@keyframes apPulse{0%{box-shadow:0 0 0 0 rgba(87,217,87,.55)}70%{box-shadow:0 0 0 8px rgba(87,217,87,0)}100%{box-shadow:0 0 0 0 rgba(87,217,87,0)}}
+
+.section{margin:34px 0 0}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:1.28rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid #c9a84c}
+.sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+.tip-box{background:var(--bg-secondary);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 16px;margin:14px 0;font-size:.88rem;color:var(--text-secondary);line-height:1.8}
+.tip-box b{color:var(--text)}
+
+/* 近期焦点网格 */
+.ap-note{margin:28px 0 8px;padding:14px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+.ap-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
+.ap-note ul{margin:0;padding-left:18px}
+.ap-note a{color:var(--blue-light)}
+.ref-note{font-size:.76rem;color:var(--text-muted);margin-top:8px}
+
+/* ===== Hero 数据条 ===== */
+.ap-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:640px;margin:15px auto 0}
+.ap-stat{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:11px 8px;position:relative;z-index:1}
+.ap-stat b{display:block;font-size:1.22rem;color:#f5f5f7;line-height:1.25;letter-spacing:.5px}
+.ap-stat span{display:block;font-size:.7rem;color:rgba(235,235,245,.62);margin-top:2px}
+
+/* ===== 新品卡：品类色 + 亮点标签 ===== */
+
+/* ===== 价格总表 ===== */
+.ap-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:4px}
+.ap-price-tb{width:100%;border-collapse:collapse;font-size:.86rem;min-width:520px}
+.ap-price-tb th,.ap-price-tb td{padding:11px 10px;text-align:right;border-bottom:1px solid var(--border)}
+.ap-price-tb thead th{font-size:.72rem;color:var(--text-muted);font-weight:600;letter-spacing:1px}
+.ap-price-tb th:first-child,.ap-price-tb td:first-child{text-align:left}
+.ap-price-tb tbody tr:last-child td{border-bottom:none}
+.ap-price-tb tbody tr:hover{background:var(--bg-secondary)}
+.ap-price-tb td:first-child{font-weight:700;color:var(--text);white-space:nowrap}
+.ap-price-tb .ap-from{color:var(--gold);font-weight:800}
+
+/* ===== 规格对比 ===== */
+.ap-spec{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:4px}
+.ap-spec-tb{width:100%;border-collapse:collapse;font-size:.83rem;min-width:600px}
+.ap-spec-tb th,.ap-spec-tb td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;line-height:1.6}
+.ap-spec-tb thead th{background:var(--bg-secondary);color:var(--text);font-size:.82rem;white-space:nowrap}
+.ap-spec-tb tbody td:first-child{color:var(--text-muted);white-space:nowrap;font-weight:600}
+.ap-spec-tb tbody tr:hover{background:var(--bg-secondary)}
+.ap-spec-tb tbody tr:last-child td{border-bottom:none}
+
+/* ===== 发售时间轴 ===== */
+.ap-timeline{position:relative;margin-top:10px;padding-left:24px}
+.ap-timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#c9a84c,rgba(201,168,76,.12))}
+.ap-tl-item{position:relative;margin-bottom:15px}
+.ap-tl-item:last-child{margin-bottom:0}
+.ap-tl-item::before{content:'';position:absolute;left:-21px;top:5px;width:10px;height:10px;border-radius:50%;background:#c9a84c;box-shadow:0 0 0 3px rgba(201,168,76,.18)}
+.ap-tl-item.done::before{background:var(--bg);border:2px solid #c9a84c}
+.ap-tl-date{font-size:.8rem;font-weight:800;color:var(--gold)}
+.ap-tl-item.done .ap-tl-date{color:var(--text-muted)}
+.ap-tl-txt{font-size:.84rem;color:var(--text-secondary);line-height:1.65;margin-top:1px}
+
+/* ===== 新品卡（首屏主角） ===== */
+.ap-products{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:14px;margin-top:6px}
+.ap-prod{--ap-accent:#8e8e93;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.ap-prod:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.ap-prod.k-phone{--ap-accent:#5ac8fa}
+.ap-prod.k-fold{--ap-accent:#c9a84c}
+.ap-prod.k-watch{--ap-accent:#ff9f5a}
+.ap-prod.k-audio{--ap-accent:#a78bfa}
+.ap-prod-img{height:176px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,var(--bg-secondary) 100%);border-bottom:1px solid var(--border);padding:12px}
+.ap-prod-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.ap-prod-body{padding:14px 15px 15px;display:flex;flex-direction:column;flex:1}
+.ap-prod-name{font-size:.98rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ap-prod-name::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ap-accent);flex:0 0 auto}
+.ap-prod-badge{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(201,168,76,.14);color:var(--gold);border:1px solid rgba(201,168,76,.3)}
+.ap-prod-price{font-size:1.45rem;font-weight:800;color:var(--gold);margin:5px 0 0;letter-spacing:.5px;line-height:1.2}
+.ap-prod-price em{font-style:normal;font-size:.7rem;color:var(--text-muted);font-weight:600;margin-left:4px}
+.ap-prod-pts{margin:10px 0 0;padding:0;list-style:none;flex:1}
+.ap-prod-pts li{font-size:.8rem;color:var(--text-secondary);line-height:1.62;padding-left:14px;position:relative;margin-bottom:5px}
+.ap-prod-pts li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--ap-accent);opacity:.85}
+.ap-prod-date{font-size:.72rem;color:var(--text-muted);margin-top:11px;padding-top:9px;border-top:1px dashed var(--border)}
+.ap-h3{font-size:.92rem;font-weight:800;color:var(--text);margin:20px 0 8px;padding-left:10px;border-left:3px solid #c9a84c}
+.ap-h3:first-of-type{margin-top:4px}
+
+/* ===== 官方图集：横滑轨道（图要多，滑着看） ===== */
+.ap-shots{margin-top:6px}
+.ap-shots-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 2px 10px;scrollbar-width:thin}
+.ap-shots-track::-webkit-scrollbar{height:6px}
+.ap-shots-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.ap-shot{flex:0 0 252px;scroll-snap-align:start;display:block;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.ap-shot:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.ap-shot-img{height:168px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,var(--bg-secondary) 100%);padding:12px}
+.ap-shot-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.ap-shot-cap{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.7rem;color:var(--text-muted);padding:8px 10px;border-top:1px solid var(--border);line-height:1.45}
+.ap-shot-cap .zoom{color:var(--gold);flex:0 0 auto;font-weight:700}
+
+/* ===== 一眼看懂：可视化条形图（纯 CSS，非生成图） ===== */
+.ap-bars{display:grid;gap:9px;margin-top:8px}
+.ap-bar-row{display:grid;grid-template-columns:88px 1fr;gap:11px;align-items:center}
+.ap-bar-label{font-size:.76rem;color:var(--text-secondary);text-align:right;line-height:1.35}
+.ap-bar-track{background:var(--bg-secondary);border:1px solid var(--border);border-radius:7px;height:26px;overflow:hidden}
+.ap-bar-fill{height:100%;border-radius:6px 0 0 6px;background:linear-gradient(90deg,#c9a84c,#e3cb7a);display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#241d05;font-size:.72rem;font-weight:800;white-space:nowrap;min-width:56px}
+.ap-bar-fill.blue{background:linear-gradient(90deg,#5aa9fa,#8ec8ff)}
+.ap-bar-fill.green{background:linear-gradient(90deg,#4fb96b,#86d79a)}
+.ap-bars-note{font-size:.72rem;color:var(--text-muted);margin-top:8px}
+
+/* ===== 折叠说明（放最后，不抢首屏） ===== */
+.ap-fold{margin-top:30px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+.ap-fold summary{cursor:pointer;padding:13px 16px;font-size:.88rem;font-weight:700;color:var(--text);list-style:none;display:flex;align-items:center;gap:8px;min-height:44px}
+.ap-fold summary::-webkit-details-marker{display:none}
+.ap-fold summary::before{content:'▸';color:var(--gold);transition:transform .2s;display:inline-block}
+.ap-fold[open] summary::before{transform:rotate(90deg)}
+.ap-fold-body{padding:0 16px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.85}
+.ap-fold-body b{color:var(--text)}
+
+@media(max-width:576px){
+  .ap-hero{padding:26px 16px 22px}.ap-hero h1{font-size:1.55rem}
+  .ap-stats{grid-template-columns:repeat(3,1fr);gap:7px}
+  .ap-stat b{font-size:1.02rem}
+  .ap-stat span{font-size:.64rem}
+  .ap-products{grid-template-columns:1fr}
+  .ap-prod-img{height:156px}
+}
+/* ===== 分栏导航（国风黑金：金色下划线，与全站卡片同圆角） ===== */
+.ap-tabs{display:flex;gap:2px;margin:20px 0 4px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ap-tabs::-webkit-scrollbar{display:none}
+.ap-tab{flex:1 1 auto;min-width:72px;padding:11px 10px;background:none;border:none;font:inherit;font-size:.86rem;font-weight:700;color:var(--text-secondary);cursor:pointer;position:relative;white-space:nowrap;transition:color .2s;min-height:44px;border-radius:8px 8px 0 0}
+.ap-tab::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .22s ease}
+.ap-tab.is-active{color:var(--text)}
+.ap-tab.is-active::after{transform:scaleX(1);height:2.5px}
+.ap-tab:hover{color:var(--text)}
+.ap-tab:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+
+/* 面板显隐：JS 接管后才隐藏。没 JS 时四个面板全部展开，内容一张不丢 */
+.ap-tabs-on .ap-panel{display:none}
+.ap-tabs-on .ap-panel.is-active{display:block;animation:apFade .22s ease}
+@keyframes apFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.ap-tabs-on .ap-panel.is-active{animation:none}.ap-tab::after{transition:none}}
+
+/* 新品卡：窄屏压缩省滚动，宽屏双列更饱满（图片一张不减） */
+@media(max-width:576px){
+  .ap-prod-img{height:132px;padding:10px}
+  .ap-prod-body{padding:11px 13px 13px}
+  .ap-prod-name{font-size:.9rem}
+  .ap-prod-price{font-size:1.28rem}
+  .ap-prod-pts{margin-top:8px}
+  .ap-prod-pts li{font-size:.78rem;line-height:1.55;margin-bottom:4px}
+  .ap-prod-date{margin-top:9px;padding-top:8px}
+}
+@media(min-width:700px){.ap-products{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.ap-products{grid-template-columns:repeat(3,1fr)}}
+@media print{.ap-tabs{display:none}.ap-tabs-on .ap-panel{display:block!important}}
+
+/* ===== 视觉升级：对齐苹果级克制（去装饰 / 去描边 / 大留白 / 金只给价格） ===== */
+/* 1) 删装饰噪音：品类色圆点、金色左边框；层级靠字号与留白，不靠图标 */
+.ap-prod-name::before{display:none}
+.ap-prod-pts li::before{background:var(--text-muted);opacity:.45;width:4px;height:4px;top:.66em}
+.ap-h3{border-left:0;padding-left:0;font-size:.95rem;letter-spacing:.01em;margin:26px 0 12px}
+
+/* 2) 去描边、去阴影：层级靠背景色差，不靠 1px 边框（苹果：borderless + zero shadow） */
+.ap-prod{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:20px;box-shadow:none}
+.ap-prod:hover{transform:none;box-shadow:none;background:var(--bg-secondary)}
+.ap-prod-img{border-bottom:0}
+.ap-prod-img img{border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.10)}
+.ap-shot{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:18px}
+.ap-shot:hover{transform:none;box-shadow:none;background:var(--bg-secondary)}
+.ap-shot-img img{border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.10)}
+.ap-shot-cap{border-top:0}
+.ap-note{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:18px}
+
+/* 3) 大留白：间距按「觉得够了再翻倍」加（苹果 / Linear / Vercel 共同原则） */
+.ap-panel .section{margin-top:48px}
+.ap-products{gap:18px}
+.ap-prod-body{padding:16px 18px 18px}
+.ap-shots-track{gap:16px}
+.ap-hero{padding:44px 26px 34px}
+
+/* 4) 排版：价格是主角，大字号 + 负字距 + 等宽数字 */
+.ap-prod-price{font-size:1.9rem;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ap-prod-name{font-size:1rem;letter-spacing:-.01em}
+.ap-hero h1{letter-spacing:-.02em;line-height:1.12}
+.sec-title{letter-spacing:-.01em}
+
+/* 5) 单一点缀色：金色只给价格，其余走中性；条形图去渐变 */
+.ap-bar-fill{background:var(--gold)}
+.ap-bar-fill.blue,.ap-bar-fill.green{background:var(--text-secondary)}
+.ap-bar-track{background:rgba(128,128,128,.13);border:0}
+
+/* 6) 表格改发丝线，去掉重描边 */
+.ap-price-tb th,.ap-price-tb td,.ap-spec-tb th,.ap-spec-tb td{border-color:rgba(128,128,128,.18)}
+@media(max-width:576px){
+  .ap-panel .section{margin-top:36px}
+  .ap-products{gap:14px}
+  .ap-prod-price{font-size:1.62rem}
+  .ap-hero{padding:30px 18px 26px}
+}
+
+/* ===== 苹果式明暗交替：背景色变化本身就是分节符，不靠分割线 ===== */
+/* 全宽色带用伪元素铺，不动布局、不产生横向溢出（站点已 overflow-x:clip） */
+.ap-panel .section.is-alt{position:relative;margin-top:56px;padding:40px 0}
+.ap-panel .section.is-alt>*{position:relative;z-index:1}
+.ap-panel .section.is-alt::before{
+  content:"";position:absolute;top:0;bottom:0;
+  left:calc(50% - 50vw);width:100vw;
+  background:var(--bg-secondary);z-index:0;pointer-events:none;
+}
+/* 加力版：色带与页面底色拉开可感知差距（原 1.10/1.24 倍肉眼难辨）
+   - 浅色：页面 #F1EBDD，色带改沉米灰 #D8CDB4（约 1.32 倍，明显但不脏）
+   - 深色：页面 #12100C，色带提暖棕 #3A301D（约 1.45 倍，明显不刺眼）
+   两个色带里都是文字/表格（无卡片），安全；上下发丝线强化分界 */
+[data-theme="dark"] .ap-panel .section.is-alt::before{background:#3A301D}
+[data-theme="light"] .ap-panel .section.is-alt::before{background:#D8CDB4}
+.ap-panel .section.is-alt{border-top:1px solid rgba(128,128,128,.16);border-bottom:1px solid rgba(128,128,128,.16)}
+@media(max-width:576px){
+  .ap-panel .section.is-alt{margin-top:40px;padding:30px 0}
+}
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<link rel="canonical" href="https://longxiong.vip/apple.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="苹果新品 · 国内外全网实时监测详细科普｜龙兄知识库">
+<meta property="og:description" content="苹果新品 · 国内外全网实时监测详细科普：实测溯源、实操图文、避坑指南。适合苹果新品 · 国内外全网实时监测爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/apple.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="苹果新品 · 国内外全网实时监测 - 龙兄知识库">
+<meta name="twitter:description" content="苹果新品实时监测：每日自动检索国内外权威媒体与爆料，汇总 iPhone 18 Pro/Pro Max、首款折叠屏 iPhone Duo、Apple Watch Series 12/Ultra 4、AirPods 5 等 2026 秋季发布会新品动态。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="health-tea.html">养生茶</a></li>
+      <li><a href="bracelet.html">文玩手串</a></li>
+      <li><a href="tesla.html">特斯拉</a></li>
+      <li><a href="apple.html" class="active">苹果新品</a></li>
+      <li><a href="marvel.html">漫威宇宙</a></li>
+      <li><a href="xintan-weather.html">农田气象</a></li>
+      <li><a href="zisha.html">紫砂艺术</a></li>
+      <li><a href="console.html">游戏主机</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <a href="travel.html">家庭旅行</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="games.html">游戏库</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <a href="rss.xml">RSS 订阅</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="console.html">游戏主机</a>
+  <a href="travel.html">家庭旅行</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="games.html">游戏库</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <a href="rss.xml">RSS 订阅</a>
+  </div>
+</nav>
+
+<main class="container" id="main-content" role="main">
+
+  <!-- 面包屑 -->
+  <div id="breadcrumb"></div>
+
+  <!-- ===== Hero（精简） ===== -->
+  <div class="ap-hero">
+    <span class="ap-kicker">APPLE · 2026 秋季发布会</span>
+    <h1>苹果新品</h1>
+    <p>9 月 10 日凌晨苹果发布 6 款新品。<b>门槛最低的是 999 元的 AirPods 5，最受关注的折叠屏 iPhone Duo 15999 元起。</b>本页按「新品 → 图集 → 参数 → 价格 → 发售时间」排列，均为官方公布数据，每日自动刷新。</p>
+    <div class="ap-stats">
+      <div class="ap-stat"><b>6 款</b><span>本届发布新品</span></div>
+      <div class="ap-stat"><b>999 元起</b><span>最低入手门槛</span></div>
+      <div class="ap-stat"><b>2026-09-10</b><span>数据截至（每日刷新）</span></div>
+    </div>
+  </div>
+
+  <!-- ===== 分栏导航：一次只看一类，页面不再一眼望不到头 ===== -->
+  <div class="ap-tabs" role="tablist" aria-label="苹果板块内容分栏">
+    <button class="ap-tab is-active" type="button" role="tab" id="ap-tab-new" aria-controls="ap-panel-new" aria-selected="true" data-target="new">看新品</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-gallery" aria-controls="ap-panel-gallery" aria-selected="false" tabindex="-1" data-target="gallery">看图</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-spec" aria-controls="ap-panel-spec" aria-selected="false" tabindex="-1" data-target="spec">看参数</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-price" aria-controls="ap-panel-price" aria-selected="false" tabindex="-1" data-target="price">看价格</button>
+  </div>
+  <div class="ap-panel is-active" id="ap-panel-new" role="tabpanel" aria-labelledby="ap-tab-new" data-panel="new">
+  <!-- ===== 1. 新品一览 ===== -->
+  <div class="section">
+    <h2 class="sec-title">本届新品一览</h2>
+    <p class="sec-sub">6 款全部列出：官方图 + 国行起售价 + 三个最值得看的点 + 开卖时间。</p>
+    <div class="ap-products">
+      <article class="ap-prod k-phone">
+        <div class="ap-prod-img"><img src="img/apple/pro-g1.webp" alt="iPhone 18 Pro 官方机型图" loading="eager" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone 18 Pro</div>
+          <div class="ap-prod-price">9999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>业界首款 2nm 工艺 A20 Pro，图形性能 +40%</li><li>主摄首次支持四档物理可变光圈</li><li>0.5×–8× 光学品质变焦</li></ul>
+          <div class="ap-prod-date">9 月 12 日 20:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-phone">
+        <div class="ap-prod-img"><img src="img/apple/iphone18promax.webp" alt="iPhone 18 Pro Max 官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone 18 Pro Max</div>
+          <div class="ap-prod-price">10999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>6.9″ 大屏，本届续航最强</li><li>视频播放最长 43 小时（上代 37 小时）</li><li>影像规格与 Pro 完全相同</li></ul>
+          <div class="ap-prod-date">9 月 12 日 20:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-fold">
+        <div class="ap-prod-img"><img src="img/apple/duo-g1.webp" alt="iPhone Duo 折叠屏官方机型图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone Duo<span class="ap-prod-badge">首款折叠屏</span></div>
+          <div class="ap-prod-price">15999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>7.6″ 内屏 + 5.4″ 外屏，书本式横向内折</li><li>纳米纹理表层减轻折痕，铰链 100+ 精密部件</li><li>全球仅 eSIM，侧边 Touch ID 解锁</li></ul>
+          <div class="ap-prod-date">10 月 16 日 20:00 预购 · 10 月 23 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-watch">
+        <div class="ap-prod-img"><img src="img/apple/watch-s12-light.webp" alt="Apple Watch Series 12 官方产品图（米色展台版）" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">Apple Watch Series 12</div>
+          <div class="ap-prod-price">2999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>全新 S11 芯片 + 全新健康感测系统</li><li>后台心率采样频率提升到上代 60 倍</li><li>新增「准备指数」，售价与上代持平</li></ul>
+          <div class="ap-prod-date">9 月 11 日 9:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-watch">
+        <div class="ap-prod-img"><img src="img/apple/watch-ultra4-light.webp" alt="Apple Watch Ultra 4 官方产品图（米色展台版）" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">Apple Watch Ultra 4</div>
+          <div class="ap-prod-price">6499<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>49mm 钛金属，峰值亮度 3000 尼特</li><li>常规续航最长 50 小时，低电量 84 小时</li><li>100 米防水 + 双频 GPS</li></ul>
+          <div class="ap-prod-date">9 月 11 日 9:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-audio">
+        <div class="ap-prod-img"><img src="img/apple/airpods-5.webp" alt="AirPods 5 官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">AirPods 5</div>
+          <div class="ap-prod-price">999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>无耳塞式设计首次支持主动降噪</li><li>降噪效果较 AirPods 4 降噪版提升最高 50%</li><li>本届价格最低的新品</li></ul>
+          <div class="ap-prod-date">已开放订购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+    </div>
+    <p class="ref-note">以上 6 张官方图分别取自苹果中国官网 iphone-18-pro / iphone-duo / apple-watch-series-12 / apple-watch-ultra-4 / airpods-5 产品页与商店机型图，版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
+  </div>
+  </div><!-- /panel new -->
+
+  <div class="ap-panel" id="ap-panel-gallery" role="tabpanel" aria-labelledby="ap-tab-gallery" data-panel="gallery">
+  <!-- ===== 2. 官方产品图集 ===== -->
+  <div class="section">
+    <h2 class="sec-title">官方产品图集</h2>
+    <p class="sec-sub">10 张苹果官网真图，左右滑动查看；点任意一张可打开高清原图。</p>
+    <h3 class="ap-h3">iPhone 18 Pro / Pro Max · 4 张</h3>
+    <div class="ap-shots"><div class="ap-shots-track">
+        <a class="ap-shot" href="img/apple/pro-g1.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/pro-g1.webp" alt="iPhone 18 Pro · 官方机型图 1" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone 18 Pro · 官方机型图 1</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/pro-g2.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/pro-g2.webp" alt="iPhone 18 Pro · 官方机型图 2" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone 18 Pro · 官方机型图 2</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/pro-finish.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/pro-finish.webp" alt="iPhone 18 Pro · 官方配色图" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone 18 Pro · 官方配色图</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/iphone18promax.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/iphone18promax.webp" alt="iPhone 18 Pro Max · 官方图" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone 18 Pro Max · 官方图</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+    </div></div>
+    <h3 class="ap-h3">iPhone Duo（折叠屏）· 2 张</h3>
+    <div class="ap-shots"><div class="ap-shots-track">
+        <a class="ap-shot" href="img/apple/iphone-duo.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/iphone-duo.webp" alt="iPhone Duo · 官网主视觉" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone Duo · 官网主视觉</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/duo-g1.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/duo-g1.webp" alt="iPhone Duo · 官方机型图" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone Duo · 官方机型图</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+    </div></div>
+    <h3 class="ap-h3">Apple Watch · 2 张</h3>
+    <div class="ap-shots"><div class="ap-shots-track">
+        <a class="ap-shot" href="img/apple/watch-s12.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/watch-s12-light.webp" alt="Apple Watch Series 12（米色展台版）" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>Apple Watch Series 12</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/watch-ultra4.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/watch-ultra4-light.webp" alt="Apple Watch Ultra 4（米色展台版）" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>Apple Watch Ultra 4</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+    </div></div>
+    <h3 class="ap-h3">AirPods 5 · 2 张</h3>
+    <div class="ap-shots"><div class="ap-shots-track">
+        <a class="ap-shot" href="img/apple/airpods-5.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/airpods-5.webp" alt="AirPods 5 · 官网主视觉" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>AirPods 5 · 官网主视觉</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/airpods-5-b.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img src="img/apple/airpods-5-b.webp" alt="AirPods 5 · 官方产品图" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>AirPods 5 · 官方产品图</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+    </div></div>
+    <p class="ref-note">以上 10 张图均取自苹果中国官网各产品页与苹果官方图片服务器（storeimages.cdn-apple.com），版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
+  </div>
+  </div><!-- /panel gallery -->
+
+  <div class="ap-panel" id="ap-panel-spec" role="tabpanel" aria-labelledby="ap-tab-spec" data-panel="spec">
+  <!-- ===== 3. 一眼看懂 ===== -->
+  <div class="section">
+    <h2 class="sec-title">一眼看懂</h2>
+    <p class="sec-sub">三组最常被问的对比，看图就够（均为官方公布数据）。</p>
+    <h3 class="ap-h3">国行起售价（元）</h3>
+    <div class="ap-bars">
+      <div class="ap-bar-row"><div class="ap-bar-label">AirPods 5</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:6%">999</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Watch S12</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:19%">2999</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Ultra 4</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:41%">6499</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">18 Pro</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:63%">9999</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Pro Max</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:69%">10999</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">iPhone Duo</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:100%">15999</div></div></div>
+    </div>
+    <h3 class="ap-h3">续航（小时，官方标称）</h3>
+    <div class="ap-bars">
+      <div class="ap-bar-row"><div class="ap-bar-label">Watch S12</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:48%">24 小时</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">18 Pro</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:68%">34 小时</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Pro Max</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:86%">43 小时</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Duo 外屏</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:88%">44 小时</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Ultra 4</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:100%">50 小时</div></div></div>
+    </div>
+    <h3 class="ap-h3">屏幕尺寸（英寸）</h3>
+    <div class="ap-bars">
+      <div class="ap-bar-row"><div class="ap-bar-label">Duo 外屏</div><div class="ap-bar-track"><div class="ap-bar-fill blue" style="width:71%">5.4″</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">18 Pro</div><div class="ap-bar-track"><div class="ap-bar-fill blue" style="width:83%">6.3″</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Pro Max</div><div class="ap-bar-track"><div class="ap-bar-fill blue" style="width:91%">6.9″</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Duo 内屏</div><div class="ap-bar-track"><div class="ap-bar-fill blue" style="width:100%">7.6″</div></div></div>
+    </div>
+    <p class="ap-bars-note">续航为苹果中国官网国行标称值：iPhone 为视频播放时长，iPhone Duo 分别为内屏 31 / 外屏 44 小时，Apple Watch 为常规使用时长（Ultra 4 低电量模式最长 84 小时）。条形长度按各组最大值等比绘制，仅用于快速比较。</p>
+  </div>
+
+  <!-- ===== 4. 核心参数 ===== -->
+  <div class="section is-alt">
+    <h2 class="sec-title">核心参数</h2>
+    <p class="sec-sub">先看三款新 iPhone 的逐项对比，再看手表与耳机；表格可左右滑动。</p>
+    <h3 class="ap-h3">三款新 iPhone 逐项对比</h3>
+    <div class="ap-spec">
+      <table class="ap-spec-tb">
+        <thead><tr><th>项目</th><th>iPhone 18 Pro</th><th>iPhone 18 Pro Max</th><th>iPhone Duo</th></tr></thead>
+        <tbody>
+          <tr><td>屏幕</td><td>6.3″ 超视网膜 XDR</td><td>6.9″ 超视网膜 XDR</td><td>7.6″ 内屏 + 5.4″ 外屏（可折叠）</td></tr>
+          <tr><td>芯片</td><td colspan="3">A20 Pro（台积电 2nm，6 核 CPU + 7 核 GPU + 双 16 核神经网络引擎）· 自研 C2 基带</td></tr>
+          <tr><td>影像</td><td colspan="2">4800 万三摄：主摄四档物理可变光圈（ƒ/1.48 / ƒ/1.8 / ƒ/2.8 / ƒ/4.0）+ 超广角 + 长焦，0.5×–8× 光学品质变焦</td><td>4800 万主摄 + 4800 万超广角（无长焦）</td></tr>
+          <tr><td>续航</td><td>视频播放最长 34 小时</td><td>视频播放最长 43 小时</td><td>内屏 31 小时 / 外屏 44 小时</td></tr>
+          <tr><td>解锁</td><td colspan="2">Face ID</td><td>侧边 Touch ID</td></tr>
+          <tr><td>SIM</td><td colspan="2">双实体卡 / 实体卡 + eSIM / 双 eSIM</td><td>全球仅 eSIM</td></tr>
+          <tr><td>配色</td><td colspan="2">黑色、银色、冰川蓝、勃艮第酒红</td><td>星光白、夜空色</td></tr>
+          <tr><td>国行起售</td><td>9999 元</td><td>10999 元</td><td>15999 元</td></tr>
+          <tr><td>发售</td><td colspan="2">9 月 18 日</td><td>10 月 23 日</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ref-note">「0.5×–8× 光学品质变焦」中的 8 倍画面由 4 倍长焦截取传感器中央区域、结合图像处理输出（1200 万像素），并非独立的 8 倍镜头。国行视频播放续航为 34 / 43 小时；发布会提到的 45 小时对应部分市场的纯 eSIM 版本。</p>
+
+    <h3 class="ap-h3">手表与耳机</h3>
+    <div class="ap-spec">
+      <table class="ap-spec-tb">
+        <thead><tr><th>项目</th><th>Apple Watch Series 12</th><th>Apple Watch Ultra 4</th><th>AirPods 5</th></tr></thead>
+        <tbody>
+          <tr><td>芯片</td><td>S11</td><td>S11</td><td>H2</td></tr>
+          <tr><td>形态 / 屏幕</td><td>42 / 46mm，2000 尼特全天候视网膜屏</td><td>49mm 钛金属，3000 尼特</td><td>无耳塞式入耳</td></tr>
+          <tr><td>关键升级</td><td>全新健康感测系统，后台心率采样频率提升到上代 60 倍，新增「准备指数」与睡眠评分</td><td>同款健康感测系统，双频 GPS、100 米防水、内置警笛</td><td>首次标配主动降噪，降噪较上代提升最高 50%；支持头部动作回应 Siri</td></tr>
+          <tr><td>续航</td><td>24 小时（低电量模式 38 小时）</td><td>50 小时（低电量模式 84 小时）</td><td>降噪聆听 5 小时，配充电盒最长 22 小时</td></tr>
+          <tr><td>国行起售</td><td>2999 元（铝金属 42mm GPS）</td><td>6499 元</td><td>999 元</td></tr>
+          <tr><td>发售</td><td>9 月 18 日</td><td>9 月 18 日</td><td>9 月 18 日</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div><!-- /panel spec -->
+
+  <div class="ap-panel" id="ap-panel-price" role="tabpanel" aria-labelledby="ap-tab-price" data-panel="price">
+  <!-- ===== 5. 国行价格 ===== -->
+  <div class="section">
+    <h2 class="sec-title">国行价格</h2>
+    <p class="sec-sub">发布会公布的国行建议零售价，单位：元；金色为起售价。</p>
+    <div class="ap-note">
+      <div class="ap-table-wrap">
+        <table class="ap-price-tb">
+          <thead><tr><th>机型</th><th>256GB</th><th>512GB</th><th>1TB</th><th>2TB</th></tr></thead>
+          <tbody>
+            <tr><td>iPhone 18 Pro</td><td class="ap-from">9999</td><td>11999</td><td>15499</td><td>20499</td></tr>
+            <tr><td>iPhone 18 Pro Max</td><td class="ap-from">10999</td><td>12999</td><td>16499</td><td>21499</td></tr>
+            <tr><td>iPhone Duo（折叠屏）</td><td class="ap-from">15999</td><td>17999</td><td>21499</td><td>26499</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul style="margin-top:12px;">
+        <li>美版起售价：iPhone 18 Pro 1199 美元、Pro Max 1299 美元、iPhone Duo 1999 美元。</li>
+        <li>Pro 系列较上一代<b>同容量上涨 1000 元</b>；旧款同步调价：iPhone 17 标准版 6799 元起、iPhone Air 8799 元起、iPhone 17e 5299 元起（均上调 800 元），iPhone 17 Pro 已从官网下架。</li>
+        <li><b>标准版 iPhone 18 缺席</b>：多方报道称标准版与 18e 将推迟至 2027 年春季发布。</li>
+      </ul>
+    </div>
+    <p class="ref-note">价格引自苹果中国官网（apple.com.cn）在售页与新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻等现场报道，已交叉核对（2026-09-10）。AirPods 5 无线充电盒版多数报道为 1149 元、IT之家等记为 1199 元，最终以苹果官网标价为准。</p>
+  </div>
+
+  <!-- ===== 6. 发售时间 ===== -->
+  <div class="section is-alt">
+    <h2 class="sec-title">发售时间</h2>
+    <p class="sec-sub">按先后排列，灰色节点表示已经过去。</p>
+    <div class="ap-timeline">
+      <div class="ap-tl-item done"><div class="ap-tl-date">9 月 10 日 01:00（已举行）</div><div class="ap-tl-txt">2026 秋季发布会 · Apple Park 乔布斯剧院，新任 CEO 约翰·特努斯首次主持年度发布会</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">9 月 11 日 09:00</div><div class="ap-tl-txt">Apple Watch Series 12 / Ultra 4 开始预购</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">9 月 12 日 20:00</div><div class="ap-tl-txt">iPhone 18 Pro / Pro Max 开始预购</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">9 月 18 日</div><div class="ap-tl-txt">iPhone 18 Pro / Pro Max、Apple Watch Series 12 / Ultra 4、AirPods 5 正式发售</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">10 月 16 日 20:00</div><div class="ap-tl-txt">iPhone Duo 开始预购</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">10 月 23 日</div><div class="ap-tl-txt">iPhone Duo 正式发售</div></div>
+    </div>
+    <p class="ref-note">AirPods 5 已在发布会后开放订购，9 月 18 日统一发售。档期引自苹果中国官网与现场报道，若苹果后续调整以官网公告为准。</p>
+  </div>
+  </div><!-- /panel price -->
+
+  <!-- ===== 7. 每日自动更新（苹果新品资讯流） ===== -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" data-act="toggleHomeSection">
+      <div class="hc-left"><span class="hc-title">每日自动更新 · 苹果新品资讯</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <!-- ===== 8. 关于本板块 + 资料来源（折叠，放最后） ===== -->
+  <details class="ap-fold">
+    <summary>关于这个板块 / 资料来源与核实方式</summary>
+    <div class="ap-fold-body">
+      <p><b>这个板块怎么用：</b>它替你盯着苹果新品的全网消息，而不是让你自己刷爆料。每天自动从国内（财新 / 36氪 / 今日头条等）+ 海外（彭博社 / 9to5Mac / The Verge 等）多源检索，交叉核对后沉淀到上方「每日自动更新」信息流。</p>
+      <p style="margin-top:8px;"><b>阅读须知：</b>2026 秋季发布会已于 9 月 10 日凌晨召开，本页「新品 / 参数 / 价格」均为<b>官方已公布</b>信息；尚未官宣的传闻一律标注「待官方确认」。一切以苹果官网为准，不构成购买或投资建议。</p>
+      <p style="margin-top:10px;"><b>资料来源：</b></p>
+      <ul style="margin:6px 0 0;padding-left:20px;">
+        <li><b>价格与规格（第一来源）：</b>苹果中国官网 apple.com.cn 的在售页与产品页，本页所有价格与官方规格均以此为最终依据。</li>
+        <li><b>现场报道（交叉核验）：</b>新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻·CNMO、太平洋科技、财联社等；同一数字需 ≥2 个独立来源一致才写入正文，来源冲突时并列标注。</li>
+        <li><b>海外信源：</b>彭博社（马克·古尔曼）、The Apple Post、Gadgets Now（Times of India 集团）等，用于发布会前爆料的溯源与存档。</li>
+        <li><b>标注规则：</b>官方已公布的信息写明「官方公布」；发布会前的媒体爆料一律保留原始日期并标注「待官方确认」，不做回溯改写。</li>
+      </ul>
+      <p class="ref-note">正文参数、价格与日期均引自上述来源，数据截至 2026-09-10，每日自动刷新。若苹果官网后续调整，以官网为准。</p>
+    </div>
+  </details>
+
+  <!-- 底部链接 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="index.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回首页</a>
+  </div>
+
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="typhoon.html">
+        <span class="lx-related-board">射阳气象</span>
+        <span class="lx-related-name">台风实时监测详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">特斯拉动态新闻详细科普</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/cybertruck.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Cybertruck · 参数与科普2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/cybercab.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Cybercab · 自动驾驶出租车2026实测避坑</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<script defer src="js/search.js" integrity="sha384-3KpCC/GBLYV2BSt+UaGvKf/NRA+RauFXazdBRhrJG4JaLORa24Nq+xJYYZfD9CBj" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-DOpdq3phazxdjnBHk3G9lhDNDtb+jmeO+kkCoPGrMduh8rF+WtcTXc6XqemrlD5p" crossorigin="anonymous"></script>
+<script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+<script defer src="js/auto_news_loader.js?v=hcc9a146a5052" integrity="sha384-04z5389WOlp6+fxmilSx8hvw23/sNFipiyXefX0NqGAiNzZTZEcq/XWayF8bRFx9" crossorigin="anonymous"></script>
+<script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+</script>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库
+    <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com" style="color:var(--email-green)">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+<p style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);">最后更新：2026-09-10</p>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "苹果新品 · 国内外全网实时监测 - 龙兄知识库",
+      "url": "https://longxiong.vip/apple.html",
+      "description": "苹果新品实时监测：每日自动检索国内外权威媒体与爆料，汇总 iPhone 18 Pro/Pro Max、首款折叠屏 iPhone Duo、Apple Watch Series 12/Ultra 4、AirPods 5 等 2026 秋季发布会新品动态。"
+    }
+  ]
+}
+</script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js" defer integrity="sha384-icqcgcgO2d+O+Dri98sox/xOwhk9O/dPLXSjibUHUK0T0B8obZuFz/ryqXt2em0g" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+<script src="js/apple-tabs.js?v=ha7a0dd02dae7" defer integrity="sha384-WObPG/l4bH1k1D/vNnq6cMYSVhTL6tgX5s0qqdwcyBksrNiliwyHfF/ivjBMCeuo" crossorigin="anonymous"></script>
+</body>
+</html>

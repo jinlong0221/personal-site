@@ -23,10 +23,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = os.path.join(ROOT, 'static')
 SKIP_DIR_PARTS = {'admin', 'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
 
+# 悬浮目录脚本的缓存版本号：quick-toc.js 内容变更后需同步 bump（与全站 ?v=YYYYMMDD 约定一致，
+# CI 的 bump_v_hash.py 会在 public/ 产物上把它改写成内容哈希；guard_v_param.py 校验一致性）。
+QUICK_TOC_VER = '20260916'
+
 WIDGET_BLOCK = (
     '\n<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->\n'
     '<div id="quickToc"></div>\n'
-    '<script src="{jsp}quick-toc.js" defer></script>\n'
+    '<script src="{jsp}quick-toc.js?v=' + QUICK_TOC_VER + '" defer></script>\n'
     '<script src="{jsp}bookmark.js" defer></script>\n'
 )
 
@@ -56,9 +60,9 @@ def process_file(path, check_only=False):
         html = html.replace('</body>', block + '</body>', 1)
         changed.append('widget')
     elif 'id="quickToc"' in html:
-        # 已注入：修正脚本相对前缀（按目录深度自修复，幂等）
-        fixed = re.sub(r'src="(?:\.\./)*js/quick-toc\.js"',
-                       'src="%squick-toc.js"' % jsp, html)
+        # 已注入：修正脚本相对前缀（按目录深度自修复，幂等）+ 统一缓存版本号
+        fixed = re.sub(r'src="(?:\.\./)*js/quick-toc\.js(?:\?v=\w+)?"',
+                       'src="%squick-toc.js?v=%s"' % (jsp, QUICK_TOC_VER), html)
         fixed = re.sub(r'src="(?:\.\./)*js/bookmark\.js"',
                        'src="%sbookmark.js"' % jsp, fixed)
         if fixed != html:

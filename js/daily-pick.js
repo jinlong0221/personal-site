@@ -17,7 +17,7 @@
     {
       name: 'PlayStation 5',
       desc: '超高速SSD·DualSense手柄·次世代游戏体验',
-      tag: '🎮 游戏主机',
+      tag: '🎮 主机图鉴',
       url: 'console-playstation-5.html',
       img: 'img/consoles/ps5.webp'
     },
@@ -31,7 +31,7 @@
     {
       name: 'Nintendo Switch 2',
       desc: '独占大作+多人派对，动森/塞尔达/马车8',
-      tag: '🎮 游戏主机',
+      tag: '🎮 主机图鉴',
       url: 'console-switch-2.html',
       img: 'img/consoles/switch-2.webp'
     }

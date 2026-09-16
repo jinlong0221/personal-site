@@ -847,8 +847,8 @@ def main():
     body_head = donor[body_start:main_start]
     # 导航栏补上本页入口
     body_head = body_head.replace(
-        '<li><a href="console.html">游戏主机</a></li>',
-        '<li><a href="console.html">游戏主机</a></li>\n      <li><a href="ev-sales.html" class="active">销量排行</a></li>')
+        '<li><a href="console.html">主机图鉴</a></li>',
+        '<li><a href="console.html">主机图鉴</a></li>\n      <li><a href="ev-sales.html" class="active">销量排行</a></li>')
     body_head = body_head.replace(
         '<a href="ev-charge.html">充电桩查询</a>',
         '<a href="ev-charge.html">充电桩查询</a>\n          <a href="ev-sales.html">销量排行</a>')

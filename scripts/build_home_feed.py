@@ -25,7 +25,7 @@ BOARD_FILES = {
     "bracelet-news.json": "文玩手串",
     "sheyang-news.json": "射阳动态",
     "chinajoy-news.json": "ChinaJoy",
-    "console-news.json": "游戏主机",
+    "console-news.json": "主机图鉴",
 }
 # 子目录新闻文件（页面以相对路径加载，须写入原路径）
 SUB_BOARD_FILES = {

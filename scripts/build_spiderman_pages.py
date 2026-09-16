@@ -27,13 +27,13 @@ TPL = os.path.join(ROOT, "static", "games", "wukong.html")
 # 模板里的固定文案（用于精确匹配替换）
 T_ZH = "黑神话：悟空"
 T_EN = "Black Myth: Wukong"
-T_TITLE_OLD = "黑神话：悟空 | 龙兄的游戏库2026实测避坑｜龙兄知识库"
-T_KW_OLD = "黑神话：悟空 | 龙兄的游戏库,2026实测避坑,实测溯源,龙兄知识库"
+T_TITLE_OLD = "黑神话：悟空 | 游戏测评2026实测避坑｜龙兄知识库"
+T_KW_OLD = "黑神话：悟空 | 游戏测评,2026实测避坑,实测溯源,龙兄知识库"
 T_DESC_OLD = (
-    "黑神话：悟空 | 龙兄的游戏库2026实测避坑：实测溯源、实操图文、避坑指南。"
-    "适合黑神话：悟空 | 龙兄的游戏库爱好者与从业者参考，掌握核心要点、规避常见误区。"
+    "黑神话：悟空 | 游戏测评2026实测避坑：实测溯源、实操图文、避坑指南。"
+    "适合黑神话：悟空 | 游戏测评爱好者与从业者参考，掌握核心要点、规避常见误区。"
 )
-T_TW_TITLE_OLD = "黑神话：悟空 | 龙兄的游戏库"
+T_TW_TITLE_OLD = "黑神话：悟空 | 游戏测评"
 T_TW_DESC_OLD = (
     "黑神话：悟空(Black Myth: Wukong) PC/PS5动作角色扮演游戏"
     "——以西游记为背景的国产3A大作，现已通关。"
@@ -487,14 +487,14 @@ def build(cfg):
     s = open(TPL, encoding="utf-8").read()
     slug, zh, en = cfg["slug"], cfg["zh"], cfg["en"]
 
-    title_new = f"{zh} | 龙兄的游戏库2026实测避坑｜龙兄知识库"
-    kw_new = f"{zh} | 龙兄的游戏库,2026实测避坑,实测溯源,龙兄知识库"
+    title_new = f"{zh} | 游戏测评2026实测避坑｜龙兄知识库"
+    kw_new = f"{zh} | 游戏测评,2026实测避坑,实测溯源,龙兄知识库"
     desc_new = (
-        f"{zh} | 龙兄的游戏库2026实测避坑：实测溯源、实操图文、避坑指南。"
-        f"适合{zh} | 龙兄的游戏库爱好者与从业者参考，掌握核心要点、规避常见误区。"
+        f"{zh} | 游戏测评2026实测避坑：实测溯源、实操图文、避坑指南。"
+        f"适合{zh} | 游戏测评爱好者与从业者参考，掌握核心要点、规避常见误区。"
     )
     url_new = f"https://longxiong.vip/games/{slug}.html"
-    tw_title_new = f"{zh} | 龙兄的游戏库"
+    tw_title_new = f"{zh} | 游戏测评"
 
     pairs = [
         (f"<title>{T_TITLE_OLD}</title>", f"<title>{title_new}</title>"),

@@ -261,22 +261,22 @@ SCREENSHOT_BLOCK = (
 
 def build_title_block(g):
     return (
-        f'<title>{g["title_zh"]} | 龙兄的游戏库2026实测避坑｜龙兄知识库</title>\n'
-        f'<meta name="keywords" content="{g["title_zh"]} | 龙兄的游戏库,2026实测避坑,实测溯源,龙兄知识库">\n\n'
-        f'<meta name="description" content="{g["title_zh"]} | 龙兄的游戏库2026实测避坑：公开资料整理，发售信息、平台、类型与官方资讯。适合 {g["title_zh"]} 关注者与玩家参考。">\n'
+        f'<title>{g["title_zh"]} | 游戏测评2026实测避坑｜龙兄知识库</title>\n'
+        f'<meta name="keywords" content="{g["title_zh"]} | 游戏测评,2026实测避坑,实测溯源,龙兄知识库">\n\n'
+        f'<meta name="description" content="{g["title_zh"]} | 游戏测评2026实测避坑：公开资料整理，发售信息、平台、类型与官方资讯。适合 {g["title_zh"]} 关注者与玩家参考。">\n'
     )
 
 
 def build_og_twitter(g):
     return (
-        f'<meta property="og:title" content="{g["title_zh"]} | 龙兄的游戏库2026实测避坑｜龙兄知识库">\n'
-        f'<meta property="og:description" content="{g["title_zh"]} | 龙兄的游戏库2026实测避坑：公开资料整理，发售信息、平台、类型与官方资讯。">\n'
+        f'<meta property="og:title" content="{g["title_zh"]} | 游戏测评2026实测避坑｜龙兄知识库">\n'
+        f'<meta property="og:description" content="{g["title_zh"]} | 游戏测评2026实测避坑：公开资料整理，发售信息、平台、类型与官方资讯。">\n'
         f'<meta property="og:type" content="article">\n'
         f'<meta property="og:url" content="https://longxiong.vip/games/{g["slug"]}.html">\n'
         f'<meta property="og:image" content="https://longxiong.vip/img/og-image.png">\n'
         f'<meta property="og:locale" content="zh_CN">\n'
         f'<meta name="twitter:card" content="summary_large_image">\n'
-        f'<meta name="twitter:title" content="{g["title_zh"]} | 龙兄的游戏库">\n'
+        f'<meta name="twitter:title" content="{g["title_zh"]} | 游戏测评">\n'
         f'<meta name="twitter:description" content="{g["title_zh"]}（{g["title_en"]}）公开资料整理：发售信息、平台、类型与官方资讯。">\n'
         f'<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">\n'
     )
@@ -366,8 +366,8 @@ for g in GAMES:
     out = out[:s_base] + build_article(g) + out[e_base:]
     # 1b) 替换面包屑标题
     out = out.replace(
-        '<a href="../games.html">游戏库</a><span>›</span>\n<span>侠盗猎车手 VI</span>',
-        f'<a href="../games.html">游戏库</a><span>›</span>\n<span>{g["title_zh"]}</span>',
+        '<a href="../games.html">游戏测评</a><span>›</span>\n<span>侠盗猎车手 VI</span>',
+        f'<a href="../games.html">游戏测评</a><span>›</span>\n<span>{g["title_zh"]}</span>',
     )
     # 1c) 移除封面图（无官方素材，避免 404；hero 保留 title-wrap）
     out = out.replace('<div class="detail-cover" data-lightbox data-caption="侠盗猎车手 VI" data-src="../img/games/gta6-cover.webp"><img width="1200" height="630" src="../img/games/gta6-cover.webp" alt="侠盗猎车手 VI 封面" loading="lazy" decoding="async">\n</div>\n', "")
@@ -387,21 +387,21 @@ for g in GAMES:
 
     # 6) 替换 title + meta
     out = out.replace(
-        '<title>侠盗猎车手 VI | 龙兄的游戏库2026实测避坑｜龙兄知识库</title>\n'
-        '<meta name="keywords" content="侠盗猎车手 VI | 龙兄的游戏库,2026实测避坑,实测溯源,龙兄知识库">\n\n'
-        '<meta name="description" content="侠盗猎车手 VI | 龙兄的游戏库2026实测避坑：实测溯源、实操图文、避坑指南。适合侠盗猎车手 VI | 龙兄的游戏库爱好者与从业者参考，掌握核心要点、规避常见误区。">\n',
+        '<title>侠盗猎车手 VI | 游戏测评2026实测避坑｜龙兄知识库</title>\n'
+        '<meta name="keywords" content="侠盗猎车手 VI | 游戏测评,2026实测避坑,实测溯源,龙兄知识库">\n\n'
+        '<meta name="description" content="侠盗猎车手 VI | 游戏测评2026实测避坑：实测溯源、实操图文、避坑指南。适合侠盗猎车手 VI | 游戏测评爱好者与从业者参考，掌握核心要点、规避常见误区。">\n',
         build_title_block(g),
     )
     # 7) 替换 og / twitter
     out = out.replace(
-        '<meta property="og:title" content="侠盗猎车手 VI | 龙兄的游戏库2026实测避坑｜龙兄知识库">\n'
-        '<meta property="og:description" content="侠盗猎车手 VI | 龙兄的游戏库2026实测避坑：实测溯源、实操图文、避坑指南。适合侠盗猎车手 VI | 龙兄的游戏库爱好者与从业者参考，掌握核心要点、规避常见误区。">\n'
+        '<meta property="og:title" content="侠盗猎车手 VI | 游戏测评2026实测避坑｜龙兄知识库">\n'
+        '<meta property="og:description" content="侠盗猎车手 VI | 游戏测评2026实测避坑：实测溯源、实操图文、避坑指南。适合侠盗猎车手 VI | 游戏测评爱好者与从业者参考，掌握核心要点、规避常见误区。">\n'
         '<meta property="og:type" content="article">\n'
         '<meta property="og:url" content="https://longxiong.vip/games/gta6.html">\n'
         '<meta property="og:image" content="https://longxiong.vip/img/og-image.png">\n'
         '<meta property="og:locale" content="zh_CN">\n'
         '<meta name="twitter:card" content="summary_large_image">\n'
-        '<meta name="twitter:title" content="侠盗猎车手 VI | 龙兄的游戏库">\n'
+        '<meta name="twitter:title" content="侠盗猎车手 VI | 游戏测评">\n'
         '<meta name="twitter:description" content="侠盗猎车手 VI（Grand Theft Auto VI）公开资料整理：发售信息、平台、类型与官方美术图。">\n'
         '<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">\n',
         build_og_twitter(g),
@@ -414,10 +414,10 @@ for g in GAMES:
     )
     # 9) 替换 JSON-LD
     out = out.replace(
-        '"headline": "侠盗猎车手 VI | 龙兄的游戏库",\n'
+        '"headline": "侠盗猎车手 VI | 游戏测评",\n'
         '      "url": "https://longxiong.vip/games/gta6.html",\n'
         '      "description": "侠盗猎车手 VI（Grand Theft Auto VI）公开资料整理：发售信息、平台、类型与官方美术图。"',
-        f'"headline": "{g["title_zh"]} | 龙兄的游戏库",\n'
+        f'"headline": "{g["title_zh"]} | 游戏测评",\n'
         f'      "url": "https://longxiong.vip/games/{g["slug"]}.html",\n'
         f'      "description": "{g["title_zh"]}（{g["title_en"]}）公开资料整理：发售信息、平台、类型与官方资讯。"',
     )

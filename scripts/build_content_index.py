@@ -66,9 +66,25 @@ FILE_CAT = {
 DIR_CAT = {
     "herbs": "中药材香料", "bracelet": "文玩手串", "zisha": "紫砂", "tesla": "特斯拉",
     "health-tea": "养生茶", "marvel": "漫威", "apple": "苹果", "chinajoy": "ChinaJoy",
-    "console": "游戏主机", "games": "游戏主机", "gaokao": "高考志愿",
+    "console": "主机图鉴", "games": "游戏测评", "gaokao": "高考志愿",
     "guanghui": "光辉电力", "pitfalls": "踩坑记", "sheyang": "射阳本地民生",
     "typhoon": "射阳气象", "xintan-weather": "射阳气象", "original": "原创",
+    "pages": "紫砂",
+}
+# 文件名前缀 → 分类（根级扁平页：主机图鉴全部 console-*.html 都在根目录，
+# 仅靠 basename 精确匹配会全部落到「未分类」，搜索页的分类下拉里就会冒出
+# 「未分类 / pages」这类脏值。用前缀兜底，钉死归属。）
+PREFIX_CAT = [
+    ("console-", "主机图鉴"),
+    ("pages/zisha/", "紫砂"),
+    ("games/", "游戏测评"),
+    ("tesla/", "特斯拉"),
+    ("bracelet/", "文玩手串"),
+]
+# Hugo 内容 md 文件名（无目录）→ 分类，避免把 "notes.md" 当成分类名
+MD_FILE_CAT = {
+    "notes.md": "站长手记",
+    "bookmarks.md": "我的收藏",
 }
 
 
@@ -86,11 +102,14 @@ def meta_content(html, name):
 def resolve_category(bare, meta_cat):
     if meta_cat:
         return meta_cat
+    for prefix, cat in PREFIX_CAT:
+        if bare.startswith(prefix):
+            return cat
     base = os.path.basename(bare)
     if base in FILE_CAT:
         return FILE_CAT[base]
     seg = bare.split("/", 1)[0] if "/" in bare else ""
-    return DIR_CAT.get(seg, seg or "未分类")
+    return DIR_CAT.get(seg, "其他")
 
 
 def git_date(abs_path):
@@ -193,8 +212,11 @@ def collect_hugo():
                 url = url[1:]
             cat = fm.get("category", "").strip().strip('"').strip("'")
             if not cat:
-                seg = rel.split("/", 1)[0]
-                cat = DIR_CAT.get(seg, seg or "未分类")
+                if rel in MD_FILE_CAT:
+                    cat = MD_FILE_CAT[rel]
+                else:
+                    seg = rel.split("/", 1)[0]
+                    cat = DIR_CAT.get(seg, "其他")
             tags = fm_tags(fm.get("tags", ""))
             # frontmatter 缺 updated 时回退 git 真实提交日期（与静态页同源逻辑）
             md_path = os.path.join(dirpath, fn)

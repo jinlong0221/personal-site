@@ -1,6 +1,15 @@
 {{ define "main" }}
 <!-- 无障碍/SEO：屏幕阅读器可读的 h1 -->
-<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">龙兄知识库 · 紫砂 · 特斯拉 · 游戏主机 · 漫威</h1>
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">龙兄知识库 · 紫砂 · 特斯拉 · 主机图鉴 · 漫威</h1>
+
+{{/* 台风名不写死：构建时直读 static/typhoon.json（台风自动化每 3 小时更新并推送→触发重建）。
+     读不到就退回「实时」，避免"首页还挂着上一个台风名"的过期问题。 */}}
+{{- $tyName := "实时" -}}
+{{- with os.ReadFile "static/typhoon.json" -}}
+  {{- with . | transform.Unmarshal -}}
+    {{- with .name -}}{{- $tyName = . -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
 
 <div class="lx-wrap">
 
@@ -48,14 +57,288 @@
     <a class="lx-vchip" href="about.html">关于本站 →</a>
   </div>
 
-  <!-- ===== 近期节点倒计时（通用 countdown 组件：data-annual 固定节日 + data-dates 农历浮动节日） ===== -->
-  <section class="lx-nodes-wrap" aria-label="近期节点倒计时">
-    <div class="lx-nodes-hd">
-      <span class="kicker">近期节点</span>
-      <h2>还有几天到</h2>
-      <span class="ln"></span>
+  <!-- ===== 时效前置①：今日更新（各板块要闻，自动更新）===== -->
+  <section class="lx-mod" id="today-updates" aria-label="今日更新" data-ac data-ac-body="#updGrid" data-ac-items=".upd-card" data-ac-head=".lx-mod-hd" data-ac-default="open" data-ac-count="false">
+    <div class="lx-mod-hd">
+      <span class="lx-mod-no">✦</span>
+      <h2 class="lx-mod-title">今日更新</h2>
+      <span class="lx-mod-sub">每日自动更新 · 各板块要闻</span>
     </div>
-    <!-- 近期节点：仅显示当前公历年份的节刻（龙兄要求"只显示当年的节刻"）；数据由 data/festivals.json 驱动(二米每日刷新)，模板按年份过滤，跨年节点不渲染 -->
+    <div class="upd-grid" id="updGrid">
+      <div class="upd-card" style="grid-column:1/-1"><div class="upd-sum">正在加载各板块最新动态…</div></div>
+    </div>
+  </section>
+
+  <h2 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">全站栏目</h2>
+
+  <!-- ===== 时效前置②：六大主题目录（同一维度归族，消除混搭）===== -->
+
+  <!-- 类目① · 风物志 -->
+  <section class="lx-vol" id="cat-craft" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd" data-ac-default="open">
+    <div class="lx-vol-hd">
+      <span class="lx-vol-no">①</span>
+      <span class="lx-vol-name lx-brush">风物志</span>
+      <span class="lx-vol-line"></span>
+      <span class="lx-vol-en">CRAFT &amp; TEA</span>
+    </div>
+    <div class="lx-deck">
+      <a class="lx-card" href="health-tea.html" title="茶 · 养生茶科普">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">茶</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20h24l4 16H16z"/><path d="M28 12h8l2 8H26z"/><ellipse cx="32" cy="38" rx="6" ry="3"/><path d="M14 44c0 4 8 6 18 6s18-2 18-6"/></svg></div>
+        <h3>养生茶</h3><p>经典配方 · 体质对应 · 四季调理</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="bracelet.html" title="玩 · 文玩鉴赏">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">玩</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="12" r="3" fill="currentColor"/><circle cx="49" cy="22" r="3" fill="currentColor"/><circle cx="49" cy="42" r="3" fill="currentColor"/><circle cx="32" cy="52" r="3" fill="currentColor"/><circle cx="15" cy="42" r="3" fill="currentColor"/><circle cx="15" cy="22" r="3" fill="currentColor"/></svg></div>
+        <h3>文玩手串</h3><p>材质养护 · 真假分辨 · 尺寸参考</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="zisha.html" title="砂 · 紫砂器物">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">砂</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="20" rx="10" ry="4"/><path d="M22 20v12c0 2.2 4.5 4 10 4s10-1.8 10-4V20"/><path d="M22 32c0 2.2 4.5 4 10 4s10-1.8 10-4v8"/><ellipse cx="32" cy="44" rx="10" ry="4"/></svg></div>
+        <h3>紫砂艺术</h3><p>吴昊天作品 · 五色釉 · 经典壶型</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
+
+  <!-- 类目② · 车与数码 -->
+  <section class="lx-vol" id="cat-tech" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd" data-ac-default="open">
+    <div class="lx-vol-hd">
+      <span class="lx-vol-no">②</span>
+      <span class="lx-vol-name lx-brush">车与数码</span>
+      <span class="lx-vol-line"></span>
+      <span class="lx-vol-en">AUTO &amp; TECH</span>
+    </div>
+    <div class="lx-deck">
+      <a class="lx-card" href="tesla.html" title="特 · 特斯拉用车干货">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">特</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
+        <h3>特斯拉</h3><p>配件 · 充电 · 用车科普 · 新品</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="apple.html" title="苹 · 苹果新品">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="40" fill="currentColor" text-anchor="middle" dominant-baseline="middle">苹</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4h20v8H22z"/><rect x="14" y="12" width="36" height="44" rx="6"/><circle cx="32" cy="52" r="2.4" fill="currentColor"/></svg></div>
+        <h3>苹果新品</h3><p>iPhone · Mac · 发布会追踪</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="ev-sales.html" title="榜 · 新能源车销量排行">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">榜</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h3>新能源销量榜</h3><p>厂商 TOP10 · 渗透率 · 乘联会数据</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="ev-charge.html" title="充 · 充电桩查询">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">充</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="20" y="14" width="18" height="38" rx="3"/><path d="M24 20h10"/><path d="M40 24h6a4 4 0 014 4v14a3 3 0 003 3"/><path d="M29 30l-4 8h6l-3 7"/></svg></div>
+        <h3>充电桩查询</h3><p>全国充电站 · 按距离或价格排</p>
+        <div class="lx-card-ft"><span class="lx-card-src is-live"><span class="lx-pulse"></span>实时</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
+
+  <!-- 类目③ · 游戏影游 -->
+  <section class="lx-vol" id="cat-play" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd" data-ac-default="open">
+    <div class="lx-vol-hd">
+      <span class="lx-vol-no">③</span>
+      <span class="lx-vol-name lx-brush">游戏影游</span>
+      <span class="lx-vol-line"></span>
+      <span class="lx-vol-en">GAME &amp; SCREEN</span>
+    </div>
+    <div class="lx-deck">
+      <a class="lx-card" href="console.html" title="机 · 主机图鉴">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">机</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="16" width="48" height="32" rx="4"/><circle cx="24" cy="32" r="8"/><circle cx="40" cy="32" r="4" fill="currentColor"/><line x1="32" y1="48" x2="32" y2="56"/><line x1="24" y1="56" x2="40" y2="56"/></svg></div>
+        <h3>主机图鉴</h3><p>任天堂 · 索尼 · 微软 · 经典全档案</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="games.html" title="戏 · 游戏测评">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">戏</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="20" width="52" height="28" rx="10"/><path d="M18 28v10M13 33h10"/><circle cx="44" cy="30" r="3" fill="currentColor"/><circle cx="50" cy="38" r="3" fill="currentColor"/></svg></div>
+        <h3>游戏测评</h3><p>通关记录 · 私人评分 · 值不值</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="chinajoy.html" title="展 · 展会记录">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">展</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="22" width="44" height="22" rx="11"/><path d="M22 22v-4a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v4"/><circle cx="20" cy="33" r="3"/><line x1="20" y1="28" x2="20" y2="38"/><line x1="15" y1="33" x2="25" y2="33"/><circle cx="44" cy="31" r="2.5"/><circle cx="49" cy="37" r="2.5"/></svg></div>
+        <h3>ChinaJoy</h3><p>2004→2026 · 23 届全档案</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="marvel.html" title="漫 · 动漫影视">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">漫</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="22" width="48" height="30" rx="4"/><path d="M8 30l48-10M14 22v30M8 44h48"/><path d="M13 15l7 6M25 13l7 6M37 11l7 6M49 9l7 6"/></svg></div>
+        <h3>漫威宇宙</h3><p>观影顺序 · 英雄档案 · 私人评分</p>
+        <div class="lx-card-ft"><span class="lx-card-src">自动更新</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
+
+  <!-- 类目④ · 射阳本地 -->
+  <section class="lx-vol" id="cat-sheyang" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd" data-ac-default="open">
+    <div class="lx-vol-hd">
+      <span class="lx-vol-no">④</span>
+      <span class="lx-vol-name lx-brush">射阳本地</span>
+      <span class="lx-vol-line"></span>
+      <span class="lx-vol-en">SHEYANG LOCAL</span>
+    </div>
+    <div class="lx-deck">
+      <a class="lx-card" href="xintan-weather.html" title="气 · 气象防汛">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">气</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v8M32 48v8M12 32H8M56 32h-4M17 17l4 4M43 43l4 4M17 47l4-4M43 21l4-4"/><circle cx="32" cy="32" r="10"/><path d="M32 22v10l6 4"/></svg></div>
+        <h3>农田气象</h3><p>乡镇精准预报 · 农事指导 · 预警</p>
+        <div class="lx-card-ft"><span class="lx-card-src is-live"><span class="lx-pulse"></span>实时</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="typhoon.html" title="台 · 射阳台风预警">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">台</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 32 C 38 32 40 26 34 22 C 26 17 16 24 18 34 C 20 46 36 48 44 38 C 53 27 40 12 26 14 C 8 16 8 42 30 50"/><circle cx="32" cy="32" r="2.5" fill="currentColor" stroke="none"/></svg></div>
+        <h3>台风监测</h3><p>{{ $tyName }}实时走向 · 射阳影响与防范</p>
+        <div class="lx-card-ft"><span class="lx-card-src is-live"><span class="lx-pulse"></span>实时</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="sheyang.html" title="天 · 射阳天气">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">天</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="22" r="8"/><path d="M10 38a10 10 0 0119.6-2.8A9 9 0 0142 52H18a8 8 0 01-8-8z"/><path d="M26 56l-2 6M34 56l-2 6"/></svg></div>
+        <h3>射阳天气</h3><p>本地实况 · 逐日预报 · 预警信号</p>
+        <div class="lx-card-ft"><span class="lx-card-src is-live"><span class="lx-pulse"></span>实时</span><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="guanghui.html" title="电 · 电力知识">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">电</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="8" width="32" height="20" rx="2"/><line x1="24" y1="14" x2="40" y2="14"/><line x1="24" y1="20" x2="40" y2="20"/><path d="M24 36v8M40 36v8M12 44h40"/><rect x="8" y="28" width="48" height="8" rx="2"/></svg></div>
+        <h3>光辉电力</h3><p>变压器铁芯 · 节能技术 · 射阳匠心</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
+
+  <!-- 类目⑤ · 生活工具 -->
+  <section class="lx-vol" id="cat-tools" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd" data-ac-default="open">
+    <div class="lx-vol-hd">
+      <span class="lx-vol-no">⑤</span>
+      <span class="lx-vol-name lx-brush">生活工具</span>
+      <span class="lx-vol-line"></span>
+      <span class="lx-vol-en">LIFE TOOLS</span>
+    </div>
+    <div class="lx-deck">
+      <a class="lx-card" href="calendar.html" title="历 · 万年历工具">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">历</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="44" height="42" rx="3"/><path d="M10 26h44M22 8v10M42 8v10"/><circle cx="24" cy="38" r="2.5" fill="currentColor"/><circle cx="40" cy="38" r="2.5" fill="currentColor"/></svg></div>
+        <h3>万年历</h3><p>公历农历 · 二十四节气 · 宜忌</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="gaokao.html" title="考 · 高考志愿填报">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">考</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 24L32 12l24 12-24 12z"/><path d="M18 30v12c0 4 6 8 14 8s14-4 14-8V30"/><path d="M50 26v14"/></svg></div>
+        <h3>高考查分</h3><p>查分入口 · 分数线 · 志愿参考</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="tags.html" title="签 · 标签聚合">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">签</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M30 10H14a4 4 0 00-4 4v16l24 24 20-20z"/><circle cx="22" cy="22" r="3"/></svg></div>
+        <h3>标签聚合</h3><p>按主题横切全站内容</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="bookmarks.html" title="藏 · 我的收藏">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">藏</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h28v48L32 44 18 56z"/></svg></div>
+        <h3>我的收藏</h3><p>随手存下的好内容</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
+
+  <!-- 类目⑥ · 关于我 -->
+  <section class="lx-vol" id="cat-about" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd" data-ac-default="open">
+    <div class="lx-vol-hd">
+      <span class="lx-vol-no">⑥</span>
+      <span class="lx-vol-name lx-brush">关于我</span>
+      <span class="lx-vol-line"></span>
+      <span class="lx-vol-en">ABOUT</span>
+    </div>
+    <div class="lx-deck">
+      <a class="lx-card" href="notes.html" title="记 · 站长手记">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">记</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10h30l6 6v38H14z"/><path d="M22 24h20M22 32h20M22 40h12"/></svg></div>
+        <h3>站长手记</h3><p>这个站背后有个人</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="pitfalls.html" title="坑 · 各类踩坑记录">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">坑</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L56 54 H8 Z"/><line x1="32" y1="26" x2="32" y2="40"/><circle cx="32" cy="47" r="2" fill="currentColor" stroke="none"/></svg></div>
+        <h3>踩坑记</h3><p>真金白银买来的教训</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="changelog.html" title="志 · 更新日志">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">志</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="22"/><path d="M32 18v14l10 6"/></svg></div>
+        <h3>更新日志</h3><p>每一次改动都有记录</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="status-history.html" title="站 · 站点状态">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">站</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 34h10l6-14 8 26 6-12h10"/></svg></div>
+        <h3>站点状态</h3><p>运行与更新历史</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="travel.html" title="家庭旅行 · 仅家人可见">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="40" fill="currentColor" text-anchor="middle" dominant-baseline="middle">旅</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6c8 0 14 6 14 14 0 8-14 30-14 30S18 28 18 20C18 12 24 6 32 6Z"/><circle cx="32" cy="20" r="5"/></svg></div>
+        <h3>家庭旅行</h3><p>加密相册 · 仅家人可见</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+      <a class="lx-card" href="about.html" title="关 · 关于本站">
+        <span class="lx-card-top"></span>
+        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">关</text></svg>
+        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="22"/><path d="M32 28v18"/><circle cx="32" cy="20" r="2.4" fill="currentColor" stroke="none"/></svg></div>
+        <h3>关于本站</h3><p>站主自述 · 建站缘由</p>
+        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
+
+  <!-- ===== 活体带（氛围后置）：节气 · 近期节点 · 每日一物 ===== -->
+  <section class="lx-mod lx-live" id="live-band" aria-label="今时 · 节气与节点">
+    <div class="lx-mod-hd">
+      <span class="lx-mod-no">☯</span>
+      <h2 class="lx-mod-title">今时 · 节气与节点</h2>
+      <span class="lx-mod-sub">顺四时而活的国风小站</span>
+    </div>
     <div class="lx-nodes" data-countdown-sort>
       {{ $curYear := now.Year }}
       {{ range .Site.Data.festivals }}
@@ -64,58 +347,6 @@
       <span class="lx-node" data-countdown data-date="{{ .date }}" data-label="{{ .label }}"></span>
       {{ end }}
       {{ end }}
-    </div>
-  </section>
-
-  <!-- ===== 本周精选 · 主编推荐（2026-08-21 信息架构主线：策展 vs 时效双主线）===== -->
-  <section class="lx-picks" aria-label="本周精选·主编推荐">
-    <div class="lx-picks-hd">
-      <span class="kicker">本周精选</span>
-      <h2>主编推荐 · 从哪读起</h2>
-      <span class="ln"></span>
-    </div>
-    <div class="lx-picks-grid">
-      <a class="lx-epick" href="typhoon.html">
-        <div class="lx-epick-media"><span class="lx-epick-brush lx-brush">台</span></div>
-        <div class="lx-epick-body">
-          <div class="lx-epick-tag">实时 · 射阳影响</div>
-          {{/* 台风名不写死：构建时直读 static/typhoon.json（台风自动化每 3 小时更新并推送→触发重建）。
-               读不到就退回「实时」，避免"首页还挂着上一个台风名"的过期问题。 */}}
-          {{- $tyName := "实时" -}}
-          {{- with os.ReadFile "static/typhoon.json" -}}
-            {{- with . | transform.Unmarshal -}}
-              {{- with .name -}}{{- $tyName = . -}}{{- end -}}
-            {{- end -}}
-          {{- end -}}
-          <div class="lx-epick-title">台风「{{ $tyName }}」走向</div>
-          <div class="lx-epick-desc">台风「{{ $tyName }}」实时路径图 · 风雨影响与防范要点。</div>
-        </div>
-      </a>
-      <a class="lx-epick" href="zisha.html">
-        <div class="lx-epick-media"><span class="lx-epick-brush lx-brush">砂</span></div>
-        <div class="lx-epick-body">
-          <div class="lx-epick-tag">器物 · 代表作</div>
-          <div class="lx-epick-title">紫砂·吴昊天作品</div>
-          <div class="lx-epick-desc">五色釉与经典壶型，读懂一把好壶的门道。</div>
-        </div>
-      </a>
-      <a class="lx-epick" href="tesla/fsd.html">
-        <div class="lx-epick-media"><span class="lx-epick-brush lx-brush">特</span></div>
-        <div class="lx-epick-body">
-          <div class="lx-epick-tag">用车 · 进展</div>
-          <div class="lx-epick-title">特斯拉 FSD 国内</div>
-          <div class="lx-epick-desc">落地进展、实测与避坑全记录。</div>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- ===== 今时 · 节气 · 每日一物（让站点“活”起来的实时国风带）===== -->
-  <section class="lx-mod lx-live" id="live-band" aria-label="节气 · 每日一物">
-    <div class="lx-mod-hd">
-      <span class="lx-mod-no">☯</span>
-      <h2 class="lx-mod-title">今时 · 节气</h2>
-      <span class="lx-mod-sub">顺四时而活的国风小站</span>
     </div>
     <div class="live-grid">
       <div class="solar-card" id="solarTerm">
@@ -142,206 +373,7 @@
     </div>
   </section>
 
-  <!-- ===== 2026-08-19 已移除首页常驻搜索框（搜索入口保留：导航栏搜索图标 #searchBtn + Ctrl/Cmd+K 快捷键 + search.html 搜索页） ===== -->
-
-  <h2 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">全站栏目</h2>
-
-  <!-- ===== [需求1] 板块① · 香与器 ===== -->
-  <section class="lx-vol" id="board-fragrance" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd">
-    <div class="lx-vol-hd">
-      <span class="lx-vol-no">①</span>
-      <span class="lx-vol-name lx-brush">香与器</span>
-      <span class="lx-vol-line"></span>
-      <span class="lx-vol-en">FRAGRANCE &amp; VESSEL</span>
-    </div>
-    <div class="lx-deck">
-      <a class="lx-card" href="health-tea.html" title="茶 · 养生茶科普">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">茶</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20h24l4 16H16z"/><path d="M28 12h8l2 8H26z"/><ellipse cx="32" cy="38" rx="6" ry="3"/><path d="M14 44c0 4 8 6 18 6s18-2 18-6"/></svg></div>
-        <h3>养生茶</h3><p>经典配方 · 体质对应 · 四季调理</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="bracelet.html" title="玩 · 文玩鉴赏">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">玩</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="12" r="3" fill="currentColor"/><circle cx="49" cy="22" r="3" fill="currentColor"/><circle cx="49" cy="42" r="3" fill="currentColor"/><circle cx="32" cy="52" r="3" fill="currentColor"/><circle cx="15" cy="42" r="3" fill="currentColor"/><circle cx="15" cy="22" r="3" fill="currentColor"/></svg></div>
-        <h3>文玩手串</h3><p>材质养护 · 真假分辨 · 尺寸参考</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="zisha.html" title="砂 · 紫砂器物">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">砂</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="20" rx="10" ry="4"/><path d="M22 20v12c0 2.2 4.5 4 10 4s10-1.8 10-4V20"/><path d="M22 32c0 2.2 4.5 4 10 4s10-1.8 10-4v8"/><ellipse cx="32" cy="44" rx="10" ry="4"/></svg></div>
-        <h3>紫砂艺术</h3><p>吴昊天作品 · 五色釉 · 经典壶型</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-    </div>
-  </section>
-
-  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
-
-  <!-- ===== [需求1] 板块② · 车与机 ===== -->
-  <section class="lx-vol" id="board-machine" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd">
-    <div class="lx-vol-hd">
-      <span class="lx-vol-no">②</span>
-      <span class="lx-vol-name lx-brush">车与机</span>
-      <span class="lx-vol-line"></span>
-      <span class="lx-vol-en">MACHINE &amp; PLAY</span>
-    </div>
-    <div class="lx-deck">
-      <a class="lx-card" href="tesla.html" title="特 · 特斯拉用车干货">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">特</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
-        <h3>特斯拉</h3><p>配件 · 充电 · 用车科普 · 新品</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-            <a class="lx-card" href="ev-sales.html" title="榜 · 新能源车销量排行">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">榜</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-        <h3>新能源销量榜</h3><p>厂商 TOP10 · 渗透率 · 乘联会数据</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-<a class="lx-card" href="console.html" title="机 · 数码主机">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">机</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="16" width="48" height="32" rx="4"/><circle cx="24" cy="32" r="8"/><circle cx="40" cy="32" r="4" fill="currentColor"/><line x1="32" y1="48" x2="32" y2="56"/><line x1="24" y1="56" x2="40" y2="56"/></svg></div>
-        <h3>游戏主机</h3><p>任天堂 · 索尼 · 微软 · 经典图鉴</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="chinajoy.html" title="展 · 展会记录">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">展</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="22" width="44" height="22" rx="11"/><path d="M22 22v-4a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v4"/><circle cx="20" cy="33" r="3"/><line x1="20" y1="28" x2="20" y2="38"/><line x1="15" y1="33" x2="25" y2="33"/><circle cx="44" cy="31" r="2.5"/><circle cx="49" cy="37" r="2.5"/></svg></div>
-        <h3>ChinaJoy</h3><p>2004→2026 · 23 届全档案</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="marvel.html" title="漫 · 动漫影视">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">漫</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="22" width="48" height="30" rx="4"/><path d="M8 30l48-10M14 22v30M8 44h48"/><path d="M13 15l7 6M25 13l7 6M37 11l7 6M49 9l7 6"/></svg></div>
-        <h3>漫威宇宙</h3><p>观影顺序 · 英雄档案 · 私人评分</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="games.html" title="戏 · 游戏测评">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">戏</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="20" width="52" height="28" rx="10"/><path d="M18 28v10M13 33h10"/><circle cx="44" cy="30" r="3" fill="currentColor"/><circle cx="50" cy="38" r="3" fill="currentColor"/></svg></div>
-        <h3>游戏库</h3><p>通关记录 · 私人评分 · 值不值</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="apple.html" title="苹果新品 · 科技数码">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="40" fill="currentColor" text-anchor="middle" dominant-baseline="middle">苹</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4h20v8H22z"/><rect x="14" y="12" width="36" height="44" rx="6"/><circle cx="32" cy="52" r="2.4" fill="currentColor"/></svg></div>
-        <h3>苹果新品</h3><p>iPhone · Mac · 发布会追踪</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-    </div>
-  </section>
-
-  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
-
-  <!-- ===== [需求1] 板块③ · 乡与家 ===== -->
-  <section class="lx-vol" id="board-hometown" data-ac data-ac-body=".lx-deck" data-ac-items=".lx-card" data-ac-head=".lx-vol-hd">
-    <div class="lx-vol-hd">
-      <span class="lx-vol-no">③</span>
-      <span class="lx-vol-name lx-brush">乡与家</span>
-      <span class="lx-vol-line"></span>
-      <span class="lx-vol-en">HOMETOWN &amp; FAMILY</span>
-    </div>
-    <div class="lx-deck">
-      <a class="lx-card" href="guanghui.html" title="电 · 电力知识">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">电</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="8" width="32" height="20" rx="2"/><line x1="24" y1="14" x2="40" y2="14"/><line x1="24" y1="20" x2="40" y2="20"/><path d="M24 36v8M40 36v8M12 44h40"/><rect x="8" y="28" width="48" height="8" rx="2"/></svg></div>
-        <h3>光辉电力</h3><p>变压器铁芯 · 节能技术 · 射阳匠心</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="xintan-weather.html" title="气 · 气象防汛">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">气</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v8M32 48v8M12 32H8M56 32h-4M17 17l4 4M43 43l4 4M17 47l4-4M43 21l4-4"/><circle cx="32" cy="32" r="10"/><path d="M32 22v10l6 4"/></svg></div>
-        <h3>农田气象</h3><p>乡镇精准预报 · 农事指导 · 预警</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="calendar.html" title="历 · 万年历工具">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">历</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="44" height="42" rx="3"/><path d="M10 26h44M22 8v10M42 8v10"/><circle cx="24" cy="38" r="2.5" fill="currentColor"/><circle cx="40" cy="38" r="2.5" fill="currentColor"/></svg></div>
-        <h3>万年历</h3><p>公历农历 · 二十四节气 · 宜忌</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="gaokao.html" title="考 · 高考志愿填报">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">考</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 24L32 12l24 12-24 12z"/><path d="M18 30v12c0 4 6 8 14 8s14-4 14-8V30"/><path d="M50 26v14"/></svg></div>
-        <h3>高考查分</h3><p>查分入口 · 分数线 · 志愿参考</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="pitfalls.html" title="坑 · 各类踩坑记录">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">坑</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L56 54 H8 Z"/><line x1="32" y1="26" x2="32" y2="40"/><circle cx="32" cy="47" r="2" fill="currentColor" stroke="none"/></svg></div>
-        <h3>踩坑记</h3><p>真金白银买来的教训</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="typhoon.html" title="台 · 射阳台风预警">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="46" fill="currentColor" text-anchor="middle" dominant-baseline="middle">台</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 32 C 38 32 40 26 34 22 C 26 17 16 24 18 34 C 20 46 36 48 44 38 C 53 27 40 12 26 14 C 8 16 8 42 30 50"/><circle cx="32" cy="32" r="2.5" fill="currentColor" stroke="none"/></svg></div>
-        <h3>台风监测</h3><p>{{ $tyName }}实时走向 · 射阳影响与防范</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-      <a class="lx-card" href="travel.html" title="家庭旅行 · 仅家人可见">
-        <span class="lx-card-top"></span>
-        <svg class="lx-seal lx-card-seal lx-seal-sm" viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="40" fill="currentColor" text-anchor="middle" dominant-baseline="middle">旅</text></svg>
-        <div class="lx-card-ico"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6c8 0 14 6 14 14 0 8-14 30-14 30S18 28 18 20C18 12 24 6 32 6Z"/><circle cx="32" cy="20" r="5"/></svg></div>
-        <h3>家庭旅行</h3><p>加密相册 · 仅家人可见</p>
-        <div class="lx-card-ft"><span class="lx-card-go">阅 读 ❯</span></div>
-      </a>
-    </div>
-  </section>
-
-  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
-
-  <!-- ===== [需求1] 板块④ · 站点工具 =====
-       阈值调到 5：这一栏每行就一句话，总共也就 5 条，没必要藏两条在「展开」后面。
-       以后再加第 6 个工具时，组件会按「超过阈值才折叠」自动收起，不用再回来改。 -->
-  <section class="lx-vol" id="board-tools" data-ac data-ac-threshold="5" data-ac-body=".lx-toc" data-ac-items=".lx-toc a" data-ac-head=".lx-vol-hd">
-    <div class="lx-vol-hd">
-      <span class="lx-vol-no">④</span>
-      <span class="lx-vol-name lx-brush">站点工具</span>
-      <span class="lx-vol-line"></span>
-      <span class="lx-vol-en">SITE TOOLS</span>
-    </div>
-    <div class="lx-toc">
-      <a href="ev-charge.html"><span class="fish">❰</span>充电桩查询<span class="dots"></span><span class="n">全国充电站 · 按距离或价格排</span></a>
-            <a href="ev-sales.html"><span class="fish">❰</span>新能源销量榜<span class="dots"></span><span class="n">厂商 TOP10 · 渗透率走势</span></a>
-<a href="changelog.html"><span class="fish">❰</span>更新日志<span class="dots"></span><span class="n">每一次改动都有记录</span></a>
-      <a href="#searchBtn" data-search-trigger="1"><span class="fish">❰</span>全站搜索<span class="dots"></span><span class="n">按标题与正文检索</span></a>
-      <a href="about.html"><span class="fish">❰</span>关于本站<span class="dots"></span><span class="n">站主自述 · 建站缘由</span></a>
-      <a href="status-history.html"><span class="fish">❰</span>站点状态<span class="dots"></span><span class="n">运行与更新历史</span></a>
-    </div>
-  </section>
-
-  <div class="lx-divider" role="separator" aria-label="板块分隔"></div>
-
-  <!-- ===== [需求4] 模块一 · 今日更新（占位 8 条，后续由每日自动更新填充） ===== -->
-  <section class="lx-mod" id="today-updates" aria-label="今日更新" data-ac data-ac-body="#updGrid" data-ac-items=".upd-card" data-ac-head=".lx-mod-hd" data-ac-default="open" data-ac-count="false">
-    <div class="lx-mod-hd">
-      <span class="lx-mod-no">✦</span>
-      <h2 class="lx-mod-title">今日更新</h2>
-      <span class="lx-mod-sub">每日自动更新 · 各板块要闻</span>
-    </div>
-    <div class="upd-grid" id="updGrid">
-      <div class="upd-card" style="grid-column:1/-1"><div class="upd-sum">正在加载各板块最新动态…</div></div>
-    </div>
-  </section>
-
-  <!-- ===== [需求4] 模块二 · 热门精选（占位 8 个专题图文卡片） ===== -->
+  <!-- ===== 热门精选（编辑精选 · 每板代表作） ===== -->
   <section class="lx-mod" id="hot-picks" aria-label="热门精选" data-ac data-ac-body="#hotGrid" data-ac-items=".hot-card" data-ac-head=".lx-mod-hd" data-ac-default="collapsed" data-ac-count="false">
     <div class="lx-mod-hd">
       <span class="lx-mod-no">🔥</span>
@@ -353,25 +385,12 @@
     </div>
   </section>
 
-  <!-- ===== [需求4] 模块三 · 射阳本地专区（气象/台风/电力/农事 入口） ===== -->
-  <section class="lx-mod sheyang-zone" id="sheyang-zone" aria-label="射阳本地专区" data-ac data-ac-body=".sheyang-grid" data-ac-items=".sheyang-card" data-ac-head=".lx-mod-hd">
-    <div class="lx-mod-hd">
-      <span class="lx-mod-no">📍</span>
-      <h2 class="lx-mod-title">射阳本地专区</h2>
-      <span class="lx-mod-sub">气象 · 台风 · 电力 · 农事</span>
-    </div>
-    <div class="sheyang-grid">
-      <a class="sheyang-card" href="xintan-weather.html"><span class="sheyang-ico">🌤️</span><div class="sheyang-name">农田气象</div><div class="sheyang-desc">乡镇精准预报 · 农事指导</div></a>
-      <a class="sheyang-card" href="typhoon.html"><span class="sheyang-ico">🌀</span><div class="sheyang-name">台风监测</div><div class="sheyang-desc">实时走向 · 射阳影响与防范</div></a>
-      <a class="sheyang-card" href="guanghui.html"><span class="sheyang-ico">⚡</span><div class="sheyang-name">光辉电力</div><div class="sheyang-desc">变压器铁芯 · 节能技术</div></a>
-      <a class="sheyang-card" href="xintan-weather.html"><span class="sheyang-ico">🌾</span><div class="sheyang-name">农事指导</div><div class="sheyang-desc">播种收割 · 防灾农谚</div></a>
-    </div>
-  </section>
+  <!-- ===== 2026-08-19 已移除首页常驻搜索框（搜索入口保留：导航栏搜索图标 #searchBtn + Ctrl/Cmd+K 快捷键 + search.html 搜索页） ===== -->
 
   <!-- ===== 移动端底部书签栏 ===== -->
   <nav class="lx-dock" aria-label="底部导航">
     <a href="index.html" class="on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 10.5L12 3l9 7.5V21H3z"/></svg>刊首</a>
-    <a href="#board-fragrance"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg>目录</a>
+    <a href="#cat-craft"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg>目录</a>
     <a href="#searchBtn" data-search-trigger="1"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>寻章</a>
     <a href="calendar.html"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>今日</a>
   </nav>

@@ -22,34 +22,63 @@ import re
 import sys
 
 STATIC_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "static")
+# Hugo 模板导航：与静态页共用同一份定义，避免「首页 = 一套、子页 = 另一套」的漂移
+NAVBAR_TPL = os.path.join(os.path.dirname(STATIC_DIR), "layouts", "partials", "navbar.html")
 
-# 桌面主导航（顺序即展示顺序）
+# 6 大主题类目（顺序即展示顺序）：顶栏直达 + 「更多」按类目分组
+# 分组理由：把 24 个入口按「同一维度」归族，消除"车与机里塞漫威""乡与家里塞高考"式的混搭。
+CATEGORIES = [
+    ("风物志", [
+        ("health-tea.html", "养生茶"),
+        ("bracelet.html", "文玩手串"),
+        ("zisha.html", "紫砂艺术"),
+    ]),
+    ("车与数码", [
+        ("tesla.html", "特斯拉"),
+        ("apple.html", "苹果新品"),
+        ("ev-sales.html", "新能源销量榜"),
+        ("ev-charge.html", "充电桩查询"),
+    ]),
+    ("游戏影游", [
+        ("console.html", "主机图鉴"),
+        ("games.html", "游戏测评"),
+        ("chinajoy.html", "ChinaJoy 成长史"),
+        ("marvel.html", "漫威宇宙"),
+    ]),
+    ("射阳本地", [
+        ("xintan-weather.html", "农田气象"),
+        ("typhoon.html", "台风监测"),
+        ("sheyang.html", "射阳天气"),
+        ("guanghui.html", "光辉电力"),
+    ]),
+    ("生活工具", [
+        ("calendar.html", "万年历"),
+        ("gaokao.html", "高考查分"),
+        ("tags.html", "标签聚合"),
+        ("bookmarks.html", "我的收藏"),
+    ]),
+    ("关于我", [
+        ("notes.html", "站长手记"),
+        ("pitfalls.html", "踩坑记"),
+        ("changelog.html", "更新日志"),
+        ("status-history.html", "站点状态"),
+        ("travel.html", "家庭旅行"),
+        ("about.html", "关于本站"),
+        ("rss.xml", "RSS 订阅"),
+    ]),
+]
+# 顶栏直达：每个类目一个入口（指向该类目旗舰页），顺序即展示顺序
 DESKTOP = [
-    ("health-tea.html", "养生茶"),
-    ("bracelet.html", "文玩手串"),
-    ("tesla.html", "特斯拉"),
-    ("apple.html", "苹果新品"),
-    ("marvel.html", "漫威宇宙"),
-    ("xintan-weather.html", "农田气象"),
-    ("zisha.html", "紫砂艺术"),
-    ("console.html", "游戏主机"),
+    ("zisha.html", "风物志"),
+    ("tesla.html", "车与数码"),
+    ("console.html", "游戏影游"),
+    ("typhoon.html", "射阳本地"),
+    ("calendar.html", "生活工具"),
+    ("about.html", "关于我"),
 ]
-# “更多”下拉
-DROPDOWN = [
-    ("travel.html", "家庭旅行"),
-    ("tags.html", "标签聚合"),
-    ("chinajoy.html", "ChinaJoy 成长史"),
-    ("guanghui.html", "光辉电力"),
-    ("gaokao.html", "高考查分"),
-    ("pitfalls.html", "踩坑记"),
-    ("typhoon.html", "台风监测"),
-    ("games.html", "游戏库"),
-    ("status-history.html", "站点状态"),
-    ("about.html", "关于本站"),
-    ("bookmarks.html", "我的收藏"),
-    ("rss.xml", "RSS 订阅"),
-]
-MOBILE = [("index.html", "首页")] + DESKTOP + DROPDOWN
+# 兼容旧引用（「更多」下拉 = 各类目成员汇总；移动端 = 首页 + 分组全量）
+DROPDOWN = [item for _, items in CATEGORIES for item in items]
+MOBILE = [("index.html", "首页")] + DROPDOWN
 
 SVG_SEARCH = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'
 SVG_SHARE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>'
@@ -68,17 +97,26 @@ def build_nav(prefix, active_bare):
     nav_links = "\n".join(
         f'      <li><a href="{href(t)}"{cls(t)}>{name}</a></li>' for t, name in DESKTOP
     )
-    drop_links = "\n".join(
-        f'          <a href="{href(t)}"{cls(t)}>{name}</a>' for t, name in DROPDOWN
-    )
-    mob_links = "\n".join(
-        f'  <a href="{href(t)}">{name}</a>' for t, name in MOBILE
-    )
+    # 「更多」下拉：按 6 大主题类目分组（分组标题 + 成员）
+    _drop = []
+    for _cat, _items in CATEGORIES:
+        _drop.append(f'          <span class="nav-more-hd">{_cat}</span>')
+        for t, name in _items:
+            _drop.append(f'          <a href="{href(t)}"{cls(t)}>{name}</a>')
+    drop_links = "\n".join(_drop)
+    # 移动端：首页 + 分组标题 + 成员
+    _home = href("index.html")
+    _mob = [f'  <a href="{_home}">首页</a>']
+    for _cat, _items in CATEGORIES:
+        _mob.append(f'  <span class="nav-hd">{_cat}</span>')
+        for t, name in _items:
+            _mob.append(f'  <a href="{href(t)}">{name}</a>')
+    mob_links = "\n".join(_mob)
     return f'''<nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner">
     <a href="{href('index.html')}" class="logo" aria-label="龙兄知识库首页">
       <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
-      <span>龙兄知识库</span>
+      <span>龙兄</span>
     </a>
     <a href="{href('calendar.html')}" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
     <span class="nav-weather" id="navWeather" data-nav="{href('sheyang.html')}" style="cursor:pointer;" title="点击查看当地天气详情">{SVG_WEATHER}</span>
@@ -162,8 +200,22 @@ def main():
                 count["unchanged"] += 1
             else:
                 count["skip"] += 1
+    # 同步 Hugo 模板导航（首页等经 Hugo 渲染的页面用它），与静态页共用同一份定义
+    tpl_res = "unchanged"
+    try:
+        with open(NAVBAR_TPL, "r", encoding="utf-8") as f:
+            old_tpl = f.read()
+    except FileNotFoundError:
+        old_tpl = ""
+    new_tpl = build_nav("{{ .Site.BaseURL }}", None) + "\n"
+    if new_tpl != old_tpl:
+        tpl_res = "updated"
+        if not check_only:
+            with open(NAVBAR_TPL, "w", encoding="utf-8") as f:
+                f.write(new_tpl)
+
     print(f"[sync_navbar] check_only={check_only}")
-    print(f"  updated={count['updated']} unchanged={count['unchanged']} skip={count['skip']}")
+    print(f"  updated={count['updated']} unchanged={count['unchanged']} skip={count['skip']} | navbar.html={tpl_res}")
     for name, res in changed[:20]:
         print(f"  + {name}: {res}")
     if len(changed) > 20:

@@ -39,9 +39,9 @@ EXCLUDE = {
 # URL 前缀 → 板块
 URL_BOARD_RULES = [
     ("/pages/zisha/", "紫砂"),
-    ("/console-", "游戏主机"),
+    ("/console-", "主机图鉴"),
     ("/tesla/", "特斯拉"),
-    ("/games/", "游戏"),
+    ("/games/", "游戏测评"),
     ("/herbs/", "中药材香料"),
     ("/bracelet/", "文玩手串"),
 ]
@@ -60,10 +60,10 @@ FILE_BOARD = {
     "/pitfalls.html": "踩坑记",
     "/calendar.html": "站点工具",
     "/travel.html": "旅行",
-    "/console.html": "游戏主机",
+    "/console.html": "主机图鉴",
     "/herbs.html": "中药材香料",
     "/zisha.html": "紫砂",
-    "/games.html": "游戏",
+    "/games.html": "游戏测评",
     "/tesla.html": "特斯拉",
     "/bracelet.html": "文玩手串",
 }
@@ -75,7 +75,7 @@ FILE_BOARD = {
 TOPIC_GROUPS = {
     "数码产品": ["苹果", "特斯拉"],
     "气象农事": ["射阳气象", "射阳本地", "射阳本地民生"],
-    "游戏娱乐": ["ChinaJoy", "漫威", "游戏", "游戏主机"],
+    "游戏娱乐": ["ChinaJoy", "漫威", "游戏测评", "主机图鉴"],
     "香道养生": ["中药材香料", "文玩手串", "养生茶", "沉香"],
     "器与藏": ["紫砂"],
     "乡土民生": ["光辉电力", "高考志愿", "射阳本地", "射阳本地民生"],
@@ -89,7 +89,7 @@ WEAK_CATEGORY = {"未分类", "pages", "", None}
 def guess_board(url, category):
     """URL 规则优先于 category 字段。
 
-    content-index 的 category 是粗放的（例如把 /games/* 也标成"游戏主机"），
+    content-index 的 category 是粗放的（例如把 /games/* 也标成"主机图鉴"），
     而 URL 路径能准确反映子板块，因此先按 URL 判定，category 仅作兜底。
     """
     for prefix, board in URL_BOARD_RULES:
@@ -121,7 +121,7 @@ def core_title(title):
     """取标题主体，去掉模板化后缀。
 
     站内标题多为「四方穿炉 | 紫砂艺术2026实测避坑」「地龙 | 中药材香料2026实测避坑」
-    「Nintendo Switch - 游戏主机图鉴详细科普」。后缀与 desc 全是同一套模板文案，
+    「Nintendo Switch - 主机图鉴详细科普」。后缀与 desc 全是同一套模板文案，
     若参与相似度计算会把所有同板块文章的得分拉平，退化成随机关联。
     """
     t = title or ""

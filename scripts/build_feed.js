@@ -157,15 +157,15 @@ var ORIGINAL_DIR = path.join(ROOT, 'content', 'original');
 var BOARD_PAGE = {
   '养生茶': 'health-tea.html', '文玩手串': 'bracelet.html',
   '特斯拉': 'tesla.html', '漫威宇宙': 'marvel.html', '紫砂艺术': 'zisha.html',
-  '游戏主机': 'console.html', 'ChinaJoy': 'chinajoy.html', '光辉电力': 'guanghui.html',
+  '主机图鉴': 'console.html', 'ChinaJoy': 'chinajoy.html', '光辉电力': 'guanghui.html',
   '踩坑记': 'pitfalls.html', '高考查分': 'gaokao.html', '农田气象': 'xintan-weather.html',
-  '游戏库': 'games.html', '台风监测': 'typhoon.html'
+  '游戏测评': 'games.html', '台风监测': 'typhoon.html'
 };
 var BOARD_ACCENT = {
   '养生茶': '#6FA85B', '文玩手串': '#B07A3C', '特斯拉': '#E0492F',
-  '漫威宇宙': '#C0392B', '紫砂艺术': '#8B5A2B', '游戏主机': '#5B6BB0', 'ChinaJoy': '#D269A0',
+  '漫威宇宙': '#C0392B', '紫砂艺术': '#8B5A2B', '主机图鉴': '#5B6BB0', 'ChinaJoy': '#D269A0',
   '光辉电力': '#E0A92F', '踩坑记': '#9B7BD4', '高考查分': '#2E8BC0', '农田气象': '#4FA3C7',
-  '游戏库': '#7A8BD0', '台风监测': '#2E8BC0', '随笔杂记': '#8B7FD6'
+  '游戏测评': '#7A8BD0', '台风监测': '#2E8BC0', '随笔杂记': '#8B7FD6'
 };
 if (fs.existsSync(ORIGINAL_DIR)) {
   fs.readdirSync(ORIGINAL_DIR).forEach(function (fn) {

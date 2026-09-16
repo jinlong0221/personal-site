@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-register_spiderman.py — 把两款蜘蛛侠登记进站点地图与游戏库列表页。
+register_spiderman.py — 把两款蜘蛛侠登记进站点地图与游戏测评列表页。
 
 1) data/sitemap_extra.json：在末尾（新游戏区块之后）追加 2 条，
    否则 build_content_index.py 扫不到 → 不进搜索索引、不进 sitemap、拿不到相关阅读。

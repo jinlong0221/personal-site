@@ -3,7 +3,7 @@
 <head>
   {{- partial "head.html" . -}}
 </head>
-<body{{ if .Params.noindex }} data-pagefind-ignore{{ end }}>
+<body{{ if .Params.noindex }} data-pagefind-ignore{{ end }}{{ if .IsHome }} data-no-secnav="true"{{ end }}>
   {{- partial "navbar.html" . -}}
   <main id="main-content">
     {{- block "main" . }}{{- end -}}

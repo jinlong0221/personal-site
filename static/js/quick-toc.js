@@ -8,32 +8,59 @@
 (function () {
   'use strict';
 
+  // 六大主题类目：与顶栏导航、首页目录保持同一套分组（单一维度，不再混搭）
   var COLUMNS = [
     {
-      title: '核心栏目',
+      title: '风物志',
       items: [
         ['养生茶', 'health-tea.html'],
         ['文玩手串', 'bracelet.html'],
-        ['特斯拉', 'tesla.html'],
-        ['苹果新品', 'apple.html'],
-        ['漫威宇宙', 'marvel.html'],
-        ['农田气象', 'xintan-weather.html'],
-        ['紫砂艺术', 'zisha.html'],
-        ['游戏主机', 'console.html']
+        ['紫砂艺术', 'zisha.html']
       ]
     },
     {
-      title: '更多栏目',
+      title: '车与数码',
       items: [
-        ['家庭旅行', 'travel.html'],
-        ['标签聚合', 'tags.html'],
+        ['特斯拉', 'tesla.html'],
+        ['苹果新品', 'apple.html'],
+        ['新能源销量榜', 'ev-sales.html'],
+        ['充电桩查询', 'ev-charge.html']
+      ]
+    },
+    {
+      title: '游戏影游',
+      items: [
+        ['主机图鉴', 'console.html'],
+        ['游戏测评', 'games.html'],
         ['ChinaJoy', 'chinajoy.html'],
-        ['光辉电力', 'guanghui.html'],
-        ['高考查分', 'gaokao.html'],
-        ['踩坑记', 'pitfalls.html'],
+        ['漫威宇宙', 'marvel.html']
+      ]
+    },
+    {
+      title: '射阳本地',
+      items: [
+        ['农田气象', 'xintan-weather.html'],
         ['台风监测', 'typhoon.html'],
-        ['游戏库', 'games.html'],
+        ['射阳天气', 'sheyang.html'],
+        ['光辉电力', 'guanghui.html']
+      ]
+    },
+    {
+      title: '生活工具',
+      items: [
+        ['万年历', 'calendar.html'],
+        ['高考查分', 'gaokao.html'],
+        ['标签聚合', 'tags.html']
+      ]
+    },
+    {
+      title: '关于我',
+      items: [
+        ['站长手记', 'notes.html'],
+        ['踩坑记', 'pitfalls.html'],
+        ['更新日志', 'changelog.html'],
         ['站点状态', 'status-history.html'],
+        ['家庭旅行', 'travel.html'],
         ['关于本站', 'about.html']
       ]
     }

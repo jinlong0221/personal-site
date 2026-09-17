@@ -35,7 +35,15 @@ uglyURLs = true
 
 # Pagefind 搜索
 [outputs]
-  home = ["HTML", "RSS", "SITEMAP"]  # 首页输出（Pagefind 直接索引 HTML，无需 JSON 输出）
+  # 只输出 HTML + 站点地图。刻意关掉 Hugo 自带的 RSS：
+  # 全站正式的订阅源是 scripts/build_rss.py 产出的 /rss.xml（覆盖全部 163 条内容，
+  # 且带摘要与分类），而 Hugo 默认还会额外生成 /index.xml（只有 8 个内容页）、
+  # /tags/index.xml、/categories/index.xml（标题被拼成「X on 龙兄知识库」的英文式样）。
+  # 那三个野 feed 站内没有任何引用，属重复内容，会分散搜索引擎对订阅源的判定。
+  home    = ["HTML", "SITEMAP"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  term     = ["HTML"]
 
 # 构建时压缩输出的 HTML / CSS / JS / JSON / SVG（减小传输体积、提升加载速度）
 [minify]

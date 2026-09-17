@@ -327,8 +327,9 @@ def sync_h1(html, rel):
 def build_footer(prefix):
     links = " <span class=\"sep\">·</span> ".join(
         f'<a href="{prefix}{t}">{n}</a>'
-        for t, n in (("about.html", "关于本站 / 免责声明"), ("notes.html", "站长手记"),
-                     ("tags.html", "标签聚合"), ("rss.xml", "RSS 订阅"))
+        for t, n in (("about.html", "关于本站 / 免责声明"), ("categories/", "全部栏目"),
+                     ("notes.html", "站长手记"), ("tags.html", "标签聚合"),
+                     ("rss.xml", "RSS 订阅"))
     )
     legal = (f'如发现内容涉及侵权，请联系 {EMAIL_ANCHOR}，我们会在核实后尽快处理。'
              if EMAIL_ANCHOR else "如发现内容涉及侵权，请通过「关于本站」页面的联系方式告知，我们会在核实后尽快处理。")

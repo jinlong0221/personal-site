@@ -77,7 +77,7 @@
     }{{ if .IsPage }},
     {
       "@type": "Article",
-      "headline": "{{ .Title }}",
+      "headline": "{{ $title }}",
       "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}",
       "url": "{{ .Permalink }}",
       {{- with .Date }}"datePublished": "{{ .Format "2006-01-02" }}",{{ end }}

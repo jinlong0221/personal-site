@@ -1,0 +1,42 @@
+{{/* 301 式跳转页（Hugo 侧与 static/ 下的别名跳转页同构，见 scripts/sync_chrome.py 的三条
+   console-* 别名页）。
+
+   为什么要这个模板：
+     /tags/ 是 Hugo 为 tags 分类自动生成的列表页，而本站的标签体系实际由
+     scripts/build_content_index.py 产出 data/content-index.json、前端 js/tag.js 渲染，
+     Hugo 的分类里一个标签都没有 → /tags/ 渲染出来是个只有标题「+ 描述 + 页脚、
+     正文全空的壳子，却一直被 sitemap 收录。让它 301 到真正在用的 /tags.html。
+
+   为什么不用 JS 兜底跳转：
+     全站 CSP 由 scripts/compute_csp_hashes.py 按 static/*.html 里的内联脚本算哈希，
+     Hugo 模板里新增的内联脚本不在那份清单里，会被浏览器安全规则挡掉。
+     所以这里只用 meta refresh（不受 CSP 管）——0 秒刷新在搜索引擎眼里等同 301。 */}}
+{{- $to := .Params.redirect_to | default "/" -}}
+{{- $abs := $to | absURL -}}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ .Title }}｜龙兄知识库</title>
+<link rel="canonical" href="{{ $abs }}">
+<meta name="robots" content="noindex, follow">
+<meta name="description" content="{{ .Description }}">
+{{/* 社交分享字段与 static/ 下的三个主机别名跳转页同款，保持「标题四字段」全站口径一致 */}}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ .Title }}｜龙兄知识库">
+<meta property="og:description" content="{{ .Description }}">
+<meta property="og:url" content="{{ $abs }}">
+<meta property="og:image" content="{{ .Site.BaseURL }}img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title }}｜龙兄知识库">
+<meta name="twitter:description" content="{{ .Description }}">
+<meta name="twitter:image" content="{{ .Site.BaseURL }}img/og-image.png">
+<meta http-equiv="refresh" content="0; url={{ $to }}">
+</head>
+<body>
+<p style="font-family:system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:2rem;color:#666;line-height:1.8;">该页面已合并至 <a href="{{ $to }}">{{ .Title }}</a>，正在为你跳转…</p>
+<p style="font-family:system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:0 2rem 2rem;color:#888;line-height:2;">{{ .Content }}</p>
+</body>
+</html>

@@ -43,15 +43,22 @@ CODE_TAGS = {"code", "pre", "kbd", "samp"}
 #   404 错误页、offline 离线兜底页、3 个主机图鉴别名 301 跳转壳、
 #   travel 加密壳（页脚随内容一起加密，解锁后才出现）、
 #   以及「脚趾抠地」App 的独立法律页（不属本站内容，套本站免责声明反而误导）
+#   tags/ 是 Hugo 侧 301 跳转壳（content/tags/_index.md + layouts/_default/redirect.html），
+#   与 static/ 下三个主机别名跳转页同族：只留 meta refresh 与说明文字，不该长骨架。
+#
+# ⚠️ 键一律写「相对产物根目录的路径」（如 tags/index.html），不要写裸文件名：
+#    下面用 rel in SET 精确匹配。早期版本用 os.path.basename 匹配，
+#    导致子目录里任何叫 index.html 的页根本没法登记进豁免表。
 STRUCTURE_EXEMPT = {
     "404.html", "offline.html",
     "console-gc.html", "console-n64.html", "console-wiiu.html",
-    "travel.html",
+    "travel.html", "tags/index.html",
     "privacy.html", "shesi-landing.html", "shesi-privacy.html",
 }
 # 设计内就没有 H1 的页（跳转壳没有正文；加密壳的 H1 在密文里，解密后才注入）
 H1_EXEMPT = {
-    "console-gc.html", "console-n64.html", "console-wiiu.html", "travel.html",
+    "console-gc.html", "console-n64.html", "console-wiiu.html",
+    "travel.html", "tags/index.html",
 }
 
 
@@ -223,9 +230,9 @@ def main():
         json_bad = audit_json(root)
 
         n = len(rels)
-        ex_crumb = [r for r in miss_crumb if os.path.basename(r) in STRUCTURE_EXEMPT]
-        ex_cc = [r for r in miss_cc if os.path.basename(r) in STRUCTURE_EXEMPT]
-        ex_h1 = [r for r in miss_h1 if os.path.basename(r) in H1_EXEMPT]
+        ex_crumb = [r for r in miss_crumb if r in STRUCTURE_EXEMPT]
+        ex_cc = [r for r in miss_cc if r in STRUCTURE_EXEMPT]
+        ex_h1 = [r for r in miss_h1 if r in H1_EXEMPT]
         real_crumb = [r for r in miss_crumb if r not in ex_crumb]
         real_cc = [r for r in miss_cc if r not in ex_cc]
         real_h1 = [r for r in miss_h1 if r not in ex_h1]

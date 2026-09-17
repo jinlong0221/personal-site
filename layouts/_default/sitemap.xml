@@ -4,7 +4,9 @@
   {{- /* Hugo 管理的全部页面：首页 + 分区 + 内容页 + 分类/标签
          用 site.Pages（而非 .Pages）才能覆盖首页与嵌套内容页，
          历史上 .Pages 导致首页与 herbs/chenxiang 等深层页漏收。 */}}
-  {{- $skip := slice "/checklist/" "/search/" }}
+  {{- /* /tags/ 已改为 301 跳转页（content/tags/_index.md + layouts/_default/redirect.html），
+         不该再进 sitemap；这里与 front matter 的 sitemap.disable 双保险。 */}}
+  {{- $skip := slice "/checklist/" "/search/" "/tags/" }}
   {{- range where site.Pages "Sitemap.Disable" "ne" true }}
   {{- $p := .RelPermalink }}
   {{- if not (in $skip $p) }}

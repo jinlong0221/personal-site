@@ -283,11 +283,8 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
   <a href="../travel.html">家庭旅行</a>
   </div>
 </nav>
-<div class="breadcrumb">
-<a href="../index.html">首页</a><span>›</span>
-<a href="../games.html">玩过的游戏</a><span>›</span>
-<span>影之刃：零</span>
-</div>
+
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="../index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="../games.html">玩过的游戏</a><span class="sep">›</span><span class="current">影之刃：零</span></div>
 
 <div class="detail-hero">
 <div class="detail-cover" data-lightbox data-caption="影之刃：零 官方封面" data-src="../img/games/phantom-blade-zero-cover.webp"><img width="1600" height="900" src="../img/games/phantom-blade-zero-cover.webp" alt="影之刃：零 封面" loading="lazy" decoding="async">
@@ -414,16 +411,32 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
   </ul>
 </section>
 <!-- related:end -->
-<footer style="text-align:center;padding:30px 20px;border-top:1px solid var(--border);color:var(--text-secondary);font-size:0.9rem;margin-top:20px" role="contentinfo">
-<p>龙兄知识库 · 让求知成为习惯 | <a href="../about.html" style="color:var(--text-secondary)">关于本站</a></p>
-<p style="margin-top:8px">
-<span style="font-size:13px;color:var(--text-muted)">访问 <span id="busuanzi_value_site_pv" style="font-weight:700;color:var(--gold)"></span> 次</span>
-<span style="font-size:13px;color:var(--text-muted);margin-left:16px;">访客 <span id="busuanzi_value_site_uv" style="font-weight:700;color:var(--gold)"></span> 人</span>
-</p>
-<p style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);">最后更新：2026-08-30</p>
-<p style="margin-top:6px;font-size:0.78rem;line-height:1.7;color:var(--text-muted);max-width:820px;margin-left:auto;margin-right:auto;"><a id="sources" class="src-anchor"></a>资料来源：<a href="https://blog.playstation.com/2026/08/25/gamescom-opening-night-live-highlights-19-games-coming-to-playstation/" target="_blank" rel="noopener" style="color:var(--blue)">官方站 / PlayStation Blog</a>（各游戏官方网站与商店页）；发售与定价数据截至 2026-09 核验，已交叉核对。本页为公开资料整理，非本人实玩评测，游戏更新后可能与官方最新公告存在差异，以官方为准。（外部链接 2026-08 核验可达）</p>
-
-    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-09，已交叉核对。</p>
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：2026-09-17</div>
+  </div>
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="../about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="../notes.html">站长手记</a> <span class="sep">·</span> <a href="../tags.html">标签聚合</a> <span class="sep">·</span> <a href="../rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
 </footer>
 
 <script>
@@ -457,5 +470,6 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system,"P
 <div id="quickToc"></div>
 <script src="../js/quick-toc.js?v=20260916" defer></script>
 <script src="../js/bookmark.js" defer></script>
+<script src="/js/obfuscate-email.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 ---
-title: "搜索"
+title: "全站搜索"
 layout: "search"
 url: "/search.html"
 noindex: true

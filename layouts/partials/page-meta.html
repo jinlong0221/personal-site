@@ -1,0 +1,22 @@
+{{/* 页尾信息块：与 static/ 下 176 个板块页同构（规范的唯一定义见 scripts/sync_chrome.py）
+     结构：.page-meta = 免责说明（.ref-note）+ 最后更新（.update-time）
+
+     为什么 Hugo 页单独放一个 partial：
+       static/*.html 不经 Hugo 渲染，其 .update-time 由 CI 的 sync_update_time.py
+       按「文件最后一次 git 改动日」刷新；Hugo 生成页在构建期才诞生，赶不上那一步，
+       于是走 GitInfo 取同一个口径（hugo.toml 里 enableGitInfo = true）。
+       两者数据源相同 → 全站日期口径一致，且都不需要人工维护。
+
+     豁免：front matter 标了 noindex 的工具页（全站搜索/标签文章/建站清单等）
+     不加信息块——它们是工具而非内容页，加了反而是噪音。 */}}
+{{- $d := .Lastmod -}}
+{{- if $d.IsZero }}{{ $d = .Date }}{{ end -}}
+{{/* 外面套 .container：静态页的信息块落在 <main class="container"> 内或被 body 兜底规则居中，
+     Hugo 页的 <main> 没有 container 类，不套就会撑满整屏宽——实测静态页 1160px，
+     不套则 1432px，同一组件两种宽度。套上后两边几何完全一致。 */}}
+<div class="container">
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：{{ $d.Format "2006-01-02" }}</div>
+  </div>
+</div>

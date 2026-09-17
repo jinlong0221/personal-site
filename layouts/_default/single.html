@@ -2,8 +2,11 @@
 {{ partial "page-header.html" . }}
 {{ partial "bookmark-btn.html" . }}
 <div class="container" style="padding:2rem 1rem;">
+  {{/* 板块页标题：内容里没有 H1 时补上，保证全站每个板块页都有且仅有一个 H1 */}}
+  {{ if not (findRE "<h1" .Content) }}<h1>{{ .Title }}</h1>{{ end }}
   <article class="content-body">
     {{ .Content }}
   </article>
 </div>
+{{ if not .Params.noindex }}{{ partial "page-meta.html" . }}{{ end }}
 {{ end }}

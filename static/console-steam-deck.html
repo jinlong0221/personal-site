@@ -288,11 +288,12 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   </div>
 </nav> 
 <main class="container" id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="console.html">主机图鉴</a><span class="sep">›</span><span class="current">Steam Deck</span></div>
 <div class="console-detail-hero"><div class="image-side"><img width="800" height="533" src="img/consoles/steam-deck.webp" alt="Valve Steam Deck" loading="lazy"></div>
 <div class="info-side"><div class="year-badge">2022 年发布</div><h1>Steam Deck</h1>
 <div class="subtitle">PC掌机革命 · SteamOS · 便携玩遍PC游戏</div>
 <div class="quick-stats"><div class="qs"><div class="qsv">$399起</div><div class="qsl">首发价格</div></div><div class="qs"><div class="qsv">7寸</div><div class="qsl">屏幕</div></div><div class="qs"><div class="qsv">AMD</div><div class="qsl">定制APU</div></div><div class="qs"><div class="qsv">2-8h</div><div class="qsl">续航</div></div></div></div></div>
-<div class="detail-section"><h2>📖 历史与背景</h2><p>2022年2月，Valve推出Steam Deck——一台运行SteamOS（基于Arch Linux）的便携PC手持游戏设备。Steam Deck搭载了Valve与AMD联合定制的Zen 2+RDNA 2 APU，性能约等于一台低配笔记本电脑，但可以装在掌上。</p><p>Steam Deck最大的意义在于"PC游戏终于可以随身携带了"——玩家可以将整个Steam游戏库装进口袋，畅玩《巫师3》《艾尔登法环》《赛博朋克2077》等3A大作（虽然以低画质运行）。SteamOS的Proton兼容层让绝大部分Windows游戏也能在Deck上运行。</p><p>Steam Deck引爆了PC掌机市场，后续华硕ROG Ally、联想Legion Go等产品都借鉴了它的设计理念。</p></div>
+<div class="detail-section"><h2>📖 历史与背景</h2><p>2022年2月，Valve推出Steam Deck——一台运行SteamOS（基于Arch Linux）的便携PC手持游戏设备。Steam Deck搭载了Valve与AMD联合定制的Zen 2+RDNA 2 APU，性能约等于一台低配笔记本电脑，但可以装在掌上。</p><p>Steam Deck最大的意义在于「PC游戏终于可以随身携带了」——玩家可以将整个Steam游戏库装进口袋，畅玩《巫师3》《艾尔登法环》《赛博朋克2077》等3A大作（虽然以低画质运行）。SteamOS的Proton兼容层让绝大部分Windows游戏也能在Deck上运行。</p><p>Steam Deck引爆了PC掌机市场，后续华硕ROG Ally、联想Legion Go等产品都借鉴了它的设计理念。</p></div>
 <div class="detail-section"><h2>⚙️ 硬件</h2><div class="spec-grid"><div class="spec-item"><div class="spec-label">APU</div><div class="spec-value">AMD Van Gogh (4C/8T Zen 2)</div></div>
 <div class="spec-item"><div class="spec-label">GPU</div><div class="spec-value">RDNA 2 8CU 1.6TFLOPS</div></div>
 <div class="spec-item"><div class="spec-label">内存</div><div class="spec-value">16GB LPDDR5</div></div>
@@ -302,8 +303,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <div class="spec-item"><div class="spec-label">重量</div><div class="spec-value">约669g</div></div>
 <div class="spec-item"><div class="spec-value">续航</div><div class="spec-value">2-8小时</div></div></div></div>
 <div class="nav-prev-next"><a href="console-xiaobawang.html">← 小霸王（过去）</a><a href="console-other.html">其他主机列表 ↑</a><a href="console-rog-ally.html">ROG Ally（同类PC掌机） →</a></div>
-<div class="page-meta" style="text-align:center;padding:20px 0 40px;color:var(--text-muted);font-size:0.8rem;"><p>最后更新：2026-07-07 | <a id="sources" class="src-anchor"></a>数据来源：<a href="https://www.steamdeck.com/en/" target="_blank" rel="noopener" style="color:var(--blue)">Valve Steam Deck 官网</a> 公开产品与规格资料；发售时间、硬件参数与销量数据经多方公开资料交叉核对（外部链接 2026-08-07 核验可达）</p>
-    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p><p><a href="console-other.html" style="color:var(--blue);;">← 返回其他主机列表</a></p></div><!-- guide:begin -->
+<!-- guide:begin -->
 <section class="lx-insight lx-insight-guide" aria-label="选购与避坑">
   <div class="lx-insight-head">
     <span class="lx-insight-kicker">买之前先看这个</span>
@@ -360,25 +360,34 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   </ul>
 </section>
 <!-- related:end -->
+  <div class="page-meta">
+    <div class="source"><a id="sources" class="src-anchor"></a>数据来源：<a href="https://www.steamdeck.com/en/" target="_blank" rel="noopener" style="color:var(--blue)">Valve Steam Deck 官网</a> 公开产品与规格资料；发售时间、硬件参数与销量数据经多方公开资料交叉核对（外部链接 2026-08-07 核验可达）</div>
+    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p><p><a href="console-other.html" style="color:var(--blue);;">← 返回其他主机列表</a></p>
+    <div class="update-time">最后更新：2026-09-17</div>
+  </div>
 </main>
 
 <footer role="contentinfo">
   <div class="footer-brand-row">
-    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
   </div>
   <div class="footer-info-row">
-    © 2026 龙兄知识库
-    <span class="sep">·</span> 专注实用科普与生活百科
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
   </div>
   <div class="footer-stats-row">
     <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
     <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
   </div>
   <div class="footer-links-row">
-    <a href="about.html">关于本站 / 免责声明</a>
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
   </div>
   <div class="footer-legal">
-    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com" style="color:var(--email-green)">[email protected]</a>，我们会在核实后尽快处理。
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
   </div>
 </footer>
 

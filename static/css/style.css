@@ -378,7 +378,9 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .breadcrumb a { color:var(--text-muted); }
 .breadcrumb a:hover { color:var(--gold); }
 .breadcrumb .sep { margin:0 8px; color:var(--text-muted); }
-.breadcrumb .current { color:var(--gold); }
+.breadcrumb .current { color:var(--gold); margin:0; }
+/* 全站面包屑统一为「首页 › 类目 › 板块[ › 内容]」；类目无落地页，故作纯文本 */
+.breadcrumb .crumb-cat { color:var(--text-muted); }
 
 .card {
  background:var(--card); border:1px solid var(--border);
@@ -4891,6 +4893,14 @@ footer{margin-top:40px;border-top:2px solid var(--rule);padding:26px 16px 64px;t
 .footer-stats-row{margin:8px 0;color:var(--tx-2)}
 .footer-stats-row strong{color:var(--gold);font-weight:600}
 .footer-legal a{color:var(--cinnabar)}
+/* 页脚统一：品牌行用站标印章取代 emoji；补上 CC 许可行（此前只有首页有） */
+.footer-brand-row .lx-seal{color:var(--cinnabar);vertical-align:-3px;margin-right:3px}
+.footer-license-row{margin-bottom:12px;color:var(--tx-3)}
+.footer-license-row a{color:var(--tx-2);text-decoration:none}
+.footer-license-row a:hover{color:var(--cinnabar)}
+.footer-license-row .sep,.footer-links-row .sep{margin:0 8px}
+/* 页尾信息块若落在 <main> 之外（部分页面正文结构如此），自行对齐到全站内容宽度 */
+body > .page-meta{margin-left:max(20px,calc((100% - var(--max-width))/2 + 20px));margin-right:max(20px,calc((100% - var(--max-width))/2 + 20px))}
 
 /* 移动端底部书签栏（仅在含 .lx-dock 的页面显示） */
 .lx-dock{position:fixed;bottom:0;left:0;right:0;z-index:150;display:none;background:color-mix(in srgb,var(--ink-2) 95%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom)}

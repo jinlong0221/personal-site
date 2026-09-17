@@ -444,10 +444,11 @@ var _hmt = _hmt || [];
 </nav>
 
 <main class="container" id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">射阳本地</span><span class="sep">›</span><span class="current">农田气象</span></div>
   <!-- 顶部横幅 -->
   <div class="xw-banner">
     <div class="xw-banner-icon">🌾</div>
-    <h1 class="xw-banner-title" style="margin:0;">江苏射阳新坍镇 · 农田气象</h1>
+    <h1 class="xw-banner-title" style="margin:0;">农田气象</h1>
 <p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 实时观测随页面加载取自 Open-Meteo；农事科普与常年气候参数最后整理：2026 年 8 月</p>
     <div class="xw-banner-sub">乡镇级精准农业气象预报</div>
     <div class="xw-banner-coord">33.76°N · 120.09°E · 海拔约2m</div>
@@ -507,25 +508,33 @@ var _hmt = _hmt || [];
   </ul>
 </section>
 <!-- related:end -->
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：2026-09-17</div>
+  </div>
 </main>
 
 <footer role="contentinfo">
   <div class="footer-brand-row">
-    🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
   </div>
   <div class="footer-info-row">
-    © 2026 龙兄知识库
-    <span class="sep">·</span> 专注实用科普与生活百科
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
   </div>
   <div class="footer-stats-row">
     <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
     <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
   </div>
   <div class="footer-links-row">
-    <a href="about.html">关于本站 / 免责声明</a>
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
   </div>
   <div class="footer-legal">
-    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com" style="color:var(--email-green)">[email protected]</a>，我们会在核实后尽快处理。
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
   </div>
 </footer>
 
@@ -768,7 +777,7 @@ var _hmt = _hmt || [];
   ]
 }
 </script>
-  <p class="update-time" style="text-align:center;margin:16px 0 6px">最后更新：2026-09-17</p>
+  
   <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
 <script src="js/quick-toc.js?v=20260916" defer></script>

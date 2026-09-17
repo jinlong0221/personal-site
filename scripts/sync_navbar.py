@@ -173,14 +173,15 @@ def extract_active_bare(html):
     return re.sub(r'^(\.\./)+', '', hm.group(1))
 
 
-def process_file(path, check_only=False):
+def process_file(path, check_only=False, base_dir=None):
+    base_dir = base_dir or STATIC_DIR
     with open(path, "r", encoding="utf-8") as f:
         html = f.read()
     m = re.search(r'<nav class="navbar".*?</nav>', html, re.S)
     if not m:
         return "skip(no-nav)"
     orig = m.group(0)
-    rel = os.path.relpath(path, STATIC_DIR)
+    rel = os.path.relpath(path, base_dir)
     depth = rel.count(os.sep)
     prefix = "../" * depth
     active_bare = extract_active_bare(orig)
@@ -211,6 +212,22 @@ def main():
                 count["unchanged"] += 1
             else:
                 count["skip"] += 1
+    # 旅行加密相册的部署产物：正文由 TRAVEL_KEY 重新加密生成，但「外壳导航」是明文，
+    # 且不在 static/ 下，此前一直漏同步（改名后仍挂着旧版导航）。这里单独补上；
+    # 只替换 <nav>，不碰密文与密码门，guard_travel_dist.sh 的判据不受影响。
+    extra_root = os.path.join(os.path.dirname(STATIC_DIR), "travel-dist")
+    for fn in ("travel.html",):
+        p = os.path.join(extra_root, fn)
+        if not os.path.exists(p):
+            continue
+        res = process_file(p, check_only, base_dir=extra_root)
+        if res.startswith("updated"):
+            count["updated"] += 1
+            changed.append((os.path.join("travel-dist", fn), res))
+        elif res == "unchanged":
+            count["unchanged"] += 1
+        else:
+            count["skip"] += 1
     # 同步 Hugo 模板导航（首页等经 Hugo 渲染的页面用它），与静态页共用同一份定义
     tpl_res = "unchanged"
     try:

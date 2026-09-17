@@ -1,10 +1,17 @@
-<!-- 面包屑导航 -->
-<div class="breadcrumb-nav">
-  <a href="{{ $.Site.BaseURL }}">首页</a>
-  {{ if .Section }}
-  <span> › </span>
-  <a href="{{ $.Site.BaseURL }}{{ .Section }}.html">{{ .Section | humanize }}</a>
-  {{ end }}
-  <span> › </span>
-  <span>{{ .Title }}</span>
+{{/* 全站面包屑：与 176 个静态页共用同一规范（见 scripts/sync_chrome.py）
+     格式：首页 › 类目 › 板块[ › 内容]；类目无落地页，故作纯文本。
+     $cats 映射须与 sync_chrome.py 的 CATEGORIES 保持一致，改动请同步。 */}}
+{{- $cats := dict
+    "站长手记" "关于我"
+    "建站清单" "关于我"
+    "龙兄知识库 · 建站清单" "关于我"
+    "我的收藏" "生活工具"
+    "标签聚合" "生活工具"
+    "标签文章" "生活工具"
+    "龙兄知识库全站标签导航" "生活工具"
+    "全站栏目总览" "生活工具"
+-}}
+{{- $cat := index $cats .Title -}}
+<div class="container">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="{{ .Site.BaseURL }}">首页</a>{{ with $cat }}<span class="sep">›</span><span class="crumb-cat">{{ . }}</span>{{ end }}<span class="sep">›</span><span class="current">{{ .Title }}</span></div>
 </div>

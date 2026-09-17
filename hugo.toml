@@ -3,7 +3,10 @@ defaultContentLanguage = "zh-cn"
 title = "龙兄知识库"
 timeout = "120s"
 enableRobotsTXT = true
-enableGitInfo = false
+# 打开 GitInfo：hugo 生成页（站长手记/栏目总览/标签导航等）的「最后更新」
+# 取该文件最后一次提交日，与 CI 里 sync_update_time.py 给静态页取的口径完全一致，
+# 避免再出现"写死日期、永不刷新"的老问题。CI checkout 已是 fetch-depth: 0，可正常取到历史。
+enableGitInfo = true
 
 [frontmatter]
   excludeFiles = ["README.md"]

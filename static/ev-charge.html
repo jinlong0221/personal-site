@@ -466,7 +466,8 @@ body:not(.ev-has-map) .ev-to-map{display:none}
   </div>
 </nav>
 
-<main id="main-content" role="main"><div class="page-wrap">
+<main id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">车与数码</span><span class="sep">›</span><span class="current">充电桩查询</span></div><div class="page-wrap">
   <!-- 头部：标题 + 实时数据概览 -->
   <header class="ev-hero">
     <div class="ev-hero-left">
@@ -603,7 +604,7 @@ body:not(.ev-has-map) .ev-to-map{display:none}
       <li><strong style="color:var(--text)">已核实价只覆盖一部分站点</strong>，而且各家运营商分布不均——像云快充这类，公开渠道查不到逐站挂牌价。查不到的站点本页<b>不猜、不估、不用别家的价顶替</b>，一律标「本站暂无核实价」并放大显示运营商：<strong style="color:var(--text)">宁可让你多点一次「查实时价」，也不给你一个可能是错的价</strong>。</li>
       <li><strong style="color:var(--text)">「核实」到底核的是什么，也说清楚：</strong>它指的是<b>这个价有可查的出处，不是我们编的</b>，而且经过<b>三重校验</b>——地区对得上、站名对得上、运营商对得上——确保不会把 A 站的价套到 B 站头上。<br>
       但它<b>不等于本站到现场实测过</b>，也不代表此刻的实时价（运营商调价、分时浮动我们都跟不上）。实际要付多少，请以现场或「查实时价」为准。</li>
-      <li><strong>省钱小提示：</strong>大部分地区的低谷时段在 <b>23:00–次日 7:00</b>，此时充电通常最便宜；高速服务区充电桩价格普遍高于市区；商场停车场的桩常有"充电免停车费"优惠。</li>
+      <li><strong>省钱小提示：</strong>大部分地区的低谷时段在 <b>23:00–次日 7:00</b>，此时充电通常最便宜；高速服务区充电桩价格普遍高于市区；商场停车场的桩常有「充电免停车费」优惠。</li>
     </ul>
   </section>
 
@@ -613,7 +614,7 @@ body:not(.ev-has-map) .ev-to-map{display:none}
       <li><a href="https://lbs.amap.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">高德开放平台</a> — 本页充电站位置、名称、地址、距离的地图数据来源（地点搜索 + 地址解析 + 定位）</li>
       <li><a href="https://www.modiauto.com.cn/cdz/c1239.html" target="_blank" rel="noopener" style="color:var(--blue-light)">无敌电动网</a> — <strong style="color:var(--text)">本页全部 244 条已核实电价的唯一来源</strong>：盐城 9 区县的公开挂牌价（含电费 + 服务费、快慢充桩数、停车费），本站逐条核对后收录。<br>
         <span style="color:var(--text-muted)">也正因为这个来源目前只覆盖盐城，本页核实价的范围暂时就到盐城为止；其他城市不是查不到，是<b>我们还没逐条核过，所以不敢往页面上写</b>。</span></li>
-      <li><a href="https://www.sheyang.gov.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">射阳县人民政府</a> — 《射阳县"十四五"电动汽车充电设施布局规划》，射阳本地充电站<b>布点规划</b>的参考依据（该规划讲的是站点布局，<b>不含逐站电价</b>）</li>
+      <li><a href="https://www.sheyang.gov.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">射阳县人民政府</a> — 《射阳县「十四五」电动汽车充电设施布局规划》，射阳本地充电站<b>布点规划</b>的参考依据（该规划讲的是站点布局，<b>不含逐站电价</b>）</li>
       <li><a href="https://www.echargenet.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">国家电网 e 充电</a> ·
           <a href="https://www.teld.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">特来电</a> ·
           <a href="https://www.starcharge.com/" target="_blank" rel="noopener" style="color:var(--blue-light)">星星充电</a> — 各运营商官方渠道，查询自家桩的实时价格与空闲状态</li>
@@ -658,24 +659,33 @@ body:not(.ev-has-map) .ev-to-map{display:none}
   </ul>
 </section>
 <!-- related:end -->
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：2026-09-17</div>
+  </div>
 </main>
 
 <footer role="contentinfo">
-  <div class="footer-brand-row">龙兄知识库</div>
-  <div class="footer-info-row">记录真实生活 · 分享实用知识<br>本站内容均为个人整理，仅供参考</div>
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
   <div class="footer-stats-row">
     <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
     <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
   </div>
   <div class="footer-links-row">
-    <a href="about.html">关于本站</a> ·
-    <a href="notes.html">站长手记</a> ·
-    <a href="tags.html">标签聚合</a> ·
-    <a href="rss.xml">RSS 订阅</a>
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
   </div>
   <div class="footer-legal">
-    充电桩位置数据由高德地图提供，价格信息以各运营商现场公示为准，本页不承担因数据变动导致的任何责任。<br>
-    © 2026 龙兄知识库 · longxiong.vip
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
   </div>
 </footer>
 
@@ -689,10 +699,11 @@ body:not(.ev-has-map) .ev-to-map{display:none}
 <script src="js/quick-toc.js?v=20260916" defer></script>
 <script src="js/bookmark.js" defer></script>
 
-  <p class="update-time" style="text-align:center;margin:16px 0 6px">最后更新：2026-09-17</p>
+  
   <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
 <script src="js/quick-toc.js?v=20260916" defer></script>
 <script src="js/bookmark.js" defer></script>
+<script src="/js/obfuscate-email.js"></script>
 </body>
 </html>

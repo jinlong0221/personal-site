@@ -349,13 +349,14 @@ table.ev-model td.nm a:hover{color:var(--gold);border-bottom-color:var(--gold)}
 </nav>
 
 
-<main id="main-content" role="main"><div class="page-wrap">
+<main id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">车与数码</span><span class="sep">›</span><span class="current">新能源销量榜</span></div><div class="page-wrap">
 
   <header class="ev-hero">
     <div class="ev-hero-left">
       <div class="ev-hero-badge" aria-hidden="true">📊</div>
       <div class="ev-hero-txt">
-        <h1 class="ev-title">新能源车销量排行榜</h1>
+        <h1 class="ev-title">新能源销量榜</h1>
         <p class="ev-sub">乘联会官方数据 · 批发与零售双口径 · 数据截至 2026年1-8月</p>
       </div>
     </div>
@@ -517,24 +518,33 @@ table.ev-model td.nm a:hover{color:var(--gold);border-bottom-color:var(--gold)}
   </ul>
 </section>
 <!-- related:end -->
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：2026-09-17</div>
+  </div>
 </main>
 
 <footer role="contentinfo">
-  <div class="footer-brand-row">龙兄知识库</div>
-  <div class="footer-info-row">记录真实生活 · 分享实用知识<br>本站内容均为个人整理，仅供参考</div>
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
   <div class="footer-stats-row">
     <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
     <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
   </div>
   <div class="footer-links-row">
-    <a href="about.html">关于本站</a> ·
-    <a href="notes.html">站长手记</a> ·
-    <a href="tags.html">标签聚合</a> ·
-    <a href="rss.xml">RSS 订阅</a>
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
   </div>
   <div class="footer-legal">
-    销量数据版权归乘用车市场信息联席会（乘联会）所有，本站仅作引用并注明出处；批发与零售口径不同，排名会有差异，请以官方原文为准。<br>
-    © 2026 龙兄知识库 · longxiong.vip
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
   </div>
 </footer>
 
@@ -548,10 +558,11 @@ table.ev-model td.nm a:hover{color:var(--gold);border-bottom-color:var(--gold)}
      scripts/apply_site_widgets.py 统一注入（含 #quickToc 容器）。
      这里不要再写一遍，否则组件脚本会被重复加载两次。 -->
 
-  <p class="update-time" style="text-align:center;margin:16px 0 6px">最后更新：2026-09-17</p>
+  
   <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
 <script src="js/quick-toc.js?v=20260916" defer></script>
 <script src="js/bookmark.js" defer></script>
+<script src="/js/obfuscate-email.js"></script>
 </body>
 </html>

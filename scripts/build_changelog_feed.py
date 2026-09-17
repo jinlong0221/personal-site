@@ -245,20 +245,54 @@ def find_gaps(days_all: list[str]) -> list[str]:
 # ─────────────────────────── 静态回退渲染 ───────────────────────────
 
 def render_milestones(ms: list[dict]) -> str:
+    """版本里程碑，按 curated 里的 phase 连续分段渲染。
+
+    2026-09-17 扩写：里程碑从 6 条补到 20 条（7/06 之后一直没人补过，见
+    data/changelog-curated.json 的 _note）。20 张卡平铺有两个副作用：
+
+      1. 底部自动章节导航（app.js 区域J）扫全页 h2/h3，20 条里程碑会把
+         目录从 8 项撑到 22 项 → 卡片标题降为 h4，改由阶段标题（h3）进目录，
+         目录反而收敛成「版本里程碑 + 4 阶段 + 更新轨迹」。
+      2. 平铺看不出「哪几件是一批」→ 按阶段分段，每段单独一个网格。
+
+    阶段名与顺序由数据决定（同阶段条目在倒序列表里必然相邻，故按相邻去重分段）。
+    """
     if not ms:
         return ""
-    out = ['<div class="cl-ms-track">']
+
+    groups: list[tuple[str, list[dict]]] = []
     for m in ms:
-        ver = f'<span class="cl-ms-ver">{esc(m["version"])}</span>' if m.get("version") else ""
-        out.append(
-            '<article class="cl-ms">'
-            f'<div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">{esc(m["emoji"])}</span>'
-            f'<h3>{esc(m["title"])}{ver}</h3></div>'
-            f'<div class="cl-ms-meta">{esc(m["date"])}</div>'
-            f'<p>{md_lite(m["body"])}</p>'
-            '</article>'
-        )
-    out.append("</div>")
+        ph = (m.get("phase") or "").strip()
+        if not groups or groups[-1][0] != ph:
+            groups.append((ph, []))
+        groups[-1][1].append(m)
+
+    out: list[str] = []
+    for name, items in groups:
+        if name:
+            vers = [x["version"] for x in items if x.get("version")]
+            if len(vers) > 1:
+                rng = f"{vers[-1]} – {vers[0]}"   # 列表为倒序，升序展示才顺眼
+            else:
+                rng = vers[0] if vers else ""
+            out.append(
+                '<div class="cl-ms-ghead">'
+                f'<h3 class="cl-ms-group">{esc(name)}</h3>'
+                + (f'<span class="cl-ms-gver">{esc(rng)}</span>' if rng else "")
+                + "</div>"
+            )
+        out.append('<div class="cl-ms-track">')
+        for m in items:
+            ver = f'<span class="cl-ms-ver">{esc(m["version"])}</span>' if m.get("version") else ""
+            out.append(
+                '<article class="cl-ms">'
+                f'<div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">{esc(m["emoji"])}</span>'
+                f'<h4>{esc(m["title"])}{ver}</h4></div>'
+                f'<div class="cl-ms-meta">{esc(m["date"])}</div>'
+                f'<p>{md_lite(m["body"])}</p>'
+                '</article>'
+            )
+        out.append("</div>")
     return "\n          ".join(out)
 
 

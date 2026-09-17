@@ -890,7 +890,20 @@ footer a:hover { color:var(--gold-light); }
 .cl-sum-gap{font-size:.78rem; color:var(--text-muted); line-height:1.7; margin:8px 0 0; padding-left:10px; border-left:2px solid var(--border); max-width:none}
 
 /* —— 版本里程碑：卡片横排，不再和逐日记录抢同一条时间线 —— */
-.cl-ms-track{display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:14px}
+/* 阶段标题：20 条里程碑按阶段分段（2026-09-17 扩写）。阶段标题用 h3 进自动目录，
+   卡片标题降为 h4 —— 20 张卡若都是 h3，底部目录会被撑成 22 项。 */
+.cl-ms-ghead{display:flex; align-items:baseline; flex-wrap:wrap; gap:10px; margin:30px 0 14px}
+.cl-ms-ghead:first-child{margin-top:6px}
+.cl-ms-group{
+  position:relative; margin:0; padding-left:12px; line-height:1.5;
+  font-size:1rem; font-weight:700; color:var(--text); letter-spacing:.01em;
+}
+.cl-ms-group::before{content:""; position:absolute; left:0; top:.34em; bottom:.34em; width:3px; border-radius:2px; background:var(--gold)}
+.cl-ms-gver{font-size:.76rem; color:var(--text-muted); font-variant-numeric:tabular-nums}
+/* 3 列而不是 4 列（minmax 300 在 1160 容器下正好 3 栏）：里程碑正文是整段说明文，
+   280px 的窄栏每行只放得下十来个字、卡片被文字拉得很高；377px 一栏明显好读，
+   整节高度也降下来。 */
+.cl-ms-track{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px}
 .cl-ms{
   position:relative; overflow:hidden;
   background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
@@ -899,7 +912,7 @@ footer a:hover { color:var(--gold-light); }
 .cl-ms::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold); opacity:.75}
 .cl-ms-hd{display:flex; align-items:flex-start; gap:8px; margin-bottom:6px}
 .cl-ms-ico{font-size:1.05rem; line-height:1.5; flex:0 0 auto}
-.cl-ms-hd h3{font-size:.96rem; font-weight:700; color:var(--text); margin:0; line-height:1.5}
+.cl-ms-hd h4{font-size:.96rem; font-weight:700; color:var(--text); margin:0; line-height:1.5}
 .cl-ms-ver{
   display:inline-block; margin-left:6px; vertical-align:middle;
   font-size:.7rem; font-weight:700; color:var(--gold);
@@ -1005,13 +1018,19 @@ footer a:hover { color:var(--gold-light); }
   font-size:.88em; color:var(--text-secondary);
   background:var(--bg-secondary); border:1px solid var(--border);
   border-radius:4px; padding:1px 5px;
-  word-break:break-all; overflow-wrap:anywhere;
+  /* 不用 break-all：它会在行尾把 `scripts/sync_chrome.py` 切成
+     `scripts/sync_chro` / `me.py`——整词明明挪到下一行就放得下。
+     overflow-wrap:anywhere 只在「整串长度超过一行」时才允许从任意处断开，
+     既保住短脚本名的完整，也仍然杜绝横向溢出（它会参与 min-content 计算）。 */
+  word-break:normal; overflow-wrap:anywhere;
 }
 
 /* —— 移动端：纵向收紧，避免横向溢出 —— */
 @media (max-width:768px){
   .cl-summary{padding:14px; margin:16px 0 6px}
   .cl-sum-lead{font-size:.9rem}
+  .cl-ms-ghead{margin:22px 0 11px}
+  .cl-ms-group{font-size:.94rem}
   .cl-ms-track{grid-template-columns:1fr; gap:12px}
   .cl-ms{padding:14px 14px 14px 18px}
   .cl-day{padding-left:16px}

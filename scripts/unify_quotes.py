@@ -232,32 +232,52 @@ def convert_md(src, changes=None):
 
 
 def convert_json(src, changes=None):
-    """JSON：\\" 只会出现在字符串值里；按出现顺序成对替换，跳过反引号内代码。"""
+    """JSON 数据文件：`“`/`”` 直接映射为「」；`\\"` 按出现顺序成对替换，跳过反引号内代码。
+
+    为什么 JSON 也要管：站点不少正文其实是数据驱动的——台风名、板块新闻、
+    更新日志都由 JSON 喂给页面。只在 HTML 层归一，这些地方会漏网
+    （实测：首页「今年第25号台风“杜鹃”」就来自 static/typhoon.json）。
+
+    安全阀：反引号外可替换的 `\\"` 数量为奇数时（配不成对），只做弯引号映射、
+    放弃对 `\\"` 的替换，避免把不成对的地方改坏。
+    """
     excluded = [(m.start(), m.end()) for m in re.finditer(r"`[^`\n]*`", src)]
 
     def in_excluded(p):
         return any(a <= p < b for a, b in excluded)
 
-    state = [False]
+    eligible = {m.start() for m in re.finditer(r'\\"', src) if not in_excluded(m.start())}
+    if len(eligible) % 2:
+        eligible = set()
+
     out = []
     prev = 0
-    n_changed = 0
-    for m in re.finditer(r'\\"', src):
-        p = m.start()
-        if in_excluded(p):
+    n = 0
+    state = [False]
+    i = 0
+    L = len(src)
+    while i < L:
+        ch = src[i]
+        if ch in "“”":
+            out.append(src[prev:i])
+            out.append(OPEN if ch == "“" else CLOSE)
+            prev = i + 1
+            n += 1
+        elif ch == "\\" and i + 1 < L and src[i + 1] == '"' and i in eligible:
+            is_open = not state[0]
+            state[0] = is_open
+            out.append(src[prev:i])
+            out.append(OPEN if is_open else CLOSE)
+            prev = i + 2
+            i += 2
+            n += 1
             continue
-        is_open = not state[0]
-        state[0] = is_open
-        rep = OPEN if is_open else CLOSE
-        out.append(src[prev:p])
-        out.append(rep)
-        prev = p + 2
-        n_changed += 1
+        i += 1
     out.append(src[prev:])
     new = "".join(out)
     if changes is not None and new != src:
         changes.append((src, new))
-    return new, n_changed, (1 if state[0] else 0)
+    return new, n, (1 if state[0] else 0)
 
 
 def _pair_lines(raw, new):
@@ -281,12 +301,15 @@ def collect_targets():
     """
     htmls = sorted(glob.glob(os.path.join(ROOT, "static", "**", "*.html"), recursive=True))
     mds = sorted(glob.glob(os.path.join(ROOT, "content", "**", "*.md"), recursive=True))
+
+    # 数据文件也要管：不少「正文」是数据驱动的（台风名 / 板块新闻 / 更新日志）。
+    EXCLUDE_JSON = {"search-index.json", "content-index.json", "sitemap_extra.json"}
     jsons = [
-        os.path.join(ROOT, "data", "changelog.json"),
-        os.path.join(ROOT, "static", "changelog.json"),
-        os.path.join(ROOT, "static", "data", "changelog.json"),
+        p for p in sorted(glob.glob(os.path.join(ROOT, "static", "**", "*.json"), recursive=True))
+        + sorted(glob.glob(os.path.join(ROOT, "data", "**", "*.json"), recursive=True))
+        if os.path.basename(p) not in EXCLUDE_JSON
     ]
-    return htmls, mds, [p for p in jsons if os.path.exists(p)]
+    return htmls, mds, jsons
 
 
 def rel(p):
@@ -297,11 +320,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="只检查，不改动")
     ap.add_argument("--dry-run", action="store_true", help="打印替换明细，不落盘")
-    ap.add_argument("--verbose", action="store_true")
+    ap.add_argument("--ci", action="store_true",
+                    help="CI 模式：一律退出 0（引号配不平时只告警不阻断构建），"
+                         "用于部署前自愈，避免自动化新写的文案把构建搞挂")
     args = ap.parse_args()
 
     htmls, mds, jsons = collect_targets()
     pending = []      # (path, new_src, 替换次数, 未闭合标记)
+    skipped = []
     for group, conv in ((htmls, convert_html), (mds, convert_md)):
         for p in group:
             src = open(p, encoding="utf-8").read()
@@ -311,24 +337,32 @@ def main():
     for p in jsons:
         src = open(p, encoding="utf-8").read()
         new, n_chg, unclosed = convert_json(src)
-        # JSON 必须在替换后仍是合法 JSON
+        # JSON 必须在替换后仍是合法 JSON，否则放弃这个文件
         try:
             json.loads(new)
         except Exception as e:
-            print(f"!! {rel(p)} 改完不是合法 JSON，已跳过：{e}")
+            skipped.append((p, f"改完不是合法 JSON：{e}"))
             continue
         if new != src:
             pending.append((p, new, n_chg, unclosed))
 
     n_quote = sum(n for _, _, n, _ in pending)
     print(f"待处理文件 {len(pending)} 个，替换引号 {n_quote} 处")
+    for p, why in skipped:
+        print(f"  !! 跳过 {rel(p)}：{why}")
 
     bad = [p for p, _, _, uncl in pending if uncl]
     if bad:
-        print("!! 以下文件引号未能配平（末尾处于“已开未闭”状态），请人工检查：")
-        for p in bad:
-            print("   ", rel(p))
-        return 2
+        msg = "引号未能配平（末尾处于「已开未闭」状态）"
+        if args.ci:
+            print(f"  ⚠️ {msg}，CI 模式下仍继续：")
+            for p in bad:
+                print("     ", rel(p))
+        else:
+            print(f"!! 以下文件{msg}，请人工检查：")
+            for p in bad:
+                print("   ", rel(p))
+            return 2
 
     if args.dry_run:
         for p, _, _, _ in pending:

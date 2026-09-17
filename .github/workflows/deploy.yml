@@ -160,6 +160,16 @@ jobs:
       - name: Sync last-updated timestamps from git
         run: python3 scripts/sync_update_time.py
 
+      # 正文引号自愈：全站统一用「」（站内主风格）。
+      # 位置很关键——必须排在所有生成器/注入器（build_*、apply_*、sort_news、
+      # build_home_feed）之后、hugo 之前：这样本轮新写的新闻稿、changelog、
+      # 台风文案即便带了直引号 " 或弯引号 “”，也会在落地前被归一，
+      # 不会今天改干净、明天又被自动化写回来。
+      # --ci：引号配不平时只告警、不阻断构建（自动化稿件不该把部署搞挂），
+      #       且只改可见文本节点，绝不碰属性 / 注释 / script / code。
+      - name: Unify body quotation marks to 「」
+        run: python3 scripts/unify_quotes.py --ci
+
       - name: Build Hugo
         run: hugo --gc
 

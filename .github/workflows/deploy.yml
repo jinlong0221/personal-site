@@ -180,6 +180,17 @@ jobs:
       - name: Smoke test built site (no broken local assets)
         run: python3 scripts/smoke_test.py public
 
+      # 页面骨架一致性回归闸（key-free）：
+      # 审 hugo 刚产出的 public/，逐页量 面包屑 / H1 / 页尾信息块 / CC 许可行 四项骨架，
+      # 外加正文与数据 JSON 的引号残留（「」规范）。
+      # 防的是「改模板漏一个」这类**源码侧完全看不出来**的问题——线上有一批页是
+      # layouts/ 现渲染的（notes / tags / tag / categories / search / bookmarks …），
+      # static/ 侧再干净也漏得掉（2026-09-17 就是这样丢掉 /tags.html 与 /tag.html
+      # 的页尾信息块）。设计内该不同的页（404 / 离线页 / 3 个主机图鉴别名跳转壳 /
+      # 加密旅行壳 / App 独立法律页）已在脚本里显式豁免，所以非全绿即为真问题。
+      - name: Audit page chrome consistency (breadcrumb / H1 / meta / CC)
+        run: python3 scripts/audit_live_artifact.py --root public
+
       # 旅行板块部署前防御闸（key-free，无需 TRAVEL_KEY）：
       # 禁止「明文/不完整外壳」被照常部署上线——曾发生陈旧明文 travel.html 被直接发布、
       # 导致私照泄露与 hero 裂图。CI 不能解密校验，故只做无需密钥的明文/完整性检查

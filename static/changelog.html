@@ -317,6 +317,8 @@ var _hmt = _hmt || [];
       台风监测、新闻巡检这类自动化留痕按天折叠，不占版面。</p>
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-18">2026 年 9 月 18 日 · 周五</time></h4><details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×1</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（9/18 01:19 杜鹃#25 23:00实况北抬西调至23.8°N/147.8°E·强热带风暴级10级25m/s/985hPa·西偏北行35—40km/h·强度变化不大·远期观察）：本班以中央气象台台风快讯(2026-09-18 00:06签发、基于17日23时实况)、中国天气台风网(中央气象台)2026-09-17 23:00实况与路径预报表、江苏气象/盐城天气网/射阳天气多源复检，确认今年第25号台风「杜鹃…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p></div></div></details>
+          </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-17">2026 年 9 月 17 日 · 周四</time><span class="cl-day-n">13 项改动</span></h4><div class="cl-item"><span class="cl-time">20:35</span><div class="cl-main"><p class="cl-head">📌 版本里程碑二轮补漏：上一轮只用 changelog 关键词扫，覆盖了主干但不够穷尽。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">这轮改用「git 全量提交 × 骨架级判据」重核 7/06 之后的两个月，又挑出 5 件该进大事记的：08-27 全站安全加固（内联事件改事件委托、去掉脚本策略里的 unsafe-inline、静态资源逐个 SRI 验签、加密相册密钥派生升级 Argon2id）、08-29 全站 174 页互串「相关阅读」、08-30 板块深度解读第一轮（主机图鉴 75 页 / 紫砂 / 游戏库）、09-02 新增国内直连发布通道、09-09 沉香鉴别与中药材两个板块转为隐藏（原文完整备份、可恢复）。另把 08-05 那条从「三件事」扩写成当天的集中改造：ChinaJoy 与家庭旅行两个板块上线、主机页重构、导航统一、万年历闰月误差修复等。里程碑 20 → 25 条。收录判据写明白了：只收「去掉它、今天的站点就不一样」的事——当天上线又当天撤下的试验（游艺厅、灵圃、评论）不进大事记。另核实 7/24~8/04 那 12 天不是丢数据：git 显示那段时间只有特斯拉新闻自动刷新在跑、无任何结构性改动，「记录断档」标注属实。</div></details></div></div>
             <div class="cl-item"><span class="cl-time">17:30</span><div class="cl-main"><p class="cl-head">📌 版本里程碑补齐 7 月 6 日以后的两个多月：这节此前一直停在 v3.0（2026-07-06），不是此后没大改，而是里程碑属早期手写记录——仓库 git 历史恰好从 7/06 起算，</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">此后自动任务只往 changelog 追加、没人回过头往里程碑里补，标题却写着「建站以来的重大改动」，等于漏了后面两个多月。 现从真实提交与 changelog 原文里逐条核出 14 个节点（Hugo 迁移、JS 加载架构重构、ChinaJoy 板块、文人刊物风格改版、独立 FSD 板块、私人微博空间、苹果新品板块、首页四大板块重排、全站自动折叠、充电桩查询、新能源车销量榜、顶栏改版、信息架构整理、全站骨架与标题收口），里程碑由 6 条补到 20 条，并按阶段分成四段：建站与首轮重构 / 迁到 Hugo 静态站 / 板块扩张与刊物化 / 工具与架构收口。编号 v3.1–v6.1 是本页回溯整理的分段标记，不是当时对外发布的版本号，副标题已写明。副作用一并处理：20 张卡若都用 h3，底部自动章节导航会被撑成 22 项，故卡片标题降为 h4、改由阶段标题进目录，目录反而从 8 项收敛为 6 项。每条日期均取 changelog 原文与 git 提交，未凭印象补造。</div></details></div></div>
             <div class="cl-item"><span class="cl-time">16:06</span><div class="cl-main"><p class="cl-head">📓 更新日志页从头重做。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">这页长期是我自己的审计盲区——正文全靠浏览器现拼、源码里一个字都没有，历次体检只看骨架，四项全绿就放它过去了。这回掀开修到底：① 找回 2026-09-02 被一次脚本覆盖式重写误删的历史（435 条砍到 40 条那次，提交说明里只字未提），现已从 6 月 21 日建站首日补回，共 680 条、覆盖 70 天；7/23~8/05 那段确实没维护，如实标注而不补造。② 把 419 条「🌀 台风实时监测刷新」「🤖 自动巡检」这类自动化留痕从主线分出来，按天折叠成一行计数：改动摆明面，噪音收进去。③ 首句不再硬切 60 字（切口常落在 <code>scripts/…</code> 中间，看着像话说到一半），改为按标点断在语义边界；反引号包着的脚本名真正渲染成代码样式。④ 正文写回 HTML 做静态回退，无 JS 和爬虫也能读到真内容，审计盲区就此关闭。⑤ 护栏补上「条数暴跌」拦截：与上一提交比掉 15 条以上且超两成即阻断，8 月那次 435→40 下次会被当场拦下。</div></details></div></div>
@@ -387,7 +389,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-09-17</span><span id="clLastStamp" class="cl-upd-stamp"> 23:55</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-09-18</span><span id="clLastStamp" class="cl-upd-stamp"> 01:19</span></div>
   </div>
 </main>
 
@@ -432,7 +434,7 @@ var _hmt = _hmt || [];
     {
       "@type": "Article",
       "author": { "@type": "Person", "name": "龙兄" },
-      "dateModified": "2026-09-17",
+      "dateModified": "2026-09-18",
       "headline": "更新日志｜龙兄知识库",
       "url": "https://longxiong.vip/changelog.html",
       "description": "龙兄知识库更新日志，记录每次迭代与进化"

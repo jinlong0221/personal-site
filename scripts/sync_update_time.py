@@ -139,7 +139,13 @@ def news_updated_for(page_path):
 
 
 def changelog_latest():
-    """取 changelog 最新日期。"""
+    """取 changelog 最新日期。
+
+    2026-09-17 修：原实现用 re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}") 只认纯日期，
+    而 changelog 里大半记录的 date 是「YYYY-MM-DD HH:MM」（自动任务带时刻）。
+    结果带时刻的新记录全被跳过，兜底值实际取的是"最晚的纯日期记录"，
+    可能比真实最新一条还旧。改为两种格式都认，带时刻的按日期部分参与比较。
+    """
     best = ""
     for p in (os.path.join(STATIC, "changelog.json"),
               os.path.join(STATIC, "data", "changelog.json")):
@@ -150,9 +156,9 @@ def changelog_latest():
             items = d if isinstance(d, list) else d.get("items", d.get("changelog", []))
             for x in items:
                 if isinstance(x, dict):
-                    v = x.get("date", "")
-                    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", v or "") and v > best:
-                        best = v
+                    v = (x.get("date") or "").strip()
+                    if re.fullmatch(r"\d{4}-\d{2}-\d{2}( \d{2}:\d{2})?", v) and v[:10] > best:
+                        best = v[:10]
         except Exception:
             pass
     return best

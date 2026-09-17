@@ -869,6 +869,161 @@ footer a:hover { color:var(--gold-light); }
 #weeklyChangelog .cl-detail[open] summary::after { content:"▴"; }
 #weeklyChangelog .cl-detail p { font-size:.85rem; color:var(--text-secondary); line-height:1.6; white-space:pre-wrap; }
 
+/* ══════════════════════════════════════════════════════════════════
+   更新日志页（/changelog.html）2026-09-17 重做
+   —— 旧版：652 条平铺成一条长线，首句硬切 60 字，反引号原样裸露，
+      台风刷新这类自动化留痕与真正的改动混在一起。
+   —— 新版：按天分组 + 版本里程碑卡片区 + 自动化留痕按天折叠成计数行。
+   结构由 scripts/build_changelog_feed.py 生成，渲染增强在 static/js/changelog.js。
+   ══════════════════════════════════════════════════════════════════ */
+
+/* —— 顶部统计条 —— */
+.cl-summary{
+  margin:20px 0 8px; padding:16px 18px;
+  background:var(--bg-secondary); border:1px solid var(--border);
+  border-left:3px solid var(--gold); border-radius:var(--radius);
+}
+.cl-sum-lead{font-size:.95rem; color:var(--text); line-height:1.8; margin:0; max-width:none}
+.cl-sum-lead strong{color:var(--gold); font-variant-numeric:tabular-nums}
+.cl-sum-sub{font-size:.84rem; color:var(--text-muted); line-height:1.8; margin:6px 0 0; max-width:none}
+.cl-sum-sub strong{color:var(--text-secondary); font-variant-numeric:tabular-nums}
+.cl-sum-gap{font-size:.78rem; color:var(--text-muted); line-height:1.7; margin:8px 0 0; padding-left:10px; border-left:2px solid var(--border); max-width:none}
+
+/* —— 版本里程碑：卡片横排，不再和逐日记录抢同一条时间线 —— */
+.cl-ms-track{display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:14px}
+.cl-ms{
+  position:relative; overflow:hidden;
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px 18px 16px 20px;
+}
+.cl-ms::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold); opacity:.75}
+.cl-ms-hd{display:flex; align-items:flex-start; gap:8px; margin-bottom:6px}
+.cl-ms-ico{font-size:1.05rem; line-height:1.5; flex:0 0 auto}
+.cl-ms-hd h3{font-size:.96rem; font-weight:700; color:var(--text); margin:0; line-height:1.5}
+.cl-ms-ver{
+  display:inline-block; margin-left:6px; vertical-align:middle;
+  font-size:.7rem; font-weight:700; color:var(--gold);
+  border:1px solid var(--gold); border-radius:10px; padding:0 7px; line-height:1.6;
+}
+.cl-ms-meta{font-size:.74rem; color:var(--text-muted); margin-bottom:8px; font-variant-numeric:tabular-nums}
+.cl-ms p{font-size:.84rem; color:var(--text-secondary); line-height:1.75; margin:0; max-width:none}
+
+/* —— 更新轨迹：一条竖线串起每天 —— */
+.cl-note{font-size:.88rem; color:var(--text-muted); line-height:1.8; margin:6px 0 18px; max-width:none}
+.cl-feed{display:block}
+.cl-day{position:relative; padding:0 0 4px 26px; border-left:2px solid var(--border)}
+.cl-day:last-child{border-left-color:transparent}
+.cl-day-hd{
+  position:relative; display:flex; align-items:center; flex-wrap:wrap; gap:10px;
+  font-size:.88rem; font-weight:700; color:var(--gold);
+  margin:18px 0 10px; line-height:1.5;
+}
+.cl-day:first-child .cl-day-hd{margin-top:4px}
+.cl-day-hd::before{
+  content:""; position:absolute; left:-33px; top:50%; transform:translateY(-50%);
+  width:9px; height:9px; border-radius:50%;
+  background:var(--gold); border:2px solid var(--bg); box-sizing:content-box;
+}
+.cl-day-n{
+  font-size:.72rem; font-weight:400; color:var(--text-muted);
+  background:var(--card); border:1px solid var(--border); border-radius:10px; padding:1px 8px;
+}
+
+/* 单条改动 */
+.cl-item{
+  display:flex; gap:10px; margin-bottom:8px; padding:12px 14px;
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+}
+.cl-time{
+  flex:0 0 auto; padding-top:2px;
+  font-size:.72rem; font-weight:700; color:var(--gold);
+  font-variant-numeric:tabular-nums; letter-spacing:.2px;
+}
+.cl-main{flex:1 1 auto; min-width:0}
+.cl-head{font-size:.9rem; font-weight:600; color:var(--text); line-height:1.75; margin:0; max-width:none}
+.cl-body{
+  font-size:.85rem; color:var(--text-secondary); line-height:1.8;
+  margin:0; padding-bottom:6px; max-width:none;
+  white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;
+}
+
+/* 详情折叠 */
+.cl-detail{margin-top:6px; border-top:1px dashed var(--border)}
+.cl-detail summary{
+  cursor:pointer; list-style:none; padding:7px 0 3px;
+  font-size:.78rem; color:var(--text-secondary);
+}
+.cl-detail summary::-webkit-details-marker{display:none}
+.cl-detail summary::after{content:"▾"; margin-left:6px; color:var(--gold)}
+.cl-detail[open] summary::after{content:"▴"}
+.cl-detail[open] summary{color:var(--gold)}
+
+/* —— 自动化运维留痕：按天折叠成一行计数，点开才看明细 —— */
+.cl-ops{
+  margin:2px 0 12px;
+  background:var(--bg-secondary); border:1px dashed var(--border); border-radius:var(--radius);
+}
+.cl-ops summary{
+  cursor:pointer; list-style:none;
+  display:flex; align-items:center; flex-wrap:wrap; gap:6px;
+  padding:8px 12px; font-size:.78rem; min-height:40px;
+}
+.cl-ops summary::-webkit-details-marker{display:none}
+.cl-ops-t{font-weight:700; color:var(--text-muted)}
+.cl-chip{
+  font-size:.72rem; color:var(--text-secondary); white-space:nowrap;
+  background:var(--card); border:1px solid var(--border); border-radius:10px; padding:1px 8px;
+}
+.cl-ops-hint{margin-left:auto; font-size:.75rem; color:var(--gold); white-space:nowrap}
+.cl-ops-hint::after{content:" ▾"}
+.cl-ops[open] .cl-ops-hint::after{content:" ▴"}
+.cl-ops-body{padding:6px 12px 12px; border-top:1px dashed var(--border)}
+.cl-ops-grp + .cl-ops-grp{margin-top:10px}
+.cl-ops-name{font-size:.75rem; font-weight:700; color:var(--gold); margin:8px 0 4px}
+.cl-ops-row{font-size:.79rem; color:var(--text-muted); line-height:1.75; margin:0 0 5px; max-width:none; word-break:break-word}
+.cl-ops-more{font-size:.74rem; color:var(--text-muted); opacity:.9; margin:4px 0 0; max-width:none}
+
+/* —— 分页与页脚 —— */
+.cl-more{
+  display:block; width:100%; margin:16px 0 0; padding:11px 14px;
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  color:var(--gold); font-size:.85rem; font-family:inherit; cursor:pointer;
+  transition:background var(--transition), border-color var(--transition);
+}
+.cl-more:hover{background:var(--card-hover); border-color:var(--gold)}
+.cl-feed-foot{font-size:.8rem; color:var(--text-muted); line-height:1.8; margin:20px 0 0; max-width:none}
+.cl-upd-stamp{font-variant-numeric:tabular-nums}
+
+/* —— 正文里包脚本名的行内代码（原样裸露反引号的老问题） —— */
+.cl-head code,
+.cl-body code,
+.cl-ops-row code,
+.cl-ms p code,
+.cl-note code,
+.cl-feed-foot code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  font-size:.88em; color:var(--text-secondary);
+  background:var(--bg-secondary); border:1px solid var(--border);
+  border-radius:4px; padding:1px 5px;
+  word-break:break-all; overflow-wrap:anywhere;
+}
+
+/* —— 移动端：纵向收紧，避免横向溢出 —— */
+@media (max-width:768px){
+  .cl-summary{padding:14px; margin:16px 0 6px}
+  .cl-sum-lead{font-size:.9rem}
+  .cl-ms-track{grid-template-columns:1fr; gap:12px}
+  .cl-ms{padding:14px 14px 14px 18px}
+  .cl-day{padding-left:16px}
+  .cl-day-hd::before{left:-23px; width:8px; height:8px}
+  .cl-item{flex-direction:column; gap:2px; padding:11px 12px}
+  .cl-time{padding-top:0}
+  .cl-head{font-size:.88rem}
+  .cl-ops summary{padding:8px 10px}
+  .cl-ops-hint{margin-left:0; flex:1 0 100%; text-align:right}
+}
+
+
 .error-page {
  display:flex; flex-direction:column; align-items:center; justify-content:center;
  min-height:calc(100vh - var(--nav-height) - 200px);

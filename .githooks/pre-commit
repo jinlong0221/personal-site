@@ -1,8 +1,9 @@
 #!/bin/sh
 # 提交前护栏（pre-commit hook）
 #
-#  1. changelog：拦截 static/changelog.json / data/changelog.json 中的空 content 记录，
-#     避免更新日志页出现空白条目。覆盖 automation 自动提交与手动提交。
+#  1. changelog：清洗空 content 记录 + 拦截「条数暴跌」（防脚本覆盖式重写，
+#     2026-09-02 那次 435→40 就是这么丢的）+ 重建更新日志 feed。
+#     覆盖 automation 自动提交与手动提交。
 #  2. 编辑器元数据：自动剥离 IDE 注入的 data-page-node-id 等属性。
 #     背景详见 scripts/guard_editor_noise.py —— 这类属性每次检出都会被编辑器写回，
 #     靠人手工 git checkout 治不住，所以在提交环节自动清干净。
@@ -26,6 +27,10 @@ echo "[pre-commit] 运行 changelog 护栏..."
 # 若护栏清洗改动了文件，将干净版本重新纳入本次提交。
 # 必须与 scripts/guard_changelog.py 的 TARGETS 完全一致，三份一个都不能少。
 git add static/changelog.json data/changelog.json static/data/changelog.json 2>/dev/null || true
+
+# 护栏里的 build_changelog_feed.py 会重建更新日志的 feed 与页面静态回退，
+# 这两份同样是「护栏改过就要跟着 add」，否则提交里装的还是旧内容。
+git add static/data/changelog-feed.json static/changelog.html 2>/dev/null || true
 
 # ── 编辑器注入元数据清理 ─────────────────────────────────────────────
 echo "[pre-commit] 清理编辑器注入元数据..."

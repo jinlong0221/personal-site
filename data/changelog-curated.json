@@ -1,0 +1,157 @@
+{
+  "_note": "更新日志的策展层：建站早期的逐日摘要（数据源出现之前的手写记录）与版本里程碑。由 scripts/build_changelog_feed.py 合并渲染，勿手工改渲染结果。",
+  "milestones": [
+    {
+      "date": "2026-07-06",
+      "emoji": "🔧",
+      "title": "全面 SEO 优化",
+      "version": "v3.0",
+      "body": "全站 149 个页面补全 Open Graph / Twitter Card / canonical URL / JSON-LD 结构化数据。新建 robots.txt、生成 og-image 分享图、创建 SVG favicon。修复搜索功能（Pagefind 重建索引）。清理主机图鉴 8 个重复条目。接入 Google Analytics 4。创建 sitemap 自动生成脚本。.htaccess 添加 www 重定向和 HTTPS 强制跳转。"
+    },
+    {
+      "date": "2026-06-22",
+      "emoji": "🚗",
+      "title": "特斯拉板块全面重构",
+      "version": "v2.3",
+      "body": "特斯拉板块重大更新：全面重写所有车型页面（Model 3/Y/S/X/Cybertruck），新增6个产品页面（Model Y L/Semi/Roadster/Cybercab/Powerwall/Megapack），共11个特斯拉相关页面。车型数据全面更新：Model Y修正为3个版本，Model Y L独立为六座旗舰车型，Model S/X标注停产状态并添加停产公告。新增「最新动态」版块（3-5条新闻），首页全面改版为关键数据栏+新闻列表+分类卡片网格。app.js面包屑和search-index.json同步更新，导航栏包含全部特斯拉产品线。"
+    },
+    {
+      "date": "2026-06-22",
+      "emoji": "🍵",
+      "title": "新增中药养生茶板块",
+      "version": "v2.2",
+      "body": "新增「中药养生茶配方」板块，包含20+种常用药食同源食材、30+经典配方（养肝明目/安神助眠/健脾祛湿/清热润肺/补气养血/降压降脂/排毒养颜/解酒护肝8大类）、四季养生方案和体质辨识指南。全站导航和搜索索引同步更新。"
+    },
+    {
+      "date": "2026-06-22",
+      "emoji": "🔧",
+      "title": "全站8项修复",
+      "version": "v2.1",
+      "body": "CDN优化：fonts.font.im→fonts.googleapis.cn国内镜像，3个子页面字体加载加速。搜索：新增清空按钮+无结果提示+全文高亮+XSS过滤。夜间模式：localStorage持久+双套配色+防闪白。交互：全站复制按钮+移动端44px触控区+汉堡菜单全适配。排版：天气侧边栏+AI内容优先+手机端加宽留白。"
+    },
+    {
+      "date": "2026-06-22",
+      "emoji": "🚀",
+      "title": "全站重大重构",
+      "version": "v2.0",
+      "body": "全面整改：卡片式布局替换平铺、四大分类导航（AI学习/兴趣干货/生活实用/在线小工具）、访客留言板、CSS从34KB瘦身至23KB、删除9个冗余单页、SEO关键词统一、XSS防护加固。"
+    },
+    {
+      "date": "2026-06-21",
+      "emoji": "🎉",
+      "title": "网站创建",
+      "version": "v1.0",
+      "body": "龙兄知识库正式上线！GitHub Pages 部署，Metro 风格，黑金国风科技色系。首批包含沉香鉴别、中药材、文玩手串、特斯拉动态、射阳天气等板块。"
+    }
+  ],
+  "early": [
+    {
+      "date": "2026-07-07",
+      "content": "全站内容更新：所有板块最后更新日期同步至 2026-07-07，sitemap 自动重新生成"
+    },
+    {
+      "date": "2026-07-06",
+      "content": "全面 SEO 优化：添加 Open Graph/Twitter Card/canonical/JSON-LD 结构化数据到 149 个页面"
+    },
+    {
+      "date": "2026-07-06",
+      "content": "修复搜索功能：运行 Pagefind 重建全文搜索索引"
+    },
+    {
+      "date": "2026-07-06",
+      "content": "新建 robots.txt（含 sitemap 引用）、生成 og-image.png 分享图、创建 SVG favicon"
+    },
+    {
+      "date": "2026-07-06",
+      "content": "清理 8 个重复主机条目，修正 PS1 错误图片引用，主机总数更新为 51 款"
+    },
+    {
+      "date": "2026-07-06",
+      "content": "接入 Google Analytics 4（模板 + 93 个静态页面），与百度统计双轨运行"
+    },
+    {
+      "date": "2026-07-06",
+      "content": "新建 sitemap 自动生成脚本 generate_sitemap.py，支持自动提取最后更新日期"
+    },
+    {
+      "date": "2026-07-06",
+      "content": ".htaccess 添加 www→裸域重定向、HTTP→HTTPS 强制跳转"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "重大更新：特斯拉板块全面重构，新增 Model Y L/Semi/Roadster/Cybercab/Powerwall/Megapack 6个新页面，共11个特斯拉产品页面"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "车型数据更新：Model Y修正为3版本（去高性能版），Model Y L新增为独立六座车型，Model S/X标注停产状态"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "首页 tesla.html 全面改版：关键数据栏+新闻列表+车型分类（在售/停产/即将发布/储能）卡片网格"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "所有车型页新增「最新动态」版块（3-5条），同步 FSD获批/上海工厂/停产等重大新闻"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "重大重构：卡片式布局、四大分类导航、访客留言板、CSS瘦身(34→23KB)、删除9个冗余页面、SEO优化"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "子分类拆分：鉴别/功效/避坑科普三类子页"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "子分类拆分：材质养护/真假分辨/尺寸参考"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "子分类拆分：车载配件/充电/用车科普"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "新增访客留言板（XSS过滤）、一键复制按钮、信息来源区域、更新时间标注"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "黑金+浅蓝国风科技配色统一、龙形SVG Logo、卡片悬停动画、404趣味页面升级"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "修复fonts.font.im→fonts.googleapis.cn国内镜像，3个子页面字体加载加速"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "搜索框新增清空按钮、无结果提示、全文检索高亮、XSS输入过滤"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "localStorage持久保存、深浅双套配色完整、防闪白内联脚本生效"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "一键复制按钮全站覆盖、移动端触控区域44px、汉堡菜单全子页适配"
+    },
+    {
+      "date": "2026-06-22",
+      "content": "天气模块缩小移至侧边、首页首屏AI学习内容优先、加宽手机端留白"
+    },
+    {
+      "date": "2026-06-21",
+      "content": "网站创建上线：Metro风格设计、首页瓷砖导航、射阳天气面板"
+    },
+    {
+      "date": "2026-06-21",
+      "content": "首批9种中药材知识页面上线"
+    },
+    {
+      "date": "2026-06-21",
+      "content": "首批文玩手串页面上线：星月/凤眼/龙眼等"
+    },
+    {
+      "date": "2026-06-21",
+      "content": "特斯拉全系车型页面上线"
+    }
+  ]
+}

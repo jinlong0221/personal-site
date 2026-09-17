@@ -7,6 +7,9 @@
     <div id="tagCloud" class="tag-cloud"></div>
   </div>
 </div>
+{{/* 页尾信息块：tags.html 是唯一可被索引的标签页，与全站其它内容页统一。
+     本模板此前漏挂（上轮只改了 _default/list.html，tags/tag 两个自定义模板没覆盖到）。 */}}
+{{ partial "page-meta.html" . }}
 <!-- 标签云：列出全站所有标签及计数，点击跳转到 /tag.html?tag=标签名 -->
 <script src="{{ .Site.BaseURL }}js/tag.js" defer></script>
 {{ end }}

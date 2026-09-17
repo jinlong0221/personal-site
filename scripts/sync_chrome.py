@@ -51,12 +51,21 @@ sync_navbar.py 统一了顶栏，但页面其余「骨架」仍各写各的，14
     layouts/partials/page-meta.html     —— 页尾信息块（Hugo 页专用）
     layouts/_default/single.html        —— 挂上面两个 partial
     layouts/_default/list.html          —— 同上（categories / tags 两个索引页）
+    layouts/tags.html                   —— /tags.html（标签聚合一）挂 page-meta
+    layouts/tag.html                    —— /tag.html?tag=X（标签聚合二）挂 page-meta
     hugo.toml                           —— enableGitInfo = true，页面日期取该文件最后一次
                                            提交日，与 sync_update_time.py 给静态页的口径同源
 
+  ⚠️ 排查过的坑：/tags.html 与 /tag.html 走的是 layouts/tags.html 与 layouts/tag.html
+     两个**自定义模板**，不是 _default/list.html。早期只改了 list.html，结果这两页
+     全站唯一缺页尾信息块（2026-09-17 第二轮产物回读抓到）。改动单.html 时务必确认
+     它实际由哪个模板渲染 —— content/tags-index.md 与 content/tag.md 用 `layout:` 指定。
+
   两个刻意的不一致，都是设计内：
-    1. front matter 标了 noindex 的工具页（search / tag / tags-index / bookmarks / checklist）
-       不加 .page-meta —— 它们是工具而非内容页；也避免写死日期重蹈"永不刷新"的覆辙。
+    1. front matter 标了 noindex 的**纯工具页**（search / bookmarks / checklist / offline、
+       以及 3 个别名跳转页）不加 .page-meta —— 它们是工具而非内容页。
+       注意 tag.html 也带 noindex，但它是 tags.html 的下一步落地页、用户真的在看内容，
+       所以照样挂信息块：noindex 只是 SEO 策略，不等于"工具页"。
     2. Hugo 页的信息块外面套了一层 <div class="container">，否则它落在裸 <main> 里会撑满
        整屏宽（实测 1432px，而静态页是 1160px），同一组件出现两种宽度。
 

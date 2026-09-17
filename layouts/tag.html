@@ -7,6 +7,11 @@
     <div id="tagResults" class="filter-results"></div>
   </div>
 </div>
+{{/* 页尾信息块：这页虽然 noindex（避免「标签×文章」无穷组合被收录），
+     但它是用户从 tags.html 点进来的落地页，与 tags.html 是同一交互的两步，
+     所以照样给信息块——否则从第一步走到第二步会明显少一块，观感断裂。
+     noindex 在这里只是 SEO 策略，不代表它是「工具页」。 */}}
+{{ partial "page-meta.html" . }}
 <!-- 标签聚合页：按 ?tag=标签名 列出全部打上该标签的文章（读 /data/content-index.json） -->
 <script src="{{ .Site.BaseURL }}js/tag.js" defer></script>
 {{ end }}

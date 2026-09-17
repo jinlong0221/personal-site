@@ -47,7 +47,8 @@ CURATED_JSON = [
 JS_PLACEHOLDER = re.compile(r"\$\{|\{\{")
 
 UPDATE_TIME_RE = re.compile(
-    r'(<div class="update-time">[^<]*?)(\d{4}-\d{2}-\d{2})([^<]*</div>)'
+    r'(<[a-z]+[^>]*\bclass="[^"]*\bupdate-time\b[^"]*"[^>]*>[^<]*?)'
+    r'(\d{4}-\d{2}-\d{2})'
 )
 
 
@@ -73,7 +74,7 @@ def sync_pages(check_only):
             html = open(path, encoding="utf-8").read()
         except Exception:
             continue
-        if 'class="update-time"' not in html:
+        if 'update-time' not in html:
             continue
         m = UPDATE_TIME_RE.search(html)
         if not m:
@@ -155,8 +156,8 @@ def changelog_latest():
 
 # JS 运行时会用新闻 updated 覆盖这些 span，但源码里的兜底值（爬虫/JS 失败时可见）会陈旧
 SPAN_RE = re.compile(
-    r'(<div class="update-time">[^<]*<span id="(?:lastNewsUpdate|changelogUpdated)">)'
-    r"(\d{4}-\d{2}-\d{2})(</span>[^<]*</div>)"
+    r'(<[a-z]+[^>]*\bclass="[^"]*\bupdate-time\b[^"]*"[^>]*>[^<]*'
+    r'<span id="(?:lastNewsUpdate|changelogUpdated)">)(\d{4}-\d{2}-\d{2})(</span>)'
 )
 
 

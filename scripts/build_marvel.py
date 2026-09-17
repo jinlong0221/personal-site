@@ -611,7 +611,7 @@ __SOON__
     <ul>
 __SOURCES__
     </ul>
-    <p style="margin-top:10px">最后更新时间：<span id="lastNewsUpdate">__LASTUPDATE__</span></p>
+    <p class="update-time" style="margin-top:10px">最后更新：<span id="lastNewsUpdate">__LASTUPDATE__</span></p>
   </div>
 
 </div>

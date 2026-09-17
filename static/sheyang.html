@@ -442,7 +442,7 @@ var _hmt = _hmt || [];
   <div class="page-header">
     <h1>射阳天气</h1>
 <div class="subtitle">🌦️ 实时气象数据 · Open-Meteo API</div>
-<p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 最后更新：2026 年 8 月</p>
+
   </div>
 
   <!-- 4. 实时时钟 -->
@@ -688,7 +688,7 @@ async function loadWeather() {
         <span>💧 湿度 ${hum}%</span>
         <span>🌬️ ${wd} ${ws.toFixed(1)} km/h</span>
       </div>
-      <div class="update-time">更新于 ${ts}</div>
+      <div class="update-time">最后更新：${ts}</div>
     </div>`;
 
     if (data.daily) {

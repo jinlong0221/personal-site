@@ -170,6 +170,17 @@ jobs:
       - name: Unify body quotation marks to 「」
         run: python3 scripts/unify_quotes.py --ci
 
+      # 页面标题一致性闸（key-free，**只检查不改**）：
+      # 同一页面的标题在四处各写一份 —— <title> / og:title / twitter:title /
+      # JSON-LD headline。2026-09-17 全站体检发现 185 个静态页里 176 个（95%）
+      # 互相打架：早期全站用「 - 龙兄知识库」做后缀，改「｜龙兄知识库」时只改了
+      # <title> 与 og:title，漏了 twitter 与 JSON-LD。搜索引擎和社交平台读的正是
+      # 这几处，四个值不一致＝自己给自己发混乱信号。
+      # 这里刻意用 --check 而非静默写入：title 是 SEO 核心字段，理应显式确认，
+      # 不应该让 CI 悄悄改掉。不一致即阻断部署，提示先在本地跑 sync_titles.py。
+      - name: Check page title consistency (title / og / twitter / JSON-LD)
+        run: python3 scripts/sync_titles.py --check
+
       - name: Build Hugo
         run: hugo --gc
 

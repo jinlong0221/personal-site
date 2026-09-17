@@ -120,10 +120,14 @@ def sync_updates_json(check_only):
 def news_updated_for(page_path):
     """取页面对应板块新闻数据的 updated 字段。
 
-    规律：bracelet.html -> bracelet-news.json，zisha.html -> zisha-news.json
+    规律：static/bracelet.html   -> static/bracelet-news.json
+          static/tesla/fsd.html  -> static/tesla/fsd-news.json（同目录优先）
+    ⚠️ 必须先查同目录：fsd 这类子目录页只查 static/<base>-news.json 会永远取空
+       （实测 tesla/fsd.html 一直拿不到值，兜底日期因此不会自动跟随）。
     """
     base = os.path.basename(page_path)[:-5]  # 去 .html
-    for cand in (os.path.join(STATIC, base + "-news.json"),):
+    same_dir = os.path.join(os.path.dirname(page_path), base + "-news.json")
+    for cand in (same_dir, os.path.join(STATIC, base + "-news.json")):
         if os.path.exists(cand):
             try:
                 d = json.load(open(cand, encoding="utf-8"))

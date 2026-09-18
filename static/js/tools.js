@@ -551,7 +551,7 @@
   var SUB_VER = {
     compress: 1, convert: 1, resize: 1, pdf: 1, watermark: 1,
     stitch: 1, exif: 1, color: 1, qr: 1, audio: 1,
-    dates: 1, diff: 1
+    dates: 1, diff: 1, regex: 1, json: 1, dataconv: 1
   };
 
   window.LXTools = {

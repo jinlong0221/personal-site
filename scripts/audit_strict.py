@@ -211,7 +211,12 @@ for f in html_files:
     vl = visible_len(p.visible_text)
     exempt = any(k in rel for k in ['search','calendar','weather','404','sitemap','rss','feed',
                                     'admin/','bookmarks.html','original/','tag','tags','/tags/'])
-    if not exempt and vl < 400:
+    # 跳转壳（meta refresh + noindex）本就是一行说明 + 自动跳转，
+    # 正文天然达不到 400 字，不属于「内容薄弱」。按特征判定而非文件名白名单，
+    # 将来新增跳转壳（如板块合并后的旧页）自动豁免。
+    is_shell = bool(re.search(r'<meta[^>]+http-equiv=["\']?refresh', html, re.I)) and \
+               bool(re.search(r'name=["\']?robots["\']?[^>]*noindex', html, re.I))
+    if not exempt and not is_shell and vl < 400:
         issues[rel].append(('P1','weak_page', f'visible_text={vl} 字'))
 
     # desc_len

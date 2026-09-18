@@ -49,7 +49,6 @@ URL_BOARD_RULES = [
 # 根级单页（无目录可依）按文件名 → 板块
 FILE_BOARD = {
     "/apple.html": "苹果",
-    "/apple-history.html": "苹果",
     "/marvel.html": "漫威",
     "/chinajoy.html": "ChinaJoy",
     "/sheyang.html": "射阳本地",

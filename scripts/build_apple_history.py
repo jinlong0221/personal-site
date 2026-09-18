@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""重建 static/apple-history.html（「苹果产品发展史」专题页）。
+"""生成「苹果」合并板块页里的「产品发展史」半区（注入 static/apple.html）。
+
+背景
+----
+2026-09-18 应龙兄要求，「苹果新品」与「苹果产品发展史」两个板块合并为一个「苹果」板块：
+一页两级切换，一级分「在售新品 / 产品发展史」两半（CSS-only radio + label），
+二级在各自半区内部再分栏。本脚本只负责「产品发展史」这一半。
 
 设计要点
 --------
-1. **骨架复用**：直接读现有页面作为模板，原样保留 `<head>`（含 CSP meta 的
-   sha256 哈希，绝不能变）与页脚，只替换页面级 `<style>` 块和 `<main>`。
+1. **只碰自己那一半**：用哨兵注释 `<!-- AHUB:HIST:START/END -->` 圈定写入范围，
+   绝不改写「在售新品」半区，也绝不重写 `<head>`（CSP sha256 哈希绝不能变）。
 2. **CSS-only 标签页**：用原生 `<input type="radio">` + `label` 切换产品线，
-   一行内联脚本都不加 → CSP 哈希天然有效、JS 失效也能用。
-3. **不做长列表**：10 条产品线各自成页，避免一拉到底的审美疲劳。
+   本半区零内联脚本 → CSP 哈希天然有效、JS 失效也能用。
+3. **不做长列表**：10 条产品线各自成栏，内部再按年代折叠，避免一拉到底。
 
 改内容只改 scripts/apple_history_data.py，然后跑本脚本：
 
     python3 scripts/build_apple_history.py
 
-生成的 static/apple-history.html 即部署源（CI 不重跑本脚本）。
+生成的 static/apple.html 即部署源（CI 不重跑本脚本，改完必须手动跑一次并提交）。
 """
 
 import html
@@ -30,7 +36,7 @@ from apple_history_data import (  # noqa: E402
 )
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PAGE = os.path.join(ROOT, "static", "apple-history.html")
+PAGE = os.path.join(ROOT, "static", "apple.html")
 UPDATED = "2026-09-18"
 TAG_BLUE = ("换帅", "已排期")
 
@@ -63,19 +69,7 @@ def build_css(n_lines: int) -> str:
     )
     css = """:root{--ah:#c9a84c;--ah-2:#5ac8fa;--ah-soft:rgba(201,168,76,.14);--ah-line:rgba(201,168,76,.45)}
 [data-theme="light"]{--ah:#a68a3c;--ah-2:#0a84c8;--ah-soft:rgba(166,138,60,.10);--ah-line:rgba(166,138,60,.45)}
-.ah-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:44px 26px 34px;text-align:center;background:linear-gradient(135deg,#151517 0%,#1c1a15 48%,#0f1620 100%)}
-[data-theme="light"] .ah-hero{background:linear-gradient(135deg,#f7f5ef 0%,#f0eee7 48%,#eef3f8 100%)}
-.ah-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;opacity:.24;z-index:1;pointer-events:none}
-[data-theme="light"] .ah-hero-bg{opacity:.10}
-.ah-hero::after{content:'';position:absolute;inset:0;z-index:2;background:radial-gradient(circle at 16% 20%,rgba(201,168,76,.22),transparent 46%),radial-gradient(circle at 84% 80%,rgba(90,200,250,.20),transparent 52%);pointer-events:none}
-.ah-hero>*:not(.ah-hero-bg){position:relative;z-index:3}
-.ah-kicker{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:2px;color:var(--ah);border:1px solid var(--ah);border-radius:999px;padding:3px 14px;margin-bottom:14px;opacity:.9}
-.ah-hero h1{font-size:2.1rem;margin-bottom:12px;line-height:1.3}
-.ah-hero p{max-width:700px;margin:0 auto;color:var(--text-secondary);font-size:.96rem;line-height:1.85}
-.ah-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(102px,1fr));gap:10px;margin:22px auto 0;max-width:840px}
-.ah-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 8px;text-align:center}
-.ah-stat b{display:block;font-size:clamp(1.02rem,3.2vw,1.42rem);font-weight:900;color:var(--ah);line-height:1.2;white-space:nowrap}
-.ah-stat span{display:block;font-size:.72rem;color:var(--text-secondary);margin-top:4px;line-height:1.4}
+.ah-lede{margin:18px 0 0;padding:14px 18px;border-left:3px solid var(--ah-2);border-radius:0 12px 12px 0;background:var(--bg-secondary);color:var(--text-secondary);font-size:.88rem;line-height:1.85}
 .ah-sec{margin:48px 0 0}
 .ah-sec-title{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;font-size:1.26rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid var(--ah)}
 .ah-sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
@@ -147,7 +141,7 @@ def build_css(n_lines: int) -> str:
 .ah-note li{margin-bottom:5px}
 .ah-note a{color:var(--ah);text-decoration:underline;text-underline-offset:2px}
 @media(max-width:992px){.ah-era-strip,.ah-gallery,.ah-ceo-row{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.ah-hero{padding:28px 16px 24px}.ah-hero h1{font-size:1.6rem}.ah-sec{margin-top:30px}.ah-era-strip,.ah-gallery{grid-template-columns:repeat(2,1fr);gap:10px}.ah-era{padding:11px 11px 12px}.ah-era-n{font-size:.92rem;margin:5px 0 6px}.ah-era-d{font-size:.76rem}.ah-fig-cap{padding:8px 10px 9px;font-size:.72rem}.ah-fig-cap b{font-size:.8rem}.ah-ev{grid-template-columns:1fr;gap:1px}.ah-ev-d{padding-top:0}.ah-pick{grid-template-columns:repeat(2,1fr)}.ah-lt{font-size:1.06rem}.ah-tl{padding:14px 12px 4px 30px}.ah-tl::before{left:13px}.ah-gh{padding:10px 12px}.ah-ceo-row{grid-template-columns:1fr;gap:10px}.ah-ceo{display:grid;grid-template-columns:94px 1fr}.ah-ceo-img{aspect-ratio:1/1;padding:7px;border-right:1px solid var(--border)}.ah-ceo-b{padding:9px 12px 10px}.ah-ceo-n{font-size:.94rem}.ah-ceo-t{font-size:.71rem;margin-bottom:4px}.ah-ceo-b p{font-size:.77rem;line-height:1.58}.ah-note{margin:30px 0 8px;padding:13px 15px;font-size:.79rem;line-height:1.76}}
+@media(max-width:640px){.ah-sec{margin-top:30px}.ah-lede{padding:12px 14px;font-size:.84rem}.ah-era-strip,.ah-gallery{grid-template-columns:repeat(2,1fr);gap:10px}.ah-era{padding:11px 11px 12px}.ah-era-n{font-size:.92rem;margin:5px 0 6px}.ah-era-d{font-size:.76rem}.ah-fig-cap{padding:8px 10px 9px;font-size:.72rem}.ah-fig-cap b{font-size:.8rem}.ah-ev{grid-template-columns:1fr;gap:1px}.ah-ev-d{padding-top:0}.ah-pick{grid-template-columns:repeat(2,1fr)}.ah-lt{font-size:1.06rem}.ah-tl{padding:14px 12px 4px 30px}.ah-tl::before{left:13px}.ah-gh{padding:10px 12px}.ah-ceo-row{grid-template-columns:1fr;gap:10px}.ah-ceo{display:grid;grid-template-columns:94px 1fr}.ah-ceo-img{aspect-ratio:1/1;padding:7px;border-right:1px solid var(--border)}.ah-ceo-b{padding:9px 12px 10px}.ah-ceo-n{font-size:.94rem}.ah-ceo-t{font-size:.71rem;margin-bottom:4px}.ah-ceo-b p{font-size:.77rem;line-height:1.58}.ah-note{margin:30px 0 8px;padding:13px 15px;font-size:.79rem;line-height:1.76}}
 @media print{.ah-panel{display:block!important}.ah-tabbar,.ah-pick,.ah-r{display:none!important}.ah-group>*:not(summary){display:block!important}.ah-gh{background:none}}
 @media(prefers-reduced-motion:reduce){.ah-era,.ah-pk{transition:none}}"""
     return (css
@@ -250,31 +244,14 @@ def render_tabs() -> str:
     return "\n".join(out)
 
 
-def render_main(total: int) -> str:
+def render_half(total: int) -> str:
+    """发展史半区内容。
+
+    不含 <main>／面包屑／hero —— 合并后的 static/apple.html 自己承担这些，
+    本函数只产出「产品发展史」这一半的内部 HTML。
+    """
     out = []
-    out.append('<main class="container" id="main-content" role="main">')
-    out.append('  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航">'
-               '<a href="index.html">首页</a><span class="sep">›</span>'
-               '<span class="crumb-cat">车与数码</span><span class="sep">›</span>'
-               '<span class="current">苹果产品发展史</span></div>')
-    out.append("")
-    out.append('  <div class="ah-hero">')
-    out.append('    <img class="ah-hero-bg" src="img/apple/iphone18pro-hero.webp" alt="" '
-               'width="1200" height="600" fetchpriority="high" decoding="async" aria-hidden="true">')
-    out.append('    <span class="ah-kicker">APPLE · 1976 – 2026</span>')
-    out.append("    <h1>苹果产品发展史</h1>")
-    out.append(f"    <p>{E(LEDE)}</p>")
-    out.append('    <div class="ah-stats">')
-    for b, s in (
-        ("50 年", "1976 – 2026"),
-        ("6 个时代", "六个阶段"),
-        (f"{len(LINES)} 条", "产品线"),
-        (f"{total} 条", "可核对里程碑"),
-        ("3 位 CEO", "乔布斯 · 库克 · 特努斯"),
-    ):
-        out.append(f'      <div class="ah-stat"><b>{E(b)}</b><span>{E(s)}</span></div>')
-    out.append("    </div>")
-    out.append("  </div>")
+    out.append('  <p class="ah-lede">%s</p>' % E(LEDE.replace("{N}", str(total))))
     out.append("")
     out.append('  <section class="ah-sec">')
     out.append('    <h2 class="ah-sec-title">六个时代，一部断代史</h2>')
@@ -355,36 +332,28 @@ def main() -> int:
 
     total = sum(count_entries(l) for l in LINES)
     css = build_css(len(LINES))
-    main_html = render_main(total)
+    half = render_half(total)
 
-    # 1) 页面级 <style> 块（hero 之后那一段），保留 critical-css 与外部 style.css
-    i = src.find("<style>:root{--ah:")
-    if i < 0:
-        print("未找到页面级 style 块")
+    # 1) 页面级样式块 <style id="ah-css">（只装发展史半区的 .ah-* 规则）
+    c_i = src.find('<style id="ah-css">')
+    if c_i < 0:
+        print("未找到 <style id=\"ah-css\">，请先用 _bootstrap_apple_hub.py 完成合并改造")
         return 1
-    j = src.find("</style>", i)
-    src = src[:i] + "<style>" + css + src[j:]
+    c_j = src.find("</style>", c_i)
+    src = src[:c_i] + '<style id="ah-css">' + css + src[c_j:]
 
-    # 2) body 加 data-no-secnav：本页自带标签页导航，禁止按标题再生成章节条
-    src = src.replace("<body>", '<body data-no-secnav="true">', 1)
+    # 2) 只替换发展史半区的哨兵区间，绝不碰「在售新品」半区
+    s_i = src.find("<!-- AHUB:HIST:START")
+    e_i = src.find("<!-- AHUB:HIST:END")
+    if s_i < 0 or e_i < s_i:
+        print("未找到 AHUB:HIST 哨兵注释")
+        return 1
+    s_e = src.find("-->", s_i) + 3
+    src = src[:s_e] + "\n" + half + "\n        " + src[e_i:]
 
-    # 3) 描述与更新日期
-    src = re.sub(r'<meta name="description" content="[^"]*">',
-                 '<meta name="description" content="%s">' % E(DESC), src, count=1)
-    src = re.sub(r'<meta property="og:description" content="[^"]*">',
-                 '<meta property="og:description" content="%s">' % E(DESC), src, count=1)
-    src = re.sub(r'<meta name="twitter:description" content="[^"]*">',
-                 '<meta name="twitter:description" content="%s">' % E(DESC), src, count=1)
+    # 3) 文章更新日期
     src = re.sub(r'<meta name="article-updated" content="[^"]*">',
                  '<meta name="article-updated" content="%s">' % UPDATED, src, count=1)
-
-    # 4) 替换 <main> 主体（保留其后的 page-meta / footer / 脚本 / 自动注入的 related 区）
-    k = src.find('<main class="container"')
-    k2 = src.find("</main>", k)
-    if k < 0 or k2 < 0:
-        print("未找到 main 区块")
-        return 1
-    src = src[:k] + main_html + src[k2:]
 
     open(PAGE, "w", encoding="utf-8").write(src)
 

@@ -22,8 +22,7 @@
       title: '车与数码',
       items: [
         ['特斯拉', 'tesla.html'],
-        ['苹果新品', 'apple.html'],
-        ['苹果产品发展史', 'apple-history.html'],
+        ['苹果', 'apple.html'],
         ['新能源销量榜', 'ev-sales.html'],
         ['充电桩查询', 'ev-charge.html']
       ]

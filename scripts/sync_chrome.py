@@ -99,6 +99,7 @@ SKIP_FILES = {
     "404.html", "offline.html",                                  # 特殊结构
     "privacy.html", "shesi-landing.html", "shesi-privacy.html",   # 《脚趾抠地》独立资产
     "console-gc.html", "console-n64.html", "console-wiiu.html",   # 301 跳转壳
+    "apple-history.html",                                         # 已并入 apple.html，仅留跳转壳
     "travel.html",                                                # 加密相册（密钥重加密）
 }
 
@@ -127,7 +128,7 @@ DETAIL_PREFIXES = [("console-", "console.html")]   # 顶层 console-*.html → �
 # 板块页 H1 = 全站正式板块名。光辉电力例外：导航用简称，页面标题用公司全称（专有名词）。
 H1_OVERRIDE = {
     "about.html": "关于本站",
-    "apple.html": "苹果新品",
+    "apple.html": "苹果",
     "bracelet.html": "文玩手串",
     "calendar.html": "万年历",
     "changelog.html": "更新日志",

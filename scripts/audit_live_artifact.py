@@ -44,7 +44,7 @@ CODE_TAGS = {"code", "pre", "kbd", "samp"}
 #   travel 加密壳（页脚随内容一起加密，解锁后才出现）、
 #   以及「脚趾抠地」App 的独立法律页（不属本站内容，套本站免责声明反而误导）
 #   tags/ 是 Hugo 侧 301 跳转壳（content/tags/_index.md + layouts/_default/redirect.html），
-#   与 static/ 下三个主机别名跳转页同族：只留 meta refresh 与说明文字，不该长骨架。
+#   与 static/ 下主机别名 / 已并板块的跳转页同族：只留 meta refresh 与说明文字，不该长骨架。
 #
 # ⚠️ 键一律写「相对产物根目录的路径」（如 tags/index.html），不要写裸文件名：
 #    下面用 rel in SET 精确匹配。早期版本用 os.path.basename 匹配，
@@ -52,12 +52,14 @@ CODE_TAGS = {"code", "pre", "kbd", "samp"}
 STRUCTURE_EXEMPT = {
     "404.html", "offline.html",
     "console-gc.html", "console-n64.html", "console-wiiu.html",
+    "apple-history.html",
     "travel.html", "tags/index.html",
     "privacy.html", "shesi-landing.html", "shesi-privacy.html",
 }
 # 设计内就没有 H1 的页（跳转壳没有正文；加密壳的 H1 在密文里，解密后才注入）
 H1_EXEMPT = {
     "console-gc.html", "console-n64.html", "console-wiiu.html",
+    "apple-history.html",
     "travel.html", "tags/index.html",
 }
 

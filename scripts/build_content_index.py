@@ -50,6 +50,8 @@ EXCLUDE_FILES = {
     "privacy.html", "shesi-landing.html", "shesi-privacy.html",
     # 主机图鉴别名页：已 301 合并到主名（console-wii-u / gamecube / nintendo-64），不进索引
     "console-wiiu.html", "console-gc.html", "console-n64.html",
+    # 苹果产品发展史已并入 apple.html（同一个「苹果」板块），保留跳转壳不进索引
+    "apple-history.html",
 }
 EXCLUDE_PREFIXES = ("admin/", "pagefind/", "js/", "css/", "img/", "data/", "fonts/")
 

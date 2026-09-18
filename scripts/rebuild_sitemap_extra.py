@@ -34,6 +34,8 @@ EXCLUDE = {
     'console-gc.html',
     'console-n64.html',
     'console-wiiu.html',
+    # 苹果产品发展史已并入 apple.html（同一个「苹果」板块），保留跳转壳不收录
+    'apple-history.html',
 }
 EXCLUDE_DIRS = {'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
 

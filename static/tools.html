@@ -20,7 +20,12 @@
         有脚本时才出现（否则那三段就没有入口了）。
      ④ 改了某个子文件之后：若主文件 static/js/tools.js 同时改了，子文件地址里带着主文件的
         版本串，会跟着一起变、缓存自动失效，不必管；若只改了子文件而主文件一个字没动，
-        就得把框架里 SUB_VER 对应的数字加一，否则老访客会一直拿着缓存里的旧文件。 -->
+        就得把框架里 SUB_VER 对应的数字加一，否则老访客会一直拿着缓存里的旧文件。
+     ⑤ 增删工具只动三处：本页的卡片 + 本页的面板 + 本页样式区里该工具的那一段，外加框架 SUB_VER
+        一行。子文件 static/js/tools/<工具名>.js 撤下时不要删——页面摘干净、文件留在仓库里，
+        哪天想加回来照上式补一张卡片、一个面板和一段样式即可（13～15 号就走这条路）。
+        （注释里别写字面的尖括号标签——本文件上方还有别的注释，任何人按标签切分样式块的脚本
+        或正则都会被这种字样带偏，guard_theme_scope 曾因此误判本页重定义了主题变量。） -->
 <!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
@@ -39,8 +44,8 @@
 </script>
 
   <title>工具箱｜龙兄知识库</title>
-<meta name="keywords" content="在线工具箱,图片压缩,格式转换,加水印,长图拼接,EXIF查看,二维码生成,正则表达式在线测试,JSON格式化修复,Excel转Markdown,CSV转JSON,龙兄知识库">
-<meta name="description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、正则表达式工作台、JSON 智能修复台、数据格式互转台。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta name="keywords" content="在线工具箱,图片压缩,格式转换,加水印,长图拼接,EXIF查看,二维码生成,九宫格切图,长图切段,图片打码,龙兄知识库">
+<meta name="description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 
 <!-- 预加载关键资源 -->
 <link rel="preload" href="js/app.js" as="script">
@@ -389,136 +394,49 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .tl-dmore{padding:6px 12px;text-align:center;font-size:.74rem;color:var(--text-muted);
       background:var(--bg-secondary);border-top:1px solid rgba(127,127,127,.15)}
 
-    /* ===================== 正则 / JSON / 数据互转（13-15）===================== */
+    /* ===================== 切图与打码（13-15）===================== */
+    /* 这两个块自带 display:grid / flex，会盖掉浏览器默认的 [hidden] 规则，单独点名兜住。
+       注意别写成全页 [hidden]{display:none!important}：二维码面板的 WiFi 名称/密码/加密方式
+       三个字段在 HTML 里就带着 hidden 属性，靠的是 .tl-opt{display:flex} 把它顶掉才看得见，
+       用 !important 压下去会让它们在「脚本没跑起来」时彻底变成打不开的隐藏内容。 */
+    .tl-cut[hidden],.tl-cutlist[hidden]{display:none!important}
     .tl-full{grid-column:1/-1}
-    .tl-mt{margin-top:16px}
     .tl-sechd{display:flex;align-items:center;gap:8px;margin:18px 0 10px;font-size:.88rem;
       font-weight:700;color:var(--text)}
     .tl-sechd::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--gold)}
 
-    /* —— 只读代码框（pre 与 textarea 共用一套长相）—— */
-    .tl-rxhl,.tl-code{margin:0;padding:12px 14px;border-radius:10px;background:var(--bg);
-      border:1px solid var(--border);color:var(--text);width:100%;display:block;
-      font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Courier New',monospace;
-      font-size:.78rem;line-height:1.85;white-space:pre-wrap;word-break:break-word}
-    .tl-rxhl{max-height:300px;overflow:auto;overscroll-behavior:contain}
-    .tl-code{resize:vertical;min-height:150px;max-height:420px;overflow:auto}
-    .tl-code:focus{outline:none;border-color:var(--gold)}
-    .tl-rxhl.is-ph{color:var(--text-muted)}
+    /* —— 切好的宫格预览（格子数决定列数，由脚本写 grid-template-columns）—— */
+    .tl-cut{display:grid;gap:8px;margin-top:4px}
+    .tl-cutc{display:flex;flex-direction:column;gap:5px;min-width:0;padding:6px;border-radius:9px;
+      background:var(--bg-secondary);border:1px solid rgba(127,127,127,.14)}
+    .tl-cutc canvas{width:100%;height:auto;display:block;border-radius:5px;background:var(--bg);
+      box-shadow:0 1px 4px rgba(0,0,0,.18)}
+    .tl-cutcap{font-size:.66rem;line-height:1.45;color:var(--text-muted);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tl-cutc .tl-mini{align-self:flex-start}
 
-    /* —— 正则工作台 —— */
-    .tl-rm{background:rgba(201,168,76,.30);color:inherit;border-radius:2px;
-      box-shadow:inset 0 -2px 0 var(--gold)}
-    .tl-rm0{display:inline-block;width:2px;height:1em;vertical-align:-.12em;box-shadow:none;
-      background:var(--gold)}
-    .tl-rm-more{color:var(--text-muted)}
-    .tl-rxlist{margin-top:10px;border:1px solid var(--border);border-radius:10px;overflow:hidden;
+    /* —— 长图切段的结果行 —— */
+    .tl-cutlist{margin-top:4px;max-height:420px;overflow:auto;display:flex;flex-direction:column;
+      gap:6px}
+    .tl-cutrow{display:flex;align-items:center;gap:10px;padding:7px 11px;border-radius:8px;
+      background:var(--bg-secondary);border:1px solid rgba(127,127,127,.14)}
+    .tl-cutth{width:26px;height:38px;object-fit:cover;border-radius:4px;flex:0 0 auto;
       background:var(--bg)}
-    .tl-rxrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;
-      padding:8px 12px;font-size:.78rem;align-items:baseline}
-    .tl-rxrow+.tl-rxrow{border-top:1px solid rgba(127,127,127,.15)}
-    .tl-rxi{color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .tl-rxm{color:var(--text);white-space:pre-wrap;word-break:break-all;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .tl-rxp{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-    .tl-rxg{padding:1px 6px;border-radius:5px;font-size:.72rem;color:var(--gold);word-break:break-all;
-      background:rgba(201,168,76,.10);border:1px solid rgba(201,168,76,.35);
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .tl-rxg b{font-weight:700;opacity:.7;margin-right:4px}
-    .tl-rxg0{color:var(--text-muted);background:none;border-color:var(--border)}
-    .tl-rxparts{margin-top:4px;border:1px solid var(--border);border-radius:10px;overflow:hidden;
-      background:var(--bg)}
-    .tl-rxpr{display:grid;grid-template-columns:minmax(90px,auto) minmax(0,1fr);gap:12px;
-      padding:8px 12px;font-size:.78rem;align-items:baseline}
-    .tl-rxpr+.tl-rxpr{border-top:1px solid rgba(127,127,127,.15)}
-    .tl-rxpc{color:var(--gold);word-break:break-all;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .tl-rxpd{color:var(--text-secondary);line-height:1.75}
-    .tl-rxwarn{margin-top:10px}
-    .tl-rxwarn div{position:relative;padding-left:14px;font-size:.76rem;line-height:1.75;
-      color:var(--text-muted);margin-top:6px}
-    .tl-rxwarn div::before{content:'';position:absolute;left:0;top:.62em;width:5px;height:5px;
-      border-radius:50%;background:var(--cinnabar);opacity:.7}
-    .tl-rxlist:empty,.tl-rxparts:empty,.tl-rxwarn:empty,.tl-chips:empty,.tl-fixlist:empty,
-    .tl-rxhl[data-hl]:empty{display:none}
-    .tl-chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 4px}
-    .tl-chip{padding:4px 11px;border-radius:16px;border:1px solid var(--border);
-      background:var(--bg-secondary);color:var(--text-secondary);font-family:inherit;
-      font-size:.75rem;cursor:pointer;
-      transition:border-color var(--transition),color var(--transition),background var(--transition)}
-    .tl-chip:hover{border-color:var(--gold);color:var(--gold)}
-    .tl-chip.on{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.10)}
+    .tl-cutnm{flex:1;min-width:0;font-size:.78rem;color:var(--text);white-space:nowrap;
+      overflow:hidden;text-overflow:ellipsis}
+    .tl-cutsz{font-size:.72rem;color:var(--text-muted);font-variant-numeric:tabular-nums;
+      flex:0 0 auto}
 
-    /* —— JSON 修复台 —— */
-    .tl-fixrow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding:9px 13px;
-      margin-bottom:8px;font-size:.79rem;align-items:baseline;background:var(--bg);
-      border:1px solid var(--border);border-radius:9px}
-    .tl-fixrow:last-child{margin-bottom:0}
-    .tl-fixn{padding:1px 9px;border-radius:20px;font-size:.72rem;font-weight:700;color:var(--gold);
-      white-space:nowrap;font-variant-numeric:tabular-nums;
-      background:rgba(201,168,76,.10);border:1px solid rgba(201,168,76,.35)}
-    .tl-fixt{line-height:1.7}
-    .tl-fixt b{display:block;color:var(--text);font-weight:700}
-    .tl-fixt span{color:var(--text-muted);font-size:.75rem}
-    .tl-fixok,.tl-fixerr{padding:11px 14px;border-radius:9px;font-size:.8rem;line-height:1.75}
-    .tl-fixok{color:var(--gold);background:rgba(201,168,76,.08);border:1px solid var(--gold)}
-    .tl-fixerr{color:var(--cinnabar);background:rgba(200,66,60,.10);border:1px solid var(--cinnabar)}
-    .tl-fixerr b{display:block;margin-bottom:5px}
-    .tl-fixerr .tl-hint{color:var(--cinnabar);opacity:.85}
-    .tl-fixsnip{margin:9px 0 6px;padding:9px 11px;border-radius:7px;color:var(--text);
-      background:var(--bg);border:1px solid rgba(200,66,60,.28);white-space:pre;overflow:auto;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.74rem;
-      line-height:1.7}
-
-    /* —— JSON 树（<details> 原生折叠，不靠脚本）—— */
-    .tl-jtree{padding:12px 14px;max-height:520px;overflow:auto;overscroll-behavior:contain;
-      border:1px solid var(--border);border-radius:10px;background:var(--bg)}
-    .tl-jd{margin:0}
-    .tl-jd>summary{display:flex;gap:8px;align-items:baseline;padding:2px 5px;border-radius:5px;
-      cursor:pointer;list-style:none;font-size:.78rem;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .tl-jd>summary::-webkit-details-marker{display:none}
-    .tl-jd>summary::before{content:'▸';flex:0 0 auto;width:9px;color:var(--gold);font-size:.66rem}
-    .tl-jd[open]>summary::before{content:'▾'}
-    .tl-jd>summary:hover{background:var(--bg-secondary)}
-    .tl-jc{margin-left:6px;padding-left:9px;border-left:1px solid var(--border)}
-    .tl-jk{color:var(--text-secondary)}
-    .tl-jt{color:var(--text-muted);font-size:.72rem}
-    .tl-jv{color:var(--text);word-break:break-all}
-    .tl-jnum{color:var(--gold)}
-    .tl-jbool,.tl-jnull{color:var(--text-muted)}
-    .tl-jleaf{display:flex;gap:8px;align-items:baseline;padding:2px 5px;font-size:.78rem;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-
-    /* —— 数据互转台 —— */
-    .tl-detect{display:none;margin-top:14px;padding:12px 15px;border-radius:10px;
-      font-size:.79rem;line-height:1.8;color:var(--text-secondary);
-      background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--gold)}
-    .tl-detect.on{display:block}
-    .tl-detect b{color:var(--text)}
-    .tl-dw2{color:var(--cinnabar)}
-    .tl-dtwrap{display:none;margin-top:14px;border:1px solid var(--border);border-radius:10px;
-      overflow:hidden;background:var(--bg)}
-    .tl-dtwrap.on{display:block}
-    .tl-dtwrap-in{overflow-x:auto;overscroll-behavior:contain}
-    .tl-dtbl{border-collapse:collapse;width:100%;font-size:.76rem}
-    .tl-dtbl th,.tl-dtbl td{padding:7px 11px;text-align:left;white-space:nowrap;
-      border-bottom:1px solid rgba(127,127,127,.15)}
-    .tl-dtbl th{background:var(--bg-secondary);color:var(--text-muted);font-weight:700}
-    .tl-dtbl td{color:var(--text)}
-    .tl-dtbl tbody tr:last-child td{border-bottom:none}
-    .tl-dthn{width:38px;text-align:right!important;color:var(--text-muted)!important;
-      font-variant-numeric:tabular-nums}
-
-    @media(max-width:640px){
-      .tl-rxrow{grid-template-columns:auto minmax(0,1fr)}
-      .tl-rxp{grid-column:2/3;justify-content:flex-start}
-      .tl-rxpr{grid-template-columns:1fr;gap:4px}
-      .tl-fixrow{grid-template-columns:1fr;gap:6px}
-      .tl-jtree{padding:10px}
-      .tl-rxhl,.tl-code,.tl-jleaf,.tl-jd>summary{font-size:.74rem}
-    }
+    /* —— 打码用的画布 —— */
+    .tl-mk{margin-top:16px;padding:12px;border-radius:10px;background:var(--bg-secondary);
+      border:1px solid rgba(127,127,127,.16)}
+    .tl-mk-tip{margin:0 0 10px;font-size:.75rem;line-height:1.7;color:var(--text-muted)}
+    .tl-mk-stage{position:relative;display:block;line-height:0}
+    .tl-mk-stage canvas{display:block;max-width:100%;height:auto;border-radius:6px;
+      cursor:crosshair;touch-action:none;-webkit-user-select:none;user-select:none;
+      -webkit-touch-callout:none}
+    .tl-mk-sel{position:absolute;border:1px dashed var(--gold);border-radius:2px;
+      background:rgba(201,168,76,.13);pointer-events:none}
 
     @media(max-width:640px){
       .tl-tile{padding:15px 15px 14px}
@@ -543,6 +461,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       .tl-dhead .tl-dh.b{grid-column:2}
       .tl-dbody{max-height:440px}
       .tools-js .tl-seg button{min-width:0;padding:8px 6px}
+      .tl-cut{gap:5px}
+      .tl-cutc{padding:4px;gap:3px}
+      .tl-cutcap{display:none}
+      .tl-cutrow{gap:7px;padding:6px 9px}
+      .tl-mk{padding:9px}
     }
     @media(max-width:400px){.tl-grid{grid-template-columns:1fr}}
     @media print{.tl-drop,.tl-actions,.tl-close{display:none!important}
@@ -553,14 +476,14 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <link rel="canonical" href="https://longxiong.vip/tools.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta property="og:title" content="工具箱｜龙兄知识库">
-<meta property="og:description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、正则表达式工作台、JSON 智能修复台、数据格式互转台。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta property="og:description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/tools.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="工具箱｜龙兄知识库">
-<meta name="twitter:description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、正则表达式工作台、JSON 智能修复台、数据格式互转台。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta name="twitter:description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
@@ -680,7 +603,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">生活工具</span><span class="sep">›</span><span class="current">工具箱</span></div>
     <div class="container">
     <h1>工具箱</h1>
-    <p class="tl-lede">十五个纯浏览器小工具——图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV、日期天数计算、文本对比、正则表达式工作台、JSON 智能修复台、数据格式互转台。<br>
+    <p class="tl-lede">十五个纯浏览器小工具——图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。<br>
       所有内容都在<b>你自己的设备里</b>处理完，<b>不上传、不联网、不留存</b>，断网也能照常用。</p>
 
     <div class="tl-notice" role="note">
@@ -689,10 +612,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         使用前请知悉
       </div>
       <ul>
-        <li>文件全程在你自己的设备上处理，<b>不上传、不保存、不联网</b>；关掉页面即清空，服务器上什么都不会留下。贴进「JSON 修复台」的内容也不会离开浏览器，粘配置、粘密钥都放心。</li>
+        <li>文件全程在你自己的设备上处理，<b>不上传、不保存、不联网</b>；关掉页面即清空，服务器上什么都不会留下。贴进任何一个工具的内容都只在浏览器里，粘配置、粘密钥也放心。</li>
         <li>本站<b>不提供任何平台的视频/音频解析，不提供去水印，不绕过任何平台的内容保护措施</b>；所有功能都只做格式、尺寸、元数据这一类基础变换。</li>
-        <li>本站<b>不做需要向公众生成内容的 AI 改写</b>：正则、JSON、表格这三个新工具靠的是本机算法，打开就能用，也<b>不会一本正经地编内容</b>——算法算不出来的，它会直接说不确定。</li>
+        <li>本站<b>不做需要向公众生成内容的 AI 改写</b>：所有工具靠的都是本机算法，打开就能用，也<b>不会一本正经地编内容</b>——算法算不出来的，它会直接说不确定。</li>
         <li>请仅用于你拥有合法权利的文件。其中<b>批量加水印</b>与<b>清除 EXIF</b> 请勿用于处理他人作品（抹去他人作品的版权与作者信息可能构成侵权）。</li>
+        <li><b>关于打码：</b>遮哪儿由你自己划，工具只负责把那儿彻底盖住 —— 它不是「一键智能识别敏感信息」。马赛克格子别调得太小，原图放大是可能被还原的；要彻底遮住就用纯色块，或者干脆把那一块裁掉。</li>
         <li>本站无账号、不收费、无使用次数限制。工具为个人自研，若发现异常请通过页脚邮箱反馈。</li>
       </ul>
     </div>
@@ -789,24 +713,24 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       </button>
     </div>
 
-    <h2 class="tl-grouphd"><span class="tl-gn">看懂你的输入</span></h2>
+    <h2 class="tl-grouphd"><span class="tl-gn">切图与打码</span></h2>
     <div class="tl-grid" data-grid>
-      <button class="tl-tile" type="button" data-tool="regex" aria-controls="tp-regex">
-        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.2 15.2L21 21"/><path d="M10.5 7.6v5.8"/><path d="M8 9.2l5 2.6"/><path d="M13 9.2l-5 2.6"/></svg></span>
-        <span class="tl-tile-t"><span class="tl-tile-num">13</span>正则表达式工作台</span>
-        <span class="tl-tile-d">边打边高亮匹配到的内容，每个分组抓到了什么逐条列出，还能把这条正则念成大白话。</span>
+      <button class="tl-tile" type="button" data-tool="grid" aria-controls="tp-grid">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">13</span>九宫格切图</span>
+        <span class="tl-tile-d">一张图切成九张，发朋友圈正好铺满一整块；顺序就是微信里从左上到右下。</span>
         <span class="tl-tile-tag">本地处理 · 不上传</span>
       </button>
-      <button class="tl-tile" type="button" data-tool="json" aria-controls="tp-json">
-        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 4H8.5A2.5 2.5 0 0 0 6 6.5v3A2.5 2.5 0 0 1 3.5 12 2.5 2.5 0 0 1 6 14.5v3A2.5 2.5 0 0 0 8.5 20h1"/><path d="M14.5 4h1A2.5 2.5 0 0 1 18 6.5v3a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0-2.5 2.5v3a2.5 2.5 0 0 1-2.5 2.5h-1"/></svg></span>
-        <span class="tl-tile-t"><span class="tl-tile-num">14</span>JSON 智能修复台</span>
-        <span class="tl-tile-d">贴一段坏 JSON（多逗号、单引号、字段名没引号、夹注释）自动修好，并逐条说明改了哪儿。</span>
+      <button class="tl-tile" type="button" data-tool="longcut" aria-controls="tp-longcut">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M2.5 9.5h19"/><path d="M2.5 14.5h19"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">14</span>长图切段</span>
+        <span class="tl-tile-d">截图太长，微信一发就糊成一条；按高度切成几段再发，点开就是清楚的大图。</span>
         <span class="tl-tile-tag">本地处理 · 不上传</span>
       </button>
-      <button class="tl-tile" type="button" data-tool="dataconv" aria-controls="tp-dataconv">
-        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9.5h18"/><path d="M3 14.5h18"/><path d="M9.5 4.5v15"/></svg></span>
-        <span class="tl-tile-t"><span class="tl-tile-num">15</span>数据格式互转台</span>
-        <span class="tl-tile-d">从 Excel 粘一片数据进来，自动认出逗号还是制表符分隔，转成 Markdown、CSV、JSON 或 SQL。</span>
+      <button class="tl-tile" type="button" data-tool="mask" aria-controls="tp-mask">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M3.5 17l4.5-4.2 3.5 3"/><rect x="13.5" y="11.5" width="6.5" height="6" rx="1" fill="currentColor" stroke="none"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">15</span>图片打码</span>
+        <span class="tl-tile-d">手机号、姓名、身份证号、头像，按住拖个框就盖住；效果烧进图片，不是盖贴纸。</span>
         <span class="tl-tile-tag">本地处理 · 不上传</span>
       </button>
     </div>
@@ -1250,150 +1174,144 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         <p class="tl-note">整段文字只在你的设备上比对，一个字都不会离开浏览器，粘贴保密材料也放心。逐行对照是两两相比的计算，单边最多 4000 行；两边规模差得特别悬殊时会直接提示，而不是把页面算到卡死。「导出对照文件」用的是通行的对照格式，可以直接交给开发或存档。</p>
       </section>
 
-      <section class="tl-panel" id="tp-regex" data-panel="regex" aria-labelledby="tph-regex">
-        <div class="tl-ph"><h3 id="tph-regex"><span class="tl-idx">13</span>正则表达式工作台</h3><button class="tl-close" type="button" data-close>收起</button></div>
-        <p class="tl-desc">把正则填进去、把要检查的文字贴进来：匹配到的内容会即时标成金色，每一处匹配抓到了什么、每个圆括号分组分别抓到了什么，都列成清单。下面还会把这条正则从左到右念成大白话——看不懂自己写的正则时，这条最管用。</p>
-        <div class="tl-opts">
-          <div class="tl-opt tl-full"><label for="rx-re">正则表达式</label>
-            <input type="text" id="rx-re" data-in="re" placeholder="例如 1[3-9]\d{9} 就是手机号；只写式子就行，不用写两边的斜杠" spellcheck="false" autocomplete="off"></div>
+
+      <section class="tl-panel" id="tp-grid" data-panel="grid" aria-labelledby="tph-grid">
+        <div class="tl-ph"><h3 id="tph-grid"><span class="tl-idx">13</span>九宫格切图</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">一张图切成九张，发朋友圈正好铺满一整块；也能切成四张、上下三条、左右三条。切出来的顺序就是微信里从左上到右下的顺序 —— 挑图的时候按这个顺序点，铺出来才不会错位。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+          <b>点这里选一张图片</b>
+          <span class="tl-sub">或拖进来 · 一次切一张 · 换图就重新切</span>
         </div>
         <div class="tl-opts">
-          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="i"><span>忽略大小写（i）</span></label></div>
-          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="m"><span>^ $ 按每一行算（m）</span></label></div>
-          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="s"><span>. 也匹配换行（s）</span></label></div>
-          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="u"><span>严格按 Unicode 解析（u）</span></label></div>
-        </div>
-        <div class="tl-opts">
-          <div class="tl-opt tl-full"><label for="rx-tx">测试文本</label>
-            <textarea id="rx-tx" data-in="tx" rows="7" placeholder="把要检查的文字贴到这里。边打边看结果，不用点按钮。" spellcheck="false"></textarea></div>
-          <div class="tl-opt tl-full"><label for="rx-rp">替换预览（可选）</label>
-            <input type="text" id="rx-rp" data-in="rp" placeholder="留空就不替换；$1 代表第 1 个分组，$&amp; 代表整个匹配，\n 表示换行" spellcheck="false" autocomplete="off"></div>
+          <div class="tl-opt"><label for="gd-mode">切成几块</label>
+            <select id="gd-mode" data-in="mode">
+              <option value="3x3">3 × 3 九宫格（9 张）</option>
+              <option value="2x2">2 × 2 四宫格（4 张）</option>
+              <option value="1x3">上下三条（3 张）</option>
+              <option value="3x1">左右三条（3 张）</option>
+            </select></div>
+          <div class="tl-opt"><label for="gd-num">要不要给每张标顺序号</label>
+            <select id="gd-num" data-in="num">
+              <option value="0">不标（发出去更干净）</option>
+              <option value="1">标小号（自己核对顺序）</option>
+              <option value="2">标大号（当编号图用）</option>
+            </select></div>
+          <div class="tl-opt"><label for="gd-fmt">输出格式</label>
+            <select id="gd-fmt" data-in="fmt">
+              <option value="image/jpeg">JPG（体积小，发群推荐）</option>
+              <option value="image/png">PNG（无损，体积大）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">JPG 质量 <output data-out="q">92</output></span>
+            <input type="range" min="60" max="100" step="1" value="92" data-in="q"></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="square"><span>先在中间裁成正方形再切（不勾也行：九张拼回去就是原图本来的比例，只是每张是长方形）</span></label></div>
         </div>
         <div class="tl-actions">
-          <button class="tl-btn" type="button" data-act="run">开始匹配</button>
-          <button class="tl-btn ghost" type="button" data-act="copy">复制结果</button>
+          <button class="tl-btn" type="button" data-act="run">开始切图</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载 ZIP</button>
           <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
         </div>
         <div class="tl-msg" data-msg></div>
         <div class="tl-stat" data-stat></div>
-        <p class="tl-hint tl-mt">常用写法点一下就填进去（会同时配一段带该内容的示例文本；你自己贴过东西进来就不会被覆盖）：</p>
-        <div class="tl-chips" data-tpls></div>
-        <div class="tl-sechd">匹配到的内容</div>
-        <pre class="tl-rxhl is-ph" data-hl></pre>
-        <div class="tl-rxlist" data-mlist></div>
-        <div class="tl-sechd">这条正则说的是什么</div>
-        <div class="tl-rxparts" data-explain></div>
-        <div class="tl-rxwarn" data-warn></div>
-        <div class="tl-sechd">替换后</div>
-        <pre class="tl-rxhl is-ph" data-rep></pre>
-        <p class="tl-note">用的是浏览器自带的正则引擎，所以你在这里测出来的行为，跟它在程序里的行为完全一致——贪婪与懒惰、反向引用、分组这些都不会因为换了引擎而变样。整段匹配在你自己的设备上算，一个字都不外发。单次最多认 2 万处匹配、明细表最多列 300 行、逐段解释最多 80 段，超了会直接说明，而不是把页面算到卡住。</p>
+        <div class="tl-list" data-list></div>
+        <div data-cutwrap hidden>
+          <div class="tl-sechd">切好的样子（顺序就是朋友圈里的排列）</div>
+          <div class="tl-cut" data-cut></div>
+        </div>
+        <p class="tl-note">等分是按原图像素算出来的：除不尽的时候每格宽差 1 像素，最后一行一列既不会多出一条缝、也不会把边上的行丢掉。切图只在你自己设备上做，图片不上传。顺序号是为了防止发的时候点错，不想让别人看见就选「不标」。</p>
       </section>
 
-      <section class="tl-panel" id="tp-json" data-panel="json" aria-labelledby="tph-json">
-        <div class="tl-ph"><h3 id="tph-json"><span class="tl-idx">14</span>JSON 智能修复台</h3><button class="tl-close" type="button" data-close>收起</button></div>
-        <p class="tl-desc">把一段报错的 JSON 贴进来，它一边修一边把改了什么逐条说清楚：多余的逗号、单引号、没加引号的字段名、夹着的注释、True/None 这种别的语言写法、少了的括号……修好之后再格式化、折叠看结构、按路径取值、转成表格。</p>
-        <div class="tl-seg" data-seg>
-          <button type="button" data-seg-tab="fix" class="on" aria-selected="true">修复与格式化</button>
-          <button type="button" data-seg-tab="tree" aria-selected="false">树形查看</button>
-          <button type="button" data-seg-tab="query" aria-selected="false">取值与转表格</button>
+      <section class="tl-panel" id="tp-longcut" data-panel="longcut" aria-labelledby="tph-longcut">
+        <div class="tl-ph"><h3 id="tph-longcut"><span class="tl-idx">14</span>长图切段</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">聊天记录、网页截图、笔记导出的长图，直接发出去会被压糊成细细一条。切成几段再发，点开一张是清楚的一大片。可以一次丢好几张长图进来。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M2.5 9.5h19"/><path d="M2.5 14.5h19"/></svg>
+          <b>点这里选长图</b>
+          <span class="tl-sub">或拖进来 · 可多选 · 每张单独切</span>
         </div>
-
-        <div class="tl-sub2" data-sub="fix">
-          <div class="tl-sub2-hd">修复与格式化</div>
-          <div class="tl-opts">
-            <div class="tl-opt tl-full"><label for="js-raw">贴进来的内容</label>
-              <textarea id="js-raw" data-in="raw" rows="9" placeholder="例如 {&quot;a&quot;:1,&quot;b&quot;:&quot;x&quot;,} 这种末尾多一个逗号的；粘完自动修，不用点按钮" spellcheck="false"></textarea></div>
-          </div>
-          <div class="tl-opts">
-            <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="pretty" checked><span>输出时按层级缩进（不勾就压成一行）</span></label></div>
-            <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="sortkey"><span>字段名按字母顺序排列</span></label></div>
-          </div>
-          <div class="tl-actions">
-            <button class="tl-btn" type="button" data-act="demo">放一段坏 JSON 试试</button>
-            <button class="tl-btn ghost" type="button" data-act="copy">复制结果</button>
-            <button class="tl-btn ghost" type="button" data-act="csv">转成 CSV</button>
-            <button class="tl-btn ghost" type="button" data-act="dl">下载 .json</button>
-            <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
-          </div>
-          <div class="tl-msg" data-msg></div>
-          <div class="tl-stat" data-stat></div>
-          <div class="tl-sechd">改了哪些地方</div>
-          <div class="tl-fixlist" data-fixlist></div>
-          <div class="tl-sechd">修好之后</div>
-          <textarea class="tl-code" data-res readonly rows="12" spellcheck="false" placeholder="修好的内容会出现在这里，可以直接全选复制"></textarea>
-        </div>
-
-        <div class="tl-sub2 is-off" data-sub="tree">
-          <div class="tl-sub2-hd">树形查看</div>
-          <div class="tl-msg" data-msg></div>
-          <p class="tl-hint">把修好的内容画成一棵可以展开收起的树：点前面的小三角就能一层层掀开，字段名和值一眼对得上，比盯着一屏括号找位置舒服。</p>
-          <div class="tl-jtree" data-tree></div>
-        </div>
-
-        <div class="tl-sub2 is-off" data-sub="query">
-          <div class="tl-sub2-hd">取值与转表格</div>
-          <div class="tl-opts">
-            <div class="tl-opt"><label for="js-path">取值路径</label>
-              <input type="text" id="js-path" data-in="path" placeholder="例如 data.list[0].name" spellcheck="false" autocomplete="off"></div>
-            <div class="tl-opt"><label for="js-tbl">要排成表格的那一组数据</label>
-              <select id="js-tbl" data-in="tbl"></select></div>
-          </div>
-          <p class="tl-hint">路径写法：<b>a.b</b> 取字段、<b>a[0]</b> 取第 0 项、<b>a[*]</b> 取每一项；对一列对象直接写 <b>list.name</b> 就相当于对每一项都取 name。数据里哪几组能排成表格，上面那个下拉框已经替你找好了，选一个就能看预览、导出 CSV。</p>
-          <div class="tl-actions">
-            <button class="tl-btn" type="button" data-act="query">按路径取值</button>
-            <button class="tl-btn ghost" type="button" data-act="copycsv">复制表格</button>
-            <button class="tl-btn ghost" type="button" data-act="dlcsv">下载表格</button>
-          </div>
-          <div class="tl-msg" data-msg></div>
-          <div class="tl-sechd">取到的值</div>
-          <div class="tl-rxlist" data-qres></div>
-          <div class="tl-sechd">表格预览</div>
-          <div class="tl-dtwrap" data-qprev></div>
-        </div>
-
-        <p class="tl-note">修复是逐趟清洗、每趟都记账：改了什么、有几处，一条条摆出来给你核。清洗只动结构、不动字符串里的内容——中文逗号、网址里的双斜杠、字符串里的引号和 True 都不会被误伤（有专门的用例守这条线）。内容全程在本机处理，贴日志、贴配置、贴用户数据都不外发。单次上限 400 万字，超了会先说明再停手。</p>
-      </section>
-
-      <section class="tl-panel" id="tp-dataconv" data-panel="dataconv" aria-labelledby="tph-dataconv">
-        <div class="tl-ph"><h3 id="tph-dataconv"><span class="tl-idx">15</span>数据格式互转台</h3><button class="tl-close" type="button" data-close>收起</button></div>
-        <p class="tl-desc">从 Excel 框一片、从网页表格选一段、从命令行复制一坨，贴进来：它先替你认出这是用什么分开的（制表符、逗号、分号、竖线、连续空格、Markdown 表格，或者本来就是 JSON），用大白话说给你听、再配一张预览表让你核对；认完再选要转成什么。</p>
         <div class="tl-opts">
-          <div class="tl-opt tl-full"><label for="dc-raw">贴进来的内容</label>
-            <textarea id="dc-raw" data-in="raw" rows="9" placeholder="从 Excel 里选中一块直接复制过来，或者贴 CSV、贴 Markdown 表格、贴一段 JSON 都行" spellcheck="false"></textarea></div>
-        </div>
-        <div class="tl-detect" data-detect></div>
-        <div class="tl-dtwrap" data-prev></div>
-        <div class="tl-sechd">转成什么</div>
-        <div class="tl-chips" data-fmts></div>
-        <div class="tl-opts">
-          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="hdr"><span>第 1 行是表头（认出来的结果会勾在这里，觉得不对自己改一下）</span></label></div>
-          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="trim" checked><span>每格首尾的空格去掉</span></label></div>
-          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="num" checked><span>认得出数字的格子不加引号（JSON 与 SQL 用）</span></label></div>
-          <div class="tl-opt"><label for="dc-empty">空格子怎么处理</label>
-            <select id="dc-empty" data-in="empty">
-              <option value="null">写成 NULL（JSON 里是 null）</option>
-              <option value="dash">填一个破折号 —</option>
+          <div class="tl-opt"><label for="lc-mode">怎么切</label>
+            <select id="lc-mode" data-in="mode">
+              <option value="h">按每段的高度切（推荐）</option>
+              <option value="n">平均切成几段</option>
             </select></div>
-          <div class="tl-opt"><label for="dc-tbl">SQL 表名</label>
-            <input type="text" id="dc-tbl" data-in="tbl" value="my_table" spellcheck="false" autocomplete="off"></div>
-          <div class="tl-opt"><label for="dc-cstyle">SQL 字段名风格</label>
-            <select id="dc-cstyle" data-in="cstyle">
-              <option value="snake">下划线（dept_name）</option>
-              <option value="camel">小驼峰（deptName）</option>
-              <option value="raw">原样不动</option>
+          <div class="tl-opt"><label for="lc-h">每段最高多少像素</label>
+            <input type="number" id="lc-h" data-in="h" min="200" max="20000" step="100" value="2000" inputmode="numeric"></div>
+          <div class="tl-opt"><label for="lc-n">平均切成几段</label>
+            <input type="number" id="lc-n" data-in="n" min="2" max="200" step="1" value="3" inputmode="numeric"></div>
+          <div class="tl-opt"><label for="lc-fmt">输出格式</label>
+            <select id="lc-fmt" data-in="fmt">
+              <option value="image/jpeg">JPG（体积小，发群推荐）</option>
+              <option value="image/png">PNG（无损，体积大）</option>
             </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">JPG 质量 <output data-out="q">92</output></span>
+            <input type="range" min="60" max="100" step="1" value="92" data-in="q"></div>
+          <div class="tl-opt"><label for="lc-wmax">顺便把宽度缩到（像素，0 = 不动）</label>
+            <input type="number" id="lc-wmax" data-in="wmax" min="0" max="10000" step="100" value="0" inputmode="numeric"></div>
         </div>
         <div class="tl-actions">
-          <button class="tl-btn" type="button" data-act="demo">放一段示例数据</button>
-          <button class="tl-btn ghost" type="button" data-act="copy">复制结果</button>
-          <button class="tl-btn ghost" type="button" data-act="dl">下载文件</button>
+          <button class="tl-btn" type="button" data-act="run">开始切段</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载 ZIP</button>
           <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
         </div>
         <div class="tl-msg" data-msg></div>
         <div class="tl-stat" data-stat></div>
-        <div class="tl-sechd">转换结果</div>
-        <textarea class="tl-code" data-res readonly rows="12" spellcheck="false" placeholder="上面选好格式，转换结果会出现在这里"></textarea>
-        <p class="tl-note">认分隔符靠的是「哪一列切得最整齐」——整齐的那个才真的在分列，所以数据里夹着逗号、夹着竖线也不会被切错。表头没把握时一律按数据行处理（宁可不认，也不替你把列名认错），勾选框就摆在上面，随手改一下即可。整段内容在你自己的设备上处理、不外发；单次上限 5000 行、200 列，超了会直说。</p>
+        <div class="tl-list" data-list></div>
+        <div data-segswrap hidden>
+          <div class="tl-sechd">切好的段</div>
+          <div class="tl-cutlist" data-segs></div>
+        </div>
+        <p class="tl-note">「按每段高度切」不是切到切不动为止 —— 那样最后一段可能只剩二三十像素、细得像根线。这里是先算要几段、再把这几段均分，所以每段都不会超过你填的上限，也不会出现细条。切缝落在整像素上，几张拼回去看不出接缝。想发得清楚一点，经验上是宽度 1080 左右、每段高 2000 上下，具体按你要发的对方和场合调就行。</p>
+      </section>
+
+      <section class="tl-panel" id="tp-mask" data-panel="mask" aria-labelledby="tph-mask">
+        <div class="tl-ph"><h3 id="tph-mask"><span class="tl-idx">15</span>图片打码</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">发截图之前，把手机号、姓名、身份证号、群名、头像盖上。在图上按住拖一个框就遮住一块，遮错了能撤销，一块都没遮它会拦着不让导出。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M3.5 17l4.5-4.2 3.5 3"/><rect x="13.5" y="11.5" width="6.5" height="6" rx="1" fill="currentColor" stroke="none"/></svg>
+          <b>点这里选一张图片</b>
+          <span class="tl-sub">或拖进来 · 一次一张 · 换图会清掉已画的遮挡</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="mk-mode">遮法</label>
+            <select id="mk-mode" data-in="mode">
+              <option value="mosaic">马赛克（糊成小方块）</option>
+              <option value="blur">高斯模糊（糊成一片）</option>
+              <option value="solid">纯色块（最彻底，拿不准就用它）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">马赛克格子 <output data-out="block">14</output> px</span>
+            <input type="range" min="6" max="48" step="2" value="14" data-in="block"></div>
+          <div class="tl-opt"><span class="tl-opt-l">模糊强度 <output data-out="radius">16</output> px</span>
+            <input type="range" min="4" max="48" step="2" value="16" data-in="radius"></div>
+          <div class="tl-opt"><label for="mk-color">纯色块颜色</label>
+            <input type="color" id="mk-color" value="#1a1a1a" data-in="color"></div>
+          <div class="tl-opt"><label for="mk-fmt">导出格式</label>
+            <select id="mk-fmt" data-in="fmt">
+              <option value="image/jpeg">JPG（体积小）</option>
+              <option value="image/png">PNG（要保留透明时用）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">JPG 质量 <output data-out="q">92</output></span>
+            <input type="range" min="60" max="100" step="1" value="92" data-in="q"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="save" disabled>导出图片</button>
+          <button class="tl-btn ghost" type="button" data-act="undo" disabled>撤销上一块</button>
+          <button class="tl-btn ghost" type="button" data-act="wipe" disabled>清空所有遮挡</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">换一张图</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-mk" data-mk hidden>
+          <p class="tl-mk-tip">在图上按住往对角拖，拖出来的框就是一块遮挡；要盖住整行，就把框从这一行的行首一直拖到行尾。</p>
+          <div class="tl-mk-stage" data-mkstage>
+            <canvas data-mkcanvas width="1" height="1"></canvas>
+            <div class="tl-mk-sel" data-mksel hidden></div>
+          </div>
+        </div>
+        <p class="tl-note">遮哪儿由你自己划，工具只负责把那儿彻底盖住 —— 它不是「一键智能识别敏感信息」，也不会替你去猜哪里该遮。马赛克格子别调得太小：格子和字差不多大的时候，原图放大还是可能被认出来；拿不准就用纯色块。导出走的是原图分辨率，画布上那个金色虚线框和序号只是给你核对位置用的，不会画进成品里。</p>
       </section>
 
     </div>
@@ -1405,8 +1323,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         这十五个是怎么挑出来的
       </div>
       <ul>
-        <li>能做的、该做的就两类：<b>一是在你自己的设备上，把你自己的文件变一变</b>（格式、尺寸、元数据）；<b>二是纯粹在你设备上算出来的结果</b>（日期推算、文本对照、正则匹配、JSON 修复）。凡是需要去拿别人平台内容的（视频解析、去水印）、需要由我向公众生成内容的（AI 改写、语音转写）、或者会绕开平台限制的，本站<b>一律不做</b>——这不只是技术取舍，也是法律边界。</li>
-        <li>后加的<b>正则工作台 / JSON 修复台 / 数据互转台</b>三个，走的是「不联网的算法智能」：它们替你<b>看懂</b>手里的东西——把正则念成大白话、把一段坏 JSON 修好并逐条说明改了什么、把一片看不出分隔符的数据认出来摊成表。<b>只有算法、没有大模型</b>：所以不用排队、不花一分钱、不看内容大小，最关键的是<b>它不会瞎编</b>。</li>
+        <li>后加的<b>九宫格切图 / 长图切段 / 图片打码</b>三个，是照着「发群里、发朋友圈」这件天天要干的事做的：一张图切成九块正好铺满格子、超长截图切成几段才不发糊、发截图前把手机号和头像先盖住。三个都在你自己的设备上完成，切出来的顺序就是微信里从左上到右下的顺序，末尾还带一次打包下载。</li>
+        <li>能做的、该做的就两类：<b>一是在你自己的设备上，把你自己的文件变一变</b>（格式、尺寸、元数据）；<b>二是纯粹在你设备上算出来的结果</b>（日期推算、文本对照、颜色换算）。凡是需要去拿别人平台内容的（视频解析、去水印）、需要由我向公众生成内容的（AI 改写、语音转写）、或者会绕开平台限制的，本站<b>一律不做</b>——这不只是技术取舍，也是法律边界。</li>
         <li>所以这里<b>没有账号、没有服务器、没有次数限制</b>：你不必担心文件被谁看到，也不必担心哪天我不做了就用不了，把页面存成离线副本也照样能打开。</li>
         <li>视频压缩还是没有放进来：它需要下载约 30 MB 的本地编解码引擎，而在 GitHub Pages 这类静态托管上拿不到多线程所需的响应头，体验会明显打折。宁可先不做，也不给你一个半成品。</li>
         <li>工具是<b>点开哪个才加载哪个</b>的：首屏只加载一层薄薄的框架，没点开的工具一行代码都不会下载、也不会执行。所以工具越加越多，打开速度还是现在这样。</li>
@@ -1475,7 +1393,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "任何支持现代浏览器的设备",
       "browserRequirements": "需要支持 Canvas、Web Audio 与 File API 的现代浏览器",
-      "description": "十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、正则表达式工作台、JSON 智能修复台、数据格式互转台。文件全程在你自己的设备上处理，不上传、不联网、不留存。",
+      "description": "十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
       "author": { "@type": "Person", "name": "龙兄" },
       "publisher": { "@type": "Organization", "name": "龙兄知识库" }
@@ -1485,7 +1403,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       "author": { "@type": "Person", "name": "龙兄" },
       "headline": "工具箱｜龙兄知识库",
       "url": "https://longxiong.vip/tools.html",
-      "description": "十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、正则表达式工作台、JSON 智能修复台、数据格式互转台。文件全程在你自己的设备上处理，不上传、不联网、不留存。"
+      "description": "十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。"
     }
   ]
 }

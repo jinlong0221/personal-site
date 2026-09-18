@@ -46,7 +46,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
 a:hover{color:var(--gold)}
 img{max-width:100%;height:auto}
-h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
 .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
 .navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
@@ -81,7 +81,7 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
 .hero-bg{position:absolute;inset:0;z-index:1}
 .hero-content{position:relative;z-index:1;color:#fff}
-.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+
 .hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
 .hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
 .hero-btn:hover{background:rgba(255,255,255,.3)}
@@ -106,15 +106,16 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
 .skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
 .skip-link:focus{top:0}
-@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
-@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="css/style.css?v=20260917">
+<link rel="stylesheet" href="css/style.css?v=20260919">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root{
-  --sy-bg: #0a0a0a;
-  --sy-text: #ffffff;
+  /* 2026-09-19 收编：原来自带 #0a0a0a / #f5f5f5，画布偏中性，与全站暖黑/米白不一致 */
+  --sy-bg: var(--bg);
+  --sy-text: var(--text);
   --metro-blue: #0078d4;
   --metro-green: #107c10;
   --metro-orange: #ff8c00;
@@ -127,20 +128,15 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   --tile-gap: 4px;
 }
 [data-theme="light"]{
-  --sy-bg: #f5f5f5;
-  --sy-text: #1a1a1a;
+  --sy-bg: var(--bg);
+  --sy-text: var(--text);
   --metro-dark: #ffffff;
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   background: var(--sy-bg);
-  color: var(--sy-text);
-  line-height: 1.6;
-  min-height: 100vh;
-  font-weight: 700;
 }
 /* 浅色模式全局样式修复 */
-[data-theme="light"] .page-header h1 { color: #1a1a1a; }
+[data-theme="light"] .page-header h1 { color: var(--text); }
 [data-theme="light"] .page-header .subtitle { color: #555; }
 [data-theme="light"] .tile-blue { background: #e8f4fd; color: #0a4a7a; }
 [data-theme="light"] .tile-green { background: #e8f5e9; color: #1b5e20; }
@@ -170,7 +166,7 @@ body {
 [data-theme="light"] .error-tile { color: #c62828; }
 .page-wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
 .page-header { margin-bottom: 24px; }
-.page-header h1 { font-size: 48px; font-weight: 900; line-height: 1.1; margin-bottom: 8px; }
+.page-header h1 { margin-bottom: 8px; }
 .page-header .subtitle { font-size: 18px; opacity: 0.7; font-weight: 400; }
 
 .tile-grid {
@@ -295,7 +291,6 @@ body {
   .advice-tile, .tip-tile, .loading-tile, .error-tile { grid-column: span 2; }
 }
 @media (max-width: 520px) {
-  .page-header h1 { font-size: 36px; }
   .tile-grid { grid-template-columns: 1fr; }
   .tile-large, .tile-wide, .tile-small, .advice-tile, .tip-tile, .loading-tile, .error-tile { grid-column: span 1; }
   .tile-large { grid-row: span 1; }
@@ -595,7 +590,7 @@ var _hmt = _hmt || [];
 <!-- related:end -->
   <div class="page-meta">
     <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
-    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-18</span></div>
+    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-19</span></div>
   </div>
 </main><footer role="contentinfo">
   <div class="footer-brand-row">

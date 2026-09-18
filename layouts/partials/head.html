@@ -132,9 +132,9 @@
 
 <!-- 关键CSS内联（首屏渲染不再阻塞） -->
 <style id="critical-css">/* CRITICAL CSS - Above the fold (A+C 设计系统) */
-:root{--bg:#12100C;--bg-secondary:#191510;--card:#191510;--card-hover:#221C15;--border:#2E281E;--border-light:#3A3225;--text:#EDE6D6;--text-secondary:#A2977F;--text-muted:#948A76;--gold:#C9A84C;--gold-light:#E0C97A;--blue-light:#6FA8DC;--orange:#E08A3C;--nav-bg:rgba(18,16,12,.92);--shadow-sm:0 1px 3px rgba(0,0,0,.35);--shadow-md:0 6px 18px rgba(0,0,0,.45);--shadow-lg:0 12px 32px rgba(0,0,0,.55);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--cinnabar:#D14A36;--ink:#12100C;--ink-2:#191510;--ink-3:#211C15;--ink-4:#2A2318;--rule:#3A3225;--rule-soft:#2A2419;--tx:#EDE6D6;--tx-2:#A2977F;--tx-3:#948A76;--grain:.05;--brush:'LX Brush',"Kaiti SC","STKaiti",KaiTi,serif;--serif:"Songti SC","SimSun","Noto Serif CJK SC",serif}
+:root{--bg:#12100C;--bg-secondary:#191510;--card:#191510;--card-hover:#221C15;--border:#2E281E;--border-light:#3A3225;--text:#EDE6D6;--text-secondary:#A2977F;--text-muted:#948A76;--gold:#C9A84C;--accent-color:#C9A84C;--gold-light:#E0C97A;--blue-light:#6FA8DC;--orange:#E08A3C;--nav-bg:rgba(18,16,12,.92);--shadow-sm:0 1px 3px rgba(0,0,0,.35);--shadow-md:0 6px 18px rgba(0,0,0,.45);--shadow-lg:0 12px 32px rgba(0,0,0,.55);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--cinnabar:#D14A36;--ink:#12100C;--ink-2:#191510;--ink-3:#211C15;--ink-4:#2A2318;--rule:#3A3225;--rule-soft:#2A2419;--tx:#EDE6D6;--tx-2:#A2977F;--tx-3:#948A76;--grain:.05;--brush:'LX Brush',"Kaiti SC","STKaiti",KaiTi,serif;--serif:"Songti SC","SimSun","Noto Serif CJK SC",serif}
 [data-theme="light"]{--bg:#F1EBDD;--bg-secondary:#E9E1CE;--card:#FBF7EE;--card-hover:#FFFDF7;--border:#D8CDB4;--border-light:#E2D9C5;--text:#1E1A13;--text-secondary:#5A5343;--text-muted:#69624F;--gold:#957425;--gold-light:#C9A84C;--blue-light:#2A6FB0;--nav-bg:rgba(241,235,221,.92);--shadow-sm:0 1px 3px rgba(90,75,45,.10);--shadow-md:0 6px 18px rgba(90,75,45,.16);--shadow-lg:0 12px 32px rgba(90,75,45,.20);--cinnabar:#B7301F;--ink:#F1EBDD;--ink-2:#E9E1CE;--ink-3:#FBF7EE;--ink-4:#FFFDF7;--rule:#D8CDB4;--rule-soft:#E2D9C5;--tx:#1E1A13;--tx-2:#5A5343;--tx-3:#69624F;--grain:.045}
-[data-theme="dark"]{--card:#1C1711;--card-hover:#25201A;--border:#322B20;--border-light:#3D3527;--text:#EDE6D6;--text-secondary:#B3A88F;--text-muted:#948A76;--gold:#C9A84C;--gold-light:#E0C97A;--blue-light:#6FA8DC;--nav-bg:rgba(18,16,12,.92)}
+[data-theme="dark"]{--card:#1C1711;--card-hover:#25201A;--border:#322B20;--border-light:#3D3527;--text:#EDE6D6;--text-secondary:#B3A88F;--text-muted:#948A76;--gold:#C9A84C;--accent-color:#C9A84C;--gold-light:#E0C97A;--blue-light:#6FA8DC;--nav-bg:rgba(18,16,12,.92)}
 @font-face{font-family:'LX Brush';src:url('/fonts/lx-brush.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
@@ -144,7 +144,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
 a:hover{color:var(--cinnabar)}
 img{max-width:100%;height:auto}
-h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
 .lx-wrap{padding:0 14px;max-width:var(--max-width);margin:0 auto}
 .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--rule-soft);height:var(--nav-height)}
@@ -185,7 +185,7 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .lx-card{position:relative;padding:15px 14px 14px;text-decoration:none;color:inherit;background:var(--ink-3);border:1px solid var(--rule-soft);border-radius:2px;overflow:hidden}
 .lx-card h4{font-family:var(--serif);font-size:15.5px;font-weight:600;margin-bottom:6px;color:var(--tx)}
 .lx-card p{font-size:11.5px;color:var(--tx-2);line-height:1.7}
-footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.78rem;border-top:2px solid var(--rule);margin-top:48px}
+footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.75rem;border-top:2px solid var(--rule);margin-top:48px}
 .skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
 .skip-link:focus{top:0}
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.container,.lx-wrap{padding:0 14px}footer{padding:24px 16px}.lx-mh-title{font-size:34px}}
@@ -257,7 +257,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.78r
 .mb-hero-avatar{width:54px;height:54px;border-radius:50%;background:var(--gold);color:#1a1206;display:flex;align-items:center;justify-content:center;font-family:var(--brush);font-size:1.6rem;font-weight:500;flex:0 0 auto}
 .mb-hero-name{font-size:1.25rem;font-weight:700;color:var(--tx);margin:0}
 .mb-hero-bio{font-size:.86rem;color:var(--tx-2);line-height:1.6;margin:6px 0 0}</style>
-<link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css?v=20260916">
+<link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css?v=20260919">
 
 <!-- 百度统计 -->
 <script async>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>

@@ -42,7 +42,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
 a:hover{color:var(--gold)}
 img{max-width:100%;height:auto}
-h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
 .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
 .navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
@@ -77,7 +77,7 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
 .hero-bg{position:absolute;inset:0;z-index:1}
 .hero-content{position:relative;z-index:1;color:#fff}
-.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+
 .hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
 .hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
 .hero-btn:hover{background:rgba(255,255,255,.3)}
@@ -102,10 +102,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
 .skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
 .skip-link:focus{top:0}
-@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
-@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="css/style.css?v=20260917">
+<link rel="stylesheet" href="css/style.css?v=20260919">
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -320,7 +320,8 @@ var _hmt = _hmt || [];
       台风监测、新闻巡检这类自动化留痕按天折叠，不占版面。</p>
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
-        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-19">2026 年 9 月 19 日 · 周六</time><span class="cl-day-n">1 项改动</span></h4><div class="cl-item"><span class="cl-time">00:05</span><div class="cl-main"><p class="cl-head">🧭 旅行加密相册去掉全站导航，换成一条只属于它的细页头：左边「龙兄 ｜ 家庭旅行」，右边「← 回首页」加主题开关。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">这一页本是给家人看的私密相册，却挂着和全站一模一样的六大类目导航与悬浮栏目目录，「私密」二字就落了空；现在页头只留回得去的路。顺手填了一个一直存在的坑：密码门是全屏遮罩、层级本来压过页头，没解锁的人在密码页上既看不到导航也无处可退——本轮把页头抬到遮罩之上，并实测全屏看照片的灯箱仍在页头之上，不会挡住图。入口没变：顶栏「更多」下拉末尾、悬浮栏目目录的「私密」组、以及首页底部那个低调入口。</div></details></div></div>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-19">2026 年 9 月 19 日 · 周六</time><span class="cl-day-n">2 项改动</span></h4><div class="cl-item"><span class="cl-time">01:50</span><div class="cl-main"><p class="cl-head">🎨 全站排版大归并：把各板块各写各的字号、字重、字距、配色，全部收编回同一套设计语言（龙兄要求「全站统一 + 高级感」）。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body"><strong>① 标题体系</strong>：全站 h1 统一 32px / 700 字重 / 字距 1.28px，h2 24px、h3 20px、h4 17.6px；标题行高从 1.4 收到 1.28，观感更紧凑挺括。<strong>② 正文体系</strong>：统一 17.5px / 行高 1.8 / 颜色 #EDE6D6，面包屑 13.6px。<strong>③ 响应式曲线</strong>：修掉「平板反而比手机小」的倒挂（768px 档从 16px 提到 17.5px），h1 三档改为 32 → 27 → 24px，不再出现「手机上标题比桌面还大」。<strong>④ 离群板块归队</strong>：射阳（正文被写死 700 字重 + 纯白字）、农田气象（老年友好 17px !important 覆写整页）、游戏板块（自带一套蓝紫配色变量）、紫砂 40 个详情页（自带棕色调变量组）全部改回全站统一 token。<strong>另修掉一个真 bug</strong>：紫砂详情页标题写死 2rem，而手机上根字号会被提到 17px，于是标题在手机端反而涨到 34px、比桌面还大——已改回全局字号，现在三档曲线是 32 → 27 → 24px；顺带同步了 153 页内联关键样式里残留的旧标题基类行高（1.4 → 1.28），并清掉 447 处 <code>.hero-content h1</code> 私有字号（全站零使用的死规则）。<strong>⑤ 细节提质感</strong>：小标题统一成 3px 金条；游戏/紫砂的「平台徽章」「标签」由实心白字改成金色描边幽灵态；表格表头由纯白字改成金底深字（对比度更稳）；卡片阴影中性化。<strong>验证</strong>：全站逐页渲染实测（186 页），h1 全部 32px / 700 字重、正文色与字号全站一致；结构、主题、溢出、缓存戳、引号、标题四字段等本地守卫全绿。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">00:05</span><div class="cl-main"><p class="cl-head">🧭 旅行加密相册去掉全站导航，换成一条只属于它的细页头：左边「龙兄 ｜ 家庭旅行」，右边「← 回首页」加主题开关。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">这一页本是给家人看的私密相册，却挂着和全站一模一样的六大类目导航与悬浮栏目目录，「私密」二字就落了空；现在页头只留回得去的路。顺手填了一个一直存在的坑：密码门是全屏遮罩、层级本来压过页头，没解锁的人在密码页上既看不到导航也无处可退——本轮把页头抬到遮罩之上，并实测全屏看照片的灯箱仍在页头之上，不会挡住图。入口没变：顶栏「更多」下拉末尾、悬浮栏目目录的「私密」组、以及首页底部那个低调入口。</div></details></div></div>
             <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×1</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 新闻补漏接力（本轮 01:20 起跑）：体检发现 12 个新闻板块的 updated 全部停在 9月18日，今天（9/19）刚开局还没人动过，于是逐板补漏、处理一块推一块。<strong>9 个板块拿到当天新条目</strong>：黄金珠宝（凌晨现货金反弹到 4385.81 美元、日涨幅由 +0.34% 回到 +1.03%，同时记下美债收益率回到 5.004% 压住上行）；…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p></div></div></details>
           </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-18">2026 年 9 月 18 日 · 周五</time><span class="cl-day-n">9 项改动</span></h4><div class="cl-item"><span class="cl-time">23:40</span><div class="cl-main"><p class="cl-head">📓 「站长手记」大幅扩充：2 则 → 7 则，整体改得更诚恳、更像自己说的话。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">新增五则——「宁可不写，也不编」（每篇先多源核实，对不上就老实标「待确认」）、「把改动都摊在明面上」（更新日志与「最后更新」为什么值得留）、「图片这件事，我宁可笨一点」（配图只用真实照片并注明版权，不用 AI 生成）、「工具不该悄悄把你的东西拿走」（工具不上传、不联网、不碰别人作品）、「留一块地方给射阳」（家乡板块的由来）；导语与结尾一并重写，原有两则保留。</div></details></div></div>
@@ -382,9 +383,6 @@ var _hmt = _hmt || [];
             <div class="cl-item"><div class="cl-main"><p class="cl-head">【早班07:30】13板块全部已为09-11（前序三班接力已更新），本班轻量复核+抓当日稿：新增4板——①苹果：Watch Series 12/Ultra 4/AirPods 5 今日(9/11)开启预购、9/18发售；</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">②主机：Shift Up确认《剑星完全版》Switch2实体完整卡带(非钥匙卡)、11/5发售$59.99(IT之家9/11)；③台风：南海中部扰动将于9/12前后加强为热带低压、趋海南岛南部、海南海事局9/10启动四级防台响应，对射阳暂无直接影响、风险维持低；④手串：国际金价$4315.94/oz、国内大盘约930元/g、周大福饰品1331元/g高位震荡。 其余9板(特斯拉/漫威宇宙/FSD/漫威票房/中药材/紫砂/养生茶/射阳/ChinaJoy)轻量复核无≥2源新稿、未注水。无受阻板块，全覆盖完成。</div></details></div></div>
             <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×3</span><span class="cl-chip">巡检 ×8</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（白海豚停编·本轮监测收尾）：经中国天气网（中央气象台）权威确认，今年第13号台风白海豚(2613)已于9月11日17时经中央气象台停止编号（停编）——9/9登陆浙江（玉环强台风14级/乐清台风13级）后深入内陆减弱，11日上午在湖北减弱为热带低压、17时停编，生命史终结。对射阳（合德镇）无台风级大风、仅分散性阵雨/局地强对流（海区阵风6—8级），综合风险由「中低」下调至「低」。…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 2 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 新闻接力 2026-09-11（22:40 夜间轮）：全站 12 个板块 updated 均已为 2026-09-11，体检无空刷（11 个带 news 数组的板块当日条目均 ≥1，marvel-boxoffice 为单对象结构只看 updated）。…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 7 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
           </section>
-        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-10">2026 年 9 月 10 日 · 周四</time><span class="cl-day-n">1 项改动</span></h4><div class="cl-item"><span class="cl-time">19:02</span><div class="cl-main"><p class="cl-head">🍎 苹果板块明暗交替·加力：色带对比度翻倍。浅色 #E9E1CE→#D8CDB4（1.10→1.33 倍），深色 #2A241A→#3A301D（1.24→1.47 倍），两色带上下各加 1px 发丝线强化分界。解决「看起来没区别」——原暖棕系只差 1.1 倍肉眼难辨，尤其浅色主题。</p></div></div>
-            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×2</span><span class="cl-chip">巡检 ×5</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（系统切换+数据修正）：第13号台风白海豚(2613)接棒已停编的科罗旺(2624)——白海豚9/9登陆浙江（玉环强台风14级/乐清台风13级）后深入内陆减弱，9/10 17时中心在江西德兴（热带风暴8级/990hPa、西北行），预计11日夜间湖北消散；对射阳为外围降水（盐城9-11日强降水过程、局地强对流7-9级、海区阵风6-8级），综合风险「中低」。…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 1 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 新闻补漏接力（当日全覆盖巡检）：12 个新闻板块均已更新至 09-10，且每板当日条目数 ≥1（非空刷），无落后板块。本轮唯一实际修复：<strong>中药材隐藏副本漏更</strong>——hidden-sections/static/herbs-news.json 停留在午班前一版，缺少「山柰创近年新高／砂仁回落／连翘丰产／药博会数字化」一条（6 条 vs 7 条）；…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 4 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
-          </section>
         <!--CL:RECENT:END-->
     </div>
     <p class="cl-feed-foot">以上是最近一批改动。全部记录（含自动化运维明细）存档在站点的
@@ -395,7 +393,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-09-19</span><span id="clLastStamp" class="cl-upd-stamp"> 01:32</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-09-19</span><span id="clLastStamp" class="cl-upd-stamp"> 01:50</span></div>
   </div>
 </main>
 

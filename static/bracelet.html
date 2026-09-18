@@ -47,7 +47,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
 a:hover{color:var(--gold)}
 img{max-width:100%;height:auto}
-h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
 .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
 .navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
@@ -82,7 +82,7 @@ h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
 .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
 .hero-bg{position:absolute;inset:0;z-index:1}
 .hero-content{position:relative;z-index:1;color:#fff}
-.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+
 .hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
 .hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
 .hero-btn:hover{background:rgba(255,255,255,.3)}
@@ -107,10 +107,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
 .skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
 .skip-link:focus{top:0}
-@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
-@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="css/style.css?v=20260917">
+<link rel="stylesheet" href="css/style.css?v=20260919">
 <style>
   /* 文玩手串首页特定样式 */
   .bracelet-hero {
@@ -118,8 +118,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     text-align: center;
   }
   .bracelet-hero h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
     color: var(--gold);
     margin-bottom: 12px;
   }
@@ -243,7 +241,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   /* 响应式 */
   @media (max-width: 768px) {
     .bracelet-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .bracelet-hero h1 { font-size: 1.8rem; }
     /* 卡片竖线与文字拉开间距 */
     .bracelet-card { padding: 20px 18px 20px 24px; min-height: 140px; }
     .bracelet-card .emoji { font-size: 28px; margin-bottom: 8px; }
@@ -684,7 +681,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：中国工艺美术协会（cnaca.org）、中国工艺美术学会（cnacs.net.cn）；品类鉴别与行情参考公开市场资料</div>
     <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
-    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-18</span></div>
+    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-19</span></div>
   </div>
 </main>
 

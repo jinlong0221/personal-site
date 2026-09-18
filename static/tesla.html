@@ -63,11 +63,11 @@
 }
 </script>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
-<link rel="stylesheet" href="css/style.css?v=20260917">
+<link rel="stylesheet" href="css/style.css?v=20260919">
 <style>
 .tesla-hero { text-align: center; padding: 48px 0 32px; }
 .tesla-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
-.tesla-hero h1 { font-size: 2.2rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+.tesla-hero h1 { color: var(--text); margin-bottom: 8px; }
 .tesla-hero p { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
 .section-header { display: flex; align-items: center; gap: 12px; margin: 40px 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--blue); }
 .section-header .icon { font-size: 28px; }
@@ -121,7 +121,6 @@
 .stat-item .stat-label { font-size: 0.73rem; color: var(--text-muted); margin-top: 3px; }
 [data-theme="light"] .card-tesla { background: #ffffff; border-color: #e0e0e0; }
 [data-theme="light"] .brand-note, [data-theme="light"] .news-item, [data-theme="light"] .stat-item { background: #ffffff; }
-@media (max-width: 768px) { .tesla-hero h1 { font-size: 1.6rem; } }
 @media (max-width: 480px) { .card-grid-tesla { grid-template-columns: 1fr; } .news-item { flex-direction: column; gap: 4px; } .news-item .news-date { width: auto; } }
 /* 特斯拉新闻区块内容较多，增加展开高度 */
 .home-collapsible.open {
@@ -634,7 +633,7 @@ function toggleHomeSection(el){
 
   <div class="page-meta">
     <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
-    <p class="update-time" style="margin-top:8px">最后更新：<span id="lastNewsUpdate">2026-09-18</span></p>
+    <p class="update-time" style="margin-top:8px">最后更新：<span id="lastNewsUpdate">2026-09-19</span></p>
   </div>
 <footer role="contentinfo">
   <div class="footer-brand-row">

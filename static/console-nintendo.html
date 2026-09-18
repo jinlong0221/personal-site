@@ -58,11 +58,11 @@
 }
 </script>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
-<link rel="stylesheet" href="css/style.css?v=20260917">
+<link rel="stylesheet" href="css/style.css?v=20260919">
 <style>
 .console-hero { text-align: center; padding: 48px 0 32px; background: linear-gradient(135deg, rgba(230,0,18,0.1), rgba(230,0,18,0.05)); border-radius: 16px; margin-bottom: 32px; }
 .console-hero .emoji-big { font-size: 56px; line-height: 1; margin-bottom: 12px; }
-.console-hero h1 { font-size: 2.2rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+  .console-hero h1 { color: var(--text); margin-bottom: 8px; }
 .console-hero p { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
 .section-header { display: flex; align-items: center; gap: 12px; margin: 40px 0 20px; padding-bottom: 12px; border-bottom: 2px solid #e60012; }
 .section-header .icon { font-size: 28px; }
@@ -87,7 +87,6 @@
 .brand-note p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
 [data-theme="light"] .card-console { background: #ffffff; border-color: #e0e0e0; }
 [data-theme="light"] .brand-note, [data-theme="light"] .stat-item { background: #ffffff; }
-@media (max-width: 768px) { .console-hero h1 { font-size: 1.6rem; } }
 @media (max-width: 480px) { .card-grid-console { grid-template-columns: 1fr; } }
 </style>
 <script>

@@ -8,10 +8,19 @@
         复用它的 37 条脚本哈希白名单。本站的 CSP 不开放行全部内联脚本，一旦在本页 <head> 里
         改动或新增内联脚本，哈希就对不上、脚本会被浏览器直接挡下（页面看着正常但功能不动）。
         要动 <head> 里的脚本，必须同时更新那一行的白名单。
-     ② 十个工具的全部逻辑都在外链的 static/js/tools.js 里；本页不写任何内联脚本，
-        也不写内联 onclick 之类的属性（同样会被安全策略挡下）。
+     ② 本页不写任何内联脚本，也不写内联 onclick 之类的属性（同样会被安全策略挡下）。
+        工具逻辑分两层：static/js/tools.js 只放框架（公共底座 + 面板路由 + 按需加载器），
+        每个工具的实现在 static/js/tools/<工具名>.js，点开对应卡片时才注入执行；
+        所以工具加到二十个，首屏体积还是现在这么大。
+        新增一个工具的完整动作 = 写一个子文件 + 在框架的 SUB_VER 里登记一行
+        + 在本页加一张卡片（data-tool）和一个面板（id="tp-<工具名>"）。
      ③ 面板是「脚本可用才折叠」：只有 <html> 被加上 .tools-js 才隐藏面板；脚本一旦没跑起来，
-        十个面板会全部平铺展开，输入控件和按钮都还在，内容一张不丢。 -->
+        全部面板会平铺展开，输入控件和按钮都还在，内容一张不丢。日期面板里的段切换同理——
+        换个段靠 .tl-sub2 上的 .is-off，HTML 里绝不写死隐藏，切段的按钮本身也只在
+        有脚本时才出现（否则那三段就没有入口了）。
+     ④ 改了某个子文件之后：若主文件 static/js/tools.js 同时改了，子文件地址里带着主文件的
+        版本串，会跟着一起变、缓存自动失效，不必管；若只改了子文件而主文件一个字没动，
+        就得把框架里 SUB_VER 对应的数字加一，否则老访客会一直拿着缓存里的旧文件。 -->
 <!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
@@ -31,7 +40,7 @@
 
   <title>工具箱｜龙兄知识库</title>
 <meta name="keywords" content="在线工具箱,图片压缩,格式转换,加水印,长图拼接,EXIF查看,二维码生成,龙兄知识库">
-<meta name="description" content="十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta name="description" content="十二个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 
 <!-- 预加载关键资源 -->
 <link rel="preload" href="js/app.js" as="script">
@@ -318,6 +327,68 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .tools-js .tl-panel{display:none}
     .tools-js .tl-panel.is-open{display:block}
 
+    /* —— 日期框与表单配色：跟着页面主题走，深色下原生日历弹层才不会白得刺眼 —— */
+    :root{color-scheme:dark}
+    [data-theme="light"]{color-scheme:light}
+    .tl-opt input[type=date]{width:100%;padding:8px 10px;border-radius:8px;background:var(--bg);
+      border:1px solid var(--border);color:var(--text);font-size:.85rem;font-family:inherit;
+      transition:border-color var(--transition)}
+    .tl-opt input[type=date]:focus{outline:none;border-color:var(--gold)}
+    .tl-hint{font-size:.73rem;line-height:1.65;color:var(--text-muted)}
+
+    /* —— 分段切换（日期计算用）——
+       脚本没跑起来时切换条不出现，下面的分段小标题出现、三段内容一起平铺，内容零丢失 */
+    .tl-seg{display:none}
+    .tools-js .tl-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px;padding:4px;
+      border-radius:10px;background:var(--bg-secondary);border:1px solid var(--border)}
+    .tools-js .tl-seg button{flex:1 1 auto;min-width:104px;padding:8px 12px;border-radius:7px;
+      border:1px solid transparent;background:transparent;color:var(--text-secondary);
+      font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;
+      transition:background var(--transition),color var(--transition),border-color var(--transition)}
+    .tools-js .tl-seg button:hover{color:var(--text)}
+    .tools-js .tl-seg button.on{background:var(--card);border-color:var(--gold);color:var(--gold)}
+    .tl-sub2-hd{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-size:.88rem;
+      font-weight:700;color:var(--text)}
+    .tl-sub2-hd::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--gold)}
+    .tools-js .tl-sub2-hd{display:none}
+    .tools-js .tl-sub2.is-off{display:none}
+    .tl-sub2+.tl-sub2 .tl-sub2-hd{margin-top:22px}
+
+    /* —— 文本对比 —— */
+    .tl-diffwrap{display:none;margin-top:16px;border:1px solid var(--border);border-radius:10px;
+      overflow:hidden;background:var(--bg)}
+    .tl-diffwrap.on{display:block}
+    .tl-dhead{display:grid;grid-template-columns:48px minmax(0,1fr) 48px minmax(0,1fr);
+      background:var(--bg-secondary);border-bottom:1px solid var(--border);font-size:.75rem;
+      font-weight:700;color:var(--text-secondary)}
+    .tl-dhead .tl-dh{padding:7px 10px;letter-spacing:.3px}
+    .tl-dhead .tl-dh.a{grid-column:1/3}
+    .tl-dhead .tl-dh.b{grid-column:3/5}
+    .tl-dbody{max-height:560px;overflow:auto;overscroll-behavior:contain}
+    .tl-drow{display:grid;grid-template-columns:48px minmax(0,1fr) 48px minmax(0,1fr);
+      font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Courier New',monospace;
+      font-size:.78rem;line-height:1.7}
+    .tl-dbody>.tl-drow+.tl-drow{border-top:1px solid rgba(127,127,127,.15)}
+    .tl-dln{padding:3px 7px;text-align:right;color:var(--text-muted);background:var(--bg-secondary);
+      user-select:none;-webkit-user-select:none;font-variant-numeric:tabular-nums;
+      white-space:nowrap;font-size:.72rem}
+    .tl-dtx{padding:3px 10px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--text)}
+    .tl-drow .tl-dln.a{grid-column:1;grid-row:1}
+    .tl-drow .tl-dtx.a{grid-column:2;grid-row:1}
+    .tl-drow .tl-dln.b{grid-column:3;grid-row:1}
+    .tl-drow .tl-dtx.b{grid-column:4;grid-row:1}
+    .tl-vac{background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(127,127,127,.10) 5px 10px)}
+    .tl-drow.t-del .tl-dln.a,.tl-drow.t-del .tl-dtx.a{background:rgba(200,66,60,.13)}
+    .tl-drow.t-del .tl-dtx.a{box-shadow:inset 3px 0 0 var(--cinnabar)}
+    .tl-drow.t-add .tl-dln.b,.tl-drow.t-add .tl-dtx.b{background:rgba(201,168,76,.14)}
+    .tl-drow.t-add .tl-dtx.b{box-shadow:inset 3px 0 0 var(--gold)}
+    .tl-drow.t-mod .tl-dln.a,.tl-drow.t-mod .tl-dtx.a{background:rgba(200,66,60,.07)}
+    .tl-drow.t-mod .tl-dln.b,.tl-drow.t-mod .tl-dtx.b{background:rgba(201,168,76,.08)}
+    .tl-dw{background:rgba(200,66,60,.32);border-radius:2px}
+    .tl-iw{background:rgba(201,168,76,.36);border-radius:2px}
+    .tl-dmore{padding:6px 12px;text-align:center;font-size:.74rem;color:var(--text-muted);
+      background:var(--bg-secondary);border-top:1px solid rgba(127,127,127,.15)}
+
     @media(max-width:640px){
       .tl-tile{padding:15px 15px 14px}
       .tl-panel{padding:17px 15px}
@@ -332,6 +403,15 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       .tl-tbl th{width:42%}
       .tl-swatches{grid-template-columns:repeat(auto-fill,minmax(84px,1fr))}
       .tl-grouphd{margin:28px auto 13px;font-size:.98rem}
+      /* 窄屏下左右并排会被挤成一条线，改成同一行里"原文在上、改后在下" */
+      .tl-drow{grid-template-columns:34px minmax(0,1fr)}
+      .tl-drow .tl-dln.b{grid-column:1;grid-row:2}
+      .tl-drow .tl-dtx.b{grid-column:2;grid-row:2;border-top:1px dashed rgba(127,127,127,.3)}
+      .tl-dhead{grid-template-columns:1fr 1fr}
+      .tl-dhead .tl-dh.a{grid-column:1}
+      .tl-dhead .tl-dh.b{grid-column:2}
+      .tl-dbody{max-height:440px}
+      .tools-js .tl-seg button{min-width:0;padding:8px 6px}
     }
     @media(max-width:400px){.tl-grid{grid-template-columns:1fr}}
     @media print{.tl-drop,.tl-actions,.tl-close{display:none!important}
@@ -342,14 +422,14 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <link rel="canonical" href="https://longxiong.vip/tools.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta property="og:title" content="工具箱｜龙兄知识库">
-<meta property="og:description" content="十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta property="og:description" content="十二个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/tools.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="工具箱｜龙兄知识库">
-<meta name="twitter:description" content="十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta name="twitter:description" content="十二个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
@@ -469,7 +549,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">生活工具</span><span class="sep">›</span><span class="current">工具箱</span></div>
     <div class="container">
     <h1>工具箱</h1>
-    <p class="tl-lede">十个纯浏览器小工具——图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV。<br>
+    <p class="tl-lede">十二个纯浏览器小工具——图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV、日期天数计算、文本对比。<br>
       所有文件都在<b>你自己的设备里</b>处理完，<b>不上传、不联网、不留存</b>，断网也能照常用。</p>
 
     <div class="tl-notice" role="note">
@@ -557,6 +637,22 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12v1"/><path d="M7.5 8v8"/><path d="M12 4v16"/><path d="M16.5 8v8"/><path d="M21 11.5v1.5"/></svg></span>
         <span class="tl-tile-t"><span class="tl-tile-num">10</span>音频转 WAV</span>
         <span class="tl-tile-d">把手机录音、MP3、M4A 等转成通用 WAV，可选采样率与单声道。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">计算与文本</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="dates" aria-controls="tp-dates">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M8 2.5v4"/><path d="M16 2.5v4"/><path d="M3 10h18"/><path d="M7.5 14h3"/><path d="M7.5 17.5h7"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">11</span>日期天数计算</span>
+        <span class="tl-tile-d">两个日期相隔多久、往前推往后推是哪天、几岁，工作日会跳过周末。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="diff" aria-controls="tp-diff">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M12 3v18"/><path d="M6.5 8h2.5"/><path d="M6.5 12h2.5"/><path d="M15 8h2.5"/><path d="M15 12h2.5"/><path d="M15 16h2.5"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">12</span>文本对比</span>
+        <span class="tl-tile-d">两版文字逐行对照，改动的行和字词分别标出来，能导出对照文件。</span>
         <span class="tl-tile-tag">本地处理 · 不上传</span>
       </button>
     </div>
@@ -893,19 +989,128 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         <div class="tl-list" data-list></div>
       </section>
 
+      <section class="tl-panel" id="tp-dates" data-panel="dates" aria-labelledby="tph-dates">
+        <div class="tl-ph"><h3 id="tph-dates"><span class="tl-idx">11</span>日期天数计算</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">算两个日期相隔多久、某个日子往前推或往后推 N 天是几号、以及几岁。需要数工作日的时候会跳过周六周日，你把放假安排填进去还能一起跳过。</p>
+
+        <div class="tl-seg" data-seg="dates" role="tablist" aria-label="日期计算方式">
+          <button type="button" class="on" data-seg-tab="gap" role="tab" aria-selected="true">相隔多久</button>
+          <button type="button" data-seg-tab="shift" role="tab" aria-selected="false">往前 / 往后推</button>
+          <button type="button" data-seg-tab="age" role="tab" aria-selected="false">算年龄</button>
+        </div>
+
+        <div class="tl-sub2" data-sub="gap">
+          <h4 class="tl-sub2-hd">相隔多久</h4>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="dt-a">开始日期</label><input type="date" id="dt-a" data-in="a"></div>
+            <div class="tl-opt"><label for="dt-b">结束日期</label><input type="date" id="dt-b" data-in="b"></div>
+          </div>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="dt-hd">要跳过的自定义日期（选填）</label>
+              <textarea id="dt-hd" data-in="hd" placeholder="每行一个：2026-10-01&#10;也可以写区间：2026-10-01~2026-10-07"></textarea>
+              <span class="tl-hint">填你自己的放假安排（含调休）就行，一行一个日期或一段区间。空着就只跳过周六周日。</span></div>
+          </div>
+          <div class="tl-actions">
+            <button class="tl-btn" type="button" data-act="gap">算一算</button>
+            <button class="tl-btn ghost" type="button" data-act="gapToday">结束日=今天</button>
+            <button class="tl-btn ghost" type="button" data-act="gap30">结束日=今天+30 天</button>
+            <button class="tl-btn ghost" type="button" data-act="gapY">结束日=今天+1 年</button>
+            <button class="tl-btn ghost" type="button" data-act="swap">对调首尾</button>
+          </div>
+          <div class="tl-msg" data-msg></div>
+          <div class="tl-stat" data-stat></div>
+        </div>
+
+        <div class="tl-sub2" data-sub="shift">
+          <h4 class="tl-sub2-hd">往前 / 往后推</h4>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="dt-base">从哪一天开始</label><input type="date" id="dt-base" data-in="base"></div>
+            <div class="tl-opt"><label for="dt-dir">往前还是往后</label>
+              <select id="dt-dir" data-in="dir">
+                <option value="1">往后（将来）</option>
+                <option value="-1">往前（过去）</option>
+              </select></div>
+            <div class="tl-opt"><label for="dt-num">数量</label>
+              <input type="number" id="dt-num" data-in="num" value="30" min="1" step="1" inputmode="numeric"></div>
+            <div class="tl-opt"><label for="dt-unit">单位</label>
+              <select id="dt-unit" data-in="unit">
+                <option value="d">天</option>
+                <option value="w">周</option>
+                <option value="m">个月</option>
+                <option value="y">年</option>
+              </select></div>
+          </div>
+          <div class="tl-opts">
+            <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="onlyWork"><span>只数工作日（跳过周六周日；上面「相隔多久」里填的放假安排也一起跳）</span></label></div>
+          </div>
+          <div class="tl-actions">
+            <button class="tl-btn" type="button" data-act="shift">算出结果</button>
+            <button class="tl-btn ghost" type="button" data-act="shiftToday">基准日=今天</button>
+          </div>
+          <div class="tl-msg" data-msg></div>
+          <div class="tl-stat" data-stat></div>
+        </div>
+
+        <div class="tl-sub2" data-sub="age">
+          <h4 class="tl-sub2-hd">算年龄</h4>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="dt-birth">出生日期</label><input type="date" id="dt-birth" data-in="birth"></div>
+            <div class="tl-opt"><label for="dt-ref">算到哪一天</label><input type="date" id="dt-ref" data-in="ref"></div>
+          </div>
+          <div class="tl-actions">
+            <button class="tl-btn" type="button" data-act="age">算年龄</button>
+            <button class="tl-btn ghost" type="button" data-act="ageToday">算到今天</button>
+          </div>
+          <div class="tl-msg" data-msg></div>
+          <div class="tl-stat" data-stat></div>
+        </div>
+
+        <p class="tl-note">全部按你设备上的日历和时区算，不联网校时。这里<b>不查法定节假日</b>——每年放假安排都会调整、还有调休，写死在代码里迟早算错，所以改成你自己填。农历、虚岁与生肖用的是站内自带的对照表（覆盖 1900 至 2098 年），同样不需要联网。</p>
+      </section>
+
+      <section class="tl-panel" id="tp-diff" data-panel="diff" aria-labelledby="tph-diff">
+        <div class="tl-ph"><h3 id="tph-diff"><span class="tl-idx">12</span>文本对比</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">把改之前和改之后的文字各贴一份，逐行对照。整行改动的会标出来，行内真正变了的字词还会单独染色，改动一目了然。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="df-ta">原文（改之前）</label>
+            <textarea id="df-ta" data-in="ta" rows="9" placeholder="把改之前的文字贴到这里" spellcheck="false"></textarea></div>
+          <div class="tl-opt"><label for="df-tb">改后（改之后）</label>
+            <textarea id="df-tb" data-in="tb" rows="9" placeholder="把改之后的文字贴到这里" spellcheck="false"></textarea></div>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="ic"><span>忽略大小写（Hello 与 hello 算一样）</span></label></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="tw"><span>忽略每行首尾的空格与缩进</span></label></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="ws"><span>连续空白折叠成一个</span></label></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="fold" checked><span>折叠没变的行，只留改动附近的几句</span></label></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始对比</button>
+          <button class="tl-btn ghost" type="button" data-act="swap">交换左右</button>
+          <button class="tl-btn ghost" type="button" data-act="copyB">复制改后全文</button>
+          <button class="tl-btn ghost" type="button" data-act="dl">导出对照文件</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-diffwrap" data-diffout></div>
+        <p class="tl-note">整段文字只在你的设备上比对，一个字都不会离开浏览器，粘贴保密材料也放心。逐行对照是两两相比的计算，单边最多 4000 行；两边规模差得特别悬殊时会直接提示，而不是把页面算到卡死。「导出对照文件」用的是通行的对照格式，可以直接交给开发或存档。</p>
+      </section>
+
     </div>
 
     <h2 class="tl-grouphd"><span class="tl-gn">关于这些工具</span></h2>
     <div class="tl-notice" style="margin-bottom:0">
       <div class="tl-notice-h">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6h.01"/></svg>
-        为什么只有这十个
+        这十二个是怎么挑出来的
       </div>
       <ul>
-        <li>能做的、该做的，其实是<b>「只在你自己的设备上，把你自己文件的格式/尺寸/元数据变一变」</b>这一类。凡是需要拿别人平台内容的（视频解析、去水印）、需要由我向公众生成内容的（AI 改写、语音转写）、或者会绕开平台限制的，本站<b>一律不做</b>——这不只是技术取舍，也是法律边界。</li>
-        <li>视频压缩没有放进第一批：它需要下载约 30 MB 的本地编解码引擎，而在 GitHub Pages 这类静态托管上拿不到多线程所需的响应头，体验会明显打折。宁可先不做，也不给你一个半成品。</li>
+        <li>能做的、该做的就两类：<b>一是在你自己的设备上，把你自己的文件变一变</b>（格式、尺寸、元数据）；<b>二是纯粹在你设备上算出来的结果</b>（日期推算、文本对照）。凡是需要去拿别人平台内容的（视频解析、去水印）、需要由我向公众生成内容的（AI 改写、语音转写）、或者会绕开平台限制的，本站<b>一律不做</b>——这不只是技术取舍，也是法律边界。</li>
+        <li>所以这里<b>没有账号、没有服务器、没有次数限制</b>：你不必担心文件被谁看到，也不必担心哪天我不做了就用不了，把页面存成离线副本也照样能打开。</li>
+        <li>视频压缩还是没有放进来：它需要下载约 30 MB 的本地编解码引擎，而在 GitHub Pages 这类静态托管上拿不到多线程所需的响应头，体验会明显打折。宁可先不做，也不给你一个半成品。</li>
+        <li>工具是<b>点开哪个才加载哪个</b>的：首屏只加载一层薄薄的框架，没点开的工具一行代码都不会下载、也不会执行。所以工具越加越多，打开速度还是现在这样。</li>
         <li>所有功能都没有联网请求，你可以打开浏览器开发者工具的 Network 面板自行验证：从头到尾不会有一条对外请求。</li>
-        <li>工具会在后续继续补充。<b>你希望下一个是什么，欢迎写信告诉我。</b></li>
+        <li>工具会继续补充。<b>你希望下一个是什么，欢迎写信告诉我。</b></li>
       </ul>
     </div>
 
@@ -969,7 +1174,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "任何支持现代浏览器的设备",
       "browserRequirements": "需要支持 Canvas、Web Audio 与 File API 的现代浏览器",
-      "description": "十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV。文件全程在你自己的设备上处理，不上传、不联网、不留存。",
+      "description": "十二个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比。文件全程在你自己的设备上处理，不上传、不联网、不留存。",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
       "author": { "@type": "Person", "name": "龙兄" },
       "publisher": { "@type": "Organization", "name": "龙兄知识库" }
@@ -979,7 +1184,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       "author": { "@type": "Person", "name": "龙兄" },
       "headline": "工具箱｜龙兄知识库",
       "url": "https://longxiong.vip/tools.html",
-      "description": "十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV。文件全程在你自己的设备上处理，不上传、不联网、不留存。"
+      "description": "十二个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比。文件全程在你自己的设备上处理，不上传、不联网、不留存。"
     }
   ]
 }

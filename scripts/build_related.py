@@ -59,6 +59,7 @@ FILE_BOARD = {
     "/gaokao.html": "高考志愿",
     "/pitfalls.html": "踩坑记",
     "/calendar.html": "站点工具",
+    "/tools.html": "站点工具",
     "/travel.html": "旅行",
     "/console.html": "主机图鉴",
     "/herbs.html": "中药材香料",

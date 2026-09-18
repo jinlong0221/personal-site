@@ -48,6 +48,7 @@
     {
       title: '生活工具',
       items: [
+        ['工具箱', 'tools.html'],
         ['万年历', 'calendar.html'],
         ['高考查分', 'gaokao.html'],
         ['标签聚合', 'tags.html']

@@ -52,6 +52,7 @@ CATEGORIES = [
         ("guanghui.html", "光辉电力"),
     ]),
     ("生活工具", [
+        ("tools.html", "工具箱"),
         ("calendar.html", "万年历"),
         ("gaokao.html", "高考查分"),
         ("tags.html", "标签聚合"),

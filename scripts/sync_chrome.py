@@ -145,6 +145,7 @@ H1_OVERRIDE = {
     "sheyang.html": "射阳天气",
     "status-history.html": "站点状态",
     "tesla.html": "特斯拉",
+    "tools.html": "工具箱",
     "typhoon.html": "台风监测",
     "xintan-weather.html": "农田气象",
     "zisha.html": "紫砂艺术",

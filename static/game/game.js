@@ -32,7 +32,7 @@
     var img = new Image();
     img.onload = function () { SPR[k] = img; };
     img.onerror = function () { /* 退回程序化 */ };
-    img.src = SPR_URL[k] + '?v=20260919';
+    img.src = SPR_URL[k] + '?v=20260918';
   });
   function has(name) { return !!SPR[name]; }
 

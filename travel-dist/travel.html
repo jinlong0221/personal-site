@@ -288,118 +288,40 @@ var _hmt = _hmt || [];
 
 <meta name="robots" content="noindex">
 <script type="module" src="/js/vendor/argon2.mjs" integrity="sha384-z5gmVEBwa470HRttPPWaPPSmX3ezDjhqlPRVejXhBI3c19nSz5DvcttZf6jIVLXP" crossorigin="anonymous"></script>
+<style>
+/* 页头层级：密码门是全屏遮罩（9999），页头必须盖过它——否则还没解锁的人
+   既看不到「回首页」也无处可退。全屏看图的灯箱（10000）与底部进度条（10001）
+   在 DOM 里排在页头之后，同层或更高层下照旧把页头盖住（看大图时不挡照片）。 */
+.tl-topbar{position:fixed;top:0;left:0;right:0;z-index:10000;height:var(--nav-height);background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background var(--transition),border-color var(--transition)}
+.tl-topbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tl-topbar-brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:1.05rem;color:var(--gold);text-decoration:none;letter-spacing:1px;white-space:nowrap;min-width:0}
+.tl-topbar-brand:hover{color:var(--gold-light)}
+.tl-topbar-brand .lx-seal{flex:0 0 auto}
+.tl-topbar-sub{font-size:.78rem;font-weight:600;color:var(--text-muted);letter-spacing:.5px;padding-left:10px;border-left:1px solid var(--border)}
+.tl-topbar-actions{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.tl-topbar-home{color:var(--text-secondary);font-size:.85rem;padding:7px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);white-space:nowrap;transition:color var(--transition),background var(--transition),border-color var(--transition)}
+.tl-topbar-home:hover{color:var(--gold);background:var(--card);border-color:var(--gold)}
+@media (max-width:560px){.tl-topbar-sub{display:none}.tl-topbar-home{padding:7px 10px;font-size:.8rem}}
+</style>
 </head>
 <body data-pagefind-ignore>
 
-<nav class="navbar" role="navigation" aria-label="主导航">
-  <div class="navbar-inner">
-    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+<header class="tl-topbar" role="banner">
+  <div class="tl-topbar-inner">
+    <a class="tl-topbar-brand" href="index.html" aria-label="返回龙兄知识库首页">
       <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
       <span>龙兄</span>
+      <span class="tl-topbar-sub">家庭旅行</span>
     </a>
-    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
-    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
-    <ul class="nav-links">
-      <li><a href="zisha.html">风物志</a></li>
-      <li><a href="tesla.html">车与数码</a></li>
-      <li><a href="console.html">游戏影游</a></li>
-      <li><a href="typhoon.html">射阳本地</a></li>
-      <li><a href="calendar.html">生活工具</a></li>
-      <li><a href="about.html">关于我</a></li>
-      <li class="nav-more-wrap">
-        <button type="button" class="nav-more-btn">更多 ▾</button>
-        <div class="nav-more-dropdown">
-          <span class="nav-more-hd">风物志</span>
-          <a href="health-tea.html">养生茶</a>
-          <a href="bracelet.html">文玩手串</a>
-          <a href="zisha.html">紫砂艺术</a>
-          <span class="nav-more-hd">车与数码</span>
-          <a href="tesla.html">特斯拉</a>
-          <a href="apple.html">苹果</a>
-          <a href="ev-sales.html">新能源销量榜</a>
-          <a href="ev-charge.html">充电桩查询</a>
-          <span class="nav-more-hd">游戏影游</span>
-          <a href="console.html">主机图鉴</a>
-          <a href="games.html">玩过的游戏</a>
-          <a href="chinajoy.html">ChinaJoy 成长史</a>
-          <a href="marvel.html">漫威宇宙</a>
-          <span class="nav-more-hd">射阳本地</span>
-          <a href="xintan-weather.html">农田气象</a>
-          <a href="typhoon.html">台风监测</a>
-          <a href="sheyang.html">射阳天气</a>
-          <a href="guanghui.html">光辉电力</a>
-          <span class="nav-more-hd">生活工具</span>
-          <a href="tools.html">工具箱</a>
-          <a href="calendar.html">万年历</a>
-          <a href="gaokao.html">高考查分</a>
-          <a href="tags.html">标签聚合</a>
-          <a href="bookmarks.html">我的收藏</a>
-          <span class="nav-more-hd">关于我</span>
-          <a href="notes.html">站长手记</a>
-          <a href="pitfalls.html">踩坑记</a>
-          <a href="changelog.html">更新日志</a>
-          <a href="status-history.html">站点状态</a>
-          <a href="about.html">关于本站</a>
-          <a href="rss.xml">RSS 订阅</a>
-          <span class="nav-more-div"></span>
-          <a href="travel.html" class="active">家庭旅行</a>
-        </div>
-      </li>
-    </ul>
-    <div class="nav-actions">
-      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </button>
-      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
-        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+    <div class="tl-topbar-actions">
+      <a class="tl-topbar-home" href="index.html">← 回首页</a>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y2="4.9"/></svg>
         <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
-      </button>
-      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      </button>
-      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
-        <span></span><span></span><span></span>
       </button>
     </div>
   </div>
-  <div class="mobile-nav" id="mobileNav">
-  <a href="index.html">首页</a>
-  <span class="nav-hd">风物志</span>
-  <a href="health-tea.html">养生茶</a>
-  <a href="bracelet.html">文玩手串</a>
-  <a href="zisha.html">紫砂艺术</a>
-  <span class="nav-hd">车与数码</span>
-  <a href="tesla.html">特斯拉</a>
-  <a href="apple.html">苹果</a>
-  <a href="ev-sales.html">新能源销量榜</a>
-  <a href="ev-charge.html">充电桩查询</a>
-  <span class="nav-hd">游戏影游</span>
-  <a href="console.html">主机图鉴</a>
-  <a href="games.html">玩过的游戏</a>
-  <a href="chinajoy.html">ChinaJoy 成长史</a>
-  <a href="marvel.html">漫威宇宙</a>
-  <span class="nav-hd">射阳本地</span>
-  <a href="xintan-weather.html">农田气象</a>
-  <a href="typhoon.html">台风监测</a>
-  <a href="sheyang.html">射阳天气</a>
-  <a href="guanghui.html">光辉电力</a>
-  <span class="nav-hd">生活工具</span>
-  <a href="tools.html">工具箱</a>
-  <a href="calendar.html">万年历</a>
-  <a href="gaokao.html">高考查分</a>
-  <a href="tags.html">标签聚合</a>
-  <a href="bookmarks.html">我的收藏</a>
-  <span class="nav-hd">关于我</span>
-  <a href="notes.html">站长手记</a>
-  <a href="pitfalls.html">踩坑记</a>
-  <a href="changelog.html">更新日志</a>
-  <a href="status-history.html">站点状态</a>
-  <a href="about.html">关于本站</a>
-  <a href="rss.xml">RSS 订阅</a>
-  <span class="nav-hd-div"></span>
-  <a href="travel.html">家庭旅行</a>
-  </div>
-</nav>
+</header>
 
 
 <div id="tlLightbox" class="tl-lb" hidden>
@@ -757,9 +679,6 @@ import { argon2idAsync } from '/js/vendor/argon2.mjs';
 <script defer src="js/app.js"></script>
 <script defer src="js/share.js"></script>
 
-<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
-<div id="quickToc"></div>
-<script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
 <script src="js/auto-collapse.js?v=20260824" defer></script>
 <script src="/js/obfuscate-email.js"></script>

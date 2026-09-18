@@ -320,7 +320,8 @@ var _hmt = _hmt || [];
       台风监测、新闻巡检这类自动化留痕按天折叠，不占版面。</p>
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
-        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-18">2026 年 9 月 18 日 · 周五</time><span class="cl-day-n">2 项改动</span></h4><div class="cl-item"><span class="cl-time">09:18</span><div class="cl-main"><p class="cl-head">🔧 「苹果产品发展史」重做（反馈：内容太空洞 + 下拉太长）：原版只有一条 50 条的时间线，产品线被压扁，且整页一拉到底 19 屏，读起来审美疲劳。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">本次按 10 条产品线（Mac / iPhone / iPad / iPod / Apple Watch / 音频与家居 / 空间计算 / 自研芯片 / 软件与服务 / 公司与人物）彻底重写，里程碑从 50 条扩到 <strong>293 条</strong>，全部标注具体日期并分入 40 个年代分组。
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-18">2026 年 9 月 18 日 · 周五</time><span class="cl-day-n">3 项改动</span></h4><div class="cl-item"><span class="cl-time">09:29</span><div class="cl-main"><p class="cl-head">🔧 「苹果产品发展史」窄屏减负：掌门人卡改横向紧凑排布、图集与来源区收紧留白，移动端页高 8116 → 7104px（9.6 → 8.4 屏）。</p></div></div>
+            <div class="cl-item"><span class="cl-time">09:18</span><div class="cl-main"><p class="cl-head">🔧 「苹果产品发展史」重做（反馈：内容太空洞 + 下拉太长）：原版只有一条 50 条的时间线，产品线被压扁，且整页一拉到底 19 屏，读起来审美疲劳。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">本次按 10 条产品线（Mac / iPhone / iPad / iPod / Apple Watch / 音频与家居 / 空间计算 / 自研芯片 / 软件与服务 / 公司与人物）彻底重写，里程碑从 50 条扩到 <strong>293 条</strong>，全部标注具体日期并分入 40 个年代分组。
 
 结构改为两层收窄：① 顶部产品线速览卡 + 吸顶标签栏切换，一次只看一条线；② 每条线内部的年代分组用原生 details 折叠，默认只展开第一条。默认视图从 19 屏压到约 3 屏，打印时自动展开全部。
 
@@ -386,9 +387,6 @@ var _hmt = _hmt || [];
             <div class="cl-item"><span class="cl-time">06:41</span><div class="cl-main"><p class="cl-head">🕐 修复两处首页反馈：①手机顶栏时钟恢复显示——之前为给站名腾位在窄屏把时钟整个藏了，现改为窄屏隐藏天气（射阳页有完整天气）+时钟字号微收，站名与时间两全；②近期节点补齐 5 个：教师节(9/10)、九一八(9/18)、秋分(9/23)、烈士纪念日(9/30)、寒露(10/8)，节点总数 16→21，模板仍按当年过滤、过期自动隐藏。</p></div></div>
             <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×2</span><span class="cl-chip">巡检 ×3</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测（09-09 08:13）：多源核实修正。截至9月9日08时西北太平洋无活跃编号台风影响我国海域——科罗旺(2624)已于9/7 11时停编、杜鹃(2625)尚未生成（97W远海扰动、约9/12前后成型、主北上趋日本、与射阳无关联）；江苏省台双蓝预警（强对流蓝9/8 12:37＋暴雨蓝9/7 16:58）已于9/8夜间时效届满未续发，射阳转入弱冷空气分散性阵雨，综合风险维持「低」、监测收尾。…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 1 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 新闻接力 2026-09-09 06:50 档（补漏）：开局体检显示 12 个板块 updated 均已为 2026-09-09，但按四步判定式（updated → news[0].date → 当日条目数 ≥1 → 完整性抽检）复核后，发现 6 个板块当日条目数为 0（只刷日期、未加稿），判定为落后并全部处理，未设数量上限。…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 2 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
           </section>
-        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-09-08">2026 年 9 月 8 日 · 周二</time><span class="cl-day-n">1 项改动</span></h4><div class="cl-item"><span class="cl-time">16:23</span><div class="cl-main"><p class="cl-head">🔒 安全收尾·去开源信息：「关于本站」页移除全部开源痕迹——MIT 代码许可段落、导航里指向已不存在锚点的「开源部署」死链、MIT 统计卡、社交分享摘要中的开源教程表述（配合仓库转私的信息面清理，站点内容与功能不受影响）。评论功能此前已于 08-29 永久移除。</p></div></div>
-            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×9</span><span class="cl-chip">台风 ×3</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 新闻接力 2026-09-08 21:15 档（补漏巡检·定向补搜）：本轮按四步判定式（updated → news[0].date → 当日条目数 → 完整性抽检）复核 12 个新闻板块，结果 updated 全部为 2026-09-08、当日条目 2—4 条、完整性 0 条不合格，无「只刷日期未加稿」的空刷板块、无空壳条目，无需批量补漏。…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 8 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（19:52）：射阳本地双蓝预警（强对流蓝9/8 12:37+暴雨蓝9/7 16:58）均已时效届满、未续发，截至19:52盐城/射阳无新发在效预警，转入弱冷空气分散性阵雨（陆上6-7级/海区7-8级，盐城市政府9/7周报；9/8射阳多云/晴、北风2级、20-27℃，盐城天气网实况）；过程峰值实况（9/7 14时-9/8 14时东台弶港镇98.9mm、射阳华能H1平台海上11级29.5m/s）已过。…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 2 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
-          </section>
         <!--CL:RECENT:END-->
     </div>
     <p class="cl-feed-foot">以上是最近一批改动。全部记录（含自动化运维明细）存档在站点的
@@ -399,7 +397,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-09-18</span><span id="clLastStamp" class="cl-upd-stamp"> 09:18</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-09-18</span><span id="clLastStamp" class="cl-upd-stamp"> 09:29</span></div>
   </div>
 </main>
 

@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-09-18 09:29",
+    "content": "🔧 「苹果产品发展史」窄屏减负：掌门人卡改横向紧凑排布、图集与来源区收紧留白，移动端页高 8116 → 7104px（9.6 → 8.4 屏）。"
+  },
+  {
     "date": "2026-09-18 09:18",
     "content": "🔧 「苹果产品发展史」重做（反馈：内容太空洞 + 下拉太长）：原版只有一条 50 条的时间线，产品线被压扁，且整页一拉到底 19 屏，读起来审美疲劳。本次按 10 条产品线（Mac / iPhone / iPad / iPod / Apple Watch / 音频与家居 / 空间计算 / 自研芯片 / 软件与服务 / 公司与人物）彻底重写，里程碑从 50 条扩到 **293 条**，全部标注具体日期并分入 40 个年代分组。\n\n结构改为两层收窄：① 顶部产品线速览卡 + 吸顶标签栏切换，一次只看一条线；② 每条线内部的年代分组用原生 details 折叠，默认只展开第一条。默认视图从 19 屏压到约 3 屏，打印时自动展开全部。\n\n技术实现：CSS-only 单选标签页（零内联脚本 → CSP 哈希天然有效、JS 失效也能用），<body data-no-secnav=「true」> 关掉按标题生成的章节条（标签页本身就是导航）。内容源与生成逻辑落成 `scripts/apple_history_data.py` + `scripts/build_apple_history.py`，后续补充只改数据文件再跑脚本。近两年事实（iPhone 17 系列 / iPhone 17e / iPhone 18 Pro / iPhone Duo / M5 与 M6 / MacBook Neo / AirPods Max 2 / Watch Series 12 与 Ultra 4 / macOS 27 Golden Gate / visionOS 27）均已按 2025–2026 官方与权威媒体口径核对。"
   },

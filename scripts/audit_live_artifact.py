@@ -55,7 +55,6 @@ STRUCTURE_EXEMPT = {
     "apple-history.html",
     "travel.html", "tags/index.html",
     "privacy.html", "shesi-landing.html", "shesi-privacy.html",
-    "game.html",  # 独立小游戏页面：功能页，无标准骨架
 }
 # 设计内就没有 H1 的页（跳转壳没有正文；加密壳的 H1 在密文里，解密后才注入）
 H1_EXEMPT = {

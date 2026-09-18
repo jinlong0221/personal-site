@@ -36,6 +36,7 @@ CATEGORIES = [
     ("车与数码", [
         ("tesla.html", "特斯拉"),
         ("apple.html", "苹果新品"),
+        ("apple-history.html", "苹果产品发展史"),
         ("ev-sales.html", "新能源销量榜"),
         ("ev-charge.html", "充电桩查询"),
     ]),

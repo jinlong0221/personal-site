@@ -25,7 +25,7 @@ SKIP_DIR_PARTS = {'admin', 'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
 
 # 悬浮目录脚本的缓存版本号：quick-toc.js 内容变更后需同步 bump（与全站 ?v=YYYYMMDD 约定一致，
 # CI 的 bump_v_hash.py 会在 public/ 产物上把它改写成内容哈希；guard_v_param.py 校验一致性）。
-QUICK_TOC_VER = '20260916'
+QUICK_TOC_VER = '20260918'
 
 WIDGET_BLOCK = (
     '\n<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->\n'

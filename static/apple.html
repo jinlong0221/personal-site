@@ -110,7 +110,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="css/style.css?v=20260916">
+<link rel="stylesheet" href="css/style.css?v=20260917">
 <style>
 /* ===== 苹果新品板块专属样式 ===== */
 .ap-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:32px 24px 28px;text-align:center;
@@ -124,6 +124,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .ap-hero p b{color:#ffffff;font-weight:700}
 .ap-hero .ap-pulse{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:.78rem;color:#9be29b;background:rgba(64,200,64,.10);border:1px solid rgba(64,200,64,.32);padding:4px 12px;border-radius:999px}
 .ap-hero .ap-pulse .dot{width:8px;height:8px;border-radius:50%;background:#57d957;box-shadow:0 0 0 0 rgba(87,217,87,.6);animation:apPulse 1.8s infinite}
+.ap-hist-link{display:inline-flex;align-items:center;gap:9px;margin-top:17px;padding:9px 18px;border-radius:999px;border:1px solid rgba(201,168,76,.5);background:rgba(201,168,76,.12);color:#f0e4c0;font-size:.86rem;font-weight:600;text-decoration:none;transition:background .2s,border-color .2s,transform .2s}
+.ap-hist-link:hover{background:rgba(201,168,76,.22);border-color:#c9a84c;transform:translateY(-1px)}
+.ap-hist-k{font-size:.7rem;font-weight:800;letter-spacing:1px;color:#c9a84c;border:1px solid rgba(201,168,76,.55);border-radius:999px;padding:1px 8px}
+.ap-hist-go{color:#c9a84c;font-weight:800}
 @keyframes apPulse{0%{box-shadow:0 0 0 0 rgba(87,217,87,.55)}70%{box-shadow:0 0 0 8px rgba(87,217,87,0)}100%{box-shadow:0 0 0 0 rgba(87,217,87,0)}}
 
 .section{margin:34px 0 0}
@@ -388,6 +392,7 @@ var _hmt = _hmt || [];
           <span class="nav-more-hd">车与数码</span>
           <a href="tesla.html">特斯拉</a>
           <a href="apple.html" class="active">苹果新品</a>
+          <a href="apple-history.html">苹果产品发展史</a>
           <a href="ev-sales.html">新能源销量榜</a>
           <a href="ev-charge.html">充电桩查询</a>
           <span class="nav-more-hd">游戏影游</span>
@@ -442,6 +447,7 @@ var _hmt = _hmt || [];
   <span class="nav-hd">车与数码</span>
   <a href="tesla.html">特斯拉</a>
   <a href="apple.html">苹果新品</a>
+  <a href="apple-history.html">苹果产品发展史</a>
   <a href="ev-sales.html">新能源销量榜</a>
   <a href="ev-charge.html">充电桩查询</a>
   <span class="nav-hd">游戏影游</span>
@@ -484,6 +490,7 @@ var _hmt = _hmt || [];
       <div class="ap-stat"><b>999 元起</b><span>最低入手门槛</span></div>
       <div class="ap-stat"><b>2026-09-10</b><span>数据截至（每日刷新）</span></div>
     </div>
+    <a class="ap-hist-link" href="apple-history.html"><span class="ap-hist-k">产品史</span>苹果产品发展史 · 1976–2026<span class="ap-hist-go">→</span></a>
   </div>
 
   <!-- ===== 分栏导航：一次只看一类，页面不再一眼望不到头 ===== -->
@@ -772,27 +779,27 @@ var _hmt = _hmt || [];
   </div>
   <ul class="lx-related-list">
     <li class="lx-related-item">
+      <a class="lx-related-link" href="apple-history.html">
+        <span class="lx-related-board">苹果</span>
+        <span class="lx-related-name">苹果产品发展史 · 1976–2026</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
       <a class="lx-related-link" href="typhoon.html">
         <span class="lx-related-board">射阳气象</span>
-        <span class="lx-related-name">台风实时监测详细科普</span>
-      </a>
-    </li>
-    <li class="lx-related-item">
-      <a class="lx-related-link" href="tesla.html">
-        <span class="lx-related-board">特斯拉</span>
-        <span class="lx-related-name">特斯拉动态新闻详细科普</span>
-      </a>
-    </li>
-    <li class="lx-related-item">
-      <a class="lx-related-link" href="tesla/cybertruck.html">
-        <span class="lx-related-board">特斯拉</span>
-        <span class="lx-related-name">Cybertruck · 参数与科普2026实测避坑</span>
+        <span class="lx-related-name">台风实时监测</span>
       </a>
     </li>
     <li class="lx-related-item">
       <a class="lx-related-link" href="tesla/cybercab.html">
         <span class="lx-related-board">特斯拉</span>
         <span class="lx-related-name">Cybercab · 自动驾驶出租车2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/cybertruck.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Cybertruck · 参数与科普2026实测避坑</span>
       </a>
     </li>
   </ul>
@@ -861,7 +868,7 @@ var _hmt = _hmt || [];
 
 <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
-<script src="js/quick-toc.js?v=20260916" defer></script>
+<script src="js/quick-toc.js?v=20260918" defer></script>
 <script src="js/bookmark.js" defer></script>
 <script src="js/auto-collapse.js?v=20260824" defer></script>
 <script src="/js/obfuscate-email.js"></script>

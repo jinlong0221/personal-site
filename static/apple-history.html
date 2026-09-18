@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略 -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>苹果产品发展史 · 1976–2026｜龙兄知识库</title>
+<meta name="keywords" content="苹果产品发展史,Apple 历史,Macintosh,iPod,iPhone,iPad,Apple Watch,Vision Pro,时间线,里程碑">
+
+<meta name="description" content="从 1976 年车库里的 Apple I，到 2026 年首款折叠屏 iPhone Duo，按时代梳理苹果半个世纪的关键产品与里程碑：Macintosh、iPod、iPhone、iPad、Apple Watch、Apple Silicon 与 Vision Pro，附真实产品图与来源。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="苹果">
+<meta name="article-tags" content="苹果,发展史,产品史,时间线">
+<meta name="article-updated" content="2026-09-18">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.4;color:var(--text)}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+.hero-content h1{font-size:2.4rem;margin-bottom:12px}
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
+@media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=20260917">
+<style>:root{--ah:#c9a84c;--ah-2:#5ac8fa;--ah-soft:rgba(201,168,76,.14)}
+[data-theme="light"]{--ah:#a68a3c;--ah-2:#0a84c8;--ah-soft:rgba(166,138,60,.10)}
+.ah-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:44px 26px 34px;text-align:center;background:linear-gradient(135deg,#151517 0%,#1c1a15 48%,#0f1620 100%)}
+[data-theme="light"] .ah-hero{background:linear-gradient(135deg,#f7f5ef 0%,#f0eee7 48%,#eef3f8 100%)}
+.ah-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;opacity:.24;z-index:1;pointer-events:none}
+[data-theme="light"] .ah-hero-bg{opacity:.10}
+.ah-hero::after{content:'';position:absolute;inset:0;z-index:2;background:radial-gradient(circle at 16% 20%,rgba(201,168,76,.22),transparent 46%),radial-gradient(circle at 84% 80%,rgba(90,200,250,.20),transparent 52%);pointer-events:none}
+.ah-hero>*:not(.ah-hero-bg){position:relative;z-index:3}
+.ah-kicker{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:2px;color:var(--ah);border:1px solid var(--ah);border-radius:999px;padding:3px 14px;margin-bottom:14px;opacity:.9}
+.ah-hero h1{font-size:2.1rem;margin-bottom:12px;line-height:1.3}
+.ah-hero p{max-width:680px;margin:0 auto;color:var(--text-secondary);font-size:.97rem;line-height:1.85}
+.ah-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px auto 0;max-width:720px}
+.ah-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center}
+.ah-stat b{display:block;font-size:1.5rem;font-weight:900;color:var(--ah);line-height:1.2;white-space:nowrap}
+.ah-stat span{display:block;font-size:.74rem;color:var(--text-secondary);margin-top:4px}
+.ah-sec{margin:46px 0 0}
+.ah-sec-title{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;font-size:1.26rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid var(--ah)}
+.ah-sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+.ah-era-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ah-era-card{display:block;background:var(--card);border:1px solid var(--border);border-top:3px solid var(--ah);border-radius:12px;padding:16px 15px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.ah-era-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--ah)}
+.ah-era-span{font-size:.74rem;font-weight:700;color:var(--ah-2);letter-spacing:.5px}
+.ah-era-name{font-size:1rem;margin:6px 0 8px;color:var(--text)}
+.ah-era-desc{font-size:.8rem;color:var(--text-secondary);line-height:1.65}
+.ah-era-block{margin-top:26px;scroll-margin-top:calc(var(--nav-height) + 12px)}
+.ah-era-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;border-radius:12px;background:var(--bg-secondary);border:1px solid var(--border);margin-bottom:14px}
+.ah-era-idx{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--ah-soft);color:var(--ah);font-weight:900;display:flex;align-items:center;justify-content:center;font-size:.86rem}
+.ah-era-head h3{font-size:1.02rem;margin:0}
+.ah-era-years{margin-left:auto;font-size:.78rem;color:var(--text-muted);font-variant-numeric:tabular-nums}
+.ah-mile{list-style:none;margin:0;padding:0 0 0 26px;position:relative}
+.ah-mile::before{content:'';position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--ah),var(--ah-2))}
+.ah-mile-item{position:relative;padding:0 0 18px 6px}
+.ah-mile-item::before{content:'';position:absolute;left:-24px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--ah);border:2px solid var(--bg)}
+.ah-mile-date{font-size:.74rem;font-weight:800;color:var(--ah);font-variant-numeric:tabular-nums;letter-spacing:.3px}
+.ah-mile-body strong{display:block;font-size:.96rem;margin:3px 0 3px}
+.ah-mile-body p{font-size:.845rem;color:var(--text-secondary);line-height:1.72;margin:0}
+.ah-tag{display:inline-block;font-size:.68rem;padding:1px 7px;border-radius:5px;margin-left:6px;vertical-align:1px;background:var(--ah-soft);color:var(--ah)}
+.ah-tag-blue{background:rgba(90,200,250,.14);color:#2b93c9}
+.ah-ceo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ah-ceo-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.ah-ceo-img{aspect-ratio:4/3;background:var(--bg-secondary);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:10px}
+.ah-ceo-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:8px}
+.ah-ceo-body{padding:14px 16px 16px}
+.ah-ceo-name{font-size:1.02rem;font-weight:800;margin-bottom:2px}
+.ah-ceo-term{font-size:.76rem;color:var(--ah);font-weight:700;margin-bottom:8px}
+.ah-ceo-body p{font-size:.82rem;color:var(--text-secondary);line-height:1.7;margin:0}
+.ah-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ah-fig{margin:0;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.ah-fig-img{aspect-ratio:4/3;background:var(--bg-secondary);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:8px}
+.ah-fig-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:6px}
+.ah-fig figcaption{padding:10px 13px 12px;font-size:.78rem;color:var(--text-secondary);line-height:1.6}
+.ah-fig figcaption b{display:block;color:var(--text);font-size:.86rem;margin-bottom:3px}
+.ah-note{margin:40px 0 8px;padding:16px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+.ah-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
+.ah-note ul{margin:0;padding-left:18px}
+@media(max-width:992px){.ah-era-grid,.ah-gallery{grid-template-columns:repeat(2,1fr)}.ah-ceo-grid{grid-template-columns:1fr}.ah-stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:576px){.ah-hero{padding:30px 16px 26px}.ah-hero h1{font-size:1.55rem}.ah-era-grid,.ah-gallery{grid-template-columns:1fr}.ah-stat b{font-size:1.2rem}}</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<link rel="canonical" href="https://longxiong.vip/apple-history.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="苹果产品发展史 · 1976–2026｜龙兄知识库">
+<meta property="og:description" content="从 1976 年车库里的 Apple I，到 2026 年首款折叠屏 iPhone Duo，按时代梳理苹果半个世纪的关键产品与里程碑：Macintosh、iPod、iPhone、iPad、Apple Watch、Apple Silicon 与 Vision Pro，附真实产品图与来源。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/apple-history.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="苹果产品发展史 · 1976–2026｜龙兄知识库">
+<meta name="twitter:description" content="从 1976 年车库里的 Apple I，到 2026 年首款折叠屏 iPhone Duo，按时代梳理苹果半个世纪的关键产品与里程碑：Macintosh、iPod、iPhone、iPad、Apple Watch、Apple Silicon 与 Vision Pro，附真实产品图与来源。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=20260828" defer></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="zisha.html">风物志</a></li>
+      <li><a href="tesla.html">车与数码</a></li>
+      <li><a href="console.html">游戏影游</a></li>
+      <li><a href="typhoon.html">射阳本地</a></li>
+      <li><a href="calendar.html">生活工具</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="health-tea.html">养生茶</a>
+          <a href="bracelet.html">文玩手串</a>
+          <a href="zisha.html">紫砂艺术</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="tesla.html">特斯拉</a>
+          <a href="apple.html">苹果新品</a>
+          <a href="apple-history.html" class="active">苹果产品发展史</a>
+          <a href="ev-sales.html">新能源销量榜</a>
+          <a href="ev-charge.html">充电桩查询</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="console.html">主机图鉴</a>
+          <a href="games.html">玩过的游戏</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="marvel.html">漫威宇宙</a>
+          <span class="nav-more-hd">射阳本地</span>
+          <a href="xintan-weather.html">农田气象</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="sheyang.html">射阳天气</a>
+          <a href="guanghui.html">光辉电力</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="calendar.html">万年历</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="notes.html">站长手记</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="changelog.html">更新日志</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="rss.xml">RSS 订阅</a>
+          <span class="nav-more-div"></span>
+          <a href="travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果新品</a>
+  <a href="apple-history.html">苹果产品发展史</a>
+  <a href="ev-sales.html">新能源销量榜</a>
+  <a href="ev-charge.html">充电桩查询</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="console.html">主机图鉴</a>
+  <a href="games.html">玩过的游戏</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <span class="nav-hd">射阳本地</span>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="sheyang.html">射阳天气</a>
+  <a href="guanghui.html">光辉电力</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="calendar.html">万年历</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="notes.html">站长手记</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="changelog.html">更新日志</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="rss.xml">RSS 订阅</a>
+  <span class="nav-hd-div"></span>
+  <a href="travel.html">家庭旅行</a>
+  </div>
+</nav>
+
+<main class="container" id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">车与数码</span><span class="sep">›</span><span class="current">苹果产品发展史</span></div>
+
+  <div class="ah-hero">
+    <img class="ah-hero-bg" src="img/apple/iphone18pro-hero.webp" alt="" width="1200" height="600" fetchpriority="high" decoding="async" aria-hidden="true">
+    <span class="ah-kicker">APPLE · 1976 – 2026</span>
+    <h1>苹果产品发展史</h1>
+    <p>从加州车库里一块手工焊装的电路板，到 2026 年首款折叠屏 iPhone——半个世纪里，苹果用 Macintosh、iPod、iPhone、iPad、Apple Watch 与自研芯片，反复定义什么叫「个人计算」。本页按六个时代梳理关键产品与里程碑，附真实产品图与来源。</p>
+    <div class="ah-stats">
+      <div class="ah-stat"><b>50 年</b><span>1976 – 2026</span></div>
+      <div class="ah-stat"><b>6 个时代</b><span>从车库到折叠屏</span></div>
+      <div class="ah-stat"><b>3 位 CEO</b><span>乔布斯 · 库克 · 特努斯</span></div>
+      <div class="ah-stat"><b>50 个里程碑</b><span>逐条标注日期</span></div>
+    </div>
+  </div>
+
+  <section class="ah-sec" aria-labelledby="ah-overview" data-ac data-ac-body=".ah-era-grid" data-ac-items=".ah-era-card" data-ac-head=".ah-sec-title" data-ac-default="open">
+    <h2 class="ah-sec-title" id="ah-overview">六个时代，一部产品断代史</h2>
+    <p class="ah-sec-sub">点击任一时代，跳到下方对应的时间线。</p>
+    <div class="ah-era-grid">
+      <a class="ah-era-card" href="#era-1">
+        <span class="ah-era-span">1976 – 1984</span>
+        <div class="ah-era-name">Ⅰ · 车库创世纪</div>
+        <p class="ah-era-desc">从车库电路板到图形界面个人电脑</p>
+      </a>
+      <a class="ah-era-card" href="#era-2">
+        <span class="ah-era-span">1985 – 1997</span>
+        <div class="ah-era-name">Ⅱ · 出走与回归</div>
+        <p class="ah-era-desc">乔布斯离开、创办 NeXT，又带着它回归拯救苹果</p>
+      </a>
+      <a class="ah-era-card" href="#era-3">
+        <span class="ah-era-span">1998 – 2006</span>
+        <div class="ah-era-name">Ⅲ · 数字音乐与复兴</div>
+        <p class="ah-era-desc">iMac 起死回生，iPod 与 iTunes 重塑音乐产业</p>
+      </a>
+      <a class="ah-era-card" href="#era-4">
+        <span class="ah-era-span">2007 – 2011</span>
+        <div class="ah-era-name">Ⅳ · iPhone 时代</div>
+        <p class="ah-era-desc">重新发明手机，App Store 开启移动生态</p>
+      </a>
+      <a class="ah-era-card" href="#era-5">
+        <span class="ah-era-span">2011 – 2026</span>
+        <div class="ah-era-name">Ⅴ · 库克时代</div>
+        <p class="ah-era-desc">可穿戴、服务与自研芯片，市值冲上 4.7 万亿美元</p>
+      </a>
+      <a class="ah-era-card" href="#era-6">
+        <span class="ah-era-span">2026 –</span>
+        <div class="ah-era-name">Ⅵ · 特努斯时代</div>
+        <p class="ah-era-desc">换帅后首秀：首款折叠屏 iPhone Duo</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="ah-sec" aria-labelledby="ah-timeline">
+    <h2 class="ah-sec-title" id="ah-timeline">里程碑时间线</h2>
+    <p class="ah-sec-sub">按时间顺序排列，日期均为公开可查的关键节点。</p>
+    <div class="ah-era-block" id="era-1">
+      <div class="ah-era-head">
+        <span class="ah-era-idx">Ⅰ</span><h3>车库创世纪</h3><span class="ah-era-years">1976 – 1984</span>
+      </div>
+      <ol class="ah-mile">
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1976-04-01</div>
+          <div class="ah-mile-body"><strong>Apple 诞生</strong><p>乔布斯、沃兹尼亚克与罗恩·韦恩在加州一间车库里创立 Apple Computer，首款产品 Apple I 只是手工焊装的电路板。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1977-04-16</div>
+          <div class="ah-mile-body"><strong>Apple II</strong><p>首台真正量产的个人电脑整机：塑料外壳、彩色显示，成为 PC 普及的开端，让苹果活了下来。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1980-12-12</div>
+          <div class="ah-mile-body"><strong>苹果上市</strong><p>Apple 在纳斯达克 IPO，一举造就大批百万富翁，乔布斯成为公众人物。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1983-01-19</div>
+          <div class="ah-mile-body"><strong>Apple Lisa</strong><p>首款采用图形界面（GUI）+ 鼠标的商用电脑，售价高昂而失败，却为 Macintosh 铺平了路。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1979</div>
+          <div class="ah-mile-body"><strong>VisiCalc 登陆 Apple II</strong><p>首款商用电子表格软件在 Apple II 上运行，个人电脑第一次有了「非买不可」的理由，直接拉动整机销量。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1980-05-19</div>
+          <div class="ah-mile-body"><strong>Apple III</strong><p>面向商用市场的机型，却因散热设计与稳定性问题失败，成为苹果早期最著名的一次产品教训。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1984-01-22</div>
+          <div class="ah-mile-body"><strong>「1984」广告</strong><p>由雷德利·斯科特执导，在超级碗仅播出一次便轰动全美，为两天后的 Macintosh 铺足声势。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1984-01-24</div>
+          <div class="ah-mile-body"><strong>Macintosh<span class="ah-tag">里程碑</span></strong><p>首台面向大众的图形界面个人电脑，苹果的成名之作。</p></div>
+        </li>
+      </ol>
+    </div>
+    <div class="ah-era-block" id="era-2">
+      <div class="ah-era-head">
+        <span class="ah-era-idx">Ⅱ</span><h3>出走与回归</h3><span class="ah-era-years">1985 – 1997</span>
+      </div>
+      <ol class="ah-mile">
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1985-09</div>
+          <div class="ah-mile-body"><strong>乔布斯离开</strong><p>与 CEO 斯卡利的权力斗争失利，乔布斯辞去职务并卖掉绝大部分股票，另立门户创办 NeXT。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1986</div>
+          <div class="ah-mile-body"><strong>收购 Pixar</strong><p>乔布斯从卢卡斯影业买下电脑图形部门，即后来的皮克斯动画，多年后才意识到这笔买卖的价值。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1988-10-12</div>
+          <div class="ah-mile-body"><strong>NeXT Computer</strong><p>面向高校的高端工作站，技术理念超前（面向对象系统、光学存储），销量不佳但系统成为后来 macOS 的根基。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1991-10</div>
+          <div class="ah-mile-body"><strong>PowerBook</strong><p>首台奠定现代笔记本形态的产品：掌托、居中指点设备，此后笔记本基本都沿用这套布局。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1993-08</div>
+          <div class="ah-mile-body"><strong>Newton</strong><p>苹果首款 PDA 掌上电脑，主打手写识别，市场反响平平却启发了多年后的 iPhone。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1996-12-20</div>
+          <div class="ah-mile-body"><strong>收购 NeXT<span class="ah-tag">关键</span></strong><p>苹果以约 4.29 亿美元收购 NeXT，乔布斯以顾问身份回归，苹果的命运开始反转。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1997-08-06</div>
+          <div class="ah-mile-body"><strong>微软注资</strong><p>濒临破产的苹果获得微软 1.5 亿美元投资，乔布斯出任临时 CEO，砍掉冗余产品线止住失血。</p></div>
+        </li>
+      </ol>
+    </div>
+    <div class="ah-era-block" id="era-3">
+      <div class="ah-era-head">
+        <span class="ah-era-idx">Ⅲ</span><h3>数字音乐与复兴</h3><span class="ah-era-years">1998 – 2006</span>
+      </div>
+      <ol class="ah-mile">
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">1998-08-15</div>
+          <div class="ah-mile-body"><strong>iMac G3<span class="ah-tag">里程碑</span></strong><p>半透明彩色「果冻」一体机，抛弃软驱、拥抱 USB，靠外观与易用性把苹果从死亡线上拉回来。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2001-01-09</div>
+          <div class="ah-mile-body"><strong>iTunes</strong><p>数字音乐管理软件问世，把 CD 抓轨、整理与同步做成一件简单的事。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2001-05-19</div>
+          <div class="ah-mile-body"><strong>首家 Apple Store</strong><p>苹果自营零售店开业，把「体验式零售」变成品牌资产。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2001-10-23</div>
+          <div class="ah-mile-body"><strong>iPod<span class="ah-tag">里程碑</span></strong><p>「把 1000 首歌装进口袋」，转盘交互 + 白色极简设计，重新定义随身听。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2003-04-28</div>
+          <div class="ah-mile-body"><strong>iTunes Store</strong><p>以 99 美分一首歌的合法下载模式，深刻改变了音乐产业的发行方式。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2005-06</div>
+          <div class="ah-mile-body"><strong>转向 Intel</strong><p>苹果宣布 Mac 从 PowerPC 迁移到 Intel 处理器，性能与发热大幅改善，为日后自研芯片埋下伏笔。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2006-01-10</div>
+          <div class="ah-mile-body"><strong>MacBook Pro</strong><p>首款 Intel 芯 Mac 笔记本，与 iMac 一起完成架构切换。</p></div>
+        </li>
+      </ol>
+    </div>
+    <div class="ah-era-block" id="era-4">
+      <div class="ah-era-head">
+        <span class="ah-era-idx">Ⅳ</span><h3>iPhone 时代</h3><span class="ah-era-years">2007 – 2011</span>
+      </div>
+      <ol class="ah-mile">
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2007-01-09</div>
+          <div class="ah-mile-body"><strong>iPhone 发布<span class="ah-tag">里程碑</span></strong><p>全触屏 + 多点触控，乔布斯称之为「重新发明手机」；当年 6 月 29 日在美国发售，智能手机时代由此开启。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2008-01-15</div>
+          <div class="ah-mile-body"><strong>MacBook Air</strong><p>乔布斯从纸质信封里抽出这台最薄笔记本，一体化铝合金机身成为行业标杆。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2008-07-10</div>
+          <div class="ah-mile-body"><strong>App Store<span class="ah-tag">里程碑</span></strong><p>应用商店上线，第三方开发者生态爆发，「iPhone 不只是手机」成为现实。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2010-01-27</div>
+          <div class="ah-mile-body"><strong>iPad<span class="ah-tag">里程碑</span></strong><p>平板电脑品类诞生，介于手机与笔记本之间的新形态，迅速成为独立产品线。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2010-06-07</div>
+          <div class="ah-mile-body"><strong>iPhone 4</strong><p>视网膜屏 + 双面玻璃 + 不锈钢中框，工业设计里程碑，也带来著名的「天线门」。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2011-08-24</div>
+          <div class="ah-mile-body"><strong>库克接任 CEO<span class="ah-tag">换帅</span></strong><p>乔布斯健康恶化卸任，蒂姆·库克出任 CEO，开启长达约 15 年的库克时代。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2011-10-05</div>
+          <div class="ah-mile-body"><strong>乔布斯逝世</strong><p>史蒂夫·乔布斯因病去世，一个时代落幕；iPhone 4S 成为他生前最后一场发布会的主角。</p></div>
+        </li>
+      </ol>
+    </div>
+    <div class="ah-era-block" id="era-5">
+      <div class="ah-era-head">
+        <span class="ah-era-idx">Ⅴ</span><h3>库克时代</h3><span class="ah-era-years">2011 – 2026</span>
+      </div>
+      <ol class="ah-mile">
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2014-09-09</div>
+          <div class="ah-mile-body"><strong>Apple Watch 公布</strong><p>与 iPhone 6 / 6 Plus 同场亮相，苹果正式进入可穿戴领域。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2015-04-24</div>
+          <div class="ah-mile-body"><strong>Apple Watch 发售</strong><p>苹果首个全新硬件品类落地，日后成为全球最畅销的智能手表。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2016-09-07</div>
+          <div class="ah-mile-body"><strong>AirPods</strong><p>真无线耳机发布，凭连接体验与生态协同成为苹果最受欢迎的产品之一。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2017-09-12</div>
+          <div class="ah-mile-body"><strong>iPhone X<span class="ah-tag">里程碑</span></strong><p>十周年之作：Face ID + 全面屏 + 手势交互，取消 Home 键，定义此后数年的手机形态。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2018-09</div>
+          <div class="ah-mile-body"><strong>Apple Watch Series 4</strong><p>加入 ECG 心电图功能，可穿戴设备开始承担严肃的健康监测角色。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2020-10-23</div>
+          <div class="ah-mile-body"><strong>iPhone 12</strong><p>苹果首批 5G 手机，回归直角边框设计。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2020-11-10</div>
+          <div class="ah-mile-body"><strong>M1 芯片<span class="ah-tag">里程碑</span></strong><p>Apple Silicon 元年：Mac 开始转向自研芯片，性能与能效同时跃升，是库克任内最深远的架构变化。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2021-10</div>
+          <div class="ah-mile-body"><strong>M1 Pro / Max</strong><p>MacBook Pro 14 / 16 英寸携新芯片回归专业定位，恢复 MagSafe、HDMI 与读卡器。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2023-06-05</div>
+          <div class="ah-mile-body"><strong>Vision Pro 公布</strong><p>苹果首款空间计算设备亮相，2024 年 2 月正式发售，是库克任内的全新品类。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2023-09</div>
+          <div class="ah-mile-body"><strong>iPhone 15</strong><p>接口转向 USB-C，以回应监管与通用化诉求。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2024-06</div>
+          <div class="ah-mile-body"><strong>Apple Intelligence</strong><p>苹果正式发布 AI 战略，把生成式 AI 能力融入系统与自家应用。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2024-09</div>
+          <div class="ah-mile-body"><strong>iPhone 16</strong><p>首款为 Apple Intelligence 设计的 iPhone，硬件与 AI 深度绑定。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2025-09-09</div>
+          <div class="ah-mile-body"><strong>iPhone 17 / iPhone Air</strong><p>iPhone Air 以约 5.6mm 成为史上最薄 iPhone，全系进入 ProMotion 与 A19 时代。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2025-10-15</div>
+          <div class="ah-mile-body"><strong>M5 芯片</strong><p>苹果芯片的 AI 性能再一次跃升，用于 iPad Pro、MacBook Pro 与 Vision Pro。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2026-04-20</div>
+          <div class="ah-mile-body"><strong>宣布换帅<span class="ah-tag">换帅</span></strong><p>苹果宣布库克转任董事会执行主席，硬件工程高级副总裁约翰·特努斯将出任 CEO。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2026-09-01</div>
+          <div class="ah-mile-body"><strong>特努斯上任<span class="ah-tag">关键</span></strong><p>特努斯正式接替库克出任 CEO，库克转任执行主席；这是苹果 15 年来首次 CEO 更替。</p></div>
+        </li>
+      </ol>
+    </div>
+    <div class="ah-era-block" id="era-6">
+      <div class="ah-era-head">
+        <span class="ah-era-idx">Ⅵ</span><h3>特努斯时代</h3><span class="ah-era-years">2026 –</span>
+      </div>
+      <ol class="ah-mile">
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2026-06-09</div>
+          <div class="ah-mile-body"><strong>WWDC 全新 Siri</strong><p>以 Apple Intelligence 驱动的全新 Siri 亮相，苹果补上 AI 短板的关键一步。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2026-09-09</div>
+          <div class="ah-mile-body"><strong>iPhone 18 Pro / Pro Max</strong><p>搭载台积电 2nm 工艺的 A20 Pro 芯片，主摄首次支持物理可变光圈，Pro 机型继续向专业影像靠拢。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2026-09-09</div>
+          <div class="ah-mile-body"><strong>iPhone Duo<span class="ah-tag">里程碑</span></strong><p>苹果首款折叠屏手机：书本式内折、7.6 英寸内屏，国行 15999 元起，10 月 23 日发售。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2026-09-12</div>
+          <div class="ah-mile-body"><strong>iPhone 18 Pro 系列预购与开售</strong><p>9 月 12 日开启预购，9 月 18 日起在 65 个以上国家和地区正式发售。</p></div>
+        </li>
+        <li class="ah-mile-item">
+          <div class="ah-mile-date">2026-10-16</div>
+          <div class="ah-mile-body"><strong>iPhone Duo 排期<span class="ah-tag-blue ah-tag">已排期</span></strong><p>10 月 16 日晚 8 点开启预购，10 月 23 日正式发售，是苹果史上定价最高的手机。</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="ah-sec" aria-labelledby="ah-ceo" data-ac data-ac-body=".ah-ceo-grid" data-ac-items=".ah-ceo-card" data-ac-head=".ah-sec-title" data-ac-default="open">
+    <h2 class="ah-sec-title" id="ah-ceo">三位掌舵人</h2>
+    <p class="ah-sec-sub">苹果半个世纪里，真正执掌过它的人。</p>
+    <div class="ah-ceo-grid">
+      <article class="ah-ceo-card">
+        <div class="ah-ceo-img"><img src="img/apple/history/jobs.webp" alt="史蒂夫·乔布斯" loading="lazy" decoding="async" width="1000" height="967"></div>
+        <div class="ah-ceo-body">
+          <div class="ah-ceo-name">史蒂夫·乔布斯</div>
+          <div class="ah-ceo-term">1976–1985 · 1997–2011（联合创始人 / CEO）</div>
+          <p>与沃兹尼亚克创立苹果，主导 Macintosh、iPod、iPhone、iPad 等定义性产品。被逐出后又带 NeXT 回归，把濒临破产的苹果变成全球最有价值的科技公司。</p>
+        </div>
+      </article>
+      <article class="ah-ceo-card">
+        <div class="ah-ceo-img"><img src="img/apple/history/cook.webp" alt="蒂姆·库克" loading="lazy" decoding="async" width="518" height="694"></div>
+        <div class="ah-ceo-body">
+          <div class="ah-ceo-name">蒂姆·库克</div>
+          <div class="ah-ceo-term">2011–2026（CEO，后转任执行主席）</div>
+          <p>任内推出 Apple Watch、AirPods、Apple Vision Pro 等新品类，服务业务成长为千亿美元级；推动 Mac 转向自研 Apple Silicon，市值从约 3500 亿美元增至约 4.7 万亿美元。</p>
+        </div>
+      </article>
+      <article class="ah-ceo-card">
+        <div class="ah-ceo-img"><img src="img/apple/history/ternus.webp" alt="约翰·特努斯" loading="lazy" decoding="async" width="571" height="720"></div>
+        <div class="ah-ceo-body">
+          <div class="ah-ceo-name">约翰·特努斯</div>
+          <div class="ah-ceo-term">2026 起（现任 CEO）</div>
+          <p>1970 年生，宾夕法尼亚大学机械工程专业，2001 年加入苹果产品设计团队，最初负责 Mac 外接显示器；2013 年升任硬件工程副总裁，2020 年接手 iPhone 硬件工程，2021 年 1 月晋升硬件工程高级副总裁。长期主导 iPad、AirPods、Mac、Apple Watch 的硬件研发，并推动 Mac 向自研芯片转型，2026 年 9 月 1 日成为苹果第八任 CEO。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="ah-sec" aria-labelledby="ah-gallery">
+    <h2 class="ah-sec-title" id="ah-gallery">关键产品图集</h2>
+    <p class="ah-sec-sub">真实产品照片，非 AI 生成；历史图多来自 Wikimedia Commons（CC 授权）。</p>
+    <div class="ah-gallery">
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/apple-garage.webp" alt="1976 年苹果创立的车库" loading="lazy" decoding="async" width="1000" height="666"></div>
+        <figcaption><b>1976 · 车库创业</b>苹果诞生于加州这间车库，Apple I 在此被手工焊出来。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/apple-lisa.webp" alt="Apple Lisa 电脑" loading="lazy" decoding="async" width="1000" height="813"></div>
+        <figcaption><b>1983 · Apple Lisa</b>首款采用图形界面的商用电脑，为 Macintosh 铺路。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/macintosh-1984.webp" alt="乔布斯与初代 Macintosh" loading="lazy" decoding="async" width="1000" height="1472"></div>
+        <figcaption><b>1984 · Macintosh</b>乔布斯与初代 Macintosh，图形界面走向大众。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/imac-g3.webp" alt="iMac G3 Bondi Blue" loading="lazy" decoding="async" width="822" height="905"></div>
+        <figcaption><b>1998 · iMac G3</b>半透明果冻一体机，把苹果从死亡线拉回。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/ipod-family.webp" alt="iPod 家族历代机型" loading="lazy" decoding="async" width="1000" height="589"></div>
+        <figcaption><b>2001 · iPod</b>「把 1000 首歌装进口袋」；图为 iPod 家族历代机型。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/iphone-2007.webp" alt="初代 iPhone（2007）" loading="lazy" decoding="async" width="1000" height="750"></div>
+        <figcaption><b>2007 · 初代 iPhone</b>智能手机时代由此开启；图为展柜中陈列的初代 iPhone。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/macbook-air.webp" alt="乔布斯展示 MacBook Air" loading="lazy" decoding="async" width="1000" height="1500"></div>
+        <figcaption><b>2008 · MacBook Air</b>乔布斯在发布会上从信封里抽出它，「最薄笔记本」诞生。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/ipad.webp" alt="历代 iPad 并列" loading="lazy" decoding="async" width="1000" height="750"></div>
+        <figcaption><b>2010 起 · iPad</b>iPad 首发开创平板电脑品类；图为历代 iPad 并列。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/apple-watch.webp" alt="Apple Watch Series 4" loading="lazy" decoding="async" width="1000" height="1247"></div>
+        <figcaption><b>2015 起 · Apple Watch</b>苹果首个可穿戴品类；图为 Apple Watch Series 4。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/history/vision-pro.webp" alt="Apple Vision Pro 与充电器" loading="lazy" decoding="async" width="1000" height="910"></div>
+        <figcaption><b>2024 · Vision Pro</b>苹果首款空间计算设备，2024 年 2 月在美国开售。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/pro-g1.webp" alt="iPhone 18 Pro" loading="lazy" decoding="async" width="1200" height="675"></div>
+        <figcaption><b>2026 · iPhone 18 Pro</b>2nm A20 Pro 芯片，主摄支持可变光圈。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img"><img src="img/apple/duo-g1.webp" alt="iPhone Duo 折叠屏" loading="lazy" decoding="async" width="1200" height="675"></div>
+        <figcaption><b>2026 · iPhone Duo</b>苹果首款折叠屏手机：外屏 5.4 英寸、内屏 7.6 英寸，15999 元起。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+
+  <div class="ah-note">
+    <h3>参考来源</h3>
+    <ul>
+      <li>苹果中国官网产品页：<a href="https://www.apple.com.cn/shop/buy-iphone/iphone-duo/mk2n4ch/a" target="_blank" rel="noopener noreferrer">iPhone Duo</a>、
+        <a href="https://www.apple.com.cn/shop/buy-iphone/iphone-18-pro" target="_blank" rel="noopener noreferrer">iPhone 18 Pro</a>（规格与售价）</li>
+      <li>换帅与人事：<a href="https://m.gmw.cn/2026-09/01/content_1304557512.htm" target="_blank" rel="noopener noreferrer">光明网《苹果正式换帅》</a>、
+        <a href="https://stcn.com/article/detail/4167027.html" target="_blank" rel="noopener noreferrer">证券时报</a>（2026-09-01 生效）</li>
+      <li>折叠屏发布与价格：<a href="https://www.cnstock.com/commonDetail/788238" target="_blank" rel="noopener noreferrer">中国证券网</a>、
+        <a href="https://3w.huanqiu.com/a/c36dc8/4T9Ovp58FTr" target="_blank" rel="noopener noreferrer">环球网</a></li>
+      <li>历史沿革：<a href="https://en.wikipedia.org/wiki/Apple_Inc." target="_blank" rel="noopener noreferrer">Wikipedia · Apple Inc.</a>（历史产品照片经由 Wikimedia Commons / Kiddle 镜像获取）</li>
+    </ul>
+  </div>
+
+  <div class="ah-note">
+    <h3>相关页面</h3>
+    <ul>
+      <li><a href="apple.html">苹果新品</a>：本站在售机型、参数与选购要点</li>
+    </ul>
+  </div>
+
+  <div class="ah-note">
+    <h3>关于本页</h3>
+    <ul>
+      <li>内容按公开资料整理，重点节点均标注具体日期；2026 年信息以苹果官方新闻稿与权威媒体报道为准。</li>
+      <li>历史产品照片来自 Wikimedia Commons（CC 授权），经 Kiddle 镜像获取，版权归原作者所有；2026 新品图来自苹果官方公开物料。</li>
+      <li>本页为个人整理的知识沉淀，如发现事实性错误欢迎指正。</li>
+    </ul>
+  </div>
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="apple.html">
+        <span class="lx-related-board">苹果</span>
+        <span class="lx-related-name">苹果新品 · 国内外全网实时监测</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/cybercab.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Cybercab · 自动驾驶出租车2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/cybertruck.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Cybertruck · 参数与科普2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/fsd.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">FSD 完全自动驾驶 · 特斯拉辅助驾驶中国进展2026实测避坑</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<script defer src="js/search.js"></script>
+<script defer src="js/app.js"></script>
+<script defer src="js/share.js"></script>
+<script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+</script>
+
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：2026-09-18</div>
+  </div>
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "苹果产品发展史 · 1976–2026｜龙兄知识库",
+      "url": "https://longxiong.vip/apple-history.html",
+      "description": "从 1976 年车库里的 Apple I，到 2026 年首款折叠屏 iPhone Duo，按时代梳理苹果半个世纪的关键产品与里程碑：Macintosh、iPod、iPhone、iPad、Apple Watch、Apple Silicon 与 Vision Pro，附真实产品图与来源。"
+    }
+  ]
+}
+</script>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js?v=20260918" defer></script>
+<script src="js/bookmark.js" defer></script>
+<script src="js/auto-collapse.js?v=20260824" defer></script>
+<script src="/js/obfuscate-email.js"></script>
+</body>
+</html>

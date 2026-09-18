@@ -42,6 +42,7 @@ CATEGORIES = [
     ("游戏影游", [
         ("console.html", "主机图鉴"),
         ("games.html", "玩过的游戏"),
+        ("game.html", "龙兄农场"),
         ("chinajoy.html", "ChinaJoy 成长史"),
         ("marvel.html", "漫威宇宙"),
     ]),

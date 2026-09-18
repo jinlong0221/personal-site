@@ -42,6 +42,7 @@ EXCLUDE_FILES = {
     "about.html", "changelog.html", "status-history.html", "search.html",
     "tags.html", "tag.html", "404.html", "calendar.html", "index.html",
     "tools.html",
+    "game.html",
     "microblog.html", "checklist.html",
     # 功能性页：PWA 离线兜底
     "offline.html",

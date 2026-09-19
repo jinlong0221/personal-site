@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>离线｜龙兄知识库</title>
+<!-- 社交分享与规范链接（sync_titles.py 补） -->
+<link rel="canonical" href="https://longxiong.vip/offline.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="离线｜龙兄知识库">
+<meta property="og:description" content="龙兄知识库离线提示页。当您的设备处于无网络状态时显示此页，此前浏览过的文章已自动缓存可继续阅读；恢复连接后内容会自动更新。">
+<meta property="og:url" content="https://longxiong.vip/offline.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="离线｜龙兄知识库">
+<meta name="twitter:description" content="龙兄知识库离线提示页。当您的设备处于无网络状态时显示此页，此前浏览过的文章已自动缓存可继续阅读；恢复连接后内容会自动更新。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+<meta name="description" content="龙兄知识库离线提示页。当您的设备处于无网络状态时显示此页，此前浏览过的文章已自动缓存可继续阅读；恢复连接后内容会自动更新。">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --off-bg:#12100C; --off-card:#191510; --off-rule:#322B20; --off-text:#EDE6D6;
+    --off-muted:#A2977F; --off-gold:#C9A84C; --off-cinnabar:#D14A36;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--off-bg);color:var(--off-text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:clip;
+    display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;
+  }
+  .off{width:100%;max-width:420px;text-align:center}
+  .seal{
+    width:84px;height:84px;margin:0 auto 22px;border-radius:18px;
+    background:linear-gradient(135deg,#1565C0,#0D47A1);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Kaiti SC","STKaiti",KaiTi,serif;font-size:42px;color:#fff;
+    box-shadow:0 8px 24px rgba(0,0,0,.5)
+  }
+  h1{font-size:22px;font-weight:700;letter-spacing:1px;margin-bottom:10px}
+  .kicker{font-size:11px;letter-spacing:3px;color:var(--off-cinnabar);text-transform:uppercase;margin-bottom:14px}
+  p{font-size:14px;line-height:1.8;color:var(--off-muted);margin-bottom:8px}
+  .actions{display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+  a.btn,.retry{
+    display:inline-block;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:700;
+    text-decoration:none;cursor:pointer;border:1px solid var(--off-rule);background:var(--off-card);color:var(--off-text);
+    transition:border-color .2s,transform .2s
+  }
+  a.btn{background:var(--off-gold);color:#1a1206;border-color:var(--off-gold)}
+  a.btn:hover{border-color:var(--off-gold);transform:translateY(-1px)}
+  .retry:hover{border-color:var(--off-gold);transform:translateY(-1px)}
+  .hint{font-size:12px;color:var(--off-muted);margin-top:18px;line-height:1.7}
+  .off-tips{margin-top:22px;padding:16px 18px;background:var(--off-card);border:1px solid var(--off-rule);border-radius:10px;text-align:left}
+  .off-tips-t{font-size:13px;font-weight:700;color:var(--off-text);margin-bottom:10px;letter-spacing:.5px}
+  .off-tips ul{list-style:none;margin:0 0 12px;padding:0}
+  .off-tips li{font-size:13px;line-height:1.9;color:var(--off-muted);padding-left:18px;position:relative}
+  .off-tips li::before{content:"";position:absolute;left:2px;top:13px;width:6px;height:6px;border-radius:50%;background:var(--off-gold)}
+  .off-tips p{font-size:12.5px;line-height:1.8;color:var(--off-muted)}
+</style>
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="off">
+    <div class="seal">龙</div>
+    <div class="kicker">OFFLINE</div>
+    <h1>您已离线</h1>
+    <p>当前网络不可用，但您之前浏览过的页面仍可在此阅读。</p>
+    <p>返回首页或重试以加载最新内容。</p>
+    <div class="actions">
+      <a class="btn" href="/">返回首页</a>
+      <span class="retry" onclick="location.reload()">重试连接</span>
+    </div>
+    <div class="hint">龙兄知识库 · 实测溯源图文库<br>已为您缓存部分内容，连接恢复后自动更新。</div>
+    <div class="off-tips">
+      <p class="off-tips-t">离线时您可以：</p>
+      <ul>
+        <li>继续阅读此前打开过的紫砂、养生茶等科普文章；</li>
+        <li>查看已缓存的站长手记与站点更新日志；</li>
+        <li>收藏喜欢的页面，联网后自动同步到「我的收藏」。</li>
+      </ul>
+      <p>本页为离线兜底页，仅作提示用途。恢复 Wi-Fi 或移动网络后，点击「重试连接」即可回到最新内容。龙兄知识库会持续为您缓存常读页面，让没有信号的地方也能随手翻看。</p>
+      <p>小提示：缓存空间有限，更早的访问记录可能会被新内容替换；如果某篇文章打不开，多半是它从未在联网时加载过。遇到重要资料，建议联网时先打开一次，离线时就能安心重读。</p>
+      <p>若反复提示离线但网络正常，可尝试关闭浏览器「省流量 / 数据节省」模式，或清除本站 Service Worker 后重试。缓存与离线能力由本站 PWA 提供，不影响您设备上的其他应用。</p>
+    </div>
+  </div>
+
+<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
+<div id="quickToc"></div>
+<script src="js/quick-toc.js?v=hbb43a56a1551" defer integrity="sha384-Y7q2duBeyXgsCE505eWCCvXvPNkjo+7dkQvCxfyqFg+aU3/3mS0aIyjWd1u5Y5c0" crossorigin="anonymous"></script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+</body>
+</html>

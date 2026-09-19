@@ -133,6 +133,12 @@ jobs:
       - name: Guard ?v cache-bust consistency
         run: python3 scripts/guard_v_param.py
 
+      # 文字对比度护栏（2026-09-19 落地，龙兄点名事故的守卫）：
+      #  hero 等「硬编码深色容器」里的文字若用 color:var(--text)，浅色主题下会变近黑、
+      #  黑字压黑底看不见（apple/cj/mv/tf 四页事故）。此处强制：深色容器里必须固定浅色 #f5f5f7。
+      - name: Guard dark-container text contrast
+        run: python3 scripts/guard_dark_container_text.py
+
       # 编辑器元数据护栏（2026-09-02 落地）：
       # IDE（Codebuddy Code 等带元素定位能力的编辑器）打开过页面后，会给几乎每个标签
       # 注入 data-page-node-id 属性。那是编辑器自己的实现细节，站点不需要，且每次检出

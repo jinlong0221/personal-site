@@ -51,4 +51,12 @@ if [ -f scripts/guard_editor_noise.py ]; then
   rm -f "$LIST_FILE"
 fi
 
+echo "[pre-commit] 检查深色容器文字对比度..."
+# 硬编码深色容器（hero 等）里若用 color:var(--text)，浅色主题下会黑字压黑底看不见。
+# 2026-09-19 事故（apple/cj/mv/tf 四页）的守卫，本地提交即拦。
+"$PY3" scripts/guard_dark_container_text.py -q || {
+  echo "❌ 深色容器里出现随主题变的文字色，请改成固定浅色 #f5f5f7"
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

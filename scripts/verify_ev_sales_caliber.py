@@ -55,7 +55,7 @@ import sys
 import time
 import urllib.request
 
-API = 'http://data.cpcadata.com/api/chartlist'
+API = 'https://data.cpcadata.com/api/chartlist'
 UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
       '(KHTML, like Gecko) Chrome/126.0 Safari/537.36')
 
@@ -83,7 +83,7 @@ def fetch(charttype):
             req = urllib.request.Request(full, headers={
                 'User-Agent': UA,
                 'Accept': 'application/json, text/plain, */*',
-                'Referer': 'http://data.cpcadata.com/',
+                'Referer': 'https://data.cpcadata.com/',
             })
             with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
                 raw = r.read().decode('utf-8', errors='replace')

@@ -4,9 +4,9 @@
 抓取乘联会（CPCA）官方数据，生成 static/ev-sales.json —— 新能源车销量排行榜板块的数据源。
 
 数据源：乘用车市场信息联席会（乘联会 / CPCA）官方数据中心
-    http://data.cpcadata.com/
-    接口：http://data.cpcadata.com/api/chartlist?type=1&charttype=N   (N = 1..6)
-    备用：http://data.cpcadata.com/api/chartlist_2?type=1&charttype=N
+    https://data.cpcadata.com/
+    接口：https://data.cpcadata.com/api/chartlist?type=1&charttype=N   (N = 1..6)
+    备用：https://data.cpcadata.com/api/chartlist_2?type=1&charttype=N
 
 字段含义（已从前端渲染脚本 static/js/main.*.chunk.js 逆向确认，并用乘联会官方原文逐位校验）：
 
@@ -57,8 +57,8 @@ from datetime import datetime, timezone, timedelta
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'static', 'ev-sales.json')
 
-API = 'http://data.cpcadata.com/api/chartlist'
-API2 = 'http://data.cpcadata.com/api/chartlist_2'
+API = 'https://data.cpcadata.com/api/chartlist'
+API2 = 'https://data.cpcadata.com/api/chartlist_2'
 UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
       '(KHTML, like Gecko) Chrome/126.0 Safari/537.36')
 
@@ -174,7 +174,7 @@ def fetch_json(url, params):
             req = urllib.request.Request(full, headers={
                 'User-Agent': UA,
                 'Accept': 'application/json, text/plain, */*',
-                'Referer': 'http://data.cpcadata.com/',
+                'Referer': 'https://data.cpcadata.com/',
             })
             with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
                 raw = r.read().decode('utf-8', errors='replace')
@@ -377,8 +377,8 @@ def main():
         'updatedAt': now.strftime('%Y-%m-%d %H:%M'),
         'source': {
             'name': '乘用车市场信息联合会（乘联会 / CPCA）官方数据中心',
-            'home': 'http://data.cpcadata.com/',
-            'org': 'http://www.cpcaauto.com/',
+            'home': 'https://data.cpcadata.com/',
+            'org': 'https://www.cpcaauto.com/',
             'api': API,
             'licence': '数据版权归乘联会所有，本站仅作引用并注明出处',
         },

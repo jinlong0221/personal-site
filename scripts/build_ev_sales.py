@@ -5,7 +5,7 @@
 
 数据来源（全部自动抓取 + 人工交叉核验，绝不手写编造）：
   1. 乘用车市场信息联席会（乘联会/CPCA）官方数据接口
-     http://data.cpcadata.com/api/chartlist
+     https://data.cpcadata.com/api/chartlist
      -> 乘用车厂商榜（批发/零售）、新能源渗透率、BEV/PHEV 结构、分国别份额、出口
   2. 新能源厂商榜：转载乘联会【终稿】的媒体报道（人工核对快照）
      见 fetch_ev_sales.py 顶部 NEV_MAKER_SNAPSHOT 的详细说明与校验记录
@@ -652,7 +652,7 @@ def build_body(d):
         mon_label=esc(mon.get('label') or ''),
         api_ws=api_ws,
         api_rt=api_rt,
-        src_home=esc(src.get('home') or 'http://data.cpcadata.com/'),
+        src_home=esc(src.get('home') or 'https://data.cpcadata.com/'),
     )
 
 

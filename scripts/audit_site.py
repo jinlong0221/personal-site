@@ -111,7 +111,10 @@ def main():
     def show(title, items, cap=80):
         print(f"\n=== {title} ({len(items)}) ===")
         for it in items[:cap]:
-            print("   " + "  ·  ".join(it))
+            if isinstance(it, (tuple, list)):
+                print("   " + "  ·  ".join(str(x) for x in it))
+            else:
+                print("   " + str(it))
 
     show("死链 DEAD LINKS", dead)
     show("缺图 MISSING IMAGES", miss)

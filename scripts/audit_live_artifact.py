@@ -119,6 +119,10 @@ def audit_html(path):
         "cc": "BY-NC" in raw,
         "h1": bool(re.search(r"<h1[\s>]", raw)),
         "noindex": bool(re.search(r'name=["\']?robots["\']?[^>]*noindex', raw)),
+        # 结构完整性：必须正常闭合。缺 </body>/</html> 时浏览器靠容错渲染，
+        # 肉眼看不出来，但会让「往 </body> 前插脚本」的注入器退化成追加到文件末尾
+        # （2026-09-19 体检发现 56 个 console 页自建站起就没闭合）。
+        "unclosed": '<body' in raw and ('</body>' not in raw or '</html>' not in raw),
     }
 
 
@@ -208,6 +212,7 @@ def main():
         rels.sort()
 
         quote_bad, miss_crumb, miss_meta, miss_cc, miss_h1 = [], [], [], [], []
+        unclosed = []
         skip_meta, noindex_cnt = [], 0
 
         for rel in rels:
@@ -228,6 +233,8 @@ def main():
                     miss_meta.append(rel)
             if not r["cc"]:
                 miss_cc.append(rel)
+            if r["unclosed"]:
+                unclosed.append(rel)
 
         json_bad = audit_json(root)
 
@@ -263,8 +270,19 @@ def main():
               f"  (豁免 {len(skip_meta)} 个 noindex / 首页)")
         print(f"  CC 许可行 : {n - len(miss_cc)}/{n}  真实缺: {real_cc or '无'}"
               f"  (豁免 {len(ex_cc)})")
+        print()
+        print("--- 3. 结构完整性（</body>/</html> 必须闭合）---")
+        if unclosed:
+            print(f"  未闭合    : {len(unclosed)}/{n} 页")
+            for rel in unclosed[:40]:
+                print(f"    BAD  {rel}")
+            if len(unclosed) > 40:
+                print(f"    …另有 {len(unclosed) - 40} 页")
+        else:
+            print(f"  PASS  {n}/{n} 页均已正常闭合")
 
-        ok = not (quote_bad or json_bad or miss_meta or real_cc or real_crumb or real_h1)
+        ok = not (quote_bad or json_bad or miss_meta or real_cc or real_crumb
+                  or real_h1 or unclosed)
         print()
         print("=== " + ("全绿 ✅" if ok else "有真实缺失 ❌") + " ===")
         return 0 if ok else 1

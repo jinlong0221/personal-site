@@ -5707,6 +5707,20 @@ body > .page-meta{margin-left:max(20px,calc((100% - var(--max-width))/2 + 20px))
   body:has(.lx-dock){ padding-bottom:calc(64px + env(safe-area-inset-bottom)); }
 }
 
+/* [BUG-FIX 2026-09-19] 内容页底部目录条 .secnav-bottom 与右下浮动键抢同一角落。
+   事实：app.js 注入的 .secnav-bottom 是 position:fixed;bottom:0 的全宽条
+   （桌面 53px、≤768px 时 61px，再叠加 iOS 安全区），z-index 91；
+   而 .qt-fab 是 bottom:18px 的 48px 圆钮、z-index 300 —— 实测两者矩形重叠
+   2064px²，且命中栈里 .qt-fab 排在 .secnav-bottom 的展开/收起按钮
+   .secnav-toggle（贴在条的右端 x324~368）之前，即**该按钮点不到**。
+   .back-to-top(bottom:74px) 在有安全区内边距的机型上同样会被条压住。
+   处理：只要目录条真的显示，就把两个浮动键整体上移 64px，
+   与首页底部书签栏 .lx-dock 的处理完全同款（同一套 82/138 偏移），
+   保持右下角一致的视觉节奏。注意必须写在媒体查询**外面**——
+   目录条在 ≤1628px 全宽度区间都存在，不止移动端。 */
+body:has(.secnav-bottom.visible) .qt-fab{ bottom:calc(82px + env(safe-area-inset-bottom)); }
+body:has(.secnav-bottom.visible) .back-to-top{ bottom:calc(138px + env(safe-area-inset-bottom)); }
+
 /* ===== 相关阅读（scripts/apply_related.py 静态注入的文章内链区块） ===== */
 .lx-related{
   max-width:760px; margin:36px auto 8px; padding:20px 18px 22px;

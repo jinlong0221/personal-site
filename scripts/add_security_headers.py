@@ -1,8 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+⚠️ 已停用（2026-09-19）——请勿再运行，除非先把 BLOCK 里的 CSP 换成全站哈希白名单。
+--------------------------------------------------------------------------
+事故记录：本脚本的 CSP 模板写死了 script-src 'unsafe-inline'。2026-09-19 全站体检时
+误跑一次，把 8 个原本没有 CSP 的页面（console-wiiu / console-n64 / console-gc /
+apple-history / offline / privacy / shesi-landing / shesi-privacy）注入成「宽脚本策略」，
+随即被 CI 的 guard_csp_hygiene 判为 8 项 FAIL（站规明令 script-src 不得含 'unsafe-inline'，
+必须用 sha256 白名单）。已改为套用全站统一的 37 条 sha256 策略收尾。
+
+正确做法：
+- 需要给页面补 CSP 时，用 `python3 scripts/compute_csp_hashes.py --inject`
+  —— 它从 public/ 现算全站内联脚本的 sha256 并回写 head.html 与每个 static/*.html，
+  自愈、去 'unsafe-inline'、且新页的内联脚本哈希天然被覆盖。
+- 更省事的做法：新静态页直接复用同板块页整个 <head>，哈希天然有效。
+- style-src 的 'unsafe-inline' 是全站既定取舍（大量内联 style= 与 critical-css），保留。
+
+原始说明（仅 Referrer / frame-buster 两部分仍然有效）
+--------------------------------------------------------------------------
 为全站静态 HTML（static/ 下所有 *.html）注入安全加固块：
-  ① 内容安全策略（meta CSP）
+  ① 内容安全策略（meta CSP）—— ⚠️ 见上方停用说明
   ② Referrer 策略
   ③ 防 iframe 点击劫持的 frame-buster 脚本
 

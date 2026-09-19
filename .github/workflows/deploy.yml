@@ -160,6 +160,14 @@ jobs:
       - name: Sync last-updated timestamps from git
         run: python3 scripts/sync_update_time.py
 
+      # 站点状态历史自愈（2026-09-19 体检修复）：
+      # static/status-history.html 读的是 status-history.json 的 `.history` 字段，
+      # 但该文件历史上一直是裸数组 → 页面永远只显示 1 条当前状态，历史全丢。
+      # 这里以 data/status.json 为唯一真源重建两份镜像（统一成 {"history": [...]}），
+      # 幂等，放在 hugo 之前即可。
+      - name: Sync site status history (from data/status.json)
+        run: python3 scripts/build_status_history.py
+
       # 正文引号自愈：全站统一用「」（站内主风格）。
       # 位置很关键——必须排在所有生成器/注入器（build_*、apply_*、sort_news、
       # build_home_feed）之后、hugo 之前：这样本轮新写的新闻稿、changelog、

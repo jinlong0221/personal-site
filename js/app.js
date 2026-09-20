@@ -946,3 +946,55 @@ if(document.readyState==='loading'){
     el.src = src + sep + 'retry=' + Date.now();
   }, true);
 })();
+
+/* ============================================================================
+   立体化 · 桌面端卡片「跟手 3D 倾斜」（2026-09-20 新增）
+   ---------------------------------------------------------------------------
+   只做一件事：把鼠标在卡片内的相对位置换算成 --tilt-x / --tilt-y 两个角度变量。
+   真正的 transform 由 CSS 侧负责（见 style.css 第 4 节）：
+     @media (hover:hover) and (pointer:fine){
+       .card:hover{ transform: … rotateX(var(--tilt-y,0deg)) rotateY(var(--tilt-x,0deg)) }
+     }
+   🔴 变量名必须是 --tilt-x / --tilt-y，不能叫 --tx / --ty：
+      style.css:62 里 `--tx: var(--text-color)` 是全站文字色的历史别名（被用 17 处），
+      往卡片上写 --tx 会让「该卡片及其后代」的颜色变量解析成非法值（悬停时卡内文字变色）；
+      而 JS 未写入时 rotateY(var(--tx)) 会把颜色当角度 → 整条 transform 失效回退 none。
+   这样设计的好处：
+     · 触屏完全不介入 —— 只有「有鼠标」的设备才走到这里，手机省电、不掉帧；
+     · JS 失效时优雅降级 —— var(--tilt-x, 0deg) 取默认 0deg，卡片退化为「悬停上浮」，不会坏；
+     · 系统开了「减少动态效果」则整段跳过。
+   ============================================================================ */
+(function(){
+  try{
+    if(!window.matchMedia) return;
+    if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var SEL = '.card,.tile,.section-card,.lx-card,.upd-card,.hot-card';
+    var cur = null;
+
+    function clearTilt(el){
+      if(!el) return;
+      el.style.removeProperty('--tilt-x');
+      el.style.removeProperty('--tilt-y');
+    }
+
+    document.addEventListener('pointermove', function(e){
+      var el = (e.target && e.target.closest) ? e.target.closest(SEL) : null;
+      if(el !== cur){ clearTilt(cur); cur = el; }
+      if(!el) return;
+      var r = el.getBoundingClientRect();
+      if(!r.width || !r.height) return;
+      var px = (e.clientX - r.left) / r.width;
+      var py = (e.clientY - r.top) / r.height;
+      // 最大倾角：横向 ±4°、纵向 ±3.5°，克制不晕
+      el.style.setProperty('--tilt-x', ((px - 0.5) * 8).toFixed(2) + 'deg');
+      el.style.setProperty('--tilt-y', ((0.5 - py) * 7).toFixed(2) + 'deg');
+    }, { passive: true });
+
+    // 指针离开文档（例如切到别的窗口）时归位，避免卡片保持歪着
+    document.addEventListener('pointerleave', function(){
+      clearTilt(cur); cur = null;
+    }, true);
+  }catch(err){ /* 静默失败：任何异常都不应影响站点其它功能 */ }
+})();

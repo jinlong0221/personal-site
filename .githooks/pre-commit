@@ -59,4 +59,14 @@ echo "[pre-commit] 检查深色容器文字对比度..."
   exit 1
 }
 
+echo "[pre-commit] 检查动效安全（变量撞名 / 动画填充模式）..."
+# 2026-09-20 事故：动效变量 --tx 撞上「文字色」历史别名（17 处在消费）→
+# 鼠标一悬停，卡片内文字色被解析成非法值；另拦「条件块里用 both 填充 +
+# 起始帧近乎全透明」，那是 2026-08-19 首页透明空洞的同类地雷。
+"$PY3" scripts/guard_motion_safety.py >/dev/null 2>&1 || {
+  echo "❌ 动效安全守卫未通过："
+  "$PY3" scripts/guard_motion_safety.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

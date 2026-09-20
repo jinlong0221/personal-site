@@ -28,6 +28,7 @@
 | A9 | 页面产物解析失败 / 骨架缺失（面包屑、`main>h1`、页尾信息块、CC 许可行） | `public/` 产物 | `smoke_test.py` + `audit_live_artifact.py` |
 | A10 | 板块新闻 `*-news.json` 日期乱序 | `static/*-news.json` | `sort_news.py` |
 | A11 | 标题四字段不一致（`<title>`/`og:title`/`twitter:title`/JSON-LD） | 各页 | `sync_titles.py --check`（须报 0 页） |
+| A13 | 🆕 **动效/立体化三类地雷**：① JS 写的 CSS 变量名与根级令牌撞名（`--tx` 既是「文字色」别名、又被当角度写 → 悬停时卡内文字变色，JS 未介入时 3D 变换整条作废）；② 条件块（`@supports`/`@media`）里的 `animation` 用 `both`/`backwards` 填充且起始帧 `opacity≈0`（动画没跑起来就永久全透明）；③ 改 transform/filter 的 `:hover` 未做设备门控（触屏点按被当成悬停） | `static/js/*.js`、`static/css/style.css`、各 `static/*.html` | `guard_motion_safety.py`（①② 阻断；③ 只计数提示） |
 
 ## 二、按需跑的审计脚本（做完功能/大改后跑一遍）
 
@@ -76,6 +77,15 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
 ### C5 移动端横向滚动
 更新日志的长表格、宽表格在窄屏是否横向溢出（底栏/页尾集合是否被撑破）。
 
+### C7 触屏「点按被当成悬停」复核（移动端优先，2026-09-20 新增）
+触摸屏点按会点亮 `:hover` **并保持**，所以任何「只在鼠标下才合理」的 `:hover` 位移/缩放，
+在手机上都会变成「点一下卡在放大/上浮态」。
+- 实时条数：`python3 scripts/guard_motion_safety.py`（末项 D3 计数）。**2026-09-20 首次统计为 95 处存量**，
+  尚未逐个门控 —— 清单用 `--report` 打印。
+- 判据：**这条 `:hover` 是「鼠标加成」还是「点按反馈」**——前者必须包 `@media (hover:hover) and (pointer:fine)`，
+  后者应改写成 `:active`。
+- 已完成样例：射阳气象磁贴 `.tile:hover{scale(1.02)}` 已门控（触屏点按原本会「放大」而不是「压下去」）。
+
 ### C6 配图红线
 - 绝不用 AI 生成图；只用真实图并注明来源版权。
 - 清晰度优先于体积：只走 `quality=80` 视觉无损重压，**不缩尺寸**。
@@ -91,6 +101,15 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
 - 2026-09-19：**深色 hero 标题在浅色主题下变黑看不见**（apple / chinajoy / marvel / typhoon）
   → 新增 A8 守卫；C1/C2 从此列为每次审计必查项（龙兄点名批评「审计走点心」）
 - 2026-09-19：弱 CSP 脚本 `add_security_headers.py` 从仓库删除（曾误注入 8 页）
+- 2026-09-20：**全站立体化 / App 感升级**（龙兄反馈「整个网站就像一个平面，不立体」）——
+  一轮里连出 4 个问题，全部登记：① 动效变量 `--tx` 撞上「文字色」历史别名（`style.css:62`，17 处消费），
+  悬停时卡内文字色被解析成非法值而失效、JS 未介入时 3D 变换整条作废 → 改名 `--tilt-x`/`--tilt-y`；
+  ② 桌面「按住」无压感（新加的 `:hover` 优先级压过了 `:active`）→ 补同优先级 `:active`；
+  ③ 射阳磁贴 `:hover` 未门控，触屏点按变「放大」→ 收进 `@media (hover:hover) and (pointer:fine)`；
+  ④ `main` 跨页淡入一度用 `both` + `from{opacity:.001}`（与 2026-08-19 透明空洞同一类地雷）→ 改 `forwards`。
+  → 新增 A13 守卫 `guard_motion_safety.py`、新增 C7 人工项。
+- 2026-09-20：`console-3do` / `console-game-gear` / `console-master-system` 三页 `.game-card` 缺卡面
+  （圆角 0、透明底、每张卡占满整行；其余 55 个主机详情页正常）—— 属「页内样式块缺段」，已按同款补齐。
 
 ---
 

@@ -156,7 +156,16 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .skip-link:focus{top:0}
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
 @media(max-width:480px){html{font-size:17px}}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* 2026-09-20 补齐：本页两份样式块都漏了游戏卡两段（其余 55 个主机详情页写在普通 <style> 里），
+   导致 .game-card 没有底色/圆角/网格 —— 每张卡占满整行、无圆角、透明底。 */
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.game-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+.game-card .game-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.game-card .game-year { font-size: 0.73rem; color: #e60012; font-weight: 600; }
+.game-card .game-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+[data-theme="light"] .game-card { background: #ffffff; }
+</style>
 <link rel="stylesheet" href="css/style.css?v=20260919">
 <nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner">

@@ -139,6 +139,15 @@ jobs:
       - name: Guard dark-container text contrast
         run: python3 scripts/guard_dark_container_text.py
 
+      # 动效安全护栏（2026-09-20 落地，本轮「全站立体化」升级踩出来的三类地雷）：
+      #  - 变量撞名：JS 写的 CSS 变量名若与根级令牌同名会顶掉该令牌
+      #    （事故：倾斜脚本写 --tx，而 --tx 是「文字色」别名 → 悬停时卡内文字变色）
+      #  - 透明空洞：条件块（@supports/@media）里 animation 用 both/backwards 填充且
+      #    起始帧 opacity≈0 → 动画没跑起来时元素永久近乎全透明
+      #  - 未门控 :hover：触屏点按被当成悬停（D3 只计数提示，不阻断）
+      - name: Guard motion safety (var clash / fill-mode)
+        run: python3 scripts/guard_motion_safety.py
+
       # 编辑器元数据护栏（2026-09-02 落地）：
       # IDE（Codebuddy Code 等带元素定位能力的编辑器）打开过页面后，会给几乎每个标签
       # 注入 data-page-node-id 属性。那是编辑器自己的实现细节，站点不需要，且每次检出

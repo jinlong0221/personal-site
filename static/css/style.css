@@ -6054,3 +6054,234 @@ input.tf-range::-moz-range-thumb{ -webkit-appearance:none; appearance:none; }
 .lx-card-src.is-live::before{display:none}
 .lx-card-src .lx-pulse{width:5px;height:5px}
 .lx-card-src .lx-pulse::after{inset:-3px}
+
+/* ============================================================================
+   立体化 + App 感 · 深度系统 v2   （2026-09-20 新增）
+   ---------------------------------------------------------------------------
+   ① 只改本文件即全站生效：style.css 永远在页面内联 critical-css 之后加载，
+      同名选择器「后者胜」，故带内联块的页面无需逐个同步。
+   ② 金色只做细线与边缘高光，绝不铺大面（守「忌暖色刺眼」红线）。
+   ③ 手机优先：光影 / 圆角 / 玻璃 / 按压缩放全平台生效；
+      3D 跟手倾斜仅在「有鼠标」的设备启用（hover:hover + pointer:fine），
+      触屏不参与 —— 省电、不掉帧、不出现「点一下残留悬停」。
+   ④ 全站尊重系统「减少动态效果」设置。
+   ⑤ 刻意不碰 border 简写：.tile-gold/.tile-green 有 border-left 强调边、
+      .game-entrance 有品红描边，改简写会误伤它们。
+   ============================================================================ */
+
+/* ---- 1. 高度令牌：把单层淡阴影换成多层堆叠的「离地高度」 ---- */
+:root{
+  --e1:0 1px 2px rgba(0,0,0,.42), 0 2px 6px rgba(0,0,0,.26);
+  --e2:0 2px 4px rgba(0,0,0,.44), 0 10px 24px rgba(0,0,0,.40), 0 20px 44px rgba(0,0,0,.26);
+  --e3:0 4px 10px rgba(0,0,0,.50), 0 18px 40px rgba(0,0,0,.48), 0 40px 88px rgba(0,0,0,.40);
+  --hi-edge:inset 0 1px 0 rgba(255,255,255,.085);   /* 顶光照亮上沿 —— 立体感的关键一笔 */
+  --hi-edge-2:inset 0 1px 0 rgba(255,255,255,.14);
+  --hairline:rgba(201,168,76,.20);                   /* 金色细边（只做线，不铺面） */
+  --hairline-2:rgba(201,168,76,.46);
+  --glow-gold:rgba(201,168,76,.16);
+  --sheen:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,0) 46%);
+  --spring:cubic-bezier(.2,.8,.2,1);
+  --r-card:16px;
+  --r-btn:14px;
+}
+[data-theme="light"]{
+  --e1:0 1px 2px rgba(90,75,45,.10), 0 2px 6px rgba(90,75,45,.07);
+  --e2:0 2px 4px rgba(90,75,45,.10), 0 10px 24px rgba(90,75,45,.14), 0 20px 44px rgba(90,75,45,.09);
+  --e3:0 4px 10px rgba(90,75,45,.12), 0 18px 40px rgba(90,75,45,.16), 0 36px 80px rgba(90,75,45,.11);
+  --hi-edge:inset 0 1px 0 #fff;
+  --hi-edge-2:inset 0 1px 0 #fff;
+  --hairline:rgba(149,116,37,.22);
+  --hairline-2:rgba(149,116,37,.50);
+  --glow-gold:rgba(149,116,37,.12);
+  --sheen:linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,0) 52%);
+}
+
+/* ---- 2. 环境光：页底不再是「死平色」，而是有空气感的柔光场 ---- */
+body::after{
+  content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 6% -14%, var(--glow-gold), transparent 62%),
+    radial-gradient(760px 520px at 100% 0%, rgba(96,132,196,.07), transparent 62%),
+    radial-gradient(1100px 680px at 50% 120%, var(--glow-gold), transparent 60%);
+}
+[data-theme="light"] body::after{
+  background:
+    radial-gradient(900px 520px at 6% -14%, var(--glow-gold), transparent 62%),
+    radial-gradient(760px 520px at 100% 0%, rgba(96,132,196,.06), transparent 62%);
+}
+
+/* ---- 3. 实体表面：卡片 / 磁贴 / 板块卡 —— 统一「离地」 ---- */
+.card, .tile, .section-card{
+  border-radius:var(--r-card);
+  background:var(--sheen), var(--card);
+  box-shadow:var(--hi-edge), var(--e1);
+  transition:transform .5s var(--spring), box-shadow .5s var(--spring),
+             border-color .4s var(--spring), opacity .55s var(--spring);
+}
+/* 首页牌：保留其「墨色卡」底色，只换光影与圆角（原为 2px 直角） */
+.lx-card{
+  border-radius:var(--r-card);
+  background:var(--sheen), var(--ink-3);
+  box-shadow:var(--hi-edge), var(--e1);
+  transition:transform .5s var(--spring), box-shadow .5s var(--spring),
+             border-color .4s var(--spring), background .35s var(--spring);
+}
+.lx-card-top{height:2px;border-radius:var(--r-card) var(--r-card) 0 0;
+  background:linear-gradient(90deg,transparent,var(--accent-color),transparent);opacity:.9}
+
+/* ---- 4. 悬停（仅桌面）：上浮 + 跟手 3D 倾斜 + 阴影加深 ---- */
+@media (hover:hover) and (pointer:fine){
+  .card:hover, .tile:hover, .section-card:hover, .lx-card:hover{
+    transform:perspective(900px) translateY(-6px) rotateX(var(--tilt-y,0deg)) rotateY(var(--tilt-x,0deg));
+    box-shadow:var(--hi-edge-2), var(--e3);
+  }
+  .card:hover, .lx-card:hover{ border-color:var(--hairline-2); }
+}
+/* 首页牌悬停时保留表面微光（原规则只有纯色底，会丢掉 sheen） */
+.lx-card:hover{ background:var(--sheen), var(--ink-4); }
+/* 牌堆内圆角统一：.lx-deck .lx-card 原为 14px(0,2,0)，会压过上面的 16px → 同屏两种圆角 */
+.lx-deck .lx-card{ border-radius:var(--r-card); }
+
+/* ---- 4b. 与「滚动渐显」的优先级和解（不修这里，桌面倾斜根本不生效） ----
+   static/js/reveal.js 会给 .lx-deck .lx-card / .upd-card / .hot-card 注入 .reveal，
+   随后 .js .reveal.in{transform:none}(0,3,0) 必然压过 .lx-card:hover(0,2,0)
+   —— 表现就是「--tx/--ty 都写进去了、box-shadow 也换了，但 transform 恒为 none」。
+   用 .js .reveal.in:is(...) 把优先级提到 (0,5,0) 即可，无需改动 .reveal 自身定义
+   （2026-08-19「首页 hero 透明空洞」的根因就是 reveal 机制，绝不动它）。
+   同时补全 transition：reveal 只声明了 opacity/transform，会吃掉 box-shadow 的过渡。 */
+.js .reveal.in:is(.card, .tile, .section-card, .lx-card, .upd-card, .hot-card){
+  transition:transform .5s var(--spring), box-shadow .5s var(--spring),
+             border-color .4s var(--spring), background .35s var(--spring),
+             opacity .55s var(--spring);
+}
+@media (hover:hover) and (pointer:fine){
+  .js .reveal.in:is(.card, .tile, .section-card, .lx-card, .upd-card, .hot-card):hover{
+    transform:perspective(900px) translateY(-6px) rotateX(var(--tilt-y,0deg)) rotateY(var(--tilt-x,0deg));
+    box-shadow:var(--hi-edge-2), var(--e3);
+  }
+}
+
+/* ---- 4b-2. 按下态：优先级必须与 4b 的 :hover 打平（同为 0,5,0）并排在它后面 ----
+   否则桌面上「按住卡片」会停在 translateY(-6px)，没有压下去的手感。
+   这条不放进 @media(hover)：触屏按下的 :active 也需要它。 */
+.js .reveal.in:is(.card, .tile, .section-card, .lx-card, .upd-card, .hot-card):active{
+  transform:translateY(-1px) scale(.985);
+  box-shadow:var(--hi-edge), var(--e1);
+  transition-duration:.11s;
+}
+
+/* ---- 4c. 密缝网格：射阳气象磁贴 gap 只有 4px ----
+   外向阴影会在缝里互相压叠、把缝糊成一条脏线。收窄成 2px 单层：
+   保住「离地」，不脏缝。（优先级 0,2,0 > 上面的 .tile(0,1,0)） */
+/* :is() 取参数里最高优先级 = (0,1,0)，叠加 .tile-grid 后为 (0,2,0)，
+   高于第 10 节那批 (0,1,0) 的 -tile / -panel 族 */
+.tile-grid :is(.tile, .loading-tile, .forecast-tile, .advice-tile, .tip-tile, .error-tile){
+  box-shadow:var(--hi-edge), 0 1px 2px rgba(0,0,0,.34);
+}
+[data-theme="light"] .tile-grid :is(.tile, .loading-tile, .forecast-tile, .advice-tile, .tip-tile, .error-tile){
+  box-shadow:var(--hi-edge), 0 1px 2px rgba(90,75,45,.12);
+}
+
+/* ---- 5. 点按回弹（全平台，手机手感的关键） ---- */
+.card:active, .tile:active, .section-card:active, .lx-card:active{
+  transform:translateY(-1px) scale(.985);
+  box-shadow:var(--hi-edge), var(--e1);
+  transition-duration:.11s;
+}
+
+/* ---- 6. 按钮：全站真实按钮类名是 .icon-btn(307 处/103 页) / .nav-more-btn 等，
+        .btn 这个类全站只出现 1 次、且那 1 处在 offline.html（该页不加载本文件）
+        → 给 .btn 写 background/border 是纯死代码，还会在将来误伤变体。
+        这里只做「按压回弹」这一层手感：只动 transform，绝不碰配色与描边。 ---- */
+.icon-btn, .nav-more-btn, .tl-btn, .ev-btn, .cf-btn, .today-btn,
+.channel-btn, .gh-back-btn, .gh-mobile-nav-btn, .bm-btn, .xw-copy-btn, .cf-btn-reset{
+  transition:transform .28s var(--spring), background-color .25s ease,
+             color .25s ease, border-color .25s ease;
+}
+.icon-btn:active, .nav-more-btn:active, .tl-btn:active, .ev-btn:active, .cf-btn:active,
+.today-btn:active, .channel-btn:active, .gh-back-btn:active, .gh-mobile-nav-btn:active,
+.bm-btn:active, .xw-copy-btn:active, .cf-btn-reset:active{ transform:scale(.9); }
+/* 404「回到首页」原本无阴影，补一层金色浮起 + 与卡面一致的圆角 */
+.btn-home{ box-shadow:var(--hi-edge-2), 0 6px 16px rgba(201,168,76,.22);
+  border-radius:var(--r-btn); }
+
+/* ---- 7. 玻璃层：导航与浮层有「厚度」 ----
+   刻意只声明 box-shadow、不写 border-bottom：.navbar 的底边有 4 处既有声明
+   （基础 var(--border) / 刊物化 color-mix(accent 22%,rule-soft) / 降透明模式 var(--rule-soft)），
+   写成 border-bottom 会把这三层区分一起吃掉。 */
+.navbar{ box-shadow:0 1px 0 rgba(255,255,255,.03), 0 10px 30px rgba(0,0,0,.26) }
+.navbar.scrolled{box-shadow:0 1px 0 rgba(255,255,255,.04), 0 14px 40px rgba(0,0,0,.42)}
+.nav-more-dropdown{border:1px solid var(--hairline);border-radius:14px;box-shadow:var(--hi-edge), var(--e2)}
+
+/* ---- 8. 跨页转场：像 App 一样「切页」，而不是「闪白」 ---- */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:lxVtOut .22s var(--spring) both}
+::view-transition-new(root){animation:lxVtIn .28s var(--spring) both}
+@keyframes lxVtOut{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-8px) scale(.995)}}
+@keyframes lxVtIn{from{opacity:0;transform:translateY(10px) scale(.995)}to{opacity:1;transform:translateY(0) scale(1)}}
+/* 不支持跨文档转场的浏览器：主内容轻微淡入兜底（只动 opacity，不产生包含块）
+   🔴 填充模式必须是 forwards，绝不能用 both / backwards ——
+      用 both 时「动画开始前」的填充值是 from{opacity:.001}，一旦动画机制因任何原因
+      没跑起来（被别的规则 pause / 用户样式表关掉动画 / 异常），整页就停在近乎全透明，
+      也就是 2026-08-19 那次「首页 hero 透明空洞」的同一类坑。
+      forwards 只在动画结束后保留终态，未运行时元素保持自身样式（可见）。 */
+@supports not (view-transition-name: none){
+  main{animation:lxFadeIn .3s var(--spring) forwards}
+  @keyframes lxFadeIn{from{opacity:.001}to{opacity:1}}
+}
+
+/* ---- 9. 尊重系统「减少动态效果」 ---- */
+@media (prefers-reduced-motion: reduce){
+  .card,.tile,.section-card,.lx-card,button.btn,a.btn,.btn,.btn-home{transition-duration:.01ms!important}
+  .card:hover,.tile:hover,.section-card:hover,.lx-card:hover,
+  button.btn:hover,a.btn:hover,.btn:hover{transform:none!important}
+  /* 第 10 节铺开的那一大批卡面族：属性选择器是「尽力而为」的兜底
+     —— class 里有多个类名时 $= 匹配不到，但多关掉一些过渡对减少动态的用户只会有益 */
+  [class*="card"],[class*="tile"],[class*="panel"]{
+    transition-duration:.01ms!important; animation-duration:.01ms!important;
+  }
+  [class*="card"]:hover,[class*="tile"]:hover,[class*="panel"]:hover,
+  [class*="card"]:active,[class*="tile"]:active,[class*="panel"]:active{ transform:none!important; }
+  ::view-transition-old(root),::view-transition-new(root),main{animation:none!important}
+}
+/* ============================================================================
+   10. 全站卡面覆盖   （2026-09-20 新增）
+   ---------------------------------------------------------------------------
+   第 3 节只覆盖了 .card / .tile / .lx-card —— 而站上真正在用的卡片是带前缀的类名
+   （game-card 420 处 53 页、tl-tile 20 处、ah-panel 10 处、cj-card / st-card /
+   price-card / gh-* / cj-era-card …），所以「全站立体化」实际只照亮了 3 个页面。
+   这一节按真实类名逐族补齐，并且**只加 box-shadow 与 transition**：
+   不碰 background / border / border-radius，避免破坏各板块刻意调的配色与圆角
+   （例：game-card 自带 10px 圆角 + 浅色主题 #ffffff 底，用 0,2,0 的页内规则保住）。
+   ============================================================================ */
+  .game-card, .work-card, .recipe-card, .cal-card, .cj-card, .st-card,
+  .price-card, .guide-card, .hero-card, .follow-card, .bracelet-card, .rd-card,
+  .constitution-card, .gh-product-card, .gh-honor-card, .gh-policy-card, .gh-voltage-card,
+  .gh-tech-card, .gh-factory-card, .gh-partner-card, .mv-phase-card, .pitfall-card,
+  .method-card, .cj-era-card, .cj-hall-card, .season-card, .mode-card, .pinjia-card, .ahub-card,
+  .channel-card, .owner-card, .villain-card, .artist-card, .upd-card, .solar-card, .daily-card,
+  .hot-card, .xw-cal-card, .xw-guide-card, .sheyang-card, .tl-tile, .loading-tile,
+  .forecast-tile, .advice-tile, .tip-tile, .error-tile, .tl-panel, .ah-panel, .ev-panel,
+  .dc-panel, .ap-panel, .tool-panel{
+  box-shadow:var(--hi-edge), var(--e1);
+  transition:transform .45s var(--spring), box-shadow .45s var(--spring),
+             border-color .35s var(--spring);
+}
+/* 桌面端：轻微上浮（不做 3D 倾斜 —— 这些族数量大、内嵌结构复杂，倾斜容易在密缝里露底） */
+@media (hover:hover) and (pointer:fine){
+  .game-card:hover, .work-card:hover, .recipe-card:hover, .cal-card:hover,
+  .cj-card:hover, .st-card:hover, .price-card:hover, .guide-card:hover, .follow-card:hover,
+  .bracelet-card:hover, .rd-card:hover, .constitution-card:hover, .gh-product-card:hover,
+  .gh-honor-card:hover, .gh-policy-card:hover, .gh-voltage-card:hover, .gh-tech-card:hover,
+  .gh-factory-card:hover, .gh-partner-card:hover, .mv-phase-card:hover, .pitfall-card:hover,
+  .method-card:hover, .cj-era-card:hover, .cj-hall-card:hover, .season-card:hover,
+  .mode-card:hover, .pinjia-card:hover, .ahub-card:hover, .channel-card:hover,
+  .owner-card:hover, .artist-card:hover, .upd-card:hover, .solar-card:hover, .daily-card:hover,
+  .hot-card:hover, .xw-cal-card:hover, .xw-guide-card:hover, .sheyang-card:hover,
+  .tl-tile:hover, .loading-tile:hover, .forecast-tile:hover, .advice-tile:hover,
+  .tip-tile:hover, .error-tile:hover, .tl-panel:hover, .ah-panel:hover, .ev-panel:hover,
+  .dc-panel:hover, .ap-panel:hover, .tool-panel:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--hi-edge-2), var(--e2);
+  }
+}

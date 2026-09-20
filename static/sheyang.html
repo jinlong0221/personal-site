@@ -181,7 +181,10 @@ body {
   transition: transform 0.15s ease, filter 0.15s ease;
   position: relative;
 }
-.tile:hover { transform: scale(1.02); filter: brightness(1.1); }
+/* 🔴 必须门控：触屏点按也会点亮 :hover，不门控则手指按下去是「放大」而不是「压下去」 */
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover { transform: scale(1.02); filter: brightness(1.1); }
+}
 .tile-large {
   grid-column: span 2;
   grid-row: span 2;

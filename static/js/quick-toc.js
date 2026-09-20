@@ -15,7 +15,8 @@
       items: [
         ['养生茶', 'health-tea.html'],
         ['文玩手串', 'bracelet.html'],
-        ['紫砂艺术', 'zisha.html']
+        ['紫砂艺术', 'zisha.html'],
+        ['节气物候', 'solar-terms.html']
       ]
     },
     {
@@ -24,7 +25,8 @@
         ['特斯拉', 'tesla.html'],
         ['苹果', 'apple.html'],
         ['新能源销量榜', 'ev-sales.html'],
-        ['充电桩查询', 'ev-charge.html']
+        ['充电桩查询', 'ev-charge.html'],
+        ['数码参数对比', 'digital-compare.html']
       ]
     },
     {
@@ -33,7 +35,8 @@
         ['主机图鉴', 'console.html'],
         ['玩过的游戏', 'games.html'],
         ['ChinaJoy', 'chinajoy.html'],
-        ['漫威宇宙', 'marvel.html']
+        ['漫威宇宙', 'marvel.html'],
+        ['游戏发售日历', 'game-calendar.html']
       ]
     },
     {
@@ -42,7 +45,8 @@
         ['农田气象', 'xintan-weather.html'],
         ['台风监测', 'typhoon.html'],
         ['射阳天气', 'sheyang.html'],
-        ['光辉电力', 'guanghui.html']
+        ['光辉电力', 'guanghui.html'],
+        ['射阳生活指南', 'sheyang-guide.html']
       ]
     },
     {
@@ -61,7 +65,9 @@
         ['踩坑记', 'pitfalls.html'],
         ['更新日志', 'changelog.html'],
         ['站点状态', 'status-history.html'],
-        ['关于本站', 'about.html']
+        ['关于本站', 'about.html'],
+        ['读书笔记', 'reading.html'],
+        ['知识管理', 'methodology.html']
       ]
     },
     {

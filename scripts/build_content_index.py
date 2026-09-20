@@ -64,6 +64,9 @@ FILE_CAT = {
     "games.html": "游戏主机", "gaokao.html": "高考志愿", "guanghui.html": "光辉电力",
     "pitfalls.html": "踩坑记", "sheyang.html": "射阳本地民生",
     "typhoon.html": "射阳气象", "xintan-weather.html": "射阳气象",
+    "digital-compare.html": "数码参数", "game-calendar.html": "游戏日历",
+    "solar-terms.html": "节气物候", "reading.html": "读书笔记",
+    "methodology.html": "知识管理", "sheyang-guide.html": "射阳生活",
 }
 # 一级目录 → 分类
 DIR_CAT = {

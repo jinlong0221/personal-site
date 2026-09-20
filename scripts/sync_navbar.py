@@ -32,24 +32,28 @@ CATEGORIES = [
         ("health-tea.html", "养生茶"),
         ("bracelet.html", "文玩手串"),
         ("zisha.html", "紫砂艺术"),
+        ("solar-terms.html", "节气物候"),
     ]),
     ("车与数码", [
         ("tesla.html", "特斯拉"),
         ("apple.html", "苹果"),
         ("ev-sales.html", "新能源销量榜"),
         ("ev-charge.html", "充电桩查询"),
+        ("digital-compare.html", "数码参数对比"),
     ]),
     ("游戏影游", [
         ("console.html", "主机图鉴"),
         ("games.html", "玩过的游戏"),
         ("chinajoy.html", "ChinaJoy 成长史"),
         ("marvel.html", "漫威宇宙"),
+        ("game-calendar.html", "游戏发售日历"),
     ]),
     ("射阳本地", [
         ("xintan-weather.html", "农田气象"),
         ("typhoon.html", "台风监测"),
         ("sheyang.html", "射阳天气"),
         ("guanghui.html", "光辉电力"),
+        ("sheyang-guide.html", "射阳生活"),
     ]),
     ("生活工具", [
         ("tools.html", "工具箱"),
@@ -65,6 +69,8 @@ CATEGORIES = [
         ("status-history.html", "站点状态"),
         ("about.html", "关于本站"),
         ("rss.xml", "RSS 订阅"),
+        ("reading.html", "读书笔记"),
+        ("methodology.html", "知识管理"),
     ]),
 ]
 # 独立入口：刻意低调、不归入任一主题类目（加密相册等隐私内容）

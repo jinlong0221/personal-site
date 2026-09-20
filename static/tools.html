@@ -45,7 +45,7 @@
 
   <title>工具箱｜龙兄知识库</title>
 <meta name="keywords" content="在线工具箱,图片压缩,格式转换,加水印,长图拼接,EXIF查看,二维码生成,九宫格切图,长图切段,图片打码,龙兄知识库">
-<meta name="description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta name="description" content="二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 
 <!-- 预加载关键资源 -->
 <link rel="preload" href="js/app.js" as="script">
@@ -255,6 +255,16 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .tl-stat-v{font-size:1.05rem;font-weight:700;color:var(--gold);
       font-variant-numeric:tabular-nums;word-break:break-all}
     .tl-stat-note{margin-top:12px;font-size:.78rem;line-height:1.7;color:var(--text-muted)}
+
+    /* —— 文本结果框（密码 / 分类等直接展示内容）—— */
+    .tl-outrow{margin-top:14px}
+    .tl-out{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:1rem;
+      color:var(--gold);background:var(--bg-secondary);border:1px solid var(--border);
+      border-radius:8px;padding:11px 14px;word-break:break-all;user-select:all;line-height:1.6;
+      min-height:1.6em}
+    .tl-out-l{font-size:.78rem;color:var(--text-muted);align-self:center}
+    .tl-out-l>span{color:var(--text-secondary);font-weight:700;
+      font-variant-numeric:tabular-nums}
 
     .tl-list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
     .tl-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:9px;
@@ -476,14 +486,14 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <link rel="canonical" href="https://longxiong.vip/tools.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta property="og:title" content="工具箱｜龙兄知识库">
-<meta property="og:description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta property="og:description" content="二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/tools.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="工具箱｜龙兄知识库">
-<meta name="twitter:description" content="十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta name="twitter:description" content="二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
@@ -512,21 +522,25 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
           <a href="health-tea.html">养生茶</a>
           <a href="bracelet.html">文玩手串</a>
           <a href="zisha.html">紫砂艺术</a>
+          <a href="solar-terms.html">节气物候</a>
           <span class="nav-more-hd">车与数码</span>
           <a href="tesla.html">特斯拉</a>
           <a href="apple.html">苹果</a>
           <a href="ev-sales.html">新能源销量榜</a>
           <a href="ev-charge.html">充电桩查询</a>
+          <a href="digital-compare.html">数码参数对比</a>
           <span class="nav-more-hd">游戏影游</span>
           <a href="console.html">主机图鉴</a>
           <a href="games.html">玩过的游戏</a>
           <a href="chinajoy.html">ChinaJoy 成长史</a>
           <a href="marvel.html">漫威宇宙</a>
+          <a href="game-calendar.html">游戏发售日历</a>
           <span class="nav-more-hd">射阳本地</span>
           <a href="xintan-weather.html">农田气象</a>
           <a href="typhoon.html">台风监测</a>
           <a href="sheyang.html">射阳天气</a>
           <a href="guanghui.html">光辉电力</a>
+          <a href="sheyang-guide.html">射阳生活</a>
           <span class="nav-more-hd">生活工具</span>
           <a href="tools.html">工具箱</a>
           <a href="calendar.html">万年历</a>
@@ -540,6 +554,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
           <a href="status-history.html">站点状态</a>
           <a href="about.html">关于本站</a>
           <a href="rss.xml">RSS 订阅</a>
+          <a href="reading.html">读书笔记</a>
+          <a href="methodology.html">知识管理</a>
           <span class="nav-more-div"></span>
           <a href="travel.html">家庭旅行</a>
         </div>
@@ -567,21 +583,25 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   <a href="health-tea.html">养生茶</a>
   <a href="bracelet.html">文玩手串</a>
   <a href="zisha.html">紫砂艺术</a>
+  <a href="solar-terms.html">节气物候</a>
   <span class="nav-hd">车与数码</span>
   <a href="tesla.html">特斯拉</a>
   <a href="apple.html">苹果</a>
   <a href="ev-sales.html">新能源销量榜</a>
   <a href="ev-charge.html">充电桩查询</a>
+  <a href="digital-compare.html">数码参数对比</a>
   <span class="nav-hd">游戏影游</span>
   <a href="console.html">主机图鉴</a>
   <a href="games.html">玩过的游戏</a>
   <a href="chinajoy.html">ChinaJoy 成长史</a>
   <a href="marvel.html">漫威宇宙</a>
+  <a href="game-calendar.html">游戏发售日历</a>
   <span class="nav-hd">射阳本地</span>
   <a href="xintan-weather.html">农田气象</a>
   <a href="typhoon.html">台风监测</a>
   <a href="sheyang.html">射阳天气</a>
   <a href="guanghui.html">光辉电力</a>
+  <a href="sheyang-guide.html">射阳生活</a>
   <span class="nav-hd">生活工具</span>
   <a href="tools.html">工具箱</a>
   <a href="calendar.html">万年历</a>
@@ -595,6 +615,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   <a href="status-history.html">站点状态</a>
   <a href="about.html">关于本站</a>
   <a href="rss.xml">RSS 订阅</a>
+  <a href="reading.html">读书笔记</a>
+  <a href="methodology.html">知识管理</a>
   <span class="nav-hd-div"></span>
   <a href="travel.html">家庭旅行</a>
   </div>
@@ -603,7 +625,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">生活工具</span><span class="sep">›</span><span class="current">工具箱</span></div>
     <div class="container">
     <h1>工具箱</h1>
-    <p class="tl-lede">十五个纯浏览器小工具——图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。<br>
+    <p class="tl-lede">二十个纯浏览器小工具——图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。<br>
       所有内容都在<b>你自己的设备里</b>处理完，<b>不上传、不联网、不留存</b>，断网也能照常用。</p>
 
     <div class="tl-notice" role="note">
@@ -731,6 +753,40 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M3.5 17l4.5-4.2 3.5 3"/><rect x="13.5" y="11.5" width="6.5" height="6" rx="1" fill="currentColor" stroke="none"/></svg></span>
         <span class="tl-tile-t"><span class="tl-tile-num">15</span>图片打码</span>
         <span class="tl-tile-d">手机号、姓名、身份证号、头像，按住拖个框就盖住；效果烧进图片，不是盖贴纸。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">日常计算</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="unit" aria-controls="tp-unit">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10l-3-3"/><path d="M17 17H7l3 3"/><path d="M12 3v18"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">16</span>单位换算</span>
+        <span class="tl-tile-d">长度、重量、温度、面积…几十种常用单位直接互转。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="tz" aria-controls="tp-tz">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">17</span>时区转换</span>
+        <span class="tl-tile-d">填个时间选两个时区，自动换算，含夏令时。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="ts" aria-controls="tp-ts">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">18</span>时间戳转换</span>
+        <span class="tl-tile-d">一串数字换成看得懂的时间，或反过来。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="bmi" aria-controls="tp-bmi">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">19</span>BMI 与健康</span>
+        <span class="tl-tile-d">填身高体重，算 BMI 和中国标准分类。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="pwd" aria-controls="tp-pwd">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">20</span>密码生成</span>
+        <span class="tl-tile-d">加密级随机密码，可选字符类，显示理论强度。</span>
         <span class="tl-tile-tag">本地处理 · 不上传</span>
       </button>
     </div>
@@ -1314,13 +1370,108 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         <p class="tl-note">遮哪儿由你自己划，工具只负责把那儿彻底盖住 —— 它不是「一键智能识别敏感信息」，也不会替你去猜哪里该遮。马赛克格子别调得太小：格子和字差不多大的时候，原图放大还是可能被认出来；拿不准就用纯色块。导出走的是原图分辨率，画布上那个金色虚线框和序号只是给你核对位置用的，不会画进成品里。</p>
       </section>
 
+      <section class="tl-panel" id="tp-unit" data-panel="unit" aria-labelledby="tph-unit">
+        <div class="tl-ph"><h3 id="tph-unit"><span class="tl-idx">16</span>单位换算</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">长度、重量、温度、面积、体积、速度、时间、数据存储，几十种常用单位直接互转。选好类目和两边的单位，填个数就出结果。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="u-cat">类目</label><select id="u-cat" data-in="cat"></select></div>
+          <div class="tl-opt"><label for="u-from">从</label><select id="u-from" data-in="from"></select></div>
+          <div class="tl-opt"><label for="u-to">到</label><select id="u-to" data-in="to"></select></div>
+          <div class="tl-opt"><label for="u-v">要换算的数值</label><input type="number" id="u-v" data-in="v" value="1" step="any" inputmode="decimal"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="conv">换算</button>
+          <button class="tl-btn ghost" type="button" data-act="swap">对调两边单位</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+      <section class="tl-panel" id="tp-tz" data-panel="tz" aria-labelledby="tph-tz">
+        <div class="tl-ph"><h3 id="tph-tz"><span class="tl-idx">17</span>时区转换</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">填一个时间，选好原时区和目标时区，自动换算，含夏令时（DST）。走浏览器自带的时区库，不用联网校时。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="tz-dt">时间（日期 + 时刻）</label><input type="datetime-local" id="tz-dt" data-in="dt"></div>
+          <div class="tl-opt"><label for="tz-from">原时区</label><select id="tz-from" data-in="from"></select></div>
+          <div class="tl-opt"><label for="tz-to">目标时区</label><select id="tz-to" data-in="to"></select></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="conv">换算</button>
+          <button class="tl-btn ghost" type="button" data-act="swap">对调时区</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+      <section class="tl-panel" id="tp-ts" data-panel="ts" aria-labelledby="tph-ts">
+        <div class="tl-ph"><h3 id="tph-ts"><span class="tl-idx">18</span>时间戳转换</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">一串数字（秒或毫秒）换成人能读的时间，或反过来把日期时间换成时间戳。按你设备的时区算，不联网。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="ts-ts">时间戳（一串数字）</label><input type="text" id="ts-ts" data-in="ts" inputmode="numeric"></div>
+          <div class="tl-opt"><label for="ts-unit">时间戳单位</label>
+            <select id="ts-unit" data-in="unit">
+              <option value="s">秒（10 位）</option>
+              <option value="ms">毫秒（13 位）</option>
+            </select></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="fwd">时间戳 → 日期</button>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="ts-dt">日期时间</label><input type="datetime-local" id="ts-dt" data-in="dt"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn ghost" type="button" data-act="back">日期 → 时间戳</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+      <section class="tl-panel" id="tp-bmi" data-panel="bmi" aria-labelledby="tph-bmi">
+        <div class="tl-ph"><h3 id="tph-bmi"><span class="tl-idx">19</span>BMI 与健康</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">填身高（cm）和体重（kg），算 BMI、中国标准分类，以及对应的健康体重范围。BMI 不区分肌肉和脂肪，只作粗略参考。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="bm-h">身高（cm）</label><input type="number" id="bm-h" data-in="h" value="170" min="50" max="250" step="1" inputmode="numeric"></div>
+          <div class="tl-opt"><label for="bm-w">体重（kg）</label><input type="number" id="bm-w" data-in="w" value="65" min="2" max="400" step="1" inputmode="numeric"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="calc">计算</button>
+          <span class="tl-out-l">分类：<span data-out="bmicat">—</span></span>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+      <section class="tl-panel" id="tp-pwd" data-panel="pwd" aria-labelledby="tph-pwd">
+        <div class="tl-ph"><h3 id="tph-pwd"><span class="tl-idx">20</span>本地密码生成器</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">在浏览器里用加密级随机数现生成高强度密码，绝不联网、绝不上传、绝不留存。默认去掉 0/O、1/l 这类易混字符，可勾选放回来。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="pw-len">长度</label><input type="number" id="pw-len" data-in="len" value="12" min="4" max="64" step="1" inputmode="numeric"></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="lower" checked><span>小写字母 a–z</span></label></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="upper" checked><span>大写字母 A–Z</span></label></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="digit" checked><span>数字 2–9</span></label></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="sym"><span>符号 !@#$%…</span></label></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="amb"><span>保留易混字符（0/O、1/l）</span></label></div>
+        </div>
+        <div class="tl-outrow">
+          <div class="tl-out" data-out="pw" aria-live="polite">点「生成」即可得到密码</div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="gen">生成</button>
+          <button class="tl-btn ghost" type="button" data-act="copy">复制</button>
+          <span class="tl-out-l">长度 <span data-out="leno">—</span> 位</span>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
     </div>
 
     <h2 class="tl-grouphd"><span class="tl-gn">关于这些工具</span></h2>
     <div class="tl-notice" style="margin-bottom:0">
       <div class="tl-notice-h">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6h.01"/></svg>
-        这十五个是怎么挑出来的
+        这二十个是怎么挑出来的
       </div>
       <ul>
         <li>后加的<b>九宫格切图 / 长图切段 / 图片打码</b>三个，是照着「发群里、发朋友圈」这件天天要干的事做的：一张图切成九块正好铺满格子、超长截图切成几段才不发糊、发截图前把手机号和头像先盖住。三个都在你自己的设备上完成，切出来的顺序就是微信里从左上到右下的顺序，末尾还带一次打包下载。</li>
@@ -1393,7 +1544,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "任何支持现代浏览器的设备",
       "browserRequirements": "需要支持 Canvas、Web Audio 与 File API 的现代浏览器",
-      "description": "十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。",
+      "description": "二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
       "author": { "@type": "Person", "name": "龙兄" },
       "publisher": { "@type": "Organization", "name": "龙兄知识库" }
@@ -1403,7 +1554,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       "author": { "@type": "Person", "name": "龙兄" },
       "headline": "工具箱｜龙兄知识库",
       "url": "https://longxiong.vip/tools.html",
-      "description": "十五个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码。文件全程在你自己的设备上处理，不上传、不联网、不留存。"
+      "description": "二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。"
     }
   ]
 }

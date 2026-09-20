@@ -54,6 +54,12 @@ PRIORITY_RULES = [
     ('health-tea.html',   '0.8'),
     ('sheyang.html',      '0.8'),
     ('tools.html',        '0.8'),
+    ('digital-compare.html', '0.7'),
+    ('game-calendar.html', '0.7'),
+    ('solar-terms.html', '0.7'),
+    ('reading.html', '0.7'),
+    ('methodology.html', '0.7'),
+    ('sheyang-guide.html', '0.7'),
 ]
 
 

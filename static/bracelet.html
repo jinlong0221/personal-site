@@ -131,6 +131,24 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     font-size: 0.85rem;
     color: var(--text-secondary);
   }
+  /* 头图：背景图 + 渐变底色回退，文件缺失时显示国风底色块 */
+  .bracelet-hero-img {
+    width: 100%;
+    max-width: 880px;
+    height: 240px;
+    margin: 26px auto 8px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-section);
+    background-image: linear-gradient(135deg, rgba(201,168,76,.10), rgba(201,168,76,.02));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: var(--shadow-md);
+  }
+  @media (max-width: 768px) {
+    .bracelet-hero-img { height: 160px; border-radius: 12px; }
+  }
 
   /* 分类标题 */
   .cat-header {
@@ -174,20 +192,37 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     position: relative;
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 24px 20px;
+    border-radius: 14px;
+    padding: 22px 20px 24px;
     min-height: 160px;
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s;
+    transition: transform 0.18s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     text-decoration: none;
     color: var(--text);
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
   }
-  .bracelet-card:hover {
-    transform: scale(1.03);
-    box-shadow: var(--shadow-md);
+  /* 立体悬浮：仅在精确指针 + 可悬停设备生效，触屏不抖 */
+  @media (hover: hover) and (pointer: fine) {
+    .bracelet-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg), 0 0 22px rgba(201,168,76,.14);
+      border-color: rgba(201,168,76,.45);
+    }
+  }
+  /* 材质缩略图：背景图 + 底色回退，文件缺失时显示纯色块（不出现裂图） */
+  .bracelet-thumb {
+    width: 100%;
+    height: 130px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    background-color: var(--bg-section);
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
   }
 
   .bracelet-card .emoji {
@@ -449,6 +484,7 @@ var _hmt = _hmt || [];
   <div class="bracelet-hero">
     <h1>文玩手串</h1>
 <p class="subtitle">菩提·骨料·五行，手串材质鉴别与盘玩全攻略</p>
+    <div class="bracelet-hero-img" role="img" aria-label="文玩手串实拍：星月菩提、凤眼菩提、金刚菩提与木质手串平铺"></div>
   </div>
 
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
@@ -467,6 +503,7 @@ var _hmt = _hmt || [];
 
   <div class="bracelet-grid" data-ac data-ac-head=".cat-header" data-ac-items=".bracelet-card" data-ac-count="false">
     <a href="bracelet/xingyue.html" class="bracelet-card card-purple">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/xingyue.webp')" role="img" aria-label="星月菩提手串实拍"></div>
       <div class="emoji">🌟</div>
       <div class="title">星月菩提</div>
       <div class="desc">白底星点如繁星伴月，选料、盘玩、包浆、色差处理全套知识</div>
@@ -474,6 +511,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="bracelet/fengyan.html" class="bracelet-card card-purple">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/fengyan.webp')" role="img" aria-label="凤眼菩提手串实拍"></div>
       <div class="emoji">👁️</div>
       <div class="title">凤眼菩提</div>
       <div class="desc">深褐底深棕眼，三大菩提中最珍贵，尺寸越小越贵重</div>
@@ -481,6 +519,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="bracelet/longyan.html" class="bracelet-card card-purple">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/longyan.webp')" role="img" aria-label="龙眼菩提手串实拍"></div>
       <div class="emoji">🐉</div>
       <div class="title">龙眼菩提</div>
       <div class="desc">浅褐底两条交叉眼线，凤眼变异种，比凤眼更稀缺</div>
@@ -488,6 +527,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="bracelet/magu.html" class="bracelet-card card-purple">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/magu.webp')" role="img" aria-label="马骨手串实拍"></div>
       <div class="emoji">🦴</div>
       <div class="title">马骨手串</div>
       <div class="desc">骨料新星，价格亲民纹理独特，纵向纤维纹鉴别要点</div>
@@ -495,6 +535,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="bracelet/mengma.html" class="bracelet-card card-purple">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/mengma.webp')" role="img" aria-label="猛犸牙手串实拍"></div>
       <div class="emoji">🦷</div>
       <div class="title">猛犸牙手串</div>
       <div class="desc">合法象牙替代品，勒兹纹（裂帛纹/雷纹）鉴别全解析</div>
@@ -502,6 +543,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="bracelet/zijinboyu.html" class="bracelet-card card-purple">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/zijinboyu.webp')" role="img" aria-label="紫金钵盂菩提手串实拍"></div>
       <div class="emoji">🏺</div>
       <div class="title">紫金钵盂菩提</div>
       <div class="desc">小众菩提籽，半圆钵盂形似倒扣碗，紫褐至棕红色</div>
@@ -517,6 +559,7 @@ var _hmt = _hmt || [];
 
   <div class="bracelet-grid" data-ac data-ac-head=".cat-header" data-ac-items=".bracelet-card" data-ac-count="false">
     <a href="bracelet/quanao.html" class="bracelet-card card-amber">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/xingyue-guide.webp')" role="img" aria-label="星月菩提全套攻略实拍"></div>
       <div class="emoji">📖</div>
       <div class="title">星月全套攻略</div>
       <div class="desc">选料→上手→包浆→保养，星月菩提完整生命周期，配包浆图谱</div>
@@ -524,6 +567,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="bracelet/pinxiang.html" class="bracelet-card card-amber">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/pinxiang.webp')" role="img" aria-label="手串品相辨别实拍"></div>
       <div class="emoji">🔍</div>
       <div class="title">品相辨别指南</div>
       <div class="desc">六维评分系统：密度、油性、做工、均匀度、瑕疵、完整性</div>
@@ -531,6 +575,7 @@ var _hmt = _hmt || [];
     </a>
 
     <a href="bracelet/wuxing.html" class="bracelet-card card-amber">
+      <div class="bracelet-thumb" style="background-image:url('img/bracelet/wuxing.webp')" role="img" aria-label="多材质手串五行搭配实拍"></div>
       <div class="emoji">🎯</div>
       <div class="title">五行搭配指南</div>
       <div class="desc">材质五行属性对照表，相生搭配建议，色彩美学原则</div>
@@ -655,6 +700,63 @@ var _hmt = _hmt || [];
       <li><a href="https://www.zhuhai.gov.cn/scjgj/gkmlpt/content/3/3925/post_3925533.html" target="_blank" rel="noopener" style="color:var(--blue-light)">珠海市市场监督管理局｜关于珠宝玉石、贵金属饰品等传统工艺商品的消费提示</a> — 官方发布的「四假」整治要点、典型案例与证书核验方法</li>
     </ul>
   </section>
+  <!-- ===== 新增：专业速查（对比表 + 养护日历 + 鉴别要点） ===== -->
+  <section class="bracelet-science" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px auto;max-width:860px;">
+    <h2 style="color:var(--gold);font-size:1.3rem;margin:0 0 6px;">📊 材质速查对比表</h2>
+    <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 18px;font-size:.92rem;">
+      新手最该先搞清的一张表：密度沉水、油性、盘玩周期、价位区间与高频坑点。数值与上文「硬指标」同源，便于横向比较、快速定位自己该从哪种入手。
+    </p>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;min-width:720px;border-collapse:collapse;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">
+        <thead>
+          <tr style="background:rgba(201,168,76,.08);">
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);white-space:nowrap;">材质</th>
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);">密度 / 沉水</th>
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);">油性</th>
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);white-space:nowrap;">盘玩周期</th>
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);">新手价位区间</th>
+            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);">新手避坑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">星月菩提</td><td style="padding:9px 12px;border:1px solid var(--border);">不沉水（棕榈科种子）</td><td style="padding:9px 12px;border:1px solid var(--border);">中</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">3–6 月见色变</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">50–500 元</td><td style="padding:9px 12px;border:1px solid var(--border);">警惕高抛做旧/漂白；看「正月」与星点是否自然</td></tr>
+          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">凤眼菩提</td><td style="padding:9px 12px;border:1px solid var(--border);">不沉水（枣核内果皮）</td><td style="padding:9px 12px;border:1px solid var(--border);">中</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">6–12 月</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">普通几十–两百；小凤眼(≤10mm)数百–数千</td><td style="padding:9px 12px;border:1px solid var(--border);">尺寸越小越贵；辨二心皮二室结构，防塑料仿</td></tr>
+          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">金刚菩提</td><td style="padding:9px 12px;border:1px solid var(--border);">不沉水（硬骨质内果皮）</td><td style="padding:9px 12px;border:1px solid var(--border);">低–中</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">刷盘结合 1 月+</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">几十–数千（看瓣数/尺寸）</td><td style="padding:9px 12px;border:1px solid var(--border);">八瓣以上警惕锯开拼接；看孔道与肉度</td></tr>
+          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">小叶紫檀</td><td style="padding:9px 12px;border:1px solid var(--border);">沉水（1.05–1.26 g/cm³）</td><td style="padding:9px 12px;border:1px solid var(--border);">高</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">手套打底 1–2 月再上手</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">数百–数千（克价高）</td><td style="padding:9px 12px;border:1px solid var(--border);">牛毛纹+橘红转深紫；木屑水浸荧光；忌汗手</td></tr>
+          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">海南黄花梨</td><td style="padding:9px 12px;border:1px solid var(--border);">多不沉水（0.82–0.94）</td><td style="padding:9px 12px;border:1px solid var(--border);">高</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">少盘多放</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">数千–数万</td><td style="padding:9px 12px;border:1px solid var(--border);">鬼脸纹+降香气味；忌大汗手；辨真假说学名</td></tr>
+          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">沉香</td><td style="padding:9px 12px;border:1px solid var(--border);">结油高者沉水（未结香约 0.40）</td><td style="padding:9px 12px;border:1px solid var(--border);">天然香</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">重佩戴轻盘</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">入门 2000 起；沉水级上万</td><td style="padding:9px 12px;border:1px solid var(--border);">以香为核心，过度盘搓耗结油；CITES 须合法源</td></tr>
+          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">猛犸牙</td><td style="padding:9px 12px;border:1px solid var(--border);">化石（约 1.8–2.0）</td><td style="padding:9px 12px;border:1px solid var(--border);">低</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">少盘</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">数百–数千</td><td style="padding:9px 12px;border:1px solid var(--border);">勒兹纹（裂帛纹）；与现代象牙鉴别（CITES 禁贸）</td></tr>
+          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">马骨</td><td style="padding:9px 12px;border:1px solid var(--border);">骨密（约 1.8–2.0）</td><td style="padding:9px 12px;border:1px solid var(--border);">低</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">可盘</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">50–300 元</td><td style="padding:9px 12px;border:1px solid var(--border);">纵向纤维纹；辨真骨与树脂仿；防药水处理</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">🗓️ 新手养护日历</h3>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">日常</strong>：净手盘玩、盘放结合；忌泡水、忌暴晒、忌随手上油上蜡（人工油脂会盖住木质导管与本色）。</li>
+      <li><strong style="color:var(--text)">春（潮）</strong>：防潮防霉，不戴时入棉布袋阴凉存放，南方回南天尤其注意。</li>
+      <li><strong style="color:var(--text)">夏（汗）</strong>：汗手先戴棉布手套打底防暗沉；远离空调出风口，避免含水率骤变开裂。</li>
+      <li><strong style="color:var(--text)">秋（干）</strong>：北方加湿防裂；多静置氧化定型，让析出物硬化。</li>
+      <li><strong style="color:var(--text)">冬（燥+暖）</strong>：远离暖气片/空调出风口；南北跨区携带留缓冲时间，忌骤冷骤热。</li>
+      <li><strong style="color:var(--text)">长期不戴</strong>：密封+棉布，置阴凉稳定处；骨料/牙类避免干燥翘曲与温差。</li>
+    </ul>
+
+    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">🔎 鉴别要点速查</h3>
+    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
+      <li><strong style="color:var(--text)">星月</strong>：看「正月」（胚居中）与星点自然凹凸；警惕高抛镜面做旧。</li>
+      <li><strong style="color:var(--text)">凤眼</strong>：打磨见二心皮二室结构；尺寸越小越珍贵，防塑料仿。</li>
+      <li><strong style="color:var(--text)">金刚</strong>：瓣数由心皮数定、五瓣最常见；八瓣以上查孔道防锯开拼接。</li>
+      <li><strong style="color:var(--text)">小叶紫檀</strong>：橙红转深紫、牛毛纹、木屑水浸紫红荧光、微香或无。</li>
+      <li><strong style="color:var(--text)">海南黄花梨</strong>：鬼脸/鬼眼纹 + 独特降香；火烧边角清香白烟（地方标准特征）。</li>
+      <li><strong style="color:var(--text)">沉香</strong>：看结油与纹理，以香定质；野生料受 CITES 管制，须合法来源。</li>
+      <li><strong style="color:var(--text)">猛犸牙</strong>：勒兹纹（引擎纹/裂帛纹）；化石可流通，现代象牙禁贸，须区分。</li>
+      <li><strong style="color:var(--text)">马骨</strong>：纵向纤维纹 + 骨应力光泽；辨树脂/塑料仿品与药水处理。</li>
+    </ul>
+    <p style="color:var(--text-secondary);line-height:1.9;font-size:.84rem;margin:16px 0 0;padding:10px 12px;border-left:3px solid var(--gold);background:rgba(201,168,76,.05);border-radius:0 8px 8px 0;">
+      ⚠️ 上表价位为<strong style="color:var(--text)">新手常见区间参考</strong>，受料质、工艺、品相、行情影响极大；贵重物品请送具备 CMA / CNAS 资质的专业机构鉴定后再决策。
+    </p>
+  </section>
+
 <!-- related:begin -->
 <section class="lx-related" aria-label="相关阅读">
   <div class="lx-related-head">
@@ -693,7 +795,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：中国工艺美术协会（cnaca.org）、中国工艺美术学会（cnacs.net.cn）；品类鉴别与行情参考公开市场资料</div>
     <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
-    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-20</span></div>
+    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-21</span></div>
   </div>
 </main>
 

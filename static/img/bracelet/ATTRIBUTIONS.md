@@ -1,15 +1,15 @@
 # 文玩手串板块配图出处
 
 > 全部为真实照片（非 AI 生成），来源 Pexels（Pexels License：可商用、免署名；此处列出来源以示尊重）。
-> 说明：星月/凤眼/龙眼等具体品种在免费图库无同名实拍，下列为同属「文玩手串」材质的真实实拍（示意）；如你有本站自有实拍图，替换同名文件即可。
+> 说明：星月 / 凤眼 / 龙眼 / 紫金钵盂 等为中国文玩特有菩提籽品种，海外免费图库（Pexels / Pixabay / Unsplash / Wikimedia）均无可同名实拍；下列为**同材质、同色系的真实木珠 / 骨珠手串实拍**，用于呈现该品种应有的珠型与色泽。如你有本站自有实拍图，替换同名文件即可（文件名固定，勿改）。
 
-- **hero.webp**：https://www.pexels.com/photo/19029553/ ｜ Pexels License
-- **xingyue.webp**：https://www.pexels.com/photo/9983065/ ｜ Pexels License
-- **fengyan.webp**：https://www.pexels.com/photo/9313444/ ｜ Pexels License
-- **longyan.webp**：https://www.pexels.com/photo/6633942/ ｜ Pexels License
-- **magu.webp**：https://www.pexels.com/photo/9313428/ ｜ Pexels License
-- **mengma.webp**：https://www.pexels.com/photo/10042332/ ｜ Pexels License
-- **zijinboyu.webp**：https://www.pexels.com/photo/18723426/ ｜ Pexels License
-- **xingyue-guide.webp**：https://www.pexels.com/photo/15850554/ ｜ Pexels License
-- **pinxiang.webp**：https://www.pexels.com/photo/9949082/ ｜ Pexels License
-- **wuxing.webp**：https://www.pexels.com/photo/11075145/ ｜ Pexels License
+- **hero.webp**：https://www.pexels.com/photo/19029553/ ｜ 彩色木质手串 assortment
+- **xingyue.webp**：https://www.pexels.com/photo/9983065/ ｜ 白 / 米白木质珠手串（对应星月菩提白底）
+- **fengyan.webp**：https://www.pexels.com/photo/6468998/ ｜ 棕色木质珠手串（对应凤眼菩提深褐珠型）
+- **longyan.webp**：https://www.pexels.com/photo/11591685/ ｜ 浅棕传统木质珠（对应龙眼菩提浅褐珠型）
+- **magu.webp**：https://www.pexels.com/photo/10596352/ ｜ 象牙色均匀骨 / 木珠（对应马骨手串骨白）
+- **mengma.webp**：https://www.pexels.com/photo/10042332/ ｜ 白木质珠（对应猛犸牙奶白）
+- **zijinboyu.webp**：https://www.pexels.com/photo/6691320/ ｜ 棕褐传统念珠（对应紫金钵盂紫褐籽）
+- **xingyue-guide.webp**：https://www.pexels.com/photo/15850554/ ｜ 传统木质念珠
+- **pinxiang.webp**：https://www.pexels.com/photo/9949082/ ｜ 天然多纹理珠手串
+- **wuxing.webp**：https://www.pexels.com/photo/11075145/ ｜ 多色珠项链（对应五行多材质）

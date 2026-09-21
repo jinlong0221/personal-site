@@ -49,19 +49,25 @@ CODE_TAGS = {"code", "pre", "kbd", "samp"}
 # ⚠️ 键一律写「相对产物根目录的路径」（如 tags/index.html），不要写裸文件名：
 #    下面用 rel in SET 精确匹配。早期版本用 os.path.basename 匹配，
 #    导致子目录里任何叫 index.html 的页根本没法登记进豁免表。
+_BRACELET_SHELLS = {
+    # 文玩手串板块 2026-09-22 起聚焦星月菩提一个品种，其余品类详情页改为跳转壳
+    "bracelet/fengyan.html", "bracelet/longyan.html", "bracelet/magu.html",
+    "bracelet/mengma.html", "bracelet/zijinboyu.html",
+    "bracelet/pinxiang.html", "bracelet/wuxing.html",
+}
 STRUCTURE_EXEMPT = {
     "404.html", "offline.html",
     "console-gc.html", "console-n64.html", "console-wiiu.html",
     "apple-history.html",
     "travel.html", "tags/index.html",
     "privacy.html", "shesi-landing.html", "shesi-privacy.html",
-}
+} | _BRACELET_SHELLS
 # 设计内就没有 H1 的页（跳转壳没有正文；加密壳的 H1 在密文里，解密后才注入）
 H1_EXEMPT = {
     "console-gc.html", "console-n64.html", "console-wiiu.html",
     "apple-history.html",
     "travel.html", "tags/index.html",
-}
+} | _BRACELET_SHELLS
 
 
 class TextGrab(HTMLParser):

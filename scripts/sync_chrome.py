@@ -101,6 +101,10 @@ SKIP_FILES = {
     "console-gc.html", "console-n64.html", "console-wiiu.html",   # 301 跳转壳
     "apple-history.html",                                         # 已并入 apple.html，仅留跳转壳
     "travel.html",                                                # 加密相册（密钥重加密）
+    # 文玩手串板块聚焦星月菩提，其余品类详情页改跳转壳（2026-09-22）
+    "bracelet/fengyan.html", "bracelet/longyan.html", "bracelet/magu.html",
+    "bracelet/mengma.html", "bracelet/zijinboyu.html",
+    "bracelet/pinxiang.html", "bracelet/wuxing.html",
 }
 
 # ---------------------------------------------------------------- 板块归属

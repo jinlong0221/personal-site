@@ -36,6 +36,15 @@ EXCLUDE = {
     'console-wiiu.html',
     # 苹果产品发展史已并入 apple.html（同一个「苹果」板块），保留跳转壳不收录
     'apple-history.html',
+    # 文玩手串板块自 2026-09-22 起聚焦星月菩提一个品种，
+    # 其余品类详情页改为跳转壳（后续可能重新开放），不收录进 sitemap
+    'bracelet/fengyan.html',
+    'bracelet/longyan.html',
+    'bracelet/magu.html',
+    'bracelet/mengma.html',
+    'bracelet/zijinboyu.html',
+    'bracelet/pinxiang.html',
+    'bracelet/wuxing.html',
 }
 EXCLUDE_DIRS = {'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
 

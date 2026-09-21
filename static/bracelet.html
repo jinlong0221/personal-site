@@ -189,21 +189,27 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   }
 
   /* 单品种时的「主推卡」：整行一张，图左文右。
+     宽度收到 860px 居中，与页面里「资料来源」「科普」区块共用同一条中轴线；
      ⚠️ 日后往板块里加回第 2 个品种时，把 grid 上的 .is-single 去掉即可恢复三列网格。 */
-  .bracelet-grid.is-single { grid-template-columns: 1fr; }
+  .bracelet-grid.is-single {
+    grid-template-columns: 1fr;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .bracelet-grid.is-single .bracelet-card {
     display: grid;
-    grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
     align-items: center;
     column-gap: 24px;
     row-gap: 0;
-    min-height: 216px;
+    min-height: 200px;
     padding: 20px 26px 20px 22px;
   }
   .bracelet-grid.is-single .bracelet-thumb {
     grid-column: 1;
     grid-row: 1 / span 4;
-    height: 176px;
+    height: 168px;
     margin-bottom: 0;
   }
   @media (max-width: 768px) {
@@ -294,7 +300,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   .cat-material .bracelet-card:nth-child(4) .emoji,
   .cat-material .bracelet-card:nth-child(5) .emoji,
   .cat-material .bracelet-card:nth-child(6) .emoji { font-size: 34px; }
-
 
   /* 亮色模式卡片 */
   [data-theme="light"] .bracelet-card:hover {
@@ -501,13 +506,6 @@ var _hmt = _hmt || [];
 <main class="container" id="main-content" role="main">
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">风物志</span><span class="sep">›</span><span class="current">文玩手串</span></div>
 
-  <!-- 面包屑 -->
-  <div class="breadcrumb">
-    <a href="index.html">首页</a>
-    <span class="sep">›</span>
-    <span class="current">文玩手串</span>
-  </div>
-
   <!-- 标题区 -->
   <div class="bracelet-hero">
     <h1>文玩手串</h1>
@@ -630,7 +628,7 @@ var _hmt = _hmt || [];
       ⚠️ <strong style="color:var(--text)">免责声明：</strong>本页内容为科普整理，密度、星点、尺寸等参数均引自公开标准文本与权威科普资料，仅供学习参考，<strong style="color:var(--text)">不作为交易依据</strong>。手串的实际价值受料质、工艺、品相、行情多重因素影响，<strong style="color:var(--text)">贵重物品请送具备 CMA / CNAS 资质的专业机构鉴定</strong>后再做决策。
     </p>
 
-    <h3 style="color:var(--gold);font-size:1.02rem;margin:26px 0 10px;">📚 资料来源 · 延伸阅读</h3>
+    <h3 style="color:var(--gold);font-size:1.02rem;margin:26px 0 10px;">📚 本节信息来源</h3>
     <ul style="margin:0;padding-left:20px;color:var(--text-secondary);font-size:.88rem;line-height:1.95;">
       <li><a href="https://www.guokr.com/article/438411/" target="_blank" rel="noopener" style="color:var(--blue-light)">果壳网｜你知道「菩提子」是什么吗？</a> — 从植物学角度考据各类菩提子的真实原植物，本文「星」与「月」的成因即据此</li>
       <li><a href="https://criwi.caf.ac.cn/index.htm" target="_blank" rel="noopener" style="color:var(--blue-light)">中国林业科学研究院木材工业研究所（criwi.caf.ac.cn）</a> — 国家级木材科学研究机构，木材含水率、干缩湿胀与尺寸稳定性研究的来源，也是多项木材行业标准的起草单位</li>

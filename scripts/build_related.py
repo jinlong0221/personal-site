@@ -30,6 +30,13 @@ OUT = os.path.join(ROOT, "static", "data", "related.json")
 
 TOP_N = 4  # 每篇给出的相关阅读条数
 
+# 只在板块内互相关联、不跨板块补位的板块。
+# 背景：全站页标题都带「2026实测避坑」这类模板后缀，标题 bigram 相似度会被后缀抬高，
+# 让极稀疏的板块也能"凑"出跨板块条目（如星月菩提页挂出特斯拉 Cybertruck）。
+# 文玩手串自 2026-09-22 起聚焦星月菩提一个品种，板块内只剩 3 页，
+# 这种跨板块凑数观感更差，故只取同板块（同板块条目仍按原打分排序，不做删减）。
+SAME_BOARD_ONLY = {"文玩手串"}
+
 # 功能性/私有页不参与关联
 EXCLUDE = {
     "/404.html", "/offline.html", "/search.html", "/bookmarks.html",
@@ -212,6 +219,10 @@ def main():
             if score > 0.05:
                 scored.append((score, o))
         scored.sort(key=lambda x: (-x[0], x[1]["title"]))
+
+        # 只取同板块的板块：先过滤再截断，避免同板块条目排在第 5 位被误丢
+        if d["board"] in SAME_BOARD_ONLY:
+            scored = [(s, o) for s, o in scored if o["board"] == d["board"]]
 
         picks = [o for _, o in scored[:TOP_N]]
         # 同板块兜底：不足 TOP_N 时用同板块其它文章补齐

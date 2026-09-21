@@ -59,6 +59,13 @@
 - **同语义链接色须统一 var()、勿硬编码 hex（2026-09-15 发现，一致性）**：全站"联系邮箱链接"颜色约定为 `--email-green`（#42B883 / 昼白 #1A6E44），404.html 与 apple.html 均遵守；但 about.html 联系邮箱曾硬编码 `#1565C0` 蓝，属"同语义不同色"漂移。⚠️ **教训**：站内既有"语义色约定"（邮箱=绿、强调=金）应一律 `var()` 化、复制既有片段时务必对齐约定。**同轮把 404.html 龙形 SVG 渐变 100% 停靠点 `#e0c97a`→`var(--gold-light)`**，与 0% 停靠点 `var(--gold)` 同为调色板变量——提醒：**SVG 内联 `style="stop-color:..."` 也要走 var()**，不要裸 hex（裸 hex 在调色板演进/主题切换时会脱节）。
 - **板块主题色（多色磁贴）与全局金主调的边界（2026-09-15 明确）**：`chinajoy.html` 用内联 `--hall:#4f46e5/#c2410c/#0f766e/#7e22ce` 四色磁贴标签，属该板块自有的"展会分馆"多色体系；`console-*.html` 产品图框 `background:#fff` 为中性白底框（非暖、非装饰）；`console-gc/n64` 降级提示 `color:#666/#888` 为中性灰字。三者均**非大面积高饱和暖色**（探针 warm=0 佐证），与"国风黑金主调"不冲突——沿用"板块主题色已知接受、勿盲改"准则维持。判定红线仍是：整屏/通栏 + 高饱和暖色 = P0；小尺寸语义编码色 / 板块内功能性多色 = 接受。
 
+- **全站立体化 + App 感动效系统（2026-09-20 引入，托尼必知）**：本轮（commit `98c0db60`）给全站卡片加了多层光影 / 16px 圆角 / 跟手 3D 倾斜（`--tilt-x`/`--tilt-y` 由 JS 写入 transform）/ 按压回弹 / 跨页转场。视觉增益明显，但动效类改动极易引入「肉眼难察」的回归，托尼巡检要重点盯：① 3D 倾斜/透视（`perspective` + `rotateX/rotateY` + `translateZ`）会不会把卡片撑出祖先容器造成横向溢出（探针 `over` 指标能抓）；② `:hover` 上的 `transform/filter` 若在触屏也触发「放大而非按压」属体验错配（见下 D3）；③ 跨页淡入若用 `animation:… both/backwards` 且 `from{opacity:.001}` 写在 `@supports/@media` 条件块里，条件命中但动画没跑时元素会**永久停在透明起始帧**（历史「首页 hero 透明空洞」同因）。
+- **动效三层护栏 `guard_motion_safety.py`（2026-09-20，来自真实事故）**：
+  - **D1 变量名不得撞根级令牌**：立体化脚本最初往卡片写 `--tx` 存倾斜角，但 `--tx` 在 `style.css:62` 是「文字色」历史别名（17 处在消费）→ 悬停时文字色被解析成非法值失效，未写入时 `rotateY(var(--tx))` 把颜色当角度致整条 transform 作废回退 none。根治：倾斜变量改名 `--tilt-x/--tilt-y`。⚠️ **教训**：JS `setProperty` 写入的自定义属性，命名必须避开样式表已有根令牌（尤其 `--tx`/`--text` 这类历史别名）。
+  - **D2 条件块内的 `both/backwards` 透明起始帧 = 永久空洞**：动画填充模式用 `both`/`backwards` 且起始帧把元素压到近乎不可见，**又写在 `@supports/@media` 条件块**里 → 条件命中但动画没跑，元素永久停透明。普通（非条件块）入场动画只提示不阻断（页面加载必执行）。⚠️ **教训**：任何把元素初始压到透明/缩到 0 的动画，**绝不要**塞进条件块；兜底用 `forwards` 且无条件。
+  - **D3 触屏 `:hover` 错配提示**：改了 `transform/filter` 的 `:hover` 规则若不在「有 hover 能力」媒体条件（`@media (hover:hover) and (pointer:fine)`）内 → 提示。事故：射阳气象磁贴 `.tile:hover{transform:scale(1.02)}` 无门控，触屏点按变成「放大」而非「按压」。⚠️ 全站 `:hover` 动效须包在 hover-capable 媒体查询里。
+- **`prefers-reduced-motion` 合规（2026-09-20 起）**：`style.css:1904` 已有 `@media (prefers-reduced-motion: reduce)` 块，眩晕敏感用户自动降级动效。托尼巡检若新增动效，务必在该媒体查询内 `animation:none!important; transition:none!important` 兜底，避免无障碍违规。
+
 ## 七、无头浏览器验证方法论（托尼自用）
 
 模型无法读图，用 puppeteer-core + Chrome for Testing 做 DOM 实测替代"看见"：

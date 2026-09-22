@@ -164,6 +164,20 @@ jobs:
       - name: Guard inline-Markdown markers (paired ** and backticks)
         run: python3 scripts/guard_markdown_marks.py
 
+      # 板块新闻主题守卫（2026-09-22 补上调用点）：
+      #  ⚠️ 脚本 2026-09-21 就写好了，却从未接进 CI / pre-commit —— 复查时
+      #     `grep -rn guard_news_topic scripts/ .github/ .githooks/` 只命中它自己的
+      #     注释，说明它一次都没跑过。这正是 2026-09-22「文玩手串板整天在写沉香」
+      #     能一路进库的原因：守卫被当成已经生效了。
+      #  三层判据：
+      #   ① 禁词：金价/贵金属类（2026-09-21 把「手串」错认成「金手镯」）
+      #      + 已下架品种词（2026-09-22 本板收窄为星月菩提单一品种）
+      #   ② 主题占比：本板条目必须过半提到本板主题词，任何未来新冒出的跑题都会掉占比
+      #   ③ 疑似词只提醒不阻断（蜜蜡/沉水/金刚菩提/红木…，加禁会误伤正品正文）
+      #  自带正反两向自证，改判据后先跑：python3 scripts/guard_news_topic.py --selftest
+      - name: Guard news board topic (no off-board content)
+        run: python3 scripts/guard_news_topic.py
+
       # 板块新闻日期排序护栏：所有 *-news.json 的 news 数组按 date 倒序，
       # 根治「板块日期乱序」。部署前强制规范化，即使上游写入乱序也保证线上有序。
       - name: Sort section news by date

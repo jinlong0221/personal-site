@@ -79,4 +79,16 @@ echo "[pre-commit] 检查行内 Markdown 记号是否成对..."
   exit 1
 }
 
+echo "[pre-commit] 检查板块新闻主题（防错板 / 防跑题）..."
+# 2026-09-21 事故：自动任务把「文玩手串」写成金价/品牌金店稿。
+# 2026-09-22 事故：本板已收窄为「星月菩提」单一品种，自动更新却整天在写沉香。
+# 🔴 关键教训：这个守卫 2026-09-21 就写好了，但没接进任何调用点 —— 一次都没跑过，
+#    所以上面两次都拦不住。加守卫时一定要把「调用点」一起改掉。
+#    改判据前先跑自证：python3 scripts/guard_news_topic.py --selftest
+"$PY3" scripts/guard_news_topic.py -q >/dev/null 2>&1 || {
+  echo "❌ 板块新闻主题守卫未通过："
+  "$PY3" scripts/guard_news_topic.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

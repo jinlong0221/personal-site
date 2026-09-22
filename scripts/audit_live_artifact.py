@@ -39,35 +39,46 @@ SKIP_TEXT_TAGS = {"script", "style", "textarea", "title"}
 # 代码块内的直引号是合法的（HTML 属性、JS 字符串、命令行参数），不算正文引号残留
 CODE_TAGS = {"code", "pre", "kbd", "samp"}
 
-# 设计内就不该有面包屑 / CC 许可行的页：
-#   404 错误页、offline 离线兜底页、3 个主机图鉴别名 301 跳转壳、
-#   travel 加密壳（页脚随内容一起加密，解锁后才出现）、
-#   以及「脚趾抠地」App 的独立法律页（不属本站内容，套本站免责声明反而误导）
-#   tags/ 是 Hugo 侧 301 跳转壳（content/tags/_index.md + layouts/_default/redirect.html），
-#   与 static/ 下主机别名 / 已并板块的跳转页同族：只留 meta refresh 与说明文字，不该长骨架。
+# 设计内就不该有面包屑 / CC 许可行的页（见下方两张表）。
+#
+# 🔴 2026-09-22 起：**跳转壳改为按特征自动豁免**（`_is_shell()`＝同时有 meta refresh + robots noindex）。
+#    起因是一次真实 CI 失败：自动化把「7 个品类页转跳转壳」和「登记审计豁免」拆成了相邻两批提交，
+#    中间那一批（6fc69d33）壳页已上线、豁免还没登记 → 本审计报真实缺面包屑/H1 → 部署被拦，
+#    36 秒后下一批补上登记才自愈。**这类失败的本质是「豁免靠人工登记」**，于是改成按特征识别：
+#    只要一页确实是跳转壳（refresh + noindex）就自动豁免 → **新增壳页不再需要任何登记**。
+#    判定过的 12 个壳（2026-09-22 全量核对，目标页均正确，且不存在「有 refresh 无 noindex」的页）：
+#      apple-history.html → apple.html#tab-hist（板块合并）
+#      bracelet/{fengyan,longyan,magu,mengma,pinxiang,wuxing,zijinboyu}.html → ../bracelet.html（板块收缩）
+#      console-{gc,n64,wiiu}.html → console-gamecube / console-nintendo-64 / console-wii-u.html（主机别名）
+#      tags/index.html → /tags.html（Hugo 侧 301）
+#
+#    下面两张表因此**只登记「不靠跳转特征、另有设计原因」的页**（noindex 但无 refresh 的那类）。
+#    ⚠️ 别再往这里加跳转壳——加进来是无效登记，还会掩盖「这一页的 refresh 掉了吗」这个真问题。
+#    ⚠️ travel.html 在表里但**不是跳转壳**（它靠密文隐藏内容，没有 refresh），必须继续显式登记。
 #
 # ⚠️ 键一律写「相对产物根目录的路径」（如 tags/index.html），不要写裸文件名：
 #    下面用 rel in SET 精确匹配。早期版本用 os.path.basename 匹配，
 #    导致子目录里任何叫 index.html 的页根本没法登记进豁免表。
-_BRACELET_SHELLS = {
-    # 文玩手串板块 2026-09-22 起聚焦星月菩提一个品种，其余品类详情页改为跳转壳
-    "bracelet/fengyan.html", "bracelet/longyan.html", "bracelet/magu.html",
-    "bracelet/mengma.html", "bracelet/zijinboyu.html",
-    "bracelet/pinxiang.html", "bracelet/wuxing.html",
-}
 STRUCTURE_EXEMPT = {
     "404.html", "offline.html",
-    "console-gc.html", "console-n64.html", "console-wiiu.html",
-    "apple-history.html",
-    "travel.html", "tags/index.html",
-    "privacy.html", "shesi-landing.html", "shesi-privacy.html",
-} | _BRACELET_SHELLS
-# 设计内就没有 H1 的页（跳转壳没有正文；加密壳的 H1 在密文里，解密后才注入）
+    "travel.html",              # 加密壳：页脚随内容一起加密，解锁后才出现
+    "privacy.html", "shesi-landing.html", "shesi-privacy.html",   # App 独立法律页，不套本站免责声明
+}
+# 设计内就没有 H1 的页（加密壳的 H1 在密文里，解密后才注入）
 H1_EXEMPT = {
-    "console-gc.html", "console-n64.html", "console-wiiu.html",
-    "apple-history.html",
-    "travel.html", "tags/index.html",
-} | _BRACELET_SHELLS
+    "travel.html",
+}
+
+
+def _is_shell(rec):
+    """跳转壳判据：**同时**有 meta refresh 与 robots noindex。
+
+    两条件缺一不可，避免误伤：
+      - 只 noindex 没 refresh（如 404 / offline / privacy）→ 不是跳转壳，仍需骨架；
+      - 只 refresh 没 noindex（正常页里不该出现）→ 不豁免，让它报出来引起注意。
+    这样任何脚本/任何人新建的跳转壳都自动被识别，不需要再去登记两张表。
+    """
+    return bool(rec.get("refresh")) and bool(rec.get("noindex"))
 
 
 class TextGrab(HTMLParser):
@@ -125,6 +136,9 @@ def audit_html(path):
         "cc": "BY-NC" in raw,
         "h1": bool(re.search(r"<h1[\s>]", raw)),
         "noindex": bool(re.search(r'name=["\']?robots["\']?[^>]*noindex', raw)),
+        # 跳转壳特征：meta refresh。与 noindex 同时成立即可判定「这一页就是一张跳转页」，
+        # 见下方 _is_shell()：这类页不该长骨架，按特征自动豁免，不必逐个登记。
+        "refresh": bool(re.search(r'<meta[^>]+http-equiv=["\']?refresh', raw, re.I)),
         # 结构完整性：必须正常闭合。缺 </body>/</html> 时浏览器靠容错渲染，
         # 肉眼看不出来，但会让「往 </body> 前插脚本」的注入器退化成追加到文件末尾
         # （2026-09-19 体检发现 56 个 console 页自建站起就没闭合）。
@@ -219,7 +233,7 @@ def main():
 
         quote_bad, miss_crumb, miss_meta, miss_cc, miss_h1 = [], [], [], [], []
         unclosed = []
-        skip_meta, noindex_cnt = [], 0
+        skip_meta, noindex_cnt, shell_pages = [], 0, set()
 
         for rel in rels:
             r = audit_html(os.path.join(root, rel))
@@ -228,6 +242,8 @@ def main():
                 quote_bad.append((rel, r["bad_quotes"]))
             if r["noindex"]:
                 noindex_cnt += 1
+            if _is_shell(r):
+                shell_pages.add(rel)
             if not r["crumb"] and rel != "index.html":
                 miss_crumb.append(rel)
             if not r["h1"]:
@@ -245,12 +261,18 @@ def main():
         json_bad = audit_json(root)
 
         n = len(rels)
-        ex_crumb = [r for r in miss_crumb if r in STRUCTURE_EXEMPT]
-        ex_cc = [r for r in miss_cc if r in STRUCTURE_EXEMPT]
-        ex_h1 = [r for r in miss_h1 if r in H1_EXEMPT]
+        ex_crumb = [r for r in miss_crumb if r in STRUCTURE_EXEMPT or r in shell_pages]
+        ex_cc = [r for r in miss_cc if r in STRUCTURE_EXEMPT or r in shell_pages]
+        ex_h1 = [r for r in miss_h1 if r in H1_EXEMPT or r in shell_pages]
         real_crumb = [r for r in miss_crumb if r not in ex_crumb]
         real_cc = [r for r in miss_cc if r not in ex_cc]
         real_h1 = [r for r in miss_h1 if r not in ex_h1]
+
+        def ex_note(ex_list, reg_set):
+            """豁免数拆成「登记 / 跳转壳自动」两段，便于一眼看出自动识别是否在起作用。"""
+            auto = len([r for r in ex_list if r in shell_pages and r not in reg_set])
+            reg = len(ex_list) - auto
+            return f"(豁免 {len(ex_list)} = 登记 {reg} + 跳转壳自动 {auto})"
 
         print(f"=== 部署产物审计 {rev}：{n} 个 HTML / {noindex_cnt} 个 noindex ===")
         print()
@@ -269,13 +291,14 @@ def main():
         print()
         print("--- 2. 骨架覆盖率（真实缺 = 扣除设计内豁免）---")
         print(f"  面包屑    : {n - len(miss_crumb)}/{n}  真实缺: {real_crumb or '无'}"
-              f"  (豁免 {len(ex_crumb)})")
+              f"  {ex_note(ex_crumb, STRUCTURE_EXEMPT)}")
         print(f"  H1        : {n - len(miss_h1)}/{n}  真实缺: {real_h1 or '无'}"
-              f"  (豁免 {len(ex_h1)})")
+              f"  {ex_note(ex_h1, H1_EXEMPT)}")
         print(f"  页尾信息块: {n - len(miss_meta) - len(skip_meta)}/{n}  真实缺: {miss_meta or '无'}"
               f"  (豁免 {len(skip_meta)} 个 noindex / 首页)")
         print(f"  CC 许可行 : {n - len(miss_cc)}/{n}  真实缺: {real_cc or '无'}"
-              f"  (豁免 {len(ex_cc)})")
+              f"  {ex_note(ex_cc, STRUCTURE_EXEMPT)}")
+        print(f"  （跳转壳：{len(shell_pages)} 页按 meta refresh + noindex 特征自动豁免）")
         print()
         print("--- 3. 结构完整性（</body>/</html> 必须闭合）---")
         if unclosed:

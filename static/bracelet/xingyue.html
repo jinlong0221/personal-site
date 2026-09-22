@@ -20,10 +20,10 @@
 })();
 </script>
 
-<title>星月菩提2026实测避坑｜龙兄知识库</title>
-<meta name="keywords" content="星月菩提,2026实测避坑,实测溯源,龙兄知识库">
+<title>星月菩提选购指南｜龙兄知识库</title>
+<meta name="keywords" content="星月菩提,选购指南,毛感料,海南料,老挝料,三国料,正月,弦月,无月,星点,密度,沉水,干磨,水磨,漂白,洗月,尺寸,价位,龙兄知识库">
 
-<meta name="description" content="星月菩提2026实测避坑：实测溯源、实操图文、避坑指南。适合星月菩提爱好者与从业者参考，掌握核心要点、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta name="description" content="星月菩提买之前要过的四关：料（海南毛感料／老挝料／三国料）、月（正月／弦月／无月，以及月与尺寸的关系）、星（星点口诀）、密度（四看一敲与沉水误区），附干磨水磨与漂白辨别、尺寸规格与价位锚。">
 
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
@@ -105,29 +105,99 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
 @media(max-width:480px){html{font-size:17px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="../css/style.css?v=20260920">
+<link rel="stylesheet" href="../css/style.css?v=20260922">
 <style>
-  .variety-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
-  .variety-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;border-left:4px solid var(--purple)}
-  .variety-card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--gold)}
-  .variety-card p{font-size:13px;color:var(--text-secondary);line-height:1.6}
-  .phase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--tile-gap);margin:16px 0}
-  .phase-tile{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;transition:transform .15s}
-  .phase-tile:hover{transform:scale(1.02)}
-  .phase-tile .phase-num{font-size:28px;font-weight:700;color:var(--blue);line-height:1}
-  .phase-tile .phase-name{font-size:15px;font-weight:700;margin:8px 0 4px;color:var(--text)}
-  .phase-tile .phase-time{font-size:11px;color:var(--text-muted)}
-  .phase-tile .phase-desc{font-size:13px;color:var(--text-secondary)}
-  .taboo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--tile-gap);margin:16px 0}
-  .taboo-tile{border-radius:var(--radius-sm);padding:16px;transition:transform .15s}
-  .taboo-tile:hover{transform:scale(1.02)}
-  .taboo-tile h4{font-size:14px;font-weight:700;margin-bottom:4px;color:#fff!important}
-  .taboo-tile p{font-size:13px;color:rgba(255,255,255,.85)}
-  .taboo-water{background:linear-gradient(135deg,#004d40,#00695c);border-left:4px solid #008272}
-  .taboo-sweat{background:linear-gradient(135deg,#4a1a1a,#6b2727);border-left:4px solid #e81123}
-  .taboo-dry{background:linear-gradient(135deg,#4a3a00,#6b5500);border-left:4px solid #ff8c00}
-  @media(max-width:768px){.variety-grid{grid-template-columns:1fr}.phase-grid{grid-template-columns:1fr}.taboo-grid{grid-template-columns:1fr}}
-  [data-theme="light"] .taboo-tile{filter:brightness(.85)}[data-theme="light"] .taboo-tile h4,[data-theme="light"] .taboo-tile p{color:#fff!important}
+<style>
+  /* 星月菩提（选购）页特定样式 —— 2026-09-22 重写：只讲「买之前」的事，
+     盘玩与保养全部移到 quanao.html，两页零重复章节。 */
+  .bl-lead {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 18px 22px;
+  }
+  .bl-lead p { margin: 0; color: var(--text-secondary); line-height: 1.9; font-size: 0.93rem; }
+  .bl-lead strong { color: var(--text); }
+
+  /* 产地三档 */
+  .src-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0 4px; }
+  .src-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .src-card.is-top { border-top-color: #c9a84c; }
+  .src-card.is-mid { border-top-color: #9a8b62; }
+  .src-card.is-low { border-top-color: #7d6a5c; }
+  .src-card .rank { font-size: 0.68rem; letter-spacing: 1px; color: var(--text-muted); }
+  .src-card h3 { font-size: 0.96rem; font-weight: 700; margin: 4px 0 8px; color: var(--gold); }
+  .src-card p { font-size: 0.81rem; color: var(--text-secondary); line-height: 1.75; margin: 0; }
+  .src-card .price { display: block; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 0.75rem; color: var(--text-muted); }
+
+  /* 月相分级 */
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 4px; }
+  .tier-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .tier-card.is-ok { border-left-color: #c9a84c; }
+  .tier-card.is-mid { border-left-color: #9a8b62; }
+  .tier-card.is-no { border-left-color: #c0554d; }
+  .tier-card h3 { font-size: 0.94rem; margin: 0 0 6px; color: var(--text); }
+  .tier-card p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+
+  /* 口诀框 */
+  .mnemo {
+    background: rgba(201, 168, 76, 0.07);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .mnemo .mnemo-line {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    line-height: 2;
+  }
+  .mnemo ul { margin: 8px 0 0; padding-left: 20px; }
+  .mnemo li { color: var(--text-secondary); font-size: 0.84rem; line-height: 1.85; }
+  .mnemo strong { color: var(--text); }
+
+  /* 提示 / 澄清条 */
+  .note {
+    border-left: 3px solid var(--gold);
+    background: rgba(201, 168, 76, 0.05);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.85;
+  }
+  .note p { margin: 0; }
+  .note p + p { margin-top: 6px; }
+  .note strong { color: var(--text); }
+  .note ul { margin: 6px 0 0; padding-left: 20px; }
+  .note li { margin-bottom: 4px; }
+
+  /* 小节内的小标题统一收一点，避免与 h2 抢空间 */
+  .section h3 { font-size: 1rem; color: var(--gold); margin: 20px 0 10px; }
+
+  @media (max-width: 768px) {
+    .src-grid, .tier-grid { grid-template-columns: 1fr; }
+    .bl-lead { padding: 16px 18px; }
+    .mnemo .mnemo-line { font-size: 0.92rem; letter-spacing: 1px; }
+    .note { padding: 12px 14px; font-size: 0.83rem; }
+  }
+</style>
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -142,15 +212,15 @@ var _hmt = _hmt || [];
 
 <link rel="canonical" href="https://longxiong.vip/bracelet/xingyue.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
-<meta property="og:title" content="星月菩提2026实测避坑｜龙兄知识库">
-<meta property="og:description" content="星月菩提2026实测避坑：实测溯源、实操图文、避坑指南。适合星月菩提爱好者与从业者参考，掌握核心要点、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:title" content="星月菩提选购指南｜龙兄知识库">
+<meta property="og:description" content="星月菩提买之前要过的四关：料（海南毛感料／老挝料／三国料）、月（正月／弦月／无月，以及月与尺寸的关系）、星（星点口诀）、密度（四看一敲与沉水误区），附干磨水磨与漂白辨别、尺寸规格与价位锚。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/bracelet/xingyue.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="星月菩提2026实测避坑｜龙兄知识库">
-<meta name="twitter:description" content="星月菩提鉴别、产地、盘玩方法与保养全攻略。海南毛感料、五星帝王料、无相星月等知识详解。">
+<meta name="twitter:title" content="星月菩提选购指南｜龙兄知识库">
+<meta name="twitter:description" content="星月菩提买之前要过的四关：料（海南毛感料／老挝料／三国料）、月（正月／弦月／无月，以及月与尺寸的关系）、星（星点口诀）、密度（四看一敲与沉水误区），附干磨水磨与漂白辨别、尺寸规格与价位锚。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
@@ -287,183 +357,249 @@ var _hmt = _hmt || [];
   <!-- 页面标题 -->
   <div class="page-header">
     <h1>星月菩提</h1>
-<div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
-    <p class="subtitle">白底星点如繁星伴月，文玩入门可选，盘玩变化丰富</p>
+    <div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
+    <p class="subtitle">买之前要过的四关：料、月、星、密度</p>
   </div>
 
-  <!-- 概述 -->
+  <!-- 结论先行 -->
   <div class="section">
-    <h2>什么是星月菩提？</h2>
-    <p>星月菩提是黄藤（棕榈科黄藤属）的种子，因其表面布满黑色星点、中间有月形芽眼，形如「众星捧月」而得名。属于三大菩提之首，也是最受欢迎的文玩手串材质之一。</p>
-    <p>核心特征：白底或浅黄底上分布黑色细密星点，中央有圆形或月牙形芽眼。密度高、油性足的星月，盘玩后颜色变化丰富，从奶白→米黄→蜜蜡黄→红褐，可玩性极强。</p>
-  </div>
-
-  <!-- 产地 -->
-  <div class="section">
-    <h2>产地与品质分级</h2>
-    <div class="variety-grid">
-      <div class="variety-card">
-        <h3>海南毛感料（顶级）</h3>
-        <p>公认品质最优。星点细密均匀，密度极高，油性充足，盘玩后颜色漂亮，红润透亮。产量有限，价格最高。</p>
-      </div>
-      <div class="variety-card">
-        <h3>广西料（中端）</h3>
-        <p>星点较粗，密度一般。价格适中，适合入门练手。盘玩效果不如海南料但价格亲民。</p>
-      </div>
-      <div class="variety-card">
-        <h3>越南料（中低端）</h3>
-        <p>星点发红偏粗，密度偏低，品质参差不齐。价格最低，但盘玩过程中容易色差大。</p>
-      </div>
-      <div class="variety-card">
-        <h3>五星帝王料（稀缺）</h3>
-        <p>星点呈五星状分布，属于天然变异，非常稀少。价格昂贵，具有收藏价值，但盘玩效果与普通毛感料差异不大。</p>
-      </div>
+    <div class="bl-lead">
+      <p>一句话：<strong>先定料，再看月，然后比星和密度，最后算价钱。</strong>料错了后面全白搭——同样一颗正月、同样好看，三国料的原籽价只有海南料的三四成。这一页只讲<strong>买之前</strong>要看的东西；买回来之后怎么盘，见 <a href="quanao.html">《星月菩提盘养手册》</a>。</p>
     </div>
   </div>
 
-  <!-- 形状分类 -->
+  <!-- 一、是什么 -->
   <div class="section">
-    <h2>形状与加工形态</h2>
-    <div class="table-wrapper">
-      <table class="m-table">
-        <tr><th>形态</th><th>特征</th><th>价格</th><th>盘玩难度</th></tr>
-        <tr><td><strong>正月</strong></td><td>月孔位于珠子正中央，最规整</td><td>高</td><td>低</td></tr>
-        <tr><td><strong>玄月（偏月）</strong></td><td>月孔偏一侧，不居中</td><td>中</td><td>低</td></tr>
-        <tr><td><strong>无相</strong></td><td>不规则多面切，每颗形状不同</td><td>中高</td><td>高（需逐颗盘到每个面）</td></tr>
-        <tr><td><strong>原生态</strong></td><td>保留黄藤果原始色泽（绿/粉/紫）</td><td>中高</td><td>中</td></tr>
-        <tr><td><strong>老型桶/苹果圆</strong></td><td>经典形状，两端平中间鼓</td><td>中</td><td>低</td></tr>
-        <tr><td><strong>直切/藏式</strong></td><td>两端垂直切平，偏藏传风格</td><td>中</td><td>低</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <!-- 盘玩方法 -->
-  <div class="section">
-    <h2>盘玩方法</h2>
-    <div class="phase-grid">
-      <div class="phase-tile">
-        <div class="phase-num">01</div>
-        <div class="phase-name">抛光打底</div>
-        <div class="phase-time">7-14天</div>
-        <div class="phase-desc">棉手套每日盘30分钟，去除车痕，形成基础光泽</div>
-      </div>
-      <div class="phase-tile">
-        <div class="phase-num">02</div>
-        <div class="phase-name">静置氧化</div>
-        <div class="phase-time">7天</div>
-        <div class="phase-desc">自然放置不盘不戴，让油脂自然氧化，形成软包浆</div>
-      </div>
-      <div class="phase-tile">
-        <div class="phase-num">03</div>
-        <div class="phase-name">手盘上色</div>
-        <div class="phase-time">长期</div>
-        <div class="phase-desc">净手盘5天休息2天，逐步包浆上色。前期净手，后期可正常佩戴</div>
-      </div>
-      <div class="phase-tile">
-        <div class="phase-num">04</div>
-        <div class="phase-name">日常佩戴</div>
-        <div class="phase-time">中后期</div>
-        <div class="phase-desc">正常佩戴配合手盘，加速变色，深沉包浆。注意避免大汗</div>
-      </div>
-    </div>
-
-    <h3>盘玩时间线速查</h3>
-    <div class="table-wrapper">
-      <table class="m-table">
-        <tr><th>阶段</th><th>时间</th><th>颜色</th><th>手感</th></tr>
-        <tr><td>新生</td><td>0-2周</td><td>奶白/原色</td><td>涩，有车痕</td></tr>
-        <tr><td>初浆</td><td>1-3个月</td><td>米黄</td><td>滑中带涩，开始挂瓷</td></tr>
-        <tr><td>包浆</td><td>6-12个月</td><td>姜黄/蜜蜡黄</td><td>光滑莹润，有玻璃感</td></tr>
-        <tr><td>深包浆</td><td>2-3年</td><td>红褐/琥珀色</td><td>温润如玉，钟声清脆</td></tr>
-        <tr><td>老串</td><td>5年以上</td><td>深红褐/枣红</td><td>厚实凝润，开片见岁月</td></tr>
-      </table>
-    </div>
-
-    <h3>无相特别注意点</h3>
+    <h2>一、它到底是什么</h2>
+    <p>星月菩提是<strong>棕榈科省藤属黄藤（<em>Calamus jenkinsianus</em>）的种子</strong>，盘的是种子里的<strong>胚乳</strong>。记住下面五点，商家的多数故事就不成立了。</p>
     <ul>
-      <li><strong>转着盘：</strong>形状不规则，每颗都要转着盘，确保所有切面都盘到</li>
-      <li><strong>孔道重点：</strong>孔道两侧容易被忽略但变色最快，需要重点盘</li>
-      <li><strong>大切面防色差：</strong>每颗经常转方向，色差严重的大切面集中多盘</li>
+      <li><strong>跟菩提树没有关系。</strong>真正的菩提树是桑科榕属（<em>Ficus religiosa</em>），果实像无花果，种子又小又软，根本磨不成珠子。「菩提子」是个泛称，指坚硬耐磨、可串可计数的各类植物种子。</li>
+      <li><strong>「月」是胚的位置。</strong>胚正好落在珠子侧面正中，就是被追捧的「正月」。果实形状不规则，正月天然产量偏低，所以更贵。</li>
+      <li><strong>「星」来自棕榈科特有的嚼烂状胚乳。</strong>胚乳表面凹凸很深，种皮和部分内果皮陷了进去，磨光后就成了星点。剖开看会发现很多星并不通到核心，这是正常的，不算瑕疵。</li>
+      <li><strong>白与黄不是两个品种，是两种采收方式。</strong>树上直采、加工后偏白或偏绿；落地自然腐熟后再收的，偏黄褐至黑。</li>
+      <li><strong>别名：</strong>省藤、红藤、台湾黄藤；海南五指山一带当地人叫它「红藤子」。</li>
     </ul>
   </div>
 
-  <!-- 色差处理 -->
+  <!-- 二、料 -->
   <div class="section">
-    <h2>色差急救法</h2>
-    <div class="warning-box">
-      <strong>⚠️ 色差是常态：</strong>99%的手串前期都会出现色差，这是籽与籽之间密度差异导致的。正常盘玩1年左右，色差自然缩小。不要焦虑。
+    <h2>二、第一关 · 料：产地只认三档</h2>
+    <p>业内对星月菩提的料只有一个粗略但公认的排序：<strong>海南（毛感）&gt; 老挝 &gt; 三国（泰国／越南／柬埔寨）</strong>。其余叫法，基本是这三档的转手、混称或包装。</p>
+
+    <div class="src-grid">
+      <div class="src-card is-top">
+        <div class="rank">第一档</div>
+        <h3>海南毛感料</h3>
+        <p>产自海南保亭县毛感乡一带，公认最优。星点细、密、匀，密度高、油性足，底色干净。代价是<strong>慢</strong>：挂瓷慢、开片晚；也正因为油性大，开片后不容易碎，能陪你几十年。</p>
+        <span class="price">原籽公开行情约 70 万元/吨（≈350 元/斤）</span>
+      </div>
+      <div class="src-card is-mid">
+        <div class="rank">第二档</div>
+        <h3>老挝料</h3>
+        <p>长得最像海南料的一档，也是市面上「冒充海南籽」的主要来源。星点比海南略粗、底色略偏黄，盘玩效果经常难分，价格却低不少，是性价比区。</p>
+        <span class="price">原籽报价明显低于海南料，地区差异大</span>
+      </div>
+      <div class="src-card is-low">
+        <div class="rank">第三档</div>
+        <h3>三国料</h3>
+        <p>泰国、越南、柬埔寨。星点偏粗、发红，密度偏低，底色不够纯净。上色和开片都快，但<strong>不耐盘</strong>——用久了容易掉星，留下一个个小坑，表面糠糙；后期稍磕碰就碎。</p>
+        <span class="price">原籽价约为海南籽的 30–40%</span>
+      </div>
     </div>
+
+    <div class="note">
+      <p><strong>另外四个要留心的说法：</strong></p>
+      <ul>
+        <li><strong>「广西料」不是独立品质档。</strong>广西上思县十万大山确实有零星黄藤，但市面上叫「广西料」的绝大多数是越南、老挝进口后在国内转手的货。实际品质仍要按越南料或老挝料判断，别因为贴了「广西」就当它是另一档。</li>
+        <li><strong>「五星帝王料」不存在。</strong>「五星帝王」是金刚菩提那边的商家话术，跟星月菩提没关系。星月菩提里没有这个分类，看到就绕开。</li>
+        <li><strong>印度籽</strong>油性顶级，但产量极稀、市面假货极多，不建议新手碰；<strong>印尼／马来料</strong>基本是没人要的边角料。</li>
+        <li><strong>「尼泊尔星月」是假的定位</strong>——尼泊尔根本不产星月菩提。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 三、月 -->
+  <div class="section">
+    <h2>三、第二关 · 月：正月、弦月、无月</h2>
+    <div class="tier-grid">
+      <div class="tier-card is-ok">
+        <h3>✅ 正月</h3>
+        <p>月落在珠子侧面正中。最规整，同料同尺寸下溢价明显，也是商家最爱拿来加价的一项。</p>
+      </div>
+      <div class="tier-card is-mid">
+        <h3>⭐ 弦月 / 偏月</h3>
+        <p>月偏在一侧。常见于大尺寸扁圆珠形——为把长径做到最大，芽眼位置自然就偏了。观感影响不大，价格略低。</p>
+      </div>
+      <div class="tier-card is-no">
+        <h3>⛔ 无月 / 假月</h3>
+        <p>直接放弃。无月是打磨过头把月磨没了；假月（含「洗月」铣出来的月）是刻意造出来的。</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><strong>月有没有、正不正，主要由尺寸决定，不是由师傅手艺决定——这一点很多人不知道：</strong></p>
+      <ul>
+        <li>黄藤未打磨的原籽直径基本集中在 12–20mm，而胚的深度只有 1mm 左右。</li>
+        <li>所以做 <strong>直径 6mm 以下的珠子</strong>（6×4、4×2 这类），等于要往里车掉很多，<strong>大量无月或浅月</strong>——这属正常现象，不是残次品，但也不该按「正月」加价。批发平台上「无月」和「跑量」是分开挂牌的两个价签，同一尺寸能差出一档价。</li>
+        <li>常规 <strong>直径 8–10mm</strong> 最容易保月，也是量最大的尺寸。珠形也有影响：桶珠（直径 10×对孔 8、9×7、8×6 这类，两个数字差 2mm）打磨量小；换成老型、直切（直径 7×对孔 6 这种差 1mm 的）打磨量更大，更难保月。</li>
+        <li>反过来，<strong>大直径（13mm 以上）的正月概率反而很低</strong>：原料就那么大，为了出大珠子，芽眼很难落在正中。业内经验是不足 5%，其余多是弦月，还有一部分月正好和孔道重合，直接成了无月籽。</li>
+        <li><strong>洗月（铣月）：</strong>厂家用磨头把大小颜色不一的月铣成一样，甚至给磨掉月的籽重新铣出月来，让整串看着统一。这是机加工产物，谈不上假货，但「颗颗月正」若是铣出来的，溢价就不该按天然正月算。</li>
+      </ul>
+      <p>顺带说一句分寸：业内有经验的老师傅在不刻意追求极限尺寸的前提下，正月比例约七成。所以「颗颗月正」既不是不可能，也不是随手就能碰上。</p>
+    </div>
+  </div>
+
+  <!-- 四、星 -->
+  <div class="section">
+    <h2>四、第三关 · 星：星点口诀</h2>
+    <div class="mnemo">
+      <div class="mnemo-line">月朗星稀 · 星细如针 · 分布均匀 · 无连星 · 无爆星 · 无烟花纹</div>
+      <ul>
+        <li><strong>月朗</strong>——月的周围有一圈明显的无星区，整串看着疏朗透气。这一项要加价。</li>
+        <li><strong>星细如针</strong>——星点是黑色孔道的截面，越细越好。粗星、大片星是密度不足的信号。</li>
+        <li><strong>分布均匀</strong>——疏密一致，没有一段挤一段空。</li>
+        <li><strong>无连星</strong>——星点连成线、连成片（漏星）就掉档。</li>
+        <li><strong>无爆星、无烟花纹</strong>——星点糊成一片放射状花纹，是结构松散的表现。</li>
+        <li><strong>大留白</strong>——表面有成片的无星区。成品格很高，同样加价。</li>
+      </ul>
+    </div>
+    <p class="note"><strong>⚠️ 一个常见误解：</strong>「星星越少密度越高」是错的。星点密度反映的是胚乳的凹凸结构，跟珠子密度不是一回事。判断密度要看下一节。</p>
+  </div>
+
+  <!-- 五、密度 -->
+  <div class="section">
+    <h2>五、第四关 · 密度：四看一敲，加一个沉水测试</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>怎么看</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>看星是否凹陷</td><td>星眼明显凹陷的多，密度就差；星点平整齐整的，密度好。</td></tr>
+          <tr><td>看留白是否密实</td><td>留白（无星区）越细密紧实越好；留白发虚、发糠、看着「发面」，密度就差。</td></tr>
+          <tr><td>听声（最准）</td><td>取两颗珠子对撞：<strong>清脆如瓷、近乎金属声</strong>＝高密；<strong>发闷</strong>＝糠籽或嫩籽。</td></tr>
+          <tr><td>掂手</td><td>同尺寸下越沉、越压手越好。这条最简单，也最不容易骗人。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <p><strong>沉水测试怎么用（很多人被它带偏）：</strong></p>
+      <ul>
+        <li>星月<strong>不是</strong>「棕榈科种子所以不沉水」。优质高密籽入水后会<strong>直接沉底</strong>（缓慢匀速下沉）。</li>
+        <li><strong>不沉水的一定是差籽</strong>——漂浮或半浮半沉，基本就是糠籽，或者被水煮、漂白处理过。</li>
+        <li>但<strong>沉水不等于好籽</strong>：水煮嫩籽也能沉。所以沉水只能当<strong>排除法</strong>用，先把最烂的筛掉，不能反推「沉水就是高密」。</li>
+        <li>两个使用前提：只测单籽，别整串下水；已经包浆的串不要测。测完立刻擦干、阴凉处阴干，<strong>不要暴晒</strong>。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 六、工艺与料性 -->
+  <div class="section">
+    <h2>六、工艺与料性：同一种料，两种命</h2>
+    <p>同一个产地的籽，处理方式不同，出来就是两类东西。买之前问清是哪一种，比问产地更有用。</p>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>料性</th><th>怎么做出来的</th><th>特点</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>原生态顺白</td><td>不水煮、不脱脂，直接打磨</td><td>油性足、变色快、底色干净。<strong>新手首选。</strong></td></tr>
+          <tr><td>脱脂顺白</td><td>先水煮脱脂再打磨</td><td>颜色统一、上手快；但油性跟着流失，后期变化小。</td></tr>
+          <tr><td>石玉料</td><td>半熟、未完全脱水的籽</td><td>底偏青灰，油性是第一档，变色最快。</td></tr>
+          <tr><td>阴皮籽 / 彩云追月</td><td>果皮糖浆渗进籽里，天然形成</td><td>带绿调，每一颗都不一样。</td></tr>
+          <tr><td>陈籽</td><td>自然氧化一段时间</td><td>浅米黄、性质稳定、不易裂，省心。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">至于「帝王绿」「黑金」「奶奶灰」这些名字，是商家按颜色起的花名，多数是工艺或氧化的结果，不是植物品种。拿来描述可以，拿来当分级标准不行。</p>
+  </div>
+
+  <!-- 七、避坑 -->
+  <div class="section">
+    <h2>七、避坑：加工端与市场端</h2>
+
+    <h3>加工端：干磨还是水磨，这一条最容易被忽略</h3>
     <ul>
-      <li><strong>色差隔离：</strong>深色珠子挑出来单穿一串，集中多盘</li>
-      <li><strong>「追色」法：</strong>浅色珠子单独放在手心里搓热再盘，加快颜色均匀</li>
-      <li><strong>重新排序：</strong>打散重穿，深浅交替排列，盘玩一段时间后色差会模糊</li>
-      <li><strong>终极方案：</strong>实在救不回的通透，改做配珠或隔片，废物利用</li>
+      <li><strong>干磨</strong>——打磨时不用水降温，转速慢、费工。星点完整，白色部分紧实。</li>
+      <li><strong>水磨</strong>——加水降温、追求效率。后果是<strong>星眼萎缩、凹陷甚至脱落</strong>，白色部分「发面」发软，表面一层脂粉感、雾蒙蒙不透亮。</li>
+      <li><strong>漂白</strong>（水磨再加漂白剂）——成品惨白、几乎没有色差，星点透空，质地接近塑料；上手机械感，且很快变黄、开片、碎裂。</li>
     </ul>
-  </div>
 
-  <!-- 禁忌 -->
-  <div class="section">
-    <h2>三大禁忌</h2>
-    <div class="taboo-grid">
-      <div class="taboo-tile taboo-water">
-        <h3>💧 水</h3>
-        <p>星月菩提怕水，沾水后立即擦干，否则容易发霉开裂。洗手洗澡不要佩戴。</p>
-      </div>
-      <div class="taboo-tile taboo-sweat">
-        <h3>💦 大汗</h3>
-        <p>汗液过多会让星月发黄发暗发黑，前期一定要净手盘玩。夏季减少手盘时间。</p>
-      </div>
-      <div class="taboo-tile taboo-dry">
-        <h3>☀️ 干燥/暴晒</h3>
-        <p>冷热交替易开裂，冬天远离暖气，夏天避免阳光直射。温差过大是大忌。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 鉴别 -->
-  <div class="section">
-    <h2>鉴别要点</h2>
+    <h3>水磨 / 漂白五辨</h3>
     <div class="table-wrapper">
       <table class="m-table">
-        <tr><th>指标</th><th>好</th><th>中</th><th>差</th></tr>
-        <tr><td><strong>密度</strong></td><td>入水即沉，敲击声清脆如瓷</td><td>半沉半浮</td><td>浮于水面，声音沉闷</td></tr>
-        <tr><td><strong>星点</strong></td><td>细密均匀，星点如针尖大小</td><td>星点清晰但有粗有细</td><td>星点粗大、连成线（连星）</td></tr>
-        <tr><td><strong>油性</strong></td><td>表面油润光泽，上手发腻微涩</td><td>光泽一般</td><td>干涩无光，像枯柴</td></tr>
-        <tr><td><strong>色差</strong></td><td>整串颜色均匀一致</td><td>少量色差</td><td>白一颗黄一颗，差异明显</td></tr>
+        <thead>
+          <tr><th>看什么</th><th>异常表现</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>颜色</td><td>惨白，且整串<strong>没有任何色差</strong>。天然的顺白一定有色差。</td></tr>
+          <tr><td>星点</td><td>变空、发虚，甚至一眼看进去是通的。</td></tr>
+          <tr><td>月眼</td><td>月眼里没有「脐」（胚留下的痕迹）。</td></tr>
+          <tr><td>重量</td><td>明显偏轻。</td></tr>
+          <tr><td>声音</td><td>两颗对撞，声音发闷。</td></tr>
+        </tbody>
       </table>
     </div>
+
+    <h3>市场端：官方在打什么假</h3>
+    <p>2026 年，市场监管总局会同公安部开展传统工艺市场「打假清源」联合执法行动，重点整治<strong>假证书、假机构、假产品、假网站</strong>四类乱象，覆盖珠宝玉石、红木制品、<strong>文玩珠串</strong>等品类；截至 2026-09-01 通报，全国立案 769 件、涉案金额 6558 万元，21 起重大案件已移送司法机关。</p>
+    <p class="note"><strong>证书怎么核（市场监管部门给的「四步法」）：</strong>① 到市场监管部门官网查检验机构有没有 <strong>CMA 资质认定／CNAS 认可</strong>；② 核对报告上的名称、型号、批次、照片、重量与实物是否一致；③ 通过<strong>机构官网或电话</strong>核实报告编号，别点商家私发的查询链接；④ 发现虚假报告，打 12315 举报。另外，景区地摊、无资质直播间、私域转账、「上门回收」都是官方点名的售后高风险渠道。</p>
   </div>
 
-  <!-- 尺寸参考 -->
+  <!-- 八、尺寸与价位 -->
   <div class="section">
-    <h2>尺寸参考</h2>
-    <p>手串长度与手围的对应关系，选购时参考：</p>
+    <h2>八、尺寸与价位</h2>
+
+    <h3>尺寸怎么选</h3>
+    <p class="note"><strong>先说个坑：两个数字谁在前，行业里并不统一。</strong>同一颗「直径 8mm × 对孔 6mm」的珠子，有商家挂 8×6，也有商家挂 6×8，连同一篇文章里前后都能打架。下表按 <strong>直径 × 对孔</strong> 写，并把实际尺寸与串长都列出来；下单前直接问「直径多少、对孔多少」最稳，只报一串数字容易被绕。</p>
     <div class="table-wrapper">
       <table class="m-table">
-        <tr><th>手围（mm）</th><th>适合长度（mm）</th><th>推荐颗数（8mm）</th><th>推荐颗数（10mm）</th><th>推荐颗数（12mm）</th></tr>
-        <tr><td>150-155</td><td>160-170</td><td>20-21</td><td>16-17</td><td>13-14</td></tr>
-        <tr><td>155-160</td><td>170-175</td><td>21-22</td><td>17-18</td><td>14-15</td></tr>
-        <tr><td>160-165</td><td>175-180</td><td>22-23</td><td>18-19</td><td>15-16</td></tr>
-        <tr><td>165-170</td><td>180-185</td><td>23-24</td><td>19-20</td><td>16-17</td></tr>
-        <tr><td>170-175</td><td>185-190</td><td>24-25</td><td>20-21</td><td>17-18</td></tr>
-        <tr><td>175-180</td><td>190-195</td><td>25-26</td><td>21-22</td><td>18-19</td></tr>
-        <tr><td>180-185</td><td>195-200</td><td>26-27</td><td>22-23</td><td>19-20</td></tr>
-        <tr><td>185-190</td><td>200-205</td><td>27-28</td><td>23-24</td><td>20-21</td></tr>
+        <thead>
+          <tr><th>常见写法</th><th>实际尺寸</th><th>108 颗串长约</th><th>适合谁</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>8×6mm（也有写成 6×8）</td><td>直径 8 × 对孔 6</td><td>62cm</td><td>女款主流</td><td>量最大、最容易挑到好品相</td></tr>
+          <tr><td>9×7mm（也有写成 7×9）</td><td>直径 9 × 对孔 7</td><td>72cm</td><td>男女皆宜</td><td>折中档，手腕 16cm 左右绕 3–4 圈最顺</td></tr>
+          <tr><td>10×8mm（也有写成 8×10）</td><td>直径 10 × 对孔 8</td><td>83cm</td><td>男士常见</td><td>存在感强；商家最爱把这一档喊成「黄金尺寸」</td></tr>
+          <tr><td>6×4mm、4×2mm</td><td>直径 6（或 4）× 对孔 4（或 2）</td><td>41cm</td><td>手腕偏细</td><td>迷你款；打磨过度，<strong>基本无月</strong>，价格最低</td></tr>
+        </tbody>
       </table>
     </div>
-    <div class="tip-box"><strong>💡 建议：</strong>手串长度比手围大10-15mm为宜，太紧勒手，太松甩动。弹力绳款可略紧，无弹力绳（长串）需预留足够活动空间。</div>
+    <p class="note"><strong>串长是怎么算的：</strong>108 颗素珠的串长 ≈ 108 × 对孔尺寸，再扣掉每颗约 0.3mm 的加工误差。对孔 6mm 就是 108×6 ≈ 648mm、实际约 62cm；对孔 8mm 约 83cm。所以<strong>影响佩戴长度的是「对孔」而不是「直径」</strong>——同样直径 8mm，对孔 6mm 和对孔 8mm 戴在手上差着一圈。</p>
+    <p class="tip-box"><strong>💡 长度：</strong>手串长度比手围大 10–15mm 为宜——太紧勒手，太松甩动。弹力绳款可略紧，无弹力长串要留足活动量。108 颗长串一般绕 3–4 圈，圈数由「手围 ÷ 串长」决定，嫌多可以先摘掉几颗配珠。</p>
+
+    <h3>价位：先算一笔原料账</h3>
+    <p>海南料原籽公开行情在 70 万元/吨以上（≈350 元/斤）。一斤中等大小的原籽约 200 颗，挑掉阴皮、嫩籽和各种品相不佳的之后，<strong>运气好才出得了一条 108 颗</strong>，大珠子一条都出不来。再加上加工成本——<strong>400 元以下、品相又好的「海南料」，很难是真的。</strong></p>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>档位</th><th>大致区间（108 颗）</th><th>对应什么</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>批发跑量</td><td>约 12–30 元</td><td>平台挂牌价，多为无月款／跑量款，适合练手</td></tr>
+          <tr><td>常规顺白正月</td><td>约 35–80 元</td><td>入门主力，品相一般但规矩</td></tr>
+          <tr><td>精品高抛 / 大留白</td><td>100–300 元</td><td>星点、留白、工艺都到位</td></tr>
+          <tr><td>收藏级老陈籽 / 特殊工艺</td><td>600 元以上</td><td>料、工、年份三者齐</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><strong>关于「品牌串」的溢价：</strong>文玩手串没有统一的品牌标准，同一个厂家不同批次的料都可能不一样，所以品牌对品质的背书作用很有限。要不要为品牌付钱是个人选择，但别把它当成质量分级——价格高不等于料好。</p>
+    <p class="note"><strong>⚠️ 口径提醒：</strong>本节的产地分级、月相概率、密度判断、价位区间属于<strong>行业通行说法与公开行情观察，不是国家标准</strong>，各地口径有出入（不同平台、不同批次的报价能差一倍）。本页只保留多家说法一致、且能被实物验证的部分。贵重物品请送具备 CMA／CNAS 资质的机构鉴定后再决策。</p>
   </div>
 
-  <!-- 返回 -->
+  <!-- 返回 + 下一页 -->
   <div style="margin:32px 0;text-align:center;">
-    <a href="../bracelet.html" style="color:var(--gold);font-weight:700;font-size:15px;">← 返回文玩手串首页</a>
+    <a href="quanao.html" style="color:var(--gold);font-weight:700;font-size:15px;">买好了？看《星月菩提盘养手册》→</a>
+    <div style="margin-top:12px;"><a href="../bracelet.html" style="color:var(--text-muted);font-size:14px;">← 返回文玩手串</a></div>
   </div>
 
 <div class="page-meta">
-    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：<a href="https://www.iplant.cn/" target="_blank" rel="noopener">植物智·中国植物物种信息系统</a>（植物名称与形态核对）、<a href="https://www.cnaca.org/" target="_blank" rel="noopener">中国工艺美术协会</a>（工艺与行业规范）。「星月」指种子表面天然分布的孔洞与胚芽点，非人工加工形成；密度分级（正月/弦月、水磨/干磨等）为市场约定俗成的说法，尚无国家标准，行情为公开市场观察。来源链接经 2026-08-07 人工核验可达。</div>
-    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
-    <div class="update-time">最后更新：2026-09-19</div>
+    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：<a href="https://www.iplant.cn/" target="_blank" rel="noopener">植物智·中国植物物种信息系统</a>（黄藤 <em>Calamus jenkinsianus</em> 科属与形态核对）、<a href="http://gongyi.people.com.cn/n/2014/0516/c354326-25027251-2.html" target="_blank" rel="noopener">人民网公益频道《益生活：带你认识一下各路「菩提子」》</a>（2014-05-16，「星」「月」成因与产地俗称）、<a href="https://www.guokr.com/article/438411/" target="_blank" rel="noopener">果壳网《你知道「菩提子」是什么吗？》</a>、<a href="https://www.samr.gov.cn/" target="_blank" rel="noopener">国家市场监督管理总局</a>（传统工艺市场「打假清源」联合执法行动通报，2026-09-01）、<a href="https://www.zhuhai.gov.cn/scjgj/gkmlpt/content/3/3925/post_3925533.html" target="_blank" rel="noopener">珠海市市场监督管理局｜传统工艺商品消费提示</a>（证书核验四步法）。产地分级、月相概率、尺寸与月的关系、价位区间属行业通行口径与公开行情观察，非国家标准，行情数据截至 2026-09，已多源交叉核对。</div>
+    <p class="ref-note">本页无配图。星月菩提是中国特有品种，公共图库没有同名实拍，而放一张明显不是星月菩提的图比不放图更误导，故本页信息一律用文字与表格承载。</p>
+    <div class="update-time">最后更新：2026-09-22</div>
   </div>
+
 <!-- related:begin -->
 <section class="lx-related" aria-label="相关阅读">
   <div class="lx-related-head">
@@ -475,7 +611,7 @@ var _hmt = _hmt || [];
     <li class="lx-related-item">
       <a class="lx-related-link" href="../bracelet/quanao.html">
         <span class="lx-related-board">文玩手串</span>
-        <span class="lx-related-name">星月菩提全套攻略2026实测避坑</span>
+        <span class="lx-related-name">星月菩提盘养手册</span>
       </a>
     </li>
     <li class="lx-related-item">
@@ -537,10 +673,10 @@ var _hmt = _hmt || [];
     {
       "@type": "Article",
       "author": { "@type": "Person", "name": "龙兄" },
-      "dateModified": "2026-07-07",
-      "headline": "星月菩提2026实测避坑｜龙兄知识库",
+      "dateModified": "2026-09-22",
+      "headline": "星月菩提选购指南｜龙兄知识库",
       "url": "https://longxiong.vip/bracelet/xingyue.html",
-      "description": "星月菩提鉴别、产地、盘玩方法与保养全攻略。海南毛感料、五星帝王料、无相星月等知识详解。"
+      "description": "星月菩提买之前要过的四关：料（海南毛感料／老挝料／三国料）、月（正月／弦月／无月，以及月与尺寸的关系）、星（星点口诀）、密度（四看一敲与沉水误区），附干磨水磨与漂白辨别、尺寸规格与价位锚。"
     }
   ]
 }

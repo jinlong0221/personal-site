@@ -25,7 +25,13 @@ SKIP_DIR_PARTS = {'admin', 'pagefind', 'js', 'css', 'img', 'data', 'fonts'}
 
 # 悬浮目录脚本的缓存版本号：quick-toc.js 内容变更后需同步 bump（与全站 ?v=YYYYMMDD 约定一致，
 # CI 的 bump_v_hash.py 会在 public/ 产物上把它改写成内容哈希；guard_v_param.py 校验一致性）。
-QUICK_TOC_VER = '20260918'
+#
+# [修复 2026-09-22] 原值 '20260918' 落后于仓库现状（quick-toc.js 的 git 最后改动日是 20260920，
+# 全站静态页里写的也是 20260920）。后果：本脚本每次运行都把 192 个页面改回 20260918，
+# 本地跑一次生成链就凭空产生 190+ 个文件的脏改动；guard_v_param 又会拿 20260918 去比
+# quick-toc.js 的 git 日期而报 WARNING。改成与仓库一致后，脚本命中时不再改写任何文件。
+# 教训：这个常量是「static 页里 quick-toc 版本号」的唯一真相源，改 quick-toc.js 必须同改这里。
+QUICK_TOC_VER = '20260920'
 
 WIDGET_BLOCK = (
     '\n<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->\n'

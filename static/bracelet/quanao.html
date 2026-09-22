@@ -20,10 +20,10 @@
 })();
 </script>
 
-<title>星月菩提全套攻略2026实测避坑｜龙兄知识库</title>
-<meta name="keywords" content="星月菩提全套攻略,2026实测避坑,实测溯源,龙兄知识库">
+<title>星月菩提盘养手册｜龙兄知识库</title>
+<meta name="keywords" content="星月菩提,盘养,包浆,挂瓷,上色,开片,盘花,色差,开裂,掉星,保养,收纳,龙兄知识库">
 
-<meta name="description" content="星月菩提全套攻略2026实测避坑：实测溯源、实操图文、避坑指南。适合星月菩提全套攻略爱好者与从业者参考，掌握核心要点、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta name="description" content="星月菩提买回来怎么盘：挂瓷、上色、包浆、开片四个阶段的耗时与手感，盘放节奏，水与大汗与温差骤变三忌，色差急救，以及发霉、开裂、盘花、掉星等常见问题的处理方法。">
 
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
 <!-- 预加载关键资源 -->
@@ -105,20 +105,81 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
 @media(max-width:480px){html{font-size:17px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="../css/style.css?v=20260920">
+<link rel="stylesheet" href="../css/style.css?v=20260922">
 <style>
-  .guide-step{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--tile-gap);margin:16px 0}
-  .guide-card{border-radius:var(--radius-sm);padding:20px;background:var(--card);border:1px solid var(--border);text-align:center;transition:transform .15s}
-  .guide-card:hover{transform:scale(1.02)}
-  .guide-card .icon{font-size:32px;margin-bottom:8px}
-  .guide-card .title{font-size:15px;font-weight:700;margin-bottom:4px}
-  .guide-card .desc{font-size:13px;color:var(--text-secondary)}
-  .season-box{background:linear-gradient(135deg,#1d2d3d,#2a3d5a);border-left:4px solid var(--teal);border-radius:var(--radius-sm);padding:18px;margin:16px 0}
-  .season-box p{color:rgba(255,255,255,.9);font-size:14px;line-height:1.7}
-  .season-box strong{color:var(--teal)}
-  @media(max-width:768px){.guide-step{grid-template-columns:1fr 1fr}}
-  @media(max-width:480px){.guide-step{grid-template-columns:1fr}}
-  [data-theme="light"] .season-box{background:rgba(0,130,114,.08);color:#004a40}[data-theme="light"] .season-box p{color:#004a40}[data-theme="light"] .season-box strong{color:#008272}
+<style>
+  /* 星月菩提（盘养）页特定样式 —— 2026-09-22 重写：只讲「买之后」的事，
+     选购与产地分级全部移到 xingyue.html，两页零重复章节。
+     注：旧的 .taboo-* 用硬编码深色渐变 + 白色文字，浅色主题下靠 filter 硬压；
+     这里改成 var(--card) 底 + 彩色左边条，两个主题都自然。 */
+  .bl-lead {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 18px 22px;
+  }
+  .bl-lead p { margin: 0; color: var(--text-secondary); line-height: 1.9; font-size: 0.93rem; }
+  .bl-lead strong { color: var(--text); }
+
+  /* 四阶段 */
+  .phase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .phase-tile {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 16px;
+    transition: transform .15s;
+  }
+  .phase-tile:hover { transform: scale(1.02); }
+  .phase-tile .phase-num { font-size: 22px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .phase-tile .phase-name { font-size: 0.95rem; font-weight: 700; margin: 8px 0 4px; color: var(--text); }
+  .phase-tile .phase-time { font-size: 0.72rem; color: var(--text-muted); }
+  .phase-tile .phase-desc { font-size: 0.79rem; color: var(--text-secondary); line-height: 1.7; margin-top: 6px; }
+
+  /* 三忌 */
+  .taboo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .taboo-tile {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .taboo-water { border-left-color: #4d8fb0; }
+  .taboo-sweat { border-left-color: #b0824d; }
+  .taboo-dry { border-left-color: #b05a4d; }
+  .taboo-tile h3 { font-size: 0.94rem; font-weight: 700; margin: 0 0 6px; color: var(--text); }
+  .taboo-tile p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.75; margin: 0; }
+
+  /* 提示 / 提醒条 */
+  .note {
+    border-left: 3px solid var(--gold);
+    background: rgba(201, 168, 76, 0.05);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.85;
+  }
+  .note p { margin: 0; }
+  .note p + p { margin-top: 6px; }
+  .note strong { color: var(--text); }
+
+  .section h3 { font-size: 1rem; color: var(--gold); margin: 20px 0 10px; }
+
+  @media (max-width: 768px) {
+    .phase-grid { grid-template-columns: repeat(2, 1fr); }
+    .taboo-grid { grid-template-columns: 1fr; }
+    .bl-lead { padding: 16px 18px; }
+    .note { padding: 12px 14px; font-size: 0.83rem; }
+  }
+  @media (max-width: 480px) {
+    .phase-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -133,15 +194,15 @@ var _hmt = _hmt || [];
 
 <link rel="canonical" href="https://longxiong.vip/bracelet/quanao.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
-<meta property="og:title" content="星月菩提全套攻略2026实测避坑｜龙兄知识库">
-<meta property="og:description" content="星月菩提全套攻略2026实测避坑：实测溯源、实操图文、避坑指南。适合星月菩提全套攻略爱好者与从业者参考，掌握核心要点、规避常见误区。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:title" content="星月菩提盘养手册｜龙兄知识库">
+<meta property="og:description" content="星月菩提买回来怎么盘：挂瓷、上色、包浆、开片四个阶段的耗时与手感，盘放节奏，水与大汗与温差骤变三忌，色差急救，以及发霉、开裂、盘花、掉星等常见问题的处理方法。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/bracelet/quanao.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="星月菩提全套攻略2026实测避坑｜龙兄知识库">
-<meta name="twitter:description" content="星月菩提从选料到盘玩到保养的完整攻略。选料四看、盘玩时间线、色差急救、包浆图谱、禁忌事项。">
+<meta name="twitter:title" content="星月菩提盘养手册｜龙兄知识库">
+<meta name="twitter:description" content="星月菩提买回来怎么盘：挂瓷、上色、包浆、开片四个阶段的耗时与手感，盘放节奏，水与大汗与温差骤变三忌，色差急救，以及发霉、开裂、盘花、掉星等常见问题的处理方法。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
@@ -274,149 +335,178 @@ var _hmt = _hmt || [];
 
 <main class="container" id="main-content" role="main">
 
+  <!-- 页面标题 -->
   <div class="page-header">
-    <h1>星月菩提全套攻略</h1>
-<div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
-    <p class="subtitle">从选料→上手→包浆→保养，一篇讲透星月菩提的完整生命周期</p>
+    <h1>星月菩提盘养手册</h1>
+    <div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
+    <p class="subtitle">买之后的事：四个阶段、盘放节奏、三忌与急救</p>
   </div>
 
-  <!-- 选料 -->
+  <!-- 结论先行 -->
   <div class="section">
-    <h2>选料四看</h2>
-    <p>挑选星月菩提的核心标准——密度第一，其他次之：</p>
-    <div class="table-wrapper">
-      <table class="m-table">
-        <tr><th>指标</th><th>好 ✅</th><th>中 ⭐</th><th>差 ❌</th></tr>
-        <tr><td><strong>密度</strong>（最重要）</td><td>入水即沉，敲击声清脆如瓷</td><td>半沉半浮</td><td>浮于水面，声音沉闷</td></tr>
-        <tr><td><strong>星点</strong></td><td>细密均匀，星点如针尖</td><td>星点清晰但有粗有细</td><td>星点粗大、连成线（连星）</td></tr>
-        <tr><td><strong>油性</strong></td><td>表面油润有光泽，上手发腻微涩</td><td>光泽一般</td><td>干涩无光，像枯柴</td></tr>
-        <tr><td><strong>色差</strong></td><td>整串颜色均匀一致</td><td>少量色差</td><td>白一颗黄一颗，差异明显</td></tr>
-      </table>
-    </div>
-    <div class="tip-box"><strong>💡 终极法则：</strong>所有品相指标中，密度排第一。宁愿密度高但有小瑕，也不要密度低但表面完美的。密度是一切盘玩变化的基础。</div>
-  </div>
-
-  <!-- 盘玩时间线 -->
-  <div class="section">
-    <h2>盘玩时间线</h2>
-    <div class="guide-step">
-      <div class="guide-card">
-        <div class="icon">🧤</div>
-        <div class="title">抛光期</div>
-        <div class="desc">1-2周<br>棉手套盘30分/天<br>去车痕+基础光泽</div>
-      </div>
-      <div class="guide-card">
-        <div class="icon">⏸️</div>
-        <div class="title">静置期</div>
-        <div class="desc">3-5天<br>自然放置不盘不戴<br>油脂氧化形成软包浆</div>
-      </div>
-      <div class="guide-card">
-        <div class="icon">✋</div>
-        <div class="title">手盘期</div>
-        <div class="desc">长期<br>净手盘5天休2天<br>逐步包浆上色</div>
-      </div>
-      <div class="guide-card">
-        <div class="icon">📿</div>
-        <div class="title">日常期</div>
-        <div class="desc">中后期<br>正常佩戴+手盘<br>深沉包浆</div>
-      </div>
-    </div>
-
-    <div class="season-box">
-      <strong>🌡️ 季节建议：</strong>最佳盘玩季节是春秋（温度20-25℃，湿度40-60%）。夏季汗多容易让星月发黄发暗，夏季可减少手盘时间，多静置。冬季干燥注意保湿，远离暖气。
+    <div class="bl-lead">
+      <p>一句话：<strong>先把手套打底做完，再决定怎么盘。</strong>星月的变化分四步——挂瓷、上色、包浆、开片，每一步都急不来；真正毁串的往往不是「盘得少」，而是「盘得不对」：带着汗上、沾了水、吹着空调。这一页只讲<strong>买回来之后</strong>的事；怎么挑，见 <a href="xingyue.html">《星月菩提》</a>。</p>
     </div>
   </div>
 
-  <!-- 包浆图谱 -->
+  <!-- 一、原理 -->
   <div class="section">
-    <h2>包浆阶段图谱</h2>
-    <div class="table-wrapper">
-      <table class="m-table">
-        <tr><th>阶段</th><th>时间</th><th>颜色</th><th>手感</th></tr>
-        <tr><td>新生</td><td>0-2周</td><td>奶白/原色</td><td>涩，有车痕</td></tr>
-        <tr><td>初浆</td><td>1-3个月</td><td>米黄</td><td>滑中带涩，开始挂瓷</td></tr>
-        <tr><td>包浆</td><td>6-12个月</td><td>姜黄/蜜蜡黄</td><td>光滑莹润，有玻璃感</td></tr>
-        <tr><td>深包浆</td><td>2-3年</td><td>红褐/琥珀色</td><td>温润如玉，钟声清脆</td></tr>
-        <tr><td>老串</td><td>5年以上</td><td>深红褐/枣红</td><td>厚实凝润，开片见岁月</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <!-- 色差急救 -->
-  <div class="section">
-    <h2>色差急救法</h2>
-    <div class="warning-box">
-      <strong>⚠️ 色差是常态：</strong>99%的手串前期都会出现色差，这是籽与籽之间密度差异导致的。正常盘玩1年左右，色差自然缩小。不要焦虑。
-    </div>
+    <h2>一、先明白一件事：盘的是「氧化 + 定型」</h2>
+    <p>星月菩提盘的是胚乳，本质是油脂与植物组织在时间里的<strong>氧化变色</strong>和<strong>表面层积硬化</strong>。这类植物材料都属于吸湿性材料，含水率会随环境湿度变化而吸湿、解吸，含水率一变尺寸就跟着变；而各个方向的干缩率并不相同——这正是开裂与变形的物理根源。明白这一点，下面几条老规矩就不再是玄学：</p>
     <ul>
-      <li><strong>色差隔离：</strong>深色珠子挑出来单穿一串，集中多盘</li>
-      <li><strong>「追色」法：</strong>浅色珠子单独放在手心里搓热再盘，加快颜色均匀</li>
-      <li><strong>重新排序：</strong>打散重穿，深浅交替排列，盘玩一段时间后色差会模糊</li>
-      <li><strong>终极方案：</strong>实在救不回的通透，改做配珠或隔片，废物利用</li>
+      <li><strong>变色靠氧化，不靠油。</strong>手上的汗液与灰尘混合后会被揉进孔隙，形成很难逆转的暗沉——这就是「盘花」「盘乌」。所以前期要净手或戴手套，别指望用汗「喂」出色。</li>
+      <li><strong>包浆靠盘放结合。</strong>盘的时候把析出的东西带匀，放的时候让它氧化硬化；只盘不放，层积不起来。</li>
+      <li><strong>怕的是骤变，不是「干」或「湿」本身。</strong>空调出风口、暖气片旁、阳光直射的窗台、潮湿的卫生间，都会让含水率短时间来回横跳，最容易开裂。</li>
+      <li><strong>别随手上油上蜡。</strong>人工油脂会覆盖孔隙、掩住本色与层次，多数情况并不建议主动上油。表面浮灰用软毛刷轻扫即可，也不要用湿布擦。</li>
     </ul>
   </div>
 
-  <!-- 问题处理 -->
+  <!-- 二、四阶段 -->
   <div class="section">
-    <h2>常见问题处理</h2>
+    <h2>二、四个阶段：挂瓷 → 上色 → 包浆 → 开片</h2>
+    <div class="phase-grid">
+      <div class="phase-tile">
+        <div class="phase-num">01</div>
+        <div class="phase-name">挂瓷</div>
+        <div class="phase-time">1–2 周打底</div>
+        <div class="phase-desc">表面形成玻璃光泽。新串先戴棉布手套干盘，每天半小时左右，把浮尘与车痕带走。</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">02</div>
+        <div class="phase-name">上色</div>
+        <div class="phase-time">1–3 个月</div>
+        <div class="phase-desc">奶白转米黄。油性开始氧化，颜色由边缘往内走。</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">03</div>
+        <div class="phase-name">包浆</div>
+        <div class="phase-time">6–12 个月</div>
+        <div class="phase-desc">姜黄、蜜蜡黄，表面莹润，开始有玻璃感。</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">04</div>
+        <div class="phase-name">开片</div>
+        <div class="phase-time">2 年以上</div>
+        <div class="phase-desc">红褐、琥珀色，表面出现细密裂纹，最终通透玉化。</div>
+      </div>
+    </div>
+
     <div class="table-wrapper">
       <table class="m-table">
-        <tr><th>问题</th><th>原因</th><th>解决方法</th></tr>
-        <tr><td><strong>发黄发暗</strong></td><td>汗液过多浸入</td><td>停止手盘改手套盘1-2周，静置恢复</td></tr>
-        <tr><td><strong>发霉</strong></td><td>沾水未及时擦干</td><td>干布擦干，阴凉处自然风干，不可暴晒</td></tr>
-        <tr><td><strong>开裂</strong></td><td>温差过大/过于干燥</td><td>密封袋加湿保存（放半湿棉球），缓慢恢复</td></tr>
-        <tr><td><strong>星点发黑</strong></td><td>星点材质自然氧化</td><td>正常现象，不可逆。继续盘玩后整体颜色加深后会不明显</td></tr>
-        <tr><td><strong>盘花（阴阳脸）</strong></td><td>盘玩不匀导致颜色不均</td><td>拆散重新排序，集中盘偏白珠子</td></tr>
-        <tr><td><strong>油污沾上</strong></td><td>接触油脂类物质</td><td>温水净手沾湿布快速擦拭，立即干布吸干，静置</td></tr>
+        <thead>
+          <tr><th>阶段</th><th>时间</th><th>颜色</th><th>手感</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>新生</td><td>0–2 周</td><td>奶白 / 原色</td><td>涩，有车痕</td></tr>
+          <tr><td>初浆</td><td>1–3 个月</td><td>米黄</td><td>滑中带涩，开始挂瓷</td></tr>
+          <tr><td>包浆</td><td>6–12 个月</td><td>姜黄 / 蜜蜡黄</td><td>光滑莹润，有玻璃感</td></tr>
+          <tr><td>深包浆</td><td>2–3 年</td><td>红褐 / 琥珀色</td><td>温润如玉，碰撞声清脆</td></tr>
+          <tr><td>老串</td><td>5 年以上</td><td>深红褐 / 枣红</td><td>厚实凝润，开片见岁月</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><strong>⚠️ 这张表的起算点是「开始正式净手盘玩」，不是「下单日」。</strong>更不是「天天猛盘」——一天盘几小时不会更快，只会更容易盘花。另外，海南料挂瓷慢、开片晚，三国料上色开片快得多，所以别拿别人的进度表比自己的串。</p>
+  </div>
+
+  <!-- 三、节奏 -->
+  <div class="section">
+    <h2>三、节奏：怎么排「盘」和「放」</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>阶段</th><th>怎么盘</th><th>怎么放</th><th>注意</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>第 1–2 周</td><td>棉布手套干盘，每天 30 分钟左右</td><td>其余时间随手放阴凉处</td><td>先带走车痕与浮尘，别上手</td></tr>
+          <tr><td>挂瓷后</td><td>净手盘，盘 5 天放 2 天</td><td>放的这 2 天让析出物氧化硬化</td><td>手汗大的人继续戴手套</td></tr>
+          <tr><td>稳定期</td><td>正常佩戴 + 偶尔手盘</td><td>不戴就装棉布袋</td><td>运动、做饭、洗澡时别戴</td></tr>
+          <tr><td>长期</td><td>想快就盘，想稳就放</td><td>密封 + 棉布，阴凉稳定处</td><td>避开发热电器与窗台直射</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><strong>「刷」还是「搓」：</strong>星月菩提属于「以变色为乐趣」的那一类，主流玩法是刷、盘结合。上手之前先把沟壑里的残留刷净，否则等于把脏东西揉进纹理里，后期很难返白。</p>
+  </div>
+
+  <!-- 四、三忌 -->
+  <div class="section">
+    <h2>四、三忌：水、大汗、骤变</h2>
+    <div class="taboo-grid">
+      <div class="taboo-tile taboo-water">
+        <h3>💧 水</h3>
+        <p>沾水后立刻用干布吸干，再阴凉处阴干。洗手、洗澡、游泳、做家务时都不要戴。已经沾过水的串<strong>绝不暴晒</strong>。</p>
+      </div>
+      <div class="taboo-tile taboo-sweat">
+        <h3>💦 大汗</h3>
+        <p>大汗直盘会让表面发乌、变花，就是俗称的「盘花」。汗手先戴棉手套打底，夏天缩短手盘时间。</p>
+      </div>
+      <div class="taboo-tile taboo-dry">
+        <h3>🌡️ 骤变</h3>
+        <p>温差、湿度的骤变是开裂的主因。远离空调出风口、暖气片、阳光直射的窗台；南北跨地区携带要留缓冲时间。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 五、色差急救 -->
+  <div class="section">
+    <h2>五、色差急救</h2>
+    <div class="warning-box">
+      <strong>⚠️ 色差是常态：</strong>一串里籽与籽的密度本来就有差异，绝大多数手串前期都会出现色差。正常盘玩一年左右色差会自然缩小。不用焦虑，但也不要放着不管。
+    </div>
+    <ul>
+      <li><strong>色差隔离：</strong>把深色珠子挑出来单穿一串，集中多盘。</li>
+      <li><strong>「追色」法：</strong>浅色珠子单独放手心里搓热再盘，加快颜色均匀。</li>
+      <li><strong>重新排序：</strong>打散重穿，深浅交替排列，盘一段时间后色差会变模糊。</li>
+      <li><strong>别用油：</strong>上油只会让色差更难处理——人工油脂把孔隙盖住，深浅差异反而被固定下来。</li>
+      <li><strong>终极方案：</strong>实在救不回来的，改做配珠或隔片，废物利用。</li>
+    </ul>
+  </div>
+
+  <!-- 六、常见问题 -->
+  <div class="section">
+    <h2>六、常见问题处理</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>问题</th><th>原因</th><th>怎么处理</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>发黄发暗</td><td>汗液过多浸入</td><td>停手盘，改手套盘 1–2 周，再静置恢复</td></tr>
+          <tr><td>发霉</td><td>沾水后没及时擦干</td><td>干布擦干，阴凉处自然风干——不可暴晒</td></tr>
+          <tr><td>开裂</td><td>温差过大或过于干燥</td><td>密封袋里放半湿棉球缓慢回湿，别急</td></tr>
+          <tr><td>盘花（阴阳脸）</td><td>盘玩不匀导致颜色不均</td><td>拆散重新排序，集中盘偏白的那批</td></tr>
+          <tr><td>掉星</td><td>密度不足（三国料常见）或买到水磨籽</td><td>不可逆，只能接受或换串——买之前就该避开</td></tr>
+          <tr><td>星点发黑</td><td>星点材质自然氧化</td><td>正常现象，不可逆；整体颜色加深后会不那么明显</td></tr>
+          <tr><td>沾到油污</td><td>接触了油脂类物质</td><td>温水净手后沾湿布快速擦拭，立即干布吸干，静置（只有沾油污这种情形才用湿布；日常浮灰别用湿的）</td></tr>
+        </tbody>
       </table>
     </div>
   </div>
 
-  <!-- 品牌溢价 -->
+  <!-- 七、换季与收纳 -->
   <div class="section">
-    <h2>品牌溢价与购买建议</h2>
-    <div class="table-wrapper">
-      <table class="m-table">
-        <tr><th>品牌</th><th>定位</th><th>价格带</th><th>溢价率</th><th>二手折价</th></tr>
-        <tr><td><strong>欢见</strong></td><td>文玩潮牌</td><td>800-2000元</td><td>360-600%</td><td>3-5折</td></tr>
-        <tr><td><strong>知行堂</strong></td><td>口碑品质</td><td>500-1500元</td><td>合理</td><td>5-7折</td></tr>
-        <tr><td><strong>琼珠工艺</strong></td><td>口碑品质</td><td>300-800元</td><td>合理</td><td>5-6折</td></tr>
-        <tr><td><strong>菩悦东方</strong></td><td>第二梯队</td><td>200-500元</td><td>较低</td><td>4-5折</td></tr>
-        <tr><td><strong>吾文玩</strong></td><td>第二梯队</td><td>150-400元</td><td>较低</td><td>4-5折</td></tr>
-        <tr><td><strong>无品牌/散珠</strong></td><td>按料质定价</td><td>100-500元</td><td>无溢价</td><td>1-3折</td></tr>
-      </table>
-    </div>
-    <div class="warn-box"><strong>⚠️ 市场观察：</strong>如果是新手，建议先买第二梯队（菩悦东方、吾文玩）练手，等熟悉后再考虑欢见等溢价品牌。二手市场淘货也是好选择，但需要注意辨别真假和品相。</div>
+    <h2>七、换季与收纳</h2>
+    <ul>
+      <li><strong>春（潮）</strong>——防潮防霉。不戴就进棉布袋阴凉存放，南方回南天尤其要注意。</li>
+      <li><strong>夏（汗）</strong>——汗手先戴手套打底；远离空调出风口，避免含水率骤变。</li>
+      <li><strong>秋（干）</strong>——北方注意加湿；多静置氧化定型，让析出物硬化。</li>
+      <li><strong>冬（燥 + 暖）</strong>——远离暖气片和空调出风口；跨区携带留缓冲时间，忌骤冷骤热。</li>
+      <li><strong>长期不戴</strong>——密封 + 棉布，放阴凉稳定处，避开发热电器与窗台直射。</li>
+    </ul>
   </div>
 
-  <!-- 尺寸参考 -->
-  <div class="section">
-    <h2>尺寸参考</h2>
-    <div class="table-wrapper">
-      <table class="m-table">
-        <tr><th>手围（mm）</th><th>适合长度（mm）</th><th>推荐颗数（8mm）</th><th>推荐颗数（10mm）</th><th>推荐颗数（12mm）</th></tr>
-        <tr><td>150-155</td><td>160-170</td><td>20-21</td><td>16-17</td><td>13-14</td></tr>
-        <tr><td>155-160</td><td>170-175</td><td>21-22</td><td>17-18</td><td>14-15</td></tr>
-        <tr><td>160-165</td><td>175-180</td><td>22-23</td><td>18-19</td><td>15-16</td></tr>
-        <tr><td>165-170</td><td>180-185</td><td>23-24</td><td>19-20</td><td>16-17</td></tr>
-        <tr><td>170-175</td><td>185-190</td><td>24-25</td><td>20-21</td><td>17-18</td></tr>
-        <tr><td>175-180</td><td>190-195</td><td>25-26</td><td>21-22</td><td>18-19</td></tr>
-        <tr><td>180-185</td><td>195-200</td><td>26-27</td><td>22-23</td><td>19-20</td></tr>
-        <tr><td>185-190</td><td>200-205</td><td>27-28</td><td>23-24</td><td>20-21</td></tr>
-      </table>
-    </div>
-    <div class="tip-box"><strong>💡 建议：</strong>星月菩提常见5-12mm。8mm适合女士，10mm是经典尺寸男女皆宜，12mm以上适合男性佩戴。</div>
-  </div>
-
+  <!-- 返回 + 上一页 -->
   <div style="margin:32px 0;text-align:center;">
-    <a href="../bracelet.html" style="color:var(--gold);font-weight:700;font-size:15px;">← 返回文玩手串首页</a>
+    <a href="xingyue.html" style="color:var(--gold);font-weight:700;font-size:15px;">← 还没买？看《星月菩提》选购要点</a>
+    <div style="margin-top:12px;"><a href="../bracelet.html" style="color:var(--text-muted);font-size:14px;">返回文玩手串</a></div>
   </div>
 
 <div class="page-meta">
-    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：<a href="https://www.iplant.cn/" target="_blank" rel="noopener">植物智·中国植物物种信息系统</a>（植物名称与形态核对）、<a href="https://www.cnaca.org/" target="_blank" rel="noopener">中国工艺美术协会</a>（工艺与行业规范）。本页盘玩流程、上油与包浆节奏为本人一手实践记录，非行业统一标准；品类分级说法为市场约定俗成，尚无对应国标，行情为公开市场观察。来源链接经 2026-08-07 人工核验可达。</div>
-    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
-    <div class="update-time">最后更新：2026-09-19</div>
+    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：<a href="https://criwi.caf.ac.cn/index.htm" target="_blank" rel="noopener">中国林业科学研究院木材工业研究所</a>（木材含水率、干缩湿胀与尺寸稳定性研究——「怕骤变不怕干湿」的物理依据，属同类植物材料的类比，非星月菩提专属实验数据）、<a href="https://www.iplant.cn/" target="_blank" rel="noopener">植物智·中国植物物种信息系统</a>（黄藤 <em>Calamus jenkinsianus</em> 科属核对）。盘玩阶段、时间线与常见问题处理属行业通行经验口径，<strong>不是国家标准</strong>，各地玩法有出入；同一阶段在不同料质上耗时差异很大，请以你手上这串的实际变化为准，行情与经验数据截至 2026-09。</div>
+    <p class="ref-note">本页无配图。星月菩提是中国特有品种，公共图库没有同名实拍，而放一张明显不是星月菩提的图比不放图更误导，故本页信息一律用文字与表格承载。</p>
+    <div class="update-time">最后更新：2026-09-22</div>
   </div>
+
 <!-- related:begin -->
 <section class="lx-related" aria-label="相关阅读">
   <div class="lx-related-head">
@@ -428,7 +518,7 @@ var _hmt = _hmt || [];
     <li class="lx-related-item">
       <a class="lx-related-link" href="../bracelet/xingyue.html">
         <span class="lx-related-board">文玩手串</span>
-        <span class="lx-related-name">星月菩提2026实测避坑</span>
+        <span class="lx-related-name">星月菩提选购指南</span>
       </a>
     </li>
     <li class="lx-related-item">
@@ -490,10 +580,10 @@ var _hmt = _hmt || [];
     {
       "@type": "Article",
       "author": { "@type": "Person", "name": "龙兄" },
-      "dateModified": "2026-07-07",
-      "headline": "星月菩提全套攻略2026实测避坑｜龙兄知识库",
+      "dateModified": "2026-09-22",
+      "headline": "星月菩提盘养手册｜龙兄知识库",
       "url": "https://longxiong.vip/bracelet/quanao.html",
-      "description": "星月菩提从选料到盘玩到保养的完整攻略。选料四看、盘玩时间线、色差急救、包浆图谱、禁忌事项。"
+      "description": "星月菩提买回来怎么盘：挂瓷、上色、包浆、开片四个阶段的耗时与手感，盘放节奏，水与大汗与温差骤变三忌，色差急救，以及发霉、开裂、盘花、掉星等常见问题的处理方法。"
     }
   ]
 }

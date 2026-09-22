@@ -593,6 +593,19 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .code-copy-btn:hover { opacity:1; }
 .code-copy-btn.copied { color:var(--green)!important; border-color:var(--green)!important; }
 
+/* [视觉修复 2026-09-22] 提示框右下角的「复制」按钮压住最后一行文字。
+   事实：app.js 的 autoCopyButtons() 给 .tip-box/.warning-box/.info-box 各注入一个
+   position:absolute;bottom:8px;right:8px 的 44px 高按钮。短提示框（1~2 行）里
+   文字会排到右边缘，末字正好落在按钮矩形内 —— 1440 视口实测重叠 12×15px，
+   且按钮背景不透明，被压住的笔画直接丢失。抽查 4 个页面：有按钮的提示框
+   命中率 5/5（bracelet/xingyue、bracelet/quanao、tesla/fsd 三个候选框全中）。
+   处理：给**确实有按钮**的框留出按钮高度的底部内边距（8 + 44 + 8 = 60px），
+   文字区与按钮区从此互不相交；没有按钮的框不受影响（:has 精确匹配）。
+   不用 position 改法是因为按钮矩形由 app.js 内联样式决定，内联优先级更高。 */
+.tip-box:has(> .box-copy-btn),
+.warning-box:has(> .box-copy-btn),
+.info-box:has(> .box-copy-btn) { padding-bottom:60px; }
+
 /* [TONY-FIX 2026-08-28] 代码块长行溢出：Hugo Chroma 的 pre/code 默认 white-space:pre（不换行），
    超长命令/路径（如 /checklist/ 的 `cd ~/陈金龙/代码与脚本/...`）在移动端伸出视口，
    被 body{overflow-x:clip} 裁切导致右侧文字丢失（实测 390px 下溢出 49px）。

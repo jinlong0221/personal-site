@@ -21,9 +21,9 @@
 </script>
 
 <title>文玩手串百科｜龙兄知识库</title>
-<meta name="keywords" content="星月菩提,文玩手串,正月,星点,包浆,盘玩,鉴别,海南黄藤,龙兄知识库">
+<meta name="keywords" content="星月菩提,文玩手串,正月,弦月,无月,星点,密度,沉水,干磨,水磨,漂白,毛感料,老挝料,三国料,包浆,开片,龙兄知识库">
 
-<meta name="description" content="星月菩提详细科普：从棕榈科黄藤种子讲到「星」「月」成因、正月挑选、密度油性判断、盘玩包浆与避坑要点，附新手价位区间与官方鉴伪方法。本板块目前专注星月菩提一个品种，其他品种后续补充。">
+<meta name="description" content="星月菩提怎么挑、怎么盘：产地三档（海南毛感料／老挝料／三国料）、月相与星点判断、密度四法与沉水误区、干磨水磨与漂白辨别、尺寸与价位锚、盘玩四阶段与常见问题，只写查得到出处的部分。">
 
 <!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
 <meta name="article-category" content="文玩手串">
@@ -110,11 +110,13 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
 @media(max-width:480px){html{font-size:17px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="css/style.css?v=20260920">
+<link rel="stylesheet" href="css/style.css?v=20260922">
 <style>
-  /* 文玩手串首页特定样式 */
+  /* 文玩手串首页特定样式
+     2026-09-22 重构：单品类（星月菩提）+ 结论先行 + 全站无配图。
+     旧版的 .bracelet-hero-img / .bracelet-thumb / .bracelet-science 随配图与长文一起下线。 */
   .bracelet-hero {
-    padding: 48px 0 24px;
+    padding: 44px 0 8px;
     text-align: center;
   }
   .bracelet-hero h1 {
@@ -130,24 +132,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     margin-top: 8px;
     font-size: 0.85rem;
     color: var(--text-secondary);
-  }
-  /* 头图：背景图 + 渐变底色回退，文件缺失时显示国风底色块 */
-  .bracelet-hero-img {
-    width: 100%;
-    max-width: 880px;
-    height: 240px;
-    margin: 26px auto 8px;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    background-color: var(--bg-section);
-    background-image: url('img/bracelet/hero.webp'), linear-gradient(135deg, rgba(201,168,76,.10), rgba(201,168,76,.02));
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    box-shadow: var(--shadow-md);
-  }
-  @media (max-width: 768px) {
-    .bracelet-hero-img { height: 160px; border-radius: 12px; }
   }
 
   /* 分类标题 */
@@ -188,8 +172,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     margin-bottom: 32px;
   }
 
-  /* 单品种时的「主推卡」：整行一张，图左文右。
-     宽度收到 860px 居中，与页面里「资料来源」「科普」区块共用同一条中轴线；
+  /* 单品种时的「主推卡」：整行一张，左圆形徽记 + 右文字。
+     宽度收到 860px 居中，与页面里「速判表」「资料来源」区块共用同一条中轴线；
      ⚠️ 日后往板块里加回第 2 个品种时，把 grid 上的 .is-single 去掉即可恢复三列网格。 */
   .bracelet-grid.is-single {
     grid-template-columns: 1fr;
@@ -199,28 +183,31 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   }
   .bracelet-grid.is-single .bracelet-card {
     display: grid;
-    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    grid-template-columns: 64px minmax(0, 1fr);
     align-items: center;
-    column-gap: 24px;
-    row-gap: 0;
-    min-height: 200px;
-    padding: 20px 26px 20px 22px;
+    column-gap: 20px;
+    row-gap: 4px;
+    min-height: 0;
+    padding: 20px 26px;
   }
-  .bracelet-grid.is-single .bracelet-thumb {
+  /* 徽记：纯 CSS 圆牌（无配图；本板块不存在「免费 + 可商用 + 精确品种」的星月菩提真图） */
+  .bracelet-grid.is-single .bracelet-card .emoji {
     grid-column: 1;
-    grid-row: 1 / span 4;
-    height: 168px;
-    margin-bottom: 0;
+    grid-row: 1 / span 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0;
+    font-size: 30px;
+    border-radius: 50%;
+    background: rgba(201, 168, 76, 0.10);
+    border: 1px solid rgba(201, 168, 76, 0.35);
   }
-  @media (max-width: 768px) {
-    .bracelet-grid.is-single .bracelet-card {
-      display: flex;
-      flex-direction: column;
-      padding: 20px 18px 20px 24px;
-      min-height: 0;
-    }
-    .bracelet-grid.is-single .bracelet-thumb { height: 150px; margin-bottom: 14px; }
-  }
+  .bracelet-grid.is-single .bracelet-card .title,
+  .bracelet-grid.is-single .bracelet-card .desc,
+  .bracelet-grid.is-single .bracelet-card .tag { grid-column: 2; }
 
   .bracelet-card {
     position: relative;
@@ -245,18 +232,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       box-shadow: var(--shadow-lg), 0 0 22px rgba(201,168,76,.14);
       border-color: rgba(201,168,76,.45);
     }
-  }
-  /* 材质缩略图：背景图 + 底色回退，文件缺失时显示纯色块（不出现裂图） */
-  .bracelet-thumb {
-    width: 100%;
-    height: 130px;
-    border-radius: 10px;
-    margin-bottom: 14px;
-    background-color: var(--bg-section);
-    background-size: cover;
-    background-position: center;
-    border: 1px solid var(--border);
-    flex-shrink: 0;
   }
 
   .bracelet-card .emoji {
@@ -285,44 +260,169 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     width: fit-content;
   }
 
-  /* 卡片紫色边框和悬停效果 */
+  /* 卡片左侧色条与标签配色 */
   .card-purple { border-left: 4px solid #5b2c8d; }
   .card-purple .tag { background: rgba(91, 44, 141, 0.15); color: #9c6ede; }
-  .card-purple:hover { border-color: #5b2c8d; }
 
   .card-amber { border-left: 4px solid #c9a84c; }
   .card-amber .tag { background: rgba(201, 168, 76, 0.15); color: var(--gold); }
-
-  /* 分类背景 */
-  .cat-material .bracelet-card:nth-child(1) .emoji,
-  .cat-material .bracelet-card:nth-child(2) .emoji,
-  .cat-material .bracelet-card:nth-child(3) .emoji,
-  .cat-material .bracelet-card:nth-child(4) .emoji,
-  .cat-material .bracelet-card:nth-child(5) .emoji,
-  .cat-material .bracelet-card:nth-child(6) .emoji { font-size: 34px; }
 
   /* 亮色模式卡片 */
   [data-theme="light"] .bracelet-card:hover {
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   }
 
+  /* 结论先行：一段定调 + 速判表 */
+  .bl-lead {
+    max-width: 860px;
+    margin: 10px auto 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+  .bl-lead p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    font-size: 0.95rem;
+  }
+  .bl-quick {
+    max-width: 860px;
+    margin: 18px auto 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .bl-quick table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+  .bl-quick th {
+    text-align: left;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    background: rgba(201, 168, 76, 0.08);
+    white-space: nowrap;
+  }
+  .bl-quick td {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .bl-quick td:first-child {
+    color: var(--text);
+    font-weight: 700;
+    white-space: nowrap;
+    width: 76px;
+  }
+  .bl-quick strong { color: var(--text); }
+
+  /* 新手常见疑问：原生 <details>，不需要脚本，脚本被挡也能展开 */
+  .bl-faq {
+    max-width: 860px;
+    margin: 36px auto 0;
+  }
+  .bl-faq > h2 {
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin: 0 0 14px;
+  }
+  .bl-faq details {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .bl-faq summary {
+    cursor: pointer;
+    padding: 14px 44px 14px 18px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+    list-style: none;
+    position: relative;
+  }
+  .bl-faq summary::-webkit-details-marker { display: none; }
+  .bl-faq summary::after {
+    content: '＋';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .bl-faq details[open] summary::after { content: '－'; }
+  .bl-faq details[open] summary { border-bottom: 1px solid var(--border); }
+  .bl-faq-body {
+    padding: 14px 18px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.9;
+  }
+  .bl-faq-body p { margin: 0 0 8px; }
+  .bl-faq-body p:last-child { margin-bottom: 0; }
+  .bl-faq-body a { color: var(--blue-light); }
+  .bl-faq-body strong { color: var(--text); }
+
+  /* 资料来源（本板块的出处集中在这一处，不再分散成两段） */
+  .bl-src {
+    max-width: 860px;
+    margin: 28px auto 4px;
+    padding: 18px 20px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--card);
+  }
+  .bl-src h2 {
+    font-size: 1.02rem;
+    margin: 0 0 10px;
+    color: var(--gold);
+  }
+  .bl-src ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.95;
+  }
+  .bl-src li + li { margin-top: 6px; }
+  .bl-src strong { color: var(--text); }
+
   /* 响应式 */
   @media (max-width: 768px) {
+    .bracelet-hero { padding: 32px 0 8px; }
     .bracelet-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .bracelet-grid.is-single .bracelet-card {
+      grid-template-columns: 52px minmax(0, 1fr);
+      column-gap: 14px;
+      padding: 18px;
+    }
+    .bracelet-grid.is-single .bracelet-card .emoji {
+      width: 52px;
+      height: 52px;
+      font-size: 24px;
+    }
     /* 卡片竖线与文字拉开间距 */
     .bracelet-card { padding: 20px 18px 20px 24px; min-height: 140px; }
     .bracelet-card .emoji { font-size: 28px; margin-bottom: 8px; }
     .bracelet-card .title { font-size: 1rem; }
     .bracelet-card .desc { font-size: 0.78rem; }
     .card-purple, .card-amber { border-left-width: 3px; }
-    /* 标题区允许换行，防止折叠按钮挤压文字 */
+    /* 标题区允许换行，防止徽章挤压文字 */
     .cat-header { margin: 32px 0 14px; gap: 8px 10px; flex-wrap: wrap; padding-bottom: 10px; }
     .cat-header h2 { font-size: 1.2rem; }
     .cat-header .badge { font-size: 0.65rem; padding: 2px 8px; }
-    /* 折叠按钮在窄屏下不挤占标题空间 */
-    .cat-header .lx-ac-toggle { padding: 3px 10px; font-size: 0.75rem; }
-    /* 长文科普卡片移动端收紧 */
-    .bracelet-science { padding: 22px 18px !important; }
+    .bl-lead { padding: 16px 18px; }
+    .bl-faq summary { font-size: 0.9rem; padding: 12px 40px 12px 16px; }
+    .bl-src { padding: 16px 16px; }
   }
   @media (max-width: 480px) {
     .bracelet-grid { grid-template-columns: 1fr; gap: 10px; }
@@ -330,11 +430,6 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .bracelet-card .emoji { font-size: 26px; }
     .bracelet-card .title { font-size: 0.95rem; }
     .cat-header h2 { font-size: 1.1rem; }
-    .bracelet-science { padding: 18px 14px !important; border-radius: 12px !important; }
-    .bracelet-science > h2 { font-size: 1.1rem !important; }
-    .bracelet-science h3 { font-size: 0.95rem !important; }
-    .bracelet-science p,
-    .bracelet-science li { font-size: 0.85rem !important; line-height: 1.8 !important; }
   }
 
   /* 桌面端字号增强（2026-08-11）：与全站 17.5px 正文基线对齐，修正固定小字号 */
@@ -343,12 +438,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .bracelet-card { min-height: 180px; }
     .bracelet-card .desc { font-size: 0.92rem; }
     .bracelet-card .tag { font-size: 0.72rem; }
-    .bracelet-science p,
-    .bracelet-science li { font-size: 1rem !important; }
-    .bracelet-science h3 { font-size: 1.18rem !important; }
-    .bracelet-science table,
-    .bracelet-science td,
-    .bracelet-science th { font-size: 0.95rem !important; }
+    .bl-lead p { font-size: 1rem; }
+    .bl-quick table { font-size: 0.95rem; }
+    .bl-faq-body { font-size: 0.95rem; }
+    .bl-src ul { font-size: 0.92rem; }
   }
 </style>
 <script>
@@ -366,14 +459,14 @@ var _hmt = _hmt || [];
 <link rel="canonical" href="https://longxiong.vip/bracelet.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
 <meta property="og:title" content="文玩手串百科｜龙兄知识库">
-<meta property="og:description" content="星月菩提详细科普：从棕榈科黄藤种子讲到「星」「月」成因、正月挑选、密度油性判断、盘玩包浆与避坑要点，附新手价位区间与官方鉴伪方法。本板块目前专注星月菩提一个品种，其他品种后续补充。">
+<meta property="og:description" content="星月菩提怎么挑、怎么盘：产地三档（海南毛感料／老挝料／三国料）、月相与星点判断、密度四法与沉水误区、干磨水磨与漂白辨别、尺寸与价位锚、盘玩四阶段与常见问题，只写查得到出处的部分。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://longxiong.vip/bracelet.html">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="文玩手串百科｜龙兄知识库">
-<meta name="twitter:description" content="星月菩提详细科普：从棕榈科黄藤种子讲到「星」「月」成因、正月挑选、密度油性判断、盘玩包浆与避坑要点，附新手价位区间与官方鉴伪方法。本板块目前专注星月菩提一个品种，其他品种后续补充。">
+<meta name="twitter:description" content="星月菩提怎么挑、怎么盘：产地三档（海南毛感料／老挝料／三国料）、月相与星点判断、密度四法与沉水误区、干磨水磨与漂白辨别、尺寸与价位锚、盘玩四阶段与常见问题，只写查得到出处的部分。">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
@@ -506,12 +599,11 @@ var _hmt = _hmt || [];
 <main class="container" id="main-content" role="main">
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">风物志</span><span class="sep">›</span><span class="current">文玩手串</span></div>
 
-  <!-- 标题区 -->
+  <!-- 标题区（2026-09-22：撤掉「同色系凑数图」，本板块不放配图，改用文字与表格承载） -->
   <div class="bracelet-hero">
     <h1>文玩手串</h1>
-<p class="subtitle">星月菩提：从选料、盘玩到包浆，一篇讲清</p>
-    <p class="tagline">本板块目前只做星月菩提一个品种，其他品种后续再陆续补上。</p>
-    <div class="bracelet-hero-img" role="img" aria-label="星月菩提籽珠串实拍：白底籽珠带自然星点"></div>
+    <p class="subtitle">星月菩提：怎么挑、怎么盘，两页讲完</p>
+    <p class="tagline">本板块目前只做星月菩提一个品种，其他品种后续再补。</p>
   </div>
 
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
@@ -522,6 +614,29 @@ var _hmt = _hmt || [];
     <div class="home-collapsible-body" id="autoNewsBody"></div>
   </div>
 
+  <!-- ===== 结论先行：先给判断口径，再给细节入口 ===== -->
+  <div class="bl-lead">
+    <p>一串星月值不值得看，只由四件事决定：<strong>料</strong>（哪里产的）、<strong>月</strong>（正不正）、<strong>星</strong>（细不细、稀不稀）、<strong>密度</strong>（压不压手）。其余说法基本是围绕这四点的包装。下表是速判口径；细节分两页——<strong>买之前看《星月菩提》，买之后看《盘养手册》</strong>。</p>
+  </div>
+
+  <div class="bl-quick">
+    <table>
+      <thead>
+        <tr><th>看什么</th><th>记住这一句</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>料</td><td>只认三档：<strong>海南（毛感）&gt; 老挝 &gt; 三国（泰／越／柬）</strong>。市面上的「广西料」多是越南、老挝货转手；「五星帝王料」这个说法不存在。</td></tr>
+        <tr><td>月</td><td>正月最好，弦月次之，<strong>无月、假月直接放弃</strong>——磨没了就是磨没了，盘多久也长不回来。</td></tr>
+        <tr><td>星</td><td>月朗星稀、星细如针、分布均匀。连星、爆星、糊成一片的一律不选。</td></tr>
+        <tr><td>密度</td><td>两珠相撞<strong>清脆如瓷</strong>是好料，发闷是糠；同尺寸越压手越好。</td></tr>
+        <tr><td>沉水</td><td><strong>不沉水的一定是差籽</strong>；但沉水的也不一定好——水煮嫩籽也沉。只当排除法用，别当金标准。</td></tr>
+        <tr><td>工艺</td><td>水磨籽的星眼会萎缩脱落、白色部分发软、表面发闷；漂白籽惨白透星，很快变黄开片。</td></tr>
+        <tr><td>尺寸</td><td>常规直径 8–10mm 最好找；<strong>直径 6mm 以下打磨过度，不一定有月</strong>；直径 13mm 以上正月概率反而很低。</td></tr>
+        <tr><td>价位</td><td>海南料原籽行情折算约 350 元/斤，一斤中等籽约 200 颗——<strong>一条 108 颗明显低于 400 元，先怀疑不是海南料</strong>。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- 品种分类（2026-09-22 起只保留星月菩提；加回其他品种时去掉 is-single 并照原卡片结构追加） -->
   <div class="cat-header">
     <h2>品种</h2>
@@ -530,15 +645,14 @@ var _hmt = _hmt || [];
 
   <div class="bracelet-grid is-single" data-ac data-ac-head=".cat-header" data-ac-items=".bracelet-card" data-ac-count="false">
     <a href="bracelet/xingyue.html" class="bracelet-card card-purple">
-      <div class="bracelet-thumb" style="background-image:url('img/bracelet/xingyue.webp')" role="img" aria-label="星月菩提籽珠串实拍"></div>
-      <div class="emoji">🌟</div>
+      <div class="emoji" aria-hidden="true">🌟</div>
       <div class="title">星月菩提</div>
-      <div class="desc">棕榈科黄藤的种子：「星」是嚼烂状胚乳磨出的星点，「月」是胚所在的位置。正月怎么挑、密度油性怎么看、色差与包浆怎么养，全在这一页。</div>
-      <div class="tag">海南毛感料</div>
+      <div class="desc">黄藤的种子。买之前要搞清的全在这页：料的三档怎么分、月相怎么定级、星点和密度怎么看、干磨水磨与漂白怎么辨、尺寸规格怎么选、价位锚在哪。</div>
+      <div class="tag">选购指南</div>
     </a>
   </div>
 
-  <!-- 知识指南分类（目前只挂星月专题） -->
+  <!-- 知识指南分类（目前只挂盘养专题） -->
   <div class="cat-header">
     <h2>知识指南</h2>
     <span class="badge">当前 1 篇</span>
@@ -546,141 +660,59 @@ var _hmt = _hmt || [];
 
   <div class="bracelet-grid is-single" data-ac data-ac-head=".cat-header" data-ac-items=".bracelet-card" data-ac-count="false">
     <a href="bracelet/quanao.html" class="bracelet-card card-amber">
-      <div class="bracelet-thumb" style="background-image:url('img/bracelet/xingyue-guide.webp')" role="img" aria-label="星月菩提籽珠串特写实拍"></div>
-      <div class="emoji">📖</div>
-      <div class="title">星月全套攻略</div>
-      <div class="desc">选料 → 上手 → 包浆 → 保养，星月菩提完整生命周期，配包浆图谱</div>
-      <div class="tag">完整指南</div>
+      <div class="emoji" aria-hidden="true">🪷</div>
+      <div class="title">星月菩提盘养手册</div>
+      <div class="desc">买回来之后的事：挂瓷 → 上色 → 包浆 → 开片四个阶段各要多久、盘放怎么排、三忌是什么、色差怎么急救、出问题怎么处理。</div>
+      <div class="tag">盘养手册</div>
     </a>
   </div>
 
-  
+  <!-- ===== 新手最常问：默认收起，不占版面（原生 details，无需脚本） ===== -->
+  <section class="bl-faq">
+    <h2>新手最常问的三件事</h2>
 
-  <section style="margin:28px auto 4px;padding:18px 20px;max-width:860px;border:1px solid var(--border);border-radius:14px;background:var(--card);">
-    <h2 style="font-size:1.02rem;margin:0 0 10px;color:var(--gold);">📚 资料来源 · 延伸阅读</h2>
-    <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:.9rem;line-height:1.95;">
-      <li><a href="https://www.cnaca.org/" target="_blank" rel="noopener" style="color:var(--blue-light)">中国工艺美术协会（cnaca.org）</a> — 国家级工艺美术行业组织，涵盖文玩、手串、雕刻等品类的行业资讯与标准</li>
-      <li><a href="https://www.cnacs.net.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">中国工艺美术学会（cnacs.net.cn）</a> — 工艺美术领域学术与行业研究机构，发布非遗与手工艺研究</li>
-    </ul>
+    <details>
+      <summary>「星月菩提」是菩提树结的吗？</summary>
+      <div class="bl-faq-body">
+        <p>不是。真正的菩提树是桑科榕属（<em>Ficus religiosa</em>），果实像无花果，种子又小又软，根本磨不成珠子。「菩提子」是个泛称，指坚硬耐磨、可串可计数的各类植物种子；<strong>星月菩提的真身是棕榈科省藤属黄藤（<em>Calamus jenkinsianus</em>）的种子</strong>，跟菩提树没有半点关系。搞清这一点，商家那套「菩提神树」的故事就不攻自破了。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>品相里哪一项最不能让？</summary>
+      <div class="bl-faq-body">
+        <p><strong>月。</strong>无月、假月一票否决——磨没了就是磨没了，盘多久也长不回来。其次是星点连成线（连星）或糊成一片（爆星、烟花纹）。密度差还能靠盘养补一部分，月不正没法救。</p>
+        <p>另外留个心眼：市面有「<strong>洗月（铣月）</strong>」工艺，用磨头把大小颜色不一的月铣成一样，甚至给磨掉月的籽重新铣出月来，所以「颗颗月正」不一定都是天然长的。它是机加工产物，不算假货，但溢价不该按天然正月算。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>一条 108 颗卖 199 元，说是海南料，能信吗？</summary>
+      <div class="bl-faq-body">
+        <p>基本不能。公开行情里海南料原籽约 70 万元/吨（≈350 元/斤），一斤中等大小原籽约 200 颗；挑掉阴皮、嫩籽、品相不佳的之后，运气好才出得了一条 108 颗。光原料就不止这个价。</p>
+        <p>低于原料成本的「海南料」，大概率是三国料或老挝料贴标——这两者的原籽价大约只有海南料的三四成。<strong>当价格明显低于原料成本时，先怀疑材质，而不是庆幸运气。</strong></p>
+      </div>
+    </details>
   </section>
 
-  <!-- ===== 星月菩提专项科普（2026-09-22 起本板块只做星月菩提一个品种） ===== -->
-  <section class="bracelet-science" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px auto;max-width:860px;">
-    <h2 style="color:var(--gold);font-size:1.3rem;margin:0 0 6px;">🪵 星月菩提科普：它到底是什么，怎么挑、怎么盘</h2>
-    <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 18px;font-size:.92rem;">
-      星月菩提是最普及的入门品种，也最容易被概念忽悠。下面的结论以植物学考据、行业标准文本与官方消费提示为依据，尽量只写「查得到出处」的部分。
-    </p>
-
-    <h3 style="color:var(--gold);font-size:1.05rem;margin:22px 0 10px;">一、先把「星月菩提」这个概念搞清</h3>
-    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
-      <li><strong style="color:var(--text)">菩提子几乎都不是菩提树结的。</strong>真正的菩提树是桑科榕属的 <em>Ficus religiosa</em>，果实是类似无花果的聚花果，长不出硬珠子。市面上被统称为「菩提子」的，其实是多种植物的果实或种子——<strong style="color:var(--text)">星月菩提就是棕榈科黄藤的种子</strong>，跟菩提树没有半点关系。搞清这一点，商家讲的那些「菩提神树」故事就不攻自破了。</li>
-      <li style="margin-top:8px;"><strong style="color:var(--text)">「月」是胚的位置。</strong>盘玩的其实是种子里的<strong style="color:var(--text)">胚乳</strong>。胚正好位于珠子侧面正中，就是市场追捧的「<strong style="color:var(--text)">正月</strong>」——因果实形状不规则，正月产量偏低，所以更贵。</li>
-      <li style="margin-top:8px;"><strong style="color:var(--text)">「星」来自棕榈科特有的嚼烂状胚乳。</strong>胚乳表面凹凸很深，种皮和部分内果皮陷了进去，磨光后就成了星点。也正因如此，<strong style="color:var(--text)">剖开会发现很多「星」并不通到核心</strong>，这是正常的，不算瑕疵。</li>
-      <li style="margin-top:8px;"><strong style="color:var(--text)">白与黄不是两个品种，是两种采收方式。</strong>树上直采、加工后偏白或偏绿；落地自然腐熟后再收集的，偏黄褐至黑。</li>
+  <!-- ===== 资料来源（与细节页共用同一批出处） ===== -->
+  <section class="bl-src">
+    <h2>📚 资料来源</h2>
+    <ul>
+      <li>植物学与名称：<a href="https://www.iplant.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">植物智 · 中国植物物种信息系统</a>（黄藤 <em>Calamus jenkinsianus</em> 的科属与形态核对）、<a href="https://www.guokr.com/article/438411/" target="_blank" rel="noopener" style="color:var(--blue-light)">果壳网《你知道「菩提子」是什么吗？》</a>（「菩提子」泛称与各类原植物考据）</li>
+      <li>「星」「月」成因与产地俗称：<a href="http://gongyi.people.com.cn/n/2014/0516/c354326-25027251-2.html" target="_blank" rel="noopener" style="color:var(--blue-light)">人民网公益频道《益生活：带你认识一下各路「菩提子」》</a>（2014-05-16）</li>
+      <li>官方监管与消费提示：<a href="https://www.samr.gov.cn/" target="_blank" rel="noopener" style="color:var(--blue-light)">国家市场监督管理总局</a>传统工艺市场「打假清源」联合执法行动通报（2026-09：全国立案 769 件、涉案金额 6558 万元、21 起移送司法机关）</li>
+      <li><strong>⚠️ 口径说明：</strong>产地分级、月相与密度判断、价位区间属于<strong>行业通行说法与公开行情观察，不是国家标准</strong>，各地口径有出入。本页只保留多家说法一致、且能被实物验证的部分；贵重物品请送具备 CMA／CNAS 资质的机构鉴定后再决策。</li>
     </ul>
-
-    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">二、星月菩提的硬指标</h3>
-    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
-      <table style="width:100%;min-width:560px;border-collapse:collapse;font-size:.86rem;color:var(--text-secondary);line-height:1.75;">
-        <thead>
-          <tr style="background:rgba(201,168,76,.08);">
-            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);white-space:nowrap;width:132px;">项目</th>
-            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);">星月菩提</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">学名 / 科属</td><td style="padding:10px 12px;border:1px solid var(--border);">黄藤 <em>Daemonorops margaritae</em><br>棕榈科（藤本）</td></tr>
-          <tr><td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">盘玩对象</td><td style="padding:10px 12px;border:1px solid var(--border);">种子里的<strong style="color:var(--text)">胚乳</strong>（不是果皮、也不是木质）</td></tr>
-          <tr><td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">密度 / 沉水</td><td style="padding:10px 12px;border:1px solid var(--border);">不沉水（棕榈科种子）</td></tr>
-          <tr><td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">油性</td><td style="padding:10px 12px;border:1px solid var(--border);">中</td></tr>
-          <tr><td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">主要产地</td><td style="padding:10px 12px;border:1px solid var(--border);">以海南为主，五指山一带当地俗称「红藤子」</td></tr>
-          <tr><td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">色调来源</td><td style="padding:10px 12px;border:1px solid var(--border);">树上直采加工后偏白 / 绿；落地自然腐熟后收集的偏黄褐至黑</td></tr>
-          <tr><td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">盘玩周期</td><td style="padding:10px 12px;border:1px solid var(--border);white-space:nowrap;">3–6 个月见色变</td></tr>
-          <tr><td style="padding:10px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">新手价位区间</td><td style="padding:10px 12px;border:1px solid var(--border);white-space:nowrap;">50–500 元</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">三、盘玩养护：先懂原理，再谈手法</h3>
-    <p style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0 0 10px;">
-      木材是典型的吸湿性材料。中国林科院木材工业研究所在木材吸湿尺寸稳定性的研究中指出：木材含水率会随环境相对湿度变化而吸湿、解吸，含水率一变，尺寸就跟着变；而木材径向与弦向的干缩率并不相同（差异干缩），这正是开裂与变形的物理根源。<strong style="color:var(--text)">明白这一点，下面几条「老规矩」就不再是玄学：</strong>
-    </p>
-    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
-      <li><strong style="color:var(--text)">怕的是「骤变」，不是「干」或「湿」本身。</strong>空调出风口、暖气片旁、阳光直射的窗台、潮湿的卫生间——这些环境让含水率短时间来回横跳，最容易炸裂。长期不戴就装棉布袋收在阴凉稳定处；南北跨地区携带尤其要留缓冲时间。</li>
-      <li style="margin-top:6px;"><strong style="color:var(--text)">净手盘玩、盘放结合。</strong>手上的汗液与灰尘混合物会被揉进孔隙与纹理，形成难以逆转的暗沉。手汗大的人建议前期以棉布手套打底；盘一段时间就静置氧化，让析出物有时间硬化定型。</li>
-      <li style="margin-top:6px;"><strong style="color:var(--text)">星月属「以变色为乐趣」的一类，讲究刷盘结合。</strong>可适度盘玩，但菩提籽类要先<strong style="color:var(--text)">把沟壑里的残留刷净再上手</strong>，否则等于把脏东西揉进纹理里，后期很难返白。</li>
-      <li style="margin-top:6px;"><strong style="color:var(--text)">忌泡水、忌暴晒、忌随手上油上蜡。</strong>人工油脂会覆盖孔隙、掩盖本色与层次，多数情况并不建议主动上油。表面浮灰用软毛刷轻扫即可，不建议湿布擦。</li>
-    </ul>
-
-    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">四、新手避坑：官方点名的三类套路</h3>
-    <div style="background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:0 0 14px;">
-      <p style="color:var(--text-secondary);line-height:1.9;font-size:.9rem;margin:0;">
-        2026 年市场监管总局会同公安部在全国开展传统工艺品市场「打假清源」联合执法行动，重点整治「<strong style="color:var(--text)">假证书、假机构、假产品、假网站</strong>」四类乱象，覆盖<strong style="color:var(--text)">珠宝玉石、红木制品、文玩珠串</strong>等品类。据总局专题新闻发布会（2026-09-03）通报：截至目前全国立案 <strong style="color:var(--text)">769 件</strong>、涉案金额 <strong style="color:var(--text)">6558 万元</strong>，21 起重大案件已移送司法机关；公安同步侦办刑案 91 起、捣毁非法加工窝点 106 个、对 472 人采取刑事强制措施。针对直播与网店等线上高发渠道，全网累计网络监测近 28 万次、清理违规信息 1892 条。
-      </p>
-    </div>
-    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
-      <li><strong style="color:var(--text)">工艺陷阱——警惕染色、注胶、顺纹拼接。</strong>市场监管部门在红木制品消费警示中明确提示手串需防这三种处理；<strong style="color:var(--text)">星月菩提在加工环节也存在用水和酸处理果实的现象</strong>，会造成油脂与水分流失、影响成品品质，也就是常说的「高抛做旧」「漂白」。</li>
-      <li style="margin-top:6px;"><strong style="color:var(--text)">价格与渠道陷阱。</strong>官方提示点名：景区地摊、无资质直播间、私域转账、「上门回收」售后无保障；直播间的「捡漏福利」「限量秒杀」、美颜滤镜、强光打光、剧情演绎都是诱导话术。一个朴素的判断是——<strong style="color:var(--text)">当价格明显低于该品类的原料成本时，先怀疑材质，而不是庆幸运气</strong>。</li>
-      <li style="margin-top:6px;"><strong style="color:var(--text)">证书怎么核？</strong>市场监管部门给出「四步法」：① 登录市场监管部门官网核查检验机构是否具备 <strong style="color:var(--text)">CMA 资质认定 / CNAS 认可</strong>；② 核对报告上的名称、型号、批次、照片、重量与实物是否一致；③ 通过<strong style="color:var(--text)">官方渠道</strong>（机构官网或电话）核实报告编号真伪，不要点商家私发的查询链接；④ 发现虚假报告通过 12315 平台举报。</li>
-    </ul>
-
-    <p style="color:var(--text-secondary);line-height:1.9;font-size:.86rem;margin:18px 0 0;padding:12px 14px;border-left:3px solid var(--gold);background:rgba(201,168,76,.05);border-radius:0 8px 8px 0;">
-      ⚠️ <strong style="color:var(--text)">免责声明：</strong>本页内容为科普整理，密度、星点、尺寸等参数均引自公开标准文本与权威科普资料，仅供学习参考，<strong style="color:var(--text)">不作为交易依据</strong>。手串的实际价值受料质、工艺、品相、行情多重因素影响，<strong style="color:var(--text)">贵重物品请送具备 CMA / CNAS 资质的专业机构鉴定</strong>后再做决策。
-    </p>
-
-    <h3 style="color:var(--gold);font-size:1.02rem;margin:26px 0 10px;">📚 本节信息来源</h3>
-    <ul style="margin:0;padding-left:20px;color:var(--text-secondary);font-size:.88rem;line-height:1.95;">
-      <li><a href="https://www.guokr.com/article/438411/" target="_blank" rel="noopener" style="color:var(--blue-light)">果壳网｜你知道「菩提子」是什么吗？</a> — 从植物学角度考据各类菩提子的真实原植物，本文「星」与「月」的成因即据此</li>
-      <li><a href="https://criwi.caf.ac.cn/index.htm" target="_blank" rel="noopener" style="color:var(--blue-light)">中国林业科学研究院木材工业研究所（criwi.caf.ac.cn）</a> — 国家级木材科学研究机构，木材含水率、干缩湿胀与尺寸稳定性研究的来源，也是多项木材行业标准的起草单位</li>
-      <li><a href="https://www.zhuhai.gov.cn/scjgj/gkmlpt/content/3/3925/post_3925533.html" target="_blank" rel="noopener" style="color:var(--blue-light)">珠海市市场监督管理局｜关于珠宝玉石、贵金属饰品等传统工艺商品的消费提示</a> — 官方发布的「四假」整治要点、典型案例与证书核验「四步法」</li>
-      <li>国家市场监督管理总局｜传统工艺品市场「打假清源」联合执法行动专题新闻发布会（2026-09-03，中国社会工作报报道）— 立案件数、涉案金额、网络监测与清理违规信息等整治数据</li>
-    </ul>
-  </section>
-  <!-- ===== 星月菩提速查（要点表 + 养护日历） ===== -->
-  <section class="bracelet-science" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:28px auto;max-width:860px;">
-    <h2 style="color:var(--gold);font-size:1.3rem;margin:0 0 6px;">📊 星月菩提速查表</h2>
-    <p style="color:var(--text-secondary);line-height:1.9;margin:0 0 18px;font-size:.92rem;">
-      新手最该先看清的一张表：挑选看什么、几年能盘出样子、大概多少钱、最容易在哪一步被坑。数值与上文「硬指标」同源，便于对照实物快速定位。
-    </p>
-    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
-      <table style="width:100%;min-width:560px;border-collapse:collapse;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">
-        <thead>
-          <tr style="background:rgba(201,168,76,.08);">
-            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);white-space:nowrap;width:132px;">项目</th>
-            <th style="text-align:left;padding:10px 12px;border:1px solid var(--border);color:var(--gold);">怎么看 / 怎么防</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">挑「正月」</td><td style="padding:9px 12px;border:1px solid var(--border);">看胚（月）是否位于珠子侧面正中。因果实形状不规则，正月产量低，同料同尺寸下正月溢价明显</td></tr>
-          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">看「星点」</td><td style="padding:9px 12px;border:1px solid var(--border);">星点来自嚼烂状胚乳的凹陷，天然会有深有浅；剖开可见很多星不通到核心，属正常。星点大小、密度、分布是否均匀才是分档依据</td></tr>
-          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">判断密度油性</td><td style="padding:9px 12px;border:1px solid var(--border);">密度高、油性足的珠子入手更坠、碰撞声更沉实；同等条件下优先挑沉手的</td></tr>
-          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">能盘多久见色</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">3–6 个月见色变</td></tr>
-          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">新手价位区间</td><td style="padding:9px 12px;border:1px solid var(--border);white-space:nowrap;">50–500 元（受尺寸、正月比例、星点品相影响）</td></tr>
-          <tr><td style="padding:9px 12px;border:1px solid var(--border);color:var(--text);font-weight:700;">高频坑点</td><td style="padding:9px 12px;border:1px solid var(--border);">警惕高抛做旧与漂白；小心以水和酸处理果实导致油脂水分流失的货；低于原料成本的价格先怀疑材质</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 style="color:var(--gold);font-size:1.05rem;margin:24px 0 10px;">🗓️ 新手养护日历</h3>
-    <ul style="color:var(--text-secondary);line-height:1.9;font-size:.92rem;margin:0;padding-left:20px;">
-      <li><strong style="color:var(--text)">日常</strong>：净手盘玩、盘放结合；忌泡水、忌暴晒、忌随手上油上蜡（人工油脂会盖住孔隙与本色）。</li>
-      <li><strong style="color:var(--text)">春（潮）</strong>：防潮防霉，不戴时入棉布袋阴凉存放，南方回南天尤其注意。</li>
-      <li><strong style="color:var(--text)">夏（汗）</strong>：汗手先戴棉布手套打底防暗沉；远离空调出风口，避免含水率骤变开裂。</li>
-      <li><strong style="color:var(--text)">秋（干）</strong>：北方加湿防裂；多静置氧化定型，让析出物硬化。</li>
-      <li><strong style="color:var(--text)">冬（燥+暖）</strong>：远离暖气片 / 空调出风口；南北跨区携带留缓冲时间，忌骤冷骤热。</li>
-      <li><strong style="color:var(--text)">长期不戴</strong>：密封 + 棉布，置阴凉稳定处，避开发热电器与窗台直射。</li>
-    </ul>
-    <p style="color:var(--text-secondary);line-height:1.9;font-size:.84rem;margin:16px 0 0;padding:10px 12px;border-left:3px solid var(--gold);background:rgba(201,168,76,.05);border-radius:0 8px 8px 0;">
-      ⚠️ 上表价位为<strong style="color:var(--text)">新手常见区间参考</strong>，受料质、工艺、品相、行情影响极大；贵重物品请送具备 CMA / CNAS 资质的专业机构鉴定后再决策。
-    </p>
   </section>
 
 <div class="page-meta">
-    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：中国工艺美术协会（cnaca.org）、中国工艺美术学会（cnacs.net.cn）；品类鉴别与行情参考公开市场资料</div>
-    <p class="ref-note">正文中的具体参数、销量与价格数据均引自上方来源，数据截至 2026-08，已交叉核对。</p>
-    <p class="ref-note">配图说明：本页配图为真实照片（非 AI 生成），取自公共图库 Pexels。星月菩提是中国特有品种，公共图库没有同名实拍，故选用同色系、同珠型的真实籽珠串照片来呈现它应有的白底与圆润观感，实物观感请以你手上的串为准。</p>
-    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-21</span></div>
+    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：植物智（iplant.cn）、人民网公益频道、果壳网、国家市场监督管理总局；品类判断与行情参考公开市场资料</div>
+    <p class="ref-note">植物学与监管部分均有可点开的出处；产地分级、月相概率、价位区间属行业口径与公开行情观察，非国家标准，数据截至 2026-09。</p>
+    <p class="ref-note">本页无配图。星月菩提是中国特有品种，公共图库没有同名实拍（能用的平台要么不可达、要么需付费授权），而放一张明显不是星月菩提的图比不放图更误导，故本板块不设配图，相关信息一律用文字与表格承载。</p>
+    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-22</span></div>
   </div>
+
 <!-- related:begin -->
 <section class="lx-related" aria-label="相关阅读">
   <div class="lx-related-head">
@@ -690,15 +722,15 @@ var _hmt = _hmt || [];
   </div>
   <ul class="lx-related-list">
     <li class="lx-related-item">
-      <a class="lx-related-link" href="bracelet/xingyue.html">
+      <a class="lx-related-link" href="bracelet/quanao.html">
         <span class="lx-related-board">文玩手串</span>
-        <span class="lx-related-name">星月菩提2026实测避坑</span>
+        <span class="lx-related-name">星月菩提盘养手册</span>
       </a>
     </li>
     <li class="lx-related-item">
-      <a class="lx-related-link" href="bracelet/quanao.html">
+      <a class="lx-related-link" href="bracelet/xingyue.html">
         <span class="lx-related-board">文玩手串</span>
-        <span class="lx-related-name">星月菩提全套攻略2026实测避坑</span>
+        <span class="lx-related-name">星月菩提选购指南</span>
       </a>
     </li>
   </ul>
@@ -754,7 +786,7 @@ var _hmt = _hmt || [];
       "author": { "@type": "Person", "name": "龙兄" },
       "headline": "文玩手串百科｜龙兄知识库",
       "url": "https://longxiong.vip/bracelet.html",
-      "description": "星月菩提详细科普：从棕榈科黄藤种子讲到「星」「月」成因、正月挑选、密度油性判断、盘玩包浆与避坑要点，附新手价位区间与官方鉴伪方法。本板块目前专注星月菩提一个品种，其他品种后续补充。"
+      "description": "星月菩提怎么挑、怎么盘：产地三档（海南毛感料／老挝料／三国料）、月相与星点判断、密度四法与沉水误区、干磨水磨与漂白辨别、尺寸与价位锚、盘玩四阶段与常见问题，只写查得到出处的部分。"
     }
   ]
 }
@@ -766,7 +798,7 @@ var _hmt = _hmt || [];
     function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
   }
   </script>
-  <script defer src="js/auto_news_loader.js?v=20260909"></script>
+  <script defer src="js/auto_news_loader.js?v=20260922"></script>
 <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
 <script src="js/quick-toc.js?v=20260920" defer></script>

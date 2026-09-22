@@ -114,7 +114,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <style>
   /* 文玩手串首页特定样式
      2026-09-22 重构：单品类（星月菩提）+ 结论先行。
-     本页（板块首页）不设配图：卡片用纯 CSS 圆牌徽记；实拍图放在《星月菩提》选购页第三、四节。
+     2026-09-22 晚：页首新增「实物实拍」（.bl-shots-wrap，4 张站主自有实拍）；
+     卡片徽记仍是纯 CSS 圆牌，不裁图片。
      旧版的 .bracelet-hero-img / .bracelet-thumb / .bracelet-science 随配图与长文一起下线。 */
   .bracelet-hero {
     padding: 44px 0 8px;
@@ -133,6 +134,67 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     margin-top: 8px;
     font-size: 0.85rem;
     color: var(--text-secondary);
+  }
+
+  /* ===== 实物实拍（2026-09-22 晚新增）=====
+     板块首页第一眼就给真东西：四张均为站主自有实拍、同一串星月菩提。
+     分「刚入手 / 九个月后」两组，一行一组，左右可直接对比走色。
+     宽度与「速判表」「资料来源」共用同一条 860px 中轴线；点图可由 lightbox.js 放大。 */
+  .bl-shots-wrap { max-width: 860px; margin: 40px auto 0; }
+  .bl-shots-wrap > h2 { margin: 0 0 10px; }
+  .bl-shots-lead {
+    margin: 0 0 6px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+  .bl-shots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  /* 分组小标题：整行跨列，把「刚入手」「九个月后」两组分开 */
+  .bl-shots-rowlabel {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .bl-shots-rowlabel strong {
+    font-size: 0.95rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+  .bl-shots-rowlabel span { font-size: 0.8rem; color: var(--text-muted); }
+  .bl-shots figure { margin: 0; }
+  .bl-shots img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    cursor: zoom-in;
+  }
+  .bl-shots figcaption {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  .bl-shots figcaption strong { color: var(--text-secondary); }
+  .bl-shots-foot {
+    margin: 16px 0 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  @media (max-width: 560px) {
+    .bl-shots-wrap { margin-top: 32px; }
+    .bl-shots { grid-template-columns: minmax(0, 1fr); }
   }
 
   /* 分类标题 */
@@ -601,12 +663,42 @@ var _hmt = _hmt || [];
 <main class="container" id="main-content" role="main">
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">风物志</span><span class="sep">›</span><span class="current">文玩手串</span></div>
 
-  <!-- 标题区（2026-09-22：撤掉「同色系凑数图」，本板块不放配图，改用文字与表格承载） -->
+  <!-- 标题区（2026-09-22：撤掉「同色系凑数图」；当晚补上站主自有实拍，见下方「实物实拍」区块） -->
   <div class="bracelet-hero">
     <h1>文玩手串</h1>
     <p class="subtitle">星月菩提：怎么挑、怎么盘，两页讲完</p>
     <p class="tagline">本板块目前只做星月菩提一个品种，其他品种后续再补。</p>
   </div>
+
+  <!-- 实物实拍（2026-09-22 晚新增）：
+       四张均为站主自有实拍、同一串星月菩提，分「刚入手 / 九个月后」两组供直接对比。
+       同一批图在《选购指南》第三、四节讲「月」「星」，在《盘养手册》第二节存完整记录，
+       这里放在板块入口最上方，是为了让人一进板块就先看见真东西。 -->
+  <section class="bl-shots-wrap" aria-label="实物实拍">
+    <h2>实物实拍：同一串，九个月</h2>
+    <p class="bl-shots-lead">下面四张都是站主自己拍的，<strong>同一串</strong>星月菩提——先看刚入手时的样子，再看九个月后。<strong>点任意一张可以放大</strong>，星点和月眼的变化看得更清楚。</p>
+    <div class="bl-shots">
+      <div class="bl-shots-rowlabel"><strong>刚入手</strong><span>阴皮 · 青灰绿</span></div>
+      <figure>
+        <img data-lightbox data-caption="刚入手 · 月面：底色青灰绿（阴皮色系），月眼清楚，星点细密。" src="img/bracelet/xingyue-yue.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="刚入手的星月菩提实拍：底色青灰绿，珠面中央可见月眼，四周密布细星">
+        <figcaption><strong>月面：</strong>中间那个浅色圆凹就是「月」，满地小黑点是「星」。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="刚入手 · 星面：翻到另一面几乎看不到月眼，满身细星。" src="img/bracelet/xingyue-xing.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="刚入手的星月菩提实拍：翻到另一面看不到月眼，满布细密黑色星点">
+        <figcaption><strong>星面：</strong>翻过来几乎看不到月，满身细星——所以挑串要两面都看。</figcaption>
+      </figure>
+      <div class="bl-shots-rowlabel"><strong>九个月后</strong><span>橄榄黄至土黄褐</span></div>
+      <figure>
+        <img data-lightbox data-caption="九个月后 · 整串：底色由青灰绿走到橄榄黄至土黄褐，表面更亮更润，星点仍在。" src="img/bracelet/xingyue-9m.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后的星月菩提实拍：整串底色转为橄榄黄至土黄褐，表面有光泽，星点仍清晰">
+        <figcaption><strong>整串：</strong>绿调褪掉、转黄转亮，<strong>星点一颗没少</strong>。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="九个月后 · 特写：星点依旧清晰，表面光滑莹润，珠与珠之间仍有轻微色差。" src="img/bracelet/xingyue-9m-detail.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后的星月菩提特写：珠面光滑莹润，黑色星点清晰，珠间有轻微色差">
+        <figcaption><strong>特写：</strong>表面起玻璃感；珠与珠之间仍有色差，天然料本就如此。</figcaption>
+      </figure>
+    </div>
+    <p class="bl-shots-foot">这是一串的实测，不是通用曲线：<strong>起点是阴皮，走色路线就和「顺白」那一套不一样</strong>——完整记录与拍摄说明见<a href="bracelet/quanao.html#shiwu-jilu">《盘养手册》第二节「实物记录」</a>；照片里「月」和「星」怎么认，见《选购指南》<a href="bracelet/xingyue.html#yue">第三节「月」</a>与<a href="bracelet/xingyue.html#xing">第四节「星」</a>。</p>
+  </section>
 
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
     <div class="home-collapsible-header" data-act="toggleHomeSection">
@@ -712,7 +804,7 @@ var _hmt = _hmt || [];
 <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：植物智（iplant.cn）、人民网公益频道、果壳网、国家市场监督管理总局；品类判断与行情参考公开市场资料</div>
     <p class="ref-note">植物学与监管部分均有可点开的出处；产地分级、月相概率、价位区间属行业口径与公开行情观察，非国家标准，数据截至 2026-09。</p>
-    <p class="ref-note">本页不设配图：卡片用纯 CSS 圆牌徽记，不裁图片。星月菩提的实拍（站主自有拍摄，可点开放大看星点与月眼细节）放在《星月菩提》选购页第三、四节。</p>
+    <p class="ref-note">本页配图：共 4 张，均为<strong>站主自有实拍</strong>（© 龙兄知识库，保留所有权利），是<strong>同一串</strong>星月菩提「刚入手 → 九个月后」的记录，见页首「实物实拍」，点击可放大。卡片徽记仍为纯 CSS 圆牌、不裁图片；「月」「星」的特写另见《星月菩提》选购页第三、四节。</p>
     <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-22</span></div>
   </div>
 
@@ -807,6 +899,7 @@ var _hmt = _hmt || [];
 <script src="js/quick-toc.js?v=20260920" defer></script>
 <script src="js/bookmark.js" defer></script>
 <script src="js/auto-collapse.js?v=20260824" defer></script>
+<script src="/js/lightbox.js" defer></script>
 <script src="/js/obfuscate-email.js"></script>
 </body>
 </html>

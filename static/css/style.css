@@ -595,13 +595,21 @@ body .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 
 /* [视觉修复 2026-09-22] 提示框右下角的「复制」按钮压住最后一行文字。
    事实：app.js 的 autoCopyButtons() 给 .tip-box/.warning-box/.info-box 各注入一个
-   position:absolute;bottom:8px;right:8px 的 44px 高按钮。短提示框（1~2 行）里
-   文字会排到右边缘，末字正好落在按钮矩形内 —— 1440 视口实测重叠 12×15px，
-   且按钮背景不透明，被压住的笔画直接丢失。抽查 4 个页面：有按钮的提示框
-   命中率 5/5（bracelet/xingyue、bracelet/quanao、tesla/fsd 三个候选框全中）。
+   position:absolute;bottom:8px;right:8px 的 44px 高按钮。修复前这三个框的内边距是
+   padding:16px 20px，文字因此能排到按钮矩形下方 —— 按钮背景不透明，被压住的笔画直接丢失。
+   复测方式：用固化探针 skills/longxiong-visual-glitch-diagnosis/assets/probe-box-overlap.js
+   （自带阳性对照＝临时把内边距还原成 16px 再量一遍，用来证明「报 0」不是探针自己瞎了）。
+   实测命中数（3 页 × 3 视口；「带按钮的框」= 该页真的有按钮的提示框个数）：
+     bracelet/xingyue   1 个 → 390:1  768:1  1440:1
+     bracelet/quanao    1 个 → 390:1  768:1  1440:0
+     tesla/fsd          3 个 → 390:2  768:0  1440:0
+   → 三点结论：① 这是**全站级**缺陷（含当时没动过的 tesla/fsd）；
+     ② **小屏比桌面更重**（小屏文字换行更长、更容易伸到按钮下方），别只在大屏抽查；
+     ③ 命中与否还取决于该框最后一行有多长，所以必须**按框**量、不能按页下结论。
    处理：给**确实有按钮**的框留出按钮高度的底部内边距（8 + 44 + 8 = 60px），
    文字区与按钮区从此互不相交；没有按钮的框不受影响（:has 精确匹配）。
-   不用 position 改法是因为按钮矩形由 app.js 内联样式决定，内联优先级更高。 */
+   改后复测：上述 3 页 × 3 视口的**生产状态全部为 0**。
+   不用改 position 是因为按钮矩形由 app.js 内联样式决定，内联优先级更高。 */
 .tip-box:has(> .box-copy-btn),
 .warning-box:has(> .box-copy-btn),
 .info-box:has(> .box-copy-btn) { padding-bottom:60px; }

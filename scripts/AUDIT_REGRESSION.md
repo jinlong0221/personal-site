@@ -28,6 +28,7 @@
 | A9 | 页面产物解析失败 / 骨架缺失（面包屑、`main>h1`、页尾信息块、CC 许可行） | `public/` 产物 | `smoke_test.py` + `audit_live_artifact.py` |
 | A10 | 板块新闻 `*-news.json` 日期乱序 | `static/*-news.json` | `sort_news.py` |
 | A11 | 标题四字段不一致（`<title>`/`og:title`/`twitter:title`/JSON-LD） | 各页 | `sync_titles.py --check`（须报 0 页） |
+| A14 | 🆕 **行内 Markdown 记号不成对**：数据里的 `**加粗**` / `` `代码` `` 由渲染器的 `md()` 解析，而 `md()` 只认成对记号——落单的那一个会**原样显示在页面上**（比「全都不解析」更难发现：别处都正常，只有一处露着星号）。也拦「想在正文里引用星号本身却写了裸 `**`」这种自伤 | `static/*-news.json`、`tesla/fsd-news.json`、`home-feed.json`、`typhoon.json`、changelog 三副本 + feed | `guard_markdown_marks.py`（pre-commit + CI 双拦） |
 | A13 | 🆕 **动效/立体化三类地雷**：① JS 写的 CSS 变量名与根级令牌撞名（`--tx` 既是「文字色」别名、又被当角度写 → 悬停时卡内文字变色，JS 未介入时 3D 变换整条作废）；② 条件块（`@supports`/`@media`）里的 `animation` 用 `both`/`backwards` 填充且起始帧 `opacity≈0`（动画没跑起来就永久全透明）；③ 改 transform/filter 的 `:hover` 未做设备门控（触屏点按被当成悬停） | `static/js/*.js`、`static/css/style.css`、各 `static/*.html` | `guard_motion_safety.py`（①② 阻断；③ 只计数提示） |
 
 ## 二、按需跑的审计脚本（做完功能/大改后跑一遍）

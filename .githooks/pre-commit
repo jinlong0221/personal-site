@@ -69,4 +69,14 @@ echo "[pre-commit] 检查动效安全（变量撞名 / 动画填充模式）..."
   exit 1
 }
 
+echo "[pre-commit] 检查行内 Markdown 记号是否成对..."
+# 2026-09-22 事故：修完「**加粗** 不渲染」之后，更新日志正文里自己留了一个裸 **
+# （想引用「星号本身」），落单的记号会原样显示在页面上——别处都正常，只有一处露星号，
+# 比「全都不解析」更难发现。这里做奇偶校验。提到星号本身请写「加粗记号」等文字。
+"$PY3" scripts/guard_markdown_marks.py >/dev/null 2>&1 || {
+  echo "❌ 行内 Markdown 记号守卫未通过："
+  "$PY3" scripts/guard_markdown_marks.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

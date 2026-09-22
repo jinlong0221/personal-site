@@ -157,6 +157,13 @@ jobs:
       - name: Guard editor-injected metadata
         run: python3 scripts/guard_editor_noise.py
 
+      # 行内 Markdown 记号护栏（2026-09-22 落地）：
+      # 新闻/聚合/台风/更新日志里的 **加粗** 与 `代码` 由客户端渲染器的 md() 解析，
+      # 而 md() 只认「成对」记号 —— 落单的那一个会原样显示在页面上（比「全都不解析」
+      # 更难发现：别处都正常，只有一处露着星号）。这里做奇偶校验，发现即阻断部署。
+      - name: Guard inline-Markdown markers (paired ** and backticks)
+        run: python3 scripts/guard_markdown_marks.py
+
       # 板块新闻日期排序护栏：所有 *-news.json 的 news 数组按 date 倒序，
       # 根治「板块日期乱序」。部署前强制规范化，即使上游写入乱序也保证线上有序。
       - name: Sort section news by date

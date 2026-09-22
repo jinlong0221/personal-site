@@ -66,6 +66,7 @@ run "A5  ?v 缓存版本一致"            "$PY3" scripts/guard_v_param.py
 run "A6  编辑器注入元数据"           "$PY3" scripts/guard_editor_noise.py
 run "A8  深色容器文字对比度"         "$PY3" scripts/guard_dark_container_text.py
 run "A13 动效安全 (变量撞名/填充)"     "$PY3" scripts/guard_motion_safety.py
+run "A14 行内 Markdown 记号成对"       "$PY3" scripts/guard_markdown_marks.py
 run "A11 标题四字段一致"             "$PY3" scripts/sync_titles.py --check
 
 # A12 只做「提示」不计入成败：新闻 JSON 的引号残留由 CI 的 unify_quotes --ci 自动清洗，

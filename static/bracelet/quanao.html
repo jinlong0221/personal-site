@@ -179,6 +179,32 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   @media (max-width: 480px) {
     .phase-grid { grid-template-columns: 1fr; }
   }
+  /* 实物记录：盘前 / 九个月后 对比（2026-09-22 起，站主自有实拍，可点开放大） */
+  .bl-figs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 18px 0 20px;
+  }
+  .bl-figs figure {
+    margin: 0;
+    background: var(--card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .bl-figs img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+  .bl-figs figcaption {
+    padding: 10px 12px 12px;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+  }
+  .bl-figs figcaption strong { color: var(--gold); }
+  @media (max-width: 560px) {
+    .bl-figs { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  }
 </style>
 </style>
 <script>
@@ -409,6 +435,42 @@ var _hmt = _hmt || [];
     <p class="note"><strong>⚠️ 这张表的起算点是「开始正式净手盘玩」，不是「下单日」。</strong>更不是「天天猛盘」——一天盘几小时不会更快，只会更容易盘花。另外，海南料挂瓷慢、开片晚，三国料上色开片快得多，所以别拿别人的进度表比自己的串。</p>
   </div>
 
+  <!-- 二之附：实物记录（同一串，盘前 → 九个月后） -->
+  <div class="section">
+    <h2>二之附 · 实物记录：同一串走了九个月</h2>
+    <p>进度表是通例，实物才算证据。下面四张是<strong>同一串</strong>星月菩提的真实记录：前两张是刚入手时，后两张是<strong>九个月之后</strong>。要说明的是<strong>前后拍摄条件并不统一</strong>（盘前是黑底摆拍，盘后是车里随手拍），光照和背景都不一样，所以颜色只当<strong>趋势</strong>看（青灰绿 → 黄褐），别拿它当色卡做精确比对；但「变亮、变润、星点依旧在」这几项不受打光影响，是实打实的。</p>
+
+    <div class="bl-figs">
+      <figure>
+        <img data-lightbox data-caption="盘前 · 月面：新串底色青灰绿（阴皮色系），月眼清楚，星点细密。" src="../img/bracelet/xingyue-yue.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="盘前实拍：新串底色青灰绿，珠面中央可见月眼，四周密布细星">
+        <figcaption><strong>盘前 · 月面：</strong>底色青灰绿（属<strong>阴皮</strong>那一路），月眼清楚、星点细密。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="盘前 · 星面：同一串翻到另一面，看不到月眼，满身细星。" src="../img/bracelet/xingyue-xing.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="盘前实拍：新串另一面看不到月眼，满布细密黑色星点">
+        <figcaption><strong>盘前 · 星面：</strong>翻到另一面几乎看不到月眼，满身都是细星。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="九个月后 · 整串：底色已由青灰绿走到橄榄黄至土黄褐，表面更亮更润，星点仍在。" src="../img/bracelet/xingyue-9m.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后实拍：整串底色转为橄榄黄至土黄褐，表面有光泽，星点仍清晰">
+        <figcaption><strong>九个月后 · 整串：</strong>底色从青灰绿走到<strong>橄榄黄至土黄褐</strong>，表面明显更亮更润、有玻璃感起头，<strong>星点依旧细密清晰</strong>。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="九个月后 · 特写：星点依旧清晰，表面光滑莹润，珠与珠之间仍有轻微色差。" src="../img/bracelet/xingyue-9m-detail.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后特写：珠面光滑莹润，黑色星点清晰，珠间有轻微色差">
+        <figcaption><strong>九个月后 · 特写：</strong>星点依旧清晰，表面光滑莹润；注意珠与珠之间<strong>仍有轻微色差</strong>——天然料本就如此，不是盘坏了。</figcaption>
+      </figure>
+    </div>
+
+    <div class="note">
+      <p><strong>🔴 别拿上面那张进度表硬套这一串，因为起点不一样。</strong></p>
+      <ul>
+        <li>那张表是以<strong>顺白</strong>为起点写的：奶白 → 米黄 → 姜黄 / 蜜蜡黄。</li>
+        <li>这一串的起点是<strong>阴皮</strong>（青灰绿），所以九个月后走到的是<strong>橄榄黄至土黄褐</strong>，不是表里的姜黄——<strong>起点不同，走色路线就不同。</strong></li>
+        <li>时间上大致对得上：<strong>九个月正落在「包浆 6–12 个月」那一段</strong>，表面也确实出现了表里说的「莹润、有玻璃感」。所以那张表可以拿来看<strong>进度快慢</strong>，但别拿它的<strong>具体颜色</strong>去套所有串。</li>
+        <li>还有一条只有实物才看得出：<strong>阴皮那层绿是真的会走掉</strong>——选购页「阴皮」那一条就是这么写的，这串是活证据。所以买阴皮串时记住：<strong>你买的是当下这个颜色，不是永久色。</strong></li>
+      </ul>
+      <p>补一句分寸：这<strong>只是一串的记录，不是标准曲线</strong>。料不同、产区不同、盘放节奏不同，走色快慢差很多，别拿它去比别人的串。</p>
+    </div>
+  </div>
+
   <!-- 三、节奏 -->
   <div class="section">
     <h2>三、节奏：怎么排「盘」和「放」</h2>
@@ -503,7 +565,7 @@ var _hmt = _hmt || [];
 
 <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：<a href="https://criwi.caf.ac.cn/index.htm" target="_blank" rel="noopener">中国林业科学研究院木材工业研究所</a>（木材含水率、干缩湿胀与尺寸稳定性研究——「怕骤变不怕干湿」的物理依据，属同类植物材料的类比，非星月菩提专属实验数据）、<a href="https://www.iplant.cn/" target="_blank" rel="noopener">植物智·中国植物物种信息系统</a>（黄藤 <em>Calamus jenkinsianus</em> 科属核对）。盘玩阶段、时间线与常见问题处理属行业通行经验口径，<strong>不是国家标准</strong>，各地玩法有出入；同一阶段在不同料质上耗时差异很大，请以你手上这串的实际变化为准，行情与经验数据截至 2026-09。</div>
-    <p class="ref-note">本页暂无配图：盘养最有说服力的是「盘前 / 盘后对比」或已出包浆的实拍，目前没有合适的自有素材，故一律用文字与表格承载。星月菩提的实物实拍（站主自有拍摄）见《星月菩提》选购页第三、四节。</p>
+    <p class="ref-note">本页配图：共 4 张，均为<strong>站主自有实拍</strong>（© 龙兄知识库，保留所有权利），是<strong>同一串</strong>星月菩提盘前与九个月后的真实记录，见第二节「实物记录」；不含任何第三方图库素材。点击图片可放大查看星点与表面光泽的变化。</p>
     <div class="update-time">最后更新：2026-09-22</div>
   </div>
 
@@ -591,6 +653,7 @@ var _hmt = _hmt || [];
 <!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
 <div id="quickToc"></div>
 <script src="../js/quick-toc.js?v=20260920" defer></script>
+<script src="/js/lightbox.js" defer></script>
 <script src="../js/bookmark.js" defer></script>
 <script src="/js/obfuscate-email.js"></script>
 </body>

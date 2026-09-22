@@ -54,6 +54,14 @@
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  // 行内 Markdown：先转义再替换，不引入 XSS 面（与 changelog.js / auto_news_loader.js 同一套约定）。
+  // typhoon.json 的 riskNote 里用 **详细分析（…）** 标小标题，旧版只转义不解析 → 页面上露出星号。
+  function md(s) {
+    return esc(s)
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  }
+
   /* 距离语义分级：决定颜色与措辞 */
   function distGrade(km) {
     if (km == null) return { cls: 'none', label: '—' };
@@ -502,8 +510,8 @@
 
     /* 长文（背景研判 / 监测续报）合并为一个分类折叠「监测续报与研判」，沉底默认收起 */
     var inner = '';
-    if (d.status) inner += '<h4 class="tf-cat-h">监测续报</h4><p class="tf-xline">' + esc(d.status) + '</p>';
-    if (d.summary) inner += '<h4 class="tf-cat-h">整体研判</h4><p class="tf-xline">' + esc(d.summary) + '</p>';
+    if (d.status) inner += '<h4 class="tf-cat-h">监测续报</h4><p class="tf-xline">' + md(d.status) + '</p>';
+    if (d.summary) inner += '<h4 class="tf-cat-h">整体研判</h4><p class="tf-xline">' + md(d.summary) + '</p>';
     window.__tfLongText = inner
       ? '<details class="tf-details"><summary>📋 监测续报与研判</summary>' +
         '<div class="tf-details-body" style="padding-top:12px">' + inner + '</div></details>'
@@ -535,6 +543,8 @@
     s = s.replace(/[·\s]*statusLevel=[^\s·）)]+[·\s]*statusShort=[^\s·）)]+/g, '');
     // 兜底：单独出现的 "statusLevel=xxx" / "statusShort=xxx" 也去掉
     s = s.replace(/\s*status(Level|Short)=[^\s·）)，,.;:!?]+/g, '');
+    // 短标签里不带 Markdown 记号（riskNote 被当兜底标签用时，** 会原样露出来）
+    s = s.replace(/\*\*/g, '');
     return s.replace(/\s+/g, ' ').trim();
   }
 
@@ -667,7 +677,7 @@
         body += '<p class="tf-xline"><b>' + esc(w.date) + '</b>　海：' + esc(w.sea || '') + '　陆：' + esc(w.land || '') + '</p>';
       });
     }
-    if (sy.riskNote) body += '<h4 class="tf-cat-h">影响说明</h4><p class="tf-xline">' + esc(sy.riskNote) + '</p>';
+    if (sy.riskNote) body += '<h4 class="tf-cat-h">影响说明</h4><p class="tf-xline">' + md(sy.riskNote) + '</p>';
     if (sy.timeline && sy.timeline.length) {
       body += '<h4 class="tf-cat-h">过程时间线</h4><div class="tf-timeline">';
       sy.timeline.forEach(function (t) {
@@ -729,7 +739,7 @@
     h += '</div>';
     groups.forEach(function (g, i) {
       h += '<ul class="tf-prev-list' + (i === 0 ? ' on' : '') + '" data-k="' + g.key + '">';
-      g.items.forEach(function (t) { h += '<li>' + esc(t) + '</li>'; });
+      g.items.forEach(function (t) { h += '<li>' + md(t) + '</li>'; });
       h += '</ul>';
     });
     h += '</div></details>';
@@ -767,7 +777,7 @@
       h += '<div class="news-item">';
       h += '<div class="news-meta"><span class="news-date">' + esc(it.date) + '</span>' + tags + '</div>';
       if (it.content) h += '<details class="tf-details tf-nested"><summary>详情</summary>' +
-        '<div class="tf-details-body"><div class="news-content">' + esc(it.content) + '</div></div></details>';
+        '<div class="tf-details-body"><div class="news-content">' + md(it.content) + '</div></div></details>';
       if (it.source) h += '<div class="tf-src">来源：' + esc(it.source) + '</div>';
       h += '</div>';
     });
@@ -787,7 +797,7 @@
       });
       h += '</div>';
     }
-    if (d.disclaimer) h += '<p class="tf-disclaimer">' + esc(d.disclaimer) + '</p>';
+    if (d.disclaimer) h += '<p class="tf-disclaimer">' + md(d.disclaimer) + '</p>';
     box.innerHTML = h;
   }
 

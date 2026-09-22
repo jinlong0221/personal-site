@@ -44,6 +44,14 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+  // 行内 Markdown：先转义再替换，不引入 XSS 面（与 changelog.js 的 md() 同一套约定）。
+  // 自动化写稿惯用 **加粗** 标关键词，旧版只转义不解析 → 页面上原样显示成刺眼的星号
+  // （2026-09-22 修：全站 11 个 news JSON 共 900+ 处）。
+  function md(s) {
+    return esc(s)
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  }
   // 仅允许 http/https/mailto，阻断 javascript:/data: 等危险协议
   function safeUrl(u) {
     if (typeof u !== 'string') return '';
@@ -64,7 +72,7 @@
       html += '<div class="news-item">' +
                 '<div class="news-date">' + esc(item.date) + '</div>' +
                 '<div class="news-content">' + tagHtml +
-                  '<p>' + esc(item.content) + link + '</p>' +
+                  '<p>' + md(item.content) + link + '</p>' +
                 '</div>' +
               '</div>';
     });

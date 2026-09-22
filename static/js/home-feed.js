@@ -19,6 +19,14 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  // 行内 Markdown：先转义再替换，不引入 XSS 面（与 changelog.js / auto_news_loader.js 同一套约定）。
+  // 聚合进来的新闻正文带 **加粗** 标记，旧版只转义不解析 → 首页「今日更新」卡上会露出星号。
+  function md(s) {
+    return esc(s)
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  }
+
   function renderToday(d) {
     var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
     var grid = document.getElementById('updGrid');
@@ -34,7 +42,7 @@
       return '<div class="upd-card" tabindex="0">' +
         '<div class="upd-meta"><span class="upd-board">' + esc(it.board) + '</span>' +
         '<span class="upd-date">' + esc(it.date) + '</span></div>' +
-        '<div class="upd-sum">' + esc(it.content) + '</div>' + link +
+        '<div class="upd-sum">' + md(it.content) + '</div>' + link +
         '</div>';
     }).join('');
   }

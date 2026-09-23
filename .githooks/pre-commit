@@ -91,4 +91,16 @@ echo "[pre-commit] 检查板块新闻主题（防错板 / 防跑题）..."
   exit 1
 }
 
+echo "[pre-commit] 检查板块新闻摘要/详情分层..."
+# 2026-09-24 事故：龙兄反馈「每天更新的新闻内容都很多，感觉像照搬原网址」。
+# 根因不是照搬，是提示词要求的「50-100字摘要」从没被守过——实测平均 612 字、
+# 最长 2358 字（超 6–23 倍），板块页因此变成一篇篇改写过的通稿。
+# 现在条目分 summary（明面，60–160 字）+ content（折叠详情）两层，此守卫防它被改回去。
+# 与 guard_news_topic 同理：守卫必须同时接进 CI 与本地提交，否则等于没写。
+"$PY3" scripts/guard_news_length.py -q >/dev/null 2>&1 || {
+  echo "❌ 板块新闻摘要/详情分层守卫未通过："
+  "$PY3" scripts/guard_news_length.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

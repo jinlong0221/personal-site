@@ -178,6 +178,17 @@ jobs:
       - name: Guard news board topic (no off-board content)
         run: python3 scripts/guard_news_topic.py
 
+      # 板块新闻「摘要 / 详情」分层护栏（2026-09-24 落地，龙兄点名问题的守卫）：
+      # 起因：龙兄反馈「每天更新的新闻内容都很多，感觉都是照搬原网址的」。
+      # 查证后不是照搬（88 条里 89% 带多源、0 处照搬话术），而是**颗粒度**——
+      # 提示词要求 `content(50-100字摘要)`，实测平均 612 字、最长 2358 字，超了 6–23 倍。
+      # 改法：条目分两层，summary（60–160 字，板块页上明面那段）+ content（完整正文，
+      # 折进「展开详情」）。此守卫强制 summary 存在、单段、长度合规、content 非空，
+      # 防的是「分层被改回去」——那正是这轮问题的根，不守就会慢慢长回来。
+      # 改判据前先跑自证：python3 scripts/guard_news_length.py --selftest
+      - name: Guard news summary/detail layering
+        run: python3 scripts/guard_news_length.py
+
       # 板块新闻日期排序护栏：所有 *-news.json 的 news 数组按 date 倒序，
       # 根治「板块日期乱序」。部署前强制规范化，即使上游写入乱序也保证线上有序。
       - name: Sort section news by date

@@ -82,7 +82,12 @@ def collect():
         items.append({
             "board": board,
             "date": top.get("date", ""),
-            "content": top.get("content", ""),
+            # 🔴 首页「今日更新」卡**没有标题字段**，这段正文就是卡片上唯一的文字，
+            # 所以必须取摘要、不能取整段详情——否则半屏卡片里塞的是 600–2300 字的正文
+            # （`.upd-sum` 只截 4 行，而那 4 行原本全是「（某某网 2026-09-23 报道，经某某供稿…）」
+            #   的来源罗列，等于首页那 4 行没在讲新闻）。
+            # 老数据没有 summary 时回退整段 content，行为与改版前一致。
+            "content": top.get("summary") or top.get("content", ""),
             "url": top.get("url", ""),
             "tags": top.get("tags", []),
             "sources": top.get("sources", []),

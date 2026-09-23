@@ -99,8 +99,11 @@ MIN_ENTRIES_TO_CHECK = 3  # 条目太少时占比无统计意义（例如只剩 
 
 
 def _flat_text(item):
-    """把一条新闻里所有会被读者看到的文本拼起来（正文 + 标签 + 来源名）。"""
-    parts = [str(item.get("content", ""))]
+    """把一条新闻里所有会被读者看到的文本拼起来（摘要 + 正文 + 标签 + 来源名）。"""
+    # 🔴 summary 必须一起算：2026-09-24 起条目改成「摘要常显 + 正文折叠」，
+    # 读者在板块页上看到的是 summary。若只拿 content 判定主题词，
+    # 一条把主题词写在摘要里、正文换成同义说法的稿子会被误判跑题。
+    parts = [str(item.get("summary", "")), str(item.get("content", ""))]
     for t in item.get("tags") or []:
         if isinstance(t, dict):
             parts.append(str(t.get("text", "")))

@@ -268,7 +268,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.75r
 <!-- 核心脚本：首屏交互/视觉，defer 不阻塞解析 -->
 <script src="{{ .Site.BaseURL }}js/app.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/animations.js" defer></script>
-<script src="{{ .Site.BaseURL }}js/auto_news_loader.js?v=20260922" defer></script>
+<script src="{{ .Site.BaseURL }}js/auto_news_loader.js?v=20260923" defer></script>
 <script src="{{ .Site.BaseURL }}js/daily-pick.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/home-feed.js?v=20260922" defer></script>
 <script src="{{ .Site.BaseURL }}js/solar-term.js?v=20260909" defer></script>
@@ -277,6 +277,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.75r
 <script src="{{ .Site.BaseURL }}js/reveal.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/status-bubble.js" defer></script>
 <script src="{{ .Site.BaseURL }}js/updates.js" defer></script>
+<!-- 站点更新时刻（读 home-feed.json 的 generated_at，每分钟自己走；手写页由 apply_site_widgets.py 注入同一份） -->
+<script src="{{ .Site.BaseURL }}js/site-live.js?v=20260923" defer></script>
 <script src="{{ .Site.BaseURL }}js/auto-collapse.js?v=20260824" defer></script>
 <!-- 通用倒计时组件（data-countdown；跨板块复用：首页近期节点 / 通用节日倒数） -->
 <script src="{{ .Site.BaseURL }}js/countdown.js?v=20260823" defer></script>

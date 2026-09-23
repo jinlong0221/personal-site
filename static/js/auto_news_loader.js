@@ -79,6 +79,22 @@
     container.innerHTML = html;
   }
 
+  // 「2026-09-23」→「今天 / 昨天 / 3 天前」。
+  // 数据只有日期精度，相对天数就是它能给的唯一诚实表达；精确日期放 title 不丢信息。
+  // 好处是跨天会自己变，用户开着页面过夜再切回来也是对的。
+  function relDay(v) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(v == null ? '' : v));
+    if (!m) return String(v == null ? '' : v);
+    var t = new Date(+m[1], +m[2] - 1, +m[3]);
+    if (isNaN(t.getTime())) return String(v);
+    var n = new Date();
+    var days = Math.round((new Date(n.getFullYear(), n.getMonth(), n.getDate()) - t) / 86400000);
+    if (days <= 0) return '今天';
+    if (days === 1) return '昨天';
+    if (days < 30) return days + ' 天前';
+    return m[2] + '-' + m[3];   // 太久远就退回日期，不硬凑「N 个月前」
+  }
+
   // 主函数
   function loadAutoNews() {
     const jsonFile = getJsonFile();
@@ -94,9 +110,21 @@
         return r.json();
       })
       .then(function (data) {
-        // 同步"最后更新时间"为新闻实际更新日期，避免与「实时」徽标矛盾
+        // 同步"最后更新时间"为新闻实际更新日期，避免与「实时」徽标矛盾。
+        // 显示成相对天数（今天/昨天/N 天前）而不是死日期——死日期看着像静态快照，
+        // 相对天数会自己跨天变化，且精确日期仍挂在 title 上。
         var updEl = document.getElementById('lastNewsUpdate');
-        if (updEl && data.updated) updEl.textContent = data.updated;
+        if (updEl && data.updated) {
+          var paintUpd = function () {
+            updEl.textContent = relDay(data.updated);
+            updEl.title = '板块资讯更新日：' + data.updated;
+          };
+          paintUpd();
+          // 页面开着过夜再切回来时要重算，否则会一直停在「今天」
+          document.addEventListener('visibilitychange', function () {
+            if (!document.hidden) paintUpd();
+          });
+        }
         if (!data.news || data.news.length === 0) return;
         if (countEl) countEl.textContent = data.news.length + '条';
         renderNews(container, data.news);

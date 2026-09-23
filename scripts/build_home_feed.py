@@ -10,10 +10,20 @@ static/home-feed.json，供 static/js/home-feed.js 在首页渲染。
 """
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # hugo-site/
 STATIC = os.path.join(ROOT, "static")
+
+# 🔴 北京时间固定偏移。CI 跑在 UTC 容器里，裸 datetime.now() 取到的是 UTC——
+# 早期生成的 generated 就这么写出去，导致线上「更新于」整整差 8 小时
+# （实测 2026-09-23：构建发生在北京 10:20，文件里写的是 02:20）。
+# 生成时间一律走这里，不依赖运行环境的时区设置。
+CN_TZ = timezone(timedelta(hours=8))
+
+
+def now_cn():
+    return datetime.now(CN_TZ)
 
 # 板块文件（仓库根 static/ 下） -> 中文显示名
 BOARD_FILES = {
@@ -43,7 +53,7 @@ def sort_key(item):
         mm, dd = int(parts[0]), int(parts[1])
     except (ValueError, IndexError):
         return (0, 0, 0)
-    now = datetime.now()
+    now = now_cn()
     yr = now.year
     if mm > now.month:  # 大概率属于上一年底
         yr -= 1
@@ -89,8 +99,13 @@ def collect():
 
 def main():
     items = collect()
+    gen = now_cn()
     out = {
-        "generated": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        # generated 保留原格式（首页既有渲染依赖它），但时区已修正为北京时间
+        "generated": gen.strftime("%Y-%m-%d %H:%M"),
+        # generated_at 带显式 +08:00 偏移，供前端精确算「多久之前」
+        # （static/js/site-live.js）。ISO 8601 带偏移 = 谁解析都不会错。
+        "generated_at": gen.isoformat(timespec="seconds"),
         "count": len(items),
         "items": items,
     }

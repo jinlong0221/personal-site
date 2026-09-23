@@ -1601,7 +1601,9 @@ html {
 }
 
 /* 演员现场照：4:5 竖构图。object-position 把取景窗往上压一点，
-   避免把人的头顶切掉（现场照的人脸多半在画面上三分之一）。 */
+   避免把人的头顶切掉（现场照的人脸多半在画面上三分之一）。
+   ⚠️ 漫威页当前已撤下全部照片（改用 .hero-grid-plain 纯文字形态），
+   这几条样式的元素暂时不存在，保留是为了日后放自拍展品照时能直接复用。 */
 .hero-photo {
   grid-row: 1 / span 2;
   margin: 0;
@@ -1691,7 +1693,8 @@ html {
 }
 
 /* 图片出处与授权署名：CC BY / BY-SA 要求署名，逐张写在卡片底部，
-   不藏进「点开才能看到」的地方。 */
+   不藏进「点开才能看到」的地方。
+   ⚠️ 同 .hero-photo：当前无图，保留备用。 */
 .hero-credit {
   grid-column: 1 / -1;
   margin: 12px 0 0;
@@ -1705,6 +1708,35 @@ html {
 .hero-credit b {
   font-weight: 600;
   color: var(--tx-3);
+}
+
+/* ---- 无配图形态 ----
+   卡片带 .hero-grid-plain 标记时启用：网格回到纯文字卡片的 3 列（320px 起），
+   卡片内部收成单列、emoji 居中在上。
+   与「有图」共用同一套 DOM 骨架，切换只靠这一个标记 ——
+   去掉标记、插回 <figure class="hero-photo">…</figure> 就复原成左图右文。
+   （这条是同优先级下靠「位置更后」压过上面 .hero-grid 的基础规则，改动时别再往上挪。） */
+.hero-grid-plain {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+.hero-grid-plain .hero-card {
+  grid-template-columns: 1fr;
+}
+
+.hero-grid-plain .hero-card .hero-avatar {
+  grid-column: 1 / -1;
+  font-size: 2.6rem;
+  margin: 0 0 12px;
+}
+
+.hero-grid-plain .hero-card h3 {
+  grid-column: 1;
+  margin: 0 0 12px;
+}
+
+.hero-grid-plain .hero-card .hero-info {
+  grid-column: 1;
 }
 
 @media (max-width: 560px) {

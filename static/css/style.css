@@ -1554,18 +1554,32 @@ html {
 }
 
 /* 超级英雄卡片网格 */
+/* min(430px, 100%) 而不是写死 430px：窄屏时下限自动收到容器宽度，
+   单列布局不会因为「列最小宽 > 视口」而横向溢出。
+   （页面上方那条老媒体查询虽然也写了 1fr，但它在文件里更靠前，
+     同优先级下会被这条覆盖 —— 所以这里必须自己保证收得住。） */
 .hero-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(min(430px, 100%), 1fr));
+  gap: 18px;
   margin: 24px 0;
 }
 
+/* 卡片＝左图右文。图片宽度写死成变量，是为了让照片在视网膜屏上仍然实——
+   站内这些现场照的分辨率高低不一（最小的一批只有 300px 宽），
+   若让它铺满整张卡片，屏幕一变宽就只能是「放大后发虚」。
+   176px 是按最小那批源图（300px）倒推出来的：2x 屏上至多放大 1.17 倍，
+   肉眼看不出来；再大就轮到照片开始糊了。--hc-photo 同时给窄屏断点复用。 */
 .hero-card {
+  --hc-photo: 176px;
   background: var(--bg);
   border: 2px solid var(--border);
   border-radius: 16px;
-  padding: 20px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: var(--hc-photo) 1fr;
+  gap: 6px 18px;
+  align-items: start;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -1584,6 +1598,45 @@ html {
 
 .hero-card.villain-card:hover {
   box-shadow: 0 8px 24px rgba(139,0,0,0.2);
+}
+
+/* 演员现场照：4:5 竖构图。object-position 把取景窗往上压一点，
+   避免把人的头顶切掉（现场照的人脸多半在画面上三分之一）。 */
+.hero-photo {
+  grid-row: 1 / span 2;
+  margin: 0;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.hero-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  filter: saturate(0.94) contrast(1.03);
+}
+
+/* emoji 角标：沿用原有的图标语言，压在照片右下角 */
+.hero-photo .hero-avatar {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.05rem;
+  line-height: 1;
+  background: rgba(12,10,8,0.62);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 50%;
 }
 
 .hero-avatar {
@@ -1605,19 +1658,21 @@ html {
 }
 
 .hero-card h3 {
+  grid-column: 2;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 12px;
-  text-align: center;
+  margin: 2px 0 6px;
+  text-align: left;
 }
 
 .hero-info {
+  grid-column: 2;
   font-size: 0.9rem;
 }
 
 .hero-row {
-  padding: 8px 0;
+  padding: 6px 0;
   border-bottom: 1px solid var(--border);
   line-height: 1.6;
 }
@@ -1633,6 +1688,37 @@ html {
 
 [data-theme="light"] .hero-row .label {
   color: #6B4F00;
+}
+
+/* 图片出处与授权署名：CC BY / BY-SA 要求署名，逐张写在卡片底部，
+   不藏进「点开才能看到」的地方。 */
+.hero-credit {
+  grid-column: 1 / -1;
+  margin: 12px 0 0;
+  padding-top: 9px;
+  border-top: 1px dashed var(--border);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.hero-credit b {
+  font-weight: 600;
+  color: var(--tx-3);
+}
+
+@media (max-width: 560px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-card {
+    --hc-photo: 124px;
+    padding: 15px;
+    gap: 4px 13px;
+  }
+  .hero-credit {
+    font-size: 10.5px;
+  }
 }
 
 /* 信息卡片网格 */

@@ -170,8 +170,9 @@ html{scroll-behavior:smooth}
 .mv-phase-name{font-size:1.02rem;margin-bottom:6px}
 .mv-phase-span{font-size:.76rem;color:var(--text-muted);margin-bottom:8px}
 .mv-phase-desc{font-size:.82rem;color:var(--text-secondary);line-height:1.65}
-/* 英雄档案卡沿用全局 .hero-grid / .hero-card / .hero-avatar / .hero-info */
-.hero-avatar{font-size:2.6rem}
+/* 英雄档案卡沿用全局 .hero-grid / .hero-card / .hero-photo / .hero-info；
+   emoji 现在是压在照片右下角的角标，尺寸/底色都由 style.css 的
+   .hero-photo .hero-avatar 控制，这里不再覆盖字号（覆盖会盖掉角标尺寸） */
 /* 私人评分 */
 .mv-rating{display:flex;flex-direction:column;gap:12px}
 .mv-rating-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
@@ -548,10 +549,13 @@ var _hmt = _hmt || [];
   <!-- ===== 英雄档案卡 ===== -->
   <details class="mv-sec" id="sec-hero">
     <summary><h2 class="mv-sec-title">英雄档案卡</h2>
-    <p class="mv-sec-sub">挑了些最常被提起的名字，纯文字卡片，绝不托管任何官方剧照或海报。</p></summary>
+    <p class="mv-sec-sub">挑了些最常被提起的名字，各配一张演员本人在漫展、首映礼上的现场照——都是自由授权的 CC 公开图，作者与许可证逐张标在卡片底部。这里不含电影剧照，也不含官方海报。</p></summary>
     <div class="hero-grid">
       <article class="hero-card">
-        <div class="hero-avatar">🤖</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/iron-man.webp" width="336" height="420" loading="lazy" decoding="async" alt="钢铁侠扮演者小罗伯特·唐尼 · 2014 年圣迭戈国际动漫展《复仇者联盟 2》宣传现场照">
+          <div class="hero-avatar">🤖</div>
+        </figure>
         <h3>钢铁侠</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 托尼·斯塔克</div>
@@ -559,9 +563,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 小罗伯特·唐尼</div>
           <div class="hero-row"><span class="label">点评</span> 把嘴炮、天才与赎罪玩成英雄主义的灵魂人物，MCU 的原点。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 小罗伯特·唐尼 · 2014 年圣迭戈国际动漫展《复仇者联盟 2》宣传｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Robert_Downey_Jr._2014_Comic-Con.jpg" target="_blank" rel="noopener noreferrer">Gage Skidmore</a> · CC BY-SA 3.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🛡️</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/captain-america.webp" width="336" height="420" loading="lazy" decoding="async" alt="美国队长扮演者克里斯·埃文斯 · 2014 年《美国队长 2》记者会现场照">
+          <div class="hero-avatar">🛡️</div>
+        </figure>
         <h3>美国队长</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 史蒂夫·罗杰斯</div>
@@ -569,9 +577,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 克里斯·埃文斯</div>
           <div class="hero-row"><span class="label">点评</span> 老派正义感的化身，复仇者联盟的精神锚点。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 克里斯·埃文斯 · 2014 年《美国队长 2》记者会｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Chris_Evans_-_Captain_America_2_press_conference_(cropped).jpg" target="_blank" rel="noopener noreferrer">Elen Nivrae</a> · CC BY-SA 3.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">⚡</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/thor.webp" width="300" height="375" loading="lazy" decoding="async" alt="雷神扮演者克里斯·海姆斯沃斯 · 2024 年圣迭戈国际动漫展现场照">
+          <div class="hero-avatar">⚡</div>
+        </figure>
         <h3>雷神</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 索尔·奥丁森</div>
@@ -579,9 +591,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 克里斯·海姆斯沃斯</div>
           <div class="hero-row"><span class="label">点评</span> 从傲慢王子到能硬扛灭霸的锤哥，喜剧天赋拉满。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 克里斯·海姆斯沃斯 · 2024 年圣迭戈国际动漫展｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Chris_Hemsworth_by_Gage_Skidmore_3.jpg" target="_blank" rel="noopener noreferrer">Gage Skidmore</a> · CC BY-SA 3.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🟢</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/hulk.webp" width="336" height="420" loading="lazy" decoding="async" alt="浩克扮演者马克·鲁法洛 · 2017 年圣迭戈国际动漫展《雷神 3》宣传现场照">
+          <div class="hero-avatar">🟢</div>
+        </figure>
         <h3>浩克</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 布鲁斯·班纳</div>
@@ -589,9 +605,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 爱德华·诺顿 / 马克·鲁法洛</div>
           <div class="hero-row"><span class="label">点评</span> 科学家的愤怒，越大越孤单的绿巨人。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 马克·鲁法洛 · 2017 年圣迭戈国际动漫展《雷神 3》宣传｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Mark_Ruffalo_(36201774756)_(cropped).jpg" target="_blank" rel="noopener noreferrer">Gage Skidmore</a> · CC BY-SA 2.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🕷️</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/spider-man.webp" width="300" height="375" loading="lazy" decoding="async" alt="蜘蛛侠扮演者汤姆·赫兰德 · 2016 年圣迭戈国际动漫展现场照">
+          <div class="hero-avatar">🕷️</div>
+        </figure>
         <h3>蜘蛛侠</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 彼得·帕克</div>
@@ -599,9 +619,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 汤姆·赫兰德</div>
           <div class="hero-row"><span class="label">点评</span> 最年轻的复仇者，话痨担当，邻家男孩的英雄梦。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 汤姆·赫兰德 · 2016 年圣迭戈国际动漫展｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Tom_Holland_by_Gage_Skidmore.jpg" target="_blank" rel="noopener noreferrer">Gage Skidmore</a> · CC BY-SA 3.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🔮</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/doctor-strange.webp" width="336" height="420" loading="lazy" decoding="async" alt="奇异博士扮演者本尼迪克特·康伯巴奇 · 2019 年圣迭戈国际动漫展《奇异博士 2》宣传现场照">
+          <div class="hero-avatar">🔮</div>
+        </figure>
         <h3>奇异博士</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 史蒂芬·斯特兰奇</div>
@@ -609,9 +633,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 本尼迪克特·康伯巴奇</div>
           <div class="hero-row"><span class="label">点评</span> 用魔法兜底多元宇宙的神经外科医生，时间线的守门人。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 本尼迪克特·康伯巴奇 · 2019 年圣迭戈国际动漫展《奇异博士 2》宣传｜摄影 <a href="https://commons.wikimedia.org/wiki/File:BCumberbatch_Comic-Con_2019.jpg" target="_blank" rel="noopener noreferrer">Gage Skidmore</a> · CC BY-SA 2.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🐾</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/black-panther.webp" width="300" height="375" loading="lazy" decoding="async" alt="黑豹扮演者查德维克·博斯曼 · 2017 年圣迭戈国际动漫展现场照">
+          <div class="hero-avatar">🐾</div>
+        </figure>
         <h3>黑豹</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 特查拉</div>
@@ -619,9 +647,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 查德维克·博斯曼</div>
           <div class="hero-row"><span class="label">点评</span> 瓦坎达的科技与尊严，影史文化意义远超一部超级英雄片。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 查德维克·博斯曼 · 2017 年圣迭戈国际动漫展｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Chadwick_Boseman_by_Gage_Skidmore_July_2017_(cropped).jpg" target="_blank" rel="noopener noreferrer">Gage Skidmore</a> · CC BY-SA 3.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">✨</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/captain-marvel.webp" width="336" height="420" loading="lazy" decoding="async" alt="惊奇队长扮演者布丽·拉尔森 · 2019 年《惊奇队长》专访现场照">
+          <div class="hero-avatar">✨</div>
+        </figure>
         <h3>惊奇队长</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 卡罗尔·丹弗斯</div>
@@ -629,9 +661,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 布丽·拉尔森</div>
           <div class="hero-row"><span class="label">点评</span> 剧场版里战力天花板的存在，越宇宙如散步。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 布丽·拉尔森 · 2019 年《惊奇队长》专访｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Brie_Larson_Captain_Marvel_Interview.jpg" target="_blank" rel="noopener noreferrer">MTV International</a> · CC BY 3.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🌌</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/star-lord.webp" width="336" height="420" loading="lazy" decoding="async" alt="星爵扮演者克里斯·帕拉特 · 2016 年圣迭戈国际动漫展《银河护卫队 2》宣传现场照">
+          <div class="hero-avatar">🌌</div>
+        </figure>
         <h3>星爵</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 彼得·奎尔</div>
@@ -639,9 +675,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 克里斯·帕拉特</div>
           <div class="hero-row"><span class="label">点评</span> 靠一张混音带和贫嘴，把一队怪咖团结成家人。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 克里斯·帕拉特 · 2016 年圣迭戈国际动漫展《银河护卫队 2》宣传｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Chris_Pratt_(28556109022)_(cropped).jpg" target="_blank" rel="noopener noreferrer">Gage Skidmore</a> · CC BY-SA 2.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🐜</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/ant-man.webp" width="336" height="420" loading="lazy" decoding="async" alt="蚁人扮演者保罗·路德 · 2009 年奥斯汀首映礼现场照">
+          <div class="hero-avatar">🐜</div>
+        </figure>
         <h3>蚁人</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 斯科特·朗</div>
@@ -649,9 +689,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 保罗·路德</div>
           <div class="hero-row"><span class="label">点评</span> 把量子物理拍成家庭喜剧，小人物的大冒险。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 保罗·路德 · 2009 年奥斯汀首映礼｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Paul_Rudd_2009.jpg" target="_blank" rel="noopener noreferrer">Thomas Crenshaw</a> · CC BY-SA 2.0</p>
       </article>
       <article class="hero-card villain-card">
-        <div class="hero-avatar">🗡️</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/loki.webp" width="336" height="420" loading="lazy" decoding="async" alt="洛基扮演者汤姆·希德勒斯顿 · 2011 年纽约动漫展《复仇者联盟》宣传现场照">
+          <div class="hero-avatar">🗡️</div>
+        </figure>
         <h3>洛基</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 洛基·劳菲森</div>
@@ -659,9 +703,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 汤姆·希德勒斯顿</div>
           <div class="hero-row"><span class="label">点评</span> 反派写出顶流，时间变异管理局的常客，亦正亦邪的 trickster。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 汤姆·希德勒斯顿 · 2011 年纽约动漫展《复仇者联盟》宣传｜摄影 <a href="https://commons.wikimedia.org/wiki/File:2011_NYCC_Avengers_Panel_1_(cropped).jpg" target="_blank" rel="noopener noreferrer">Marnie Joyce</a> · CC BY 2.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🔥</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/deadpool.webp" width="300" height="375" loading="lazy" decoding="async" alt="死侍扮演者瑞安·雷诺兹 · 2018 年《死侍 2》东京首映礼现场照">
+          <div class="hero-avatar">🔥</div>
+        </figure>
         <h3>死侍</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 韦德·威尔逊</div>
@@ -669,9 +717,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 瑞安·雷诺兹</div>
           <div class="hero-row"><span class="label">点评</span> 打破第四面墙的嘴炮雇佣兵，R 级狂欢的代言人。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 瑞安·雷诺兹 · 2018 年《死侍 2》东京首映礼｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Deadpool_2_Japan_Premiere_Red_Carpet_Ryan_Reynolds_(cropped).jpg" target="_blank" rel="noopener noreferrer">Dick Thomas Johnson</a> · CC BY-SA 3.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🐺</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/wolverine.webp" width="300" height="375" loading="lazy" decoding="async" alt="金刚狼扮演者休·杰克曼 · 2024 年圣迭戈国际动漫展现场照">
+          <div class="hero-avatar">🐺</div>
+        </figure>
         <h3>金刚狼</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 罗根</div>
@@ -679,9 +731,13 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 休·杰克曼</div>
           <div class="hero-row"><span class="label">点评</span> 自愈因子加骨爪，几代人的漫画情怀。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 休·杰克曼 · 2024 年圣迭戈国际动漫展｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Hugh_Jackman_by_Gage_Skidmore_3.jpg" target="_blank" rel="noopener noreferrer">Gage Skidmore</a> · CC BY-SA 3.0</p>
       </article>
       <article class="hero-card">
-        <div class="hero-avatar">🕸️</div>
+        <figure class="hero-photo">
+          <img src="img/marvel/black-widow.webp" width="300" height="375" loading="lazy" decoding="async" alt="黑寡妇扮演者斯嘉丽·约翰逊 · 2025 年戛纳电影节现场照">
+          <div class="hero-avatar">🕸️</div>
+        </figure>
         <h3>黑寡妇</h3>
         <div class="hero-info">
           <div class="hero-row"><span class="label">真名</span> 娜塔莎·罗曼诺夫</div>
@@ -689,6 +745,7 @@ var _hmt = _hmt || [];
           <div class="hero-row"><span class="label">演员</span> 斯嘉丽·约翰逊</div>
           <div class="hero-row"><span class="label">点评</span> 没有超能力的英雄，牺牲却最动人。</div>
         </div>
+        <p class="hero-credit"><b>图</b> 斯嘉丽·约翰逊 · 2025 年戛纳电影节｜摄影 <a href="https://commons.wikimedia.org/wiki/File:Scarlett_Johansson-8588.jpg" target="_blank" rel="noopener noreferrer">Harald Krichel</a> · CC BY-SA 4.0</p>
       </article>
     </div>
   </details>
@@ -760,7 +817,8 @@ var _hmt = _hmt || [];
   <div class="mv-note">
     <h3>关于本页</h3>
     <ul>
-      <li>本页为<b>个人影迷手账</b>，全部以 emoji 与原创文字呈现，<b>不托管任何漫威官方剧照、海报或角色宣传图</b>，以此规避版权风险。</li>
+      <li>本页为<b>个人影迷手账</b>，正文全部为原创文字。英雄卡所配的照片是<b>演员本人在漫展、首映礼等公开活动上的现场照</b>（不是影片画面），取自 Wikimedia Commons 上 CC BY / CC BY-SA / 公有领域的公开图，作者与许可证已逐张标在卡片底部；<b>本页不托管任何漫威官方剧照、海报或角色宣传图</b>。</li>
+      <li>卡片照片只用来回答「这位演员长什么样」，与漫威、迪士尼及任何发行方<b>均无关联或授权关系</b>；若有权利人认为使用不妥，告知站长即可即时移除。</li>
       <li>影片年份、阶段划分、观看顺序均为个人整理与偏好，<b>官方制作计划可能调整</b>，一切以官方最终上映为准。</li>
       <li>英雄卡、评分、冷知识均为主观整理，如有出入欢迎指正。</li>
       <li>参考资料：</li>

@@ -3,12 +3,23 @@
 """
 生成 static/marvel.html —— 漫威宇宙（龙兄观影手账）
 
+⚠️ 本脚本已落后于线上页面，**直接运行会丢内容，先别跑**（2026-09-23 记）
+   线上 static/marvel.html 已被手工追加过至少三处，本脚本都还不认识：
+     1) 「正在热映票房 · 每日更新」板块（id=sec-boxoffice / mv-bo / boUpdated）
+     2) 每日自动资讯挂载点（home-collapsible#hc-auto-news）
+     3) 页尾 site-live.js / page-reveal.js 活标记脚本
+     4) 英雄档案卡的照片（img/marvel/*.webp + .hero-photo/.hero-credit 结构）
+   也就是说跑一次 = 删掉票房板块与全部配图。
+   要恢复它的可用性，得先把上面 4 处补回模板再跑；在那之前一律以
+   static/marvel.html 为准（CI 也不跑本脚本）。
+
 版权安全说明（重要）：
   本页刻意不托管任何漫威官方剧照 / 海报 / 角色宣传图，全部以 emoji + 原创文字呈现。
-  这是上一轮因版权风险下架后，按用户「漫威影迷」需求重建的合规版本。
+  英雄卡所配照片是演员本人在漫展 / 首映礼的现场照，取自 Wikimedia Commons 的
+  CC BY / CC BY-SA / 公有领域公开图，作者与许可证逐张标在卡片底部。
   影片年份、阶段划分均为个人观影整理，官方制作计划可能调整，以官方最终上映为准。
 
-可持续更新方式：
+可持续更新方式（在本脚本同步到线上之前，请直接改 static/marvel.html）：
   1. 在下方 RELEASE_ORDER / STORY_ORDER / PHASES / HEROES / RATINGS / TRIVIA 中增删条目
   2. 运行：python3 scripts/build_marvel.py
   3. hugo --gc 构建后提交即可

@@ -4977,6 +4977,12 @@ body.dark .new-badge {
 .lx-mh-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
 .lx-mh-date{font-size:12.5px;color:var(--tx-3);letter-spacing:1px;font-family:var(--serif)}
 .lx-mh-solar{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--cinnabar);border:1px solid var(--cinnabar);padding:2px 9px;border-radius:2px;letter-spacing:1px}
+/* 刊头活标记「本站更新于 X 分钟前」：值由 site-live.js 每分钟自走，数据与页脚那行同源。
+   默认 .is-off 不占位，脚本真拿到发布时间才显示——不会留空壳，也不会写死一个
+   只会越走越旧的人工策展日期（旧版曾把 hot-picks.json 的编辑日当「更新于」显示）。 */
+.lx-mh-live{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--tx-3);border:1px solid var(--rule-soft);padding:2px 9px;border-radius:2px;letter-spacing:.5px}
+.lx-mh-live b{color:var(--tx-2);font-weight:500}
+.lx-mh-live.is-off{display:none}
 .lx-mh-seal{position:absolute;right:0;bottom:20px;transform:rotate(-6deg);opacity:.95}
 /* 窄屏：印章绝对定位在右下角时会压住「每日更新」胶囊的右半截（实测 390 宽重叠 65×22px），
    故窄屏改为正文下方右对齐的独立一枚，不再叠字 */
@@ -5257,9 +5263,6 @@ body > .page-meta{margin-left:max(20px,calc((100% - var(--max-width))/2 + 20px))
 .lx-mod-no{ font-size:1.1rem; color:var(--gold); flex:0 0 auto; }
 .lx-mod-title{ font-family:var(--brush); font-size:clamp(20px,5vw,26px); letter-spacing:3px; color:var(--tx); margin:0; line-height:1; flex:0 0 auto; }
 .lx-mod-sub{ font-size:.78rem; color:var(--tx-3); letter-spacing:1px; min-width:0; }
-/* 热门精选「更新于」标：嵌在 .lx-mod-sub 内，继承其字号与配色，略小略淡 */
-.lx-mod-updated{ font-size:.92em; opacity:.8; margin-left:8px; white-space:nowrap; }
-.lx-mod-updated:empty{ display:none; }
 
 /* 模块一 · 今日更新（桌面 2 列：卡片加宽留白；摘要超 4 行截断，全文走「阅读原文」） */
 .upd-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
@@ -5408,13 +5411,6 @@ body > .page-meta{margin-left:max(20px,calc((100% - var(--max-width))/2 + 20px))
   background:var(--gold); color:#1a140a; border-color:var(--gold);
   transform:translateY(-1px);
 }
-/* 头图「更新于」标：CTA 下方一行小字，无内容时完全不占位 */
-.lx-hero-updated{
-  display:block; margin-top:12px;
-  font-size:.72rem; letter-spacing:1px;
-  color:rgba(244,238,226,.62);
-}
-.lx-hero-updated:empty{ display:none; }
 .lx-hero-dots{
   position:absolute; z-index:3; left:50%; bottom:18px;
   transform:translateX(-50%);

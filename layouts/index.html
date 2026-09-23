@@ -23,6 +23,10 @@
         <div class="lx-mh-sub">一个人写的知识库。买过的、踩过的、查证过的，都记在这里——不追热点，不写空话，每条都能溯源。</div>
         <div class="lx-mh-foot">
           <span class="lx-mh-date">{{ now.Format "2006年1月2日" }}</span>
+          {{/* 常驻活标记：由 site-live.js 填「本站更新于 X 分钟前」，数据与页脚那行同源。
+               默认带 .is-off（不显示），只有真拿到发布时间才摘掉——脚本没跑或接口失败时
+               不会留下一枚空壳，也绝不会写死一个会越走越旧的日期。 */}}
+          <span class="lx-mh-live is-off" id="siteLiveMast">本站更新于 <b></b></span>
           <span class="lx-mh-solar">每日更新 · 活的知识库</span>
         </div>
       </div>
@@ -44,7 +48,6 @@
         <h2 class="lx-hero-title" id="heroTitle">一壶一器，藏尽东方器度</h2>
         <p class="lx-hero-sub" id="heroSub">从泥料、明针到窑火，读懂一把好壶的门道。</p>
         <span class="lx-hero-cta" id="heroCta">走进紫砂艺术 →</span>
-        <span id="heroUpdated" class="lx-hero-updated"></span>
       </div>
     </a>
     <div class="lx-hero-dots" id="heroDots" role="tablist" aria-label="专题切换"></div>
@@ -428,7 +431,7 @@
     <div class="lx-mod-hd">
       <span class="lx-mod-no">🔥</span>
       <h2 class="lx-mod-title">热门精选</h2>
-      <span class="lx-mod-sub">编辑精选 · 每板代表作<span id="hotUpdated" class="lx-mod-updated"></span></span>
+      <span class="lx-mod-sub">编辑精选 · 每板代表作</span>
     </div>
     <div class="hot-grid" id="hotGrid">
       <article class="hot-card" style="grid-column:1/-1"><div class="hot-body"><div class="hot-title">正在加载编辑精选…</div></div></article>

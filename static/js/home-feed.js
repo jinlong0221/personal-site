@@ -49,10 +49,6 @@
 
   function renderPicks(d) {
     var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
-    // 把「更新于」填进热门精选区标题旁的标（hero/home-feed 同源：部署时由 git 日期刷新）
-    var upd = d && d.updated ? d.updated : '';
-    var updEl = document.getElementById('hotUpdated');
-    if (updEl) updEl.textContent = upd ? '更新于 ' + upd : '';
     var grid = document.getElementById('hotGrid');
     if (!grid) return;
     if (!items || !items.length) {

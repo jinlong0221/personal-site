@@ -211,6 +211,25 @@ git 提交照样成功、工作区照样干净 —— 于是「以为写了、�
   - 全球约 $2.08B（8/21 BoxOffice India 确认，成影史最高票房蜘蛛侠电影）；北美约 $815.9M 逼近复联4 北美 $8.58 亿；中国内地约 14.94 亿元（密钥延至 9/28）。
   - 预测标「预测/非官方」；印度 Day24(8/22) 净收 ₹479.89Cr nett。
   - 灯塔 8/22：8 月总票房破 45 亿，蜘蛛侠列 8 月榜第二。
+- **🔴 2026-09-24 三个必踩的坑（补漏轮实测，四班通用）**：
+  1. **`updated` 是 ISO 日期时间（`2026-09-24T18:40`），不是纯 `YYYY-MM-DD`。**
+     用 `updated != 'YYYY-MM-DD'` 判「是否落后」会**每次都把本板误判为未更新**（假阳性）。
+     正确判据：`str(updated).startswith(today)`。本板**没有 `news[]` 数组**，
+     schema 是 `movie{status, boxOffice{worldwide,domestic,international,china,oceania}, milestones, note, updated, sources}`
+     加顶层 `milestones/sources`，因此**不适用第 0 节的 summary/content 两层规范**
+     （`guard_news_length.py` 只覆盖 11 个 `*-news.json`，不查本板）。
+  2. **WebSearch 查「片名 + 今天日期 + 票房」基本没用**——返回的全是 SEO 营销站和旧档快照。
+     有效做法是直接抓权威库：
+     `https://www.the-numbers.com/box-office-records/worldwide/all-movies/cumulative/all-time`
+     （一次给出全球/北美/海外三项 + 影史排名，且三项自洽可自检）
+     与 `https://www.boxofficemojo.com/year/2026/`（北美年度榜，可与 The Numbers 互证北美值）。
+     ⚠️ `boxofficemojo.com/year/worldwide/2026/` **是 404，不存在**，别浪费轮次。
+  3. **猫眼实时榜经搜索引擎返回时数值被脱敏成「.亿 .万」**，只拿得到「上映第 N 天」这类结构信息，
+     **取不到累计票房**。此时应沿用上一口径，并在 note 里明写「本轮快照未披露累计值，不刷新、不推测」——
+     不要估算、不要沿用别国数折算。
+- **口径回溯修订的处理**：权威库会回溯改数（如 9/24 The Numbers《复联4》全球 $2,717,503,922 与本站既有
+  「27.99 亿」不一致）。做法是**照抄当前检索值**，并显式写「⚠️口径待核：与本站此前记录不一致，判为数据库回溯修订
+  或取样差异，下一轮继续核」，**不擅自改既有排名结论**。
 
 ## 13. 苹果新品 (apple-news.json)
 - **主题范围**：iPhone 18 系列、折叠屏 iPhone Ultra、iOS/macOS、发布会、供应链爆料。

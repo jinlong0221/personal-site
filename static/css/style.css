@@ -200,9 +200,11 @@
 :focus:not(:focus-visible) { outline: none; }
 html { font-size:16px; overflow-x:clip; overflow-y:auto; scroll-behavior:smooth; scrollbar-gutter: stable; -webkit-overflow-scrolling: touch; }
 
-/* 桌面端正文可读性增强（2026-08-11）：放大继承字号与行高，标题/导航等固定字号不动 */
+/* 桌面端正文可读性增强（2026-09-24 上调：根字号 16→17px 等比放大 rem 组件文字，
+   正文 17.5→19px 强化阅读；标题保持 px 定值不随根字号变化；移动端因本块在 min-width 内不受影响 */
 @media (min-width: 768px) {
-  body { font-size: 17.5px; line-height: 1.75; }
+  html { font-size: 17px; }
+  body { font-size: 19px; line-height: 1.75; }
 }
 body {
  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;

@@ -27,6 +27,21 @@
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   }
 
+  // 板块中文名 -> 本站板块页（点卡片跳转到这里；显示名与 scripts/build_home_feed.py 的 BOARD_FILES 一致）
+  // 数据里没有自带板块页链接，故在此集中维护一份映射；板块稳定，新增板块时补一行即可。
+  var BOARD_LINK = {
+    '特斯拉': 'tesla.html',
+    '特斯拉 FSD': 'tesla.html',
+    '苹果新品': 'apple.html',
+    '漫威宇宙': 'marvel.html',
+    '养生茶': 'health-tea.html',
+    '紫砂艺术': 'zisha.html',
+    '文玩手串': 'bracelet.html',
+    '射阳动态': 'sheyang.html',
+    'ChinaJoy': 'chinajoy.html',
+    '主机图鉴': 'console.html'
+  };
+
   function renderToday(d) {
     var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
     var grid = document.getElementById('updGrid');
@@ -36,15 +51,33 @@
       return;
     }
     grid.innerHTML = items.map(function (it) {
+      // 整卡可点击跳转板块页：复用 app.js 全站通用的 [data-nav] 委托（点击最近带 data-nav 的祖先即跳转）
+      var href = BOARD_LINK[it.board];
+      var navAttr = href ? ' data-nav="' + esc(href) + '"' : '';
+      // 「阅读原文」仍指向外部新闻源（新标签页打开）
       var link = it.url
         ? '<a class="upd-link" href="' + esc(it.url) + '" target="_blank" rel="noopener">阅读原文 →</a>'
         : '';
-      return '<div class="upd-card" tabindex="0">' +
+      return '<div class="upd-card" tabindex="0"' + navAttr + '>' +
         '<div class="upd-meta"><span class="upd-board">' + esc(it.board) + '</span>' +
         '<span class="upd-date">' + esc(it.date) + '</span></div>' +
         '<div class="upd-sum">' + md(it.content) + '</div>' + link +
         '</div>';
     }).join('');
+
+    // 「阅读原文」外链：阻止冒泡，避免触发整卡 [data-nav] 跳转到板块页（否则点外链会先跳板块）
+    Array.prototype.forEach.call(grid.querySelectorAll('.upd-link'), function (a) {
+      a.addEventListener('click', function (e) { e.stopPropagation(); });
+    });
+    // 键盘可达：卡片本身获焦后回车 / 空格跳转到板块页；焦点在内链时不触发（上面已 stopPropagation 隔离）
+    grid.addEventListener('keydown', function (e) {
+      var card = e.target;
+      if (!card || !card.classList || !card.classList.contains('upd-card') || !card.hasAttribute('data-nav')) return;
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        location.href = card.getAttribute('data-nav');
+      }
+    });
   }
 
   function renderPicks(d) {

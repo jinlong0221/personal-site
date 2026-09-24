@@ -214,6 +214,20 @@ html{scroll-behavior:smooth}
 .mv-bo-miles li::before{content:'★';position:absolute;left:0;top:1px;color:#e23636;font-size:.8rem}
 .mv-bo-note{font-size:.8rem;color:var(--text-muted);margin-top:10px;line-height:1.75;border-top:1px dashed var(--border);padding-top:8px}
 .mv-bo-updated{font-size:.8rem;color:var(--text-muted);margin-top:10px}
+/* 票房卡新增样式：标题行 / 当日口径 / 折叠历史记录 */
+.mv-bo-title{margin:6px 0 2px;font-size:1rem;color:var(--text);line-height:1.5}
+.mv-bo-title .mv-bo-en{color:var(--text-muted);font-size:.85rem;font-weight:400;margin-left:4px}
+.mv-bo-title .mv-bo-date{color:var(--text-muted);font-size:.82rem;margin-left:6px}
+.mv-bo-status{margin:12px 0 2px;font-size:.94rem;color:var(--text-secondary);line-height:1.75}
+.mv-bo-status b{color:var(--text)}
+.mv-bo-detail{margin:14px 0 4px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.mv-bo-detail-sum{display:block;padding:11px 14px;font-size:.9rem;color:var(--text-secondary);cursor:pointer;user-select:none;background:var(--ink-3)}
+.mv-bo-detail-sum:hover{color:var(--text)}
+.mv-bo-detail[open] .mv-bo-detail-sum{border-bottom:1px solid var(--border)}
+.mv-bo-detail .mv-bo-miles{margin:0;padding:12px 16px 8px}
+.mv-bo-mile{border-top:1px dashed var(--border);padding-top:10px;line-height:1.75}
+.mv-bo-mile:first-child{border-top:0;padding-top:0}
+.mv-bo-mile br{display:block;margin-bottom:2px}
 @media(max-width:576px){.mv-hero{padding:32px 18px 28px}mv-phase-grid{grid-template-columns:1fr}.mv-order{grid-template-columns:1fr}.mv-bo-grid{grid-template-columns:1fr}}</style>
 <script>
 var _hmt = _hmt || [];

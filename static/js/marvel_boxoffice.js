@@ -2,6 +2,12 @@
  * 漫威正在热映票房加载器
  * 读取 marvel-boxoffice.json 并渲染最新上映漫威电影的实时票房卡。
  * 由每日自动化（automation-1783388608608）刷新 JSON，页面每日自动呈现最新数据。
+ *
+ * 渲染约定（避免「好乱」）：
+ *  - 四宫格只显示每条票房的「头条数字」（干净数值），不再把多源长段落塞进卡片；
+ *  - 当日口径用 movie.status 这一句已校对摘要（解析 **粗体**）；
+ *  - 历史口径 / 里程碑（40+ 条研究笔记）收到可折叠 <details> 里，默认收起、最新在前；
+ *  - 数据里偶发的 \n 换行按 <br> 处理，** 粗体按 <b> 处理，杜绝裸星号。
  */
 (function () {
   function esc(s) {
@@ -10,6 +16,27 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
+  }
+
+  // 把 **粗体** 转成 <b>：先转义再替换，杜绝 XSS
+  function md(s) {
+    return esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  }
+
+  // 从一条票房字段里抽取「头条数字」：去掉【日期 更新】标签，取首个 **...**；
+  // 没有 ** 就取到第一个（或 ；前，保证卡片只显示干净的头条值。
+  function headline(s) {
+    if (!s) return '—';
+    var t = String(s).replace(/【[^】]*】/g, ' ').replace(/\s+/g, ' ').trim();
+    var bm = t.match(/\*\*([\s\S]+?)\*\*/);
+    if (bm) return bm[1].replace(/\s+/g, ' ').trim();
+    var cut = t.split(/[（(。；;]/)[0].trim();
+    return cut || t;
+  }
+
+  // 含 \n 的长文本拆成多行（\n → <br>），并解析粗体
+  function multiline(s) {
+    return String(s).split('\n').map(md).join('<br>');
   }
 
   function renderBo(data) {
@@ -28,26 +55,37 @@
       { v: bo.china || '—', l: '中国内地' }
     ];
     var grid = '<div class="mv-bo-grid">' + cards.map(function (c) {
-      return '<div class="mv-bo-card"><div class="mv-bo-val">' + esc(c.v) +
+      return '<div class="mv-bo-card"><div class="mv-bo-val">' + esc(headline(c.v)) +
         '</div><div class="mv-bo-label">' + esc(c.l) + '</div></div>';
     }).join('') + '</div>';
 
-    var dateBits = [];
-    if (m.releaseDateCn) dateBits.push('内地 ' + m.releaseDateCn);
-    if (m.releaseDate && m.releaseDate !== m.releaseDateCn) dateBits.push('北美 ' + m.releaseDate);
-    var meta = '<p class="mv-bo-meta"><b>' + esc(m.title) + '</b>' +
-      (m.titleEn ? ' · ' + esc(m.titleEn) : '') +
-      (dateBits.length ? ' · 上映 ' + esc(dateBits.join(' / ')) : '') +
-      (m.status ? ' · ' + esc(m.status) : '') + '</p>';
+    // 当前追踪影片标题 + 上映日（扫码即知是哪部）
+    var titleHtml = '<p class="mv-bo-title"><b>' + esc(m.title) + '</b>' +
+      (m.titleEn ? ' <span class="mv-bo-en">' + esc(m.titleEn) + '</span>' : '') +
+      (m.releaseDateCn ? ' <span class="mv-bo-date">内地 ' + esc(m.releaseDateCn) + '</span>' : '') +
+      '</p>';
 
-    var miles = (m.milestones || []).map(function (x) {
-      return '<li>' + esc(x) + '</li>';
-    }).join('');
-    var milesHtml = miles ? '<ul class="mv-bo-miles">' + miles + '</ul>' : '';
+    // 当日口径：movie.status 已校对好的当日摘要（解析 ** 粗体）
+    var status = m.status ? '<p class="mv-bo-status">' + md(m.status) + '</p>' : '';
 
-    var note = m.note ? '<p class="mv-bo-note">' + esc(m.note) + '</p>' : '';
+    // 历史口径 / 里程碑：折叠，最新在前，避免一屏刷 40+ 条研究笔记
+    var miles = (m.milestones || []).slice();
+    var milesHtml = '';
+    if (miles.length) {
+      var items = miles.map(function (x) {
+        return '<li class="mv-bo-mile">' + multiline(x) + '</li>';
+      }).join('');
+      milesHtml =
+        '<details class="mv-bo-detail" id="boDetail">' +
+        '<summary class="mv-bo-detail-sum">票房口径与里程碑记录（共 ' + miles.length +
+        ' 条 · 点击展开）</summary>' +
+        '<ul class="mv-bo-miles">' + items + '</ul>' +
+        '</details>';
+    }
 
-    wrap.innerHTML = grid + meta + milesHtml + note;
+    var note = m.note ? '<p class="mv-bo-note">' + md(m.note) + '</p>' : '';
+
+    wrap.innerHTML = titleHtml + grid + status + milesHtml + note;
 
     var up = document.getElementById('boUpdated');
     if (up && data.updated) up.textContent = data.updated;

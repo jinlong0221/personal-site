@@ -24,7 +24,10 @@ guard_news_length.py — 板块新闻「摘要 / 详情」分层守卫。
 本脚本守的就是这个分层不许回退。判据（逐条 news 项）：
 
   ① 必须有 summary，去掉空白后非空
-  ② summary 字数落在 MIN..MAX 之间（写作目标 80–120，留出余量给正常波动）
+  ② summary 字数落在 MIN..MAX 之间（写作目标 80–120，留出余量给正常波动）。
+     🔴 下限是**有条件的**：只有当 content 本身 ≥ MIN_SUMMARY 时才要求摘要也够长。
+     content 自己就是一句简讯时，摘要＝全文是正确形态 —— 否则一条 30 字的简讯
+     就能让 CI 红、整站停止部署。
   ③ summary 不得含换行 —— 它的定位是「一句话看完」，带换行会膨胀成小正文
   ④ content 必须非空 —— 折叠区不能是空的（否则按钮点开一片空白）
   ⑤ summary 不得比 content 还长 —— 那说明两层搞反了。
@@ -82,6 +85,14 @@ def check_item(item):
     raw_sum = item.get("summary")
     raw_body = item.get("content")
 
+    # 先量正文 —— summary 的下限判据要用到它（见下面 ② 的条件）
+    if raw_body is None or not str(raw_body).strip():
+        body_empty = True
+        body_len = 0
+    else:
+        body_empty = False
+        body_len = zh_len(raw_body)
+
     if raw_sum is None or not str(raw_sum).strip():
         errors.append("缺 summary（板块页上读者看不到这条的内容）")
         sum_len = 0
@@ -90,15 +101,19 @@ def check_item(item):
         if "\n" in str(raw_sum) or "\r" in str(raw_sum):
             errors.append("summary 含换行（摘要要能一句话看完，请写成单段）")
         if sum_len < MIN_SUMMARY:
-            errors.append("summary 只有 %d 字，少于下限 %d 字（太短＝没把事说清）" % (sum_len, MIN_SUMMARY))
+            # 🔴 ② 下限只在「正文本来够长、明明写得出够长摘要」时才判错（2026-09-24 加）。
+            #    正文自身就是一句简讯（短于 MIN_SUMMARY）时，摘要＝全文才是正确形态；
+            #    无条件卡下限会逼自动任务去「补内容凑字数」（等于编），
+            #    更糟的是会让 CI 因一条 30 字的简讯红掉 —— 而 CI 跑在构建之前，**整站停止部署**。
+            #    龙兄 2026-09-24：「所有按照时间节点更新的，千万不能有网站改动，就有出错的可能。」
+            if body_len >= MIN_SUMMARY:
+                errors.append("summary 只有 %d 字，少于下限 %d 字（太短＝没把事说清）" % (sum_len, MIN_SUMMARY))
         elif sum_len > MAX_SUMMARY:
             errors.append("summary 有 %d 字，超过上限 %d 字（又变成正文了）" % (sum_len, MAX_SUMMARY))
 
-    if raw_body is None or not str(raw_body).strip():
+    if body_empty:
         errors.append("content 为空（折叠区点开会是空白）")
-        body_len = 0
     else:
-        body_len = zh_len(raw_body)
         if sum_len and sum_len > body_len:
             errors.append(
                 "summary(%d 字) 比 content(%d 字) 还长 —— 两层写反了" % (sum_len, body_len)
@@ -169,6 +184,8 @@ def selftest():
         ("缺 summary", {"content": ok_body}, False),
         ("summary 为空白", {"summary": "   ", "content": ok_body}, False),
         ("summary 过短", {"summary": "甲" * 20, "content": ok_body}, False),
+        ("正文也短时的短摘要（允许：整条就是一句简讯）", {"summary": "甲" * 30, "content": "乙" * 30}, True),
+        ("正文够长却给短摘要（该拦：明明写得出够长的）", {"summary": "甲" * 30, "content": ok_body}, False),
         ("summary 过长", {"summary": "甲" * 200, "content": "乙" * 900}, False),
         ("summary 带换行", {"summary": "甲" * 60 + "\n" + "甲" * 60, "content": ok_body}, False),
         ("content 为空", {"summary": ok_sum, "content": "  "}, False),

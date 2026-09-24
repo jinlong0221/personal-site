@@ -68,11 +68,24 @@
 
 ```bash
 cd /Users/chenjinlong/陈金龙/代码与脚本/个人知识网站/hugo-site
-python3 scripts/guard_news_length.py
+python3 scripts/auto_summary.py --fix     # ① 先自愈：缺 / 超长 / 带换行的 summary 就地补齐
+python3 scripts/guard_news_length.py      # ② 再看门：必须全绿
 ```
-它按 11 个新闻文件、逐条卡：`summary` 必须存在、单段、50–180 字；`content` 必须非空、不短于 summary。
-另有超 1500 字的正文只提醒不阻断。**该守卫已同时接进 CI 与本地 pre-commit**，
-不过就是提交不上去，别硬推。改判据前先跑自检：`python3 scripts/guard_news_length.py --selftest`。
+
+守卫按 11 个新闻文件逐条卡：`summary` 必须存在、单段、50–180 字；`content` 必须非空、不短于 summary。
+另有超 1500 字的正文只提醒不阻断。（**下限是有条件的**：正文自己就是一句简讯、短于 50 字时，
+摘要＝全文即算合规 —— 不会因为一条简讯把整站部署卡住。）
+
+🔴 **守卫报错时怎么办（2026-09-24 新增，别自己乱改）**
+- **第一步永远是先跑自愈** `python3 scripts/auto_summary.py --fix`。它只从该条 `content` 里截取，
+  不会编造事实，摘要里每个数字都出自原文；绝大多数报错它当场就修好了。
+- **不要去「重写整板」、更不要删条目来消错** —— 那会把当天已核实过的新闻白白丢掉。
+- 自愈之后仍报错的只剩一种：「`summary` 与 `content` 都空」。把那一行按真实内容补齐即可。
+- 为什么可以放心：这两层已同时接进 **CI 与本地 pre-commit**（顺序是 自愈 → 守卫），
+  偶尔漏写不会让线上停更。但自愈是**兜底**不是常规路径 —— 正常就该自己把 summary 写好。
+
+改判据之前先跑两份自证：`python3 scripts/auto_summary.py --selftest`（修法自证）
+与 `python3 scripts/guard_news_length.py --selftest`（判据自证）。
 
 ---
 

@@ -91,6 +91,20 @@ echo "[pre-commit] 检查板块新闻主题（防错板 / 防跑题）..."
   exit 1
 }
 
+echo "[pre-commit] 板块新闻摘要自愈（缺/写坏的 summary 就地补齐）..."
+# 2026-09-24：4 个自动任务每天在固定时间点写新闻，是 LLM 驱动，难免漏写或写坏 summary。
+# 而下面的分层守卫是硬闸、CI 里跑在构建之前 —— 一旦拦住就是**整站停止部署**。
+# 所以先在提交环节自愈：能修的当场修好，自动任务照常提交、照常上线；
+# 真没内容可展示的（summary 与 content 都空）才留给守卫去拦。
+# 🔴 改过的文件必须重新 git add —— 否则护栏在工作区修好了、提交里装的还是索引里的旧内容
+#    （这个坑 2026-09-06 在 changelog 三副本上踩过一次，见本文件开头）。
+AS_LIST="$(mktemp -t auto_summary)"
+"$PY3" scripts/auto_summary.py --fix --list-file="$AS_LIST" | sed 's/^/    /' || true
+while IFS= read -r f; do
+  [ -n "$f" ] && git add "$f" 2>/dev/null || true
+done < "$AS_LIST"
+rm -f "$AS_LIST"
+
 echo "[pre-commit] 检查板块新闻摘要/详情分层..."
 # 2026-09-24 事故：龙兄反馈「每天更新的新闻内容都很多，感觉像照搬原网址」。
 # 根因不是照搬，是提示词要求的「50-100字摘要」从没被守过——实测平均 612 字、

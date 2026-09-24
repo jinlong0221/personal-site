@@ -178,6 +178,17 @@ jobs:
       - name: Guard news board topic (no off-board content)
         run: python3 scripts/guard_news_topic.py
 
+      # 板块新闻「摘要自愈」—— 必须跑在下面的分层守卫**之前**（2026-09-24 落地）。
+      # 为什么要有这一层：每天 4 个自动任务（07:30 / 14:00 / 21:00 / 每 3 小时补漏）
+      # 在固定时间点写新闻，是 LLM 驱动，难免偶尔漏写 summary、写超长或带个换行。
+      # 而分层守卫是硬闸、且跑在 hugo 构建之前 —— 被它拦住就是**整站停止部署**。
+      # 龙兄 2026-09-24：「所有按照时间节点更新的，千万不能有网站改动，就有出错的可能。」
+      # 所以顺序定为：自愈（能修的就地修好）→ 守卫（只拦真的没内容可展示的）。
+      # 自愈出来的摘要直接从该条正文截取，所以「摘要里的数字都出自原文」是构造性成立的。
+      # 改逻辑前先跑自证：python3 scripts/auto_summary.py --selftest
+      - name: Heal news summaries (keep scheduled updates unblocked)
+        run: python3 scripts/auto_summary.py --fix
+
       # 板块新闻「摘要 / 详情」分层护栏（2026-09-24 落地，龙兄点名问题的守卫）：
       # 起因：龙兄反馈「每天更新的新闻内容都很多，感觉都是照搬原网址的」。
       # 查证后不是照搬（88 条里 89% 带多源、0 处照搬话术），而是**颗粒度**——

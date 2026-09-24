@@ -106,8 +106,9 @@ def root_tokens(css_text):
 
 def js_written_tokens():
     found = {}
+    # 2026-09-24：原来还扫一行仓库根的 js/*.js（双副本时代的死副本，从不进 public），
+    # 随双副本拆除一并去掉。真正会上线的只有 static/js/。
     pats = glob.glob(os.path.join(ROOT, 'static', 'js', '**', '*.js'), recursive=True)
-    pats += glob.glob(os.path.join(ROOT, 'js', '*.js'))
     rx = re.compile(r'(?:set|remove)Property\(\s*[\'"](--[A-Za-z0-9_-]+)[\'"]')
     for p in pats:
         rel = os.path.relpath(p, ROOT)

@@ -20,7 +20,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCAN_DIRS = [
     os.path.join(ROOT, "layouts"),
     os.path.join(ROOT, "static"),
-    os.path.join(ROOT, "js"),
+    # 2026-09-24：这里原来还列着仓库根的 js/（双副本时代的「源码镜像」）。
+    # 根 js/css 既不进 public，也不是任何脚本的输入，只会造成「改了死副本、线上没变」的困惑，
+    # 已整体移除（实测 public/js/* 与 static/js/* 逐字节相同、与根副本全不相同）。
+    # 真正会上线的只有 static/；collect() 对不存在的目录本来就会跳过，删掉不会报错。
 ]
 EXCLUDE = ("/public/", "/pagefind/", "/node_modules/", "/.git/", "/.workbuddy/", "/.design/", "/resources/")
 

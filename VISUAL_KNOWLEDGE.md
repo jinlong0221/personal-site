@@ -6,7 +6,7 @@
 ## 一、本站设计系统要点（国风黑金）
 
 - **主调**：国风 + 黑金。深色为默认 `:root`，浅色 `[data-theme="light"]` 通过主题切换。
-- **主题变量**（在 `static/css/style.css` / 根副本 `css/style.css`）：
+- **主题变量**（在 `static/css/style.css`，唯一真源）：
   - `--accent-color: #C9A84C`（金，全站主强调色，所有强调/卡片顶条/印章/图标统一用它驱动）
   - `--gold`、`--cinnabar`（朱砂红，点缀用，不可大面积）
   - `--bg` / `--card` / `--border-color` / `--text-color`（明暗双主题各一套）
@@ -55,6 +55,16 @@
 - **触控命中区 24px 达标清单（WCAG 2.5.8，2026-09-01 系统化）**：探针量得 4+ 类交互元素命中区 <24px → 按「视觉零改动、只扩命中区」范式逐个修：① `nav-clock-link` 78×23 → `min-height:26px`（navbar 56px 内居中，位移不可见）；② `input[type=checkbox]/[type=radio]` 13×13 → 20×20（`min-width:0;min-height:0` 防全局 44px 规则入侵）；③ `a.back-link` 20 → `display:inline-flex;align-items:center;min-height:24px`；④ `input.tf-range` 滑块可拖区 5px → 输入框 `height:24px;background:transparent`，视觉轨道仍 `::-webkit-slider-runnable-track{height:5px}` 渐变（`input.tf-range` 的 (0,1,1) 特异性高于页面内 `.tf-range`(0,1,0)，放全局表可避免与台风自动化对 typhoon.html 的重写冲突）；⑤ `.lx-hero-dot` 视觉保持 18×3px 细金条，命中区用 `position:relative` + 透明 `::after{width:calc(100% + 7px);height:24px}` 撑到 25×24（与 7px gap 齐平、互不重叠）；⑥ `a.upd-link`（index.html 页脚，实测高 21px）→ `min-height:24px;display:inline-flex;align-items:center`。
 - **滑块旋钮居中偏移公式（2026-09-01 补）**：webkit range 自定义轨道后，旋钮默认贴在轨道顶部，**必须** `::-webkit-slider-thumb{margin-top:(trackHeight − thumbHeight)/2}` 才居中。本站 `tf-range` 轨道 5px、默认旋钮 16px → `margin-top:-5.5px`（**非 -8.5px**，多偏 3px 会把旋钮顶出可见轨道）。moz 端 `::-moz-range-thumb` 自动居中，无需 margin。
 - **根副本 `css/style.css` 缺失（2026-09-01 修复）**：本站双副本机制要求「源码 `css/` 与 `static/css/` 保持同步」（head.html 以 `{{ .Site.BaseURL }}css/style.css` 引用，hugo 构建自 `static/css/style.css` → `public/css/style.css`）。巡检发现仓库根 `css/` 目录丢失，仅剩 `static/css/style.css`，双副本断裂。已 `mkdir css && cp static/css/style.css css/style.css` 恢复根副本，今后改 CSS 须两处同步。⚠️ 此根副本**不进 public 部署**，仅作源码镜像与 diff 基准，别误删。
+  > 🔴 **2026-09-24 更正：本条已作废，根副本已整体移除，不要再重建。**
+  > 当时的判断是「双副本机制要求两处同步」，但事后核实：根 `css/`、`js/` **既不是 Hugo 的构建输入**
+  > （`hugo.toml` 没有 `staticDir`/`mounts`，只认 `static/`），也没有任何脚本按文件系统路径读它。
+  > 决定性证据（2026-09-24 实测）：构建产物 `public/js/*.js` 与 `static/js/*.js` **逐字节相同**，
+  > 与根副本**全不相同** —— 因此不存在「两处同步」这回事，根副本从来不上线。
+  > 更糟的是这份镜像**已经悄悄漂移**：`hero.js`（缺头图「更新于」标）、`apple-tabs.js`（旧的单层版）、
+  > `auto_news_loader.js`（缺摘要折叠）与 `style.css` 四份都落后于 `static/` ——
+  > 说明「两处同步」在实践里早就名存实亡，只留下「改错副本、线上没反应」这一类坑。
+  > 结论：删除镜像（21 个文件），改任何 CSS/JS **只改 `static/`**。要恢复本次改动用：
+  > `git revert <该提交>`。
 - **闭包作用域 ReferenceError 会中断整段初始化（2026-09-08 发现，P0 严重）**：`js/hero.js` 在 `init()` 里引用仅定义于嵌套函数 `setup(slides, updated)` 形参的 `updated`，`"use strict"` 下抛 `ReferenceError: updated is not defined` → `init` 中断、首页头图轮播静默失效（09-07 引入「更新于」功能起约 1 天，用户无感但属功能层视觉缺失）。⚠️ **教训**：① 用到变量前必须确认它在当前作用域已声明，外层函数不可引用内层函数形参；② 无头探针的 `pageerror` 监听器是抓这类"功能层视觉缺失"的关键——一个被抛出的脚本错误会让依赖它的整块 UI（轮播/标签）不渲染，肉眼难察但属 P0；③ 修复优先级：把逻辑移入变量确有定义的作用域，而非在外层补 `var updated`（那会拿到 `undefined` 而非接口值）。
 - **同语义链接色须统一 var()、勿硬编码 hex（2026-09-15 发现，一致性）**：全站"联系邮箱链接"颜色约定为 `--email-green`（#42B883 / 昼白 #1A6E44），404.html 与 apple.html 均遵守；但 about.html 联系邮箱曾硬编码 `#1565C0` 蓝，属"同语义不同色"漂移。⚠️ **教训**：站内既有"语义色约定"（邮箱=绿、强调=金）应一律 `var()` 化、复制既有片段时务必对齐约定。**同轮把 404.html 龙形 SVG 渐变 100% 停靠点 `#e0c97a`→`var(--gold-light)`**，与 0% 停靠点 `var(--gold)` 同为调色板变量——提醒：**SVG 内联 `style="stop-color:..."` 也要走 var()**，不要裸 hex（裸 hex 在调色板演进/主题切换时会脱节）。
 - **板块主题色（多色磁贴）与全局金主调的边界（2026-09-15 明确）**：`chinajoy.html` 用内联 `--hall:#4f46e5/#c2410c/#0f766e/#7e22ce` 四色磁贴标签，属该板块自有的"展会分馆"多色体系；`console-*.html` 产品图框 `background:#fff` 为中性白底框（非暖、非装饰）；`console-gc/n64` 降级提示 `color:#666/#888` 为中性灰字。三者均**非大面积高饱和暖色**（探针 warm=0 佐证），与"国风黑金主调"不冲突——沿用"板块主题色已知接受、勿盲改"准则维持。判定红线仍是：整屏/通栏 + 高饱和暖色 = P0；小尺寸语义编码色 / 板块内功能性多色 = 接受。
@@ -149,7 +159,7 @@
   1. **昼白主题语义色洗白（P1 对比度）**：9 色原只 :root 定义、昼白未覆盖，落到米色底洗白（CR 1.85~3.81）→ 沿 hue 压明度校准到 CR ≥4.75/≥5.28（详见第六节）。
   2. **原生控件系统蓝（彩虹残留）**：`html{accent-color:var(--accent-color)}` 跟金主调 + 尺寸 13→20px。
   3. **触控命中区 4+ 类不达标（WCAG 2.5.8）**：nav-clock-link / checkbox·radio / back-link / tf-range / lx-hero-dot / upd-link 六个选择器按「视觉零改动、只扩命中区」范式修到 ≥24px（详见第六节清单）。
-  4. **根副本 `css/style.css` 缺失**：恢复双副本机制（`mkdir css && cp static/css/style.css css/style.css`）。
+  4. **根副本 `css/style.css` 缺失**：恢复双副本机制（`mkdir css && cp static/css/style.css css/style.css`）。<br>🔴 **2026-09-24 作废**：该双副本机制经核实并不存在（根副本从不进构建），已整体移除，不要再执行本条。
 - **滑块旋钮居中校验**：`input.tf-range::-webkit-slider-thumb` 由误写的 `-8.5px` 修正为 `(5−16)/2 = -5.5px`，旋钮正确落在 5px 渐变轨道中心。
 - **版本戳**：全站 `style.css?v=` 全量 bump 至 `20260901`（197 个 html + head.html，0 处旧戳残留）。
 - **暖色刺眼复核**：全站无大面积高饱和暖色渐变；既有小尺寸语义色（`.long-avatar` 橙渐变头像、year-badge 红橙胶囊、季节卡、`#42b883` 邮箱绿、`#e57373` 警示红、status-bubble 红徽标）均维持「保持不动」准则，属合理分类编码。

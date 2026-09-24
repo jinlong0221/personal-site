@@ -11,17 +11,30 @@
 |---|---|
 | `static/herbs.html` | `static/herbs.html` |
 | `static/herbs/*.html`（9 个：五灵脂、地龙、滑石草、滑石粉、降真香、猫屎咖啡、水蛭、熊胆、地牯牛） | `static/herbs/` |
-| `static/herbs-news.json` | `static/herbs-news.json` |
+| ~~`static/herbs-news.json`~~ | **不要搬！见下方 🔴** |
 | `content/herbs/_index.md`、`content/herbs/chenxiang.md` | `content/herbs/` |
+
+> 🔴 **药材新闻数据不在隐藏区，恢复时别搬这一个文件（2026-09-24 核实补记）**
+>
+> `static/herbs-news.json` **一直在原地、并且每天仍由自动任务更新**（与 `static/herbs.html`
+> 不一样，它没被挪走过）。隐藏区里那份 `hidden-sections/static/herbs-news.json` 是
+> **2026-09-09 挪出来时的快照，已经过期**。
+>
+> 如果照老版步骤执行 `git mv hidden-sections/static/herbs-news.json static/herbs-news.json`：
+> - `static/herbs-news.json` 已存在 → 命令直接报「destination exists」失败；
+> - 加了 `-f` 硬覆盖 → **拿 9 天前的旧数据盖掉每天更新的新数据**，恢复出来就是过期板块。
+>
+> 正确做法：这一步**整条跳过**。药材板块恢复后会自动接上正在更新的那份数据，
+> 并且摘要/详情分层守卫（`scripts/guard_news_length.py` 的扫描范围含 `static/*-news.json`）
+> 与自愈层（`scripts/auto_summary.py`）都已经把它算在内，无需额外处理。
 
 ## 恢复步骤（一次性）
 
-1. 把上表右侧的文件各自搬回原位置：
+1. 把上表右侧的文件各自搬回原位置（**注意跳过 `herbs-news.json`，它不在隐藏区**）：
    ```bash
-   git mv hidden-sections/static/herbs.html      static/herbs.html
-   git mv hidden-sections/static/herbs-news.json static/herbs-news.json
-   git mv hidden-sections/static/herbs           static/herbs
-   git mv hidden-sections/content/herbs          content/herbs
+   git mv hidden-sections/static/herbs.html static/herbs.html
+   git mv hidden-sections/static/herbs      static/herbs
+   git mv hidden-sections/content/herbs     content/herbs
    ```
 
 2. 把导航入口加回去：在 `static/*.html`（约 294 个页面）的 `<ul class="nav-links">`

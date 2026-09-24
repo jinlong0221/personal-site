@@ -87,6 +87,16 @@ python3 scripts/guard_news_length.py      # ② 再看门：必须全绿
 改判据之前先跑两份自证：`python3 scripts/auto_summary.py --selftest`（修法自证）
 与 `python3 scripts/guard_news_length.py --selftest`（判据自证）。
 
+
+## 0.6 changelog 写入字段（2026-09-24 踩坑补记）
+
+🔴 `static/changelog.json` / `data/changelog.json` / `static/data/changelog.json` 的条目
+**只有两个字段**：`{"date": "YYYY-MM-DD HH:MM", "content": "……"}`。
+写成 `title` / `desc` / `tags` / `type` 这一套，pre-commit 的 `scripts/guard_changelog.py`
+会因为「找不到 content」把整条判为空记录**静默删掉**（日志只显示 `790 条 -> 789 条 (删除空记录 1)`，
+git 提交照样成功、工作区照样干净 —— 于是「以为写了、其实没写」）。
+**写 changelog 后用 `git show HEAD --stat` 或重新读文件确认条数 +1，别只看提交成功。**
+
 ---
 
 ## 1. 特斯拉 (tesla-news.json)

@@ -232,6 +232,64 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     font-weight: 700;
   }
 
+  /* 星月图集（2026-09-25）：把板块入口的星月实拍聚成照片墙，点开可由 lightbox.js 放大；
+     六张均为站主自有实拍，原散在两块「实物实拍」，现统一归集到一处 */
+  .bl-gallery-wrap { max-width: 1100px; margin: 40px auto 0; }
+  .bl-gallery-lead {
+    margin: 0 0 16px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .bl-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 6px 0 18px;
+  }
+  .bl-gcard {
+    margin: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .bl-gcard:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg), 0 0 18px rgba(201,168,76,.12);
+      border-color: rgba(201,168,76,.4);
+    }
+  }
+  .bl-gcard-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #111;
+  }
+  .bl-gcard-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: zoom-in;
+  }
+  .bl-gcard figcaption {
+    padding: 9px 12px 11px;
+    font-size: .8rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .bl-gcard figcaption strong { color: var(--text-secondary); }
+  @media (max-width: 680px) {
+    .bl-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  }
+  @media (max-width: 380px) {
+    .bl-gallery-grid { grid-template-columns: 1fr; }
+  }
+
   /* 卡片网格 */
   .bracelet-grid {
     display: grid;
@@ -675,51 +733,41 @@ var _hmt = _hmt || [];
     <p class="tagline">本板块目前只做星月菩提一个品种，其他品种后续再补。</p>
   </div>
 
-  <!-- 实物实拍（2026-09-22 晚新增）：
-       四张均为站主自有实拍、同一串星月菩提，分「刚入手 / 九个月后」两组供直接对比。
-       同一批图在《选购指南》第三、四节讲「月」「星」，在《盘养手册》第二节存完整记录，
-       这里放在板块入口最上方，是为了让人一进板块就先看见真东西。 -->
-  <section class="bl-shots-wrap" aria-label="实物实拍">
-    <h2>实物实拍：同一串，九个月</h2>
-    <p class="bl-shots-lead">下面四张都是站主自己拍的，<strong>同一串</strong>星月菩提——先看刚入手时的样子，再看九个月后。<strong>点任意一张可以放大</strong>，星点和月眼的变化看得更清楚。</p>
-    <div class="bl-shots bl-shots--pair">
-      <div class="bl-shots-rowlabel"><strong>刚入手</strong><span>阴皮 · 青灰绿</span></div>
-      <figure>
-        <img data-lightbox data-caption="刚入手 · 月面：底色青灰绿（阴皮色系），月眼清楚，星点细密。" src="img/bracelet/xingyue-yue.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="刚入手的星月菩提实拍：底色青灰绿，珠面中央可见月眼，四周密布细星">
+  <!-- 星月图集（2026-09-25）：把板块入口的星月实拍聚成照片墙，点开可由 lightbox.js 放大；
+       六张均为站主自有实拍，原散在两块「实物实拍」，现统一归集到一处 -->
+  <section class="bl-gallery-wrap" aria-label="星月图集">
+    <div class="cat-header">
+      <h2>📿 星月图集</h2>
+      <span class="badge">实物实拍</span>
+    </div>
+    <p class="bl-gallery-lead">下面都是我亲手盘过的星月——上面那串顺白底子，下面那串是无相切面。点任意一张可以放大，星点和月眼的变化看得更清楚。</p>
+    <div class="bl-gallery-grid">
+      <figure class="bl-gcard">
+        <div class="bl-gcard-img"><img data-lightbox data-caption="刚入手 · 月面：底色青灰绿（阴皮色系），月眼清楚，星点细密。" src="img/bracelet/xingyue-yue.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="刚入手的星月菩提实拍：底色青灰绿，珠面中央可见月眼，四周密布细星"></div>
         <figcaption><strong>月面：</strong>中间那个浅色圆凹就是「月」，满地小黑点是「星」。</figcaption>
       </figure>
-      <figure>
-        <img data-lightbox data-caption="刚入手 · 星面：翻到另一面几乎看不到月眼，满身细星。" src="img/bracelet/xingyue-xing.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="刚入手的星月菩提实拍：翻到另一面看不到月眼，满布细密黑色星点">
-        <figcaption><strong>星面：</strong>翻过来几乎看不到月，满身细星——所以挑串要两面都看。</figcaption>
+      <figure class="bl-gcard">
+        <div class="bl-gcard-img"><img data-lightbox data-caption="刚入手 · 星面：翻到另一面几乎看不到月眼，满身细星。" src="img/bracelet/xingyue-xing.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="刚入手的星月菩提实拍：翻到另一面看不到月眼，满布细密黑色星点"></div>
+        <figcaption><strong>星面：</strong>翻过来几乎看不到月，满身细星——挑串要两面都看。</figcaption>
       </figure>
-      <div class="bl-shots-rowlabel"><strong>九个月后</strong><span>橄榄黄至土黄褐</span></div>
-      <figure>
-        <img data-lightbox data-caption="九个月后 · 整串：底色由青灰绿走到橄榄黄至土黄褐，表面更亮更润，星点仍在。" src="img/bracelet/xingyue-9m.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后的星月菩提实拍：整串底色转为橄榄黄至土黄褐，表面有光泽，星点仍清晰">
-        <figcaption><strong>整串：</strong>绿调褪掉、转黄转亮，<strong>星点一颗没少</strong>。</figcaption>
+      <figure class="bl-gcard">
+        <div class="bl-gcard-img"><img data-lightbox data-caption="九个月后 · 整串：底色由青灰绿走到橄榄黄至土黄褐，表面更亮更润，星点仍在。" src="img/bracelet/xingyue-9m.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后的星月菩提实拍：整串底色转为橄榄黄至土黄褐，表面有光泽，星点仍清晰"></div>
+        <figcaption><strong>整串·九个月后：</strong>绿调褪掉、转黄转亮，<strong>星点一颗没少</strong>。</figcaption>
       </figure>
-      <figure>
-        <img data-lightbox data-caption="九个月后 · 特写：星点依旧清晰，表面光滑莹润，珠与珠之间仍有轻微色差。" src="img/bracelet/xingyue-9m-detail.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后的星月菩提特写：珠面光滑莹润，黑色星点清晰，珠间有轻微色差">
-        <figcaption><strong>特写：</strong>表面起玻璃感；珠与珠之间仍有色差，天然料本就如此。</figcaption>
+      <figure class="bl-gcard">
+        <div class="bl-gcard-img"><img data-lightbox data-caption="九个月后 · 特写：星点依旧清晰，表面光滑莹润，珠与珠之间仍有轻微色差。" src="img/bracelet/xingyue-9m-detail.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后的星月菩提特写：珠面光滑莹润，黑色星点清晰，珠间有轻微色差"></div>
+        <figcaption><strong>特写·九个月后：</strong>表面起玻璃感；珠间仍有色差，天然料本就如此。</figcaption>
+      </figure>
+      <figure class="bl-gcard">
+        <div class="bl-gcard-img"><img data-lightbox data-caption="刚入手 · 无相切面：珠面呈多面体，混有青绿（阴皮）、黄棕（陈籽/黄皮）和深褐（已氧化）等皮色。" src="img/bracelet/xingyue-wuxiang-new.webp" width="695" height="1024" loading="lazy" decoding="async" alt="刚入手的无相星月菩提实拍：珠子呈多面切面，珠面混有青绿、黄棕、深褐等多种皮色"></div>
+        <figcaption><strong>无相·刚入手：</strong>多面切面，每个面上仍可见星点；边缘圆润不刮手是好工。</figcaption>
+      </figure>
+      <figure class="bl-gcard">
+        <div class="bl-gcard-img"><img data-lightbox data-caption="两年三个月后 · 无相切面：棱角被盘圆，整体走深为焦糖、琥珀到深褐色，包浆感明显。" src="img/bracelet/xingyue-wuxiang-1y.webp" width="1024" height="726" loading="lazy" decoding="async" alt="盘了两年三个月后的无相星月菩提实拍：切面棱角圆润，整体呈焦糖至深褐色包浆"></div>
+        <figcaption><strong>无相·两年三个月：</strong>棱角磨圆、整体走深；阴皮与陈籽的色差明显缩小。</figcaption>
       </figure>
     </div>
     <p class="bl-shots-foot">这是一串的实测，不是通用曲线：<strong>起点是阴皮，走色路线就和「顺白」那一套不一样</strong>——完整记录与拍摄说明见<a href="bracelet/quanao.html#shiwu-jilu">《盘养手册》第二节「实物记录」</a>；照片里「月」和「星」怎么认，见《选购指南》<a href="bracelet/xingyue.html#yue">第三节「月」</a>与<a href="bracelet/xingyue.html#xing">第四节「星」</a>。</p>
-  </section>
-
-  <!-- 实物实拍②：无相切面，两年三个月（2026-09-25 新增；2026-09-25 改：对比两图左右并排，手机端亦并排） -->
-  <section class="bl-shots-wrap" aria-label="无相切面实拍">
-    <h2>另一串：无相切面，两年三个月</h2>
-    <p class="bl-shots-lead">这串是<strong>无相（切面）星月</strong>：珠子被切成不规则多面，故意弱化月眼，只看料本身的油性和密度。左图刚入手，右图盘了两年三个月，可以看出切面棱角被盘圆、皮色整体走深的过程。详细识别见《选购指南》<a href="bracelet/xingyue.html#wuxiang">第六节「实拍 · 一串无相星月的两年三个月变化」</a>。</p>
-    <div class="bl-shots bl-shots--pair">
-      <div class="bl-shots-rowlabel"><strong>刚入手 → 盘了两年三个月后</strong><span>阴皮・黄皮・已氧化混色 → 焦糖・琥珀・深褐包浆</span></div>
-      <figure>
-        <img data-lightbox data-caption="刚入手 · 无相切面：珠面呈多面体，混有青绿（阴皮）、黄棕（陈籽/黄皮）和深褐（已氧化）等皮色。" src="img/bracelet/xingyue-wuxiang-new.webp" width="695" height="1024" loading="lazy" decoding="async" alt="刚入手的无相星月菩提实拍：珠子呈多面切面，珠面混有青绿、黄棕、深褐等多种皮色">
-        <figcaption><strong>形制：</strong>多面切面，每个面上仍可见星点；边缘圆润不刮手是好工。</figcaption>
-      </figure>
-      <figure>
-        <img data-lightbox data-caption="两年三个月后 · 无相切面：棱角被盘圆，整体走深为焦糖、琥珀到深褐色，包浆感明显。" src="img/bracelet/xingyue-wuxiang-1y.webp" width="1024" height="726" loading="lazy" decoding="async" alt="盘了两年三个月后的无相星月菩提实拍：切面棱角圆润，整体呈焦糖至深褐色包浆">
-        <figcaption><strong>走色：</strong>棱角磨圆、整体走深；阴皮与陈籽的色差明显缩小。</figcaption>
-      </figure>
-    </div>
   </section>
 
   <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">

@@ -5,10 +5,9 @@ apply_site_widgets.py — 向全站静态 HTML 注入纯前端小组件（幂等
 
 注入内容：
   1. 全站（任何含 </body> 的页面）：
-     - <div id="quickToc"></div> 挂载点（悬浮栏目目录，渲染见 /js/quick-toc.js）
-     - <script src=".../js/quick-toc.js" defer>
-     - <script src=".../js/bookmark.js" defer>
+     - <script src=".../js/bookmark.js" defer>（本地收藏，纯前端无后端）
      脚本相对路径按文件目录深度自动加 ../ 前缀，与 static 页现有引用一致。
+     （注：原「悬浮栏目目录 quick-toc」已于 2026-09-18 取消，不再注入。）
   2. 文章页（含 <h1> 标题）：在首个 <h1> 后注入「收藏」按钮 .bm-bar。
 
 用法：
@@ -42,18 +41,8 @@ def ignored_files():
         return set()
     return {os.path.normpath(l.strip()) for l in out.stdout.splitlines() if l.strip()}
 
-# 悬浮目录脚本的缓存版本号：quick-toc.js 内容变更后需同步 bump（与全站 ?v=YYYYMMDD 约定一致，
-# CI 的 bump_v_hash.py 会在 public/ 产物上把它改写成内容哈希；guard_v_param.py 校验一致性）。
-#
-# [修复 2026-09-22] 原值 '20260918' 落后于仓库现状（quick-toc.js 的 git 最后改动日是 20260920，
-# 全站静态页里写的也是 20260920）。后果：本脚本每次运行都把 192 个页面改回 20260918，
-# 本地跑一次生成链就凭空产生 190+ 个文件的脏改动；guard_v_param 又会拿 20260918 去比
-# quick-toc.js 的 git 日期而报 WARNING。改成与仓库一致后，脚本命中时不再改写任何文件。
-# 教训：这个常量是「static 页里 quick-toc 版本号」的唯一真相源，改 quick-toc.js 必须同改这里。
-QUICK_TOC_VER = '20260920'
-
 # 手写静态页的「滚动出场 + 站点更新时刻」两个脚本的缓存版本号。
-# 与 QUICK_TOC_VER 同理：这里是 static 页里这两个版本号的唯一真相源，改脚本必须同改这里，
+# 这里是 static 页里这两个版本号的唯一真相源，改脚本必须同改这里，
 # 否则本脚本每次运行都会把页面改回旧值，凭空制造上百个文件的脏改动。
 PAGE_REVEAL_VER = '20260923'
 SITE_LIVE_VER = '20260925'
@@ -77,10 +66,10 @@ PAGE_FX_BLOCK = (
     '<script src="{jsp}site-live.js?v=' + SITE_LIVE_VER + '" defer></script>\n'
 )
 
+# 全站小组件：只注入「本地收藏」一个脚本。原「悬浮栏目目录 quick-toc」已取消（2026-09-18），
+# 旧页面残留的 quickToc 挂载点 / quick-toc.js 脚本由 process_file 的清理分支移除。
 WIDGET_BLOCK = (
-    '\n<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->\n'
-    '<div id="quickToc"></div>\n'
-    '<script src="{jsp}quick-toc.js?v=' + QUICK_TOC_VER + '" defer></script>\n'
+    '\n<!-- 本地收藏（纯前端组件，无后端） -->\n'
     '<script src="{jsp}bookmark.js" defer></script>\n'
 )
 
@@ -105,19 +94,24 @@ def process_file(path, check_only=False):
     jsp = js_prefix(depth)
 
     # 1) 全站小组件挂载 + 脚本
-    if '</body>' in html and 'id="quickToc"' not in html:
+    if '</body>' in html and 'bookmark.js' not in html and 'id="quickToc"' not in html and 'quick-toc.js' not in html:
+        # 全新页面：只注入本地收藏脚本（不再注入悬浮栏目目录）
         block = WIDGET_BLOCK.format(jsp=jsp)
         html = html.replace('</body>', block + '</body>', 1)
         changed.append('widget')
-    elif 'id="quickToc"' in html:
-        # 已注入：修正脚本相对前缀（按目录深度自修复，幂等）+ 统一缓存版本号
-        fixed = re.sub(r'src="(?:\.\./)*js/quick-toc\.js(?:\?v=\w+)?"',
-                       'src="%squick-toc.js?v=%s"' % (jsp, QUICK_TOC_VER), html)
+    elif 'id="quickToc"' in html or 'quick-toc.js' in html:
+        # 旧版注入过「悬浮栏目目录」的页面（或残留了孤立的 quick-toc.js 脚本）：
+        # 清掉栏目目录残留——注释（含「栏目目录」字样）、挂载点 div、quick-toc.js 脚本三项独立移除，
+        # 不受中间穿插的其它脚本（如 auto-collapse.js）影响；bookmark.js 与本地收藏功能一律保留。
+        fixed = re.sub(r'<!--[^>]*栏目目录[^>]*-->\s*', '', html)
+        fixed = re.sub(r'<div id="quickToc"></div>\s*', '', fixed)
+        fixed = re.sub(r'<script src="[^"]*quick-toc\.js[^"]*"[^>]*></script>\s*', '', fixed)
+        # 修正 bookmark.js 相对前缀（按目录深度自修复，幂等）
         fixed = re.sub(r'src="(?:\.\./)*js/bookmark\.js"',
                        'src="%sbookmark.js"' % jsp, fixed)
         if fixed != html:
             html = fixed
-            changed.append('fix-prefix')
+            changed.append('rm-quicktoc')
 
     # 1b) 滚动出场 + 站点更新时刻（只给有正文骨架的页；跳转壳/法务页跳过）
     if ('<main' in html or PAGE_FX_GATE in html) and '</body>' in html:
@@ -171,10 +165,12 @@ def main():
             if res:
                 per_page[rel] = res
     n_widget = sum(1 for v in per_page.values() if 'widget' in v)
+    n_rm = sum(1 for v in per_page.values() if 'rm-quicktoc' in v)
     n_bm = sum(1 for v in per_page.values() if 'bm-btn' in v)
     n_fx = sum(1 for v in per_page.values() if 'page-fx' in v or 'fix-page-fx' in v)
     print(('[check] ' if check_only else '[done] ') +
-          f'注入小组件页: {n_widget}，文章页收藏按钮: {n_bm}，'
+          f'注入收藏脚本页: {n_widget}，清理栏目目录残留页: {n_rm}，'
+          f'文章页收藏按钮: {n_bm}，'
           f'滚动出场/站点更新时间: {n_fx}，跳过(被 gitignore): {n_skipped}')
     if check_only:
         for name, v in list(per_page.items())[:20]:

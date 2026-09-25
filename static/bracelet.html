@@ -192,9 +192,14 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     color: var(--text-muted);
     line-height: 1.8;
   }
+  /* 对比组：始终保持两列并排（含手机端），覆盖下方 560px 单列规则 */
+  .bl-shots.bl-shots--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @media (max-width: 560px) {
     .bl-shots-wrap { margin-top: 32px; }
     .bl-shots { grid-template-columns: minmax(0, 1fr); }
+    /* 对比组在手机端仍然左右并排；间距收窄避免太挤 */
+    .bl-shots.bl-shots--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .bl-shots--pair figcaption { font-size: 0.72rem; }
   }
 
   /* 分类标题 */
@@ -700,17 +705,16 @@ var _hmt = _hmt || [];
     <p class="bl-shots-foot">这是一串的实测，不是通用曲线：<strong>起点是阴皮，走色路线就和「顺白」那一套不一样</strong>——完整记录与拍摄说明见<a href="bracelet/quanao.html#shiwu-jilu">《盘养手册》第二节「实物记录」</a>；照片里「月」和「星」怎么认，见《选购指南》<a href="bracelet/xingyue.html#yue">第三节「月」</a>与<a href="bracelet/xingyue.html#xing">第四节「星」</a>。</p>
   </section>
 
-  <!-- 实物实拍②：无相切面，两年三个月（2026-09-25 新增） -->
+  <!-- 实物实拍②：无相切面，两年三个月（2026-09-25 新增；2026-09-25 改：对比两图左右并排，手机端亦并排） -->
   <section class="bl-shots-wrap" aria-label="无相切面实拍">
     <h2>另一串：无相切面，两年三个月</h2>
     <p class="bl-shots-lead">这串是<strong>无相（切面）星月</strong>：珠子被切成不规则多面，故意弱化月眼，只看料本身的油性和密度。左图刚入手，右图盘了两年三个月，可以看出切面棱角被盘圆、皮色整体走深的过程。详细识别见《选购指南》<a href="bracelet/xingyue.html#wuxiang">第六节「实拍 · 一串无相星月的两年三个月变化」</a>。</p>
-    <div class="bl-shots">
-      <div class="bl-shots-rowlabel"><strong>刚入手</strong><span>阴皮 · 黄皮 · 已氧化混色</span></div>
+    <div class="bl-shots bl-shots--pair">
+      <div class="bl-shots-rowlabel"><strong>刚入手 → 盘了两年三个月后</strong><span>阴皮・黄皮・已氧化混色 → 焦糖・琥珀・深褐包浆</span></div>
       <figure>
         <img data-lightbox data-caption="刚入手 · 无相切面：珠面呈多面体，混有青绿（阴皮）、黄棕（陈籽/黄皮）和深褐（已氧化）等皮色。" src="img/bracelet/xingyue-wuxiang-new.webp" width="695" height="1024" loading="lazy" decoding="async" alt="刚入手的无相星月菩提实拍：珠子呈多面切面，珠面混有青绿、黄棕、深褐等多种皮色">
         <figcaption><strong>形制：</strong>多面切面，每个面上仍可见星点；边缘圆润不刮手是好工。</figcaption>
       </figure>
-      <div class="bl-shots-rowlabel"><strong>盘了两年三个月后</strong><span>焦糖 · 琥珀 · 深褐包浆</span></div>
       <figure>
         <img data-lightbox data-caption="两年三个月后 · 无相切面：棱角被盘圆，整体走深为焦糖、琥珀到深褐色，包浆感明显。" src="img/bracelet/xingyue-wuxiang-1y.webp" width="1024" height="726" loading="lazy" decoding="async" alt="盘了两年三个月后的无相星月菩提实拍：切面棱角圆润，整体呈焦糖至深褐色包浆">
         <figcaption><strong>走色：</strong>棱角磨圆、整体走深；阴皮与陈籽的色差明显缩小。</figcaption>

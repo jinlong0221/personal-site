@@ -2361,7 +2361,17 @@ p.plot-text {
   box-shadow: 0 4px 16px rgba(0,0,0,0.22), 0 2px 6px rgba(0,0,0,0.15);
 }
 @media (max-width:600px) {
-  .back-to-top { bottom: 74px; right: 18px; width: 42px; height: 42px; }
+  .back-to-top {
+    bottom: 74px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25), 0 1px 4px rgba(0,0,0,0.15);
+  }
+  /* 缩小+靠边后默认半透明，截图时不压正文；点击/悬停再变实 */
+  .back-to-top.visible { opacity: 0.65; }
+  .back-to-top.visible:hover,
+  .back-to-top.visible:active { opacity: 1; transform: scale(1.12); }
 }
 /* iOS Safari 底部安全区域（与 @supports(env(...)) 统一规则保持一致） */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {

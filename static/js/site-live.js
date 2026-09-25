@@ -105,7 +105,7 @@
   }
 
   function load() {
-    var url = base() + 'home-feed.json?v=' + Date.now();
+    var url = base() + 'home-feed.json?t=' + Math.floor(Date.now() / 600000); // 与 home-feed.js 同键，浏览器只下载一次
     fetch(url, { credentials: 'omit' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {

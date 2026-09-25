@@ -906,7 +906,7 @@
 
   function init() {
     polyfillDetails(); /* 先绑定折叠，避免数据回来前默认展开 */
-    fetch('typhoon.json?v=' + Date.now())
+    fetch('typhoon.json?t=' + Math.floor(Date.now() / 600000))
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (d) {
         lastSig = JSON.stringify(d);
@@ -916,7 +916,7 @@
         if (!window.__tfPolling) {
           window.__tfPolling = true;
           setInterval(function () {
-            fetch('typhoon.json?v=' + Date.now())
+            fetch('typhoon.json?t=' + Math.floor(Date.now() / 600000))
               .then(function (r) { if (!r.ok) return null; return r.json(); })
               .then(function (nd) {
                 if (!nd) return;

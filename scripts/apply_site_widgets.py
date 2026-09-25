@@ -56,7 +56,7 @@ QUICK_TOC_VER = '20260920'
 # 与 QUICK_TOC_VER 同理：这里是 static 页里这两个版本号的唯一真相源，改脚本必须同改这里，
 # 否则本脚本每次运行都会把页面改回旧值，凭空制造上百个文件的脏改动。
 PAGE_REVEAL_VER = '20260923'
-SITE_LIVE_VER = '20260923'
+SITE_LIVE_VER = '20260925'
 
 # 「有正文骨架」的判定：含 <main>，或含 .page-meta（页尾信息块）。
 #

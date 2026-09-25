@@ -157,7 +157,7 @@
     const countEl   = document.getElementById('autoNewsCount');
     if (!container) return;  // 页面没有容器
 
-    fetch(jsonFile + '?v=' + Date.now())
+    fetch(jsonFile + '?t=' + Math.floor(Date.now() / 600000)) // 10 分钟窗口戳：同窗口内浏览器/CDN 直接命中缓存，不再每次击穿
       .then(function (r) {
         if (!r.ok) throw new Error('Not found');
         return r.json();

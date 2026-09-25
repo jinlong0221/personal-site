@@ -3,10 +3,11 @@
  *  - 安装期预缓存应用外壳（首页 / 离线页 / manifest / 图标 / favicon）。
  *  - 页面导航：网络优先，失败回退缓存，再失败回退离线页（保证离线可读已访问页）。
  *  - 静态资源（css/js/img/字体）：缓存优先 + 后台静默更新（内容寻址 ?v，天然长期缓存）。
+ *  - 数据 JSON：网络优先（新鲜度优先），离线回退缓存；缓存键剥掉查询串，防缓存条目膨胀。
  *  - 跨域请求（百度统计 / 不蒜子 / Open-Meteo 等）：不接管，交由浏览器正常请求。
  * 版本升级：修改 CACHE 常量名即可触发 activate 清理旧缓存。
  */
-const CACHE = "lx-pwa-v1";
+const CACHE = "lx-pwa-v2";
 const PRECACHE = [
   "/",
   "/offline.html",
@@ -54,6 +55,27 @@ self.addEventListener("fetch", function (event) {
         return res;
       }).catch(function () {
         return caches.match(req).then(function (r) {
+          return r || caches.match("/offline.html");
+        });
+      })
+    );
+    return;
+  }
+
+  // 数据 JSON：网络优先（新鲜度优先），离线回退缓存；缓存键剥掉查询串。
+  // 修复缓存膨胀：此前请求带 ?v=时间戳，每个新 URL 都被永久塞进缓存，
+  // 日积月累缓存条目成千上万、每次匹配都变慢。键只留路径 → 条目数 = JSON 文件数，恒定有界。
+  if (url.pathname.slice(-5) === ".json") {
+    var dataKey = new Request(url.origin + url.pathname);
+    event.respondWith(
+      fetch(req).then(function (res) {
+        if (res && res.status === 200) {
+          var copy = res.clone();
+          caches.open(CACHE).then(function (c) { c.put(dataKey, copy); });
+        }
+        return res;
+      }).catch(function () {
+        return caches.match(dataKey).then(function (r) {
           return r || caches.match("/offline.html");
         });
       })

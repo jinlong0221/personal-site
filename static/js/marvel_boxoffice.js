@@ -92,7 +92,7 @@
   }
 
   function loadBo() {
-    fetch('marvel-boxoffice.json?v=' + Date.now())
+    fetch('marvel-boxoffice.json?t=' + Math.floor(Date.now() / 600000))
       .then(function (r) {
         if (!r.ok) throw new Error('not found');
         return r.json();

@@ -214,6 +214,16 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     border-top: 1px solid var(--border-subtle);
   }
   .bl-fig figcaption strong { color: var(--gold); }
+  /* 成对实拍：始终两列并排（含手机端），覆盖下方 560px 单列规则 */
+  .bl-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 20px; }
+  .bl-figs figure { margin: 0; background: var(--card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; }
+  .bl-figs img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+  .bl-figs figcaption { padding: 10px 12px 12px; font-size: 0.84rem; line-height: 1.55; color: var(--text-muted); border-top: 1px solid var(--border-subtle); }
+  .bl-figs figcaption strong { color: var(--gold); }
+  @media (max-width: 560px) {
+    .bl-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .bl-figs figcaption { font-size: 0.72rem; }
+  }
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -591,14 +601,16 @@ var _hmt = _hmt || [];
 
     <h3 id="wuxiang">实拍 · 一串无相星月的两年三个月变化</h3>
     <p>下面这两张是站主自己盘的<strong>无相（切面）星月</strong>。图一是刚入手时的样子，图二是盘了两年三个月后的效果——正好用来对照「珠型」和「皮色变化」这两个话题。</p>
-    <figure class="bl-fig">
-      <img data-lightbox data-caption="刚入手的无相星月：多面切面上仍能看清星点；珠面混有青绿（阴皮）、黄棕（陈籽/黄皮）和深褐（已氧化）等多种皮色。" src="../img/bracelet/xingyue-wuxiang-new.webp" width="695" height="1024" loading="lazy" decoding="async" alt="刚入手的无相星月菩提实拍：珠子呈多面切面，珠面混有青绿、黄棕、深褐等多种皮色">
-      <figcaption><strong>实拍｜刚入手：</strong>这是无相切面的典型样子——整颗珠子被切成多个小面，每个面上仍留着星月标志性的星点。这串原料混了多种皮色：<strong>青绿色是阴皮</strong>，<strong>黄棕色是陈籽或黄皮</strong>，<strong>深褐色是已经氧化走色</strong>的部分。多色混穿在原生态料里很常见，盘玩后期会慢慢趋同。</figcaption>
-    </figure>
-    <figure class="bl-fig">
-      <img data-lightbox data-caption="盘了两年三个月后：多面切面的棱角被手盘磨圆润，整体走深为焦糖、琥珀到深褐色，包浆感明显。" src="../img/bracelet/xingyue-wuxiang-1y.webp" width="1024" height="726" loading="lazy" decoding="async" alt="盘了两年三个月后的无相星月菩提实拍：切面棱角圆润，整体呈焦糖至深褐色包浆">
-      <figcaption><strong>实拍｜盘了两年三个月后：</strong>切面的<strong>棱角被盘圆</strong>，手感从生涩变温润；颜色整体走深，呈现<strong>焦糖、琥珀到深褐</strong>的自然包浆。不同皮色起点虽然不一样，但两年三个月后色差已经小了很多——阴皮那一路会先走黄再走褐，最终和陈籽方向趋同。</figcaption>
-    </figure>
+    <div class="bl-figs">
+      <figure>
+        <img data-lightbox data-caption="刚入手的无相星月：多面切面上仍能看清星点；珠面混有青绿（阴皮）、黄棕（陈籽/黄皮）和深褐（已氧化）等多种皮色。" src="../img/bracelet/xingyue-wuxiang-new.webp" width="695" height="1024" loading="lazy" decoding="async" alt="刚入手的无相星月菩提实拍：珠子呈多面切面，珠面混有青绿、黄棕、深褐等多种皮色">
+        <figcaption><strong>实拍｜刚入手：</strong>这是无相切面的典型样子——整颗珠子被切成多个小面，每个面上仍留着星月标志性的星点。这串原料混了多种皮色：<strong>青绿色是阴皮</strong>，<strong>黄棕色是陈籽或黄皮</strong>，<strong>深褐色是已经氧化走色</strong>的部分。多色混穿在原生态料里很常见，盘玩后期会慢慢趋同。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="盘了两年三个月后：多面切面的棱角被手盘磨圆润，整体走深为焦糖、琥珀到深褐色，包浆感明显。" src="../img/bracelet/xingyue-wuxiang-1y.webp" width="1024" height="726" loading="lazy" decoding="async" alt="盘了两年三个月后的无相星月菩提实拍：切面棱角圆润，整体呈焦糖至深褐色包浆">
+        <figcaption><strong>实拍｜盘了两年三个月后：</strong>切面的<strong>棱角被盘圆</strong>，手感从生涩变温润；颜色整体走深，呈现<strong>焦糖、琥珀到深褐</strong>的自然包浆。不同皮色起点虽然不一样，但两年三个月后色差已经小了很多——阴皮那一路会先走黄再走褐，最终和陈籽方向趋同。</figcaption>
+      </figure>
+    </div>
     <p class="note"><strong>无相怎么看好坏？</strong>只看两点：① <strong>边缘圆不圆</strong>——手工精磨的边缘柔和、不刮手，机雕批量货边缘生硬、容易裂；② <strong>料子密度够不够</strong>——切面损耗大，密度差的籽直接崩掉，所以同料无相通常比圆珠、桶珠贵。至于是不是「手工」、值不值那个价，照片看不出来，只能上手验。</p>
 
     <h3>这些流行词，哪些能当依据</h3>

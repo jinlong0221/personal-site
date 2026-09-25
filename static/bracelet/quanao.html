@@ -203,7 +203,9 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   }
   .bl-figs figcaption strong { color: var(--gold); }
   @media (max-width: 560px) {
-    .bl-figs { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    /* 实物记录四张在手机端也左右并排；间距收窄避免太挤 */
+    .bl-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .bl-figs figcaption { font-size: 0.72rem; }
   }
 </style>
 </style>

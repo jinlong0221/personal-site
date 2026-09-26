@@ -65,8 +65,36 @@
       (m.releaseDateCn ? ' <span class="mv-bo-date">内地 ' + esc(m.releaseDateCn) + '</span>' : '') +
       '</p>';
 
-    // 当日口径：movie.status 已校对好的当日摘要（解析 ** 粗体）
-    var status = m.status ? '<p class="mv-bo-status">' + md(m.status) + '</p>' : '';
+    // 当日口径：movie.status 可能包含多条复核（用 ｜ 分隔），
+    // 只把最新一条展开显示，并按 ；拆成要点列表，避免一屏大段文字；
+    // 历史复核折叠到 <details> 里，和里程碑保持一致。
+    var statusHtml = '';
+    if (m.status) {
+      var entries = String(m.status).split('｜').map(function (s) { return s.trim(); }).filter(Boolean);
+      var latest = entries[0] || '';
+      var older = entries.slice(1);
+
+      if (latest) {
+        var bullets = latest.split(/；|;/).map(function (s) { return s.trim(); }).filter(Boolean);
+        if (bullets.length > 1) {
+          statusHtml += '<ul class="mv-bo-status-list">' + bullets.map(function (b) {
+            return '<li class="mv-bo-status-item">' + md(b) + '</li>';
+          }).join('') + '</ul>';
+        } else {
+          statusHtml += '<p class="mv-bo-status">' + md(latest) + '</p>';
+        }
+      }
+
+      if (older.length) {
+        statusHtml +=
+          '<details class="mv-bo-detail mv-bo-history">' +
+          '<summary class="mv-bo-detail-sum">历史复核记录（' + older.length +
+          ' 条 · 点击展开）</summary>' +
+          '<ul class="mv-bo-miles">' + older.map(function (o) {
+            return '<li class="mv-bo-mile">' + multiline(o) + '</li>';
+          }).join('') + '</ul></details>';
+      }
+    }
 
     // 历史口径 / 里程碑：折叠，最新在前，避免一屏刷 40+ 条研究笔记
     var miles = (m.milestones || []).slice();
@@ -85,7 +113,7 @@
 
     var note = m.note ? '<p class="mv-bo-note">' + md(m.note) + '</p>' : '';
 
-    wrap.innerHTML = titleHtml + grid + status + milesHtml + note;
+    wrap.innerHTML = titleHtml + grid + statusHtml + milesHtml + note;
 
     var up = document.getElementById('boUpdated');
     if (up && data.updated) up.textContent = data.updated;

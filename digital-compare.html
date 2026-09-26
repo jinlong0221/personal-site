@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+  <title>数码参数对比｜龙兄知识库</title>
+<meta name="keywords" content="数码参数对比,手机参数,电车对比,显卡天梯,CPU对比,龙兄知识库">
+
+<meta name="description" content="数码参数对比矩阵：iPhone 历代、特斯拉在售车型、消费级显卡天梯、Intel/AMD 桌面 CPU 关键参数一目了然，含价格与定位，数据截至 2026-09，以官方为准。">
+
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=h4103c494c1c5" integrity="sha384-DX7sy5j+NpIug0xKE3WSjYq60Di0Smp7Vtwu15olBM+UDkm8IEfttyP/QTuxPfJ+" crossorigin="anonymous">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
+  <meta property="og:site_name" content="龙兄知识库">
+  <style>
+    .pitfall-hero {
+      text-align: center;
+      padding: 48px 20px 32px;
+    }
+    .pitfall-hero h1 {
+      margin-bottom: 12px;
+    }
+    .pitfall-hero p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+    .pitfall-list {
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+    .pitfall-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .pitfall-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255,140,0,0.1);
+    }
+    .pitfall-header {
+      padding: 20px 24px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .pitfall-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+    }
+    .pitfall-meta {
+      flex: 1;
+    }
+    .pitfall-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .pitfall-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pitfall-tag {
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .pitfall-tag.money { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.tesla { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.agarwood { border-color: var(--gold); color: var(--gold); }
+    .pitfall-tag.bracelet { border-color: #9b59b6; color: #9b59b6; }
+    .pitfall-body {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .pitfall-body.open { display: block; }
+    .pitfall-body p {
+      margin-top: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pitfall-body p:first-child { margin-top: 20px; }
+    .pitfall-body blockquote {
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: rgba(255,140,0,0.08);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      color: var(--gold-light);
+      font-size: 0.95rem;
+    }
+    .pitfall-body blockquote strong {
+      color: var(--orange);
+    }
+    .pitfall-lesson {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(16,124,16,0.1);
+      border: 1px solid rgba(16,124,16,0.3);
+      border-radius: 8px;
+    }
+    .pitfall-lesson-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pitfall-lesson p {
+      margin: 0 !important;
+      color: var(--text) !important;
+    }
+    .pitfall-expand {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      padding-top: 4px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .pitfall-card.expanded .pitfall-expand {
+      transform: rotate(180deg);
+    }
+    .pitfall-divider {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 8px 0 24px;
+    }
+    .more-stories {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .more-stories span { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+  </style>
+
+<style>
+.dc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 18px}
+.dc-tab{display:inline-block;padding:10px 22px;border:1px solid var(--border);border-radius:30px;background:var(--card);color:var(--text-secondary);font-size:.92rem;cursor:pointer;-webkit-user-select:none;user-select:none;transition:all var(--transition)}
+.dc-tab:hover{border-color:var(--gold);color:var(--gold)}
+.dc-radio{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.dc-panels{margin-top:4px}
+.dc-panel{display:none;animation:dcFade .25s ease}
+@keyframes dcFade{from{opacity:.3}to{opacity:1}}
+#dc-phone:checked~.dc-panels .dc-panel-phone,
+#dc-ev:checked~.dc-panels .dc-panel-ev,
+#dc-gpu:checked~.dc-panels .dc-panel-gpu,
+#dc-cpu:checked~.dc-panels .dc-panel-cpu{display:block}
+#dc-phone:checked~.dc-tabs label[for="dc-phone"],
+#dc-ev:checked~.dc-tabs label[for="dc-ev"],
+#dc-gpu:checked~.dc-tabs label[for="dc-gpu"],
+#dc-cpu:checked~.dc-tabs label[for="dc-cpu"]{background:var(--gold);color:#1a1a1a;border-color:var(--gold);font-weight:700}
+.dc-panel h2{margin:6px 0 10px;color:var(--text);font-size:1.15rem}
+.cmp-table{width:100%;border-collapse:collapse;font-size:.92rem;line-height:1.6}
+.cmp-table th,.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+.cmp-table thead th{background:var(--bg-secondary);color:var(--gold);font-weight:600;white-space:nowrap}
+.cmp-table tbody tr:hover{background:var(--card-hover)}
+.cmp-table tbody tr:nth-child(even){background:rgba(255,255,255,.025)}
+[data-theme="light"] .cmp-table tbody tr:nth-child(even){background:rgba(0,0,0,.025)}
+.cmp-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0 22px;border:1px solid var(--border);border-radius:12px;background:var(--card)}
+.cmp-note{color:var(--text-muted);font-size:.8rem;margin:0 2px 22px;line-height:1.7}
+@media(max-width:640px){.dc-tab{padding:9px 16px;font-size:.86rem}.cmp-table{font-size:.85rem}.cmp-table th,.cmp-table td{padding:9px 10px}}
+</style>
+
+<link rel="canonical" href="https://longxiong.vip/digital-compare.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="数码参数对比｜龙兄知识库">
+<meta property="og:description" content="数码参数对比矩阵：手机、电车、显卡、CPU 关键参数一目了然，数据截至 2026-09，以官方为准。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/digital-compare.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="数码参数对比｜龙兄知识库">
+<meta name="twitter:description" content="数码参数对比矩阵：手机、电车、显卡、CPU 关键参数一目了然，数据截至 2026-09，以官方为准。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="zisha.html">风物志</a></li>
+      <li><a href="tesla.html">车与数码</a></li>
+      <li><a href="console.html">游戏影游</a></li>
+      <li><a href="typhoon.html">射阳本地</a></li>
+      <li><a href="calendar.html">生活工具</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="health-tea.html">养生茶</a>
+          <a href="bracelet.html">文玩手串</a>
+          <a href="zisha.html">紫砂艺术</a>
+          <a href="solar-terms.html">节气物候</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="tesla.html">特斯拉</a>
+          <a href="apple.html">苹果</a>
+          <a href="ev-sales.html">新能源销量榜</a>
+          <a href="ev-charge.html">充电桩查询</a>
+          <a href="digital-compare.html" class="active">数码参数对比</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="console.html">主机图鉴</a>
+          <a href="games.html">玩过的游戏</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="marvel.html">漫威宇宙</a>
+          <a href="game-calendar.html">游戏发售日历</a>
+          <span class="nav-more-hd">射阳本地</span>
+          <a href="xintan-weather.html">农田气象</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="sheyang.html">射阳天气</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="sheyang-guide.html">射阳生活</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="tools.html">工具箱</a>
+          <a href="calendar.html">万年历</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="notes.html">站长手记</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="changelog.html">更新日志</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="rss.xml">RSS 订阅</a>
+          <a href="reading.html">读书笔记</a>
+          <a href="methodology.html">知识管理</a>
+          <span class="nav-more-div"></span>
+          <a href="travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="solar-terms.html">节气物候</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果</a>
+  <a href="ev-sales.html">新能源销量榜</a>
+  <a href="ev-charge.html">充电桩查询</a>
+  <a href="digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="console.html">主机图鉴</a>
+  <a href="games.html">玩过的游戏</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="game-calendar.html">游戏发售日历</a>
+  <span class="nav-hd">射阳本地</span>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="sheyang.html">射阳天气</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="sheyang-guide.html">射阳生活</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="tools.html">工具箱</a>
+  <a href="calendar.html">万年历</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="notes.html">站长手记</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="changelog.html">更新日志</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="rss.xml">RSS 订阅</a>
+  <a href="reading.html">读书笔记</a>
+  <a href="methodology.html">知识管理</a>
+  <span class="nav-hd-div"></span>
+  <a href="travel.html">家庭旅行</a>
+  </div>
+</nav>
+
+  <main id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">车与数码</span><span class="sep">›</span><span class="current">数码对比</span></div>
+    <div class="container">
+      <div class="pitfall-hero">
+  <h1>数码参数对比</h1>
+  <p>买前先比一比：手机、电车、显卡、CPU 关键参数一目了然</p>
+</div>
+
+<!-- 数码对比矩阵：纯 CSS 标签页（radio 切换），无脚本、无内联事件 -->
+<input class="dc-radio" type="radio" name="dc-tab" id="dc-phone" checked>
+<input class="dc-radio" type="radio" name="dc-tab" id="dc-ev">
+<input class="dc-radio" type="radio" name="dc-tab" id="dc-gpu">
+<input class="dc-radio" type="radio" name="dc-tab" id="dc-cpu">
+<div class="dc-tabs" role="tablist" aria-label="参数分类">
+  <label class="dc-tab" for="dc-phone">📱 手机</label>
+  <label class="dc-tab" for="dc-ev">🚗 电车</label>
+  <label class="dc-tab" for="dc-gpu">🎮 显卡</label>
+  <label class="dc-tab" for="dc-cpu">🧠 CPU</label>
+</div>
+<div class="dc-panels">
+
+  <section class="dc-panel dc-panel-phone" role="tabpanel">
+    <h2>iPhone 历代参数</h2>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table">
+        <thead><tr><th>机型</th><th>发布年</th><th>屏幕</th><th>芯片</th><th>主摄</th><th>国行起售价</th></tr></thead>
+        <tbody>
+          <tr><td>iPhone X</td><td>2017</td><td>5.8「 OLED</td><td>A11</td><td>1200万·双摄</td><td>¥8388</td></tr>
+          <tr><td>iPhone 11</td><td>2019</td><td>6.1」 LCD</td><td>A13</td><td>1200万·双摄</td><td>¥5499</td></tr>
+          <tr><td>iPhone 12</td><td>2020</td><td>6.1「 OLED</td><td>A14</td><td>1200万·双摄</td><td>¥6299</td></tr>
+          <tr><td>iPhone 13</td><td>2021</td><td>6.1」 OLED</td><td>A15</td><td>1200万·双摄</td><td>¥5999</td></tr>
+          <tr><td>iPhone 13 Pro</td><td>2021</td><td>6.1「 OLED·120Hz</td><td>A15</td><td>1200万·三摄</td><td>¥7999</td></tr>
+          <tr><td>iPhone 14</td><td>2022</td><td>6.1」 OLED</td><td>A15</td><td>1200万·双摄</td><td>¥5999</td></tr>
+          <tr><td>iPhone 14 Pro</td><td>2022</td><td>6.1「 OLED·120Hz·灵动岛</td><td>A16</td><td>4800万·三摄</td><td>¥7999</td></tr>
+          <tr><td>iPhone 15</td><td>2023</td><td>6.1」 OLED·灵动岛</td><td>A16</td><td>4800万·双摄</td><td>¥5999</td></tr>
+          <tr><td>iPhone 15 Pro</td><td>2023</td><td>6.1「 OLED·120Hz·灵动岛</td><td>A17 Pro</td><td>4800万·三摄</td><td>¥7999</td></tr>
+          <tr><td>iPhone 16</td><td>2024</td><td>6.1」 OLED·灵动岛</td><td>A18</td><td>4800万·双摄</td><td>¥5999</td></tr>
+          <tr><td>iPhone 16 Pro</td><td>2024</td><td>6.3「 OLED·120Hz·灵动岛</td><td>A18 Pro</td><td>4800万·三摄</td><td>¥7999</td></tr>
+          <tr><td>iPhone 16 Pro Max</td><td>2024</td><td>6.9」 OLED·120Hz·灵动岛</td><td>A18 Pro</td><td>4800万·三摄</td><td>¥9999</td></tr>
+          <tr><td>iPhone 17</td><td>2025</td><td>6.3「 OLED·120Hz·灵动岛</td><td>A19</td><td>4800万·双摄</td><td>¥5999</td></tr>
+          <tr><td>iPhone 17 Air</td><td>2025</td><td>6.5「 OLED·120Hz·超薄</td><td>A19 Pro</td><td>4800万·单摄</td><td>¥7999</td></tr>
+          <tr><td>iPhone 17 Pro</td><td>2025</td><td>6.3「 OLED·120Hz·灵动岛</td><td>A19 Pro</td><td>4800万·三摄</td><td>¥8999</td></tr>
+          <tr><td>iPhone 17 Pro Max</td><td>2025</td><td>6.9「 OLED·120Hz·灵动岛</td><td>A19 Pro</td><td>4800万·三摄</td><td>¥9999</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">起售价为国行最低存储版本发售价；Pro 系列主摄为 4800 万像素融合式主摄。数据来自苹果官网与公开评测，截至 2026-09。</p>
+  </section>
+
+  <section class="dc-panel dc-panel-ev" role="tabpanel">
+    <h2>特斯拉在售车型</h2>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table">
+        <thead><tr><th>车型</th><th>尺寸级别</th><th>CLTC 续航</th><th>0–100</th><th>驱动形式</th><th>起售价</th></tr></thead>
+        <tbody>
+          <tr><td>Model 3 后轮驱动版</td><td>中型轿车</td><td>634km</td><td>6.1s</td><td>后轮驱动</td><td>¥22.75万</td></tr>
+          <tr><td>Model 3 长续航后驱版</td><td>中型轿车</td><td>830km</td><td>5.2s</td><td>后轮驱动</td><td>¥25.95万</td></tr>
+          <tr><td>Model 3 长续航全驱版</td><td>中型轿车</td><td>753km</td><td>3.8s</td><td>双电机四驱</td><td>¥28.55万</td></tr>
+          <tr><td>Model 3 高性能版</td><td>中型轿车</td><td>623km</td><td>3.1s</td><td>双电机四驱</td><td>¥33.95万</td></tr>
+          <tr><td>Model Y 后轮驱动版</td><td>中型SUV</td><td>593km</td><td>5.9s</td><td>后轮驱动</td><td>¥26.35万</td></tr>
+          <tr><td>Model Y 长续航后驱版</td><td>中型SUV</td><td>821km</td><td>5.6s</td><td>后轮驱动</td><td>¥28.85万</td></tr>
+          <tr><td>Model Y 长续航全驱版</td><td>中型SUV</td><td>750km</td><td>4.3s</td><td>双电机四驱</td><td>¥31.35万</td></tr>
+          <tr><td>Model Y 高性能版</td><td>中型SUV</td><td>659km</td><td>3.5s</td><td>双电机四驱</td><td>¥36.90万</td></tr>
+          <tr><td>Model Y L 六座版</td><td>中大型SUV</td><td>751km</td><td>4.5s</td><td>双电机四驱</td><td>¥33.90万</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">以上为特斯拉中国官网当前在售车型（2026-09）。Model S / Model X 已于 2026-04 在国内停售（仅余库存车），Cybertruck 未在中国大陆官方发售，故未列入。价格为厂商指导价，CLTC 续航与加速为官方标称，随配置与官网调整，以特斯拉中国官网实时信息为准。</p>
+  </section>
+
+  <section class="dc-panel dc-panel-gpu" role="tabpanel">
+    <h2>消费级显卡天梯（按档位）</h2>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table">
+        <thead><tr><th>档位</th><th>N 卡</th><th>N 卡显存</th><th>A 卡</th><th>A 卡显存</th><th>大致定位</th></tr></thead>
+        <tbody>
+          <tr><td>旗舰</td><td>RTX 5090</td><td>32GB GDDR7</td><td>—（无对位）</td><td>—</td><td>4K/8K·本地AI·创作旗舰</td></tr>
+          <tr><td>高端</td><td>RTX 5080</td><td>16GB GDDR7</td><td>—（无对位）</td><td>—</td><td>4K 高刷·光追</td></tr>
+          <tr><td>上中端</td><td>RTX 5070 Ti</td><td>16GB GDDR7</td><td>RX 9070 XT</td><td>16GB GDDR6</td><td>2K/4K 高刷</td></tr>
+          <tr><td>主流</td><td>RTX 5070</td><td>12GB GDDR7</td><td>RX 9070</td><td>16GB GDDR6</td><td>2K 主流畅玩</td></tr>
+          <tr><td>入门中端</td><td>RTX 5060 Ti</td><td>8/16GB GDDR7</td><td>RX 9060 XT</td><td>8/16GB GDDR6</td><td>1080p/2K 主流</td></tr>
+          <tr><td>预算</td><td>RTX 5060</td><td>8GB GDDR7</td><td>RX 9060</td><td>8GB GDDR6</td><td>1080p 网游</td></tr>
+          <tr><td>上代旗舰</td><td>RTX 4090</td><td>24GB GDDR6X</td><td>RX 7900 XTX</td><td>24GB GDDR6</td><td>上代旗舰·4K/创作</td></tr>
+          <tr><td>上代高端</td><td>RTX 4080 SUPER</td><td>16GB GDDR6X</td><td>—（无对位）</td><td>—</td><td>上代高端·2K/4K 光追</td></tr>
+          <tr><td>上代主流</td><td>RTX 4070 SUPER</td><td>12GB GDDR6X</td><td>RX 7800 XT</td><td>16GB GDDR6</td><td>上代主流·2K 畅玩</td></tr>
+          <tr><td>上代入门</td><td>RTX 4060</td><td>8GB GDDR6</td><td>RX 7600</td><td>8GB GDDR6</td><td>上代入门·1080p</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">AMD RDNA 4 目前最高为 RX 9070 XT，暂无 5090 级竞品；显存为公开标称，实际性能以评测为准。数据截至 2026-09。</p>
+  </section>
+
+  <section class="dc-panel dc-panel-cpu" role="tabpanel">
+    <h2>桌面 CPU 对比（Intel Core Ultra / AMD Ryzen 9000）</h2>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table">
+        <thead><tr><th>型号</th><th>厂商</th><th>核/线程</th><th>最高频率</th><th>L3缓存</th><th>TDP</th><th>定位</th><th>参考价(盒装)</th></tr></thead>
+        <tbody>
+          <tr><td>Ultra 9 285K</td><td>Intel</td><td>24C/24T（8P+16E）</td><td>5.7GHz</td><td>36MB</td><td>125W</td><td>旗舰·创作/AI</td><td>¥4999</td></tr>
+          <tr><td>Ultra 7 265K</td><td>Intel</td><td>20C/20T（8P+12E）</td><td>5.5GHz</td><td>30MB</td><td>125W</td><td>高端·剪辑</td><td>¥3299</td></tr>
+          <tr><td>Ryzen 9 9950X</td><td>AMD</td><td>16C/32T</td><td>5.7GHz</td><td>64MB</td><td>170W</td><td>旗舰·多核渲染</td><td>¥4599</td></tr>
+          <tr><td>Ryzen 9 9900X</td><td>AMD</td><td>12C/24T</td><td>5.6GHz</td><td>64MB</td><td>120W</td><td>高端·生产力</td><td>¥3299</td></tr>
+          <tr><td>Ryzen 7 9700X</td><td>AMD</td><td>8C/16T</td><td>5.5GHz</td><td>32MB</td><td>65W</td><td>中端·高能效</td><td>¥2599</td></tr>
+          <tr><td>Ultra 5 245K</td><td>Intel</td><td>14C/14T（6P+8E）</td><td>5.4GHz</td><td>24MB</td><td>125W</td><td>中端·性价比</td><td>¥2099</td></tr>
+          <tr><td>Ryzen 7 9800X3D</td><td>AMD</td><td>8C/16T</td><td>5.2GHz</td><td>96MB</td><td>120W</td><td>游戏旗舰·帧率之王</td><td>¥2899</td></tr>
+          <tr><td>Ryzen 9 9950X3D</td><td>AMD</td><td>16C/32T</td><td>5.7GHz</td><td>128MB</td><td>170W</td><td>旗舰·游戏+创作</td><td>¥5499</td></tr>
+          <tr><td>Core i9-14900K</td><td>Intel</td><td>24C/32T（8P+16E）</td><td>6.0GHz</td><td>36MB</td><td>253W</td><td>上代旗舰·高频</td><td>¥3299</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">参考价为公开盒装报价，随行情浮动；Intel 为混合架构（性能核 P + 能效核 E）。数据截至 2026-09。</p>
+  </section>
+
+</div>
+  <div class="page-meta">
+    <p class="ref-note">参数来自各厂商官网与公开评测，截至 2026-09；实际购机请以官方最新信息为准。</p>
+    <div class="update-time">最后更新：2026-09-25</div>
+  </div>
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/cybertruck.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Cybertruck · 参数与科普2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/model3.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Model 3 · 参数与动态2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/models.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Model S · 参数与动态2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/modelx.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Model X · 参数与动态2026实测避坑</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+  <footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+  <script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-hiwNfwNRlQoKDn6+jedF53YoBbwGzKjjPchXEY4nBtlBCkFx5CamVC+sPdOJt+6j" crossorigin="anonymous"></script>
+  <script defer src="js/search.js" integrity="sha384-3KpCC/GBLYV2BSt+UaGvKf/NRA+RauFXazdBRhrJG4JaLORa24Nq+xJYYZfD9CBj" crossorigin="anonymous"></script>
+  <script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  <script defer src="js/interactions.js" integrity="sha384-AGS8xO6XpKdkUK7KbSpFuYc0tDfhZz9tg6hskjwkLO5TLazy+0p+erOs6oXk8DGG" crossorigin="anonymous"></script>
+  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "数码参数对比｜龙兄知识库",
+      "url": "https://longxiong.vip/digital-compare.html",
+      "description": "手机、电车、显卡、CPU 关键参数对比矩阵，数据截至 2026-09，以官方为准。"
+    }
+  ]
+}
+</script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="js/site-live.js?v=h5f5aa76f6345" defer integrity="sha384-OsBrWXv9qet3CiZijogH5pg/MZLFcEQzyJjxAr2CvB8LElKTtALME/GcZnhRge/K" crossorigin="anonymous"></script>
+</body>
+</html>

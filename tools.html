@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 本页维护须知
+     ① 本页 <head> 里那行 Content-Security-Policy 与 static/pitfalls.html 逐字一致——照抄它是为了
+        复用它的 37 条脚本哈希白名单。本站的 CSP 不开放行全部内联脚本，一旦在本页 <head> 里
+        改动或新增内联脚本，哈希就对不上、脚本会被浏览器直接挡下（页面看着正常但功能不动）。
+        要动 <head> 里的脚本，必须同时更新那一行的白名单。
+     ② 本页不写任何内联脚本，也不写内联 onclick 之类的属性（同样会被安全策略挡下）。
+        工具逻辑分两层：static/js/tools.js 只放框架（公共底座 + 面板路由 + 按需加载器），
+        每个工具的实现在 static/js/tools/<工具名>.js，点开对应卡片时才注入执行；
+        所以工具加到二十个，首屏体积还是现在这么大。
+        新增一个工具的完整动作 = 写一个子文件 + 在框架的 SUB_VER 里登记一行
+        + 在本页加一张卡片（data-tool）和一个面板（id="tp-<工具名>"）。
+     ③ 面板是「脚本可用才折叠」：只有 <html> 被加上 .tools-js 才隐藏面板；脚本一旦没跑起来，
+        全部面板会平铺展开，输入控件和按钮都还在，内容一张不丢。日期面板里的段切换同理——
+        换个段靠 .tl-sub2 上的 .is-off，HTML 里绝不写死隐藏，切段的按钮本身也只在
+        有脚本时才出现（否则那三段就没有入口了）。
+     ④ 改了某个子文件之后：若主文件 static/js/tools.js 同时改了，子文件地址里带着主文件的
+        版本串，会跟着一起变、缓存自动失效，不必管；若只改了子文件而主文件一个字没动，
+        就得把框架里 SUB_VER 对应的数字加一，否则老访客会一直拿着缓存里的旧文件。
+     ⑤ 增删工具只动三处：本页的卡片 + 本页的面板 + 本页样式区里该工具的那一段，外加框架 SUB_VER
+        一行。子文件 static/js/tools/<工具名>.js 撤下时不要删——页面摘干净、文件留在仓库里，
+        哪天想加回来照上式补一张卡片、一个面板和一段样式即可（13～15 号就走这条路）。
+        （注释里别写字面的尖括号标签——本文件上方还有别的注释，任何人按标签切分样式块的脚本
+        或正则都会被这种字样带偏，guard_theme_scope 曾因此误判本页重定义了主题变量。） -->
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+  <title>工具箱｜龙兄知识库</title>
+<meta name="keywords" content="在线工具箱,图片压缩,格式转换,加水印,长图拼接,EXIF查看,二维码生成,九宫格切图,长图切段,图片打码,龙兄知识库">
+<meta name="description" content="二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=h4103c494c1c5" integrity="sha384-DX7sy5j+NpIug0xKE3WSjYq60Di0Smp7Vtwu15olBM+UDkm8IEfttyP/QTuxPfJ+" crossorigin="anonymous">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
+  <meta property="og:site_name" content="龙兄知识库">
+  <style>
+    /* ===================== 工具箱 · 页面样式 ===================== */
+    .tl-lede{max-width:860px;margin:4px auto 26px;text-align:center;color:var(--text-secondary);
+      font-size:1rem;line-height:1.9}
+    .tl-lede b{color:var(--gold);font-weight:700}
+
+    /* —— 合规声明 —— */
+    .tl-notice{max-width:860px;margin:0 auto 40px;padding:18px 22px;border-radius:12px;
+      background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold)}
+    .tl-notice-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:700;
+      color:var(--gold);margin-bottom:10px}
+    .tl-notice ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+    .tl-notice li{position:relative;padding-left:16px;font-size:.84rem;line-height:1.75;
+      color:var(--text-secondary)}
+    .tl-notice li::before{content:'';position:absolute;left:0;top:.62em;width:5px;height:5px;
+      border-radius:50%;background:var(--gold);opacity:.75}
+    .tl-notice li b{color:var(--text);font-weight:700}
+
+    /* —— 分组标题 —— */
+    .tl-grouphd{max-width:1120px;margin:38px auto 16px;font-size:1.05rem;font-weight:700;
+      color:var(--text);display:flex;align-items:center;gap:12px}
+    .tl-grouphd::after{content:'';flex:1;height:1px;
+      background:linear-gradient(90deg,var(--border),transparent)}
+    .tl-grouphd .tl-gn{font-size:.72rem;font-weight:700;letter-spacing:1px;color:var(--gold);
+      border:1px solid var(--border-light);border-radius:20px;padding:2px 10px}
+
+    /* —— 工具卡网格 —— */
+    .tl-grid{max-width:1120px;margin:0 auto;display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:14px}
+    .tl-tile{position:relative;display:flex;flex-direction:column;gap:9px;text-align:left;
+      padding:18px 18px 16px;border-radius:12px;background:var(--card);
+      border:1px solid var(--border);color:inherit;cursor:pointer;overflow:hidden;
+      font-family:inherit;font-size:1rem;
+      transition:border-color var(--transition),transform var(--transition),background var(--transition)}
+    .tl-tile::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+      background:var(--gold);opacity:.55;transition:opacity var(--transition)}
+    .tl-tile:hover{border-color:var(--gold);transform:translateY(-2px);background:var(--card-hover)}
+    .tl-tile:hover::before{opacity:1}
+    .tl-tile:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+    .tl-tile.is-active{border-color:var(--gold);background:var(--card-hover)}
+    .tl-tile.is-active::before{opacity:1}
+    .tl-tile-ico{color:var(--gold);line-height:0}
+    .tl-tile-t{font-size:.98rem;font-weight:700;color:var(--text);display:flex;
+      align-items:center;gap:8px}
+    .tl-tile-num{font-size:.68rem;font-weight:700;letter-spacing:.5px;color:var(--gold);
+      opacity:.7;font-variant-numeric:tabular-nums}
+    .tl-tile-d{font-size:.79rem;line-height:1.7;color:var(--text-muted);flex:1}
+    .tl-tile-tag{font-size:.68rem;color:var(--gold);opacity:.85;letter-spacing:.3px}
+
+    /* —— 面板舞台 —— */
+    .tl-stage{max-width:1120px;margin:30px auto 0;display:flex;flex-direction:column;gap:18px}
+    .tl-panel{padding:22px;border-radius:12px;background:var(--card);border:1px solid var(--border)}
+    .tl-panel.tl-hl{border-color:var(--gold);box-shadow:0 4px 22px rgba(201,168,76,.10)}
+    .tl-ph{display:flex;align-items:center;justify-content:space-between;gap:12px;
+      margin-bottom:8px;flex-wrap:wrap}
+    .tl-ph h3{font-size:1.05rem;font-weight:700;color:var(--text);display:flex;
+      align-items:center;gap:9px}
+    .tl-ph h3 .tl-idx{font-size:.7rem;font-weight:700;letter-spacing:.5px;color:var(--gold);
+      border:1px solid var(--border-light);border-radius:20px;padding:2px 9px}
+    .tl-close{background:none;border:1px solid var(--border);border-radius:20px;
+      color:var(--text-muted);font-size:.75rem;padding:4px 13px;cursor:pointer;
+      font-family:inherit;transition:border-color var(--transition),color var(--transition)}
+    .tl-close:hover{border-color:var(--gold);color:var(--gold)}
+    .tl-desc{font-size:.83rem;line-height:1.8;color:var(--text-muted);margin-bottom:16px}
+
+    /* —— 投放区 —— */
+    .tl-drop{position:relative;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;gap:7px;padding:26px 18px;border-radius:10px;
+      border:1.5px dashed var(--border-light);background:var(--bg-secondary);
+      color:var(--text-secondary);text-align:center;cursor:pointer;
+      transition:border-color var(--transition),background var(--transition)}
+    .tl-drop:hover,.tl-drop.is-over{border-color:var(--gold);color:var(--text)}
+    .tl-drop.is-over{background:rgba(201,168,76,.07)}
+    .tl-drop svg{color:var(--gold);opacity:.85}
+    .tl-drop b{font-size:.9rem;font-weight:700;color:var(--text)}
+    .tl-drop .tl-sub{font-size:.75rem;color:var(--text-muted);line-height:1.7}
+    .tl-drop input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+
+    /* —— 参数行 —— */
+    .tl-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      gap:14px 20px;margin-top:16px}
+    .tl-opt{display:flex;flex-direction:column;gap:6px;min-width:0}
+    .tl-opt>label,.tl-opt-l{font-size:.78rem;font-weight:700;color:var(--text-secondary)}
+    .tl-opt-l{display:flex;align-items:center;gap:8px}
+    .tl-opt-l output,.tl-opt-l .tl-v{color:var(--gold);font-variant-numeric:tabular-nums;
+      font-weight:700}
+    .tl-opt select,.tl-opt input[type=text],.tl-opt input[type=number],.tl-opt textarea{
+      width:100%;padding:8px 10px;border-radius:8px;background:var(--bg);
+      border:1px solid var(--border);color:var(--text);font-size:.85rem;font-family:inherit;
+      transition:border-color var(--transition)}
+    .tl-opt textarea{resize:vertical;min-height:72px;line-height:1.7}
+    .tl-opt select:focus,.tl-opt input:focus,.tl-opt textarea:focus{outline:none;
+      border-color:var(--gold)}
+    .tl-opt input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer}
+    .tl-opt input[type=color]{width:100%;height:36px;padding:2px;border-radius:8px;
+      background:var(--bg);border:1px solid var(--border);cursor:pointer}
+    .tl-opt input[type=checkbox]{accent-color:var(--gold);width:15px;height:15px;cursor:pointer;
+      vertical-align:-2px}
+    .tl-check{display:flex;align-items:center;gap:8px;font-size:.82rem;
+      color:var(--text-secondary);cursor:pointer;user-select:none;padding-top:2px}
+    .tl-check span{line-height:1.5}
+    .tl-in2{display:flex;gap:8px}
+    .tl-in2 input{min-width:0}
+
+    /* —— 按钮 —— */
+    .tl-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .tl-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:22px;
+      border:1px solid var(--gold);background:var(--gold);color:#1a1408;font-size:.83rem;
+      font-weight:700;font-family:inherit;cursor:pointer;
+      transition:opacity var(--transition),transform var(--transition)}
+    .tl-btn:hover:not(:disabled){transform:translateY(-1px);opacity:.92}
+    .tl-btn.ghost{background:transparent;color:var(--gold)}
+    .tl-btn.ghost:hover:not(:disabled){background:rgba(201,168,76,.10)}
+    .tl-btn:disabled{opacity:.38;cursor:not-allowed;transform:none}
+    .tl-btn.danger{border-color:var(--cinnabar);background:transparent;color:var(--cinnabar)}
+
+    /* —— 结果区 —— */
+    .tl-stat{display:none;margin-top:18px;padding:14px 18px;border-radius:10px;
+      background:var(--bg-secondary);border:1px solid var(--border)}
+    .tl-stat.on{display:block}
+    .tl-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px}
+    .tl-stat-cell{min-width:0}
+    .tl-stat-k{font-size:.72rem;color:var(--text-muted);letter-spacing:.3px}
+    .tl-stat-v{font-size:1.05rem;font-weight:700;color:var(--gold);
+      font-variant-numeric:tabular-nums;word-break:break-all}
+    .tl-stat-note{margin-top:12px;font-size:.78rem;line-height:1.7;color:var(--text-muted)}
+
+    /* —— 文本结果框（密码 / 分类等直接展示内容）—— */
+    .tl-outrow{margin-top:14px}
+    .tl-out{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:1rem;
+      color:var(--gold);background:var(--bg-secondary);border:1px solid var(--border);
+      border-radius:8px;padding:11px 14px;word-break:break-all;user-select:all;line-height:1.6;
+      min-height:1.6em}
+    .tl-out-l{font-size:.78rem;color:var(--text-muted);align-self:center}
+    .tl-out-l>span{color:var(--text-secondary);font-weight:700;
+      font-variant-numeric:tabular-nums}
+
+    .tl-list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+    .tl-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:9px;
+      background:var(--bg-secondary);border:1px solid var(--border);font-size:.8rem;min-width:0}
+    .tl-item-th{width:38px;height:38px;border-radius:6px;object-fit:cover;flex:0 0 auto;
+      background:var(--bg);border:1px solid var(--border)}
+    .tl-item-main{flex:1;min-width:0}
+    .tl-item-nm{color:var(--text);font-weight:700;white-space:nowrap;overflow:hidden;
+      text-overflow:ellipsis}
+    .tl-item-mt{color:var(--text-muted);font-size:.74rem;margin-top:2px;
+      font-variant-numeric:tabular-nums}
+    .tl-item-mt .up{color:var(--gold);font-weight:700}
+    .tl-item-mt .down{color:var(--text-secondary)}
+    .tl-item-act{flex:0 0 auto;display:flex;gap:6px}
+    .tl-mini{background:none;border:1px solid var(--border);border-radius:6px;
+      color:var(--text-muted);cursor:pointer;font-size:.72rem;padding:3px 8px;
+      font-family:inherit;transition:border-color var(--transition),color var(--transition)}
+    .tl-mini:hover{border-color:var(--gold);color:var(--gold)}
+    .tl-mini:disabled{opacity:.3;cursor:not-allowed}
+
+    /* —— EXIF 表 —— */
+    .tl-tbl{width:100%;border-collapse:collapse;margin-top:16px;font-size:.8rem}
+    .tl-tbl th,.tl-tbl td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);
+      vertical-align:top}
+    .tl-tbl th{width:34%;color:var(--text-muted);font-weight:700;font-size:.76rem}
+    .tl-tbl td{color:var(--text);word-break:break-all}
+    .tl-tbl tr:last-child th,.tl-tbl tr:last-child td{border-bottom:none}
+    .tl-tbl .tl-warn{color:var(--cinnabar);font-weight:700}
+
+    /* —— 预览画布 / 取色 —— */
+    .tl-canvas-wrap{margin-top:16px;padding:12px;border-radius:10px;background:var(--bg-secondary);
+      border:1px solid var(--border);display:flex;justify-content:center;overflow:auto}
+    .tl-canvas-wrap canvas{max-width:100%;height:auto;border-radius:6px;cursor:crosshair;
+      image-rendering:auto}
+    .tl-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));
+      gap:10px;margin-top:16px}
+    .tl-sw{border-radius:9px;overflow:hidden;border:1px solid var(--border);cursor:pointer;
+      background:var(--bg-secondary);transition:border-color var(--transition)}
+    .tl-sw:hover{border-color:var(--gold)}
+    .tl-sw-c{height:56px}
+    .tl-sw-t{padding:6px 8px;font-size:.72rem;color:var(--text-secondary);
+      font-variant-numeric:tabular-nums;text-align:center}
+    .tl-picked{display:flex;align-items:center;gap:14px;margin-top:16px;flex-wrap:wrap}
+    .tl-picked-c{width:64px;height:64px;border-radius:10px;border:1px solid var(--border);
+      flex:0 0 auto}
+    .tl-picked-t{font-size:.82rem;color:var(--text-secondary);line-height:2;
+      font-variant-numeric:tabular-nums}
+    .tl-picked-t b{color:var(--gold);font-weight:700}
+    .tl-qr-out{margin-top:18px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+    .tl-qr-box{padding:14px;border-radius:10px;background:#fff;border:1px solid var(--border);
+      line-height:0;flex:0 0 auto}
+
+    /* —— 九宫格位置选择 —— */
+    .tl-pos{display:grid;grid-template-columns:repeat(3,30px);grid-template-rows:repeat(3,30px);
+      gap:4px}
+    .tl-pos button{background:var(--bg);border:1px solid var(--border);border-radius:5px;
+      cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;
+      transition:border-color var(--transition),background var(--transition)}
+    .tl-pos button::before{content:'';width:7px;height:7px;border-radius:2px;
+      background:var(--text-muted);opacity:.45}
+    .tl-pos button:hover{border-color:var(--gold)}
+    .tl-pos button.on{border-color:var(--gold);background:rgba(201,168,76,.13)}
+    .tl-pos button.on::before{background:var(--gold);opacity:1}
+
+    .tl-note{font-size:.76rem;line-height:1.75;color:var(--text-muted);margin-top:12px}
+    .tl-msg{margin-top:14px;padding:10px 14px;border-radius:8px;font-size:.8rem;
+      line-height:1.7;display:none}
+    .tl-msg.on{display:block}
+    .tl-msg.err{background:rgba(200,66,60,.10);border:1px solid var(--cinnabar);
+      color:var(--cinnabar)}
+    .tl-msg.ok{background:rgba(201,168,76,.09);border:1px solid var(--gold);color:var(--gold)}
+    .tl-hidden{display:none!important}
+
+    /* —— JS 生效后才折叠：默认（含 JS 失效）全部面板可见，内容零丢失 —— */
+    .tools-js .tl-panel{display:none}
+    .tools-js .tl-panel.is-open{display:block}
+
+    /* —— 日期框与表单配色：跟着页面主题走，深色下原生日历弹层才不会白得刺眼 —— */
+    :root{color-scheme:dark}
+    [data-theme="light"]{color-scheme:light}
+    .tl-opt input[type=date]{width:100%;padding:8px 10px;border-radius:8px;background:var(--bg);
+      border:1px solid var(--border);color:var(--text);font-size:.85rem;font-family:inherit;
+      transition:border-color var(--transition)}
+    .tl-opt input[type=date]:focus{outline:none;border-color:var(--gold)}
+    .tl-hint{font-size:.73rem;line-height:1.65;color:var(--text-muted)}
+
+    /* —— 分段切换（日期计算用）——
+       脚本没跑起来时切换条不出现，下面的分段小标题出现、三段内容一起平铺，内容零丢失 */
+    .tl-seg{display:none}
+    .tools-js .tl-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px;padding:4px;
+      border-radius:10px;background:var(--bg-secondary);border:1px solid var(--border)}
+    .tools-js .tl-seg button{flex:1 1 auto;min-width:104px;padding:8px 12px;border-radius:7px;
+      border:1px solid transparent;background:transparent;color:var(--text-secondary);
+      font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;
+      transition:background var(--transition),color var(--transition),border-color var(--transition)}
+    .tools-js .tl-seg button:hover{color:var(--text)}
+    .tools-js .tl-seg button.on{background:var(--card);border-color:var(--gold);color:var(--gold)}
+    .tl-sub2-hd{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-size:.88rem;
+      font-weight:700;color:var(--text)}
+    .tl-sub2-hd::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--gold)}
+    .tools-js .tl-sub2-hd{display:none}
+    .tools-js .tl-sub2.is-off{display:none}
+    .tl-sub2+.tl-sub2 .tl-sub2-hd{margin-top:22px}
+
+    /* —— 文本对比 —— */
+    .tl-diffwrap{display:none;margin-top:16px;border:1px solid var(--border);border-radius:10px;
+      overflow:hidden;background:var(--bg)}
+    .tl-diffwrap.on{display:block}
+    .tl-dhead{display:grid;grid-template-columns:48px minmax(0,1fr) 48px minmax(0,1fr);
+      background:var(--bg-secondary);border-bottom:1px solid var(--border);font-size:.75rem;
+      font-weight:700;color:var(--text-secondary)}
+    .tl-dhead .tl-dh{padding:7px 10px;letter-spacing:.3px}
+    .tl-dhead .tl-dh.a{grid-column:1/3}
+    .tl-dhead .tl-dh.b{grid-column:3/5}
+    .tl-dbody{max-height:560px;overflow:auto;overscroll-behavior:contain}
+    .tl-drow{display:grid;grid-template-columns:48px minmax(0,1fr) 48px minmax(0,1fr);
+      font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Courier New',monospace;
+      font-size:.78rem;line-height:1.7}
+    .tl-dbody>.tl-drow+.tl-drow{border-top:1px solid rgba(127,127,127,.15)}
+    .tl-dln{padding:3px 7px;text-align:right;color:var(--text-muted);background:var(--bg-secondary);
+      user-select:none;-webkit-user-select:none;font-variant-numeric:tabular-nums;
+      white-space:nowrap;font-size:.72rem}
+    .tl-dtx{padding:3px 10px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--text)}
+    .tl-drow .tl-dln.a{grid-column:1;grid-row:1}
+    .tl-drow .tl-dtx.a{grid-column:2;grid-row:1}
+    .tl-drow .tl-dln.b{grid-column:3;grid-row:1}
+    .tl-drow .tl-dtx.b{grid-column:4;grid-row:1}
+    .tl-vac{background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(127,127,127,.10) 5px 10px)}
+    .tl-drow.t-del .tl-dln.a,.tl-drow.t-del .tl-dtx.a{background:rgba(200,66,60,.13)}
+    .tl-drow.t-del .tl-dtx.a{box-shadow:inset 3px 0 0 var(--cinnabar)}
+    .tl-drow.t-add .tl-dln.b,.tl-drow.t-add .tl-dtx.b{background:rgba(201,168,76,.14)}
+    .tl-drow.t-add .tl-dtx.b{box-shadow:inset 3px 0 0 var(--gold)}
+    .tl-drow.t-mod .tl-dln.a,.tl-drow.t-mod .tl-dtx.a{background:rgba(200,66,60,.07)}
+    .tl-drow.t-mod .tl-dln.b,.tl-drow.t-mod .tl-dtx.b{background:rgba(201,168,76,.08)}
+    .tl-dw{background:rgba(200,66,60,.32);border-radius:2px}
+    .tl-iw{background:rgba(201,168,76,.36);border-radius:2px}
+    .tl-dmore{padding:6px 12px;text-align:center;font-size:.74rem;color:var(--text-muted);
+      background:var(--bg-secondary);border-top:1px solid rgba(127,127,127,.15)}
+
+    /* ===================== 切图与打码（13-15）===================== */
+    /* 这两个块自带 display:grid / flex，会盖掉浏览器默认的 [hidden] 规则，单独点名兜住。
+       注意别写成全页 [hidden]{display:none!important}：二维码面板的 WiFi 名称/密码/加密方式
+       三个字段在 HTML 里就带着 hidden 属性，靠的是 .tl-opt{display:flex} 把它顶掉才看得见，
+       用 !important 压下去会让它们在「脚本没跑起来」时彻底变成打不开的隐藏内容。 */
+    .tl-cut[hidden],.tl-cutlist[hidden]{display:none!important}
+    .tl-full{grid-column:1/-1}
+    .tl-sechd{display:flex;align-items:center;gap:8px;margin:18px 0 10px;font-size:.88rem;
+      font-weight:700;color:var(--text)}
+    .tl-sechd::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--gold)}
+
+    /* —— 切好的宫格预览（格子数决定列数，由脚本写 grid-template-columns）—— */
+    .tl-cut{display:grid;gap:8px;margin-top:4px}
+    .tl-cutc{display:flex;flex-direction:column;gap:5px;min-width:0;padding:6px;border-radius:9px;
+      background:var(--bg-secondary);border:1px solid rgba(127,127,127,.14)}
+    .tl-cutc canvas{width:100%;height:auto;display:block;border-radius:5px;background:var(--bg);
+      box-shadow:0 1px 4px rgba(0,0,0,.18)}
+    .tl-cutcap{font-size:.66rem;line-height:1.45;color:var(--text-muted);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tl-cutc .tl-mini{align-self:flex-start}
+
+    /* —— 长图切段的结果行 —— */
+    .tl-cutlist{margin-top:4px;max-height:420px;overflow:auto;display:flex;flex-direction:column;
+      gap:6px}
+    .tl-cutrow{display:flex;align-items:center;gap:10px;padding:7px 11px;border-radius:8px;
+      background:var(--bg-secondary);border:1px solid rgba(127,127,127,.14)}
+    .tl-cutth{width:26px;height:38px;object-fit:cover;border-radius:4px;flex:0 0 auto;
+      background:var(--bg)}
+    .tl-cutnm{flex:1;min-width:0;font-size:.78rem;color:var(--text);white-space:nowrap;
+      overflow:hidden;text-overflow:ellipsis}
+    .tl-cutsz{font-size:.72rem;color:var(--text-muted);font-variant-numeric:tabular-nums;
+      flex:0 0 auto}
+
+    /* —— 打码用的画布 —— */
+    .tl-mk{margin-top:16px;padding:12px;border-radius:10px;background:var(--bg-secondary);
+      border:1px solid rgba(127,127,127,.16)}
+    .tl-mk-tip{margin:0 0 10px;font-size:.75rem;line-height:1.7;color:var(--text-muted)}
+    .tl-mk-stage{position:relative;display:block;line-height:0}
+    .tl-mk-stage canvas{display:block;max-width:100%;height:auto;border-radius:6px;
+      cursor:crosshair;touch-action:none;-webkit-user-select:none;user-select:none;
+      -webkit-touch-callout:none}
+    .tl-mk-sel{position:absolute;border:1px dashed var(--gold);border-radius:2px;
+      background:rgba(201,168,76,.13);pointer-events:none}
+
+    @media(max-width:640px){
+      .tl-tile{padding:15px 15px 14px}
+      .tl-panel{padding:17px 15px}
+      .tl-drop{padding:20px 14px}
+      .tl-grid{grid-template-columns:1fr 1fr;gap:10px}
+      .tl-tile-d{display:none}
+      .tl-tile{padding:13px 12px}
+      .tl-tile-t{font-size:.86rem}
+      .tl-opts{grid-template-columns:1fr}
+      .tl-actions{gap:8px}
+      .tl-btn{padding:8px 15px;font-size:.79rem}
+      .tl-tbl th{width:42%}
+      .tl-swatches{grid-template-columns:repeat(auto-fill,minmax(84px,1fr))}
+      .tl-grouphd{margin:28px auto 13px;font-size:.98rem}
+      /* 窄屏下左右并排会被挤成一条线，改成同一行里"原文在上、改后在下" */
+      .tl-drow{grid-template-columns:34px minmax(0,1fr)}
+      .tl-drow .tl-dln.b{grid-column:1;grid-row:2}
+      .tl-drow .tl-dtx.b{grid-column:2;grid-row:2;border-top:1px dashed rgba(127,127,127,.3)}
+      .tl-dhead{grid-template-columns:1fr 1fr}
+      .tl-dhead .tl-dh.a{grid-column:1}
+      .tl-dhead .tl-dh.b{grid-column:2}
+      .tl-dbody{max-height:440px}
+      .tools-js .tl-seg button{min-width:0;padding:8px 6px}
+      .tl-cut{gap:5px}
+      .tl-cutc{padding:4px;gap:3px}
+      .tl-cutcap{display:none}
+      .tl-cutrow{gap:7px;padding:6px 9px}
+      .tl-mk{padding:9px}
+    }
+    @media(max-width:400px){.tl-grid{grid-template-columns:1fr}}
+    @media print{.tl-drop,.tl-actions,.tl-close{display:none!important}
+      .tl-panel{display:block!important;page-break-inside:avoid}}
+  </style>
+
+
+<link rel="canonical" href="https://longxiong.vip/tools.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="工具箱｜龙兄知识库">
+<meta property="og:description" content="二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/tools.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="工具箱｜龙兄知识库">
+<meta name="twitter:description" content="二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="zisha.html">风物志</a></li>
+      <li><a href="tesla.html">车与数码</a></li>
+      <li><a href="console.html">游戏影游</a></li>
+      <li><a href="typhoon.html">射阳本地</a></li>
+      <li><a href="calendar.html">生活工具</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="health-tea.html">养生茶</a>
+          <a href="bracelet.html">文玩手串</a>
+          <a href="zisha.html">紫砂艺术</a>
+          <a href="solar-terms.html">节气物候</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="tesla.html">特斯拉</a>
+          <a href="apple.html">苹果</a>
+          <a href="ev-sales.html">新能源销量榜</a>
+          <a href="ev-charge.html">充电桩查询</a>
+          <a href="digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="console.html">主机图鉴</a>
+          <a href="games.html">玩过的游戏</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="marvel.html">漫威宇宙</a>
+          <a href="game-calendar.html">游戏发售日历</a>
+          <span class="nav-more-hd">射阳本地</span>
+          <a href="xintan-weather.html">农田气象</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="sheyang.html">射阳天气</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="sheyang-guide.html">射阳生活</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="tools.html">工具箱</a>
+          <a href="calendar.html">万年历</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="notes.html">站长手记</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="changelog.html">更新日志</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="rss.xml">RSS 订阅</a>
+          <a href="reading.html">读书笔记</a>
+          <a href="methodology.html">知识管理</a>
+          <span class="nav-more-div"></span>
+          <a href="travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="solar-terms.html">节气物候</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果</a>
+  <a href="ev-sales.html">新能源销量榜</a>
+  <a href="ev-charge.html">充电桩查询</a>
+  <a href="digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="console.html">主机图鉴</a>
+  <a href="games.html">玩过的游戏</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="game-calendar.html">游戏发售日历</a>
+  <span class="nav-hd">射阳本地</span>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="sheyang.html">射阳天气</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="sheyang-guide.html">射阳生活</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="tools.html">工具箱</a>
+  <a href="calendar.html">万年历</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="notes.html">站长手记</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="changelog.html">更新日志</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="rss.xml">RSS 订阅</a>
+  <a href="reading.html">读书笔记</a>
+  <a href="methodology.html">知识管理</a>
+  <span class="nav-hd-div"></span>
+  <a href="travel.html">家庭旅行</a>
+  </div>
+</nav>
+<main id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">生活工具</span><span class="sep">›</span><span class="current">工具箱</span></div>
+    <div class="container">
+    <h1>工具箱</h1>
+    <p class="tl-lede">二十个纯浏览器小工具——图片压缩、格式转换、尺寸与 DPI、图片转 PDF、批量加水印、长图拼接、EXIF 查看与清除、取色配色板、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。<br>
+      所有内容都在<b>你自己的设备里</b>处理完，<b>不上传、不联网、不留存</b>，断网也能照常用。</p>
+
+    <div class="tl-notice" role="note">
+      <div class="tl-notice-h">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        使用前请知悉
+      </div>
+      <ul>
+        <li>文件全程在你自己的设备上处理，<b>不上传、不保存、不联网</b>；关掉页面即清空，服务器上什么都不会留下。贴进任何一个工具的内容都只在浏览器里，粘配置、粘密钥也放心。</li>
+        <li>本站<b>不提供任何平台的视频/音频解析，不提供去水印，不绕过任何平台的内容保护措施</b>；所有功能都只做格式、尺寸、元数据这一类基础变换。</li>
+        <li>本站<b>不做需要向公众生成内容的 AI 改写</b>：所有工具靠的都是本机算法，打开就能用，也<b>不会一本正经地编内容</b>——算法算不出来的，它会直接说不确定。</li>
+        <li>请仅用于你拥有合法权利的文件。其中<b>批量加水印</b>与<b>清除 EXIF</b> 请勿用于处理他人作品（抹去他人作品的版权与作者信息可能构成侵权）。</li>
+        <li><b>关于打码：</b>遮哪儿由你自己划，工具只负责把那儿彻底盖住 —— 它不是「一键智能识别敏感信息」。马赛克格子别调得太小，原图放大是可能被还原的；要彻底遮住就用纯色块，或者干脆把那一块裁掉。</li>
+        <li>本站无账号、不收费、无使用次数限制。工具为个人自研，若发现异常请通过页脚邮箱反馈。</li>
+      </ul>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">压缩与转换</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="compress" aria-controls="tp-compress">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 11l3 3 3-3"/><path d="M12 14V7"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">01</span>图片压缩</span>
+        <span class="tl-tile-d">压到指定质量，肉眼几乎无差别，体积常能小一半以上。支持批量。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="convert" aria-controls="tp-convert">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3.2-3.2"/><path d="M20 16H7l3.2 3.2"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">02</span>格式转换</span>
+        <span class="tl-tile-d">JPG / PNG / WebP 互转，透明背景可指定填充底色。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="resize" aria-controls="tp-resize">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M8 16v-4h4"/><path d="M16 8v4h-4"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">03</span>尺寸与 DPI</span>
+        <span class="tl-tile-d">按百分比或指定宽高缩放，并写入打印用 DPI 信息。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="pdf" aria-controls="tp-pdf">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">04</span>图片转 PDF</span>
+        <span class="tl-tile-d">多张图合成一个 PDF，可调顺序、页边距与页面尺寸。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">水印与拼接</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="watermark" aria-controls="tp-watermark">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 10.5A6 6 0 0 1 6 13.5C6 9.5 12 3 12 3z"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">05</span>批量加水印</span>
+        <span class="tl-tile-d">文字或图片水印，九宫格定位、可平铺、可调透明度与角度。</span>
+        <span class="tl-tile-tag">本地处理 · 仅限自有图</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="stitch" aria-controls="tp-stitch">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="7" rx="1.5"/><rect x="6" y="14.5" width="12" height="7" rx="1.5"/><path d="M12 9.5v5"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">06</span>长图拼接</span>
+        <span class="tl-tile-d">多张图首尾相接拼成一张长图，可调间距与背景色。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">图像信息</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="exif" aria-controls="tp-exif">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6h.01"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">07</span>EXIF 查看与清除</span>
+        <span class="tl-tile-d">看看照片里藏了什么（含 GPS），一键导出不含元数据的副本。</span>
+        <span class="tl-tile-tag">本地处理 · 仅限自有图</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="color" aria-controls="tp-color">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.5 2.5l3 3L11 16l-3-3z"/><path d="M8 13L3.5 17.5V21h3.5L11.5 16.5"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">08</span>取色与色板</span>
+        <span class="tl-tile-d">点图取色拿具体色值，或自动提取一张图的主色板。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">生成与音频</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="qr" aria-controls="tp-qr">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><path d="M14 14h3.5v3.5H14z"/><path d="M20.5 20.5h.01M17.5 20.5h.01M20.5 17.5h.01"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">09</span>二维码生成</span>
+        <span class="tl-tile-d">网址、文字、WiFi 连接信息生成二维码，可调容错与配色。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="audio" aria-controls="tp-audio">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12v1"/><path d="M7.5 8v8"/><path d="M12 4v16"/><path d="M16.5 8v8"/><path d="M21 11.5v1.5"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">10</span>音频转 WAV</span>
+        <span class="tl-tile-d">把手机录音、MP3、M4A 等转成通用 WAV，可选采样率与单声道。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">计算与文本</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="dates" aria-controls="tp-dates">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M8 2.5v4"/><path d="M16 2.5v4"/><path d="M3 10h18"/><path d="M7.5 14h3"/><path d="M7.5 17.5h7"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">11</span>日期天数计算</span>
+        <span class="tl-tile-d">两个日期相隔多久、往前推往后推是哪天、几岁，工作日会跳过周末。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="diff" aria-controls="tp-diff">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M12 3v18"/><path d="M6.5 8h2.5"/><path d="M6.5 12h2.5"/><path d="M15 8h2.5"/><path d="M15 12h2.5"/><path d="M15 16h2.5"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">12</span>文本对比</span>
+        <span class="tl-tile-d">两版文字逐行对照，改动的行和字词分别标出来，能导出对照文件。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">切图与打码</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="grid" aria-controls="tp-grid">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">13</span>九宫格切图</span>
+        <span class="tl-tile-d">一张图切成九张，发朋友圈正好铺满一整块；顺序就是微信里从左上到右下。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="longcut" aria-controls="tp-longcut">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M2.5 9.5h19"/><path d="M2.5 14.5h19"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">14</span>长图切段</span>
+        <span class="tl-tile-d">截图太长，微信一发就糊成一条；按高度切成几段再发，点开就是清楚的大图。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="mask" aria-controls="tp-mask">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M3.5 17l4.5-4.2 3.5 3"/><rect x="13.5" y="11.5" width="6.5" height="6" rx="1" fill="currentColor" stroke="none"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">15</span>图片打码</span>
+        <span class="tl-tile-d">手机号、姓名、身份证号、头像，按住拖个框就盖住；效果烧进图片，不是盖贴纸。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">日常计算</span></h2>
+    <div class="tl-grid" data-grid>
+      <button class="tl-tile" type="button" data-tool="unit" aria-controls="tp-unit">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10l-3-3"/><path d="M17 17H7l3 3"/><path d="M12 3v18"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">16</span>单位换算</span>
+        <span class="tl-tile-d">长度、重量、温度、面积…几十种常用单位直接互转。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="tz" aria-controls="tp-tz">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">17</span>时区转换</span>
+        <span class="tl-tile-d">填个时间选两个时区，自动换算，含夏令时。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="ts" aria-controls="tp-ts">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">18</span>时间戳转换</span>
+        <span class="tl-tile-d">一串数字换成看得懂的时间，或反过来。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="bmi" aria-controls="tp-bmi">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">19</span>BMI 与健康</span>
+        <span class="tl-tile-d">填身高体重，算 BMI 和中国标准分类。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="pwd" aria-controls="tp-pwd">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">20</span>密码生成</span>
+        <span class="tl-tile-d">加密级随机密码，可选字符类，显示理论强度。</span>
+        <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+    </div>
+
+    <div class="tl-stage" id="tlStage">
+
+      <section class="tl-panel" id="tp-compress" data-panel="compress" aria-labelledby="tph-compress">
+        <div class="tl-ph"><h3 id="tph-compress"><span class="tl-idx">01</span>图片压缩</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">用浏览器原生编码器重新压一遍。质量 80 左右通常看不出差别；要发群、发邮件、传表单时很省事。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          <b>点这里选图片</b>
+          <span class="tl-sub">或把图片直接拖进来 · 可多选 · JPG / PNG / WebP / GIF</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><span class="tl-opt-l">压缩质量 <output data-out="q">80</output></span>
+            <input type="range" min="40" max="95" step="1" value="80" data-in="q"></div>
+          <div class="tl-opt"><label for="cp-max">最长边限制</label>
+            <select id="cp-max" data-in="max">
+              <option value="0">不限制（保持原尺寸）</option>
+              <option value="2560">2560 px</option>
+              <option value="1920">1920 px</option>
+              <option value="1600">1600 px</option>
+              <option value="1280">1280 px</option>
+              <option value="800">800 px</option>
+            </select></div>
+          <div class="tl-opt"><label for="cp-fmt">输出格式</label>
+            <select id="cp-fmt" data-in="fmt">
+              <option value="auto">自动（保留原格式）</option>
+              <option value="image/jpeg">JPG</option>
+              <option value="image/webp">WebP</option>
+              <option value="image/png">PNG（无损，压不动）</option>
+            </select></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始压缩</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list></div>
+      </section>
+
+      <section class="tl-panel" id="tp-convert" data-panel="convert" aria-labelledby="tph-convert">
+        <div class="tl-ph"><h3 id="tph-convert"><span class="tl-idx">02</span>格式转换</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">把图片在 JPG / PNG / WebP 之间互转。PNG 有透明区域而目标格式不支持透明时，会按你选的底色补齐。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3.2-3.2"/><path d="M20 16H7l3.2 3.2"/></svg>
+          <b>点这里选图片</b>
+          <span class="tl-sub">或拖进来 · 可多选</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="cv-fmt">目标格式</label>
+            <select id="cv-fmt" data-in="fmt">
+              <option value="image/webp">WebP（体积最小）</option>
+              <option value="image/jpeg">JPG（兼容最好）</option>
+              <option value="image/png">PNG（支持透明）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">质量 <output data-out="q">90</output></span>
+            <input type="range" min="50" max="100" step="1" value="90" data-in="q"></div>
+          <div class="tl-opt"><label for="cv-bg">透明处填充底色</label>
+            <input type="color" id="cv-bg" value="#ffffff" data-in="bg"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始转换</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list></div>
+      </section>
+
+      <section class="tl-panel" id="tp-resize" data-panel="resize" aria-labelledby="tph-resize">
+        <div class="tl-ph"><h3 id="tph-resize"><span class="tl-idx">03</span>尺寸与 DPI</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">改尺寸用于上传或排版；DPI 是给打印店看的信息，写进文件头，不改变像素。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M8 16v-4h4"/><path d="M16 8v4h-4"/></svg>
+          <b>点这里选图片</b>
+          <span class="tl-sub">或拖进来 · 可多选</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="rs-mode">缩放方式</label>
+            <select id="rs-mode" data-in="mode">
+              <option value="percent">按百分比</option>
+              <option value="width">指定宽度（高度自动）</option>
+              <option value="wh">指定宽 × 高（不保持比例）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">缩放比例 <output data-out="pct">100</output> %</span>
+            <input type="range" min="10" max="200" step="5" value="100" data-in="pct"></div>
+          <div class="tl-opt"><label for="rs-w">宽度 px</label>
+            <input type="number" id="rs-w" min="1" max="20000" value="1200" data-in="w"></div>
+          <div class="tl-opt"><label for="rs-h">高度 px</label>
+            <input type="number" id="rs-h" min="1" max="20000" value="800" data-in="h"></div>
+          <div class="tl-opt"><label for="rs-dpi">写入 DPI</label>
+            <select id="rs-dpi" data-in="dpi">
+              <option value="72">72（屏幕）</option>
+              <option value="96" selected>96（网页）</option>
+              <option value="150">150（喷墨打印）</option>
+              <option value="300">300（印刷）</option>
+            </select></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始处理</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list></div>
+      </section>
+
+      <section class="tl-panel" id="tp-pdf" data-panel="pdf" aria-labelledby="tph-pdf">
+        <div class="tl-ph"><h3 id="tph-pdf"><span class="tl-idx">04</span>图片转 PDF</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">把照片、扫描件、截图合成一个 PDF。合成引擎是本站自己写的，不依赖任何外部服务。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+          <b>点这里选图片</b>
+          <span class="tl-sub">或拖进来 · 可多选 · 顺序即页序，选完可用 ↑↓ 调整</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="pd-size">页面尺寸</label>
+            <select id="pd-size" data-in="size">
+              <option value="fit">每页贴合图片（推荐）</option>
+              <option value="a4p">A4 竖版</option>
+              <option value="a4l">A4 横版</option>
+            </select></div>
+          <div class="tl-opt"><label for="pd-margin">页边距（mm）</label>
+            <input type="number" id="pd-margin" min="0" max="40" value="0" data-in="margin"></div>
+          <div class="tl-opt"><span class="tl-opt-l">JPEG 质量 <output data-out="q">88</output></span>
+            <input type="range" min="60" max="98" step="1" value="88" data-in="q"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">生成 PDF</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list data-reorder></div>
+      </section>
+
+      <section class="tl-panel" id="tp-watermark" data-panel="watermark" aria-labelledby="tph-watermark">
+        <div class="tl-ph"><h3 id="tph-watermark"><span class="tl-idx">05</span>批量加水印</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">给自己的照片加上署名、日期或 Logo，一次处理一批。<b style="color:var(--cinnabar)">请勿用于给他人作品盖自己的水印。</b></p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 10.5A6 6 0 0 1 6 13.5C6 9.5 12 3 12 3z"/></svg>
+          <b>点这里选图片</b>
+          <span class="tl-sub">或拖进来 · 可多选</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="wm-text">水印文字</label>
+            <input type="text" id="wm-text" value="龙兄知识库" maxlength="40" data-in="text"></div>
+          <div class="tl-opt"><span class="tl-opt-l">字号 <output data-out="size">4.5</output> %（相对图宽）</span>
+            <input type="range" min="1.5" max="14" step="0.5" value="4.5" data-in="size"></div>
+          <div class="tl-opt"><label for="wm-color">文字颜色</label>
+            <input type="color" id="wm-color" value="#ffffff" data-in="color"></div>
+          <div class="tl-opt"><span class="tl-opt-l">不透明度 <output data-out="alpha">55</output> %</span>
+            <input type="range" min="5" max="100" step="5" value="55" data-in="alpha"></div>
+          <div class="tl-opt"><span class="tl-opt-l">旋转角度 <output data-out="rot">0</output>°</span>
+            <input type="range" min="-90" max="90" step="5" value="0" data-in="rot"></div>
+          <div class="tl-opt"><label for="wm-pad">边距 <output data-out="pad">3</output> %</label>
+            <input type="range" min="0" max="15" step="0.5" value="3" data-in="pad"></div>
+          <div class="tl-opt"><span class="tl-opt-l">水印位置</span>
+            <div class="tl-pos" data-pos>
+              <button type="button" data-p="0" aria-label="左上"></button><button type="button" data-p="1" aria-label="上中"></button><button type="button" data-p="2" aria-label="右上"></button>
+              <button type="button" data-p="3" aria-label="左中"></button><button type="button" data-p="4" aria-label="正中"></button><button type="button" data-p="5" aria-label="右中"></button>
+              <button type="button" data-p="6" aria-label="左下"></button><button type="button" data-p="7" aria-label="下中"></button><button type="button" data-p="8" aria-label="右下"></button>
+            </div></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="tile"><span>平铺满整张图（防盗图时用，会降低可读性）</span></label>
+            <label class="tl-check"><input type="checkbox" data-in="shadow" checked><span>给文字加描边阴影（浅色照片上更清楚）</span></label></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始加水印</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list></div>
+      </section>
+
+      <section class="tl-panel" id="tp-stitch" data-panel="stitch" aria-labelledby="tph-stitch">
+        <div class="tl-ph"><h3 id="tph-stitch"><span class="tl-idx">06</span>长图拼接</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">聊天记录、订单截图、长文档分页——按顺序拼成一整张长图，顺序可用 ↑↓ 调整。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="7" rx="1.5"/><rect x="6" y="14.5" width="12" height="7" rx="1.5"/><path d="M12 9.5v5"/></svg>
+          <b>点这里选图片</b>
+          <span class="tl-sub">或拖进来 · 可多选 · 顺序即拼接顺序</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="st-dir">拼接方向</label>
+            <select id="st-dir" data-in="dir">
+              <option value="v">竖向（上下接）</option>
+              <option value="h">横向（左右接）</option>
+            </select></div>
+          <div class="tl-opt"><label for="st-gap">图片间距 <output data-out="gap">0</output> px</label>
+            <input type="range" min="0" max="60" step="2" value="0" data-in="gap"></div>
+          <div class="tl-opt"><label for="st-bg">间距背景色</label>
+            <input type="color" id="st-bg" value="#ffffff" data-in="bg"></div>
+          <div class="tl-opt"><label for="st-align">对齐方式</label>
+            <select id="st-align" data-in="align">
+              <option value="center">居中</option>
+              <option value="start">靠前</option>
+              <option value="end">靠后</option>
+            </select></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="uniform" checked><span>统一到最宽／最高的一张（避免参差不齐）</span></label></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始拼接</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list data-reorder></div>
+        <div class="tl-canvas-wrap" data-preview hidden></div>
+      </section>
+
+      <section class="tl-panel" id="tp-exif" data-panel="exif" aria-labelledby="tph-exif">
+        <div class="tl-ph"><h3 id="tph-exif"><span class="tl-idx">07</span>EXIF 查看与清除</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">手机拍的照片里通常带着拍摄时间、机型，甚至精确到门牌号的 GPS 坐标。发到网上前先看一眼、再清一遍。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/jpeg,image/jpg,.jpg,.jpeg,image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6h.01"/></svg>
+          <b>点这里选照片</b>
+          <span class="tl-sub">或拖进来 · 可多选 · EXIF 读取支持 JPG / HEIC 里的 JPG</span>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run" disabled>读取信息</button>
+          <button class="tl-btn ghost" type="button" data-act="strip" disabled>导出「已清除 EXIF」副本</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list></div>
+      </section>
+
+      <section class="tl-panel" id="tp-color" data-panel="color" aria-labelledby="tph-color">
+        <div class="tl-ph"><h3 id="tph-color"><span class="tl-idx">08</span>取色与色板</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">在图片上点一下就能拿到那个点的色值；也可以直接提取整张图的主色板，做设计配色时抄色用。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.5 2.5l3 3L11 16l-3-3z"/><path d="M8 13L3.5 17.5V21h3.5L11.5 16.5"/></svg>
+          <b>点这里选一张图片</b>
+          <span class="tl-sub">或拖进来 · 单张</span>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">提取主色板</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-canvas-wrap" data-canvas hidden></div>
+        <div class="tl-picked" data-picked hidden></div>
+        <div class="tl-swatches" data-swatches></div>
+      </section>
+
+      <section class="tl-panel" id="tp-qr" data-panel="qr" aria-labelledby="tph-qr">
+        <div class="tl-ph"><h3 id="tph-qr"><span class="tl-idx">09</span>二维码生成</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">二维码编码器是本站自己实现的（含 Reed-Solomon 纠错），不调用任何外部接口，输入内容不会离开你的设备。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="qr-kind">内容类型</label>
+            <select id="qr-kind" data-in="kind">
+              <option value="text">任意文字 / 链接</option>
+              <option value="wifi">WiFi 连接信息</option>
+            </select></div>
+          <div class="tl-opt" data-qr-bg hidden><label for="qr-ssid">WiFi 名称（SSID）</label>
+            <input type="text" id="qr-ssid" placeholder="MyWiFi" data-in="ssid"></div>
+          <div class="tl-opt" data-qr-bg hidden><label for="qr-pass">WiFi 密码</label>
+            <input type="text" id="qr-pass" placeholder="留空表示开放网络" data-in="pass"></div>
+          <div class="tl-opt" data-qr-bg hidden><label for="qr-sec">加密方式</label>
+            <select id="qr-sec" data-in="sec"><option value="WPA">WPA / WPA2 / WPA3</option><option value="WEP">WEP</option><option value="nopass">不加密</option></select></div>
+        </div>
+        <div class="tl-opts" data-qr-text>
+          <div class="tl-opt"><label for="qr-text">要写入的内容</label>
+            <textarea id="qr-text" placeholder="https://longxiong.vip/" data-in="text"></textarea></div>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="qr-size">输出尺寸</label>
+            <select id="qr-size" data-in="size"><option value="512">512 px</option><option value="256">256 px</option><option value="1024">1024 px</option><option value="2048">2048 px</option></select></div>
+          <div class="tl-opt"><label for="qr-ec">容错等级</label>
+            <select id="qr-ec" data-in="ec"><option value="M">M（推荐，可挡 ~15% 污损）</option><option value="L">L（可挡 ~7%，容量大）</option><option value="Q">Q（可挡 ~25%）</option><option value="H">H（可挡 ~30%，最抗造）</option></select></div>
+          <div class="tl-opt"><label for="qr-fg">前景色</label>
+            <input type="color" id="qr-fg" value="#000000" data-in="fg"></div>
+          <div class="tl-opt"><label for="qr-bgc">背景色</label>
+            <input type="color" id="qr-bgc" value="#ffffff" data-in="bg"></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="trans"><span>背景透明（PNG，做设计稿时用）</span></label></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">生成二维码</button>
+          <button class="tl-btn ghost" type="button" data-act="png" disabled>下载 PNG</button>
+          <button class="tl-btn ghost" type="button" data-act="svg" disabled>下载 SVG</button>
+          <button class="tl-btn ghost" type="button" data-act="copy" disabled>复制图片</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-qr-out"><div class="tl-qr-box" data-qrbox hidden></div>
+          <div class="tl-stat" data-stat style="margin-top:0;flex:1;min-width:200px"></div></div>
+      </section>
+
+      <section class="tl-panel" id="tp-audio" data-panel="audio" aria-labelledby="tph-audio">
+        <div class="tl-ph"><h3 id="tph-audio"><span class="tl-idx">10</span>音频转 WAV</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">手机录音常常是 m4a、网页下载的音频多是 mp3——老设备、老软件往往只认 WAV。这里用浏览器自带的解码器转成标准 PCM WAV。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="audio/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12v1"/><path d="M7.5 8v8"/><path d="M12 4v16"/><path d="M16.5 8v8"/><path d="M21 11.5v1.5"/></svg>
+          <b>点这里选音频</b>
+          <span class="tl-sub">或拖进来 · 可多选 · MP3 / M4A / AAC / OGG / WAV / FLAC</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="au-rate">输出采样率</label>
+            <select id="au-rate" data-in="rate">
+              <option value="0">保持原样</option>
+              <option value="44100">44100 Hz（CD 标准）</option>
+              <option value="48000">48000 Hz（视频常用）</option>
+              <option value="16000">16000 Hz（语音，体积小）</option>
+              <option value="8000">8000 Hz（电话音质）</option>
+            </select></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="mono"><span>转成单声道（体积再小一半）</span></label></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="norm"><span>顺带把音量峰值归一到 -1 dB</span></label></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始转换</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list></div>
+      </section>
+
+      <section class="tl-panel" id="tp-dates" data-panel="dates" aria-labelledby="tph-dates">
+        <div class="tl-ph"><h3 id="tph-dates"><span class="tl-idx">11</span>日期天数计算</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">算两个日期相隔多久、某个日子往前推或往后推 N 天是几号、以及几岁。需要数工作日的时候会跳过周六周日，你把放假安排填进去还能一起跳过。</p>
+
+        <div class="tl-seg" data-seg="dates" role="tablist" aria-label="日期计算方式">
+          <button type="button" class="on" data-seg-tab="gap" role="tab" aria-selected="true">相隔多久</button>
+          <button type="button" data-seg-tab="shift" role="tab" aria-selected="false">往前 / 往后推</button>
+          <button type="button" data-seg-tab="age" role="tab" aria-selected="false">算年龄</button>
+        </div>
+
+        <div class="tl-sub2" data-sub="gap">
+          <h4 class="tl-sub2-hd">相隔多久</h4>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="dt-a">开始日期</label><input type="date" id="dt-a" data-in="a"></div>
+            <div class="tl-opt"><label for="dt-b">结束日期</label><input type="date" id="dt-b" data-in="b"></div>
+          </div>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="dt-hd">要跳过的自定义日期（选填）</label>
+              <textarea id="dt-hd" data-in="hd" placeholder="每行一个：2026-10-01&#10;也可以写区间：2026-10-01~2026-10-07"></textarea>
+              <span class="tl-hint">填你自己的放假安排（含调休）就行，一行一个日期或一段区间。空着就只跳过周六周日。</span></div>
+          </div>
+          <div class="tl-actions">
+            <button class="tl-btn" type="button" data-act="gap">算一算</button>
+            <button class="tl-btn ghost" type="button" data-act="gapToday">结束日=今天</button>
+            <button class="tl-btn ghost" type="button" data-act="gap30">结束日=今天+30 天</button>
+            <button class="tl-btn ghost" type="button" data-act="gapY">结束日=今天+1 年</button>
+            <button class="tl-btn ghost" type="button" data-act="swap">对调首尾</button>
+          </div>
+          <div class="tl-msg" data-msg></div>
+          <div class="tl-stat" data-stat></div>
+        </div>
+
+        <div class="tl-sub2" data-sub="shift">
+          <h4 class="tl-sub2-hd">往前 / 往后推</h4>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="dt-base">从哪一天开始</label><input type="date" id="dt-base" data-in="base"></div>
+            <div class="tl-opt"><label for="dt-dir">往前还是往后</label>
+              <select id="dt-dir" data-in="dir">
+                <option value="1">往后（将来）</option>
+                <option value="-1">往前（过去）</option>
+              </select></div>
+            <div class="tl-opt"><label for="dt-num">数量</label>
+              <input type="number" id="dt-num" data-in="num" value="30" min="1" step="1" inputmode="numeric"></div>
+            <div class="tl-opt"><label for="dt-unit">单位</label>
+              <select id="dt-unit" data-in="unit">
+                <option value="d">天</option>
+                <option value="w">周</option>
+                <option value="m">个月</option>
+                <option value="y">年</option>
+              </select></div>
+          </div>
+          <div class="tl-opts">
+            <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="onlyWork"><span>只数工作日（跳过周六周日；上面「相隔多久」里填的放假安排也一起跳）</span></label></div>
+          </div>
+          <div class="tl-actions">
+            <button class="tl-btn" type="button" data-act="shift">算出结果</button>
+            <button class="tl-btn ghost" type="button" data-act="shiftToday">基准日=今天</button>
+          </div>
+          <div class="tl-msg" data-msg></div>
+          <div class="tl-stat" data-stat></div>
+        </div>
+
+        <div class="tl-sub2" data-sub="age">
+          <h4 class="tl-sub2-hd">算年龄</h4>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="dt-birth">出生日期</label><input type="date" id="dt-birth" data-in="birth"></div>
+            <div class="tl-opt"><label for="dt-ref">算到哪一天</label><input type="date" id="dt-ref" data-in="ref"></div>
+          </div>
+          <div class="tl-actions">
+            <button class="tl-btn" type="button" data-act="age">算年龄</button>
+            <button class="tl-btn ghost" type="button" data-act="ageToday">算到今天</button>
+          </div>
+          <div class="tl-msg" data-msg></div>
+          <div class="tl-stat" data-stat></div>
+        </div>
+
+        <p class="tl-note">全部按你设备上的日历和时区算，不联网校时。这里<b>不查法定节假日</b>——每年放假安排都会调整、还有调休，写死在代码里迟早算错，所以改成你自己填。农历、虚岁与生肖用的是站内自带的对照表（覆盖 1900 至 2098 年），同样不需要联网。</p>
+      </section>
+
+      <section class="tl-panel" id="tp-diff" data-panel="diff" aria-labelledby="tph-diff">
+        <div class="tl-ph"><h3 id="tph-diff"><span class="tl-idx">12</span>文本对比</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">把改之前和改之后的文字各贴一份，逐行对照。整行改动的会标出来，行内真正变了的字词还会单独染色，改动一目了然。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="df-ta">原文（改之前）</label>
+            <textarea id="df-ta" data-in="ta" rows="9" placeholder="把改之前的文字贴到这里" spellcheck="false"></textarea></div>
+          <div class="tl-opt"><label for="df-tb">改后（改之后）</label>
+            <textarea id="df-tb" data-in="tb" rows="9" placeholder="把改之后的文字贴到这里" spellcheck="false"></textarea></div>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="ic"><span>忽略大小写（Hello 与 hello 算一样）</span></label></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="tw"><span>忽略每行首尾的空格与缩进</span></label></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="ws"><span>连续空白折叠成一个</span></label></div>
+          <div class="tl-opt"><label class="tl-check"><input type="checkbox" data-in="fold" checked><span>折叠没变的行，只留改动附近的几句</span></label></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始对比</button>
+          <button class="tl-btn ghost" type="button" data-act="swap">交换左右</button>
+          <button class="tl-btn ghost" type="button" data-act="copyB">复制改后全文</button>
+          <button class="tl-btn ghost" type="button" data-act="dl">导出对照文件</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-diffwrap" data-diffout></div>
+        <p class="tl-note">整段文字只在你的设备上比对，一个字都不会离开浏览器，粘贴保密材料也放心。逐行对照是两两相比的计算，单边最多 4000 行；两边规模差得特别悬殊时会直接提示，而不是把页面算到卡死。「导出对照文件」用的是通行的对照格式，可以直接交给开发或存档。</p>
+      </section>
+
+
+      <section class="tl-panel" id="tp-grid" data-panel="grid" aria-labelledby="tph-grid">
+        <div class="tl-ph"><h3 id="tph-grid"><span class="tl-idx">13</span>九宫格切图</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">一张图切成九张，发朋友圈正好铺满一整块；也能切成四张、上下三条、左右三条。切出来的顺序就是微信里从左上到右下的顺序 —— 挑图的时候按这个顺序点，铺出来才不会错位。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+          <b>点这里选一张图片</b>
+          <span class="tl-sub">或拖进来 · 一次切一张 · 换图就重新切</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="gd-mode">切成几块</label>
+            <select id="gd-mode" data-in="mode">
+              <option value="3x3">3 × 3 九宫格（9 张）</option>
+              <option value="2x2">2 × 2 四宫格（4 张）</option>
+              <option value="1x3">上下三条（3 张）</option>
+              <option value="3x1">左右三条（3 张）</option>
+            </select></div>
+          <div class="tl-opt"><label for="gd-num">要不要给每张标顺序号</label>
+            <select id="gd-num" data-in="num">
+              <option value="0">不标（发出去更干净）</option>
+              <option value="1">标小号（自己核对顺序）</option>
+              <option value="2">标大号（当编号图用）</option>
+            </select></div>
+          <div class="tl-opt"><label for="gd-fmt">输出格式</label>
+            <select id="gd-fmt" data-in="fmt">
+              <option value="image/jpeg">JPG（体积小，发群推荐）</option>
+              <option value="image/png">PNG（无损，体积大）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">JPG 质量 <output data-out="q">92</output></span>
+            <input type="range" min="60" max="100" step="1" value="92" data-in="q"></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="square"><span>先在中间裁成正方形再切（不勾也行：九张拼回去就是原图本来的比例，只是每张是长方形）</span></label></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始切图</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载 ZIP</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list></div>
+        <div data-cutwrap hidden>
+          <div class="tl-sechd">切好的样子（顺序就是朋友圈里的排列）</div>
+          <div class="tl-cut" data-cut></div>
+        </div>
+        <p class="tl-note">等分是按原图像素算出来的：除不尽的时候每格宽差 1 像素，最后一行一列既不会多出一条缝、也不会把边上的行丢掉。切图只在你自己设备上做，图片不上传。顺序号是为了防止发的时候点错，不想让别人看见就选「不标」。</p>
+      </section>
+
+      <section class="tl-panel" id="tp-longcut" data-panel="longcut" aria-labelledby="tph-longcut">
+        <div class="tl-ph"><h3 id="tph-longcut"><span class="tl-idx">14</span>长图切段</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">聊天记录、网页截图、笔记导出的长图，直接发出去会被压糊成细细一条。切成几段再发，点开一张是清楚的一大片。可以一次丢好几张长图进来。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" multiple data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M2.5 9.5h19"/><path d="M2.5 14.5h19"/></svg>
+          <b>点这里选长图</b>
+          <span class="tl-sub">或拖进来 · 可多选 · 每张单独切</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="lc-mode">怎么切</label>
+            <select id="lc-mode" data-in="mode">
+              <option value="h">按每段的高度切（推荐）</option>
+              <option value="n">平均切成几段</option>
+            </select></div>
+          <div class="tl-opt"><label for="lc-h">每段最高多少像素</label>
+            <input type="number" id="lc-h" data-in="h" min="200" max="20000" step="100" value="2000" inputmode="numeric"></div>
+          <div class="tl-opt"><label for="lc-n">平均切成几段</label>
+            <input type="number" id="lc-n" data-in="n" min="2" max="200" step="1" value="3" inputmode="numeric"></div>
+          <div class="tl-opt"><label for="lc-fmt">输出格式</label>
+            <select id="lc-fmt" data-in="fmt">
+              <option value="image/jpeg">JPG（体积小，发群推荐）</option>
+              <option value="image/png">PNG（无损，体积大）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">JPG 质量 <output data-out="q">92</output></span>
+            <input type="range" min="60" max="100" step="1" value="92" data-in="q"></div>
+          <div class="tl-opt"><label for="lc-wmax">顺便把宽度缩到（像素，0 = 不动）</label>
+            <input type="number" id="lc-wmax" data-in="wmax" min="0" max="10000" step="100" value="0" inputmode="numeric"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="run">开始切段</button>
+          <button class="tl-btn ghost" type="button" data-act="zip" disabled>打包下载 ZIP</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">清空</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-list" data-list></div>
+        <div data-segswrap hidden>
+          <div class="tl-sechd">切好的段</div>
+          <div class="tl-cutlist" data-segs></div>
+        </div>
+        <p class="tl-note">「按每段高度切」不是切到切不动为止 —— 那样最后一段可能只剩二三十像素、细得像根线。这里是先算要几段、再把这几段均分，所以每段都不会超过你填的上限，也不会出现细条。切缝落在整像素上，几张拼回去看不出接缝。想发得清楚一点，经验上是宽度 1080 左右、每段高 2000 上下，具体按你要发的对方和场合调就行。</p>
+      </section>
+
+      <section class="tl-panel" id="tp-mask" data-panel="mask" aria-labelledby="tph-mask">
+        <div class="tl-ph"><h3 id="tph-mask"><span class="tl-idx">15</span>图片打码</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">发截图之前，把手机号、姓名、身份证号、群名、头像盖上。在图上按住拖一个框就遮住一块，遮错了能撤销，一块都没遮它会拦着不让导出。</p>
+        <div class="tl-drop" data-drop>
+          <input type="file" accept="image/*" data-input>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M3.5 17l4.5-4.2 3.5 3"/><rect x="13.5" y="11.5" width="6.5" height="6" rx="1" fill="currentColor" stroke="none"/></svg>
+          <b>点这里选一张图片</b>
+          <span class="tl-sub">或拖进来 · 一次一张 · 换图会清掉已画的遮挡</span>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="mk-mode">遮法</label>
+            <select id="mk-mode" data-in="mode">
+              <option value="mosaic">马赛克（糊成小方块）</option>
+              <option value="blur">高斯模糊（糊成一片）</option>
+              <option value="solid">纯色块（最彻底，拿不准就用它）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">马赛克格子 <output data-out="block">14</output> px</span>
+            <input type="range" min="6" max="48" step="2" value="14" data-in="block"></div>
+          <div class="tl-opt"><span class="tl-opt-l">模糊强度 <output data-out="radius">16</output> px</span>
+            <input type="range" min="4" max="48" step="2" value="16" data-in="radius"></div>
+          <div class="tl-opt"><label for="mk-color">纯色块颜色</label>
+            <input type="color" id="mk-color" value="#1a1a1a" data-in="color"></div>
+          <div class="tl-opt"><label for="mk-fmt">导出格式</label>
+            <select id="mk-fmt" data-in="fmt">
+              <option value="image/jpeg">JPG（体积小）</option>
+              <option value="image/png">PNG（要保留透明时用）</option>
+            </select></div>
+          <div class="tl-opt"><span class="tl-opt-l">JPG 质量 <output data-out="q">92</output></span>
+            <input type="range" min="60" max="100" step="1" value="92" data-in="q"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="save" disabled>导出图片</button>
+          <button class="tl-btn ghost" type="button" data-act="undo" disabled>撤销上一块</button>
+          <button class="tl-btn ghost" type="button" data-act="wipe" disabled>清空所有遮挡</button>
+          <button class="tl-btn ghost" type="button" data-act="clear">换一张图</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+        <div class="tl-mk" data-mk hidden>
+          <p class="tl-mk-tip">在图上按住往对角拖，拖出来的框就是一块遮挡；要盖住整行，就把框从这一行的行首一直拖到行尾。</p>
+          <div class="tl-mk-stage" data-mkstage>
+            <canvas data-mkcanvas width="1" height="1"></canvas>
+            <div class="tl-mk-sel" data-mksel hidden></div>
+          </div>
+        </div>
+        <p class="tl-note">遮哪儿由你自己划，工具只负责把那儿彻底盖住 —— 它不是「一键智能识别敏感信息」，也不会替你去猜哪里该遮。马赛克格子别调得太小：格子和字差不多大的时候，原图放大还是可能被认出来；拿不准就用纯色块。导出走的是原图分辨率，画布上那个金色虚线框和序号只是给你核对位置用的，不会画进成品里。</p>
+      </section>
+
+      <section class="tl-panel" id="tp-unit" data-panel="unit" aria-labelledby="tph-unit">
+        <div class="tl-ph"><h3 id="tph-unit"><span class="tl-idx">16</span>单位换算</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">长度、重量、温度、面积、体积、速度、时间、数据存储，几十种常用单位直接互转。选好类目和两边的单位，填个数就出结果。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="u-cat">类目</label><select id="u-cat" data-in="cat"></select></div>
+          <div class="tl-opt"><label for="u-from">从</label><select id="u-from" data-in="from"></select></div>
+          <div class="tl-opt"><label for="u-to">到</label><select id="u-to" data-in="to"></select></div>
+          <div class="tl-opt"><label for="u-v">要换算的数值</label><input type="number" id="u-v" data-in="v" value="1" step="any" inputmode="decimal"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="conv">换算</button>
+          <button class="tl-btn ghost" type="button" data-act="swap">对调两边单位</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+      <section class="tl-panel" id="tp-tz" data-panel="tz" aria-labelledby="tph-tz">
+        <div class="tl-ph"><h3 id="tph-tz"><span class="tl-idx">17</span>时区转换</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">填一个时间，选好原时区和目标时区，自动换算，含夏令时（DST）。走浏览器自带的时区库，不用联网校时。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="tz-dt">时间（日期 + 时刻）</label><input type="datetime-local" id="tz-dt" data-in="dt"></div>
+          <div class="tl-opt"><label for="tz-from">原时区</label><select id="tz-from" data-in="from"></select></div>
+          <div class="tl-opt"><label for="tz-to">目标时区</label><select id="tz-to" data-in="to"></select></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="conv">换算</button>
+          <button class="tl-btn ghost" type="button" data-act="swap">对调时区</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+      <section class="tl-panel" id="tp-ts" data-panel="ts" aria-labelledby="tph-ts">
+        <div class="tl-ph"><h3 id="tph-ts"><span class="tl-idx">18</span>时间戳转换</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">一串数字（秒或毫秒）换成人能读的时间，或反过来把日期时间换成时间戳。按你设备的时区算，不联网。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="ts-ts">时间戳（一串数字）</label><input type="text" id="ts-ts" data-in="ts" inputmode="numeric"></div>
+          <div class="tl-opt"><label for="ts-unit">时间戳单位</label>
+            <select id="ts-unit" data-in="unit">
+              <option value="s">秒（10 位）</option>
+              <option value="ms">毫秒（13 位）</option>
+            </select></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="fwd">时间戳 → 日期</button>
+        </div>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="ts-dt">日期时间</label><input type="datetime-local" id="ts-dt" data-in="dt"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn ghost" type="button" data-act="back">日期 → 时间戳</button>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+      <section class="tl-panel" id="tp-bmi" data-panel="bmi" aria-labelledby="tph-bmi">
+        <div class="tl-ph"><h3 id="tph-bmi"><span class="tl-idx">19</span>BMI 与健康</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">填身高（cm）和体重（kg），算 BMI、中国标准分类，以及对应的健康体重范围。BMI 不区分肌肉和脂肪，只作粗略参考。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="bm-h">身高（cm）</label><input type="number" id="bm-h" data-in="h" value="170" min="50" max="250" step="1" inputmode="numeric"></div>
+          <div class="tl-opt"><label for="bm-w">体重（kg）</label><input type="number" id="bm-w" data-in="w" value="65" min="2" max="400" step="1" inputmode="numeric"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="calc">计算</button>
+          <span class="tl-out-l">分类：<span data-out="bmicat">—</span></span>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+      <section class="tl-panel" id="tp-pwd" data-panel="pwd" aria-labelledby="tph-pwd">
+        <div class="tl-ph"><h3 id="tph-pwd"><span class="tl-idx">20</span>本地密码生成器</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">在浏览器里用加密级随机数现生成高强度密码，绝不联网、绝不上传、绝不留存。默认去掉 0/O、1/l 这类易混字符，可勾选放回来。</p>
+        <div class="tl-opts">
+          <div class="tl-opt"><label for="pw-len">长度</label><input type="number" id="pw-len" data-in="len" value="12" min="4" max="64" step="1" inputmode="numeric"></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="lower" checked><span>小写字母 a–z</span></label></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="upper" checked><span>大写字母 A–Z</span></label></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="digit" checked><span>数字 2–9</span></label></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="sym"><span>符号 !@#$%…</span></label></div>
+          <div class="tl-opt tl-full"><label class="tl-check"><input type="checkbox" data-in="amb"><span>保留易混字符（0/O、1/l）</span></label></div>
+        </div>
+        <div class="tl-outrow">
+          <div class="tl-out" data-out="pw" aria-live="polite">点「生成」即可得到密码</div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" type="button" data-act="gen">生成</button>
+          <button class="tl-btn ghost" type="button" data-act="copy">复制</button>
+          <span class="tl-out-l">长度 <span data-out="leno">—</span> 位</span>
+        </div>
+        <div class="tl-msg" data-msg></div>
+        <div class="tl-stat" data-stat></div>
+      </section>
+
+    </div>
+
+    <h2 class="tl-grouphd"><span class="tl-gn">关于这些工具</span></h2>
+    <div class="tl-notice" style="margin-bottom:0">
+      <div class="tl-notice-h">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6h.01"/></svg>
+        这二十个是怎么挑出来的
+      </div>
+      <ul>
+        <li>后加的<b>九宫格切图 / 长图切段 / 图片打码</b>三个，是照着「发群里、发朋友圈」这件天天要干的事做的：一张图切成九块正好铺满格子、超长截图切成几段才不发糊、发截图前把手机号和头像先盖住。三个都在你自己的设备上完成，切出来的顺序就是微信里从左上到右下的顺序，末尾还带一次打包下载。</li>
+        <li>能做的、该做的就两类：<b>一是在你自己的设备上，把你自己的文件变一变</b>（格式、尺寸、元数据）；<b>二是纯粹在你设备上算出来的结果</b>（日期推算、文本对照、颜色换算）。凡是需要去拿别人平台内容的（视频解析、去水印）、需要由我向公众生成内容的（AI 改写、语音转写）、或者会绕开平台限制的，本站<b>一律不做</b>——这不只是技术取舍，也是法律边界。</li>
+        <li>所以这里<b>没有账号、没有服务器、没有次数限制</b>：你不必担心文件被谁看到，也不必担心哪天我不做了就用不了，把页面存成离线副本也照样能打开。</li>
+        <li>视频压缩还是没有放进来：它需要下载约 30 MB 的本地编解码引擎，而在 GitHub Pages 这类静态托管上拿不到多线程所需的响应头，体验会明显打折。宁可先不做，也不给你一个半成品。</li>
+        <li>工具是<b>点开哪个才加载哪个</b>的：首屏只加载一层薄薄的框架，没点开的工具一行代码都不会下载、也不会执行。所以工具越加越多，打开速度还是现在这样。</li>
+        <li>所有功能都没有联网请求，你可以打开浏览器开发者工具的 Network 面板自行验证：从头到尾不会有一条对外请求。</li>
+        <li>工具会继续补充。<b>你希望下一个是什么，欢迎写信告诉我。</b></li>
+      </ul>
+    </div>
+
+    </div>
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：2026-09-25</div>
+  </div>
+</main>
+
+  <footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-hiwNfwNRlQoKDn6+jedF53YoBbwGzKjjPchXEY4nBtlBCkFx5CamVC+sPdOJt+6j" crossorigin="anonymous"></script>
+  <script defer src="js/search.js" integrity="sha384-3KpCC/GBLYV2BSt+UaGvKf/NRA+RauFXazdBRhrJG4JaLORa24Nq+xJYYZfD9CBj" crossorigin="anonymous"></script>
+  <script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  <script defer src="js/interactions.js" integrity="sha384-AGS8xO6XpKdkUK7KbSpFuYc0tDfhZz9tg6hskjwkLO5TLazy+0p+erOs6oXk8DGG" crossorigin="anonymous"></script>
+  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/tools.js?v=h54c32a8b592c" defer integrity="sha384-2kcheqwoKPhVNlDEYTgk2P8VdbIQ1xKRv6PTxqZUAuJlelS477gS/StzopbE7Rh6" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "工具箱",
+      "url": "https://longxiong.vip/tools.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "任何支持现代浏览器的设备",
+      "browserRequirements": "需要支持 Canvas、Web Audio 与 File API 的现代浏览器",
+      "description": "二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+      "author": { "@type": "Person", "name": "龙兄" },
+      "publisher": { "@type": "Organization", "name": "龙兄知识库" }
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "工具箱｜龙兄知识库",
+      "url": "https://longxiong.vip/tools.html",
+      "description": "二十个纯浏览器小工具：图片压缩、格式转换、尺寸与 DPI、图片转 PDF、加水印、长图拼接、EXIF 查看清除、取色配色、二维码生成、音频转 WAV、日期天数计算、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳转换、BMI 与健康、密码生成。文件全程在你自己的设备上处理，不上传、不联网、不留存。"
+    }
+  ]
+}
+</script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="js/site-live.js?v=h5f5aa76f6345" defer integrity="sha384-OsBrWXv9qet3CiZijogH5pg/MZLFcEQzyJjxAr2CvB8LElKTtALME/GcZnhRge/K" crossorigin="anonymous"></script>
+</body>
+</html>

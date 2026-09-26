@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>星月菩提盘养手册｜龙兄知识库</title>
+<meta name="keywords" content="星月菩提,盘养,包浆,挂瓷,上色,开片,盘花,色差,开裂,掉星,保养,收纳,龙兄知识库">
+
+<meta name="description" content="星月菩提买回来怎么盘：挂瓷、上色、包浆、开片四个阶段的耗时与手感，盘放节奏，水与大汗与温差骤变三忌，色差急救，以及发霉、开裂、盘花、掉星等常见问题的处理方法。">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="../js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="../css/style.css?v=h4103c494c1c5" integrity="sha384-DX7sy5j+NpIug0xKE3WSjYq60Di0Smp7Vtwu15olBM+UDkm8IEfttyP/QTuxPfJ+" crossorigin="anonymous">
+<style>
+<style>
+  /* 星月菩提（盘养）页特定样式 —— 2026-09-22 重写：只讲「买之后」的事，
+     选购与产地分级全部移到 xingyue.html，两页零重复章节。
+     注：旧的 .taboo-* 用硬编码深色渐变 + 白色文字，浅色主题下靠 filter 硬压；
+     这里改成 var(--card) 底 + 彩色左边条，两个主题都自然。 */
+  .bl-lead {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 18px 22px;
+  }
+  .bl-lead p { margin: 0; color: var(--text-secondary); line-height: 1.9; font-size: 0.93rem; }
+  .bl-lead strong { color: var(--text); }
+
+  /* 四阶段 */
+  .phase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .phase-tile {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 16px;
+    transition: transform .15s;
+  }
+  .phase-tile:hover { transform: scale(1.02); }
+  .phase-tile .phase-num { font-size: 22px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .phase-tile .phase-name { font-size: 0.95rem; font-weight: 700; margin: 8px 0 4px; color: var(--text); }
+  .phase-tile .phase-time { font-size: 0.72rem; color: var(--text-muted); }
+  .phase-tile .phase-desc { font-size: 0.79rem; color: var(--text-secondary); line-height: 1.7; margin-top: 6px; }
+
+  /* 三忌 */
+  .taboo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .taboo-tile {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .taboo-water { border-left-color: #4d8fb0; }
+  .taboo-sweat { border-left-color: #b0824d; }
+  .taboo-dry { border-left-color: #b05a4d; }
+  .taboo-tile h3 { font-size: 0.94rem; font-weight: 700; margin: 0 0 6px; color: var(--text); }
+  .taboo-tile p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.75; margin: 0; }
+
+  /* 提示 / 提醒条 */
+  .note {
+    border-left: 3px solid var(--gold);
+    background: rgba(201, 168, 76, 0.05);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.85;
+  }
+  .note p { margin: 0; }
+  .note p + p { margin-top: 6px; }
+  .note strong { color: var(--text); }
+
+  .section h3 { font-size: 1rem; color: var(--gold); margin: 20px 0 10px; }
+
+  @media (max-width: 768px) {
+    .phase-grid { grid-template-columns: repeat(2, 1fr); }
+    .taboo-grid { grid-template-columns: 1fr; }
+    .bl-lead { padding: 16px 18px; }
+    .note { padding: 12px 14px; font-size: 0.83rem; }
+  }
+  @media (max-width: 480px) {
+    .phase-grid { grid-template-columns: 1fr; }
+  }
+  /* 实物记录：盘前 / 九个月后 对比（2026-09-22 起，站主自有实拍，可点开放大） */
+  .bl-figs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 18px 0 20px;
+  }
+  .bl-figs figure {
+    margin: 0;
+    background: var(--card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .bl-figs img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+  .bl-figs figcaption {
+    padding: 10px 12px 12px;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+  }
+  .bl-figs figcaption strong { color: var(--gold); }
+  @media (max-width: 560px) {
+    /* 实物记录四张在手机端也左右并排；间距收窄避免太挤 */
+    .bl-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .bl-figs figcaption { font-size: 0.72rem; }
+  }
+</style>
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<link rel="canonical" href="https://longxiong.vip/bracelet/quanao.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="星月菩提盘养手册｜龙兄知识库">
+<meta property="og:description" content="星月菩提买回来怎么盘：挂瓷、上色、包浆、开片四个阶段的耗时与手感，盘放节奏，水与大汗与温差骤变三忌，色差急救，以及发霉、开裂、盘花、掉星等常见问题的处理方法。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/bracelet/quanao.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="星月菩提盘养手册｜龙兄知识库">
+<meta name="twitter:description" content="星月菩提买回来怎么盘：挂瓷、上色、包浆、开片四个阶段的耗时与手感，盘放节奏，水与大汗与温差骤变三忌，色差急救，以及发霉、开裂、盘花、掉星等常见问题的处理方法。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="../calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="../sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="../zisha.html">风物志</a></li>
+      <li><a href="../tesla.html">车与数码</a></li>
+      <li><a href="../console.html">游戏影游</a></li>
+      <li><a href="../typhoon.html">射阳本地</a></li>
+      <li><a href="../calendar.html">生活工具</a></li>
+      <li><a href="../about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="../health-tea.html">养生茶</a>
+          <a href="../bracelet.html">文玩手串</a>
+          <a href="../zisha.html">紫砂艺术</a>
+          <a href="../solar-terms.html">节气物候</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="../tesla.html">特斯拉</a>
+          <a href="../apple.html">苹果</a>
+          <a href="../ev-sales.html">新能源销量榜</a>
+          <a href="../ev-charge.html">充电桩查询</a>
+          <a href="../digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="../console.html">主机图鉴</a>
+          <a href="../games.html">玩过的游戏</a>
+          <a href="../chinajoy.html">ChinaJoy 成长史</a>
+          <a href="../marvel.html">漫威宇宙</a>
+          <a href="../game-calendar.html">游戏发售日历</a>
+          <span class="nav-more-hd">射阳本地</span>
+          <a href="../xintan-weather.html">农田气象</a>
+          <a href="../typhoon.html">台风监测</a>
+          <a href="../sheyang.html">射阳天气</a>
+          <a href="../guanghui.html">光辉电力</a>
+          <a href="../sheyang-guide.html">射阳生活</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="../tools.html">工具箱</a>
+          <a href="../calendar.html">万年历</a>
+          <a href="../gaokao.html">高考查分</a>
+          <a href="../tags.html">标签聚合</a>
+          <a href="../bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="../notes.html">站长手记</a>
+          <a href="../pitfalls.html">踩坑记</a>
+          <a href="../changelog.html">更新日志</a>
+          <a href="../status-history.html">站点状态</a>
+          <a href="../about.html">关于本站</a>
+          <a href="../rss.xml">RSS 订阅</a>
+          <a href="../reading.html">读书笔记</a>
+          <a href="../methodology.html">知识管理</a>
+          <span class="nav-more-div"></span>
+          <a href="../travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="../health-tea.html">养生茶</a>
+  <a href="../bracelet.html">文玩手串</a>
+  <a href="../zisha.html">紫砂艺术</a>
+  <a href="../solar-terms.html">节气物候</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="../tesla.html">特斯拉</a>
+  <a href="../apple.html">苹果</a>
+  <a href="../ev-sales.html">新能源销量榜</a>
+  <a href="../ev-charge.html">充电桩查询</a>
+  <a href="../digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="../console.html">主机图鉴</a>
+  <a href="../games.html">玩过的游戏</a>
+  <a href="../chinajoy.html">ChinaJoy 成长史</a>
+  <a href="../marvel.html">漫威宇宙</a>
+  <a href="../game-calendar.html">游戏发售日历</a>
+  <span class="nav-hd">射阳本地</span>
+  <a href="../xintan-weather.html">农田气象</a>
+  <a href="../typhoon.html">台风监测</a>
+  <a href="../sheyang.html">射阳天气</a>
+  <a href="../guanghui.html">光辉电力</a>
+  <a href="../sheyang-guide.html">射阳生活</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="../tools.html">工具箱</a>
+  <a href="../calendar.html">万年历</a>
+  <a href="../gaokao.html">高考查分</a>
+  <a href="../tags.html">标签聚合</a>
+  <a href="../bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="../notes.html">站长手记</a>
+  <a href="../pitfalls.html">踩坑记</a>
+  <a href="../changelog.html">更新日志</a>
+  <a href="../status-history.html">站点状态</a>
+  <a href="../about.html">关于本站</a>
+  <a href="../rss.xml">RSS 订阅</a>
+  <a href="../reading.html">读书笔记</a>
+  <a href="../methodology.html">知识管理</a>
+  <span class="nav-hd-div"></span>
+  <a href="../travel.html">家庭旅行</a>
+  </div>
+</nav>
+<div class="container"><div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="../index.html">首页</a><span class="sep">›</span><span class="crumb-cat">风物志</span><span class="sep">›</span><a href="../bracelet.html">文玩手串</a><span class="sep">›</span><span class="current">星月菩提全套攻略</span></div></div>
+
+<main class="container" id="main-content" role="main">
+
+  <!-- 页面标题 -->
+  <div class="page-header">
+    <h1>星月菩提盘养手册</h1>
+    <div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
+    <p class="subtitle">买之后的事：四个阶段、盘放节奏、三忌与急救</p>
+  </div>
+
+  <!-- 结论先行 -->
+  <div class="section">
+    <div class="bl-lead">
+      <p>一句话：<strong>先把手套打底做完，再决定怎么盘。</strong>星月的变化分四步——挂瓷、上色、包浆、开片，每一步都急不来；真正毁串的往往不是「盘得少」，而是「盘得不对」：带着汗上、沾了水、吹着空调。这一页只讲<strong>买回来之后</strong>的事；怎么挑，见 <a href="xingyue.html">《星月菩提》</a>。</p>
+    </div>
+  </div>
+
+  <!-- 一、原理 -->
+  <div class="section">
+    <h2>一、先明白一件事：盘的是「氧化 + 定型」</h2>
+    <p>星月菩提盘的是胚乳，本质是油脂与植物组织在时间里的<strong>氧化变色</strong>和<strong>表面层积硬化</strong>。这类植物材料都属于吸湿性材料，含水率会随环境湿度变化而吸湿、解吸，含水率一变尺寸就跟着变；而各个方向的干缩率并不相同——这正是开裂与变形的物理根源。明白这一点，下面几条老规矩就不再是玄学：</p>
+    <ul>
+      <li><strong>变色靠氧化，不靠油。</strong>手上的汗液与灰尘混合后会被揉进孔隙，形成很难逆转的暗沉——这就是「盘花」「盘乌」。所以前期要净手或戴手套，别指望用汗「喂」出色。</li>
+      <li><strong>包浆靠盘放结合。</strong>盘的时候把析出的东西带匀，放的时候让它氧化硬化；只盘不放，层积不起来。</li>
+      <li><strong>怕的是骤变，不是「干」或「湿」本身。</strong>空调出风口、暖气片旁、阳光直射的窗台、潮湿的卫生间，都会让含水率短时间来回横跳，最容易开裂。</li>
+      <li><strong>别随手上油上蜡。</strong>人工油脂会覆盖孔隙、掩住本色与层次，多数情况并不建议主动上油。表面浮灰用软毛刷轻扫即可，也不要用湿布擦。</li>
+    </ul>
+  </div>
+
+  <!-- 二、四阶段 -->
+  <div class="section">
+    <h2>二、四个阶段：挂瓷 → 上色 → 包浆 → 开片</h2>
+    <div class="phase-grid">
+      <div class="phase-tile">
+        <div class="phase-num">01</div>
+        <div class="phase-name">挂瓷</div>
+        <div class="phase-time">1–2 周打底</div>
+        <div class="phase-desc">表面形成玻璃光泽。新串先戴棉布手套干盘，每天半小时左右，把浮尘与车痕带走。</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">02</div>
+        <div class="phase-name">上色</div>
+        <div class="phase-time">1–3 个月</div>
+        <div class="phase-desc">奶白转米黄。油性开始氧化，颜色由边缘往内走。</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">03</div>
+        <div class="phase-name">包浆</div>
+        <div class="phase-time">6–12 个月</div>
+        <div class="phase-desc">姜黄、蜜蜡黄，表面莹润，开始有玻璃感。</div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-num">04</div>
+        <div class="phase-name">开片</div>
+        <div class="phase-time">2 年以上</div>
+        <div class="phase-desc">红褐、琥珀色，表面出现细密裂纹，最终通透玉化。</div>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>阶段</th><th>时间</th><th>颜色</th><th>手感</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>新生</td><td>0–2 周</td><td>奶白 / 原色</td><td>涩，有车痕</td></tr>
+          <tr><td>初浆</td><td>1–3 个月</td><td>米黄</td><td>滑中带涩，开始挂瓷</td></tr>
+          <tr><td>包浆</td><td>6–12 个月</td><td>姜黄 / 蜜蜡黄</td><td>光滑莹润，有玻璃感</td></tr>
+          <tr><td>深包浆</td><td>2–3 年</td><td>红褐 / 琥珀色</td><td>温润如玉，碰撞声清脆</td></tr>
+          <tr><td>老串</td><td>5 年以上</td><td>深红褐 / 枣红</td><td>厚实凝润，开片见岁月</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><strong>⚠️ 这张表的起算点是「开始正式净手盘玩」，不是「下单日」。</strong>更不是「天天猛盘」——一天盘几小时不会更快，只会更容易盘花。另外，海南料挂瓷慢、开片晚，三国料上色开片快得多，所以别拿别人的进度表比自己的串。</p>
+  </div>
+
+  <!-- 二之附：实物记录（同一串，盘前 → 九个月后） -->
+  <div class="section">
+    <h2 id="shiwu-jilu">二之附 · 实物记录：同一串走了九个月</h2>
+    <p>进度表是通例，实物才算证据。下面四张是<strong>同一串</strong>星月菩提的真实记录：前两张是刚入手时，后两张是<strong>九个月之后</strong>。要说明的是<strong>前后拍摄条件并不统一</strong>（盘前是黑底摆拍，盘后是车里随手拍），光照和背景都不一样，所以颜色只当<strong>趋势</strong>看（青灰绿 → 黄褐），别拿它当色卡做精确比对；但「变亮、变润、星点依旧在」这几项不受打光影响，是实打实的。</p>
+
+    <div class="bl-figs">
+      <figure>
+        <img data-lightbox data-caption="盘前 · 月面：新串底色青灰绿（阴皮色系），月眼清楚，星点细密。" src="../img/bracelet/xingyue-yue.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="盘前实拍：新串底色青灰绿，珠面中央可见月眼，四周密布细星">
+        <figcaption><strong>盘前 · 月面：</strong>底色青灰绿（属<strong>阴皮</strong>那一路），月眼清楚、星点细密。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="盘前 · 星面：同一串翻到另一面，看不到月眼，满身细星。" src="../img/bracelet/xingyue-xing.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="盘前实拍：新串另一面看不到月眼，满布细密黑色星点">
+        <figcaption><strong>盘前 · 星面：</strong>翻到另一面几乎看不到月眼，满身都是细星。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="九个月后 · 整串：底色已由青灰绿走到橄榄黄至土黄褐，表面更亮更润，星点仍在。" src="../img/bracelet/xingyue-9m.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后实拍：整串底色转为橄榄黄至土黄褐，表面有光泽，星点仍清晰">
+        <figcaption><strong>九个月后 · 整串：</strong>底色从青灰绿走到<strong>橄榄黄至土黄褐</strong>，表面明显更亮更润、有玻璃感起头，<strong>星点依旧细密清晰</strong>。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="九个月后 · 特写：星点依旧清晰，表面光滑莹润，珠与珠之间仍有轻微色差。" src="../img/bracelet/xingyue-9m-detail.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="九个月后特写：珠面光滑莹润，黑色星点清晰，珠间有轻微色差">
+        <figcaption><strong>九个月后 · 特写：</strong>星点依旧清晰，表面光滑莹润；注意珠与珠之间<strong>仍有轻微色差</strong>——天然料本就如此，不是盘坏了。</figcaption>
+      </figure>
+    </div>
+
+    <div class="note">
+      <p><strong>🔴 别拿上面那张进度表硬套这一串，因为起点不一样。</strong></p>
+      <ul>
+        <li>那张表是以<strong>顺白</strong>为起点写的：奶白 → 米黄 → 姜黄 / 蜜蜡黄。</li>
+        <li>这一串的起点是<strong>阴皮</strong>（青灰绿），所以九个月后走到的是<strong>橄榄黄至土黄褐</strong>，不是表里的姜黄——<strong>起点不同，走色路线就不同。</strong></li>
+        <li>时间上大致对得上：<strong>九个月正落在「包浆 6–12 个月」那一段</strong>，表面也确实出现了表里说的「莹润、有玻璃感」。所以那张表可以拿来看<strong>进度快慢</strong>，但别拿它的<strong>具体颜色</strong>去套所有串。</li>
+        <li>还有一条只有实物才看得出：<strong>阴皮那层绿是真的会走掉</strong>——选购页「阴皮」那一条就是这么写的，这串是活证据。所以买阴皮串时记住：<strong>你买的是当下这个颜色，不是永久色。</strong></li>
+      </ul>
+      <p>补一句分寸：这<strong>只是一串的记录，不是标准曲线</strong>。料不同、产区不同、盘放节奏不同，走色快慢差很多，别拿它去比别人的串。</p>
+    </div>
+  </div>
+
+  <!-- 三、节奏 -->
+  <div class="section">
+    <h2>三、节奏：怎么排「盘」和「放」</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>阶段</th><th>怎么盘</th><th>怎么放</th><th>注意</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>第 1–2 周</td><td>棉布手套干盘，每天 30 分钟左右</td><td>其余时间随手放阴凉处</td><td>先带走车痕与浮尘，别上手</td></tr>
+          <tr><td>挂瓷后</td><td>净手盘，盘 5 天放 2 天</td><td>放的这 2 天让析出物氧化硬化</td><td>手汗大的人继续戴手套</td></tr>
+          <tr><td>稳定期</td><td>正常佩戴 + 偶尔手盘</td><td>不戴就装棉布袋</td><td>运动、做饭、洗澡时别戴</td></tr>
+          <tr><td>长期</td><td>想快就盘，想稳就放</td><td>密封 + 棉布，阴凉稳定处</td><td>避开发热电器与窗台直射</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><strong>「刷」还是「搓」：</strong>星月菩提属于「以变色为乐趣」的那一类，主流玩法是刷、盘结合。上手之前先把沟壑里的残留刷净，否则等于把脏东西揉进纹理里，后期很难返白。</p>
+  </div>
+
+  <!-- 四、三忌 -->
+  <div class="section">
+    <h2>四、三忌：水、大汗、骤变</h2>
+    <div class="taboo-grid">
+      <div class="taboo-tile taboo-water">
+        <h3>💧 水</h3>
+        <p>沾水后立刻用干布吸干，再阴凉处阴干。洗手、洗澡、游泳、做家务时都不要戴。已经沾过水的串<strong>绝不暴晒</strong>。</p>
+      </div>
+      <div class="taboo-tile taboo-sweat">
+        <h3>💦 大汗</h3>
+        <p>大汗直盘会让表面发乌、变花，就是俗称的「盘花」。汗手先戴棉手套打底，夏天缩短手盘时间。</p>
+      </div>
+      <div class="taboo-tile taboo-dry">
+        <h3>🌡️ 骤变</h3>
+        <p>温差、湿度的骤变是开裂的主因。远离空调出风口、暖气片、阳光直射的窗台；南北跨地区携带要留缓冲时间。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 五、色差急救 -->
+  <div class="section">
+    <h2>五、色差急救</h2>
+    <div class="warning-box">
+      <strong>⚠️ 色差是常态：</strong>一串里籽与籽的密度本来就有差异，绝大多数手串前期都会出现色差。正常盘玩一年左右色差会自然缩小。不用焦虑，但也不要放着不管。
+    </div>
+    <ul>
+      <li><strong>色差隔离：</strong>把深色珠子挑出来单穿一串，集中多盘。</li>
+      <li><strong>「追色」法：</strong>浅色珠子单独放手心里搓热再盘，加快颜色均匀。</li>
+      <li><strong>重新排序：</strong>打散重穿，深浅交替排列，盘一段时间后色差会变模糊。</li>
+      <li><strong>别用油：</strong>上油只会让色差更难处理——人工油脂把孔隙盖住，深浅差异反而被固定下来。</li>
+      <li><strong>终极方案：</strong>实在救不回来的，改做配珠或隔片，废物利用。</li>
+    </ul>
+  </div>
+
+  <!-- 六、常见问题 -->
+  <div class="section">
+    <h2>六、常见问题处理</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>问题</th><th>原因</th><th>怎么处理</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>发黄发暗</td><td>汗液过多浸入</td><td>停手盘，改手套盘 1–2 周，再静置恢复</td></tr>
+          <tr><td>发霉</td><td>沾水后没及时擦干</td><td>干布擦干，阴凉处自然风干——不可暴晒</td></tr>
+          <tr><td>开裂</td><td>温差过大或过于干燥</td><td>密封袋里放半湿棉球缓慢回湿，别急</td></tr>
+          <tr><td>盘花（阴阳脸）</td><td>盘玩不匀导致颜色不均</td><td>拆散重新排序，集中盘偏白的那批</td></tr>
+          <tr><td>掉星</td><td>密度不足（三国料常见）或买到水磨籽</td><td>不可逆，只能接受或换串——买之前就该避开</td></tr>
+          <tr><td>星点发黑</td><td>星点材质自然氧化</td><td>正常现象，不可逆；整体颜色加深后会不那么明显</td></tr>
+          <tr><td>沾到油污</td><td>接触了油脂类物质</td><td>温水净手后沾湿布快速擦拭，立即干布吸干，静置（只有沾油污这种情形才用湿布；日常浮灰别用湿的）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 七、换季与收纳 -->
+  <div class="section">
+    <h2>七、换季与收纳</h2>
+    <ul>
+      <li><strong>春（潮）</strong>——防潮防霉。不戴就进棉布袋阴凉存放，南方回南天尤其要注意。</li>
+      <li><strong>夏（汗）</strong>——汗手先戴手套打底；远离空调出风口，避免含水率骤变。</li>
+      <li><strong>秋（干）</strong>——北方注意加湿；多静置氧化定型，让析出物硬化。</li>
+      <li><strong>冬（燥 + 暖）</strong>——远离暖气片和空调出风口；跨区携带留缓冲时间，忌骤冷骤热。</li>
+      <li><strong>长期不戴</strong>——密封 + 棉布，放阴凉稳定处，避开发热电器与窗台直射。</li>
+    </ul>
+  </div>
+
+  <!-- 返回 + 上一页 -->
+  <div style="margin:32px 0;text-align:center;">
+    <a href="xingyue.html" style="color:var(--gold);font-weight:700;font-size:15px;">← 还没买？看《星月菩提》选购要点</a>
+    <div style="margin-top:12px;"><a href="../bracelet.html" style="color:var(--text-muted);font-size:14px;">返回文玩手串</a></div>
+  </div>
+
+<div class="page-meta">
+    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：<a href="https://criwi.caf.ac.cn/index.htm" target="_blank" rel="noopener">中国林业科学研究院木材工业研究所</a>（木材含水率、干缩湿胀与尺寸稳定性研究——「怕骤变不怕干湿」的物理依据，属同类植物材料的类比，非星月菩提专属实验数据）、<a href="https://www.iplant.cn/" target="_blank" rel="noopener">植物智·中国植物物种信息系统</a>（黄藤 <em>Calamus jenkinsianus</em> 科属核对）。盘玩阶段、时间线与常见问题处理属行业通行经验口径，<strong>不是国家标准</strong>，各地玩法有出入；同一阶段在不同料质上耗时差异很大，请以你手上这串的实际变化为准，行情与经验数据截至 2026-09。</div>
+    <p class="ref-note">本页配图：共 4 张，均为<strong>站主自有实拍</strong>（© 龙兄知识库，保留所有权利），是<strong>同一串</strong>星月菩提盘前与九个月后的真实记录，见第二节「实物记录」；不含任何第三方图库素材。点击图片可放大查看星点与表面光泽的变化。</p>
+    <div class="update-time">最后更新：2026-09-25</div>
+  </div>
+
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../bracelet/xingyue.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">星月菩提选购指南</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../bracelet.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">文玩手串百科</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="../about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="../categories/">全部栏目</a> <span class="sep">·</span> <a href="../notes.html">站长手记</a> <span class="sep">·</span> <a href="../tags.html">标签聚合</a> <span class="sep">·</span> <a href="../rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script>
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+</script>
+
+<script defer src="../js/search.js" integrity="sha384-3KpCC/GBLYV2BSt+UaGvKf/NRA+RauFXazdBRhrJG4JaLORa24Nq+xJYYZfD9CBj" crossorigin="anonymous"></script>
+<script defer src="../js/app.js" integrity="sha384-hiwNfwNRlQoKDn6+jedF53YoBbwGzKjjPchXEY4nBtlBCkFx5CamVC+sPdOJt+6j" crossorigin="anonymous"></script>
+    <script defer src="../js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  <div style="margin-top:60px;padding:20px;text-align:center;border-top:1px solid var(--border-color);font-size:0.85rem;">
+  <a href="../about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "dateModified": "2026-09-22",
+      "headline": "星月菩提盘养手册｜龙兄知识库",
+      "url": "https://longxiong.vip/bracelet/quanao.html",
+      "description": "星月菩提买回来怎么盘：挂瓷、上色、包浆、开片四个阶段的耗时与手感，盘放节奏，水与大汗与温差骤变三忌，色差急救，以及发霉、开裂、盘花、掉星等常见问题的处理方法。"
+    }
+  ]
+}
+</script>
+<script src="/js/lightbox.js" defer integrity="sha384-DlGyYHKQuEPZEUy959jeAoF7T7rckIC+NSzT9Kwwa/jRHWKsSGDELVR/et8A5wjS" crossorigin="anonymous"></script>
+<script src="../js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="../js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="../js/site-live.js?v=h5f5aa76f6345" defer integrity="sha384-OsBrWXv9qet3CiZijogH5pg/MZLFcEQzyJjxAr2CvB8LElKTtALME/GcZnhRge/K" crossorigin="anonymous"></script>
+</body>
+</html>

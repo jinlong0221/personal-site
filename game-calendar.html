@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+  <title>游戏发售日历｜龙兄知识库</title>
+<meta name="keywords" content="游戏发售日历,2026游戏发售,2027游戏发售,Switch 2,PS5,Xbox,Steam史低,龙兄知识库">
+
+<meta name="description" content="2026 下半年至 2027 年重点游戏发售日历：GTA 6、塞尔达、火焰纹章、战争机器等大作发售日，以及常打折游戏的 Steam/Epic 史低价追踪，买前先看这一页。数据来自公开记录，截至 2026-09。">
+
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=h4103c494c1c5" integrity="sha384-DX7sy5j+NpIug0xKE3WSjYq60Di0Smp7Vtwu15olBM+UDkm8IEfttyP/QTuxPfJ+" crossorigin="anonymous">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
+  <meta property="og:site_name" content="龙兄知识库">
+  <style>
+    .pitfall-hero {
+      text-align: center;
+      padding: 48px 20px 32px;
+    }
+    .pitfall-hero h1 {
+      margin-bottom: 12px;
+    }
+    .pitfall-hero p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+    .pitfall-list {
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+    .pitfall-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .pitfall-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255,140,0,0.1);
+    }
+    .pitfall-header {
+      padding: 20px 24px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .pitfall-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+    }
+    .pitfall-meta {
+      flex: 1;
+    }
+    .pitfall-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .pitfall-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pitfall-tag {
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .pitfall-tag.money { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.tesla { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.agarwood { border-color: var(--gold); color: var(--gold); }
+    .pitfall-tag.bracelet { border-color: #9b59b6; color: #9b59b6; }
+    .pitfall-body {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .pitfall-body.open { display: block; }
+    .pitfall-body p {
+      margin-top: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pitfall-body p:first-child { margin-top: 20px; }
+    .pitfall-body blockquote {
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: rgba(255,140,0,0.08);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      color: var(--gold-light);
+      font-size: 0.95rem;
+    }
+    .pitfall-body blockquote strong {
+      color: var(--orange);
+    }
+    .pitfall-lesson {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(16,124,16,0.1);
+      border: 1px solid rgba(16,124,16,0.3);
+      border-radius: 8px;
+    }
+    .pitfall-lesson-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pitfall-lesson p {
+      margin: 0 !important;
+      color: var(--text) !important;
+    }
+    .pitfall-expand {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      padding-top: 4px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .pitfall-card.expanded .pitfall-expand {
+      transform: rotate(180deg);
+    }
+    .pitfall-divider {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 8px 0 24px;
+    }
+    .more-stories {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .more-stories span { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+  </style>
+
+<link rel="canonical" href="https://longxiong.vip/game-calendar.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="游戏发售日历｜龙兄知识库">
+<meta property="og:description" content="2026 下半年至 2027 年重点游戏发售日历与常打折游戏史低价追踪，买前先看这一页。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/game-calendar.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="游戏发售日历｜龙兄知识库">
+<meta name="twitter:description" content="2026 下半年至 2027 年重点游戏发售日历与常打折游戏史低价追踪，买前先看这一页。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+
+/* === 游戏发售日历 专属样式（纯 CSS，无新增脚本） === */
+:root{--card-text:var(--text)}
+[data-theme=「dark」]{--card-text:#f5f5f7}
+.pitfall-hero h1{color:var(--card-text)}
+.cal-note{margin:0 auto 28px;max-width:920px;padding:12px 16px;border-left:3px solid var(--orange);background:rgba(255,140,0,.06);border-radius:0 8px 8px 0;font-size:.85rem;line-height:1.7;color:var(--text-secondary)}
+.cal-section-title{font-size:1.5rem;font-weight:700;margin:36px 0 16px;color:var(--card-text);letter-spacing:.02em}
+.cal-group-title{font-size:1.05rem;font-weight:600;margin:24px 0 12px;color:var(--gold);border-bottom:1px solid var(--border);padding-bottom:6px}
+/* 平台筛选：纯 CSS radio + 兄弟选择器 */
+.cal-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.cal-filter{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.cal-flabel{font-size:.82rem;padding:6px 16px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--text-secondary);cursor:pointer;transition:all .2s;user-select:none}
+.cal-flabel:hover{border-color:var(--gold);color:var(--gold)}
+.cal-radio:checked + .cal-flabel{background:var(--gold);color:#1a1a1a;border-color:var(--gold);font-weight:600}
+#f-ps5:checked ~ .cal-body .cal-card:not(.plat-ps5){display:none}
+#f-switch2:checked ~ .cal-body .cal-card:not(.plat-switch2){display:none}
+#f-xbox:checked ~ .cal-body .cal-card:not(.plat-xbox){display:none}
+#f-pc:checked ~ .cal-body .cal-card:not(.plat-pc){display:none}
+.cal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px}
+.cal-card{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:15px 17px;transition:border-color .25s,box-shadow .25s}
+.cal-card:hover{border-color:var(--orange);box-shadow:0 4px 18px rgba(255,140,0,.14)}
+.cal-card .c-name{font-size:1.02rem;font-weight:700;color:var(--card-text);line-height:1.35}
+.cal-card .c-date{font-weight:600;color:var(--gold-light);font-size:.92rem}
+.cal-card .c-date.tba{color:var(--text-muted)}
+.cal-card .c-genre{font-size:.78rem;color:var(--text-secondary)}
+.cal-card .c-desc{font-size:.86rem;line-height:1.6;color:var(--card-text)}
+.c-tags{display:flex;flex-wrap:wrap;gap:6px}
+.c-tag{font-size:.72rem;padding:2px 9px;border-radius:20px;background:var(--bg-secondary);border:1px solid var(--border);color:var(--card-text)}
+.c-tag.plat{color:var(--blue-light);border-color:rgba(77,166,232,.4)}
+/* 史低价 */
+.price-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:14px;margin-top:8px}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;transition:border-color .25s}
+.price-card:hover{border-color:var(--gold)}
+.price-card .p-name{font-size:.98rem;font-weight:700;color:var(--card-text)}
+.price-card .p-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.price-card .p-low{font-size:1.3rem;font-weight:800;color:var(--orange)}
+.price-card .p-store{font-size:.72rem;color:var(--text-secondary);border:1px solid var(--border);border-radius:6px;padding:1px 8px}
+.price-card .p-note{font-size:.76rem;color:var(--text-muted);line-height:1.5}
+.price-note{margin:18px 0 0;font-size:.82rem;color:var(--text-secondary);line-height:1.7}
+@media(max-width:480px){.cal-grid,.price-grid{grid-template-columns:1fr}}
+
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="zisha.html">风物志</a></li>
+      <li><a href="tesla.html">车与数码</a></li>
+      <li><a href="console.html">游戏影游</a></li>
+      <li><a href="typhoon.html">射阳本地</a></li>
+      <li><a href="calendar.html">生活工具</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="health-tea.html">养生茶</a>
+          <a href="bracelet.html">文玩手串</a>
+          <a href="zisha.html">紫砂艺术</a>
+          <a href="solar-terms.html">节气物候</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="tesla.html">特斯拉</a>
+          <a href="apple.html">苹果</a>
+          <a href="ev-sales.html">新能源销量榜</a>
+          <a href="ev-charge.html">充电桩查询</a>
+          <a href="digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="console.html">主机图鉴</a>
+          <a href="games.html">玩过的游戏</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="marvel.html">漫威宇宙</a>
+          <a href="game-calendar.html" class="active">游戏发售日历</a>
+          <span class="nav-more-hd">射阳本地</span>
+          <a href="xintan-weather.html">农田气象</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="sheyang.html">射阳天气</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="sheyang-guide.html">射阳生活</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="tools.html">工具箱</a>
+          <a href="calendar.html">万年历</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="notes.html">站长手记</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="changelog.html">更新日志</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="rss.xml">RSS 订阅</a>
+          <a href="reading.html">读书笔记</a>
+          <a href="methodology.html">知识管理</a>
+          <span class="nav-more-div"></span>
+          <a href="travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="solar-terms.html">节气物候</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果</a>
+  <a href="ev-sales.html">新能源销量榜</a>
+  <a href="ev-charge.html">充电桩查询</a>
+  <a href="digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="console.html">主机图鉴</a>
+  <a href="games.html">玩过的游戏</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="game-calendar.html">游戏发售日历</a>
+  <span class="nav-hd">射阳本地</span>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="sheyang.html">射阳天气</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="sheyang-guide.html">射阳生活</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="tools.html">工具箱</a>
+  <a href="calendar.html">万年历</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="notes.html">站长手记</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="changelog.html">更新日志</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="rss.xml">RSS 订阅</a>
+  <a href="reading.html">读书笔记</a>
+  <a href="methodology.html">知识管理</a>
+  <span class="nav-hd-div"></span>
+  <a href="travel.html">家庭旅行</a>
+  </div>
+</nav>
+<main id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><span class="current">发售日历</span></div>
+    <div class="container">
+      <div class="pitfall-hero">
+        <h1>游戏发售日历</h1>
+        <p> upcoming 大作发售日 + 史低追踪，买前先看这一页</p>
+      </div>
+      <p class="cal-note">发售日与史低均来自厂商公告及公开商店记录，截至 2026-09；具体日期可能调整，标注「待官方确认」为准官方 / 预估信息，实际以各平台商店为准。</p>
+
+      <h2 class="cal-section-title">发售日历</h2>
+      <div class="cal-wrap">
+        <div class="cal-filter" role="group" aria-label="按平台筛选">
+<input type="radio" name="plat" id="f-all" class="cal-radio" checked>
+<label for="f-all" class="cal-flabel">全部</label>
+<input type="radio" name="plat" id="f-ps5" class="cal-radio">
+<label for="f-ps5" class="cal-flabel">PS5</label>
+<input type="radio" name="plat" id="f-switch2" class="cal-radio">
+<label for="f-switch2" class="cal-flabel">Switch 2</label>
+<input type="radio" name="plat" id="f-xbox" class="cal-radio">
+<label for="f-xbox" class="cal-flabel">Xbox</label>
+<input type="radio" name="plat" id="f-pc" class="cal-radio">
+<label for="f-pc" class="cal-flabel">PC</label>
+        </div>
+        <div class="cal-body">
+<div class="cal-group"><div class="cal-group-title">2026 Q3（7–9月）</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-pc"><div class="c-name">Marvel Tokon: Fighting Souls</div><div class="c-date">2026-08-06</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：格斗</div><div class="c-desc">漫威全明星 2D 格斗，Arc System Works 开发。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><div class="c-name">Metal Gear Solid: Master Collection Vol. 2</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作</div><div class="c-desc">合金装备经典合集第二卷，含多部系列旧作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Star Wars Zero Company</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：战棋策略</div><div class="c-desc">星战题材回合制战棋，组建小队作战。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Resonance: A Plague Tale Legacy</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">瘟疫传说前传，玩法更偏动作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">The Blood of Dawnwalker</div><div class="c-date">2026-09-03</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作 RPG</div><div class="c-desc">Rebel Wolves 的吸血鬼题材中世纪 RPG。</div></div><div class="cal-card plat-ps5"><div class="c-name">Marvel's Wolverine</div><div class="c-date">2026-09-15</div><div class="c-tags"><span class="c-tag plat">PS5</span></div><div class="c-genre">类型：动作</div><div class="c-desc">Insomniac 的金刚狼单人动作大作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><div class="c-name">LEGO Batman: Legacy of the Dark Knight</div><div class="c-date">2026-09-18</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">乐高蝙蝠侠开放世界冒险。</div></div><div class="cal-card plat-switch2"><div class="c-name">Fire Emblem: Fortune's Weave</div><div class="c-date">2026-09-17</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：战棋 RPG</div><div class="c-desc">火焰纹章新作，Switch 2 独占。</div></div><div class="cal-card plat-ps5 plat-pc"><div class="c-name">Silent Hill: Townfall</div><div class="c-date">2026-09-24</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：心理恐怖</div><div class="c-desc">寂静岭第一人称外传，苏格兰小镇。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Control Resonant</div><div class="c-date">2026-09-24</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：超自然动作</div><div class="c-desc">Remedy 控制宇宙新章，曼哈顿异变。</div></div></div></div><div class="cal-group"><div class="cal-group-title">2026 Q4（10–12月）</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Ace Combat 8: Wings of Theve</div><div class="c-date tba">2026-10（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：飞行空战</div><div class="c-desc">皇牌空战系列新作。</div></div><div class="cal-card plat-xbox plat-pc"><div class="c-name">Gears of War: E-Day</div><div class="c-date">2026-10-06</div><div class="c-tags"><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：第三人称射击</div><div class="c-desc">战争机器起源故事，兽族降临当天。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><div class="c-name">Castlevania: Belmont's Curse</div><div class="c-date">2026-10-15</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作</div><div class="c-desc">恶魔城新作，贝尔蒙特家族再战。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><div class="c-name">Call of Duty: Modern Warfare 4</div><div class="c-date">2026-10-23</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：第一人称射击</div><div class="c-desc">使命召唤年度新作。</div></div><div class="cal-card plat-ps5 plat-pc"><div class="c-name">Phantom Blade Zero</div><div class="c-date">2026-10-29</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作 RPG</div><div class="c-desc">梁其伟团队武侠硬核动作。</div></div><div class="cal-card plat-switch2"><div class="c-name">The Legend of Zelda: Ocarina of Time (Switch 2)</div><div class="c-date">2026-11-05</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">塞尔达时之笛重制登陆 Switch 2。</div></div><div class="cal-card plat-ps5 plat-xbox"><div class="c-name">Grand Theft Auto VI</div><div class="c-date">2026-11-19</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span></div><div class="c-genre">类型：开放世界</div><div class="c-desc">摇滚星重磅回归 Vice City；PC 版待定。</div></div><div class="cal-card plat-ps5 plat-switch plat-switch2"><div class="c-name">Dragon Quest Monsters: The Withered World</div><div class="c-date">2026-12-03</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Switch</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：收集 RPG</div><div class="c-desc">勇者斗恶龙怪兽篇新作。</div></div><div class="cal-card plat-switch2"><div class="c-name">Xenoblade Chronicles 3: Switch 2 Edition</div><div class="c-date">2026-12-03</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">异度神剑 3 强化移植版。</div></div></div></div><div class="cal-group"><div class="cal-group-title">2027</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Stranger Than Heaven</div><div class="c-date">2027-01-15</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">如龙工作室全新原创 IP。</div></div><div class="cal-card plat-switch2"><div class="c-name">Metroid Ravenous</div><div class="c-date">2027-01-28</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：2D 动作</div><div class="c-desc">银河战士新 2D 横版作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Metro 2039</div><div class="c-date">2027-02-04</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：末世射击</div><div class="c-desc">地铁系列新章，生存射击。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><div class="c-name">Tomb Raider: Legacy of Atlantis</div><div class="c-date">2027-02-12</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">古墓丽影初代 Unreal 5 重制。</div></div><div class="cal-card plat-ps5"><div class="c-name">God of War Laufey</div><div class="c-date">2027-02-16</div><div class="c-tags"><span class="c-tag plat">PS5</span></div><div class="c-genre">类型：动作</div><div class="c-desc">战神外传，聚焦 Faye 的故事。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Persona 4 Revival</div><div class="c-date">2027-02-18</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">女神异闻录 4 全面重制。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Fable</div><div class="c-date">2027-02-23</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：开放世界 RPG</div><div class="c-desc">微软童话风格 RPG 重启。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Exodus</div><div class="c-date">2027-04-07</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：科幻 RPG</div><div class="c-desc">Archetype（前 BioWare）时空膨胀科幻 RPG。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><div class="c-name">Final Fantasy VII: Revelation</div><div class="c-date tba">2027 春季（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">FF7 重制三部曲终章。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><div class="c-name">Spyro: A Realm Beyond</div><div class="c-date tba">2027 春季（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：平台跳跃</div><div class="c-desc">Spyro 新 3D 冒险。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Resident Evil: Veronica</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：生存恐怖</div><div class="c-desc">生化危机维罗妮卡 RE Engine 重制。</div></div><div class="cal-card plat-switch2"><div class="c-name">Pokémon Winds and Waves</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：收集 RPG</div><div class="c-desc">宝可梦第十世代，东南亚风开放世界。</div></div><div class="cal-card plat-xbox plat-pc"><div class="c-name">State of Decay 3</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：生存</div><div class="c-desc">丧尸生存多人续作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Senua（Hellblade 续作）</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">Ninja Theory 地狱之刃宇宙扩展。</div></div></div></div>        </div>
+      </div>
+
+      <h2 class="cal-section-title">史低价追踪</h2>
+      <div class="price-grid">
+<div class="price-card"><div class="p-name">The Witcher 3: Wild Hunt – 年度版</div><div class="p-row"><span class="p-low">¥22</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -75%</div></div><div class="price-card"><div class="p-name">Stardew Valley</div><div class="p-row"><span class="p-low">¥18</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -50%</div></div><div class="price-card"><div class="p-name">Grand Theft Auto V</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥119，约 -50%</div></div><div class="price-card"><div class="p-name">Cyberpunk 2077</div><div class="p-row"><span class="p-low">¥119</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，约 -60%</div></div><div class="price-card"><div class="p-name">Elden Ring</div><div class="p-row"><span class="p-low">¥198</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，约 -33%</div></div><div class="price-card"><div class="p-name">Red Dead Redemption 2</div><div class="p-row"><span class="p-low">¥69</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -75%</div></div><div class="price-card"><div class="p-name">Hades</div><div class="p-row"><span class="p-low">¥32</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -67%</div></div><div class="price-card"><div class="p-name">Hollow Knight</div><div class="p-row"><span class="p-low">¥12</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -67%</div></div><div class="price-card"><div class="p-name">Celeste</div><div class="p-row"><span class="p-low">¥9</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -75%</div></div><div class="price-card"><div class="p-name">Dead Cells</div><div class="p-row"><span class="p-low">¥15</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥80，约 -80%</div></div><div class="price-card"><div class="p-name">Portal 2</div><div class="p-row"><span class="p-low">¥6</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥37，约 -85%</div></div><div class="price-card"><div class="p-name">Dark Souls III</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥268，约 -75%</div></div><div class="price-card"><div class="p-name">Sekiro: Shadows Die Twice</div><div class="p-row"><span class="p-low">¥134</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥268，约 -50%</div></div><div class="price-card"><div class="p-name">DOOM Eternal</div><div class="p-row"><span class="p-low">¥29</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥198，约 -85%</div></div><div class="price-card"><div class="p-name">Horizon Zero Dawn（PC 年度版）</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -80%</div></div><div class="price-card"><div class="p-name">God of War（PC）</div><div class="p-row"><span class="p-low">¥89</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -70%</div></div><div class="price-card"><div class="p-name">Monster Hunter: World</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥299，约 -80%</div></div><div class="price-card"><div class="p-name">Monster Hunter Rise</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥209，约 -75%</div></div><div class="price-card"><div class="p-name">No Man's Sky</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥158，约 -60%</div></div><div class="price-card"><div class="p-name">Disco Elysium: Final Cut</div><div class="p-row"><span class="p-low">¥16</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -80%</div></div><div class="price-card"><div class="p-name">Resident Evil Village</div><div class="p-row"><span class="p-low">¥99</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥299，约 -67%</div></div><div class="price-card"><div class="p-name">Baldur's Gate 3</div><div class="p-row"><span class="p-low">¥238</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，仅约 -10%（很少打折）</div></div>      </div>
+      <p class="price-note">史低为公开商店记录（SteamDB / IsThereAnyDeal 等第三方追踪）的历史最低价，实际以各平台商店当期活动为准；部分游戏原价随区域与版本不同。</p>
+    </div>
+  <div class="page-meta">
+    <p class="ref-note">发售日与史低价来自厂商公告与公开商店记录，截至 2026-09；实际以各平台商店为准。</p>
+    <div class="update-time">最后更新：2026-09-25</div>
+  </div>
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="games.html">
+        <span class="lx-related-board">玩过的游戏</span>
+        <span class="lx-related-name">玩过的游戏</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="console-3do.html">
+        <span class="lx-related-board">主机图鉴</span>
+        <span class="lx-related-name">3DO Interactive Multiplayer</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="console-rog-ally.html">
+        <span class="lx-related-board">主机图鉴</span>
+        <span class="lx-related-name">ASUS ROG Ally</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="console-ayaneo.html">
+        <span class="lx-related-board">主机图鉴</span>
+        <span class="lx-related-name">AYANEO</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+  <script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-hiwNfwNRlQoKDn6+jedF53YoBbwGzKjjPchXEY4nBtlBCkFx5CamVC+sPdOJt+6j" crossorigin="anonymous"></script>
+  <script defer src="js/search.js" integrity="sha384-3KpCC/GBLYV2BSt+UaGvKf/NRA+RauFXazdBRhrJG4JaLORa24Nq+xJYYZfD9CBj" crossorigin="anonymous"></script>
+  <script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  <script defer src="js/interactions.js" integrity="sha384-AGS8xO6XpKdkUK7KbSpFuYc0tDfhZz9tg6hskjwkLO5TLazy+0p+erOs6oXk8DGG" crossorigin="anonymous"></script>
+  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "游戏发售日历｜龙兄知识库",
+      "url": "https://longxiong.vip/game-calendar.html",
+      "description": "2026 下半年至 2027 年重点游戏发售日历与常打折游戏史低价追踪，买前先看这一页。"
+    }
+  ]
+}
+</script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="js/site-live.js?v=h5f5aa76f6345" defer integrity="sha384-OsBrWXv9qet3CiZijogH5pg/MZLFcEQzyJjxAr2CvB8LElKTtALME/GcZnhRge/K" crossorigin="anonymous"></script>
+</body>
+</html>

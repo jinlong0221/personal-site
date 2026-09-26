@@ -1,0 +1,3849 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略 -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>苹果 · 在售新品与产品发展史｜龙兄知识库</title>
+<meta name="keywords" content="苹果,Apple,iPhone,iPad,Mac,Apple Watch,在售新品,产品发展史,产品线,时间线,龙兄知识库">
+
+<meta name="description" content="苹果板块合二为一：在售机型的参数与国行价格每日自动刷新，1976–2026 五十年的十条产品线 293 条里程碑逐年可查。一个入口，既看现在也看过去。">
+
+<!-- 文章标签（手动维护：分类 / 标签 / 更新时间） -->
+<meta name="article-category" content="苹果">
+<meta name="article-tags" content="苹果,新品,发展史,时间线">
+<meta name="article-updated" content="2026-09-18">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=h4103c494c1c5" integrity="sha384-DX7sy5j+NpIug0xKE3WSjYq60Di0Smp7Vtwu15olBM+UDkm8IEfttyP/QTuxPfJ+" crossorigin="anonymous">
+<style>
+/* ===== 苹果新品板块专属样式 ===== */
+.ap-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:32px 24px 28px;text-align:center;
+  background:radial-gradient(120% 140% at 50% 0%,#2b2b2e 0%,#161617 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,255,255,.06);}
+.ap-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 18% 18%,rgba(255,255,255,.10),transparent 42%),radial-gradient(circle at 82% 82%,rgba(120,120,128,.18),transparent 50%);pointer-events:none}
+.ap-hero>*{position:relative;z-index:1}
+.ap-hero .ap-kicker{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:2px;color:#d6d6db;border:1px solid rgba(214,214,219,.35);border-radius:999px;padding:3px 14px;margin-bottom:14px}
+.ap-hero h1{color:#f5f5f7;margin-bottom:10px}
+.ap-hero p{max-width:680px;margin:0 auto;color:rgba(245,245,250,.94);font-size:.96rem;line-height:1.85}
+.ap-hero p b{color:#ffffff;font-weight:700}
+.ap-hero .ap-pulse{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:.78rem;color:#9be29b;background:rgba(64,200,64,.10);border:1px solid rgba(64,200,64,.32);padding:4px 12px;border-radius:999px}
+.ap-hero .ap-pulse .dot{width:8px;height:8px;border-radius:50%;background:#57d957;box-shadow:0 0 0 0 rgba(87,217,87,.6);animation:apPulse 1.8s infinite}
+@keyframes apPulse{0%{box-shadow:0 0 0 0 rgba(87,217,87,.55)}70%{box-shadow:0 0 0 8px rgba(87,217,87,0)}100%{box-shadow:0 0 0 0 rgba(87,217,87,0)}}
+
+.section{margin:34px 0 0}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:1.28rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid #c9a84c}
+.sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+.tip-box{background:var(--bg-secondary);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 16px;margin:14px 0;font-size:.88rem;color:var(--text-secondary);line-height:1.8}
+.tip-box b{color:var(--text)}
+
+/* 近期焦点网格 */
+.ap-note{margin:28px 0 8px;padding:14px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+.ap-note h3{font-size:.9rem;margin-bottom:8px;color:var(--text)}
+.ap-note ul{margin:0;padding-left:18px}
+.ap-note a{color:var(--blue-light)}
+.ref-note{font-size:.76rem;color:var(--text-muted);margin-top:8px}
+
+/* ===== Hero 数据条 ===== */
+.ap-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:640px;margin:15px auto 0}
+.ap-stat{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:11px 8px;position:relative;z-index:1}
+.ap-stat b{display:block;font-size:1.22rem;color:#f5f5f7;line-height:1.25;letter-spacing:.5px;white-space:nowrap}
+.ap-stat span{display:block;font-size:.7rem;color:rgba(235,235,245,.62);margin-top:2px}
+
+/* ===== 新品卡：品类色 + 亮点标签 ===== */
+
+/* ===== 价格总表 ===== */
+.ap-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:4px}
+.ap-price-tb{width:100%;border-collapse:collapse;font-size:.86rem;min-width:520px}
+.ap-price-tb th,.ap-price-tb td{padding:11px 10px;text-align:right;border-bottom:1px solid var(--border)}
+.ap-price-tb thead th{font-size:.72rem;color:var(--text-muted);font-weight:600;letter-spacing:1px}
+.ap-price-tb th:first-child,.ap-price-tb td:first-child{text-align:left}
+.ap-price-tb tbody tr:last-child td{border-bottom:none}
+.ap-price-tb tbody tr:hover{background:var(--bg-secondary)}
+.ap-price-tb td:first-child{font-weight:700;color:var(--text);white-space:nowrap}
+.ap-price-tb .ap-from{color:var(--gold);font-weight:800}
+
+/* ===== 规格对比 ===== */
+.ap-spec{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:4px}
+.ap-spec-tb{width:100%;border-collapse:collapse;font-size:.83rem;min-width:600px}
+.ap-spec-tb th,.ap-spec-tb td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;line-height:1.6}
+.ap-spec-tb thead th{background:var(--bg-secondary);color:var(--text);font-size:.82rem;white-space:nowrap}
+.ap-spec-tb tbody td:first-child{color:var(--text-muted);white-space:nowrap;font-weight:600}
+.ap-spec-tb tbody tr:hover{background:var(--bg-secondary)}
+.ap-spec-tb tbody tr:last-child td{border-bottom:none}
+
+/* ===== 发售时间轴 ===== */
+.ap-timeline{position:relative;margin-top:10px;padding-left:24px}
+.ap-timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#c9a84c,rgba(201,168,76,.12))}
+.ap-tl-item{position:relative;margin-bottom:15px}
+.ap-tl-item:last-child{margin-bottom:0}
+.ap-tl-item::before{content:'';position:absolute;left:-21px;top:5px;width:10px;height:10px;border-radius:50%;background:#c9a84c;box-shadow:0 0 0 3px rgba(201,168,76,.18)}
+.ap-tl-item.done::before{background:var(--bg);border:2px solid #c9a84c}
+.ap-tl-date{font-size:.8rem;font-weight:800;color:var(--gold)}
+.ap-tl-item.done .ap-tl-date{color:var(--text-muted)}
+.ap-tl-txt{font-size:.84rem;color:var(--text-secondary);line-height:1.65;margin-top:1px}
+
+/* ===== 新品卡（首屏主角） ===== */
+.ap-products{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:14px;margin-top:6px}
+.ap-prod{--ap-accent:#8e8e93;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.ap-prod:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.ap-prod.k-phone{--ap-accent:#5ac8fa}
+.ap-prod.k-fold{--ap-accent:#c9a84c}
+.ap-prod.k-watch{--ap-accent:#ff9f5a}
+.ap-prod.k-audio{--ap-accent:#a78bfa}
+.ap-prod-img{height:176px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,var(--bg-secondary) 100%);border-bottom:1px solid var(--border);padding:12px}
+.ap-prod-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.ap-prod-body{padding:14px 15px 15px;display:flex;flex-direction:column;flex:1}
+.ap-prod-name{font-size:.98rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ap-prod-name::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ap-accent);flex:0 0 auto}
+.ap-prod-badge{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(201,168,76,.14);color:var(--gold);border:1px solid rgba(201,168,76,.3)}
+.ap-prod-price{font-size:1.45rem;font-weight:800;color:var(--gold);margin:5px 0 0;letter-spacing:.5px;line-height:1.2}
+.ap-prod-price em{font-style:normal;font-size:.7rem;color:var(--text-muted);font-weight:600;margin-left:4px}
+.ap-prod-pts{margin:10px 0 0;padding:0;list-style:none;flex:1}
+.ap-prod-pts li{font-size:.8rem;color:var(--text-secondary);line-height:1.62;padding-left:14px;position:relative;margin-bottom:5px}
+.ap-prod-pts li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--ap-accent);opacity:.85}
+.ap-prod-date{font-size:.72rem;color:var(--text-muted);margin-top:11px;padding-top:9px;border-top:1px dashed var(--border)}
+.ap-h3{font-size:.92rem;font-weight:800;color:var(--text);margin:20px 0 8px;padding-left:10px;border-left:3px solid #c9a84c}
+.ap-h3:first-of-type{margin-top:4px}
+
+/* ===== 官方图集：横滑轨道（图要多，滑着看） ===== */
+.ap-shots{margin-top:6px}
+.ap-shots-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 2px 10px;scrollbar-width:thin}
+.ap-shots-track::-webkit-scrollbar{height:6px}
+.ap-shots-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.ap-shot{flex:0 0 252px;scroll-snap-align:start;display:block;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.ap-shot:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.ap-shot-img{height:168px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,var(--bg-secondary) 100%);padding:12px}
+.ap-shot-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.ap-shot-cap{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.7rem;color:var(--text-muted);padding:8px 10px;border-top:1px solid var(--border);line-height:1.45}
+.ap-shot-cap .zoom{color:var(--gold);flex:0 0 auto;font-weight:700}
+
+/* ===== 一眼看懂：可视化条形图（纯 CSS，非生成图） ===== */
+.ap-bars{display:grid;gap:9px;margin-top:8px}
+.ap-bar-row{display:grid;grid-template-columns:88px 1fr;gap:11px;align-items:center}
+.ap-bar-label{font-size:.76rem;color:var(--text-secondary);text-align:right;line-height:1.35}
+.ap-bar-track{background:var(--bg-secondary);border:1px solid var(--border);border-radius:7px;height:26px;overflow:hidden}
+.ap-bar-fill{height:100%;border-radius:6px 0 0 6px;background:linear-gradient(90deg,#c9a84c,#e3cb7a);display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#241d05;font-size:.72rem;font-weight:800;white-space:nowrap;min-width:56px}
+.ap-bar-fill.blue{background:linear-gradient(90deg,#5aa9fa,#8ec8ff)}
+.ap-bar-fill.green{background:linear-gradient(90deg,#4fb96b,#86d79a)}
+.ap-bars-note{font-size:.72rem;color:var(--text-muted);margin-top:8px}
+
+/* ===== 折叠说明（放最后，不抢首屏） ===== */
+.ap-fold{margin-top:30px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+.ap-fold summary{cursor:pointer;padding:13px 16px;font-size:.88rem;font-weight:700;color:var(--text);list-style:none;display:flex;align-items:center;gap:8px;min-height:44px}
+.ap-fold summary::-webkit-details-marker{display:none}
+.ap-fold summary::before{content:'▸';color:var(--gold);transition:transform .2s;display:inline-block}
+.ap-fold[open] summary::before{transform:rotate(90deg)}
+.ap-fold-body{padding:0 16px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.85}
+.ap-fold-body b{color:var(--text)}
+
+@media(max-width:576px){
+  .ap-hero{padding:26px 16px 22px}
+  .ap-stats{grid-template-columns:repeat(3,1fr);gap:7px}
+  .ap-stat b{font-size:1.02rem}
+  .ap-stat span{font-size:.64rem}
+  .ap-products{grid-template-columns:1fr}
+  .ap-prod-img{height:156px}
+}
+/* ===== 分栏导航（国风黑金：金色下划线，与全站卡片同圆角） ===== */
+.ap-tabs{display:flex;gap:2px;margin:20px 0 4px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ap-tabs::-webkit-scrollbar{display:none}
+.ap-tab{flex:1 1 auto;min-width:72px;padding:11px 10px;background:none;border:none;font:inherit;font-size:.86rem;font-weight:700;color:var(--text-secondary);cursor:pointer;position:relative;white-space:nowrap;transition:color .2s;min-height:44px;border-radius:8px 8px 0 0}
+.ap-tab::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .22s ease}
+.ap-tab.is-active{color:var(--text)}
+.ap-tab.is-active::after{transform:scaleX(1);height:2.5px}
+.ap-tab:hover{color:var(--text)}
+.ap-tab:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+
+/* 面板显隐：JS 接管后才隐藏。没 JS 时四个面板全部展开，内容一张不丢 */
+.ap-tabs-on .ap-panel{display:none}
+.ap-tabs-on .ap-panel.is-active{display:block;animation:apFade .22s ease}
+@keyframes apFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.ap-tabs-on .ap-panel.is-active{animation:none}.ap-tab::after{transition:none}}
+
+/* 新品卡：窄屏压缩省滚动，宽屏双列更饱满（图片一张不减） */
+@media(max-width:576px){
+  .ap-prod-img{height:132px;padding:10px}
+  .ap-prod-body{padding:11px 13px 13px}
+  .ap-prod-name{font-size:.9rem}
+  .ap-prod-price{font-size:1.28rem}
+  .ap-prod-pts{margin-top:8px}
+  .ap-prod-pts li{font-size:.78rem;line-height:1.55;margin-bottom:4px}
+  .ap-prod-date{margin-top:9px;padding-top:8px}
+}
+@media(min-width:700px){.ap-products{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.ap-products{grid-template-columns:repeat(3,1fr)}}
+@media print{.ap-tabs{display:none}.ap-tabs-on .ap-panel{display:block!important}}
+
+/* ===== 视觉升级：对齐苹果级克制（去装饰 / 去描边 / 大留白 / 金只给价格） ===== */
+/* 1) 删装饰噪音：品类色圆点、金色左边框；层级靠字号与留白，不靠图标 */
+.ap-prod-name::before{display:none}
+.ap-prod-pts li::before{background:var(--text-muted);opacity:.45;width:4px;height:4px;top:.66em}
+.ap-h3{border-left:0;padding-left:0;font-size:.95rem;letter-spacing:.01em;margin:26px 0 12px}
+
+/* 2) 去描边、去阴影：层级靠背景色差，不靠 1px 边框（苹果：borderless + zero shadow） */
+.ap-prod{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:20px;box-shadow:none}
+.ap-prod:hover{transform:none;box-shadow:none;background:var(--bg-secondary)}
+.ap-prod-img{border-bottom:0}
+.ap-prod-img img{border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.10)}
+.ap-shot{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:18px}
+.ap-shot:hover{transform:none;box-shadow:none;background:var(--bg-secondary)}
+.ap-shot-img img{border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.10)}
+.ap-shot-cap{border-top:0}
+.ap-note{background:var(--card);border:1px solid rgba(128,128,128,.14);border-radius:18px}
+
+/* 3) 大留白：间距按「觉得够了再翻倍」加（苹果 / Linear / Vercel 共同原则） */
+.ap-panel .section{margin-top:48px}
+.ap-products{gap:18px}
+.ap-prod-body{padding:16px 18px 18px}
+.ap-shots-track{gap:16px}
+.ap-hero{padding:44px 26px 34px}
+
+/* 4) 排版：价格是主角，大字号 + 负字距 + 等宽数字 */
+.ap-prod-price{font-size:1.9rem;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ap-prod-name{font-size:1rem;letter-spacing:-.01em}
+.sec-title{letter-spacing:-.01em}
+
+/* 5) 单一点缀色：金色只给价格，其余走中性；条形图去渐变 */
+.ap-bar-fill{background:var(--gold)}
+.ap-bar-fill.blue,.ap-bar-fill.green{background:var(--text-secondary)}
+.ap-bar-track{background:rgba(128,128,128,.13);border:0}
+
+/* 6) 表格改发丝线，去掉重描边 */
+.ap-price-tb th,.ap-price-tb td,.ap-spec-tb th,.ap-spec-tb td{border-color:rgba(128,128,128,.18)}
+@media(max-width:576px){
+  .ap-panel .section{margin-top:36px}
+  .ap-products{gap:14px}
+  .ap-prod-price{font-size:1.62rem}
+  .ap-hero{padding:30px 18px 26px}
+}
+
+/* ===== 苹果式明暗交替：背景色变化本身就是分节符，不靠分割线 ===== */
+/* 全宽色带用伪元素铺，不动布局、不产生横向溢出（站点已 overflow-x:clip） */
+.ap-panel .section.is-alt{position:relative;margin-top:56px;padding:40px 0}
+.ap-panel .section.is-alt>*{position:relative;z-index:1}
+.ap-panel .section.is-alt::before{
+  content:"";position:absolute;top:0;bottom:0;
+  left:calc(50% - 50vw);width:100vw;
+  background:var(--bg-secondary);z-index:0;pointer-events:none;
+}
+/* 加力版：色带与页面底色拉开可感知差距（原 1.10/1.24 倍肉眼难辨）
+   - 浅色：页面 #F1EBDD，色带改沉米灰 #D8CDB4（约 1.32 倍，明显但不脏）
+   - 深色：页面 #12100C，色带提暖棕 #3A301D（约 1.45 倍，明显不刺眼）
+   两个色带里都是文字/表格（无卡片），安全；上下发丝线强化分界 */
+[data-theme="dark"] .ap-panel .section.is-alt::before{background:#3A301D}
+[data-theme="light"] .ap-panel .section.is-alt::before{background:#D8CDB4}
+.ap-panel .section.is-alt{border-top:1px solid rgba(128,128,128,.16);border-bottom:1px solid rgba(128,128,128,.16)}
+@media(max-width:576px){
+  .ap-panel .section.is-alt{margin-top:40px;padding:30px 0}
+}
+/* 浅色主题：品牌金（#a68a3c）压在接近纯白的卡片上，角标与「放大」链接对比度
+   仅 ~3:1，低于 WCAG AA 4.5:1（小字）。改用同色系更深的 #6f5a1e，保金色身份又达标 */
+[data-theme="light"] .ap-prod-badge{color:#6f5a1e;background:rgba(201,168,76,.18);border-color:rgba(201,168,76,.4)}
+[data-theme="light"] .ap-shot-cap .zoom{color:#6f5a1e}
+</style>
+
+<style id="ahub-css">
+/* ===== 板块分区切换（在售新品 / 产品发展史） =====
+   深色/浅色两套强调色：在售新品=金（沿用品牌金，与新品半区自己的强调色一致）
+   产品发展史=青蓝（与历史半区自己的强调色一致）→ 颜色本身就是「识别码」。
+   显隐全部由 .ahub-on 前缀门控：脚本没跑起来时两半都显示，内容一张不丢。 */
+.ahub{margin:20px 0 4px}
+.ahub-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;margin:0}
+.ahub-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.ahub-card{position:relative;display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"ico tx go";align-items:center;gap:12px;cursor:pointer;padding:15px 17px;border:1px solid var(--border);border-left:3px solid var(--c);border-radius:14px;background:var(--bg-secondary);transition:background .18s,border-color .18s,transform .18s}
+.ahub-card[for="ahub-now"]{--c:#c9a84c;--cf:#c9a84c}
+.ahub-card[for="ahub-hist"]{--c:#5ac8fa;--cf:#5ac8fa}
+[data-theme="light"] .ahub-card[for="ahub-now"]{--c:#a68a3c;--cf:#a68a3c}
+[data-theme="light"] .ahub-card[for="ahub-hist"]{--c:#0a84c8;--cf:#3d9fd0}
+.ahub-card:hover{border-color:var(--c);transform:translateY(-2px)}
+.ahub-ico{grid-area:ico;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--card);border:1px solid var(--border);color:var(--c)}
+.ahub-tx{grid-area:tx;min-width:0}
+.ahub-tx b{display:block;font-size:1.02rem;font-weight:800;color:var(--text);line-height:1.35}
+.ahub-tx i{display:block;font-style:normal;font-size:.78rem;color:var(--text-secondary);line-height:1.55;margin-top:3px}
+.ahub-tx em{display:block;font-style:normal;font-size:.72rem;font-weight:700;color:var(--text-muted);margin-top:6px;font-variant-numeric:tabular-nums}
+.ahub-go{grid-area:go;font-size:.74rem;font-weight:800;color:var(--text-muted);white-space:nowrap;align-self:end}
+/* 选中态：实心填充 + 深色字（金 #a68a3c / 青 #3d9fd0 与 #1a1408 对比度均 ≥5.5:1） */
+.ahub-on #ahub-now:checked~.ahub-cards label[for="ahub-now"],
+.ahub-on #ahub-hist:checked~.ahub-cards label[for="ahub-hist"]{background:var(--cf);border-color:var(--cf);transform:none}
+.ahub-on #ahub-now:checked~.ahub-cards label[for="ahub-now"] b,
+.ahub-on #ahub-now:checked~.ahub-cards label[for="ahub-now"] i,
+.ahub-on #ahub-now:checked~.ahub-cards label[for="ahub-now"] em,
+.ahub-on #ahub-now:checked~.ahub-cards label[for="ahub-now"] .ahub-go,
+.ahub-on #ahub-now:checked~.ahub-cards label[for="ahub-now"] .ahub-ico,
+.ahub-on #ahub-hist:checked~.ahub-cards label[for="ahub-hist"] b,
+.ahub-on #ahub-hist:checked~.ahub-cards label[for="ahub-hist"] i,
+.ahub-on #ahub-hist:checked~.ahub-cards label[for="ahub-hist"] em,
+.ahub-on #ahub-hist:checked~.ahub-cards label[for="ahub-hist"] .ahub-go,
+.ahub-on #ahub-hist:checked~.ahub-cards label[for="ahub-hist"] .ahub-ico{color:#1a1408}
+.ahub-on #ahub-now:checked~.ahub-cards label[for="ahub-now"] .ahub-ico,
+.ahub-on #ahub-hist:checked~.ahub-cards label[for="ahub-hist"] .ahub-ico{background:rgba(0,0,0,.12);border-color:transparent}
+.ahub-on #ahub-now:checked~.ahub-cards label[for="ahub-now"] .ahub-go::after{content:"（当前）"}
+.ahub-on #ahub-hist:checked~.ahub-cards label[for="ahub-hist"] .ahub-go::after{content:"（当前）"}
+.ahub-half{display:block}
+.ahub-on #ahub-hist:checked~.ahub-halves>[data-half="now"]{display:none}
+.ahub-on #ahub-now:checked~.ahub-halves>[data-half="hist"]{display:none}
+@media(max-width:640px){.ahub-cards{grid-template-columns:1fr;gap:10px}.ahub-card{padding:12px 14px;gap:10px}.ahub-ico{width:36px;height:36px}}
+@media print{.ahub-cards{display:none!important}.ahub-half{display:block!important}}
+</style>
+<style id="ah-css">:root{--ah:#c9a84c;--ah-2:#5ac8fa;--ah-soft:rgba(201,168,76,.14);--ah-line:rgba(201,168,76,.45)}
+[data-theme="light"]{--ah:#a68a3c;--ah-2:#0a84c8;--ah-soft:rgba(166,138,60,.10);--ah-line:rgba(166,138,60,.45)}
+.ah-lede{margin:18px 0 0;padding:14px 18px;border-left:3px solid var(--ah-2);border-radius:0 12px 12px 0;background:var(--bg-secondary);color:var(--text-secondary);font-size:.88rem;line-height:1.85}
+.ah-sec{margin:48px 0 0}
+.ah-sec-title{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;font-size:1.26rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid var(--ah)}
+.ah-sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
+.ah-era-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ah-era{display:block;background:var(--card);border:1px solid var(--border);border-top:3px solid var(--ah);border-radius:12px;padding:15px 15px 16px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.ah-era:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--ah)}
+.ah-era-y{font-size:.73rem;font-weight:700;color:var(--ah-2);letter-spacing:.5px;font-variant-numeric:tabular-nums}
+.ah-era-n{font-size:1rem;font-weight:800;margin:6px 0 8px;color:var(--text)}
+.ah-era-d{font-size:.8rem;color:var(--text-secondary);line-height:1.7}
+.ah-tabs{margin-top:4px}
+.ah-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;margin:0}
+.ah-pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:10px;margin:16px 0 20px}
+.ah-pk{display:block;cursor:pointer;background:var(--bg-secondary);border:1px solid var(--border);border-radius:11px;padding:11px 13px;transition:background .18s,border-color .18s,transform .18s}
+.ah-pk:hover{border-color:var(--ah);transform:translateY(-2px)}
+.ah-pk b{display:block;font-size:.9rem;font-weight:800;color:var(--text);line-height:1.35}
+.ah-pk i{display:block;font-style:normal;font-size:.71rem;color:var(--text-muted);margin-top:3px;font-variant-numeric:tabular-nums}
+.ah-pk em{display:block;font-style:normal;font-size:.7rem;font-weight:800;color:var(--ah);margin-top:7px}
+.ah-tabbar{position:sticky;top:var(--nav-height,56px);z-index:29;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:9px 2px;margin:0 0 20px;background:var(--bg);border-bottom:1px solid var(--border)}
+.ah-tabbar::-webkit-scrollbar{display:none}
+.ah-tab{flex:0 0 auto;cursor:pointer;padding:7px 15px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text-secondary);font-size:.83rem;font-weight:600;white-space:nowrap;transition:background .18s,color .18s,border-color .18s}
+.ah-tab:hover{color:var(--text);border-color:var(--ah)}
+.ah-panel{display:none}
+#ah0:checked~.ah-panels>.ah-panel:nth-child(1),
+#ah1:checked~.ah-panels>.ah-panel:nth-child(2),
+#ah2:checked~.ah-panels>.ah-panel:nth-child(3),
+#ah3:checked~.ah-panels>.ah-panel:nth-child(4),
+#ah4:checked~.ah-panels>.ah-panel:nth-child(5),
+#ah5:checked~.ah-panels>.ah-panel:nth-child(6),
+#ah6:checked~.ah-panels>.ah-panel:nth-child(7),
+#ah7:checked~.ah-panels>.ah-panel:nth-child(8),
+#ah8:checked~.ah-panels>.ah-panel:nth-child(9),
+#ah9:checked~.ah-panels>.ah-panel:nth-child(10){display:block}
+#ah0:checked~.ah-tabbar label[for="ah0"],
+#ah0:checked~.ah-pick label[for="ah0"],
+#ah1:checked~.ah-tabbar label[for="ah1"],
+#ah1:checked~.ah-pick label[for="ah1"],
+#ah2:checked~.ah-tabbar label[for="ah2"],
+#ah2:checked~.ah-pick label[for="ah2"],
+#ah3:checked~.ah-tabbar label[for="ah3"],
+#ah3:checked~.ah-pick label[for="ah3"],
+#ah4:checked~.ah-tabbar label[for="ah4"],
+#ah4:checked~.ah-pick label[for="ah4"],
+#ah5:checked~.ah-tabbar label[for="ah5"],
+#ah5:checked~.ah-pick label[for="ah5"],
+#ah6:checked~.ah-tabbar label[for="ah6"],
+#ah6:checked~.ah-pick label[for="ah6"],
+#ah7:checked~.ah-tabbar label[for="ah7"],
+#ah7:checked~.ah-pick label[for="ah7"],
+#ah8:checked~.ah-tabbar label[for="ah8"],
+#ah8:checked~.ah-pick label[for="ah8"],
+#ah9:checked~.ah-tabbar label[for="ah9"],
+#ah9:checked~.ah-pick label[for="ah9"]{background:var(--ah);border-color:var(--ah);color:#1a1408;font-weight:800}
+.ah-tabs:has(#ah0:focus-visible) .ah-tabbar label[for="ah0"],
+.ah-tabs:has(#ah0:focus-visible) .ah-pick label[for="ah0"],
+.ah-tabs:has(#ah1:focus-visible) .ah-tabbar label[for="ah1"],
+.ah-tabs:has(#ah1:focus-visible) .ah-pick label[for="ah1"],
+.ah-tabs:has(#ah2:focus-visible) .ah-tabbar label[for="ah2"],
+.ah-tabs:has(#ah2:focus-visible) .ah-pick label[for="ah2"],
+.ah-tabs:has(#ah3:focus-visible) .ah-tabbar label[for="ah3"],
+.ah-tabs:has(#ah3:focus-visible) .ah-pick label[for="ah3"],
+.ah-tabs:has(#ah4:focus-visible) .ah-tabbar label[for="ah4"],
+.ah-tabs:has(#ah4:focus-visible) .ah-pick label[for="ah4"],
+.ah-tabs:has(#ah5:focus-visible) .ah-tabbar label[for="ah5"],
+.ah-tabs:has(#ah5:focus-visible) .ah-pick label[for="ah5"],
+.ah-tabs:has(#ah6:focus-visible) .ah-tabbar label[for="ah6"],
+.ah-tabs:has(#ah6:focus-visible) .ah-pick label[for="ah6"],
+.ah-tabs:has(#ah7:focus-visible) .ah-tabbar label[for="ah7"],
+.ah-tabs:has(#ah7:focus-visible) .ah-pick label[for="ah7"],
+.ah-tabs:has(#ah8:focus-visible) .ah-tabbar label[for="ah8"],
+.ah-tabs:has(#ah8:focus-visible) .ah-pick label[for="ah8"],
+.ah-tabs:has(#ah9:focus-visible) .ah-tabbar label[for="ah9"],
+.ah-tabs:has(#ah9:focus-visible) .ah-pick label[for="ah9"]{outline:2px solid var(--ah);outline-offset:2px}
+#ah0:checked~.ah-pick label[for="ah0"] b,
+#ah0:checked~.ah-pick label[for="ah0"] i,
+#ah0:checked~.ah-pick label[for="ah0"] em,
+#ah1:checked~.ah-pick label[for="ah1"] b,
+#ah1:checked~.ah-pick label[for="ah1"] i,
+#ah1:checked~.ah-pick label[for="ah1"] em,
+#ah2:checked~.ah-pick label[for="ah2"] b,
+#ah2:checked~.ah-pick label[for="ah2"] i,
+#ah2:checked~.ah-pick label[for="ah2"] em,
+#ah3:checked~.ah-pick label[for="ah3"] b,
+#ah3:checked~.ah-pick label[for="ah3"] i,
+#ah3:checked~.ah-pick label[for="ah3"] em,
+#ah4:checked~.ah-pick label[for="ah4"] b,
+#ah4:checked~.ah-pick label[for="ah4"] i,
+#ah4:checked~.ah-pick label[for="ah4"] em,
+#ah5:checked~.ah-pick label[for="ah5"] b,
+#ah5:checked~.ah-pick label[for="ah5"] i,
+#ah5:checked~.ah-pick label[for="ah5"] em,
+#ah6:checked~.ah-pick label[for="ah6"] b,
+#ah6:checked~.ah-pick label[for="ah6"] i,
+#ah6:checked~.ah-pick label[for="ah6"] em,
+#ah7:checked~.ah-pick label[for="ah7"] b,
+#ah7:checked~.ah-pick label[for="ah7"] i,
+#ah7:checked~.ah-pick label[for="ah7"] em,
+#ah8:checked~.ah-pick label[for="ah8"] b,
+#ah8:checked~.ah-pick label[for="ah8"] i,
+#ah8:checked~.ah-pick label[for="ah8"] em,
+#ah9:checked~.ah-pick label[for="ah9"] b,
+#ah9:checked~.ah-pick label[for="ah9"] i,
+#ah9:checked~.ah-pick label[for="ah9"] em{color:#1a1408}
+.ah-lt{font-size:1.18rem;margin:0 0 5px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.ah-lt-n{font-size:.71rem;font-weight:800;color:var(--ah);border:1px solid var(--ah-line);border-radius:999px;padding:1px 9px;white-space:nowrap}
+.ah-lt-sub{font-size:.86rem;color:var(--text-secondary);margin:0 0 3px;line-height:1.7}
+.ah-lt-span{font-size:.75rem;color:var(--text-muted);font-variant-numeric:tabular-nums;letter-spacing:.3px}
+.ah-group{margin-top:20px;border:1px solid var(--border);border-radius:12px;background:var(--card);overflow:hidden}
+.ah-gh{display:flex;align-items:center;gap:10px;cursor:pointer;padding:11px 14px;background:var(--bg-secondary);border-left:3px solid var(--ah);list-style:none;transition:background .18s}
+.ah-gh:hover{background:var(--card-hover)}
+.ah-gh::-webkit-details-marker{display:none}
+.ah-gh h4{font-size:.89rem;margin:0;color:var(--ah);font-weight:800;flex:1 1 auto;min-width:0;line-height:1.5}
+.ah-gh-n{flex:0 0 auto;font-size:.69rem;font-weight:700;color:var(--text-muted);border:1px solid var(--border);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.ah-gh-a{flex:0 0 auto;width:8px;height:8px;border-right:2px solid var(--ah);border-bottom:2px solid var(--ah);transform:rotate(45deg);margin:-3px 2px 0 0;transition:transform .2s}
+.ah-group[open]>.ah-gh .ah-gh-a{transform:rotate(-135deg);margin-top:4px}
+.ah-tl{list-style:none;margin:0;padding:16px 16px 6px 34px;position:relative}
+.ah-tl::before{content:'';position:absolute;left:16px;top:22px;bottom:18px;width:2px;background:linear-gradient(var(--ah),var(--ah-2));opacity:.75}
+.ah-ev{position:relative;display:grid;grid-template-columns:92px 1fr;gap:4px 16px;padding:0 0 14px}
+.ah-ev::before{content:'';position:absolute;left:-22px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--ah);border:2px solid var(--card)}
+.ah-ev-d{font-size:.74rem;font-weight:800;color:var(--ah);font-variant-numeric:tabular-nums;letter-spacing:.2px;padding-top:3px}
+.ah-ev-b{min-width:0}
+.ah-ev-t{font-size:.95rem;font-weight:700;margin:0 0 3px;line-height:1.5}
+.ah-ev-b p{font-size:.84rem;color:var(--text-secondary);line-height:1.7;margin:0}
+.ah-tag{display:inline-block;font-size:.67rem;font-weight:700;padding:1px 7px;border-radius:5px;margin-left:6px;vertical-align:1px;background:var(--ah-soft);color:var(--ah);white-space:nowrap}
+.ah-tag-blue{background:rgba(90,200,250,.14);color:#2b93c9}
+[data-theme="dark"] .ah-tag-blue{color:#7fd0f5}
+.ah-now{margin-top:22px;padding:14px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--ah);border-radius:10px;font-size:.84rem;color:var(--text-secondary);line-height:1.8}
+.ah-now b{color:var(--ah);margin-right:6px}
+.ah-ceo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ah-ceo{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.ah-ceo-img{aspect-ratio:3/2;background:var(--bg-secondary);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:10px}
+.ah-ceo-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:8px}
+.ah-ceo-b{padding:14px 16px 16px}
+.ah-ceo-n{font-size:1.02rem;font-weight:800;margin:0 0 2px}
+.ah-ceo-t{font-size:.76rem;color:var(--ah);font-weight:700;margin-bottom:8px}
+.ah-ceo-b p{font-size:.82rem;color:var(--text-secondary);line-height:1.72;margin:0}
+.ah-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ah-fig{margin:0;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.ah-fig-img{aspect-ratio:4/3;background:var(--bg-secondary);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:8px}
+.ah-fig-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:6px}
+.ah-fig-cap{padding:10px 13px 12px;font-size:.78rem;color:var(--text-secondary);line-height:1.62}
+.ah-fig-cap b{display:block;color:var(--text);font-size:.86rem;margin-bottom:3px}
+.ah-note{margin:44px 0 8px;padding:16px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--text-secondary);line-height:1.85}
+.ah-note h3{font-size:.92rem;margin:0 0 9px;color:var(--text)}
+.ah-note ul{margin:0 0 12px;padding-left:19px}
+.ah-note li{margin-bottom:5px}
+.ah-note a{color:var(--ah);text-decoration:underline;text-underline-offset:2px}
+@media(max-width:992px){.ah-era-strip,.ah-gallery,.ah-ceo-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.ah-sec{margin-top:30px}.ah-lede{padding:12px 14px;font-size:.84rem}.ah-era-strip,.ah-gallery{grid-template-columns:repeat(2,1fr);gap:10px}.ah-era{padding:11px 11px 12px}.ah-era-n{font-size:.92rem;margin:5px 0 6px}.ah-era-d{font-size:.76rem}.ah-fig-cap{padding:8px 10px 9px;font-size:.72rem}.ah-fig-cap b{font-size:.8rem}.ah-ev{grid-template-columns:1fr;gap:1px}.ah-ev-d{padding-top:0}.ah-pick{grid-template-columns:repeat(2,1fr)}.ah-lt{font-size:1.06rem}.ah-tl{padding:14px 12px 4px 30px}.ah-tl::before{left:13px}.ah-gh{padding:10px 12px}.ah-ceo-row{grid-template-columns:1fr;gap:10px}.ah-ceo{display:grid;grid-template-columns:94px 1fr}.ah-ceo-img{aspect-ratio:1/1;padding:7px;border-right:1px solid var(--border)}.ah-ceo-b{padding:9px 12px 10px}.ah-ceo-n{font-size:.94rem}.ah-ceo-t{font-size:.71rem;margin-bottom:4px}.ah-ceo-b p{font-size:.77rem;line-height:1.58}.ah-note{margin:30px 0 8px;padding:13px 15px;font-size:.79rem;line-height:1.76}}
+@media print{.ah-panel{display:block!important}.ah-tabbar,.ah-pick,.ah-r{display:none!important}.ah-group>*:not(summary){display:block!important}.ah-gh{background:none}}
+@media(prefers-reduced-motion:reduce){.ah-era,.ah-pk{transition:none}}</style>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<link rel="canonical" href="https://longxiong.vip/apple.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="苹果 · 在售新品与产品发展史｜龙兄知识库">
+<meta property="og:description" content="苹果新品 · 国内外全网实时监测详细科普：实测溯源、实操图文、避坑指南。适合苹果新品 · 国内外全网实时监测爱好者与从业者系统了解核心要点与鉴别方法，少走弯路、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/apple.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="苹果 · 在售新品与产品发展史｜龙兄知识库">
+<meta name="twitter:description" content="苹果新品实时监测：每日自动检索国内外权威媒体与爆料，汇总 iPhone 18 Pro/Pro Max、首款折叠屏 iPhone Duo、Apple Watch Series 12/Ultra 4、AirPods 5 等 2026 秋季发布会新品动态。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body data-no-secnav="true">
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="zisha.html">风物志</a></li>
+      <li><a href="tesla.html">车与数码</a></li>
+      <li><a href="console.html">游戏影游</a></li>
+      <li><a href="typhoon.html">射阳本地</a></li>
+      <li><a href="calendar.html">生活工具</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="health-tea.html">养生茶</a>
+          <a href="bracelet.html">文玩手串</a>
+          <a href="zisha.html">紫砂艺术</a>
+          <a href="solar-terms.html">节气物候</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="tesla.html">特斯拉</a>
+          <a href="apple.html" class="active">苹果</a>
+          <a href="ev-sales.html">新能源销量榜</a>
+          <a href="ev-charge.html">充电桩查询</a>
+          <a href="digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="console.html">主机图鉴</a>
+          <a href="games.html">玩过的游戏</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="marvel.html">漫威宇宙</a>
+          <a href="game-calendar.html">游戏发售日历</a>
+          <span class="nav-more-hd">射阳本地</span>
+          <a href="xintan-weather.html">农田气象</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="sheyang.html">射阳天气</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="sheyang-guide.html">射阳生活</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="tools.html">工具箱</a>
+          <a href="calendar.html">万年历</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="notes.html">站长手记</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="changelog.html">更新日志</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="rss.xml">RSS 订阅</a>
+          <a href="reading.html">读书笔记</a>
+          <a href="methodology.html">知识管理</a>
+          <span class="nav-more-div"></span>
+          <a href="travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="solar-terms.html">节气物候</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果</a>
+  <a href="ev-sales.html">新能源销量榜</a>
+  <a href="ev-charge.html">充电桩查询</a>
+  <a href="digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="console.html">主机图鉴</a>
+  <a href="games.html">玩过的游戏</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="game-calendar.html">游戏发售日历</a>
+  <span class="nav-hd">射阳本地</span>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="sheyang.html">射阳天气</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="sheyang-guide.html">射阳生活</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="tools.html">工具箱</a>
+  <a href="calendar.html">万年历</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="notes.html">站长手记</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="changelog.html">更新日志</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="rss.xml">RSS 订阅</a>
+  <a href="reading.html">读书笔记</a>
+  <a href="methodology.html">知识管理</a>
+  <span class="nav-hd-div"></span>
+  <a href="travel.html">家庭旅行</a>
+  </div>
+</nav>
+
+<main class="container" id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">车与数码</span><span class="sep">›</span><span class="current">苹果</span></div>
+
+  <!-- ===== Hero ===== -->
+  <div class="ap-hero">
+    <span class="ap-kicker">APPLE · 在售新品 + 产品发展史</span>
+    <h1>苹果</h1>
+    <p>一个入口装两块内容：<b>看现在</b>——在售机型的参数与国行价格，每日自动刷新；<b>看过去</b>——1976 年车库里的 Apple I 到 2026 年的折叠屏 iPhone Duo，十条产品线 293 条里程碑。点下面任意一张卡片切换。</p>
+    <div class="ap-stats">
+      <div class="ap-stat"><b>6 款</b><span>本期在售新品</span></div>
+      <div class="ap-stat"><b>293 条</b><span>历史里程碑</span></div>
+      <div class="ap-stat"><b>1976–2026</b><span>五十年跨度</span></div>
+    </div>
+  </div>
+
+  <!-- ===== 板块分区：在售新品 / 产品发展史（一次只看一半，避免一拉到底） ===== -->
+  <div class="ahub">
+    <input class="ahub-r" type="radio" name="ahub" id="ahub-now" checked aria-label="在售新品">
+    <input class="ahub-r" type="radio" name="ahub" id="ahub-hist" aria-label="产品发展史">
+    <div class="ahub-cards">
+      <label class="ahub-card" for="ahub-now">
+        <span class="ahub-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h11"/></svg></span>
+        <span class="ahub-tx">
+          <b>在售新品</b>
+          <i>现在在卖的机型、参数与国行价格</i>
+          <em>6 款 · 每日自动刷新</em>
+        </span>
+        <span class="ahub-go">看现在 →</span>
+      </label>
+      <label class="ahub-card" for="ahub-hist">
+        <span class="ahub-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.2v5.1l3.4 2"/></svg></span>
+        <span class="ahub-tx">
+          <b>产品发展史</b>
+          <i>1976–2026，十条产品线一路怎么走过来的</i>
+          <em>293 条里程碑 · 10 条产品线</em>
+        </span>
+        <span class="ahub-go">看历史 →</span>
+      </label>
+    </div>
+    <div class="ahub-halves">
+      <div class="ahub-half" id="tab-now" data-half="now">
+  <!-- ===== 分栏导航：一次只看一类，页面不再一眼望不到头 ===== -->
+  <div class="ap-tabs" role="tablist" aria-label="苹果板块内容分栏">
+    <button class="ap-tab is-active" type="button" role="tab" id="ap-tab-new" aria-controls="ap-panel-new" aria-selected="true" data-target="new">看新品</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-gallery" aria-controls="ap-panel-gallery" aria-selected="false" tabindex="-1" data-target="gallery">看图</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-spec" aria-controls="ap-panel-spec" aria-selected="false" tabindex="-1" data-target="spec">看参数</button>
+    <button class="ap-tab" type="button" role="tab" id="ap-tab-price" aria-controls="ap-panel-price" aria-selected="false" tabindex="-1" data-target="price">看价格</button>
+  </div>
+  <div class="ap-panel is-active" id="ap-panel-new" role="tabpanel" aria-labelledby="ap-tab-new" data-panel="new">
+  <!-- ===== 1. 新品一览 ===== -->
+  <div class="section">
+    <h2 class="sec-title">本届新品一览</h2>
+    <p class="sec-sub">6 款全部列出：官方图 + 国行起售价 + 三个最值得看的点 + 开卖时间。</p>
+    <div class="ap-products">
+      <article class="ap-prod k-phone">
+        <div class="ap-prod-img"><img width="1200" height="675" src="img/apple/pro-g1.webp" alt="iPhone 18 Pro 官方机型图" loading="eager" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone 18 Pro</div>
+          <div class="ap-prod-price">9999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>业界首款 2nm 工艺 A20 Pro，图形性能 +40%</li><li>主摄首次支持四档物理可变光圈</li><li>0.5×–8× 光学品质变焦</li></ul>
+          <div class="ap-prod-date">9 月 12 日 20:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-phone">
+        <div class="ap-prod-img"><img width="1000" height="948" src="img/apple/iphone18promax.webp" alt="iPhone 18 Pro Max 官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone 18 Pro Max</div>
+          <div class="ap-prod-price">10999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>6.9″ 大屏，本届续航最强</li><li>视频播放最长 43 小时（上代 37 小时）</li><li>影像规格与 Pro 完全相同</li></ul>
+          <div class="ap-prod-date">9 月 12 日 20:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-fold">
+        <div class="ap-prod-img"><img width="1200" height="675" src="img/apple/duo-g1.webp" alt="iPhone Duo 折叠屏官方机型图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">iPhone Duo<span class="ap-prod-badge">首款折叠屏</span></div>
+          <div class="ap-prod-price">15999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>7.6″ 内屏 + 5.4″ 外屏，书本式横向内折</li><li>纳米纹理表层减轻折痕，铰链 100+ 精密部件</li><li>全球仅 eSIM，侧边 Touch ID 解锁</li></ul>
+          <div class="ap-prod-date">10 月 16 日 20:00 预购 · 10 月 23 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-watch">
+        <div class="ap-prod-img"><img width="1200" height="600" src="img/apple/watch-s12-light.webp" alt="Apple Watch Series 12 官方产品图（米色展台版）" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">Apple Watch Series 12</div>
+          <div class="ap-prod-price">2999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>全新 S11 芯片 + 全新健康感测系统</li><li>后台心率采样频率提升到上代 60 倍</li><li>新增「准备指数」，售价与上代持平</li></ul>
+          <div class="ap-prod-date">9 月 11 日 9:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-watch">
+        <div class="ap-prod-img"><img width="1200" height="600" src="img/apple/watch-ultra4-light.webp" alt="Apple Watch Ultra 4 官方产品图（米色展台版）" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">Apple Watch Ultra 4</div>
+          <div class="ap-prod-price">6499<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>49mm 钛金属，峰值亮度 3000 尼特</li><li>常规续航最长 50 小时，低电量 84 小时</li><li>100 米防水 + 双频 GPS</li></ul>
+          <div class="ap-prod-date">9 月 11 日 9:00 预购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+      <article class="ap-prod k-audio">
+        <div class="ap-prod-img"><img width="1200" height="600" src="img/apple/airpods-5.webp" alt="AirPods 5 官方产品图" loading="lazy" decoding="async"></div>
+        <div class="ap-prod-body">
+          <div class="ap-prod-name">AirPods 5</div>
+          <div class="ap-prod-price">999<em>元起</em></div>
+          <ul class="ap-prod-pts"><li>无耳塞式设计首次支持主动降噪</li><li>降噪效果较 AirPods 4 降噪版提升最高 50%</li><li>本届价格最低的新品</li></ul>
+          <div class="ap-prod-date">已开放订购 · 9 月 18 日发售</div>
+        </div>
+      </article>
+    </div>
+    <p class="ref-note">以上 6 张官方图分别取自苹果中国官网 iphone-18-pro / iphone-duo / apple-watch-series-12 / apple-watch-ultra-4 / airpods-5 产品页与商店机型图，版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
+  </div>
+  </div><!-- /panel new -->
+
+  <div class="ap-panel" id="ap-panel-gallery" role="tabpanel" aria-labelledby="ap-tab-gallery" data-panel="gallery">
+  <!-- ===== 2. 官方产品图集 ===== -->
+  <div class="section">
+    <h2 class="sec-title">官方产品图集</h2>
+    <p class="sec-sub">10 张苹果官网真图，左右滑动查看；点任意一张可打开高清原图。</p>
+    <h3 class="ap-h3">iPhone 18 Pro / Pro Max · 4 张</h3>
+    <div class="ap-shots"><div class="ap-shots-track">
+        <a class="ap-shot" href="img/apple/pro-g1.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="675" src="img/apple/pro-g1.webp" alt="iPhone 18 Pro · 官方机型图 1" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone 18 Pro · 官方机型图 1</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/pro-g2.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="675" src="img/apple/pro-g2.webp" alt="iPhone 18 Pro · 官方机型图 2" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone 18 Pro · 官方机型图 2</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/pro-finish.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="1138" src="img/apple/pro-finish.webp" alt="iPhone 18 Pro · 官方配色图" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone 18 Pro · 官方配色图</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/iphone18promax.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1000" height="948" src="img/apple/iphone18promax.webp" alt="iPhone 18 Pro Max · 官方图" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone 18 Pro Max · 官方图</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+    </div></div>
+    <h3 class="ap-h3">iPhone Duo（折叠屏）· 2 张</h3>
+    <div class="ap-shots"><div class="ap-shots-track">
+        <a class="ap-shot" href="img/apple/iphone-duo.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="600" src="img/apple/iphone-duo.webp" alt="iPhone Duo · 官网主视觉" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone Duo · 官网主视觉</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/duo-g1.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="675" src="img/apple/duo-g1.webp" alt="iPhone Duo · 官方机型图" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>iPhone Duo · 官方机型图</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+    </div></div>
+    <h3 class="ap-h3">Apple Watch · 2 张</h3>
+    <div class="ap-shots"><div class="ap-shots-track">
+        <a class="ap-shot" href="img/apple/watch-s12.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="600" src="img/apple/watch-s12-light.webp" alt="Apple Watch Series 12（米色展台版）" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>Apple Watch Series 12</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/watch-ultra4.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="600" src="img/apple/watch-ultra4-light.webp" alt="Apple Watch Ultra 4（米色展台版）" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>Apple Watch Ultra 4</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+    </div></div>
+    <h3 class="ap-h3">AirPods 5 · 2 张</h3>
+    <div class="ap-shots"><div class="ap-shots-track">
+        <a class="ap-shot" href="img/apple/airpods-5.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="600" src="img/apple/airpods-5.webp" alt="AirPods 5 · 官网主视觉" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>AirPods 5 · 官网主视觉</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+        <a class="ap-shot" href="img/apple/airpods-5-b.webp" target="_blank" rel="noopener">
+          <div class="ap-shot-img"><img width="1200" height="916" src="img/apple/airpods-5-b.webp" alt="AirPods 5 · 官方产品图" loading="lazy" decoding="async"></div>
+          <span class="ap-shot-cap"><span>AirPods 5 · 官方产品图</span><span class="zoom">看大图 ↗</span></span>
+        </a>
+    </div></div>
+    <p class="ref-note">以上 10 张图均取自苹果中国官网各产品页与苹果官方图片服务器（storeimages.cdn-apple.com），版权归 Apple Inc. 所有，本页仅作新品资讯介绍引用，不作商业使用。</p>
+  </div>
+  </div><!-- /panel gallery -->
+
+  <div class="ap-panel" id="ap-panel-spec" role="tabpanel" aria-labelledby="ap-tab-spec" data-panel="spec">
+  <!-- ===== 3. 一眼看懂 ===== -->
+  <div class="section">
+    <h2 class="sec-title">一眼看懂</h2>
+    <p class="sec-sub">三组最常被问的对比，看图就够（均为官方公布数据）。</p>
+    <h3 class="ap-h3">国行起售价（元）</h3>
+    <div class="ap-bars">
+      <div class="ap-bar-row"><div class="ap-bar-label">AirPods 5</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:6%">999</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Watch S12</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:19%">2999</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Ultra 4</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:41%">6499</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">18 Pro</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:63%">9999</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Pro Max</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:69%">10999</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">iPhone Duo</div><div class="ap-bar-track"><div class="ap-bar-fill" style="width:100%">15999</div></div></div>
+    </div>
+    <h3 class="ap-h3">续航（小时，官方标称）</h3>
+    <div class="ap-bars">
+      <div class="ap-bar-row"><div class="ap-bar-label">Watch S12</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:48%">24 小时</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">18 Pro</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:68%">34 小时</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Pro Max</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:86%">43 小时</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Duo 外屏</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:88%">44 小时</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Ultra 4</div><div class="ap-bar-track"><div class="ap-bar-fill green" style="width:100%">50 小时</div></div></div>
+    </div>
+    <h3 class="ap-h3">屏幕尺寸（英寸）</h3>
+    <div class="ap-bars">
+      <div class="ap-bar-row"><div class="ap-bar-label">Duo 外屏</div><div class="ap-bar-track"><div class="ap-bar-fill blue" style="width:71%">5.4″</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">18 Pro</div><div class="ap-bar-track"><div class="ap-bar-fill blue" style="width:83%">6.3″</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Pro Max</div><div class="ap-bar-track"><div class="ap-bar-fill blue" style="width:91%">6.9″</div></div></div>
+      <div class="ap-bar-row"><div class="ap-bar-label">Duo 内屏</div><div class="ap-bar-track"><div class="ap-bar-fill blue" style="width:100%">7.6″</div></div></div>
+    </div>
+    <p class="ap-bars-note">续航为苹果中国官网国行标称值：iPhone 为视频播放时长，iPhone Duo 分别为内屏 31 / 外屏 44 小时，Apple Watch 为常规使用时长（Ultra 4 低电量模式最长 84 小时）。条形长度按各组最大值等比绘制，仅用于快速比较。</p>
+  </div>
+
+  <!-- ===== 4. 核心参数 ===== -->
+  <div class="section is-alt">
+    <h2 class="sec-title">核心参数</h2>
+    <p class="sec-sub">先看三款新 iPhone 的逐项对比，再看手表与耳机；表格可左右滑动。</p>
+    <h3 class="ap-h3">三款新 iPhone 逐项对比</h3>
+    <div class="ap-spec">
+      <table class="ap-spec-tb">
+        <thead><tr><th>项目</th><th>iPhone 18 Pro</th><th>iPhone 18 Pro Max</th><th>iPhone Duo</th></tr></thead>
+        <tbody>
+          <tr><td>屏幕</td><td>6.3″ 超视网膜 XDR</td><td>6.9″ 超视网膜 XDR</td><td>7.6″ 内屏 + 5.4″ 外屏（可折叠）</td></tr>
+          <tr><td>芯片</td><td colspan="3">A20 Pro（台积电 2nm，6 核 CPU + 7 核 GPU + 双 16 核神经网络引擎）· 自研 C2 基带</td></tr>
+          <tr><td>影像</td><td colspan="2">4800 万三摄：主摄四档物理可变光圈（ƒ/1.48 / ƒ/1.8 / ƒ/2.8 / ƒ/4.0）+ 超广角 + 长焦，0.5×–8× 光学品质变焦</td><td>4800 万主摄 + 4800 万超广角（无长焦）</td></tr>
+          <tr><td>续航</td><td>视频播放最长 34 小时</td><td>视频播放最长 43 小时</td><td>内屏 31 小时 / 外屏 44 小时</td></tr>
+          <tr><td>解锁</td><td colspan="2">Face ID</td><td>侧边 Touch ID</td></tr>
+          <tr><td>SIM</td><td colspan="2">双实体卡 / 实体卡 + eSIM / 双 eSIM</td><td>全球仅 eSIM</td></tr>
+          <tr><td>配色</td><td colspan="2">黑色、银色、冰川蓝、勃艮第酒红</td><td>星光白、夜空色</td></tr>
+          <tr><td>国行起售</td><td>9999 元</td><td>10999 元</td><td>15999 元</td></tr>
+          <tr><td>发售</td><td colspan="2">9 月 18 日</td><td>10 月 23 日</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ref-note">「0.5×–8× 光学品质变焦」中的 8 倍画面由 4 倍长焦截取传感器中央区域、结合图像处理输出（1200 万像素），并非独立的 8 倍镜头。国行视频播放续航为 34 / 43 小时；发布会提到的 45 小时对应部分市场的纯 eSIM 版本。</p>
+
+    <h3 class="ap-h3">手表与耳机</h3>
+    <div class="ap-spec">
+      <table class="ap-spec-tb">
+        <thead><tr><th>项目</th><th>Apple Watch Series 12</th><th>Apple Watch Ultra 4</th><th>AirPods 5</th></tr></thead>
+        <tbody>
+          <tr><td>芯片</td><td>S11</td><td>S11</td><td>H2</td></tr>
+          <tr><td>形态 / 屏幕</td><td>42 / 46mm，2000 尼特全天候视网膜屏</td><td>49mm 钛金属，3000 尼特</td><td>无耳塞式入耳</td></tr>
+          <tr><td>关键升级</td><td>全新健康感测系统，后台心率采样频率提升到上代 60 倍，新增「准备指数」与睡眠评分</td><td>同款健康感测系统，双频 GPS、100 米防水、内置警笛</td><td>首次标配主动降噪，降噪较上代提升最高 50%；支持头部动作回应 Siri</td></tr>
+          <tr><td>续航</td><td>24 小时（低电量模式 38 小时）</td><td>50 小时（低电量模式 84 小时）</td><td>降噪聆听 5 小时，配充电盒最长 22 小时</td></tr>
+          <tr><td>国行起售</td><td>2999 元（铝金属 42mm GPS）</td><td>6499 元</td><td>999 元</td></tr>
+          <tr><td>发售</td><td>9 月 18 日</td><td>9 月 18 日</td><td>9 月 18 日</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div><!-- /panel spec -->
+
+  <div class="ap-panel" id="ap-panel-price" role="tabpanel" aria-labelledby="ap-tab-price" data-panel="price">
+  <!-- ===== 5. 国行价格 ===== -->
+  <div class="section">
+    <h2 class="sec-title">国行价格</h2>
+    <p class="sec-sub">发布会公布的国行建议零售价，单位：元；金色为起售价。</p>
+    <div class="ap-note">
+      <div class="ap-table-wrap">
+        <table class="ap-price-tb">
+          <thead><tr><th>机型</th><th>256GB</th><th>512GB</th><th>1TB</th><th>2TB</th></tr></thead>
+          <tbody>
+            <tr><td>iPhone 18 Pro</td><td class="ap-from">9999</td><td>11999</td><td>15499</td><td>20499</td></tr>
+            <tr><td>iPhone 18 Pro Max</td><td class="ap-from">10999</td><td>12999</td><td>16499</td><td>21499</td></tr>
+            <tr><td>iPhone Duo（折叠屏）</td><td class="ap-from">15999</td><td>17999</td><td>21499</td><td>26499</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul style="margin-top:12px;">
+        <li>美版起售价：iPhone 18 Pro 1199 美元、Pro Max 1299 美元、iPhone Duo 1999 美元。</li>
+        <li>Pro 系列较上一代<b>同容量上涨 1000 元</b>；旧款同步调价：iPhone 17 标准版 6799 元起、iPhone Air 8799 元起、iPhone 17e 5299 元起（均上调 800 元），iPhone 17 Pro 已从官网下架。</li>
+        <li><b>标准版 iPhone 18 缺席</b>：多方报道称标准版与 18e 将推迟至 2027 年春季发布。</li>
+      </ul>
+    </div>
+    <p class="ref-note">价格引自苹果中国官网（apple.com.cn）在售页与新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻等现场报道，已交叉核对（2026-09-10）。AirPods 5 无线充电盒版多数报道为 1149 元、IT之家等记为 1199 元，最终以苹果官网标价为准。</p>
+  </div>
+
+  <!-- ===== 6. 发售时间 ===== -->
+  <div class="section is-alt">
+    <h2 class="sec-title">发售时间</h2>
+    <p class="sec-sub">按先后排列，灰色节点表示已经过去。</p>
+    <div class="ap-timeline">
+      <div class="ap-tl-item done"><div class="ap-tl-date">9 月 10 日 01:00（已举行）</div><div class="ap-tl-txt">2026 秋季发布会 · Apple Park 乔布斯剧院，新任 CEO 约翰·特努斯首次主持年度发布会</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">9 月 11 日 09:00</div><div class="ap-tl-txt">Apple Watch Series 12 / Ultra 4 开始预购</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">9 月 12 日 20:00</div><div class="ap-tl-txt">iPhone 18 Pro / Pro Max 开始预购</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">9 月 18 日</div><div class="ap-tl-txt">iPhone 18 Pro / Pro Max、Apple Watch Series 12 / Ultra 4、AirPods 5 正式发售</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">10 月 16 日 20:00</div><div class="ap-tl-txt">iPhone Duo 开始预购</div></div>
+      <div class="ap-tl-item"><div class="ap-tl-date">10 月 23 日</div><div class="ap-tl-txt">iPhone Duo 正式发售</div></div>
+    </div>
+    <p class="ref-note">AirPods 5 已在发布会后开放订购，9 月 18 日统一发售。档期引自苹果中国官网与现场报道，若苹果后续调整以官网公告为准。</p>
+  </div>
+  </div><!-- /panel price -->
+
+  <!-- ===== 7. 每日自动更新（苹果新品资讯流） ===== -->
+  <div class="home-collapsible" id="hc-auto-news" style="display:none;margin-top:32px;">
+    <div class="home-collapsible-header" data-act="toggleHomeSection">
+      <div class="hc-left"><span class="hc-title">每日自动更新 · 苹果新品资讯</span><span class="hc-live"><span class="dot"></span>实时</span><span class="hc-count" id="autoNewsCount"></span></div>
+      <span class="hc-arrow">▼</span>
+    </div>
+    <div class="home-collapsible-body" id="autoNewsBody"></div>
+  </div>
+
+  <!-- ===== 8. 关于本板块 + 资料来源（折叠，放最后） ===== -->
+  <details class="ap-fold">
+    <summary>关于这个板块 / 资料来源与核实方式</summary>
+    <div class="ap-fold-body">
+      <p><b>这个板块怎么用：</b>它替你盯着苹果新品的全网消息，而不是让你自己刷爆料。每天自动从国内（财新 / 36氪 / 今日头条等）+ 海外（彭博社 / 9to5Mac / The Verge 等）多源检索，交叉核对后沉淀到上方「每日自动更新」信息流。</p>
+      <p style="margin-top:8px;"><b>阅读须知：</b>2026 秋季发布会已于 9 月 10 日凌晨召开，本页「新品 / 参数 / 价格」均为<b>官方已公布</b>信息；尚未官宣的传闻一律标注「待官方确认」。一切以苹果官网为准，不构成购买或投资建议。</p>
+      <p style="margin-top:10px;"><b>资料来源：</b></p>
+      <ul style="margin:6px 0 0;padding-left:20px;">
+        <li><b>价格与规格（第一来源）：</b>苹果中国官网 apple.com.cn 的在售页与产品页，本页所有价格与官方规格均以此为最终依据。</li>
+        <li><b>现场报道（交叉核验）：</b>新浪财经、IT之家、每日经济新闻、界面新闻、腾讯新闻·CNMO、太平洋科技、财联社等；同一数字需 ≥2 个独立来源一致才写入正文，来源冲突时并列标注。</li>
+        <li><b>海外信源：</b>彭博社（马克·古尔曼）、The Apple Post、Gadgets Now（Times of India 集团）等，用于发布会前爆料的溯源与存档。</li>
+        <li><b>标注规则：</b>官方已公布的信息写明「官方公布」；发布会前的媒体爆料一律保留原始日期并标注「待官方确认」，不做回溯改写。</li>
+      </ul>
+      <p class="ref-note">正文参数、价格与日期均引自上述来源，数据截至 2026-09-10，每日自动刷新。若苹果官网后续调整，以官网为准。</p>
+    </div>
+  </details>
+
+      </div>
+
+      <div class="ahub-half" id="tab-hist" data-half="hist">
+        <!-- AHUB:HIST:START 由 scripts/build_apple_history.py 生成，请勿手改 -->
+  <p class="ah-lede">从 1976 年车库里那块手工焊装的电路板，到 2026 年首款折叠屏 iPhone——半个世纪里，苹果用 Macintosh、iPod、iPhone、iPad、Apple Watch 与自研芯片，反复重新定义什么叫「个人计算」。本页按 10 条产品线逐年拆开，共 293 条可核对的里程碑，全部标注日期，并附真实产品图与出处。</p>
+
+  <section class="ah-sec">
+    <h2 class="ah-sec-title">六个时代，一部断代史</h2>
+    <p class="ah-sec-sub">半个世纪被切成六段，每一段都有一个明确的转折点。</p>
+    <div class="ah-era-strip">
+      <div class="ah-era">
+        <div class="ah-era-y">1976 – 1984</div>
+        <div class="ah-era-n">Ⅰ　车库创世纪</div>
+        <div class="ah-era-d">从手工焊装的 Apple I，到把图形界面带给普通人的 Macintosh。</div>
+      </div>
+      <div class="ah-era">
+        <div class="ah-era-y">1985 – 1997</div>
+        <div class="ah-era-n">Ⅱ　出走与回归</div>
+        <div class="ah-era-d">乔布斯被赶走，苹果在兼容机与授权之间迷失十二年，直到 NeXT 把它救回来。</div>
+      </div>
+      <div class="ah-era">
+        <div class="ah-era-y">1998 – 2006</div>
+        <div class="ah-era-n">Ⅲ　数字音乐与复兴</div>
+        <div class="ah-era-d">iMac 止血、iPod 起飞、iTunes 改写唱片业——苹果从电脑公司变成数字生活中心。</div>
+      </div>
+      <div class="ah-era">
+        <div class="ah-era-y">2007 – 2011</div>
+        <div class="ah-era-n">Ⅳ　iPhone 时代</div>
+        <div class="ah-era-d">一部手机重新发明了手机，也把苹果第一次推上万亿美元市值。</div>
+      </div>
+      <div class="ah-era">
+        <div class="ah-era-y">2011 – 2026</div>
+        <div class="ah-era-n">Ⅴ　库克时代</div>
+        <div class="ah-era-d">iPad、Watch、AirPods、Vision Pro 与自研芯片，把苹果从产品公司变成生态公司。</div>
+      </div>
+      <div class="ah-era">
+        <div class="ah-era-y">2026 –</div>
+        <div class="ah-era-n">Ⅵ　特努斯时代</div>
+        <div class="ah-era-d">折叠屏 iPhone 与首款 2nm 芯片同时落地，第八任 CEO 接手的是一个 4 万亿美元级的平台。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ah-sec">
+    <h2 class="ah-sec-title">十条产品线，逐年拆开</h2>
+    <p class="ah-sec-sub">先点产品线切换，再点开想看的年代分组——默认只展开第一条，不会一拉到底。打印本页会自动展开全部。</p>
+  <div class="ah-tabs">
+    <input class="ah-r" type="radio" name="ahtab" id="ah0" checked aria-label="Mac">
+    <input class="ah-r" type="radio" name="ahtab" id="ah1" aria-label="iPhone">
+    <input class="ah-r" type="radio" name="ahtab" id="ah2" aria-label="iPad">
+    <input class="ah-r" type="radio" name="ahtab" id="ah3" aria-label="iPod">
+    <input class="ah-r" type="radio" name="ahtab" id="ah4" aria-label="Apple Watch">
+    <input class="ah-r" type="radio" name="ahtab" id="ah5" aria-label="音频与家居">
+    <input class="ah-r" type="radio" name="ahtab" id="ah6" aria-label="空间计算">
+    <input class="ah-r" type="radio" name="ahtab" id="ah7" aria-label="自研芯片">
+    <input class="ah-r" type="radio" name="ahtab" id="ah8" aria-label="软件与服务">
+    <input class="ah-r" type="radio" name="ahtab" id="ah9" aria-label="公司与人物">
+    <div class="ah-pick">
+      <label class="ah-pk" for="ah0">
+        <b>Mac</b>
+        <i>1976 – 2026</i>
+        <em>43 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah1">
+        <b>iPhone</b>
+        <i>2007 – 2026</i>
+        <em>30 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah2">
+        <b>iPad</b>
+        <i>2010 – 2026</i>
+        <em>26 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah3">
+        <b>iPod</b>
+        <i>2001 – 2022</i>
+        <em>18 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah4">
+        <b>Apple Watch</b>
+        <i>2014 – 2026</i>
+        <em>17 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah5">
+        <b>音频与家居</b>
+        <i>2007 – 2026</i>
+        <em>24 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah6">
+        <b>空间计算</b>
+        <i>2015 – 2026</i>
+        <em>15 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah7">
+        <b>自研芯片</b>
+        <i>2010 – 2026</i>
+        <em>45 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah8">
+        <b>软件与服务</b>
+        <i>1984 – 2026</i>
+        <em>48 条 · 展开 ❯</em>
+      </label>
+      <label class="ah-pk" for="ah9">
+        <b>公司与人物</b>
+        <i>1976 – 2026</i>
+        <em>27 条 · 展开 ❯</em>
+      </label>
+    </div>
+    <div class="ah-tabbar" role="tablist" aria-label="产品线切换">
+      <label class="ah-tab" for="ah0">Mac</label>
+      <label class="ah-tab" for="ah1">iPhone</label>
+      <label class="ah-tab" for="ah2">iPad</label>
+      <label class="ah-tab" for="ah3">iPod</label>
+      <label class="ah-tab" for="ah4">Apple Watch</label>
+      <label class="ah-tab" for="ah5">音频与家居</label>
+      <label class="ah-tab" for="ah6">空间计算</label>
+      <label class="ah-tab" for="ah7">自研芯片</label>
+      <label class="ah-tab" for="ah8">软件与服务</label>
+      <label class="ah-tab" for="ah9">公司与人物</label>
+    </div>
+    <div class="ah-panels">
+    <section class="ah-panel" id="ahp-mac" role="tabpanel" aria-label="Mac">
+      <h3 class="ah-lt">Mac<span class="ah-lt-n">43 条</span></h3>
+      <p class="ah-lt-sub">苹果的起点与主线：把「个人电脑」从概念做成日常工具</p>
+      <div class="ah-lt-span">1976 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、开创期（1976 – 1984）</h4>
+          <span class="ah-gh-n">5 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">1976-04-01</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple I<span class="ah-tag">里程碑</span></div>
+              <p>沃兹尼亚克手工焊装的单板计算机，售价 666.66 美元，共售出约 200 台。它是苹果的第一件产品，也是此后一切的原点。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1977-04-16</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple II</div>
+              <p>首款大规模量产的彩色图形个人电脑，在西海岸电脑展首发。它让苹果从车库公司变成真正的生意，一直卖到 1993 年。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1980-05-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple III</div>
+              <p>面向商用市场，却因散热与稳定性问题失败，是苹果早期最著名的一次产品教训。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1983-01-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple Lisa</div>
+              <p>首款采用图形界面加鼠标的商用电脑，售价 9995 美元。商业上失败，却为 Macintosh 铺平了道路。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1984-01-24</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Macintosh<span class="ah-tag">里程碑</span></div>
+              <p>首台面向大众的图形界面个人电脑：128KB 内存、9 英寸黑白屏、2495 美元，配一支鼠标。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、PowerPC 与低谷（1985 – 1997）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">1986-01-16</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Macintosh Plus</div>
+              <p>首款支持 SCSI 与内存扩展的 Mac，成为当时寿命最长、最畅销的机型之一。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1987-03-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Macintosh II</div>
+              <p>首个模块化、可插卡、支持彩色显示的 Mac 系列，摆脱了一体机限制。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1989-09-20</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Macintosh Portable</div>
+              <p>苹果首款电池供电的便携 Mac，重达 7.2 公斤，市场反响冷淡。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1991-10-21</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">PowerBook<span class="ah-tag">里程碑</span></div>
+              <p>100/140/170 三款同时发布，首次把键盘后移、掌托前置并内置轨迹球——这个布局此后成为所有笔记本的标准。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1994-03-14</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Power Macintosh</div>
+              <p>首款采用 PowerPC 处理器的 Mac，是苹果与 IBM、摩托罗拉三方联盟的成果。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1997-11-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">终止兼容机克隆</div>
+              <p>乔布斯回归后以约 1 亿美元买断 Power Computing 的授权，结束 Mac 兼容机时代，重新收紧硬件控制。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、iMac 与设计复兴（1998 – 2005）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">1998-08-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iMac G3<span class="ah-tag">里程碑</span></div>
+              <p>半透明一体机，砍掉软驱、只留 USB，上市 139 天卖出 80 万台，把濒死的苹果拉回正轨。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1999-07-21</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iBook</div>
+              <p>首款面向消费者的笔记本，也是首款内置 Wi-Fi 的消费电脑，彩色「蛤壳」造型成为一代人的记忆。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2001-01-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">PowerBook G4 Titanium</div>
+              <p>钛金属机身、一英寸厚，是当时最薄的笔记本之一。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2002-01-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iMac G4</div>
+              <p>半球底座加可转动液晶屏的「台灯」造型，被公认为工业设计经典。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2003-06-23</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Power Mac G5</div>
+              <p>苹果首次采用 64 位处理器，也是最后一款塔式风冷旗舰。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2004-08-31</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iMac G5</div>
+              <p>把整机塞进显示器背后的「一体机」形态，成为此后 iMac 的标准。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>四、转向 Intel 与铝合金时代（2005 – 2019）</h4>
+          <span class="ah-gh-n">8 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2005-06-06</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">宣布转向 Intel<span class="ah-tag">里程碑</span></div>
+              <p>WWDC 上乔布斯宣布 Mac 将在两年内从 PowerPC 迁移到 Intel 处理器，Rosetta 过渡层同步登场。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2006-01-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">首款 Intel Mac</div>
+              <p>iMac 与 MacBook Pro（取代 PowerBook 命名）同日发布，性能大幅提升同时功耗明显下降。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2008-01-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">MacBook Air<span class="ah-tag">里程碑</span></div>
+              <p>乔布斯从牛皮纸信封里把它抽出来：最厚处 1.94 厘米，首款大规模采用一体成型铝合金与固态硬盘的笔记本。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-06-11</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">MacBook Pro with Retina</div>
+              <p>2880×1800 视网膜屏，取消光驱与机械硬盘，苹果开始用屏幕密度定义高端。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2013-12-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Mac Pro（圆柱）</div>
+              <p>「垃圾桶」造型的极小体积工作站，因散热与扩展性受限，此后多年没有实质更新。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-03-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">12 英寸 MacBook</div>
+              <p>全机只有一个 USB-C 口，首次引入蝶式键盘，也是苹果历史上争议最大的一代键盘。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-06-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iMac Pro</div>
+              <p>一体机形态的工作站，最高 18 核 Xeon，为专业用户争取到两年时间。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-11-13</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">MacBook Pro 16 英寸</div>
+              <p>蝶式键盘被剪刀脚妙控键盘取代，苹果实际上承认并纠正了自己的键盘路线。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>五、Apple Silicon（2020 – 2024）</h4>
+          <span class="ah-gh-n">11 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-06-22</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">宣布自研芯片<span class="ah-tag">里程碑</span></div>
+              <p>WWDC 2020 宣布 Mac 将在两年内过渡到 Apple silicon，终结长达 14 年的 Intel 时代。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-11-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M1<span class="ah-tag">里程碑</span></div>
+              <p>MacBook Air、MacBook Pro、Mac mini 三款首发；无风扇的 Air 也全面超越前代 Intel 机型，续航翻倍。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-04-20</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iMac 24 英寸（M1）</div>
+              <p>七种配色、11.5 毫米厚的一体机，重拾 iMac G3 的彩色传统。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-10-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M1 Pro / M1 Max</div>
+              <p>MacBook Pro 14 与 16 英寸：刘海屏登场，HDMI、SD 卡槽与 MagSafe 充电全部回归。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-03-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M1 Ultra + Mac Studio</div>
+              <p>用 UltraFusion 把两颗 M1 Max 拼成一颗，Mac Studio 成为新的桌面旗舰。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-06-06</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M2</div>
+              <p>全新模具的 MacBook Air：刘海屏、MagSafe、更薄机身。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-01-17</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M2 Pro / M2 Max</div>
+              <p>MacBook Pro 与 Mac mini 同步更新。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-06-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M2 Ultra + Mac Pro<span class="ah-tag">里程碑</span></div>
+              <p>自研芯片版 Mac Pro 上市，Mac 全线完成向 Apple silicon 的迁移。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-10-30</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M3 家族</div>
+              <p>首批 3nm 桌面芯片，引入硬件光线追踪与动态缓存。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-03-04</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M3 MacBook Air</div>
+              <p>13 与 15 英寸双尺寸，成为当年最主流的 Mac。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-10-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M4 家族</div>
+              <p>MacBook Pro、Mac mini、iMac 同一周内更新，M4 Pro / Max 支持雷雳 5。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>六、M5 与当下（2025 – 2026）</h4>
+          <span class="ah-gh-n">7 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-03-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M3 Ultra + Mac Studio</div>
+              <p>Mac Studio 更新，M3 Ultra 支持最高 512GB 统一内存，成为本地跑大模型的热门机型。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-10-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M5 芯片<span class="ah-tag">关键</span></div>
+              <p>首个在 GPU 每颗核心内集成神经加速器的 M 系列芯片，首发于 14 英寸 MacBook Pro，同步用于 iPad Pro 与 Vision Pro。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-03-04</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">MacBook Air M5 / MacBook Pro M5 Pro·Max / MacBook Neo<span class="ah-tag">关键</span></div>
+              <p>苹果同月更新轻薄线与专业线，并新增 599 美元起的入门笔记本 MacBook Neo，填上长期空缺的最低价位。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-03-11</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">上述机型开售</div>
+              <p>MacBook Air M5、MacBook Pro（M5 Pro / M5 Max）与 MacBook Neo 同步上市。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-08-25</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Mac mini（M6 / M5 Pro）与 Mac Studio（M5 Max / M5 Ultra）<span class="ah-tag">关键</span></div>
+              <p>苹果首款 2nm 芯片 M6 首发在 899 美元起的 Mac mini 上；Mac Studio 最高 512GB 统一内存，支持雷雳 5 组建 AI 推理集群。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-22</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">上述机型开售<span class="ah-tag ah-tag-blue">已排期</span></div>
+              <p>Mac mini 与 Mac Studio 正式开卖，部分高内存配置后续分批到货。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Mac Pro 确认停产<span class="ah-tag">关键</span></div>
+              <p>苹果确认 Mac Pro 将停产，桌面专业线让位于 Mac Studio——塔式工作站的时代正式结束。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>从 599 美元的 MacBook Neo 到 5499 美元起的 Mac Studio，Mac 现在是四条芯片世代同时在售；塔式 Mac Pro 已确认退场。</div>
+    </section>
+    <section class="ah-panel" id="ahp-iphone" role="tabpanel" aria-label="iPhone">
+      <h3 class="ah-lt">iPhone<span class="ah-lt-n">30 条</span></h3>
+      <p class="ah-lt-sub">重新发明手机的那一件产品，也是苹果收入的绝对主力</p>
+      <div class="ah-lt-span">2007 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、开创与确立（2007 – 2011）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2007-01-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 发布<span class="ah-tag">里程碑</span></div>
+              <p>旧金山 Macworld，乔布斯一句「今天，苹果要重新发明手机」：3.5 英寸多点触控屏、完整网页浏览器、iTunes 同步。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2007-06-29</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 开售</div>
+              <p>4GB 版 499 美元、8GB 版 599 美元，首周末售出约 27 万台。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2008-06-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 3G</div>
+              <p>加入 3G 网络与 GPS，价格降到 199 美元，同时带来改变行业的 App Store。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2009-06-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 3GS</div>
+              <p>首次在名称里标注速度（S 即 Speed），加入摄像、语音控制与指南针。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2010-06-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 4<span class="ah-tag">里程碑</span></div>
+              <p>视网膜屏、不锈钢中框、首款前置摄像头，也遭遇了著名的「天线门」。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2011-10-04</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 4S</div>
+              <p>在乔布斯逝世前一天发布，首次带来 Siri 与 800 万像素摄像头。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、大屏与产品线分层（2012 – 2017）</h4>
+          <span class="ah-gh-n">7 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 5</div>
+              <p>4 英寸 16:9 屏幕、Lightning 接口、nano-SIM，机身改为铝合金。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2013-09-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 5c / 5s</div>
+              <p>5s 首次采用 Touch ID 指纹识别与 64 位 A7 芯片；5c 是苹果唯一一次塑料彩壳旗舰尝试。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2014-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 6 / 6 Plus<span class="ah-tag">关键</span></div>
+              <p>首次采用双尺寸策略，5.5 英寸 Plus 把大屏潮流推向主流。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 6s / 6s Plus</div>
+              <p>3D Touch、Live Photo，摄像头升级到 1200 万像素。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-03-21</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone SE（初代）</div>
+              <p>4 英寸小屏配旗舰芯片，成为苹果历史上最长寿的机型之一。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 7 / 7 Plus<span class="ah-tag">关键</span></div>
+              <p>取消 3.5mm 耳机孔、首次 IP67 防水，Plus 首次配备双摄。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 8 / iPhone X<span class="ah-tag">里程碑</span></div>
+              <p>跳过 9 直接进入 X。iPhone X 用 Face ID 取代 Touch ID、取消 Home 键，全面屏与刘海从此成为标配。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、扩张与分层（2018 – 2022）</h4>
+          <span class="ah-gh-n">7 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2018-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone XS / XS Max / XR</div>
+              <p>首次一次发布三款，XR 以 LCD 屏与单摄下探价位。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-09-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 11 系列</div>
+              <p>「Pro」之名首次出现在 iPhone 上，三摄系统与夜间模式登场。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-04-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone SE（二代）</div>
+              <p>沿用 iPhone 8 外壳加 A13 芯片，用最低价格提供旗舰性能。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-10-13</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 12 系列<span class="ah-tag">里程碑</span></div>
+              <p>全系首次支持 5G，直角边中框回归，引入 MagSafe 磁吸生态与 mini 机型。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-09-14</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 13 系列</div>
+              <p>刘海缩小，ProMotion 120Hz 首次登陆 iPhone（仅 Pro 机型）。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-03-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone SE（三代）</div>
+              <p>最后一款 4.7 英寸小屏 iPhone，2024 年后正式淡出。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 14 系列<span class="ah-tag">关键</span></div>
+              <p>Pro 引入灵动岛与常亮显示；全系带来车祸检测与卫星紧急求救。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>四、接口与 AI 转向（2023 – 2024）</h4>
+          <span class="ah-gh-n">2 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 15 系列<span class="ah-tag">关键</span></div>
+              <p>全系换上 USB-C（欧盟法规推动），Pro 首次采用钛金属中框与可自定义的操作按钮。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 16 系列<span class="ah-tag">关键</span></div>
+              <p>新增「相机控制」实体按键，全系为 Apple Intelligence 铺路；Pro 屏幕增至 6.3 与 6.9 英寸，首次采用蒸气腔散热。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>五、「e」「Air」与折叠（2025 – 2026）</h4>
+          <span class="ah-gh-n">8 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-02-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 16e<span class="ah-tag">关键</span></div>
+              <p>「e」系列起点，首发苹果自研 5G 基带 C1，取代 SE 成为入门机型。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 17 系列与 iPhone Air<span class="ah-tag">里程碑</span></div>
+              <p>17、17 Pro、17 Pro Max 与全新 iPhone Air 四款同发。全系标配 120Hz ProMotion 与常亮显示；Air 是史上最薄 iPhone，首发 N1 无线芯片与 C1X 基带；Pro 改回铝合金机身以改善散热。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 17 系列开售</div>
+              <p>首发覆盖 63 个国家和地区，9 月 26 日扩展到更多市场。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-03-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 17e</div>
+              <p>接替 16e：A19 芯片配 C1X 基带，256GB 起售 4499 元。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 18 Pro / Pro Max<span class="ah-tag">关键</span></div>
+              <p>6.3 与 6.9 英寸，A20 Pro 芯片，首次采用 ƒ1.48–ƒ4.0 可变光圈，256GB 起售 9999 元。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone Duo<span class="ah-tag">里程碑</span></div>
+              <p>苹果首款折叠屏：5.4 英寸外屏、7.6 英寸内屏，侧边 Touch ID，是首款支持 Apple Pencil 的 iPhone，搭载 A20 Pro 与 C2 基带，256GB 起售 15999 元、2TB 版 26499 元。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone 18 Pro 系列预购</div>
+              <p>9 月 12 日 20:00 开启预购，9 月 18 日起陆续到店。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-10-16</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone Duo 排期<span class="ah-tag ah-tag-blue">已排期</span></div>
+              <p>10 月 16 日 20:00 开启预购，10 月 23 日正式开卖。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>在售五款：iPhone 17e、iPhone 17、iPhone Air、iPhone 18 Pro / Pro Max，以及即将开卖的折叠屏 iPhone Duo。</div>
+    </section>
+    <section class="ah-panel" id="ahp-ipad" role="tabpanel" aria-label="iPad">
+      <h3 class="ah-lt">iPad<span class="ah-lt-n">26 条</span></h3>
+      <p class="ah-lt-sub">夹在手机与电脑之间的第三类设备，也是苹果最持久的形态实验</p>
+      <div class="ah-lt-span">2010 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、从零到主流（2010 – 2014）</h4>
+          <span class="ah-gh-n">7 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2010-01-27</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 发布<span class="ah-tag">里程碑</span></div>
+              <p>乔布斯在旧金山发布 9.7 英寸平板，把它定义为「手机与笔记本之间的第三类设备」。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2010-04-03</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 开售</div>
+              <p>首日售出约 30 万台，80 天卖出 300 万台。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2011-03-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 2</div>
+              <p>更薄更快，加入前后摄像头与 Smart Cover，成为当年最畅销的平板。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-03-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad（三代）</div>
+              <p>首款采用视网膜屏的 iPad，2048×1536 分辨率。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-10-23</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 4 + iPad mini</div>
+              <p>首次出现 7.9 英寸小尺寸产品线。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2013-10-22</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Air + iPad mini 2</div>
+              <p>Air 命名登场，重量降到 469 克；mini 2 同步升级视网膜屏。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2014-10-16</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Air 2 + iPad mini 3</div>
+              <p>Air 2 首次引入全贴合屏幕与 Touch ID。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、Pro 与生产力（2015 – 2019）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Pro 12.9<span class="ah-tag">里程碑</span></div>
+              <p>苹果首款 Pro 平板，同时发布 Apple Pencil 与 Smart Keyboard，iPad 开始向生产力靠拢。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-03-21</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Pro 9.7</div>
+              <p>把 Pro 能力下放到便于携带的尺寸。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-06-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Pro 10.5 / 12.9（二代）</div>
+              <p>引入 ProMotion 120Hz 自适应刷新率，手写延迟大幅下降。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2018-10-30</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Pro（全面屏）<span class="ah-tag">关键</span></div>
+              <p>取消 Home 键、改用 Face ID 与 USB-C，Apple Pencil 改为磁吸吸附并支持无线充电。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-03-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Air 3 + iPad mini 5</div>
+              <p>两条中端线同时获得部分 Pro 能力。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-09-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 7</div>
+              <p>屏幕增至 10.2 英寸，成为教育市场的主力机型。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、芯片下沉与形态分化（2020 – 2023）</h4>
+          <span class="ah-gh-n">7 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-03-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Pro（LiDAR）</div>
+              <p>首次搭载激光雷达扫描仪与妙控键盘，把 iPad 推向桌面替代方案。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-09-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Air 4</div>
+              <p>首发 A14 芯片，采用与 Pro 相同的全面屏设计，并把 Touch ID 集成到顶部电源键。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-04-20</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Pro M1<span class="ah-tag">里程碑</span></div>
+              <p>首次把 Mac 的 M 系列芯片装进 iPad，12.9 英寸升级 Mini-LED 屏幕。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-09-14</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 9</div>
+              <p>基础款延续 A13 芯片与经典外观。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-03-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Air 5</div>
+              <p>M1 下放到 Air 产品线。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-10-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 10 + iPad Pro M2</div>
+              <p>iPad 首次换用 USB-C 并改直角边；Pro 引入手写笔「悬停」检测。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 硬件全线停更</div>
+              <p>全年只更新了 iPadOS 17，硬件没有换代，是 iPad 历史上罕见的空白年。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>四、双层 OLED 与四条线（2024 – 2026）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-05-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Pro M4 + iPad Air M2<span class="ah-tag">里程碑</span></div>
+              <p>Pro 首次采用双层串联 OLED 并做到 5.1 毫米厚，彻底刷新平板厚度纪录；Air 增加 13 英寸版本。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-10-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad mini 7</div>
+              <p>A17 Pro 芯片，支持 Apple Pencil Pro，起步容量翻倍。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-03-11</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad 11（A16）</div>
+              <p>基础款更新到 A16，但内存不足以支持 Apple Intelligence，成为当年最大的遗憾。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-10-22</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Pro M5<span class="ah-tag">关键</span></div>
+              <p>M5 带来最高 3.5 倍于 M4 的 AI 性能，配备 N1 无线芯片与 C1X 蜂窝基带。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-03-11</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPad Air M4</div>
+              <p>从 M3 升到 M4，内存提到 12GB，加入 Wi-Fi 7 与自研 C1X 基带。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">当前产品线</div>
+              <p>形成 iPad（A16）、iPad mini（A17 Pro）、iPad Air（M4）、iPad Pro（M5）四条线；iPadOS 27 已随秋季更新推送。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>四条线各守一段价位：A16 的 iPad 是入门，A17 Pro 的 mini 是小尺寸，M4 的 Air 是主力，M5 的 Pro 是生产力上限。</div>
+    </section>
+    <section class="ah-panel" id="ahp-ipod" role="tabpanel" aria-label="iPod">
+      <h3 class="ah-lt">iPod<span class="ah-lt-n">18 条</span></h3>
+      <p class="ah-lt-sub">把一千首歌装进口袋，替苹果撬开了消费电子的大门</p>
+      <div class="ah-lt-span">2001 – 2022</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、口袋里的 1000 首歌（2001 – 2005）</h4>
+          <span class="ah-gh-n">8 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2001-10-23</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod（初代）<span class="ah-tag">里程碑</span></div>
+              <p>5GB 机械硬盘、可存 1000 首歌、10 小时续航，售价 399 美元。发布时被普遍嘲讽「太贵」。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2002-07-17</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod（二代）</div>
+              <p>首次采用触控式转盘，Windows 版本同步推出。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2003-04-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod（三代）+ iTunes 音乐商店<span class="ah-tag">里程碑</span></div>
+              <p>机身变薄并改用底座接口；同日上线的音乐商店以 0.99 美元一首单曲重塑了整个唱片业。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2004-01-06</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod mini</div>
+              <p>4GB 微硬盘、五色铝壳，成为当时最畅销的 iPod，也让苹果意识到「便宜一点」的威力。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2004-07-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod（四代）</div>
+              <p>点击轮取代四个独立按钮，这一交互沿用多年。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2005-01-11</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod shuffle</div>
+              <p>无屏幕、纯随机播放，128MB 起售 99 美元，把 iPod 带进最低价位。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2005-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod nano<span class="ah-tag">关键</span></div>
+              <p>用闪存取代微硬盘，把 mini 做到极薄，同时宣告 mini 线终结。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2005-10-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod（五代）</div>
+              <p>首次支持视频播放，2.5 英寸彩屏。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、触摸屏与 iPhone 的溢出（2006 – 2012）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2006-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod nano 2 / shuffle 2</div>
+              <p>铝合金外壳回归，nano 首次出现多彩版本。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2007-09-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod touch<span class="ah-tag">关键</span></div>
+              <p>基于 iPhone 的触摸屏 iPod，只有 Wi-Fi，成为 iOS 生态最便宜的入口。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2008-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod nano 4</div>
+              <p>弧形超薄机身，加入加速度计，横过来就能进入 Cover Flow。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2009-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod nano 5</div>
+              <p>首次内置摄像头与 FM 收音机。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2010-09-01</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod nano 6 / shuffle 4</div>
+              <p>nano 变成 1.5 英寸方形触屏并可夹在衣服上，是争议最大的一代。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-10-11</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod nano 7 / iPod touch 5</div>
+              <p>nano 回到长方形加 Home 键；touch 5 换上 4 英寸屏与 Lightning 接口。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、退场（2015 – 2022）</h4>
+          <span class="ah-gh-n">4 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-07-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod touch 6</div>
+              <p>A8 芯片，外观基本未变，主要靠配色延续话题。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-07-27</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod nano / shuffle 停产<span class="ah-tag">关键</span></div>
+              <p>苹果砍掉无屏与纯播放两条线，只保留 iPod touch。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-05-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod touch 7</div>
+              <p>A10 芯片，是最后一款新 iPod。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-05-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPod 全线停产<span class="ah-tag">里程碑</span></div>
+              <p>苹果宣布售完即止，21 年的 iPod 产品线正式终结。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>2022 年 5 月全线停产。它的形态消失了，但「一台设备装下全部音乐」这件事，被 iPhone 完整继承。</div>
+    </section>
+    <section class="ah-panel" id="ahp-watch" role="tabpanel" aria-label="Apple Watch">
+      <h3 class="ah-lt">Apple Watch<span class="ah-lt-n">17 条</span></h3>
+      <p class="ah-lt-sub">从「戴在手上的通知器」长成最完整的消费级健康监测设备</p>
+      <div class="ah-lt-span">2014 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、从公布到首代（2014 – 2017）</h4>
+          <span class="ah-gh-n">4 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2014-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple Watch 公布<span class="ah-tag">里程碑</span></div>
+              <p>库克的「One more thing」第一次亮出手表，定位为健康与通知设备。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-04-24</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">首代开售</div>
+              <p>分 Sport、Watch、Edition 三档，18K 金版售价一万美元起；初代不含 GPS，必须连着 iPhone 用。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 1 / Series 2</div>
+              <p>Series 2 加入 GPS 与 50 米防水并首次提供陶瓷表壳，手表开始能独立运动。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 3<span class="ah-tag">关键</span></div>
+              <p>首次支持蜂窝网络，可以脱离 iPhone 通话与听音乐。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、健康能力的十年积累（2018 – 2022）</h4>
+          <span class="ah-gh-n">5 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2018-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 4<span class="ah-tag">里程碑</span></div>
+              <p>屏幕增大 30%、数字表冠加入触觉反馈，并首次支持 ECG 心电图。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-09-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 5</div>
+              <p>常亮视网膜屏首次登场，手表不必再抬手才亮。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-09-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 6 + SE</div>
+              <p>加入血氧检测；SE 成为第一条低价产品线。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-10-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 7</div>
+              <p>表盘更大、边框更窄，支持快速充电。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 8 / Ultra / SE 2<span class="ah-tag">关键</span></div>
+              <p>加入体温感应与车祸检测；全新的 Ultra 线以 49mm 钛金属表壳、100 米防水与更长续航面向户外与潜水。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、迭代与三条线的稳定（2023 – 2025）</h4>
+          <span class="ah-gh-n">5 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 9 / Ultra 2</div>
+              <p>S9 芯片带来「双指互点」手势，屏幕峰值亮度到 2000 尼特。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 10 + Ultra 2（黑钛）</div>
+              <p>机身更薄更轻，屏幕面积再增，扬声器可直接外放音乐。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 11 / Ultra 3 / SE 3<span class="ah-tag">里程碑</span></div>
+              <p>三款同时更新：S10 芯片、首次全系支持 5G，加入高血压提醒与睡眠评分；Ultra 3 成为首款支持卫星通信的 Apple Watch。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">三款新表开售</div>
+              <p>需搭配 iPhone 11 或更新机型并运行 iOS 26，SE 3 首次获得常亮屏。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-06-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">watchOS 27 公布<span class="ah-tag">关键</span></div>
+              <p>苹果砍掉 Series 6 / 7 / 8、Ultra 1 与 SE 2 的支持，Siri AI 只对较新机型开放；沿用八年的对讲机功能被移除。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>四、健康传感系统再造（2026）</h4>
+          <span class="ah-gh-n">3 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 12 / Ultra 4<span class="ah-tag">里程碑</span></div>
+              <p>全新「健康感测系统」把心率采样从每 5 分钟改为每 5 秒、心率变异性采样频率最高提升 24 倍，并带来 1 到 10 分的「准备度」评分；S11 芯片首次从 A20 Pro 架构衍生；停用六年之久的陶瓷表壳回归。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Ultra 4 续航</div>
+              <p>电池容量增加 5%，日常续航达 50 小时、低电量模式 84 小时、极限运动模式 45 小时，15 分钟快充可多用 18 小时。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Series 12 / Ultra 4 开卖</div>
+              <p>Series 12 起售 2999 元，Ultra 4 起售 6499 元，与上一代同价。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>在售四款：SE 3、Series 11、Series 12、Ultra 3 与 Ultra 4；心率采样的量级跃升（每 5 秒一次）是 2026 年最大的实质进步。</div>
+    </section>
+    <section class="ah-panel" id="ahp-audio" role="tabpanel" aria-label="音频与家居">
+      <h3 class="ah-lt">音频与家居<span class="ah-lt-n">24 条</span></h3>
+      <p class="ah-lt-sub">AirPods、HomePod、Apple TV——苹果在客厅与耳朵上的三场战役</p>
+      <div class="ah-lt-span">2007 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、AirPods：从被嘲讽到定义品类（2016 – 2021）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods<span class="ah-tag">里程碑</span></div>
+              <p>与 iPhone 7 同步发布，用 W1 芯片解决蓝牙配对的麻烦。发布时被大量嘲讽，两年后成为整个行业的默认形态。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-12-13</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods 开售</div>
+              <p>首批延迟近三个月，随后长期供不应求。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-03-20</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods 2</div>
+              <p>加入 H1 芯片、无线充电盒与免手动的「嘿 Siri」。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-10-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods Pro<span class="ah-tag">关键</span></div>
+              <p>首款入耳式主动降噪，硅胶耳塞配通透模式。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-12-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods Max</div>
+              <p>头戴式产品，铝合金耳罩加记忆棉，售价 549 美元。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-10-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods 3</div>
+              <p>采用 Pro 的外形但不带耳塞，加入空间音频。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、AirPods：传感器与翻译（2022 – 2026）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods Pro 2</div>
+              <p>降噪能力翻倍，加入触控调节音量与自适应通透模式。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods Pro 2（USB-C）</div>
+              <p>换上 USB-C 接口，支持无损音频并提升防尘防水到 IP54。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods 4 / AirPods 4 ANC</div>
+              <p>首次把主动降噪下放到非入耳机型，是 Open-fit 降噪的第一次真正可用。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods Max（USB-C）</div>
+              <p>仅更换接口，硬件基本未变，被普遍认为是敷衍更新。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods Pro 3<span class="ah-tag">里程碑</span></div>
+              <p>降噪比 Pro 2 再强一倍，首次加入耳内心率传感与面对面对话的实时翻译，防水升至 IP57，售价维持 249 美元。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-03</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">AirPods Max 2</div>
+              <p>换上 H2 芯片，加入自适应音频、对话感知、语音隔离与实时翻译，价格继续维持 549 美元。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、HomePod：一次未竟的赌注（2017 – 2024）</h4>
+          <span class="ah-gh-n">5 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-06-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">HomePod 公布</div>
+              <p>WWDC 上发布，主打音质而非语音助手，定位与当时的智能音箱潮流不同。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2018-02-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">HomePod 开售</div>
+              <p>349 美元，市场反响明显不及预期。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-10-13</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">HomePod mini<span class="ah-tag">关键</span></div>
+              <p>99 美元，用 U1 超宽带芯片实现手机「接力」。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-03-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">HomePod 停产</div>
+              <p>苹果停产初代，把智能音箱交给 mini 一条线。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-01-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">HomePod（二代）</div>
+              <p>回归并加入温湿度传感与 Thread 边界路由，重新成为智能家居中枢的候选。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>四、Apple TV：从「业余爱好」到客厅中枢（2007 – 2022）</h4>
+          <span class="ah-gh-n">7 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2007-01-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple TV（初代）</div>
+              <p>与 iPhone 同日发布，乔布斯称之为「业余爱好」，一台把 iTunes 内容搬上电视的盒子。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2010-09-01</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple TV 2</div>
+              <p>变小、变便宜，放弃内置存储改走流媒体租赁路线。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-03-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple TV 3</div>
+              <p>支持 1080p 输出。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-10-30</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple TV 4<span class="ah-tag">关键</span></div>
+              <p>首次引入 tvOS 与 App Store，配 Siri Remote 与体感游戏，从播放器变成平台。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-09-22</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple TV 4K</div>
+              <p>支持 4K HDR 与杜比视界。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-04-30</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple TV 4K（二代）</div>
+              <p>A12 芯片，支持高帧率 HDR 与用 iPhone 做屏幕色彩校准。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-11-04</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple TV 4K（三代）</div>
+              <p>A15 芯片，机身缩小并去掉风扇，128GB 版带 Thread 与网口。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>AirPods 已成为苹果最成功的配件线；HomePod 与 Apple TV 则长期停留在「生态补位」的位置，没有变成独立生意。</div>
+    </section>
+    <section class="ah-panel" id="ahp-spatial" role="tabpanel" aria-label="空间计算">
+      <h3 class="ah-lt">空间计算<span class="ah-lt-n">15 条</span></h3>
+      <p class="ah-lt-sub">苹果下一个十年的赌注：把屏幕从墙上拿下来，放进视野里</p>
+      <div class="ah-lt-span">2015 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、十年铺垫（2015 – 2022）</h4>
+          <span class="ah-gh-n">4 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">收购 Metaio</div>
+              <p>苹果买下德国 AR 引擎公司，团队成为后续 ARKit 的核心。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-06-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">ARKit 发布<span class="ah-tag">关键</span></div>
+              <p>WWDC 2017 把 AR 能力开放给所有 iPhone 与 iPad 开发者，为头显提前积累内容生态。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">收购 NextVR</div>
+              <p>拿下体育与演出的 VR 直播技术。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">向董事会演示成品</div>
+              <p>据后续报道，苹果在 2022 年 5 月首次向董事会演示了完成度较高的头显。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、Vision Pro 与 visionOS（2023 – 2024）</h4>
+          <span class="ah-gh-n">4 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-06-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Vision Pro 发布<span class="ah-tag">里程碑</span></div>
+              <p>WWDC 2023 的「One more thing」：苹果首款空间计算设备，3499 美元，M2 加 R1 双芯片，靠眼睛、手势与语音操作。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-02-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">美国上市</div>
+              <p>首批仅在美国发售，苹果门店提供预约试戴。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-06-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">进入更多市场</div>
+              <p>中国内地、中国香港、日本、新加坡等 9 个市场同步开卖。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Mac 超宽屏虚拟显示<span class="ah-tag">关键</span></div>
+              <p>把 Mac 桌面以超宽屏形式投到头显里，成为用户口碑最好的功能。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、M5 与当下（2025 – 2026）</h4>
+          <span class="ah-gh-n">7 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">visionOS 26</div>
+              <p>引入常驻小组件、升级版 Persona、新的 Jupiter 环境，Apple Intelligence 支持更多语言。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-10-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M5 版 Vision Pro<span class="ah-tag">关键</span></div>
+              <p>换装 M5 芯片并捆绑新的 Dual Knit Band 双层头带，渲染像素提升约 10%、支持最高 120Hz，AI 性能显著提升；10 月 22 日开售。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-01</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">沉浸式体育直播</div>
+              <p>Spectrum Front Row 把湖人队比赛以 3D 图形加空间音频的形式带进 Vision Pro。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-05-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">无障碍能力扩展</div>
+              <p>苹果加入盲文访问与无障碍阅读器，并支持脑机接口、吹吸式开关等控制方式。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-06-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">WWDC 2026：visionOS 27<span class="ah-tag">关键</span></div>
+              <p>Siri AI 以悬浮 3D 形态进入头显；新增全景照片转空间场景、曲面窗口，以及把 Mac 三维内容实时送入头显的 Spatial Preview。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-14</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">visionOS 27 正式版</div>
+              <p>与其他系统同日推送。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">硬件层面静默</div>
+              <p>M5 版仍是唯一在售机型，苹果 2026 年没有发布任何新头显硬件，研发重心已转向无显示的 AI 智能眼镜。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>硬件停在 M5 一代，软件按年度正常更新；苹果把下一步放在更轻的 AI 智能眼镜上，下一代头显传闻推迟到 2027 年之后。</div>
+    </section>
+    <section class="ah-panel" id="ahp-chip" role="tabpanel" aria-label="自研芯片">
+      <h3 class="ah-lt">自研芯片<span class="ah-lt-n">45 条</span></h3>
+      <p class="ah-lt-sub">苹果最重要的一次垂直整合：从买别人的芯片，到定义整条计算曲线</p>
+      <div class="ah-lt-span">2010 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、A 系列：移动芯片的十年领跑（2010 – 2019）</h4>
+          <span class="ah-gh-n">12 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2008-04-23</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">收购 P.A. Semi</div>
+              <p>苹果买下这家做低功耗 PowerPC 的芯片公司，成为自研芯片的起点。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2010-04-03</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A4<span class="ah-tag">关键</span></div>
+              <p>随初代 iPad 首发，之后用于 iPhone 4，是苹果第一款自主设计的 SoC。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2011-03-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A5</div>
+              <p>首款双核，用于 iPad 2 与 iPhone 4S。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-03-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A5X</div>
+              <p>为 iPad 的视网膜屏加装四核 GPU。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A6</div>
+              <p>苹果自研 CPU 架构首次登场。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2013-09-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A7<span class="ah-tag">里程碑</span></div>
+              <p>全球首款 64 位移动处理器，同时引入 M7 运动协处理器，为 Touch ID 提供安全基础。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2014-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A8 / A8X</div>
+              <p>采用 20nm 工艺，A8X 用于 iPad Air 2。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A9 / A9X</div>
+              <p>性能大幅跃升，A9X 第一次让 iPad 的性能逼近笔记本。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A10 Fusion</div>
+              <p>首次采用大小核结构。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A11 Bionic<span class="ah-tag">里程碑</span></div>
+              <p>首个搭载神经网络引擎的芯片，为 Face ID 与 AR 提供算力，AI 从此时进入手机。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2018-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A12 Bionic</div>
+              <p>业界首批 7nm 芯片。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-09-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A13 Bionic</div>
+              <p>苹果称之为当时最快的智能手机芯片。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、A 系列：5nm 到 2nm（2020 – 2026）</h4>
+          <span class="ah-gh-n">8 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-09-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A14</div>
+              <p>首批 5nm 移动芯片，用于 iPad Air 4 与 iPhone 12。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-09-14</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A15</div>
+              <p>用于 iPhone 13 系列，能效比成为主要卖点。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A16</div>
+              <p>用于 iPhone 14 Pro，性能提升相对保守。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A17 Pro<span class="ah-tag">关键</span></div>
+              <p>首批 3nm 芯片，加入硬件光线追踪与 USB 3 控制器。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A18 / A18 Pro</div>
+              <p>为 Apple Intelligence 重新设计内存带宽与神经网络引擎。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A19 / A19 Pro</div>
+              <p>用于 iPhone 17 系列与 iPhone Air。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-03-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A19 + C1X</div>
+              <p>入门机型 iPhone 17e 沿用 A19 并搭配自研基带。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">A20 Pro<span class="ah-tag">里程碑</span></div>
+              <p>首批 2nm 手机芯片，用于 iPhone 18 Pro 与折叠屏 iPhone Duo；同代架构也衍生出手表用的 S11。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、M 系列：Mac 的第二次创业（2020 – 2026）</h4>
+          <span class="ah-gh-n">16 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-06-22</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">宣布自研<span class="ah-tag">里程碑</span></div>
+              <p>WWDC 宣布 Mac 转向 Apple silicon，计划两年内完成迁移。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-11-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M1<span class="ah-tag">里程碑</span></div>
+              <p>5nm、8 核 CPU；连无风扇的 MacBook Air 也全面超越前代 Intel 机型，续航翻倍。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-10-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M1 Pro / M1 Max</div>
+              <p>面向专业笔记本，内存带宽最高 400GB/s。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-03-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M1 Ultra<span class="ah-tag">关键</span></div>
+              <p>用 UltraFusion 把两颗 M1 Max 拼成一颗，用拼接换规模。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-06-06</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M2</div>
+              <p>第二代芯片，用于重新设计的 MacBook Air。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-01-17</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M2 Pro / M2 Max</div>
+              <p>用于 MacBook Pro 与 Mac mini。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-06-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M2 Ultra</div>
+              <p>首颗用于 Mac Pro 的自研芯片，完成 Mac 全线迁移。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-10-30</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M3 家族</div>
+              <p>首批 3nm 桌面芯片，引入硬件光追与动态缓存。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-03-04</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M3</div>
+              <p>下放到 MacBook Air。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-05-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M4</div>
+              <p>随 iPad Pro 首发，后用于 Mac 全线。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-10-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M4 Pro / M4 Max</div>
+              <p>支持雷雳 5，内存带宽继续提高。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-03-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M3 Ultra</div>
+              <p>随 Mac Studio 登场，支持 512GB 统一内存，成为本地大模型的热门平台。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-10-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M5<span class="ah-tag">关键</span></div>
+              <p>首个在 GPU 每颗核心内集成神经加速器的 M 系列芯片；首发 14 英寸 MacBook Pro，同步用于 iPad Pro 与 Vision Pro。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-03</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M5 Pro / M5 Max<span class="ah-tag">关键</span></div>
+              <p>苹果首次提出 Fusion 架构与「超级核心」，两者均配 6 个超级核心加 12 个性能核心。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-08-25</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M6<span class="ah-tag">关键</span></div>
+              <p>苹果首款 2nm 芯片，却首发在 899 美元起的 Mac mini 上——最便宜的 Mac 用上了最新工艺。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-08-25</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">M5 Ultra</div>
+              <p>36 核 CPU、最高 80 核 GPU、512GB 统一内存，用于 Mac Studio；同代尚无 M6 Ultra。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>四、围绕主芯片的一圈自研配套</h4>
+          <span class="ah-gh-n">9 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-09-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">W1</div>
+              <p>AirPods 的无线音频芯片，解决蓝牙配对的易用性问题。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-10-27</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">T1</div>
+              <p>为 MacBook Pro 的 Touch Bar 提供指纹与安全功能。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-09-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">U1</div>
+              <p>超宽带芯片，用于 AirDrop 定向与空间感知，是后来「精确查找」的基础。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-11-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">安全隔区</div>
+              <p>M1 内置安全隔区，Mac 首次具备与 iPhone 同级的硬件安全体系。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-06-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">R1<span class="ah-tag">关键</span></div>
+              <p>Vision Pro 的专用协处理器，把摄像头与传感器延迟压到 12 毫秒。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">S10</div>
+              <p>用于 Apple Watch Series 10，为后续 5G 与健康功能打底。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-02-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">C1<span class="ah-tag">里程碑</span></div>
+              <p>苹果首款自研 5G 基带，首发于 iPhone 16e，结束对高通的完全依赖。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">N1 + C1X<span class="ah-tag">关键</span></div>
+              <p>N1 是自研 Wi-Fi 7 与蓝牙 6 芯片，C1X 比 C1 省电 30%；首发于 iPhone Air 与 iPhone 17 系列。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">S11 + C2</div>
+              <p>S11 从 A20 Pro 架构衍生，支撑每 5 秒一次的心率采样；C2 是 iPhone Duo 搭载的新一代自研基带。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>苹果现在同时销售四代芯片：M5、M5 Pro / Max、M5 Ultra 与 M6；最新工艺先进了最便宜的 Mac，最贵的 Mac 反而在用上一代架构。</div>
+    </section>
+    <section class="ah-panel" id="ahp-software" role="tabpanel" aria-label="软件与服务">
+      <h3 class="ah-lt">软件与服务<span class="ah-lt-n">48 条</span></h3>
+      <p class="ah-lt-sub">从操作系统到订阅生态，苹果真正的护城河在这里</p>
+      <div class="ah-lt-span">1984 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、Mac 操作系统的四十二年</h4>
+          <span class="ah-gh-n">17 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">1984-01-24</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">System 1<span class="ah-tag">里程碑</span></div>
+              <p>随初代 Macintosh 发布，是第一个用图形界面取代命令行的量产系统。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1988-04</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">System 6</div>
+              <p>稳定高效，成为当时口碑最好的一代 Mac 系统。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1991-05-13</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">System 7</div>
+              <p>引入虚拟内存、文件共享与真彩色显示。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1997-07-26</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Mac OS 8</div>
+              <p>乔布斯回归后的第一个系统，改良了 Finder 的多任务处理。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1999-10-23</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Mac OS 9</div>
+              <p>旧架构的终章，也是「经典 Mac OS」的最后一代。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2001-03-24</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Mac OS X 10.0 Cheetah<span class="ah-tag">里程碑</span></div>
+              <p>换用 Unix 内核（Darwin）与全新 Aqua 界面，是 Mac 的第二次重生。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2002-08-23</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Jaguar</div>
+              <p>引入 Quartz Extreme 图形加速与手写识别。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2003-10-24</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Panther</div>
+              <p>首次内置 Safari，带来 Exposé 与快速用户切换。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2005-04-29</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Tiger</div>
+              <p>引入 Spotlight、Dashboard 与 Core Image。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2007-10-26</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Leopard<span class="ah-tag">关键</span></div>
+              <p>全新 Dock 与 Stacks，加上 Time Machine 备份。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2009-08-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Snow Leopard</div>
+              <p>专注底层优化而非新功能，是「少加功能、多修地基」的经典案例。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2011-07-20</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Lion</div>
+              <p>引入全屏应用、Mission Control 与手势操作。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-07-25</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">改用加州地名</div>
+              <p>从 Mountain Lion 起命名规则改为加州地名，延续至今。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-10-07</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Catalina</div>
+              <p>终结 32 位应用，同时用 Catalyst 打通 iPad 应用。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-11-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">macOS Big Sur<span class="ah-tag">关键</span></div>
+              <p>首个支持 Apple silicon 的 macOS，界面全面改版。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">macOS 26 Tahoe<span class="ah-tag">关键</span></div>
+              <p>采用「Liquid Glass」玻璃质感设计，也是最后一版支持 Intel Mac 的系统。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-14</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">macOS 27 Golden Gate<span class="ah-tag">里程碑</span></div>
+              <p>只支持 Apple silicon，把 Siri AI 直接嵌进 Spotlight；同时也是最后一版完整支持 Rosetta 2 的系统。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、iOS 与移动系统的版本史</h4>
+          <span class="ah-gh-n">20 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2007-06-29</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone OS 1</div>
+              <p>没有 App Store、没有复制粘贴，第三方只能用网页应用。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2008-07-11</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone OS 2<span class="ah-tag">里程碑</span></div>
+              <p>随 App Store 上线，「iPhone 软件」从此成为一门生意。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2009-06-17</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iPhone OS 3</div>
+              <p>加入复制粘贴、彩信与 Spotlight 搜索。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2010-06-21</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 4<span class="ah-tag">关键</span></div>
+              <p>正式改名 iOS，首次支持多任务与文件夹。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2011-10-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 5<span class="ah-tag">关键</span></div>
+              <p>引入 iMessage、通知中心与 iCloud，从此不再需要电脑才能激活。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2012-09-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 6</div>
+              <p>苹果地图取代 Google 地图，随即遭遇公开道歉。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2013-09-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 7<span class="ah-tag">里程碑</span></div>
+              <p>艾维主导的扁平化重设计，彻底改写了整个行业的视觉语言。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2014-09-17</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 8</div>
+              <p>开放键盘、分享面板与 HealthKit 等系统扩展。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-09-16</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 9</div>
+              <p>重点转向稳定性与低电量模式。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2016-09-13</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 10</div>
+              <p>锁屏与信息应用大改，Siri 首次向第三方开放。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2017-09-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 11</div>
+              <p>引入 ARKit，iPad 获得 Dock 与拖放。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2018-09-17</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 12</div>
+              <p>主打性能优化，旧机型明显变快。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-09-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 13<span class="ah-tag">关键</span></div>
+              <p>深色模式与「通过 Apple 登录」。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-09-16</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 14</div>
+              <p>主屏小组件、App 资源库与画中画。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2021-09-20</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 15</div>
+              <p>专注模式、实况文本与 FaceTime 链接分享。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-09-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 16</div>
+              <p>锁屏首次可以自定义并放置小组件。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2023-09-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 17</div>
+              <p>待机显示、名片投送与 NameDrop。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-09-16</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 18<span class="ah-tag">关键</span></div>
+              <p>架构为 Apple Intelligence 让路，同时开放主屏自由布局。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2025-09-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 26<span class="ah-tag">里程碑</span></div>
+              <p>命名规则改为年份，界面全面换成 Liquid Glass 玻璃质感。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-14</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iOS 27<span class="ah-tag">关键</span></div>
+              <p>全新 Siri AI 与独立 Siri App 落地，支持 iPhone 11 及更新机型。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、服务：从卖硬件到卖订阅</h4>
+          <span class="ah-gh-n">11 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2001-01-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iTunes</div>
+              <p>苹果第一款真正的消费软件，把 Mac 变成家庭音乐中枢。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2003-04-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iTunes 音乐商店<span class="ah-tag">关键</span></div>
+              <p>0.99 美元一首单曲，重塑整个唱片业的定价规则。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2008-07-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">App Store<span class="ah-tag">里程碑</span></div>
+              <p>以 500 款应用起步，后来成为全球最大的软件分发渠道之一。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2011-06-06</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">iCloud<span class="ah-tag">关键</span></div>
+              <p>在 WWDC 2011 发布，把同步与备份做成系统级能力。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2014-06-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Swift / HealthKit / HomeKit</div>
+              <p>WWDC 2014 一次发布新编程语言与两个新平台框架。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2015-06-30</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple Music</div>
+              <p>苹果亲自下场做流媒体音乐。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-03-25</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">服务发布会<span class="ah-tag">关键</span></div>
+              <p>一口气推出 Apple News+、Arcade、TV+ 与 Apple Card，正式宣告向服务转型。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2019-11-01</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple TV+</div>
+              <p>上线原创剧集，《晨间直播秀》等成为主打。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-09-15</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple Fitness+ / Apple One</div>
+              <p>订阅打包成为苹果服务收入的核心结构。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-06-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple Intelligence<span class="ah-tag">里程碑</span></div>
+              <p>WWDC 2024 发布个人化 AI 体系，苹果正式进入生成式 AI 时代。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-06-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Siri AI 重建<span class="ah-tag">里程碑</span></div>
+              <p>WWDC 2026 发布彻底重写的 Siri：能读屏、能追问、跨设备同步，并推出独立的 Siri App。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>系统每年一版、服务按订阅打包；2026 年的分界线是 macOS Golden Gate 彻底告别 Intel，以及 Siri 的重写落地。</div>
+    </section>
+    <section class="ah-panel" id="ahp-company" role="tabpanel" aria-label="公司与人物">
+      <h3 class="ah-lt">公司与人物<span class="ah-lt-n">27 条</span></h3>
+      <p class="ah-lt-sub">五十年里，苹果换过四位实际掌权者，也被自己救过两次</p>
+      <div class="ah-lt-span">1976 – 2026</div>
+      <details class="ah-group" open>
+        <summary class="ah-gh">
+          <h4>一、三个人与一间车库（1976 – 1980）</h4>
+          <span class="ah-gh-n">4 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">1976-04-01</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">苹果成立<span class="ah-tag">里程碑</span></div>
+              <p>乔布斯、沃兹尼亚克与罗恩·韦恩三人合伙创立，编号 1 的 Apple I 由沃兹手工焊装。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1976-04-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">韦恩退出</div>
+              <p>他以 800 美元卖掉自己 10% 的股份，这批股票后来的价值以千亿美元计。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1977-01-03</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">苹果电脑公司正式注册<span class="ah-tag">关键</span></div>
+              <p>从车库搬进库比蒂诺的办公室，投资人马库拉成为第三位关键人物。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1980-12-12</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">上市<span class="ah-tag">里程碑</span></div>
+              <p>IPO 每股 22 美元，当日收盘市值约 17.8 亿美元，是当时规模最大的 IPO 之一。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>二、权力更迭与迷失（1983 – 1997）</h4>
+          <span class="ah-gh-n">9 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">1983-04-08</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">斯卡利出任 CEO</div>
+              <p>乔布斯从百事可乐挖来约翰·斯卡利，留下那句「你是想卖一辈子糖水，还是想改变世界」。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1985-05-31</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">乔布斯被剥夺职权</div>
+              <p>董事会站在斯卡利一边，乔布斯失去 Macintosh 部门的领导权。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1985-09-17</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">乔布斯辞职<span class="ah-tag">关键</span></div>
+              <p>他带着五名员工离开，创立 NeXT。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1986-01-30</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">收购 Pixar</div>
+              <p>乔布斯以 1000 万美元买下卢卡斯影业的图形部门，后者成为皮克斯动画。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1993-06-18</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">斯卡利离任</div>
+              <p>市场份额持续下滑，斯平德勒接任，三年后换成阿梅里奥。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1993-08-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Newton 上市</div>
+              <p>苹果首款 PDA，理念超前但商业失败，1998 年被乔布斯砍掉。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1996-12-20</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">收购 NeXT<span class="ah-tag">里程碑</span></div>
+              <p>苹果以约 4.29 亿美元收购 NeXT，乔布斯以顾问身份回归。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1997-07-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">乔布斯出任临时 CEO<span class="ah-tag">关键</span></div>
+              <p>阿梅里奥辞职，乔布斯在两个月内完成了对管理层的清洗。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">1997-08-06</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">微软注资 1.5 亿美元<span class="ah-tag">关键</span></div>
+              <p>波士顿 Macworld 上，盖茨的巨幅影像出现在大屏幕上——苹果活了下来。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>三、从谷底到万亿（1998 – 2011）</h4>
+          <span class="ah-gh-n">6 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">1998-05-06</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">「聚焦」四格矩阵<span class="ah-tag">关键</span></div>
+              <p>乔布斯砍掉 70% 的产品线，只留下消费级与专业级各两台机器，是苹果史上最重要的一次减法。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2000-01-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">去掉「临时」</div>
+              <p>乔布斯正式成为苹果 CEO。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2001-05-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">首家 Apple Store<span class="ah-tag">关键</span></div>
+              <p>弗吉尼亚州 Tysons Corner 开业，零售从此成为苹果品牌体验的一部分。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2007-01-09</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">公司改名<span class="ah-tag">关键</span></div>
+              <p>Apple Computer 正式改为 Apple Inc.，电脑不再等于苹果。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2011-08-24</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">乔布斯辞任 CEO<span class="ah-tag ah-tag-blue">换帅</span></div>
+              <p>库克接任，乔布斯转任董事会主席。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2011-10-05</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">乔布斯逝世<span class="ah-tag">关键</span></div>
+              <p>终年 56 岁，苹果总部降半旗。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <details class="ah-group">
+        <summary class="ah-gh">
+          <h4>四、库克时代（2011 – 2026）</h4>
+          <span class="ah-gh-n">8 条</span>
+          <i class="ah-gh-a" aria-hidden="true"></i>
+        </summary>
+        <ul class="ah-tl">
+          <li class="ah-ev">
+            <div class="ah-ev-d">2014-05-28</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">收购 Beats</div>
+              <p>30 亿美元，苹果史上最大一笔收购，换来耳机产品线与 Apple Music 的班底。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2018-08-02</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">市值破 1 万亿美元<span class="ah-tag">里程碑</span></div>
+              <p>成为全球首家达到该量级的公司。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2020-08-19</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">市值破 2 万亿美元</div>
+              <p>距 1 万亿仅用两年。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2022-01-03</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">市值一度破 3 万亿美元</div>
+              <p>盘中触及，成为首家到达这一量级的企业。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2024-06-10</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">Apple Intelligence<span class="ah-tag">关键</span></div>
+              <p>库克时代最重要的技术转向，把 AI 放到系统层而不是单个应用里。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-04-20</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">宣布换帅<span class="ah-tag ah-tag-blue">换帅</span></div>
+              <p>苹果宣布库克将于 9 月 1 日辞去 CEO、转任执行董事长，由硬件工程负责人约翰·特努斯接任。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026-09-01</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">特努斯就任第 8 任 CEO<span class="ah-tag ah-tag-blue">换帅</span></div>
+              <p>库克转任执行董事长，董事会从 8 人扩至 9 人。</p>
+            </div>
+          </li>
+          <li class="ah-ev">
+            <div class="ah-ev-d">2026</div>
+            <div class="ah-ev-b">
+              <div class="ah-ev-t">内存涨价与供应链</div>
+              <p>AI 数据中心大量抢购内存，直接推高 Mac 与 iPad 售价，成为特努斯上任后的第一道难题。</p>
+            </div>
+          </li>
+        </ul>
+      </details>
+      <div class="ah-now"><b>现状</b>2026 年 9 月 1 日，约翰·特努斯成为第八任 CEO，库克转任执行董事长——五十年里，苹果第一次把指挥棒交给一位硬件工程师。</div>
+    </section>
+    </div>
+  </div>
+  </section>
+
+  <section class="ah-sec">
+    <h2 class="ah-sec-title">三位掌门人</h2>
+    <p class="ah-sec-sub">五十年里，真正掌权的只有三个人。</p>
+    <div class="ah-ceo-row">
+      <div class="ah-ceo">
+        <div class="ah-ceo-img">
+          <img src="img/apple/history/jobs.webp" alt="史蒂夫·乔布斯" width="352" height="430" loading="lazy" decoding="async">
+        </div>
+        <div class="ah-ceo-b">
+          <h3 class="ah-ceo-n">史蒂夫·乔布斯</h3>
+          <div class="ah-ceo-t">1976 – 1985 / 1997 – 2011</div>
+          <p>联合创始人，两次掌权。第一次做出 Macintosh，第二次用 iMac、iPod、iPhone 把苹果从破产边缘带回世界第一梯队。他的产品哲学是「做减法」，1998 年一次砍掉七成产品线。</p>
+        </div>
+      </div>
+      <div class="ah-ceo">
+        <div class="ah-ceo-img">
+          <img src="img/apple/history/cook.webp" alt="蒂姆·库克" width="352" height="430" loading="lazy" decoding="async">
+        </div>
+        <div class="ah-ceo-b">
+          <h3 class="ah-ceo-n">蒂姆·库克</h3>
+          <div class="ah-ceo-t">2011 – 2026</div>
+          <p>运营出身，把苹果做成一台精密机器：市值从 3000 亿做到最高触及 3 万亿美元，开辟 Apple Watch、AirPods、服务订阅与自研芯片四条新曲线，任内完成史上最大规模回购。</p>
+        </div>
+      </div>
+      <div class="ah-ceo">
+        <div class="ah-ceo-img">
+          <img src="img/apple/history/ternus.webp" alt="约翰·特努斯" width="352" height="430" loading="lazy" decoding="async">
+        </div>
+        <div class="ah-ceo-b">
+          <h3 class="ah-ceo-n">约翰·特努斯</h3>
+          <div class="ah-ceo-t">2026 –</div>
+          <p>2001 年加入苹果，长期负责硬件工程，主导了 Mac 转向自研芯片、iPhone 与 iPad 的结构设计。2026 年 9 月 1 日就任第八任 CEO，是苹果第一位工程师出身的掌门人。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ah-sec">
+    <h2 class="ah-sec-title">产品图集</h2>
+    <p class="ah-sec-sub">全部为真实照片，来源见下方「参考来源」。</p>
+    <div class="ah-gallery">
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/apple-garage.webp" alt="1976 · Apple I" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>1976 · Apple I</b>沃兹尼亚克手工焊装的 Apple I 电路板，苹果的第一件产品。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/apple-lisa.webp" alt="1983 · Apple Lisa" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>1983 · Apple Lisa</b>首款图形界面商用电脑，售价 9995 美元，为 Macintosh 探路。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/macintosh-1984.webp" alt="1984 · Macintosh" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>1984 · Macintosh</b>128KB 内存、9 英寸黑白屏，把图形界面第一次带给普通人。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/imac-g3.webp" alt="1998 · iMac G3" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>1998 · iMac G3</b>半透明一体机，砍掉软驱只留 USB，139 天卖出 80 万台。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/ipod-family.webp" alt="2001 起 · iPod 家族" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>2001 起 · iPod 家族</b>从初代到 nano、shuffle、touch，图为历代 iPod 并列。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/iphone-2007.webp" alt="2007 · 初代 iPhone" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>2007 · 初代 iPhone</b>智能手机时代由此开启；图为陈列于体验店的初代 iPhone。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/macbook-air.webp" alt="2008 · MacBook Air" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>2008 · MacBook Air</b>乔布斯在发布会上从牛皮纸信封里抽出它，「最薄笔记本」从此有了定义。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/ipad.webp" alt="2010 起 · iPad" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>2010 起 · iPad</b>苹果的第三类设备；图为历代 iPad 并列。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/apple-watch.webp" alt="2015 起 · Apple Watch" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>2015 起 · Apple Watch</b>苹果最完整的健康设备线；图为 Apple Watch Series 4。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/vision-pro.webp" alt="2024 · Vision Pro" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>2024 · Vision Pro</b>苹果首款空间计算设备，用眼睛、手势与语音取代鼠标键盘。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/jobs.webp" alt="史蒂夫·乔布斯" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>史蒂夫·乔布斯</b>1976 年联合创立苹果，1985 年离开，1997 年回归，2011 年逝世。</figcaption>
+      </figure>
+      <figure class="ah-fig">
+        <div class="ah-fig-img">
+          <img src="img/apple/history/cook.webp" alt="蒂姆·库克" width="800" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="ah-fig-cap"><b>蒂姆·库克</b>2011 年接任 CEO，把苹果做成市值数万亿美元的生态公司，2026 年转任执行董事长。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="ah-sec">
+    <h2 class="ah-sec-title">参考来源</h2>
+    <div class="ah-note">
+      <h3>本页信息如何核对</h3>
+      <ul>
+        <li><a href="https://www.apple.com.cn/newsroom/" target="_blank" rel="noopener nofollow">Apple Newsroom 官方新闻稿</a>——产品发布、规格与开售时间的权威出处。</li>
+        <li><a href="https://support.apple.com/zh-cn/109525" target="_blank" rel="noopener nofollow">Apple 支持 · 识别你的 AirPods / 机型年表</a>——耳机与配件各代推出年份的官方对照表。</li>
+        <li><a href="https://www.macrumors.com/" target="_blank" rel="noopener nofollow">MacRumors Buyer&#x27;s Guide</a>——各产品线的发布时间线与现售机型状态。</li>
+        <li><a href="https://www.macworld.com/article/671090/new-apple-products.html" target="_blank" rel="noopener nofollow">Macworld / Mac Observer 产品线盘点</a>——2026 年在售 Mac 与 iPad 产品线的交叉核对。</li>
+        <li><a href="https://en.wikipedia.org/wiki/List_of_iPhone_models" target="_blank" rel="noopener nofollow">Wikipedia · List of iPhone models 等机型年表</a>——历史机型发布日期与代际关系的交叉验证。</li>
+      </ul>
+      <ul>
+        <li>所有条目均标注具体日期；同一年内多个事件按月份排序，日期存疑的只写年份或月份。</li>
+        <li>历史产品照片来自 Wikimedia Commons（CC 授权），版权归原作者所有。</li>
+        <li>本页为个人整理的知识沉淀，如发现事实性错误欢迎指正。</li>
+      </ul>
+    </div>
+  </section>
+
+        <!-- AHUB:HIST:END -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部链接 -->
+  <div style="text-align:center; margin:40px 0;">
+    <a href="index.html" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;text-decoration:none;border-radius:var(--radius-sm);font-weight:600;">← 返回首页</a>
+  </div>
+
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/cybercab.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Cybercab · 自动驾驶出租车2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/cybertruck.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Cybertruck · 参数与科普2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/fsd.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">FSD 完全自动驾驶 · 特斯拉辅助驾驶中国进展2026实测避坑</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="tesla/megapack.html">
+        <span class="lx-related-board">特斯拉</span>
+        <span class="lx-related-name">Megapack · 商用储能系统2026实测避坑</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<script defer src="js/search.js" integrity="sha384-3KpCC/GBLYV2BSt+UaGvKf/NRA+RauFXazdBRhrJG4JaLORa24Nq+xJYYZfD9CBj" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-hiwNfwNRlQoKDn6+jedF53YoBbwGzKjjPchXEY4nBtlBCkFx5CamVC+sPdOJt+6j" crossorigin="anonymous"></script>
+<script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+<script defer src="js/auto_news_loader.js?v=h0fe7d2539f06" integrity="sha384-kwbQZlkQkiOPepF2f7v9HVVsk+Dq8CK3JFpu3tQhQ5AxmFKR26VtKIoHcdLOoK4d" crossorigin="anonymous"></script>
+<script>
+  if (typeof toggleHomeSection === 'undefined') {
+    function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
+  }
+</script>
+
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：<span id="lastNewsUpdate">2026-09-27</span></div>
+  </div>
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "苹果 · 在售新品与产品发展史｜龙兄知识库",
+      "url": "https://longxiong.vip/apple.html",
+      "description": "苹果新品实时监测：每日自动检索国内外权威媒体与爆料，汇总 iPhone 18 Pro/Pro Max、首款折叠屏 iPhone Duo、Apple Watch Series 12/Ultra 4、AirPods 5 等 2026 秋季发布会新品动态。"
+    }
+  ]
+}
+</script>
+
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+<script src="js/apple-tabs.js?v=hc090a662283a" defer integrity="sha384-vafOijnLssJXESYalD/D1YszHeLTPn6V8jpUQE6GC39zoNkHQwiw5MgiDVAhcwxB" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="js/site-live.js?v=h5f5aa76f6345" defer integrity="sha384-OsBrWXv9qet3CiZijogH5pg/MZLFcEQzyJjxAr2CvB8LElKTtALME/GcZnhRge/K" crossorigin="anonymous"></script>
+</body>
+</html>

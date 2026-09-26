@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+  <title>射阳生活指南｜龙兄知识库</title>
+<meta name="keywords" content="射阳生活指南,射阳,盐城,射阳办事,射阳站,射阳火车站,盐城站,丹顶鹤,黄海湿地,射阳大米,洋马菊花,龙兄知识库">
+
+<meta name="description" content="射阳 & 盐城生活指南：本地人整理的交通出行、办事指南、周边游与生活贴士。含射阳站坐车与盐城站换乘的走法、去盐城南洋机场的路线、医保社保与射阳县政务服务中心的通用办事思路、黄海湿地与丹顶鹤保护区观鸟、射阳大米与洋马菊花等本地特产。政策与班次请以官方最新公告为准。">
+
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=h4103c494c1c5" integrity="sha384-DX7sy5j+NpIug0xKE3WSjYq60Di0Smp7Vtwu15olBM+UDkm8IEfttyP/QTuxPfJ+" crossorigin="anonymous">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
+  <meta property="og:site_name" content="龙兄知识库">
+  <style>
+    .pitfall-hero {
+      text-align: center;
+      padding: 48px 20px 32px;
+    }
+    .pitfall-hero h1 {
+      margin-bottom: 12px;
+    }
+    .pitfall-hero p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+    .pitfall-list {
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+    .pitfall-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .pitfall-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255,140,0,0.1);
+    }
+    .pitfall-header {
+      padding: 20px 24px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .pitfall-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+    }
+    .pitfall-meta {
+      flex: 1;
+    }
+    .pitfall-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .pitfall-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pitfall-tag {
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .pitfall-tag.money { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.tesla { border-color: #e74c3c; color: #e74c3c; }
+    .pitfall-tag.agarwood { border-color: var(--gold); color: var(--gold); }
+    .pitfall-tag.bracelet { border-color: #9b59b6; color: #9b59b6; }
+    .pitfall-body {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .pitfall-body.open { display: block; }
+    .pitfall-body p {
+      margin-top: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pitfall-body p:first-child { margin-top: 20px; }
+    .pitfall-body blockquote {
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: rgba(255,140,0,0.08);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      color: var(--gold-light);
+      font-size: 0.95rem;
+    }
+    .pitfall-body blockquote strong {
+      color: var(--orange);
+    }
+    .pitfall-lesson {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(16,124,16,0.1);
+      border: 1px solid rgba(16,124,16,0.3);
+      border-radius: 8px;
+    }
+    .pitfall-lesson-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pitfall-lesson p {
+      margin: 0 !important;
+      color: var(--text) !important;
+    }
+    .pitfall-expand {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      padding-top: 4px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .pitfall-card.expanded .pitfall-expand {
+      transform: rotate(180deg);
+    }
+    .pitfall-divider {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 8px 0 24px;
+    }
+    .more-stories {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .more-stories span { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+  </style>
+
+<link rel="canonical" href="https://longxiong.vip/sheyang-guide.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="射阳生活指南｜龙兄知识库">
+<meta property="og:description" content="射阳 & 盐城生活指南：本地人整理的交通出行、办事指南、周边游与生活贴士。含射阳站坐车与盐城站换乘的走法、去盐城南洋机场的路线、医保社保与射阳县政务服务中心的通用办事思路、黄海湿地与丹顶鹤保护区观鸟、射阳大米与洋马菊花等本地特产。政策与班次请以官方最新公告为准。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/sheyang-guide.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="射阳生活指南｜龙兄知识库">
+<meta name="twitter:description" content="射阳 & 盐城生活指南：交通出行（射阳站坐车 / 盐城站换乘）、办事指南、周边游（黄海湿地 / 丹顶鹤保护区）与生活贴士，本地人整理的实用干货，政策以官方最新公告为准。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+<style>
+  /* 射阳生活指南 · 页面级样式（仅使用主题变量，自动跟随明暗主题） */
+  .guide-oneline{max-width:900px;margin:0 auto 16px;padding:14px 18px;border-radius:var(--radius);background:var(--bg-secondary);border-left:3px solid var(--gold);color:var(--text-secondary);font-size:.95rem;line-height:1.85}
+  .guide-oneline strong{color:var(--gold)}
+  .guide-lead{max-width:900px;margin:0 0 18px;color:var(--text-secondary);font-size:.95rem;line-height:1.85}
+  .guide-card-title{font-weight:700;color:var(--gold);font-size:1.02rem;line-height:1.5;margin:0 0 10px}
+  .guide-card p{margin:0 0 10px;color:var(--text-secondary);font-size:.92rem;line-height:1.85}
+  .guide-card p:last-child{margin-bottom:0}
+  .guide-card ul{margin:0 0 10px;padding-left:20px;color:var(--text-secondary);font-size:.92rem;line-height:1.85}
+  .guide-card li{margin-bottom:5px}
+  .guide-card a{color:var(--blue-light)}
+  .guide-card a:hover{color:var(--gold)}
+  .guide-figure{margin:0 0 14px;border-radius:var(--radius);overflow:hidden;background:var(--bg-secondary);border:1px solid var(--border)}
+  .guide-figure img{display:block;width:100%;height:220px;object-fit:cover;object-position:center 32%}
+  .guide-figure figcaption{font-size:.74rem;color:var(--text-muted);line-height:1.6;padding:8px 12px;border-top:1px solid var(--border);background:var(--bg-secondary)}
+  .guide-faq{border:1px solid var(--border);border-radius:var(--radius);background:var(--card);margin-bottom:12px;overflow:hidden}
+  .guide-faq>summary{cursor:pointer;padding:14px 18px;font-weight:600;color:var(--text);font-size:.95rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .guide-faq>summary::-webkit-details-marker{display:none}
+  .guide-faq>summary::after{content:'\25be';color:var(--text-muted);transition:transform var(--transition);flex:0 0 auto}
+  .guide-faq[open]>summary::after{transform:rotate(180deg)}
+  .guide-faq>div{padding:12px 18px 16px;border-top:1px solid var(--border);color:var(--text-secondary);font-size:.92rem;line-height:1.85}
+  @media(max-width:480px){.guide-figure img{height:180px}}
+</style>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="zisha.html">风物志</a></li>
+      <li><a href="tesla.html">车与数码</a></li>
+      <li><a href="console.html">游戏影游</a></li>
+      <li><a href="typhoon.html">射阳本地</a></li>
+      <li><a href="calendar.html">生活工具</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="health-tea.html">养生茶</a>
+          <a href="bracelet.html">文玩手串</a>
+          <a href="zisha.html">紫砂艺术</a>
+          <a href="solar-terms.html">节气物候</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="tesla.html">特斯拉</a>
+          <a href="apple.html">苹果</a>
+          <a href="ev-sales.html">新能源销量榜</a>
+          <a href="ev-charge.html">充电桩查询</a>
+          <a href="digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="console.html">主机图鉴</a>
+          <a href="games.html">玩过的游戏</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="marvel.html">漫威宇宙</a>
+          <a href="game-calendar.html">游戏发售日历</a>
+          <span class="nav-more-hd">射阳本地</span>
+          <a href="xintan-weather.html">农田气象</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="sheyang.html">射阳天气</a>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="sheyang-guide.html" class="active">射阳生活</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="tools.html">工具箱</a>
+          <a href="calendar.html">万年历</a>
+          <a href="gaokao.html">高考查分</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="notes.html">站长手记</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="changelog.html">更新日志</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="about.html">关于本站</a>
+          <a href="rss.xml">RSS 订阅</a>
+          <a href="reading.html">读书笔记</a>
+          <a href="methodology.html">知识管理</a>
+          <span class="nav-more-div"></span>
+          <a href="travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="health-tea.html">养生茶</a>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <a href="solar-terms.html">节气物候</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果</a>
+  <a href="ev-sales.html">新能源销量榜</a>
+  <a href="ev-charge.html">充电桩查询</a>
+  <a href="digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="console.html">主机图鉴</a>
+  <a href="games.html">玩过的游戏</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="game-calendar.html">游戏发售日历</a>
+  <span class="nav-hd">射阳本地</span>
+  <a href="xintan-weather.html">农田气象</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="sheyang.html">射阳天气</a>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="sheyang-guide.html">射阳生活</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="tools.html">工具箱</a>
+  <a href="calendar.html">万年历</a>
+  <a href="gaokao.html">高考查分</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="notes.html">站长手记</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="changelog.html">更新日志</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="about.html">关于本站</a>
+  <a href="rss.xml">RSS 订阅</a>
+  <a href="reading.html">读书笔记</a>
+  <a href="methodology.html">知识管理</a>
+  <span class="nav-hd-div"></span>
+  <a href="travel.html">家庭旅行</a>
+  </div>
+</nav>
+
+  <main id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">射阳本地</span><span class="sep">›</span><span class="current">生活指南</span></div>
+    <div class="container">
+      <div class="pitfall-hero">
+        <h1>射阳 &amp; 盐城生活指南</h1>
+        <p>本地人整理的办事、出行、周边游干货</p>
+      </div>
+
+      <p class="guide-oneline"><strong>一句话定位：</strong>给在射阳生活、或要到射阳 / 盐城办事、探亲、旅行的人看的一份实用清单——交通怎么走、事去哪儿办、周末去哪儿玩、本地有啥讲究，尽量一次说清。</p>
+
+      <div class="tip-box">本页为个人整理的本地信息，<strong>政策、班次、开放时间与票价等均可能变动，办理或出发前请以官方最新公告与实时导航为准</strong>；本页不提供具体窗口号与联系电话，请通过官方渠道查询。</div>
+
+      <section class="section-block" data-ac data-ac-body=".card-grid" data-ac-head=".section-title" data-ac-default="open" aria-label="交通出行">
+        <h2 class="section-title">🚌 交通出行</h2>
+        <p class="guide-lead">射阳县城到盐城市区约 50–60 公里（以实时导航为准）。先把三件事说清：<strong>射阳有火车站（射阳站），有 G / D / C 字头列车停靠，可以直接坐高铁出行</strong>；<strong>没有的是民用运输机场</strong>（有的是通用机场，不办民航客运），坐飞机仍要去盐城南洋国际机场；<strong>盐城北站 2019 年底已停办客运</strong>，去盐城坐车只认盐城站。以下几段是常见走法，具体班次请以官方实时查询为准。</p>
+        <div class="card-grid card-grid-2">
+          <div class="card guide-card">
+            <div class="guide-card-title">✈️ 去盐城南洋国际机场（YNZ）</div>
+            <p>盐城南洋国际机场位于盐城市区东侧。常规有两种走法：</p>
+            <ul>
+              <li><strong>射阳 → 盐城市区 → 机场</strong>：县城汽车客运站坐班车到盐城汽车站，再换乘机场大巴或出租车前往；</li>
+              <li><strong>射阳 → 盐城站 → 机场</strong>：先到盐城站，再打车或换乘机场大巴，两地相距十几公里。</li>
+            </ul>
+            <p>机场航线与班次相对有限，返程末班较早，务必提前查好当天时刻与是否停运。</p>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">🚄 坐火车 / 高铁：射阳站就能上车</div>
+            <p><strong>射阳有火车站</strong>：<strong>射阳站</strong>，位于海河镇条海村，2018 年 12 月 26 日随青盐铁路开通投用。站内停靠 <strong>G / D / C 字头</strong>列车，可直达北京南、上海虹桥 / 上海南、南京、青岛北、杭州西等方向——<strong>不必先跑到盐城</strong>。具体车次以实时查询为准。</p>
+            <ul>
+              <li>🔴 <strong>「能坐高铁」和「是高铁枢纽」是两回事</strong>：青盐铁路属<strong>国铁 I 级客货共线快速铁路，设计时速 200 公里</strong>，不是 350 的高铁专线。射阳站有高铁列车停靠，但线路等级与车次密度跟盐城站不在一个量级。</li>
+              <li>要去的方向车次不合适时，到<strong>盐城站</strong>换乘（徐盐高铁、盐通高铁与新长铁路交汇的综合客运枢纽）：县城客运站坐班车到盐城汽车站再换公交 / 打车，或直接网约车 / 自驾。</li>
+              <li>⚠️ <strong>盐城北站已经不办客运了</strong>：2019 年 12 月 30 日客运业务整体迁到盐城站，现在只办货运。老资料里让人去盐城北站坐车的，都是过期信息。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">🚏 本地公交与城乡班车</div>
+            <ul>
+              <li>县城公交覆盖主要街道、医院、学校与政务区域，票价便宜，可用手机地图查看实时到站；</li>
+              <li>去乡镇多靠城乡班车，<strong>班次较稀、末班偏早</strong>，出行前先确认返程时间；</li>
+              <li>县城打车 / 网约车较方便，夜间与偏远乡镇可能不太好叫车。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">🗺️ 去周边城市</div>
+            <ul>
+              <li><strong>盐城</strong>：走<strong>盐射高速</strong>约半小时（县城好几个出入口，主城区、新城区与港城上高速都很快）；也可坐班车或网约车。</li>
+              <li><strong>上海</strong>：射阳站有直达上海虹桥 / 上海南方向的车次；自驾走盐射高速接沈海高速，约 2 小时上下。</li>
+              <li><strong>南京</strong>：射阳站有直达南京的动车（部分车次）；自驾约 3 小时多。</li>
+              <li><strong>连云港 / 南通 / 淮安</strong>：射阳站本就在青盐线上，往连云港方向可直达；南通、淮安多数要到盐城换乘，或直接走高速。</li>
+            </ul>
+            <p>车次与路况随时会变，出发前请以实时查询与导航为准。</p>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="m-table">
+            <thead><tr><th>目的地</th><th>常规方式</th><th>提醒</th></tr></thead>
+            <tbody>
+              <tr><td>射阳站（本地）</td><td>县城到海河镇条海村；青盐铁路，有 G / D / C 字头停靠</td><td>直达北京、上海、南京、青岛、杭州等方向，以实时查询为准</td></tr>
+              <tr><td>盐城站（换乘）</td><td>走盐射高速约半小时；或班车 / 网约车</td><td>徐盐、盐通高铁交汇，换乘方向更多</td></tr>
+              <tr><td>盐城南洋机场</td><td>班车 / 自驾到盐城，再换机场大巴或打车</td><td>班次少，先查当天时刻</td></tr>
+              <tr><td>上海</td><td>射阳站直达；或自驾走盐射高速接沈海高速</td><td>节假日票紧，尽早订</td></tr>
+              <tr><td>南京</td><td>射阳站直达（部分车次）</td><td>车次不合适就到盐城换乘</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ref-note">铁路开通与站点信息出自<a href="https://www.sheyang.gov.cn/art/2022/12/30/art_33604_3947256.html" target="_blank" rel="noopener">射阳县人民政府官网</a>与公开铁路资料；<strong>车次、票价一律以铁路 12306 实时查询为准</strong>，盐射高速路况以实时导航为准。以上时间与方式为公开信息整理，实际以运营方公告为准。</p>
+      </section>
+
+      <section class="section-block" data-ac data-ac-body=".card-grid" data-ac-head=".section-title" data-ac-default="open" aria-label="办事指南">
+        <h2 class="section-title">🏛️ 办事指南</h2>
+        <p class="guide-lead">医保、社保、政务大厅这类事，共性只有三条：<strong>先线上确认政策与材料 → 网上预约 → 带齐身份证件</strong>。具体窗口、所需材料随政策变化，请以官方渠道最新公告为准。</p>
+        <div class="card-grid card-grid-2">
+          <div class="card guide-card">
+            <div class="guide-card-title">🏥 医保（异地就医、报销）</div>
+            <ul>
+              <li>异地就医一般要先<strong>线上备案</strong>（国家医保服务平台 App、江苏医保或盐城医保官方公众号），备案后持医保卡 / 电子凭证就医可直接结算；</li>
+              <li>未备案往往需要先自费垫付，再回参保地按规定报销，流程更长；</li>
+              <li>门诊慢特病、转诊等有额外要求，办前先在线或电话确认。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">🧾 社保（参保、转移、查询）</div>
+            <ul>
+              <li>缴费记录、参保证明：优先用「江苏智慧人社」App、电子社保卡、国家社会保险公共服务平台在线查询或打印；</li>
+              <li>跨省 / 跨市转移：通常线上申请即可，留意两地经办机构的审核进度；</li>
+              <li>灵活就业参保、补缴等政策各地差异大，先确认本地口径。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">🏢 射阳县政务服务中心</div>
+            <ul>
+              <li>多数事项已支持<strong>线上预约取号</strong>，先预约再到场，能省不少排队时间；</li>
+              <li>带好<strong>本人身份证</strong>及相关证件原件，必要时备好复印件；</li>
+              <li>「一件事一次办」类事项可在同一大厅联办，减少来回跑动；</li>
+              <li>不确定要带什么材料，先拨打 <strong>12345</strong> 问清楚再跑。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">✅ 通用四步</div>
+            <ul>
+              <li>① 先查：官方公众号 / 政务 App / 12345 确认政策与材料；</li>
+              <li>② 预约：能线上预约就先约，避开高峰时段；</li>
+              <li>③ 带齐：身份证 + 相关原件复印件，一次性带够；</li>
+              <li>④ 留痕：收好回执与受理单，记下办结时限和查询方式。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warning-box">政策、材料、收费与办结时限<strong>随时可能调整</strong>，本页仅提供通用思路，不构成办事依据；具体请以射阳县及盐城市官方发布的最新公告为准。</div>
+      </section>
+
+      <section class="section-block" data-ac data-ac-body=".card-grid" data-ac-head=".section-title" data-ac-default="open" aria-label="周边游">
+        <h2 class="section-title">🦩 周边游</h2>
+        <p class="guide-lead">射阳与盐城的看点，核心是<strong>黄海湿地</strong>这条世界自然遗产带：滩涂、候鸟、渔港。秋冬是观鸟季，出发前先看潮汐与天气。</p>
+        <div class="card-grid card-grid-2">
+          <div class="card guide-card">
+            <figure class="guide-figure">
+              <img src="img/sheyang-guide/crane.webp" alt="丹顶鹤：白色身体、黑色颈尾、头顶一抹红色，是盐城湿地珍禽国家级自然保护区的旗舰物种" width="768" height="1200" loading="lazy" decoding="async">
+              <figcaption>图：丹顶鹤（真实照片），来源 Kiddle / Wikimedia Commons</figcaption>
+            </figure>
+            <div class="guide-card-title">🕊️ 江苏盐城湿地珍禽国家级自然保护区</div>
+            <p>位于盐城沿海滩涂，是「中国黄（渤）海候鸟栖息地」世界自然遗产的组成部分。<strong>丹顶鹤</strong>是这里的标志性物种，每年秋冬有大批候鸟来此越冬。</p>
+            <ul>
+              <li>最佳季节：<strong>11 月至次年 2 月</strong>前后；</li>
+              <li>观鸟请勿投喂、勿喧哗、勿靠近惊扰，垃圾随身带走；</li>
+              <li>保护区有开放范围与时段，出发前请查官方公告。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <figure class="guide-figure">
+              <img src="img/sheyang-guide/spoonbill.webp" alt="勺嘴鹬：体型小巧的鹬类，喙端呈独特的勺状，迁徙时停歇于黄海滩涂" width="1400" height="934" loading="lazy" decoding="async">
+              <figcaption>图：勺嘴鹬（真实照片），来源 Kiddle / Wikimedia Commons</figcaption>
+            </figure>
+            <div class="guide-card-title">🌊 黄海湿地 · 条子泥滩涂</div>
+            <p>条子泥是「<strong>中国黄（渤）海候鸟栖息地（第一期）</strong>」世界自然遗产的核心区之一，退潮后滩涂辽阔，<strong>勺嘴鹬</strong>等极危候鸟会在此中转补给，是观鸟与拍鸟的热门去处（全球约 600 只勺嘴鹬，一半以上会来这一带）。</p>
+            <p>⚠️ <strong>位置要说清</strong>：条子泥在<strong>东台市弶港镇</strong>，属盐城最南端，<strong>不在射阳境内</strong>，从射阳过去要留出一段车程，别按「县城附近」安排行程。</p>
+            <ul>
+              <li>下滩前<strong>先查潮汐表</strong>，涨潮迅速，切勿深入；</li>
+              <li>滩涂松软，穿防滑鞋，不要单独行动；</li>
+              <li>核心区可能限制进入，以现场指引与官方公告为准。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <figure class="guide-figure">
+              <img src="img/sheyang-guide/siberian-crane.webp" alt="白鹤（西伯利亚鹤）：通体白色、面部与腿部呈红色，正在浅水中低头觅食" width="1050" height="1400" loading="lazy" decoding="async">
+              <figcaption>图：白鹤（西伯利亚鹤），真实照片，来源 Kiddle / Wikimedia Commons</figcaption>
+            </figure>
+            <div class="guide-card-title">🦢 湿地观鸟小贴士</div>
+            <p>除丹顶鹤外，盐城湿地也是<strong>白鹤</strong>、勺嘴鹬、黑嘴鸥等多种珍稀鸟类的栖息与中转地，观鸟讲究「远观不打扰」。</p>
+            <ul>
+              <li>带望远镜或长焦镜头，保持安全距离；</li>
+              <li>穿与环境相近的素色衣物，避免鲜艳颜色；</li>
+              <li>清晨与傍晚鸟类活动最活跃。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">⛵ 海边与渔港（黄沙港一带）</div>
+            <p>射阳临海，<strong>黄沙港</strong>是本地知名的渔港与海边去处：看渔船、吹海风、吃海鲜，退潮后的滩涂与潮沟也是很多人爱去的地方。</p>
+            <ul>
+              <li>渔港作业区、码头有安全管制，请按现场指示活动；</li>
+              <li>赶海务必看潮汐，涨潮前提前撤离；</li>
+              <li>海鲜即时价波动大，购买前先问清价格。</li>
+            </ul>
+            <p>县城内还有公园与广场等日常休闲去处，适合傍晚散步。</p>
+          </div>
+        </div>
+        <p class="ref-note">以上景点信息为公开常识整理，开放范围、门票与时段请以官方最新公告为准。</p>
+      </section>
+
+      <section class="section-block" data-ac data-ac-body=".card-grid" data-ac-head=".section-title" data-ac-default="open" aria-label="生活贴士">
+        <h2 class="section-title">🌾 生活贴士</h2>
+        <div class="card-grid card-grid-2">
+          <div class="card guide-card">
+            <div class="guide-card-title">🌦️ 气候：季风海洋性</div>
+            <p>射阳地处江苏沿海，气候带有明显的<strong>季风海洋性</strong>特征：四季分明、雨热同季，春秋较短，夏季湿热多雨，冬季湿冷；沿海多大风，夏秋易受台风外围影响。</p>
+            <ul>
+              <li>看农时与田间气象：<a href="xintan-weather.html">本站「农田气象」板块</a>；</li>
+              <li>台风季盯紧预警：<a href="typhoon.html">本站「台风监测」</a>；</li>
+              <li>日常天气：<a href="sheyang.html">射阳天气</a>。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">🗣️ 方言与沟通</div>
+            <p>射阳话大体属<strong>江淮官话（洪巢片）</strong>，与普通话的差异主要在声调、语速和部分日常称呼上。以<strong>黄沙港</strong>为界，以北偏滨阜口音（响水、滨海、阜宁一路），以南偏建盐口音（盐城、建湖一路）。</p>
+            <ul>
+              <li>🔴 <strong>射阳是个移民县，「射阳话」不止一种</strong>：民国初年张謇在苏北沿海推行「废灶兴垦」，招来大批启东、海门移民，沿海一带至今仍有人说<strong>启海话（沙地话，属吴语太湖片）</strong>——听着更接近崇明话、上海话，说江淮官话的本地人也不一定听得懂。</li>
+              <li>所以偶尔「听不懂」未必是普通话的问题，换个年轻人或换个说法通常就通了；</li>
+              <li>年轻人基本都能说普通话，办事、就医直接用普通话说明来意即可；</li>
+              <li>跟乡镇上年纪的人交流，讲慢一些、重复一遍通常都能沟通。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <figure class="guide-figure">
+              <img src="img/sheyang-guide/chrysanthemum.webp" alt="盛开的菊花：黄、白、玫红多色，射阳洋马镇以菊花种植与中药材闻名" width="1400" height="1040" loading="lazy" decoding="async">
+              <figcaption>图：菊花（真实照片），来源 Kiddle / Wikimedia Commons</figcaption>
+            </figure>
+            <div class="guide-card-title">🍚 本地特产</div>
+            <ul>
+              <li><strong>射阳大米</strong>：射阳是江苏重要的稻米产区，射阳大米为国家地理标志产品，米粒饱满、口感软糯；</li>
+              <li><strong>洋马菊花</strong>：射阳洋马镇以菊花种植闻名，既是观赏花卉，也是常用中药材，秋季菊花盛开时景色很好；</li>
+              <li>沿海还有海产品与水产养殖等特色，时令与价格以当地市场为准。</li>
+            </ul>
+          </div>
+          <div class="card guide-card">
+            <div class="guide-card-title">🧭 实用小贴士</div>
+            <ul>
+              <li>台风季关注预警，沿海大风天尽量少去滩涂与码头；</li>
+              <li>夏秋蚊虫多，去湿地、田间记得防蚊防晒；</li>
+              <li>赶海、观鸟先查潮汐与天气，安全永远第一；</li>
+              <li>办事、维权、咨询政策，先拨打 <strong>12345</strong>。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" aria-label="常见问题">
+        <h2 class="section-title">❓ 常见问题</h2>
+        <details class="guide-faq">
+          <summary>射阳有高铁站或机场吗？</summary>
+          <div><strong>有火车站，而且能坐高铁。</strong>射阳站（青盐铁路，2018 年 12 月 26 日随线路开通投用，位于海河镇条海村）停靠 G / D / C 字头列车，可直达北京南、上海虹桥 / 上海南、南京、青岛北、杭州西等方向，不必先跑盐城。但要说清一点：青盐铁路是<strong>设计时速 200 公里的国铁 I 级客货共线快速铁路</strong>，不是 350 的高铁专线——「有高铁停靠」和「家门口是高铁枢纽」是两回事，要换乘更多方向仍以盐城站为主。<br><strong>机场方面：</strong>射阳没有民用运输机场。盐城射阳通用机场是通用机场，做的是飞行培训、农林作业、应急救援这类通航业务，不卖民航客票；坐飞机要去<strong>盐城南洋国际机场</strong>，先到盐城市区再换乘。</div>
+        </details>
+        <details class="guide-faq">
+          <summary>从射阳到盐城、上海要多久？</summary>
+          <div>开车走<strong>盐射高速</strong>，约半小时到盐城市区；到上海约 2 小时上下，到南京约 3 小时多（均以实时导航为准）。坐火车的话，射阳站本身就有直达上海、南京方向的车次，不用先到盐城再转车。</div>
+        </details>
+        <details class="guide-faq">
+          <summary>去政务中心办事要带什么？</summary>
+          <div>以官方要求为准。通用做法是：先通过官方公众号、政务 App 或 12345 确认政策与材料，线上预约取号，到场带好本人身份证及相关证件原件（必要时备复印件），并保留受理回执。</div>
+        </details>
+        <details class="guide-faq">
+          <summary>什么时候去看丹顶鹤最好？</summary>
+          <div>秋冬（约 11 月至次年 2 月）是候鸟在盐城湿地越冬的高峰期，观鸟效果最好。出发前请确认保护区开放范围与时段，并遵守不投喂、不惊扰的原则。</div>
+        </details>
+      </section>
+    </div>
+  <!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="sheyang.html">
+        <span class="lx-related-board">射阳本地</span>
+        <span class="lx-related-name">射阳天气</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="xintan-weather.html">
+        <span class="lx-related-board">射阳本地</span>
+        <span class="lx-related-name">农田气象</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="typhoon.html">
+        <span class="lx-related-board">射阳本地</span>
+        <span class="lx-related-name">台风监测</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="travel.html">
+        <span class="lx-related-board">生活</span>
+        <span class="lx-related-name">家庭旅行</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+  <div class="page-meta">
+    <p class="ref-note">本页为个人整理的本地实用信息，政策与线路可能变动，办理前请以官方最新公告为准。</p>
+    <div class="update-time">最后更新：2026-09-25</div>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+  <script defer src="/js/board-nav.js" integrity="sha384-kWoaWbTHnvHifbNDKrVuaBoj2mrQZ12W9FktG5+HHHpA61ePgiPkJCCGwPlTUaC1" crossorigin="anonymous"></script>
+<script defer src="js/app.js" integrity="sha384-hiwNfwNRlQoKDn6+jedF53YoBbwGzKjjPchXEY4nBtlBCkFx5CamVC+sPdOJt+6j" crossorigin="anonymous"></script>
+  <script defer src="js/search.js" integrity="sha384-3KpCC/GBLYV2BSt+UaGvKf/NRA+RauFXazdBRhrJG4JaLORa24Nq+xJYYZfD9CBj" crossorigin="anonymous"></script>
+  <script defer src="js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  <script defer src="js/interactions.js" integrity="sha384-AGS8xO6XpKdkUK7KbSpFuYc0tDfhZz9tg6hskjwkLO5TLazy+0p+erOs6oXk8DGG" crossorigin="anonymous"></script>
+  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "射阳生活指南｜龙兄知识库",
+      "url": "https://longxiong.vip/sheyang-guide.html",
+      "description": "射阳 & 盐城生活指南：交通出行、办事指南、周边游（黄海湿地 / 丹顶鹤保护区）与生活贴士，本地人整理的实用干货，政策以官方最新公告为准。"
+    }
+  ]
+}
+</script>
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="js/site-live.js?v=h5f5aa76f6345" defer integrity="sha384-OsBrWXv9qet3CiZijogH5pg/MZLFcEQzyJjxAr2CvB8LElKTtALME/GcZnhRge/K" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>星月菩提选购指南｜龙兄知识库</title>
+<meta name="keywords" content="星月菩提,选购指南,毛感料,海南料,老挝料,三国料,正月,弦月,无月,星点,密度,沉水,干磨,水磨,漂白,洗月,尺寸,价位,料性,原生态,脱脂,玉化,全玉化,半玉化,石玉料,阴皮,留白,陈籽,无相,品牌分级,龙兄知识库">
+
+<meta name="description" content="星月菩提买之前要过的四关：料（海南毛感料／老挝料／三国料）、月（正月／弦月／无月）、星（星点口诀）、密度（四看一敲与沉水误区）；再加上最容易被绕晕的料性话术——原生态／脱脂／染色、顺白／阴皮／玉化／留白其实分属三个不同维度，「全玉化」为什么不能当等级、品牌分级又是谁定的。附干磨水磨与漂白辨别、尺寸规格与价位锚。">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="../js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="../css/style.css?v=h4103c494c1c5" integrity="sha384-DX7sy5j+NpIug0xKE3WSjYq60Di0Smp7Vtwu15olBM+UDkm8IEfttyP/QTuxPfJ+" crossorigin="anonymous">
+<style>
+  /* 星月菩提（选购）页特定样式 —— 2026-09-22 重写：只讲「买之前」的事，
+     盘玩与保养全部移到 quanao.html，两页零重复章节。 */
+  .bl-lead {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 18px 22px;
+  }
+  .bl-lead p { margin: 0; color: var(--text-secondary); line-height: 1.9; font-size: 0.93rem; }
+  .bl-lead strong { color: var(--text); }
+
+  /* 产地三档 */
+  .src-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0 4px; }
+  .src-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .src-card.is-top { border-top-color: #c9a84c; }
+  .src-card.is-mid { border-top-color: #9a8b62; }
+  .src-card.is-low { border-top-color: #7d6a5c; }
+  .src-card .rank { font-size: 0.68rem; letter-spacing: 1px; color: var(--text-muted); }
+  .src-card h3 { font-size: 0.96rem; font-weight: 700; margin: 4px 0 8px; color: var(--gold); }
+  .src-card p { font-size: 0.81rem; color: var(--text-secondary); line-height: 1.75; margin: 0; }
+  .src-card .price { display: block; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 0.75rem; color: var(--text-muted); }
+
+  /* 月相分级 */
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 4px; }
+  .tier-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .tier-card.is-ok { border-left-color: #c9a84c; }
+  .tier-card.is-mid { border-left-color: #9a8b62; }
+  .tier-card.is-no { border-left-color: #c0554d; }
+  .tier-card h3 { font-size: 0.94rem; margin: 0 0 6px; color: var(--text); }
+  .tier-card p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+
+  /* 口诀框 */
+  .mnemo {
+    background: rgba(201, 168, 76, 0.07);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .mnemo .mnemo-line {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    line-height: 2;
+  }
+  .mnemo ul { margin: 8px 0 0; padding-left: 20px; }
+  .mnemo li { color: var(--text-secondary); font-size: 0.84rem; line-height: 1.85; }
+  .mnemo strong { color: var(--text); }
+
+  /* 提示 / 澄清条 */
+  .note {
+    border-left: 3px solid var(--gold);
+    background: rgba(201, 168, 76, 0.05);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.85;
+  }
+  .note p { margin: 0; }
+  .note p + p { margin-top: 6px; }
+  .note strong { color: var(--text); }
+  .note ul { margin: 6px 0 0; padding-left: 20px; }
+  .note li { margin-bottom: 4px; }
+
+  /* 小节内的小标题统一收一点，避免与 h2 抢空间 */
+  .section h3 { font-size: 1rem; color: var(--gold); margin: 20px 0 10px; }
+
+  @media (max-width: 768px) {
+    .src-grid, .tier-grid { grid-template-columns: 1fr; }
+    .bl-lead { padding: 16px 18px; }
+    .mnemo .mnemo-line { font-size: 0.92rem; letter-spacing: 1px; }
+    .note { padding: 12px 14px; font-size: 0.83rem; }
+  }
+  /* 实拍配图（2026-09-22 起）：站主自有实拍，点击可放大看星点与月眼细节 */
+  .bl-fig {
+    max-width: 640px;
+    margin: 20px auto 24px;
+    background: var(--card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .bl-fig img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+  .bl-fig figcaption {
+    padding: 11px 14px 13px;
+    font-size: 0.86rem;
+    line-height: 1.62;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+  }
+  .bl-fig figcaption strong { color: var(--gold); }
+  /* 成对实拍：始终两列并排（含手机端），覆盖下方 560px 单列规则 */
+  .bl-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 20px; }
+  .bl-figs figure { margin: 0; background: var(--card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; }
+  .bl-figs img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+  .bl-figs figcaption { padding: 10px 12px 12px; font-size: 0.84rem; line-height: 1.55; color: var(--text-muted); border-top: 1px solid var(--border-subtle); }
+  .bl-figs figcaption strong { color: var(--gold); }
+  @media (max-width: 560px) {
+    .bl-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .bl-figs figcaption { font-size: 0.72rem; }
+  }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+
+<link rel="canonical" href="https://longxiong.vip/bracelet/xingyue.html">
+<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<meta property="og:title" content="星月菩提选购指南｜龙兄知识库">
+<meta property="og:description" content="星月菩提买之前要过的四关：料（海南毛感料／老挝料／三国料）、月（正月／弦月／无月）、星（星点口诀）、密度（四看一敲与沉水误区）；再加上最容易被绕晕的料性话术——原生态／脱脂／染色、顺白／阴皮／玉化／留白其实分属三个不同维度，「全玉化」为什么不能当等级、品牌分级又是谁定的。附干磨水磨与漂白辨别、尺寸规格与价位锚。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/bracelet/xingyue.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="星月菩提选购指南｜龙兄知识库">
+<meta name="twitter:description" content="星月菩提买之前要过的四关：料（海南毛感料／老挝料／三国料）、月（正月／弦月／无月）、星（星点口诀）、密度（四看一敲与沉水误区）；再加上最容易被绕晕的料性话术——原生态／脱脂／染色、顺白／阴皮／玉化／留白其实分属三个不同维度，「全玉化」为什么不能当等级、品牌分级又是谁定的。附干磨水磨与漂白辨别、尺寸规格与价位锚。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="../calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <span class="nav-weather" id="navWeather" data-nav="../sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
+    <ul class="nav-links">
+      <li><a href="../zisha.html">风物志</a></li>
+      <li><a href="../tesla.html">车与数码</a></li>
+      <li><a href="../console.html">游戏影游</a></li>
+      <li><a href="../typhoon.html">射阳本地</a></li>
+      <li><a href="../calendar.html">生活工具</a></li>
+      <li><a href="../about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="../health-tea.html">养生茶</a>
+          <a href="../bracelet.html">文玩手串</a>
+          <a href="../zisha.html">紫砂艺术</a>
+          <a href="../solar-terms.html">节气物候</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="../tesla.html">特斯拉</a>
+          <a href="../apple.html">苹果</a>
+          <a href="../ev-sales.html">新能源销量榜</a>
+          <a href="../ev-charge.html">充电桩查询</a>
+          <a href="../digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="../console.html">主机图鉴</a>
+          <a href="../games.html">玩过的游戏</a>
+          <a href="../chinajoy.html">ChinaJoy 成长史</a>
+          <a href="../marvel.html">漫威宇宙</a>
+          <a href="../game-calendar.html">游戏发售日历</a>
+          <span class="nav-more-hd">射阳本地</span>
+          <a href="../xintan-weather.html">农田气象</a>
+          <a href="../typhoon.html">台风监测</a>
+          <a href="../sheyang.html">射阳天气</a>
+          <a href="../guanghui.html">光辉电力</a>
+          <a href="../sheyang-guide.html">射阳生活</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="../tools.html">工具箱</a>
+          <a href="../calendar.html">万年历</a>
+          <a href="../gaokao.html">高考查分</a>
+          <a href="../tags.html">标签聚合</a>
+          <a href="../bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="../notes.html">站长手记</a>
+          <a href="../pitfalls.html">踩坑记</a>
+          <a href="../changelog.html">更新日志</a>
+          <a href="../status-history.html">站点状态</a>
+          <a href="../about.html">关于本站</a>
+          <a href="../rss.xml">RSS 订阅</a>
+          <a href="../reading.html">读书笔记</a>
+          <a href="../methodology.html">知识管理</a>
+          <span class="nav-more-div"></span>
+          <a href="../travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="../health-tea.html">养生茶</a>
+  <a href="../bracelet.html">文玩手串</a>
+  <a href="../zisha.html">紫砂艺术</a>
+  <a href="../solar-terms.html">节气物候</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="../tesla.html">特斯拉</a>
+  <a href="../apple.html">苹果</a>
+  <a href="../ev-sales.html">新能源销量榜</a>
+  <a href="../ev-charge.html">充电桩查询</a>
+  <a href="../digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="../console.html">主机图鉴</a>
+  <a href="../games.html">玩过的游戏</a>
+  <a href="../chinajoy.html">ChinaJoy 成长史</a>
+  <a href="../marvel.html">漫威宇宙</a>
+  <a href="../game-calendar.html">游戏发售日历</a>
+  <span class="nav-hd">射阳本地</span>
+  <a href="../xintan-weather.html">农田气象</a>
+  <a href="../typhoon.html">台风监测</a>
+  <a href="../sheyang.html">射阳天气</a>
+  <a href="../guanghui.html">光辉电力</a>
+  <a href="../sheyang-guide.html">射阳生活</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="../tools.html">工具箱</a>
+  <a href="../calendar.html">万年历</a>
+  <a href="../gaokao.html">高考查分</a>
+  <a href="../tags.html">标签聚合</a>
+  <a href="../bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="../notes.html">站长手记</a>
+  <a href="../pitfalls.html">踩坑记</a>
+  <a href="../changelog.html">更新日志</a>
+  <a href="../status-history.html">站点状态</a>
+  <a href="../about.html">关于本站</a>
+  <a href="../rss.xml">RSS 订阅</a>
+  <a href="../reading.html">读书笔记</a>
+  <a href="../methodology.html">知识管理</a>
+  <span class="nav-hd-div"></span>
+  <a href="../travel.html">家庭旅行</a>
+  </div>
+</nav>
+<div class="container"><div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="../index.html">首页</a><span class="sep">›</span><span class="crumb-cat">风物志</span><span class="sep">›</span><a href="../bracelet.html">文玩手串</a><span class="sep">›</span><span class="current">星月菩提</span></div></div>
+
+<main class="container" id="main-content" role="main">
+
+  <!-- 页面标题 -->
+  <div class="page-header">
+    <h1>星月菩提</h1>
+    <div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
+    <p class="subtitle">买之前要过的四关：料、月、星、密度</p>
+  </div>
+
+  <!-- 结论先行 -->
+  <div class="section">
+    <div class="bl-lead">
+      <p>一句话：<strong>先定料，再看月，然后比星和密度，最后算价钱。</strong>料错了后面全白搭——同样一颗正月、同样好看，三国料的原籽价只有海南料的三四成。这一页只讲<strong>买之前</strong>要看的东西；买回来之后怎么盘，见 <a href="quanao.html">《星月菩提盘养手册》</a>。</p>
+    </div>
+  </div>
+
+  <!-- 一、是什么 -->
+  <div class="section">
+    <h2>一、它到底是什么</h2>
+    <p>星月菩提是<strong>棕榈科省藤属黄藤（<em>Calamus jenkinsianus</em>）的种子</strong>，盘的是种子里的<strong>胚乳</strong>。记住下面五点，商家的多数故事就不成立了。</p>
+    <ul>
+      <li><strong>跟菩提树没有关系。</strong>真正的菩提树是桑科榕属（<em>Ficus religiosa</em>），果实像无花果，种子又小又软，根本磨不成珠子。「菩提子」是个泛称，指坚硬耐磨、可串可计数的各类植物种子。</li>
+      <li><strong>「月」是胚的位置。</strong>胚正好落在珠子侧面正中，就是被追捧的「正月」。果实形状不规则，正月天然产量偏低，所以更贵。</li>
+      <li><strong>「星」来自棕榈科特有的嚼烂状胚乳。</strong>胚乳表面凹凸很深，种皮和部分内果皮陷了进去，磨光后就成了星点。剖开看会发现很多星并不通到核心，这是正常的，不算瑕疵。</li>
+      <li><strong>白与黄不是两个品种，是两种采收方式。</strong>树上直采、加工后偏白或偏绿；落地自然腐熟后再收的，偏黄褐至黑。</li>
+      <li><strong>别名：</strong>省藤、红藤、台湾黄藤；海南五指山一带当地人叫它「红藤子」。</li>
+    </ul>
+  </div>
+
+  <!-- 二、料 -->
+  <div class="section">
+    <h2>二、第一关 · 料：产地只认三档</h2>
+    <p>业内对星月菩提的料只有一个粗略但公认的排序：<strong>海南（毛感）&gt; 老挝 &gt; 三国（泰国／越南／柬埔寨）</strong>。其余叫法，基本是这三档的转手、混称或包装。</p>
+
+    <div class="src-grid">
+      <div class="src-card is-top">
+        <div class="rank">第一档</div>
+        <h3>海南毛感料</h3>
+        <p>产自海南保亭县毛感乡一带，公认最优。星点细、密、匀，密度高、油性足，底色干净。代价是<strong>慢</strong>：挂瓷慢、开片晚；也正因为油性大，开片后不容易碎，能陪你几十年。</p>
+        <span class="price">原籽公开行情约 70 万元/吨（≈350 元/斤）</span>
+      </div>
+      <div class="src-card is-mid">
+        <div class="rank">第二档</div>
+        <h3>老挝料</h3>
+        <p>长得最像海南料的一档，也是市面上「冒充海南籽」的主要来源。星点比海南略粗、底色略偏黄，盘玩效果经常难分，价格却低不少，是性价比区。</p>
+        <span class="price">原籽报价明显低于海南料，地区差异大</span>
+      </div>
+      <div class="src-card is-low">
+        <div class="rank">第三档</div>
+        <h3>三国料</h3>
+        <p>泰国、越南、柬埔寨。星点偏粗、发红，密度偏低，底色不够纯净。上色和开片都快，但<strong>不耐盘</strong>——用久了容易掉星，留下一个个小坑，表面糠糙；后期稍磕碰就碎。</p>
+        <span class="price">原籽价约为海南籽的 30–40%</span>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><strong>另外四个要留心的说法：</strong></p>
+      <ul>
+        <li><strong>「广西料」不是独立品质档。</strong>广西上思县十万大山确实有零星黄藤，但市面上叫「广西料」的绝大多数是越南、老挝进口后在国内转手的货。实际品质仍要按越南料或老挝料判断，别因为贴了「广西」就当它是另一档。</li>
+        <li><strong>「五星帝王料」不存在。</strong>「五星帝王」是金刚菩提那边的商家话术，跟星月菩提没关系。星月菩提里没有这个分类，看到就绕开。</li>
+        <li><strong>印度籽</strong>油性顶级，但产量极稀、市面假货极多，不建议新手碰；<strong>印尼／马来料</strong>基本是没人要的边角料。</li>
+        <li><strong>「尼泊尔星月」是假的定位</strong>——尼泊尔根本不产星月菩提。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 三、月 -->
+  <div class="section">
+    <h2 id="yue">三、第二关 · 月：正月、弦月、无月</h2>
+    <div class="tier-grid">
+      <div class="tier-card is-ok">
+        <h3>✅ 正月</h3>
+        <p>月落在珠子侧面正中。最规整，同料同尺寸下溢价明显，也是商家最爱拿来加价的一项。</p>
+      </div>
+      <div class="tier-card is-mid">
+        <h3>⭐ 弦月 / 偏月</h3>
+        <p>月偏在一侧。常见于大尺寸扁圆珠形——为把长径做到最大，芽眼位置自然就偏了。观感影响不大，价格略低。</p>
+      </div>
+      <div class="tier-card is-no">
+        <h3>⛔ 无月 / 假月</h3>
+        <p>直接放弃。无月是打磨过头把月磨没了；假月（含「洗月」铣出来的月）是刻意造出来的。</p>
+      </div>
+    </div>
+
+    <figure class="bl-fig">
+      <img data-lightbox data-caption="月眼（芽眼）特写：珠面中央的浅色圆凹就是「月」，凹心留有一个小孔；周围密布的小黑点是「星」。" src="../img/bracelet/xingyue-yue.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="星月菩提实拍：珠面中央的浅色圆凹为月眼（芽眼），四周密布黑色星点">
+      <figcaption><strong>实拍｜月眼长什么样：</strong>珠面正中那个<strong>浅色圆凹</strong>就是「月」（芽眼），凹心还留着一个小孔；边上密密麻麻的小黑点则是「星」。<strong>月只长一颗，星却满身都是</strong>——所以挑串要把珠子翻过来两面都看，只看一面容易误判。</figcaption>
+    </figure>
+
+    <div class="note">
+      <p><strong>月有没有、正不正，主要由尺寸决定，不是由师傅手艺决定——这一点很多人不知道：</strong></p>
+      <ul>
+        <li>黄藤未打磨的原籽直径基本集中在 12–20mm，而胚的深度只有 1mm 左右。</li>
+        <li>所以做 <strong>直径 6mm 以下的珠子</strong>（6×4、4×2 这类），等于要往里车掉很多，<strong>大量无月或浅月</strong>——这属正常现象，不是残次品，但也不该按「正月」加价。批发平台上「无月」和「跑量」是分开挂牌的两个价签，同一尺寸能差出一档价。</li>
+        <li>常规 <strong>直径 8–10mm</strong> 最容易保月，也是量最大的尺寸。珠形也有影响：桶珠（直径 10×对孔 8、9×7、8×6 这类，两个数字差 2mm）打磨量小；换成老型、直切（直径 7×对孔 6 这种差 1mm 的）打磨量更大，更难保月。</li>
+        <li>反过来，<strong>大直径（13mm 以上）的正月概率反而很低</strong>：原料就那么大，为了出大珠子，芽眼很难落在正中。业内经验是不足 5%，其余多是弦月，还有一部分月正好和孔道重合，直接成了无月籽。</li>
+        <li><strong>洗月（铣月）：</strong>厂家用磨头把大小颜色不一的月铣成一样，甚至给磨掉月的籽重新铣出月来，让整串看着统一。这是机加工产物，谈不上假货，但「颗颗月正」若是铣出来的，溢价就不该按天然正月算。</li>
+      </ul>
+      <p>顺带说一句分寸：业内有经验的老师傅在不刻意追求极限尺寸的前提下，正月比例约七成。所以「颗颗月正」既不是不可能，也不是随手就能碰上。</p>
+    </div>
+  </div>
+
+  <!-- 四、星 -->
+  <div class="section">
+    <h2 id="xing">四、第三关 · 星：星点口诀</h2>
+    <div class="mnemo">
+      <div class="mnemo-line">月朗星稀 · 星细如针 · 分布均匀 · 无连星 · 无爆星 · 无烟花纹</div>
+      <ul>
+        <li><strong>月朗</strong>——月的周围有一圈明显的无星区，整串看着疏朗透气。这一项要加价。</li>
+        <li><strong>星细如针</strong>——星点是黑色孔道的截面，越细越好。粗星、大片星是密度不足的信号。</li>
+        <li><strong>分布均匀</strong>——疏密一致，没有一段挤一段空。</li>
+        <li><strong>无连星</strong>——星点连成线、连成片（漏星）就掉档。</li>
+        <li><strong>无爆星、无烟花纹</strong>——星点糊成一片放射状花纹，是结构松散的表现。</li>
+        <li><strong>大留白</strong>——表面有成片的无星区。成品格很高，同样加价。</li>
+      </ul>
+    </div>
+
+    <figure class="bl-fig">
+      <img data-lightbox data-caption="星点特写：这一面完全看不到月眼，取而代之的是满身细密的黑色星点——星越细、分布越匀越好。" src="../img/bracelet/xingyue-xing.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="星月菩提实拍：这一面看不到月眼，珠面满布细密的黑色星点">
+      <figcaption><strong>实拍｜星点长什么样：</strong>这一面<strong>完全看不到月眼，取而代之的是满身细星</strong>。对照口诀看这张：星要<strong>细如针</strong>（不是粗黑一片）、<strong>分布匀</strong>（不一段挤一段空）、<strong>不成线不成片</strong>（连星、爆星、烟花纹都要掉档）。</figcaption>
+    </figure>
+
+    <p class="note"><strong>⚠️ 一个常见误解：</strong>「星星越少密度越高」是错的。星点密度反映的是胚乳的凹凸结构，跟珠子密度不是一回事。判断密度要看下一节。</p>
+  </div>
+
+  <!-- 五、密度 -->
+  <div class="section">
+    <h2>五、第四关 · 密度：四看一敲，加一个沉水测试</h2>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>怎么看</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>看星是否凹陷</td><td>星眼明显凹陷的多，密度就差；星点平整齐整的，密度好。</td></tr>
+          <tr><td>看留白是否密实</td><td>留白（无星区）越细密紧实越好；留白发虚、发糠、看着「发面」，密度就差。</td></tr>
+          <tr><td>听声（最准）</td><td>取两颗珠子对撞：<strong>清脆如瓷、近乎金属声</strong>＝高密；<strong>发闷</strong>＝糠籽或嫩籽。</td></tr>
+          <tr><td>掂手</td><td>同尺寸下越沉、越压手越好。这条最简单，也最不容易骗人。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <p><strong>沉水测试怎么用（很多人被它带偏）：</strong></p>
+      <ul>
+        <li>星月<strong>不是</strong>「棕榈科种子所以不沉水」。优质高密籽入水后会<strong>直接沉底</strong>（缓慢匀速下沉）。</li>
+        <li><strong>不沉水的一定是差籽</strong>——漂浮或半浮半沉，基本就是糠籽，或者被水煮、漂白处理过。</li>
+        <li>但<strong>沉水不等于好籽</strong>：水煮嫩籽也能沉。所以沉水只能当<strong>排除法</strong>用，先把最烂的筛掉，不能反推「沉水就是高密」。</li>
+        <li>两个使用前提：只测单籽，别整串下水；已经包浆的串不要测。测完立刻擦干、阴凉处阴干，<strong>不要暴晒</strong>。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 六、料性与工艺（2026-09-22 扩写：立「三个维度」框架，补玉化／无相／留白／染色） -->
+  <div class="section">
+    <h2>六、料性与工艺：先分清你在说哪个维度</h2>
+    <p>原生态、脱脂、顺白、阴皮、玉化、全玉化、留白、陈籽、石玉料——这一堆名字<strong>不是并列的品种，而是三个不同维度的标签</strong>。混在一起看，商家就能把不同层面的东西并排报价，让你觉得「贵得有道理」。先分维度，再看价钱。</p>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>维度</th><th>常见叫法</th><th>它决定什么</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>加工方式</strong></td><td>原生态（原脂）、脱脂、染色（朱砂供／紫檀供）</td><td>变色快慢、盘玩手感</td></tr>
+          <tr><td><strong>天然外观</strong></td><td>顺白、阴皮、玉化（微／半／全）、留白</td><td>颜值与审美偏好</td></tr>
+          <tr><td><strong>原料状态</strong></td><td>陈籽、老料</td><td>初始颜色、溢价空间</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tip-box"><strong>💡 一句话记住：</strong>一串星月可以<strong>既是原生态、又是顺白</strong>，也可以是<strong>脱脂加阴皮</strong>——它们不是对立品种，是不同维度的标签。<strong>「全玉化」说的是外观，「脱脂」说的是加工，两者根本不在同一层，没法比谁更高级。</strong>买之前先问「这句话在说哪个维度」，再问「值不值这个价」——这一问能挡掉大半话术。</p>
+
+    <h3>维度一 · 加工方式：原生态、脱脂、染色</h3>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>叫法</th><th>怎么做的</th><th>好处</th><th>代价</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>原生态</strong>（原脂）</td><td>不水煮、不脱脂，原籽直接打磨</td><td>油性留住，上色快、包浆快、手感润，不容易出色差</td><td>娇气：手汗、油污、护手霜、厨房油烟都可能搞出花皮</td></tr>
+          <tr><td><strong>脱脂</strong>（顺白）</td><td>先高温水煮去油，再打磨</td><td>颜色统一、卖相好、好挑选；盘久了颜色反而更沉稳</td><td>油性跟着流失，前期干涩、上色慢，也更容易出色差</td></tr>
+          <tr><td><strong>染色</strong>（朱砂供／紫檀供／黑星月）</td><td>人工改色</td><td>颜色个性，好搭配</td><td>它是处理品，别按天然料的价买单</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">顺带说清一个常被倒过来的因果：<strong>脱脂最初是为了防霉防蛀、方便车床加工</strong>（热带原籽存不好容易发霉发臭，煮过之后珠子变软也更好车），<strong>变白只是附带效果</strong>，不是专门为了「白」才去煮的。原生态的玩法记住六个字：<strong>净手、少盘、多放。</strong></p>
+    <p class="note">两条最容易混的辨析：<strong>① 脱脂 ≠ 水磨。</strong>脱脂处理的是<strong>原料</strong>，水磨做的是<strong>珠型</strong>（加水降温求快），两码事。<strong>② 脱脂 ≠ 漂白／染色。</strong>脱脂是纯物理的水煮过程（老家具的木料也要过这一道），不加任何化学试剂；漂白和染色是加料，性质完全不同，别混为一谈。</p>
+
+    <h3>维度二 · 天然外观：顺白、阴皮、玉化、留白</h3>
+    <p>先说<strong>玉化</strong>，因为这个词最容易被用来抬价。</p>
+    <p>「玉化」在行内至少有两层完全不同的意思。一层是<strong>盘出来的</strong>：长期盘玩后内部孔隙被油脂填实、表层包浆固化，光能透进去一点，看起来温润像玉——它只发生在包浆变色之后，像裹了一层壳。另一层是<strong>料本身带的</strong>（打灯就透），而<strong>这里正是分歧所在</strong>，行业里有两派意见相反的讲法：</p>
+    <ul>
+      <li>一派说，这是<strong>果子完全成熟</strong>的老料，按通透程度分微玉化、半玉化、全玉化，越透成熟度越高，属于高端料。</li>
+      <li>另一派说，<strong>恰恰相反</strong>——没完全成熟就采下来的嫩籽才最透。这种通透是「水透」：星点空散、底色偏红偏粉、月眼发白发虚，密度和油性都不够，盘一阵就发乌、花皮。市面上把它包装成「粉红玉化」「少女玉化」「高透」，卖得还不便宜。</li>
+    </ul>
+    <p class="note">两派说法都有人背书，也都有卖家在推。<strong>所以「全玉化」不是一个可以验证的等级，只是一个描述，而且是一个有争议的描述。</strong>把它当描述看，别当质保。</p>
+    <p>一条反直觉但很实用的判断：<strong>最透的往往是最嫩的。</strong>新手总觉得越透越好，实际上嫩籽最透、也最不耐玩；成熟料的透是「润透」，在自然光下就该有润感，而不是只有打灯才亮。</p>
+    <p class="tip-box"><strong>💡 别只看打灯图。</strong>强光手电一打，什么都显得通透温润——壁薄一点、光强一点就能做出类似效果，换个光线就现原形。要看打灯好看的料，让商家拍<strong>自然光、侧光、室内灯</strong>三个角度的视频，对比着看。</p>
+    <p class="tip-box"><strong>🔍 实物参考：</strong>本页第三节（月）与第四节（星）那两张实拍，就是一串被称作「<strong>全玉化</strong>」的实例——底色是青灰绿（绿调，属<strong>阴皮</strong>那一路，不是顺白），透感很明显。它同时符合「全玉化」和「阴皮」两个说法，因为这两者本来就分属<strong>两个维度</strong>（透度／底色），并不是二选一——这正是本节要说清的事。另外要提醒一句：这层青灰绿到底是<strong>天然阴皮还是人工上色，照片一律看不出来</strong>，只能上手验，方法见第七节「水磨 / 漂白五辨」。</p>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>叫法</th><th>是什么</th><th>要知道的</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>顺白</td><td>最经典的底色，白净百搭</td><td>天然顺白<strong>一定有色差</strong>；整串毫无色差反而要怀疑漂白</td></tr>
+          <tr><td>阴皮（彩云追月）</td><td>果皮油脂渗进籽里形成的绿调</td><td>绿不是永久的，会随氧化走黄、走褐；你买的是当下这个颜色。<strong>本板块有同一串的实测记录：九个月里从青灰绿走到橄榄黄至土黄褐</strong>——见《盘养手册》第二节「实物记录」</td></tr>
+          <tr><td>玉化</td><td>见上文</td><td>两种相反说法并存，只当描述、别当等级</td></tr>
+          <tr><td>留白（大留白）</td><td>月眼周围一大片没有星点</td><td>审美偏好，来源可以人工做——见下</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>留白要单独说，因为它被揭过底。</strong>前几年大留白星月很火，价格直奔四位数。后来被讲透：星月越靠近果核中心星点越少，所以<strong>把珠子往小了磨、再专挑星点稀少的穿成串</strong>，就成了「精品留白」。之后市场又推大尺寸留白，做法是改打磨和打孔的角度——副作用是<strong>正面多白、反面就多花</strong>，翻过来星点密密麻麻。盘久了还有第二个问题：<strong>开片不均匀</strong>，有星的位置爱开片、留白的位置不开，几年后两面不搭。</p>
+    <p class="note">结论：留白是<strong>审美偏好</strong>，不是品质等级。你买的是「干净素雅」这个观感，就别按稀缺性付钱——真只图白净，菩提根又白又便宜。</p>
+
+    <h3>维度三 · 原料状态：陈籽、老料</h3>
+    <p>陈籽指陈放风干之后再加工，自带淡黄润感，等于帮你省掉几个月的盘玩。坑就在这三个字被用滥：「陈籽」「老料」「老籽」满天飞，而人工上色、加速氧化也能做出很像的颜色。买之前问三句：<strong>① 是自然陈放还是人工处理？② 有没有染色、上油、上蜡？③ 到手不符怎么处理？</strong>价格比普通顺白贵一倍以上，就该打问号。</p>
+
+    <h3>附加 · 珠型：无相、大肠、药片——这些不是品种</h3>
+    <p><strong>无相不是品种，是一种打磨形制。</strong>把珠子做成不规则的多面体、或圆润的凹凸，刻意淡化星点和月眼，只留下材质本身的油性和密度；名字取自「无定相、无执着」，这几年在年轻人里火起来。同料的无相普遍比圆珠、桶珠贵，因为损耗大（磨掉大量果肉，密度差的直接崩裂作废）、费工。</p>
+    <p>判断只有一条：<strong>看边缘圆不圆润、刮不刮手。</strong>手工精磨的形状自然、边缘柔和；机雕批量货形状呆板、边缘生硬，还容易因为打磨不均而开裂。常见珠型还有圆珠、桶珠（老型桶珠）、苹果圆、大肠、药片，以及各种雕刻类——这些只影响<strong>外观和手感</strong>，不改变料本身的好坏。</p>
+
+    <h3 id="wuxiang">实拍 · 一串无相星月的两年三个月变化</h3>
+    <p>下面这两张是站主自己盘的<strong>无相（切面）星月</strong>。图一是刚入手时的样子，图二是盘了两年三个月后的效果——正好用来对照「珠型」和「皮色变化」这两个话题。</p>
+    <div class="bl-figs">
+      <figure>
+        <img data-lightbox data-caption="刚入手的无相星月：多面切面上仍能看清星点；珠面混有青绿（阴皮）、黄棕（陈籽/黄皮）和深褐（已氧化）等多种皮色。" src="../img/bracelet/xingyue-wuxiang-new.webp" width="695" height="1024" loading="lazy" decoding="async" alt="刚入手的无相星月菩提实拍：珠子呈多面切面，珠面混有青绿、黄棕、深褐等多种皮色">
+        <figcaption><strong>实拍｜刚入手：</strong>这是无相切面的典型样子——整颗珠子被切成多个小面，每个面上仍留着星月标志性的星点。这串原料混了多种皮色：<strong>青绿色是阴皮</strong>，<strong>黄棕色是陈籽或黄皮</strong>，<strong>深褐色是已经氧化走色</strong>的部分。多色混穿在原生态料里很常见，盘玩后期会慢慢趋同。</figcaption>
+      </figure>
+      <figure>
+        <img data-lightbox data-caption="盘了两年三个月后：多面切面的棱角被手盘磨圆润，整体走深为焦糖、琥珀到深褐色，包浆感明显。" src="../img/bracelet/xingyue-wuxiang-1y.webp" width="1024" height="726" loading="lazy" decoding="async" alt="盘了两年三个月后的无相星月菩提实拍：切面棱角圆润，整体呈焦糖至深褐色包浆">
+        <figcaption><strong>实拍｜盘了两年三个月后：</strong>切面的<strong>棱角被盘圆</strong>，手感从生涩变温润；颜色整体走深，呈现<strong>焦糖、琥珀到深褐</strong>的自然包浆。不同皮色起点虽然不一样，但两年三个月后色差已经小了很多——阴皮那一路会先走黄再走褐，最终和陈籽方向趋同。</figcaption>
+      </figure>
+    </div>
+    <p class="note"><strong>无相怎么看好坏？</strong>只看两点：① <strong>边缘圆不圆</strong>——手工精磨的边缘柔和、不刮手，机雕批量货边缘生硬、容易裂；② <strong>料子密度够不够</strong>——切面损耗大，密度差的籽直接崩掉，所以同料无相通常比圆珠、桶珠贵。至于是不是「手工」、值不值那个价，照片看不出来，只能上手验。</p>
+
+    <h3>这些流行词，哪些能当依据</h3>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>词</th><th>它是什么</th><th>能不能当依据</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>原生态、脱脂、染色</td><td>加工方式</td><td>✅ 有实物可验证，能当依据</td></tr>
+          <tr><td>顺白、阴皮</td><td>外观描述</td><td>✅ 看得见，能当描述</td></tr>
+          <tr><td>石玉料</td><td>底偏青灰、油性高、变色最快的路子</td><td>✅ 能当描述；对原料和工艺要求高、失败率大，所以价格高</td></tr>
+          <tr><td>陈籽、老料</td><td>原料状态</td><td>⚠️ 概念成立，但滥用严重，必须追问</td></tr>
+          <tr><td>玉化、微玉化、半玉化、全玉化</td><td>两种相反说法并存</td><td>⚠️ 只当描述，别当等级</td></tr>
+          <tr><td>留白、大留白</td><td>审美偏好，且来源可以人工做</td><td>⚠️ 别按稀缺性付钱</td></tr>
+          <tr><td>青花瓷、绿幽灵、奶奶灰、黑金、帝王绿、鲨鱼白、针尖星</td><td>商家按颜色或观感起的花名</td><td>❌ 不是品种，也不是分级</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">最后一句：「帝王绿」「黑金」「奶奶灰」这类名字，多半是工艺或氧化出来的效果，<strong>拿来描述可以，拿来当分级标准不行</strong>。</p>
+  </div>
+
+  <!-- 七、避坑 -->
+  <div class="section">
+    <h2>七、避坑：加工端与市场端</h2>
+
+    <h3>加工端：干磨还是水磨，这一条最容易被忽略</h3>
+    <ul>
+      <li><strong>干磨</strong>——打磨时不用水降温，转速慢、费工。星点完整，白色部分紧实。</li>
+      <li><strong>水磨</strong>——加水降温、追求效率。后果是<strong>星眼萎缩、凹陷甚至脱落</strong>，白色部分「发面」发软，表面一层脂粉感、雾蒙蒙不透亮。</li>
+      <li><strong>漂白</strong>（水磨再加漂白剂）——成品惨白、几乎没有色差，星点透空，质地接近塑料；上手机械感，且很快变黄、开片、碎裂。</li>
+    </ul>
+
+    <h3>水磨 / 漂白五辨</h3>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>看什么</th><th>异常表现</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>颜色</td><td>惨白，且整串<strong>没有任何色差</strong>。天然的顺白一定有色差。</td></tr>
+          <tr><td>星点</td><td>变空、发虚，甚至一眼看进去是通的。</td></tr>
+          <tr><td>月眼</td><td>月眼里没有「脐」（胚留下的痕迹）。</td></tr>
+          <tr><td>重量</td><td>明显偏轻。</td></tr>
+          <tr><td>声音</td><td>两颗对撞，声音发闷。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>市场端：官方在打什么假</h3>
+    <p>2026 年，市场监管总局会同公安部开展传统工艺市场「打假清源」联合执法行动，重点整治<strong>假证书、假机构、假产品、假网站</strong>四类乱象，覆盖珠宝玉石、红木制品、<strong>文玩珠串</strong>等品类；截至 2026-09-01 通报，全国立案 769 件、涉案金额 6558 万元，21 起重大案件已移送司法机关。</p>
+    <p class="note"><strong>证书怎么核（市场监管部门给的「四步法」）：</strong>① 到市场监管部门官网查检验机构有没有 <strong>CMA 资质认定／CNAS 认可</strong>；② 核对报告上的名称、型号、批次、照片、重量与实物是否一致；③ 通过<strong>机构官网或电话</strong>核实报告编号，别点商家私发的查询链接；④ 发现虚假报告，打 12315 举报。另外，景区地摊、无资质直播间、私域转账、「上门回收」都是官方点名的售后高风险渠道。</p>
+
+    <h3>那「赛级」「超赛级」这些等级，到底是谁定的</h3>
+    <p>先说一个很容易被忽略的事实：<strong>目前没有法定机构能对菩提子出具等级证明或材质本质证明。</strong>一位经营多年的台湾卖家干脆把话写在自己官网上——菩提子、南红、砗磲这类物件没有专业机构能出具本质证明，所以<strong>等级量表是每个厂家各自定的</strong>。也就是说，你在任何地方看到的「XX 级」，基本都是卖家的内部量表：不是行业标准，更不是国标。</p>
+    <p>那为什么现在到处都是等级？因为老一套说不清。<strong>传统评价星月用的是「冰」「糯」「玉」「透」「润」这类词</strong>——理解起来有门槛，鉴定起来千人千面，几乎没有可以对照的具体标准。新式品牌的做法，就是绕过这套模糊描述，<strong>从原料阶段就直接标等级</strong>：定制级／赛级／超赛级，或者 M5／M6 加金标／银标／瑕疵级。名字听着像标准，本质上是<strong>把定价体系产品化了</strong>。</p>
+    <p>那多付的钱买到了什么？2023 年有商业媒体做过调查：同一个品牌里，入门定制级的星月手串约 2400 元，顶格的「超赛级」约 7500 元；而同等品相在传统文玩渠道，大约只有<strong>十分之一</strong>的价格。品牌方给顶级款的解释是工时——一条纯手工超过 20 小时，算上全部工序近 20 天，单是抛光一条 26 颗就要 15 小时。可原料那头，星月在批发渠道是按公斤卖的，直接去海南产地更便宜。</p>
+    <p class="note">把这些摆在一起看：<strong>你为品牌串多付的那部分钱，主要买的是设计、包装、限量发售和售后，不是「料更好」。</strong>这不是说品牌串不能买——它的品控和售后通常确实比散货稳，愿意为确定性付钱是合理的；但<strong>别把「赛级」当成质量分级去付钱</strong>，那套分级是商家自己定的。这也是下一节里那句「别把品牌当质量分级」的来由。</p>
+  </div>
+
+  <!-- 八、尺寸与价位 -->
+  <div class="section">
+    <h2>八、尺寸与价位</h2>
+
+    <h3>尺寸怎么选</h3>
+    <p class="note"><strong>先说个坑：两个数字谁在前，行业里并不统一。</strong>同一颗「直径 8mm × 对孔 6mm」的珠子，有商家挂 8×6，也有商家挂 6×8，连同一篇文章里前后都能打架。下表按 <strong>直径 × 对孔</strong> 写，并把实际尺寸与串长都列出来；下单前直接问「直径多少、对孔多少」最稳，只报一串数字容易被绕。</p>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>常见写法</th><th>实际尺寸</th><th>108 颗串长约</th><th>适合谁</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>8×6mm（也有写成 6×8）</td><td>直径 8 × 对孔 6</td><td>62cm</td><td>女款主流</td><td>量最大、最容易挑到好品相</td></tr>
+          <tr><td>9×7mm（也有写成 7×9）</td><td>直径 9 × 对孔 7</td><td>72cm</td><td>男女皆宜</td><td>折中档，手腕 16cm 左右绕 3–4 圈最顺</td></tr>
+          <tr><td>10×8mm（也有写成 8×10）</td><td>直径 10 × 对孔 8</td><td>83cm</td><td>男士常见</td><td>存在感强；商家最爱把这一档喊成「黄金尺寸」</td></tr>
+          <tr><td>6×4mm、4×2mm</td><td>直径 6（或 4）× 对孔 4（或 2）</td><td>41cm</td><td>手腕偏细</td><td>迷你款；打磨过度，<strong>基本无月</strong>，价格最低</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><strong>串长是怎么算的：</strong>108 颗素珠的串长 ≈ 108 × 对孔尺寸，再扣掉每颗约 0.3mm 的加工误差。对孔 6mm 就是 108×6 ≈ 648mm、实际约 62cm；对孔 8mm 约 83cm。所以<strong>影响佩戴长度的是「对孔」而不是「直径」</strong>——同样直径 8mm，对孔 6mm 和对孔 8mm 戴在手上差着一圈。</p>
+    <p class="tip-box"><strong>💡 长度：</strong>手串长度比手围大 10–15mm 为宜——太紧勒手，太松甩动。弹力绳款可略紧，无弹力长串要留足活动量。108 颗长串一般绕 3–4 圈，圈数由「手围 ÷ 串长」决定，嫌多可以先摘掉几颗配珠。</p>
+
+    <h3>价位：先算一笔原料账</h3>
+    <p>海南料原籽公开行情在 70 万元/吨以上（≈350 元/斤）。一斤中等大小的原籽约 200 颗，挑掉阴皮、嫩籽和各种品相不佳的之后，<strong>运气好才出得了一条 108 颗</strong>，大珠子一条都出不来。再加上加工成本——<strong>400 元以下、品相又好的「海南料」，很难是真的。</strong></p>
+    <div class="table-wrapper">
+      <table class="m-table">
+        <thead>
+          <tr><th>档位</th><th>大致区间（108 颗）</th><th>对应什么</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>批发跑量</td><td>约 12–30 元</td><td>平台挂牌价，多为无月款／跑量款，适合练手</td></tr>
+          <tr><td>常规顺白正月</td><td>约 35–80 元</td><td>入门主力，品相一般但规矩</td></tr>
+          <tr><td>精品高抛 / 大留白</td><td>100–300 元</td><td>星点、留白、工艺都到位</td></tr>
+          <tr><td>收藏级老陈籽 / 特殊工艺</td><td>600 元以上</td><td>料、工、年份三者齐</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><strong>关于「品牌串」的溢价：</strong>品牌对品质的背书作用其实有限——文玩手串没有统一标准，同一个厂家不同批次的料都可能不一样，而分级本身又是各家自定的（来由见上一节）。要不要为品牌付钱是个人选择，但别把它当成质量排序。</p>
+    <p class="note"><strong>⚠️ 口径提醒：</strong>本节的产地分级、月相概率、密度判断、价位区间属于<strong>行业通行说法与公开行情观察，不是国家标准</strong>，各地口径有出入（不同平台、不同批次的报价能差一倍）。本页只保留多家说法一致、且能被实物验证的部分。贵重物品请送具备 CMA／CNAS 资质的机构鉴定后再决策。</p>
+  </div>
+
+  <!-- 返回 + 下一页 -->
+  <div style="margin:32px 0;text-align:center;">
+    <a href="quanao.html" style="color:var(--gold);font-weight:700;font-size:15px;">买好了？看《星月菩提盘养手册》→</a>
+    <div style="margin-top:12px;"><a href="../bracelet.html" style="color:var(--text-muted);font-size:14px;">← 返回文玩手串</a></div>
+  </div>
+
+<div class="page-meta">
+    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：<a href="https://www.iplant.cn/" target="_blank" rel="noopener">植物智·中国植物物种信息系统</a>（黄藤 <em>Calamus jenkinsianus</em> 科属与形态核对）、<a href="http://gongyi.people.com.cn/n/2014/0516/c354326-25027251-2.html" target="_blank" rel="noopener">人民网公益频道《益生活：带你认识一下各路「菩提子」》</a>（2014-05-16，「星」「月」成因与产地俗称）、<a href="https://www.guokr.com/article/438411/" target="_blank" rel="noopener">果壳网《你知道「菩提子」是什么吗？》</a>、<a href="https://www.samr.gov.cn/" target="_blank" rel="noopener">国家市场监督管理总局</a>（传统工艺市场「打假清源」联合执法行动通报，2026-09-01）、<a href="https://www.zhuhai.gov.cn/scjgj/gkmlpt/content/3/3925/post_3925533.html" target="_blank" rel="noopener">珠海市市场监督管理局｜传统工艺商品消费提示</a>（证书核验四步法）、<a href="https://amma.artron.net/observation_shownews.php?newid=973968" target="_blank" rel="noopener">雅昌艺术市场监测中心《原生态星月菩提好在哪？》</a>（脱脂与原生态的工艺辨析、月眼颜色差异）、<a href="https://m.toutiao.com/article/7681283713220690458" target="_blank" rel="noopener">今日头条《星月菩提 6 种料怎么选？价格、避坑、盘玩，一篇讲透》</a>（「加工方式／天然外观／原料状态」三维度框架、打灯玉化的判断法）、<a href="https://k.sina.cn/article_6513233313_184380da100100acvo.html" target="_blank" rel="noopener">新浪看点《玉化籽星月菩提是怎样分好坏》</a> 与 <a href="https://www.toutiao.com/article/7683333280732676651" target="_blank" rel="noopener">今日头条《追求文玩「玉化」，这个品类最适合新手——玉化菩提》</a>（2026-09-09，「玉化」两种相反解读并存的对照）、<a href="https://www.163.com/dy/article/KLLRKK150525BU6H.html" target="_blank" rel="noopener">网易《曾经爆火的大留白星月，有人盘到开片了》</a>（大留白的成因、正面白反面花、开片不均）、<a href="https://tibukkyo.pixnet.net/blog/posts/12222482649" target="_blank" rel="noopener">德榕藏品｜星月菩提子等级量表说明</a>（菩提子无专业机构出具本质证明、等级量表由各厂家自定）、<a href="https://www.cbndata.com/information/281081" target="_blank" rel="noopener">CBNData × 新熵《天价手串，年轻人的新「泡泡玛特」？》</a>（2023-08-14，品牌分级命名方式与价格调查）。产地分级、月相概率、尺寸与月的关系、<strong>料性话术与品牌分级</strong>、价位区间属行业通行口径与公开行情观察，非国家标准；其中「玉化」一词业内存在两派相反解读，本页只如实并列，不自定标准。行情数据截至 2026-09，已多源交叉核对。</div>
+    <p class="ref-note">本页配图：共 4 张。第三节「月」、第四节「星」各一张，用于说明「星」「月」两个定义性特征；第六节「珠型」新增两张（刚入手 / 盘两年三个月后），用于展示<strong>无相（切面）星月</strong>的形制与包浆变化。所有配图均为<strong>站主自有实拍</strong>（© 龙兄知识库，保留所有权利），不含任何第三方图库素材。点击图片可放大查看细节。</p>
+    <div class="update-time">最后更新：2026-09-25</div>
+  </div>
+
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../bracelet/quanao.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">星月菩提盘养手册</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../bracelet.html">
+        <span class="lx-related-board">文玩手串</span>
+        <span class="lx-related-name">文玩手串百科</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="../about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="../categories/">全部栏目</a> <span class="sep">·</span> <a href="../notes.html">站长手记</a> <span class="sep">·</span> <a href="../tags.html">标签聚合</a> <span class="sep">·</span> <a href="../rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script>
+(function(){var btn=document.getElementById('tb');if(!btn)return;btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme')||'dark';document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');});function syncIcon(){var t=document.documentElement.getAttribute('data-theme')||'dark';var sun=document.querySelector('.icon-sun');var moon=document.querySelector('.icon-moon');if(sun&&moon){sun.style.display=t==='dark'?'block':'none';moon.style.display=t==='dark'?'none':'block';}}syncIcon();if(typeof MutationObserver!=='undefined'){new MutationObserver(syncIcon).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}})();
+</script>
+
+<script defer src="../js/search.js" integrity="sha384-3KpCC/GBLYV2BSt+UaGvKf/NRA+RauFXazdBRhrJG4JaLORa24Nq+xJYYZfD9CBj" crossorigin="anonymous"></script>
+<script defer src="../js/app.js" integrity="sha384-hiwNfwNRlQoKDn6+jedF53YoBbwGzKjjPchXEY4nBtlBCkFx5CamVC+sPdOJt+6j" crossorigin="anonymous"></script>
+    <script defer src="../js/share.js" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+  <div style="margin-top:60px;padding:20px;text-align:center;border-top:1px solid var(--border-color);font-size:0.85rem;">
+  <a href="../about.html" style="color:var(--text-muted);text-decoration:none;">关于本站 / 免责声明</a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "dateModified": "2026-09-25",
+      "headline": "星月菩提选购指南｜龙兄知识库",
+      "url": "https://longxiong.vip/bracelet/xingyue.html",
+      "description": "星月菩提买之前要过的四关：料（海南毛感料／老挝料／三国料）、月（正月／弦月／无月）、星（星点口诀）、密度（四看一敲与沉水误区）；再加上最容易被绕晕的料性话术——原生态／脱脂／染色、顺白／阴皮／玉化／留白其实分属三个不同维度，「全玉化」为什么不能当等级、品牌分级又是谁定的。附干磨水磨与漂白辨别、尺寸规格与价位锚。"
+    }
+  ]
+}
+</script>
+<script src="/js/lightbox.js" defer integrity="sha384-DlGyYHKQuEPZEUy959jeAoF7T7rckIC+NSzT9Kwwa/jRHWKsSGDELVR/et8A5wjS" crossorigin="anonymous"></script>
+<script src="../js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="/js/obfuscate-email.js" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="../js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="../js/site-live.js?v=h5f5aa76f6345" defer integrity="sha384-OsBrWXv9qet3CiZijogH5pg/MZLFcEQzyJjxAr2CvB8LElKTtALME/GcZnhRge/K" crossorigin="anonymous"></script>
+</body>
+</html>

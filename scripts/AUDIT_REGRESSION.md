@@ -111,6 +111,13 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
   → 新增 A13 守卫 `guard_motion_safety.py`、新增 C7 人工项。
 - 2026-09-20：`console-3do` / `console-game-gear` / `console-master-system` 三页 `.game-card` 缺卡面
   （圆角 0、透明底、每张卡占满整行；其余 55 个主机详情页正常）—— 属「页内样式块缺段」，已按同款补齐。
+- 2026-09-29：**农田气象（xintan-weather.html）「天气又刷新不出来」**（龙兄反馈，反复出现）。
+  根因＝数据走境外 Open-Meteo API（EU 节点），中国大陆蜂窝/宽带网络偶发连不上；旧逻辑 `.catch` 直接显示
+  「天气数据加载失败」且无缓存兜底 → 永久空白。修复：① 把内联天气 IIFE 抽成外部 `static/js/xintan-weather.js`
+  （不动内联 CSP 哈希，避免牵动百来页）；② 改成 stale-while-revalidate：先渲染 localStorage 缓存（3h TTL）
+  再后台拉取，拉取失败保留缓存并提示「可能过期」，绝不空白；fetch 带 9 秒 AbortController 超时；③ HTML 加
+  `<noscript>` 兜底（JS 被禁用/拦截时隐藏转圈、给明确提示）。能否自动化：根因是网络层，CI 无法复现，只能靠
+  SWR 兜底 + 用户侧网络；已归入 C3 降级复核（页面无数据时须有缓存/提示，不能空白）。
 
 ---
 

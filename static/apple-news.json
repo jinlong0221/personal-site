@@ -1,6 +1,34 @@
 {
-  "updated": "2026-09-28",
+  "updated": "2026-09-29",
   "news": [
+    {
+      "date": "09-29",
+      "tags": [
+        {
+          "text": "iOS 27.0.1",
+          "class": "hot"
+        },
+        {
+          "text": "Face ID 修复",
+          "class": "warn"
+        },
+        {
+          "text": "24A446",
+          "class": "tag-green"
+        }
+      ],
+      "summary": "苹果向 iPhone 与 iPad 推送 iOS/iPadOS 27.0.1 正式版（24A446），距上一正式版约两周。官方说明列三项修复：18 Pro 系列在 Face ID 认证失败时可能意外重启；少数 18 Pro 在 f/1.48 光圈特定光线下用 2x 拍摄可能出现颜色伪影；同时打开通知中心与控制中心会致触屏无响应，该项涉及所有 iOS 27 机型。",
+      "content": "苹果在北京时间 9 月 29 日凌晨向 iPhone 与 iPad 用户推送 iOS/iPadOS 27.0.1 正式版，内部版本号 24A446；美国当地发布日为 9 月 28 日。IT之家记录本次更新距上一正式版间隔 14 天，并提醒因苹果各区域节点服务器缓存配置差异，部分地区探测到升级提示可能延迟半小时左右。\n\n官方更新说明列出的三项修复：\n· iPhone 18 Pro 与 iPhone 18 Pro Max 在 Face ID 认证失败时可能意外重启。据 Apfelpatient 梳理，该问题最早于 9 月 21 日有用户报告，苹果 9 月 24 日确认可通过软件更新修复；\n· 少数 iPhone 18 Pro 与 18 Pro Max 在 f/1.48 光圈、特定光线条件下使用 2x 变焦拍摄时，照片可能出现颜色伪影；\n· 同时打开通知中心与控制中心可能导致触屏无响应。9to5Mac 指出，这是三项中唯一适用于所有 iOS 27 机型的修复，其余两项仅涉及 18 Pro 系列。\n\n同期发布的还有 iPadOS 27.0.1（同为 24A446，说明仅写“提供错误修复”）、macOS 27.0.1 Golden Gate、visionOS 27.0.1，以及面向未升级设备的 macOS Tahoe 26.7.1、macOS Sequoia 15.8.1 与 iOS 26.7.1。\n\n据 IT 时代网 9 月 29 日报道，macOS Tahoe 26.7.1 与 macOS Sequoia 15.8.1 修复了同一个安全问题：处理恶意制作的文件可能导致任意代码执行，成因是一处越界写入，已通过改进边界检查修正；苹果称已注意到有报告显示该问题可能在针对特定个人的高度复杂攻击中被利用。iOS 26.7.1 面向 iPhone 11 及后续机型、iPad Pro 12.9 英寸第三代及后续等推送，说明中同样只包含这一项安全修复。macOS 27.0.1 Golden Gate 修复若干未列明错误，暂无对应 CVE 条目。\n\n口径说明：各家对 iOS 27 正式版首发日有 9 月 14 日（9to5Mac、Apfelpatient、Time News）与 9 月 15 日（IT之家发布历史所列 24A437）两种写法，本条不作认定，仅记录“间隔约两周”。macOS 27.0.1 的版本号 26A434、visionOS 27.0.1 的版本号 24M372 来自聚合类报道，未逐条比对苹果官方支持页面，仅供参考。\n\n来源：IT之家 2026-09-29；DoNews 2026-09-29；IT 时代网 2026-09-29（经腾讯搜一搜收录）；9to5Mac 2026-09-28；The Apple Post 2026-09-28；Apfelpatient（德）2026-09-28；Time News 2026-09-28。",
+      "url": "https://www.ithome.com/1/008/066.htm",
+      "sources": [
+        "IT之家 2026-09-29《苹果 iOS/iPadOS 27.0.1 正式版发布》：版本号 24A446、距上次正式版间隔 14 天、区域服务器缓存可能延迟半小时",
+        "DoNews 2026-09-29《苹果推送iOS/iPadOS 27.0.1更新》：2026年9月29日推送、版本号 24A446、小版本迭代修复已知问题",
+        "IT 时代网 2026-09-29（经腾讯搜一搜收录）：macOS Tahoe 26.7.1 与 Sequoia 15.8.1 修复越界写入漏洞、可能影响特定个人的复杂攻击",
+        "9to5Mac 2026-09-28《Apple releases iOS 27.0.1 for iPhone》：官方 release notes 三项修复原文、仅触屏项适用于所有机型",
+        "The Apple Post 2026-09-28：Face ID 认证失败致意外重启、2x f/1.48 颜色伪影、控制中心与通知中心同开致触屏无响应",
+        "Apfelpatient（德）2026-09-28/29：9 月 21 日首现报告、苹果 9 月 24 日确认、watchOS 27.0.1 已于 9 月 23 日先行发布"
+      ]
+    },
     {
       "date": "09-28",
       "tags": [
@@ -169,30 +197,6 @@
       "sources": [
         "网易/163",
         "行业销量分析"
-      ]
-    },
-    {
-      "date": "09-25",
-      "tags": [
-        {
-          "text": "iPhone 18 Pro",
-          "class": "hot"
-        },
-        {
-          "text": "9/25 第二波开售",
-          "class": "info"
-        },
-        {
-          "text": "20 个市场",
-          "class": "tag-gold"
-        }
-      ],
-      "summary": "iPhone 18 Pro 与 Pro Max 于 9 月 18 日在首批 65 个以上国家与地区开售，9 月 25 日第二波在另外约 20 个市场开售；新深色深红（Burgundy）等部分配置交付排期已延至 9 月底及 10 月。",
-      "content": "9 月 25 日（Asian Sun Times 2026-09-19、Binary Cores 2026-09-19 两源交叉）：苹果 iPhone 18 Pro 与 iPhone 18 Pro Max 于 9 月 18 日在首批 65 个以上国家与地区开售，9 月 25 日第二波在另外约 20 个市场开售；这是分批上市节奏，并非所有零售商同步现货。需求量最高的新深色「Burgundy（深红）」等部分版本交付排期已延至 9 月底及 10 月，美国起售价较上代上调 100 美元（Pro 1199 美元、Pro Max 1299 美元）。⚠️ 标准版 iPhone 18 推迟至 2027 年春季发布、折叠屏 iPhone Duo 上市节奏为媒体分析口径，部分来源为 AI 生成稿，未获苹果官方确认，以官网为准。",
-      "url": "https://asiansuntimes.com/2026/09/19/iphone-18-pro-and-iphone-18-pro-max-go-on-sale",
-      "sources": [
-        "Asian Sun Times 2026-09-19《iPhone 18 Pro and iPhone 18 Pro Max go on sale》",
-        "Binary Cores 2026-09-19《iPhone 18 Pro Reaches Stores》"
       ]
     }
   ]

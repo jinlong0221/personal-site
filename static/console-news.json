@@ -2,6 +2,32 @@
   "updated": "2026-09-28",
   "news": [
     {
+      "date": "09-28",
+      "tags": [
+        {
+          "text": "PS5模拟器",
+          "class": "hot"
+        },
+        {
+          "text": "开源项目",
+          "class": "info"
+        },
+        {
+          "text": "实验阶段",
+          "class": "warn"
+        }
+      ],
+      "summary": "开源 PS5 模拟器 SharpEmu 开发者宣布，测试的 55 款 PS5 游戏中已有 12 款进入可玩状态，其中 6 款能稳定跑到 60 帧，包括《Dreaming Sarah》《Void Terrarium》《Tetris Forever》《Hoa》与《古墓丽影 4-6 重制版》。开发者强调这 6 款尚未完成从头到尾的完整通关测试，「可玩」指当前运行无明显障碍。",
+      "content": "9月28日（IT时代网 2026-09-28 报道，经网易号同年 9 月 27 日稿件与 LavX News、GearOpen 英文报道交叉）：实验性开源 PS5 模拟器 SharpEmu 的开发者宣布，已能让部分 PS5 游戏在模拟器中以 60 帧的可玩状态运行。· 具体数据：开发者 9 月 25 日在社交平台公布，测试的 55 款游戏中 12 款进入可玩状态，其中 6 款达到 60 帧——分别为《Dreaming Sarah》《Void Terrarium》《New Joe & Mac: Caveman Ninja》《Tetris Forever》《Hoa》以及《古墓丽影 4-6 重制版》。按项目口径，可玩比例约 22%、60 帧比例约 11%。· ⚠️ 口径提示：开发者说明这 6 款尚未完成从开头到结尾的完整通关测试，「可玩」指当前运行没有明显问题，个别作品仍可能存在轻微的图形或音频瑕疵，即 60 帧是「能跑」而非「跑得完美」。· 技术实现：由 SharpEmu v0.0.4-release.2 达成，该公开构建于 9 月 25 日发布，升级内容为改进 SPIR-V 着色器翻译与更新 Vulkan 相关实现。项目用 C# 编写，支持 Windows、Linux 与 macOS，图形调用依赖 Vulkan 与 MoltenVK。PS5 采用 AMD Zen 2 的 x86-64 架构，模拟器可在普通 PC 上原生执行其 CPU 指令，难点集中在图形翻译与系统调用。· 另一条路线：KytyPS5 近期在高端平台上把 PS5 版《GTA V》跑到约 40—60 帧，但在开场任务结束后崩溃。· 项目定位：开发者强调 SharpEmu 是面向研究与教育用途的实验性模拟器，不包含任何受版权保护的系统固件、游戏数据或 PlayStation 专有资产。来源：IT时代网（腾讯新闻转载）2026-09-28；网易号 2026-09-27；LavX News；GearOpen（称最初由 Tom’s Hardware 报道）。",
+      "url": "https://new.qq.com/rain/a/20260928A0453800",
+      "sources": [
+        "IT时代网（腾讯新闻转载）2026-09-28：测试 55 款 PS5 游戏中 6 款达到 60 帧、12 款进入可玩状态；由 v0.0.4-release.2 达成，改进 SPIR-V 着色器翻译与 Vulkan 实现",
+        "网易号 2026-09-27：开发者 9 月 25 日公布进展；6 款为 Dreaming Sarah、Void Terrarium、New Joe & Mac: Caveman Ninja、Tetris Forever、Hoa、古墓丽影 4-6 重制版",
+        "LavX News（英文）：可玩比例约 22%、60 帧比例约 11%；项目用 C# 编写，支持 Windows/Linux/macOS，使用 Vulkan 与 MoltenVK；KytyPS5 另将 PS5 版 GTA V 跑到约 40—60 帧后崩溃",
+        "GearOpen（英文）：开发者强调 6 款尚未做完整通关测试，「可玩」不等于完美；SharpEmu 定位为研究与教育用途的实验性模拟器"
+      ]
+    },
+    {
       "date": "09-27",
       "tags": [
         {
@@ -181,25 +207,6 @@
         "NuclearCoffee 2026-09-23《New Official Middle-earth Release Confirmed for September 30》",
         "PixelTwelve 2026-09-23《Middle-earth: Shadow Bundle Brings Both Nemesis Games to Switch 2 on September 30》"
       ]
-    },
-    {
-      "date": "09-23",
-      "tags": [
-        {
-          "text": "Switch2破2300万",
-          "class": "hot"
-        },
-        {
-          "text": "微软光驱问卷",
-          "class": "info"
-        },
-        {
-          "text": "下一代Xbox",
-          "class": "warn"
-        }
-      ],
-      "summary": "任天堂美国总裁兼 COO Devon Pritchard 受访称 Switch 2 上市一年全球硬件销量突破 2300 万台，为任天堂史上销售速度最快主机；《塞尔达传说》真人电影定档 2027 年 4 月、与索尼影业合作。",
-      "content": "9月23日（网易 2026-09-23 06:05、3DM游戏网 202609、腾讯新闻转IT时代网 2026-09-23 三源交叉）任天堂美国总裁兼COO Devon Pritchard 受访称 Switch2'征程才刚开始'：上市一年硬件全球销量突破2300万台，成任天堂史上销售速度最快主机；《塞尔达传说》真人电影定档2027年4月、与索尼影业合作，NS2《时之笛 重制版》11月登陆。另，微软向 Xbox Insider 发放问卷征询下一代主机是否保留实体光盘驱动器，光驱方案未定；IGN 曝光微软一项'系统层暂停游戏放广告换游戏时长'专利（专利≠产品，方向存疑）。"
     }
   ]
 }

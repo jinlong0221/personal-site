@@ -193,3 +193,19 @@
 - **版本戳**：本轮仅改 static HTML 内联（非 CSS），`style.css?v=20260908` 维持不动；重建即生效（static 文件由 Hugo 直拷 public）。
 - **知识储备增量**：第六节新增 3 条（邮箱链接色统一 / SVG 渐变 var() 化 / 板块主题色边界）；本节为第 16 次巡检结论。
 - 交付门槛：视觉层面 **P0=P1=0** ✅（连续 6 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / **09-15**）。
+
+## 十七、本周（2026-09-29）巡检结论速记
+
+- **规模**：本轮 `hugo --gc --cleanDestinationDir` 重建（fooocus v0.163.3，12 个 Hugo 页 + 1068 静态文件），全站 `public/` 共 **202 个 HTML**；探针 **6 视口(390/375/360/768/1440/1920) × 2 主题 = 2424 组合**（实测 combos=2424 / pages=202），puppeteer-core + chrome-headless-shell mac-149。本地服务沿用「rm -rf /tmp/lx-test && cp -R public /tmp/lx-test + 去 CSP meta + URL 重写 `https://longxiong.vip/`→`/` + `python3 -m http.server 8399`」。
+- **硬指标（首轮即达标，无需返修 P0/P1）**：文档级 `scrollWidth - innerWidth` 全 = 0；祖先感知元素溢出 = 0；JS 报错 = 0；goto 错误 = 0；fixed-nav + bodyPadTop=0 的导航遮挡风险 = 0；**大面积暖色扫描 = 0**。四类硬指标 + 导航遮挡 + 暖色 **首轮全绿**，直接收工。
+- **唯一暖色命中（已知接受，非 P0/P1）**：`/sheyang.html` `div.tile.tile-small.tile-orange`（bg `rgb(255,140,0)`、面积 18%、仅 dark+iphone14 触发）＝射阳板块「地铁式磁贴仪表盘」既定多色体系，自 09-01 起持续判定为「板块主题色已知接受」——小尺寸单磁贴、非整屏/通栏高饱和，不违国风黑金主调红线。
+- **隐藏彩虹色深扫（本轮新增校验项，补全大面扫描盲区）**：对 static/*.html 全量内联 `style="..."` 的 `color/background` hex 做盘点，发现 5 处未入调色板变量、但**均属板内语义编码色、非漂移**：
+  1. `xintan-weather.html` `color:#e65100` —— 「今日最高」气温数值红橙（语义高温指示，单点文本）。
+  2. `travel.html` `.tl-season` 小徽标：`background:#3f6b9e`(冬) / `#c2623f`(夏) / `#6b7b8e`(年份 2016) / `#c0883a`（季节标签）—— 旅行时间轴「季节/年份」色码小标，板内语义编码。
+  → 二者皆小尺寸语义色，大面积暖色扫描 0 佐证非刺眼；按「板内功能性多色 / 语义编码色已知接受」维持，**勿盲改**（改会破坏板内既有色码约定）。
+- **配色系统复核（无破绽）**：`--accent-color` 金主调全站严守；static 内联 hex 经本轮盘点仅余上列板内语义色（均接受），无全局彩虹漂移；CSS 变量全部明暗双主题 `:root` 定义（无未定义 var 破绽）。
+- **卡片系统**：`.lx-card` / `.lx-epick` / `.artist-card` 跨页一致、无内联重定义漂移；未引入新视觉组件。
+- **双副本机制（再次确认作废）**：根 `css/` 目录自 09-24 起已移除、本次 `ls css` 仍 `No such file or directory`；改 CSS 一律只改 `static/css/style.css`，**绝不重建根副本**（旧步 4 的 `cp static/css/style.css css/style.css` 已失效，遵循 09-24 更正）。本轮未改 CSS，`style.css?v=20260925` 维持不动。
+- **版本戳**：本轮未改 CSS（仅做知识沉淀 + changelog），`style.css?v=20260925` 维持。
+- **知识储备增量**：第六节「已知接受语义色」清单补入 `.tl-season` 板内色码与 `xintan-weather` 高温橙；本节为第 17 次巡检结论。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 7 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / 09-15 / **09-29**）。

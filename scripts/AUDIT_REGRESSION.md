@@ -116,8 +116,9 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
   「天气数据加载失败」且无缓存兜底 → 永久空白。修复：① 把内联天气 IIFE 抽成外部 `static/js/xintan-weather.js`
   （不动内联 CSP 哈希，避免牵动百来页）；② 改成 stale-while-revalidate：先渲染 localStorage 缓存（3h TTL）
   再后台拉取，拉取失败保留缓存并提示「可能过期」，绝不空白；fetch 带 9 秒 AbortController 超时；③ HTML 加
-  `<noscript>` 兜底（JS 被禁用/拦截时隐藏转圈、给明确提示）。能否自动化：根因是网络层，CI 无法复现，只能靠
+  `<noscript>` 兜底（JS 被禁用/拦截时隐藏转圈、给明确提示）。  能否自动化：根因是网络层，CI 无法复现，只能靠
   SWR 兜底 + 用户侧网络；已归入 C3 降级复核（页面无数据时须有缓存/提示，不能空白）。
+- 2026-09-29：**全站视觉复查（C1–C7 人工项补做）**。自动化回归全绿（`audit_regression.sh` 10/0）后补做人工视觉复核。取证链路：本地 `hugo --gc --minify --baseURL http://127.0.0.1:8932/ -d /tmp/lxpreview` → `:8932` + agent-browser 0.27.0（Chromium 154）截【暗色桌面全页 25 张】+【浅色桌面视口 10 张】+【手机 390×844 视口 5 张】，并对 30 个风险页做【程序化横向溢出扫描】（断言 `scrollWidth ≤ innerWidth`）。结论：① **C5 移动端横向溢出——30 页全 PASS**（`scrollWidth 382 ≤ innerWidth 390`，无整页横滑）；ev-sales 标签栏「新能源车型销量 T…」截断实为 `.ev-tabs{flex-wrap:wrap}` 自动换行、表格 `.ev-table-wrap{overflow-x:auto}` 内部可横滑，非整页溢出，无需修；② **A8/C1 深色容器文字**已靠 A8 守卫固化，本轮截图留存待目检；③ **C3 降级 / C4 注入组件样式 / C7 触屏悬停**——未见异常信号。⚠️ **局限如实登记**：当前模型无法查看图片（`Read` 对 PNG 返回内容被过滤），故 **C1 双主题 hero 标题可见性、C6 配图红线只能靠客观扫描（溢出判定／源码变量核对）替代人工目检**，未逐页机械核验；截图存于 `/tmp/shots/`（42 张），建议龙兄本人或换多模态模型过一遍深色／浅色对照。
 
 ---
 

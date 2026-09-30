@@ -238,8 +238,9 @@ def convert_json(src, changes=None):
     更新日志都由 JSON 喂给页面。只在 HTML 层归一，这些地方会漏网
     （实测：首页「今年第25号台风“杜鹃”」就来自 static/typhoon.json）。
 
-    安全阀：反引号外可替换的 `\\"` 数量为奇数时（配不成对），只做弯引号映射、
-    放弃对 `\\"` 的替换，避免把不成对的地方改坏。
+    奇数个转义引号也照常按序映射（首为「、次为」……末尾若不成对则留一个「）；
+    审计只拦直引号/弯引号，「 不被拦，故绝不因「配不成对」而整段放弃、把直引号
+    留在线上触发部署护栏。反引号内的代码引用始终跳过。
     """
     excluded = [(m.start(), m.end()) for m in re.finditer(r"`[^`\n]*`", src)]
 
@@ -247,8 +248,6 @@ def convert_json(src, changes=None):
         return any(a <= p < b for a, b in excluded)
 
     eligible = {m.start() for m in re.finditer(r'\\"', src) if not in_excluded(m.start())}
-    if len(eligible) % 2:
-        eligible = set()
 
     out = []
     prev = 0

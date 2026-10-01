@@ -68,6 +68,14 @@ OPS_SAMPLES = 3        # feed 里每类运维留痕最多给几条样本
 OPS_SAMPLES_STATIC = 1 # 静态回退里给几条（页面体积与「看得见」的平衡点）
 OPS_SAMPLE_CHARS = 220 # 静态回退里的样本截到多少字
 
+# 2026-10-01 加：feed 里的运维样本同样必须截断。
+# 背景：自动化往 changelog 写的留痕动辄两三千字（整轮巡检的完整推理过程），
+# 旧代码只在「静态回退」那一侧截到 220 字，feed 里却整段塞进 ops["s"]，
+# 结果更新日志页一点「展开明细」就是一坨几千字的机器独白，真改动被彻底淹没。
+# 现在 feed 样本也按 220 字截断，页面上是「台风 ×3（展开看 1 条摘要）」这种可读形态；
+# 完整明细仍留在 data/changelog.json 原始文件里，需要深挖的人自己去查。
+FEED_OPS_CHARS = 220
+
 # 自动化运维留痕的判定式。只在内容首 80 字内匹配，避免误伤正文里偶尔提到「台风」的主线条目。
 OPS_RULES = [
     ("台风", r"^🌀|台风"),
@@ -194,7 +202,9 @@ def build():
             slot = day["ops"].setdefault(op, {"n": 0, "s": []})
             slot["n"] += 1
             if len(slot["s"]) < OPS_SAMPLES:
-                slot["s"].append(x["content"])
+                # 样本必须截断：自动化留痕动辄几千字，整段塞进 feed 会把更新日志页
+                # 变成机器独白墙。截断到 FEED_OPS_CHARS，完整明细仍在原始 changelog.json。
+                slot["s"].append(clip(x["content"], FEED_OPS_CHARS))
 
     day_list = [days[k] for k in sorted(days, reverse=True)]
     days_all = sorted(days)
@@ -358,12 +368,31 @@ def render_ops_inline(ops: dict, samples: int, sample_chars: int) -> str:
     )
 
 
+def balance_marks(s: str) -> str:
+    """把「被截断切出来的落单行内记号」收掉。
+
+    md() 只认得成对的 **加粗** 和 `行内代码`；奇数个记号意味着有一个半边没等到
+    搭档，会原样显示到页面上（2026-09-22 全站冒星号就是这么来的）。
+    截断极其容易在中间切开「…**实质数据…** …」这种结构，所以统一在截断后收尾：
+    某个记号为奇数时，把它最后那半边整段丢掉——markdown 是「遇到第二个记号才算
+    闭合」，所以奇数个里落单的一定是最后那个开头。宁可少一层加粗/代码样式，
+    也不让读者看到裸记号。
+    """
+    for mark in ("**", "`"):
+        while s.count(mark) % 2:
+            i = s.rfind(mark)
+            if i < 0:
+                break
+            s = s[:i]
+    return s
+
+
 def clip(s: str, n: int) -> str:
     if len(s) <= n:
         return s
     head = s[:n]
     cut = max(head.rfind(c) for c in "。！？；;!?")
-    return (head[:cut + 1] if cut >= n // 2 else head) + "…"
+    return balance_marks((head[:cut + 1] if cut >= n // 2 else head) + "…")
 
 
 def render_summary(stats: dict) -> str:

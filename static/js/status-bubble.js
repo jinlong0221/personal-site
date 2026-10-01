@@ -191,7 +191,9 @@
 
     // 2. 回退：fetch status.json（加时间戳破微信浏览器缓存）
     var statusXhr = new XMLHttpRequest();
-    statusXhr.open('GET', base + 'status.json?t=' + Date.now(), true);
+    // 缓存戳用 10 分钟窗口，别用 Date.now() 唯一戳：那会让每个请求都当新请求
+    // 回源，CDN/浏览器缓存全部作废（2026-10-01 修，同步 scripts/js-src 源）。
+    statusXhr.open('GET', base + 'status.json?t=' + Math.floor(Date.now() / 600000), true);
     statusXhr.responseType = 'json';
     statusXhr.setRequestHeader('Cache-Control', 'no-cache');
 

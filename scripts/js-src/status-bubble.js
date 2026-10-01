@@ -191,7 +191,7 @@
 
     // 2. 回退：fetch status.json（加时间戳破微信浏览器缓存）
     var statusXhr = new XMLHttpRequest();
-    statusXhr.open('GET', base + 'status.json?t=' + Date.now(), true);
+    statusXhr.open('GET', base + 'status.json?t=' + Math.floor(Date.now() / 600000), true);
     statusXhr.responseType = 'json';
     statusXhr.setRequestHeader('Cache-Control', 'no-cache');
 

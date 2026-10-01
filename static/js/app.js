@@ -306,7 +306,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   var textEl = document.getElementById('todayStatusText');
   var dateEl = document.getElementById('todayStatusDate');
   if(!inline || !textEl) return;
-  fetch('status.json?v='+Date.now())
+  fetch('status.json?v='+Math.floor(Date.now()/600000))
     .then(function(r){if(!r.ok)throw new Error('Not found');return r.json();})
     .then(function(data){
       if(data && data.status && data.status.trim() !== ''){

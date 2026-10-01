@@ -29,6 +29,7 @@
 | A10 | 板块新闻 `*-news.json` 日期乱序 | `static/*-news.json` | `sort_news.py` |
 | A11 | 标题四字段不一致（`<title>`/`og:title`/`twitter:title`/JSON-LD） | 各页 | `sync_titles.py --check`（须报 0 页） |
 | A14 | 🆕 **行内 Markdown 记号不成对**：数据里的 `**加粗**` / `` `代码` `` 由渲染器的 `md()` 解析，而 `md()` 只认成对记号——落单的那一个会**原样显示在页面上**（比「全都不解析」更难发现：别处都正常，只有一处露着星号）。也拦「想在正文里引用星号本身却写了裸 `**`」这种自伤 | `static/*-news.json`、`tesla/fsd-news.json`、`home-feed.json`、`typhoon.json`、changelog 三副本 + feed | `guard_markdown_marks.py`（pre-commit + CI 双拦） |
+| A15 | 🆕 **「截断」把行内 Markdown 记号切得落单**：changelog 运维留痕按 220 字截断时，`clip()` 只数字数、不管记号配对，很容易在 `…**实质数据…** …` 中间一刀切下去 → 落单的半边 `**` 被前端 `md()` 原样显示到页面上（2026-10-01：10-01 那天的巡检样本 221 字、`**` 出现 3 次，A14 守卫直接 FAIL）。**只改数据修不掉，修的是截断函数**：`scripts/build_changelog_feed.py` 的 `balance_marks()` 在截断后把奇数个 `**` / `` ` `` 的末尾那半边整段丢掉（markdown 是「遇到第二个记号才算闭合」，奇数个里落单的一定是最后那个开头） | `scripts/build_changelog_feed.py` | `guard_markdown_marks.py`（A14 会连带触发；修复后 `clip()` 恒产出成对记号） |
 | A13 | 🆕 **动效/立体化三类地雷**：① JS 写的 CSS 变量名与根级令牌撞名（`--tx` 既是「文字色」别名、又被当角度写 → 悬停时卡内文字变色，JS 未介入时 3D 变换整条作废）；② 条件块（`@supports`/`@media`）里的 `animation` 用 `both`/`backwards` 填充且起始帧 `opacity≈0`（动画没跑起来就永久全透明）；③ 改 transform/filter 的 `:hover` 未做设备门控（触屏点按被当成悬停） | `static/js/*.js`、`static/css/style.css`、各 `static/*.html` | `guard_motion_safety.py`（①② 阻断；③ 只计数提示） |
 
 ## 二、按需跑的审计脚本（做完功能/大改后跑一遍）
@@ -87,6 +88,20 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
   后者应改写成 `:active`。
 - 已完成样例：射阳气象磁贴 `.tile:hover{scale(1.02)}` 已门控（触屏点按原本会「放大」而不是「压下去」）。
 
+### C8 更新日志「是不是又变成机器考勤表」（2026-10-01 新增，龙兄点名「更新日志太吵、没营养」）
+更新日志的价值是「站点今天动了什么」，不是「机器人今天打卡几次」。
+- 判据（打开 `https://longxiong.vip/changelog.html` 用眼看 + feed 数据一起看）：
+  ① **当天主线条目 : 运维留痕** 的比值。留痕（🤖 巡检 / 🌀 台风刷新）按天折叠，
+  折叠区里若出现「巡检 ×7、台风 ×6」这类**条数远多于主线**，就是又吵回来了；
+  ② 任一条留痕**正文 250 字以上** = 自动化把整轮推理倒进来了，必须写成一行短摘要；
+  ③ 页面顶部的「共 N 条 / 主线 M / 运维 K」里，运维占比长期 > 60% 说明源头还在灌。
+- 看数据：`python3 -c "import json;d=json.load(open('static/data/changelog-feed.json'));[print(x['date'],len(x['items']),{k:v['n'] for k,v in x['ops'].items()}) for x in d['days'][:5]]"`
+- **源头已在自动化提示词里锁死**（2026-10-01）：每 3 小时一次的「新闻补漏巡检」**只在真的补进新稿时**
+  才写 changelog、且一行 ≤120 字；0 条新稿 → 不写。若哪天又刷屏，先查那个任务的提示词有没有被改回去。
+- ⚠️ 未闭环：**「台风实时监测」自动化（ID 1786286346465）读不到原文、改不了提示词**，
+  它仍在每 3 小时往 changelog 写一条 `🌀 台风实时监测刷新（时间…）`。台风数据本身在 typhoon 页独立呈现，
+  日志里属于重复记录。建议龙兄在 automation 界面手工给它加一条「**不要写 changelog，只更新 typhoon 页**」。
+
 ### C6 配图红线
 - 绝不用 AI 生成图；只用真实图并注明来源版权。
 - 清晰度优先于体积：只走 `quality=80` 视觉无损重压，**不缩尺寸**。
@@ -111,6 +126,18 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
   → 新增 A13 守卫 `guard_motion_safety.py`、新增 C7 人工项。
 - 2026-09-20：`console-3do` / `console-game-gear` / `console-master-system` 三页 `.game-card` 缺卡面
   （圆角 0、透明底、每张卡占满整行；其余 55 个主机详情页正常）—— 属「页内样式块缺段」，已按同款补齐。
+- 2026-09-29：**GitHub Pages 部署连续 5 个红叉**（run 1891–1895）。根因＝`unify_quotes.py`
+  遇「奇数个转义引号」会整段放弃清洗，残留引号撞上 `audit_live_artifact.py`（step 40）FAIL。
+  修复后 CI 全绿；同轮把 `unify_quotes.py` 的放弃场景补在 CI 链最前（step 36 自愈）。
+- 2026-09-30 / 10-01：**龙兄反馈「最近感觉网站不得劲」**（四项全做）：① 更新日志太吵没营养；
+  ② 板块内容陈旧/重复；③ 打开变慢卡；④ 视觉排版不对劲。本轮处理：
+  · **更新日志轻量化**：feed 侧运维样本从「整段几千字」截到 220 字（feed 640K→361K），
+    并修掉截断切出落单 `**` 的新坑（A15）；源头把「每 3 小时巡检」的提示词改成
+    **无新稿不写 changelog、有稿一行 ≤120 字** → 每天少 6~7 条考勤。
+  · **性能**：首页首屏两处 `Date.now()` 唯一缓存戳（击穿缓存、每次请求回源）改成
+    10 分钟窗口 `Math.floor(Date.now()/600000)`，重打包 `site-bundle.js`（?v=20261001）。
+  · **内容**：特斯拉 FSD 板补 10-01 真稿（Roadster 亮相 + 欧盟 FSD 投票推迟 12 月，三源互证）；
+    文玩手串板搜出来全是 SEO 软文 → 按「宁可不写也不编造」保留 09-30 条目。
 - 2026-09-29：**农田气象（xintan-weather.html）「天气又刷新不出来」**（龙兄反馈，反复出现）。
   根因＝数据走境外 Open-Meteo API（EU 节点），中国大陆蜂窝/宽带网络偶发连不上；旧逻辑 `.catch` 直接显示
   「天气数据加载失败」且无缓存兜底 → 永久空白。修复：① 把内联天气 IIFE 抽成外部 `static/js/xintan-weather.js`

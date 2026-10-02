@@ -102,6 +102,23 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
   它仍在每 3 小时往 changelog 写一条 `🌀 台风实时监测刷新（时间…）`。台风数据本身在 typhoon 页独立呈现，
   日志里属于重复记录。建议龙兄在 automation 界面手工给它加一条「**不要写 changelog，只更新 typhoon 页**」。
 
+### C9 游戏详情页「优缺点绿／红面板」文字对比度（2026-10-02 新增，模板既有、非新页引入）
+2026-10-02 新增《逆转裁判 123》（`static/games/ace-attorney-123.html`）时跑了渲染级对比度体检
+（Playwright + 本地 `hugo --gc --minify` 产物，1440 宽，dark/light 双主题），
+新页与**对照页（鬼武者 `onimusha-1.html`）报出完全一致的差值项** → 属 `.lx-good/.lx-bad` 游戏详情页
+模板的既有配色，不是本次新增，已随新页一并上线。
+- 实测（`scripts/audit_visual.py`，alpha 混合按真实叠色算）：
+  · **dark 2 项**：状态徽章「✅ 已玩过」绿底白字 3.15、页脚邮箱 4.29；
+  · **light 6 项**：标题金色小字 3.68、平台徽章「🎮 Switch」3.23、「✅ 已玩过」3.15、
+    评分星图标 1.85（装饰可豁免）、「更新记录」蓝字 4.34、「全站搜索」4.37。
+  · 对照页鬼武者跑出**同款同值** → 确认是模板既有，不是新增页引入。
+- 截图证据：`/tmp/lx-visual/games_ace-attorney-123 _{dark,light}[_full].png`。
+- 结论：**视觉可读**（面板是半透明底，叠色后更深），但徽章白字与浅色主题下的金/蓝小字可再提一档。
+  **下一轮统一改 `static/css/style.css` 里这几处颜色，绝不单独改某一页**，否则又会出现「这一页颜色不一样」。
+- 顺带确认本页无回归：1440／768／390 三宽**无横向溢出**、图片全部可达
+  （窄屏下视口外图 `complete=false` 是 `loading="lazy"` 的正常表现，不是 404）、
+  关掉 JS 后 5 个标题全部平铺可读（C3 通过）、`games.html` 卡片与相关阅读各 1 处链接正常。
+
 ### C6 配图红线
 - 绝不用 AI 生成图；只用真实图并注明来源版权。
 - 清晰度优先于体积：只走 `quality=80` 视觉无损重压，**不缩尺寸**。
@@ -149,12 +166,33 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
 
 - 2026-09-30：**GitHub Pages 部署连续失败（run 1891–1895）**，根因＝自动化新闻/更新日志 JSON 混入直引号 `"…"` 与弯引号 `"…"`，触发部署前护栏 `audit_live_artifact.py` 的「数据 JSON 值内引号残留」检查 → 该步骤 FAIL → 后续部署全跳过。自愈脚本 `unify_quotes.py --ci`（step 36，审计之前）本应就地归一，但其 `convert_json` 有「反引号外转义引号个数为奇数就整段放弃」的逻辑，导致奇数个 `"` 的 JSON 没被归一 → 审计必挂（CI 时灵时不灵的根）。修复：`scripts/unify_quotes.py` 去掉该放弃逻辑，奇数个也按序映射成 `「」`（审计只拦直引号/弯引号、不拦 `「`），从此自动化再怎么写坏引号都能自愈、绝不拦部署。已提交 `06555f28` 并通过 run 1897 验证。**教训**：`unify_quotes.py --ci` 在 `--ci` 模式下即便末尾「未闭合」也只是告警、照常写入，不会再阻断构建。
 
+- 2026-10-02：**「玩过的游戏」新增《逆转裁判123：成步堂精选集》（Switch）**（龙兄点名：玩过的游戏里加一个 Switch 版逆转裁判 123）。
+  · 新页 `static/games/ace-attorney-123.html`（以 `onimusha-1.html` 为底稿、30 处断言替换后逐条人读校对），
+  事实三源互证（萌娘/百度/快懂百科 + 任天堂商店页）：**Switch 版 2019-02-21 与 PS4/Xbox One 同步发售**、
+  PC 版 2019-04-10、收录三作共 14 话、简繁中文 2019-08-22 更新追加、8 语言、12+、2.8GB、三平台累计 210 万（截至 2023-03）。
+  · 配图**全部取任天堂官方商店素材**（封面 1280×720 + 6 张实机截图 1600×900 webp，来自 Nintendo Cloudinary
+  `assets.nintendo.com/image/upload/<变换>/store/software/switch/...`，**变换参数必须写在 store 路径之前、否则 404**），
+  零 AI 图，图注标 Capcom 版权（C6 通过）。
+  · 卡在「相关阅读为空」→ 根因＝**新页没进 sitemap**：`content-index` 是从 `data/sitemap_extra.json` 反查的，
+  新静态页必须先跑 `rebuild_sitemap_extra.py` 才进索引，顺序务必是
+  `sitemap_extra → content_index → related → apply_related`。另 `apply_related.py` **只有 `--check` 一个开关**，
+  已被注入过的页面要刷新必须**整站 `--refresh`**（本轮 172 页），没有单页过滤。
+  · 捞回 2 个漏改：`canonical` 与 `og:url` 还指向 `onimusha-1.html`（底稿残留）。
+  · 回归：源码级 **PASS 10 / FAIL 0**、完整链（含 hugo 构建+冒烟+骨架）**PASS 14 / FAIL 0**；
+  新增 C9（游戏面板对比度属模板既有、非本轮引入）。
+- 2026-10-02：**渲染级体检流程可复用**（本轮起沉淀）：`hugo --gc --minify` → `cd public && python3 -m http.server 8899`
+  （**要用后台任务起，普通 Bash 调用结束会把服务带走**）→ miniconda playwright 脚本检查
+  【三宽溢出扫描 + 图片 broken + 关 JS 降级 + dark/light 双主题截图 + 对比度矩阵】。
+  脚本模板见 `/tmp/vis_ace.py`、`/tmp/vis_ace2.py`（临时目录，后续可移进 `scripts/` 长期化）。
+
 ---
 
 ## 五、给审计者的开工顺序（照做即可，别跳步）
 
 1. `bash scripts/audit_regression.sh` —— 自动项一把梭（A + B 全跑）。
-2. 打开本表 **第三节 C1–C6**，逐条人工过；**双主题截图**是硬要求。
+2. 打开本表 **第三节 C1–C9**（C1 双主题 / C2 浅色小字对比度 / C3 脚本降级 / C4 注入样式位置 /
+   C5 横向滚动 / C7 触屏悬停 / C8 更新日志是不是考勤表 / C9 游戏面板对比度 / C6 配图红线），逐条人工过；
+   **双主题截图**是硬要求。
 3. 只改了某板块？仍要做 C1 全站双主题扫（同类 bug 常不止一处，2026-09-19 就是这样从 1 页查出 4 页）。
 4. 本轮新发现/新修的问题 → **补进本表**（含日期/症状/文件/查法）。
 5. 汇报时**明确写出**：自动项跑了哪些、人工项过了哪些、有没有新登记条目。

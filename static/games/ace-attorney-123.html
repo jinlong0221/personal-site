@@ -173,6 +173,25 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 .lx-aa-faq details[open] summary::after{content:'－'}
 .lx-aa-faq details p{margin:0;padding:0 18px 16px;font-size:.94rem;line-height:1.85;color:var(--gt);opacity:.9}
 @media(prefers-reduced-motion:no-preference){.lx-aa-faq summary:hover{background:var(--gc)}}
+/* 人物立绘卡：有官方立绘的用立绘，没有的退回印章字，两栏对齐 */
+.lx-aa-char{align-items:stretch;gap:12px}
+.lx-aa-chara-art{flex:0 0 auto;width:92px;display:flex;align-items:flex-end;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,var(--gc));border-radius:8px;overflow:hidden}
+.lx-aa-chara-art img{width:100%;height:auto;display:block}
+.lx-aa-char-body{min-width:0;flex:1 1 auto}
+.lx-aa-char .lx-aa-seal{width:92px;height:auto;line-height:1.2;padding:18px 0;text-align:center}
+@media(max-width:420px){.lx-aa-char{flex-direction:column}.lx-aa-chara-art{width:100%}.lx-aa-chara-art img{width:auto;height:220px;margin:0 auto}}
+/* 案件组头图 / 官方公告图 */
+.lx-aa-ghfigure{margin:0 0 14px;border-radius:10px;overflow:hidden;border:1px solid var(--gb);position:relative}
+.lx-aa-ghfigure img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.lx-aa-ghfigure figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px 12px;font-size:.82rem;color:#F3EDE0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.78))}
+.lx-aa-newsfig{margin:10px 0 0;border-radius:10px;overflow:hidden;border:1px solid var(--gb)}
+.lx-aa-newsfig img{width:100%;display:block}
+/* 官方主视觉（三人组 / 25 周年） */
+.lx-aa-hero{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--gb);margin:8px 0 0}
+.lx-aa-hero img{width:100%;display:block}
+.lx-aa-hero figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px 14px;font-size:.85rem;color:#F3EDE0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.8))}
+.lx-aa-duo{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start;margin-top:8px}
+@media(max-width:700px){.lx-aa-duo{grid-template-columns:1fr}}
 </style>
 <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
 
@@ -318,7 +337,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="../index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="../games.html">玩过的游戏</a><span class="sep">›</span><span class="current">逆转裁判123</span></div>
 
 <div class="detail-hero">
-<div class="detail-cover" data-lightbox data-caption="逆转裁判123 封面" data-src="../img/games/ace-attorney-123-cover.webp"><img width="1280" height="720" src="../img/games/ace-attorney-123-cover.webp" alt="逆转裁判123 封面" loading="lazy" decoding="async"></div>
+<div class="detail-cover" data-lightbox data-caption="简体中文版实机画面：法庭上的「异议！」" data-src="../img/games/ace-attorney-123-cn-shot-01.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-01.webp" alt="逆转裁判123 简体中文版实机画面：法庭上的「异议！」" fetchpriority="high" decoding="async"></div>
 <div class="game-title-wrap">
 <h1>逆转裁判 123</h1>
 <div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
@@ -340,7 +359,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <tr><th>游戏人数</th><td>单人</td></tr>
 <tr><th>语言</th><td>共 9 种（含日·英·简繁中文·韩·德·法等；简繁中文 2019年8月22日更新追加，配中文语音）</td></tr>
 <tr><th>分级</th><td>12 岁以上（CERO B／ESRB Teen／PEGI 12）</td></tr>
-<tr><th>下载容量</th><td>2.8 GB（任天堂商店页标注）</td></tr>
+<tr><th>下载容量</th><td>约 2.2–2.8 GB（任天堂各区商店页标注不一）</td></tr>
 <tr><th>全球销量</th><td>突破 500 万套（卡普空 2026-09-20 公布；系列整体同期突破 1500 万套）</td></tr>
 <tr><th>系列 25 周年</th><td>2026 年 10 月 12 日（初代 2001-10-11 发售）</td></tr>
 </table>
@@ -386,11 +405,28 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <p style="margin-top:12px;font-size:0.95rem;color:var(--gm)">📌 想接着翻其他已玩记录，可看 <a href="../games/onimusha-1.html" style="color:var(--blue-light)">鬼武者</a> 与 <a href="../games/wukong.html" style="color:var(--blue-light)">黑神话：悟空</a>。</p>
 </div>
 
+<div class="section-label">🆕 2025 年 11 月大更新：现在多了这些功能</div>
+<div class="gameplay-notes">
+<h2>当年那份「只能从头打」的限制被放开了</h2>
+<ul>
+<li><strong>章节选择</strong>：14 话任选一幕直接开打，不必从头推 —— 和儿子想重刷某一案时最有用</li>
+<li><strong>美术图集（Art）</strong>：内置官方插画、封面与事件场景，可翻阅角色造型</li>
+<li><strong>场景编辑器（Scene Creator）</strong>：用角色模型自己拼场景，官方专门拿来玩梗的</li>
+<li><strong>语音编辑器</strong>：能给角色重新配音，恶搞向玩法（中文版同样可用）</li>
+<li><strong>故事模式 / 自动推进</strong>：自动解谜推进对话，不会卡关也能当剧看</li>
+<li><strong>证言页面</strong>：把整段证言摊在一页看，找矛盾点省事</li>
+<li><strong>10 个存档位</strong>，且<b>按语言各自独立</b>：中日英等语言各有一套存档</li>
+</ul>
+</div>
+<figure class="lx-aa-newsfig"><img width="800" height="450" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-update.webp" alt="卡普空 2025 年 11 月 19 日更新公告图"></figure>
+<p class="lx-aa-note">更新内容与截图取自卡普空《逆转裁判123》官方站点（2025-11-19 公告）。</p>
+
 <div class="section-label">⚖️ 十四话案件一览（无剧透）</div>
 <div class="lx-aa-cases">
 
 <div class="lx-aa-casegroup">
 <div class="lx-aa-gh"><span class="lx-aa-gh-no">第一作</span><span class="lx-aa-gh-name">逆转裁判：复苏的逆转</span><span class="lx-aa-gh-sub">2001 年 GBA 首发，DS 重制追加第 5 话，5 话</span></div>
+<figure class="lx-aa-ghfigure"><img width="1600" height="900" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-cn-shot-03.webp" alt="第一话「第一次的逆转」：升职考试现场，指纹与海棠指纹的调查（简体中文版界面）"><figcaption>第一话「第一次的逆转」：升职考试现场，指纹与海棠指纹的调查（简体中文版界面）</figcaption></figure>
 <div class="lx-aa-case"><div class="lx-aa-case-no">1-1</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">第一次的逆转<span class="lx-aa-en">The First Turnabout</span></div><p>成步堂第一次站上法庭，被告是小学同学矢张政志。对着「检察官亚内武文」念出「異議！」的那一下，就是全系列的开场白。</p></div></div>
 <div class="lx-aa-case"><div class="lx-aa-case-no">1-2</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转姐妹<span class="lx-aa-en">Turnabout Sisters</span></div><p>绫里千寻在事务所遇害，妹妹真宵成了嫌疑人。第一次出现「辩护中途换人」、也第一次正面对上御剑怜侍。</p></div></div>
 <div class="lx-aa-case"><div class="lx-aa-case-no">1-3</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转大将军<span class="lx-aa-en">Turnabout Samurai</span></div><p>儿童剧演员被杀，庭上五六个证人轮流作证，是全系列少见的「集体作证」场面；真宵也第一次站上法庭的证人席。</p></div></div>
@@ -400,6 +436,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 
 <div class="lx-aa-casegroup">
 <div class="lx-aa-gh"><span class="lx-aa-gh-no">第二作</span><span class="lx-aa-gh-name">逆转裁判2</span><span class="lx-aa-gh-sub">心灵枷锁系统登场，4 话</span></div>
+<figure class="lx-aa-ghfigure"><img width="1600" height="900" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-cn-shot-10.webp" alt="章节选择界面：第 2 章「重逢、然后逆转」（简体中文版界面）"><figcaption>章节选择界面：第 2 章「重逢、然后逆转」（简体中文版界面）</figcaption></figure>
 <div class="lx-aa-case"><div class="lx-aa-case-no">2-1</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">失落的逆转<span class="lx-aa-en">The Lost Turnabout</span></div><p>开局成步堂被人从背后敲晕、失去记忆，委托人是个女警。失忆状态下的「我不是律师」桥段是全作最有意思的开局之一。</p></div></div>
 <div class="lx-aa-case"><div class="lx-aa-case-no">2-2</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">重逢，然后逆转<span class="lx-aa-en">Reunion, and Turnabout</span></div><p>真宵被控杀害医师，春美登场；狩魔冥压轴出场——13 岁就当上检察官，法庭上带着鞭子。机械降神级阵容登场，案子本身也不弱。</p></div></div>
 <div class="lx-aa-case"><div class="lx-aa-case-no">2-3</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转马戏团<span class="lx-aa-en">Turnabout Big Top</span></div><p>马戏团后台命案，空中飞人马克斯被告。雪地脚印、悬空木箱这类物证演示是前三作里最漂亮的一课。</p></div></div>
@@ -408,6 +445,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 
 <div class="lx-aa-casegroup">
 <div class="lx-aa-gh"><span class="lx-aa-gh-no">第三作</span><span class="lx-aa-gh-name">逆转裁判3</span><span class="lx-aa-gh-sub">时间线倒叙，系列收束，5 话</span></div>
+<figure class="lx-aa-ghfigure"><img width="1600" height="900" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-cn-shot-09.webp" alt="戈德在法庭上端着咖啡——第三话登场的面罩检察官（简体中文版界面）"><figcaption>戈德在法庭上端着咖啡——第三话登场的面罩检察官（简体中文版界面）</figcaption></figure>
 <div class="lx-aa-case"><div class="lx-aa-case-no">3-1</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">回忆的逆转<span class="lx-aa-en">Turnabout Memories</span></div><p>时间倒回五年前：绫里千寻的第一次出庭，成步堂那时还是嫌疑人身份。全系列情感浓度最高的一话，父女、师徒两条线一起收。</p></div></div>
 <div class="lx-aa-case"><div class="lx-aa-case-no">3-2</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">失窃的逆转<span class="lx-aa-en">The Stolen Turnabout</span></div><p>秘宝「仓院之罐」失窃，自称怪盗的青年上门自首。戈德戴着眼罩登场，标志性地端着咖啡登场，「喝完第十七杯前必胜」的flag就此立下。</p></div></div>
 <div class="lx-aa-case"><div class="lx-aa-case-no">3-3</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转的秘方<span class="lx-aa-en">Recipe for Turnabout</span></div><p>真子又一次站上被告席，这次庭上还混着一份「假成步堂」的辩护词；要先证明有人在冒充自己。</p></div></div>
@@ -429,20 +467,21 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 </div>
 
 <div class="section-label">👥 人物速览</div>
+<figure class="lx-aa-hero"><img width="1200" height="615" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-trio.webp" alt="逆转裁判系列官方角色群像主视觉"><figcaption>官方角色群像：成步堂龙一、御剑怜侍、绫里真宵、绫里春美、戈德与狩魔冥（左起，卡普空官网素材）</figcaption></figure>
 <div class="lx-aa-chars">
-<div class="lx-aa-char"><div class="lx-aa-seal">成</div><div><h4>成步堂龙一</h4><div class="lx-aa-role">辩护律师 / 主角</div><p>刺猬头的新人律师，靠虚张声势战斗，也靠虚张声势翻盘。日版由巧舟配音，1 至 4 代都是他。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">千</div><div><h4>绫里千寻</h4><div class="lx-aa-role">成步堂的师傅</div><p>名句是「律师无论在怎样的困境，都要在别人面前展露微笑」。第二话遇害，之后由妹妹与春美接棒她的位置。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">真</div><div><h4>绫里真宵</h4><div class="lx-aa-role">灵媒师 / 事务所助理</div><p>千寻的妹妹，能请出姐姐的亡灵，关键时刻的「大证据」来源，也是全系列被绑架次数最多的角色。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">春</div><div><h4>绫里春美</h4><div class="lx-aa-role">见习灵媒师</div><p>千寻与真宵的表妹，灵力比真宵更强——心灵枷锁就是靠她的勾玉破的，作用相当于队伍的钥匙。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">御</div><div><h4>御剑怜侍</h4><div class="lx-aa-role">检察官 / 儿时好友</div><p>20 岁就当上检察官的天才，脾气和手段都硬，也是成步堂在法庭上最像「对手」的人。童年好友才是他最难啃的骨头。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">糸</div><div><h4>糸锯圭介</h4><div class="lx-aa-role">刑警</div><p>负责杀人案前期调查的老刑警，记性不好、推理更不行，但每次都冲在最前面，家常菜做饭水平一流。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">矢</div><div><h4>矢张政志</h4><div class="lx-aa-role">成步堂的儿时玩伴</div><p>「背后一定有矢张」的那个人物模板，第一话就被当成被告。他后来跑去学画，是系列里少见的「有自己人生」的角色。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">冥</div><div><h4>狩魔冥</h4><div class="lx-aa-role">检察官</div><p>13 岁就在美国当检察官，法庭上挥鞭子说话，对「完美」有病态执着；第二、四话分别把成步堂打到自闭再打回来。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">豪</div><div><h4>狩魔豪</h4><div class="lx-aa-role">首席检察官</div><p>四十年未尝败诉，御剑怜侍的师父，狩魔冥的父亲。系列里最有压迫感的对手，第一话就压轴登场。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">戈</div><div><h4>戈德</h4><div class="lx-aa-role">身份不明的检察官</div><p>护目镜遮脸、咖啡不离手，开口全是没人听得懂的比喻，自称「喝完第十七杯前必胜」。前五话他的真实身份是最大悬念。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">亚</div><div><h4>亚内武文</h4><div class="lx-aa-role">检察官</div><p>外号「新人杀手」，专挑刚出道的新人律师下手，前三作里反复登场的老对手。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">成</div><div class="lx-aa-char-body"><h4>成步堂龙一</h4><div class="lx-aa-role">辩护律师 / 主角</div><p>刺猬头的新人律师，靠虚张声势战斗，也靠虚张声势翻盘。日版由巧舟配音，1 至 4 代都是他。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="401" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-qianxun.webp" alt="绫里千寻 官方角色立绘"></div><div class="lx-aa-char-body"><h4>绫里千寻</h4><div class="lx-aa-role">成步堂的师傅</div><p>名句是「律师无论在怎样的困境，都要在别人面前展露微笑」。第二话遇害，之后由妹妹与春美接棒她的位置。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">真</div><div class="lx-aa-char-body"><h4>绫里真宵</h4><div class="lx-aa-role">灵媒师 / 事务所助理</div><p>千寻的妹妹，能请出姐姐的亡灵，关键时刻的「大证据」来源，也是全系列被绑架次数最多的角色。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="350" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-chunmei.webp" alt="绫里春美 官方角色立绘"></div><div class="lx-aa-char-body"><h4>绫里春美</h4><div class="lx-aa-role">见习灵媒师</div><p>千寻与真宵的表妹，灵力比真宵更强——心灵枷锁就是靠她的勾玉破的，作用相当于队伍的钥匙。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="385" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-liansi.webp" alt="御剑怜侍 官方角色立绘"></div><div class="lx-aa-char-body"><h4>御剑怜侍</h4><div class="lx-aa-role">检察官 / 儿时好友</div><p>20 岁就当上检察官的天才，脾气和手段都硬，也是成步堂在法庭上最像「对手」的人。童年好友才是他最难啃的骨头。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">糸</div><div class="lx-aa-char-body"><h4>糸锯圭介</h4><div class="lx-aa-role">刑警</div><p>负责杀人案前期调查的老刑警，记性不好、推理更不行，但每次都冲在最前面，家常菜做饭水平一流。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="586" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-zhengzhi.webp" alt="矢张政志 官方角色立绘"></div><div class="lx-aa-char-body"><h4>矢张政志</h4><div class="lx-aa-role">成步堂的儿时玩伴</div><p>「背后一定有矢张」的那个人物模板，第一话就被当成被告。他后来跑去学画，是系列里少见的「有自己人生」的角色。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">冥</div><div class="lx-aa-char-body"><h4>狩魔冥</h4><div class="lx-aa-role">检察官</div><p>13 岁就在美国当检察官，法庭上挥鞭子说话，对「完美」有病态执着；第二、四话分别把成步堂打到自闭再打回来。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">豪</div><div class="lx-aa-char-body"><h4>狩魔豪</h4><div class="lx-aa-role">首席检察官</div><p>四十年未尝败诉，御剑怜侍的师父，狩魔冥的父亲。系列里最有压迫感的对手，第一话就压轴登场。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="560" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-gede.webp" alt="戈德 官方角色立绘"></div><div class="lx-aa-char-body"><h4>戈德</h4><div class="lx-aa-role">身份不明的检察官</div><p>护目镜遮脸、咖啡不离手，开口全是没人听得懂的比喻，自称「喝完第十七杯前必胜」。前五话他的真实身份是最大悬念。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">亚</div><div class="lx-aa-char-body"><h4>亚内武文</h4><div class="lx-aa-role">检察官</div><p>外号「新人杀手」，专挑刚出道的新人律师下手，前三作里反复登场的老对手。</p></div></div>
 </div>
-<p class="lx-aa-note">人物年龄、身份与配音按官方设定整理；本作中文版为后加语音，中文与日文声线不同属正常。</p>
+<p class="lx-aa-note">人物年龄、身份与配音按官方设定整理；本作中文版为后加语音，中文与日文声线不同属正常。带立绘的六位用的是卡普空官网公布的官方角色立绘；官网另有一张标着「狩魔冥」的立绘，但造型与中文版玩家熟悉的形象对不上，为免张冠李戴，这里只用印章字表示，不硬配图。</p>
 
 <div class="section-label">🕰 系列年表：一部 25 年的老 IP</div>
 <ul class="lx-aa-tl">
@@ -457,6 +496,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <li><div class="lx-aa-date">2026-10-12</div><div class="lx-aa-txt">系列 25 周年。池袋／梅田 Capcom Cafe 自 10 月 9 日起做主题餐品与周边联动。</div></li>
 </ul>
 <p class="lx-aa-note">时间线与销量均以卡普空官方「百万套系列」专区、官方 20 周年／25 周年年表为准；3DS 版日本销量引自 Famitsu 统计转述。</p>
+<div class="lx-aa-duo"><figure class="lx-aa-hero"><img width="675" height="1200" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-25th.webp" alt="逆转裁判系列 25 周年纪念视觉图，九位角色同框"><figcaption>2026-09-20 公布的 25 周年纪念视觉图（卡普空官方素材）</figcaption></figure><div class="gameplay-notes"><h2>25 周年了</h2><ul><li>2026 年 10 月 12 日是系列 25 周年（初代 2001-10-11 发售）</li><li>周年视觉图由系列美术总监涂和也、角色设计师布施拓郎联手绘制，9 位角色同框</li><li>池袋与梅田 Capcom Cafe 自 10 月 9 日起做主题餐品与周边联动</li><li>官方另公布：本作全球销量已破 500 万套，系列整体破 1500 万套</li></ul></div></div>
 
 <div class="section-label">👨‍👦 父子一起玩的六个建议</div>
 <ul class="lx-aa-tips">
@@ -478,16 +518,20 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <details><summary>孩子多大能玩？</summary><p>官方分级是 12 岁以上。游戏没有操作门槛，全靠读文本和判断，中学年龄的孩子完全能玩。家长陪着读线索、当「第二个玩家」效果最好。</p></details>
 </div>
 
-<div class="section-label">📸 游戏截图</div>
+<div class="section-label">📸 简体中文版实机图库（10 张）</div>
 <div class="screenshot-grid">
-<div class="screenshot-item" data-lightbox data-caption="逆转裁判123 实机截图 1" data-src="../img/games/ace-attorney-123-shot-1.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-shot-1.webp" alt="逆转裁判123 实机截图 1" loading="lazy" decoding="async"></div>
-<div class="screenshot-item" data-lightbox data-caption="逆转裁判123 实机截图 2" data-src="../img/games/ace-attorney-123-shot-2.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-shot-2.webp" alt="逆转裁判123 实机截图 2" loading="lazy" decoding="async"></div>
-<div class="screenshot-item" data-lightbox data-caption="逆转裁判123 实机截图 3" data-src="../img/games/ace-attorney-123-shot-3.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-shot-3.webp" alt="逆转裁判123 实机截图 3" loading="lazy" decoding="async"></div>
-<div class="screenshot-item" data-lightbox data-caption="逆转裁判123 实机截图 4" data-src="../img/games/ace-attorney-123-shot-4.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-shot-4.webp" alt="逆转裁判123 实机截图 4" loading="lazy" decoding="async"></div>
-<div class="screenshot-item" data-lightbox data-caption="逆转裁判123 实机截图 5" data-src="../img/games/ace-attorney-123-shot-5.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-shot-5.webp" alt="逆转裁判123 实机截图 5" loading="lazy" decoding="async"></div>
-<div class="screenshot-item" data-lightbox data-caption="逆转裁判123 实机截图 6" data-src="../img/games/ace-attorney-123-shot-6.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-shot-6.webp" alt="逆转裁判123 实机截图 6" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 1：法庭上的「异议！」——中文版标志性画面" data-src="../img/games/ace-attorney-123-cn-shot-01.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-01.webp" alt="中文版实机画面 1：法庭上的「异议！」——中文版标志性画面" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 2：罪门在庭上作证：他的工作就是「静静地看守那座阴暗的坟场」" data-src="../img/games/ace-attorney-123-cn-shot-02.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-02.webp" alt="中文版实机画面 2：罪门在庭上作证：他的工作就是「静静地看守那座阴暗的坟场」" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 3：升职考试现场调查：指纹与海棠指纹（第一话）" data-src="../img/games/ace-attorney-123-cn-shot-03.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-03.webp" alt="中文版实机画面 3：升职考试现场调查：指纹与海棠指纹（第一话）" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 4：调查场景：道具店内景与委托人的一句「你们真是好人啊」" data-src="../img/games/ace-attorney-123-cn-shot-04.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-04.webp" alt="中文版实机画面 4：调查场景：道具店内景与委托人的一句「你们真是好人啊」" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 5：拘留所场景，底部是法庭记录与视图切换" data-src="../img/games/ace-attorney-123-cn-shot-05.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-05.webp" alt="中文版实机画面 5：拘留所场景，底部是法庭记录与视图切换" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 6：追及演出的爆炸现场，一句「……所以……我复了仇……」" data-src="../img/games/ace-attorney-123-cn-shot-06.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-06.webp" alt="中文版实机画面 6：追及演出的爆炸现场，一句「……所以……我复了仇……」" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 7：音乐播放器：116 首曲目，含角色与场景专属 BGM" data-src="../img/games/ace-attorney-123-cn-shot-07.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-07.webp" alt="中文版实机画面 7：音乐播放器：116 首曲目，含角色与场景专属 BGM" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 8：美术图集：可翻阅官方插画与事件场景" data-src="../img/games/ace-attorney-123-cn-shot-08.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-08.webp" alt="中文版实机画面 8：美术图集：可翻阅官方插画与事件场景" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 9：语音编辑器：可选角色与台词（戈德端着咖啡）" data-src="../img/games/ace-attorney-123-cn-shot-09.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-09.webp" alt="中文版实机画面 9：语音编辑器：可选角色与台词（戈德端着咖啡）" loading="lazy" decoding="async"></div>
+<div class="screenshot-item" data-lightbox data-caption="中文版实机 10：章节选择：第 2 章「重逢、然后逆转」" data-src="../img/games/ace-attorney-123-cn-shot-10.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-10.webp" alt="中文版实机画面 10：章节选择：第 2 章「重逢、然后逆转」" loading="lazy" decoding="async"></div>
 </div>
-<p style="margin-top:12px;font-size:.9rem;color:var(--gm)">📸 以上为任天堂（Nintendo）官方商店公开的游戏封面与实机截图，版权归 Capcom 所有。</p>
+<p class="lx-aa-note">以上实机画面与角色立绘均取自官方公开素材：商店页截图来自 Steam 官方商店（卡普空发行页），角色立绘与主视觉来自卡普空《逆转裁判123》官方站点，版权均属 CAPCOM。本站仅作游戏介绍与评论用途，不作商业用途。想看你和儿子自己那台的中文界面画面，按 Switch 的截图键即可（相册里会自动存档），把图发我，我帮你挂上来。</p>
 
 <div class="section-label">⚖️ 优缺点</div>
 <div class="pros-cons">
@@ -498,6 +542,8 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <li>案子短，一章一两小时，通勤能推完一整案</li>
 <li>2019 年 8 月更新后有官方简繁中文，翻译完成度高</li>
 <li>Switch 掌机模式完整可用，支持触屏与云存档</li>
+<li>2025 年 11 月更新后支持<b>章节选择</b>，可以只重打想回味的那一话</li>
+<li>内置美术图集与场景编辑器，官方插画随时能翻</li>
 </ul>
 </div>
 <div class="cons-box">
@@ -506,7 +552,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <li>画面是 3DS 时代的高清重绘，2026 年回头看年代感明显</li>
 <li>法庭流程每章同一套模板，中后期新鲜度下降</li>
 <li>主体是读文本，不爱看大段文字的人是门槛</li>
-<li>纯文字游戏却要 2.8 GB 下载（任天堂商店页口径）</li>
+<li>纯文字游戏却要 2 GB 以上的下载量（各商店标注 2.2–2.8 GB 不等）</li>
 </ul>
 </div>
 </div>

@@ -117,7 +117,13 @@ def main():
                 page.wait_for_timeout(2000)
                 # 只把「主动滚进视口后依然加载不出来」算 broken（lazy 图不进视口本就不该加载）
                 page.evaluate("() => document.querySelectorAll('img[loading=lazy]').forEach(i => i.loading = 'eager')")
-                page.wait_for_timeout(1200)
+                # 等所有图片解码完成（页面图多时固定 sleep 会误报 broken）
+                try:
+                    page.wait_for_function(
+                        "() => Array.from(document.images).every(i => i.complete)", timeout=20000)
+                except Exception:
+                    pass
+                page.wait_for_timeout(500)
                 broken = page.evaluate(
                     "() => [...document.images].filter(i => !i.complete || i.naturalWidth === 0).map(i => i.getAttribute('src'))")
                 ov = page.evaluate(OVERFLOW_JS)

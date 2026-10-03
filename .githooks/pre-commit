@@ -79,6 +79,16 @@ echo "[pre-commit] 检查行内 Markdown 记号是否成对..."
   exit 1
 }
 
+echo "[pre-commit] 检查页内样式花括号平衡..."
+# 2026-10-03 事故：批量替换把一条 CSS 规则写成了嵌套在另一条规则里，
+# 块内多出一个未闭合 `{`，浏览器从那行起静默丢弃后续**全部**规则 ——
+# 源码看着完整、grep 也查不出，只有渲染后量 computed style 才发现「像没写样式」。
+"$PY3" scripts/guard_css_balance.py -q >/dev/null 2>&1 || {
+  echo "❌ 页内样式花括号平衡守卫未通过："
+  "$PY3" scripts/guard_css_balance.py
+  exit 1
+}
+
 echo "[pre-commit] 检查板块新闻主题（防错板 / 防跑题）..."
 # 2026-09-21 事故：自动任务把「文玩手串」写成金价/品牌金店稿。
 # 2026-09-22 事故：本板已收窄为「星月菩提」单一品种，自动更新却整天在写沉香。

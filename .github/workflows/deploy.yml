@@ -164,6 +164,14 @@ jobs:
       - name: Guard inline-Markdown markers (paired ** and backticks)
         run: python3 scripts/guard_markdown_marks.py
 
+      # 页内 <style> 花括号平衡守卫（2026-10-03 落地）：
+      #  一次批量替换把一条规则写成了「嵌在另一条规则里」的畸形 CSS，块内多出一个
+      #  未闭合的 `{`。浏览器从那行起会**静默丢弃该块之后的全部规则** —— 源码里
+      #  规则一条不少、grep 也查不出来，页面表现却是「后半段像没写样式」，
+      #  只有渲染后量 computed style 才会发现。阻断部署。
+      - name: Guard inline <style> brace balance
+        run: python3 scripts/guard_css_balance.py
+
       # 板块新闻主题守卫（2026-09-22 补上调用点）：
       #  ⚠️ 脚本 2026-09-21 就写好了，却从未接进 CI / pre-commit —— 复查时
       #     `grep -rn guard_news_topic scripts/ .github/ .githooks/` 只命中它自己的

@@ -31,6 +31,7 @@
 | A14 | 🆕 **行内 Markdown 记号不成对**：数据里的 `**加粗**` / `` `代码` `` 由渲染器的 `md()` 解析，而 `md()` 只认成对记号——落单的那一个会**原样显示在页面上**（比「全都不解析」更难发现：别处都正常，只有一处露着星号）。也拦「想在正文里引用星号本身却写了裸 `**`」这种自伤 | `static/*-news.json`、`tesla/fsd-news.json`、`home-feed.json`、`typhoon.json`、changelog 三副本 + feed | `guard_markdown_marks.py`（pre-commit + CI 双拦） |
 | A15 | 🆕 **「截断」把行内 Markdown 记号切得落单**：changelog 运维留痕按 220 字截断时，`clip()` 只数字数、不管记号配对，很容易在 `…**实质数据…** …` 中间一刀切下去 → 落单的半边 `**` 被前端 `md()` 原样显示到页面上（2026-10-01：10-01 那天的巡检样本 221 字、`**` 出现 3 次，A14 守卫直接 FAIL）。**只改数据修不掉，修的是截断函数**：`scripts/build_changelog_feed.py` 的 `balance_marks()` 在截断后把奇数个 `**` / `` ` `` 的末尾那半边整段丢掉（markdown 是「遇到第二个记号才算闭合」，奇数个里落单的一定是最后那个开头） | `scripts/build_changelog_feed.py` | `guard_markdown_marks.py`（A14 会连带触发；修复后 `clip()` 恒产出成对记号） |
 | A13 | 🆕 **动效/立体化三类地雷**：① JS 写的 CSS 变量名与根级令牌撞名（`--tx` 既是「文字色」别名、又被当角度写 → 悬停时卡内文字变色，JS 未介入时 3D 变换整条作废）；② 条件块（`@supports`/`@media`）里的 `animation` 用 `both`/`backwards` 填充且起始帧 `opacity≈0`（动画没跑起来就永久全透明）；③ 改 transform/filter 的 `:hover` 未做设备门控（触屏点按被当成悬停） | `static/js/*.js`、`static/css/style.css`、各 `static/*.html` | `guard_motion_safety.py`（①② 阻断；③ 只计数提示） |
+| A16 | 🆕 **页内 `<style>` 块花括号不平衡** → 浏览器从失衡那行起**静默丢弃该块之后的全部规则**。2026-10-03 实测：批量替换把一条规则写成「嵌在另一条规则里」（`.lx-aa-step-no{...;.lx-aa-step-no{...}`），块内多一个未闭合 `{`，源码里规则一条不少、grep 也查不出，页面却「后半段像没写样式」（年表没轴线、FAQ 折叠失效），**只有渲染后量 computed style 才发现** | 各 `static/**/*.html` 的 `<style>` 块 | `guard_css_balance.py`（CI + pre-commit 双拦；只判花括号平衡，刻意不判「规则嵌套合法性」——那条在 `@media` 正常嵌套下误报率高） |
 
 ## 二、按需跑的审计脚本（做完功能/大改后跑一遍）
 
@@ -183,7 +184,17 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
 - 2026-10-02：**渲染级体检流程可复用**（本轮起沉淀）：`hugo --gc --minify` → `cd public && python3 -m http.server 8899`
   （**要用后台任务起，普通 Bash 调用结束会把服务带走**）→ miniconda playwright 脚本检查
   【三宽溢出扫描 + 图片 broken + 关 JS 降级 + dark/light 双主题截图 + 对比度矩阵】。
-  脚本模板见 `/tmp/vis_ace.py`、`/tmp/vis_ace2.py`（临时目录，后续可移进 `scripts/` 长期化）。
+  脚本已长期化：`python3 scripts/audit_visual.py --dir public --url /games/xxx.html --out /tmp/lx-visual`
+  （alpha 混合按真实叠色算，比只看 RGB 数值准；窄屏下视口外图片 `complete=false` 是 lazy 正常表现，脚本会先转 eager 再判 broken）。
+
+- 2026-10-03：**《逆转裁判123》板块扩写（龙兄：「我和我儿子都喜欢玩逆转裁判，搞精致点、内容有营养点」）**。
+  ① **内容**：新增 14 话案件一览（中文官方译名 + 英文原名 + 无剧透看点）、法庭机制拆解 6 条（调查四指令／心灵枷锁／追及与出示／法官容忍条／序审三天审结／前三代没有「看穿」）、11 位人物速览、2001→2026 系列年表、**父子共玩六条建议**、6 条常见问答（折叠）。
+  ② **数据纠错**：原页写「Switch/PS4/PC 累计 210 万份（截至 2023-03）」已过时 → 改为**卡普空 2026-09-20 官方口径「突破 500 万套、系列整体破 1500 万」**，并补 25 周年（2026-10-12）、9 种语言、2019-08-22 中文语音、3DS 版 2014-04-17、移动端与 Game Pass。**销量/年份类事实必须按「最新官方口径」写，并写明截止日期**。
+  ③ **顺手修的全站 bug**：20 个游戏详情页的 `@media(max-width:600px)` 里 `screenshot-grid` **漏了前导点** → 移动端截图网格一直不变单列（已全站修）。
+  ④ **新守卫 A16**（见第一节）：本轮被「批量替换把 CSS 规则写嵌套 → 块内多一个 `{` → 浏览器静默丢弃后续全部规则」咬了一次，
+  表现是年表/FAQ 样式全失效而源码看着完整。**教训：改页内 `<style>` 一定要量 computed style，
+  光看源码和 grep 都不算数**（`scripts/audit_visual.py` 就是为此准备的）。
+  ⚠️ 另外记一条工具坑：**`cp` 覆盖仓库内已有文件会被文件策略拒绝**（想「造坏块再恢复」这类自证要改用临时副本，别在真身上试）。
 
 ---
 

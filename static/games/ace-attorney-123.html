@@ -112,7 +112,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 .gameplay-notes li{margin-bottom:6px}
 .gameplay-notes li:last-child{margin-bottom:0}
 .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
-@media(max-width:600px){.pros-cons{grid-template-columns:1fr}screenshot-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.pros-cons{grid-template-columns:1fr}.screenshot-grid{grid-template-columns:1fr}}
 .pros-box{background:#1db95415;border:1px solid #1db95440;border-radius:10px;padding:16px 20px}
 .cons-box{background:#e74c3c15;border:1px solid #e74c3c40;border-radius:10px;padding:16px 20px}
 .pros-box h4,.cons-box h4{font-size:1rem;margin:0 0 10px;font-weight:700}
@@ -120,6 +120,59 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 .cons-box h4{color:#e74c3c}
 .pros-box ul,.cons-box ul{margin:0;padding-left:18px;line-height:1.9;font-size:0.98rem}
 @media(max-width:600px){.pros-cons{grid-template-columns:1fr}}
+
+/* ===== 《逆转裁判123》深度板块（沿用 --g* 双主题变量，深浅自动切换） ===== */
+.lx-aa-note{font-size:.92rem;color:var(--gm);line-height:1.75;margin:10px 0 0;padding:10px 14px;border-left:3px solid var(--gold);background:var(--gc);border-radius:0 8px 8px 0}
+/* 案件一览 */
+.lx-aa-cases{display:grid;gap:16px;margin-top:8px}
+.lx-aa-casegroup{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:18px 20px}
+.lx-aa-gh{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;padding-bottom:12px;margin-bottom:6px;border-bottom:1px dashed var(--gb)}
+.lx-aa-gh-no{font-size:.8rem;color:#000;background:var(--gold);border:1px solid var(--gold);border-radius:6px;padding:2px 10px;letter-spacing:1px;white-space:nowrap;font-weight:700}
+.lx-aa-gh-name{font-size:1.12rem;font-weight:700;color:var(--gt)}
+.lx-aa-gh-sub{font-size:.85rem;color:var(--gm)}
+.lx-aa-case{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--gb)}
+.lx-aa-case:last-child{border-bottom:none;padding-bottom:0}
+.lx-aa-case-no{font-size:.95rem;font-weight:700;color:var(--gold);letter-spacing:.5px;padding-top:2px}
+.lx-aa-case-t{font-size:1.02rem;font-weight:700;color:var(--gt);margin-bottom:4px}
+.lx-aa-en{font-size:.8rem;font-weight:400;color:var(--gm);margin-left:8px}
+.lx-aa-case p{margin:0;font-size:.95rem;line-height:1.8;color:var(--gt);opacity:.9}
+@media(max-width:600px){.lx-aa-case{grid-template-columns:1fr;gap:4px}.lx-aa-case-no{font-size:.8rem;color:var(--gm)}}
+/* 机制步骤 */
+.lx-aa-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:8px}
+.lx-aa-step{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:16px 18px}
+.lx-aa-step-no{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#000;font-size:.86rem;font-weight:700;margin-bottom:10px}
+.lx-aa-step h4{margin:0 0 8px;font-size:1rem;color:var(--gt)}
+.lx-aa-step p{margin:0;font-size:.93rem;line-height:1.8;color:var(--gt);opacity:.88}
+/* 人物速览 */
+.lx-aa-chars{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:8px}
+.lx-aa-char{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.lx-aa-seal{flex:0 0 auto;width:44px;height:44px;border-radius:8px;background:var(--gc);border:1px solid var(--gold);color:var(--gold);font-size:1.5rem;font-weight:700;line-height:44px;text-align:center}
+.lx-aa-char h4{margin:0 0 2px;font-size:1rem;color:var(--gt)}
+.lx-aa-role{font-size:.8rem;color:var(--gt);opacity:.85;margin-bottom:6px;letter-spacing:.5px}
+.lx-aa-char p{margin:0;font-size:.92rem;line-height:1.75;color:var(--gt);opacity:.88}
+/* 系列年表 */
+.lx-aa-tl{list-style:none;margin:8px 0 0;padding:0 0 0 22px;border-left:2px solid var(--gb)}
+.lx-aa-tl li{position:relative;padding:0 0 16px 16px}
+.lx-aa-tl li:last-child{padding-bottom:0}
+.lx-aa-tl li::before{content:'';position:absolute;left:-27px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--gcard)}
+.lx-aa-date{display:inline-block;font-size:.8rem;font-weight:700;color:#000;background:var(--gold);border-radius:5px;padding:1px 9px;letter-spacing:.5px}
+.lx-aa-txt{font-size:.95rem;line-height:1.8;color:var(--gt);opacity:.9}
+/* 父子共玩 */
+.lx-aa-tips{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:18px 22px;margin-top:8px}
+.lx-aa-tips li{margin-bottom:10px;font-size:.96rem;line-height:1.85;color:var(--gt)}
+.lx-aa-tips li:last-child{margin-bottom:0}
+.lx-aa-tips b{color:var(--gold)}
+.lx-aa-faq summary::after{color:var(--gold)}
+/* 常见问答 */
+.lx-aa-faq{margin-top:8px;border:1px solid var(--gb);border-radius:12px;overflow:hidden;background:var(--gcard)}
+.lx-aa-faq details{border-bottom:1px solid var(--gb)}
+.lx-aa-faq details:last-of-type{border-bottom:none}
+.lx-aa-faq summary{cursor:pointer;padding:14px 18px;font-size:.98rem;font-weight:700;color:var(--gt);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.lx-aa-faq summary::-webkit-details-marker{display:none}
+.lx-aa-faq summary::after{content:'＋';color:var(--gold);font-weight:400;font-size:1.1rem;flex:0 0 auto}
+.lx-aa-faq details[open] summary::after{content:'－'}
+.lx-aa-faq details p{margin:0;padding:0 18px 16px;font-size:.94rem;line-height:1.85;color:var(--gt);opacity:.9}
+@media(prefers-reduced-motion:no-preference){.lx-aa-faq summary:hover{background:var(--gc)}}
 </style>
 <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
 
@@ -281,13 +334,15 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <table class="info-table">
 <tr><th>开发商</th><td>Capcom（卡普空）</td></tr>
 <tr><th>发行商</th><td>Capcom（卡普空）</td></tr>
-<tr><th>发售日期</th><td>2019年2月21日（Switch／PS4／Xbox One 同步）/ PC 版 2019年4月10日</td></tr>
-<tr><th>平台</th><td>Nintendo Switch（本机版本）/ PS4·Xbox One·PC / 初版为 3DS（2014年）</td></tr>
+<tr><th>发售日期</th><td>2019年2月21日（Switch／PS4／Xbox One 同步）/ PC 版 2019年4月10日 / 3DS 原版 2014年4月17日</td></tr>
+<tr><th>平台</th><td>Nintendo Switch（本机版本）/ PS4·Xbox One·PC（Steam）/ iOS·Android</td></tr>
 <tr><th>游玩时长</th><td>共 14 话，官方未公布统一时长，按章节体量推算全通约 20 小时上下</td></tr>
 <tr><th>游戏人数</th><td>单人</td></tr>
-<tr><th>语言</th><td>日／英／西／法／德／葡／韩／中（简繁中文 2019年8月22日更新追加）</td></tr>
+<tr><th>语言</th><td>共 9 种（含日·英·简繁中文·韩·德·法等；简繁中文 2019年8月22日更新追加，配中文语音）</td></tr>
 <tr><th>分级</th><td>12 岁以上（CERO B／ESRB Teen／PEGI 12）</td></tr>
 <tr><th>下载容量</th><td>2.8 GB（任天堂商店页标注）</td></tr>
+<tr><th>全球销量</th><td>突破 500 万套（卡普空 2026-09-20 公布；系列整体同期突破 1500 万套）</td></tr>
+<tr><th>系列 25 周年</th><td>2026 年 10 月 12 日（初代 2001-10-11 发售）</td></tr>
 </table>
 </div>
 <div class="rating">
@@ -304,7 +359,8 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <div class="desc-box">
 <p>《逆转裁判123：成步堂精选集》（Phoenix Wright: Ace Attorney Trilogy）是卡普空把系列前三代打包的高清合集，Switch 版 2019 年 2 月 21 日与 PS4、Xbox One 同步发售，PC（Steam）版 4 月 10 日跟进。收录《逆转裁判：复苏的逆转》《逆转裁判2》《逆转裁判3》共 14 话，正是成步堂龙一当主角的原点三部曲。</p>
 <p>玩法是典型的法庭推理冒险：庭外调查找证物、庭上质询证人，靠指出证词里的矛盾把案子翻过来。Switch 版完整支持掌机／桌面／电视三种模式，也支持触屏操作，通勤路上能一口气推完一整案。</p>
-<p>这一代也是系列第一次官方中文化的作品——2019 年 8 月 22 日的更新给家用机与 Steam 版追加了简繁中文文本及对应语音，任天堂商店页列明的语言共 8 种。销量方面，卡普空公布该作 Switch／PS4／PC 三平台全球累计 210 万份（截至 2023 年 3 月）。</p>
+<p>这一代也是系列第一次官方中文化的作品——2019 年 8 月 22 日的更新给家用机与 Steam 版追加了简繁中文文本<strong>及中文语音</strong>，系列那三句标志性台词也被官方译了过来：「異議あり！」→「異議！」、「待った！」→「等等！」、「くらえ！」→「看招！」。官方宣传口径是支持 9 种语言。</p>
+<p>销量这件事本身就挺传奇：3DS 原版 2014 年 4 月 17 日在海外只做数字发行、卖得不算好（日本全年 46,819 份、Famitsu 排行第 139 位），七年后靠家用机与移动端翻了个身——卡普空 2026 年 9 月 20 日公布本作全球累计销量<strong>突破 500 万套</strong>，同期《逆转裁判》系列整体突破 1500 万套。<strong>2026 年 10 月 12 日正好是系列 25 周年</strong>，官方已放出周年纪念视觉图，池袋与梅田的 Capcom Cafe 从 10 月 9 日起做联动。</p>
 </div>
 
 <div class="section-label">🕹️ 核心玩法</div>
@@ -328,6 +384,98 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <p>这是对 2014 年 3DS 版《逆转裁判123 成步堂精选集》的家用机移植：场景全部高清重绘、界面重做，也是系列第一次在非任天堂主机上发售。</p>
 <p>往后看，成步堂篇到 3 代为止：《逆转裁判4》换王泥喜法介担纲，5、6 代由成步堂、王泥喜与希月心音共同主角的篇章承接；另有《逆转检事》外传与《大逆转裁判》两部支线可补。</p>
 <p style="margin-top:12px;font-size:0.95rem;color:var(--gm)">📌 想接着翻其他已玩记录，可看 <a href="../games/onimusha-1.html" style="color:var(--blue-light)">鬼武者</a> 与 <a href="../games/wukong.html" style="color:var(--blue-light)">黑神话：悟空</a>。</p>
+</div>
+
+<div class="section-label">⚖️ 十四话案件一览（无剧透）</div>
+<div class="lx-aa-cases">
+
+<div class="lx-aa-casegroup">
+<div class="lx-aa-gh"><span class="lx-aa-gh-no">第一作</span><span class="lx-aa-gh-name">逆转裁判：复苏的逆转</span><span class="lx-aa-gh-sub">2001 年 GBA 首发，DS 重制追加第 5 话，5 话</span></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">1-1</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">第一次的逆转<span class="lx-aa-en">The First Turnabout</span></div><p>成步堂第一次站上法庭，被告是小学同学矢张政志。对着「检察官亚内武文」念出「異議！」的那一下，就是全系列的开场白。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">1-2</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转姐妹<span class="lx-aa-en">Turnabout Sisters</span></div><p>绫里千寻在事务所遇害，妹妹真宵成了嫌疑人。第一次出现「辩护中途换人」、也第一次正面对上御剑怜侍。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">1-3</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转大将军<span class="lx-aa-en">Turnabout Samurai</span></div><p>儿童剧演员被杀，庭上五六个证人轮流作证，是全系列少见的「集体作证」场面；真宵也第一次站上法庭的证人席。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">1-4</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转，然后再见<span class="lx-aa-en">Turnabout Goodbyes</span></div><p>平安夜，御剑怜侍成了被告。狩魔豪登场，十五年前的一桩旧案被翻出来，父子两人在法庭上彻底对上。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">1-5</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">复苏的逆转<span class="lx-aa-en">Rise from the Ashes</span></div><p>系列最长的一话：3 段调查 + 7 场庭审。糸锯圭介被诬告入狱、警队与律师的立场第一次摆到台面上。英文名是系列正篇里唯一不含 Turnabout 的一话。</p></div></div>
+</div>
+
+<div class="lx-aa-casegroup">
+<div class="lx-aa-gh"><span class="lx-aa-gh-no">第二作</span><span class="lx-aa-gh-name">逆转裁判2</span><span class="lx-aa-gh-sub">心灵枷锁系统登场，4 话</span></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">2-1</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">失落的逆转<span class="lx-aa-en">The Lost Turnabout</span></div><p>开局成步堂被人从背后敲晕、失去记忆，委托人是个女警。失忆状态下的「我不是律师」桥段是全作最有意思的开局之一。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">2-2</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">重逢，然后逆转<span class="lx-aa-en">Reunion, and Turnabout</span></div><p>真宵被控杀害医师，春美登场；狩魔冥压轴出场——13 岁就当上检察官，法庭上带着鞭子。机械降神级阵容登场，案子本身也不弱。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">2-3</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转马戏团<span class="lx-aa-en">Turnabout Big Top</span></div><p>马戏团后台命案，空中飞人马克斯被告。雪地脚印、悬空木箱这类物证演示是前三作里最漂亮的一课。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">2-4</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">再会了，逆转<span class="lx-aa-en">Farewell, My Turnabout</span></div><p>成步堂第一次为明知有罪的被告辩护，全程被当成共犯耍，结尾那份「礼物」直接改变了整个系列的走向。全系列最压抑的一话。</p></div></div>
+</div>
+
+<div class="lx-aa-casegroup">
+<div class="lx-aa-gh"><span class="lx-aa-gh-no">第三作</span><span class="lx-aa-gh-name">逆转裁判3</span><span class="lx-aa-gh-sub">时间线倒叙，系列收束，5 话</span></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">3-1</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">回忆的逆转<span class="lx-aa-en">Turnabout Memories</span></div><p>时间倒回五年前：绫里千寻的第一次出庭，成步堂那时还是嫌疑人身份。全系列情感浓度最高的一话，父女、师徒两条线一起收。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">3-2</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">失窃的逆转<span class="lx-aa-en">The Stolen Turnabout</span></div><p>秘宝「仓院之罐」失窃，自称怪盗的青年上门自首。戈德戴着眼罩登场，标志性地端着咖啡登场，「喝完第十七杯前必胜」的flag就此立下。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">3-3</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">逆转的秘方<span class="lx-aa-en">Recipe for Turnabout</span></div><p>真子又一次站上被告席，这次庭上还混着一份「假成步堂」的辩护词；要先证明有人在冒充自己。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">3-4</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">初始的逆转<span class="lx-aa-en">Turnabout Beginnings</span></div><p>再往回倒一年：成步堂和绫里千寻的初遇，「黑色星期一」那场学生法庭。它解释了两人为什么会成为师徒。</p></div></div>
+<div class="lx-aa-case"><div class="lx-aa-case-no">3-5</div><div class="lx-aa-case-body"><div class="lx-aa-case-t">华丽的逆转<span class="lx-aa-en">Bridge to the Turnabout</span></div><p>成步堂篇的终章。御剑怜侍中枪生死一线，庭上那段「最后证言」是全系列公认的名场面，也是三作收尾的分量所在。</p></div></div>
+</div>
+
+</div>
+<p class="lx-aa-note">中文案件名按官方中文版译名整理，英文名为各作原名。案件本身的谜底这里一律不写——自己打出来的反转才是这游戏的味道。</p>
+
+<div class="section-label">🔍 法庭到底怎么打：系统机制拆解</div>
+<div class="lx-aa-steps">
+<div class="lx-aa-step"><span class="lx-aa-step-no">1</span><h4>调查：四个指令</h4><p>搜查阶段只有四个动作——<strong>调查</strong>（挪光标看场景）、<strong>移动</strong>（换地点）、<strong>对话</strong>（问人，话题问过就打勾）、<strong>出示</strong>（亮证据或人物档案）。顺序完全自由，卡住了就回去把没问过的话题问一遍。</p></div>
+<div class="lx-aa-step"><span class="lx-aa-step-no">2</span><h4>心灵枷锁：撬开不说真话的人</h4><p>从第二作起，不肯开口的话题会挂上锁。给绫里春美的勾玉就能破——按正确顺序出示证据或人物档案，锁一根根开。这里<b>不会直接判输</b>，但出示错了照样扣分；破完一根回一半血。</p></div>
+<div class="lx-aa-step"><span class="lx-aa-step-no">3</span><h4>法庭两板斧：追及与出示</h4><p>证人作证是一段一段的。发现哪句不对劲就<strong>追及</strong>（逼他多说一句，常常会加出新证言）；确认有矛盾就<strong>出示</strong>对应的证据，点出「異議！」。绝大多数卡关都卡在「该追哪一句」。</p></div>
+<div class="lx-aa-step"><span class="lx-aa-step-no">4</span><h4>法官的容忍：右上角那格血</h4><p>右上角的条不是律师的血条，是<b>法官的耐心</b>。出示错证据、在不该追的时候追，都会掉一格；清零就当场判定被告有罪，本话重来。庭上每场只给几次失误余量。</p></div>
+<div class="lx-aa-step"><span class="lx-aa-step-no">5</span><h4>为什么这么赶：序审制度</h4><p>系列世界的日本采「序审」，被告收押后<b>三天内必须审结</b>，所以节奏天然是「上午开庭、下午调查、晚上继续」。多数案子判一次无罪只能拖到次日庭，这也是每话像个小单元的原因。</p></div>
+<div class="lx-aa-step"><span class="lx-aa-step-no">6</span><h4>这三作没有「看穿」系统</h4><p>看人脸色、靠肢体小动作抓谎话的「看穿」是第四作王泥喜的手环专属，这前三作没有。所以想玩纯粹的读证词版本，这合集反而是最干净的一份。</p></div>
+</div>
+
+<div class="section-label">👥 人物速览</div>
+<div class="lx-aa-chars">
+<div class="lx-aa-char"><div class="lx-aa-seal">成</div><div><h4>成步堂龙一</h4><div class="lx-aa-role">辩护律师 / 主角</div><p>刺猬头的新人律师，靠虚张声势战斗，也靠虚张声势翻盘。日版由巧舟配音，1 至 4 代都是他。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">千</div><div><h4>绫里千寻</h4><div class="lx-aa-role">成步堂的师傅</div><p>名句是「律师无论在怎样的困境，都要在别人面前展露微笑」。第二话遇害，之后由妹妹与春美接棒她的位置。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">真</div><div><h4>绫里真宵</h4><div class="lx-aa-role">灵媒师 / 事务所助理</div><p>千寻的妹妹，能请出姐姐的亡灵，关键时刻的「大证据」来源，也是全系列被绑架次数最多的角色。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">春</div><div><h4>绫里春美</h4><div class="lx-aa-role">见习灵媒师</div><p>千寻与真宵的表妹，灵力比真宵更强——心灵枷锁就是靠她的勾玉破的，作用相当于队伍的钥匙。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">御</div><div><h4>御剑怜侍</h4><div class="lx-aa-role">检察官 / 儿时好友</div><p>20 岁就当上检察官的天才，脾气和手段都硬，也是成步堂在法庭上最像「对手」的人。童年好友才是他最难啃的骨头。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">糸</div><div><h4>糸锯圭介</h4><div class="lx-aa-role">刑警</div><p>负责杀人案前期调查的老刑警，记性不好、推理更不行，但每次都冲在最前面，家常菜做饭水平一流。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">矢</div><div><h4>矢张政志</h4><div class="lx-aa-role">成步堂的儿时玩伴</div><p>「背后一定有矢张」的那个人物模板，第一话就被当成被告。他后来跑去学画，是系列里少见的「有自己人生」的角色。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">冥</div><div><h4>狩魔冥</h4><div class="lx-aa-role">检察官</div><p>13 岁就在美国当检察官，法庭上挥鞭子说话，对「完美」有病态执着；第二、四话分别把成步堂打到自闭再打回来。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">豪</div><div><h4>狩魔豪</h4><div class="lx-aa-role">首席检察官</div><p>四十年未尝败诉，御剑怜侍的师父，狩魔冥的父亲。系列里最有压迫感的对手，第一话就压轴登场。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">戈</div><div><h4>戈德</h4><div class="lx-aa-role">身份不明的检察官</div><p>护目镜遮脸、咖啡不离手，开口全是没人听得懂的比喻，自称「喝完第十七杯前必胜」。前五话他的真实身份是最大悬念。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-seal">亚</div><div><h4>亚内武文</h4><div class="lx-aa-role">检察官</div><p>外号「新人杀手」，专挑刚出道的新人律师下手，前三作里反复登场的老对手。</p></div></div>
+</div>
+<p class="lx-aa-note">人物年龄、身份与配音按官方设定整理；本作中文版为后加语音，中文与日文声线不同属正常。</p>
+
+<div class="section-label">🕰 系列年表：一部 25 年的老 IP</div>
+<ul class="lx-aa-tl">
+<li><div class="lx-aa-date">2001-10-11</div><div class="lx-aa-txt">初代《逆转裁判》在 GBA 发售，系列起点。当年只有 7 人小组，剧本按 4 话写，结果大卖之后才有了三部曲计划。</div></li>
+<li><div class="lx-aa-date">2005-09-15</div><div class="lx-aa-txt">DS 版《逆转裁判 复苏的逆转》重制，追加第 5 话「复苏的逆转」，并首次用上触摸屏与麦克风。</div></li>
+<li><div class="lx-aa-date">2014-04-17</div><div class="lx-aa-txt">本作 3DS 版首发（日英，立体 3D）。日本当年销量 46,819 份、Famitsu 排行第 139 位——这次押注当时看是失败的。</div></li>
+<li><div class="lx-aa-date">2019-02-21</div><div class="lx-aa-txt">高清重绘版登陆 Switch／PS4／Xbox One，系列第一次离开任天堂主机；4 月 10 日上线 Steam。</div></li>
+<li><div class="lx-aa-date">2019-08-22</div><div class="lx-aa-txt">追加简繁中文与中文语音，系列首次官方中文化；台词「異議あり／待った／くらえ」正式译为「異議／等等／看招」。</div></li>
+<li><div class="lx-aa-date">2022</div><div class="lx-aa-txt">iOS／Android 上线（取代早前的 Trilogy HD 移动版），手机成为新的游玩场景。</div></li>
+<li><div class="lx-aa-date">2023-09-26</div><div class="lx-aa-txt">加入 Xbox／PC Game Pass 订阅库。</div></li>
+<li><div class="lx-aa-date">2026-09-20</div><div class="lx-aa-txt">卡普空公布本作全球销量突破 <strong>500 万套</strong>，系列整体突破 1500 万套，同日放出 25 周年纪念视觉图。</div></li>
+<li><div class="lx-aa-date">2026-10-12</div><div class="lx-aa-txt">系列 25 周年。池袋／梅田 Capcom Cafe 自 10 月 9 日起做主题餐品与周边联动。</div></li>
+</ul>
+<p class="lx-aa-note">时间线与销量均以卡普空官方「百万套系列」专区、官方 20 周年／25 周年年表为准；3DS 版日本销量引自 Famitsu 统计转述。</p>
+
+<div class="section-label">👨‍👦 父子一起玩的六个建议</div>
+<ul class="lx-aa-tips">
+<li><b>让孩子先打 1-1 和 1-2。</b>这两话是官方教程：怎么找东西、怎么追证词、出示错会怎样，全在里面。先过一遍，后面就不会一直喊救命。</li>
+<li><b>分工比陪玩更省力。</b>一个人负责调查阶段翻场景、记证物在哪儿；另一个人负责法庭上挑矛盾。谁卡住就换手，别一个人全扛。</li>
+<li><b>给提示，别给答案。</b>他卡在「这证词不对」却说不出哪儿不对时，只说一句「再往前追一句」；直接报答案，这一话的成就感就没了。</li>
+<li><b>一次一话。</b>单话 1 到 2 小时，正好一顿饭到一段睡眠之间，连打三话谁都顶不住。</li>
+<li><b>中文语音别关。</b>笑点、争吵、还有那几句「異議！」的中文配音，气氛差很多。Switch 版戴耳机横握，屏幕加掌机模式随意切。</li>
+<li><b>分级说明提前讲清。</b>官方分级 12 岁以上（CERO B／PEGI 12／ESRB Teen），涉及杀人与死亡描写，没有血腥镜头。用一句话讲清：「这是审案子的游戏，不是打打杀杀。」</li>
+</ul>
+
+<div class="section-label">❓ 常见问答</div>
+<div class="lx-aa-faq">
+<details><summary>完全没有中文能玩吗？</summary><p>能。2019 年 8 月 22 日的官方更新已经给家用机与 Steam 版追加了简繁中文文本和中文语音，这是系列第一次官方中文化。买之前确认一下存档与语言设置就行。</p></details>
+<details><summary>Switch、PC、移动端选哪个？</summary><p>Switch 版最完整：掌机／桌面／电视三种模式加触屏操作，通勤能玩。PC（Steam）版有 30 个成就可刷。移动版适合零碎时间。三作内容一致，主要差在操作方式与成就。</p></details>
+<details><summary>三作有先后顺序吗？可以乱打吗？</summary><p>建议按 1→2→3 顺序。3-1 和 3-4 是往回倒叙的回忆篇（成步堂与绫里千寻的初遇），先打会削弱情绪；反过来最后打又容易忘记前面的人物关系。三作之间还互相埋了伏笔。</p></details>
+<details><summary>大概多久能通关？</summary><p>14 话，单话 1 到 2 小时，全通大约 20 小时上下（官方未公布统一时长，这是按章节体量估的）。卡关是常态——法庭玩法本来就靠反复读证词。</p></details>
+<details><summary>值不值得买？</summary><p>如果只想体验法庭推理的原型，买这一份就够，它是系列最纯粹的一批剧本。但 3DS 高清重绘是 2014 年的底子，画面放今天看仍有年代感；追求画面可以再考虑后续作。</p></details>
+<details><summary>孩子多大能玩？</summary><p>官方分级是 12 岁以上。游戏没有操作门槛，全靠读文本和判断，中学年龄的孩子完全能玩。家长陪着读线索、当「第二个玩家」效果最好。</p></details>
 </div>
 
 <div class="section-label">📸 游戏截图</div>

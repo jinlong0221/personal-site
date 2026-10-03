@@ -172,6 +172,14 @@ jobs:
       - name: Guard inline <style> brace balance
         run: python3 scripts/guard_css_balance.py
 
+      # 配图自检（2026-10-03 落地）：
+      #  ① 硬问题（图片文件缺失/打不开）阻断部署；
+      #  ② 软问题（width/height 比例不符、透明 PNG 被 convert('RGB') 烤成黑底）只提示。
+      #     2026-10-03 事故：官方群像主视觉是透明 PNG，转 RGB 后透明区变纯黑，
+      #     深色主题看不出、浅色主题直接一个大黑块 —— 这类问题只有渲染后才暴露。
+      - name: Guard images (missing / ratio / transparent-as-black)
+        run: python3 scripts/guard_images.py
+
       # 板块新闻主题守卫（2026-09-22 补上调用点）：
       #  ⚠️ 脚本 2026-09-21 就写好了，却从未接进 CI / pre-commit —— 复查时
       #     `grep -rn guard_news_topic scripts/ .github/ .githooks/` 只命中它自己的

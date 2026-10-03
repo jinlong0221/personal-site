@@ -106,10 +106,25 @@ def main():
     ap.add_argument("--file", default=None)
     ap.add_argument("-q", "--quiet", action="store_true")
     ap.add_argument("--stats", action="store_true")
+    ap.add_argument("--staged", action="store_true",
+                    help="只扫本次 git 暂存区里的 html（pre-commit 用，避免每次提交都扫全站 194 页）")
     args = ap.parse_args()
 
     if args.file:
         files = [args.file]
+    elif args.staged:
+        import subprocess
+        try:
+            out = subprocess.run(["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"],
+                                 cwd=ROOT, capture_output=True, text=True, timeout=60).stdout
+        except Exception as e:
+            print(f"[guard_images] 读暂存区失败（{e}），退回全站扫描", file=sys.stderr)
+            out = ""
+        files = [os.path.join(ROOT, x) for x in out.split() if x.endswith(".html")]
+        if not files:
+            if not args.quiet:
+                print("[guard_images] PASS：本次暂存区没有 html 页面，跳过")
+            return 0
     else:
         files = []
         for dp, dn, fn in os.walk(STATIC):

@@ -92,9 +92,11 @@ echo "[pre-commit] 检查页内样式花括号平衡..."
 echo "[pre-commit] 检查配图（缺失 / 比例 / 透明烤黑底）..."
 # 2026-10-03 事故：透明 PNG 用 convert('RGB') 转 webp，透明区被烤成纯黑，
 # 深色主题看不出、浅色主题下是一整块黑板；源码与 grep 都查不出来，只有渲染才暴露。
-"$PY3" scripts/guard_images.py -q >/dev/null 2>&1 || {
+# 只扫本次暂存的页面：全站 194 页要 2 分钟，每次提交都等太久不现实；
+# 全站扫描留给 audit_regression.sh 与 CI。
+"$PY3" scripts/guard_images.py --staged -q >/dev/null 2>&1 || {
   echo "❌ 配图守卫未通过（图片文件缺失或损坏）："
-  "$PY3" scripts/guard_images.py
+  "$PY3" scripts/guard_images.py --staged
   exit 1
 }
 

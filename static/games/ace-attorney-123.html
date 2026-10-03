@@ -178,7 +178,12 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 .lx-aa-chara-art{flex:0 0 auto;width:92px;display:flex;align-items:flex-end;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,var(--gc));border-radius:8px;overflow:hidden}
 .lx-aa-chara-art img{width:100%;height:auto;display:block}
 .lx-aa-char-body{min-width:0;flex:1 1 auto}
-.lx-aa-char .lx-aa-seal{width:92px;height:auto;line-height:1.2;padding:18px 0;text-align:center}
+.lx-aa-chara-shot{margin:0 0 10px;border-radius:8px;overflow:hidden;border:1px solid var(--gb)}
+.lx-aa-char--shot{flex-direction:column;align-items:stretch}
+.lx-aa-char--shot .lx-aa-char-body{flex:0 0 auto}
+.lx-aa-chara-shot img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.lx-aa-char .lx-aa-seal{width:92px;height:150px;line-height:1;display:flex;align-items:center;justify-content:center;font-size:2.6rem}
+@media(max-width:420px){.lx-aa-char .lx-aa-seal{width:100%;height:92px}}
 @media(max-width:420px){.lx-aa-char{flex-direction:column}.lx-aa-chara-art{width:100%}.lx-aa-chara-art img{width:auto;height:220px;margin:0 auto}}
 /* 案件组头图 / 官方公告图 */
 .lx-aa-ghfigure{margin:0 0 14px;border-radius:10px;overflow:hidden;border:1px solid var(--gb);position:relative}
@@ -469,19 +474,19 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <div class="section-label">👥 人物速览</div>
 <figure class="lx-aa-hero"><img width="1200" height="615" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-trio.webp" alt="逆转裁判系列官方角色群像主视觉"><figcaption>官方角色群像：成步堂龙一、御剑怜侍、绫里真宵、绫里春美、戈德与狩魔冥（左起，卡普空官网素材）</figcaption></figure>
 <div class="lx-aa-chars">
-<div class="lx-aa-char"><div class="lx-aa-seal">成</div><div class="lx-aa-char-body"><h4>成步堂龙一</h4><div class="lx-aa-role">辩护律师 / 主角</div><p>刺猬头的新人律师，靠虚张声势战斗，也靠虚张声势翻盘。日版由巧舟配音，1 至 4 代都是他。</p></div></div>
+<div class="lx-aa-char lx-aa-char--shot"><figure class="lx-aa-chara-shot"><img width="1280" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-shot-naruhodo.webp" alt="成步堂龙一 官方实机画面（日文版界面）"></figure><div class="lx-aa-char-body"><h4>成步堂龙一</h4><div class="lx-aa-role">辩护律师 / 主角</div><p>刺猬头的新人律师，靠虚张声势战斗，也靠虚张声势翻盘。日版由巧舟配音，1 至 4 代都是他。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="401" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-qianxun.webp" alt="绫里千寻 官方角色立绘"></div><div class="lx-aa-char-body"><h4>绫里千寻</h4><div class="lx-aa-role">成步堂的师傅</div><p>名句是「律师无论在怎样的困境，都要在别人面前展露微笑」。第二话遇害，之后由妹妹与春美接棒她的位置。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-seal">真</div><div class="lx-aa-char-body"><h4>绫里真宵</h4><div class="lx-aa-role">灵媒师 / 事务所助理</div><p>千寻的妹妹，能请出姐姐的亡灵，关键时刻的「大证据」来源，也是全系列被绑架次数最多的角色。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="350" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-chunmei.webp" alt="绫里春美 官方角色立绘"></div><div class="lx-aa-char-body"><h4>绫里春美</h4><div class="lx-aa-role">见习灵媒师</div><p>千寻与真宵的表妹，灵力比真宵更强——心灵枷锁就是靠她的勾玉破的，作用相当于队伍的钥匙。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="385" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-liansi.webp" alt="御剑怜侍 官方角色立绘"></div><div class="lx-aa-char-body"><h4>御剑怜侍</h4><div class="lx-aa-role">检察官 / 儿时好友</div><p>20 岁就当上检察官的天才，脾气和手段都硬，也是成步堂在法庭上最像「对手」的人。童年好友才是他最难啃的骨头。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">糸</div><div class="lx-aa-char-body"><h4>糸锯圭介</h4><div class="lx-aa-role">刑警</div><p>负责杀人案前期调查的老刑警，记性不好、推理更不行，但每次都冲在最前面，家常菜做饭水平一流。</p></div></div>
+<div class="lx-aa-char lx-aa-char--shot"><figure class="lx-aa-chara-shot"><img width="1280" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-shot-gumshoe.webp" alt="糸锯圭介 官方实机画面（日文版界面）"></figure><div class="lx-aa-char-body"><h4>糸锯圭介</h4><div class="lx-aa-role">刑警</div><p>负责杀人案前期调查的老刑警，记性不好、推理更不行，但每次都冲在最前面，家常菜做饭水平一流。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="586" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-zhengzhi.webp" alt="矢张政志 官方角色立绘"></div><div class="lx-aa-char-body"><h4>矢张政志</h4><div class="lx-aa-role">成步堂的儿时玩伴</div><p>「背后一定有矢张」的那个人物模板，第一话就被当成被告。他后来跑去学画，是系列里少见的「有自己人生」的角色。</p></div></div>
-<div class="lx-aa-char"><div class="lx-aa-seal">冥</div><div class="lx-aa-char-body"><h4>狩魔冥</h4><div class="lx-aa-role">检察官</div><p>13 岁就在美国当检察官，法庭上挥鞭子说话，对「完美」有病态执着；第二、四话分别把成步堂打到自闭再打回来。</p></div></div>
+<div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="606" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-ming.webp" alt="狩魔冥 官方角色立绘"></div><div class="lx-aa-char-body"><h4>狩魔冥</h4><div class="lx-aa-role">检察官</div><p>13 岁就在美国当检察官，法庭上挥鞭子说话，对「完美」有病态执着；第二、四话分别把成步堂打到自闭再打回来。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-seal">豪</div><div class="lx-aa-char-body"><h4>狩魔豪</h4><div class="lx-aa-role">首席检察官</div><p>四十年未尝败诉，御剑怜侍的师父，狩魔冥的父亲。系列里最有压迫感的对手，第一话就压轴登场。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="560" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-gede.webp" alt="戈德 官方角色立绘"></div><div class="lx-aa-char-body"><h4>戈德</h4><div class="lx-aa-role">身份不明的检察官</div><p>护目镜遮脸、咖啡不离手，开口全是没人听得懂的比喻，自称「喝完第十七杯前必胜」。前五话他的真实身份是最大悬念。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-seal">亚</div><div class="lx-aa-char-body"><h4>亚内武文</h4><div class="lx-aa-role">检察官</div><p>外号「新人杀手」，专挑刚出道的新人律师下手，前三作里反复登场的老对手。</p></div></div>
 </div>
-<p class="lx-aa-note">人物年龄、身份与配音按官方设定整理；本作中文版为后加语音，中文与日文声线不同属正常。带立绘的六位用的是卡普空官网公布的官方角色立绘；官网另有一张标着「狩魔冥」的立绘，但造型与中文版玩家熟悉的形象对不上，为免张冠李戴，这里只用印章字表示，不硬配图。</p>
+<p class="lx-aa-note">人物年龄、身份与配音按官方设定整理；本作中文版为后加语音，中文与日文声线不同属正常。立绘全部取自卡普空官网按角色名公布的官方素材（千寻 chihiro、怜侍 mitsurugi、政志 yahari、春美 harumi、冥 mei、戈德 godo）；成步堂与糸锯官网没有单独立绘，改用官方实机画面（日文版界面）。真宵、狩魔豪、亚内武文三位官网未公开单人素材，暂用印章字表示，不硬凑图。</p>
 
 <div class="section-label">🕰 系列年表：一部 25 年的老 IP</div>
 <ul class="lx-aa-tl">

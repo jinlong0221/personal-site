@@ -1,0 +1,153 @@
+/* =============================================================
+ * 通用倒计时组件（与任意页面解耦，不依赖万年历 lunar 引擎）
+ * 用法：在任意元素上加 data-countdown，并指定一种目标：
+ *   data-target="2026-10-01"              绝对日期（单值）
+ *   data-annual="10-01"                   每年重复的 MM-DD（取下一个未到来的）
+ *   data-dates="2027-02-06,2028-01-26"     显式候选列表（按时间取首个未到来的；适合春节/端午/中秋等农历浮动节日）
+ * 可选属性：
+ *   data-label="距国庆"   前缀文案（缺省不显示）
+ *   data-past="已结束"    目标已过期时的文案（缺省"已结束"）
+ *   data-zero="今天"      目标为今天时的文案（缺省"今天"）
+ *   data-format="num"     仅输出数字（适用于外层已自备标签/单位的场景）
+ * 渲染：默认输出 <span class="cd-label">…</span><b class="cd-num">N</b><span class="cd-unit">天</span>
+ * 更新：加载时计算一次，并每 60 秒校准（跨天自动刷新）。
+ * ============================================================= */
+(function () {
+  'use strict';
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function startOfToday() {
+    var n = new Date();
+    return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  }
+
+  // 解析候选目标日期（绝对或列表），返回「今天及以后」中最接近的一个
+  function resolveTarget(el) {
+    var now = startOfToday();
+    var dates = [];
+
+    // 单值绝对日期（首页近期节点：data/festivals.json 驱动，每个节日一个具体发生日）
+    if (el.hasAttribute('data-date')) {
+      var sd = parseISO(el.getAttribute('data-date').trim());
+      if (sd) {
+        if (sd < now) return { date: sd, passed: true };
+        return { date: sd, passed: false };
+      }
+    } else if (el.hasAttribute('data-dates')) {
+      el.getAttribute('data-dates').split(',').forEach(function (s) {
+        var p = s.trim(); if (!p) return;
+        var t = parseISO(p); if (t) dates.push(t);
+      });
+    } else if (el.hasAttribute('data-annual')) {
+      var md = el.getAttribute('data-annual').trim();
+      var m = parseInt(md.slice(0, 2), 10), d = parseInt(md.slice(3, 5), 10);
+      var y = now.getFullYear();
+      var cand = new Date(y, m - 1, d);
+      if (cand < now) cand = new Date(y + 1, m - 1, d);
+      dates.push(cand);
+    } else if (el.hasAttribute('data-target')) {
+      var t2 = parseISO(el.getAttribute('data-target').trim());
+      if (t2) dates.push(t2);
+    }
+
+    if (!dates.length) return null;
+    dates.sort(function (a, b) { return a - b; });
+    for (var i = 0; i < dates.length; i++) {
+      if (dates[i] >= now) return { date: dates[i], passed: false };
+    }
+    return { date: dates[dates.length - 1], passed: true }; // 全部已过期
+  }
+
+  function parseISO(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+    if (!m) return null;
+    return new Date(+m[1], +m[2] - 1, +m[3]);
+  }
+
+  function daysBetween(target) {
+    var ms = target.getTime() - startOfToday().getTime();
+    return Math.round(ms / 86400000);
+  }
+
+  function render(el) {
+    var r = resolveTarget(el);
+    if (!r) {
+      el.textContent = '—';
+      return;
+    }
+    // 已过期节日：隐藏节点（首页 data/festivals.json 由二米每日刷新剔除，这里为兜底，避免缓存窗口内残留）
+    if (r.passed) {
+      el.style.display = 'none';
+      el._cdDiff = -1;
+      return;
+    }
+    var target = r.date;
+    var diff = daysBetween(target);
+    el._cdDiff = diff; // 缓存剩余天数，供容器排序使用
+    var label = el.getAttribute('data-label') || '';
+    var past = el.getAttribute('data-past') || '已结束';
+    var zero = el.getAttribute('data-zero') || '今天';
+    var fmt = el.getAttribute('data-format') || '';
+
+    if (diff < 0) {
+      if (fmt === 'num') { el.textContent = past; }
+      else { el.innerHTML = (label ? '<span class="cd-label">' + label + '</span>' : '') + '<span class="cd-end">' + past + '</span>'; }
+      el.classList.add('cd-passed');
+      el.classList.remove('is-soon');
+      return;
+    }
+    if (diff === 0) {
+      if (fmt === 'num') { el.textContent = zero; }
+      else { el.innerHTML = (label ? '<span class="cd-label">' + label + '</span>' : '') + '<b class="cd-num">' + zero + '</b>'; }
+      el.classList.remove('cd-passed', 'is-soon');
+      return;
+    }
+    if (fmt === 'num') {
+      el.textContent = String(diff);
+    } else {
+      el.innerHTML = (label ? '<span class="cd-label">' + label + '</span>' : '') +
+        '<b class="cd-num">' + diff + '</b><span class="cd-unit">天</span>';
+    }
+    el.classList.remove('cd-passed');
+    el.classList.toggle('is-soon', diff <= 30);
+  }
+
+  // 可选能力：容器加 data-countdown-sort 后，按剩余天数升序重排子节点
+  // （最近优先；已过期节点沉底）。不影响未开启该特性的页面。
+  function sortNodeContainers() {
+    var containers = document.querySelectorAll('[data-countdown-sort]');
+    for (var c = 0; c < containers.length; c++) {
+      var box = containers[c];
+      var kids = [];
+      for (var k = 0; k < box.children.length; k++) {
+        var ch = box.children[k];
+        if (ch.hasAttribute && ch.hasAttribute('data-countdown')) kids.push(ch);
+      }
+      if (kids.length < 2) continue;
+      kids.sort(function (a, b) {
+        var da = (a._cdDiff == null ? Infinity : (a._cdDiff < 0 ? Infinity : a._cdDiff));
+        var db = (b._cdDiff == null ? Infinity : (b._cdDiff < 0 ? Infinity : b._cdDiff));
+        return da - db;
+      });
+      for (var n = 0; n < kids.length; n++) box.appendChild(kids[n]); // 按序 append = 重排
+    }
+  }
+
+  function init() {
+    var els = document.querySelectorAll('[data-countdown]');
+    for (var i = 0; i < els.length; i++) render(els[i]);
+    sortNodeContainers();
+    // 跨天校准（渲染 + 重排，保证跨天后顺序依旧最近优先）
+    setInterval(function () {
+      for (var j = 0; j < els.length; j++) render(els[j]);
+      sortNodeContainers();
+    }, 60000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

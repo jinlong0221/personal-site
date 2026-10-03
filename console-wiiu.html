@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://busuanzi.ibruce.info 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>Nintendo Wii U 图鉴已合并｜龙兄知识库</title>
+<!-- 社交分享与规范链接（sync_titles.py 补） -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nintendo Wii U 图鉴已合并｜龙兄知识库">
+<meta property="og:description" content="Nintendo Wii U 原独立图鉴已合并至 Wii U 主图鉴页。本页为跳转说明，介绍 Wii U 机型背景并引导至合并后的完整主机参数与游戏阵容。">
+<meta property="og:url" content="https://longxiong.vip/console-wiiu.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nintendo Wii U 图鉴已合并｜龙兄知识库">
+<meta name="twitter:description" content="Nintendo Wii U 原独立图鉴已合并至 Wii U 主图鉴页。本页为跳转说明，介绍 Wii U 机型背景并引导至合并后的完整主机参数与游戏阵容。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+<link rel="canonical" href="https://longxiong.vip/console-wii-u.html">
+<meta name="robots" content="noindex">
+<meta name="description" content="Nintendo Wii U 原独立图鉴已合并至 Wii U 主图鉴页。本页为跳转说明，介绍 Wii U 机型背景并引导至合并后的完整主机参数与游戏阵容。">
+<meta http-equiv="refresh" content="0; url=console-wii-u.html">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip/",
+      "description": "AI驱动的个人知识库，涵盖AI学习、沉香鉴别、中药材、文玩手串、中药养生茶、特斯拉动态新闻、射阳天气等实用内容。",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://longxiong.vip/search.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "Nintendo Wii U 图鉴已合并｜龙兄知识库",
+      "description": "Nintendo Wii U 原独立图鉴已合并至 Wii U 主图鉴页。本页为跳转说明，介绍 Wii U 机型背景并引导至合并后的完整主机参数与游戏阵容。",
+      "url": "https://longxiong.vip/console-wiiu.html",
+      "author": {
+        "@type": "Person",
+        "name": "龙兄"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "龙兄知识库"
+      }
+    }
+  ]
+}
+</script>
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+<p style="font-family:system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:2rem;color:#666;line-height:1.8;">该机型的图鉴已合并至 <a href="console-wii-u.html">Nintendo Wii U 主机图鉴</a>，正在为你跳转…</p>
+<p style="font-family:system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:0 2rem 2rem;color:#888;line-height:2;">Nintendo Wii U 是任天堂于 2012 年推出的家用游戏主机，也是 Wii 的后续机型，首次引入了配备触控屏的 GamePad 手柄，支持电视与大屏手柄的双屏互动与「脱离电视」的离屏游戏体验。本页原先作为该机型的独立图鉴存在，为便于统一检索、跨机型对比与长期维护，现已整体并入《Nintendo Wii U 主机图鉴》主页面。合并后的主图鉴收录了 Wii U 的完整硬件规格、首发阵容、经典独占作品以及后续硬件演进脉络，信息更全、更新也更及时。Wii U 虽市场表现不及前代 Wii，却为任天堂积累了宝贵的双屏交互经验，其设计理念后来在 Nintendo Switch 的便携与主机融合思路中得到延续与发扬，是品牌转型的重要过渡机型。如需查看详细参数或游戏列表，请直接访问上方合并页面；本页将在数秒后自动跳转，若未跳转也可点击链接手动前往。感谢你的理解与支持。</p>
+
+<script src="js/bookmark.js" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+</body>
+</html>

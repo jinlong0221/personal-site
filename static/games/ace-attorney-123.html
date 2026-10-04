@@ -180,6 +180,39 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 .lx-aa-char-body{min-width:0;flex:1 1 auto}
 .lx-aa-chara-shot{margin:0 0 10px;border-radius:8px;overflow:hidden;border:1px solid var(--gb)}
 .lx-aa-char--shot{flex-direction:column;align-items:stretch}
+
+/* ===== 阅读节奏改造 2026-10-04（治「连续同款灰卡片」的阅读疲劳）=====
+   病根：13 板块 + 11 个同款灰卡 + 间距 20px + 无行宽控制 = 15 屏连续阅读必疲劳。
+   药方：分章换气 / 旁注代替灰底方块 / 正文限宽 / 关键数字大号 / 长列表默认收起 / 顶部导读。 */
+.lx-toc{margin:30px 0 10px;padding:20px 24px;border:1px solid var(--gb);border-radius:14px;background:var(--gcard)}
+.lx-toc-t{font-size:.78rem;letter-spacing:2px;color:var(--gm);margin-bottom:12px}
+.lx-toc ol{margin:0;padding-left:1.3em;columns:2;column-gap:30px;font-size:.95rem;line-height:2.05;color:var(--gt)}
+.lx-toc a{color:var(--gt);text-decoration:none;border-bottom:1px solid transparent}
+.lx-toc a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+@media(max-width:700px){.lx-toc ol{columns:1}}
+.lx-chapter{margin:60px 0 28px;padding-top:28px;border-top:1px solid var(--gb)}
+.lx-chapter-no{display:inline-block;font-size:.76rem;letter-spacing:2px;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:2px 13px;margin-bottom:13px}
+.lx-chapter-title{margin:0 0 12px;font-size:1.5rem;font-weight:700;line-height:1.35;color:var(--gt);letter-spacing:.5px}
+.lx-chapter-lead{margin:0;color:var(--gm);font-size:1rem;line-height:1.9;max-width:58ch}
+.lx-sub{margin:34px 0 16px;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:1px;padding-left:12px;border-left:3px solid var(--gold)}
+.lx-aside{margin:20px 0 0;padding:1px 0 1px 18px;border-left:2px solid var(--gold);color:var(--gm);font-size:.92rem;line-height:1.95;max-width:72ch}
+.lx-aside b{color:var(--gt)}
+.lx-prose{max-width:68ch}
+.lx-prose p{margin:0 0 1.15em;line-height:1.95}
+.lx-prose p:last-child{margin-bottom:0}
+.lx-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:30px 0 8px}
+.lx-stat{background:var(--gcard);border:1px solid var(--gb);border-radius:14px;padding:20px 22px}
+.lx-stat b{display:block;font-size:1.8rem;line-height:1.15;color:var(--gold);font-weight:700;white-space:nowrap}
+.lx-stat span{display:block;margin-top:8px;font-size:.88rem;color:var(--gm);line-height:1.7}
+.lx-fold{margin-top:18px}
+.lx-fold>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:7px 18px}
+.lx-fold>summary::-webkit-details-marker{display:none}
+.lx-fold>summary::after{content:'▾';font-size:.82rem}
+.lx-fold[open]>summary::after{content:'▴'}
+.lx-fold>summary:hover{background:rgba(201,168,76,.1)}
+.detail-section>.section-label{margin-top:24px;margin-bottom:20px}
+.desc-box{background:transparent;border:none;padding:0}
+
 .lx-aa-char--payne .lx-aa-chara-art{width:132px;background:none}
 .lx-aa-char--payne .lx-aa-chara-art img{width:100%;height:auto}
 .lx-aa-char--shot .lx-aa-char-body{flex:0 0 auto}
@@ -347,6 +380,24 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="../index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="../games.html">玩过的游戏</a><span class="sep">›</span><span class="current">逆转裁判123</span></div>
 
+<div class="lx-stats">
+<div class="lx-stat"><b>14 话</b><span>五＋四＋五话</span></div>
+<div class="lx-stat"><b>20 小时</b><span>全通大致体量</span></div>
+<div class="lx-stat"><b>500 万套</b><span>本作全球销量</span></div>
+<div class="lx-stat"><b>25 周年</b><span>系列初代发售纪念</span></div>
+</div>
+<nav class="lx-toc">
+<div class="lx-toc-t">本页导读</div>
+<ol>
+<li><a href="#ch1">先看懂这游戏：玩法与核心</a></li>
+<li><a href="#ch2">十四话分别在讲什么</a></li>
+<li><a href="#ch3">法庭怎么打，人物是谁</a></li>
+<li><a href="#ch4">二十五年的来龙去脉</a></li>
+<li><a href="#ch5">值不值得玩、怎么一起玩</a></li>
+<li><a href="#ch6">实机图库与我的点评</a></li>
+</ol>
+</nav>
+
 <div class="detail-hero">
 <div class="detail-cover" data-lightbox data-caption="简体中文版实机画面：法庭上的「异议！」" data-src="../img/games/ace-attorney-123-cn-shot-01.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-01.webp" alt="逆转裁判123 简体中文版实机画面：法庭上的「异议！」" fetchpriority="high" decoding="async"></div>
 <div class="game-title-wrap">
@@ -383,10 +434,18 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 </div>
 </div>
 
+
+
+
 <div class="detail-section">
 
-<div class="section-label">🎮 游戏简介</div>
-<div class="desc-box">
+<div class="lx-chapter" id="ch1">
+<span class="lx-chapter-no">CHAPTER 01</span>
+<h2 class="lx-chapter-title">先看懂这游戏</h2>
+<p class="lx-chapter-lead">不剧透。一句话：这是一部「用嘴赢」的法庭推理游戏——庭外找证据，庭上靠追问和出示，把不可能的证词当场拆穿。</p>
+<h3 class="lx-sub">🎮 游戏简介</h3>
+
+<div class="desc-box lx-prose">
 <p>《逆转裁判123：成步堂精选集》（Phoenix Wright: Ace Attorney Trilogy）是卡普空把系列前三代打包的高清合集，Switch 版 2019 年 2 月 21 日与 PS4、Xbox One 同步发售，PC（Steam）版 4 月 10 日跟进。收录《逆转裁判：复苏的逆转》《逆转裁判2》《逆转裁判3》共 14 话，正是成步堂龙一当主角的原点三部曲。</p>
 <p>玩法是典型的法庭推理冒险：庭外调查找证物、庭上质询证人，靠指出证词里的矛盾把案子翻过来。Switch 版完整支持掌机／桌面／电视三种模式，也支持触屏操作，通勤路上能一口气推完一整案。</p>
 <p>这一代也是系列第一次官方中文化的作品——2019 年 8 月 22 日的更新给家用机与 Steam 版追加了简繁中文文本<strong>及中文语音</strong>，系列那三句标志性台词也被官方译了过来：「異議あり！」→「異議！」、「待った！」→「等等！」、「くらえ！」→「看招！」。官方宣传口径是支持 9 种语言。</p>
@@ -409,8 +468,14 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 </ul>
 </div>
 
-<div class="section-label">⚔️ 系列定位</div>
-<div class="desc-box">
+</div>
+<div class="lx-chapter" id="ch4">
+<span class="lx-chapter-no">CHAPTER 04</span>
+<h2 class="lx-chapter-title">二十五年的来龙去脉</h2>
+<p class="lx-chapter-lead">从 2001 年的 GBA 说到 2026 年的 25 周年，顺带补上 2025 年 11 月那次大更新。</p>
+<h3 class="lx-sub">⚔️ 系列定位</h3>
+
+<div class="desc-box lx-prose">
 <p>这是对 2014 年 3DS 版《逆转裁判123 成步堂精选集》的家用机移植：场景全部高清重绘、界面重做，也是系列第一次在非任天堂主机上发售。</p>
 <p>往后看，成步堂篇到 3 代为止：《逆转裁判4》换王泥喜法介担纲，5、6 代由成步堂、王泥喜与希月心音共同主角的篇章承接；另有《逆转检事》外传与《大逆转裁判》两部支线可补。</p>
 <p style="margin-top:12px;font-size:0.95rem;color:var(--gm)">📌 想接着翻其他已玩记录，可看 <a href="../games/onimusha-1.html" style="color:var(--blue-light)">鬼武者</a> 与 <a href="../games/wukong.html" style="color:var(--blue-light)">黑神话：悟空</a>。</p>
@@ -431,9 +496,16 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 </ul>
 </div>
 <figure class="lx-aa-newsfig"><img width="800" height="450" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-update.webp" alt="卡普空 2025 年 11 月 19 日更新公告图（日文版界面）"></figure>
-<p class="lx-aa-note">更新内容与截图取自卡普空《逆转裁判123》官方站点（2025-11-19 公告，图为日文版）。</p>
+<p class="lx-aside">更新内容与截图取自卡普空《逆转裁判123》官方站点（2025-11-19 公告，图为日文版）。</p>
 
-<div class="section-label">⚖️ 十四话案件一览（无剧透）</div>
+</div>
+<div class="lx-chapter" id="ch2">
+<span class="lx-chapter-no">CHAPTER 02</span>
+<h2 class="lx-chapter-title">十四话分别在讲什么</h2>
+<p class="lx-chapter-lead">每一话都是一个独立小案，案子之间串着人物关系。下面只写每话在讲什么、值不值得看，不写凶手。</p>
+<h3 class="lx-sub">⚖️ 十四话案件一览（无剧透）</h3>
+
+<details class="lx-fold" style="margin-top:8px"><summary>展开 14 话案件一览（默认收起）</summary>
 <div class="lx-aa-cases">
 
 <div class="lx-aa-casegroup">
@@ -466,9 +538,17 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 </div>
 
 </div>
-<p class="lx-aa-note">中文案件名按官方中文版译名整理，英文名为各作原名。案件本身的谜底这里一律不写——自己打出来的反转才是这游戏的味道。</p>
+</details>
 
-<div class="section-label">🔍 法庭到底怎么打：系统机制拆解</div>
+<p class="lx-aside">中文案件名按官方中文版译名整理，英文名为各作原名。案件本身的谜底这里一律不写——自己打出来的反转才是这游戏的味道。</p>
+
+</div>
+<div class="lx-chapter" id="ch3">
+<span class="lx-chapter-no">CHAPTER 03</span>
+<h2 class="lx-chapter-title">法庭怎么打，人物是谁</h2>
+<p class="lx-chapter-lead">把规则拆成六步，再看这 14 话里出场的 11 位角色。</p>
+<h3 class="lx-sub">🔍 法庭到底怎么打：系统机制拆解</h3>
+
 <div class="lx-aa-steps">
 <div class="lx-aa-step"><span class="lx-aa-step-no">1</span><h4>调查：四个指令</h4><p>搜查阶段只有四个动作——<strong>调查</strong>（挪光标看场景）、<strong>移动</strong>（换地点）、<strong>对话</strong>（问人，话题问过就打勾）、<strong>出示</strong>（亮证据或人物档案）。顺序完全自由，卡住了就回去把没问过的话题问一遍。</p></div>
 <div class="lx-aa-step"><span class="lx-aa-step-no">2</span><h4>心灵枷锁：撬开不说真话的人</h4><p>从第二作起，不肯开口的话题会挂上锁。给绫里春美的勾玉就能破——按正确顺序出示证据或人物档案，锁一根根开。这里<b>不会直接判输</b>，但出示错了照样扣分；破完一根回一半血。</p></div>
@@ -480,6 +560,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 
 <div class="section-label">👥 人物速览</div>
 <figure class="lx-aa-hero lx-aa-hero--chars"><img width="1043" height="984" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-trio.webp" alt="逆转裁判系列官方角色群像主视觉"><figcaption>官方角色群像：成步堂龙一、御剑怜侍、绫里真宵、绫里春美、戈德与狩魔冥（左起，卡普空官网素材）</figcaption></figure>
+<details class="lx-fold" style="margin-top:8px"><summary>展开 11 位人物速览（默认收起）</summary>
 <div class="lx-aa-chars">
 <div class="lx-aa-char lx-aa-char--shot"><figure class="lx-aa-chara-shot"><img width="1280" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-shot-naruhodo.webp" alt="成步堂龙一 官方实机画面（日文版界面）"></figure><div class="lx-aa-char-body"><h4>成步堂龙一</h4><div class="lx-aa-role">辩护律师 / 主角</div><p>刺猬头的新人律师，靠虚张声势战斗，也靠虚张声势翻盘。日版由巧舟配音，1 至 4 代都是他。</p></div></div>
 <div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="401" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-qianxun.webp" alt="绫里千寻 官方角色立绘"></div><div class="lx-aa-char-body"><h4>绫里千寻</h4><div class="lx-aa-role">成步堂的师傅</div><p>名句是「律师无论在怎样的困境，都要在别人面前展露微笑」。第二话遇害，之后由妹妹与春美接棒她的位置。</p></div></div>
@@ -493,7 +574,9 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <div class="lx-aa-char"><div class="lx-aa-chara-art"><img width="560" height="720" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-gede.webp" alt="戈德 官方角色立绘"></div><div class="lx-aa-char-body"><h4>戈德</h4><div class="lx-aa-role">身份不明的检察官</div><p>护目镜遮脸、咖啡不离手，开口全是没人听得懂的比喻，自称「喝完第十七杯前必胜」。前五话他的真实身份是最大悬念。</p></div></div>
 <div class="lx-aa-char lx-aa-char--payne"><div class="lx-aa-chara-art"><img width="201" height="300" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-char-payne.webp" alt="亚内武文 官方资料卡造型：黄西装、挥手，眯眼笑着"></div><div class="lx-aa-char-body"><h4>亚内武文</h4><div class="lx-aa-role">检察官</div><p>外号「新人杀手」，专挑刚出道的新人律师下手，前三作里反复登场的老对手。</p></div></div>
 </div>
-<p class="lx-aa-note">人物年龄、身份与配音按官方设定整理；本作中文版为后加语音，中文与日文声线不同属正常。立绘全部取自卡普空官网**按角色名命名**的官方素材（千寻 chihiro、怜侍 mitsurugi、政志 yahari、春美 harumi、冥 mei、戈德 godo），与官网角色介绍一一对应，可信度高；成步堂改用官网实机画面，画面里有名牌「ナルホド」可查；狩魔豪的立绘是游戏内官方资料图（银发、深蓝风衣、手杖与礼帽）。⚠️ 特别更正：此前曾把一张「私の名前は狩魔 **めい**」的实机画面误配给豪，其实「めい（Mei）」正是**冥**的假名，那是冥的镜头，已撤下换成本图。真宵的立绘取自**卡普空简体中文官网**的「about」页（文件名 mayoi），是官方直接发布的简体中文版素材。两位缺图的来源已写明：真宵与糸锯的立绘都取自<b>卡普空简体中文官网</b>（真宵来自《逆转裁判123》合集站 about 页，糸锯来自《逆转检事1&2 御剑精选集》站首页 itonoko 素材），都是官方直接发布的简体中文版立绘。<b>11 位人物现在全部有图</b>。亚内武文这一位卡普空官网确未发布过立绘（合集站、检事站、大逆转裁判站、《逆转裁判456》站共 400 余个页面 + 官方网店 + Steam 都查过），现在用的是游戏内官方「资料卡」造型（眯眼笑、挥手），经萌娘百科收录转载，版权归 Capcom。他官方人设就是「每次出场换一套行头」，资料卡里是黄西装那套。若你想要更高清的，Switch 上《逆转检事1&2》的「逆蒼翡翠·角色速览」里有全部 48 名角色的大图，按截图键发我即可替换。</p>
+</details>
+
+<p class="lx-aside">人物年龄、身份与配音按官方设定整理；本作中文版为后加语音，中文与日文声线不同属正常。立绘全部取自卡普空官网**按角色名命名**的官方素材（千寻 chihiro、怜侍 mitsurugi、政志 yahari、春美 harumi、冥 mei、戈德 godo），与官网角色介绍一一对应，可信度高；成步堂改用官网实机画面，画面里有名牌「ナルホド」可查；狩魔豪的立绘是游戏内官方资料图（银发、深蓝风衣、手杖与礼帽）。⚠️ 特别更正：此前曾把一张「私の名前は狩魔 **めい**」的实机画面误配给豪，其实「めい（Mei）」正是**冥**的假名，那是冥的镜头，已撤下换成本图。真宵的立绘取自**卡普空简体中文官网**的「about」页（文件名 mayoi），是官方直接发布的简体中文版素材。两位缺图的来源已写明：真宵与糸锯的立绘都取自<b>卡普空简体中文官网</b>（真宵来自《逆转裁判123》合集站 about 页，糸锯来自《逆转检事1&2 御剑精选集》站首页 itonoko 素材），都是官方直接发布的简体中文版立绘。<b>11 位人物现在全部有图</b>。亚内武文这一位卡普空官网确未发布过立绘（合集站、检事站、大逆转裁判站、《逆转裁判456》站共 400 余个页面 + 官方网店 + Steam 都查过），现在用的是游戏内官方「资料卡」造型（眯眼笑、挥手），经萌娘百科收录转载，版权归 Capcom。他官方人设就是「每次出场换一套行头」，资料卡里是黄西装那套。若你想要更高清的，Switch 上《逆转检事1&2》的「逆蒼翡翠·角色速览」里有全部 48 名角色的大图，按截图键发我即可替换。</p>
 
 <div class="section-label">🕰 系列年表：一部 25 年的老 IP</div>
 <ul class="lx-aa-tl">
@@ -507,7 +590,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <li><div class="lx-aa-date">2026-09-20</div><div class="lx-aa-txt">卡普空公布本作全球销量突破 <strong>500 万套</strong>，系列整体突破 1500 万套，同日放出 25 周年纪念视觉图。</div></li>
 <li><div class="lx-aa-date">2026-10-12</div><div class="lx-aa-txt">系列 25 周年。池袋／梅田 Capcom Cafe 自 10 月 9 日起做主题餐品与周边联动。</div></li>
 </ul>
-<p class="lx-aa-note">时间线与销量均以卡普空官方「百万套系列」专区、官方 20 周年／25 周年年表为准；3DS 版日本销量引自 Famitsu 统计转述。</p>
+<p class="lx-aside">时间线与销量均以卡普空官方「百万套系列」专区、官方 20 周年／25 周年年表为准；3DS 版日本销量引自 Famitsu 统计转述。</p>
 <div class="lx-aa-duo"><figure class="lx-aa-hero"><img width="675" height="1200" loading="lazy" decoding="async" src="../img/games/ace-attorney-123-25th.webp" alt="逆转裁判系列 25 周年纪念视觉图，九位角色同框"><figcaption>2026-09-20 公布的 25 周年纪念视觉图（卡普空官方素材）</figcaption></figure><div class="gameplay-notes"><h2>25 周年了</h2><ul><li>2026 年 10 月 12 日是系列 25 周年（初代 2001-10-11 发售）</li><li>周年视觉图由系列美术总监涂和也、角色设计师布施拓郎联手绘制，9 位角色同框</li><li>池袋与梅田 Capcom Cafe 自 10 月 9 日起做主题餐品与周边联动</li><li>官方另公布：本作全球销量已破 500 万套，系列整体破 1500 万套</li></ul></div></div>
 
 <div class="section-label">👨‍👦 父子一起玩的六个建议</div>
@@ -530,7 +613,13 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <details><summary>孩子多大能玩？</summary><p>官方分级是 12 岁以上。游戏没有操作门槛，全靠读文本和判断，中学年龄的孩子完全能玩。家长陪着读线索、当「第二个玩家」效果最好。</p></details>
 </div>
 
-<div class="section-label">📸 简体中文版实机图库（10 张）</div>
+</div>
+<div class="lx-chapter" id="ch6">
+<span class="lx-chapter-no">CHAPTER 06</span>
+<h2 class="lx-chapter-title">实机图库与我的点评</h2>
+<p class="lx-chapter-lead">10 张简体中文版实机画面，以及我自己这台玩下来的真实感受。</p>
+<h3 class="lx-sub">📸 简体中文版实机图库（10 张）</h3>
+
 <div class="screenshot-grid">
 <div class="screenshot-item" data-lightbox data-caption="中文版实机 1：法庭上的「异议！」——中文版标志性画面" data-src="../img/games/ace-attorney-123-cn-shot-01.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-01.webp" alt="中文版实机画面 1：法庭上的「异议！」——中文版标志性画面" loading="lazy" decoding="async"></div>
 <div class="screenshot-item" data-lightbox data-caption="中文版实机 2：罪门恭介在庭上作证。他是本作第五话的巡警，官方设定就是不穿刑警制服，一身西部牛仔装扮；台词「静静地看守那座阴暗的坟场」说的是他每月去证物保管室「给证物扫墓」的习惯" data-src="../img/games/ace-attorney-123-cn-shot-02.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-02.webp" alt="中文版实机画面 2：罪门恭介在庭上作证。他是本作第五话的巡警，官方设定就是不穿刑警制服，一身西部牛仔装扮；台词「静静地看守那座阴暗的坟场」说的是他每月去证物保管室「给证物扫墓」的习惯" loading="lazy" decoding="async"></div>
@@ -543,9 +632,15 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <div class="screenshot-item" data-lightbox data-caption="中文版实机 9：语音编辑器：可选角色与台词（戈德端着咖啡）" data-src="../img/games/ace-attorney-123-cn-shot-09.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-09.webp" alt="中文版实机画面 9：语音编辑器：可选角色与台词（戈德端着咖啡）" loading="lazy" decoding="async"></div>
 <div class="screenshot-item" data-lightbox data-caption="中文版实机 10：章节选择：第 2 章「重逢、然后逆转」" data-src="../img/games/ace-attorney-123-cn-shot-10.webp"><img width="1600" height="900" src="../img/games/ace-attorney-123-cn-shot-10.webp" alt="中文版实机画面 10：章节选择：第 2 章「重逢、然后逆转」" loading="lazy" decoding="async"></div>
 </div>
-<p class="lx-aa-note">以上实机画面与角色立绘均取自官方公开素材：商店页截图来自 Steam 官方商店（卡普空发行页），角色立绘与主视觉来自卡普空《逆转裁判123》官方站点，版权均属 CAPCOM。本站仅作游戏介绍与评论用途，不作商业用途。想看你和儿子自己那台的中文界面画面，按 Switch 的截图键即可（相册里会自动存档），把图发我，我帮你挂上来。</p>
+<p class="lx-aside">以上实机画面与角色立绘均取自官方公开素材：商店页截图来自 Steam 官方商店（卡普空发行页），角色立绘与主视觉来自卡普空《逆转裁判123》官方站点，版权均属 CAPCOM。本站仅作游戏介绍与评论用途，不作商业用途。想看你和儿子自己那台的中文界面画面，按 Switch 的截图键即可（相册里会自动存档），把图发我，我帮你挂上来。</p>
 
-<div class="section-label">⚖️ 优缺点</div>
+</div>
+<div class="lx-chapter" id="ch5">
+<span class="lx-chapter-no">CHAPTER 05</span>
+<h2 class="lx-chapter-title">值不值得玩，怎么一起玩</h2>
+<p class="lx-chapter-lead">优缺点、父子共玩的六条建议、常见问答——决定要不要买、和儿子怎么玩都在这里。</p>
+<h3 class="lx-sub">⚖️ 优缺点</h3>
+
 <div class="pros-cons">
 <div class="pros-box">
 <h3>✅ 优点</h3>
@@ -569,8 +664,9 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 </div>
 </div>
 
+</div>
 <div class="section-label">💬 龙兄点评</div>
-<div class="desc-box">
+<div class="desc-box lx-prose">
 <p>逆转裁判是那种「明知道流程就那样，还是一章接一章停不下来」的游戏。真正抓人的是剧本——每章翻案那一刻的劲头，比不少大制作的花活都足，「异议！」喊出口的满足感是设计出来的，不是特效堆出来的。</p>
 <p><strong>我这台走的是中文版</strong>，从 2019 年那次更新算起，翻译在引进的日式推理游戏里属于第一梯队，不用隔着一层去看翻译腔。</p>
 <p><strong>缺点也说清楚</strong>：庭上庭下两件事翻来覆去就那几招，玩到第三作基本是凭剧情撑着；画面就更别提，高清重绘救不了 2014 年的底子。但论「单位时间里讲了多少故事」，它在同价位里很少输。</p>

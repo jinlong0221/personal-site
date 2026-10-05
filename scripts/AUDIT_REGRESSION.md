@@ -217,6 +217,19 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
   光看源码和 grep 都不算数**（`scripts/audit_visual.py` 就是为此准备的）。
   ⚠️ 另外记一条工具坑：**`cp` 覆盖仓库内已有文件会被文件策略拒绝**（想「造坏块再恢复」这类自证要改用临时副本，别在真身上试）。
 
+- 2026-10-05 15:20：**部署又红了一次（新页面漏 JSON-LD）**。新建 `static/video.html` 时只写了
+  `<title>` / `og:title` / `twitter:title`，**漏了 `application/ld+json`**，站内守卫 **A11（标题四字段一致）**
+  直接拦下 → GitHub Actions 失败，`build-and-deploy` 与 `notify-search-engines` 双红，
+  **线上完全没变化**（失败发生在构建之前，所以访客毫无感知，这也是「我怎么没看到」的原因）。
+  - 修法：照任一页面的 JSON-LD 格式补 `WebSite + Article` 两节点，`headline/url/description` 与 title 严格一致。
+  - 🔴 **根因是我的流程，不是代码**：提交前只跑了产物级（`smoke_test` + `audit_live_artifact`，都绿），
+    **没跑源码级 A11**。`gh` CLI 本机没装，只能靠本地复现，耗了 8 分钟才定位。
+  - 🔴 **写死两条规矩**：
+    ① **站内任何新页面都必须带 JSON-LD**，写页面时第一件事就写它；
+    ② **提交前必须跑 `bash scripts/audit_regression.sh`（源码级，约 3 分钟）**，
+       不要只挑产物级检查 —— 源码级才是拦部署的那一批。
+    ⚠️ 另外：给守卫脚本乱加参数（如 `-q`）会因 argparse 报错返回退出码 2，**不是守卫失败**，别误判。
+
 ---
 
 ## 五、给审计者的开工顺序（照做即可，别跳步）

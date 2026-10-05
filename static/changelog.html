@@ -332,6 +332,8 @@ var _hmt = _hmt || [];
       台风监测、新闻巡检这类自动化留痕按天折叠，不占版面。</p>
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-06">2026 年 10 月 6 日 · 周二</time></h4><details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×1</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（10/06 02:41·彩云#27 中央气象台台风快讯2026总1234期02时转向东北偏北30-35km/h·强台风级15级48m/s·945hPa·北纬28.1°/东经145.5°·距东京东南约1005km·距射阳逾两千公里不影响·纳入监控(已兑现&quot;6日转向东北&quot;预测·尚未变性)；小熊#29 总1235期02时38分热带风暴级8级20m/s·995hPa·北纬12.2°/东经167.3°·远海不影响；…</p></div></div></details>
+          </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-05">2026 年 10 月 5 日 · 周一</time><span class="cl-day-n">5 项改动</span></h4><div class="cl-item"><span class="cl-time">22:15</span><div class="cl-main"><p class="cl-head">📱 补上手机端入口：上一轮只改了桌面「更多」下拉（nav-more-dropdown），而<strong>手机走的是汉堡菜单 mobileNav，里面是另一份独立链接</strong>（分组标签类名也不同：桌面 nav-more-hd / 手机 nav-hd），所以手机上完全找不到视频板块。现已在 180 个页面的手机菜单同步补上「影音 → 视频观看」，桌面与手机两端都通。</p></div></div>
             <div class="cl-item"><span class="cl-time">18:20</span><div class="cl-main"><p class="cl-head">🧭 视频板块入口全站打通：之前页面建好了但没挂导航，等于谁都找不到。现已在 187 个页面的「更多」菜单里新增「影音 → 视频观看」分组（首页走 Hugo 导航模板），并把 video.html 的页面描述补到规范长度（原来只有 34 字，规范要求 50-160）。</p></div></div>
             <div class="cl-item"><span class="cl-time">15:50</span><div class="cl-main"><p class="cl-head">🐛 修复部署失败：新增的 video.html 缺 JSON-LD 结构化数据，被标题四字段一致守卫（A11）拦下导致 GitHub Actions 部署失败。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">已按站内规范补上 WebSite+Article 的 headline/url/description，复验 PASS 16/FAIL 0。教训：站内任何新页面都必须带 JSON-LD，否则部署直接红。</div></details></div></div>
@@ -444,7 +446,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-10-05</span><span id="clLastStamp" class="cl-upd-stamp"> 10:45</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-10-06</span><span id="clLastStamp" class="cl-upd-stamp"> 02:41</span></div>
   </div>
 </main>
 
@@ -489,7 +491,7 @@ var _hmt = _hmt || [];
     {
       "@type": "Article",
       "author": { "@type": "Person", "name": "龙兄" },
-      "dateModified": "2026-10-05",
+      "dateModified": "2026-10-06",
       "headline": "更新日志｜龙兄知识库",
       "url": "https://longxiong.vip/changelog.html",
       "description": "龙兄知识库更新日志，记录每次迭代与进化"

@@ -22,6 +22,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="${1:-}"
 NAME="${2:-}"
 TARGET_MB="${3:-8}"
+# 支持小数目标（如 0.4），算码率时统一乘 10 取整，避免 bash 算术不接受小数
+TARGET_KB=$(awk -v t="$TARGET_MB" 'BEGIN{printf "%d", t*1000}')
 
 if [ -z "$SRC" ] || [ ! -f "$SRC" ]; then
   echo "用法：bash scripts/make_web_video.sh <输入视频> [输出名] [目标体积MB]" >&2
@@ -59,8 +61,8 @@ echo "  体积：${SRC_SIZE} MB    时长：${DUR}"
 SECS=$(printf '%s' "$DUR" | awk -F: '{if (NF>=2) printf "%.0f", $NF+0; else print 0}' 2>/dev/null || echo 0)
 case "$SECS" in ''|*[!0-9]*) SECS=0 ;; esac
 if [ "$SECS" -gt 0 ] 2>/dev/null; then
-  V_KBPS=$(( TARGET_MB * 920 / SECS ))
-  [ "$V_KBPS" -lt 120 ] && V_KBPS=120
+  V_KBPS=$(( TARGET_KB * 920 / 1000 / SECS ))
+  if [ "$V_KBPS" -lt 100 ]; then V_KBPS=100; fi
   MAXRATE="${V_KBPS}k"
   BUFSIZE=$(( V_KBPS * 2 ))k
   echo "  目标：${TARGET_MB}MB / ${SECS}s → 视频码率上限 ${V_KBPS} kbps"
@@ -89,8 +91,8 @@ NEW_KB=$(du -k "$OUT" | cut -f1)
 echo "完成："
 echo "  视频 → $OUT （${NEW_SIZE} MB / ${NEW_KB} KB）"
 [ -f "$POSTER" ] && echo "  封面 → $POSTER"
-if [ "${NEW_SIZE}" -gt "$TARGET_MB" ]; then
-  echo "⚠️ 仍超 ${TARGET_MB}MB，建议再压：把目标调小，或用更短的文件"
+if [ "${NEW_KB}" -gt "$(( TARGET_KB ))" ]; then
+  echo "⚠️ 仍超目标（${TARGET_MB}MB），建议再压：把目标调小，或用更短的文件"
 fi
 echo
 echo "页面里这样用："

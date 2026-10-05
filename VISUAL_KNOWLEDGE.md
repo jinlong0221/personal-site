@@ -209,3 +209,24 @@
 - **版本戳**：本轮未改 CSS（仅做知识沉淀 + changelog），`style.css?v=20260925` 维持。
 - **知识储备增量**：第六节「已知接受语义色」清单补入 `.tl-season` 板内色码与 `xintan-weather` 高温橙；本节为第 17 次巡检结论。
 - 交付门槛：视觉层面 **P0=P1=0** ✅（连续 7 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / 09-15 / **09-29**）。
+
+## 十八、本周（2026-10-06）巡检结论速记
+
+- **规模**：本轮 `hugo --gc --cleanDestinationDir` 重建（系统 hugo v0.163.3 extended，`/Users/chenjinlong/.homebrew/bin/hugo`；fooocus 环境 hugo 不可用已自动回退），`public/` 共 **204 个 HTML**；探针 **6 视口(390/375/360/768/1440/1920) × 2 主题 = 2448 组合**（实测 combos=2448 / pages=204），puppeteer-core + chrome-headless-shell mac-149。
+- **硬指标（首轮即达标，无需返修 P0/P1）**：文档级 `scrollWidth - innerWidth` 全 = 0；祖先感知元素溢出 = 0；JS 报错 = 0；goto 错误 = 0；**大面积暖色扫描 = 0**（本轮连既往已知的 sheyang 磁贴都未触发，属阈值/面积波动，非回退）；四个硬指标 + 暖色 **首轮全绿**，直接收工。
+- **tinyTap 2436 组合数为既定假阳性基线（非 P0/P1）**：top 选择器 `a`(24823 内联文本链接 WCAG 2.5.8 豁免) + `a.obf-email`(2432) + `input`(96，label 关联 checkbox 命中区 ≥24px) + `button.lx-hero-dot`(48/12，::after 透明伪元素撑开 24px 命中区、`getBoundingClientRect` 测不到)——与 09-29 同构。**判定法则不变**：看四类硬指标为 0，不靠 tinyTap==0 判达标。
+- **本轮唯一实修（1 处，活引用戳一致性，非 P0/P1）**：`static/rss.xsl` 第 13 行 `<link ... /css/style.css?v=20260901>` 为**活引用**且比全站滞后（head.html 与 189 个 static 页均 `?v=20260925`）；对齐到 `20260925`，重建后 `public/rss.xsl` 同步。属「统一/协调」范畴，零视觉改动。
+- **踩坑复盘（本轮新学，已沉淀，避免下次误判）**：
+  1. **探针 setViewport 卡死**：原 `lx-probe.mjs` 在「同一 page 跨视口循环调 setViewport」时，puppeteer 会对已加载页面触发 reload 并等待 `load` 事件；若页面含外部资源（字体/CDN 图）迟迟不 `load`，`setViewport` 在 30s 导航超时后整批失败（`TimeoutError: Navigation timeout`）。→ 修复变体 `lx-probe2.mjs`：**每个 (page,theme,viewport) 组合开新 page**，setViewport 在 `about:blank` 上执行、永不 reload，goto 用 `domcontentloaded` + 160ms 静默等待。**原脚本勿动**，下次直接用 `lx-probe2.mjs`。
+  2. **`style.css` 戳深扫须排除 JSON 文本**：`grep -rln "style.css"` 会命中 `changelog.json` / `data/changelog.json` / `data/changelog-feed.json`——这些是「changelog 正文里提过 style.css 这个词」的历史记录，不是活引用，**绝不可替换**（会破坏历史文本）。真活引用只认 `<link href=...css/style.css?v=...>` 与 `head.html`；本轮据此只动 rss.xsl。
+  3. **根副本 `css/` 双副本机制再次确认作废**（与 09-24 / 09-29 一致）：改 CSS 一律只改 `static/css/style.css`，**绝不执行 `cp static/css/style.css css/style.css`**。任务书第 4 步的该指令已被 09-24 更正覆盖，本轮回避。
+- **隐藏彩虹色深扫（沿用 09-29 方法）**：static/*.html 内联 `style` hex 全盘点，新增 1 类中立灰 `#8a8a8a`（7 个 bracelet 文件，R=G=B=138 纯灰、非暖）；其余仍为已知接受语义色（health-tea `#e57373` 警示红 / chinajoy 四色磁贴 / travel `.tl-season` 色码 / xintan-weather 高温橙）——大面积暖色扫描 0 佐证均非刺眼，**保持不动**。
+- **设计系统机制复验（全绿，无破绽）**：`.js .reveal` 隐藏机制（JS 失效默认可见）✓；safe-area `env(safe-area-inset*)` 补偿 ✓；自定义小按钮 `min-width:0;min-height:0` 覆盖全局 44px 规则 ✓；`.lx-card`/`.lx-epick`/`.artist-card` 体系一致（`.lx-*` 共 114 类）✓；明暗双主题 `[data-theme=light/dark]` 变量全定义（无未定义 var）✓。
+- **版本戳**：本轮仅改 `rss.xsl`（非 CSS 本体），`style.css?v=20260925` 维持不动；全站活引用现已统一为 `20260925`（head.html + 189 static + rss.xsl），无旧戳残留。
+- **知识储备增量**：本节（含探针 setViewport 卡死修复 / JSON 文本误伤规避 / 根副本作废再确认）+ 第六节无需新增（已知接受清单沿用）。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 8 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / 09-15 / 09-29 / **10-06**）。
+
+### 下次巡检可省步骤
+- 已知接受项（按「板内语义/功能性色，保持不动」）：sheyang metro 磁贴、chinajoy `--hall` 多色磁贴、console 白底图框/灰字降级、travel `.tl-season` 色码、xintan-weather 高温橙 `#e65100`、health-tea `#e57373`、bracelet 中立灰 `#8a8a8a`——不再复核。
+- 探针脚本改用 **`lx-probe2.mjs`**（避免 setViewport 卡死）；6 视口 2448 组合基线沿用。
+- `style.css?v=` 活引用全站统一 `20260925`，下次仅在该值变更时跟进。

@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-10-05 15:50",
+    "content": "🐛 修复部署失败：新增的 video.html 缺 JSON-LD 结构化数据，被标题四字段一致守卫（A11）拦下导致 GitHub Actions 部署失败。已按站内规范补上 WebSite+Article 的 headline/url/description，复验 PASS 16/FAIL 0。教训：站内任何新页面都必须带 JSON-LD，否则部署直接红。"
+  },
+  {
     "date": "2026-10-05 15:20",
     "content": "🎬 新增「视频观看」板块（video.html）：卡片网格 + 点击弹层播放（不跳站不装 App），数据走 static/data/videos.json，压缩脚本与封面抽取脚本已就位，深浅主题都验过。空板块阶段先 noindex，有第一条视频后自动摘掉。"
   },

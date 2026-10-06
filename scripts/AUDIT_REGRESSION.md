@@ -230,6 +230,31 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
        不要只挑产物级检查 —— 源码级才是拦部署的那一批。
     ⚠️ 另外：给守卫脚本乱加参数（如 `-q`）会因 argparse 报错返回退出码 2，**不是守卫失败**，别误判。
 
+- 2026-10-06：**视频板块上线又下线（一轮内完成增删）**，龙兄借机提出
+  🔴 **「以后增删板块，手机端优先，别再让我提醒」** —— 已定为站内铁律，见下方 D 节（增删板块作业清单）。
+
+### D、增删板块的作业清单（2026-10-06 龙兄定，手机端优先）
+
+站内结构有个大坑：**桌面与手机是两份独立 HTML**，只看一份必然漏。
+
+| # | 动作 | 桌面 | 手机 |
+|---|---|---|---|
+| 1 | 导航入口 | `<div class="nav-more-dropdown>` + 分组标签 `<span class="nav-more-hd">` | `<div class="mobile-nav" id="mobileNav">` + `<span class="nav-hd">` |
+| 2 | 相对路径前缀 | 按页面目录深度算 `../` | 同左 |
+| 3 | 首页 | `layouts/partials/navbar.html`（**首页没有 static/index.html**） | 同左 |
+| 4 | 站点地图 | `python3 scripts/rebuild_sitemap_extra.py` | 同左 |
+| 5 | 搜索索引 | `python3 scripts/build_content_index.py` | 同左 |
+| 6 | 清理旧产物 | `public/` 里 Hugo **不会自动删**过期文件，要手动删 | 同左 |
+
+**验收方式（不能只 grep 源码）**：
+```bash
+# 必须用真实浏览器跑两档宽度，看元素是否真的可见/可点
+python3 scripts/audit_visual.py --dir public --url <页面>   # 它会同时跑 1440/768/390 三档
+```
+- 本次教训：加完桌面入口后我 `curl | grep video.html` 查到「有」就收工，
+  结果**手机端整组没做**，龙兄在手机上完全找不到 —— 源码里有 ≠ 手机上看得见。
+- 删板块时同理：桌面下拉删了、手机菜单忘删（或反过来），用户只会看到「点了没反应」。
+
 ---
 
 ## 五、给审计者的开工顺序（照做即可，别跳步）

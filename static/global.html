@@ -286,11 +286,22 @@
     }).join('');
   }
 
+  function renderChips(){
+    var chips = document.querySelectorAll('#glFilter .gl-chip');
+    [].forEach.call(chips, function(ch){
+      var w = ch.dataset.who;
+      var n = w==='all' ? items.length : items.filter(function(i){return i.who===w}).length;
+      var name = w==='all' ? '全部' : (people[w] ? people[w].name : w);
+      var dot = w==='all' ? '' : '<span class="gl-dotc gl-dotc--'+w+'"></span>';
+      ch.innerHTML = dot + '<span>'+esc(name)+'</span> <span class="gl-cnt">'+n+'</span>';
+    });
+  }
+
   fetch('data/global.json?t=' + Math.floor(Date.now()/600000))
     .then(function(r){ return r.ok ? r.json() : Promise.reject(0); })
     .then(function(d){
       people={}; (d.people||[]).forEach(function(p){people[p.id]=p;}); items=d.items||[];
-      renderPeople(d.people||[]); render();
+      renderPeople(d.people||[]); renderChips(); render();
       if(d.updated) upd.textContent='更新至 '+d.updated;
       if(d.note) note.textContent='※ '+d.note;
     })

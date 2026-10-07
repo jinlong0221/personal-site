@@ -49,3 +49,12 @@
   .gl-title{font-size:1rem}
   .gl-sum{font-size:.92rem;line-height:1.85}
 }
+
+/* ── C2 对比度修复（2026-10-07）：浅色主题下金色 #957425 用在两处均只有 3.68:1 ——
+      ① 12.9px 的人物小标签（.gl-who，属小字需 ≥4.5）；② 选中的筛选按钮底色配米白字。
+      统一改 #7E6118：底色底 #F1EBDD 上 4.89:1、卡片底 #FBF7EE 上 5.44:1、米白字压其上 4.89:1，
+      深色主题不受影响（金色变量值不同）。 */
+[data-theme=light] .gl-who,
+[data-theme=light] .gl-role{color:#7E6118}
+[data-theme=light] .gl-chip.is-on{background:#7E6118;border-color:#7E6118}
+[data-theme=light] .gl-chip.is-on:hover{background:#6E5412;border-color:#6E5412}

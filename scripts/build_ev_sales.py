@@ -527,8 +527,25 @@ def build_body(d):
                 md_notes=md_notes,
             )
 
+    # ---- 面包屑 + 页尾信息块（审计骨架必须项）----
+    # donor 页（ev-charge.html）的面包屑与 page-meta 都嵌在 <main> 内部，
+    # 而本页正文由 build_body 整体生成、不会自带这两项，故此处显式补齐，
+    # 否则 audit_live_artifact 报「真实缺面包屑 / 页尾信息块」→ 审计步骤失败 → 阻断部署。
+    _updated = d.get('updated') or ''
+    breadcrumb_html = (
+        '<div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航">'
+        '<a href="index.html">首页</a><span class="sep">›</span>'
+        '<span class="crumb-cat">车与数码</span><span class="sep">›</span>'
+        '<span class="current">新能源车销量排行榜</span></div>')
+    page_meta_html = (
+        '<div class="page-meta">'
+        '<p class="ref-note">本站内容为个人整理与公开数据引用，仅供参考；'
+        '涉及外部数据以正文标注的来源为准。</p>'
+        '<div class="update-time">最后更新：%s</div>'
+        '</div>' % _updated)
+
     return """
-<main id="main-content" role="main"><div class="page-wrap">
+<main id="main-content" role="main">{breadcrumb_html}<div class="page-wrap">
 
   <header class="ev-hero">
     <div class="ev-hero-left">
@@ -639,7 +656,7 @@ def build_body(d):
     </p>
   </section>
 
-</div></main>
+{page_meta_html}</div></main>
 """.format(
         period_txt='%d年%s' % (y, cum_lb or mon_lb or ''),
         kpis=kpi_html,
@@ -672,6 +689,8 @@ def build_body(d):
         api_ws=api_ws,
         api_rt=api_rt,
         src_home=esc(src.get('home') or 'https://data.cpcadata.com/'),
+        breadcrumb_html=breadcrumb_html,
+        page_meta_html=page_meta_html,
     )
 
 
@@ -864,6 +883,34 @@ def main():
                         '<meta name="article-tags" content="新能源汽车,销量排行,乘联会,渗透率,数据榜单">')
     head = head.replace('<meta name="article-updated" content="2026-08-30">',
                         '<meta name="article-updated" content="%s">' % d.get('updated', ''))
+
+    # ---- 社交分享块（canonical / og: / twitter:） ----
+    # 关键坑：donor 页（ev-charge.html）的 canonical/og:title/twitter:title 等标签
+    # 写在首个 <link rel="stylesheet"> 之后，而本脚本用 donor[:head_end] 在该链接处
+    # 截断 head，于是这些标签被一并切掉。若不在此显式补齐，每次重新生成的
+    # ev-sales.html 都会缺 og:title / twitter:title，触发 sync_titles --check 阻断部署，
+    # 且部署出去的页面也缺社交标签（SEO/分享卡片异常）。这里按 sync_titles.social_block
+    # 同格式补齐，常量与站内其他页保持一致。
+    EV_TITLE = '新能源车销量排行榜｜厂商 TOP10 · 渗透率走势｜龙兄知识库'
+    EV_DESC = ('新能源乘用车厂商销量排行榜：批发与零售双口径 TOP10、新能源渗透率走势、'
+               '纯电插混结构、品牌阵营份额。数据取自乘联会官方接口并交叉核验，口径标注清晰，不混淆批发与零售。')
+    EV_URL = 'https://longxiong.vip/ev-sales.html'
+    EV_OG_IMAGE = 'https://longxiong.vip/img/og-image.png'
+    social = '\n'.join([
+        '<link rel="canonical" href="%s">' % EV_URL,
+        '<meta property="og:type" content="article">',
+        '<meta property="og:title" content="%s">' % EV_TITLE,
+        '<meta property="og:description" content="%s">' % EV_DESC,
+        '<meta property="og:url" content="%s">' % EV_URL,
+        '<meta property="og:image" content="%s">' % EV_OG_IMAGE,
+        '<meta property="og:locale" content="zh_CN">',
+        '<meta name="twitter:card" content="summary_large_image">',
+        '<meta name="twitter:title" content="%s">' % EV_TITLE,
+        '<meta name="twitter:description" content="%s">' % EV_DESC,
+        '<meta name="twitter:image" content="%s">' % EV_OG_IMAGE,
+    ])
+    head += ('\n<!-- 社交分享与规范链接（build_ev_sales.py 显式补齐，'
+             '避免被 donor head 截断丢失） -->\n' + social + '\n')
 
     # ---- body 起始到 <main> 之前（navbar 原样复用）
     body_start = donor.index('<body>')

@@ -82,6 +82,10 @@ else
 fi
 
 echo ""
+echo "[F] 时效审计（板块更新时效性；报告模式，不拦 CI。要 CI 阻断加 --strict）"
+"$PY3" scripts/check_freshness.py || true
+
+echo ""
 echo "[B] 源码审计"
 [ -f scripts/audit_strict.py ] && run "B1  死链/缺图/薄弱页/断锚点" "$PY3" scripts/audit_strict.py
 

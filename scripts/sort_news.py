@@ -11,6 +11,9 @@
        9 月新闻上面，看着就像"日期错了"。这里改为按**推断出的真实日期**排序：
        把 (今年, MM, DD) 与今天比较，若落在未来（留 3 天时区容差）则判为**去年**。
        例：今天 2026-09-22 时，「12-15」→ 2025-12-15（排到 09-xx 之后）。
+     - 🔴 **格式规整（自愈）**：凡是 `MM-DD` 写法，推断出的真实日期会**就地改写为
+       `YYYY-MM-DD` 并写回文件**。这样无论自动化/人工回填的是哪种写法，提交/构建
+       时都会被统一成带年份格式，从根上消除「跨年假滞后」隐患（已规整条数会在输出里点名）。
   2) 陈旧告警（只提示、不删除）：推断日期距今超过 STALE_DAYS 的条目会在输出里
      点名，便于运营发现"老条目长期占位"。删除与否交给人工/自动化决策，避免误伤
      「板块当天无新稿时保留原有最新条目」的规则。
@@ -78,7 +81,18 @@ def sort_file(path):
         return f"跳过(无 news 数组): {path}", []
 
     before = [str(it.get("date", "") or "").strip() for it in data["news"]]
-    dated = [(infer_date(it), it) for it in data["news"]]
+    dated = []
+    normalized = 0
+    for it in data["news"]:
+        dt = infer_date(it)
+        raw = str(it.get("date", "") or "").strip()
+        # 🔴 格式规整（自愈）：凡是 MM-DD 写法，按推断出的真实年份就地改写为
+        # YYYY-MM-DD 并写回文件。这样无论自动化/人工回填的是哪种写法，提交/构建
+        # 时都会被统一成带年份格式，从根上消除「跨年假滞后」隐患。
+        if dt is not None and not _FULL.match(raw):
+            it["date"] = dt.isoformat()   # YYYY-MM-DD
+            normalized += 1
+        dated.append((dt, it))
 
     # 真实日期倒序；无日期条目排最后且保持原有相对顺序（sorted 稳定排序）
     dated.sort(key=lambda t: (t[0] is not None, t[0] or _FAR), reverse=True)
@@ -91,11 +105,13 @@ def sort_file(path):
         if dt is not None and (TODAY - dt).days > STALE_DAYS:
             stale.append(f"{it.get('date')}({(TODAY - dt).days}天)")
 
-    if before != after:
+    if before != after or normalized:
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
             f.write("\n")
         msg = f"{path}: 重排 {len(after)} 条 [{' > '.join(after)}]"
+        if normalized:
+            msg += f"  · 规整 {normalized} 条日期为 YYYY-MM-DD"
     else:
         msg = f"{path}: 已有序 ({len(after)} 条)"
 

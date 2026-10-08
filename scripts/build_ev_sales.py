@@ -348,6 +348,23 @@ def build_body(d):
     cum_lb = period.get('cumulativeLabel') or ''
     mon_lb = period.get('monthlyLabel') or ''
 
+    # ---- 新能源厂商榜「待更新」提示 ----
+    # 触发条件：接口已翻到新月、但人工核对快照还停在旧月（nevMakerStale=True）。
+    # 这时渗透率/结构/阵营/乘用车总榜已经是接口最新值，只有本板块仍是旧期次，
+    # 必须明确告知读者，避免把新旧期次混读成同期。
+    nev_maker_stale = bool(d.get('nevMakerStale') or False)
+    nev_maker_banner = ''
+    if nev_maker_stale:
+        _snap_p = (nm.get('period') or '').replace('2026-', '')
+        _api_p = ('%d年%d月' % (y, lm)) if lm else (period.get('monthlyLabel') or '最新')
+        nev_maker_banner = (
+            '<p class="ev-stale" role="status">'
+            '<b>本板块（新能源厂商 TOP10）待更新：</b>当前仍为人工核对期次 %s，'
+            '乘联会接口最新期次已至 %s。该榜单官方原文以图片发布，月初「厂商批发销量快讯」'
+            '为初步数据（官网明确标注不可与终稿对比），需人工核对终稿后再更新；'
+            '<b>其余板块（渗透率 / 结构 / 阵营 / 乘用车总榜）已按 %s 最新数据写入</b>，可放心参考。</p>'
+            % (esc(_snap_p), esc(_api_p), esc(_api_p)))
+
     # ---- 核心指标（最新月份）
     ni = (nev.get('nevIce') or [])
     last_ni = ni[-1] if ni else {}
@@ -527,6 +544,7 @@ def build_body(d):
   <section class="ev-sec" id="sec-nev-maker">
     <div class="ev-sec-hd"><span class="ev-sec-no">壹</span><h2>新能源厂商销量 TOP10</h2>
       <span class="ev-sec-tag">{nm_period}</span></div>
+    {nev_maker_banner}
     <p class="ev-lead">这是本页的核心榜单：<b>新能源乘用车</b>厂商排行。批发榜看出货（含出口），
       零售榜看国内真实上牌，两者成员差异很大，合起来看才完整。</p>
 
@@ -627,6 +645,7 @@ def build_body(d):
         kpis=kpi_html,
         model_sec=model_sec,
         nm_period=esc(nm.get('period') or ''),
+        nev_maker_banner=nev_maker_banner,
         ws_cal=esc(ws.get('caliber') or ''),
         ws_html=ws_html,
         ws_url=esc(ws.get('sourceUrl') or '#'),
@@ -693,6 +712,11 @@ CSS = """
 .ev-warn{background:rgba(193,64,64,.09);border:1px solid rgba(193,64,64,.3);border-radius:9px;
   padding:10px 13px;color:var(--text-secondary);font-size:.83rem;line-height:1.7;margin:0 0 13px}
 .ev-warn b{color:var(--cinnabar)}
+/* 新能源厂商榜「待更新」提示：接口翻到新月、人工快照还停在旧月时显示。
+   用金的边框/底色（品牌强调色）而非红色，与上方「这不是新能源榜」的红框区分语义。 */
+.ev-stale{background:rgba(201,168,76,.10);border:1px solid rgba(201,168,76,.42);border-radius:9px;
+  padding:11px 14px;color:var(--text-secondary);font-size:.84rem;line-height:1.75;margin:0 0 13px}
+.ev-stale b{color:var(--gold)}
 .ev-src{color:var(--text-muted);font-size:.76rem;margin-top:10px;line-height:1.7}
 .ev-src a{color:var(--blue-light)}
 .ev-unit{color:var(--text-muted);font-size:.73rem;margin-top:5px;text-align:right}

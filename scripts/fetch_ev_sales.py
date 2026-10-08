@@ -423,6 +423,28 @@ def main():
             'cumulative': {'label': ck, 'wholesale': cum_ws, 'retail': cum_rt},
             'monthly': {'label': ckm, 'wholesale': mon_ws, 'retail': mon_rt},
         }
+
+        # ---- updated 时间戳：仅在数据期次真正变化时刷新 ----
+        # 避免「每日定时构建都重写一遍今天的时间戳」造成无谓提交与误导
+        # （数据明明还是 8 月，页面却显示「更新于今天」）。
+        _per = result.get('period') or {}
+        _cur_pk = (int(_per.get('year', 0)), int(_per.get('latestMonth', 0)))
+        _prev_upd, _prev_upd_at, _prev_pk = None, None, None
+        try:
+            with open(OUT, encoding='utf-8') as _pf:
+                _prev = json.load(_pf)
+            _prev_upd = _prev.get('updated')
+            _prev_upd_at = _prev.get('updatedAt')
+            _pp = _prev.get('period') or {}
+            _prev_pk = (int(_pp.get('year', 0)), int(_pp.get('latestMonth', 0)))
+        except Exception:
+            pass
+        if _prev_pk is not None and _prev_pk == _cur_pk:
+            result['updated'] = _prev_upd or now.strftime('%Y-%m-%d')
+            result['updatedAt'] = _prev_upd_at or now.strftime('%Y-%m-%d %H:%M')
+        else:
+            result['updated'] = now.strftime('%Y-%m-%d')
+            result['updatedAt'] = now.strftime('%Y-%m-%d %H:%M')
     except Exception as e:                          # noqa: BLE001
         errors.append('厂商榜: %s' % e)
 
@@ -456,12 +478,13 @@ def main():
 
     result['errors'] = []
 
-    # ---------- 期次一致性闸（关键，防「跨月拼盘」）----------
-    # 同一页会同时展示「自动抓取的渗透率/结构/阵营」与「人工核对的新能源厂商榜」。
-    # 一旦接口翻到新月而人工快照还停在旧月，页面就会变成
-    # 「8 月的渗透率 + 7 月的厂商榜」—— 两种期次的数据混排，读者无从分辨，
-    # 属于实质误导。因此：期次对不上就拒绝写入，保留上一版（上一版内部自洽），
-    # 并明确告知该怎么修。宁可不更新，也不做跨月拼盘。
+    # ---------- 期次一致性处理（不再硬拦整文件，改为「厂商榜降级 + 醒目标注」）----------
+    # 原设计：接口翻到新月而人工快照还停在旧月时，拒绝写入整文件，保留上一版。
+    # 问题：那样会让渗透率/结构/阵营/乘用车总榜这些【接口自动数据】也跟着卡在旧月，
+    # 等于为了一块人工板块拖住四块自动板块。改为：自动板块照常写入当月最新值，
+    # 仅「新能源厂商榜」保留为上次人工核对的月份并打 stale 标记，
+    # 由 build_ev_sales.py 在页面渲染醒目「本板块待更新」提示 —— 既不再卡住全盘，
+    # 也绝不把新旧期次混排冒充同期（厂商榜自带 period 标签 + 醒目提示，读者可辨）。
     snap_period = str(NEV_MAKER_SNAPSHOT.get('period', '')).strip()
     m = re.match(r'^(\d{4})年(\d{1,2})月$', snap_period)
     if not m:
@@ -471,23 +494,21 @@ def main():
     snap_year, snap_month = int(m.group(1)), int(m.group(2))
     per = result.get('period') or {}
     api_year, api_month = int(per.get('year', 0)), int(per.get('latestMonth', 0))
-    if api_year != snap_year or api_month != snap_month:
+    nev_maker_stale = (api_year != snap_year or api_month != snap_month)
+    if nev_maker_stale:
         sys.stderr.write(
-            '[fetch_ev_sales] 期次不一致 → 未写入任何文件（保留上一版）：\n'
-            '  接口最新期次：%d年%d月\n'
-            '  人工核对快照：%s\n'
-            '\n'
-            '  新能源厂商榜是人工核对的（官方原文以图片发布、月初快讯为初步数据，\n'
-            '  官网明示不可与历史终稿直接对比），不会随接口自动更新。\n'
-            '  请先在本脚本顶部更新 NEV_MAKER_SNAPSHOT：period / verifiedOn /\n'
-            '  批发榜 / 零售榜 / 各自来源链接，并用批发口径下比亚迪、零跑、特斯拉\n'
-            '  三家纯新能源车企的数字与接口交叉校验通过，再重跑本脚本。\n'
-            '  在快照更新前，站点继续展示上一期完整自洽的数据。\n'
-            % (api_year, api_month, snap_period))
-        return 1
+            '[fetch_ev_sales] ⚠ 期次不一致 → 新能源厂商榜保留为人工核对快照（%s），'
+            '接口最新期次为 %d年%d月。\n'
+            '  该板块官方原文以图片发布、月初快讯为初步数据（官网明示不可与终稿对比），\n'
+            '  需人工核对终稿后在脚本顶部更新 NEV_MAKER_SNAPSHOT 再重跑。\n'
+            '  渗透率 / 结构 / 阵营 / 乘用车总榜已按接口最新期次写入。\n'
+            % (snap_period, api_year, api_month))
 
     # 新能源厂商榜：人工核对快照（不随接口自动变化，见文件顶部说明）
-    result['nevMaker'] = dict(NEV_MAKER_SNAPSHOT)
+    snap = dict(NEV_MAKER_SNAPSHOT)
+    snap['stale'] = nev_maker_stale
+    result['nevMaker'] = snap
+    result['nevMakerStale'] = nev_maker_stale
 
     # 自动交叉校验：把快照里能与接口对上的数字核一遍，对不上就报警但不写死
     # 名称别名：接口用「特斯拉中国」，媒体报道用「特斯拉汽车」，需对齐否则会漏校验

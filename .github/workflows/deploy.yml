@@ -263,6 +263,29 @@ jobs:
       - name: Check page title consistency (title / og / twitter / JSON-LD)
         run: python3 scripts/sync_titles.py --check
 
+      # ---- 新能源销量自动更新（乘联会 + 懂车帝，每日 CI 接管，不再手工补更）----
+      # 设计（龙兄 2026-10-08「还是把他弄成自动更新」）：
+      #   · fetch_ev_model_sales.py  懂车帝车型级销量 → static/ev-model-sales.json（全自动）
+      #   · fetch_ev_sales.py        乘联会厂商级 / 渗透率 / 结构 / 阵营 / 总榜 → static/ev-sales.json
+      #       其中「新能源厂商榜」官方以图片发布 + 月初快讯为初步数据、无法自动解析，
+      #       保留人工核对快照（脚本顶部 NEV_MAKER_SNAPSHOT）；当接口已翻到新月而快照还停旧月时，
+      #       自动四块照写当月最新值、厂商榜块打 stale 标记并由页面渲染醒目「待更新」提示，
+      #       绝不再像旧硬闸那样把四块自动数据也拖在旧月。
+      #   · build_ev_sales.py        读取上面两个 JSON 重新生成 static/ev-sales.html（含 stale 提示）。
+      # 红线：任一抓取失败 → 脚本不写文件、保留上一版（退出码 1），故三步都用 continue-on-error，
+      #      失败只是本次不更新、绝不编造、绝不用旧数据冒充当期、绝不跨月混排。
+      # 数据正确性由脚本自身保证，CI 只负责「每日把最新数据拉上来 + 重新生成页面」；
+      # 抓取产物只留在 CI 工作树、不回写仓库（已提交的 JSON 是「抓取失败时的兜底基线」）。
+      - name: Fetch EV model sales (dongchedi, auto)
+        continue-on-error: true
+        run: python3 scripts/fetch_ev_model_sales.py
+      - name: Fetch EV sales (CPCA, auto + manual snapshot degrade)
+        continue-on-error: true
+        run: python3 scripts/fetch_ev_sales.py
+      - name: Build EV sales page (static/ev-sales.html)
+        continue-on-error: true
+        run: python3 scripts/build_ev_sales.py
+
       - name: Build Hugo
         run: hugo --gc
 

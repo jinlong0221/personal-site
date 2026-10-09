@@ -388,7 +388,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .ah-sec-title{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;font-size:1.26rem;font-weight:800;margin-bottom:6px;padding-left:12px;border-left:4px solid var(--ah)}
 .ah-sec-sub{font-size:.86rem;color:var(--text-muted);margin:0 0 18px 16px}
 .ah-era-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.ah-era{display:block;background:var(--card);border:1px solid var(--border);border-top:3px solid var(--ah);border-radius:12px;padding:15px 15px 16px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.ah-era{display:block;background:var(--card);border:1px solid var(--border);border-top:3px solid var(--ah);border-radius:12px;padding:15px 15px 16px;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
 .ah-era:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--ah)}
 .ah-era-y{font-size:.73rem;font-weight:700;color:var(--ah-2);letter-spacing:.5px;font-variant-numeric:tabular-nums}
 .ah-era-n{font-size:1rem;font-weight:800;margin:6px 0 8px;color:var(--text)}
@@ -530,8 +530,12 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .ah-note ul{margin:0 0 12px;padding-left:19px}
 .ah-note li{margin-bottom:5px}
 .ah-note a{color:var(--ah);text-decoration:underline;text-underline-offset:2px}
+.ah-era-fig{margin:-15px -15px 13px;height:122px;background:var(--bg-secondary);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.ah-era-fig img{width:100%;height:100%;object-fit:contain;display:block}
+.ah-panel-fig{margin:14px auto 20px;max-width:560px;height:220px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.ah-panel-fig img{width:100%;height:100%;object-fit:contain;display:block}
 @media(max-width:992px){.ah-era-strip,.ah-gallery,.ah-ceo-row{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.ah-sec{margin-top:30px}.ah-lede{padding:12px 14px;font-size:.84rem}.ah-era-strip,.ah-gallery{grid-template-columns:repeat(2,1fr);gap:10px}.ah-era{padding:11px 11px 12px}.ah-era-n{font-size:.92rem;margin:5px 0 6px}.ah-era-d{font-size:.76rem}.ah-fig-cap{padding:8px 10px 9px;font-size:.72rem}.ah-fig-cap b{font-size:.8rem}.ah-ev{grid-template-columns:1fr;gap:1px}.ah-ev-d{padding-top:0}.ah-pick{grid-template-columns:repeat(2,1fr)}.ah-lt{font-size:1.06rem}.ah-tl{padding:14px 12px 4px 30px}.ah-tl::before{left:13px}.ah-gh{padding:10px 12px}.ah-ceo-row{grid-template-columns:1fr;gap:10px}.ah-ceo{display:grid;grid-template-columns:94px 1fr}.ah-ceo-img{aspect-ratio:1/1;padding:7px;border-right:1px solid var(--border)}.ah-ceo-b{padding:9px 12px 10px}.ah-ceo-n{font-size:.94rem}.ah-ceo-t{font-size:.71rem;margin-bottom:4px}.ah-ceo-b p{font-size:.77rem;line-height:1.58}.ah-note{margin:30px 0 8px;padding:13px 15px;font-size:.79rem;line-height:1.76}}
+@media(max-width:640px){.ah-sec{margin-top:30px}.ah-lede{padding:12px 14px;font-size:.84rem}.ah-era-strip,.ah-gallery{grid-template-columns:repeat(2,1fr);gap:10px}.ah-era{padding:11px 11px 12px}.ah-era-n{font-size:.92rem;margin:5px 0 6px}.ah-era-d{font-size:.76rem}.ah-fig-cap{padding:8px 10px 9px;font-size:.72rem}.ah-fig-cap b{font-size:.8rem}.ah-ev{grid-template-columns:1fr;gap:1px}.ah-ev-d{padding-top:0}.ah-pick{grid-template-columns:repeat(2,1fr)}.ah-lt{font-size:1.06rem}.ah-tl{padding:14px 12px 4px 30px}.ah-tl::before{left:13px}.ah-gh{padding:10px 12px}.ah-ceo-row{grid-template-columns:1fr;gap:10px}.ah-ceo{display:grid;grid-template-columns:94px 1fr}.ah-ceo-img{aspect-ratio:1/1;padding:7px;border-right:1px solid var(--border)}.ah-ceo-b{padding:9px 12px 10px}.ah-ceo-n{font-size:.94rem}.ah-ceo-t{font-size:.71rem;margin-bottom:4px}.ah-ceo-b p{font-size:.77rem;line-height:1.58}.ah-note{margin:30px 0 8px;padding:13px 15px;font-size:.79rem;line-height:1.76}.ah-era-fig{margin:-11px -11px 11px;height:96px}.ah-panel-fig{height:180px}}
 @media print{.ah-panel{display:block!important}.ah-tabbar,.ah-pick,.ah-r{display:none!important}.ah-group>*:not(summary){display:block!important}.ah-gh{background:none}}
 @media(prefers-reduced-motion:reduce){.ah-era,.ah-pk{transition:none}}</style>
 
@@ -1094,31 +1098,37 @@ var _hmt = _hmt || [];
     <p class="ah-sec-sub">半个世纪被切成六段，每一段都有一个明确的转折点。</p>
     <div class="ah-era-strip">
       <div class="ah-era">
+        <div class="ah-era-fig"><img src="img/apple/history/apple-garage.webp" alt="1976 · Apple I 手工焊装的电路板，苹果的第一件产品" width="1000" height="666" loading="lazy" decoding="async"></div>
         <div class="ah-era-y">1976 – 1984</div>
         <div class="ah-era-n">Ⅰ　车库创世纪</div>
         <div class="ah-era-d">从手工焊装的 Apple I，到把图形界面带给普通人的 Macintosh。</div>
       </div>
       <div class="ah-era">
+        <div class="ah-era-fig"><img src="img/apple/history/apple-lisa.webp" alt="1983 · Apple Lisa——乔布斯被逐前最后的代表作，时代的转折点" width="1000" height="813" loading="lazy" decoding="async"></div>
         <div class="ah-era-y">1985 – 1997</div>
         <div class="ah-era-n">Ⅱ　出走与回归</div>
         <div class="ah-era-d">乔布斯被赶走，苹果在兼容机与授权之间迷失十二年，直到 NeXT 把它救回来。</div>
       </div>
       <div class="ah-era">
+        <div class="ah-era-fig"><img src="img/apple/history/imac-g3.webp" alt="1998 · iMac G3 半透明一体机，苹果复兴的起点" width="822" height="905" loading="lazy" decoding="async"></div>
         <div class="ah-era-y">1998 – 2006</div>
         <div class="ah-era-n">Ⅲ　数字音乐与复兴</div>
         <div class="ah-era-d">iMac 止血、iPod 起飞、iTunes 改写唱片业——苹果从电脑公司变成数字生活中心。</div>
       </div>
       <div class="ah-era">
+        <div class="ah-era-fig"><img src="img/apple/history/iphone-2007.webp" alt="2007 · 初代 iPhone，智能手机时代的开端" width="1000" height="750" loading="lazy" decoding="async"></div>
         <div class="ah-era-y">2007 – 2011</div>
         <div class="ah-era-n">Ⅳ　iPhone 时代</div>
         <div class="ah-era-d">一部手机重新发明了手机，也把苹果第一次推上万亿美元市值。</div>
       </div>
       <div class="ah-era">
+        <div class="ah-era-fig"><img src="img/apple/history/apple-watch.webp" alt="2015 起 · Apple Watch，苹果的可穿戴旗舰" width="1000" height="1124" loading="lazy" decoding="async"></div>
         <div class="ah-era-y">2011 – 2026</div>
         <div class="ah-era-n">Ⅴ　库克时代</div>
         <div class="ah-era-d">iPad、Watch、AirPods、Vision Pro 与自研芯片，把苹果从产品公司变成生态公司。</div>
       </div>
       <div class="ah-era">
+        <div class="ah-era-fig"><img src="img/apple/real/duo-display.webp" alt="2026 · iPhone Duo 折叠屏，特努斯时代的首款标志性硬件" width="980" height="551" loading="lazy" decoding="async"></div>
         <div class="ah-era-y">2026 –</div>
         <div class="ah-era-n">Ⅵ　特努斯时代</div>
         <div class="ah-era-d">折叠屏 iPhone 与首款 2nm 芯片同时落地，第八任 CEO 接手的是一个 4 万亿美元级的平台。</div>
@@ -1209,6 +1219,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">Mac<span class="ah-lt-n">43 条</span></h3>
       <p class="ah-lt-sub">苹果的起点与主线：把「个人电脑」从概念做成日常工具</p>
       <div class="ah-lt-span">1976 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/macintosh-1984.webp" alt="1984 · Macintosh——苹果标志性个人电脑的开端" width="1000" height="1472" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、开创期（1976 – 1984）</h4>
@@ -1570,6 +1581,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">iPhone<span class="ah-lt-n">30 条</span></h3>
       <p class="ah-lt-sub">重新发明手机的那一件产品，也是苹果收入的绝对主力</p>
       <div class="ah-lt-span">2007 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/iphone-2007.webp" alt="2007 · 初代 iPhone——智能手机时代的开端" width="1000" height="750" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、开创与确立（2007 – 2011）</h4>
@@ -1831,6 +1843,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">iPad<span class="ah-lt-n">26 条</span></h3>
       <p class="ah-lt-sub">夹在手机与电脑之间的第三类设备，也是苹果最持久的形态实验</p>
       <div class="ah-lt-span">2010 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/ipad.webp" alt="2010 起 · iPad——重新定义平板电脑" width="1000" height="750" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、从零到主流（2010 – 2014）</h4>
@@ -2055,6 +2068,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">iPod<span class="ah-lt-n">18 条</span></h3>
       <p class="ah-lt-sub">把一千首歌装进口袋，替苹果撬开了消费电子的大门</p>
       <div class="ah-lt-span">2001 – 2022</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/ipod-family.webp" alt="2001 起 · iPod 家族——数字音乐的开端" width="1000" height="589" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、口袋里的 1000 首歌（2001 – 2005）</h4>
@@ -2214,6 +2228,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">Apple Watch<span class="ah-lt-n">17 条</span></h3>
       <p class="ah-lt-sub">从「戴在手上的通知器」长成最完整的消费级健康监测设备</p>
       <div class="ah-lt-span">2014 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/apple-watch.webp" alt="2015 起 · Apple Watch——苹果的可穿戴旗舰" width="1000" height="1124" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、从公布到首代（2014 – 2017）</h4>
@@ -2375,6 +2390,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">音频与家居<span class="ah-lt-n">24 条</span></h3>
       <p class="ah-lt-sub">AirPods、HomePod、Apple TV——苹果在客厅与耳朵上的三场战役</p>
       <div class="ah-lt-span">2007 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/real/airpods5-hero.webp" alt="2026 · AirPods 5——音频与家居线的新成员" width="980" height="653" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、AirPods：从被嘲讽到定义品类（2016 – 2021）</h4>
@@ -2585,6 +2601,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">空间计算<span class="ah-lt-n">15 条</span></h3>
       <p class="ah-lt-sub">苹果下一个十年的赌注：把屏幕从墙上拿下来，放进视野里</p>
       <div class="ah-lt-span">2015 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/vision-pro.webp" alt="2024 · Vision Pro——空间计算的起步" width="1000" height="910" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、十年铺垫（2015 – 2022）</h4>
@@ -2723,6 +2740,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">自研芯片<span class="ah-lt-n">45 条</span></h3>
       <p class="ah-lt-sub">苹果最重要的一次垂直整合：从买别人的芯片，到定义整条计算曲线</p>
       <div class="ah-lt-span">2010 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/macbook-air.webp" alt="2008 起 · MacBook Air——自研芯片的最佳载体" width="1000" height="1500" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、A 系列：移动芯片的十年领跑（2010 – 2019）</h4>
@@ -3080,6 +3098,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">软件与服务<span class="ah-lt-n">48 条</span></h3>
       <p class="ah-lt-sub">从操作系统到订阅生态，苹果真正的护城河在这里</p>
       <div class="ah-lt-span">1984 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/iphone-2007.webp" alt="iPhone 与 App Store——苹果软件与服务时代的起点" width="1000" height="750" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、Mac 操作系统的四十二年</h4>
@@ -3449,6 +3468,7 @@ var _hmt = _hmt || [];
       <h3 class="ah-lt">公司与人物<span class="ah-lt-n">27 条</span></h3>
       <p class="ah-lt-sub">五十年里，苹果换过四位实际掌权者，也被自己救过两次</p>
       <div class="ah-lt-span">1976 – 2026</div>
+      <div class="ah-panel-fig"><img src="img/apple/history/jobs.webp" alt="史蒂夫·乔布斯——苹果的灵魂人物" width="1000" height="967" loading="lazy" decoding="async"></div>
       <details class="ah-group" open>
         <summary class="ah-gh">
           <h4>一、三个人与一间车库（1976 – 1980）</h4>

@@ -499,10 +499,12 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .ah-ev{position:relative;display:grid;grid-template-columns:92px 1fr;gap:4px 16px;padding:0 0 14px}
 .ah-ev::before{content:'';position:absolute;left:-22px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--ah);border:2px solid var(--card)}
 .ah-ev-d{font-size:.74rem;font-weight:800;color:var(--ah);font-variant-numeric:tabular-nums;letter-spacing:.2px;padding-top:3px}
-.ah-ev-thumb{float:right;width:118px;height:88px;margin:2px 0 8px 14px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:6px;overflow:hidden;flex-shrink:0}
-.ah-ev-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ah-ev-b{padding:2px 0 0}
+.ah-ev-thumb{float:right;width:118px;height:88px;margin:3px 0 10px 14px;background:var(--card,#1d1d1f);border:1px solid rgba(201,168,76,.22);border-radius:8px;overflow:hidden;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.03);position:relative}
+.ah-ev-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.85) brightness(.94) contrast(.96)}
+.ah-ev-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06),transparent 45%,rgba(0,0,0,.18));pointer-events:none;border-radius:8px}
 .ah-ev-b::after{content:'';display:block;clear:both}
-.ah-ev-tile{float:right;width:118px;height:88px;margin:2px 0 8px 14px;background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(90,200,250,.08));border:1px solid var(--ah-line);border-radius:6px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--ah);font-size:.7rem;font-weight:700;line-height:1.3;padding:6px;letter-spacing:.3px}
+.ah-ev-tile{float:right;width:118px;height:88px;margin:3px 0 10px 14px;background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(90,200,250,.03) 60%,rgba(0,0,0,.10));border:1px solid rgba(201,168,76,.22);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--ah);font-size:.68rem;font-weight:700;line-height:1.3;padding:6px;letter-spacing:.3px;box-shadow:0 1px 4px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.03)}
 .ah-ev-b{min-width:0}
 .ah-ev-t{font-size:.95rem;font-weight:700;margin:0 0 3px;line-height:1.5}
 .ah-ev-b p{font-size:.84rem;color:var(--text-secondary);line-height:1.7;margin:0}

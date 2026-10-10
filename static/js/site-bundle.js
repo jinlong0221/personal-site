@@ -101,7 +101,7 @@ function updateThemeIcon(t){
     if(navLinks){
       navLinks.querySelectorAll('a').forEach(function(a){
         var clone=a.cloneNode(true);
-        clone.addEventListener('click',function(){hb.classList.remove('active');mn.classList.remove('open');});
+        clone.addEventListener('click',function(){hb.classList.remove('active');mn.classList.remove('open');document.body.classList.remove('menu-open');});
         mn.appendChild(clone);
       });
     }
@@ -111,13 +111,14 @@ function updateThemeIcon(t){
     e.stopPropagation();
     hb.classList.toggle('active');
     mn.classList.toggle('open');
+    document.body.classList.toggle('menu-open', mn.classList.contains('open'));
   });
   mn.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){hb.classList.remove('active');mn.classList.remove('open');});
+    a.addEventListener('click',function(){hb.classList.remove('active');mn.classList.remove('open');document.body.classList.remove('menu-open');});
   });
   document.addEventListener('click',function(e){
     if(!hb.contains(e.target)&&!mn.contains(e.target)){
-      hb.classList.remove('active');mn.classList.remove('open');
+      hb.classList.remove('active');mn.classList.remove('open');document.body.classList.remove('menu-open');
     }
   });
 })();

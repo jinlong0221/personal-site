@@ -270,7 +270,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--tx-3);font-size:.75r
      严格保持原加载次序；Hugo 页首屏脚本引用由 16 个降至 4 个（1 个 bundle + 3 个
      注入脚本依赖项），总 JS 体量减少约 50%，显著改善薄机器 / 蜂窝网络下的打开速度。
      源见 scripts/js-src/，合并脚本见 scripts/bundle_js.py。 -->
-<script src="{{ .Site.BaseURL }}js/site-bundle.js?v=20261001" defer></script>
+<script src="{{ .Site.BaseURL }}js/site-bundle.js?v=20261010" defer></script>
 <!-- 以下 3 个由 apply_site_widgets.py / apply_pwa.py 注入到 static/ 静态页（静态页不走
      Hugo 模板），此处与注入保持一致、保留为独立文件；guard_v_param 亦校验其存在。 -->
 <script src="{{ .Site.BaseURL }}js/site-live.js?v=20260923" defer></script>

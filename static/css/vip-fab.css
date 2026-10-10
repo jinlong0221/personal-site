@@ -7,6 +7,13 @@
   border-top:1px solid rgba(201,168,76,.42);
   box-shadow:0 -4px 18px rgba(0,0,0,.45);
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  transition:transform .28s cubic-bezier(.4,0,.2,1), opacity .28s ease;
+}
+/* 移动端菜单展开时，底栏下滑隐藏，避免遮挡菜单内容 */
+body.menu-open .vip-fab{
+  transform:translateY(100%);
+  opacity:0;
+  pointer-events:none;
 }
 .vip-fab-seal{
   flex:0 0 auto; width:30px; height:30px; border:2px solid var(--cinnabar,#D14A36);
@@ -31,14 +38,17 @@
 
 /* 桌面：返回顶部固定在 bottom:74px，本底栏高约 46px 不冲突。
    给 body 加底部留白，避免滚动到底时页脚被底栏遮住。 */
-body{ padding-bottom:64px; }
+body{ padding-bottom:60px; }
 
 /* 移动端首页有 .lx-dock 底部导航(64px 高)：把本底栏抬到 dock 上方，
    与站点既有的 body:has(.lx-dock){padding-bottom:64px} 错开，互不遮挡。 */
 body:has(.lx-dock) .vip-fab{ bottom:calc(64px + env(safe-area-inset-bottom)); }
+body:has(.lx-dock).menu-open .vip-fab{ transform:translateY(100%); opacity:0; pointer-events:none; }
 
 @media (max-width:480px){
-  .vip-fab{ gap:8px; padding:7px 10px calc(7px + env(safe-area-inset-bottom)); }
-  .vip-fab-txt{ font-size:.78rem; }
-  .vip-fab-btn{ padding:7px 12px; font-size:.8rem; }
+  .vip-fab{ gap:8px; padding:6px 10px calc(6px + env(safe-area-inset-bottom)); }
+  .vip-fab-seal{ width:26px; height:26px; font-size:15px; border-width:1.5px; }
+  .vip-fab-txt{ font-size:.75rem; }
+  .vip-fab-btn{ padding:6px 12px; font-size:.78rem; }
+  body{ padding-bottom:58px; }
 }

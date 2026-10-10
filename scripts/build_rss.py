@@ -61,7 +61,7 @@ def main():
     items.append({
         'title': '龙兄知识库',
         'link': BASE + '/',
-        'desc': 'AI 驱动的个人知识库，涵盖沉香鉴别、中药材、文玩紫砂、特斯拉、射阳本地民生等实用内容。',
+        'desc': 'AI 驱动的个人知识库，涵盖沉香鉴别、中药材、文玩紫砂、特斯拉、主机图鉴等实用内容。',
         'cat': '首页',
         'date': '',
     })
@@ -127,7 +127,7 @@ def main():
     lines.append('  <channel>')
     lines.append('    <title>龙兄知识库</title>')
     lines.append('    <link>' + BASE + '/</link>')
-    lines.append('    <description>龙兄知识库 RSS 订阅源：沉香鉴别、中药材、文玩紫砂、特斯拉、射阳本地民生等实用图文。</description>')
+    lines.append('    <description>龙兄知识库 RSS 订阅源：沉香鉴别、中药材、文玩紫砂、特斯拉、主机图鉴等实用图文。</description>')
     lines.append('    <language>zh-CN</language>')
     lines.append('    <lastBuildDate>' + now + '</lastBuildDate>')
     lines.append('    <pubDate>' + now + '</pubDate>')

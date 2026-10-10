@@ -46,7 +46,7 @@
 
           <section class="rss-hero">
             <h1>📰 订阅龙兄知识库</h1>
-            <p>龙兄知识库 RSS 订阅源，涵盖沉香鉴别、中药材、文玩紫砂、特斯拉、射阳本地民生等实用图文。把下方地址复制到你喜欢的 RSS 阅读器即可订阅。</p>
+            <p>龙兄知识库 RSS 订阅源，涵盖沉香鉴别、中药材、文玩紫砂、特斯拉、主机图鉴等实用图文。把下方地址复制到你喜欢的 RSS 阅读器即可订阅。</p>
             <div class="rss-url-box">
               <code id="rssUrl">https://longxiong.vip/rss.xml</code>
               <button class="rss-copy-btn" id="rssCopyBtn">复制地址</button>

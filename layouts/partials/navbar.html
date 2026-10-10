@@ -5,22 +5,18 @@
       <span>龙兄</span>
     </a>
     <a href="{{ .Site.BaseURL }}calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
-    <span class="nav-weather" id="navWeather" data-nav="{{ .Site.BaseURL }}sheyang.html" style="cursor:pointer;" title="点击查看当地天气详情"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg></span>
     <ul class="nav-links">
       <li><a href="{{ .Site.BaseURL }}zisha.html">风物志</a></li>
       <li><a href="{{ .Site.BaseURL }}tesla.html">车与数码</a></li>
       <li><a href="{{ .Site.BaseURL }}console.html">游戏影游</a></li>
-      <li><a href="{{ .Site.BaseURL }}typhoon.html">射阳本地</a></li>
       <li><a href="{{ .Site.BaseURL }}calendar.html">生活工具</a></li>
       <li><a href="{{ .Site.BaseURL }}about.html">关于我</a></li>
       <li class="nav-more-wrap">
         <button type="button" class="nav-more-btn">更多 ▾</button>
         <div class="nav-more-dropdown">
           <span class="nav-more-hd">风物志</span>
-          <a href="{{ .Site.BaseURL }}health-tea.html">养生茶</a>
           <a href="{{ .Site.BaseURL }}bracelet.html">文玩手串</a>
           <a href="{{ .Site.BaseURL }}zisha.html">紫砂艺术</a>
-          <a href="{{ .Site.BaseURL }}solar-terms.html">节气物候</a>
           <span class="nav-more-hd">车与数码</span>
           <a href="{{ .Site.BaseURL }}tesla.html">特斯拉</a>
           <a href="{{ .Site.BaseURL }}apple.html">苹果</a>
@@ -28,23 +24,16 @@
           <a href="{{ .Site.BaseURL }}ev-charge.html">充电桩查询</a>
           <a href="{{ .Site.BaseURL }}digital-compare.html">数码参数对比</a>
           <span class="nav-more-hd">海外动态</span>
-          <a href="global.html">海外动态</a>
+          <a href="{{ .Site.BaseURL }}global.html">海外动态</a>
           <span class="nav-more-hd">游戏影游</span>
           <a href="{{ .Site.BaseURL }}console.html">主机图鉴</a>
           <a href="{{ .Site.BaseURL }}games.html">玩过的游戏</a>
           <a href="{{ .Site.BaseURL }}chinajoy.html">ChinaJoy 成长史</a>
           <a href="{{ .Site.BaseURL }}marvel.html">漫威宇宙</a>
           <a href="{{ .Site.BaseURL }}game-calendar.html">游戏发售日历</a>
-          <span class="nav-more-hd">射阳本地</span>
-          <a href="{{ .Site.BaseURL }}xintan-weather.html">农田气象</a>
-          <a href="{{ .Site.BaseURL }}typhoon.html">台风监测</a>
-          <a href="{{ .Site.BaseURL }}sheyang.html">射阳天气</a>
-          <a href="{{ .Site.BaseURL }}guanghui.html">光辉电力</a>
-          <a href="{{ .Site.BaseURL }}sheyang-guide.html">射阳生活</a>
           <span class="nav-more-hd">生活工具</span>
           <a href="{{ .Site.BaseURL }}tools.html">工具箱</a>
           <a href="{{ .Site.BaseURL }}calendar.html">万年历</a>
-          <a href="{{ .Site.BaseURL }}gaokao.html">高考查分</a>
           <a href="{{ .Site.BaseURL }}tags.html">标签聚合</a>
           <a href="{{ .Site.BaseURL }}bookmarks.html">我的收藏</a>
           <span class="nav-more-hd">关于我</span>
@@ -82,10 +71,8 @@
   <div class="mobile-nav" id="mobileNav">
   <a href="{{ .Site.BaseURL }}index.html">首页</a>
   <span class="nav-hd">风物志</span>
-  <a href="{{ .Site.BaseURL }}health-tea.html">养生茶</a>
   <a href="{{ .Site.BaseURL }}bracelet.html">文玩手串</a>
   <a href="{{ .Site.BaseURL }}zisha.html">紫砂艺术</a>
-  <a href="{{ .Site.BaseURL }}solar-terms.html">节气物候</a>
   <span class="nav-hd">车与数码</span>
   <a href="{{ .Site.BaseURL }}tesla.html">特斯拉</a>
   <a href="{{ .Site.BaseURL }}apple.html">苹果</a>
@@ -93,23 +80,16 @@
   <a href="{{ .Site.BaseURL }}ev-charge.html">充电桩查询</a>
   <a href="{{ .Site.BaseURL }}digital-compare.html">数码参数对比</a>
   <span class="nav-hd">海外动态</span>
-  <a href="global.html">海外动态</a>
+  <a href="{{ .Site.BaseURL }}global.html">海外动态</a>
   <span class="nav-hd">游戏影游</span>
   <a href="{{ .Site.BaseURL }}console.html">主机图鉴</a>
   <a href="{{ .Site.BaseURL }}games.html">玩过的游戏</a>
   <a href="{{ .Site.BaseURL }}chinajoy.html">ChinaJoy 成长史</a>
   <a href="{{ .Site.BaseURL }}marvel.html">漫威宇宙</a>
   <a href="{{ .Site.BaseURL }}game-calendar.html">游戏发售日历</a>
-  <span class="nav-hd">射阳本地</span>
-  <a href="{{ .Site.BaseURL }}xintan-weather.html">农田气象</a>
-  <a href="{{ .Site.BaseURL }}typhoon.html">台风监测</a>
-  <a href="{{ .Site.BaseURL }}sheyang.html">射阳天气</a>
-  <a href="{{ .Site.BaseURL }}guanghui.html">光辉电力</a>
-  <a href="{{ .Site.BaseURL }}sheyang-guide.html">射阳生活</a>
   <span class="nav-hd">生活工具</span>
   <a href="{{ .Site.BaseURL }}tools.html">工具箱</a>
   <a href="{{ .Site.BaseURL }}calendar.html">万年历</a>
-  <a href="{{ .Site.BaseURL }}gaokao.html">高考查分</a>
   <a href="{{ .Site.BaseURL }}tags.html">标签聚合</a>
   <a href="{{ .Site.BaseURL }}bookmarks.html">我的收藏</a>
   <span class="nav-hd">关于我</span>

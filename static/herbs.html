@@ -100,7 +100,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}.hero-content h1{font-size:1.8rem}}
 @media(max-width:480px){html{font-size:17px}.hero-content h1{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link rel="stylesheet" href="css/style.css?v=20260908">
+<link rel="stylesheet" href="css/style.css?v=20261007">
 <title>中药材香料百科详细科普｜龙兄知识库</title>
 <meta name="keywords" content="中药材香料百科,实测溯源,避坑指南,图文科普,龙兄知识库">
 
@@ -645,6 +645,9 @@ var _hmt = _hmt || [];
   </ul>
 </section>
 <!-- related:end -->
+<div class="page-meta">
+  <div class="source">本页为中药材香料历史归档内容，资料来源为公开整理，仅供参考。</div>
+</div>
 </main><footer role="contentinfo">
   <div class="footer-brand-row">
     🐉 龙兄知识库 <span class="evolved">· 这个网站是活的</span>
@@ -652,6 +655,10 @@ var _hmt = _hmt || [];
   <div class="footer-info-row">
     © 2026 龙兄知识库
     <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
   </div>
   <div class="footer-stats-row">
     <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
@@ -697,12 +704,13 @@ var _hmt = _hmt || [];
     function toggleHomeSection(el){ var wrap=el.parentElement; wrap.classList.toggle("open"); }
   }
   </script>
-  <script defer src="js/auto_news_loader.js?v=20260828"></script>
-<!-- 全站悬浮栏目目录 + 本地收藏（纯前端组件，无后端） -->
-<div id="quickToc"></div>
+  <script defer src="js/auto_news_loader.js?v=20260925"></script>
 <script defer src="js/auto-collapse.js?v=20260824"></script>
-<script src="js/quick-toc.js" defer></script>
 <script src="js/bookmark.js" defer></script>
 <script src="/js/obfuscate-email.js"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="js/page-reveal.js?v=20260923" defer></script>
+<script src="js/site-live.js?v=20260925" defer></script>
 </body>
 </html>

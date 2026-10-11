@@ -48,8 +48,14 @@ jobs:
           hugo-version: '0.163.3'
           extended: true
 
+      - name: Setup Node.js
+        uses: actions/setup-node@393558567eb10d10f2f1b64eb9ad0b3f14a8ca9d
+        with:
+          node-version: '22'
+          cache: 'npm'
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build feed data
         run: node scripts/build_feed.js

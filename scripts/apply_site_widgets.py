@@ -124,6 +124,9 @@ def process_file(path, check_only=False):
                            'src="%spage-reveal.js?v=%s"' % (jsp, PAGE_REVEAL_VER), html)
             fixed = re.sub(r'src="(?:\.\./)*js/site-live\.js(?:\?v=\w+)?"',
                            'src="%ssite-live.js?v=%s"' % (jsp, SITE_LIVE_VER), fixed)
+            # 同时修复 bookmark.js 的相对前缀（新页面若从模板/旧页克隆时路径带错，可自愈）
+            fixed = re.sub(r'src="(?:\.\./)*js/bookmark\.js"',
+                           'src="%sbookmark.js"' % jsp, fixed)
             if fixed != html:
                 html = fixed
                 changed.append('fix-page-fx')

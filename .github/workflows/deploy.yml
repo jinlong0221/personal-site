@@ -49,7 +49,7 @@ jobs:
           extended: true
 
       - name: Setup Node.js
-        uses: actions/setup-node@393558567eb10d10f2f1b64eb9ad0b3f14a8ca9d
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
           cache: 'npm'

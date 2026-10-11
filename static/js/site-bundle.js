@@ -1710,16 +1710,40 @@ document.addEventListener('DOMContentLoaded', function() {
     '特斯拉 FSD': 'tesla.html',
     '苹果新品': 'apple.html',
     '漫威宇宙': 'marvel.html',
-    '养生茶': 'health-tea.html',
     '紫砂艺术': 'zisha.html',
     '文玩手串': 'bracelet.html',
-    '射阳动态': 'sheyang.html',
     'ChinaJoy': 'chinajoy.html',
     '主机图鉴': 'console.html'
   };
 
+  // 隐藏板块清单：站长要求全站隐藏这些板块（不显示入口、不进搜索），直至明确恢复。
+  // 前端渲染（今日更新 / 热门精选）一律跳过，避免自动化脚本重新写入后泄漏。
+  // 与 apply_site_widgets / pagefind-ignore 的隐藏清单保持一致。
+  var HIDDEN_URL_HINTS = ['guanghui', 'herbs', 'health-tea', 'sheyang',
+    'solar-terms', 'typhoon', 'xintan-weather', 'gaokao'];
+  var HIDDEN_BOARDS = {
+    '养生茶': 1, '射阳动态': 1, '中药材': 1, '高考': 1,
+    '光辉电力': 1, '台风': 1, '新滩天气': 1, '节气': 1
+  };
+  function isHiddenUrl(u) {
+    if (!u) return false;
+    u = String(u).toLowerCase();
+    for (var i = 0; i < HIDDEN_URL_HINTS.length; i++) {
+      if (u.indexOf(HIDDEN_URL_HINTS[i]) !== -1) return true;
+    }
+    return false;
+  }
+  function isHiddenToday(it) {
+    if (!it) return true;
+    if (HIDDEN_BOARDS[it.board]) return true;
+    if (isHiddenUrl(BOARD_LINK[it.board])) return true;
+    if (isHiddenUrl(it.url)) return true;
+    return false;
+  }
+  function isHiddenPick(it) { return !!(it && isHiddenUrl(it.url)); }
+
   function renderToday(d) {
-    var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
+    var items = (d && d.items ? d.items : (Array.isArray(d) ? d : [])).filter(function (it) { return !isHiddenToday(it); });
     var grid = document.getElementById('updGrid');
     if (!grid) return;
     if (!items || !items.length) {
@@ -1757,7 +1781,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function renderPicks(d) {
-    var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
+    var items = (d && d.items ? d.items : (Array.isArray(d) ? d : [])).filter(function (it) { return !isHiddenPick(it); });
     var grid = document.getElementById('hotGrid');
     if (!grid) return;
     if (!items || !items.length) {

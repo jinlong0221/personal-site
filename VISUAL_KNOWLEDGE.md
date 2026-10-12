@@ -89,6 +89,7 @@
 - **⚠️ 2026-08-29 扫描 refinement（必看，否则误报）**：定义收集源**还须包含内联 `style="--x:值"` 属性里的自定义属性**。chinajoy.html 的 `.cj-hall-card` 用 `style="--hall:#4f46e5"` 逐卡片定义、在 `.cj-tag-hall`/`.cj-hall-card` 内 `var(--hall)` 引用——若只扫 `:root`/`<style>`/`setProperty` 会误报 10 处「未定义」。完整定义源 = `.css` + html 内联 `<style>` + **html 内联 `style="--x:.."` 属性** + JS `setProperty`。本周全站 34951 处 `var()` / 161 定义，真实未定义 = 0。
 - **2026-08-30 复盘：`--cf-top` 是「JS 运行时 setProperty」典型安全范式**：`console.html` 用 `document.documentElement.style.setProperty('--cf-top', h+'px')` 在运行时写入、引用处 `var(--cf-top, 56px)` 带 56px fallback。扫描器在静态源码里看不到定义会误报「未定义」，但它运行时必被赋值、且 fallback 兜底 → **非缺陷**。结论：凡 `var(--x, <默认值>)` 带 fallback 且由 `setProperty` 运行时填充的，一律按「安全、不计入未定义」。
 - **2026-08-30 补漏：元素伸出视口的「祖先裁剪」误报陷阱（P0 判定关键）**：仅测 `rect.right > innerWidth` 会把**预期内的横向滚动容器后代**也标成溢出——本站实测 43 页出现 `over` 标记，但全部是：① 主机页 `.timeline-dot`/`.tl-year`（时间轴装饰点，父级 `.timeline` 已 overflow 裁切）；② 特斯拉页 `.version-tag`（表格内小标签，父级 `.table-wrapper` overflow-x:auto）；③ `xintan-weather.html` 的 `.xw-h-*`（逐时天气横滑行，本就 intended 横滑）；④ 首页 `.lx-vchip`（活体首页横滑胶囊，intended）。**正确 P0 判定 = 文档级 `docOverflow==0` 为硬闸门，元素扫描须向上遍历祖先，凡祖先含 `overflow-x:auto/scroll/hidden/clip` 即视为「已收纳」，不计入真实溢出**。本周用祖先感知重扫 43 页 → 真实元素溢出 = 0。
+- **离屏抽屉（off-canvas drawer）属探针结构性误报（2026-10-13 归类）**：`/join.html` 的 `nav.join-mobile-nav`（`position:fixed; right:0; width:min(280px,80vw); transform:translateX(100%)`）默认藏在视口右侧，`.open` 由汉堡键（join.js）切换滑入，配遮罩层 + 打开时锁 body 滚动。探针 `over` 把「fixed 且 right>vw」一律判溢出，但离屏抽屉本就该在视口外。判定铁律：**`position:fixed` 不计入 scrollWidth → 文档横向溢出实测 0 即无横向滚动，离屏抽屉不计 P0/P1**。与 hero-dot `::after`、内联文本链接同属探针结构性误报。
 - **safe-area / sticky 用代码审查而非截图**：grep `position:sticky` 找所有 `top:var(--nav-height)` 元素，确认每个都在 `@supports(padding:env(safe-area-inset-top))` 内补 `top:calc(var(--nav-height)+env(safe-area-inset-top))`；并确认 body 是 `overflow-x:clip`（非 hidden），sticky 才能以视口为滚动祖先。
 
 ## 八、CSP × 视觉渲染关系（2026-08-26 复盘）
@@ -229,4 +230,29 @@
 ### 下次巡检可省步骤
 - 已知接受项（按「板内语义/功能性色，保持不动」）：sheyang metro 磁贴、chinajoy `--hall` 多色磁贴、console 白底图框/灰字降级、travel `.tl-season` 色码、xintan-weather 高温橙 `#e65100`、health-tea `#e57373`、bracelet 中立灰 `#8a8a8a`——不再复核。
 - 探针脚本改用 **`lx-probe2.mjs`**（避免 setViewport 卡死）；6 视口 2448 组合基线沿用。
+- `style.css?v=` 活引用全站统一 `20260925`，下次仅在该值变更时跟进。
+
+## 十九、本周（2026-10-13）巡检结论速记
+
+- **规模**：本轮 `hugo --gc --cleanDestinationDir` 重建（fooocus v0.163.3 extended 可用，未回退），`public/` 共 **221 个 HTML**；探针 **6 视口(390/375/360/768/1440/1920) × 2 主题 = 2652 组合**（实测 combos=2652 / pages=221），puppeteer-core + chrome-headless-shell mac-149。本地服务沿用「rm -rf /tmp/lx-test && cp -R public /tmp/lx-test + 去 CSP meta + URL 重写 `https://longxiong.vip/`→`/` + `python3 -m http.server 8399`」。
+- **四类硬指标 + 导航遮挡（首轮即达标，无需返修 P0/P1）**：
+  - 文档级横向溢出 `scrollWidth - innerWidth` = **0**；
+  - 祖先感知元素溢出 = **0**（真实溢出，见下「抽屉误报」说明）；
+  - 大面积高饱和暖色扫描 = **0**；
+  - JS 报错（pageerror 监听）= **0**；
+  - goto 错误 = **0**；
+  - fixed-nav + bodyPadTop=0 的导航遮挡风险 = **0**。
+  → 视觉层面 **P0=P1=0** ✅。
+- **「元素溢出」命中 12 处 = 已知误报（本轮新归类，须沉淀）**：全部来自 `/join.html` 的 `nav#joinMobileNav.join-mobile-nav`（fixed、width `min(280px,80vw)`、默认 `transform:translateX(100%)` 隐藏于视口右侧，`.open` 类由汉堡键 join.js 切换滑入，配遮罩层 + body overflow 锁）。判定为**离屏抽屉（off-canvas drawer）标准范式**，非 glitch：① `position:fixed` 不计入 scrollWidth → 文档横向溢出实测 0（无横向滚动）；② `translateX(100%)` 是抽屉默认隐藏位；③ 有完整 toggle（汉堡键）+ 遮罩 + 打开时锁 body 滚动。探针 `over` 把「fixed 且 right>vw」一律判溢出，但离屏抽屉本就该在视口外——与既有的 hero-dot `::after`、内联文本链接同属「探针结构性误报」，**不计入 P0/P1**。
+- **隐藏彩虹色深扫（沿用 09-29 方法）**：static/*.html 内联 `style` 的 `color/background` hex 全盘点，偏离调色板的仅余中性灰（`#000/#666/#888/#fff`）与 herbs/console 板内语义小色（`#9b59b6` 紫、`#e74c3c` 红，单点文本指示）——均非大面积暖色（探针 warm=0 佐证），按「板内语义/功能性色，保持不动」维持。
+- **配色系统复核（无破绽）**：`--accent-color` 金主调严守；CSS 变量全部明暗双主题 `:root` / `[data-theme="light"]` 定义（无未定义 var）；`.lx-*` 卡片体系跨页一致，未引入新视觉组件。
+- **设计系统机制复验（全绿）**：`.js .reveal` 隐藏机制（JS 失效默认可见）✓；safe-area `env(safe-area-inset*)` 补偿 ✓；自定义小按钮 `min-width:0;min-height:0` 覆盖全局 44px ✓；明暗双主题 token 全定义 ✓。
+- **版本戳**：本轮未改 CSS（零返修、纯巩固 + 知识沉淀），`style.css?v=20260925` 维持不动。
+- **知识储备增量**：本节（新增「离屏抽屉 off-canvas 属探针结构性误报」归类，避免下次误判为 P0/P1）+ 第六节复盘池补入 join.html 离屏抽屉误报条目。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 9 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / 09-15 / 09-29 / 10-06 / **10-13**）。
+
+### 下次巡检可省步骤
+- 已知接受项（按「板内语义/功能性色，保持不动」）：sheyang metro 磁贴、chinajoy `--hall` 多色磁贴、console 白底图框/灰字降级、travel `.tl-season` 色码、xintan-weather 高温橙 `#e65100`、health-tea `#e57373`、bracelet 中立灰 `#8a8a8a`——不再复核。
+- **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接（WCAG 2.5.8 豁免）；② `input` label 关联 checkbox；③ `button.lx-hero-dot` 的 `::after` 透明命中区；④ **`/join.html` `nav.join-mobile-nav` 离屏抽屉（`translateX(100%)` 默认隐藏）**——只看四类硬指标 + 导航遮挡为 0。
+- 探针脚本用 **`lx-probe2.mjs`**；6 视口 2652 组合基线沿用。
 - `style.css?v=` 活引用全站统一 `20260925`，下次仅在该值变更时跟进。

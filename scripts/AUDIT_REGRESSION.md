@@ -33,6 +33,7 @@
 | A13 | 🆕 **动效/立体化三类地雷**：① JS 写的 CSS 变量名与根级令牌撞名（`--tx` 既是「文字色」别名、又被当角度写 → 悬停时卡内文字变色，JS 未介入时 3D 变换整条作废）；② 条件块（`@supports`/`@media`）里的 `animation` 用 `both`/`backwards` 填充且起始帧 `opacity≈0`（动画没跑起来就永久全透明）；③ 改 transform/filter 的 `:hover` 未做设备门控（触屏点按被当成悬停） | `static/js/*.js`、`static/css/style.css`、各 `static/*.html` | `guard_motion_safety.py`（①② 阻断；③ 只计数提示） |
 | A17 | 🆕 **配图自检**：① 图片文件缺失/损坏（阻断）；② `width/height` 声明与真实**比例**不符（有 `object-fit:cover` 则无碍，没有会变形）；③ **透明 PNG 被 `convert('RGB')` 烤成纯黑底** —— 深色主题看不出、浅色主题直接一个大黑块，只有渲染后才暴露（2026-10-03 官方群像主视觉就是这么翻车的） | 各 `static/**/*.html` 的 `<img>` | `guard_images.py`（CI + pre-commit；②③ 只提示不阻断） |
 | A16 | 🆕 **页内 `<style>` 块花括号不平衡** → 浏览器从失衡那行起**静默丢弃该块之后的全部规则**。2026-10-03 实测：批量替换把一条规则写成「嵌在另一条规则里」（`.lx-aa-step-no{...;.lx-aa-step-no{...}`），块内多一个未闭合 `{`，源码里规则一条不少、grep 也查不出，页面却「后半段像没写样式」（年表没轴线、FAQ 折叠失效），**只有渲染后量 computed style 才发现** | 各 `static/**/*.html` 的 `<style>` 块 | `guard_css_balance.py`（CI + pre-commit 双拦；只判花括号平衡，刻意不判「规则嵌套合法性」——那条在 `@media` 正常嵌套下误报率高） |
+| A18 | 🆕 **更新日志静态页把直引号 escape 成 `&quot;` 实体 → audit 解码后判为直引号残留**。根因：`build_changelog_feed.py` 的 `esc()` 先把 `"` 转义为 `&quot;`，再经 `audit_live_artifact.py` 的 `HTMLParser` 解码回 `"`，触发「正文引号残留」FAIL。`unify_quotes.py --ci` 只洗源码 JSON 里的 `"`，洗不掉已写入 HTML 的 `&quot;`。修复：在 `esc()` 里先归一 `"`/`"`/`"` 为「」，再 HTML escape。 | `scripts/build_changelog_feed.py` | `audit_live_artifact.py --root public` 必须 0 处直引号残留 |
 
 ## 二、按需跑的审计脚本（做完功能/大改后跑一遍）
 

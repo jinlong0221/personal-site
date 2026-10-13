@@ -94,8 +94,29 @@ def load_json(path: str):
         return json.load(f)
 
 
+def normalize_quotes(s: str) -> str:
+    """把 s 里的直双引号与中文弯引号统一为「」。
+
+    直双引号 " 按出现顺序奇数开、偶数闭；
+    中文左弯引号 " →「，右弯引号 " →」。
+    放在 HTML escape 之前，确保生成后的 `&quot;` 不会残留。
+    """
+    s = s.replace("\u201c", "「").replace("\u201d", "」")
+    out = []
+    open_quote = True
+    for ch in s:
+        if ch == '"':
+            out.append("「" if open_quote else "」")
+            open_quote = not open_quote
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
 def esc(s: str) -> str:
-    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
+    # 先归一引号，再 HTML 转义，避免 `&quot;` 这种 audit 会解码的残留
+    s = normalize_quotes(str(s))
+    return (s.replace("&", "&amp;").replace("<", "&lt;")
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 

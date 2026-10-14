@@ -5,6 +5,32 @@
       "date": "2026-10-14",
       "tags": [
         {
+          "text": "FSD v14 Lite",
+          "class": "hot"
+        },
+        {
+          "text": "HW3",
+          "class": "tag-blue"
+        },
+        {
+          "text": "固件推送",
+          "class": "info"
+        }
+      ],
+      "summary": "特斯拉官方账号宣布 FSD 监督版 v14 Lite 开始向搭载英特尔车机的旧款 Model S 与 Model X 推送，载波固件为 2026.38.5.1。这批车此前是最后一批拿不到 v14 分支的 HW3 车型。第三方车队统计显示，该固件五分钟内推送至约 1210 辆车，其中 36% 为 HW3 车，欧洲车队仍停留在 v14.2.2.6。",
+      "content": "特斯拉官方 AI 账号（已更名为 Tesla Super Intelligence）于 UTC 时间 10 月 14 日 02:08 发帖：「FSD Supervised v14 Lite now rolling out to Intel Model S&X」。载波固件为 2026.38.5.1。\n\n这次推送补上了追踪已久的缺口：9 月 23 日 v14.2 Lite 到达 HW3 版 Model S/X 时，只有 2021 年后的改款车（AMD Ryzen 车机）收到；10 月 7 日 Lite 分支改号为 14.3 时，S/X 是否包含仍未说明。而 2018 年起配英特尔 Atom 车机（MCU2）的改款前车型，包括后期加装 HW3 的改装车，是最后一批没有 v14 分支的 HW3 车。一位车主当天在 X 上说，其妻名下 2017 款 Model X 已完成安装。\n\n内容上没有新增条目：TeslAnt 逐行比对 Not a Tesla App 的 2026.38.5 与 2026.38.5.1 更新说明，除版本号、日期与安装计数外完全一致，v14.3 Lite 一节仍是自 v14.1 Lite 沿用下来的六条。推送速度方面，Teslascope 车队数据记录到该固件在 UTC 05:40 五分钟内新增约 1210 辆，其中 64% 为 HW4 车（升级到 v14.3.12）、36% 为 HW3 车（v14.3 Lite）；TeslaFi 统计到 UTC 09:00 有 37 辆已安装、154 辆待装，全部在北美。欧洲 FSD 车仍为 v14.2.2.6。\n\n⚠️ 口径说明：Not a Tesla App 把该固件标注为 10 月 13 日、命名为「FSD 14.3 Lite & 14.3.12」，与本条采用的特斯拉官方发帖日（10 月 14 日）相差一天，系统计口径与发帖时点差异；英特尔车型具体能用到哪些功能，各源读法不一（Tesla Oracle 认为只有速度档可用），特斯拉未公布英特尔专属清单，本条不作定论。中国大陆 FSD 推送进度未涉及。",
+      "url": "https://teslant.com/en/changelog/tesla-fsd-v14-3-lite-hw3-intel-model-s-x-2026-38-5-1",
+      "sources": [
+        "TeslAnt 2026-10-14《FSD v14 Lite Reaches the Intel-Era Model S and X. Tesla Said So Itself.》",
+        "Wisevoter 2026-10-14《Tesla Released FSD V14.3 Lite for Legacy Vehicles》",
+        "Tesla Super Intelligence（特斯拉官方 X 账号）2026-10-14 02:08 UTC 发帖",
+        "Tessie 固件库 2026-10《2026.38.5.1 release notes & statistics》"
+      ]
+    },
+    {
+      "date": "2026-10-14",
+      "tags": [
+        {
           "text": "巴黎车展",
           "class": "hot"
         },
@@ -174,32 +200,6 @@
         "路透社",
         "美联社",
         "加拿大 Press"
-      ]
-    },
-    {
-      "date": "2026-10-08",
-      "tags": [
-        {
-          "text": "韩国国政监查",
-          "class": "hot"
-        },
-        {
-          "text": "FSD 验证缺口",
-          "class": "warn"
-        },
-        {
-          "text": "监管",
-          "class": "tag-blue"
-        }
-      ],
-      "summary": "特斯拉韩国负责人徐荣德在国会国土交通委员会国政监查上承认，韩国约 23 万辆特斯拉中仅约 4.5 万辆能用 FSD，公司从未正式向国土交通部或交通安全公团申请过安全验证，但若政府建立验证渠道会积极配合。他称 FSD 在韩累计行驶已超 1 亿公里，只有轻微事故。目前仅美产车可开 FSD，占销量七成以上的中国产 Model Y 仍被排除。",
-      "content": "韩国国会国土交通委员会 10 月 8 日下午在首尔汝矣岛对韩国道路公社、韩国交通安全公团举行国政监查，特斯拉韩国 CEO 徐荣德与比亚迪韩国乘用车部门负责人赵仁哲作为证人出席。\n\n· FSD 覆盖面：徐荣德说，韩国约 23 万辆特斯拉中约 4.5 万辆可使用 FSD。共同民主党议员张钟泰指出，同款车型仅因产地不同待遇有别——美产车可开、中国产车不能开，属于消费者歧视。\n\n· 验证缺口：徐荣德承认特斯拉韩国从未正式向国土交通部（MOLIT）或交通安全公团提出 FSD 测试申请，但表示「若政府建立验证的制度与渠道，将积极配合接受评估」。国土交通部方面称，目前没有适用的国际统一标准，且特斯拉规定由驾驶者承担事故责任，因此无法禁止美产特斯拉使用 FSD。\n\n· 安全数据：徐荣德称 FSD 在韩累计行驶已超 1 亿公里，发生过轻微事故，未收到重大事故报告。该口径由特斯拉方面自行提供，尚无第三方核验。\n\n· 销量背景：韩国汽车进口商协会数据，特斯拉 1—9 月在韩新登记 89,148 辆，同比增长 104.4%，其中七成以上为中国产 Model Y。\n\n· 何时提交验证申请、国土交通部何时设立验证通道，听证会上均未有说法，待官方确认。\n\n来源：The Korea Times 2026-10-08《Tesla Korea's 'unverified' FSD under scrutiny》；Chosun Biz（朝鲜日报旗下）2026-10-08 同题报道；Yonhap Infomax（韩联社旗下）2026-10-08《Tesla Korea Vows Full Cooperation on Domestic FSD Verification at Parliamentary Audit》；TeslaNorth.com 2026-10-08。",
-      "url": "https://www.koreatimes.co.kr/business/companies/20261008/tesla-koreas-unverified-fsd-under-scrutiny",
-      "sources": [
-        "The Korea Times 2026-10-08《Tesla Korea's 'unverified' FSD under scrutiny》：4.5 万/23 万可用 FSD、未申请官方验证、1 亿公里无重大事故",
-        "Chosun Biz（朝鲜日报旗下）2026-10-08《Lawmakers grill Tesla Korea and BYD Korea over safety, FSD limits and data risks》：张钟泰质疑产地歧视、徐荣德回应将积极研究",
-        "Yonhap Infomax（韩联社旗下）2026-10-08《Tesla Korea Vows Full Cooperation on Domestic FSD Verification at Parliamentary Audit》：将积极配合国土交通部验证",
-        "TeslaNorth.com 2026-10-08《Tesla Korea's CEO Just Faced Lawmakers Over Who Gets FSD》：1—9 月在韩售出约 8.9 万辆、约九成为 Model Y"
       ]
     }
   ]

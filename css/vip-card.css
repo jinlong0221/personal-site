@@ -1,0 +1,39 @@
+/* 龙兄私房 · 私域引流卡片（网站内容页底部）
+   纯 CSS，无 JS、无内联 style，规避站点严格 CSP。
+   与 join.html 共用国风黑金视觉（金 #c9a84c / 朱红 #d14a36）。 */
+.vip-card{
+  display:flex;flex-wrap:wrap;align-items:center;gap:16px;
+  margin:30px 0 10px;padding:18px 20px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#1a1510,#221a12);
+  border:1px solid #3a3225;border-radius:12px;
+}
+.vip-card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,#c9a84c,#d14a36);
+}
+.vip-card .vc-seal{
+  width:46px;height:46px;flex:none;border:2px solid #d14a36;border-radius:8px;
+  color:#d14a36;display:flex;align-items:center;justify-content:center;
+  font-family:"Kaiti SC","STKaiti",KaiTi,serif;font-size:26px;
+}
+.vip-card .vc-body{flex:1;min-width:200px}
+.vip-card .vc-tag{
+  display:inline-block;font-size:11px;color:#d14a36;border:1px solid #d14a36;
+  border-radius:999px;padding:1px 9px;margin-bottom:6px;letter-spacing:1px;
+}
+.vip-card .vc-title{
+  font-family:"Songti SC","SimSun",serif;font-size:1.05rem;color:#ede6d6;
+  margin:0 0 4px;font-weight:600;
+}
+.vip-card .vc-desc{font-size:.85rem;color:#a2977f;line-height:1.6;margin:0}
+.vip-card .vc-cta{flex:none}
+.vip-card .vc-btn{
+  display:inline-block;background:#c9a84c;color:#1a1510;font-weight:600;font-size:.9rem;
+  padding:9px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:background .2s;
+}
+.vip-card .vc-btn:hover{background:#e0c97a}
+@media(max-width:560px){
+  .vip-card{flex-direction:column;align-items:flex-start}
+  .vip-card .vc-cta{width:100%}
+  .vip-card .vc-btn{display:block;text-align:center}
+}

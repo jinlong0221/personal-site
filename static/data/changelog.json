@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-10-18",
+    "content": "🤖 补漏巡检 17:00：补苹果、游戏、养生茶三板当日新稿，其余 9 板已是当天。"
+  },
+  {
     "date": "2026-10-18 14:34",
     "content": "🌀 台风实时监测高频刷新（14:34班·蔷琵#30/2630）：多源复检（中央气象台台风网nmc.cn实时直连+盐城/射阳气象台预警库+北京日报/信欣研判）。核心新信息：① 盐城市气象台2026-10-18 12:25 已解除强对流黄色预警（原05:45发布、覆盖近海海区·射阳近海强对流风险由「中」降为「低」）；② ⚠️前瞻研判——信欣/北京日报10-18：蔷琵强度发展超预期、登陆我国概率增大、21-22日为决定路径关键窗口（亦可能转向日本·forecast·待官方确认·小概率西行）；③ 射阳海区大风黄色预警今日下午进入减弱段（实况东南风由上午6级降至15时3-5级·海区风险「高」减弱中）；④ 中央气象台总1919期(11时10分)仍为最新权威实况、14时30分更新截至本班14:34尚未在nmc.cn发布。台风本体（蔷琵#30·距射阳逾三千公里）风险「低」；综合风险维持「中」、海区及沿海「高」(减弱中)、县城「低」、在效监测。操作：更新 static/typhoon.json（updated→14:34；status/headline/summary/current/sheyangDistanceNote/trackNote/sheyang块(alerts/observed/wind/rain/riskLabel/riskNote)/prevention(2处强对流黄警→解除口径)/sources(前置)/feed(前置截断8)/timeline(前置now并将11:45置past) 同步）；向 static/changelog.json + data/changelog.json + static/data/changelog.json 三副本各前置1条。"
   },

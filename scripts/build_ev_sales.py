@@ -22,6 +22,7 @@
 """
 import json
 import os
+import re
 import html as H
 from datetime import datetime, timezone, timedelta
 
@@ -29,6 +30,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'static', 'ev-sales.json')
 OUT = os.path.join(ROOT, 'static', 'ev-sales.html')
 DONOR = os.path.join(ROOT, 'static', 'ev-charge.html')
+# 全站注入脚本（滚动出场 / 站点更新时刻的版本号唯一真相源）
+WIDGETS_SRC = open(os.path.join(ROOT, 'scripts', 'apply_site_widgets.py'),
+                   encoding='utf-8').read()
 
 # 车型级销量（懂车帝接口全自动抓取，与上面的厂商级数据互相独立）。
 # 这个文件拿不到时页面照常生成，只是不出车型榜 —— 绝不因此让整页失败。
@@ -912,6 +916,51 @@ def main():
     head += ('\n<!-- 社交分享与规范链接（build_ev_sales.py 显式补齐，'
              '避免被 donor head 截断丢失） -->\n' + social + '\n')
 
+    # ---- 全站组件回填（🔴 关键，2026-10-19 修）----
+    # CI 的顺序是「apply_site_widgets / inject_vip_fab → 本脚本 → hugo」，
+    # 而本脚本是用 donor 的 head/footer 片段重写整页的。若不在这里把全站注入的
+    # 东西重新吐出来，每天 CI 一跑，线上这一页就会丢掉：
+    #   VIP 入口条（vip-fab.css + .vip-fab 区块）、JSON-LD 结构化数据、
+    #   PWA 注册脚本、滚动出场 / 站点更新时刻两个脚本 —— 且丢得悄无声息。
+    # 版本号一律从 apply_site_widgets.py 的常量里读（那里是唯一真相源），
+    # 绝不在本文件里手抄一份，否则两边又会对不上。
+    def _site_widget_ver(const_name, default='20260101'):
+        m = re.search(r"^%s = '([^']+)'" % const_name, WIDGETS_SRC, re.M)
+        return m.group(1) if m else default
+
+    VIP_FAB_LINK = '<link rel="stylesheet" href="/css/vip-fab.css">'
+    VIP_FAB_BLOCK = (
+        '<!-- VIP_FAB_START -->\n'
+        '<div class="vip-fab">\n'
+        '  <span class="vip-fab-seal">龙</span>\n'
+        '  <span class="vip-fab-txt"><b>龙兄私房</b> · 烧钱爱好那么多坑，进圈给你趟平</span>\n'
+        '  <a class="vip-fab-btn" href="/join.html">立即进圈 →</a>\n'
+        '</div>\n'
+        '<!-- VIP_FAB_END -->'
+    )
+    PAGE_FX_BLOCK = (
+        '<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->\n'
+        '<script src="js/page-reveal.js?v=%s" defer></script>\n'
+        '<script src="js/site-live.js?v=%s" defer></script>\n'
+    ) % (_site_widget_ver('PAGE_REVEAL_VER'), _site_widget_ver('SITE_LIVE_VER'))
+
+    # JSON-LD：WebSite 节点沿用 donor（全站一致），Article 节点换成本页三件套
+    _ld = re.search(r'<script type="application/ld\+json">.*?</script>', donor, re.S)
+    LD_JSON = ''
+    if _ld:
+        LD_JSON = _ld.group(0)
+        _i = LD_JSON.find('"@type": "Article"')
+        if _i > 0:
+            _art = LD_JSON[_i:]
+            _art = re.sub(r'"headline": "[^"]*"', '"headline": "%s"' % EV_TITLE, _art)
+            _art = re.sub(r'"description": "[^"]*"', '"description": "%s"' % EV_DESC, _art)
+            _art = _art.replace('https://longxiong.vip/ev-charge.html', EV_URL)
+            LD_JSON = LD_JSON[:_i] + _art
+    _pwa = re.search(
+        r'<!-- PWA: 注册 Service Worker（离线阅读） -->\s*'
+        r'<script src="/js/pwa-register\.js[^>]*></script>', donor)
+    PWA_SCRIPT = _pwa.group(0) if _pwa else ''
+
     # ---- body 起始到 <main> 之前（navbar 原样复用）
     body_start = donor.index('<body>')
     main_start = donor.index('<main id="main-content"')
@@ -951,8 +1000,12 @@ def main():
 </html>
 """.replace("__VJS__", V_JS)
 
-    out = head + CSS + '\n<link rel="stylesheet" href="css/style.css?v=%s">\n</head>\n\n' % V_CSS \
-        + body_head + body + '\n' + footer + '\n' + scripts
+    # </body> 之前按全站同一顺序补齐：VIP 入口条 → 滚动出场 / 站点更新时刻
+    scripts = scripts.replace('</body>', VIP_FAB_BLOCK + '\n' + PAGE_FX_BLOCK + '</body>', 1)
+
+    out = head + CSS + '\n<link rel="stylesheet" href="css/style.css?v=%s">\n' % V_CSS \
+        + VIP_FAB_LINK + '\n\n' + LD_JSON + '\n' + PWA_SCRIPT + '\n' \
+        + '</head>\n\n' + body_head + body + '\n' + footer + '\n' + scripts
 
     with open(OUT, 'w', encoding='utf-8') as f:
         f.write(out)

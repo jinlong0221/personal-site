@@ -5,6 +5,29 @@
       "date": "2026-10-23",
       "tags": [
         {
+          "text": "Switch 2",
+          "class": "hot"
+        },
+        {
+          "text": "ns2jb 越狱",
+          "class": "tag-blue"
+        },
+        {
+          "text": "SmileBASIC 4 下架",
+          "class": "info"
+        }
+      ],
+      "summary": "任天堂已将编程应用《SmileBASIC 4》从北美、欧洲、日本等地区的 Nintendo eShop 下架，发生在 Switch 2 首个公开软件越狱方案 ns2jb 公开传播之后；该方案利用初代 Switch 版该应用的 32 位整数溢出漏洞提权，支持 23.0.1 固件、需同局域网 macOS/Linux 电脑配合，属需重启重新触发的 tethered 方案。",
+      "content": "网易 2026-10-23 19:38 报道（宗熙先生）：据坊间消息，任天堂已将编程应用《SmileBASIC 4》从北美、欧洲、日本等地区的 Nintendo eShop 下架，发生在 Nintendo Switch 2 首个公开软件越狱方案 ns2jb 公开传播之后。该应用被安全研究员用作漏洞利用链的初始入口；ns2jb 由安全研究员 Sammy Hajhamid（网名 pepsipu）发布，利用初代 Switch 版《SmileBASIC 4》解释器的 32 位整数溢出漏洞（数组删除操作中越界读写），再结合 Switch 2 文件系统服务模块的缓冲区溢出漏洞提权，最终实现系统服务进程内的原生代码执行。该方案支持 Switch 2 固件 23.0.1、无需硬件改造，但需一台与主机同局域网的 macOS 或 Linux 电脑并借助 Node.js 工具，且属需每次重启重新触发的 tethered 方案。研究员曾修改《马力欧卡丁车世界》演示加入大耳狗、彼得·格里芬等非原版角色验证。该方案并不等于 Switch 2 已完整破解，目前仅可在普通系统模块及内置文件系统模块权限范围内执行原生代码，用于运行自制程序、逆向分析与修改游戏、备份存档等。",
+      "url": "https://www.163.com/dy/article/L9UT74QU0552OI16.html",
+      "sources": [
+        "网易 2026-10-23 19:38（宗熙先生）《任天堂下架〈SmileBASIC 4〉,Switch 2首个公开软件越狱引发关注》"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "tags": [
+        {
           "text": "Switch2",
           "class": "hot"
         },
@@ -167,31 +190,6 @@
       "sources": [
         "IT之家 2026-10-19 18:17《技术人员拆解任天堂Switch 2可换电池版：仍使用群创光电面板、内存供应商有所变化》",
         "美国联邦通信委员会（FCC）记录：型号 BEE-001(-01) Switch 2 机型"
-      ]
-    },
-    {
-      "date": "2026-10-19",
-      "tags": [
-        {
-          "text": "怪物猎人荒野",
-          "class": "hot"
-        },
-        {
-          "text": "Switch 2",
-          "class": "tag-blue"
-        },
-        {
-          "text": "免费Demo",
-          "class": "info"
-        }
-      ],
-      "summary": "卡普空宣布《怪物猎人荒野》Switch 2 免费序章 Demo 于 10 月 19 日（北美 eShop，欧洲为 10 月 20 日）上线，玩家可体验故事开篇并将存档继承至 12 月 4 日发售的正式版，Demo 支持本地联机、不支持在线多人，数字预购同日开启。任天堂生活等多家媒体已确认。",
-      "content": "据 Nintendo Life、Nintendo Everything、Final Weapon 等多家媒体 2026 年 10 月报道，卡普空（Capcom）宣布《怪物猎人荒野》（Monster Hunter Wilds）的免费「序章 Demo」（Prologue Demo）将于 10 月 19 日在任天堂 eShop 上线（北美为 10 月 19 日、欧洲为 10 月 20 日，时区差异）。\n\n该 Demo 完全免费下载，收录游戏故事开篇段落，玩家在 Demo 中创建的存档可继承至 12 月 4 日登陆 Switch 2 的正式版；Demo 支持本地联机，可与同样拥有 Switch 2 的亲友同猎，但不支持在线多人模式。数字预购于 Demo 上线同日开启。\n\n卡普空此前已确认《怪物猎人荒野》在 Switch 2 上支持完整跨平台联机，并采用 Game-Key Card 实体卡形式；正式版发售后，新扩展《Monster Hunter Wilds: Ascendance》将于 2027 年推出，长老的龙「炎王龙」（Teostra）将在扩展中回归。\n\n⚠️ 口径说明：10 月 19 日上线时点引自卡普空官方 X 账号（@monsterhunter，10 月 15 日发帖）与 Nintendo Life 等媒体；跨平台联机、Game-Key Card、扩展包等补充信息来自 Final Weapon、Scene Gamers 等媒体同期报道，各源一致。Demo 具体解锁时点以各地区 eShop 为准。",
-      "url": "https://www.nintendolife.com/news/2026/10/monster-hunter-wilds-free-prologue-demo-brings-the-hunt-to-switch-2-next-week",
-      "sources": [
-        "Nintendo Life 2026-10《Monster Hunter Wilds Free Prologue Demo Brings The Hunt To Switch 2 Next Week》（10月19日上线、免费、存档继承、12月4日发售、本地联机）",
-        "Nintendo Everything 2026-10《Monster Hunter Wilds demo heading to Nintendo Switch 2 next week》（北美10月19日/欧洲10月20日）",
-        "Final Weapon 2026-10-14 同题报道（存档继承至正式版、不支持在线多人、数字预购同日开启）"
       ]
     }
   ]

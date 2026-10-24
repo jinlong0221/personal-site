@@ -29,6 +29,10 @@ guard_date_honesty.py — 板块更新日期真实性守卫
   - static/data/global.json：updated=刷新日，2026-10-24 当天录入 5 条真实动态
 
 修复方式（A 类被拦时）：把 updated 改回最新真实条目的日期，或补上真实内容。
+
+另管一件事（2026-10-25 增补）：site-live.js / layouts/index.html 里那行
+「全站最近发布：X」的文案回归——它显示的是 CI 构建发布时刻，不是本页内容日期，
+被改回「本站更新于」这类模糊措辞同样 FAIL（会把全站发布误导成本页刚更新）。
 """
 import glob
 import json
@@ -86,6 +90,32 @@ def git_show_head(relpath):
         return json.loads(r.stdout)
     except Exception:
         return None
+
+
+def check_live_wording():
+    """site-live 行文案回归检查（2026-10-25 增补）。
+
+    这行显示的是「全站每次 CI 构建的发布时刻」，不是本页内容日期。旧文案
+    「本站更新于 X 分钟前」紧挨各页写死的「最后更新：旧日期」（如 ev-sales
+    数据 10-19），读者必然误读成「这页刚更新过」——龙兄 2026-10-24 截图抓到。
+    正判据：两处激活代码都必须含「全站最近发布」；被改回模糊措辞即 FAIL。
+    注释里引述旧文案（防改回说明）不拦。
+    """
+    errors = []
+    targets = [
+        (os.path.join(ROOT, "static", "js", "site-live.js"), "全站最近发布"),
+        (os.path.join(ROOT, "layouts", "index.html"), "全站最近发布"),
+    ]
+    for path, must in targets:
+        if not os.path.exists(path):
+            errors.append(f"{os.path.relpath(path, ROOT)} 不存在")
+            continue
+        src = open(path, encoding="utf-8").read()
+        if must not in src:
+            errors.append(f"{os.path.relpath(path, ROOT)} 缺少「{must}」——"
+                          f"疑似被改回「本站更新于」这类模糊措辞（会把全站发布时刻"
+                          f"误导成本页刚更新，2026-10-25 铁律）")
+    return errors
 
 
 def main():
@@ -147,6 +177,16 @@ def main():
         print("   修复：把 updated 改回最新真实条目日期；当天无新稿不准改 updated，"
               "巡检留痕写 changelog.json。")
         return 1
+
+    wording_errors = check_live_wording()
+    if wording_errors:
+        print("❌ guard_date_honesty 未通过（全站发布时刻文案回归）：")
+        for e in wording_errors:
+            print("   -", e)
+        print("   修复：恢复「全站最近发布」措辞——它显示的是 CI 构建发布时刻，")
+        print("   不是本页内容日期；写成「本站更新于」会让读者误读成本页刚更新。")
+        return 1
+
     if reviews and not quiet:
         print("[guard_date_honesty] 提示（已核实的刷新日，不拦截）：")
         for rel, upd, latest, why in reviews:

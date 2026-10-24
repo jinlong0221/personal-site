@@ -107,7 +107,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
 @media(max-width:480px){html{font-size:17px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
-<link href="css/style.css?v=20261007" rel="stylesheet"/>
+<link href="css/style.css?v=20261025" rel="stylesheet"/>
 <style>
 /* ===== 苹果新品板块专属样式 ===== */
 .ap-hero{position:relative;overflow:hidden;border-radius:16px;margin:16px 0 8px;padding:32px 24px 28px;text-align:center;
@@ -376,6 +376,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .ahub-on #ahub-now:checked~.ahub-halves>[data-half="hist"]{display:none}
 @media(max-width:640px){.ahub-cards{grid-template-columns:1fr;gap:10px}.ahub-card{padding:12px 14px;gap:10px}.ahub-ico{width:36px;height:36px}}
 @media print{.ahub-cards{display:none!important}.ahub-half{display:block!important}}
+/* iPhone Duo 展开态（7.6" 内屏 ≈626px CSS 宽）：新品/历史卡恢复双列 */
+@media(min-width:600px) and (max-width:767px){.ahub-cards{grid-template-columns:repeat(2,1fr);gap:14px}}
 </style>
 <style id="ah-css">:root{--ah:#c9a84c;--ah-2:#5ac8fa;--ah-soft:rgba(201,168,76,.14);--ah-line:rgba(201,168,76,.45)}
 [data-theme="light"]{--ah:#a68a3c;--ah-2:#0a84c8;--ah-soft:rgba(166,138,60,.10);--ah-line:rgba(166,138,60,.45)}
@@ -3639,6 +3641,6 @@ var _hmt = _hmt || [];
 <script defer="" src="js/apple-tabs.js?v=20260918"></script>
 <!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
 <script defer="" src="js/page-reveal.js?v=20260923"></script>
-<script defer="" src="js/site-live.js?v=20260925"></script>
+<script defer="" src="js/site-live.js?v=20261025"></script>
 </body>
 </html>

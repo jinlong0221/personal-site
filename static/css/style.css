@@ -71,3 +71,25 @@
 [data-theme=light] .gl-role{color:#7E6118}
 [data-theme=light] .gl-chip.is-on{background:#7E6118;border-color:#7E6118}
 [data-theme=light] .gl-chip.is-on:hover{background:#6E5412;border-color:#6E5412}
+
+/* ===== iPhone Duo 折叠屏适配（2026-10-25）=====
+   设备事实（Apple 官方技术规格）：iPhone Duo 为苹果首款折叠屏，2026-10-23 发售，iOS 27。
+   - 折叠态外屏 5.4"：1398×2034@460ppi → 约 466×678 CSS px（落入既有 ≤480px 移动档，
+     2026-10-25 实测 15 个代表页面零页面级横向溢出，无需新规则）
+   - 展开态内屏 7.6"：1878×2670@430ppi → 约 626×890 CSS px（竖屏）/ 890×626（横屏）
+   适配策略：
+   ① 600–767px「折叠屏展开层」：保留手机外壳（汉堡导航 / 底部栏 / 安全区），
+      但把仍按单列/横滑排布的内容网格升为双列——7.6" 展开屏有 626px 宽，
+      再按手机单列排布就是浪费一半屏幕；
+   ② ≥768px 横屏 890×626：走既有桌面布局（导航自适应收纳已覆盖 769–1250px），
+      hero 高度用 clamp 自适应，无 100vh 顶满问题；
+   ③ 折叠/展开切换由 CSS 媒体查询天然响应，不依赖 JS；双屏同比例，内容按比例缩放不断版。 */
+@media (min-width:600px) and (max-width:767px){
+  /* 首页板块卡片墙：横滑 deck → 双列网格（≥768px 时恢复 auto-fill 多列） */
+  .lx-deck{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;gap:14px;padding-bottom:4px}
+  .lx-deck .lx-card{flex:none}
+  /* 首页「本站动态」：恢复双列（原 ≤640px 单列） */
+  .lx-live .live-grid{grid-template-columns:1fr 1fr}
+  /* 海外动态人物卡：auto-fit 两列（原 ≤700px 单列） */
+  .gl-people{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

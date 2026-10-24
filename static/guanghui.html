@@ -78,7 +78,7 @@
 }
 </script>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
-<link rel="stylesheet" href="css/style.css?v=20261007">
+<link rel="stylesheet" href="css/style.css?v=20261025">
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -593,8 +593,12 @@ var _hmt = _hmt || [];
   .gh-leader-wrap { padding: 20px; }
   .gh-vision-wrap { padding: 24px; }
   .gh-quote-wrap { padding: 24px 20px; }
-  .gh-quote-text { font-size: .95rem; }
-}
+   .gh-quote-text { font-size: .95rem; }
+ }
+ /* iPhone Duo 展开态（7.6" 内屏 ≈626px CSS 宽）：战略合作卡恢复双列 */
+ @media (min-width:600px) and (max-width:767px){
+   .gh-partner-cards { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+ }
 </style>
 
 <!-- PWA: 注册 Service Worker（离线阅读） -->
@@ -1442,6 +1446,6 @@ var _hmt = _hmt || [];
 
 <!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
 <script src="js/page-reveal.js?v=20260923" defer></script>
-<script src="js/site-live.js?v=20260925" defer></script>
+<script src="js/site-live.js?v=20261025" defer></script>
 </body>
 </html>

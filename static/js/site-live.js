@@ -1,6 +1,13 @@
 /**
- * site-live.js — 「本站更新于 47 分钟前」这一行会自己走
+ * site-live.js — 「全站最近发布：47 分钟前」这一行会自己走
  *
+ * 🔴 2026-10-25 措辞铁律（龙兄日期真实性要求，改这行字之前先读）：
+ * 这一行显示的是 **home-feed.json 的 generated_at＝全站每次 CI 构建的发布时刻**，
+ * 不是「本页内容/数据的更新日期」——后者是页面上方 .update-time 里写死的那个
+ * （如 ev-sales 页数据是 10-19 的，全站可能 5 分钟前刚发布过台风刷新）。
+ * 旧文案「本站更新于 X 分钟前」紧挨着本页「最后更新：旧日期」，读者必然误读成
+ * 「这页刚更新过」——2026-10-24 龙兄截图抓到过这种自相矛盾的观感。
+ * **所以文案必须带「全站」二字，把作用域写明，不许再改回「本站更新于」。**
  * 为什么用 home-feed.json：
  *   它是全站唯一「小体积 + 分钟级时间戳 + CI 每次构建都重写」的数据文件（1.4 KB）。
  *   changelog.json / changelog-feed.json 虽然时间更精确，但前者 512 KB、后者 880 KB，
@@ -79,7 +86,7 @@
     var ut = meta.querySelector('.update-time');
     var p = document.createElement('p');
     p.className = 'ref-note site-live';
-    p.innerHTML = '本站更新于 <strong></strong> · <a>更新记录</a>';
+    p.innerHTML = '全站最近发布：<strong></strong> · <a>更新记录</a>';
     var a = p.querySelector('a');
     a.href = base() + 'changelog.html';
     a.title = '站点的更新日志（永久规则：全站任何改动都会记在里面）';
@@ -116,7 +123,7 @@
         if (!el || !el.text) return;
         function paint() {
           el.text.textContent = ago(Date.now() - t.getTime());
-          el.tip.title = '最近一次发布：' + stamp(t) + '（北京时间）';
+          el.tip.title = '全站最近一次发布：' + stamp(t) + '（北京时间；本页内容更新日期见上方「最后更新」）';
         }
         paint();
         setInterval(paint, 60000);                                  // 每分钟自己走

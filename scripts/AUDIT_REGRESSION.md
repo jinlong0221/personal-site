@@ -33,6 +33,7 @@
 | A13 | 🆕 **动效/立体化三类地雷**：① JS 写的 CSS 变量名与根级令牌撞名（`--tx` 既是「文字色」别名、又被当角度写 → 悬停时卡内文字变色，JS 未介入时 3D 变换整条作废）；② 条件块（`@supports`/`@media`）里的 `animation` 用 `both`/`backwards` 填充且起始帧 `opacity≈0`（动画没跑起来就永久全透明）；③ 改 transform/filter 的 `:hover` 未做设备门控（触屏点按被当成悬停） | `static/js/*.js`、`static/css/style.css`、各 `static/*.html` | `guard_motion_safety.py`（①② 阻断；③ 只计数提示） |
 | A17 | 🆕 **配图自检**：① 图片文件缺失/损坏（阻断）；② `width/height` 声明与真实**比例**不符（有 `object-fit:cover` 则无碍，没有会变形）；③ **透明 PNG 被 `convert('RGB')` 烤成纯黑底** —— 深色主题看不出、浅色主题直接一个大黑块，只有渲染后才暴露（2026-10-03 官方群像主视觉就是这么翻车的） | 各 `static/**/*.html` 的 `<img>` | `guard_images.py`（CI + pre-commit；②③ 只提示不阻断） |
 | A16 | 🆕 **页内 `<style>` 块花括号不平衡** → 浏览器从失衡那行起**静默丢弃该块之后的全部规则**。2026-10-03 实测：批量替换把一条规则写成「嵌在另一条规则里」（`.lx-aa-step-no{...;.lx-aa-step-no{...}`），块内多一个未闭合 `{`，源码里规则一条不少、grep 也查不出，页面却「后半段像没写样式」（年表没轴线、FAQ 折叠失效），**只有渲染后量 computed style 才发现** | 各 `static/**/*.html` 的 `<style>` 块 | `guard_css_balance.py`（CI + pre-commit 双拦；只判花括号平衡，刻意不判「规则嵌套合法性」——那条在 `@media` 正常嵌套下误报率高） |
+| A19 | 🆕 **台风数据"短字段被自动化写成长文"**：`typhoon.json` 的 `name`/`nameEn`/`riskLabel` 必须是短值（≤40/60 字）、`current` 必须是对象。2026-10-24 事故：自动刷新任务每次把整段监测续报**追加**进这些字段（name 一天内 1265→4106 字）并把 `current` 覆盖成字符串，hero 卡把长文当台风名渲染成"文字山"，移动端横向溢出（476px > 390px 视口）。双保险：① 数据侧 `guard_typhoon_fields.py`（pre-commit + 审计 A19）拦写入；② 渲染侧 `auto_typhoon_loader.js` 的 `tfShortName()` 从「」提取短名 + current 非对象时回退轨迹最新点，兜底永不退化成文字山 | `static/typhoon.json`、`static/js/auto_typhoon_loader.js` | `guard_typhoon_fields.py`（pre-commit + `audit_regression.sh` A19） |
 | A18 | 🆕 **更新日志静态页把直引号 escape 成 `&quot;` 实体 → audit 解码后判为直引号残留**。根因：`build_changelog_feed.py` 的 `esc()` 先把 `"` 转义为 `&quot;`，再经 `audit_live_artifact.py` 的 `HTMLParser` 解码回 `"`，触发「正文引号残留」FAIL。`unify_quotes.py --ci` 只洗源码 JSON 里的 `"`，洗不掉已写入 HTML 的 `&quot;`。修复：在 `esc()` 里先归一 `"`/`"`/`"` 为「」，再 HTML escape。 | `scripts/build_changelog_feed.py` | `audit_live_artifact.py --root public` 必须 0 处直引号残留 |
 
 ## 二、按需跑的审计脚本（做完功能/大改后跑一遍）
@@ -81,6 +82,17 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
 
 ### C5 移动端横向滚动
 更新日志的长表格、宽表格在窄屏是否横向溢出（底栏/页尾集合是否被撑破）。
+
+> 2026-10-25 实战补则（本次全站移动端审计结论）：
+> - **散文/参数表**（`.m-table`：tesla 参数表、bracelet 速判表、sheyang-guide 交通表等，≤7 列）
+>   → 一律走 `@media (max-width:768px)` 的**堆叠卡片**模式（thead 隐藏、tr 变卡片、首列金色标签）。
+>   该模式原本只作用于 `.changelog-table .m-table`，2026-10-25 已扩展到全站 `.m-table` 与 `.bl-quick table`。
+> - **密集数据表**（如高考一分一段表 `.scoreline-table`，列多行多）→ 保留 `.table-wrapper`
+>   横向滚动 + 首列 sticky，这是有意的设计，不算事故；判据是**页面级** `scrollWidth` 是否超viewport。
+> - **横向 chip 行 / 轮播**（首页 lx-card、相关阅读 chips、console 筛选 chips、apple 机型图集）
+>   → 容器内横向滚动属设计使然，页面级不溢出即放行。
+> - 检测方法：CDP 无头 Chrome `Emulation.setDeviceMetricsOverride` 390px 宽，扫
+>   `getBoundingClientRect().right > clientWidth` 的元素并看其是否在滚动容器内。
 
 ### C7 触屏「点按被当成悬停」复核（移动端优先，2026-09-20 新增）
 触摸屏点按会点亮 `:hover` **并保持**，所以任何「只在鼠标下才合理」的 `:hover` 位移/缩放，

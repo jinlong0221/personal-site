@@ -3,7 +3,7 @@
 > 用途：当用户（龙兄）说"恢复隐藏板块"时，按本清单机械执行，避免漏改。
 > 状态：8 个板块当前为**隐藏态**（不进搜索、任何页面不给入口，但 URL 仍可直接打开）。
 > 隐藏板块：`guanghui`(光辉电力) `herbs`(中药材) `health-tea`(养生茶) `sheyang`(射阳)
->        `solar-terms`(节气) `typhoon`(台风) `xintan-weather`(新滩天气) `gaokao`(高考)
+>        `solar-terms`(节气) `typhoon`(台风) `xintan-weather`(新坍天气) `gaokao`(高考)
 
 ---
 

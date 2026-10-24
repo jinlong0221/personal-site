@@ -138,4 +138,14 @@ echo "[pre-commit] 检查板块新闻摘要/详情分层..."
   exit 1
 }
 
+echo "[pre-commit] 检查台风板块数据字段契约..."
+# 2026-10-24 事故（龙兄截图：台风监测排版炸裂）：自动任务把整段监测续报追加进
+# name/nameEn/riskLabel 并把 current 覆盖成字符串，hero 卡渲染成"文字山"横向溢出。
+# 本守卫拦"短字段被写成长文"，与 loader 的 tfShortName 兜底互为双保险。
+"$PY3" scripts/guard_typhoon_fields.py -q >/dev/null 2>&1 || {
+  echo "❌ 台风数据字段契约守卫未通过："
+  "$PY3" scripts/guard_typhoon_fields.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

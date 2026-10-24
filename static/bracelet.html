@@ -450,6 +450,17 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   }
   .bl-quick strong { color: var(--text); }
 
+  /* 移动端：速判表改堆叠卡片，消灭横向滑动（与全站 m-table 同模式） */
+  @media (max-width: 768px) {
+    .bl-quick { overflow-x: visible; }
+    .bl-quick table { min-width: 0; border: 0; border-collapse: separate; border-spacing: 0; }
+    .bl-quick thead { display: none; }
+    .bl-quick tbody, .bl-quick tr, .bl-quick td { display: block; width: 100%; }
+    .bl-quick tr { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+    .bl-quick td { border: 0; padding: 2px 0; color: var(--text); white-space: normal; }
+    .bl-quick td:first-child { color: var(--gold); font-weight: 700; font-size: .8rem; margin-bottom: 4px; width: auto; }
+  }
+
   /* 新手常见疑问：原生 <details>，不需要脚本，脚本被挡也能展开 */
   .bl-faq {
     max-width: 860px;
@@ -661,6 +672,15 @@ var _hmt = _hmt || [];
           <a href="reading.html">读书笔记</a>
           <a href="methodology.html">知识管理</a>
           
+          <span class="nav-more-hd">本地生活</span>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="herbs.html">中药材</a>
+          <a href="health-tea.html">养生茶</a>
+          <a href="sheyang.html">射阳</a>
+          <a href="solar-terms.html">节气</a>
+          <a href="typhoon.html">台风监测</a>
+          <a href="xintan-weather.html">新坍天气</a>
+          <a href="gaokao.html">高考</a>
           <a href="travel.html">家庭旅行</a>
         </div>
       </li>
@@ -724,6 +744,15 @@ var _hmt = _hmt || [];
   <a href="reading.html">读书笔记</a>
   <a href="methodology.html">知识管理</a>
   
+  <span class="nav-hd">本地生活</span>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="sheyang.html">射阳</a>
+  <a href="solar-terms.html">节气</a>
+  <a href="typhoon.html">台风监测</a>
+  <a href="xintan-weather.html">新坍天气</a>
+  <a href="gaokao.html">高考</a>
   <a href="travel.html">家庭旅行</a>
   </div>
 </nav>

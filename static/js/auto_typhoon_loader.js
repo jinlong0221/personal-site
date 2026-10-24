@@ -109,7 +109,7 @@
 
     s.push('<svg class="tf-track-svg" id="tfSvg" viewBox="0 0 ' + VB_W + ' ' + VB_H + '" ' +
       'preserveAspectRatio="xMidYMid meet" role="img" ' +
-      'aria-label="台风' + (d.name || '实时') + '路径示意图，含射阳位置标注">');
+      'aria-label="台风' + tfShortName(d.name) + '路径示意图，含射阳位置标注">');
 
     s.push('<defs>');
     s.push('<linearGradient id="tfSea" x1="0" y1="0" x2="0" y2="1">' +
@@ -467,11 +467,27 @@
     window.__tfStop = stop; /* 供静默轮询在重渲染前停掉旧动画，避免泄漏 */
   }
 
+  /* 短名提取（防"文字山"）：name 必须是短名（如"蔷琵"）。若自动化误把长文/监测续报
+     写进 name，优先从「」中提取台风名，兜底截断到 14 字，保证英雄卡/路径图标签永不撑破布局。 */
+  function tfShortName(s) {
+    s = String(s || '').replace(/\s+/g, ' ').trim();
+    if (s.length <= 16) return s;
+    var m = s.match(/[「]([^」]{1,12})[」]/);
+    if (m) return m[1];
+    return s.slice(0, 14) + '…';
+  }
+
   /* ============ 当前状态 ============ */
   function renderStatus(d) {
     var box = document.getElementById('tf-status');
     if (!box) return;
-    var c = d.current || {};
+    /* current 必须是对象（lat/lon/intensity/pressure）。若自动化误写成字符串/缺失，
+       回退用轨迹最新实际点派生，保证距离/强度/气压仍能显示。 */
+    var c = (d.current && typeof d.current === 'object' && !Array.isArray(d.current)) ? d.current : {};
+    if (c.lat == null) {
+      var lp = latestActualTrackPoint(d);
+      if (lp && lp.lat != null) c = lp;
+    }
     var km = (c.lat != null) ? haversine(SHEYANG.lat, SHEYANG.lon, c.lat, c.lon) : null;
     var gr = distGrade(km);
 
@@ -484,7 +500,7 @@
 
     var h = '<div class="tf-hero-card">';
     h += '<div class="tf-hero-main">';
-    h += '<div class="tf-hero-name"><span class="tf-spin">🌀</span><b>' + esc(d.name) + '</b>' +
+    h += '<div class="tf-hero-name"><span class="tf-spin">🌀</span><b>' + esc(tfShortName(d.name)) + '</b>' +
       '<span class="tf-hero-no">' + esc(d.year) + ' 年第 ' + esc(d.no) + ' 号</span>' +
       '<span class="tf-hero-status ' + esc(d.statusLevel || 'warn') + '">' + esc(statusBadge) + '</span></div>';
     h += '</div>';

@@ -6,7 +6,7 @@ restore_hidden_boards.py — 隐藏板块「一键恢复」预案脚本（⚠️
 ## 背景
 2026-10 用户要求把 8 个板块临时隐藏（不进搜索、任何页面不给入口，但 URL 仍可直接打开）：
     guanghui(光辉电力) / herbs(中药材) / health-tea(养生茶) / sheyang(射阳)
-    solar-terms(节气) / typhoon(台风) / xintan-weather(新滩天气) / gaokao(高考)
+    solar-terms(节气) / typhoon(台风) / xintan-weather(新坍天气) / gaokao(高考)
 当时通过两道闸实现隐藏（已逐一核实 2026-10-12）：
     ① 18 个页面 <body> 带 data-pagefind-ignore → 搜索/站点索引不收录（pagefind 跳过）。
     ② 全站 JSON 数据源（home-feed.json / hot-picks.json / feed.json 等）里没有这些

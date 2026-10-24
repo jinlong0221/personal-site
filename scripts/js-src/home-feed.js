@@ -40,15 +40,11 @@
     '主机图鉴': 'console.html'
   };
 
-  // 隐藏板块清单：站长要求全站隐藏这些板块（不显示入口、不进搜索），直至明确恢复。
-  // 前端渲染（今日更新 / 热门精选）一律跳过，避免自动化脚本重新写入后泄漏。
-  // 与 apply_site_widgets / pagefind-ignore 的隐藏清单保持一致。
-  var HIDDEN_URL_HINTS = ['guanghui', 'herbs', 'health-tea', 'sheyang',
-    'solar-terms', 'typhoon', 'xintan-weather', 'gaokao'];
-  var HIDDEN_BOARDS = {
-    '养生茶': 1, '射阳动态': 1, '中药材': 1, '高考': 1,
-    '光辉电力': 1, '台风': 1, '新滩天气': 1, '节气': 1
-  };
+  // 隐藏板块清单：2026-10-25 起全部清空 —— 站长已明确恢复此前的 8 个本地/专题板块
+  // （光辉电力/中药材/养生茶/射阳/节气/台风监测/新坍天气/高考），
+  // 不再有渲染层黑名单，首页今日更新/热门精选正常展示这些板块。
+  var HIDDEN_URL_HINTS = [];
+  var HIDDEN_BOARDS = {};
   function isHiddenUrl(u) {
     if (!u) return false;
     u = String(u).toLowerCase();

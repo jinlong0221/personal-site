@@ -34,6 +34,7 @@
 | A17 | 🆕 **配图自检**：① 图片文件缺失/损坏（阻断）；② `width/height` 声明与真实**比例**不符（有 `object-fit:cover` 则无碍，没有会变形）；③ **透明 PNG 被 `convert('RGB')` 烤成纯黑底** —— 深色主题看不出、浅色主题直接一个大黑块，只有渲染后才暴露（2026-10-03 官方群像主视觉就是这么翻车的） | 各 `static/**/*.html` 的 `<img>` | `guard_images.py`（CI + pre-commit；②③ 只提示不阻断） |
 | A16 | 🆕 **页内 `<style>` 块花括号不平衡** → 浏览器从失衡那行起**静默丢弃该块之后的全部规则**。2026-10-03 实测：批量替换把一条规则写成「嵌在另一条规则里」（`.lx-aa-step-no{...;.lx-aa-step-no{...}`），块内多一个未闭合 `{`，源码里规则一条不少、grep 也查不出，页面却「后半段像没写样式」（年表没轴线、FAQ 折叠失效），**只有渲染后量 computed style 才发现** | 各 `static/**/*.html` 的 `<style>` 块 | `guard_css_balance.py`（CI + pre-commit 双拦；只判花括号平衡，刻意不判「规则嵌套合法性」——那条在 `@media` 正常嵌套下误报率高） |
 | A19 | 🆕 **台风数据"短字段被自动化写成长文"**：`typhoon.json` 的 `name`/`nameEn`/`riskLabel` 必须是短值（≤40/60 字）、`current` 必须是对象。2026-10-24 事故：自动刷新任务每次把整段监测续报**追加**进这些字段（name 一天内 1265→4106 字）并把 `current` 覆盖成字符串，hero 卡把长文当台风名渲染成"文字山"，移动端横向溢出（476px > 390px 视口）。双保险：① 数据侧 `guard_typhoon_fields.py`（pre-commit + 审计 A19）拦写入；② 渲染侧 `auto_typhoon_loader.js` 的 `tfShortName()` 从「」提取短名 + current 非对象时回退轨迹最新点，兜底永不退化成文字山 | `static/typhoon.json`、`static/js/auto_typhoon_loader.js` | `guard_typhoon_fields.py`（pre-commit + `audit_regression.sh` A19） |
+| A20 | 🆕 **板块"更新日期"造假（只改日期不加内容）**：2026-10-24 事故，龙兄原话「网站的每一个板块，更新日期和记录一定要真实」。某次自动更新把 `bracelet-news.json` 的 `updated` 从 10-21 改成 10-24 却零新增内容，页面显示「最后更新：今天」。难点：`updated` 晚于最新内容日期有两种情况——**造假 bump**（bracelet，必须拦）与**真实刷新**（当天录入真实条目但事件发生得更早，如 `global.json` 10-24 录入 5 条 10-16~10-21 真实动态，必须放行），静态特征完全相同，只有 git 能区分。守卫判据：`updated` 变了但内容（去掉 updated 的其余部分）零变化 → FAIL；内容同变 → 放行；稳态无改动 → 只提示不拦 | 全部 `static/**/*.json`、`data/**/*.json`（顶层 `updated`） | `guard_date_honesty.py`（pre-commit + `audit_regression.sh` A20） |
 | A18 | 🆕 **更新日志静态页把直引号 escape 成 `&quot;` 实体 → audit 解码后判为直引号残留**。根因：`build_changelog_feed.py` 的 `esc()` 先把 `"` 转义为 `&quot;`，再经 `audit_live_artifact.py` 的 `HTMLParser` 解码回 `"`，触发「正文引号残留」FAIL。`unify_quotes.py --ci` 只洗源码 JSON 里的 `"`，洗不掉已写入 HTML 的 `&quot;`。修复：在 `esc()` 里先归一 `"`/`"`/`"` 为「」，再 HTML escape。 | `scripts/build_changelog_feed.py` | `audit_live_artifact.py --root public` 必须 0 处直引号残留 |
 
 ## 二、按需跑的审计脚本（做完功能/大改后跑一遍）
@@ -278,6 +279,12 @@ python3 scripts/audit_visual.py --dir public --url <页面>   # 它会同时跑 
 ---
 
 - 2026-10-10：**全站审计（龙兄：「发现很多问题」，要求一次性解决）**。先跑 `audit_regression.sh`（自动项 **PASS 12 / FAIL 0**），逐项过人工项。客观硬伤结论：① `public` 全量死链/缺图扫描 **0**；② 渲染级（agent-browser 真实渲染）抽查首页 + zisha/console/tesla/bracelet/games/categories 共 7 页，**隐藏板块入口残留 0、占位/空区块 0**；③ 全部静态守卫（A2/A3/A4/A5/A8/A13/A14/A16/A17/A11 等）CI 级复跑全绿。本轮修：`static/about.html` 删除指向已隐藏高考查分页的免责行（→ 新增 **C11** 隐藏板块后软引用一致性项）。⚠️ **未闭环**：**C8 台风自动化留痕仍在 changelog 刷屏**——台风页已隐藏，但自动化（ID 1786286346465）仍每 3 小时写「🌀 台风实时监测刷新」，需龙兄在 automation 界面给该任务加「不要写 changelog，只更新 typhoon 页」或停用。⚠️ **模型限制**：当前对话模型无法看图，**C1 双主题 hero 可见性、C6/C10 配图事实/图注**这类「看图」项我无法亲自目检，需龙兄本人或多模态模型过一遍浅色/深色对照。
+
+- 2026-10-24~25：**台风板块移动端"文字山" + 板块更新日期造假，两连击**（龙兄截图反馈「台风监测板块有很大的显示排版问题，内容太多」；随后定铁律「网站的每一个板块，更新日期和记录一定要真实」）。
+  · **台风文字山（→ A19）**： hourly 自动刷新任务把整段监测续报**追加**进 `typhoon.json` 的 `name`/`nameEn`/`riskLabel`（name 一天 1265→4106 字）并把 `current` 覆盖成字符串，hero 卡把长文当台风名渲染，移动端横向溢出 476px > 390px。修：数据修复（严格按 10/24 18时公报事实）+ loader 兜底（`tfShortName` 提取短名、current 非对象回退轨迹最新点）+ `guard_typhoon_fields.py`（pre-commit + A19）+ 自动化提示词加字段铁律。**教训：短字段契约必须有守卫，不能只靠 loader 兜底**。
+  · **日期造假（→ A20）**： 某次自动更新把 `bracelet-news.json` 的 `updated` 从 10-21 改成 10-24 却零新增内容（git 实证：commit `199b9f0b`「12板增量(4新增/8 bump)」bracelet 是那 8 个纯 bump 之一），页面显示「最后更新：今天」。全站扫描确认仅此一例，已改回 10-21。难点：「updated 晚于最新内容日期」有两种情况——造假 bump（拦）与真实刷新（`global.json` 10-24 当天录入 5 条 10-16~10-21 真实海外动态，页面「更新至 10-24」属实，放行）——静态特征相同，**只有 git 能区分**。`guard_date_honesty.py` 判据：本次提交 `updated` 变了但内容零变化 → FAIL。**已核实为真实刷新的稳态文件（global.json）只提示不拦**。
+  · 同轮顺带：新滩→新坍全站改正、隐藏板块入口补全（194 页烘焙导航 + home-feed 渲染黑名单，此前 runbook 误报「已移除」实为仍在）、全站移动端表格堆叠化（`.m-table`/`.bl-quick table` 扩展到全部板块页，C5 更新）。
+  · ⚠️ **工具坑复犯**：bash `grep` 在 `陈金龙` 中文路径下**静默返回空**（不报错），导致「黑名单已清」的误判——全站扫描一律用 Python/ripgrep，别用 bash grep。
 
 ## 五、给审计者的开工顺序（照做即可，别跳步）
 

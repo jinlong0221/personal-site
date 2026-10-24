@@ -148,4 +148,15 @@ echo "[pre-commit] 检查台风板块数据字段契约..."
   exit 1
 }
 
+echo "[pre-commit] 检查板块更新日期真实性..."
+# 2026-10-24 事故（龙兄原话「网站的每一个板块，更新日期和记录一定要真实」）：
+# 某次自动更新只把 bracelet-news.json 的 updated 改成当天、没加任何内容，
+# 页面显示「最后更新：今天」属于造假。本守卫用 git 区分「只改日期的造假」
+# 与「当天录入真实条目的刷新」（后者内容有变，放行）。
+"$PY3" scripts/guard_date_honesty.py -q >/dev/null 2>&1 || {
+  echo "❌ 板块更新日期真实性守卫未通过："
+  "$PY3" scripts/guard_date_honesty.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

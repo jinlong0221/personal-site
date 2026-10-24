@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-10-25 00:30",
+    "content": "🛡️ 板块更新日期真实性整改（龙兄定铁律「每一个板块的更新日期和记录一定要真实」）：修正文玩手串板 updated 造假（10-24 只改日期零新增 → 回改 10-21 真实条目日）；全站扫描确认仅此一例；新增守卫 guard_date_honesty.py（pre-commit+审计A20 双拦，git 级区分「只改日期造假」与「当天录稿的真实刷新」）；早/午/晚班、补漏巡检、海外动态五个自动任务提示词清除「无新稿也把 updated 刷成今天」的旧口径，改写为 updated 铁律；规则同步登记 AUDIT_REGRESSION.md（A20）与 BOARD_KNOWLEDGE.md（0.8 节）。"
+  },
+  {
     "date": "2026-10-25 00:35",
     "content": "修复台风监测板块移动端「文字山」排版事故：根因是自动刷新任务把整段监测续报追加进 name/nameEn/riskLabel 并把 current 覆盖成字符串（name 一天内 1265→4106 字）。已修复 typhoon.json 数据（name=蔷琵/current 恢复对象/补 10-24 17时实况点），loader 增加短名提取与对象回退兜底，新增 guard_typhoon_fields.py 守卫（pre-commit+审计 A19 双拦）并加固台风自动任务字段契约。同轮完成：全站移动端审计，.m-table/.bl-quick 散文表格改堆叠卡片（sheyang-guide/tesla/bracelet 等 25 处，消灭横向滑动）；8 个恢复板块的导航入口补进全部 194 个静态页（桌面更多▾+移动端「本地生活」分组）；移除首页渲染层隐藏板块黑名单；新滩→新坍 全站更正。"
   },

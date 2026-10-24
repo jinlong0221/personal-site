@@ -917,10 +917,10 @@ def main():
              '避免被 donor head 截断丢失） -->\n' + social + '\n')
 
     # ---- 全站组件回填（🔴 关键，2026-10-19 修）----
-    # CI 的顺序是「apply_site_widgets / inject_vip_fab → 本脚本 → hugo」，
+    # CI 的顺序是「apply_site_widgets → 本脚本 → hugo」，
     # 而本脚本是用 donor 的 head/footer 片段重写整页的。若不在这里把全站注入的
     # 东西重新吐出来，每天 CI 一跑，线上这一页就会丢掉：
-    #   VIP 入口条（vip-fab.css + .vip-fab 区块）、JSON-LD 结构化数据、
+    #   JSON-LD 结构化数据、
     #   PWA 注册脚本、滚动出场 / 站点更新时刻两个脚本 —— 且丢得悄无声息。
     # 版本号一律从 apply_site_widgets.py 的常量里读（那里是唯一真相源），
     # 绝不在本文件里手抄一份，否则两边又会对不上。
@@ -928,16 +928,6 @@ def main():
         m = re.search(r"^%s = '([^']+)'" % const_name, WIDGETS_SRC, re.M)
         return m.group(1) if m else default
 
-    VIP_FAB_LINK = '<link rel="stylesheet" href="/css/vip-fab.css">'
-    VIP_FAB_BLOCK = (
-        '<!-- VIP_FAB_START -->\n'
-        '<div class="vip-fab">\n'
-        '  <span class="vip-fab-seal">龙</span>\n'
-        '  <span class="vip-fab-txt"><b>龙兄私房</b> · 烧钱爱好那么多坑，进圈给你趟平</span>\n'
-        '  <a class="vip-fab-btn" href="/join.html">立即进圈 →</a>\n'
-        '</div>\n'
-        '<!-- VIP_FAB_END -->'
-    )
     PAGE_FX_BLOCK = (
         '<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->\n'
         '<script src="js/page-reveal.js?v=%s" defer></script>\n'
@@ -1000,11 +990,11 @@ def main():
 </html>
 """.replace("__VJS__", V_JS)
 
-    # </body> 之前按全站同一顺序补齐：VIP 入口条 → 滚动出场 / 站点更新时刻
-    scripts = scripts.replace('</body>', VIP_FAB_BLOCK + '\n' + PAGE_FX_BLOCK + '</body>', 1)
+    # </body> 之前补齐：滚动出场 / 站点更新时刻
+    scripts = scripts.replace('</body>', PAGE_FX_BLOCK + '</body>', 1)
 
     out = head + CSS + '\n<link rel="stylesheet" href="css/style.css?v=%s">\n' % V_CSS \
-        + VIP_FAB_LINK + '\n\n' + LD_JSON + '\n' + PWA_SCRIPT + '\n' \
+        + LD_JSON + '\n' + PWA_SCRIPT + '\n' \
         + '</head>\n\n' + body_head + body + '\n' + footer + '\n' + scripts
 
     with open(OUT, 'w', encoding='utf-8') as f:

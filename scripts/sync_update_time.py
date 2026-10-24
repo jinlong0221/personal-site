@@ -187,7 +187,7 @@ def sync_dynamic_spans(check_only):
         if "changelogUpdated" in m.group(1):
             real = changelog_latest()
         else:
-            # 有新闻 JSON 的页面用新闻 updated，没有的（如 join.html）回退到文件自身 git 日期
+            # 有新闻 JSON 的页面用新闻 updated，没有的（如 about.html）回退到文件自身 git 日期
             real = news_updated_for(path) or git_date(rel)
         if not real or real == m.group(2):
             continue

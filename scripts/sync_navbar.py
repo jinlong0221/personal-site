@@ -1,135 +1,146 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-sync_navbar.py — 用单一规范模板统一生成全站静态页导航栏。
+sync_navbar.py — 用 layouts/partials/navbar.html 单一模板统一全站静态页导航栏。
 
 为什么存在：
-  static/*.html 不经 Hugo 模板渲染，无法用 partial。此前 160 个静态页各自
-  手写了几乎相同的 <nav>，导致 emoji 满天飞、首页与子页下拉不一致。
-  本脚本以一个规范模板为所有静态页重新生成导航栏，保证：
-    1. 完全去 emoji（天气/主题切换改 SVG，移动端链接去 emoji 前缀）
-    2. 各页相对路径按目录深度自动加 ../ 前缀（depth0 顶层 / depth1 子目录）
-    3. 保留各页原有的 active 高亮（从原 nav 读取 active 链接）
-    4. 下拉与移动端菜单内容全站一致（含光辉电力）
+  static/*.html 不经 Hugo 模板渲染，无法用 partial。此前各静态页各自维护导航，
+  曾出现「下拉缺入口、抽屉缺入口、整页旧版导航」三类漂移（2026-10-25 审计：
+  104 页下拉缺 AI 提示词库、changelog 缺本地生活 8 入口、herbs/ai-prompts
+  整页旧版导航且抽屉含重复项）。
+
+单一数据源（2026-10-25 重构）：
+  本脚本曾内置一份 CATEGORIES 硬编码定义，与 partial 双轨维护 → 必然漂移。
+  现改为**直接解析 partial**：顶栏直达项、「更多」下拉分组、移动端抽屉分组
+  全部从 navbar.html 读出，静态页按目录深度加 ../ 前缀重新生成。
+  改导航只改一处（partial），跑一次本脚本即全站同步。
+
+保证：
+  1. 下拉与移动端菜单内容全站一致（含付费内容/AI 提示词库、本地生活 8 入口）
+  2. 各页相对路径按目录深度自动加 ../ 前缀（depth0 顶层 / depth1+ 子目录）
+  3. active 高亮：优先按本页文件名匹配菜单项，匹配不到再回退读旧导航
+  4. 导航外壳（logo/时钟/搜索/主题/分享/汉堡）与 partial 逐字一致
 
 用法：
   python3 scripts/sync_navbar.py           # 执行并写回
   python3 scripts/sync_navbar.py --check   # 只报告会改动哪些文件，不写回
-
-注意：只替换 <nav class="navbar" ...>...</nav> 块，页面其余内容不动。幂等。
 """
 import os
 import re
 import sys
 
-STATIC_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "static")
-# Hugo 模板导航：与静态页共用同一份定义，避免「首页 = 一套、子页 = 另一套」的漂移
-NAVBAR_TPL = os.path.join(os.path.dirname(STATIC_DIR), "layouts", "partials", "navbar.html")
-
-# 6 大主题类目（顺序即展示顺序）：顶栏直达 + 「更多」按类目分组
-# 分组理由：把 24 个入口按「同一维度」归族，消除"车与机里塞漫威""乡与家里塞高考"式的混搭。
-CATEGORIES = [
-    ("风物志", [
-        ("health-tea.html", "养生茶"),
-        ("bracelet.html", "文玩手串"),
-        ("zisha.html", "紫砂艺术"),
-        ("solar-terms.html", "节气物候"),
-    ]),
-    ("车与数码", [
-        ("tesla.html", "特斯拉"),
-        ("apple.html", "苹果"),
-        ("ev-sales.html", "新能源销量榜"),
-        ("ev-charge.html", "充电桩查询"),
-        ("digital-compare.html", "数码参数对比"),
-    ]),
-    ("游戏影游", [
-        ("console.html", "主机图鉴"),
-        ("games.html", "玩过的游戏"),
-        ("chinajoy.html", "ChinaJoy 成长史"),
-        ("marvel.html", "漫威宇宙"),
-        ("game-calendar.html", "游戏发售日历"),
-    ]),
-    ("射阳本地", [
-        ("xintan-weather.html", "农田气象"),
-        ("typhoon.html", "台风监测"),
-        ("sheyang.html", "射阳天气"),
-        ("guanghui.html", "光辉电力"),
-        ("sheyang-guide.html", "射阳生活"),
-    ]),
-    ("生活工具", [
-        ("tools.html", "工具箱"),
-        ("calendar.html", "万年历"),
-        ("gaokao.html", "高考查分"),
-        ("tags.html", "标签聚合"),
-        ("bookmarks.html", "我的收藏"),
-    ]),
-    ("关于我", [
-        ("notes.html", "站长手记"),
-        ("pitfalls.html", "踩坑记"),
-        ("changelog.html", "更新日志"),
-        ("status-history.html", "站点状态"),
-        ("about.html", "关于本站"),
-        ("rss.xml", "RSS 订阅"),
-        ("reading.html", "读书笔记"),
-        ("methodology.html", "知识管理"),
-    ]),
-]
-# 独立入口：刻意低调、不归入任一主题类目（加密相册等隐私内容）
-INDEPENDENT = [
-    ("travel.html", "家庭旅行"),
-]
-# 顶栏直达：每个类目一个入口（指向该类目旗舰页），顺序即展示顺序
-DESKTOP = [
-    ("zisha.html", "风物志"),
-    ("tesla.html", "车与数码"),
-    ("console.html", "游戏影游"),
-    ("typhoon.html", "射阳本地"),
-    ("calendar.html", "生活工具"),
-    ("about.html", "关于我"),
-]
-# 兼容旧引用（「更多」下拉 = 各类目成员汇总；移动端 = 首页 + 分组全量）
-DROPDOWN = [item for _, items in CATEGORIES for item in items]
-MOBILE = [("index.html", "首页")] + DROPDOWN
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_DIR = os.path.join(ROOT, "static")
+# Hugo 模板导航 = 单一数据源；静态页与 Hugo 页共用同一份定义
+NAVBAR_TPL = os.path.join(ROOT, "layouts", "partials", "navbar.html")
 
 SVG_SEARCH = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'
 SVG_SHARE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>'
-SVG_SUN = '<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y1="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y1="4.9"/></svg>'
+SVG_SUN = '<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" x2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y2="4.9"/></svg>'
 SVG_MOON = '<svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>'
-SVG_WEATHER = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 0118 18H7z"/></svg>'
 
 
+# ---------------------------------------------------------------- partial 解析
+def _read_tpl():
+    with open(NAVBAR_TPL, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def _extract_tag_block(html, open_pat):
+    """取出 open_pat 匹配的标签对应的完整块（按 <div 深度配平）。"""
+    m = re.search(open_pat, html)
+    if not m:
+        return None
+    i = m.end()
+    depth = 1
+    while i < len(html) and depth:
+        if html.startswith("<div", i):
+            depth += 1
+        elif html.startswith("</div>", i):
+            depth -= 1
+        i += 1
+    return html[m.start():i]
+
+
+def _parse_items(block):
+    """把菜单块解析成有序序列：
+    ('hd', 组名) | ('div',) | ('link', 裸slug, 文案)
+    """
+    out = []
+    for m in re.finditer(
+        r'<span class="nav-more-hd">([^<]+)</span>'
+        r'|<span class="nav-more-hd-div"></span>'
+        r'|<span class="nav-hd">([^<]+)</span>'
+        r'|<span class="nav-hd-div"></span>'
+        r'|<span class="nav-more-div"></span>'
+        r'|<a\s+class="active"\s+href="[^"]*?([\w-]+\.(?:html|xml))"[^>]*>([^<]+)</a>'
+        r'|<a href="[^"]*?([\w-]+\.(?:html|xml))"[^>]*>([^<]+)</a>',
+        block,
+    ):
+        if m.group(1):
+            out.append(("hd", m.group(1)))
+        elif m.group(2):
+            out.append(("hd", m.group(2)))
+        elif m.group(3):
+            out.append(("link", m.group(3), m.group(4)))
+        elif m.group(5):
+            out.append(("link", m.group(5), m.group(6)))
+        elif "div" in (m.group(0) or ""):
+            out.append(("div",))
+    return out
+
+
+def parse_partial():
+    """从 partial 读出：顶栏直达 / 下拉序列 / 抽屉序列。"""
+    tpl = _read_tpl()
+    ul_m = re.search(r'<ul class="nav-links">(.*?)</ul>', tpl, re.S)
+    desktop = []
+    if ul_m:
+        for m in re.finditer(
+            r'<li><a href="[^"]*?([\w-]+\.(?:html|xml))"[^>]*>([^<]+)</a></li>', ul_m.group(1)
+        ):
+            desktop.append((m.group(1), m.group(2)))
+    dropdown = _parse_items(_extract_tag_block(tpl, r'<div class="nav-more-dropdown">'))
+    drawer = _parse_items(_extract_tag_block(tpl, r'<div class="mobile-nav" id="mobileNav">'))
+    if not desktop or not dropdown or not drawer:
+        raise SystemExit("partial 解析失败：顶栏/下拉/抽屉有一项为空，请检查 navbar.html 结构")
+    return desktop, dropdown, drawer
+
+
+# ---------------------------------------------------------------- 导航生成
 def build_nav(prefix, active_bare):
-    def href(t):
-        return prefix + t
+    """按 partial 结构生成导航；prefix 为 URL 前缀（相对路径或 Hugo baseURL token）。"""
+    desktop, dropdown, drawer = parse_partial()
 
-    def cls(t):
-        return ' class="active"' if t == active_bare else ''
+    def href(slug):
+        return prefix + slug
+
+    def cls(slug):
+        return ' class="active"' if slug == active_bare else ""
 
     nav_links = "\n".join(
-        f'      <li><a href="{href(t)}"{cls(t)}>{name}</a></li>' for t, name in DESKTOP
+        f'      <li><a href="{href(s)}"{cls(s)}>{n}</a></li>' for s, n in desktop
     )
-    # 「更多」下拉：按 6 大主题类目分组（分组标题 + 成员）
-    _drop = []
-    for _cat, _items in CATEGORIES:
-        _drop.append(f'          <span class="nav-more-hd">{_cat}</span>')
-        for t, name in _items:
-            _drop.append(f'          <a href="{href(t)}"{cls(t)}>{name}</a>')
-    if INDEPENDENT:
-        _drop.append('          <span class="nav-more-div"></span>')
-        for t, name in INDEPENDENT:
-            _drop.append(f'          <a href="{href(t)}"{cls(t)}>{name}</a>')
-    drop_links = "\n".join(_drop)
-    # 移动端：首页 + 分组标题 + 成员
-    _home = href("index.html")
-    _mob = [f'  <a href="{_home}">首页</a>']
-    for _cat, _items in CATEGORIES:
-        _mob.append(f'  <span class="nav-hd">{_cat}</span>')
-        for t, name in _items:
-            _mob.append(f'  <a href="{href(t)}">{name}</a>')
-    if INDEPENDENT:
-        _mob.append('  <span class="nav-hd-div"></span>')
-        for t, name in INDEPENDENT:
-            _mob.append(f'  <a href="{href(t)}">{name}</a>')
-    mob_links = "\n".join(_mob)
+    drop_lines = []
+    for item in dropdown:
+        if item[0] == "hd":
+            drop_lines.append(f'          <span class="nav-more-hd">{item[1]}</span>')
+        elif item[0] == "div":
+            drop_lines.append('          <span class="nav-more-div"></span>')
+        else:
+            _, s, n = item
+            drop_lines.append(f'          <a href="{href(s)}"{cls(s)}>{n}</a>')
+    mob_lines = []
+    for item in drawer:
+        if item[0] == "hd":
+            mob_lines.append(f'  <span class="nav-hd">{item[1]}</span>')
+        elif item[0] == "div":
+            mob_lines.append('  <span class="nav-hd-div"></span>')
+        else:
+            _, s, n = item
+            mob_lines.append(f'  <a href="{href(s)}">{n}</a>')
+    drop_links = "\n".join(drop_lines)
+    mob_links = "\n".join(mob_lines)
     return f'''<nav class="navbar" role="navigation" aria-label="主导航">
   <div class="navbar-inner">
     <a href="{href('index.html')}" class="logo" aria-label="龙兄知识库首页">
@@ -137,7 +148,6 @@ def build_nav(prefix, active_bare):
       <span>龙兄</span>
     </a>
     <a href="{href('calendar.html')}" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
-    <span class="nav-weather" id="navWeather" data-nav="{href('sheyang.html')}" style="cursor:pointer;" title="点击查看当地天气详情">{SVG_WEATHER}</span>
     <ul class="nav-links">
 {nav_links}
       <li class="nav-more-wrap">
@@ -170,14 +180,24 @@ def build_nav(prefix, active_bare):
 
 
 def extract_active_bare(html):
-    """从原 nav 中读出 active 链接的裸目标（去掉 ../ 前缀）。"""
+    """回退方案：从旧 nav 中读出 active 链接的裸目标（去掉 ../ 前缀）。"""
     m = re.search(r'<a\b[^>]*\bactive\b[^>]*>', html)
     if not m:
         return None
     hm = re.search(r'href="([^"]+)"', m.group(0))
     if not hm:
         return None
-    return re.sub(r'^(\.\./)+', '', hm.group(1))
+    return re.sub(r"^(\.\./)+", "", hm.group(1))
+
+
+def menu_slugs():
+    """partial 菜单覆盖的全部裸 slug（顶栏 + 下拉 + 抽屉）。"""
+    desktop, dropdown, drawer = parse_partial()
+    slugs = {s for s, _ in desktop}
+    for item in dropdown + drawer:
+        if item[0] == "link":
+            slugs.add(item[1])
+    return slugs
 
 
 def process_file(path, check_only=False, base_dir=None):
@@ -191,7 +211,9 @@ def process_file(path, check_only=False, base_dir=None):
     rel = os.path.relpath(path, base_dir)
     depth = rel.count(os.sep)
     prefix = "../" * depth
-    active_bare = extract_active_bare(orig)
+    # active：优先按本页文件名匹配（自身在菜单里就高亮），否则回退读旧导航
+    own = os.path.basename(rel)
+    active_bare = own if own in menu_slugs() else extract_active_bare(orig)
     new_nav = build_nav(prefix, active_bare)
     if new_nav == orig:
         return "unchanged"
@@ -202,62 +224,41 @@ def process_file(path, check_only=False, base_dir=None):
     return f"updated(depth={depth},active={active_bare})"
 
 
+def iter_targets():
+    """全部待同步页面：static/ 递归 + travel-dist 部署产物。"""
+    for root, _, files in os.walk(STATIC_DIR):
+        for fn in files:
+            if fn.endswith(".html"):
+                yield os.path.join(root, fn), STATIC_DIR
+    extra = os.path.join(ROOT, "travel-dist", "travel.html")
+    if os.path.exists(extra):
+        # 旅行加密相册部署产物：只换外壳导航，不碰密文（guard_travel_dist 判据不受影响）
+        yield extra, os.path.join(ROOT, "travel-dist")
+
+
 def main():
     check_only = "--check" in sys.argv
     count = {"updated": 0, "unchanged": 0, "skip": 0}
     changed = []
-    for root, _, files in os.walk(STATIC_DIR):
-        for fn in files:
-            if not fn.endswith(".html"):
-                continue
-            p = os.path.join(root, fn)
-            res = process_file(p, check_only)
-            if res.startswith("updated"):
-                count["updated"] += 1
-                changed.append((os.path.relpath(p, STATIC_DIR), res))
-            elif res == "unchanged":
-                count["unchanged"] += 1
-            else:
-                count["skip"] += 1
-    # 旅行加密相册的部署产物：正文由 TRAVEL_KEY 重新加密生成，但「外壳导航」是明文，
-    # 且不在 static/ 下，此前一直漏同步（改名后仍挂着旧版导航）。这里单独补上；
-    # 只替换 <nav>，不碰密文与密码门，guard_travel_dist.sh 的判据不受影响。
-    extra_root = os.path.join(os.path.dirname(STATIC_DIR), "travel-dist")
-    for fn in ("travel.html",):
-        p = os.path.join(extra_root, fn)
-        if not os.path.exists(p):
-            continue
-        res = process_file(p, check_only, base_dir=extra_root)
+    for p, base in iter_targets():
+        res = process_file(p, check_only, base_dir=base)
         if res.startswith("updated"):
             count["updated"] += 1
-            changed.append((os.path.join("travel-dist", fn), res))
+            changed.append((os.path.relpath(p, ROOT), res))
         elif res == "unchanged":
             count["unchanged"] += 1
         else:
             count["skip"] += 1
-    # 同步 Hugo 模板导航（首页等经 Hugo 渲染的页面用它），与静态页共用同一份定义
-    tpl_res = "unchanged"
-    try:
-        with open(NAVBAR_TPL, "r", encoding="utf-8") as f:
-            old_tpl = f.read()
-    except FileNotFoundError:
-        old_tpl = ""
-    new_tpl = build_nav("{{ .Site.BaseURL }}", None) + "\n"
-    if new_tpl != old_tpl:
-        tpl_res = "updated"
-        if not check_only:
-            with open(NAVBAR_TPL, "w", encoding="utf-8") as f:
-                f.write(new_tpl)
-
     print(f"[sync_navbar] check_only={check_only}")
-    print(f"  updated={count['updated']} unchanged={count['unchanged']} skip={count['skip']} | navbar.html={tpl_res}")
+    print(f"  updated={count['updated']} unchanged={count['unchanged']} skip={count['skip']}")
     for name, res in changed[:20]:
         print(f"  + {name}: {res}")
     if len(changed) > 20:
         print(f"  ... and {len(changed) - 20} more")
     if check_only and count["updated"] == 0:
         print("  无需改动。")
+    return 1 if (check_only and count["updated"]) else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

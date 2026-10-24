@@ -93,3 +93,19 @@
   /* 海外动态人物卡：auto-fit 两列（原 ≤700px 单列） */
   .gl-people{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* ===== iPhone Duo 展开态顶部菜单回归（2026-10-25）=====
+   问题：600–767px 区间（Duo 展开内屏 626px / iPad mini 竖屏 744px）原本沿用
+   ≤768px 手机档——顶栏直达项与「更多」按钮整行 display:none，只剩汉堡按钮。
+   7.6 吋大屏上「顶部菜单键全消失」是明显缺陷（龙兄 2026-10-25 报障）。
+   改法：该区间恢复桌面式顶栏（直达项 + 更多▾ + 自适应收纳），隐藏汉堡；
+   空间不够时由 site-bundle.js 区域H2 的自适应收纳把靠后项收进「更多」下拉，
+   任何宽度不丢链接。 */
+@media (min-width:600px) and (max-width:767px){
+  .nav-links{display:flex;gap:10px}
+  .nav-more-wrap{display:list-item}
+  .hamburger{display:none}
+  .nav-links a{font-size:.8rem;padding:6px 1px;letter-spacing:0}
+}
+/* 收纳进「更多」下拉的 <li> 清掉列表默认样式（与下拉内原生 <a> 视觉对齐） */
+.nav-more-dropdown li{list-style:none;margin:0;padding:0}

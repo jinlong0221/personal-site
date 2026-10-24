@@ -337,7 +337,7 @@ var _hmt = _hmt || [];
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-25">2026 年 10 月 25 日 · 周日</time><span class="cl-day-n">1 项改动</span></h4><div class="cl-item"><span class="cl-time">00:30</span><div class="cl-main"><p class="cl-head">🛡️ 板块更新日期真实性整改（龙兄定铁律「每一个板块的更新日期和记录一定要真实」）：修正文玩手串板 updated 造假（10-24 只改日期零新增 → 回改 10-21 真实条目日）；全站扫描确认仅此一例；</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">新增守卫 guard_date_honesty.py（pre-commit+审计A20 双拦，git 级区分「只改日期造假」与「当天录稿的真实刷新」）；早/午/晚班、补漏巡检、海外动态五个自动任务提示词清除「无新稿也把 updated 刷成今天」的旧口径，改写为 updated 铁律；规则同步登记 AUDIT_REGRESSION.md（A20）与 BOARD_KNOWLEDGE.md（0.8 节）。</div></details></div></div>
-            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×1</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">修复台风监测板块移动端「文字山」排版事故：根因是自动刷新任务把整段监测续报追加进 name/nameEn/riskLabel 并把 current 覆盖成字符串（name 一天内 1265→4106 字）。已修复 typhoon.json 数据（name=蔷琵/current 恢复对象/补 10-24 17时实况点），loader 增加短名提取与对象回退兜底，新增 guard_typhoon_fields.py 守卫（pre-commi…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p></div></div></details>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×2</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测高频刷新（自动化 1786286346465）：蔷琵#30(2630/CHAMPI)中央气象台总1921期(25日00时实况)确认 28.2°/123.6°/强热带风暴10级25m/s/985hPa/距鹿儿岛西南765km/东北10-15km/h/强度变化不大；较24日17时(27.4°/123.2°/28m/s/982hPa)小幅减弱并转向东北、距射阳(合德)仍约七百公里外→本体风险「低」；…</p><p class="cl-ops-more">另有 1 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
           </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-24">2026 年 10 月 24 日 · 周六</time><span class="cl-day-n">2 项改动</span></h4><div class="cl-item"><span class="cl-time">21:50</span><div class="cl-main"><p class="cl-head">海外动态板块补更：补齐 10-17→10-24 期间 3 条真实动态——马斯克在 SpaceX 三季度财报会确认 SpaceX 与特斯拉成立特别委员会探讨合并（约 3.5 万亿美元量级）、</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">黄仁勋 GTC 柏林 2026 演讲（Vera Rubin 全面投产 / DSX POD 模块化 AI 数据中心 / OpenShell 安全智能体 / RTX Spark）、黄仁勋密集谈 AI 安全并呼吁中美合作。 每条附多源出处链接，updated 回写 2026-10-24。</div></details></div></div>
             <div class="cl-item"><span class="cl-time">21:05</span><div class="cl-main"><p class="cl-head">站点清理：【龙兄私房】全站私域引流体系正式下线。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">移除所有页面底部 vip-fab 浮窗与紫砂/手串页 vip-card 引流卡片、知识星球 join 落地页及其入口，页面回归简洁版式；同步删除注入脚本 inject_vip_fab.py 与 inject_vip_card.py、样式 vip-fab.css 与 vip-card.css、脚本 join.js，并清理导航栏与全站死链。每日内容自动更新不受影响。</div></details></div></div>
@@ -434,7 +434,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-10-25</span><span id="clLastStamp" class="cl-upd-stamp"> 00:35</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-10-25</span><span id="clLastStamp" class="cl-upd-stamp"> 01:17</span></div>
   </div>
 </main>
 

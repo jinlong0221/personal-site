@@ -1,0 +1,191 @@
+{
+  "updated": "2026-10-24",
+  "news": [
+    {
+      "date": "2026-10-24",
+      "tags": [
+        {
+          "text": "Switch 2",
+          "class": "hot"
+        },
+        {
+          "text": "Linux 驱动",
+          "class": "tag-blue"
+        },
+        {
+          "text": "Valve",
+          "class": "info"
+        }
+      ],
+      "summary": "Valve 开发者 Vicki Pfau 代表公司完成并提交任天堂 Switch 2 控制器的 Linux 原生驱动，经 16 轮补丁后并入 Linux 7.14 主线内核，可为 Joy-Con 2、Pro Controller 2 与 GameCube 控制器提供基础输入支持。",
+      "content": "2026年10月24日（IT之家援引 Phoronix 10月23日博文 / 今日头条 2026-10-24 11:25 报道）：在 Linux 7.14 内核合并请求中，针对 HID（人机接口设备）子系统的更新首次加入对任天堂 Switch 2 控制器的原生驱动支持。这项工作由开发者 Vicki Pfau 代表 Valve 完成，历经 16 轮补丁修改后进入 Linux 主线内核。该驱动目前可为 Joy-Con 2、Pro Controller 2 以及任天堂 Switch Online 版 GameCube 控制器提供基础输入支持。受 Switch 2 非标准蓝牙配对方式与 Linux 现有蓝牙能力限制，蓝牙配对及更多高级功能尚未实现，后续还需在内核与用户空间之间设计专用接口并在 BlueZ 协议栈完成适配。",
+      "url": "https://www.toutiao.com/article/7700070319595192870",
+      "sources": [
+        "IT之家 2026-10-24（援引 Phoronix 10-23 博文）",
+        "今日头条 2026-10-24 11:25"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "tags": [
+        {
+          "text": "Switch 2",
+          "class": "hot"
+        },
+        {
+          "text": "实体卡带",
+          "class": "info"
+        }
+      ],
+      "summary": "任天堂明确表态目前没有放弃 Switch 2 实体游戏卡带的计划，新主机发售后仍可在门店买到盒装卡带与光盘版游戏，数字版并非唯一选择，习惯收藏实体版或网络不便的玩家短期无需担心只能走下载。",
+      "content": "2026年10月24日（腾讯新闻/QQ 搜索新闻 2026-10-24 报道）：任天堂明确表态，目前没有放弃 Switch 2 实体游戏卡带的计划。也就是说新主机发售后，玩家仍能在门店买到盒装卡带和光盘版游戏，数字版并不是唯一选择。对于习惯收藏实体版、或网络环境不便的玩家而言，短期内不必担心只能走下载渠道。此前任天堂已确认 Switch 2 向下兼容初代卡带，实体游戏生态将继续保留。",
+      "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_6536adc129514052",
+      "sources": [
+        "腾讯新闻/QQ 搜索新闻 2026-10-24",
+        "任天堂官方（向下兼容与实体生态表述）"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "tags": [
+        {
+          "text": "Switch 2",
+          "class": "hot"
+        },
+        {
+          "text": "ns2jb 越狱",
+          "class": "tag-blue"
+        },
+        {
+          "text": "SmileBASIC 4 下架",
+          "class": "info"
+        }
+      ],
+      "summary": "任天堂已将编程应用《SmileBASIC 4》从北美、欧洲、日本等地区的 Nintendo eShop 下架，发生在 Switch 2 首个公开软件越狱方案 ns2jb 公开传播之后；该方案利用初代 Switch 版该应用的 32 位整数溢出漏洞提权，支持 23.0.1 固件、需同局域网 macOS/Linux 电脑配合，属需重启重新触发的 tethered 方案。",
+      "content": "网易 2026-10-23 19:38 报道（宗熙先生）：据坊间消息，任天堂已将编程应用《SmileBASIC 4》从北美、欧洲、日本等地区的 Nintendo eShop 下架，发生在 Nintendo Switch 2 首个公开软件越狱方案 ns2jb 公开传播之后。该应用被安全研究员用作漏洞利用链的初始入口；ns2jb 由安全研究员 Sammy Hajhamid（网名 pepsipu）发布，利用初代 Switch 版《SmileBASIC 4》解释器的 32 位整数溢出漏洞（数组删除操作中越界读写），再结合 Switch 2 文件系统服务模块的缓冲区溢出漏洞提权，最终实现系统服务进程内的原生代码执行。该方案支持 Switch 2 固件 23.0.1、无需硬件改造，但需一台与主机同局域网的 macOS 或 Linux 电脑并借助 Node.js 工具，且属需每次重启重新触发的 tethered 方案。研究员曾修改《马力欧卡丁车世界》演示加入大耳狗、彼得·格里芬等非原版角色验证。该方案并不等于 Switch 2 已完整破解，目前仅可在普通系统模块及内置文件系统模块权限范围内执行原生代码，用于运行自制程序、逆向分析与修改游戏、备份存档等。",
+      "url": "https://www.163.com/dy/article/L9UT74QU0552OI16.html",
+      "sources": [
+        "网易 2026-10-23 19:38（宗熙先生）《任天堂下架〈SmileBASIC 4〉,Switch 2首个公开软件越狱引发关注》"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "tags": [
+        {
+          "text": "Switch2",
+          "class": "hot"
+        },
+        {
+          "text": "使命召唤",
+          "class": "info"
+        }
+      ],
+      "summary": "任天堂 Switch 2 独占软件《Nintendo Switch Sports Resort》于 2026 年 10 月 22 日发售；10 月 23 日 Nintendo Download 更新中，《Call of Duty: Modern Warfare 4》登陆 Switch 2，另含《FINAL FANTASY RESONANCE》、Minecraft（10/27 预购）等。",
+      "content": "任天堂香港 10 月 22 日发售 Switch 2 独占软件《Nintendo Switch Sports Resort》（设定于 Wuhu 岛，含 12 项运动），10 月 23 日 Nintendo eShop 新作资讯同步更新。10 月 23 日 Nintendo Download 周更中，《Call of Duty: Modern Warfare 4》于当日登陆 Nintendo Switch 2（战役+多人+DMZ 撤离），《FINAL FANTASY RESONANCE》（HD-2D 回合制，Square Enix）同步上线 NS/NS2；此外开放《Minecraft》Switch 2 版预购（10 月 27 日发售，含 Vibrant Visuals 与超级马里奥材质包），以及《007 First Light》预购（2027 年 3 月 18 日发售）。来源：任天堂香港、Nintendo 台湾、OtakuKart。",
+      "url": "https://www.nintendo.com.hk/topics/index.html",
+      "sources": [
+        "任天堂香港 2026-10-22/23",
+        "Nintendo 台湾 2026-10-23",
+        "OtakuKart 2026-10-23"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "tags": [
+        {
+          "text": "使命召唤",
+          "class": "hot"
+        },
+        {
+          "text": "Switch 2",
+          "class": "tag-blue"
+        },
+        {
+          "text": "首日登陆",
+          "class": "info"
+        }
+      ],
+      "summary": "《使命召唤：现代战争4》10月23日登陆 Nintendo Switch 2，与 PS5、Xbox Series X|S、PC 同步发售，是 COD 系列在跳过初代 Switch 后首次重返任天堂平台；含单人战役、多人模式与全新「无人区」撤离玩法，支持跨平台联机、跨平台进度与 Joy-Con 2 鼠标操作。",
+      "content": "《Call of Duty：现代战争4》（Call of Duty: Modern Warfare 4）于 2026 年 10 月 23 日（周五）在全球同步发售，登陆 Nintendo Switch 2、PlayStation 5、Xbox Series X|S 与 PC（Battle.net、Xbox PC、Steam），由 Infinity Ward 主导开发、Activision 发行。这是 COD 系列在完全跳过初代 Nintendo Switch 后首次登陆任天堂主机，兑现微软收购动视暴雪时「十年内将 COD 带上任天堂平台」的承诺；此前《Black Ops 7》等均未登陆 Switch 硬件。Switch 2 版为 Digital Legends 打造的原生版本，包含单人战役、在线多人模式，以及全新的「无人区」（DMZ）撤离玩法，支持跨平台联机、跨平台进度继承，并可选 Joy-Con 2 鼠标操作。剧情讲述朝鲜发动全面入侵、一支年轻的韩国士兵小队在前线求生，另一头普莱斯上尉在暗处展开私人战争。数字预购含战役抢先体验（10 月 16 日已开放）。\n\n⚠️ 口径说明：发售日 10 月 23 日经 Activision/Call of Duty 官方博客、任天堂澳大利亚官网、任天堂意大利产品页（Data di uscita: 23/10/2026）、PlayStation 香港官方「10月特报」（推出日期 2026年10月23日）四处官方来源一致确认；本作为系列任天堂平台回归首作，不代表后续所有 COD 作品都会登陆 Switch 2。",
+      "url": "https://www.nintendo.com/au/news-and-articles/call-of-duty-modern-warfare-4-coming-to-nintendo-switch-2-this-october/",
+      "sources": [
+        "Activision / Call of Duty 官方博客 2026-08《Call of Duty: Modern Warfare 4 将于 10 月 23 日周五登陆 Nintendo Switch 2》（callofduty.com）",
+        "任天堂澳大利亚官网《Call of Duty: Modern Warfare 4 coming to Nintendo Switch 2 this October》（nintendo.com/au，launches 23rd October）",
+        "任天堂意大利官网产品页《Call of Duty: Modern Warfare 4》Data di uscita: 23/10/2026（nintendo.com/it-ch）",
+        "PlayStation 香港官方「今年10月 PlayStation 特報」：決勝時刻:現代戰爭4 推出日期 2026年10月23日"
+      ]
+    },
+    {
+      "date": "2026-10-22",
+      "tags": [
+        {
+          "text": "Switch 2",
+          "class": "hot"
+        },
+        {
+          "text": "任天堂",
+          "class": "tag-blue"
+        },
+        {
+          "text": "媒体评分",
+          "class": "info"
+        }
+      ],
+      "summary": "任天堂体感新作《Switch 运动 度假胜地》10月22日发售，Switch 2 独占，收录网球、保龄球、滑板、拇指摔跤等12种运动，靠 Joy-Con 2 体感操作，本地最多四人同玩。IGN 给出7分，GameSpot 与 Nintendo Life 给出9分。",
+      "content": "《Nintendo Switch 运动 度假胜地》是任天堂「Switch 运动」系列新作，2026年10月22日发售，Nintendo Switch 2 独占，支持简体中文与繁体中文。玩法以度假小岛 Spocco Resort 为舞台，收录12种运动：网球、保龄球、射箭、拳击、排球、乒乓球、篮球、高尔夫、拇指摔跤、螺旋桨飞机、滑板、动力巡航，全部通过 Joy-Con 2 体感操作完成，本地最多支持四人同玩。单人内容新增 Island Crown（岛屿皇冠）模式，可逐场挑战对手、提升排名并向岛上冠军发起挑战。媒体评分：IGN 7分（评测者 Jesse Vitelli），短评称「各项运动质量差距悬殊，但整体仍是一套轻松有趣的合集，作为派对游戏表现亮眼」，并认为新增的剧情关卡与自由探索模式扩充了体量、仍难撼动多人游玩的核心地位；GameSpot 9分，优点是汇集系列最出色的运动项目、体感操作为系列最佳水平；Nintendo Life 9分，认为系列重回正轨；Game Informer 8分；Eurogamer 4/5。均分方面，Metacritic 的 Metascore 为79分（其乐统计为收录34家媒体，另有汇总引 Nintendo Life 称46篇，两口径不一致，以 Metacritic 页面实时数据为准），OpenCritic 为83分（收录13家媒体）。⚠️ 提示：各媒体满分制不同（IGN、GameSpot、Nintendo Life、Game Informer 为10分制，Eurogamer 为5星制），分数不宜直接横向比较；评分数与均分会随新增评测变化。",
+      "url": "https://www.gamersky.com/news/202610/2232105.shtml",
+      "sources": [
+        "游民星空 2026-10-20《IGN 7分！任天堂第一方新作〈任天堂Switch运动度假胜地〉评价出炉：轻松有趣》",
+        "其乐《〈Nintendo Switch运动 度假胜地〉媒体评分解禁》汇总帖（附 Metacritic 79 / OpenCritic 83 / IGN 7 / GameSpot 9 原链接，标注发售日2026年10月22日）",
+        "IGN《Nintendo Switch Sports Resort Review》评分 7/10，评测者 Jesse Vitelli"
+      ]
+    },
+    {
+      "date": "2026-10-21",
+      "tags": [
+        {
+          "text": "Switch 2",
+          "class": "hot"
+        },
+        {
+          "text": "硬件改版",
+          "class": "tag-blue"
+        },
+        {
+          "text": "欧盟法规",
+          "class": "info"
+        }
+      ],
+      "summary": "技术人员拆解在欧洲上市的改版 Switch 2，主机改用可直接拆装的可更换电池，主板重新设计、风扇换新、12GB 内存更换供应商，处理器不变；屏幕仍是首发版同款液晶面板，电池容量 5172 毫安时略低于原版 5220 毫安时，整机重约增加10克。",
+      "content": "IT时代网10月21日报道，一名技术人员拆解了近期在欧洲上市的改版 Nintendo Switch 2，结果显示主机内部多处调整：电池不再需要用胶固定、可以直接更换，主板重新设计，风扇换成新型号，12GB 内存改用另一家供应商，处理器本身没有变化。拆解同时显示，改版机型仍采用与首发版本相同的液晶面板，此前外界期待的高响应速度面板并未出现；该技术人员表示会继续检查更多主机，混合出货的情况暂不能完全排除。\n\n任天堂官方支持页对此次修订的说明与之吻合：为应对将于2027年2月中旬生效的欧洲电池法规，自2026年夏季起欧洲市场部分产品将陆续更换为含用户可更换电池的版本，功能与现行产品无差别。官方规格表显示，Nintendo Switch 2 主机修订版电池容量为5172毫安时，比现款的5220毫安时约小1%；整机重量约411克，比现款约401克重约10克；随附的 Joy-Con 2 控制器也将采用可更换电池。官方并列出时间表：Joy-Con 部分配色自2026年7月16日起陆续上市，Switch 2 主机为2026年10月，Joy-Con 2 与 Pro 控制器为今年冬季，N64 / GameCube 控制器则要到2027年初；具体时间会因制造、分销等因素变动。\n\n报道提到，期待屏幕表现改善的用户可能要等仍在评估中的 OLED 版本。以上硬件参数以任天堂官方规格为准，拆解细节来自第三方技术人员，属单方观察，仅供参考。",
+      "url": "https://www.163.com/dy/article/L9NT4BTI05527PMU.html",
+      "sources": [
+        "网易号/IT时代网 2026-10-21 02:21《欧版Switch 2改版：电池可徒手更换》",
+        "任天堂官方支持页 Information about upcoming battery-related revisions to some Nintendo products（nintendo.com/en-gb）"
+      ]
+    },
+    {
+      "date": "2026-10-20",
+      "tags": [
+        {
+          "text": "Minecraft",
+          "class": "hot"
+        },
+        {
+          "text": "Switch 2",
+          "class": "tag-blue"
+        },
+        {
+          "text": "任天堂香港",
+          "class": "info"
+        }
+      ],
+      "summary": "任天堂香港官网10月20日公告，《Minecraft Dungeons II》现已在 Nintendo Switch 2 与 Nintendo Switch 平台推出；同页显示《萨尔达传说 时之笛》Switch 2 版介绍影片于10月15日公开、扩充票《Fire Emblem: Fortune's Weave》10月15日发售。",
+      "content": "任天堂香港官方网站10月20日 TOPICS 公告：《Minecraft Dungeons II》现已在 Nintendo Switch 2 与 Nintendo Switch 平台推出。同页显示，《萨尔达传说 时之笛》Switch 2 版介绍影片于10月15日公开、并介绍「万魔殿」等全新要素；《Fire Emblem: Fortune's Weave 扩充票》于10月15日发售并公开最新影片；Nintendo Switch Sports Resort 主机组合定于10月22日发售（建议售价新台币16,810元）。\n\n以上为任天堂官方香港站当日更新，属第一方确认信息；《Minecraft Dungeons II》具体玩法与定价以任天堂官方商店页面为准。",
+      "url": "https://www.nintendo.com.hk/",
+      "sources": [
+        "任天堂香港官方网站 TOPICS 2026.10.20《Minecraft Dungeons II 現已在 Nintendo Switch 2 / Nintendo Switch 上推出》"
+      ]
+    }
+  ]
+}

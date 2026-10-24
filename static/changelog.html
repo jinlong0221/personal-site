@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
 <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
 
 <link rel="canonical" href="https://longxiong.vip/changelog.html">
-<link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta property="og:title" content="更新日志｜龙兄知识库">
 <meta property="og:description" content="更新日志：龙兄知识库说明页，介绍站点内容、栏目分类与更新动态，方便读者快速了解本站并检索实用科普与生活百科内容。内容持续更新，欢迎对照实操、少踩坑。">
 <meta property="og:type" content="article">
@@ -343,7 +343,7 @@ var _hmt = _hmt || [];
             <div class="cl-item"><span class="cl-time">02:00</span><div class="cl-main"><p class="cl-head">🔧 修正「更新时刻」文案误导（龙兄截图：ev-sales 页「最后更新 10-19」与「本站更新于 6 分钟前」并排打脸）：该行实际显示的是全站每次构建的发布时刻（CI 01:44 确有一次发布），</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">不是本页内容日期——已改文案为「全站最近发布：X」并注明悬停提示，首页刊头同步；guard_date_honesty.py 增补文案回归检查（被改回模糊措辞即 FAIL）。 同轮核对：178 个写死「最后更新」的页面与 git 历史比对，今日变动均为导航入口机械添加、内容未动，日期全部真实；清理 public/ 孤儿产物 join.html。</div></details></div></div>
             <div class="cl-item"><span class="cl-time">01:28</span><div class="cl-main"><p class="cl-head">全面适配苹果折叠屏新机 iPhone Duo（外屏 5.4 吋 / 内屏 7.6 吋）：新增 600–767px 展开态双列布局层，首页卡片墙、本站动态、海外动态人物卡、紫砂作品网格、苹果新品卡、</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">光辉电力合作卡在 7.6 吋大屏上一律改双列排布；折叠 466×678 / 展开 626×890 / 横屏 890×626 三种视口 × 15 个代表页面实测零横向溢出，深浅双主题渲染复核通过。</div></details></div></div>
             <div class="cl-item"><span class="cl-time">00:30</span><div class="cl-main"><p class="cl-head">🛡️ 板块更新日期真实性整改（龙兄定铁律「每一个板块的更新日期和记录一定要真实」）：修正文玩手串板 updated 造假（10-24 只改日期零新增 → 回改 10-21 真实条目日）；全站扫描确认仅此一例；</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">新增守卫 guard_date_honesty.py（pre-commit+审计A20 双拦，git 级区分「只改日期造假」与「当天录稿的真实刷新」）；早/午/晚班、补漏巡检、海外动态五个自动任务提示词清除「无新稿也把 updated 刷成今天」的旧口径，改写为 updated 铁律；规则同步登记 AUDIT_REGRESSION.md（A20）与 BOARD_KNOWLEDGE.md（0.8 节）。</div></details></div></div>
-            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×3</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（高频巡检·04:30）：蔷琵#30(2630/CHAMPI)中国天气网台风网/中央气象台BABJ 25日02时实况确认——28.2°N/123.6°E/强热带风暴10级25m/s/985hPa/向东北10-15km/h/强度变化不大、位置较00时基本持平、距射阳(合德)仍约七百公里外→本体风险「低」；24小时预报(26日02时)31.3°/127.4°/热带风暴18m/s/998hPa、继续东北远离。…</p><p class="cl-ops-more">另有 2 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">定时刷新 ×1</span><span class="cl-chip">台风 ×3</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">定时刷新</div><p class="cl-ops-row">修复折叠卡片在手机上点了没反应（每日自动更新/首页各卡）：iOS 上手指带着微小位移点击时，系统会把这个点击当作滚动、直接取消掉，导致电脑上好用的折叠在手机上没动静。现在给全站的折叠开关加了一条「触摸直通道」——手指点下去就直接响应，不再等系统判定；同时做了三保险：点一次只切一次（不会因为又收到一次点击而缩回去）、滚动页面时不误触发、键盘回车和空格也能折叠。…</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（高频巡检·04:30）：蔷琵#30(2630/CHAMPI)中国天气网台风网/中央气象台BABJ 25日02时实况确认——28.2°N/123.6°E/强热带风暴10级25m/s/985hPa/向东北10-15km/h/强度变化不大、位置较00时基本持平、距射阳(合德)仍约七百公里外→本体风险「低」；24小时预报(26日02时)31.3°/127.4°/热带风暴18m/s/998hPa、继续东北远离。…</p><p class="cl-ops-more">另有 2 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
           </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-24">2026 年 10 月 24 日 · 周六</time><span class="cl-day-n">2 项改动</span></h4><div class="cl-item"><span class="cl-time">21:50</span><div class="cl-main"><p class="cl-head">海外动态板块补更：补齐 10-17→10-24 期间 3 条真实动态——马斯克在 SpaceX 三季度财报会确认 SpaceX 与特斯拉成立特别委员会探讨合并（约 3.5 万亿美元量级）、</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">黄仁勋 GTC 柏林 2026 演讲（Vera Rubin 全面投产 / DSX POD 模块化 AI 数据中心 / OpenShell 安全智能体 / RTX Spark）、黄仁勋密集谈 AI 安全并呼吁中美合作。 每条附多源出处链接，updated 回写 2026-10-24。</div></details></div></div>
             <div class="cl-item"><span class="cl-time">21:05</span><div class="cl-main"><p class="cl-head">站点清理：【龙兄私房】全站私域引流体系正式下线。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">移除所有页面底部 vip-fab 浮窗与紫砂/手串页 vip-card 引流卡片、知识星球 join 落地页及其入口，页面回归简洁版式；同步删除注入脚本 inject_vip_fab.py 与 inject_vip_card.py、样式 vip-fab.css 与 vip-card.css、脚本 join.js，并清理导航栏与全站死链。每日内容自动更新不受影响。</div></details></div></div>
@@ -434,7 +434,7 @@ var _hmt = _hmt || [];
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-10-25</span><span id="clLastStamp" class="cl-upd-stamp"> 06:35</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-10-25</span><span id="clLastStamp" class="cl-upd-stamp"> 07:05</span></div>
   </div>
 </main>
 

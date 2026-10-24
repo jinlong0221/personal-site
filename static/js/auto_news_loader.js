@@ -14,7 +14,12 @@
   window.toggleHomeSection = function (el) {
     var wrap = el && el.closest ? el.closest('.home-collapsible') : null;
     if (!wrap) return;
+    var willOpen = !wrap.classList.contains('open');
     wrap.classList.toggle('open');
+    // aria-expanded 同步（读屏/键盘用户的状态播报）；header 的 role/tabindex
+    // 由 app.js 的 syncCollapsibleA11y 在页面初始化时补齐。
+    var hdr = wrap.querySelector('.home-collapsible-header');
+    if (hdr) hdr.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
   };
 
   // 全局 API：新闻条目「展开详情 / 收起详情」
@@ -186,6 +191,8 @@
         if (wrapper) {
           wrapper.style.display = 'grid';
           wrapper.classList.add('open');
+          var hdr = wrapper.querySelector('.home-collapsible-header');
+          if (hdr) hdr.setAttribute('aria-expanded', 'true');
         }
       })
       .catch(function (e) {

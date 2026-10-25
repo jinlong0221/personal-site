@@ -31,12 +31,25 @@ STATIC_DIR = sn.STATIC_DIR
 # Hugo 生成物（无静态源文件，默认输出开启即存在）
 GENERATED = {"rss.xml"}
 
+# 已提交但**不在 static/ 直置**的页面源（.gitignore 掉了 static/ 那一份）。
+# travel.html：旅行板块是「密文提交进公开仓库」模式——线上那页来自
+# travel-dist/travel.html（已提交），由 deploy.yml 的
+# 「Stage committed travel artifact」步骤拷进 public/；
+# 而 static/travel.html 被 .gitignore 排除（见 .gitignore 的 travel 段），
+# 所以**干净检出（CI）里 static/travel.html 根本不存在**。
+# 2026-10-25：本守卫首次进 CI 时就因这里误报「菜单链接指向不存在的页面: travel.html」。
+TRAVEL_DIST = os.path.join(ROOT, "travel-dist")
+
 
 def page_exists(slug):
-    """菜单 slug → 存在性。依次查：static 直置 / Hugo 布局 / Hugo 内容 / 构建产物。"""
+    """菜单 slug → 存在性。依次查：static 直置 / travel-dist 已提交源 /
+    Hugo 布局 / Hugo 内容 / 构建产物。"""
     if slug in GENERATED:
         return True
     if os.path.exists(os.path.join(STATIC_DIR, slug)):
+        return True
+    # 已提交但被 gitignore 的源（旅行页）
+    if os.path.exists(os.path.join(TRAVEL_DIST, slug)):
         return True
     name = slug.rsplit("/", 1)[-1]
     stem = name.rsplit(".", 1)[0]

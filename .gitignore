@@ -24,3 +24,6 @@ static/img/travel/
 #      于是每次部署都带着一批上一版残留的孤儿索引文件。
 # 现在改为不入库，public/ 里只保留当次构建生成的干净索引。
 static/pagefind/
+
+# 真实封面抓取脚本的本地「已抓」状态记录（不进库，避免误提交机器本地状态）
+scripts/.game_cover_done.json

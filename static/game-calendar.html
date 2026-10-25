@@ -285,9 +285,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .cal-wrap:has(#f-pc:checked) .cal-body .cal-card:not(.plat-pc){display:none}
 .cal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px}
 .cal-card{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:15px 17px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
-/* 封面占位图（Pillow 程序化生成，非 AI / 非版权图；拿到授权素材可直接覆盖同名文件） */
-.cal-cover{display:block;width:100%;height:auto;margin:-15px -17px 0;background:var(--bg-secondary)}
-.price-cover{margin:-14px -16px 0}
+/* 封面：竖版海报（2:3），居中裁切铺满卡顶、上圆角与卡片融为一体（真实封面/占位图统一呈现） */
+.cal-card picture,.price-card picture{display:block;line-height:0;margin:-15px -17px 0}
+.price-card picture{margin:-14px -16px 0}
+.cal-cover{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center;background:var(--bg-secondary)}
+.price-cover{aspect-ratio:2/3}
 .cal-card:hover{border-color:var(--orange);box-shadow:0 4px 18px rgba(255,140,0,.14)}
 .cal-card .c-name{font-size:1.02rem;font-weight:700;color:var(--card-text);line-height:1.35}
 .cal-card .c-date{font-weight:600;color:var(--gold-light);font-size:.92rem}

@@ -28,10 +28,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMG_DIR = os.path.join(ROOT, "static", "img", "games")
 CAL_HTML = os.path.join(ROOT, "static", "game-calendar.html")
 
-W, H = 1200, 630
-BG_TOP = (20, 20, 20)
+W, H = 800, 1200
+BG_TOP = (18, 18, 20)
 BG_BOTTOM = (34, 32, 30)
 GOLD = (201, 168, 76)
+GOLD_DIM = (120, 100, 46)
 MUTED = (150, 145, 135)
 WHITE = (232, 226, 214)
 
@@ -125,40 +126,67 @@ def fit_font(draw, text, max_width, start_size, min_size, bold=False):
     return pick_font(min_size, bold)
 
 
+def _wrap(text, draw, font, max_w):
+    """按宽度折行（按字符，支持中英文混排）。"""
+    lines, cur = [], ""
+    for ch in text:
+        if ch == "\n":
+            lines.append(cur); cur = ""; continue
+        test = cur + ch
+        if draw.textlength(test, font=font) > max_w and cur:
+            lines.append(cur); cur = ch
+        else:
+            cur = test
+    if cur:
+        lines.append(cur)
+    return lines
+
+
 def make_cover(slug, zh, en, meta):
     img = Image.new("RGB", (W, H), BG_TOP)
     d = ImageDraw.Draw(img)
+    # 竖向渐变底
     for y in range(H):
         t = y / (H - 1)
         r = int(BG_TOP[0] + (BG_BOTTOM[0] - BG_TOP[0]) * t)
         g = int(BG_TOP[1] + (BG_BOTTOM[1] - BG_TOP[1]) * t)
         b = int(BG_TOP[2] + (BG_BOTTOM[2] - BG_TOP[2]) * t)
         d.line([(0, y), (W, y)], fill=(r, g, b))
-    d.rectangle([0, 0, W, 6], fill=GOLD)
-    d.rectangle([0, H - 6, W, H], fill=GOLD)
+    # 顶部金色 publisher 细条 + 底部金条（仿封面装帧）
+    d.rectangle([0, 0, W, 8], fill=GOLD)
+    d.rectangle([0, H - 8, W, H], fill=GOLD)
+    # 中部抽象「主视觉」几何（确定性绘制，非 AI）：金描边菱形 + 柔光圆，营造封面质感
+    cx, cy = W // 2, int(H * 0.40)
+    d.ellipse([cx - 150, cy - 150, cx + 150, cy + 150], outline=GOLD_DIM, width=3)
+    d.polygon([(cx, cy - 120), (cx + 120, cy), (cx, cy + 120), (cx - 120, cy)],
+              outline=(GOLD[0], GOLD[1], GOLD[2]), width=4)
+    d.line([(40, H * 0.62), (W - 40, H * 0.62)], fill=GOLD_DIM, width=2)
 
-    f_title = fit_font(d, zh, W * 0.86, start_size=88, min_size=40)
-    tw = d.textlength(zh, font=f_title)
-    d.text(((W - tw) / 2, H * 0.28), zh, font=f_title, fill=GOLD)
+    # 主标题（中文名）：大号金字，超出则折行
+    f_title = fit_font(d, zh, W * 0.82, start_size=76, min_size=34)
+    lines = _wrap(zh, d, f_title, W * 0.82)
+    lh = f_title.size * 1.18
+    total_h = lh * len(lines)
+    start_y = H * 0.66 - total_h / 2
+    for i, ln in enumerate(lines):
+        lw = d.textlength(ln, font=f_title)
+        d.text(((W - lw) / 2, start_y + i * lh), ln, font=f_title, fill=GOLD)
 
+    # 英文名（若存在且不同于中文）
     if en and en.strip() and en.strip() != zh.strip():
-        f_en = fit_font(d, en, W * 0.80, start_size=40, min_size=22)
+        f_en = fit_font(d, en, W * 0.78, start_size=30, min_size=18)
         ew = d.textlength(en, font=f_en)
-        d.text(((W - ew) / 2, H * 0.50), en, font=f_en, fill=WHITE)
-        line_y = int(H * 0.60)
-    else:
-        line_y = int(H * 0.56)
+        d.text(((W - ew) / 2, H * 0.80), en, font=f_en, fill=WHITE)
 
-    d.line([(W * 0.38, line_y), (W * 0.62, line_y)], fill=GOLD, width=2)
-
-    f_meta = fit_font(d, meta, W * 0.84, start_size=34, min_size=20)
+    # 发售 / 史低信息
+    f_meta = fit_font(d, meta, W * 0.84, start_size=30, min_size=18)
     mw = d.textlength(meta, font=f_meta)
-    d.text(((W - mw) / 2, H * 0.66), meta, font=f_meta, fill=MUTED)
+    d.text(((W - mw) / 2, H * 0.90), meta, font=f_meta, fill=MUTED)
 
-    note = "封面占位图 · 待补官方素材"
-    f_note = pick_font(22)
+    note = "封面占位 · 待补官方图"
+    f_note = pick_font(20)
     nw = d.textlength(note, font=f_note)
-    d.text(((W - nw) / 2, H * 0.86), note, font=f_note, fill=(110, 106, 100))
+    d.text(((W - nw) / 2, H - 34), note, font=f_note, fill=(110, 106, 100))
 
     out = os.path.join(IMG_DIR, f"{slug}-cover.webp")
     img.save(out, "WEBP", quality=86)

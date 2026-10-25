@@ -241,7 +241,11 @@ var _hmt = _hmt || [];
 
   <div class="console-detail-hero">
     <div class="image-side">
-      <img width="800" height="451" src="img/consoles/gb-micro.webp" alt="Game Boy Micro" loading="lazy">
+      <picture>
+<source media="(max-width:600px)" srcset="img/consoles/gb-micro@480w.webp">
+<source media="(max-width:1000px)" srcset="img/consoles/gb-micro@768w.webp">
+<img width="800" height="451" src="img/consoles/gb-micro.webp" alt="Game Boy Micro" loading="lazy" data-rsp="1">
+</picture>
     </div>
     <div class="info-side">
       <div class="year-badge">2005 年发布</div>
@@ -445,7 +449,7 @@ var _hmt = _hmt || [];
 
 <script src="js/auto-collapse.js?v=20260824" defer></script>
 
-<script src="/js/obfuscate-email.js"></script>
+<script defer src="/js/obfuscate-email.js"></script>
 
 <script src="js/bookmark.js" defer></script>
 

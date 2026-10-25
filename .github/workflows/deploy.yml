@@ -291,6 +291,16 @@ jobs:
         continue-on-error: true
         run: python3 scripts/build_ev_sales.py
 
+      # 移动端响应式图片（2026-10-25 龙兄要求全移动端提速）：
+      # 把全站 static/*.html 的 <img> 包成 <picture>，按视口宽度选 480w/768w 缩略图
+      # （缩略图已预生成并提交进仓库）。必须排在所有生成器/注入器
+      # （build_* / apply_* / unify_quotes / build_ev_sales）之后、hugo 之前——
+      # 因为 build_marvel / build_chinajoy / build_travel 等本地自动化会从 DONOR 重写
+      # static/*.html，若不在此重新注入 <picture>，后续 CI 重建会把响应式包裹冲掉。
+      # 本步幂等（已注入的跳过），重复跑无副作用，且无 Pillow 依赖（只套壳、不生成图）。
+      - name: Inject responsive <picture> into static pages
+        run: python3 scripts/inject_responsive_img.py
+
       - name: Build Hugo
         run: hugo --gc
 

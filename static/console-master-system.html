@@ -289,7 +289,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 </nav>
 <main class="container" id="main-content" role="main">
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="console.html">主机图鉴</a><span class="sep">›</span><span class="current">Sega Master System</span></div>
-<div class="console-detail-hero"><div class="image-side"><img width="800" height="440" src="img/consoles/master-system.webp" alt="Sega Master System" loading="lazy"></div>
+<div class="console-detail-hero"><div class="image-side"><picture>
+<source media="(max-width:600px)" srcset="img/consoles/master-system@480w.webp">
+<source media="(max-width:1000px)" srcset="img/consoles/master-system@768w.webp">
+<img width="800" height="440" src="img/consoles/master-system.webp" alt="Sega Master System" loading="lazy" data-rsp="1">
+</picture></div>
 <div class="info-side"><div class="year-badge">1985 年发布</div><h1>Sega Master System</h1>
 <div class="subtitle">世嘉第二代主机 · 欧洲与巴西之王 · 8位机精品</div>
 <div class="quick-stats"><div class="qs"><div class="qsv">1300万</div><div class="qsl">全球销量</div></div><div class="qs"><div class="qsv">8位</div><div class="qsl">CPU</div></div><div class="qs"><div class="qsv">卡带</div><div class="qsl">介质</div></div><div class="qs"><div class="qsv">1985</div><div class="qsl">发布年份</div></div></div></div></div>
@@ -427,7 +431,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
 <script src="js/bookmark.js" defer></script>
 <script src="js/auto-collapse.js?v=20260824" defer></script>
-<script src="/js/obfuscate-email.js"></script>
+<script defer src="/js/obfuscate-email.js"></script>
 
 <!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
 <script src="js/page-reveal.js?v=20260923" defer></script>

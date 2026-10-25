@@ -302,7 +302,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 </nav> 
 <main class="container" id="main-content" role="main">
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="console.html">主机图鉴</a><span class="sep">›</span><span class="current">Atari Lynx</span></div>
-<div class="console-detail-hero"><div class="image-side"><img width="800" height="474" src="img/consoles/atari-lynx.webp" alt="Atari Lynx" loading="lazy"></div>
+<div class="console-detail-hero"><div class="image-side"><picture>
+<source media="(max-width:600px)" srcset="img/consoles/atari-lynx@480w.webp">
+<source media="(max-width:1000px)" srcset="img/consoles/atari-lynx@768w.webp">
+<img width="800" height="474" src="img/consoles/atari-lynx.webp" alt="Atari Lynx" loading="lazy" data-rsp="1">
+</picture></div>
 <div class="info-side"><div class="year-badge">1989 年发布</div><h1>Atari Lynx</h1>
 <div class="subtitle">首款彩色背光掌机 · 性能超强 · 续航噩梦</div>
 <div class="quick-stats"><div class="qs"><div class="qsv">~300万</div><div class="qsl">全球销量</div></div><div class="qs"><div class="qsv">彩色</div><div class="qsl">背光LCD</div></div><div class="qs"><div class="qsv">4-5h</div><div class="qsl">续航</div></div><div class="qs"><div class="qsv">$179</div><div class="qsl">首发</div></div></div></div></div>
@@ -406,7 +410,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
 <script src="js/auto-collapse.js?v=20260824" defer></script>
 
-<script src="/js/obfuscate-email.js"></script>
+<script defer src="/js/obfuscate-email.js"></script>
 
 <script src="js/bookmark.js" defer></script>
 

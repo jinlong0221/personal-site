@@ -477,7 +477,11 @@ var _hmt = _hmt || [];
     <h2 style="font-size:1.4rem;font-weight:700;margin:0 0 4px;color:var(--text);">实车图集</h2>
     <p style="margin:0 0 18px;color:var(--text-muted);font-size:.86rem;">以下为官方/实测图，供快速了解外观与细节。</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;">
-      <figure style="margin:0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"><img width="900" height="600" src="../img/tesla/modelx/card.webp" alt="Model X 卡片图" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;"></figure>
+      <figure style="margin:0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"><picture>
+<source media="(max-width:600px)" srcset="../img/tesla/modelx/card@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/tesla/modelx/card@768w.webp">
+<img width="900" height="600" src="../img/tesla/modelx/card.webp" alt="Model X 卡片图" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" data-rsp="1">
+</picture></figure>
       <figure style="margin:0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"><img width="400" height="266" src="../img/tesla/modelx/front.webp" alt="Model X 前脸" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;"></figure>
       <figure style="margin:0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"><img width="400" height="266" src="../img/tesla/modelx/interior.webp" alt="Model X 内饰" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;"></figure>
       <figure style="margin:0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"><img width="400" height="266" src="../img/tesla/modelx/side.webp" alt="Model X 侧面" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;"></figure>
@@ -533,7 +537,7 @@ var _hmt = _hmt || [];
 }
 </script>
 <script src="../js/bookmark.js" defer></script>
-<script src="/js/obfuscate-email.js"></script>
+<script defer src="/js/obfuscate-email.js"></script>
 
 <!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
 <script src="../js/page-reveal.js?v=20260923" defer></script>

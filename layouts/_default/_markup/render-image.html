@@ -1,1 +1,15 @@
-<img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" decoding="async"{{ with .Title }} title="{{ . }}"{{ end }}>
+{{- /* 响应式图片：原图 + 480w/768w 缩略图（缩略图由 scripts/gen_responsive_images.py 预生成）。
+       浏览器按视口自动选图：≤600px(手机) 用 480w，≤1000px(平板) 用 768w，其余用原图。
+       外链图不套 picture，直接输出普通 img。 */ -}}
+{{- $src := .Destination | safeURL -}}
+{{- $alt := .Text | plainify -}}
+{{- $base := strings.TrimSuffix (path.Ext $src) $src -}}
+{{- if hasPrefix (printf "%s" $src) "http" -}}
+<img src="{{ $src }}" alt="{{ $alt }}" loading="lazy" decoding="async"{{ with .Title }} title="{{ . }}"{{ end }}>
+{{- else -}}
+<picture>
+  <source media="(max-width:600px)" srcset="{{ $base }}@480w.webp">
+  <source media="(max-width:1000px)" srcset="{{ $base }}@768w.webp">
+  <img src="{{ $src }}" alt="{{ $alt }}" loading="lazy" decoding="async"{{ with .Title }} title="{{ . }}"{{ end }}>
+</picture>
+{{- end -}}

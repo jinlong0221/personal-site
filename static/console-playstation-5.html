@@ -328,7 +328,11 @@ var _hmt = _hmt || [];
 
   <div class="console-detail-hero">
     <div class="image-side">
-      <img width="1400" height="2535" src="img/consoles/ps5.webp" alt="Sony PlayStation 5" loading="lazy">
+      <picture>
+<source media="(max-width:600px)" srcset="img/consoles/ps5@480w.webp">
+<source media="(max-width:1000px)" srcset="img/consoles/ps5@768w.webp">
+<img width="1400" height="2535" src="img/consoles/ps5.webp" alt="Sony PlayStation 5" loading="lazy" data-rsp="1">
+</picture>
     </div>
     <div class="info-side">
       <div class="year-badge">2020 年发布</div>
@@ -532,7 +536,7 @@ var _hmt = _hmt || [];
 
 <script src="js/auto-collapse.js?v=20260824" defer></script>
 
-<script src="/js/obfuscate-email.js"></script>
+<script defer src="/js/obfuscate-email.js"></script>
 
 <script src="js/bookmark.js" defer></script>
 

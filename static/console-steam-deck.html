@@ -302,7 +302,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 </nav> 
 <main class="container" id="main-content" role="main">
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="console.html">主机图鉴</a><span class="sep">›</span><span class="current">Steam Deck</span></div>
-<div class="console-detail-hero"><div class="image-side"><img width="800" height="533" src="img/consoles/steam-deck.webp" alt="Valve Steam Deck" loading="lazy"></div>
+<div class="console-detail-hero"><div class="image-side"><picture>
+<source media="(max-width:600px)" srcset="img/consoles/steam-deck@480w.webp">
+<source media="(max-width:1000px)" srcset="img/consoles/steam-deck@768w.webp">
+<img width="800" height="533" src="img/consoles/steam-deck.webp" alt="Valve Steam Deck" loading="lazy" data-rsp="1">
+</picture></div>
 <div class="info-side"><div class="year-badge">2022 年发布</div><h1>Steam Deck</h1>
 <div class="subtitle">PC掌机革命 · SteamOS · 便携玩遍PC游戏</div>
 <div class="quick-stats"><div class="qs"><div class="qsv">$399起</div><div class="qsl">首发价格</div></div><div class="qs"><div class="qsv">7寸</div><div class="qsl">屏幕</div></div><div class="qs"><div class="qsv">AMD</div><div class="qsl">定制APU</div></div><div class="qs"><div class="qsv">2-8h</div><div class="qsl">续航</div></div></div></div></div>
@@ -408,7 +412,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
 <script src="js/auto-collapse.js?v=20260824" defer></script>
 
-<script src="/js/obfuscate-email.js"></script>
+<script defer src="/js/obfuscate-email.js"></script>
 
 <script src="js/bookmark.js" defer></script>
 

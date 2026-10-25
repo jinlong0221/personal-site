@@ -282,7 +282,11 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 </nav>
 <main class="container" id="main-content" role="main">
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="console.html">主机图鉴</a><span class="sep">›</span><span class="current">Sega Saturn</span></div>
-<div class="console-detail-hero"><div class="image-side"><img width="800" height="451" src="img/consoles/saturn.webp" alt="Sega Saturn" loading="lazy"></div>
+<div class="console-detail-hero"><div class="image-side"><picture>
+<source media="(max-width:600px)" srcset="img/consoles/saturn@480w.webp">
+<source media="(max-width:1000px)" srcset="img/consoles/saturn@768w.webp">
+<img width="800" height="451" src="img/consoles/saturn.webp" alt="Sega Saturn" loading="lazy" data-rsp="1">
+</picture></div>
 <div class="info-side"><div class="year-badge">1994 年发布</div><h1>Sega Saturn</h1>
 <div class="subtitle">双CPU架构 · 2D格斗王者 · 日本不错全球惨败</div>
 <div class="quick-stats"><div class="qs"><div class="qsv">~926万</div><div class="qsl">全球销量</div></div><div class="qs"><div class="qsv">双CPU</div><div class="qsl">架构</div></div><div class="qs"><div class="qsv">CD</div><div class="qsl">介质</div></div><div class="qs"><div class="qsv">¥44,800</div><div class="qsl">日元价格</div></div></div></div></div>
@@ -420,7 +424,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
 <script src="js/bookmark.js" defer></script>
 <script src="js/auto-collapse.js?v=20260824" defer></script>
-<script src="/js/obfuscate-email.js"></script>
+<script defer src="/js/obfuscate-email.js"></script>
 
 <!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
 <script src="js/page-reveal.js?v=20260923" defer></script>

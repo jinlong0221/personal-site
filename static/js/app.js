@@ -377,6 +377,19 @@ if(document.readyState==='loading'){
 (function(){
   var el = document.getElementById('navWeather');
   if(!el) return;
+  // [geo] 若已存用户本地天气（新鲜），优先显示所在城市，跳过射阳默认
+  try{
+    var _lx=localStorage.getItem('lx_local_wx');
+    if(_lx){
+      var _o=JSON.parse(_lx);
+      if(_o&&typeof _o.temp==='number'&&_o.name&&(Date.now()-(_o.ts||0))<30*60*1000){
+        el.innerHTML=svg(keyFor(_o.code))+'<span style="margin-left:3px">'+_o.name+' '+Math.round(_o.temp)+'°</span>';
+        el.setAttribute('title',_o.name+'实时天气，点击查看天气页');
+        el.setAttribute('aria-label',_o.name+'实时天气');
+        return;
+      }
+    }
+  }catch(e){}
   var URL='https://api.open-meteo.com/v1/forecast?latitude=33.77&longitude=120.52&current=temperature_2m,weather_code&timezone=Asia/Shanghai&forecast_days=1';
   var ICONS={
     sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/>',

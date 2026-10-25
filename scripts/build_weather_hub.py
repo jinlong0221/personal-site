@@ -105,6 +105,30 @@ SOLAR_BODY = main_inner(solar)
 # 射阳县百科 + 节气等板块里的「资料来源」区块需要保留，但 page-meta 已剥离。
 # 各 section 内可能含 <section style=...> 的资料来源，保留。
 
+# 本地天气横幅（进入页面即尝试定位到访客所在城市）
+LW_CSS = """
+/* ===== 天气聚合页 · 访客本地天气横幅 ===== */
+.lw-wrap{padding:18px 16px 4px;}
+.lw-card{display:flex;flex-direction:column;gap:8px;align-items:flex-start;max-width:640px;margin:0 auto;padding:18px 20px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.30);}
+.lw-badge{align-self:flex-start;font-size:.72rem;padding:3px 10px;border-radius:999px;background:rgba(201,168,76,.18);color:var(--gold);font-weight:600;}
+.lw-main{display:flex;align-items:center;gap:12px;}
+.lw-main svg{width:34px;height:34px;color:var(--gold);flex:none;}
+.lw-now{display:flex;align-items:baseline;gap:10px;}
+.lw-temp{font-size:2.1rem;font-weight:700;color:var(--text);line-height:1;}
+.lw-desc{font-size:1rem;color:var(--text-secondary);}
+.lw-place{font-size:1.05rem;font-weight:600;color:var(--gold);}
+.lw-foot{font-size:.74rem;color:var(--text-muted);}
+.lw-title{font-size:1.05rem;font-weight:700;color:var(--text);}
+.lw-sub{font-size:.86rem;color:var(--text-muted);margin:0;}
+.lw-btn{margin-top:4px;padding:9px 16px;border-radius:10px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-weight:600;cursor:pointer;}
+.lw-btn:hover{background:rgba(201,168,76,.12);}
+.lw-loading{display:flex;align-items:center;gap:10px;color:var(--text-muted);}
+.lw-spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:lwspin .8s linear infinite;}
+@keyframes lwspin{to{transform:rotate(360deg);}}
+@media(max-width:640px){.lw-temp{font-size:1.8rem;}}
+"""
+
 HUB_CSS = """
 /* ===== 天气聚合页 · 站内锚点导航 ===== */
 .wh-hero{padding:40px 20px 26px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02));border-bottom:1px solid var(--border);}
@@ -296,6 +320,7 @@ HTML = f'''<!DOCTYPE html>
 /* ===== 安全变量兜底：台风板块 CSS 依赖这几个变量，确保聚合页始终有定义 ===== */
 :root{{--bg-card:var(--card);--border-subtle:var(--border);--text-primary:var(--text);}}
 {HUB_CSS}
+{LW_CSS}
 {SHEYANG_CSS}
 {XINTAN_CSS}
 {TYPHOON_CSS}
@@ -335,6 +360,7 @@ var _hmt = _hmt || [];
     <h1>天气 · 射阳气象与节气</h1>
     <p>射阳实时天气、新坍农田气象、台风实时监测与二十四节气物候，一处看全。</p>
   </div>
+  <section id="localWeather" class="lw-wrap" aria-live="polite"></section>
   <nav class="wh-anchor" aria-label="天气板块导航">
     <a href="#sec-sheyang">🌦️ 射阳天气</a>
     <a href="#sec-xintan">🌾 新坍农田气象</a>
@@ -406,6 +432,7 @@ var _hmt = _hmt || [];
 
 <script defer src="/js/board-nav.js"></script>
 <script defer src="js/app.js"></script>
+<script defer src="js/geo-weather.js?v=20261025"></script>
 <script>if(window.initClock)initClock();</script>
 <script src="js/sheyang-weather.js?v=20261011" defer></script>
 <script src="js/xintan-weather.js?v=20261011" defer></script>

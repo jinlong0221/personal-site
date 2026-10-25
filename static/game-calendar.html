@@ -284,7 +284,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .cal-wrap:has(#f-xbox:checked) .cal-body .cal-card:not(.plat-xbox){display:none}
 .cal-wrap:has(#f-pc:checked) .cal-body .cal-card:not(.plat-pc){display:none}
 .cal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px}
-.cal-card{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:15px 17px;transition:border-color .25s,box-shadow .25s}
+.cal-card{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:15px 17px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
+/* 封面占位图（Pillow 程序化生成，非 AI / 非版权图；拿到授权素材可直接覆盖同名文件） */
+.cal-cover{display:block;width:100%;height:auto;margin:-15px -17px 0;background:var(--bg-secondary)}
+.price-cover{margin:-14px -16px 0}
 .cal-card:hover{border-color:var(--orange);box-shadow:0 4px 18px rgba(255,140,0,.14)}
 .cal-card .c-name{font-size:1.02rem;font-weight:700;color:var(--card-text);line-height:1.35}
 .cal-card .c-date{font-weight:600;color:var(--gold-light);font-size:.92rem}
@@ -296,7 +299,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 .c-tag.plat{color:var(--blue-light);border-color:rgba(77,166,232,.4)}
 /* 史低价 */
 .price-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:14px;margin-top:8px}
-.price-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;transition:border-color .25s}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;overflow:hidden;transition:border-color .25s}
 .price-card:hover{border-color:var(--gold)}
 .price-card .p-name{font-size:.98rem;font-weight:700;color:var(--card-text)}
 .price-card .p-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
@@ -455,12 +458,287 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 <label for="f-pc" class="cal-flabel">PC</label>
         </div>
         <div class="cal-body">
-<div class="cal-group"><div class="cal-group-title">2026 Q3（7–9月）</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-pc"><div class="c-name">Marvel Tokon: Fighting Souls</div><div class="c-date">2026-08-06</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：格斗</div><div class="c-desc">漫威全明星 2D 格斗，Arc System Works 开发。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><div class="c-name">Metal Gear Solid: Master Collection Vol. 2</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作</div><div class="c-desc">合金装备经典合集第二卷，含多部系列旧作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Star Wars Zero Company</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：战棋策略</div><div class="c-desc">星战题材回合制战棋，组建小队作战。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Resonance: A Plague Tale Legacy</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">瘟疫传说前传，玩法更偏动作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">The Blood of Dawnwalker</div><div class="c-date">2026-09-03</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作 RPG</div><div class="c-desc">Rebel Wolves 的吸血鬼题材中世纪 RPG。</div></div><div class="cal-card plat-ps5"><div class="c-name">Marvel's Wolverine</div><div class="c-date">2026-09-15</div><div class="c-tags"><span class="c-tag plat">PS5</span></div><div class="c-genre">类型：动作</div><div class="c-desc">Insomniac 的金刚狼单人动作大作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><div class="c-name">LEGO Batman: Legacy of the Dark Knight</div><div class="c-date">2026-09-18</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">乐高蝙蝠侠开放世界冒险。</div></div><div class="cal-card plat-switch2"><div class="c-name">Fire Emblem: Fortune's Weave</div><div class="c-date">2026-09-17</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：战棋 RPG</div><div class="c-desc">火焰纹章新作，Switch 2 独占。</div></div><div class="cal-card plat-ps5 plat-pc"><div class="c-name">Silent Hill: Townfall</div><div class="c-date">2026-09-24</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：心理恐怖</div><div class="c-desc">寂静岭第一人称外传，苏格兰小镇。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Control Resonant</div><div class="c-date">2026-09-24</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：超自然动作</div><div class="c-desc">Remedy 控制宇宙新章，曼哈顿异变。</div></div></div></div><div class="cal-group"><div class="cal-group-title">2026 Q4（10–12月）</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Ace Combat 8: Wings of Theve</div><div class="c-date tba">2026-10（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：飞行空战</div><div class="c-desc">皇牌空战系列新作。</div></div><div class="cal-card plat-xbox plat-pc"><div class="c-name">Gears of War: E-Day</div><div class="c-date">2026-10-06</div><div class="c-tags"><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：第三人称射击</div><div class="c-desc">战争机器起源故事，兽族降临当天。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><div class="c-name">Castlevania: Belmont's Curse</div><div class="c-date">2026-10-15</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作</div><div class="c-desc">恶魔城新作，贝尔蒙特家族再战。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><div class="c-name">Call of Duty: Modern Warfare 4</div><div class="c-date">2026-10-23</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：第一人称射击</div><div class="c-desc">使命召唤年度新作。</div></div><div class="cal-card plat-ps5 plat-pc"><div class="c-name">Phantom Blade Zero</div><div class="c-date">2026-10-29</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作 RPG</div><div class="c-desc">梁其伟团队武侠硬核动作。</div></div><div class="cal-card plat-switch2"><div class="c-name">The Legend of Zelda: Ocarina of Time (Switch 2)</div><div class="c-date">2026-11-05</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">塞尔达时之笛重制登陆 Switch 2。</div></div><div class="cal-card plat-ps5 plat-xbox"><div class="c-name">Grand Theft Auto VI</div><div class="c-date">2026-11-19</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span></div><div class="c-genre">类型：开放世界</div><div class="c-desc">摇滚星重磅回归 Vice City；PC 版待定。</div></div><div class="cal-card plat-ps5 plat-switch plat-switch2"><div class="c-name">Dragon Quest Monsters: The Withered World</div><div class="c-date">2026-12-03</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Switch</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：收集 RPG</div><div class="c-desc">勇者斗恶龙怪兽篇新作。</div></div><div class="cal-card plat-switch2"><div class="c-name">Xenoblade Chronicles 3: Switch 2 Edition</div><div class="c-date">2026-12-03</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">异度神剑 3 强化移植版。</div></div></div></div><div class="cal-group"><div class="cal-group-title">2027</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Stranger Than Heaven</div><div class="c-date">2027-01-15</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">如龙工作室全新原创 IP。</div></div><div class="cal-card plat-switch2"><div class="c-name">Metroid Ravenous</div><div class="c-date">2027-01-28</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：2D 动作</div><div class="c-desc">银河战士新 2D 横版作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Metro 2039</div><div class="c-date">2027-02-04</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：末世射击</div><div class="c-desc">地铁系列新章，生存射击。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><div class="c-name">Tomb Raider: Legacy of Atlantis</div><div class="c-date">2027-02-12</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">古墓丽影初代 Unreal 5 重制。</div></div><div class="cal-card plat-ps5"><div class="c-name">God of War Laufey</div><div class="c-date">2027-02-16</div><div class="c-tags"><span class="c-tag plat">PS5</span></div><div class="c-genre">类型：动作</div><div class="c-desc">战神外传，聚焦 Faye 的故事。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Persona 4 Revival</div><div class="c-date">2027-02-18</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">女神异闻录 4 全面重制。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Fable</div><div class="c-date">2027-02-23</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：开放世界 RPG</div><div class="c-desc">微软童话风格 RPG 重启。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Exodus</div><div class="c-date">2027-04-07</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：科幻 RPG</div><div class="c-desc">Archetype（前 BioWare）时空膨胀科幻 RPG。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><div class="c-name">Final Fantasy VII: Revelation</div><div class="c-date tba">2027 春季（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">FF7 重制三部曲终章。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><div class="c-name">Spyro: A Realm Beyond</div><div class="c-date tba">2027 春季（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：平台跳跃</div><div class="c-desc">Spyro 新 3D 冒险。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Resident Evil: Veronica</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：生存恐怖</div><div class="c-desc">生化危机维罗妮卡 RE Engine 重制。</div></div><div class="cal-card plat-switch2"><div class="c-name">Pokémon Winds and Waves</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：收集 RPG</div><div class="c-desc">宝可梦第十世代，东南亚风开放世界。</div></div><div class="cal-card plat-xbox plat-pc"><div class="c-name">State of Decay 3</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：生存</div><div class="c-desc">丧尸生存多人续作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><div class="c-name">Senua（Hellblade 续作）</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">Ninja Theory 地狱之刃宇宙扩展。</div></div></div></div>        </div>
+<div class="cal-group"><div class="cal-group-title">2026 Q3（7–9月）</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/marvel-tokon-fighting-souls-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/marvel-tokon-fighting-souls-cover@768w.webp">
+<img class="cal-cover" src="img/games/marvel-tokon-fighting-souls-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Marvel Tokon: Fighting Souls</div><div class="c-date">2026-08-06</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：格斗</div><div class="c-desc">漫威全明星 2D 格斗，Arc System Works 开发。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/mgs-master-collection-2-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/mgs-master-collection-2-cover@768w.webp">
+<img class="cal-cover" src="img/games/mgs-master-collection-2-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Metal Gear Solid: Master Collection Vol. 2</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作</div><div class="c-desc">合金装备经典合集第二卷，含多部系列旧作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/star-wars-zero-company-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/star-wars-zero-company-cover@768w.webp">
+<img class="cal-cover" src="img/games/star-wars-zero-company-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Star Wars Zero Company</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：战棋策略</div><div class="c-desc">星战题材回合制战棋，组建小队作战。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/resonance-plague-tale-legacy-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/resonance-plague-tale-legacy-cover@768w.webp">
+<img class="cal-cover" src="img/games/resonance-plague-tale-legacy-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Resonance: A Plague Tale Legacy</div><div class="c-date">2026-08-27</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">瘟疫传说前传，玩法更偏动作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/blood-of-dawnwalker-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/blood-of-dawnwalker-cover@768w.webp">
+<img class="cal-cover" src="img/games/blood-of-dawnwalker-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">The Blood of Dawnwalker</div><div class="c-date">2026-09-03</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作 RPG</div><div class="c-desc">Rebel Wolves 的吸血鬼题材中世纪 RPG。</div></div><div class="cal-card plat-ps5"><picture>
+<source media="(max-width:600px)" srcset="img/games/marvels-wolverine-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/marvels-wolverine-cover@768w.webp">
+<img class="cal-cover" src="img/games/marvels-wolverine-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Marvel's Wolverine</div><div class="c-date">2026-09-15</div><div class="c-tags"><span class="c-tag plat">PS5</span></div><div class="c-genre">类型：动作</div><div class="c-desc">Insomniac 的金刚狼单人动作大作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/lego-batman-dark-knight-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/lego-batman-dark-knight-cover@768w.webp">
+<img class="cal-cover" src="img/games/lego-batman-dark-knight-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">LEGO Batman: Legacy of the Dark Knight</div><div class="c-date">2026-09-18</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">乐高蝙蝠侠开放世界冒险。</div></div><div class="cal-card plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/fire-emblem-fortunes-weave-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/fire-emblem-fortunes-weave-cover@768w.webp">
+<img class="cal-cover" src="img/games/fire-emblem-fortunes-weave-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Fire Emblem: Fortune's Weave</div><div class="c-date">2026-09-17</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：战棋 RPG</div><div class="c-desc">火焰纹章新作，Switch 2 独占。</div></div><div class="cal-card plat-ps5 plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/silent-hill-townfall-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/silent-hill-townfall-cover@768w.webp">
+<img class="cal-cover" src="img/games/silent-hill-townfall-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Silent Hill: Townfall</div><div class="c-date">2026-09-24</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：心理恐怖</div><div class="c-desc">寂静岭第一人称外传，苏格兰小镇。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/control-resonant-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/control-resonant-cover@768w.webp">
+<img class="cal-cover" src="img/games/control-resonant-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Control Resonant</div><div class="c-date">2026-09-24</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：超自然动作</div><div class="c-desc">Remedy 控制宇宙新章，曼哈顿异变。</div></div></div></div><div class="cal-group"><div class="cal-group-title">2026 Q4（10–12月）</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/ace-combat-8-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/ace-combat-8-cover@768w.webp">
+<img class="cal-cover" src="img/games/ace-combat-8-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Ace Combat 8: Wings of Theve</div><div class="c-date tba">2026-10（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：飞行空战</div><div class="c-desc">皇牌空战系列新作。</div></div><div class="cal-card plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/gears-of-war-eday-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/gears-of-war-eday-cover@768w.webp">
+<img class="cal-cover" src="img/games/gears-of-war-eday-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Gears of War: E-Day</div><div class="c-date">2026-10-06</div><div class="c-tags"><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：第三人称射击</div><div class="c-desc">战争机器起源故事，兽族降临当天。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/castlevania-belmonts-curse-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/castlevania-belmonts-curse-cover@768w.webp">
+<img class="cal-cover" src="img/games/castlevania-belmonts-curse-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Castlevania: Belmont's Curse</div><div class="c-date">2026-10-15</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作</div><div class="c-desc">恶魔城新作，贝尔蒙特家族再战。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/cod-modern-warfare-4-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/cod-modern-warfare-4-cover@768w.webp">
+<img class="cal-cover" src="img/games/cod-modern-warfare-4-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Call of Duty: Modern Warfare 4</div><div class="c-date">2026-10-23</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：第一人称射击</div><div class="c-desc">使命召唤年度新作。</div></div><div class="cal-card plat-ps5 plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/phantom-blade-zero-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/phantom-blade-zero-cover@768w.webp">
+<img class="cal-cover" src="img/games/phantom-blade-zero-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Phantom Blade Zero</div><div class="c-date">2026-10-29</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作 RPG</div><div class="c-desc">梁其伟团队武侠硬核动作。</div></div><div class="cal-card plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/zelda-ocarina-time-s2-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/zelda-ocarina-time-s2-cover@768w.webp">
+<img class="cal-cover" src="img/games/zelda-ocarina-time-s2-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">The Legend of Zelda: Ocarina of Time (Switch 2)</div><div class="c-date">2026-11-05</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">塞尔达时之笛重制登陆 Switch 2。</div></div><div class="cal-card plat-ps5 plat-xbox"><picture>
+<source media="(max-width:600px)" srcset="img/games/gta6-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/gta6-cover@768w.webp">
+<img class="cal-cover" src="img/games/gta6-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Grand Theft Auto VI</div><div class="c-date">2026-11-19</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span></div><div class="c-genre">类型：开放世界</div><div class="c-desc">摇滚星重磅回归 Vice City；PC 版待定。</div></div><div class="cal-card plat-ps5 plat-switch plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/dq-monsters-withered-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/dq-monsters-withered-cover@768w.webp">
+<img class="cal-cover" src="img/games/dq-monsters-withered-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Dragon Quest Monsters: The Withered World</div><div class="c-date">2026-12-03</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Switch</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：收集 RPG</div><div class="c-desc">勇者斗恶龙怪兽篇新作。</div></div><div class="cal-card plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/xenoblade-3-s2-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/xenoblade-3-s2-cover@768w.webp">
+<img class="cal-cover" src="img/games/xenoblade-3-s2-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Xenoblade Chronicles 3: Switch 2 Edition</div><div class="c-date">2026-12-03</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">异度神剑 3 强化移植版。</div></div></div></div><div class="cal-group"><div class="cal-group-title">2027</div><div class="cal-grid"><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/stranger-than-heaven-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/stranger-than-heaven-cover@768w.webp">
+<img class="cal-cover" src="img/games/stranger-than-heaven-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Stranger Than Heaven</div><div class="c-date">2027-01-15</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">如龙工作室全新原创 IP。</div></div><div class="cal-card plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/metroid-ravenous-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/metroid-ravenous-cover@768w.webp">
+<img class="cal-cover" src="img/games/metroid-ravenous-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Metroid Ravenous</div><div class="c-date">2027-01-28</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：2D 动作</div><div class="c-desc">银河战士新 2D 横版作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/metro-2039-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/metro-2039-cover@768w.webp">
+<img class="cal-cover" src="img/games/metro-2039-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Metro 2039</div><div class="c-date">2027-02-04</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：末世射击</div><div class="c-desc">地铁系列新章，生存射击。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/tomb-raider-atlantis-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/tomb-raider-atlantis-cover@768w.webp">
+<img class="cal-cover" src="img/games/tomb-raider-atlantis-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Tomb Raider: Legacy of Atlantis</div><div class="c-date">2027-02-12</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">古墓丽影初代 Unreal 5 重制。</div></div><div class="cal-card plat-ps5"><picture>
+<source media="(max-width:600px)" srcset="img/games/god-of-war-laufey-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/god-of-war-laufey-cover@768w.webp">
+<img class="cal-cover" src="img/games/god-of-war-laufey-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">God of War Laufey</div><div class="c-date">2027-02-16</div><div class="c-tags"><span class="c-tag plat">PS5</span></div><div class="c-genre">类型：动作</div><div class="c-desc">战神外传，聚焦 Faye 的故事。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/persona-4-revival-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/persona-4-revival-cover@768w.webp">
+<img class="cal-cover" src="img/games/persona-4-revival-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Persona 4 Revival</div><div class="c-date">2027-02-18</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">女神异闻录 4 全面重制。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/fable-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/fable-cover@768w.webp">
+<img class="cal-cover" src="img/games/fable-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Fable</div><div class="c-date">2027-02-23</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：开放世界 RPG</div><div class="c-desc">微软童话风格 RPG 重启。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/exodus-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/exodus-cover@768w.webp">
+<img class="cal-cover" src="img/games/exodus-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Exodus</div><div class="c-date">2027-04-07</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：科幻 RPG</div><div class="c-desc">Archetype（前 BioWare）时空膨胀科幻 RPG。</div></div><div class="cal-card plat-ps5 plat-xbox plat-switch2 plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/ff7-revelation-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/ff7-revelation-cover@768w.webp">
+<img class="cal-cover" src="img/games/ff7-revelation-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Final Fantasy VII: Revelation</div><div class="c-date tba">2027 春季（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">Switch 2</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：JRPG</div><div class="c-desc">FF7 重制三部曲终章。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/spyro-realm-beyond-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/spyro-realm-beyond-cover@768w.webp">
+<img class="cal-cover" src="img/games/spyro-realm-beyond-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Spyro: A Realm Beyond</div><div class="c-date tba">2027 春季（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：平台跳跃</div><div class="c-desc">Spyro 新 3D 冒险。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/re-veronica-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/re-veronica-cover@768w.webp">
+<img class="cal-cover" src="img/games/re-veronica-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Resident Evil: Veronica</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：生存恐怖</div><div class="c-desc">生化危机维罗妮卡 RE Engine 重制。</div></div><div class="cal-card plat-switch2"><picture>
+<source media="(max-width:600px)" srcset="img/games/pokemon-winds-waves-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/pokemon-winds-waves-cover@768w.webp">
+<img class="cal-cover" src="img/games/pokemon-winds-waves-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Pokémon Winds and Waves</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">Switch 2</span></div><div class="c-genre">类型：收集 RPG</div><div class="c-desc">宝可梦第十世代，东南亚风开放世界。</div></div><div class="cal-card plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/state-of-decay-3-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/state-of-decay-3-cover@768w.webp">
+<img class="cal-cover" src="img/games/state-of-decay-3-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">State of Decay 3</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：生存</div><div class="c-desc">丧尸生存多人续作。</div></div><div class="cal-card plat-ps5 plat-xbox plat-pc"><picture>
+<source media="(max-width:600px)" srcset="img/games/senua-hellblade-sequel-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/senua-hellblade-sequel-cover@768w.webp">
+<img class="cal-cover" src="img/games/senua-hellblade-sequel-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="c-name">Senua（Hellblade 续作）</div><div class="c-date tba">2027（待官方确认具体日）</div><div class="c-tags"><span class="c-tag plat">PS5</span><span class="c-tag plat">Xbox</span><span class="c-tag plat">PC</span></div><div class="c-genre">类型：动作冒险</div><div class="c-desc">Ninja Theory 地狱之刃宇宙扩展。</div></div></div></div>        </div>
       </div>
 
       <h2 class="cal-section-title">史低价追踪</h2>
       <div class="price-grid">
-<div class="price-card"><div class="p-name">The Witcher 3: Wild Hunt – 年度版</div><div class="p-row"><span class="p-low">¥22</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -75%</div></div><div class="price-card"><div class="p-name">Stardew Valley</div><div class="p-row"><span class="p-low">¥18</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -50%</div></div><div class="price-card"><div class="p-name">Grand Theft Auto V</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥119，约 -50%</div></div><div class="price-card"><div class="p-name">Cyberpunk 2077</div><div class="p-row"><span class="p-low">¥119</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，约 -60%</div></div><div class="price-card"><div class="p-name">Elden Ring</div><div class="p-row"><span class="p-low">¥198</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，约 -33%</div></div><div class="price-card"><div class="p-name">Red Dead Redemption 2</div><div class="p-row"><span class="p-low">¥69</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -75%</div></div><div class="price-card"><div class="p-name">Hades</div><div class="p-row"><span class="p-low">¥32</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -67%</div></div><div class="price-card"><div class="p-name">Hollow Knight</div><div class="p-row"><span class="p-low">¥12</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -67%</div></div><div class="price-card"><div class="p-name">Celeste</div><div class="p-row"><span class="p-low">¥9</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -75%</div></div><div class="price-card"><div class="p-name">Dead Cells</div><div class="p-row"><span class="p-low">¥15</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥80，约 -80%</div></div><div class="price-card"><div class="p-name">Portal 2</div><div class="p-row"><span class="p-low">¥6</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥37，约 -85%</div></div><div class="price-card"><div class="p-name">Dark Souls III</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥268，约 -75%</div></div><div class="price-card"><div class="p-name">Sekiro: Shadows Die Twice</div><div class="p-row"><span class="p-low">¥134</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥268，约 -50%</div></div><div class="price-card"><div class="p-name">DOOM Eternal</div><div class="p-row"><span class="p-low">¥29</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥198，约 -85%</div></div><div class="price-card"><div class="p-name">Horizon Zero Dawn（PC 年度版）</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -80%</div></div><div class="price-card"><div class="p-name">God of War（PC）</div><div class="p-row"><span class="p-low">¥89</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -70%</div></div><div class="price-card"><div class="p-name">Monster Hunter: World</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥299，约 -80%</div></div><div class="price-card"><div class="p-name">Monster Hunter Rise</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥209，约 -75%</div></div><div class="price-card"><div class="p-name">No Man's Sky</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥158，约 -60%</div></div><div class="price-card"><div class="p-name">Disco Elysium: Final Cut</div><div class="p-row"><span class="p-low">¥16</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -80%</div></div><div class="price-card"><div class="p-name">Resident Evil Village</div><div class="p-row"><span class="p-low">¥99</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥299，约 -67%</div></div><div class="price-card"><div class="p-name">Baldur's Gate 3</div><div class="p-row"><span class="p-low">¥238</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，仅约 -10%（很少打折）</div></div>      </div>
+<div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/witcher-3-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/witcher-3-cover@768w.webp">
+<img class="cal-cover" src="img/games/witcher-3-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">The Witcher 3: Wild Hunt – 年度版</div><div class="p-row"><span class="p-low">¥22</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -75%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/stardew-valley-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/stardew-valley-cover@768w.webp">
+<img class="cal-cover" src="img/games/stardew-valley-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Stardew Valley</div><div class="p-row"><span class="p-low">¥18</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -50%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/gta5-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/gta5-cover@768w.webp">
+<img class="cal-cover" src="img/games/gta5-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Grand Theft Auto V</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥119，约 -50%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/cyberpunk-2077-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/cyberpunk-2077-cover@768w.webp">
+<img class="cal-cover" src="img/games/cyberpunk-2077-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Cyberpunk 2077</div><div class="p-row"><span class="p-low">¥119</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，约 -60%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/elden-ring-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/elden-ring-cover@768w.webp">
+<img class="cal-cover" src="img/games/elden-ring-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Elden Ring</div><div class="p-row"><span class="p-low">¥198</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，约 -33%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/rdr2-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/rdr2-cover@768w.webp">
+<img class="cal-cover" src="img/games/rdr2-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Red Dead Redemption 2</div><div class="p-row"><span class="p-low">¥69</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -75%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/hades-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/hades-cover@768w.webp">
+<img class="cal-cover" src="img/games/hades-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Hades</div><div class="p-row"><span class="p-low">¥32</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -67%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/hollow-knight-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/hollow-knight-cover@768w.webp">
+<img class="cal-cover" src="img/games/hollow-knight-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Hollow Knight</div><div class="p-row"><span class="p-low">¥12</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -67%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/celeste-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/celeste-cover@768w.webp">
+<img class="cal-cover" src="img/games/celeste-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Celeste</div><div class="p-row"><span class="p-low">¥9</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥36，约 -75%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/dead-cells-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/dead-cells-cover@768w.webp">
+<img class="cal-cover" src="img/games/dead-cells-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Dead Cells</div><div class="p-row"><span class="p-low">¥15</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥80，约 -80%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/portal-2-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/portal-2-cover@768w.webp">
+<img class="cal-cover" src="img/games/portal-2-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Portal 2</div><div class="p-row"><span class="p-low">¥6</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥37，约 -85%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/dark-souls-3-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/dark-souls-3-cover@768w.webp">
+<img class="cal-cover" src="img/games/dark-souls-3-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Dark Souls III</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥268，约 -75%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/sekiro-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/sekiro-cover@768w.webp">
+<img class="cal-cover" src="img/games/sekiro-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Sekiro: Shadows Die Twice</div><div class="p-row"><span class="p-low">¥134</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥268，约 -50%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/doom-eternal-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/doom-eternal-cover@768w.webp">
+<img class="cal-cover" src="img/games/doom-eternal-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">DOOM Eternal</div><div class="p-row"><span class="p-low">¥29</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥198，约 -85%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/horizon-zero-dawn-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/horizon-zero-dawn-cover@768w.webp">
+<img class="cal-cover" src="img/games/horizon-zero-dawn-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Horizon Zero Dawn（PC 年度版）</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -80%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/god-of-war-pc-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/god-of-war-pc-cover@768w.webp">
+<img class="cal-cover" src="img/games/god-of-war-pc-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">God of War（PC）</div><div class="p-row"><span class="p-low">¥89</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥279，约 -70%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/mh-world-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/mh-world-cover@768w.webp">
+<img class="cal-cover" src="img/games/mh-world-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Monster Hunter: World</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥299，约 -80%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/mh-rise-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/mh-rise-cover@768w.webp">
+<img class="cal-cover" src="img/games/mh-rise-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Monster Hunter Rise</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥209，约 -75%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/no-mans-sky-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/no-mans-sky-cover@768w.webp">
+<img class="cal-cover" src="img/games/no-mans-sky-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">No Man's Sky</div><div class="p-row"><span class="p-low">¥59</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥158，约 -60%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/disco-elysium-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/disco-elysium-cover@768w.webp">
+<img class="cal-cover" src="img/games/disco-elysium-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Disco Elysium: Final Cut</div><div class="p-row"><span class="p-low">¥16</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥98，约 -80%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/re-village-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/re-village-cover@768w.webp">
+<img class="cal-cover" src="img/games/re-village-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Resident Evil Village</div><div class="p-row"><span class="p-low">¥99</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥299，约 -67%</div></div><div class="price-card"><picture>
+<source media="(max-width:600px)" srcset="img/games/baldurs-gate-3-cover@480w.webp">
+<source media="(max-width:1000px)" srcset="img/games/baldurs-gate-3-cover@768w.webp">
+<img class="cal-cover" src="img/games/baldurs-gate-3-cover.webp" alt="" loading="lazy" data-rsp="1">
+</picture>
+<div class="p-name">Baldur's Gate 3</div><div class="p-row"><span class="p-low">¥238</span><span class="p-store">Steam</span></div><div class="p-note">原价 ¥298，仅约 -10%（很少打折）</div></div>      </div>
       <p class="price-note">史低为公开商店记录（SteamDB / IsThereAnyDeal 等第三方追踪）的历史最低价，实际以各平台商店当期活动为准；部分游戏原价随区域与版本不同。</p>
     </div>
   <div class="page-meta">

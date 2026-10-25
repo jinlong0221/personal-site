@@ -148,6 +148,7 @@ def build_nav(prefix, active_bare):
       <span>龙兄</span>
     </a>
     <a href="{href('calendar.html')}" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <a href="{href('weather.html')}" class="nav-weather" id="navWeather" title="射阳实时天气，点击查看天气页" aria-label="射阳实时天气">⛅ --°</a>
     <ul class="nav-links">
 {nav_links}
       <li class="nav-more-wrap">

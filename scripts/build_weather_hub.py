@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-build_weather_hub.py — 生成四合一天气聚合页 static/weather.html。
+build_weather_hub.py — 生成两个天气相关页面。
 
-设计：
-  把 射阳天气(sheyang) / 新坍农田气象(xintan-weather) / 台风监测(typhoon) / 节气物候(solar-terms)
-  四个独立页面合并为一个 weather.html，各板块保留原有样式与实时加载器（各加载器使用互不冲突的元素 ID 命名空间），
-  共享同一份关键 CSS 与全局 css/style.css。四页 CSP 的 37 个 sha256 哈希完全一致，故直接复用。
+设计（2026-10-25 拆分需求）：
+  用户点顶部「天气」功能键 → 进入 weather.html，这是一个【只显示访客当前所在城市
+  实时天气】的专注页（打开即浏览器定位 → 反查城市 → Open-Meteo 实时天气）。
+  射阳本地气象（射阳实时 + 新坍农田 + 台风 + 节气）从天气页里剥离，单独成页
+  sheyang-weather.html（「射阳气象」），在 weather.html 内用一个醒目入口卡「放旁边」，
+  同时在导航「生活」分组登记入口。
+
+  四页源（scripts/weather_sources/）仍作为构建输入，不含上线态（Task 14 已把线上态
+  转为跳转壳）。本脚本产出两页：
+    - static/weather.html         本地实时天气（专注页）
+    - static/sheyang-weather.html 四合一 · 射阳气象
 
 用法： python3 scripts/build_weather_hub.py
 """
@@ -15,29 +22,20 @@ import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC = os.path.join(ROOT, "static")
-# 四合一天气页的「完整源页」已不再以线上形态存在：Task 14 把射阳/新坍/台风/节气四页
-# 在线态转为跳转壳（重定向到 weather.html），故 static/ 下这四页已是壳、无 critical-css、
-# 也无法提供 <main> 正文。生成器需要的是合并前的完整源页，因此单独保留在
-# scripts/weather_sources/ 作为构建输入（Hugo 不会服务 scripts/ 目录，不会上线成独立页）。
 SOURCE_DIR = os.path.join(ROOT, "scripts", "weather_sources")
 
 
 def read(name):
-    # 源页从 SOURCE_DIR 读取（合并前完整版），而非线上 static/（已是跳转壳）
     with open(os.path.join(SOURCE_DIR, name), encoding="utf-8") as f:
         return f.read()
 
 
 def csp_meta(html):
-    # 注意：实际 CSP 标签结尾是 `>` 而非 `/>`（四页均如此），
-    # 旧正则写 `/>` 会整页匹配失败导致 m 为 None → crash（2026-10-25 修复）。
     m = re.search(r'(<meta http-equiv="Content-Security-Policy" content="[^"]*"\s*/?>)', html)
     if not m:
         raise RuntimeError("csp_meta: 未找到 CSP meta 标签")
     tag = m.group(1)
     csp = re.search(r'content="([^"]*)"', tag).group(1)
-    # 合并重复的 connect-src（四天气页 CSP 历史遗留了两个 connect-src，浏览器只认第一个、
-    # 第二个被忽略并报警 "Ignoring duplicate Content-Security-Policy directive 'connect-src'"）。
     parts = [p.strip() for p in csp.split(';') if p.strip()]
     merged, connect_srcs = [], []
     for p in parts:
@@ -72,17 +70,10 @@ def non_critical_styles(html):
 def main_inner(html):
     m = re.search(r'<main\b[^>]*>(.*?)</main>', html, re.S)
     s = m.group(1)
-    # 去掉面包屑（聚合页统一提供）
     s = re.sub(r'<div class="breadcrumb".*?</div>', '', s, flags=re.S)
-    # 去掉各页自带的「相关阅读」与 page-meta（底部统一提供）
     s = re.sub(r'<!-- related:begin -->.*?<!-- related:end -->', '', s, flags=re.S)
     s = re.sub(r'<div class="page-meta">.*?</div>', '', s, flags=re.S)
     return s.strip()
-
-
-def strip_nav_anchor(html):
-    # 各页 main 里可能含锚点跳转动画依赖，但天气页不需要；保持原样即可
-    return html
 
 
 sheyang = read("sheyang.html")
@@ -91,7 +82,7 @@ typhoon = read("typhoon.html")
 solar = read("solar-terms.html")
 
 CSP = csp_meta(sheyang)
-CRIT = critical_css(typhoon)  # 用 typhoon 的关键 CSS 作基底（含完整导航/页脚/变量）
+CRIT = critical_css(typhoon)
 SHEYANG_CSS = non_critical_styles(sheyang)
 XINTAN_CSS = non_critical_styles(xintan)
 TYPHOON_CSS = non_critical_styles(typhoon)
@@ -102,12 +93,9 @@ XINTAN_BODY = main_inner(xintan)
 TYPHOON_BODY = main_inner(typhoon)
 SOLAR_BODY = main_inner(solar)
 
-# 射阳县百科 + 节气等板块里的「资料来源」区块需要保留，但 page-meta 已剥离。
-# 各 section 内可能含 <section style=...> 的资料来源，保留。
-
-# 本地天气横幅（进入页面即尝试定位到访客所在城市）
+# 本地天气横幅样式（weather.html 专用）
 LW_CSS = """
-/* ===== 天气聚合页 · 访客本地天气横幅 ===== */
+/* ===== 天气页 · 访客本地天气横幅 ===== */
 .lw-wrap{padding:18px 16px 4px;}
 .lw-card{display:flex;flex-direction:column;gap:8px;align-items:flex-start;max-width:640px;margin:0 auto;padding:18px 20px;border-radius:16px;
   background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.30);}
@@ -129,8 +117,24 @@ LW_CSS = """
 @media(max-width:640px){.lw-temp{font-size:1.8rem;}}
 """
 
+# 本地天气页「射阳气象」入口卡样式
+WE_CSS = """
+/* ===== 天气页 · 射阳气象入口卡（放旁边） ===== */
+.we-wrap{padding:24px 16px 10px;}
+.we-card{max-width:640px;margin:0 auto;text-align:center;padding:22px 20px;border-radius:16px;
+  border:1px dashed rgba(201,168,76,.38);background:rgba(201,168,76,.04);}
+.we-card .we-tip{font-size:.88rem;color:var(--text-muted);margin:0 0 14px;}
+.we-card .we-split{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:14px;color:var(--text-muted);font-size:.82rem;}
+.we-card .we-split b{color:var(--gold);}
+.we-btn{display:inline-block;padding:12px 22px;border-radius:12px;background:linear-gradient(135deg,var(--gold),#b8913f);
+  color:#1a1408;font-weight:700;text-decoration:none;font-size:1rem;box-shadow:0 6px 18px rgba(201,168,76,.25);}
+.we-btn:hover{filter:brightness(1.06);}
+@media(max-width:640px){.we-btn{display:block;}}
+"""
+
+# 四合一（射阳气象）页内锚点导航样式
 HUB_CSS = """
-/* ===== 天气聚合页 · 站内锚点导航 ===== */
+/* ===== 射阳气象页 · 站内锚点导航 ===== */
 .wh-hero{padding:40px 20px 26px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02));border-bottom:1px solid var(--border);}
 .wh-hero h1{font-size:2rem;color:var(--gold);margin-bottom:8px;letter-spacing:.04em;}
 [data-theme="light"] .wh-hero h1{color:#6B4F00;}
@@ -148,19 +152,7 @@ HUB_CSS = """
 @media(max-width:640px){.wh-hero h1{font-size:1.5rem;}.wh-section-head{font-size:1.15rem;}}
 """
 
-PAGE_TITLE = "天气 · 射阳气象与节气｜龙兄知识库"
-PAGE_DESC = "射阳天气、新坍农田气象、台风实时监测与二十四节气物候，一站式聚合：实时气象数据、台风路径与农事建议，结合传统物候典籍与现代生活习惯整理。"
-
-# 标准面包屑（A9 骨架审计要求每页有 class=breadcrumb；聚合页统一提供，源页自带面包屑已在 main_inner 剥离）
-BREADCRUMB = '<div aria-label="面包屑导航" class="breadcrumb" id="breadcrumb" role="navigation"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">生活</span><span class="sep">›</span><span class="current">天气</span></div>'
-
-# 标准页尾信息块（A9 骨架审计要求每页有 class=page-meta；聚合页统一提供）
-PAGE_META = (
-    '<div class="page-meta">\n'
-    '<p class="ref-note">本站天气数据来自中央气象台、Open-Meteo 等公开来源，实时刷新，仅供参考；农事与物候为传统经验整理，请结合当地实际。</p>\n'
-    '<div class="update-time">最后更新：<span id="lastNewsUpdate">2026-10-25</span></div>\n'
-    '</div>'
-)
+PAGE_CSS_VERSION = "20261025"
 
 # 标准导航（占位，稍后由 sync_navbar.py 以 navbar.html 单一数据源重生成）
 NAV = '''<nav class="navbar" role="navigation" aria-label="主导航">
@@ -283,9 +275,72 @@ NAV = '''<nav class="navbar" role="navigation" aria-label="主导航">
   </div>
 </nav>'''
 
-PAGE_CSS_VERSION = "20261025"
+FOOTER = '''<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>'''
 
-HTML = f'''<!DOCTYPE html>
+COMMON_SCRIPTS = '''
+<script defer src="/js/board-nav.js"></script>
+<script defer src="js/app.js"></script>
+<script defer src="js/interactions.js"></script>
+<script defer src="js/search.js"></script>
+<script defer src="js/share.js"></script>
+<script src="js/bookmark.js" defer></script>
+<script src="js/auto-collapse.js?v=20260824" defer></script>
+<script src="/js/obfuscate-email.js"></script>
+<script src="js/page-reveal.js?v=20260923" defer></script>
+<script src="js/site-live.js?v=20261025" defer></script>'''
+
+
+def build_page(title, desc, keywords, article_cat, article_tags, canonical_rel,
+               og_url, h1, hero_p, head_css, main_inner_html, extra_body_scripts,
+               extra_scripts_for_jsonld, jsonld_headline, jsonld_desc,
+               breadcrumb_current, ref_note, out_name):
+    breadcrumb = (
+        '<div aria-label="面包屑导航" class="breadcrumb" id="breadcrumb" role="navigation">'
+        '<a href="index.html">首页</a><span class="sep">›</span>'
+        '<span class="crumb-cat">生活</span><span class="sep">›</span>'
+        '<span class="current">%s</span></div>' % breadcrumb_current
+    )
+    page_meta = (
+        '<div class="page-meta">\n'
+        '<p class="ref-note">%s</p>\n' % ref_note +
+        '<div class="update-time">最后更新：<span id="lastNewsUpdate">2026-10-25</span></div>\n'
+        '</div>'
+    )
+    jsonld = (
+        '<script type="application/ld+json">\n'
+        '{\n'
+        '  "@context": "https://schema.org",\n'
+        '  "@graph": [\n'
+        '    { "@type": "WebSite", "name": "龙兄知识库", "url": "https://longxiong.vip", "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点" },\n'
+        '    { "@type": "Article", "author": { "@type": "Person", "name": "龙兄" }, "headline": "%s", "url": "%s", "description": "%s" }\n'
+        '  ]\n'
+        '}\n'
+        '</script>' % (jsonld_headline, og_url, jsonld_desc)
+    )
+
+    html = f'''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -304,11 +359,11 @@ HTML = f'''<!DOCTYPE html>
 }})();
 </script>
 
-<title>{PAGE_TITLE}</title>
-<meta name="keywords" content="射阳天气,新坍农田气象,台风监测,节气物候,实时气象,龙兄知识库">
-<meta name="description" content="{PAGE_DESC}">
-<meta name="article-category" content="射阳气象">
-<meta name="article-tags" content="射阳,气象,台风,节气,农事">
+<title>{title}</title>
+<meta name="keywords" content="{keywords}">
+<meta name="description" content="{desc}">
+<meta name="article-category" content="{article_cat}">
+<meta name="article-tags" content="{article_tags}">
 <meta name="article-updated" content="2026-10-25">
 
 <script>(function(){{try{{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){{document.documentElement.setAttribute('data-theme',t)}}else{{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}}}catch(e){{}}}})();</script>
@@ -317,14 +372,9 @@ HTML = f'''<!DOCTYPE html>
 <link rel="dns-prefetch" href="https://hm.baidu.com">
 {CRIT}
 <style>
-/* ===== 安全变量兜底：台风板块 CSS 依赖这几个变量，确保聚合页始终有定义 ===== */
+/* ===== 安全变量兜底 ===== */
 :root{{--bg-card:var(--card);--border-subtle:var(--border);--text-primary:var(--text);}}
-{HUB_CSS}
-{LW_CSS}
-{SHEYANG_CSS}
-{XINTAN_CSS}
-{TYPHOON_CSS}
-{SOLAR_CSS}
+{head_css}
 </style>
 <link rel="stylesheet" href="css/style.css?v={PAGE_CSS_VERSION}">
   <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
@@ -337,17 +387,17 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 }})();
 </script>
-<link rel="canonical" href="https://longxiong.vip/weather.html">
+<link rel="canonical" href="https://longxiong.vip/{canonical_rel}">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<meta property="og:title" content="{PAGE_TITLE}">
-<meta property="og:description" content="{PAGE_DESC}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://longxiong.vip/weather.html">
+<meta property="og:url" content="{og_url}">
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{PAGE_TITLE}">
-<meta name="twitter:description" content="{PAGE_DESC}">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
 <script src="/js/pwa-register.js?v=20260828" defer></script>
 </head>
@@ -355,13 +405,81 @@ var _hmt = _hmt || [];
 {NAV}
 
 <main id="main-content" role="main">
-  {BREADCRUMB}
+  {breadcrumb}
   <div class="wh-hero">
-    <h1>天气 · 射阳气象与节气</h1>
-    <p>射阳实时天气、新坍农田气象、台风实时监测与二十四节气物候，一处看全。</p>
+    <h1>{h1}</h1>
+    <p>{hero_p}</p>
   </div>
-  <section id="localWeather" class="lw-wrap" aria-live="polite"></section>
-  <nav class="wh-anchor" aria-label="天气板块导航">
+
+{main_inner_html}
+
+{page_meta}
+</main>
+
+{FOOTER}
+{COMMON_SCRIPTS}
+{extra_body_scripts}
+{jsonld}
+</body>
+</html>
+'''
+    out = os.path.join(STATIC, out_name)
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(html)
+    return out, len(html.encode("utf-8"))
+
+
+# ------------------------------------------------------------------ 页面 1：本地实时天气（专注页）
+def build_local_weather():
+    main_inner_html = '''  <section id="localWeather" class="lw-wrap" aria-live="polite"></section>
+  <div class="we-wrap">
+    <div class="we-card">
+      <p class="we-tip">以上是您当前所在城市的实时天气。要看射阳本地气象（射阳实时、新坍农田、台风、节气），点下面：</p>
+      <div class="we-split"><span>📍 您的位置</span><b>››</b><span>🌦️ 射阳本地气象</span></div>
+      <a class="we-btn" href="sheyang-weather.html">🌦️ 射阳气象（射阳实时·新坍农田·台风·节气）→</a>
+    </div>
+  </div>
+  <section class="lx-related" aria-label="相关阅读">
+    <div class="lx-related-head">
+      <span class="lx-related-kicker">继续读</span>
+      <h2 class="lx-related-title">相关阅读</h2>
+      <span class="lx-rule1"></span>
+    </div>
+    <ul class="lx-related-list">
+      <li class="lx-related-item"><a class="lx-related-link" href="sheyang-weather.html"><span class="lx-related-board">射阳气象</span><span class="lx-related-name">射阳气象（实时·农田·台风·节气）</span></a></li>
+      <li class="lx-related-item"><a class="lx-related-link" href="guanghui.html"><span class="lx-related-board">本地产业</span><span class="lx-related-name">光辉电力</span></a></li>
+      <li class="lx-related-item"><a class="lx-related-link" href="herbs.html"><span class="lx-related-board">养生</span><span class="lx-related-name">中药材</span></a></li>
+    </ul>
+  </section>'''
+    extra_body_scripts = '''
+<script defer src="js/geo-weather.js?v=20261025"></script>
+<script>if(window.initClock)initClock();</script>'''
+    out, n = build_page(
+        title="天气 · 您所在城市的实时天气｜龙兄知识库",
+        desc="打开即自动定位您当前所在城市，显示实时天气（温度与天气状况）。射阳本地气象请前往「射阳气象」。",
+        keywords="实时天气,本地天气,定位天气,Open-Meteo,龙兄知识库",
+        article_cat="天气",
+        article_tags="天气,实时,定位",
+        canonical_rel="weather.html",
+        og_url="https://longxiong.vip/weather.html",
+        h1="天气 · 您所在城市的实时天气",
+        hero_p="本页打开后会自动获取您所在位置的实时天气。要看射阳本地（射阳实时、新坍农田、台风、节气），请点下方「射阳气象」。",
+        head_css=LW_CSS + WE_CSS,
+        main_inner_html=main_inner_html,
+        extra_body_scripts=extra_body_scripts,
+        extra_scripts_for_jsonld="",
+        jsonld_headline="天气 · 您所在城市的实时天气｜龙兄知识库",
+        jsonld_desc="打开即自动定位您当前所在城市，显示实时天气。射阳本地气象请前往「射阳气象」。",
+        breadcrumb_current="天气",
+        ref_note="本页实时天气来自 Open-Meteo 公开接口，浏览器本地定位获取，不上传任何数据；仅供参考。",
+        out_name="weather.html",
+    )
+    return out, n
+
+
+# ------------------------------------------------------------------ 页面 2：射阳气象（四合一）
+def build_sheyang_hub():
+    main_inner_html = '''  <nav class="wh-anchor" aria-label="天气板块导航">
     <a href="#sec-sheyang">🌦️ 射阳天气</a>
     <a href="#sec-xintan">🌾 新坍农田气象</a>
     <a href="#sec-typhoon">🌀 台风监测</a>
@@ -397,69 +515,49 @@ var _hmt = _hmt || [];
       <span class="lx-rule1"></span>
     </div>
     <ul class="lx-related-list">
+      <li class="lx-related-item"><a class="lx-related-link" href="weather.html"><span class="lx-related-board">天气</span><span class="lx-related-name">您所在城市的实时天气</span></a></li>
       <li class="lx-related-item"><a class="lx-related-link" href="sheyang-guide.html"><span class="lx-related-board">射阳生活</span><span class="lx-related-name">射阳生活指南</span></a></li>
       <li class="lx-related-item"><a class="lx-related-link" href="guanghui.html"><span class="lx-related-board">本地产业</span><span class="lx-related-name">光辉电力</span></a></li>
-      <li class="lx-related-item"><a class="lx-related-link" href="herbs.html"><span class="lx-related-board">养生</span><span class="lx-related-name">中药材</span></a></li>
     </ul>
-  </section>
-
-{PAGE_META}
-</main>
-
-<footer role="contentinfo">
-  <div class="footer-brand-row">
-    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
-    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
-  </div>
-  <div class="footer-info-row">
-    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
-  </div>
-  <div class="footer-license-row">
-    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
-    <span class="sep">·</span> 代码版权所有
-  </div>
-  <div class="footer-stats-row">
-    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
-    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
-  </div>
-  <div class="footer-links-row">
-    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
-  </div>
-  <div class="footer-legal">
-    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
-  </div>
-</footer>
-
-<script defer src="/js/board-nav.js"></script>
-<script defer src="js/app.js"></script>
-<script defer src="js/geo-weather.js?v=20261025"></script>
-<script>if(window.initClock)initClock();</script>
+  </section>'''
+    main_inner_html = main_inner_html.replace("{SHEYANG_BODY}", SHEYANG_BODY) \
+                                    .replace("{XINTAN_BODY}", XINTAN_BODY) \
+                                    .replace("{TYPHOON_BODY}", TYPHOON_BODY) \
+                                    .replace("{SOLAR_BODY}", SOLAR_BODY)
+    extra_body_scripts = '''
 <script src="js/sheyang-weather.js?v=20261011" defer></script>
 <script src="js/xintan-weather.js?v=20261011" defer></script>
 <script defer src="js/auto_typhoon_loader.js?v=20261025"></script>
-<script defer src="js/interactions.js"></script>
-<script defer src="js/search.js"></script>
-<script defer src="js/share.js"></script>
-<script type="application/ld+json">
-{{
-  "@context": "https://schema.org",
-  "@graph": [
-    {{ "@type": "WebSite", "name": "龙兄知识库", "url": "https://longxiong.vip", "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点" }},
-    {{ "@type": "Article", "author": {{ "@type": "Person", "name": "龙兄" }}, "headline": "{PAGE_TITLE}", "url": "https://longxiong.vip/weather.html", "description": "{PAGE_DESC}" }}
-  ]
-}}
-</script>
-  <script src="js/bookmark.js" defer></script>
-<script src="js/auto-collapse.js?v=20260824" defer></script>
-<script src="/js/obfuscate-email.js"></script>
-<script src="js/page-reveal.js?v=20260923" defer></script>
-<script src="js/site-live.js?v=20261025" defer></script>
-</body>
-</html>
-'''
+<script>if(window.initClock)initClock();</script>'''
+    out, n = build_page(
+        title="射阳气象 · 射阳天气与节气｜龙兄知识库",
+        desc="射阳实时天气、新坍农田气象、台风实时监测与二十四节气物候，一站式聚合：实时气象数据、台风路径与农事建议。",
+        keywords="射阳天气,新坍农田气象,台风监测,节气物候,实时气象,龙兄知识库",
+        article_cat="射阳气象",
+        article_tags="射阳,气象,台风,节气,农事",
+        canonical_rel="sheyang-weather.html",
+        og_url="https://longxiong.vip/sheyang-weather.html",
+        h1="射阳气象 · 射阳天气与节气",
+        hero_p="射阳实时天气、新坍农田气象、台风实时监测与二十四节气物候，一处看全。想看您自己所在城市的天气，点上方天气胶囊或返回「天气」。",
+        head_css=HUB_CSS + SHEYANG_CSS + XINTAN_CSS + TYPHOON_CSS + SOLAR_CSS,
+        main_inner_html=main_inner_html,
+        extra_body_scripts=extra_body_scripts,
+        extra_scripts_for_jsonld="",
+        jsonld_headline="射阳气象 · 射阳天气与节气｜龙兄知识库",
+        jsonld_desc="射阳实时天气、新坍农田气象、台风实时监测与二十四节气物候，一站式聚合。",
+        breadcrumb_current="射阳气象",
+        ref_note="本站天气数据来自中央气象台、Open-Meteo 等公开来源，实时刷新，仅供参考；农事与物候为传统经验整理，请结合当地实际。",
+        out_name="sheyang-weather.html",
+    )
+    return out, n
 
-with open(os.path.join(STATIC, "weather.html"), "w", encoding="utf-8") as f:
-    f.write(HTML)
 
-print("[build_weather_hub] wrote static/weather.html")
-print("  bytes:", len(HTML.encode("utf-8")))
+def main():
+    out1, n1 = build_local_weather()
+    print("[build_weather_hub] wrote", out1, "bytes:", n1)
+    out2, n2 = build_sheyang_hub()
+    print("[build_weather_hub] wrote", out2, "bytes:", n2)
+
+
+if __name__ == "__main__":
+    main()

@@ -89,6 +89,11 @@ def main():
                 if ext not in ("webp", "png", "jpg", "jpeg"):
                     continue
                 stem = os.path.splitext(f)[0]
+                # 防御：跳过本身就是缩略图的文件（stem 已带 @480w/@768w 后缀），
+                # 否则会生成 xxx@768w@480w.webp 这类「缩略图的缩略图」垃圾文件
+                # （2026-10-25 实测一次跑出 511 个死文件，页面从不引用）。
+                if stem.endswith("@480w") or stem.endswith("@768w"):
+                    continue
                 m, s, b = gen_one(os.path.join(root, f), stem, root, args.dry_run, 0, 0, 0)
                 total_made += m
                 total_skip += s

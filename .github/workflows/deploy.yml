@@ -169,6 +169,13 @@ jobs:
       - name: Guard inline-Markdown markers (paired ** and backticks)
         run: python3 scripts/guard_markdown_marks.py
 
+      # 文案精华化守卫（2026-10-25，龙兄定调「取其精华，让懂的人一看就懂」）：
+      # ① 跨页重复正文段（同一段文字出现在 ≥5 页）② 口水话黑名单
+      # ③ 元叙述黑名单（描述页面本身而非给内容）④ 单段超长（>260 中文字）
+      # 只拦「形式上的浮肿」；「这段值不值得留」属人工项，见 AUDIT_REGRESSION.md C12。
+      - name: Guard copy bloat (duplication / fluff / meta / overlong)
+        run: python3 scripts/guard_concise_copy.py
+
       # 页内 <style> 花括号平衡守卫（2026-10-03 落地）：
       #  一次批量替换把一条规则写成了「嵌在另一条规则里」的畸形 CSS，块内多出一个
       #  未闭合的 `{`。浏览器从那行起会**静默丢弃该块之后的全部规则** —— 源码里

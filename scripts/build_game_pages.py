@@ -46,7 +46,7 @@ GAMES = [
             "以金刚狼为主角，讲述他在失去记忆、追寻自身过去的过程中，凭借艾德曼合金利爪与不死之身穿越黑暗阴谋的故事。</p>"
             "<p>本作定位为面向成人的硬核动作游戏，官方从一开始便强调<strong>暴力、残酷与不屈</strong>的基调，"
             "战斗主打利爪连招与「狂怒」机制，叙事则把金刚狼放在一个与 X 战警主线相对独立的新位置上。</p>"
-            "<p>作为 2026 年 9 月的 PS5 独占中量级作品，本页为公开资料整理，<strong>非本人实玩评测</strong>。</p>",
+            "<p>2026 年 9 月的 PS5 独占中量级作品。</p>",
         ],
         "highlights": [
             "<strong>金刚狼视角</strong>：独立于 X 战警主线的全新故事线，主打追寻过去的悬疑叙事",
@@ -82,7 +82,7 @@ GAMES = [
             "而每推进一项任务都会消耗这有限的时间——救谁、放弃谁，本身就是核心抉择。</p>"
             "<p>舞台是黑死病肆虐后的 14 世纪喀尔巴阡山谷<strong>瓦勒桑戈拉（Vale Sangora）</strong>。"
             "本作 <strong>2026-09-03</strong> 同步登陆 PS5 / Xbox Series X|S / PC，全部版本同日解锁、无提前体验。"
-            "本页为公开资料整理，<strong>非本人实玩评测</strong>。</p>",
+            "</p>",
         ],
         "highlights": [
             "<strong>30 天倒计时</strong>：推进任务即消耗时间，救谁与放弃谁成为核心抉择",
@@ -117,7 +117,7 @@ GAMES = [
             "失忆的主角 <strong>Simon Ordell</strong> 在码头边的水中反复醒来，循着碎片追查自己与这座雾中小镇的关联。"
             "核心道具是一台<strong>便携电视 CRTV</strong>——取代了系列经典的收音机，用来捕捉信号、追踪异象并解谜。</p>"
             "<p>本作 <strong>2026-09-24</strong> 登陆 PS5 与 PC（Steam、Epic），主机端为 PS5 限时独占至少半年；"
-            "数字豪华版可提前 48 小时（9 月 22 日）进入。本页为公开资料整理，<strong>非本人实玩评测</strong>。</p>",
+            "数字豪华版可提前 48 小时（9 月 22 日）进入。</p>",
         ],
         "highlights": [
             "<strong>系列首次第一人称</strong>：探索、潜行躲避与资源管理的压迫感更强",
@@ -152,7 +152,7 @@ GAMES = [
             "他必须在生命尽头前追查幕后真相。战斗以高速近身刀剑交锋为核心，靠格挡、闪避、反击与连段取胜，"
             "击败部分强敌后还能<strong>夺取对方的兵器与代表性招式</strong>。</p>"
             "<p>本作 <strong>2026-10-29</strong> 登陆 PS5 与 PC（PS5 主机端限时独占 12 个月），"
-            "甄子丹担任动作顾问并为关键角色提供动捕。本页为公开资料整理，<strong>非本人实玩评测</strong>。</p>",
+            "甄子丹担任动作顾问并为关键角色提供动捕。</p>",
         ],
         "highlights": [
             "<strong>功夫庞克美学</strong>：古代兵器、机械义肢与工业遗迹交融的黑暗武林",
@@ -188,7 +188,7 @@ GAMES = [
             "而她生前为保护奎托斯与阿特柔斯所做的安排，正在崩解。</p>"
             "<p>本作 <strong>2027-02-16</strong> 登陆 PS5（独占，已确认发行实体光盘版）。"
             "创意总监 Cory Barlog 明确表示它「不是支线，而是通往下一部奎托斯作品的桥梁」——"
-            "那部以奎托斯为主角的新作已在开发中。本页为公开资料整理，<strong>非本人实玩评测</strong>。</p>",
+            "那部以奎托斯为主角的新作已在开发中。</p>",
         ],
         "highlights": [
             "<strong>主角换成菲（劳菲）</strong>：系列首次由奎托斯之外的人物担纲主线",
@@ -223,7 +223,7 @@ GAMES = [
             "战斗保留系列招牌的<strong>一闪</strong>与<strong>魂吸收</strong>，并新增精准格挡、弹反、"
             "Reflex Combo、鬼力刚腕与鬼力疾走等系统。</p>"
             "<p>本作计划 <strong>2026-09-25</strong> 发售，覆盖 PS5 / Xbox Series X|S / Steam / Epic / Nintendo Switch 2，"
-            "并已推出约 30 分钟的免费试玩版（清水寺关卡 + 宿敌佐佐木岩流）。本页为公开资料整理，<strong>非本人实玩评测</strong>。</p>",
+            "并已推出约 30 分钟的免费试玩版（清水寺关卡 + 宿敌佐佐木岩流）。</p>",
         ],
         "highlights": [
             "<strong>系列 20 年完全新作</strong>：宫本武藏为主角，三船敏郎脸模",
@@ -324,9 +324,8 @@ def build_article(g):
         f'<div class="section-label">📌 资料说明</div>\n'
         f'<div class="desc-box">\n'
         f'<p>本页为<strong>公开资料整理</strong>，<strong>非本人实玩评测</strong>。'
-        f'所有信息（开发商、发行商、发售日、平台、定价、类型）来自各游戏官方网站与权威商店页面，'
-        f'数据截至 <strong>2026-08</strong> 核验，已交叉核对；游戏更新、价格调整或平台变动后可能与官方最新公告存在差异，'
-        f'<strong>以官方为准</strong>。本节暂不收录官方截图，发行后可补；所有信息以官方公告为准。</p>\n'
+        f'信息来自各游戏官网与权威商店页面，数据截至 <strong>2026-08</strong> 核验，已交叉核对；'
+        f'更新与价格变动<strong>以官方公告为准</strong>。</p>\n'
         f'</div>\n\n'
         f'<div class="section-label">🔗 官方与购买</div>\n'
         f'<div class="gameplay-notes">\n'
@@ -342,7 +341,7 @@ def build_article(g):
 def build_sources(g):
     return (
         f'<p style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);">最后更新：2026-08-30</p>\n'
-        f'<p style="margin-top:6px;font-size:0.78rem;line-height:1.7;color:var(--text-muted);max-width:820px;margin-left:auto;margin-right:auto;"><a id="sources" class="src-anchor"></a>资料来源：<a href="{g["source_url"]}" target="_blank" rel="noopener" style="color:var(--blue)">{g["source_label"]}</a>（各游戏官方网站与商店页）；发售与定价数据截至 2026-08 核验，已交叉核对。本页为公开资料整理，非本人实玩评测，游戏更新后可能与官方最新公告存在差异，以官方为准。（外部链接 2026-08 核验可达）</p>\n'
+        f'<p style="margin-top:6px;font-size:0.78rem;line-height:1.7;color:var(--text-muted);max-width:820px;margin-left:auto;margin-right:auto;"><a id="sources" class="src-anchor"></a>资料来源：<a href="{g["source_url"]}" target="_blank" rel="noopener" style="color:var(--blue)">{g["source_label"]}</a>（各游戏官方网站与商店页）；发售与定价数据截至 2026-08 核验，已交叉核对。游戏更新后可能与官方最新公告存在差异，以官方为准。（外部链接 2026-08 核验可达）</p>\n'
     )
 
 

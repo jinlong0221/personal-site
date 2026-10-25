@@ -298,6 +298,14 @@ jobs:
         continue-on-error: true
         run: python3 scripts/build_ev_sales.py
 
+      # 导航一致性闸（2026-10-25 补进 CI，此前只在本地 audit_regression.sh 里跑）：
+      # 2026-10-25 事故——build_ev_sales.py 从 ev-charge.html 复用导航时，replace 目标
+      # 漏了 class="active" 变体，匹配不到顶栏那条，线上「新能源销量榜」页把
+      # 「充电桩查询」标成了当前项；又额外插入两条文案不同的「销量排行」造成重复入口。
+      # 关键：**必须排在所有生成器之后**——A22 跑在生成器之前就抓不到生成器改坏的导航。
+      - name: Guard nav consistency (after generators)
+        run: python3 scripts/guard_nav_sync.py
+
       # 移动端响应式图片（2026-10-25 龙兄要求全移动端提速）：
       # 把全站 static/*.html 的 <img> 包成 <picture>，按视口宽度选 480w/768w 缩略图
       # （缩略图已预生成并提交进仓库）。必须排在所有生成器/注入器

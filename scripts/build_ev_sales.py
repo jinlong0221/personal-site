@@ -475,7 +475,7 @@ def build_body(d):
   <section class="ev-sec" id="sec-nev-model">
     <div class="ev-sec-hd"><span class="ev-sec-no">贰</span><h2>新能源车型销量 TOP50</h2>
       <span class="ev-sec-tag">{md_period}</span></div>
-    <p class="ev-lead">上面是<b>厂商</b>排行，这一节细到<b>具体车型</b>：哪一款车卖了多少辆、名次比上月涨了还是跌了。
+    <p class="ev-lead"><b>具体车型</b>销量：哪一款车卖了多少辆、名次比上月涨了还是跌了。
        批发榜看出货（含出口），零售榜看国内真实上牌，<b>两者成员和排序都不同，不要混着比</b>。</p>
 
     <div class="ev-model-tools">
@@ -566,7 +566,7 @@ def build_body(d):
     <div class="ev-sec-hd"><span class="ev-sec-no">壹</span><h2>新能源厂商销量 TOP10</h2>
       <span class="ev-sec-tag">{nm_period}</span></div>
     {nev_maker_banner}
-    <p class="ev-lead">这是本页的核心榜单：<b>新能源乘用车</b>厂商排行。批发榜看出货（含出口），
+    <p class="ev-lead"><b>新能源乘用车</b>厂商排行。批发榜看出货（含出口），
       零售榜看国内真实上牌，两者成员差异很大，合起来看才完整。</p>
 
     <div class="ev-tabs" role="tablist" aria-label="新能源厂商榜口径切换">
@@ -955,16 +955,22 @@ def main():
     body_start = donor.index('<body>')
     main_start = donor.index('<main id="main-content"')
     body_head = donor[body_start:main_start]
-    # 导航栏补上本页入口
+    # 导航栏 active 归属：DONOR（ev-charge）的 active 落在「充电桩查询」上，
+    # 而 DONOR 里**已经**含「新能源销量榜」入口（顶栏 + 抽屉各一条）。
+    # 旧逻辑有两个错（2026-10-25 线上实测抓出）：
+    #   ① replace 目标漏了 class="active" 变体 → 匹配不到顶栏那条，
+    #      结果线上把「充电桩查询」标成当前页（2026-10-25 线上实测确认）；
+    #   ② 又额外插入两条文案不同的「销量排行」→ 导航里出现重复入口。
+    # 现在只做一件事：把 active 交给本页——顶栏标 active，抽屉不标（与 DONOR 约定一致）。
     body_head = body_head.replace(
-        '<li><a href="console.html">主机图鉴</a></li>',
-        '<li><a href="console.html">主机图鉴</a></li>\n      <li><a href="ev-sales.html" class="active">销量排行</a></li>')
-    body_head = body_head.replace(
-        '<a href="ev-charge.html">充电桩查询</a>',
-        '<a href="ev-charge.html">充电桩查询</a>\n          <a href="ev-sales.html">销量排行</a>')
-    body_head = body_head.replace(
-        '<a href="index.html">首页</a>',
-        '<a href="index.html">首页</a>\n    <a href="ev-sales.html">销量排行</a>')
+        '<a href="ev-charge.html" class="active">充电桩查询</a>',
+        '<a href="ev-charge.html">充电桩查询</a>')
+    _ev_link = '<a href="ev-sales.html">新能源销量榜</a>'
+    _i = body_head.find(_ev_link)
+    if _i != -1:
+        body_head = (body_head[:_i]
+                     + '<a href="ev-sales.html" class="active">新能源销量榜</a>'
+                     + body_head[_i + len(_ev_link):])
 
     body = build_body(d)
 

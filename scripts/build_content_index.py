@@ -53,6 +53,8 @@ EXCLUDE_FILES = {
     "console-wiiu.html", "console-gc.html", "console-n64.html",
     # 苹果产品发展史已并入 apple.html（同一个「苹果」板块），保留跳转壳不进索引
     "apple-history.html",
+    # 「游戏发售日历」板块暂时下线（2026-10-25），保留跳转壳不进搜索/标签索引
+    "game-calendar.html",
 }
 EXCLUDE_PREFIXES = ("admin/", "pagefind/", "js/", "css/", "img/", "data/", "fonts/")
 
@@ -64,7 +66,7 @@ FILE_CAT = {
     "games.html": "游戏主机", "gaokao.html": "高考志愿", "guanghui.html": "光辉电力",
     "pitfalls.html": "踩坑记", "sheyang.html": "射阳本地民生",
     "typhoon.html": "射阳气象", "xintan-weather.html": "射阳气象",
-    "digital-compare.html": "数码参数", "game-calendar.html": "游戏日历",
+    "digital-compare.html": "数码参数",
     "solar-terms.html": "节气物候", "reading.html": "读书笔记",
     "methodology.html": "知识管理", "sheyang-guide.html": "射阳生活",
 }

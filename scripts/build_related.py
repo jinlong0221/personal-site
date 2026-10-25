@@ -41,6 +41,8 @@ SAME_BOARD_ONLY = {"文玩手串"}
 EXCLUDE = {
     "/404.html", "/offline.html", "/search.html", "/bookmarks.html",
     "/privacy.html", "/changelog.html", "/about.html", "/status-history.html",
+    # 「游戏发售日历」板块暂时下线（2026-10-25），保留跳转壳不参与关联
+    "/game-calendar.html",
 }
 
 # URL 前缀 → 板块
@@ -69,7 +71,6 @@ FILE_BOARD = {
     "/tesla.html": "特斯拉",
     "/bracelet.html": "文玩手串",
     "/digital-compare.html": "数码参数",
-    "/game-calendar.html": "游戏日历",
     "/reading.html": "读书笔记",
     "/methodology.html": "知识管理",
 }
@@ -80,7 +81,7 @@ FILE_BOARD = {
 # 让孤立页优先关联同主题的文章（苹果→特斯拉系、台风→射阳天气系）。
 TOPIC_GROUPS = {
     "数码产品": ["苹果", "特斯拉", "数码参数"],
-    "游戏娱乐": ["ChinaJoy", "漫威", "玩过的游戏", "主机图鉴", "游戏日历"],
+    "游戏娱乐": ["ChinaJoy", "漫威", "玩过的游戏", "主机图鉴"],
     "香道养生": ["中药材香料", "文玩手串", "沉香"],
     "器与藏": ["紫砂"],
     "经验与工具": ["踩坑记", "站点工具", "旅行"],

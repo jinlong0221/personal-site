@@ -36,6 +36,8 @@ EXCLUDE = {
     'console-wiiu.html',
     # 苹果产品发展史已并入 apple.html（同一个「苹果」板块），保留跳转壳不收录
     'apple-history.html',
+    # 「游戏发售日历」板块暂时下线（2026-10-25），保留跳转壳不收录
+    'game-calendar.html',
     # 文玩手串板块自 2026-09-22 起聚焦星月菩提一个品种，
     # 其余品类详情页改为跳转壳（后续可能重新开放），不收录进 sitemap
     'bracelet/fengyan.html',
@@ -64,7 +66,6 @@ PRIORITY_RULES = [
     ('sheyang.html',      '0.8'),
     ('tools.html',        '0.8'),
     ('digital-compare.html', '0.7'),
-    ('game-calendar.html', '0.7'),
     ('solar-terms.html', '0.7'),
     ('reading.html', '0.7'),
     ('methodology.html', '0.7'),

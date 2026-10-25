@@ -15,10 +15,16 @@ import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC = os.path.join(ROOT, "static")
+# 四合一天气页的「完整源页」已不再以线上形态存在：Task 14 把射阳/新坍/台风/节气四页
+# 在线态转为跳转壳（重定向到 weather.html），故 static/ 下这四页已是壳、无 critical-css、
+# 也无法提供 <main> 正文。生成器需要的是合并前的完整源页，因此单独保留在
+# scripts/weather_sources/ 作为构建输入（Hugo 不会服务 scripts/ 目录，不会上线成独立页）。
+SOURCE_DIR = os.path.join(ROOT, "scripts", "weather_sources")
 
 
 def read(name):
-    with open(os.path.join(STATIC, name), encoding="utf-8") as f:
+    # 源页从 SOURCE_DIR 读取（合并前完整版），而非线上 static/（已是跳转壳）
+    with open(os.path.join(SOURCE_DIR, name), encoding="utf-8") as f:
         return f.read()
 
 
@@ -120,6 +126,17 @@ HUB_CSS = """
 
 PAGE_TITLE = "天气 · 射阳气象与节气｜龙兄知识库"
 PAGE_DESC = "射阳天气、新坍农田气象、台风实时监测与二十四节气物候，一站式聚合：实时气象数据、台风路径与农事建议，结合传统物候典籍与现代生活习惯整理。"
+
+# 标准面包屑（A9 骨架审计要求每页有 class=breadcrumb；聚合页统一提供，源页自带面包屑已在 main_inner 剥离）
+BREADCRUMB = '<div aria-label="面包屑导航" class="breadcrumb" id="breadcrumb" role="navigation"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">生活</span><span class="sep">›</span><span class="current">天气</span></div>'
+
+# 标准页尾信息块（A9 骨架审计要求每页有 class=page-meta；聚合页统一提供）
+PAGE_META = (
+    '<div class="page-meta">\n'
+    '<p class="ref-note">本站天气数据来自中央气象台、Open-Meteo 等公开来源，实时刷新，仅供参考；农事与物候为传统经验整理，请结合当地实际。</p>\n'
+    '<div class="update-time">最后更新：<span id="lastNewsUpdate">2026-10-25</span></div>\n'
+    '</div>'
+)
 
 # 标准导航（占位，稍后由 sync_navbar.py 以 navbar.html 单一数据源重生成）
 NAV = '''<nav class="navbar" role="navigation" aria-label="主导航">
@@ -313,6 +330,7 @@ var _hmt = _hmt || [];
 {NAV}
 
 <main id="main-content" role="main">
+  {BREADCRUMB}
   <div class="wh-hero">
     <h1>天气 · 射阳气象与节气</h1>
     <p>射阳实时天气、新坍农田气象、台风实时监测与二十四节气物候，一处看全。</p>
@@ -358,6 +376,8 @@ var _hmt = _hmt || [];
       <li class="lx-related-item"><a class="lx-related-link" href="herbs.html"><span class="lx-related-board">养生</span><span class="lx-related-name">中药材</span></a></li>
     </ul>
   </section>
+
+{PAGE_META}
 </main>
 
 <footer role="contentinfo">

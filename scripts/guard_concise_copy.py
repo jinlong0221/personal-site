@@ -112,6 +112,12 @@ def analyse(path: str):
     return paras
 
 
+def is_changelog(rel: str) -> bool:
+    """更新日志页是「台账」：它天然要引用被改掉的旧措辞（如「本页原先…」），
+    引用旧话不算浮肿，故豁免 A/B/C 词表判据（但仍受 D 超长段约束）。"""
+    return os.path.basename(rel) == "changelog.html"
+
+
 def run_checks():
     """执行四项判据，返回 (errors, pages, total_cjk)"""
     errors = []
@@ -123,25 +129,26 @@ def run_checks():
         rel = os.path.relpath(p, ROOT)
         pages += 1
         paras = analyse(p)
+        cl = is_changelog(rel)
         for t in paras:
             n = cjk(t)
             total_cjk += n
-            # D 超长段落
+            # D 超长段落（更新日志台账也适用）
             if n > MAX_PARA_CJK:
                 errors.append(
                     f"[D 超长段] {rel}：单段 {n} 中文字（上限 {MAX_PARA_CJK}）"
                     f" —— 技术交流站请拆成短段/要点/表格。摘录：{t[:60]}…")
-            # B / C 词表
+            # B / C 词表（更新日志台账豁免：它要引用旧措辞）
             for w in FLUFF:
-                if w in t:
+                if not cl and w in t:
                     errors.append(
                         f"[B 口水话] {rel}：出现「{w}」—— 换成可核查的事实。摘录：{t[:60]}…")
             for w in META:
-                if w in t:
+                if not cl and w in t:
                     errors.append(
                         f"[C 元叙述] {rel}：出现「{w}」—— 别描述页面本身，直接给内容。摘录：{t[:60]}…")
             # A 跨页重复
-            if n >= DUP_MIN_LEN:
+            if n >= DUP_MIN_LEN and not cl:
                 key = re.sub(r"\s+", "", t)[:40]
                 dup_index.setdefault(key, set()).add(rel)
 

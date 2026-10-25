@@ -1,0 +1,418 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+build_weather_hub.py — 生成四合一天气聚合页 static/weather.html。
+
+设计：
+  把 射阳天气(sheyang) / 新坍农田气象(xintan-weather) / 台风监测(typhoon) / 节气物候(solar-terms)
+  四个独立页面合并为一个 weather.html，各板块保留原有样式与实时加载器（各加载器使用互不冲突的元素 ID 命名空间），
+  共享同一份关键 CSS 与全局 css/style.css。四页 CSP 的 37 个 sha256 哈希完全一致，故直接复用。
+
+用法： python3 scripts/build_weather_hub.py
+"""
+import os
+import re
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC = os.path.join(ROOT, "static")
+
+
+def read(name):
+    with open(os.path.join(STATIC, name), encoding="utf-8") as f:
+        return f.read()
+
+
+def csp_meta(html):
+    # 注意：实际 CSP 标签结尾是 `>` 而非 `/>`（四页均如此），
+    # 旧正则写 `/>` 会整页匹配失败导致 m 为 None → crash（2026-10-25 修复）。
+    m = re.search(r'(<meta http-equiv="Content-Security-Policy" content="[^"]*"\s*/?>)', html)
+    if not m:
+        raise RuntimeError("csp_meta: 未找到 CSP meta 标签")
+    tag = m.group(1)
+    csp = re.search(r'content="([^"]*)"', tag).group(1)
+    # 合并重复的 connect-src（四天气页 CSP 历史遗留了两个 connect-src，浏览器只认第一个、
+    # 第二个被忽略并报警 "Ignoring duplicate Content-Security-Policy directive 'connect-src'"）。
+    parts = [p.strip() for p in csp.split(';') if p.strip()]
+    merged, connect_srcs = [], []
+    for p in parts:
+        if p.startswith('connect-src'):
+            connect_srcs.extend(p.split()[1:])
+        else:
+            merged.append(p)
+    if connect_srcs:
+        seen, uniq = set(), []
+        for t in connect_srcs:
+            if t not in seen:
+                seen.add(t); uniq.append(t)
+        merged.append('connect-src ' + ' '.join(uniq))
+    new_csp = '; '.join(merged) + ';'
+    return re.sub(r'content="[^"]*"', 'content="%s"' % new_csp, tag)
+
+
+def critical_css(html):
+    m = re.search(r'(<style id="critical-css">.*?</style>)', html, re.S)
+    return m.group(1)
+
+
+def non_critical_styles(html):
+    out = []
+    for m in re.finditer(r'<style[^>]*>(.*?)</style>', html, re.S):
+        if 'id="critical-css"' in m.group(0):
+            continue
+        out.append(m.group(0))
+    return "\n".join(out)
+
+
+def main_inner(html):
+    m = re.search(r'<main\b[^>]*>(.*?)</main>', html, re.S)
+    s = m.group(1)
+    # 去掉面包屑（聚合页统一提供）
+    s = re.sub(r'<div class="breadcrumb".*?</div>', '', s, flags=re.S)
+    # 去掉各页自带的「相关阅读」与 page-meta（底部统一提供）
+    s = re.sub(r'<!-- related:begin -->.*?<!-- related:end -->', '', s, flags=re.S)
+    s = re.sub(r'<div class="page-meta">.*?</div>', '', s, flags=re.S)
+    return s.strip()
+
+
+def strip_nav_anchor(html):
+    # 各页 main 里可能含锚点跳转动画依赖，但天气页不需要；保持原样即可
+    return html
+
+
+sheyang = read("sheyang.html")
+xintan = read("xintan-weather.html")
+typhoon = read("typhoon.html")
+solar = read("solar-terms.html")
+
+CSP = csp_meta(sheyang)
+CRIT = critical_css(typhoon)  # 用 typhoon 的关键 CSS 作基底（含完整导航/页脚/变量）
+SHEYANG_CSS = non_critical_styles(sheyang)
+XINTAN_CSS = non_critical_styles(xintan)
+TYPHOON_CSS = non_critical_styles(typhoon)
+SOLAR_CSS = non_critical_styles(solar)
+
+SHEYANG_BODY = main_inner(sheyang)
+XINTAN_BODY = main_inner(xintan)
+TYPHOON_BODY = main_inner(typhoon)
+SOLAR_BODY = main_inner(solar)
+
+# 射阳县百科 + 节气等板块里的「资料来源」区块需要保留，但 page-meta 已剥离。
+# 各 section 内可能含 <section style=...> 的资料来源，保留。
+
+HUB_CSS = """
+/* ===== 天气聚合页 · 站内锚点导航 ===== */
+.wh-hero{padding:40px 20px 26px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02));border-bottom:1px solid var(--border);}
+.wh-hero h1{font-size:2rem;color:var(--gold);margin-bottom:8px;letter-spacing:.04em;}
+[data-theme="light"] .wh-hero h1{color:#6B4F00;}
+.wh-hero p{color:var(--text-muted);font-size:1rem;}
+.wh-anchor{position:sticky;top:var(--nav-height);z-index:120;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  padding:12px 16px;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.wh-anchor a{flex:1 1 150px;max-width:220px;text-align:center;padding:10px 12px;border-radius:10px;border:1px solid var(--border);
+  color:var(--text-secondary);font-weight:600;font-size:.92rem;background:var(--card);transition:all .2s ease;text-decoration:none;}
+.wh-anchor a:hover,.wh-anchor a.active{border-color:var(--gold);color:var(--gold);background:var(--card-hover);}
+.wh-section{scroll-margin-top:calc(var(--nav-height) + 64px);padding:36px 0 8px;}
+.wh-section-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:1.5rem;color:var(--text);
+  margin:0 0 6px;padding-bottom:12px;border-bottom:2px solid rgba(201,168,76,.22);}
+.wh-section-head .wh-en{font-size:.72rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-muted);font-weight:400;}
+.wh-section-head .wh-tag{margin-left:auto;font-size:.74rem;padding:3px 11px;border-radius:999px;background:rgba(201,168,76,.16);color:var(--gold);}
+@media(max-width:640px){.wh-hero h1{font-size:1.5rem;}.wh-section-head{font-size:1.15rem;}}
+"""
+
+PAGE_TITLE = "天气 · 射阳气象与节气｜龙兄知识库"
+PAGE_DESC = "射阳天气、新坍农田气象、台风实时监测与二十四节气物候，一站式聚合：实时气象数据、台风路径与农事建议，结合传统物候典籍与现代生活习惯整理。"
+
+# 标准导航（占位，稍后由 sync_navbar.py 以 navbar.html 单一数据源重生成）
+NAV = '''<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <ul class="nav-links">
+      <li><a href="zisha.html">风物志</a></li>
+      <li><a href="tesla.html">车与数码</a></li>
+      <li><a href="console.html">游戏影游</a></li>
+      <li><a href="tools.html">生活工具</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="bracelet.html">文玩手串</a>
+          <a href="zisha.html">紫砂艺术</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="tesla.html">特斯拉</a>
+          <a href="apple.html">苹果</a>
+          <a href="ev-sales.html">新能源销量榜</a>
+          <a href="ev-charge.html">充电桩查询</a>
+          <a href="digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">科技动态</span>
+          <a href="global.html">科技动态</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="console.html">主机图鉴</a>
+          <a href="game-calendar.html">游戏发售日历</a>
+          <a href="games.html">玩过的游戏</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="marvel.html">漫威宇宙</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="tools.html">工具箱</a>
+          <a href="calendar.html">万年历</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="notes.html">站长手记</a>
+          <a href="reading.html">读书笔记</a>
+          <a href="methodology.html">知识管理</a>
+          <a href="about.html">关于本站</a>
+          <span class="nav-more-hd">站务</span>
+          <a href="changelog.html">更新日志</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="rss.xml">RSS 订阅</a>
+          <span class="nav-more-hd">生活</span>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="herbs.html">中药材</a>
+          <a href="health-tea.html">养生茶</a>
+          <a href="weather.html" class="active">天气</a>
+          <a href="gaokao.html">高考</a>
+          <span class="nav-more-div"></span>
+          <a href="travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" x2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y2="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果</a>
+  <a href="ev-sales.html">新能源销量榜</a>
+  <a href="ev-charge.html">充电桩查询</a>
+  <a href="digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">科技动态</span>
+  <a href="global.html">科技动态</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="console.html">主机图鉴</a>
+  <a href="games.html">玩过的游戏</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <a href="game-calendar.html">游戏发售日历</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="tools.html">工具箱</a>
+  <a href="calendar.html">万年历</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="notes.html">站长手记</a>
+  <a href="reading.html">读书笔记</a>
+  <a href="methodology.html">知识管理</a>
+  <a href="about.html">关于本站</a>
+  <span class="nav-hd">站务</span>
+  <a href="changelog.html">更新日志</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="rss.xml">RSS 订阅</a>
+  <span class="nav-hd">生活</span>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="weather.html">天气</a>
+  <a href="gaokao.html">高考</a>
+  <span class="nav-hd-div"></span>
+  <a href="travel.html">家庭旅行</a>
+  </div>
+</nav>'''
+
+PAGE_CSS_VERSION = "20261025"
+
+HTML = f'''<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+{CSP}
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script>
+(function(){{
+  if(window.self !== window.top){{
+    try{{ window.top.location.href = window.self.location.href; }}
+    catch(e){{
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){{ document.documentElement.style.display='none'; }});
+    }}
+  }}
+}})();
+</script>
+
+<title>{PAGE_TITLE}</title>
+<meta name="keywords" content="射阳天气,新坍农田气象,台风监测,节气物候,实时气象,龙兄知识库">
+<meta name="description" content="{PAGE_DESC}">
+<meta name="article-category" content="射阳气象">
+<meta name="article-tags" content="射阳,气象,台风,节气,农事">
+<meta name="article-updated" content="2026-10-25">
+
+<script>(function(){{try{{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){{document.documentElement.setAttribute('data-theme',t)}}else{{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}}}catch(e){{}}}})();</script>
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com">
+{CRIT}
+<style>
+/* ===== 安全变量兜底：台风板块 CSS 依赖这几个变量，确保聚合页始终有定义 ===== */
+:root{{--bg-card:var(--card);--border-subtle:var(--border);--text-primary:var(--text);}}
+{HUB_CSS}
+{SHEYANG_CSS}
+{XINTAN_CSS}
+{TYPHOON_CSS}
+{SOLAR_CSS}
+</style>
+<link rel="stylesheet" href="css/style.css?v={PAGE_CSS_VERSION}">
+  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+  <script>
+var _hmt = _hmt || [];
+(function() {{
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+}})();
+</script>
+<link rel="canonical" href="https://longxiong.vip/weather.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="{PAGE_TITLE}">
+<meta property="og:description" content="{PAGE_DESC}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/weather.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{PAGE_TITLE}">
+<meta name="twitter:description" content="{PAGE_DESC}">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+<script src="/js/pwa-register.js?v=20260828" defer></script>
+</head>
+<body>
+{NAV}
+
+<main id="main-content" role="main">
+  <div class="wh-hero">
+    <h1>天气 · 射阳气象与节气</h1>
+    <p>射阳实时天气、新坍农田气象、台风实时监测与二十四节气物候，一处看全。</p>
+  </div>
+  <nav class="wh-anchor" aria-label="天气板块导航">
+    <a href="#sec-sheyang">🌦️ 射阳天气</a>
+    <a href="#sec-xintan">🌾 新坍农田气象</a>
+    <a href="#sec-typhoon">🌀 台风监测</a>
+    <a href="#sec-solar">🌿 节气物候</a>
+  </nav>
+
+  <div class="container">
+    <section class="wh-section" id="sec-sheyang">
+      <div class="wh-section-head">射阳天气<span class="wh-en">Sheyang Weather</span><span class="wh-tag">33.77°N · 120.26°E</span></div>
+      {SHEYANG_BODY}
+    </section>
+
+    <section class="wh-section" id="sec-xintan">
+      <div class="wh-section-head">新坍镇农田气象<span class="wh-en">Xintan Farm Weather</span><span class="wh-tag">乡镇级精准农业气象</span></div>
+      {XINTAN_BODY}
+    </section>
+
+    <section class="wh-section" id="sec-typhoon">
+      <div class="wh-section-head">台风实时监测<span class="wh-en">Typhoon Tracker</span><span class="wh-tag">中央气象台等</span></div>
+      {TYPHOON_BODY}
+    </section>
+
+    <section class="wh-section" id="sec-solar">
+      <div class="wh-section-head">二十四节气 · 物候与农事<span class="wh-en">24 Solar Terms</span><span class="wh-tag">公历近似日期</span></div>
+      {SOLAR_BODY}
+    </section>
+  </div>
+
+  <section class="lx-related" aria-label="相关阅读">
+    <div class="lx-related-head">
+      <span class="lx-related-kicker">继续读</span>
+      <h2 class="lx-related-title">相关阅读</h2>
+      <span class="lx-rule1"></span>
+    </div>
+    <ul class="lx-related-list">
+      <li class="lx-related-item"><a class="lx-related-link" href="sheyang-guide.html"><span class="lx-related-board">射阳生活</span><span class="lx-related-name">射阳生活指南</span></a></li>
+      <li class="lx-related-item"><a class="lx-related-link" href="guanghui.html"><span class="lx-related-board">本地产业</span><span class="lx-related-name">光辉电力</span></a></li>
+      <li class="lx-related-item"><a class="lx-related-link" href="herbs.html"><span class="lx-related-board">养生</span><span class="lx-related-name">中药材</span></a></li>
+    </ul>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script defer src="/js/board-nav.js"></script>
+<script defer src="js/app.js"></script>
+<script>if(window.initClock)initClock();</script>
+<script src="js/sheyang-weather.js?v=20261011" defer></script>
+<script src="js/xintan-weather.js?v=20261011" defer></script>
+<script defer src="js/auto_typhoon_loader.js?v=20261025"></script>
+<script defer src="js/interactions.js"></script>
+<script defer src="js/search.js"></script>
+<script defer src="js/share.js"></script>
+<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@graph": [
+    {{ "@type": "WebSite", "name": "龙兄知识库", "url": "https://longxiong.vip", "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点" }},
+    {{ "@type": "Article", "author": {{ "@type": "Person", "name": "龙兄" }}, "headline": "{PAGE_TITLE}", "url": "https://longxiong.vip/weather.html", "description": "{PAGE_DESC}" }}
+  ]
+}}
+</script>
+  <script src="js/bookmark.js" defer></script>
+<script src="js/auto-collapse.js?v=20260824" defer></script>
+<script src="/js/obfuscate-email.js"></script>
+<script src="js/page-reveal.js?v=20260923" defer></script>
+<script src="js/site-live.js?v=20261025" defer></script>
+</body>
+</html>
+'''
+
+with open(os.path.join(STATIC, "weather.html"), "w", encoding="utf-8") as f:
+    f.write(HTML)
+
+print("[build_weather_hub] wrote static/weather.html")
+print("  bytes:", len(HTML.encode("utf-8")))

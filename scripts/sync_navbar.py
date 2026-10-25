@@ -204,7 +204,10 @@ def process_file(path, check_only=False, base_dir=None):
     base_dir = base_dir or STATIC_DIR
     with open(path, "r", encoding="utf-8") as f:
         html = f.read()
-    m = re.search(r'<nav class="navbar".*?</nav>', html, re.S)
+    # 注意：导航标签的「属性顺序」在人工手改的页面里会漂移
+    # （例：apple.html 写成 <nav aria-label="…" class="navbar" role="…">）。
+    # 必须用顺序无关的写法，否则会「跳过整个页面」且不报错（2026-10-25 修复）。
+    m = re.search(r'<nav\b[^>]*class="navbar"[^>]*>.*?</nav>', html, re.S)
     if not m:
         return "skip(no-nav)"
     orig = m.group(0)

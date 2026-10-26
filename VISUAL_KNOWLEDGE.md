@@ -256,3 +256,28 @@
 - **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接（WCAG 2.5.8 豁免）；② `input` label 关联 checkbox；③ `button.lx-hero-dot` 的 `::after` 透明命中区；④ **`/join.html` `nav.join-mobile-nav` 离屏抽屉（`translateX(100%)` 默认隐藏）**——只看四类硬指标 + 导航遮挡为 0。
 - 探针脚本用 **`lx-probe2.mjs`**；6 视口 2652 组合基线沿用。
 - `style.css?v=` 活引用全站统一 `20260925`，下次仅在该值变更时跟进。
+
+## 二十、本周（2026-10-27）巡检结论速记
+
+- **规模**：本轮 `hugo --gc --cleanDestinationDir` 重建（fooocus v0.163.3 extended，未回退），`public/` 共 **214 个 HTML**；探针 **6 视口(390/375/360/768/1440/1920) × 2 主题 = 2568 组合**（实测 combos=2568 / pages=214），puppeteer-core + chrome-headless-shell mac-149。本地服务沿用「rm -rf /tmp/lx-test && cp -R public /tmp/lx-test + 去 CSP meta + URL 重写 `https://longxiong.vip/`→`/` + `python3 -m http.server 8399`」。
+- **四类硬指标 + 导航遮挡（首轮即达标，无需返修 P0/P1）**：
+  - 文档级横向溢出 `scrollWidth - innerWidth` = **0**；
+  - 祖先感知元素溢出 = **0**（已知误报已过滤：hero-dot `::after`、join.html 离屏抽屉）；
+  - 大面积高饱和暖色扫描 = **0**；
+  - JS 报错（pageerror 监听）= **0**；
+  - goto 错误 = **0**；
+  - fixed-nav + bodyPadTop=0 的导航遮挡风险 = **0**。
+  → 视觉层面 **P0=P1=0** ✅。
+- **2556 条 findings = 既定 tinyTap 假阳性基线（非 P0/P1）**：top 选择器 `a`(32406 内联文本链接 WCAG 2.5.8 豁免) + `input`(96 label 关联 checkbox 命中区 ≥24px) + `button`(60，`lx-hero-dot` 的 `::after` 透明伪元素撑开 24px 命中区、`getBoundingClientRect` 测不到) + `a#navClockLink`(12) + `input#convLeap`(12)。判定铁律不变：看四类硬指标 + 导航遮挡为 0，不靠 findings==0 判达标（内联链接/hero-dot 命中区永远在）。
+- **隐藏彩虹色静态深扫（沿用 09-29 方法）**：`static/*.html` 内联 `style` 的 `color/background` hex 全盘点，偏离调色板者**仅中性灰 `#666666`/`#888888`**（console-gc/n64/wiiu + apple-history 共 7 处，R=G=B 纯灰、非暖）；其余均为已知接受语义色（health-tea `#e57373` / chinajoy 四色磁贴 / travel `.tl-season` / xintan 高温橙 / bracelet 灰 / herbs `#9b59b6`/`#e74c3c`）。大面积暖色扫描 0 佐证均非刺眼，**保持不动**。→ 自 09-01 起连续 9 周无新增漂移色。
+- **配色系统复核（无破绽）**：`--accent-color` 金主调严守（`:root` 定义 `--gold`/`--cinnabar`/`--bg`/`--card`/`--border-color`/`--text-color` 全齐）；CSS 变量全部明暗双主题 `:root` / `[data-theme="light"]` 定义（无未定义 var）；`.lx-card`/`.lx-epick`/`.artist-card` 卡片体系跨页一致（grep 命中 lx-card 3、lx-epick 1、artist-card 1，无漂移/无新增视觉组件）；正文字号/行高/section 间距/正文 `max-width` 沿用统一约定。
+- **设计系统机制复验（全绿）**：`.js .reveal` 隐藏机制（JS 失效默认可见）✓；safe-area `env(safe-area-inset*)` 补偿 ✓；自定义小按钮 `min-width:0;min-height:0` 覆盖全局 44px ✓；明暗双主题 token 全定义 ✓；原生控件 `html{accent-color:var(--accent-color)}` 跟随金主调 ✓。
+- **版本戳**：本轮零返修（纯巩固 + 知识沉淀），`style.css?v=20260925` 维持不动；全站活引用统一 `20260925`，无旧戳残留。
+- **知识储备增量**：本节（含 2568 组合新基线、tinyTap 五项假阳性细分、连续 10 周达标里程碑）+ 第六/十九节已知接受清单与误报判定沿用。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 10 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / 09-15 / 09-29 / 10-06 / 10-13 / **10-27**）。
+
+### 下次巡检可省步骤
+- 已知接受项（按「板内语义/功能性色，保持不动」）：sheyang metro 磁贴、chinajoy `--hall` 多色磁贴、console 白底图框/灰字降级（`#666666`/`#888888`）、travel `.tl-season` 色码、xintan-weather 高温橙 `#e65100`、health-tea `#e57373`、bracelet 中立灰 `#8a8a8a`、herbs `#9b59b6`/`#e74c3c` 单点文本指示——不再复核。
+- **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接（WCAG 2.5.8 豁免）；② `input` label 关联 checkbox；③ `button.lx-hero-dot` 的 `::after` 透明命中区；④ `/join.html` `nav.join-mobile-nav` 离屏抽屉（`translateX(100%)` 默认隐藏）；⑤ `a#navClockLink`/`input#convLeap` 小控件（命中区由相邻标签/布局保证）。只看四类硬指标 + 导航遮挡为 0。
+- 探针脚本用 **`lx-probe2.mjs`**；6 视口 **2568** 组合基线沿用（本轮新值，覆盖旧 2652）。
+- `style.css?v=` 活引用全站统一 `20260925`，下次仅在该值变更时跟进；根 `css/` 不再重建（09-24 起作废）。

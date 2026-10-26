@@ -99,6 +99,12 @@ cd static && python3 -m http.server 89xx          # static/*.html 是相对路�
 >   → 容器内横向滚动属设计使然，页面级不溢出即放行。
 > - 检测方法：CDP 无头 Chrome `Emulation.setDeviceMetricsOverride` 390px 宽，扫
 >   `getBoundingClientRect().right > clientWidth` 的元素并看其是否在滚动容器内。
+> - **2026-10-26 新增：导航栏 logo「龙兄」在 600–768px 夹缝档被裁**（折叠屏实拍命中）：
+>   `@media (max-width:768px){.navbar .logo{min-width:0;overflow:hidden}}` 在 nav-links 已展开为桌面一排的夹缝档，
+>   让 logo 既可被压缩又超界即裁，把「兄」字静默裁掉。判据：除页面级横向溢出外，还要测 logo 自身
+>   `a.scrollWidth > a.clientWidth` 或 `<span>` 右沿是否超出 `<a>` 右沿（overflow:hidden 裁框）。
+>   **今后核导航/logo 必须显式覆盖 600–768px 夹缝档**，不能只测整断点（768/390）。
+>   已修：commit 89b2e5b0（.navbar .logo 加 `flex-shrink:0` 全局 + 删移动端 overflow 裁剪规则 + 全站 `?v` bump 到 20261026）。
 
 ### C7 触屏「点按被当成悬停」复核（移动端优先，2026-09-20 新增）
 触摸屏点按会点亮 `:hover` **并保持**，所以任何「只在鼠标下才合理」的 `:hover` 位移/缩放，

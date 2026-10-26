@@ -67,7 +67,14 @@ def sha12(path):
 
 
 def resolve(asset_path, from_file, root):
-    """把引用路径解析为 public/ 内真实文件路径；解析失败返回 None。"""
+    """把引用路径解析为 public/ 内真实文件路径；解析失败返回 None。
+
+    只认**文件**（os.path.isfile）：目录一律视为「解析不到」。
+    2026-10-26 事故根因：外部脚本 https://events.vercount.one/js 剥掉协议与
+    主机后剩 /js，恰与 public/ 里真实的 js/ 目录撞名，os.path.exists 误判为
+    同域资源 → SRI 注入对目录 open() 算哈希 → IsADirectoryError 整个部署崩。
+    缓存戳与 SRI 只对文件有意义，目录必须在此处就地排除。
+    """
     if asset_path.startswith(("//", "data:")):
         return None
     # 同站绝对 URL（http(s)://host/path）按站点根解析：剥掉协议与主机，仅留路径。
@@ -79,14 +86,14 @@ def resolve(asset_path, from_file, root):
         asset_path = rest[slash:]  # 形如 /js/app.js
     if asset_path.startswith("/"):
         cand = os.path.normpath(os.path.join(root, asset_path.lstrip("/")))
-        return cand if os.path.exists(cand) else None
+        return cand if os.path.isfile(cand) else None
     # 相对路径：先相对当前文件目录，再退化到站点根（public/ 下资源都挂在根）
     base = os.path.dirname(from_file)
     cand = os.path.normpath(os.path.join(base, asset_path))
-    if os.path.exists(cand):
+    if os.path.isfile(cand):
         return cand
     cand2 = os.path.normpath(os.path.join(root, asset_path))
-    return cand2 if os.path.exists(cand2) else None
+    return cand2 if os.path.isfile(cand2) else None
 
 
 def sha384_of(path):

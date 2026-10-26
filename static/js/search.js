@@ -329,6 +329,12 @@ function ensureSearchModal(){
   var sb=document.getElementById('searchBtn');
   if(sb)sb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();open();});
 
+  // 底部 dock「寻章」等带 data-search-trigger 的入口（原本点了只跳 #searchBtn 锚点，等同失效）
+  var triggers=document.querySelectorAll('[data-search-trigger]');
+  for(var ti=0;ti<triggers.length;ti++){
+    triggers[ti].addEventListener('click',function(e){e.preventDefault();e.stopPropagation();open();});
+  }
+
   // 首页搜索框
   var hi=document.getElementById('homeSearchInput'),hb2=document.getElementById('homeSearchBtn');
   if(hi&&hb2){

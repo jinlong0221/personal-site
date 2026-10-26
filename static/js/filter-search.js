@@ -122,6 +122,14 @@
   document.addEventListener("DOMContentLoaded", function () {
     if (!document.getElementById("fsResults")) return;
     bind();
+    // 支持从 URL ?q= 带入关键词（移动端抽屉搜索 / 导航搜索跳转过来时自动预填并检索）
+    var qp = "";
+    try { qp = new URLSearchParams(location.search).get("q") || ""; } catch (e) {}
+    if (qp) {
+      state.q = qp;
+      var kw = document.getElementById("fsKeyword");
+      if (kw) kw.value = qp;
+    }
     load(function () { buildFilters(); render(); });
   });
 })();

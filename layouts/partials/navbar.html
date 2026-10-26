@@ -78,6 +78,10 @@
     </div>
   </div>
   <div class="mobile-nav" id="mobileNav">
+  <form class="mn-search" action="{{ .Site.BaseURL }}search.html" method="get" role="search">
+    <input type="search" name="q" placeholder="搜本站：紫砂、特斯拉、主机…" aria-label="搜索本站内容" autocomplete="off">
+    <button type="submit" aria-label="搜索">🔍</button>
+  </form>
   <a href="{{ .Site.BaseURL }}index.html">首页</a>
   <span class="nav-hd">风物志</span>
   <a href="{{ .Site.BaseURL }}bracelet.html">文玩手串</a>

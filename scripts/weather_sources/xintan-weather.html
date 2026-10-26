@@ -459,16 +459,12 @@ var _hmt = _hmt || [];
   <div class="xw-banner">
     <div class="xw-banner-icon">🌾</div>
     <h1 class="xw-banner-title" style="margin:0;">农田气象</h1>
-<p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">🕓 实时观测随页面加载取自 Open-Meteo；农事科普与常年气候参数最后整理：2026 年 8 月</p>
     <div class="xw-banner-sub">乡镇级精准农业气象预报</div>
     <div class="xw-banner-coord">33.76°N · 120.09°E · 海拔约2m</div>
   </div>
 
-  <!-- 4. 实时时钟 -->
-  <div class="clock-wrap">
-    <div class="clock-display" id="liveClock">--:--:--</div>
-    <div class="clock-date" id="liveDate">加载中...</div>
-  </div>
+  <!-- 实时时钟已移除：与射阳天气面板的时钟 ID 重复（liveClock/liveDate），合并页里
+       initClock 只会填充第一个，导致本面板时钟永远卡在 --:--:--；且与导航栏时钟重复。 -->
 
   <!-- 加载动画 -->
   <div class="xw-loading" id="xwLoading">

@@ -335,7 +335,7 @@ def build_page(title, desc, keywords, article_cat, article_tags, canonical_rel,
     page_meta = (
         '<div class="page-meta">\n'
         '<p class="ref-note">%s</p>\n' % ref_note +
-        '<div class="update-time">最后更新：<span id="lastNewsUpdate">2026-10-25</span></div>\n'
+        '<div class="update-time">最后更新：<span id="lastNewsUpdate">2026-10-26</span></div>\n'
         '</div>'
     )
     jsonld = (
@@ -374,7 +374,7 @@ def build_page(title, desc, keywords, article_cat, article_tags, canonical_rel,
 <meta name="description" content="{desc}">
 <meta name="article-category" content="{article_cat}">
 <meta name="article-tags" content="{article_tags}">
-<meta name="article-updated" content="2026-10-25">
+<meta name="article-updated" content="2026-10-26">
 
 <script>(function(){{try{{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){{document.documentElement.setAttribute('data-theme',t)}}else{{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}}}catch(e){{}}}})();</script>
 <link rel="preload" href="js/app.js" as="script">
@@ -539,7 +539,7 @@ def build_sheyang_hub():
 <script defer src="js/wh-tabs.js?v=20261026"></script>
 <script src="js/sheyang-weather.js?v=20261011" defer></script>
 <script src="js/xintan-weather.js?v=20261011" defer></script>
-<script defer src="js/auto_typhoon_loader.js?v=20261025"></script>
+<script defer src="js/auto_typhoon_loader.js?v=20261026"></script>
 <script>if(window.initClock)initClock();</script>'''
     out, n = build_page(
         title="射阳气象 · 射阳天气与节气｜龙兄知识库",

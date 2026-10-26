@@ -825,7 +825,8 @@
   }
 
   function renderUpdated(d) {
-    var el = document.getElementById('lastNewsUpdate');
+    /* 用专属 id（tfUpdateStamp），避免与页面级 page-meta 的 lastNewsUpdate 撞 ID */
+    var el = document.getElementById('tfUpdateStamp');
     if (!el || !d.updated) return;
     var dt = new Date(d.updated);
     if (isNaN(dt.getTime())) { el.textContent = d.updated; return; }

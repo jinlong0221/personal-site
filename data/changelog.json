@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-10-26 17:48",
+    "content": "修复移动端顶部时钟与天气胶囊不显示：全站 7 个全局脚本（app.js/interactions/search/share/bookmark/obfuscate-email/board-nav）此前漏加 ?v= 缓存戳，iOS/Android 缓存了旧版（无该功能的版本）不肯刷新；已补全 ?v= 戳（日期与各文件最后改动日一致），部署后由 bump_v_hash 转内容哈希，脚本一改即自动破缓存。"
+  },
+  {
     "date": "2026-10-26 17:06",
     "content": "网站体验优化：① 修复百度统计被 strict CSP（无 unsafe-inline）拦截，内联脚本改外链，统计恢复；② 接通移动端搜索——抽屉内新增可见搜索框并提交 search.html?q=、搜索页支持 ?q= 预填、修复底部 dock「寻章」按钮失效（原仅跳锚点）；③ 新增站外链新标签页打开、顶部阅读进度条、首页「今日更新」未读徽标。"
   },

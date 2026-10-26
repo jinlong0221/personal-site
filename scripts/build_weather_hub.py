@@ -139,20 +139,32 @@ HUB_CSS = """
 .wh-hero h1{font-size:2rem;color:var(--gold);margin-bottom:8px;letter-spacing:.04em;}
 [data-theme="light"] .wh-hero h1{color:#6B4F00;}
 .wh-hero p{color:var(--text-muted);font-size:1rem;}
-.wh-anchor{position:sticky;top:var(--nav-height);z-index:120;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+.wh-tabs{position:sticky;top:var(--nav-height);z-index:120;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;
   padding:12px 16px;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.wh-anchor a{flex:1 1 150px;max-width:220px;text-align:center;padding:10px 12px;border-radius:10px;border:1px solid var(--border);
-  color:var(--text-secondary);font-weight:600;font-size:.92rem;background:var(--card);transition:all .2s ease;text-decoration:none;}
-.wh-anchor a:hover,.wh-anchor a.active{border-color:var(--gold);color:var(--gold);background:var(--card-hover);}
-.wh-section{scroll-margin-top:calc(var(--nav-height) + 64px);padding:36px 0 8px;}
+.wh-tabs .wh-tab{flex:1 1 140px;max-width:220px;text-align:center;padding:11px 10px;border-radius:10px;border:1px solid var(--border);
+  color:var(--text-secondary);font-weight:600;font-size:.92rem;background:var(--card);transition:all .2s ease;cursor:pointer;
+  font-family:inherit;line-height:1.3;}
+.wh-tabs .wh-tab:hover,.wh-tabs .wh-tab.active{border-color:var(--gold);color:var(--gold);background:var(--card-hover);}
+.wh-panel{display:none;padding:36px 0 8px;}
+.wh-panel.active{display:block;}
 .wh-section-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:1.5rem;color:var(--text);
   margin:0 0 6px;padding-bottom:12px;border-bottom:2px solid rgba(201,168,76,.22);}
 .wh-section-head .wh-en{font-size:.72rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-muted);font-weight:400;}
 .wh-section-head .wh-tag{margin-left:auto;font-size:.74rem;padding:3px 11px;border-radius:999px;background:rgba(201,168,76,.16);color:var(--gold);}
-@media(max-width:640px){.wh-hero h1{font-size:1.5rem;}.wh-section-head{font-size:1.15rem;}}
+@media(max-width:640px){.wh-hero h1{font-size:1.5rem;}.wh-section-head{font-size:1.15rem;}.wh-tabs .wh-tab{font-size:.84rem;}}
+/* ===== 射阳气象页 · 射阳县百科折叠块（默认收起，减轻首屏疲劳） ===== */
+.wh-baike{margin:26px 0;border:1px solid var(--border);border-radius:16px;background:var(--card);overflow:hidden;}
+.wh-baike>summary{list-style:none;cursor:pointer;padding:16px 20px;font-size:1.02rem;font-weight:700;color:var(--gold);
+  display:flex;align-items:center;gap:8px;user-select:none;}
+.wh-baike>summary::-webkit-details-marker{display:none;}
+.wh-baike>summary::before{content:"▸";display:inline-block;transition:transform .2s ease;color:var(--gold);font-size:.9rem;}
+.wh-baike[open]>summary::before{transform:rotate(90deg);}
+.wh-baike>summary:hover{background:var(--card-hover);}
+.wh-baike>section{margin:0 !important;border:none !important;background:transparent !important;border-radius:0 !important;}
+.wh-baike>section:first-of-type{padding-top:14px;}
 """
 
-PAGE_CSS_VERSION = "20261025"
+PAGE_CSS_VERSION = "20261026"
 
 # 标准导航（占位，稍后由 sync_navbar.py 以 navbar.html 单一数据源重生成）
 NAV = '''<nav class="navbar" role="navigation" aria-label="主导航">
@@ -477,30 +489,31 @@ def build_local_weather():
 
 # ------------------------------------------------------------------ 页面 2：射阳气象（四合一）
 def build_sheyang_hub():
-    main_inner_html = '''  <nav class="wh-anchor" aria-label="天气板块导航">
-    <a href="#sec-sheyang">🌦️ 射阳天气</a>
-    <a href="#sec-xintan">🌾 新坍农田气象</a>
-    <a href="#sec-typhoon">🌀 台风监测</a>
-    <a href="#sec-solar">🌿 节气物候</a>
-  </nav>
+    main_inner_html = '''  <div class="wh-tabs" role="tablist" aria-label="天气板块切换">
+    <button type="button" class="wh-tab active" role="tab" aria-selected="true" data-tab="sheyang" id="tab-sheyang">🌦️ 射阳天气</button>
+    <button type="button" class="wh-tab" role="tab" aria-selected="false" data-tab="xintan" id="tab-xintan">🌾 新坍农田气象</button>
+    <button type="button" class="wh-tab" role="tab" aria-selected="false" data-tab="typhoon" id="tab-typhoon">🌀 台风监测</button>
+    <button type="button" class="wh-tab" role="tab" aria-selected="false" data-tab="solar" id="tab-solar">🌿 节气物候</button>
+  </div>
+  <noscript><style>.wh-panel{display:block !important;}</style></noscript>
 
   <div class="container">
-    <section class="wh-section" id="sec-sheyang">
+    <section class="wh-panel active" id="sec-sheyang" role="tabpanel" aria-labelledby="tab-sheyang" data-panel="sheyang">
       <div class="wh-section-head">射阳天气<span class="wh-en">Sheyang Weather</span><span class="wh-tag">33.77°N · 120.26°E</span></div>
       {SHEYANG_BODY}
     </section>
 
-    <section class="wh-section" id="sec-xintan">
+    <section class="wh-panel" id="sec-xintan" role="tabpanel" aria-labelledby="tab-xintan" data-panel="xintan">
       <div class="wh-section-head">新坍镇农田气象<span class="wh-en">Xintan Farm Weather</span><span class="wh-tag">乡镇级精准农业气象</span></div>
       {XINTAN_BODY}
     </section>
 
-    <section class="wh-section" id="sec-typhoon">
+    <section class="wh-panel" id="sec-typhoon" role="tabpanel" aria-labelledby="tab-typhoon" data-panel="typhoon">
       <div class="wh-section-head">台风实时监测<span class="wh-en">Typhoon Tracker</span><span class="wh-tag">中央气象台等</span></div>
       {TYPHOON_BODY}
     </section>
 
-    <section class="wh-section" id="sec-solar">
+    <section class="wh-panel" id="sec-solar" role="tabpanel" aria-labelledby="tab-solar" data-panel="solar">
       <div class="wh-section-head">二十四节气 · 物候与农事<span class="wh-en">24 Solar Terms</span><span class="wh-tag">公历近似日期</span></div>
       {SOLAR_BODY}
     </section>
@@ -523,6 +536,7 @@ def build_sheyang_hub():
                                     .replace("{TYPHOON_BODY}", TYPHOON_BODY) \
                                     .replace("{SOLAR_BODY}", SOLAR_BODY)
     extra_body_scripts = '''
+<script defer src="js/wh-tabs.js?v=20261026"></script>
 <script src="js/sheyang-weather.js?v=20261011" defer></script>
 <script src="js/xintan-weather.js?v=20261011" defer></script>
 <script defer src="js/auto_typhoon_loader.js?v=20261025"></script>

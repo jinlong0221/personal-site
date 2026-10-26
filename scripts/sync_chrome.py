@@ -489,11 +489,9 @@ def ensure_scripts(html, notes):
         tag = '<script src="/js/obfuscate-email.js"></script>\n'
         html = html[: m.start()] + tag + html[m.start():] if m else html + tag
         notes.append("js:email")
-    if "busuanzi_value_site_pv" in html and "busuanzi.pure.mini.js" not in html:
+    if "busuanzi_value_site_pv" in html and "events.vercount.one" not in html:
         m = re.search(r"</body>", html, re.I)
-        tag = ('<script async src="/js/busuanzi.pure.mini.js" '
-               'integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" '
-               'crossorigin="anonymous"></script>\n')
+        tag = '<script defer src="https://events.vercount.one/js"></script>\n'
         html = html[: m.start()] + tag + html[m.start():] if m else html + tag
         notes.append("js:pv")
     return html

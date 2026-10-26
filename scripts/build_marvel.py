@@ -487,7 +487,7 @@ html{scroll-behavior:smooth}
 <link rel="preload" href="js/app.js" as="script">
 <link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
-<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<link rel="dns-prefetch" href="https://events.vercount.one">
 __CRITICAL__
 <link rel="stylesheet" href="css/style.css?v=__CSSV__">
 <title>漫威宇宙 · 龙兄观影手账 - 龙兄知识库</title><meta name="description" content="龙兄的漫威观影手账：MCU 上映顺序与故事时间线双轨观影指南、六个阶段的时间线、英雄档案卡、私人评分与冷知识。纯文字与 emoji 呈现，规避版权风险。">
@@ -502,7 +502,7 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script defer src="https://events.vercount.one/js"></script>
 <meta property="og:site_name" content="龙兄知识库">
 <link rel="canonical" href="https://longxiong.vip/marvel.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">

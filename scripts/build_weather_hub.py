@@ -375,7 +375,7 @@ def build_page(title, desc, keywords, article_cat, article_tags, canonical_rel,
 {head_css}
 </style>
 <link rel="stylesheet" href="css/style.css?v={PAGE_CSS_VERSION}">
-  <script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+  <script defer src="https://events.vercount.one/js"></script>
   <script>
 var _hmt = _hmt || [];
 (function() {{

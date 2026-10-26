@@ -54,8 +54,8 @@ def transform_csp(content):
     # 2) 协议相对 → 显式 https（仅针对已知外部域名；不误伤站内 // 注释）
     repls = [
         ('href="//hm.baidu.com"', 'href="https://hm.baidu.com"'),
-        ('href="//busuanzi.ibruce.info"', 'href="https://busuanzi.ibruce.info"'),
-        ('src="//busuanzi.ibruce.info', 'src="https://busuanzi.ibruce.info'),
+        ('href="//busuanzi.ibruce.info"', 'href="https://events.vercount.one"'),
+        ('src="//busuanzi.ibruce.info', 'src="https://events.vercount.one'),
     ]
     for a, b in repls:
         if a in content:

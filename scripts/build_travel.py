@@ -722,7 +722,7 @@ def main():
 <link rel="preload" href="js/app.js" as="script">
 <link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
-<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<link rel="dns-prefetch" href="https://events.vercount.one">
 __CRITICAL__
 <link rel="stylesheet" href="css/style.css?v=__CSSV__">
 <title>足迹 · 家庭旅行 - 龙兄知识库</title><meta name="description" content="带着老婆和两个儿子走过的每一座城：一份有温度的家庭旅行档案，按年份记录每一次出行的城市、瞬间与孩子的笑容。">
@@ -737,7 +737,7 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script defer src="https://events.vercount.one/js"></script>
 <meta property="og:site_name" content="龙兄知识库">
 <link rel="canonical" href="https://longxiong.vip/travel.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">

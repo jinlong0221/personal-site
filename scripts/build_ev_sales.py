@@ -984,7 +984,7 @@ def main():
 
     # ---- 脚本区
     scripts = """
-<script async src="/js/busuanzi.pure.mini.js" integrity="sha384-oaKlriFiEaHzTKw66TKlzwgjYHPT5tvx+uf4JRnAGvP7HCHj5NPqEoAkyyOAPxZN" crossorigin="anonymous"></script>
+<script defer src="https://events.vercount.one/js"></script>
 <script defer src="/js/board-nav.js"></script>
 <script defer src="js/search.js"></script>
 <script defer src="js/app.js"></script>

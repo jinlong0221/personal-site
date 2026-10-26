@@ -731,7 +731,7 @@ def main():
 <link rel="preload" href="js/app.js" as="script">
 <link rel="preconnect" href="//hm.baidu.com">
 <link rel="dns-prefetch" href="//hm.baidu.com">
-<link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+<link rel="dns-prefetch" href="https://events.vercount.one">
 __CRITICAL__
 <link rel="stylesheet" href="css/style.css?v=__CSSV__">
 <title>ChinaJoy 成长史 - 龙兄知识库</title><meta name="description" content="ChinaJoy 成长史：从 2004 年首届到 2026 年第 23 届的完整档案，逐届梳理展会主题、规模数据、参展品牌与代表游戏，以及二十余年的行业变迁。">
@@ -746,7 +746,7 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script defer src="https://events.vercount.one/js"></script>
 <meta property="og:site_name" content="龙兄知识库">
 <link rel="canonical" href="https://longxiong.vip/chinajoy.html">
 <link rel="icon" type="image/svg+xml" href="https://longxiong.vip/favicon.svg">

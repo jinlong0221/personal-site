@@ -332,7 +332,7 @@ var _hmt = _hmt || [];
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-27">2026 年 10 月 27 日 · 周二</time><span class="cl-day-n">1 项改动</span></h4><div class="cl-item"><span class="cl-time">07:58</span><div class="cl-main"><p class="cl-head">更新日志页修复分类事故：旧规则把正文里提到「台风」的站点真改动（天气页拆分、恢复 8 个板块、修复折叠卡片 iOS 点击、修复台风监测文字山等 58 条）误判成自动化运维、埋进折叠区，</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">主线看不到——现在先按条目开头动词（修复/新增/上线/恢复…）判主线，台风判定收紧为只认 🌀 开头与高频刷新等自动化专属措辞；同时把早班/晚班/新闻补漏接力等 21 条漏网的自动化留痕正确归入运维，静态回退的「共 N 条」计数从过期的 652 修正为实时总量。 主线 383→420 条、运维 981→945 条，全部经新旧规则全量 diff 校验（无误伤）。</div></details></div></div>
-            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×8</span><span class="cl-chip">台风 ×3</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 补漏巡检 15:33：补养生茶板当日新稿（新中式养生饮品走红），其余板已是当天或无合格新稿。</p><p class="cl-ops-more">另有 7 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">〔2026-10-27 13:25 台风高频刷新〕蔷琵#30 维持已停编收尾监测（statusShort「已停编」/statusLevel info/综合风险「低」、不切换至远海烟花）。中央气象台台风快讯总2期（11时04分·基于11时实况）确认烟花#31(2631)27日11时位于14.3°N/162.3°E、强台风级15级50m/s/940hPa、向西偏西5-10km/h、强度变化不大（较05/08时超强台风52m/s略降、在超强/…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 2 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×4</span><span class="cl-chip">巡检 ×8</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风高频刷新 16:32（多源交叉验证）：烟花#31(2631)中央气象台台风快讯总4期(14时26分)确认27日14时14.5°N/162.2°E、强台风级15级50m/s/940hPa、距关岛塞班偏东约1770km、向偏西10-15km/h、强度变化不大（较11时同强度、在超强/强台风边界波动、120h峰值62m/s/17级以上·forecast·待官方确认）、对我国海区无影响→远海暂不上板；…</p><p class="cl-ops-more">另有 3 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 补漏巡检 15:33：补养生茶板当日新稿（新中式养生饮品走红），其余板已是当天或无合格新稿。</p><p class="cl-ops-more">另有 7 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
           </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-26">2026 年 10 月 26 日 · 周一</time><span class="cl-day-n">9 项改动</span></h4><div class="cl-item"><span class="cl-time">23:55</span><div class="cl-main"><p class="cl-head">射阳气象页修两处 ID 冲突：台风面板更新戳与页面级 lastNewsUpdate 撞 ID（改专属 tfUpdateStamp），新坍面板自带实时时钟与射阳面板 liveClock 撞 ID（移除新坍重复时钟）；更新日期刷新至 2026-10-26。</p></div></div>
             <div class="cl-item"><span class="cl-time">22:50</span><div class="cl-main"><p class="cl-head">射阳气象页（sheyang-weather.html）改版：原四合一长页改为标签页切换（🌦️射阳天气 / 🌾新坍农田气象 / 🌀台风监测 / 🌿节气物候），一次只看一块，降低阅读疲劳；射阳县百科科普块默认折叠，点开才看全文；支持 #sec-xxx 锚点直达，移动端无横向滚动。</p></div></div>
@@ -388,14 +388,14 @@ var _hmt = _hmt || [];
         <!--CL:RECENT:END-->
     </div>
     <p class="cl-feed-foot">以上是最近一批改动。全部记录（含自动化运维明细）存档在站点的
-      <code>data/changelog.json</code>，共 <strong id="update-count">1371</strong> 条。</p>
+      <code>data/changelog.json</code>，共 <strong id="update-count">1372</strong> 条。</p>
   </section>
 
   <!-- 信息来源 -->
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-10-27</span><span id="clLastStamp" class="cl-upd-stamp"> 15:33</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-10-27</span><span id="clLastStamp" class="cl-upd-stamp"> 16:32</span></div>
   </div>
 </main>
 

@@ -71,6 +71,11 @@ jobs:
       - name: Inject related-reading blocks into articles
         run: python3 scripts/apply_related.py
 
+      # 龙兄视角：基于 data/persona.json（龙兄人格库），给板块入口页注入"龙兄也聊过这个"
+      # aside——只引用龙兄真实原话 + 挂真实随笔链接，绝不替龙兄编第一人称，零编造。
+      - name: Inject 龙兄视角 (persona) blocks into board hubs
+        run: python3 scripts/build_persona_links.py --refresh
+
       # 紫砂深度解读：由 build_zisha_insight.py 基于真实规格（泥料/容量/工艺/器型）
       # 推导每把壶的「适什么茶 / 养壶要点 / 什么场合用 / 器型说 / 工艺鉴别」。
       # 紫砂养壶记录时间线：等数据填了再注入（empty 时不渲染）。

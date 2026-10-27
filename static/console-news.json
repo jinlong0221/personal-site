@@ -5,6 +5,29 @@
       "date": "2026-10-27",
       "tags": [
         {
+          "text": "Switch 2",
+          "class": "tag-blue"
+        },
+        {
+          "text": "越狱",
+          "class": "warn"
+        },
+        {
+          "text": "自制软件",
+          "class": "info"
+        }
+      ],
+      "summary": "首个针对任天堂 Switch 2 的越狱漏洞上周公开发布后已被实际应用：用户展示 YouTube 借开源项目 VacuumTube 在该主机运行，首批游戏文件与 RomFS 归档据称开始被导出；知名黑客 Gezine 据称已提出非连线式漏洞概念。",
+      "content": "cnBeta 2026-10-27 00:34 报道（经网易转载）：上周，首个针对任天堂 Switch 2 的越狱漏洞被公开在网络上，虽仅为需连线的 tethered 利用方式，但几天后已被投入实际使用。X 平台用户 @byizmysh 发布视频展示 YouTube 在 Switch 2 上运行，该项目基于开源客户端 VacuumTube，借助安全研究者 pepsipu 近期发布的越狱方案运行。据称首批 Switch 2 游戏文件与 RomFS 归档已开始被导出，最早涉及《The Duskbloods》测试版与《马力欧卡丁车世界》素材，但这些尚未得到验证，因一旦公开分享任天堂会立即打击。更受关注的是，知名安全研究员、自制软件开发者 Gezine 据称已提出非连线式（untethered）漏洞概念并做出安装器，可将整套漏洞利用链植入存档数据，下次开机时触发，有望给尚处幼年的 Switch 2 自制软件社区带来推动。\n\n来源：cnBeta 2026-10-27《任天堂 Switch 2 首个越狱漏洞开始被实际运用：YouTube 已能运行》（网易转载）。",
+      "url": "https://www.163.com/dy/article/LA75C1FS0511BLFD.html",
+      "sources": [
+        "cnBeta 2026-10-27《任天堂 Switch 2 首个越狱漏洞开始被实际运用：YouTube 已能运行》（网易转载）"
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "tags": [
+        {
           "text": "地狱即我们",
           "class": "hot"
         },
@@ -150,98 +173,6 @@
       "sources": [
         "网易 2026-10-25 17:57（三易生活）",
         "多方爆料（次世代主机定价口径，待官方确认）"
-      ]
-    },
-    {
-      "date": "2026-10-25",
-      "tags": [
-        {
-          "text": "Switch 2",
-          "class": "hot"
-        },
-        {
-          "text": "ns2jb 越狱",
-          "class": "tag-blue"
-        },
-        {
-          "text": "资源包流出",
-          "class": "info"
-        }
-      ],
-      "summary": "Switch 2 软件越狱 ns2jb 公开后，《三角符文》第1至4章与FromSoftware新作《黄昏之血》测试版的首批游戏资源包已流出；该越狱由pepsipu开发、利用《SmileBASIC 4》漏洞，属软件层、无内核权限、暂不能运行盗版。",
-      "content": "IT之家 2026-10-25 07:42 报道（另游侠网/网易 10-25、Hitechreports 交叉）：Switch 2 破解工具 ns2jb 由开发者 pepsipu 开发，属软件层破解、利用主机文件系统漏洞，入口是已下架的《SmileBASIC 4》。任天堂已采取措施封堵该漏洞，但首批次世代游戏资源包已经流出——《三角符文》第1至4章的 romfs 被解包放出前面几章全部文件与素材；爆料账号 Centro Leaks 公布的《黄昏之血》（FromSoftware 面向 Switch 2 的新作）数据挖掘截图展示了内部文件结构；《马力欧赛车世界》也持续被拆解，碧琪公主全新3D模型流出。ns2jb 属软件破解而非内核漏洞，缺少硬件加密密钥、暂不能在模拟器运行盗版游戏，仅为运行非官方应用和自制Mod打开通道；且可能不适用于 23.0.1 之后固件。知名开发者 Gezine（亦参与 PS5 破解）称任天堂已联系过他，内容未公开（可能为停止侵权函）；新 WebKit 漏洞或可绕开《SmileBASIC 4》限制。",
-      "url": "https://www.163.com/dy/article/LA2P2FRC0511B8LM.html",
-      "sources": [
-        "IT之家 2026-10-25 07:42《任天堂Switch 2破解取得进展，〈三角符文〉〈黄昏之血〉资源包流出》",
-        "游侠网 2026-10-25《资源包都出来了！任天堂Switch 2破解取得新进展！》",
-        "Hitechreports 2026-10（英文）《Nintendo Switch 2 Jailbreak Yields First Game Dumps》"
-      ]
-    },
-    {
-      "date": "2026-10-24",
-      "tags": [
-        {
-          "text": "Switch 2",
-          "class": "hot"
-        },
-        {
-          "text": "Linux 驱动",
-          "class": "tag-blue"
-        },
-        {
-          "text": "Valve",
-          "class": "info"
-        }
-      ],
-      "summary": "Valve 开发者 Vicki Pfau 代表公司完成并提交任天堂 Switch 2 控制器的 Linux 原生驱动，经 16 轮补丁后并入 Linux 7.14 主线内核，可为 Joy-Con 2、Pro Controller 2 与 GameCube 控制器提供基础输入支持。",
-      "content": "2026年10月24日（IT之家援引 Phoronix 10月23日博文 / 今日头条 2026-10-24 11:25 报道）：在 Linux 7.14 内核合并请求中，针对 HID（人机接口设备）子系统的更新首次加入对任天堂 Switch 2 控制器的原生驱动支持。这项工作由开发者 Vicki Pfau 代表 Valve 完成，历经 16 轮补丁修改后进入 Linux 主线内核。该驱动目前可为 Joy-Con 2、Pro Controller 2 以及任天堂 Switch Online 版 GameCube 控制器提供基础输入支持。受 Switch 2 非标准蓝牙配对方式与 Linux 现有蓝牙能力限制，蓝牙配对及更多高级功能尚未实现，后续还需在内核与用户空间之间设计专用接口并在 BlueZ 协议栈完成适配。",
-      "url": "https://www.toutiao.com/article/7700070319595192870",
-      "sources": [
-        "IT之家 2026-10-24（援引 Phoronix 10-23 博文）",
-        "今日头条 2026-10-24 11:25"
-      ]
-    },
-    {
-      "date": "2026-10-24",
-      "tags": [
-        {
-          "text": "Switch 2",
-          "class": "hot"
-        },
-        {
-          "text": "实体卡带",
-          "class": "info"
-        }
-      ],
-      "summary": "任天堂明确表态目前没有放弃 Switch 2 实体游戏卡带的计划，新主机发售后仍可在门店买到盒装卡带与光盘版游戏，数字版并非唯一选择，习惯收藏实体版或网络不便的玩家短期无需担心只能走下载。",
-      "content": "2026年10月24日（腾讯新闻/QQ 搜索新闻 2026-10-24 报道）：任天堂明确表态，目前没有放弃 Switch 2 实体游戏卡带的计划。也就是说新主机发售后，玩家仍能在门店买到盒装卡带和光盘版游戏，数字版并不是唯一选择。对于习惯收藏实体版、或网络环境不便的玩家而言，短期内不必担心只能走下载渠道。此前任天堂已确认 Switch 2 向下兼容初代卡带，实体游戏生态将继续保留。",
-      "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_6536adc129514052",
-      "sources": [
-        "腾讯新闻/QQ 搜索新闻 2026-10-24",
-        "任天堂官方（向下兼容与实体生态表述）"
-      ]
-    },
-    {
-      "date": "2026-10-23",
-      "tags": [
-        {
-          "text": "Switch 2",
-          "class": "hot"
-        },
-        {
-          "text": "ns2jb 越狱",
-          "class": "tag-blue"
-        },
-        {
-          "text": "SmileBASIC 4 下架",
-          "class": "info"
-        }
-      ],
-      "summary": "任天堂已将编程应用《SmileBASIC 4》从北美、欧洲、日本等地区的 Nintendo eShop 下架，发生在 Switch 2 首个公开软件越狱方案 ns2jb 公开传播之后；该方案利用初代 Switch 版该应用的 32 位整数溢出漏洞提权，支持 23.0.1 固件、需同局域网 macOS/Linux 电脑配合，属需重启重新触发的 tethered 方案。",
-      "content": "网易 2026-10-23 19:38 报道（宗熙先生）：据坊间消息，任天堂已将编程应用《SmileBASIC 4》从北美、欧洲、日本等地区的 Nintendo eShop 下架，发生在 Nintendo Switch 2 首个公开软件越狱方案 ns2jb 公开传播之后。该应用被安全研究员用作漏洞利用链的初始入口；ns2jb 由安全研究员 Sammy Hajhamid（网名 pepsipu）发布，利用初代 Switch 版《SmileBASIC 4》解释器的 32 位整数溢出漏洞（数组删除操作中越界读写），再结合 Switch 2 文件系统服务模块的缓冲区溢出漏洞提权，最终实现系统服务进程内的原生代码执行。该方案支持 Switch 2 固件 23.0.1、无需硬件改造，但需一台与主机同局域网的 macOS 或 Linux 电脑并借助 Node.js 工具，且属需每次重启重新触发的 tethered 方案。研究员曾修改《马力欧卡丁车世界》演示加入大耳狗、彼得·格里芬等非原版角色验证。该方案并不等于 Switch 2 已完整破解，目前仅可在普通系统模块及内置文件系统模块权限范围内执行原生代码，用于运行自制程序、逆向分析与修改游戏、备份存档等。",
-      "url": "https://www.163.com/dy/article/L9UT74QU0552OI16.html",
-      "sources": [
-        "网易 2026-10-23 19:38（宗熙先生）《任天堂下架〈SmileBASIC 4〉,Switch 2首个公开软件越狱引发关注》"
       ]
     }
   ]

@@ -14,18 +14,20 @@ set_status.py — 一句话更新「龙兄公示牌 / 站点状态」
   本脚本把「改状态」收敛成一行命令：更新真源 + 同步回退态 + 重建历史 + 提交上线。
 
 龙兄怎么用（最简单）：
-  直接在咱俩聊天里跟我说一句你当下的状态就行，例如：
-      「今天加班到很晚，勿扰」
-      「正在跑步 🏃」
-      「周末回射阳陪家人」
-  我跑下面这行，剩下的写入 / 生成历史 / 上线全包了：
-      python3 scripts/set_status.py "今天加班到很晚，勿扰" --emoji 🌙 --dnd
+  约定：你发的话只要以「状态：」开头，就是让我挂状态（其余当闲聊，绝不误挂）。
+  你随口说一句当下状态即可，例如：
+      「状态：今天加班到很晚，勿扰」
+      「状态：刚跑完步 🏃」
+      「状态：周末回射阳陪家人」
+  我收到带「状态：」的话，跑下面这行，剩下的写入 / 生成历史 / 上线全包了：
+      python3 scripts/set_status.py "刚跑完步 🏃"
+  （脚本会自动剥掉「状态：」前缀；正文自带表情就不再叠一个；含「勿扰」自动开徽标）
 
 命令行用法（如果你想自己跑也行）：
   python3 scripts/set_status.py "状态文案" [--emoji 🏃] [--dnd] [--no-push]
                                [--date 2026-10-28] [--time 14:30] [--show]
 
-  --emoji   表情，缺省自动沿用上一条
+  --emoji   表情；不传时：正文里已有表情就用它（避免气泡叠两个），否则沿用上一条
   --dnd     开启「勿扰」徽标；文案里出现 勿扰/非诚勿扰/别打扰/勿cue 也会自动开
   --no-push 只改本地、不提交不推送（CI 不会动这些文件，必须本地提交才上线）
   --show    只打印当前状态，不改任何东西
@@ -35,6 +37,7 @@ set_status.py — 一句话更新「龙兄公示牌 / 站点状态」
 """
 import json
 import os
+import re
 import sys
 import subprocess
 import argparse
@@ -48,6 +51,16 @@ DEAD_ROOT = os.path.join(ROOT, "status.json")  # 未服务的死副本，提醒�
 
 CST = timezone(timedelta(hours=8))
 DND_KEYWORDS = ("勿扰", "非诚勿扰", "别打扰", "勿cue", "别cue", "免打扰")
+
+# 常见 emoji 区间（足够覆盖本站用到的表情，不需穷尽）。
+# 注意：超出 U+FFFF 的码点必须用 8 位 \U 转义，\u 只吃 4 位会错位。
+EMOJI_RE = re.compile(
+    "[\u2190-\u21FF\u2300-\u23FF\u2460-\u24FF\u25A0-\u25FF"
+    "\u2600-\u27BF\u2B00-\u2BFF\uFE0F"
+    "\U0001F000-\U0001FAFF]"
+)
+# 龙兄随口说时可能带「状态：」「挂：」这类前缀，自动剥掉只留正文
+PREFIX_RE = re.compile(r"^(?:状态|挂)\s*[:：]\s*")
 
 
 def now_fields():
@@ -135,10 +148,20 @@ def main():
         return 0
 
     status = args.status.strip()
+    # 剥掉「状态：」/「挂：」前缀，只留正文（龙兄随口带前缀也能挂）
+    pm = PREFIX_RE.match(status)
+    if pm:
+        status = status[pm.end():].strip()
     data = load()
 
     prev_emoji = data.get("emoji") or "📌"
-    emoji = (args.emoji or prev_emoji).strip()
+    if args.emoji:
+        emoji = args.emoji.strip()
+    else:
+        # 正文里已带 emoji 就用它（避免气泡把同一个表情叠两次），
+        # 否则沿用上一条
+        m = EMOJI_RE.search(status)
+        emoji = m.group(0) if m else prev_emoji
     dnd = args.dnd or any(k in status for k in DND_KEYWORDS)
 
     iso, d, t = now_fields()

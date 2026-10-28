@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>打卡本 · 随时可改</title>
+<title>拍照打卡 · 龙兄水印</title>
 <meta name="robots" content="noindex, nofollow" />
 <meta name="pagefind-ignore" />
-<meta name="description" content="自定义打卡项目，月历任意日期随时打卡/补卡/修改，记录全在本地；内置拍照留证（水印相机），给照片盖时间/地点/天气水印导出当凭证。" />
+<meta name="description" content="上传或拍摄照片，自由编辑时间、地点、天气等水印信息，拖动缩放卡片，导出成品图。" />
 <link rel="canonical" href="https://longxiong.vip/checkin/" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="打卡本 · 随时可改" />
-<meta property="og:description" content="自定义打卡项目，月历任意日期随时打卡/补卡/修改，记录全在本地；内置拍照留证（水印相机）。" />
+<meta property="og:title" content="拍照打卡 · 龙兄水印" />
+<meta property="og:description" content="上传或拍摄照片，自由编辑时间、地点、天气等水印信息，拖动缩放卡片，导出成品图。" />
 <meta property="og:url" content="https://longxiong.vip/checkin/" />
 <meta property="og:image" content="https://longxiong.vip/img/og-image.png" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="打卡本 · 随时可改" />
-<meta name="twitter:description" content="自定义打卡项目，月历任意日期随时打卡/补卡/修改，记录全在本地；内置拍照留证（水印相机）。" />
+<meta name="twitter:title" content="拍照打卡 · 龙兄水印" />
+<meta name="twitter:description" content="上传或拍摄照片，自由编辑水印信息，拖动缩放卡片，导出成品图。" />
 <meta name="twitter:image" content="https://longxiong.vip/img/og-image.png" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"打卡本 · 随时可改","url":"https://longxiong.vip/checkin/","description":"自定义打卡项目，月历任意日期随时打卡/补卡/修改，记录全在本地；内置拍照留证（水印相机）。"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"拍照打卡 · 龙兄水印","url":"https://longxiong.vip/checkin/","description":"上传或拍摄照片，自由编辑时间、地点、天气等水印信息，拖动缩放卡片，导出成品图，用于个人打卡留证。"}</script>
 <style>
   .wm-app{
     --bg:#0e0f12; --panel:#17191e; --panel2:#1f2229; --line:#2a2e37;
@@ -27,250 +27,138 @@
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
-  .wrap{max-width:920px;margin:0 auto;padding:18px 14px 80px;}
-  header h1{font-size:21px;margin:0 0 4px;letter-spacing:1px;}
+  .wrap{max-width:1100px;margin:0 auto;padding:18px 14px 60px;}
+  header h1{font-size:20px;margin:0 0 2px;letter-spacing:1px;}
   header h1 .dot{color:var(--gold)}
-  header p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;}
-  .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0;}
+  header p{margin:0;color:var(--muted);font-size:13px;}
+  .layout{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:16px;}
+  @media(max-width:820px){.layout{grid-template-columns:1fr;}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;}
+  .preview{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:repeating-conic-gradient(#15171c 0% 25%,#1b1e24 0% 50%) 50%/22px 22px;
+    border-radius:12px;min-height:320px;position:relative;overflow:hidden;}
+  canvas{max-width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.45);
+    touch-action:none;}
+  .ph{color:var(--muted);font-size:14px;text-align:center;padding:40px 20px;line-height:1.7;}
+  .src-btns{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
   button,.filebtn{font-family:inherit;cursor:pointer;border:1px solid var(--line);
-    background:var(--panel2);color:var(--text);border-radius:10px;padding:9px 14px;font-size:14px;
+    background:var(--panel2);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;
     transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:6px;}
   button:hover,.filebtn:hover{border-color:var(--gold);color:var(--gold-soft);}
   button.primary{background:linear-gradient(135deg,var(--gold),#b08f33);color:#1a1407;border:none;font-weight:600;}
   button.primary:hover{filter:brightness(1.06);color:#1a1407;}
-  button.ghost{padding:7px 11px;font-size:13px;}
-  .stat-row{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 4px;}
-  .stat{flex:1;min-width:120px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
-  .stat .n{font-size:22px;font-weight:700;color:var(--gold-soft);}
-  .stat .l{font-size:12px;color:var(--muted);margin-top:2px;}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px;}
-  .pc-head{display:flex;align-items:center;gap:10px;}
-  .pc-emoji{font-size:26px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;
-    border-radius:10px;background:var(--panel2);flex:none;}
-  .pc-title{flex:1;min-width:0;}
-  .pc-title .nm{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .pc-title .sub{font-size:12px;color:var(--muted);}
-  .pc-menu{display:flex;gap:6px;}
-  .today-line{display:flex;align-items:center;gap:12px;margin:12px 0 6px;flex-wrap:wrap;}
-  .today-line .big{font-size:15px;}
-  .today-line .big b{color:var(--gold-soft);font-size:18px;}
-  .streak{font-size:13px;color:var(--muted);}
-  .streak b{color:var(--text);}
-  .cal-head{display:flex;align-items:center;justify-content:space-between;margin:10px 0 6px;}
-  .cal-head .mo{font-size:14px;font-weight:600;}
-  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
-  .cal .dow{font-size:11px;color:var(--muted);text-align:center;padding-bottom:2px;}
-  .day{position:relative;aspect-ratio:1/1;border-radius:9px;background:var(--panel2);border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text);cursor:pointer;
-    user-select:none;transition:.12s;}
-  .day:hover{border-color:var(--gold);}
-  .day.empty{background:transparent;border:none;cursor:default;}
-  .day.future{opacity:.32;}
-  .day.sel{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.4) inset;}
-  .day .cnt{position:absolute;right:4px;bottom:2px;font-size:10px;font-weight:700;}
-  .day.done{color:#0e0f12;font-weight:700;}
-  .day.partial{}
-  .sel-editor{display:flex;align-items:center;gap:10px;margin:8px 0 2px;flex-wrap:wrap;
-    background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px;}
-  .sel-editor .stepper{display:flex;align-items:center;gap:6px;}
-  .sel-editor .stepper button{padding:4px 11px;font-size:16px;line-height:1;}
-  .pc-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-  .heat{margin-top:10px;}
-  .heat .hh{font-size:13px;color:var(--gold-soft);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
-  .heat-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,1fr);gap:3px;overflow-x:auto;padding-bottom:4px;}
-  .hm{width:13px;height:13px;border-radius:3px;background:rgba(255,255,255,.06);}
-  .hm.l1{background:#2f6b3a}.hm.l2{background:#3f8f4e}.hm.l3{background:#54b35f}.hm.l4{background:#6fd07a}
-  .hm.empty{background:rgba(255,255,255,.04);}
-  .heat-legend{font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:6px;align-items:center;}
-  .empty-state{text-align:center;color:var(--muted);padding:50px 20px;line-height:1.8;font-size:14px;}
-  /* modal */
-  .mask{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:60;padding:16px;}
-  .mask.show{display:flex;}
-  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;width:100%;max-width:380px;}
-  .modal h3{margin:0 0 12px;font-size:17px;}
-  .modal label{display:block;font-size:13px;color:var(--muted);margin:10px 0 5px;}
-  .modal input[type=text]{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--text);
-    border-radius:8px;padding:10px;font-size:15px;font-family:inherit;}
-  .modal input[type=text]:focus{outline:none;border-color:var(--gold);}
-  .emoji-row{display:flex;gap:6px;flex-wrap:wrap;}
-  .emoji-row button{font-size:20px;padding:6px 9px;border-radius:9px;}
-  .emoji-row button.on{border-color:var(--gold);background:var(--panel2);}
-  .swatches{display:flex;gap:8px;flex-wrap:wrap;}
-  .sw{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;}
-  .sw.on{border-color:#fff;box-shadow:0 0 0 2px var(--gold);}
-  .modal .acts{display:flex;gap:10px;margin-top:18px;}
-  .modal .acts button{flex:1;}
+  .filebtn input{display:none;}
+  .tpls{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 10px;}
+  .tpl{padding:7px 11px;font-size:13px;border-radius:999px;}
+  .tpl.on{background:var(--gold);color:#1a1407;border-color:var(--gold);font-weight:600;}
+  .field{display:flex;align-items:center;gap:10px;margin:8px 0;}
+  .field .tg{display:flex;align-items:center;gap:6px;width:96px;flex:none;font-size:13px;color:var(--muted);}
+  .field input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);}
+  .field input[type=text]{flex:1;background:var(--panel2);border:1px solid var(--line);color:var(--text);
+    border-radius:8px;padding:8px 10px;font-size:14px;font-family:inherit;}
+  .field input[type=text]:focus{outline:none;border-color:var(--gold);}
+  .field.off{opacity:.35;}
+  .row{display:flex;gap:10px;align-items:center;margin:10px 0;flex-wrap:wrap;}
+  .row label{font-size:13px;color:var(--muted);min-width:54px;}
+  select,input[type=range]{background:var(--panel2);border:1px solid var(--line);color:var(--text);
+    border-radius:8px;padding:7px 8px;font-size:13px;font-family:inherit;}
+  .seg{display:flex;gap:6px;flex-wrap:wrap;}
+  .seg button{padding:7px 11px;font-size:13px;border-radius:8px;}
+  .seg button.on{background:var(--gold);color:#1a1407;border-color:var(--gold);font-weight:600;}
+  .sec-title{font-size:13px;color:var(--gold-soft);margin:14px 0 6px;letter-spacing:1px;
+    border-left:3px solid var(--gold);padding-left:8px;}
+  .hint{color:var(--muted);font-size:12px;line-height:1.6;margin-top:10px;}
+  .disclaimer{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.85;}
+  .disclaimer b{color:var(--gold-soft);}
+  .export-row{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .export-row select{margin-left:auto;}
   .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);
     background:#222;color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;
-    pointer-events:none;transition:.25s;border:1px solid var(--line);z-index:80;max-width:90%;text-align:center;}
+    pointer-events:none;transition:.25s;border:1px solid var(--line);z-index:50;}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-  .filebtn input{display:none;}
-  .sec-title{font-size:13px;color:var(--gold-soft);margin:18px 0 4px;letter-spacing:1px;border-left:3px solid var(--gold);padding-left:8px;}
-  .heat-sel{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 8px;font-size:13px;font-family:inherit;}
-  /* tab 切换：打卡本 / 拍照留证 */
-  .tabs{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap;}
-  .tab-btn{background:var(--panel2);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px;font-family:inherit;cursor:pointer;transition:.15s;}
-  .tab-btn:hover{border-color:var(--gold);color:var(--gold-soft);}
-  .tab-btn.on{background:var(--gold);color:#1a1407;border-color:var(--gold);font-weight:600;}
-  #tabCam{display:none;}
-  .wm-mod-head{margin-top:18px;}
-  .wm-mod-head h2{font-size:20px;margin:0 0 4px;letter-spacing:1px;}
-  .wm-mod-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;}
-  /* 拍照留证（水印相机）专属样式，全部加 .wm-mod 前缀避免与打卡本冲突 */
-  .wm-mod .layout{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:16px;}
-  @media(max-width:820px){.wm-mod .layout{grid-template-columns:1fr;}}
-  .wm-mod .preview{display:flex;flex-direction:column;align-items:center;justify-content:center;background:repeating-conic-gradient(#15171c 0% 25%,#1b1e24 0% 50%) 50%/22px 22px;border-radius:12px;min-height:320px;position:relative;overflow:hidden;}
-  .wm-mod canvas{max-width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.45);touch-action:none;}
-  .wm-mod .ph{color:var(--muted);font-size:14px;text-align:center;padding:40px 20px;line-height:1.7;}
-  .wm-mod .src-btns{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
-  .wm-mod .tpls{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 10px;}
-  .wm-mod .tpl{padding:7px 11px;font-size:13px;border-radius:999px;}
-  .wm-mod .tpl.on{background:var(--gold);color:#1a1407;border-color:var(--gold);font-weight:600;}
-  .wm-mod .field{display:flex;align-items:center;gap:10px;margin:8px 0;}
-  .wm-mod .field .tg{display:flex;align-items:center;gap:6px;width:96px;flex:none;font-size:13px;color:var(--muted);}
-  .wm-mod .field input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);}
-  .wm-mod .field input[type=text]{flex:1;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 10px;font-size:14px;font-family:inherit;}
-  .wm-mod .field input[type=text]:focus{outline:none;border-color:var(--gold);}
-  .wm-mod .field.off{opacity:.35;}
-  .wm-mod .row{display:flex;gap:10px;align-items:center;margin:10px 0;flex-wrap:wrap;}
-  .wm-mod .row label{font-size:13px;color:var(--muted);min-width:54px;}
-  .wm-mod select{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:7px 8px;font-size:13px;font-family:inherit;}
-  .wm-mod input[type=range]{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:7px 8px;font-size:13px;font-family:inherit;}
-  .wm-mod .seg{display:flex;gap:6px;flex-wrap:wrap;}
-  .wm-mod .seg button{padding:7px 11px;font-size:13px;border-radius:8px;}
-  .wm-mod .seg button.on{background:var(--gold);color:#1a1407;border-color:var(--gold);font-weight:600;}
-  .wm-mod .export-row{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-  .wm-mod .export-row select{margin-left:auto;}
-  .wm-mod .hint{color:var(--muted);font-size:12px;line-height:1.6;margin-top:10px;}
-  .wm-mod .disclaimer{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.85;}
-  .wm-mod .disclaimer b{color:var(--gold-soft);}
-  .wm-mod .dragtip{color:var(--gold-soft);font-size:12px;margin-top:8px;}
+  .dragtip{color:var(--gold-soft);font-size:12px;margin-top:8px;}
 </style>
 </head>
 <body class="wm-app">
 <div class="wrap">
   <header>
-    <h1>打卡本 <span class="dot">·</span> 随时可改</h1>
-    <p>项目随便建、随便改；月历上点任意日期就能打卡、补卡、改记录。数据只存在你这台设备，不联网、不上传。应付检查也够用。</p>
+    <h1>拍照打卡 <span class="dot">·</span> 龙兄水印</h1>
+    <p>上传或拍照 → 编辑水印文字 → 在图上任意拖动 / 拉大小 → 导出。所有信息都能手动改。</p>
   </header>
 
-  <div class="tabs">
-    <button class="tab-btn on" id="tabCheckBtn">📅 打卡本</button>
-    <button class="tab-btn" id="tabCamBtn">📷 拍照留证</button>
-  </div>
-
-  <div id="tabCheck">
-  <div class="bar">
-    <button class="primary" id="addBtn">＋ 添加打卡项目</button>
-    <button id="exportBtn">⬇️ 导出备份</button>
-    <label class="filebtn">⬆️ 导入备份<input id="importFile" type="file" accept="application/json"></label>
-  </div>
-
-  <div class="stat-row" id="statRow"></div>
-
-  <div id="projects"></div>
-
-  <div class="sec-title">年度热力图（选个项目看全年坚持情况）</div>
-  <div class="card">
-    <div class="heat">
-      <div class="hh">
-        <select class="heat-sel" id="heatSel"></select>
-        <span id="heatHint" style="color:var(--muted);font-size:12px;"></span>
+  <div class="layout">
+    <!-- 左侧：预览 -->
+    <div class="card">
+      <div class="preview">
+        <div class="ph" id="ph">请先「上传图片」或「拍照」<br>照片会出现在这里，水印实时叠加</div>
+        <canvas id="cv" style="display:none"></canvas>
       </div>
-      <div class="heat-grid" id="heatGrid"></div>
-      <div class="heat-legend">少 <span class="hm"></span><span class="hm l1"></span><span class="hm l2"></span><span class="hm l3"></span><span class="hm l4"></span> 多</div>
-    </div>
-  </div>
-  </div><!-- /tabCheck -->
-
-  <!-- 拍照留证：水印相机引擎 -->
-  <div id="tabCam" class="wm-mod">
-    <header class="wm-mod-head">
-      <h2>📷 拍照留证</h2>
-      <p>给照片盖时间 / 地点 / 天气水印，导出当凭证。所有信息都能手动改；数据只存在你本地浏览器，不上传。</p>
-    </header>
-    <div class="layout">
-      <div class="card">
-        <div class="preview">
-          <div class="ph" id="wm-ph">请先「上传图片」或「拍照」<br>照片会出现在这里，水印实时叠加</div>
-          <canvas id="wm-cv" style="display:none"></canvas>
-        </div>
-        <div class="dragtip" id="wm-dragtip" style="display:none">提示：按住卡片可拖到任意位置，拖右下角小方块可调大小。</div>
-        <div class="src-btns">
-          <label class="filebtn">📁 上传图片<input id="wm-fileUp" type="file" accept="image/*"></label>
-          <label class="filebtn">📷 拍照<input id="wm-fileCam" type="file" accept="image/*" capture="environment"></label>
-          <button id="wm-sampleBtn">🖼️ 示例图</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="sec-title">模板（一键套用，信息仍可改）</div>
-        <div class="tpls" id="wm-tpls"></div>
-        <div class="sec-title">水印内容（全部可改）</div>
-        <div id="wm-fields"></div>
-        <div class="sec-title">快速定位（也可在图上手动拖）</div>
-        <div class="row">
-          <div class="seg" id="wm-posSeg">
-            <button data-v="bl" class="on">左下</button>
-            <button data-v="br">右下</button>
-            <button data-v="tl">左上</button>
-            <button data-v="tr">右上</button>
-            <button data-v="bc">底部居中</button>
-          </div>
-        </div>
-        <div class="sec-title">样式</div>
-        <div class="row">
-          <label>主题</label>
-          <div class="seg" id="wm-themeSeg">
-            <button data-v="dark" class="on">深色卡片</button>
-            <button data-v="light">浅色卡片</button>
-            <button data-v="text">文字直显</button>
-          </div>
-        </div>
-        <div class="row">
-          <label>卡片透明</label>
-          <input type="range" id="wm-opacity" min="0.2" max="1" step="0.05" value="0.62" style="flex:1">
-          <span id="wm-opVal" style="font-size:12px;color:var(--muted);width:38px;text-align:right">0.62</span>
-        </div>
-        <div class="sec-title">快捷操作</div>
-        <div class="src-btns">
-          <button id="wm-nowBtn">🕐 填入当前时间</button>
-          <button id="wm-geoBtn">📍 获取定位+天气</button>
-          <button id="wm-resetBtn">↺ 恢复默认</button>
-        </div>
-        <div class="export-row">
-          <button class="primary" id="wm-exportBtn">⬇️ 导出照片</button>
-          <select id="wm-fmt">
-            <option value="image/png">PNG（无损）</option>
-            <option value="image/jpeg">JPG（更小）</option>
-          </select>
-        </div>
-        <div class="hint">拖动：在预览图上按住水印卡片移到任意位置；右下角小方块用于缩放卡片。手机点「拍照」直接调相机；定位/天气需联网并授权，失败也能手动填。导出按原图分辨率（最长边 3000px）输出。</div>
+      <div class="dragtip" id="dragtip" style="display:none">提示：按住卡片可拖到任意位置，拖右下角小方块可调大小。</div>
+      <div class="src-btns">
+        <label class="filebtn">📁 上传图片<input id="fileUp" type="file" accept="image/*"></label>
+        <label class="filebtn">📷 拍照<input id="fileCam" type="file" accept="image/*" capture="environment"></label>
+        <button id="sampleBtn">🖼️ 示例图</button>
       </div>
     </div>
-    <div class="disclaimer">
-      <b>免责声明</b>：本工具为个人开发学习用途。所有数据仅保存在你本地浏览器，不上传任何服务器；水印为可视化叠加，不修改照片原始信息，也不具备防伪或验真能力。请勿将其用于伪造考勤、检查或任何官方记录；因使用本工具产生的任何后果由使用者自行承担。
+
+    <!-- 右侧：编辑 -->
+    <div class="card">
+      <div class="sec-title">模板（一键套用，信息仍可改）</div>
+      <div class="tpls" id="tpls"></div>
+
+      <div class="sec-title">水印内容（全部可改）</div>
+      <div id="fields"></div>
+
+      <div class="sec-title">快速定位（也可在图上手动拖）</div>
+      <div class="row">
+        <div class="seg" id="posSeg">
+          <button data-v="bl" class="on">左下</button>
+          <button data-v="br">右下</button>
+          <button data-v="tl">左上</button>
+          <button data-v="tr">右上</button>
+          <button data-v="bc">底部居中</button>
+        </div>
+      </div>
+
+      <div class="sec-title">样式</div>
+      <div class="row">
+        <label>主题</label>
+        <div class="seg" id="themeSeg">
+          <button data-v="dark" class="on">深色卡片</button>
+          <button data-v="light">浅色卡片</button>
+          <button data-v="text">文字直显</button>
+        </div>
+      </div>
+      <div class="row">
+        <label>卡片透明</label>
+        <input type="range" id="opacity" min="0.2" max="1" step="0.05" value="0.62" style="flex:1">
+        <span id="opVal" style="font-size:12px;color:var(--muted);width:38px;text-align:right">0.62</span>
+      </div>
+
+      <div class="sec-title">快捷操作</div>
+      <div class="src-btns">
+        <button id="nowBtn">🕐 填入当前时间</button>
+        <button id="geoBtn">📍 获取定位+天气</button>
+        <button id="resetBtn">↺ 恢复默认</button>
+      </div>
+
+      <div class="export-row">
+        <button class="primary" id="exportBtn">⬇️ 导出照片</button>
+        <select id="fmt">
+          <option value="image/png">PNG（无损）</option>
+          <option value="image/jpeg">JPG（更小）</option>
+        </select>
+      </div>
+
+      <div class="hint">
+        拖动：在预览图上按住水印卡片移动到任意位置；右下角的小方块用于缩放卡片，里面的文字会自动适配大小。手机浏览器里点「拍照」会直接调用相机；定位/天气需联网并授权定位权限，失败也能手动填。导出按原图分辨率（最长边限制 3000px）输出。
+      </div>
     </div>
   </div>
 
-</div>
-
-<!-- 添加/编辑项目弹窗 -->
-<div class="mask" id="mask">
-  <div class="modal">
-    <h3 id="modalTitle">添加打卡项目</h3>
-    <label>名称</label>
-    <input type="text" id="mName" placeholder="例如：早起 / 喝水 / 读书 / 工作打卡" maxlength="20">
-    <label>图标（点选或自己填一个 emoji）</label>
-    <div class="emoji-row" id="emojiRow"></div>
-    <input type="text" id="mEmoji" placeholder="也可在此粘贴任意 emoji" maxlength="4" style="margin-top:8px">
-    <label>颜色</label>
-    <div class="swatches" id="swatches"></div>
-    <label>每日目标次数</label>
-    <input type="text" id="mTarget" placeholder="1" inputmode="numeric" maxlength="3">
-    <div class="acts">
-      <button class="ghost" id="mCancel">取消</button>
-      <button class="primary" id="mSave">保存</button>
-    </div>
+  <div class="disclaimer">
+    <b>免责声明</b>：本工具为个人开发学习用途。所有数据仅保存在你本地浏览器，不上传任何服务器；水印为可视化叠加，不修改照片原始信息，也不具备防伪或验真能力。请勿将其用于伪造考勤、检查或任何官方记录；因使用本工具产生的任何后果由使用者自行承担。
   </div>
 </div>
 
@@ -279,436 +167,312 @@
 <script>
 (function(){
   "use strict";
-  var KEY='longxiong_checkin_v1';
-  var COLORS=['#C9A84C','#5fb37a','#5b9bd5','#d9695f','#a987d8','#e0995a','#56b6c2','#c0c0c0'];
-  var EMOJIS=['💧','🏃','📚','💊','🛌','🧘','🍎','💰','📝','📷','🚭','🦷','🌿','🎯','⏰','✅'];
+  var cv = document.getElementById('cv');
+  var ctx = cv.getContext('2d');
+  var ph = document.getElementById('ph');
+  var dragtip = document.getElementById('dragtip');
 
-  var state={projects:[],records:{}};
-  var ui={view:{},sel:{},editId:null,emoji:EMOJIS[0],color:COLORS[0]};
-
-  // ---------- 工具 ----------
-  function pad(n){return (n<10?'0':'')+n;}
-  function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
-  function parseYmd(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
-  function todayStr(){return ymd(new Date());}
-  function uid(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-  function daysInMonth(y,m){return new Date(y,m+1,0).getDate();}
-  function clamp(v,a,b){return v<a?a:(v>b?b:v);}
-  var toastT;
-  function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2200);}
-  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-  // ---------- 存储 ----------
-  function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);state.projects=o.projects||[];state.records=o.records||{};}}catch(e){}}
-  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){toast('保存失败：本地存储可能已满');}}
-
-  // ---------- 记录读写 ----------
-  function getCount(pid,d){var p=state.records[pid];return (p&&p[d])?p[d]:0;}
-  function setCount(pid,d,n){
-    if(!state.records[pid])state.records[pid]={};
-    if(n>0){state.records[pid][d]=n;}else{delete state.records[pid][d];if(!Object.keys(state.records[pid]).length)delete state.records[pid];}
-    save();
-  }
-  function targetOf(p){return Math.max(1, parseInt(p.target,10)||1);}
-
-  // ---------- 统计 ----------
-  function streakOf(p){
-    var t=targetOf(p),d=new Date(),cnt=0;
-    // 今天若达标从今天算；否则从宽从昨天算（当天还没打不算断）
-    var start=new Date(d);
-    if(getCount(p.id,ymd(start))<t){start.setDate(start.getDate()-1);}
-    while(getCount(p.id,ymd(start))>=t){cnt++;start.setDate(start.getDate()-1);}
-    return cnt;
-  }
-  function totalOf(p){var r=state.records[p.id]||{};var s=0;for(var k in r)s+=r[k];return s;}
-  function longestOf(p){
-    var t=targetOf(p),r=state.records[p.id]||{},days=Object.keys(r).filter(function(k){return r[k]>=t;}).sort();
-    var best=0,run=0,prev=null;
-    days.forEach(function(k){var cur=parseYmd(k);if(prev&&(cur-prev===86400000)){run++;}else{run=1;}if(run>best)best=run;prev=cur;});
-    return best;
-  }
-  function monthRate(p){
-    // 本月截至今天：达标天数 / 已过天数
-    var t=targetOf(p),now=new Date(),y=now.getFullYear(),m=now.getMonth();
-    var elapsed=now.getDate();var done=0;
-    for(var i=1;i<=elapsed;i++){if(getCount(p.id,ymd(new Date(y,m,i)))>=t)done++;}
-    return elapsed?Math.round(done/elapsed*100):0;
-  }
-
-  // ---------- 全局统计 ----------
-  function renderStats(){
-    var row=document.getElementById('statRow');
-    var active=state.projects.filter(function(p){return !p.archived;});
-    var total=0;state.projects.forEach(function(p){total+=totalOf(p);});
-    var best=0;active.forEach(function(p){var l=longestOf(p);if(l>best)best=l;});
-    row.innerHTML=
-      '<div class="stat"><div class="n">'+active.length+'</div><div class="l">进行中项目</div></div>'+
-      '<div class="stat"><div class="n">'+total+'</div><div class="l">累计打卡次数</div></div>'+
-      '<div class="stat"><div class="n">'+best+'</div><div class="l">最长连续(天)</div></div>';
-  }
-
-  // ---------- 项目卡片 ----------
-  function renderProjects(){
-    var box=document.getElementById('projects');
-    if(!state.projects.length){
-      box.innerHTML='<div class="empty-state">还没有打卡项目。<br>点上方「＋ 添加打卡项目」，想记啥就建啥；建好后在月历上点日期就能打卡，过去忘了的也能补。</div>';
-      return;
-    }
-    box.innerHTML='';
-    state.projects.forEach(function(p){
-      if(p.archived)return;
-      var t=targetOf(p),tc=getCount(p.id,todayStr()),st=streakOf(p);
-      var card=document.createElement('div');card.className='card';
-      var vm=ui.view[p.id]||(ui.view[p.id]={y:new Date().getFullYear(),m:new Date().getMonth()});
-      var sel=ui.sel[p.id]||null;
-      var dur=daysInMonth(vm.y,vm.m);
-      var firstDow=new Date(vm.y,vm.m,1).getDay();
-      var calHtml='<div class="dow">日</div><div class="dow">一</div><div class="dow">二</div><div class="dow">三</div><div class="dow">四</div><div class="dow">五</div><div class="dow">六</div>';
-      for(var i=0;i<firstDow;i++)calHtml+='<div class="day empty"></div>';
-      var now=new Date();
-      for(var day=1;day<=dur;day++){
-        var ds=ymd(new Date(vm.y,vm.m,day));
-        var c=getCount(p.id,ds);var isFuture=(vm.y>now.getFullYear())||(vm.y===now.getFullYear()&&vm.m>now.getMonth())||(vm.y===now.getFullYear()&&vm.m===now.getMonth()&&day>now.getDate());
-        var cls='day';if(isFuture)cls+=' future';if(sel===ds)cls+=' sel';
-        if(c>=t)cls+=' done';else if(c>0)cls+=' partial';
-        var bg='';if(c>=t)bg='background:'+p.color+';';else if(c>0)bg='background:'+p.color+'55;';
-        calHtml+='<div class="'+cls+'" data-d="'+ds+'" style="'+bg+'">'+day+(c>0?'<span class="cnt">'+c+'</span>':'')+'</div>';
-      }
-      var selEditor='';
-      if(sel){
-        var sc=getCount(p.id,sel);
-        selEditor='<div class="sel-editor"><span>📅 '+sel+'</span><span class="stepper"><button data-act="dec">－</button><b style="min-width:18px;text-align:center">'+sc+'</b><button data-act="inc">＋</button></span><button class="ghost" data-act="clr">删除这天</button></div>';
-      }
-      card.innerHTML=
-        '<div class="pc-head">'+
-          '<div class="pc-emoji" style="border-color:'+p.color+'55">'+esc(p.emoji)+'</div>'+
-          '<div class="pc-title"><div class="nm">'+esc(p.name)+'</div><div class="sub">目标每天 '+t+' 次</div></div>'+
-          '<div class="pc-menu"><button class="ghost" data-act="edit">改名</button><button class="ghost" data-act="del">删</button><button class="ghost" data-act="arc">归档</button></div>'+
-        '</div>'+
-        '<div class="today-line"><span class="big">今天 <b>'+tc+'</b>/'+t+'</span><span class="streak">连续 <b>'+st+'</b> 天 · 累计 <b>'+totalOf(p)+'</b> 次 · 本月 <b>'+monthRate(p)+'%</b></span><button class="primary" data-act="today" style="margin-left:auto;padding:8px 14px">今日打卡</button></div>'+
-        '<div class="cal-head"><button class="ghost" data-act="prev">‹</button><span class="mo">'+vm.y+'年'+(vm.m+1)+'月</span><button class="ghost" data-act="next">›</button></div>'+
-        '<div class="cal">'+calHtml+'</div>'+
-        selEditor+
-        '<div class="pc-actions"><button class="ghost" data-act="fill">⬇ 补齐本月(至今天)</button><button class="ghost" data-act="clear">🗑 清空本月</button></div>';
-      bindCard(card,p,vm);
-      box.appendChild(card);
-    });
-  }
-
-  function bindCard(card,p,vm){
-    card.querySelectorAll('[data-act]').forEach(function(b){
-      b.addEventListener('click',function(e){
-        var act=b.dataset.act;
-        if(act==='today'){setCount(p.id,todayStr(),getCount(p.id,todayStr())+1);afterChange(p);return;}
-        if(act==='edit'){openModal(p);return;}
-        if(act==='del'){if(confirm('删除项目「'+p.name+'」？该项目的所有打卡记录也会一并删除。')){state.projects=state.projects.filter(function(x){return x.id!==p.id;});delete state.records[p.id];save();renderAll();toast('已删除');}return;}
-        if(act==='arc'){p.archived=true;save();renderAll();toast('已归档（数据保留，可在导入备份里找回）');return;}
-        if(act==='prev'){vm.m--;if(vm.m<0){vm.m=11;vm.y--;}renderProjects();return;}
-        if(act==='next'){vm.m++;if(vm.m>11){vm.m=0;vm.y++;}renderProjects();return;}
-        if(act==='fill'){var now=new Date();var last=(vm.y===now.getFullYear()&&vm.m===now.getMonth())?now.getDate():daysInMonth(vm.y,vm.m);var t=targetOf(p);for(var i=1;i<=last;i++){var ds=ymd(new Date(vm.y,vm.m,i));if(getCount(p.id,ds)<t)setCount(p.id,ds,t);}afterChange(p);return;}
-        if(act==='clear'){var dd=daysInMonth(vm.y,vm.m);for(var j=1;j<=dd;j++){setCount(p.id,ymd(new Date(vm.y,vm.m,j)),0);}afterChange(p);return;}
-        if(act==='dec'||act==='inc'||act==='clr'){var sel=ui.sel[p.id];if(!sel)return;var c=getCount(p.id,sel);if(act==='dec')setCount(p.id,sel,Math.max(0,c-1));if(act==='inc')setCount(p.id,sel,c+1);if(act==='clr')setCount(p.id,sel,0);afterChange(p);return;}
-      });
-    });
-    // 点日期：选中并展示微调面板；空天数首次点选即自动打满（补卡最快），再点一次取消选中
-    card.querySelectorAll('.day[data-d]').forEach(function(d){
-      d.addEventListener('click',function(){
-        var ds=d.dataset.d;
-        if(ui.sel[p.id]===ds){ui.sel[p.id]=null;renderProjects();return;}
-        ui.sel[p.id]=ds;
-        if(getCount(p.id,ds)===0){setCount(p.id,ds,targetOf(p));afterChange(p);return;}
-        renderProjects();
-      });
-    });
-  }
-  function afterChange(p){renderStats();renderProjects();renderHeat();}
-
-  // ---------- 年度热力图 ----------
-  function renderHeatSel(){
-    var sel=document.getElementById('heatSel');
-    sel.innerHTML='<option value="__all">全部项目合并</option>'+state.projects.filter(function(p){return !p.archived;}).map(function(p){return '<option value="'+p.id+'">'+esc(p.emoji)+' '+esc(p.name)+'</option>';}).join('');
-  }
-  function renderHeat(){
-    var sel=document.getElementById('heatSel');var grid=document.getElementById('heatGrid');var hint=document.getElementById('heatHint');
-    var pid=sel.value||'__all';
-    var now=new Date();var year=now.getFullYear();
-    // 从当年 1/1 所在周日开始，到今天为止
-    var start=new Date(year,0,1);var dow=start.getDay();start.setDate(start.getDate()-dow);
-    var html='';var total=0;var maxDay=new Date(year,now.getMonth(),now.getDate());
-    while(start<=maxDay){
-      var ds=ymd(start);var c=0;
-      if(pid==='__all'){state.projects.forEach(function(p){if(!p.archived)c+=getCount(p.id,ds);});}
-      else c=getCount(pid,ds);
-      total+=c;
-      var lv=c<=0?0:(c>=4?4:(c>=3?3:(c>=2?2:1)));
-      html+='<div class="hm'+(lv?' l'+lv:' empty')+'" title="'+ds+'：'+c+' 次"></div>';
-      start.setDate(start.getDate()+1);
-    }
-    grid.innerHTML=html;
-    hint.textContent='今年累计 '+total+' 次';
-  }
-
-  // ---------- 弹窗 ----------
-  function openModal(p){
-    ui.editId=p?p.id:null;
-    document.getElementById('modalTitle').textContent=p?'编辑打卡项目':'添加打卡项目';
-    document.getElementById('mName').value=p?p.name:'';
-    ui.emoji=p?p.emoji:EMOJIS[0];
-    ui.color=p?p.color:COLORS[0];
-    document.getElementById('mEmoji').value=p?p.emoji:'';
-    document.getElementById('mTarget').value=p?p.target:'1';
-    renderEmojiRow();renderSwatches();
-    document.getElementById('mask').classList.add('show');
-    setTimeout(function(){document.getElementById('mName').focus();},50);
-  }
-  function closeModal(){document.getElementById('mask').classList.remove('show');}
-  function renderEmojiRow(){
-    var box=document.getElementById('emojiRow');box.innerHTML='';
-    EMOJIS.forEach(function(e){var b=document.createElement('button');b.textContent=e;b.className=(e===ui.emoji)?'on':'';b.addEventListener('click',function(){ui.emoji=e;document.getElementById('mEmoji').value=e;renderEmojiRow();});box.appendChild(b);});
-  }
-  function renderSwatches(){
-    var box=document.getElementById('swatches');box.innerHTML='';
-    COLORS.forEach(function(c){var s=document.createElement('div');s.className='sw'+(c===ui.color?' on':'');s.style.background=c;s.addEventListener('click',function(){ui.color=c;renderSwatches();});box.appendChild(s);});
-  }
-
-  // ---------- 导入导出 ----------
-  function exportData(){
-    if(!state.projects.length){toast('还没项目，导个啥');return;}
-    var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
-    var a=document.createElement('a');a.href=URL.createObjectURL(blob);
-    a.download='打卡本备份_'+todayStr()+'.json';a.click();
-    setTimeout(function(){URL.revokeObjectURL(a.href);},2000);toast('已导出备份');
-  }
-  function importData(file){
-    if(!file)return;
-    var r=new FileReader();
-    r.onload=function(){
-      try{var o=JSON.parse(r.result);if(!o.projects)throw 0;
-        if(!confirm('导入将覆盖当前所有项目与记录，确定？'))return;
-        state.projects=o.projects;state.records=o.records||{};save();renderAll();toast('导入成功');
-      }catch(e){toast('文件格式不对，导入失败');}
-    };
-    r.readAsText(file);
-  }
-
-  // ---------- 总渲染 ----------
-  function renderAll(){renderStats();renderProjects();renderHeatSel();renderHeat();}
-
-  // ---------- 绑定 ----------
-  document.getElementById('addBtn').addEventListener('click',function(){openModal(null);});
-  document.getElementById('mCancel').addEventListener('click',closeModal);
-  document.getElementById('mSave').addEventListener('click',function(){
-    var name=document.getElementById('mName').value.trim();
-    if(!name){toast('请填项目名称');return;}
-    var emoji=document.getElementById('mEmoji').value.trim()||ui.emoji;
-    var target=clamp(parseInt(document.getElementById('mTarget').value,10)||1,1,200);
-    if(ui.editId){var p=state.projects.find(function(x){return x.id===ui.editId;});p.name=name;p.emoji=emoji;p.color=ui.color;p.target=target;}
-    else{state.projects.push({id:uid(),name:name,emoji:emoji,color:ui.color,target:target,created:todayStr(),archived:false});}
-    save();closeModal();renderAll();toast(ui.editId?'已保存':'已添加项目');
-  });
-  document.getElementById('exportBtn').addEventListener('click',exportData);
-  document.getElementById('importFile').addEventListener('change',function(e){importData(e.target.files[0]);e.target.value='';});
-  document.getElementById('heatSel').addEventListener('change',renderHeat);
-  document.getElementById('mask').addEventListener('click',function(e){if(e.target===this)closeModal();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
-
-  // ---------- 启动 ----------
-  load();
-  if(!state.projects.length){
-    // 首次给两个示例，方便上手（可删）
-    state.projects=[
-      {id:uid(),name:'早起',emoji:'⏰',color:COLORS[0],target:1,created:todayStr(),archived:false},
-      {id:uid(),name:'读书',emoji:'📚',color:COLORS[1],target:1,created:todayStr(),archived:false}
-    ];save();
-  }
-  renderAll();
-})();
-</script>
-
-<script>
-/* tab 切换：打卡本 / 拍照留证 */
-(function(){
-  "use strict";
-  var b1=document.getElementById('tabCheckBtn'),b2=document.getElementById('tabCamBtn');
-  var t1=document.getElementById('tabCheck'),t2=document.getElementById('tabCam');
-  function show(which){
-    if(which==='cam'){
-      t1.style.display='none';t2.style.display='block';
-      b2.classList.add('on');b1.classList.remove('on');
-      if(window.__wmRender)window.__wmRender();
-    }else{
-      t2.style.display='none';t1.style.display='block';
-      b1.classList.add('on');b2.classList.remove('on');
-    }
-  }
-  b1.addEventListener('click',function(){show('check');});
-  b2.addEventListener('click',function(){show('cam');});
-})();
-</script>
-
-<script>
-/* 拍照留证（水印相机引擎）—— 独立作用域，DOM ID 统一加 wm- 前缀，避免与打卡本冲突 */
-(function(){
-  "use strict";
-  var wmcv=document.getElementById('wm-cv');
-  var wmctx=wmcv.getContext('2d');
-  var wmph=document.getElementById('wm-ph');
-  var wmdragtip=document.getElementById('wm-dragtip');
-
-  var FIELDS=[
-    {key:'brand',label:'标题/品牌',def:'龙兄水印',icon:null},
-    {key:'date',label:'日期',def:'',icon:'cal'},
-    {key:'time',label:'时间',def:'',icon:'clock'},
-    {key:'location',label:'地点',def:'',icon:'pin'},
-    {key:'weather',label:'天气',def:'',icon:'sun'},
-    {key:'note',label:'备注',def:'',icon:null},
-    {key:'coords',label:'经纬度',def:'',icon:null}
+  var FIELDS = [
+    {key:'brand',   label:'标题/品牌', def:'龙兄水印', icon:null},
+    {key:'date',    label:'日期',      def:'',             icon:'cal'},
+    {key:'time',    label:'时间',      def:'',             icon:'clock'},
+    {key:'location',label:'地点',      def:'',             icon:'pin'},
+    {key:'weather', label:'天气',      def:'',             icon:'sun'},
+    {key:'note',    label:'备注',      def:'',             icon:null},
+    {key:'coords',  label:'经纬度',    def:'',             icon:null}
   ];
-  var TEMPLATES={
-    classic:{name:'经典时间',theme:'dark',pos:'bl',on:['brand','date','time'],brand:'龙兄水印'},
-    location:{name:'地点天气',theme:'dark',pos:'bl',on:['brand','date','time','location','weather'],brand:'龙兄水印'},
-    work:{name:'工作打卡',theme:'dark',pos:'bl',on:['brand','date','time','location','note'],brand:'工作打卡'},
-    project:{name:'工程记录',theme:'light',pos:'br',on:['brand','date','time','location','weather','note','coords'],brand:'工程记录'}
+
+  var TEMPLATES = {
+    classic:  {name:'经典时间', theme:'dark', pos:'bl', on:['brand','date','time'],                       brand:'龙兄水印'},
+    location: {name:'地点天气', theme:'dark', pos:'bl', on:['brand','date','time','location','weather'],  brand:'龙兄水印'},
+    work:     {name:'工作打卡', theme:'dark', pos:'bl', on:['brand','date','time','location','note'],     brand:'工作打卡'},
+    project:  {name:'工程记录', theme:'light',pos:'br', on:['brand','date','time','location','weather','note','coords'], brand:'工程记录'}
   };
-  var state={
+
+  var state = {
     img:null,
     fields:{brand:'龙兄水印',date:'',time:'',location:'',weather:'',note:'',coords:''},
     on:{brand:true,date:true,time:true,location:false,weather:false,note:false,coords:false},
-    theme:'dark',pos:'bl',opacity:0.62,
-    geo:{nx:0.03,ny:0.78,nw:0.32,nh:0.18}
+    theme:'dark', pos:'bl', opacity:0.62,
+    geo:{nx:0.03, ny:0.78, nw:0.32, nh:0.18}
   };
-  function clamp(v,a,b){return v<a?a:(v>b?b:v);}
-  var showHandle=true;
 
-  function fmtDate(d){var w=['日','一','二','三','四','五','六'][d.getDay()];return d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日 星期'+w;}
-  function fmtTime(d){function p(n){return (n<10?'0':'')+n;}return p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());}
-  function setNow(){var d=new Date();state.fields.date=fmtDate(d);state.fields.time=fmtTime(d);}
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+  var showHandle = true; // 缩放把手只在屏幕预览显示，导出成片时隐藏
+
+  // ---------- 工具函数 ----------
+  function fmtDate(d){
+    var w=['日','一','二','三','四','五','六'][d.getDay()];
+    return d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日 星期'+w;
+  }
+  function fmtTime(d){
+    function p(n){return (n<10?'0':'')+n;}
+    return p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());
+  }
+  function setNow(){
+    var d=new Date();
+    state.fields.date=fmtDate(d);
+    state.fields.time=fmtTime(d);
+  }
   function wmo(code){
-    var m={0:'晴',1:'晴',2:'多云',3:'阴',45:'雾',48:'雾',51:'毛毛雨',53:'小雨',55:'中雨',61:'小雨',63:'中雨',65:'大雨',66:'冻雨',67:'冻雨',71:'小雪',73:'中雪',75:'大雪',80:'阵雨',81:'阵雨',82:'强阵雨',95:'雷阵雨',96:'雷阵雨伴冰雹',99:'强雷暴'};
+    var m={0:'晴',1:'晴',2:'多云',3:'阴',45:'雾',48:'雾',51:'毛毛雨',53:'小雨',55:'中雨',
+      61:'小雨',63:'中雨',65:'大雨',66:'冻雨',67:'冻雨',71:'小雪',73:'中雪',75:'大雪',
+      80:'阵雨',81:'阵雨',82:'强阵雨',95:'雷阵雨',96:'雷阵雨伴冰雹',99:'强雷暴'};
     return m[code]!==undefined?m[code]:'未知';
   }
-  function shortLoc(name){if(!name)return '';var parts=name.split(',');var last=parts.slice(-3).map(function(s){return s.trim();}).filter(Boolean);return last.join(' ');}
+  function shortLoc(name){
+    if(!name) return '';
+    var parts=name.split(',');
+    var last=parts.slice(-3).map(function(s){return s.trim();}).filter(Boolean);
+    return last.join(' ');
+  }
   var toastT;
-  function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2200);}
-
-  function roundRectPath(c,x,y,w,h,r){if(c.roundRect){c.beginPath();c.roundRect(x,y,w,h,r);return;}c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
-  function drawIcon(type,x,y,s,color){
-    wmctx.save();wmctx.fillStyle=color;wmctx.strokeStyle=color;wmctx.lineWidth=s*0.08;wmctx.lineCap='round';
-    var cx=x+s/2,cy=y+s/2;
-    if(type==='pin'){
-      var r=s*0.30,hc=cx,hy=y+s*0.34;
-      wmctx.beginPath();wmctx.moveTo(cx,y+s);wmctx.lineTo(hc-r*0.75,hy+r*0.55);wmctx.lineTo(hc+r*0.75,hy+r*0.55);wmctx.closePath();wmctx.fill();
-      wmctx.beginPath();wmctx.arc(hc,hy,r,0,Math.PI*2);wmctx.fill();
-      wmctx.fillStyle=state.theme==='light'?'#fff':'rgba(0,0,0,0.55)';
-      wmctx.beginPath();wmctx.arc(hc,hy,r*0.42,0,Math.PI*2);wmctx.fill();
-    }else if(type==='clock'){
-      wmctx.lineWidth=s*0.09;
-      wmctx.beginPath();wmctx.arc(cx,cy,s*0.40,0,Math.PI*2);wmctx.stroke();
-      wmctx.beginPath();wmctx.moveTo(cx,cy);wmctx.lineTo(cx,cy-s*0.26);wmctx.moveTo(cx,cy);wmctx.lineTo(cx+s*0.18,cy+s*0.04);wmctx.stroke();
-    }else if(type==='cal'){
-      wmctx.lineWidth=s*0.08;
-      roundRectPath(wmctx,x+s*0.14,y+s*0.20,s*0.72,s*0.60,s*0.10);wmctx.stroke();
-      wmctx.beginPath();wmctx.moveTo(x+s*0.14,y+s*0.40);wmctx.lineTo(x+s*0.86,y+s*0.40);wmctx.stroke();
-      wmctx.beginPath();wmctx.moveTo(x+s*0.30,y+s*0.20);wmctx.lineTo(x+s*0.30,y+s*0.28);wmctx.moveTo(x+s*0.70,y+s*0.20);wmctx.lineTo(x+s*0.70,y+s*0.28);wmctx.stroke();
-      wmctx.beginPath();wmctx.arc(cx,cy+s*0.14,s*0.06,0,Math.PI*2);wmctx.fill();
-    }else if(type==='sun'){
-      wmctx.beginPath();wmctx.arc(cx,cy,s*0.22,0,Math.PI*2);wmctx.fill();
-      wmctx.lineWidth=s*0.07;
-      for(var i=0;i<8;i++){var a=i*Math.PI/4;var r1=s*0.32,r2=s*0.46;wmctx.beginPath();wmctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);wmctx.lineTo(cx+Math.cos(a)*r2,cy+Math.sin(a)*r2);wmctx.stroke();}
-    }
-    wmctx.restore();
+  function toast(msg){
+    var t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove('show');},2200);
   }
 
-  function getDims(){var w=state.img?state.img.width:1200,h=state.img?state.img.height:900;var longest=Math.max(w,h);if(longest>3000){var sc=3000/longest;w=Math.round(w*sc);h=Math.round(h*sc);}return {W:w,H:h};}
-  function activeLines(){var n=0;FIELDS.forEach(function(f){if(state.on[f.key]&&state.fields[f.key])n++;});return Math.max(1,n);}
-  function setDefaultGeo(pos){var d=getDims();var nw=0.32;var F=nw*d.W*0.05;var cardH=(activeLines()*1.55*F)/0.8;var nh=clamp(cardH/d.H,0.05,0.7);var margin=0.03;var nx,ny;if(pos==='bl'){nx=margin;ny=1-margin-nh;}else if(pos==='br'){nx=1-margin-nw;ny=1-margin-nh;}else if(pos==='tl'){nx=margin;ny=margin;}else if(pos==='tr'){nx=1-margin-nw;ny=margin;}else{nx=(1-nw)/2;ny=1-margin-nh;}state.geo={nx:nx,ny:ny,nw:nw,nh:nh};}
+  // ---------- 图标绘制 ----------
+  function roundRectPath(c,x,y,w,h,r){
+    if(c.roundRect){c.beginPath();c.roundRect(x,y,w,h,r);return;}
+    c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);
+    c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();
+  }
+  function drawIcon(type,x,y,s,color){
+    ctx.save();ctx.fillStyle=color;ctx.strokeStyle=color;ctx.lineWidth=s*0.08;ctx.lineCap='round';
+    var cx=x+s/2, cy=y+s/2;
+    if(type==='pin'){
+      var r=s*0.30, hc=cx, hy=y+s*0.34;
+      ctx.beginPath();
+      ctx.moveTo(cx, y+s);
+      ctx.lineTo(hc-r*0.75, hy+r*0.55);
+      ctx.lineTo(hc+r*0.75, hy+r*0.55);
+      ctx.closePath();ctx.fill();
+      ctx.beginPath();ctx.arc(hc,hy,r,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle = state.theme==='light' ? '#fff' : 'rgba(0,0,0,0.55)';
+      ctx.beginPath();ctx.arc(hc,hy,r*0.42,0,Math.PI*2);ctx.fill();
+    } else if(type==='clock'){
+      ctx.lineWidth=s*0.09;
+      ctx.beginPath();ctx.arc(cx,cy,s*0.40,0,Math.PI*2);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-s*0.26);
+      ctx.moveTo(cx,cy);ctx.lineTo(cx+s*0.18,cy+s*0.04);ctx.stroke();
+    } else if(type==='cal'){
+      ctx.lineWidth=s*0.08;
+      roundRectPath(ctx,x+s*0.14,y+s*0.20,s*0.72,s*0.60,s*0.10);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x+s*0.14,y+s*0.40);ctx.lineTo(x+s*0.86,y+s*0.40);ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x+s*0.30,y+s*0.20);ctx.lineTo(x+s*0.30,y+s*0.28);
+      ctx.moveTo(x+s*0.70,y+s*0.20);ctx.lineTo(x+s*0.70,y+s*0.28);ctx.stroke();
+      ctx.beginPath();ctx.arc(cx,cy+s*0.14,s*0.06,0,Math.PI*2);ctx.fill();
+    } else if(type==='sun'){
+      ctx.beginPath();ctx.arc(cx,cy,s*0.22,0,Math.PI*2);ctx.fill();
+      ctx.lineWidth=s*0.07;
+      for(var i=0;i<8;i++){
+        var a=i*Math.PI/4;
+        var r1=s*0.32, r2=s*0.46;
+        ctx.beginPath();
+        ctx.moveTo(cx+Math.cos(a)*r1, cy+Math.sin(a)*r1);
+        ctx.lineTo(cx+Math.cos(a)*r2, cy+Math.sin(a)*r2);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
 
+  // ---------- 几何 ----------
+  function getDims(){
+    var w=state.img?state.img.width:1200, h=state.img?state.img.height:900;
+    var longest=Math.max(w,h);
+    if(longest>3000){var sc=3000/longest; w=Math.round(w*sc); h=Math.round(h*sc);}
+    return {W:w,H:h};
+  }
+  function activeLines(){
+    var n=0;
+    FIELDS.forEach(function(f){ if(state.on[f.key] && state.fields[f.key]) n++; });
+    return Math.max(1,n);
+  }
+  function setDefaultGeo(pos){
+    var d=getDims();
+    var nw=0.32;
+    var F=nw*d.W*0.05;
+    var cardH=(activeLines()*1.55*F)/0.8;
+    var nh=clamp(cardH/d.H, 0.05, 0.7);
+    var margin=0.03;
+    var nx,ny;
+    if(pos==='bl'){nx=margin; ny=1-margin-nh;}
+    else if(pos==='br'){nx=1-margin-nw; ny=1-margin-nh;}
+    else if(pos==='tl'){nx=margin; ny=margin;}
+    else if(pos==='tr'){nx=1-margin-nw; ny=margin;}
+    else {nx=(1-nw)/2; ny=1-margin-nh;}
+    state.geo={nx:nx,ny:ny,nw:nw,nh:nh};
+  }
+
+  // ---------- 渲染 ----------
   function render(){
-    if(!state.img){wmcv.style.display='none';wmph.style.display='block';wmdragtip.style.display='none';return;}
-    wmph.style.display='none';wmcv.style.display='block';wmdragtip.style.display='block';
-    var d=getDims();wmcv.width=d.W;wmcv.height=d.H;wmctx.clearRect(0,0,d.W,d.H);
-    try{wmctx.drawImage(state.img,0,0,d.W,d.H);}catch(e){wmctx.drawImage(state.img,0,0);}
+    if(!state.img){ cv.style.display='none'; ph.style.display='block'; dragtip.style.display='none'; return; }
+    ph.style.display='none'; cv.style.display='block'; dragtip.style.display='block';
+
+    var d=getDims();
+    cv.width=d.W; cv.height=d.H;
+    ctx.clearRect(0,0,d.W,d.H);
+    try{ ctx.drawImage(state.img,0,0,d.W,d.H); }catch(e){ ctx.drawImage(state.img,0,0); }
+
     drawWatermark();
   }
+
   function drawWatermark(){
-    var W=wmcv.width,H=wmcv.height;
-    state.geo.nx=clamp(state.geo.nx,0,1-state.geo.nw);state.geo.ny=clamp(state.geo.ny,0,1-state.geo.nh);
-    var cardX=state.geo.nx*W,cardY=state.geo.ny*H,cardW=state.geo.nw*W,cardH=state.geo.nh*H;
-    var padX=cardW*0.07,padY=cardH*0.10;
+    var W=cv.width, H=cv.height;
+    state.geo.nx=clamp(state.geo.nx,0,1-state.geo.nw);
+    state.geo.ny=clamp(state.geo.ny,0,1-state.geo.nh);
+    var cardX=state.geo.nx*W, cardY=state.geo.ny*H, cardW=state.geo.nw*W, cardH=state.geo.nh*H;
+    var padX=cardW*0.07, padY=cardH*0.10;
+
     var lines=[];
-    FIELDS.forEach(function(f){if(state.on[f.key]&&state.fields[f.key]){lines.push({key:f.key,text:state.fields[f.key],icon:f.icon,baseMul:(f.key==='brand'?1.15:1)});}});
-    if(!lines.length)return;
-    var availH=cardH-2*padY;if(availH<=0)return;
+    FIELDS.forEach(function(f){
+      if(state.on[f.key] && state.fields[f.key]){
+        lines.push({key:f.key, text:state.fields[f.key], icon:f.icon, baseMul:(f.key==='brand'?1.15:1)});
+      }
+    });
+    if(!lines.length) return;
+
+    var availH=cardH-2*padY;
+    if(availH<=0) return;
     var fontSizeH=availH/(lines.length*1.55);
-    var textColor=state.theme==='light'?'#1a1a1a':'#ffffff';var iconColor=textColor;
-    wmctx.textBaseline='middle';
+    var textColor=state.theme==='light'?'#1a1a1a':'#ffffff';
+    var iconColor=textColor;
+
+    ctx.textBaseline='middle';
     var maxTextW=cardW-2*padX;
-    lines.forEach(function(l){var F=fontSizeH*l.baseMul;wmctx.font=F+'px "PingFang SC","Microsoft YaHei",sans-serif';var tw=wmctx.measureText(l.text).width;if(l.icon)tw+=F*1.05+F*0.10;if(tw>maxTextW&&tw>0){l.fs=(maxTextW/tw)*F;}else{l.fs=F;}});
-    if(state.theme!=='text'){var bg=state.theme==='light'?'255,255,255':'0,0,0';wmctx.fillStyle='rgba('+bg+','+state.opacity+')';roundRectPath(wmctx,cardX,cardY,cardW,cardH,Math.min(18,cardW*0.06));wmctx.fill();}
-    else{wmctx.save();wmctx.shadowColor='rgba(0,0,0,0.65)';wmctx.shadowBlur=cardW*0.02+4;wmctx.shadowOffsetY=cardH*0.01;}
+    lines.forEach(function(l){
+      var F=fontSizeH*l.baseMul;
+      ctx.font=F+'px "PingFang SC","Microsoft YaHei",sans-serif';
+      var tw=ctx.measureText(l.text).width;
+      if(l.icon) tw+=F*1.05+F*0.10;
+      if(tw>maxTextW && tw>0){ l.fs=(maxTextW/tw)*F; } else { l.fs=F; }
+    });
+
+    if(state.theme!=='text'){
+      var bg=state.theme==='light'?'255,255,255':'0,0,0';
+      ctx.fillStyle='rgba('+bg+','+state.opacity+')';
+      roundRectPath(ctx,cardX,cardY,cardW,cardH,Math.min(18,cardW*0.06));
+      ctx.fill();
+    } else {
+      ctx.save();
+      ctx.shadowColor='rgba(0,0,0,0.65)'; ctx.shadowBlur=cardW*0.02+4; ctx.shadowOffsetY=cardH*0.01;
+    }
+
     var slotH=(cardH-2*padY)/lines.length;
-    lines.forEach(function(l,i){var cyc=cardY+padY+slotH*(i+0.5);var iconSize=l.fs*1.05;var gap=l.fs*0.10;var tx=cardX+padX;if(l.icon){drawIcon(l.icon,cardX+padX,cyc-iconSize/2,iconSize,iconColor);tx=cardX+padX+iconSize+gap;}wmctx.fillStyle=textColor;wmctx.font=l.fs+'px "PingFang SC","Microsoft YaHei",sans-serif';wmctx.fillText(l.text,tx,cyc);});
-    if(state.theme==='text')wmctx.restore();
-    if(showHandle)drawHandle(cardX+cardW,cardY+cardH,W);
-  }
-  function drawHandle(x,y,W){
-    var rect=wmcv.getBoundingClientRect();var ds=W/(rect.width||W);var hs=Math.max(14,20*ds);
-    wmctx.save();wmctx.fillStyle='rgba(255,255,255,0.9)';roundRectPath(wmctx,x-hs,y-hs,hs,hs,4*ds);wmctx.fill();
-    wmctx.strokeStyle='rgba(0,0,0,0.5)';wmctx.lineWidth=1.5*ds;
-    wmctx.beginPath();wmctx.moveTo(x-hs*0.72,y-hs*0.28);wmctx.lineTo(x-hs*0.28,y-hs*0.72);wmctx.moveTo(x-hs*0.6,y-hs*0.6);wmctx.lineTo(x-hs*0.4,y-hs*0.4);wmctx.stroke();wmctx.restore();
+    lines.forEach(function(l,i){
+      var cyc=cardY+padY+slotH*(i+0.5);
+      var iconSize=l.fs*1.05;
+      var gap=l.fs*0.10;
+      var tx=cardX+padX;
+      if(l.icon){ drawIcon(l.icon, cardX+padX, cyc-iconSize/2, iconSize, iconColor); tx=cardX+padX+iconSize+gap; }
+      ctx.fillStyle=textColor;
+      ctx.font=l.fs+'px "PingFang SC","Microsoft YaHei",sans-serif';
+      ctx.fillText(l.text, tx, cyc);
+    });
+
+    if(state.theme==='text') ctx.restore();
+    if(showHandle) drawHandle(cardX+cardW, cardY+cardH, W);
   }
 
-  function toCanvas(e){var rect=wmcv.getBoundingClientRect();return {x:(e.clientX-rect.left)*(wmcv.width/rect.width),y:(e.clientY-rect.top)*(wmcv.height/rect.height)};}
-  function handleSize(){var rect=wmcv.getBoundingClientRect();var ds=wmcv.width/(rect.width||wmcv.width);return Math.max(14,20*ds);}
+  function drawHandle(x,y,W){
+    var rect=cv.getBoundingClientRect();
+    var ds=W/(rect.width||W);
+    var hs=Math.max(14, 20*ds);
+    ctx.save();
+    ctx.fillStyle='rgba(255,255,255,0.9)';
+    roundRectPath(ctx, x-hs, y-hs, hs, hs, 4*ds);
+    ctx.fill();
+    ctx.strokeStyle='rgba(0,0,0,0.5)';
+    ctx.lineWidth=1.5*ds;
+    ctx.beginPath();
+    ctx.moveTo(x-hs*0.72, y-hs*0.28); ctx.lineTo(x-hs*0.28, y-hs*0.72);
+    ctx.moveTo(x-hs*0.6, y-hs*0.6); ctx.lineTo(x-hs*0.4, y-hs*0.4);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // ---------- 拖拽 / 缩放 ----------
+  function toCanvas(e){
+    var rect=cv.getBoundingClientRect();
+    return { x:(e.clientX-rect.left)*(cv.width/rect.width), y:(e.clientY-rect.top)*(cv.height/rect.height) };
+  }
+  function handleSize(){
+    var rect=cv.getBoundingClientRect();
+    var ds=cv.width/(rect.width||cv.width);
+    return Math.max(14, 20*ds);
+  }
   var drag=null;
-  wmcv.addEventListener('pointerdown',function(e){
-    if(!state.img)return;
+  cv.addEventListener('pointerdown', function(e){
+    if(!state.img) return;
     var c=toCanvas(e);
-    var cardX=state.geo.nx*wmcv.width,cardY=state.geo.ny*wmcv.height,cardW=state.geo.nw*wmcv.width,cardH=state.geo.nh*wmcv.height;
+    var cardX=state.geo.nx*cv.width, cardY=state.geo.ny*cv.height, cardW=state.geo.nw*cv.width, cardH=state.geo.nh*cv.height;
     var hs=handleSize();
-    if(c.x>=cardX+cardW-hs&&c.x<=cardX+cardW+hs*0.5&&c.y>=cardY+cardH-hs&&c.y<=cardY+cardH+hs*0.5){drag={mode:'resize'};}
-    else if(c.x>=cardX&&c.x<=cardX+cardW&&c.y>=cardY&&c.y<=cardY+cardH){drag={mode:'move',offX:c.x-cardX,offY:c.y-cardY};document.querySelectorAll('#wm-posSeg button').forEach(function(b){b.classList.remove('on');});}
-    else return;
-    try{wmcv.setPointerCapture(e.pointerId);}catch(_){}
+    if(c.x>=cardX+cardW-hs && c.x<=cardX+cardW+hs*0.5 && c.y>=cardY+cardH-hs && c.y<=cardY+cardH+hs*0.5){
+      drag={mode:'resize'};
+    } else if(c.x>=cardX && c.x<=cardX+cardW && c.y>=cardY && c.y<=cardY+cardH){
+      drag={mode:'move', offX:c.x-cardX, offY:c.y-cardY};
+      document.querySelectorAll('#posSeg button').forEach(function(b){b.classList.remove('on');});
+    } else return;
+    try{cv.setPointerCapture(e.pointerId);}catch(_){}
     e.preventDefault();
   });
-  wmcv.addEventListener('pointermove',function(e){
+  cv.addEventListener('pointermove', function(e){
     if(drag){
       var c=toCanvas(e);
-      if(drag.mode==='move'){state.geo.nx=clamp((c.x-drag.offX)/wmcv.width,0,1-state.geo.nw);state.geo.ny=clamp((c.y-drag.offY)/wmcv.height,0,1-state.geo.nh);}
-      else if(drag.mode==='resize'){var cardX=state.geo.nx*wmcv.width,cardY=state.geo.ny*wmcv.height;state.geo.nw=clamp((c.x-cardX)/wmcv.width,0.06,0.95);state.geo.nh=clamp((c.y-cardY)/wmcv.height,0.04,0.95);}
-      render();return;
+      if(drag.mode==='move'){
+        state.geo.nx=clamp((c.x-drag.offX)/cv.width, 0, 1-state.geo.nw);
+        state.geo.ny=clamp((c.y-drag.offY)/cv.height, 0, 1-state.geo.nh);
+      } else if(drag.mode==='resize'){
+        var cardX=state.geo.nx*cv.width, cardY=state.geo.ny*cv.height;
+        state.geo.nw=clamp((c.x-cardX)/cv.width, 0.06, 0.95);
+        state.geo.nh=clamp((c.y-cardY)/cv.height, 0.04, 0.95);
+      }
+      render();
+      return;
     }
-    if(!state.img)return;
+    if(!state.img) return;
     var c2=toCanvas(e);
-    var cardX=state.geo.nx*wmcv.width,cardY=state.geo.ny*wmcv.height,cardW=state.geo.nw*wmcv.width,cardH=state.geo.nh*wmcv.height;
+    var cardX=state.geo.nx*cv.width, cardY=state.geo.ny*cv.height, cardW=state.geo.nw*cv.width, cardH=state.geo.nh*cv.height;
     var hs=handleSize();
-    if(c2.x>=cardX+cardW-hs&&c2.y>=cardY+cardH-hs){wmcv.style.cursor='nwse-resize';}
-    else if(c2.x>=cardX&&c2.x<=cardX+cardW&&c2.y>=cardY&&c2.y<=cardY+cardH){wmcv.style.cursor='move';}
-    else wmcv.style.cursor='default';
+    if(c2.x>=cardX+cardW-hs && c2.y>=cardY+cardH-hs){ cv.style.cursor='nwse-resize'; }
+    else if(c2.x>=cardX&&c2.x<=cardX+cardW&&c2.y>=cardY&&c2.y<=cardY+cardH){ cv.style.cursor='move'; }
+    else cv.style.cursor='default';
   });
-  function endDrag(e){drag=null;try{wmcv.releasePointerCapture(e.pointerId);}catch(_){}}
-  wmcv.addEventListener('pointerup',endDrag);
-  wmcv.addEventListener('pointercancel',endDrag);
+  function endDrag(e){ drag=null; try{cv.releasePointerCapture(e.pointerId);}catch(_){} }
+  cv.addEventListener('pointerup', endDrag);
+  cv.addEventListener('pointercancel', endDrag);
 
+  // ---------- 输入同步 ----------
   function buildFields(){
-    var box=document.getElementById('wm-fields');
+    var box=document.getElementById('fields');
     box.innerHTML='';
     FIELDS.forEach(function(f){
       var row=document.createElement('div');
       row.className='field'+(state.on[f.key]?'':' off');
       row.dataset.key=f.key;
-      row.innerHTML='<div class="tg"><input type="checkbox" '+(state.on[f.key]?'checked':'')+'> '+f.label+'</div>'+'<input type="text" value="'+escapeAttr(state.fields[f.key])+'" placeholder="可手动输入">';
+      row.innerHTML=
+        '<div class="tg"><input type="checkbox" '+(state.on[f.key]?'checked':'')+'> '+f.label+'</div>'+
+        '<input type="text" value="'+escapeAttr(state.fields[f.key])+'" placeholder="可手动输入">';
       var cb=row.querySelector('input[type=checkbox]');
       var ti=row.querySelector('input[type=text]');
-      cb.addEventListener('change',function(){state.on[f.key]=cb.checked;row.classList.toggle('off',!cb.checked);render();});
-      ti.addEventListener('input',function(){state.fields[f.key]=ti.value;render();});
+      cb.addEventListener('change',function(){
+        state.on[f.key]=cb.checked;
+        row.classList.toggle('off',!cb.checked);
+        render();
+      });
+      ti.addEventListener('input',function(){
+        state.fields[f.key]=ti.value; render();
+      });
       box.appendChild(row);
     });
   }
-  function escapeAttr(s){return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+  function escapeAttr(s){ return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
   function syncInputs(){
-    document.querySelectorAll('#wm-fields .field').forEach(function(row){
+    document.querySelectorAll('#fields .field').forEach(function(row){
       var k=row.dataset.key;
       row.querySelector('input[type=checkbox]').checked=state.on[k];
       row.querySelector('input[type=text]').value=state.fields[k];
@@ -716,128 +480,143 @@
     });
   }
 
+  // ---------- 模板 ----------
   function buildTemplates(){
-    var box=document.getElementById('wm-tpls');
+    var box=document.getElementById('tpls');
     box.innerHTML='';
     Object.keys(TEMPLATES).forEach(function(k){
       var b=document.createElement('button');
-      b.className='tpl';b.textContent=TEMPLATES[k].name;b.dataset.k=k;
-      b.addEventListener('click',function(){applyTemplate(k);});
+      b.className='tpl'; b.textContent=TEMPLATES[k].name; b.dataset.k=k;
+      b.addEventListener('click',function(){ applyTemplate(k); });
       box.appendChild(b);
     });
   }
   function applyTemplate(k){
     var t=TEMPLATES[k];
-    FIELDS.forEach(function(f){state.on[f.key]=t.on.indexOf(f.key)>=0;});
-    state.theme=t.theme;state.pos=t.pos;
-    if(t.brand)state.fields.brand=t.brand;
+    FIELDS.forEach(function(f){ state.on[f.key]=t.on.indexOf(f.key)>=0; });
+    state.theme=t.theme; state.pos=t.pos;
+    if(t.brand) state.fields.brand=t.brand;
     setNow();
-    document.querySelectorAll('#wm-tpls .tpl').forEach(function(b){b.classList.toggle('on',b.dataset.k===k);});
-    document.querySelectorAll('#wm-themeSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.v===state.theme);});
-    document.querySelectorAll('#wm-posSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.v===state.pos);});
-    if(state.img)setDefaultGeo(state.pos);
-    syncInputs();render();
+    document.querySelectorAll('#tpls .tpl').forEach(function(b){ b.classList.toggle('on',b.dataset.k===k); });
+    document.querySelectorAll('#themeSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.v===state.theme); });
+    document.querySelectorAll('#posSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.v===state.pos); });
+    if(state.img) setDefaultGeo(state.pos);
+    syncInputs(); render();
   }
 
+  // ---------- 分段控件 ----------
   function syncSegs(){
-    document.querySelectorAll('#wm-themeSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.v===state.theme);});
-    document.querySelectorAll('#wm-posSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.v===state.pos);});
+    document.querySelectorAll('#themeSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.v===state.theme); });
+    document.querySelectorAll('#posSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.v===state.pos); });
   }
   function bindSeg(id,key,after){
     document.querySelectorAll('#'+id+' button').forEach(function(b){
-      b.addEventListener('click',function(){state[key]=b.dataset.v;syncSegs();if(after)after();render();});
+      b.addEventListener('click',function(){
+        state[key]=b.dataset.v; syncSegs(); if(after) after(); render();
+      });
     });
   }
 
+  // ---------- 图片加载 ----------
   function loadFile(file){
-    if(!file)return;
-    function done(bmp){state.img=bmp;setNow();setDefaultGeo(state.pos);document.querySelectorAll('#wm-tpls .tpl').forEach(function(b){b.classList.remove('on');});render();}
-    if(window.createImageBitmap){createImageBitmap(file,{imageOrientation:'from-image'}).then(done).catch(function(){fallback(file);});}
-    else fallback(file);
+    if(!file) return;
+    function done(bmp){ state.img=bmp; setNow(); setDefaultGeo(state.pos); document.querySelectorAll('#tpls .tpl').forEach(function(b){b.classList.remove('on');}); render(); }
+    if(window.createImageBitmap){
+      createImageBitmap(file,{imageOrientation:'from-image'})
+        .then(done)
+        .catch(function(){ fallback(file); });
+    } else fallback(file);
   }
   function fallback(file){
     var img=new Image();
-    img.onload=function(){done(img);};
+    img.onload=function(){ done(img); };
     img.src=URL.createObjectURL(file);
   }
-  document.getElementById('wm-fileUp').addEventListener('change',function(e){loadFile(e.target.files[0]);});
-  document.getElementById('wm-fileCam').addEventListener('change',function(e){loadFile(e.target.files[0]);});
-  document.getElementById('wm-sampleBtn').addEventListener('click',function(){
-    var c=document.createElement('canvas');c.width=1200;c.height=900;
+  document.getElementById('fileUp').addEventListener('change',function(e){ loadFile(e.target.files[0]); });
+  document.getElementById('fileCam').addEventListener('change',function(e){ loadFile(e.target.files[0]); });
+
+  document.getElementById('sampleBtn').addEventListener('click',function(){
+    var c=document.createElement('canvas'); c.width=1200; c.height=900;
     var g=c.getContext('2d');
     var grad=g.createLinearGradient(0,0,1200,900);
-    grad.addColorStop(0,'#3a6ea5');grad.addColorStop(1,'#9fc6e8');
-    g.fillStyle=grad;g.fillRect(0,0,1200,900);
+    grad.addColorStop(0,'#3a6ea5'); grad.addColorStop(1,'#9fc6e8');
+    g.fillStyle=grad; g.fillRect(0,0,1200,900);
     g.fillStyle='rgba(255,255,255,0.12)';
-    for(var i=0;i<6;i++){g.beginPath();g.arc(200+i*180,200+(i%2)*400,120,0,Math.PI*2);g.fill();}
+    for(var i=0;i<6;i++){ g.beginPath(); g.arc(200+i*180,200+(i%2)*400,120,0,Math.PI*2); g.fill(); }
     g.fillStyle='rgba(255,255,255,0.9)';
-    g.font='600 54px "PingFang SC",sans-serif';g.textAlign='center';
+    g.font='600 54px "PingFang SC",sans-serif'; g.textAlign='center';
     g.fillText('示例照片（点击导出看效果）',600,460);
-    state.img=c;setNow();setDefaultGeo('bl');
-    document.querySelectorAll('#wm-tpls .tpl').forEach(function(b){b.classList.remove('on');});
-    render();toast('已载入示例图');
+    state.img=c; setNow(); setDefaultGeo('bl');
+    document.querySelectorAll('#tpls .tpl').forEach(function(b){b.classList.remove('on');});
+    render();
+    toast('已载入示例图');
   });
 
-  document.getElementById('wm-nowBtn').addEventListener('click',function(){setNow();syncInputs();render();toast('已填入当前时间');});
-  document.getElementById('wm-resetBtn').addEventListener('click',function(){
+  // ---------- 快捷操作 ----------
+  document.getElementById('nowBtn').addEventListener('click',function(){
+    setNow(); syncInputs(); render(); toast('已填入当前时间');
+  });
+  document.getElementById('resetBtn').addEventListener('click',function(){
     state.fields={brand:'龙兄水印',date:'',time:'',location:'',weather:'',note:'',coords:''};
     state.on={brand:true,date:true,time:true,location:false,weather:false,note:false,coords:false};
-    state.theme='dark';state.pos='bl';state.opacity=0.62;
+    state.theme='dark'; state.pos='bl'; state.opacity=0.62;
     state.geo={nx:0.03,ny:0.78,nw:0.32,nh:0.18};
-    document.getElementById('wm-opacity').value=0.62;document.getElementById('wm-opVal').textContent='0.62';
-    setNow();document.querySelectorAll('#wm-tpls .tpl').forEach(function(b){b.classList.remove('on');});
-    syncSegs();syncInputs();if(state.img)setDefaultGeo('bl');render();toast('已恢复默认');
+    document.getElementById('opacity').value=0.62; document.getElementById('opVal').textContent='0.62';
+    setNow(); document.querySelectorAll('#tpls .tpl').forEach(function(b){b.classList.remove('on');});
+    syncSegs(); syncInputs(); if(state.img) setDefaultGeo('bl'); render(); toast('已恢复默认');
   });
-  document.getElementById('wm-geoBtn').addEventListener('click',function(){
-    if(!navigator.geolocation){toast('当前环境不支持定位');return;}
+
+  document.getElementById('geoBtn').addEventListener('click',function(){
+    if(!navigator.geolocation){ toast('当前环境不支持定位'); return; }
     toast('正在获取定位…');
     navigator.geolocation.getCurrentPosition(function(pos){
-      var lat=pos.coords.latitude,lon=pos.coords.longitude;
+      var lat=pos.coords.latitude, lon=pos.coords.longitude;
       state.fields.coords=lat.toFixed(4)+', '+lon.toFixed(4);
       fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+lat+'&lon='+lon+'&accept-language=zh-CN')
         .then(function(r){return r.json();})
-        .then(function(j){if(j&&j.display_name){state.fields.location=shortLoc(j.display_name);}})
+        .then(function(j){ if(j&&j.display_name){ state.fields.location=shortLoc(j.display_name); } })
         .catch(function(){})
-        .then(function(){return fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,weather_code');})
+        .then(function(){ return fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,weather_code'); })
         .then(function(r){return r.json();})
-        .then(function(j){if(j&&j.current){state.fields.weather=wmo(j.current.weather_code)+' '+Math.round(j.current.temperature_2m)+'°C';}})
+        .then(function(j){ if(j&&j.current){ state.fields.weather=wmo(j.current.weather_code)+' '+Math.round(j.current.temperature_2m)+'°C'; } })
         .catch(function(){})
-        .then(function(){state.on.location=true;state.on.weather=true;state.on.coords=true;syncInputs();render();toast('已填入定位与天气（可手动改）');});
-    },function(err){toast('定位失败：'+(err.message||'已拒绝'));});
+        .then(function(){ state.on.location=true; state.on.weather=true; state.on.coords=true; syncInputs(); render(); toast('已填入定位与天气（可手动改）'); });
+    }, function(err){ toast('定位失败：'+(err.message||'已拒绝')); });
   });
 
-  document.getElementById('wm-exportBtn').addEventListener('click',function(){
-    if(!state.img){toast('请先选择照片');return;}
-    var fmt=document.getElementById('wm-fmt').value;
+  // ---------- 导出 ----------
+  document.getElementById('exportBtn').addEventListener('click',function(){
+    if(!state.img){ toast('请先选择照片'); return; }
+    var fmt=document.getElementById('fmt').value;
     var ext=fmt==='image/jpeg'?'jpg':'png';
-    showHandle=false;render();
-    wmcv.toBlob(function(blob){
-      showHandle=true;render();
+    // 导出成片前先隐藏右下角缩放把手，画布只保留照片+水印
+    showHandle=false; render();
+    cv.toBlob(function(blob){
+      showHandle=true; render(); // 还原屏幕预览的把手
       var a=document.createElement('a');
       a.href=URL.createObjectURL(blob);
       a.download='水印照片_'+Date.now()+'.'+ext;
       a.click();
       setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
       toast('已导出 '+ext.toUpperCase());
-    },fmt,0.92);
+    }, fmt, 0.92);
   });
 
-  document.getElementById('wm-opacity').addEventListener('input',function(e){
+  // ---------- 初始化 ----------
+  document.getElementById('opacity').addEventListener('input',function(e){
     state.opacity=parseFloat(e.target.value);
-    document.getElementById('wm-opVal').textContent=state.opacity.toFixed(2);
+    document.getElementById('opVal').textContent=state.opacity.toFixed(2);
     render();
   });
 
-  buildFields();buildTemplates();
-  bindSeg('wm-themeSeg','theme',null);
-  bindSeg('wm-posSeg','pos',function(){if(state.img)setDefaultGeo(state.pos);});
-  syncSegs();setNow();syncInputs();render();
-  window.__wmRender=render;
+  buildFields(); buildTemplates();
+  bindSeg('themeSeg','theme',null);
+  bindSeg('posSeg','pos',function(){ if(state.img) setDefaultGeo(state.pos); });
+  syncSegs(); setNow(); syncInputs(); render();
 })();
 </script>
-
 <footer class="wm-footer">
-  <nav class="breadcrumb" aria-label="面包屑"><a href="https://longxiong.vip/">龙兄知识库首页</a> › 打卡本 / 拍照留证</nav>
+  <nav class="breadcrumb" aria-label="面包屑"><a href="https://longxiong.vip/">龙兄知识库首页</a> › 拍照打卡</nav>
   <div class="page-meta">本页内容采用 CC BY-NC 4.0 许可 · © 2026 龙兄知识库</div>
 </footer>
 <style>

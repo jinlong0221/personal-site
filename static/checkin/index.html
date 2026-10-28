@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>打卡本 · 随时可改</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="pagefind-ignore" />
+<meta name="description" content="自定义打卡项目，月历任意日期随时打卡/补卡/修改，记录全在本地，用来应付检查也得心应手。" />
+<link rel="canonical" href="https://longxiong.vip/checkin/" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="打卡本 · 随时可改" />
+<meta property="og:description" content="自定义打卡项目，月历任意日期随时打卡/补卡/修改，记录全在本地。" />
+<meta property="og:url" content="https://longxiong.vip/checkin/" />
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png" />
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="打卡本 · 随时可改" />
+<meta name="twitter:description" content="自定义打卡项目，月历任意日期随时打卡/补卡/修改，记录全在本地。" />
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"打卡本 · 随时可改","url":"https://longxiong.vip/checkin/","description":"自定义打卡项目，月历任意日期随时打卡/补卡/修改，记录全在本地。"}</script>
+<style>
+  .wm-app{
+    --bg:#0e0f12; --panel:#17191e; --panel2:#1f2229; --line:#2a2e37;
+    --gold:#C9A84C; --gold-soft:#e3c878; --text:#e8e9ee; --muted:#9aa0ab;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:920px;margin:0 auto;padding:18px 14px 80px;}
+  header h1{font-size:21px;margin:0 0 4px;letter-spacing:1px;}
+  header h1 .dot{color:var(--gold)}
+  header p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;}
+  .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0;}
+  button,.filebtn{font-family:inherit;cursor:pointer;border:1px solid var(--line);
+    background:var(--panel2);color:var(--text);border-radius:10px;padding:9px 14px;font-size:14px;
+    transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:6px;}
+  button:hover,.filebtn:hover{border-color:var(--gold);color:var(--gold-soft);}
+  button.primary{background:linear-gradient(135deg,var(--gold),#b08f33);color:#1a1407;border:none;font-weight:600;}
+  button.primary:hover{filter:brightness(1.06);color:#1a1407;}
+  button.ghost{padding:7px 11px;font-size:13px;}
+  .stat-row{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 4px;}
+  .stat{flex:1;min-width:120px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+  .stat .n{font-size:22px;font-weight:700;color:var(--gold-soft);}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:2px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px;}
+  .pc-head{display:flex;align-items:center;gap:10px;}
+  .pc-emoji{font-size:26px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+    border-radius:10px;background:var(--panel2);flex:none;}
+  .pc-title{flex:1;min-width:0;}
+  .pc-title .nm{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pc-title .sub{font-size:12px;color:var(--muted);}
+  .pc-menu{display:flex;gap:6px;}
+  .today-line{display:flex;align-items:center;gap:12px;margin:12px 0 6px;flex-wrap:wrap;}
+  .today-line .big{font-size:15px;}
+  .today-line .big b{color:var(--gold-soft);font-size:18px;}
+  .streak{font-size:13px;color:var(--muted);}
+  .streak b{color:var(--text);}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin:10px 0 6px;}
+  .cal-head .mo{font-size:14px;font-weight:600;}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+  .cal .dow{font-size:11px;color:var(--muted);text-align:center;padding-bottom:2px;}
+  .day{position:relative;aspect-ratio:1/1;border-radius:9px;background:var(--panel2);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text);cursor:pointer;
+    user-select:none;transition:.12s;}
+  .day:hover{border-color:var(--gold);}
+  .day.empty{background:transparent;border:none;cursor:default;}
+  .day.future{opacity:.32;}
+  .day.sel{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.4) inset;}
+  .day .cnt{position:absolute;right:4px;bottom:2px;font-size:10px;font-weight:700;}
+  .day.done{color:#0e0f12;font-weight:700;}
+  .day.partial{}
+  .sel-editor{display:flex;align-items:center;gap:10px;margin:8px 0 2px;flex-wrap:wrap;
+    background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px;}
+  .sel-editor .stepper{display:flex;align-items:center;gap:6px;}
+  .sel-editor .stepper button{padding:4px 11px;font-size:16px;line-height:1;}
+  .pc-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+  .heat{margin-top:10px;}
+  .heat .hh{font-size:13px;color:var(--gold-soft);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .heat-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,1fr);gap:3px;overflow-x:auto;padding-bottom:4px;}
+  .hm{width:13px;height:13px;border-radius:3px;background:rgba(255,255,255,.06);}
+  .hm.l1{background:#2f6b3a}.hm.l2{background:#3f8f4e}.hm.l3{background:#54b35f}.hm.l4{background:#6fd07a}
+  .hm.empty{background:rgba(255,255,255,.04);}
+  .heat-legend{font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:6px;align-items:center;}
+  .empty-state{text-align:center;color:var(--muted);padding:50px 20px;line-height:1.8;font-size:14px;}
+  /* modal */
+  .mask{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:60;padding:16px;}
+  .mask.show{display:flex;}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;width:100%;max-width:380px;}
+  .modal h3{margin:0 0 12px;font-size:17px;}
+  .modal label{display:block;font-size:13px;color:var(--muted);margin:10px 0 5px;}
+  .modal input[type=text]{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--text);
+    border-radius:8px;padding:10px;font-size:15px;font-family:inherit;}
+  .modal input[type=text]:focus{outline:none;border-color:var(--gold);}
+  .emoji-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .emoji-row button{font-size:20px;padding:6px 9px;border-radius:9px;}
+  .emoji-row button.on{border-color:var(--gold);background:var(--panel2);}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap;}
+  .sw{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;}
+  .sw.on{border-color:#fff;box-shadow:0 0 0 2px var(--gold);}
+  .modal .acts{display:flex;gap:10px;margin-top:18px;}
+  .modal .acts button{flex:1;}
+  .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);
+    background:#222;color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;
+    pointer-events:none;transition:.25s;border:1px solid var(--line);z-index:80;max-width:90%;text-align:center;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .filebtn input{display:none;}
+  .sec-title{font-size:13px;color:var(--gold-soft);margin:18px 0 4px;letter-spacing:1px;border-left:3px solid var(--gold);padding-left:8px;}
+  .heat-sel{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 8px;font-size:13px;font-family:inherit;}
+</style>
+</head>
+<body class="wm-app">
+<div class="wrap">
+  <header>
+    <h1>打卡本 <span class="dot">·</span> 随时可改</h1>
+    <p>项目随便建、随便改；月历上点任意日期就能打卡、补卡、改记录。数据只存在你这台设备，不联网、不上传。应付检查也够用。</p>
+  </header>
+
+  <div class="bar">
+    <button class="primary" id="addBtn">＋ 添加打卡项目</button>
+    <button id="exportBtn">⬇️ 导出备份</button>
+    <label class="filebtn">⬆️ 导入备份<input id="importFile" type="file" accept="application/json"></label>
+  </div>
+
+  <div class="stat-row" id="statRow"></div>
+
+  <div id="projects"></div>
+
+  <div class="sec-title">年度热力图（选个项目看全年坚持情况）</div>
+  <div class="card">
+    <div class="heat">
+      <div class="hh">
+        <select class="heat-sel" id="heatSel"></select>
+        <span id="heatHint" style="color:var(--muted);font-size:12px;"></span>
+      </div>
+      <div class="heat-grid" id="heatGrid"></div>
+      <div class="heat-legend">少 <span class="hm"></span><span class="hm l1"></span><span class="hm l2"></span><span class="hm l3"></span><span class="hm l4"></span> 多</div>
+    </div>
+  </div>
+</div>
+
+<!-- 添加/编辑项目弹窗 -->
+<div class="mask" id="mask">
+  <div class="modal">
+    <h3 id="modalTitle">添加打卡项目</h3>
+    <label>名称</label>
+    <input type="text" id="mName" placeholder="例如：早起 / 喝水 / 读书 / 工作打卡" maxlength="20">
+    <label>图标（点选或自己填一个 emoji）</label>
+    <div class="emoji-row" id="emojiRow"></div>
+    <input type="text" id="mEmoji" placeholder="也可在此粘贴任意 emoji" maxlength="4" style="margin-top:8px">
+    <label>颜色</label>
+    <div class="swatches" id="swatches"></div>
+    <label>每日目标次数</label>
+    <input type="text" id="mTarget" placeholder="1" inputmode="numeric" maxlength="3">
+    <div class="acts">
+      <button class="ghost" id="mCancel">取消</button>
+      <button class="primary" id="mSave">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY='longxiong_checkin_v1';
+  var COLORS=['#C9A84C','#5fb37a','#5b9bd5','#d9695f','#a987d8','#e0995a','#56b6c2','#c0c0c0'];
+  var EMOJIS=['💧','🏃','📚','💊','🛌','🧘','🍎','💰','📝','📷','🚭','🦷','🌿','🎯','⏰','✅'];
+
+  var state={projects:[],records:{}};
+  var ui={view:{},sel:{},editId:null,emoji:EMOJIS[0],color:COLORS[0]};
+
+  // ---------- 工具 ----------
+  function pad(n){return (n<10?'0':'')+n;}
+  function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+  function parseYmd(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+  function todayStr(){return ymd(new Date());}
+  function uid(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+  function daysInMonth(y,m){return new Date(y,m+1,0).getDate();}
+  function clamp(v,a,b){return v<a?a:(v>b?b:v);}
+  var toastT;
+  function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2200);}
+  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  // ---------- 存储 ----------
+  function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);state.projects=o.projects||[];state.records=o.records||{};}}catch(e){}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){toast('保存失败：本地存储可能已满');}}
+
+  // ---------- 记录读写 ----------
+  function getCount(pid,d){var p=state.records[pid];return (p&&p[d])?p[d]:0;}
+  function setCount(pid,d,n){
+    if(!state.records[pid])state.records[pid]={};
+    if(n>0){state.records[pid][d]=n;}else{delete state.records[pid][d];if(!Object.keys(state.records[pid]).length)delete state.records[pid];}
+    save();
+  }
+  function targetOf(p){return Math.max(1, parseInt(p.target,10)||1);}
+
+  // ---------- 统计 ----------
+  function streakOf(p){
+    var t=targetOf(p),d=new Date(),cnt=0;
+    // 今天若达标从今天算；否则从宽从昨天算（当天还没打不算断）
+    var start=new Date(d);
+    if(getCount(p.id,ymd(start))<t){start.setDate(start.getDate()-1);}
+    while(getCount(p.id,ymd(start))>=t){cnt++;start.setDate(start.getDate()-1);}
+    return cnt;
+  }
+  function totalOf(p){var r=state.records[p.id]||{};var s=0;for(var k in r)s+=r[k];return s;}
+  function longestOf(p){
+    var t=targetOf(p),r=state.records[p.id]||{},days=Object.keys(r).filter(function(k){return r[k]>=t;}).sort();
+    var best=0,run=0,prev=null;
+    days.forEach(function(k){var cur=parseYmd(k);if(prev&&(cur-prev===86400000)){run++;}else{run=1;}if(run>best)best=run;prev=cur;});
+    return best;
+  }
+  function monthRate(p){
+    // 本月截至今天：达标天数 / 已过天数
+    var t=targetOf(p),now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    var elapsed=now.getDate();var done=0;
+    for(var i=1;i<=elapsed;i++){if(getCount(p.id,ymd(new Date(y,m,i)))>=t)done++;}
+    return elapsed?Math.round(done/elapsed*100):0;
+  }
+
+  // ---------- 全局统计 ----------
+  function renderStats(){
+    var row=document.getElementById('statRow');
+    var active=state.projects.filter(function(p){return !p.archived;});
+    var total=0;state.projects.forEach(function(p){total+=totalOf(p);});
+    var best=0;active.forEach(function(p){var l=longestOf(p);if(l>best)best=l;});
+    row.innerHTML=
+      '<div class="stat"><div class="n">'+active.length+'</div><div class="l">进行中项目</div></div>'+
+      '<div class="stat"><div class="n">'+total+'</div><div class="l">累计打卡次数</div></div>'+
+      '<div class="stat"><div class="n">'+best+'</div><div class="l">最长连续(天)</div></div>';
+  }
+
+  // ---------- 项目卡片 ----------
+  function renderProjects(){
+    var box=document.getElementById('projects');
+    if(!state.projects.length){
+      box.innerHTML='<div class="empty-state">还没有打卡项目。<br>点上方「＋ 添加打卡项目」，想记啥就建啥；建好后在月历上点日期就能打卡，过去忘了的也能补。</div>';
+      return;
+    }
+    box.innerHTML='';
+    state.projects.forEach(function(p){
+      if(p.archived)return;
+      var t=targetOf(p),tc=getCount(p.id,todayStr()),st=streakOf(p);
+      var card=document.createElement('div');card.className='card';
+      var vm=ui.view[p.id]||(ui.view[p.id]={y:new Date().getFullYear(),m:new Date().getMonth()});
+      var sel=ui.sel[p.id]||null;
+      var dur=daysInMonth(vm.y,vm.m);
+      var firstDow=new Date(vm.y,vm.m,1).getDay();
+      var calHtml='<div class="dow">日</div><div class="dow">一</div><div class="dow">二</div><div class="dow">三</div><div class="dow">四</div><div class="dow">五</div><div class="dow">六</div>';
+      for(var i=0;i<firstDow;i++)calHtml+='<div class="day empty"></div>';
+      var now=new Date();
+      for(var day=1;day<=dur;day++){
+        var ds=ymd(new Date(vm.y,vm.m,day));
+        var c=getCount(p.id,ds);var isFuture=(vm.y>now.getFullYear())||(vm.y===now.getFullYear()&&vm.m>now.getMonth())||(vm.y===now.getFullYear()&&vm.m===now.getMonth()&&day>now.getDate());
+        var cls='day';if(isFuture)cls+=' future';if(sel===ds)cls+=' sel';
+        if(c>=t)cls+=' done';else if(c>0)cls+=' partial';
+        var bg='';if(c>=t)bg='background:'+p.color+';';else if(c>0)bg='background:'+p.color+'55;';
+        calHtml+='<div class="'+cls+'" data-d="'+ds+'" style="'+bg+'">'+day+(c>0?'<span class="cnt">'+c+'</span>':'')+'</div>';
+      }
+      var selEditor='';
+      if(sel){
+        var sc=getCount(p.id,sel);
+        selEditor='<div class="sel-editor"><span>📅 '+sel+'</span><span class="stepper"><button data-act="dec">－</button><b style="min-width:18px;text-align:center">'+sc+'</b><button data-act="inc">＋</button></span><button class="ghost" data-act="clr">删除这天</button></div>';
+      }
+      card.innerHTML=
+        '<div class="pc-head">'+
+          '<div class="pc-emoji" style="border-color:'+p.color+'55">'+esc(p.emoji)+'</div>'+
+          '<div class="pc-title"><div class="nm">'+esc(p.name)+'</div><div class="sub">目标每天 '+t+' 次</div></div>'+
+          '<div class="pc-menu"><button class="ghost" data-act="edit">改名</button><button class="ghost" data-act="del">删</button><button class="ghost" data-act="arc">归档</button></div>'+
+        '</div>'+
+        '<div class="today-line"><span class="big">今天 <b>'+tc+'</b>/'+t+'</span><span class="streak">连续 <b>'+st+'</b> 天 · 累计 <b>'+totalOf(p)+'</b> 次 · 本月 <b>'+monthRate(p)+'%</b></span><button class="primary" data-act="today" style="margin-left:auto;padding:8px 14px">今日打卡</button></div>'+
+        '<div class="cal-head"><button class="ghost" data-act="prev">‹</button><span class="mo">'+vm.y+'年'+(vm.m+1)+'月</span><button class="ghost" data-act="next">›</button></div>'+
+        '<div class="cal">'+calHtml+'</div>'+
+        selEditor+
+        '<div class="pc-actions"><button class="ghost" data-act="fill">⬇ 补齐本月(至今天)</button><button class="ghost" data-act="clear">🗑 清空本月</button></div>';
+      bindCard(card,p,vm);
+      box.appendChild(card);
+    });
+  }
+
+  function bindCard(card,p,vm){
+    card.querySelectorAll('[data-act]').forEach(function(b){
+      b.addEventListener('click',function(e){
+        var act=b.dataset.act;
+        if(act==='today'){setCount(p.id,todayStr(),getCount(p.id,todayStr())+1);afterChange(p);return;}
+        if(act==='edit'){openModal(p);return;}
+        if(act==='del'){if(confirm('删除项目「'+p.name+'」？该项目的所有打卡记录也会一并删除。')){state.projects=state.projects.filter(function(x){return x.id!==p.id;});delete state.records[p.id];save();renderAll();toast('已删除');}return;}
+        if(act==='arc'){p.archived=true;save();renderAll();toast('已归档（数据保留，可在导入备份里找回）');return;}
+        if(act==='prev'){vm.m--;if(vm.m<0){vm.m=11;vm.y--;}renderProjects();return;}
+        if(act==='next'){vm.m++;if(vm.m>11){vm.m=0;vm.y++;}renderProjects();return;}
+        if(act==='fill'){var now=new Date();var last=(vm.y===now.getFullYear()&&vm.m===now.getMonth())?now.getDate():daysInMonth(vm.y,vm.m);var t=targetOf(p);for(var i=1;i<=last;i++){var ds=ymd(new Date(vm.y,vm.m,i));if(getCount(p.id,ds)<t)setCount(p.id,ds,t);}afterChange(p);return;}
+        if(act==='clear'){var dd=daysInMonth(vm.y,vm.m);for(var j=1;j<=dd;j++){setCount(p.id,ymd(new Date(vm.y,vm.m,j)),0);}afterChange(p);return;}
+        if(act==='dec'||act==='inc'||act==='clr'){var sel=ui.sel[p.id];if(!sel)return;var c=getCount(p.id,sel);if(act==='dec')setCount(p.id,sel,Math.max(0,c-1));if(act==='inc')setCount(p.id,sel,c+1);if(act==='clr')setCount(p.id,sel,0);afterChange(p);return;}
+      });
+    });
+    // 点日期：选中并展示微调面板；空天数首次点选即自动打满（补卡最快），再点一次取消选中
+    card.querySelectorAll('.day[data-d]').forEach(function(d){
+      d.addEventListener('click',function(){
+        var ds=d.dataset.d;
+        if(ui.sel[p.id]===ds){ui.sel[p.id]=null;renderProjects();return;}
+        ui.sel[p.id]=ds;
+        if(getCount(p.id,ds)===0){setCount(p.id,ds,targetOf(p));afterChange(p);return;}
+        renderProjects();
+      });
+    });
+  }
+  function afterChange(p){renderStats();renderProjects();renderHeat();}
+
+  // ---------- 年度热力图 ----------
+  function renderHeatSel(){
+    var sel=document.getElementById('heatSel');
+    sel.innerHTML='<option value="__all">全部项目合并</option>'+state.projects.filter(function(p){return !p.archived;}).map(function(p){return '<option value="'+p.id+'">'+esc(p.emoji)+' '+esc(p.name)+'</option>';}).join('');
+  }
+  function renderHeat(){
+    var sel=document.getElementById('heatSel');var grid=document.getElementById('heatGrid');var hint=document.getElementById('heatHint');
+    var pid=sel.value||'__all';
+    var now=new Date();var year=now.getFullYear();
+    // 从当年 1/1 所在周日开始，到今天为止
+    var start=new Date(year,0,1);var dow=start.getDay();start.setDate(start.getDate()-dow);
+    var html='';var total=0;var maxDay=new Date(year,now.getMonth(),now.getDate());
+    while(start<=maxDay){
+      var ds=ymd(start);var c=0;
+      if(pid==='__all'){state.projects.forEach(function(p){if(!p.archived)c+=getCount(p.id,ds);});}
+      else c=getCount(pid,ds);
+      total+=c;
+      var lv=c<=0?0:(c>=4?4:(c>=3?3:(c>=2?2:1)));
+      html+='<div class="hm'+(lv?' l'+lv:' empty')+'" title="'+ds+'：'+c+' 次"></div>';
+      start.setDate(start.getDate()+1);
+    }
+    grid.innerHTML=html;
+    hint.textContent='今年累计 '+total+' 次';
+  }
+
+  // ---------- 弹窗 ----------
+  function openModal(p){
+    ui.editId=p?p.id:null;
+    document.getElementById('modalTitle').textContent=p?'编辑打卡项目':'添加打卡项目';
+    document.getElementById('mName').value=p?p.name:'';
+    ui.emoji=p?p.emoji:EMOJIS[0];
+    ui.color=p?p.color:COLORS[0];
+    document.getElementById('mEmoji').value=p?p.emoji:'';
+    document.getElementById('mTarget').value=p?p.target:'1';
+    renderEmojiRow();renderSwatches();
+    document.getElementById('mask').classList.add('show');
+    setTimeout(function(){document.getElementById('mName').focus();},50);
+  }
+  function closeModal(){document.getElementById('mask').classList.remove('show');}
+  function renderEmojiRow(){
+    var box=document.getElementById('emojiRow');box.innerHTML='';
+    EMOJIS.forEach(function(e){var b=document.createElement('button');b.textContent=e;b.className=(e===ui.emoji)?'on':'';b.addEventListener('click',function(){ui.emoji=e;document.getElementById('mEmoji').value=e;renderEmojiRow();});box.appendChild(b);});
+  }
+  function renderSwatches(){
+    var box=document.getElementById('swatches');box.innerHTML='';
+    COLORS.forEach(function(c){var s=document.createElement('div');s.className='sw'+(c===ui.color?' on':'');s.style.background=c;s.addEventListener('click',function(){ui.color=c;renderSwatches();});box.appendChild(s);});
+  }
+
+  // ---------- 导入导出 ----------
+  function exportData(){
+    if(!state.projects.length){toast('还没项目，导个啥');return;}
+    var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='打卡本备份_'+todayStr()+'.json';a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},2000);toast('已导出备份');
+  }
+  function importData(file){
+    if(!file)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{var o=JSON.parse(r.result);if(!o.projects)throw 0;
+        if(!confirm('导入将覆盖当前所有项目与记录，确定？'))return;
+        state.projects=o.projects;state.records=o.records||{};save();renderAll();toast('导入成功');
+      }catch(e){toast('文件格式不对，导入失败');}
+    };
+    r.readAsText(file);
+  }
+
+  // ---------- 总渲染 ----------
+  function renderAll(){renderStats();renderProjects();renderHeatSel();renderHeat();}
+
+  // ---------- 绑定 ----------
+  document.getElementById('addBtn').addEventListener('click',function(){openModal(null);});
+  document.getElementById('mCancel').addEventListener('click',closeModal);
+  document.getElementById('mSave').addEventListener('click',function(){
+    var name=document.getElementById('mName').value.trim();
+    if(!name){toast('请填项目名称');return;}
+    var emoji=document.getElementById('mEmoji').value.trim()||ui.emoji;
+    var target=clamp(parseInt(document.getElementById('mTarget').value,10)||1,1,200);
+    if(ui.editId){var p=state.projects.find(function(x){return x.id===ui.editId;});p.name=name;p.emoji=emoji;p.color=ui.color;p.target=target;}
+    else{state.projects.push({id:uid(),name:name,emoji:emoji,color:ui.color,target:target,created:todayStr(),archived:false});}
+    save();closeModal();renderAll();toast(ui.editId?'已保存':'已添加项目');
+  });
+  document.getElementById('exportBtn').addEventListener('click',exportData);
+  document.getElementById('importFile').addEventListener('change',function(e){importData(e.target.files[0]);e.target.value='';});
+  document.getElementById('heatSel').addEventListener('change',renderHeat);
+  document.getElementById('mask').addEventListener('click',function(e){if(e.target===this)closeModal();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+
+  // ---------- 启动 ----------
+  load();
+  if(!state.projects.length){
+    // 首次给两个示例，方便上手（可删）
+    state.projects=[
+      {id:uid(),name:'早起',emoji:'⏰',color:COLORS[0],target:1,created:todayStr(),archived:false},
+      {id:uid(),name:'读书',emoji:'📚',color:COLORS[1],target:1,created:todayStr(),archived:false}
+    ];save();
+  }
+  renderAll();
+})();
+</script>
+<footer class="wm-footer">
+  <nav class="breadcrumb" aria-label="面包屑"><a href="https://longxiong.vip/">龙兄知识库首页</a> › 打卡本</nav>
+  <div class="page-meta">本页内容采用 CC BY-NC 4.0 许可 · © 2026 龙兄知识库</div>
+</footer>
+<style>
+.wm-footer{margin-top:26px;padding:14px 8px 2px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-align:center;line-height:1.9}
+.wm-footer .breadcrumb a{color:var(--gold-soft);text-decoration:none}
+.wm-footer .breadcrumb a:hover{text-decoration:underline}
+</style>
+</body>
+</html>

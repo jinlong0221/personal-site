@@ -191,6 +191,7 @@
   };
 
   function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+  var showHandle = true; // 缩放把手只在屏幕预览显示，导出成片时隐藏
 
   // ---------- 工具函数 ----------
   function fmtDate(d){
@@ -367,7 +368,7 @@
     });
 
     if(state.theme==='text') ctx.restore();
-    drawHandle(cardX+cardW, cardY+cardH, W);
+    if(showHandle) drawHandle(cardX+cardW, cardY+cardH, W);
   }
 
   function drawHandle(x,y,W){
@@ -581,7 +582,10 @@
     if(!state.img){ toast('请先选择照片'); return; }
     var fmt=document.getElementById('fmt').value;
     var ext=fmt==='image/jpeg'?'jpg':'png';
+    // 导出成片前先隐藏右下角缩放把手，画布只保留照片+水印
+    showHandle=false; render();
     cv.toBlob(function(blob){
+      showHandle=true; render(); // 还原屏幕预览的把手
       var a=document.createElement('a');
       a.href=URL.createObjectURL(blob);
       a.download='水印照片_'+Date.now()+'.'+ext;

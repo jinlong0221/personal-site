@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://events.vercount.one 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-0Gaa3grHUFKdqZuzVtP4SL9EewYwneYqFlAMaVPfZNo=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9/EqHuwjvLfTiHyePOnEQ+sNbB21c6V02gR3bumGXB8=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-DKR6sjKhdDlFPStGt0/5wCu4l8y9VJkWE+62C6/yN3E=' 'sha256-DnZxHfpEpgGB/AopGw0BmearBVctzSI60+rqsqMg0Lw=' 'sha256-Fqjg0km/YKsmyPZPrde6qDNukL1L3tG+79KmGmzQXpg=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-ZzVpIjLFQseyLIaYjp0n1M/gIzZ7uVAHMY51tRJ5teI=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-rV+aZ912eWx2uqS2P3fT2chNRbeyQ5axFs09u8dfeEA=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://events.vercount.one; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>更新日志｜龙兄知识库</title>
+<meta name="keywords" content="更新日志,龙兄知识库">
+
+<meta name="description" content="更新日志：龙兄知识库说明页，介绍站点内容、栏目分类与更新动态，方便读者快速了解本站并检索实用科普与生活百科内容。内容持续更新，欢迎对照实操、少踩坑。">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#868686;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#6A6A6A;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="css/style.css?v=h73d19c90ae9b" integrity="sha384-e73C8xgW8DwSYcIlxx9T3TtL8ft1xO80+reah236zjBFZQXrbeMcmHABRjoqbXts" crossorigin="anonymous">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04913e92799dc86649938ea8f5eb4b78";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script defer src="https://events.vercount.one/js"></script>
+
+<link rel="canonical" href="https://longxiong.vip/changelog.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="更新日志｜龙兄知识库">
+<meta property="og:description" content="更新日志：龙兄知识库说明页，介绍站点内容、栏目分类与更新动态，方便读者快速了解本站并检索实用科普与生活百科内容。内容持续更新，欢迎对照实操、少踩坑。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/changelog.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="更新日志｜龙兄知识库">
+<meta name="twitter:description" content="龙兄知识库从 2026-06-21 建站至今的完整更新记录：新板块上线、缺陷修复、视觉重构、文案订正，以及台风监测这类自动化运维留痕，逐条按天可查。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <a href="weather.html" class="nav-weather" id="navWeather" title="您所在城市的实时天气，点击查看" aria-label="实时天气">⛅ --°</a>
+    <ul class="nav-links">
+      <li><a href="zisha.html">风物志</a></li>
+      <li><a href="tesla.html">车与数码</a></li>
+      <li><a href="console.html">游戏影游</a></li>
+      <li><a href="tools.html">生活工具</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li><a href="ask.html">问龙兄</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="bracelet.html">文玩手串</a>
+          <a href="zisha.html">紫砂艺术</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="tesla.html">特斯拉</a>
+          <a href="apple.html">苹果</a>
+          <a href="ev-sales.html">新能源销量榜</a>
+          <a href="ev-charge.html">充电桩查询</a>
+          <a href="digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">科技动态</span>
+          <a href="global.html">科技动态</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="console.html">主机图鉴</a>
+          <a href="games.html">玩过的游戏</a>
+          <a href="chinajoy.html">ChinaJoy 成长史</a>
+          <a href="marvel.html">漫威宇宙</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="tools.html">工具箱</a>
+          <a href="calendar.html">万年历</a>
+          <a href="tags.html">标签聚合</a>
+          <a href="bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="notes.html">站长手记</a>
+          <a href="reading.html">读书笔记</a>
+          <a href="methodology.html">知识管理</a>
+          <a href="about.html">关于本站</a>
+          <a href="ask.html">问龙兄</a>
+          <span class="nav-more-hd">站务</span>
+          <a href="changelog.html" class="active">更新日志</a>
+          <a href="status-history.html">站点状态</a>
+          <a href="pitfalls.html">踩坑记</a>
+          <a href="rss.xml">RSS 订阅</a>
+          <span class="nav-more-hd">生活</span>
+          <a href="guanghui.html">光辉电力</a>
+          <a href="herbs.html">中药材</a>
+          <a href="health-tea.html">养生茶</a>
+          <a href="weather.html">天气</a>
+          <a href="sheyang-weather.html">射阳气象</a>
+          <a href="gaokao.html">高考</a>
+          <span class="nav-more-div"></span>
+          <a href="travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" x2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y2="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="bracelet.html">文玩手串</a>
+  <a href="zisha.html">紫砂艺术</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="tesla.html">特斯拉</a>
+  <a href="apple.html">苹果</a>
+  <a href="ev-sales.html">新能源销量榜</a>
+  <a href="ev-charge.html">充电桩查询</a>
+  <a href="digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">科技动态</span>
+  <a href="global.html">科技动态</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="console.html">主机图鉴</a>
+  <a href="games.html">玩过的游戏</a>
+  <a href="chinajoy.html">ChinaJoy 成长史</a>
+  <a href="marvel.html">漫威宇宙</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="tools.html">工具箱</a>
+  <a href="calendar.html">万年历</a>
+  <a href="tags.html">标签聚合</a>
+  <a href="bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="notes.html">站长手记</a>
+  <a href="reading.html">读书笔记</a>
+  <a href="methodology.html">知识管理</a>
+  <a href="about.html">关于本站</a>
+  <a href="ask.html">问龙兄</a>
+  <span class="nav-hd">站务</span>
+  <a href="changelog.html">更新日志</a>
+  <a href="status-history.html">站点状态</a>
+  <a href="pitfalls.html">踩坑记</a>
+  <a href="rss.xml">RSS 订阅</a>
+  <span class="nav-hd">生活</span>
+  <a href="guanghui.html">光辉电力</a>
+  <a href="herbs.html">中药材</a>
+  <a href="health-tea.html">养生茶</a>
+  <a href="weather.html">天气</a>
+  <a href="sheyang-weather.html">射阳气象</a>
+  <a href="gaokao.html">高考</a>
+  <span class="nav-hd-div"></span>
+  <a href="travel.html">家庭旅行</a>
+  </div>
+</nav>
+
+<main class="container" id="main-content" role="main">
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">关于我</span><span class="sep">›</span><span class="current">更新日志</span></div>
+
+  <div class="page-header">
+    <h1>更新日志</h1>
+<p class="subtitle">记录龙兄知识库的每次进化轨迹</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       本页正文由 scripts/build_changelog_feed.py 生成，数据来自：
+         · data/changelog-curated.json  建站早期的逐日摘要 + 版本里程碑（人工策展）
+         · data/changelog.json          2026-06 至今的逐条记录（自动任务持续追加）
+       下面两个标记区之间的内容是脚本注入的静态回退：无 JS / 爬虫 / 首屏
+       都能读到真内容。js/changelog.js 到位后会用全量 feed 覆盖「更新轨迹」，
+       升级为按天分组 + 主线/运维分档的交互版本。
+       改正文请改数据文件后重跑脚本，不要手改标记区内部。
+       ═══════════════════════════════════════════════════════════════════════ -->
+
+  <div class="cl-summary" id="clSummary">
+    <p class="cl-sum-lead">正在统计更新记录…</p>
+  </div>
+
+  <section class="section">
+    <h2>版本里程碑</h2>
+    <p class="section-subtitle">建站以来的重大改动，按时间倒序。版本编号为本页回溯整理，用作分段标记，不是当时对外发布的版本号</p>
+    <div id="clMilestones">
+        <!--CL:MILESTONES:START-->
+        <div class="cl-ms-ghead"><h3 class="cl-ms-group">v6 持续演进</h3><span class="cl-ms-gver">v6.2 – v6.7</span></div>
+          <div class="cl-ms-track">
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">📝</span><h4>更新日志分类修复<span class="cl-ms-ver">v6.7</span></h4></div><div class="cl-ms-meta">2026-10-27</div><p>修了一个会让真改动看不见的展示 bug：旧规则只要正文里出现「台风」二字，就把天气页拆分、恢复板块这类站点真改动误判成自动化运维、塞进折叠区藏起来。现改为按条目开头的动作词（修复/新增/上线/恢复…）优先判主线，台风监测只认 🌀 开头的自动化专属记录。同时把早班/晚班巡检等 21 条漏网的自动化留痕正确归位，更新轨迹主线从 383 条补到 420 条——你看到的大事件不会再被埋掉。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🛡️</span><h4>隐私合规升级<span class="cl-ms-ver">v6.6</span></h4></div><div class="cl-ms-meta">2026-10-26</div><p>按《个人信息保护法》（PIPL）新增隐私政策页，写明白百度统计、VerCount 收集了哪些数据、用途、留存时长与撤回方式；全站页脚统一挂上「隐私政策」入口。顺手清掉「最权威/顶级」这类广告法极限词（事实性专有名词保留），并补了 ICP 备案操作指南。同轮把页脚长期显示横杠的访问计数，从频繁 502 的不蒜子迁到更稳的 VerCount，数字恢复正常。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">📱</span><h4>折叠屏与移动端全面适配<span class="cl-ms-ver">v6.5</span></h4></div><div class="cl-ms-meta">2026-10-25</div><p>适配苹果新折叠屏 iPhone Duo（外屏 5.4 吋 / 内屏 7.6 吋）：新增 600–767px 展开态双列布局，首页卡片墙、动态卡、紫砂作品网格等在大屏上自动变双列；三种视口 × 15 个代表页实测零横向溢出。同时修掉顶栏在中屏整行消失、logo「兄」字被截断等问题，导航改为单一数据源（改一处全站同步）。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🗑️</span><h4>下线「AI 提示词库」板块<span class="cl-ms-ver">v6.4</span></h4></div><div class="cl-ms-meta">2026-10-25</div><p>按龙兄要求，永久下线「AI 提示词库」板块（落地页 + 5 篇示例共 6 页）。导航移除「付费内容」分组，170 个静态页导航重新生成，页面与索引随构建清除，无死链。历史更新日志中该板块的上线记录保留原样——日志只增不改。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🌦️</span><h4>天气板块整合<span class="cl-ms-ver">v6.3</span></h4></div><div class="cl-ms-meta">2026-10-25</div><p>把射阳天气、新坍农田气象、台风监测、二十四节气物候四个独立页面，合并成一个统一的「天气」聚合页（weather.html），顶部菜单由一个入口直达，四块内容用锚点导航切换。旧四个页面改成自动跳转壳，老书签和外链依然能跳过去，全站无死链。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🧭</span><h4>首页板块墙重构<span class="cl-ms-ver">v6.2</span></h4></div><div class="cl-ms-meta">2026-10-25</div><p>首页栏目按「风物志 / 科技动态 / 游戏影游 / 生活 / 站务与关于」五大维度重新归类，告别原来「车与数码 / 生活工具 / 关于我」这种混搭命名。补上了此前没上墙的六个板块（科技动态、光辉电力、中药材、养生茶、天气、高考），全站栏目在首页一站可达。</p></article>
+          </div>
+          <div class="cl-ms-ghead"><h3 class="cl-ms-group">工具与架构收口</h3><span class="cl-ms-gver">v5.0 – v6.1</span></div>
+          <div class="cl-ms-track">
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🧹</span><h4>全站骨架与标题体系收口<span class="cl-ms-ver">v6.1</span></h4></div><div class="cl-ms-meta">2026-09-17</div><p>176 个静态页 + 7 个 Hugo 模板页的骨架一次性统一：面包屑、H1、页尾信息块、页脚、CC 许可行此前各写各的，现抽出 <code>scripts/sync_chrome.py</code> 作唯一真相源，正文引号同时归一为「」共 899 处；同一页标题在四处各写一份、185 页里 176 页互相打架，另抽 <code>scripts/sync_titles.py</code> 收口。同轮把「逐页回读部署产物」固化成 <code>scripts/audit_live_artifact.py</code>——更新日志页长期「源码里没有一个字的正文」的审计盲区就此关闭。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🧭</span><h4>全站信息架构整理<span class="cl-ms-ver">v6.0</span></h4></div><div class="cl-ms-meta">2026-09-16</div><p>板块分组归一为 6 大主题类目：风物志 / 车与数码 / 游戏影游 / 射阳本地 / 生活工具 / 关于我——此前分组互相混着维度（「车与机」「乡与家」把车、机、乡、家混放）。顶栏改为 6 类目直达 + 分组下拉，悬浮栏目目录与 <code>/categories/</code> 总览页同步同一套分组；首页重排为「报头 → 轮播 → 今日更新 → 六大目录」。URL 一律未动。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🎨</span><h4>顶栏改版（龙兄定案）<span class="cl-ms-ver">v5.4</span></h4></div><div class="cl-ms-meta">2026-09-09</div><p>顶部站名只显示「龙兄」两字（红章龙 + 龙兄），时间与天气全宽段保留显示。撤掉此前「窄屏就把时钟、天气藏起来」的权宜做法，小屏空间改由收窄按钮与间距腾出。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🗄️</span><h4>沉香、中药材板块转为隐藏<span class="cl-ms-ver">v5.3</span></h4></div><div class="cl-ms-meta">2026-09-09</div><p>沉香鉴别与中药材两个板块转为隐藏（原文完整备份，可随时恢复），为随后的信息架构整理腾出分组空间；全站对这两个板块的文字引用一并清理。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🌏</span><h4>新增国内直连发布通道<span class="cl-ms-ver">v5.2</span></h4></div><div class="cl-ms-meta">2026-09-02</div><p>新增腾讯云 COS 同步发布通道：构建完成后把产物同步一份到国内可直连的对象存储，解决 GitHub Pages 在国内时常打不开的问题。同轮给发布脚本加了配置自检。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🚗</span><h4>新能源车销量榜板块上线<span class="cl-ms-ver">v5.1</span></h4></div><div class="cl-ms-meta">2026-09-02</div><p>新页 <code>ev-sales.html</code>，直连乘联分会官方数据接口、逐月自动滚动：厂商销量 TOP10（批发 / 零售双榜切换）、渗透率近 12 个月走势、纯电与插混结构对比、自主·合资·豪华·进口阵营份额、乘用车厂商总销量榜。9 月 4 日再补「车型级销量」（零售 / 批发双 Tab）——车型级数字仅 18 款抽样中 12 款与乘联会闭合，如实标注仅供横向比较、不等同官方口径；车企自报数字一律不用。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🔌</span><h4>充电桩查询工具板块上线<span class="cl-ms-ver">v5.0</span></h4></div><div class="cl-ms-meta">2026-08-31</div><p>新页 <code>ev-charge.html</code>：打开即定位，显示所在地区全部充电站，支持按距离或价格排序、一键导航、一键查实时价。检索走高德 + 腾讯双通道，并入盐城 9 区县 244 个公共充电站的核实价格库（来源无敌电动网，含综合电费与停车费口径）。界面为国风黑金版「大地图 + 底部卡片栏」联动版式，移动端实测可一滑到底。</p></article>
+          </div>
+          <div class="cl-ms-ghead"><h3 class="cl-ms-group">板块扩张与内容建设</h3><span class="cl-ms-gver">v4.0 – v4.9</span></div>
+          <div class="cl-ms-track">
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">📖</span><h4>板块深度解读第一轮<span class="cl-ms-ver">v4.9</span></h4></div><div class="cl-ms-meta">2026-08-30</div><p>板块深度解读第一轮：主机图鉴 75 页「选购与避坑」、紫砂「深度解读」+「养壶记录时间线」、游戏库 11 页「值不值得玩」。板块从「列表 + 详情」升级为「带判断的解读」。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🕸️</span><h4>174 页互串「相关阅读」<span class="cl-ms-ver">v4.8</span></h4></div><div class="cl-ms-meta">2026-08-29</div><p>全站 174 个页面互相串上「相关阅读」，把原本彼此孤立的详情页连成网——此前只有板块页找得到内容，单个主机页 / 紫砂页 / 游戏页之间没有任何横向通路。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🛡️</span><h4>全站安全加固<span class="cl-ms-ver">v4.7</span></h4></div><div class="cl-ms-meta">2026-08-27</div><p>全站安全加固：浏览器安全策略收口——181 个静态页的内联事件处理器改事件委托、移除脚本策略里的 <code>unsafe-inline</code>；静态资源逐个做 SRI 验签；旅行加密相册的密钥派生升级为内存硬 KDF（Argon2id）。此后带未登记内联脚本的新页会被浏览器直接挡掉。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🗂️</span><h4>全站自动折叠<span class="cl-ms-ver">v4.6</span></h4></div><div class="cl-ms-meta">2026-08-18</div><p>升级 <code>auto-collapse.js</code>：在原先「首页、子页显式挂折叠」的基础上新增全站自动探测——任意带标题、直接子项多于两条的内容网格 / 列表 / 板块默认折叠，并挂上带条数的「展开 / 收起」按钮。此前逐页手动挂折叠，新页总会漏；此后长页自动收口。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🏛️</span><h4>首页重排四大板块 + 关于本站改版<span class="cl-ms-ver">v4.5</span></h4></div><div class="cl-ms-meta">2026-08-16</div><p>首页把全部栏目重排为四大板块（香与器 / 车与机 / 乡与家 / 站点工具），板块间以渐变分割线区分；「关于本站」重写为建站初衷、站长介绍、数据可信、合作与联系四节。同轮上线三项纯前端功能：本地收藏（<code>/bookmarks.html</code>，localStorage 存储）、全站悬浮栏目目录、RSS 订阅。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🍎</span><h4>苹果新品板块上线<span class="cl-ms-ver">v4.4</span></h4></div><div class="cl-ms-meta">2026-08-15</div><p>新增 <code>apple.html</code>，跟进苹果发布会、在售机型与价格变动。板块创建当天就挂进每日 08:00 的自动更新清单，不靠人工想起来才刷。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">📓</span><h4>私人微博空间底座<span class="cl-ms-ver">v4.3</span></h4></div><div class="cl-ms-meta">2026-08-14</div><p>首页时间线 + 碎碎念板块上线，把随手记与动态流并到一处。8 月 16 日再收口：撤掉独立的 <code>microblog.html</code>，动态完整归入首页时间线（含碎碎念 / 原创 / 动态 / 台风筛选），全站约 180 个页脚导航一并刷新，无死链。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🚙</span><h4>独立 FSD 板块上线<span class="cl-ms-ver">v4.2</span></h4></div><div class="cl-ms-meta">2026-08-09</div><p>新页 <code>tesla/fsd.html</code>（国内称「特斯拉辅助驾驶 TAD」）：梳理中国落地进展——V14.3 覆盖 40+ 城市、6.4 万元买断 / 999 元订阅、上海临港数据中心合规、四部门联合终审；以及北美 Robotaxi 五城运营与无监督 FSD 全球动态。同轮给正文本就长的页面补上页内目录。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">📰</span><h4>首页改版：A+C 文人刊物风格<span class="cl-ms-ver">v4.1</span></h4></div><div class="cl-ms-meta">2026-08-06</div><p>首页从「Metro 瓷砖导航」换成文人刊物版面：SVG 刊头 + 单排 Ticker，全站视觉随之升级，是本站视觉路线的一次定型。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🎮</span><h4>ChinaJoy 与家庭旅行板块上线 + 主机页重构 + 导航统一<span class="cl-ms-ver">v4.0</span></h4></div><div class="cl-ms-meta">2026-08-05</div><p>新增 ChinaJoy 成长史板块（历届档案 + 真实 CC 现场照），同日另上线「足迹·家庭旅行」加密相册板块（仅家人可见）；游戏主机页重构为「吸顶筛选栏 + 搜索 + 分批次加载」，全站导航栏去掉 emoji 并抽出共享规范模板——此后新页的导航都从同一模板生成，不再逐页手抄。同一天还修掉万年历农历闰月误差（非闰年多出约 29 天）、73 个子目录页资源路径，并开启 Hugo 构建压缩。</p></article>
+          </div>
+          <div class="cl-ms-ghead"><h3 class="cl-ms-group">迁到 Hugo 静态站</h3><span class="cl-ms-gver">v3.1 – v3.2</span></div>
+          <div class="cl-ms-track">
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">⚙️</span><h4>全站 JS 加载架构重构<span class="cl-ms-ver">v3.2</span></h4></div><div class="cl-ms-meta">2026-07-18</div><p><code>head.html</code> 改为全局加载 10 个脚本，清掉各页自行挂 <code>per-page</code> 标签的做法——同一段脚本不再在几十个页面里各写一份，改一次全站生效。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🏗️</span><h4>引入 Hugo 静态站架构<span class="cl-ms-ver">v3.1</span></h4></div><div class="cl-ms-meta">2026-07-17</div><p>网站从手写静态 HTML 引入 Hugo：可模板化的页面改由模板渲染，构建与部署交给 GitHub Actions。另把 Pagefind 搜索索引静态化——206 个索引文件改在本地生成后提交进仓库，不再依赖 CI 现场生成，搜索不再时好时坏。</p></article>
+          </div>
+          <div class="cl-ms-ghead"><h3 class="cl-ms-group">建站与首轮重构</h3><span class="cl-ms-gver">v1.0 – v3.0</span></div>
+          <div class="cl-ms-track">
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🔧</span><h4>全面 SEO 优化<span class="cl-ms-ver">v3.0</span></h4></div><div class="cl-ms-meta">2026-07-06</div><p>全站 149 个页面补全 Open Graph / Twitter Card / canonical URL / JSON-LD 结构化数据。新建 robots.txt、生成 og-image 分享图、创建 SVG favicon。修复搜索功能（Pagefind 重建索引）。清理主机图鉴 8 个重复条目。接入 Google Analytics 4。创建 sitemap 自动生成脚本。.htaccess 添加 www 重定向和 HTTPS 强制跳转。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🚗</span><h4>特斯拉板块全面重构<span class="cl-ms-ver">v2.3</span></h4></div><div class="cl-ms-meta">2026-06-22</div><p>特斯拉板块重大更新：全面重写所有车型页面（Model 3/Y/S/X/Cybertruck），新增6个产品页面（Model Y L/Semi/Roadster/Cybercab/Powerwall/Megapack），共11个特斯拉相关页面。车型数据全面更新：Model Y修正为3个版本，Model Y L独立为六座旗舰车型，Model S/X标注停产状态并添加停产公告。新增「最新动态」版块（3-5条新闻），首页全面改版为关键数据栏+新闻列表+分类卡片网格。app.js面包屑和search-index.json同步更新，导航栏包含全部特斯拉产品线。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🍵</span><h4>新增中药养生茶板块<span class="cl-ms-ver">v2.2</span></h4></div><div class="cl-ms-meta">2026-06-22</div><p>新增「中药养生茶配方」板块，包含20+种常用药食同源食材、30+经典配方（养肝明目/安神助眠/健脾祛湿/清热润肺/补气养血/降压降脂/排毒养颜/解酒护肝8大类）、四季养生方案和体质辨识指南。全站导航和搜索索引同步更新。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🔧</span><h4>全站8项修复<span class="cl-ms-ver">v2.1</span></h4></div><div class="cl-ms-meta">2026-06-22</div><p>CDN优化：fonts.font.im→fonts.googleapis.cn国内镜像，3个子页面字体加载加速。搜索：新增清空按钮+无结果提示+全文高亮+XSS过滤。夜间模式：localStorage持久+双套配色+防闪白。交互：全站复制按钮+移动端44px触控区+汉堡菜单全适配。排版：天气侧边栏+AI内容优先+手机端加宽留白。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🚀</span><h4>全站重大重构<span class="cl-ms-ver">v2.0</span></h4></div><div class="cl-ms-meta">2026-06-22</div><p>全面整改：卡片式布局替换平铺、四大分类导航（AI学习/兴趣干货/生活实用/在线小工具）、访客留言板、CSS从34KB瘦身至23KB、删除9个冗余单页、SEO关键词统一、XSS防护加固。</p></article>
+          <article class="cl-ms"><div class="cl-ms-hd"><span class="cl-ms-ico" aria-hidden="true">🎉</span><h4>网站创建<span class="cl-ms-ver">v1.0</span></h4></div><div class="cl-ms-meta">2026-06-21</div><p>龙兄知识库正式上线！GitHub Pages 部署，Metro 风格，黑金国风科技色系。首批包含沉香鉴别、中药材、文玩手串、特斯拉动态、射阳天气等板块。</p></article>
+          </div>
+        <!--CL:MILESTONES:END-->
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>更新轨迹</h2>
+    <h3 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">更新记录</h3>
+    <p class="cl-note">每一次提交的足迹：新板块、修复、重构与文案订正记在明面上，
+      台风监测、新闻巡检这类自动化留痕按天折叠，不占版面。</p>
+    <div id="weeklyChangelog" class="cl-feed">
+        <!--CL:RECENT:START-->
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-01">2026 年 11 月 1 日 · 周日</time></h4><details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×1</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 补漏巡检 02:52：补游戏主机板当日新稿（Tarot Tokens 登陆 Switch），其余 10 板无合格当日新稿未更新。</p></div></div></details>
+          </section>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-31">2026 年 10 月 31 日 · 周六</time><span class="cl-day-n">1 项改动</span></h4><div class="cl-item"><span class="cl-time">20:00</span><div class="cl-main"><p class="cl-head">🌍 海外动态追更 3 条（马斯克：Neuralink 两款脑机新品 / Grok 4.8 延期 / Optimus 12月预订传闻马斯克回No）+ updated 回写 2026-10-31</p></div></div>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×6</span><span class="cl-chip">台风 ×8</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 补漏巡检 23:40：补漫威板当日新稿（首尔漫威主题无人机灯光秀），bracelet/fsd/boxoffice 当日无合格新稿未更新。</p><p class="cl-ops-more">另有 5 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">2026-10-31 22:31 台风高频刷新：烟花#31维持17时(中央气象台总33期·10/31 17:04)口径（20时后未签发新公报）；中央气象台2026-10-31 18时大风蓝警续发(10/31 20时-11/1 20时 黄海大部7-8级阵风9-10级含射阳外海)；…</p><p class="cl-ops-more">另有 7 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+          </section>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-30">2026 年 10 月 30 日 · 周五</time><span class="cl-day-n">1 项改动</span></h4><div class="cl-item"><span class="cl-time">20:00</span><div class="cl-main"><p class="cl-head">🌍 海外动态追更 5 条（马斯克 4 + 黄仁勋 1）＋updated 回写 2026-10-30：黄仁勋回应涉华间谍报道、xAI/SpaceX 收购密西西比 418 套住宅、FCC 482MHz 卫星直连新规、星舰 Flight 15 锁定 11/12 首试双捕获、拉脱维亚批准 FSD（第 10 欧盟国）。</p></div></div>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×7</span><span class="cl-chip">巡检 ×7</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测高频刷新（21:13·多源交叉验证）：烟花#31(IN-FA·2631)中央气象台台风快讯2026年总29期（20:28·基于20时实况）20时位于19.7°N/144.6°E、超强台风17级58m/s/925hPa、距关岛塞班西北方向约510km、向西偏北15-20km/h、对我国近海无影响（较17时略远、移速由25-30减速为15-20km/h、仍远海暂不上板）；蔷琵#30维持停编收尾；…</p><p class="cl-ops-more">另有 6 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">晚班巡检（21:00）：逐板块检索过去24h新闻。游戏主机板新增2条2026-10-30当日稿（Switch 2美国销量同比-12%、任天堂上调年度销量目标至1900万台），并清理1条重复条目；特斯拉/苹果/漫威/中药材等11板已于今日早、午班更新至2026-10-30，本班轻量复核未见需追加的当日新稿。文玩手串、养生茶两板本次未检索到合格的2026-10-30当日稿，updated 维持2026-10-29未作改动（严守不造假铁律）。</p><p class="cl-ops-more">另有 6 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+          </section>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-29">2026 年 10 月 29 日 · 周四</time><span class="cl-day-n">1 项改动</span></h4><div class="cl-item"><span class="cl-time">20:00</span><div class="cl-main"><p class="cl-head">🌍 海外动态追更 6 条（马斯克 5：星舰 B22 静火、特斯拉进军越南、普京盛赞马斯克、6493 名股东联名促合并、Crystal Sun 太阳能厂减税；黄仁勋 1：司法部问询收购 Hugging Face）+ updated 回写 2026-10-29</p></div></div>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×7</span><span class="cl-chip">巡检 ×6</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测 22:48 高频刷新：① 蔷琵#30已于10/25 23时停编、收尾监测维持；② 烟花#31(2631)中央气象台/中国天气网台风频道20时实况16.6°N/151.3°E/超强台风17级60m/s/920hPa/向偏西偏北30km/h/对我国近海无影响（较17时再增强、远海暂不上板）；…</p><p class="cl-ops-more">另有 6 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🌙 晚班 21:00 复搜巡检（13 板全量）：早/午班与 19:42 台风续报已完整上板，各板 updated 均为 10-29。本班复搜确认并增量更新 2 板——主机板 +1《鬼灭之刃 柱灭之章2》Switch 2 版（原版30帧→锁定60帧）与《命运石之门 RE:BOOT》10/29 发售（VideoGamer/Worthplaying/TwistedVoxel/ANN 多源交叉）；…</p><p class="cl-ops-more">另有 5 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+          </section>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-28">2026 年 10 月 28 日 · 周三</time><span class="cl-day-n">8 项改动</span></h4><div class="cl-item"><span class="cl-time">20:00</span><div class="cl-main"><p class="cl-head">🌍 海外动态追更 4 条（马斯克：休斯顿Robotaxi扩十倍/韩80车主FSD越狱立案/德州捐款500万/AI影片《奥德赛》首秀）+updated回写2026-10-28；黄仁勋窗口内无新增合格动态，未录。</p></div></div>
+            <div class="cl-item"><span class="cl-time">14:30</span><div class="cl-main"><p class="cl-head">上线「问龙兄」纯前端问答页（ask.html + ask.js + ask-kb.json）：浏览器端关键词匹配站内知识库，无后端、不联网、不花钱；新增《龙兄口头指令清单》暗号约定，全站导航接入「问龙兄」入口。</p></div></div>
+            <div class="cl-item"><span class="cl-time">12:03</span><div class="cl-main"><p class="cl-head">2026-10-28 12:03 台风实时监测刷新（多源交叉验证·中央气象台台风快讯2026年总11期10/28 11:</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">20+台风公报28日08时+中国天气网台风频道02时口径+中央气象台大风蓝警10/28 06时+江苏气象+盐城/射阳CMA站58150）：蔷琵#30已停编收尾维持；烟花#31(2631)28日11时（总11期11时20分）北纬15.0°/东经159.5°、超强台风级17级60m/s/920hPa、距关岛塞班偏东约1480km、向偏西20-25km/h、强度逐渐加强、下次更新28日14时30分、对我国海区无影响→远海暂不上板（较08时公报再增强并西调）；✅本地射阳海区所依黄海大风蓝警窗口（10/26 20时-27日20时 黄海大部7级阵风8-9级）已于27日20时结束、此后5-6级阵风7级→海区及沿海「低」；中央气象台10/28 06时大风蓝警（东海西部/台湾海峡/巴士海峡/南海北部 7-8级阵风9级）不含黄海/射阳海区→无新增大风风险；县城(合德)28日阴转小雨无生效预警→县城「低」；综合风险「低」、statusShort「已停编」。 本板维持蔷琵#30收尾、持续高频监测烟花#31及新生成系统。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">08:47</span><div class="cl-main"><p class="cl-head">2026-10-28 08:47 台风实时监测刷新（多源交叉验证·中央气象台台风快讯2026年总10期10/28 08:</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">23+台风公报28日05时+中国天气网台风频道02时口径+国家海洋预报中心海浪/风暴潮蓝警10/27 16时+江苏气象+盐城/射阳CMA站58150）：蔷琵#30已停编收尾维持；烟花#31(2631)28日08时北纬14.9°/东经159.9°、超强台风级17级60m/s/920hPa、距关岛塞班偏东约1520km、向偏西偏北20-25km/h、强度逐渐增强、下次更新28日11时30分、对我国海区无影响→远海暂不上板（较05时公报17级60m/s/920hPa/14.8°N/160.4°E、较02时16级55m/s/930hPa/14.6°N/160.9°E再增强并西调）；本地✅射阳海区所依黄海大风蓝警窗口(10/26 20时-27日20时 黄海7级阵风8-9级)已结束、此后降为5-6级阵风7级→海区及沿海「低」；县城(合德)28日阴转小雨东南风微风无生效县城级预警→县城「低」；综合风险「低」、本板维持蔷琵#30收尾、持续高频监测烟花#31及新生成系统。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">06:21</span><div class="cl-main"><p class="cl-head">站长手记补 3 篇（覆盖 2026-10-25~27 要事），与更新日志相辅相成：用「我」的口吻把更新日志里同一批真事讲成日记——分类修复（埋掉 58 条真改动）、隐私合规升级、折叠屏与移动端适配、下线 AI 提示词库、天气板块整合、首页板块墙重构。站长手记从 7 篇增至 10 篇，结束 09-18 以来的内容空窗，两栏现在讲同一批真事、只是说辞不同。</p></div></div>
+            <div class="cl-item"><span class="cl-time">05:21</span><div class="cl-main"><p class="cl-head">2026-10-28 05:21 台风实时监测刷新（多源交叉验证·中央气象台台风快讯2026年总8期10/28 02:</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">54+中国天气网台风频道02时口径+10/27 06时大风蓝警继续发布+海洋天气公报10/27 06时+江苏气象+盐城/射阳CMA站58150）：蔷琵#30已停编收尾维持；烟花#31(2631)28日02时北纬14.6°/东经160.9°、超强台风级16级55m/s/930hPa、距关岛塞班偏东约1630km、向偏西偏北20km/h、强度变化不大、下次更新28日5时30分、对我国海区无影响→远海暂不上板（较27日23时52m/s/935hPa/161.4°E再小幅增强并西调）；本地✅射阳海区所依黄海大风蓝警窗口(10/26 20时-27日20时 黄海7级阵风8-9级)已结束、此后降为5-6级阵风7级→海区及沿海「低」；县城(合德)28日阴转小雨东南风微风无生效县城级预警→县城「低」；综合风险「低」、本板维持蔷琵#30收尾、持续高频监测烟花#31及新生成系统。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">02:17</span><div class="cl-main"><p class="cl-head">2026-10-28 02:17 台风实时监测刷新（多源交叉验证·中央气象台台风快讯2026年总7期10/27 23:</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">25+中央气象台台风公报/中国天气网台风频道+10/27 06时大风蓝警继续发布+海洋天气公报10/27 06时+江苏气象+盐城/射阳CMA站58150）：蔷琵#30已于10/25 23时停编、收尾监测维持；烟花#31(2631)27日23时北纬14.6°/东经161.4°、超强台风级16级52m/s/935hPa、距关岛塞班偏东约1680km、向偏西偏北15-20km/h、强度变化不大、下次更新28日2时30分、对我国海区无影响→远海暂不上板（较17时强台风再加强、西调且移速加快）；本地✅射阳海区所依黄海大风蓝警窗口(10/26 20时-27日20时 黄海7级阵风8-9级)已结束、此后降为5-6级阵风7级→海区及沿海「低」；县城(合德)28日阴转小雨东南风微风无生效县城级预警→县城「低」；综合风险「低」、本板维持蔷琵#30收尾、持续高频监测烟花#31及新生成系统。</div></details></div></div>
+            <div class="cl-item"><div class="cl-main"><p class="cl-head">上线「龙兄视角」板块入口卡：在紫砂、特斯拉、天气、苹果等 14 个板块首页注入龙兄真实原话与随笔链接；新建 data/persona.json 龙兄人格库，作为感情色彩 / 板块互通 / 自主更新思考层的统一底座。</p></div></div>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×6</span><span class="cl-chip">台风 ×2</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">【每日三班·晚班21:00自动巡检】逐板块带当日日期(2026-10-28)复搜、≥2源交叉核验：①本班实质刷新3板（均10-28真实稿）——ChinaJoy（影之刃零发售前夜10/28登顶Steam全球热销榜首位、国区第一，制作人梁其伟当日发文回顾十年历程、武指含广东舞狮/峨眉剑术/少林寺+甄子丹顾问、数十家媒体解禁均分近90、高于黑神话发售前均分，前置新条目、updated→10-28）、漫威票房（Box Office Mojo 1…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 5 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">【台风实时监测高频刷新·18:23】蔷琵#30已于10/25 23时停编、收尾监测维持；烟花#31中央气象台台风快讯/中国天气网台风频道17时实况：15.2°N/158.4°E、超强台风17级60m/s/920hPa、距塞班偏东约1400余km、向西移动、强度渐增（24h预报10/29 17时62m/s/915hPa、48h预报10/30 17时65m/s/910hPa·forecast·待官方确认）、预计11月初转向东北远离我国、对我…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 1 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+          </section>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-27">2026 年 10 月 27 日 · 周二</time><span class="cl-day-n">2 项改动</span></h4><div class="cl-item"><span class="cl-time">20:06</span><div class="cl-main"><p class="cl-head">🌍 海外动态追更 6 条（马斯克侧：Anthropic 提交 IPO 招股书披露向 SpaceXAI 采购算力上限 1205 亿美元；Starlink Mobile 巴西全国商用上线；easyJet 全机队签约星链；</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">马斯克确认 Raptor 4 海平面推力 300 吨；FT 称其潜在薪酬方案合计约 1.7 万亿美元。 黄仁勋侧：英伟达与 Meta 扩大 Muse 合作并股权投资 30 亿美元）+ updated 回写 2026-10-27</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">07:58</span><div class="cl-main"><p class="cl-head">更新日志页修复分类事故：旧规则把正文里提到「台风」的站点真改动（天气页拆分、恢复 8 个板块、修复折叠卡片 iOS 点击、修复台风监测文字山等 58 条）误判成自动化运维、埋进折叠区，</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">主线看不到——现在先按条目开头动词（修复/新增/上线/恢复…）判主线，台风判定收紧为只认 🌀 开头与高频刷新等自动化专属措辞；同时把早班/晚班/新闻补漏接力等 21 条漏网的自动化留痕正确归入运维，静态回退的「共 N 条」计数从过期的 652 修正为实时总量。 主线 383→420 条、运维 981→945 条，全部经新旧规则全量 diff 校验（无误伤）。</div></details></div></div>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">台风 ×6</span><span class="cl-chip">巡检 ×9</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 22:55 台风实时监测高频刷新（多源交叉验证）：蔷琵#30已于10/25 23时停编、维持收尾监测；烟花#31(2631)27日17时（中央气象台台风公报/中国天气网台风频道17时实况）14.5°N/161.8°E、强台风级15级50m/s/940hPa、距塞班偏东约1730km、对我国海区无影响、暂不上板（本轮未检索到20/23时更新公报、维持17时口径）；…</p><p class="cl-ops-more">另有 5 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🌙 21:00 晚班巡检（增量接力）：逐板检索 13 个板块。滞后板「文玩手串」(updated=10-24) 经多源检索（星月菩提 盘玩/鉴别漂白/行情/展会/打假），今日头条两篇自媒稿实为 1 周前与 3 周前旧稿重发、行情档位稿即 10-15 旧文、珠宝展为金价综合展（菩提仅 1/8 类目且 listing 早于今日）、B2B/SEO 页系内容农场，均无 10-25~10-27 合格星月菩提新稿，按 updated 铁律保持 20…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 8 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+          </section>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-26">2026 年 10 月 26 日 · 周一</time><span class="cl-day-n">9 项改动</span></h4><div class="cl-item"><span class="cl-time">23:55</span><div class="cl-main"><p class="cl-head">射阳气象页修两处 ID 冲突：台风面板更新戳与页面级 lastNewsUpdate 撞 ID（改专属 tfUpdateStamp），新坍面板自带实时时钟与射阳面板 liveClock 撞 ID（移除新坍重复时钟）；更新日期刷新至 2026-10-26。</p></div></div>
+            <div class="cl-item"><span class="cl-time">22:50</span><div class="cl-main"><p class="cl-head">射阳气象页（sheyang-weather.html）改版：原四合一长页改为标签页切换（🌦️射阳天气 / 🌾新坍农田气象 / 🌀台风监测 / 🌿节气物候），一次只看一块，降低阅读疲劳；射阳县百科科普块默认折叠，点开才看全文；支持 #sec-xxx 锚点直达，移动端无横向滚动。</p></div></div>
+            <div class="cl-item"><span class="cl-time">22:07</span><div class="cl-main"><p class="cl-head">合规升级·隐私与备案：新增 PIPL 隐私政策页（/privacy.html，披露百度统计与 VerCount 的数据收集、用途、留存与撤回方式）；全站页脚（静态页 + Hugo 模板）统一加入「隐私政策」入口；</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">清理广告法极限词（最权威/顶级等夸大表述，保留国家级自然保护区、非遗等事实性专有名词）；新增 ICP 备案操作指南（docs/ICP备案指南.md）。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">20:00</span><div class="cl-main"><p class="cl-head">🌍 海外动态追更 2 条（马斯克/SpaceX 完成 400 亿美元债务融资采购 GPU·预警新云洗牌；黄仁勋首访哈萨克斯坦·获友谊勋章+投资 Higgsfield+提 Physical AI 枢纽）+ updated 回写 2026-10-26</p></div></div>
+            <div class="cl-item"><span class="cl-time">18:57</span><div class="cl-main"><p class="cl-head">底部「访问/访客」计数由不蒜子迁移至 VerCount：不蒜子官方接口长期 502 不可用，导致全站页脚计数恒显横杠；VerCount 为兼容替代（自动回填原 busuanzi_value 占位、POST 上报更稳），计数恢复正常。</p></div></div>
+            <div class="cl-item"><span class="cl-time">18:36</span><div class="cl-main"><p class="cl-head">台风实时监测刷新（18:36·多源交叉验证）：蔷琵#30维持已停编收尾（statusShort「已停编」·statusLevel info·综合风险「低」）；</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">烟花#31(2631)中央气象台10月26日18时台风公报（基于17时实况）确认由强台风级加强为超强台风级16级52m/s/935hPa（14.1°N/162.9°E·距关岛塞班以东约1850km·原地少动·对我国海区无影响·120h预报28日前后达超强台风级62m/s/17级以上·仍远海·forecast·待官方确认）→远海暂不上板、持续关注；本地：射阳26日早晨雾已散（12时能见度13900m→县城「低」）、中央气象台10月26日06时首发+18时继续发布大风蓝色预警（第一期26日08时-27日08时 黄海北部部分海域7-8级阵风9-10级；第二期27日08时-28日08时 黄海东南部等7-8级阵风9-10级→射阳近海处影响边缘、约5-6级→海区及沿海「中」、须海上避风）、26日夜里起冷空气携陆上阵风5-6级/海区7-8级、48h降温3-5℃；28日后期至29日白天全省小雨。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">17:48</span><div class="cl-main"><p class="cl-head">修复移动端顶部时钟与天气胶囊不显示：全站 7 个全局脚本（app.js/interactions/search/share/bookmark/obfuscate-email/board-nav）此前漏加 ?v= 缓存戳，</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">iOS/Android 缓存了旧版（无该功能的版本）不肯刷新；已补全 ?v= 戳（日期与各文件最后改动日一致），部署后由 bump_v_hash 转内容哈希，脚本一改即自动破缓存。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">17:06</span><div class="cl-main"><p class="cl-head">网站体验优化：① 修复百度统计被 strict CSP（无 unsafe-inline）拦截，内联脚本改外链，统计恢复；② 接通移动端搜索——抽屉内新增可见搜索框并提交 search.html?q=、搜索页支持 ?q= 预填、修复底部 dock「寻章」按钮失效（原仅跳锚点）；③ 新增站外链新标签页打开、顶部阅读进度条、首页「今日更新」未读徽标。</p></div></div>
+            <div class="cl-item"><span class="cl-time">11:54</span><div class="cl-main"><p class="cl-head">导航栏 logo「龙兄」修复：折叠屏/中屏（约 600–768px）下「兄」字被截断的问题已解决，现全宽度均完整显示。</p></div></div>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×9</span><span class="cl-chip">台风 ×4</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🌙 晚班21:00巡检（三班之末）：13板逐板复搜并交叉验证。①文玩手串板滞后10-24为全站唯一未达今日者，但多源复搜仅得今日头条/微信/百科/台电商等重发或旧文，无可靠10-25/10-26发布日的星月菩提新稿，按铁律保留updated=2026-10-24不造假。…</p><p class="cl-ops-more">另有 8 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（15:26·多源交叉验证）：蔷琵#30维持已停编收尾监测、无在效台风预警；烟花#31(2631)中央气象台台风快讯2026年总29期（14时24分）确认26日14时位于14.0°N/163.0°E、强台风级15级48m/s/945hPa、距关岛塞班偏东约1860km、原地少动强度渐增（较05时30m/s→08时38m/s→11时45m/s→14时48m/s快速增强、均中央气象台实况）、未来对我国海区无影响（120h…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 3 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+          </section>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-10-25">2026 年 10 月 25 日 · 周日</time><span class="cl-day-n">18 项改动</span></h4><div class="cl-item"><span class="cl-time">20:01</span><div class="cl-main"><p class="cl-head">🌍 海外动态追更 2 条（马斯克·特斯拉Q3财报净利降43%交付48.65万辆订单积压四年新高；黄仁勋·柏林GTC反驳AI算力过剩论称内存2029年前难过剩），updated 回写 2026-10-25。</p></div></div>
+            <div class="cl-item"><span class="cl-time">19:17</span><div class="cl-main"><p class="cl-head">首页新增「挑你喜欢的看」兴趣直达入口：文玩/数码/游戏/本地/今日更新五枚快捷标签，新访客按口味三秒进栏目。</p></div></div>
+            <div class="cl-item"><span class="cl-time">18:05</span><div class="cl-main"><p class="cl-head">游戏发售日历板块下线：未达预期效果，已从导航、首页卡片、分类总入口、全站搜索/标签/关联阅读/站点地图/RSS 全部移除；原页改为跳转壳（meta refresh 指向「玩过的游戏」），内容保留于 git 历史可随时恢复。</p></div></div>
+            <div class="cl-item"><span class="cl-time">10:56</span><div class="cl-main"><p class="cl-head">🧭 修复「新能源销量榜」页顶部菜单高亮错项：菜单里把「充电桩查询」标成了当前页，还多出两条文案重复的「销量排行」入口。根因是销量页由脚本从充电桩页复用导航，替换时漏了「带高亮样式」的那种写法导致没替换到；现已改为只把高亮交给本页，并新增一道部署前检查（排在所有生成器之后，生成器改坏导航即拦住，不再上线）。</p></div></div>
+            <div class="cl-item"><span class="cl-time">10:50</span><div class="cl-main"><p class="cl-head">📝 文案精简补充修正：① 新能源销量页与主机图鉴页、高考页的开场「这一节…」「上面是…」式自我描述改为直接给内容（销量页的源头生成器 build_ev_sales.py 同步修正，避免每次自动重建又写回旧文案）；② 文案守卫豁免更新日志台账（台账本身要引用被改掉的旧措辞，不算浮肿），并补「这一节」「上面是」两条元叙述判据。</p></div></div>
+            <div class="cl-item"><span class="cl-time">10:36</span><div class="cl-main"><p class="cl-head">📝 全站文案「取其精华」精简：删掉 98 个页面重复的来源尾注、4 个跳转壳的「本页原先并入…」行政说明与 12 个游戏页三重重复的免责句（共约 1.1 万字纯重复）；各板块页开头改为结论先行（直接给范围与数字，</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">不再铺陈「这是一份…的档案」）；把「画面表现力达到国际一线水准」「令人震撼」「重新定义了天花板」等无信息量的评价换成可核查的事实；新增长段守卫与文案守卫，防止日后回潮。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">09:51</span><div class="cl-main"><p class="cl-head">📱 全站移动端提速：① 底部邮箱脚本由原「卡住页面解析」改成「延迟加载」，不再拖慢首屏；② 全站图片改成响应式——手机自动下载小尺寸图（约原图 1/5 体积），平板用中图，电脑才用原图，游戏列表页首屏图片流量从 800KB+ 降到 100 多 KB；③ 已接入自动部署，后续页面重建不会再退回大图。</p></div></div>
+            <div class="cl-item"><span class="cl-time">09:11</span><div class="cl-main"><p class="cl-head">顶部功能栏新增射阳实时天气胶囊：时钟旁显示天气图标与温度（点击跳转天气页），已同步至 Hugo 模板与全部静态页导航。</p></div></div>
+            <div class="cl-item"><span class="cl-time">08:16</span><div class="cl-main"><p class="cl-head">🧭 首页板块墙重构：按「风物志 / 科技动态 / 游戏影游 / 生活 / 站务与关于」五大维度重新归族，消除原「车与数码 / 生活工具 / 关于我」的混搭命名；补齐此前未上墙的六个板块（科技动态、光辉电力、中药材、养生茶、天气、高考），全站栏目在首页一站式可达。</p></div></div>
+            <div class="cl-item"><span class="cl-time">08:02</span><div class="cl-main"><p class="cl-head">🌦️ 天气板块整合：射阳天气、新坍农田气象、台风监测、二十四节气物候四个独立页面，合并为统一的「天气」聚合页（weather.html，含四板块锚点导航与实时加载器）；顶部菜单由原四个入口精简为单一「天气」入口，</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">原四页改为自动跳转壳（旧书签/外链仍可跳转），全站无死链。 配套新增 build_weather_hub.py / build_weather_redirects.py 两个生成脚本，并修复 sync_navbar 因导航标签属性顺序漂移而漏同步 apple.html 的盲区。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">07:25</span><div class="cl-main"><p class="cl-head">菜单文案纠偏：「射阳」改为「射阳天气」——该链接指向的页面是天气页，原名与内容不符（射阳本地生活内容在「射阳生活指南」页，经相关阅读进入）。</p></div></div>
+            <div class="cl-item"><span class="cl-time">07:22</span><div class="cl-main"><p class="cl-head">应龙兄要求，永久下线「AI 提示词库」板块（落地页 + 5 篇实战示例共 6 页）：导航移除「付费内容」分组，全站 170 个静态页导航重新生成，页面与索引随构建清除。历史更新日志中关于该板块上线的记录保留原样（日志只增不改）。</p></div></div>
+            <div class="cl-item"><span class="cl-time">07:05</span><div class="cl-main"><p class="cl-head">修复折叠卡片在手机上点了没反应（每日自动更新/首页各卡）：iOS 上手指带着微小位移点击时，系统会把这个点击当作滚动、直接取消掉，导致电脑上好用的折叠在手机上没动静。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">现在给全站的折叠开关加了一条「触摸直通道」——手指点下去就直接响应，不再等系统判定；同时做了三保险：点一次只切一次（不会因为又收到一次点击而缩回去）、滚动页面时不误触发、键盘回车和空格也能折叠。另外补了读屏软件支持（折叠状态可播报），并把 201 个页面上写死的收藏图标地址改成站内相对地址（换域名或本地测试时不再被浏览器安全规则拦掉）。桌面点击/手机触摸/键盘/滚动防误触全场景实测通过，全站回归 15 项与 Duo 六视口审计 120 项全过。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">06:35</span><div class="cl-main"><p class="cl-head">清理 3 个无入口孤立页（脚趾抠地 App 的落地页与两份重复的隐私政策）：全站没有任何链接指向、搜索引擎未收录，且 App 资产按约定不应挂在站内域名；页面已从 Git 历史可完整恢复。</p></div></div>
+            <div class="cl-item"><span class="cl-time">06:20</span><div class="cl-main"><p class="cl-head">修复顶部菜单缺失并全面适配 iPhone Duo 展开态：① 600–767px 区间（Duo 展开内屏约 626px / iPad mini 竖屏）原本只剩汉堡按钮、顶栏菜单整行消失，</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">现恢复桌面式顶栏（风物志/车与数码/游戏影游/生活工具/关于我 + 更多▾ 全部可见，实测零溢出），折叠态 466px 保持汉堡不变；② 「AI 提示词库」入口补进移动端抽屉，并修复 104 个静态页下拉缺该入口、更新日志页缺本地生活 8 入口、中药材/提示词库两页旧版导航含重复项等问题；③ 导航改为单一数据源（只改 partial 一处即全站同步），新增导航一致性守卫，六视口 × 20 页审计零横向滚动。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">02:00</span><div class="cl-main"><p class="cl-head">🔧 修正「更新时刻」文案误导（龙兄截图：ev-sales 页「最后更新 10-19」与「本站更新于 6 分钟前」并排打脸）：该行实际显示的是全站每次构建的发布时刻（CI 01:44 确有一次发布），</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">不是本页内容日期——已改文案为「全站最近发布：X」并注明悬停提示，首页刊头同步；guard_date_honesty.py 增补文案回归检查（被改回模糊措辞即 FAIL）。 同轮核对：178 个写死「最后更新」的页面与 git 历史比对，今日变动均为导航入口机械添加、内容未动，日期全部真实；清理 public/ 孤儿产物 join.html。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">01:28</span><div class="cl-main"><p class="cl-head">全面适配苹果折叠屏新机 iPhone Duo（外屏 5.4 吋 / 内屏 7.6 吋）：新增 600–767px 展开态双列布局层，首页卡片墙、本站动态、海外动态人物卡、紫砂作品网格、苹果新品卡、</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">光辉电力合作卡在 7.6 吋大屏上一律改双列排布；折叠 466×678 / 展开 626×890 / 横屏 890×626 三种视口 × 15 个代表页面实测零横向溢出，深浅双主题渲染复核通过。</div></details></div></div>
+            <div class="cl-item"><span class="cl-time">00:35</span><div class="cl-main"><p class="cl-head">修复台风监测板块移动端「文字山」排版事故：根因是自动刷新任务把整段监测续报追加进 name/nameEn/riskLabel 并把 current 覆盖成字符串（name 一天内 1265→4106 字）。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">已修复 typhoon.json 数据（name=蔷琵/current 恢复对象/补 10-24 17时实况点），loader 增加短名提取与对象回退兜底，新增 guard_typhoon_fields.py 守卫（pre-commit+审计 A19 双拦）并加固台风自动任务字段契约。同轮完成：全站移动端审计，.m-table/.bl-quick 散文表格改堆叠卡片（sheyang-guide/tesla/bracelet 等 25 处，消灭横向滑动）；8 个恢复板块的导航入口补进全部 194 个静态页（桌面更多▾+移动端「本地生活」分组）；移除首页渲染层隐藏板块黑名单；新滩→新坍 全站更正。</div></details></div></div>
+            <details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×6</span><span class="cl-chip">台风 ×8</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🌙 每日三班巡检·晚班 21:00：本班复搜 13 板块（带 10-25 日期逐板交叉验证）。结论：台风/漫威票房/中药材/紫砂/苹果/特斯拉/FSD 等已由早 07:30、午 14:00 两班完整上齐 10-25 内容；本班新增 1 条 10-25 合格稿——游戏主机板前置「下代 Xbox 或将大涨价、微软 11 月启动云游戏单独付费预览」（网易 10-25 17:57，次世代主机 1800 美元定价属爆料口径、待官方确认）。…</p><p class="cl-ops-more">另有 5 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测刷新（蔷琵#30·收尾监测）：中央气象台10月25日18时解除台风蓝色预警（蔷琵25日17时30.5°N/125.8°E/热带风暴9级23m/s/990hPa/距鹿儿岛西偏南约465km/向东北20-25km/h/变性中·对我国海域影响趋于结束）；江苏省防指18时终止盐城等4市防台风IV级响应；江苏海区大风黄警收尾（26日基本结束）；综合风险由「中」下调「中低」、statusShort「收尾监测」、台风蓝警解除监测。</p><p class="cl-ops-more">另有 7 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+          </section>
+        <!--CL:RECENT:END-->
+    </div>
+    <p class="cl-feed-foot">以上是最近一批改动。全部记录（含自动化运维明细）存档在站点的
+      <code>data/changelog.json</code>，共 <strong id="update-count">1437</strong> 条。</p>
+  </section>
+
+  <!-- 信息来源 -->
+  <div class="page-meta">
+    <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
+    <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-11-01</span><span id="clLastStamp" class="cl-upd-stamp"> 02:52</span></div>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="categories/">全部栏目</a> <span class="sep">·</span> <a href="notes.html">站长手记</a> <span class="sep">·</span> <a href="tags.html">标签聚合</a> <span class="sep">·</span> <a href="rss.xml">RSS 订阅</a> <span class="sep">·</span> <a href="privacy.html">隐私政策</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+<script defer src="js/search.js?v=h8e3c278c6a14" integrity="sha384-9nFuQ4ypOvQu/p2F05VqsadrsNK33Ucl4gyDJEiLPMLrYMWvLEmuFuZ02oiFkZGH" crossorigin="anonymous"></script>
+<script defer src="js/app.js?v=h93c67ed1d68f" integrity="sha384-48o7HySYOJuQTBGLANQknFNs6hftje/Srr1DfLl3CHPTaZh+Cr/KoUmYL6a9mWxN" crossorigin="anonymous"></script>
+    <script defer src="js/share.js?v=h3396eb1dab42" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+    <script defer src="js/changelog.js" integrity="sha384-0rsBtM9DOKMqxkT68B9u13Imi0NpM9w00TOA5d68zg94Im4OJxG8B2uqHtOhZihc" crossorigin="anonymous"></script>
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "dateModified": "2026-11-01",
+      "headline": "更新日志｜龙兄知识库",
+      "url": "https://longxiong.vip/changelog.html",
+      "description": "龙兄知识库更新日志，记录每次迭代与进化"
+    }
+  ]
+}
+</script>
+
+<script src="js/bookmark.js?v=h3bd5ed989b95" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script src="js/auto-collapse.js?v=h441d0910854e" defer integrity="sha384-jO01OC1zXd0zWyszk8WNz3WBnIjv8BIcO5zdb/SNibX+yErCqhmSVOGV2xQ3sAXE" crossorigin="anonymous"></script>
+<script defer src="/js/obfuscate-email.js?v=h29dca9713d8d" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="js/site-live.js?v=h4e5156bbd8e2" defer integrity="sha384-L3WkNXnh9On65r6guRZwn87kxMTjTqJZH6sodviAkjtMC/FkPbofiE5eabTcgAGF" crossorigin="anonymous"></script>
+</body>
+</html>

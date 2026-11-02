@@ -281,3 +281,33 @@
 - **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接（WCAG 2.5.8 豁免）；② `input` label 关联 checkbox；③ `button.lx-hero-dot` 的 `::after` 透明命中区；④ `/join.html` `nav.join-mobile-nav` 离屏抽屉（`translateX(100%)` 默认隐藏）；⑤ `a#navClockLink`/`input#convLeap` 小控件（命中区由相邻标签/布局保证）。只看四类硬指标 + 导航遮挡为 0。
 - 探针脚本用 **`lx-probe2.mjs`**；6 视口 **2568** 组合基线沿用（本轮新值，覆盖旧 2652）。
 - `style.css?v=` 活引用全站统一 `20260925`，下次仅在该值变更时跟进；根 `css/` 不再重建（09-24 起作废）。
+
+## 二十一、本周（2026-11-03）巡检结论速记
+
+- **规模**：本轮 `hugo --gc --cleanDestinationDir` 重建（fooocus v0.163.3 extended，未回退），`public/` 共 **216 个 HTML**（较 10-27 的 214 新增 2 页）；探针 **6 视口(390/375/360/768/1440/1920) × 2 主题 = 2592 组合**（实测 combos=2592 / pages=216，约 18 分钟），puppeteer-core + chrome-headless-shell mac-149。本地服务沿用「rm -rf /tmp/lx-test && cp -R public /tmp/lx-test + 去 CSP meta + URL 重写 `https://longxiong.vip/`→`/` + `python3 -m http.server 8399`」（端口 8399 曾被上轮孤儿进程占用，已 kill 回收后重启）。
+- **四类硬指标 + 导航遮挡（首轮即达标，无需返修 P0/P1）**：
+  - 文档级横向溢出 `scrollWidth - innerWidth` = **0**；
+  - 祖先感知元素溢出 = **0**（已知误报已过滤：hero-dot `::after`、join.html 离屏抽屉）；
+  - 大面积高饱和暖色扫描 = **0**；
+  - JS 报错（pageerror 监听）= **0**；
+  - goto 错误 = **0**；
+  - fixed-nav + bodyPadTop=0 的导航遮挡风险 = **0**。
+  → 视觉层面 **P0=P1=0** ✅。
+- **2580 条 findings = 既定 tinyTap 假阳性基线（非 P0/P1）**：top 选择器 `a` 内联文本链接（WCAG 2.5.8 豁免）+ `input` label 关联 checkbox + `button.lx-hero-dot` 的 `::after` 透明命中区 + `a#navClockLink` / `input#convLeap` 小控件。判定铁律不变：看四类硬指标 + 导航遮挡为 0，不靠 findings==0 判达标。
+- **隐藏彩虹色静态深扫（本轮方法升级：扩到 fill/stroke + 全属性）**：`static/*.html` 内联 `color/background/border-color/fill/stroke` hex 全盘点，偏离全局调色板者数量较多但**全部为板内语义/品牌色，非全局设计系统漂移**：
+  - 主机板品牌色：`#e60012`（任天堂红，32 个 console 页）、`#0068d6`/`#0072c6`/`#0055a5`/`#0d47a1`（索尼/世嘉蓝）、`#2ecc71`/`#1db954`/`#2ea44f`/`#107c10`（Xbox/Spotify 绿）、`#6b69d6`（Discord 紫蓝）、`#d13438`/`#e8c18a` 等微软/雅达利红——均为厂商 logo/品牌强调色，小尺寸、板内闭环。
+  - 游戏板平台色：`#3498db`/`#64b5f6`/`#5fb0e8` 等（Steam/平台蓝）、`#f39c12`/`#ff7800`/`#e85c18`（促销/评分橙，21 个 games 页）。
+  - 天气板分类色（sheyang-weather 单页集中一整套类目芯片：`#bf5700`/`#c62828`/`#1b5e20`/`#006064`/`#4a148c`/`#880e4f` 等十余色）——属气象类目编码，小色块、非通栏。
+  - 其它既定接受：health-tea 粉彩（`#f06292`/`#ce93d8`/`#81c784`）、ev-charge 渐变系、chinajoy `#fde68a`/`#c2410c`/`#fb923c`、marvel `#f5b301`/`#e23636`、console-gc/n64/wiiu 灰字 `#666666`/`#888888`、bracelet 中立灰 `#8a8a8a`、travel `.tl-season` 色码、xintan 高温橙 `#e65100`。
+  - **关键判定升级**：大面积暖色扫描 **0** 佐证上述无一刺眼；且这些颜色全部锁在「板内内容/板内组件类」，**未污染全局 `--accent-color` 金主调与 `.lx-*` 卡片体系**。→ 自 09-01 起连续 10 周无新增全局漂移色。
+- **配色系统复核（无破绽）**：`--accent-color` 金主调严守（`:root` 与 `[data-theme=light]` 双定义，`--gold`/`--cinnabar`/`--bg`/`--card`/`--border-color`/`--text-color` 全齐）；`.lx-card`/`.lx-epick`/`.artist-card` 跨页一致（`.lx-*` 系列 114+ 类，无新增视觉组件、无样式漂移）；正文 `max-width`/字号/行高/section 间距沿用统一约定。
+- **设计系统机制复验（全绿）**：`.js .reveal` 隐藏机制（JS 失效默认可见，head 注入 `classList.add('js')`）✓；safe-area `env(safe-area-inset*)` 补偿（19 处）✓；自定义小按钮 `min-width:0;min-height:0` 覆盖全局 44px（24+3 处）✓；明暗双主题 token 全定义 ✓；原生控件 `html{accent-color:var(--accent-color)}` 跟随金主调 ✓。
+- **版本戳**：本轮零返修（纯巩固 + 知识沉淀），`style.css?v=20260925` 维持不动；全站活引用统一 `20260925`，无旧戳残留。
+- **知识储备增量**：本节（含 2592 组合新基线、隐藏彩虹色深扫方法升级 fill/stroke、板内语义色 vs 全局漂移的判定边界）+ 第六/二十节已知接受清单与误报判定沿用。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 **11** 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / 09-15 / 09-29 / 10-06 / 10-13 / 10-27 / **11-03**）。
+
+### 下次巡检可省步骤
+- 已知接受项（按「板内语义/功能性色，保持不动」）：① 主机板品牌色（任天堂红 `#e60012`、索尼/世嘉蓝系、Xbox/Spotify 绿系、`#6b69d6` Discord 紫蓝、微软/雅达利红）；② 游戏板平台蓝/促销橙（`#3498db`/`#f39c12`/`#ff7800` 等）；③ 天气板分类色芯片（sheyang-weather 一整套类目编码色）；④ sheyang metro 磁贴、chinajoy `--hall` 多色磁贴、console 白底图框/灰字降级（`#666666`/`#888888`）、travel `.tl-season` 色码、xintan-weather 高温橙 `#e65100`、health-tea 粉彩/`#e57373`、bracelet 中立灰 `#8a8a8a`、herbs `#9b59b6`/`#e74c3c`——不再逐色复核。
+- **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接（WCAG 2.5.8 豁免）；② `input` label 关联 checkbox；③ `button.lx-hero-dot` 的 `::after` 透明命中区；④ `/join.html` `nav.join-mobile-nav` 离屏抽屉（`translateX(100%)` 默认隐藏）；⑤ `a#navClockLink`/`input#convLeap` 小控件（命中区由相邻标签/布局保证）。只看四类硬指标 + 导航遮挡为 0。
+- 探针脚本用 **`lx-probe2.mjs`**；6 视口 **2592** 组合基线沿用（本轮新值，覆盖旧 2568）。
+- `style.css?v=` 活引用全站统一 `20260925`，下次仅在该值变更时跟进；根 `css/` 不再重建（09-24 起作废）。

@@ -36,8 +36,15 @@
     { id: 'dice', name: '骰子', tip: '骰子翻滚停下' },
     { id: 'slip', name: '抽签锦囊', tip: '国风签筒抽一支' },
     { id: 'date', name: '生日选号', tip: '用日期数字映射' },
-    { id: 'hot', name: '冷热遗漏', tip: '追热 / 守冷 / 等遗漏' }
+    { id: 'hot', name: '冷热遗漏', tip: '追热 / 守冷 / 等遗漏' },
+    { id: 'bal', name: '均衡型', tip: '区间分散 + 奇偶/大小配比 + 和值落常带' },
+    { id: 'anti', name: '反人流大数', tip: '偏 32+ 大数，仅降低奖池平分' },
+    { id: 'avoid', name: '避近期', tip: '排除最近 10 期已开号码' },
+    { id: 'ai', name: '智能参谋', tip: '融合上述 + 每注附参谋说明' }
   ];
+
+  // 智能策略玩法集合（区别于纯动画皮的玩法）
+  var SMART = { bal: 1, anti: 1, avoid: 1, ai: 1 };
 
   var BIASES = [
     { id: 'hot', name: '追热号' },
@@ -173,6 +180,158 @@
     return cand.sort(function (a, b) { return a - b; });
   }
 
+  // ---------- 智能策略选号（启发式，娱乐向） ----------
+  // 把 [lo,hi] 均分为 cnt 段，每段取 1 个，保证号码分散不扎堆
+  function pickBalancedGroup(g) {
+    var size = g.hi - g.lo + 1;
+    var cnt = g.cnt;
+    var segSize = Math.ceil(size / cnt);
+    var chosen = [];
+    for (var i = 0; i < cnt; i++) {
+      var a = g.lo + i * segSize;
+      var b = Math.min(g.hi, g.lo + (i + 1) * segSize - 1);
+      if (a > g.hi) a = g.hi;
+      if (b < a) b = a;
+      var pool = [];
+      for (var n = a; n <= b; n++) if (chosen.indexOf(n) < 0) pool.push(n);
+      if (!pool.length) {
+        for (var m = g.lo; m <= g.hi; m++) if (chosen.indexOf(m) < 0) pool.push(m);
+      }
+      chosen.push(pool[rng(pool.length)]);
+    }
+    return chosen.sort(function (x, y) { return x - y; });
+  }
+
+  // 反人流大数：仅对含 >31 的号池生效（双色球/大乐透前区），加权偏重大数
+  function pickAntiCrowdGroup(g) {
+    if (g.hi <= 31) return sampleNoReplace(g.hi - g.lo + 1, g.cnt, g.lo);
+    var w = function (i) { var n = g.lo + i; return n > 31 ? 6 : 1; };
+    return weightedSampleNoReplace(g.hi - g.lo + 1, g.cnt, g.lo, w);
+  }
+
+  // 避近期：排除最近 N 期该组已开出的号码，从剩余池抽（不够则减半 N 再试）
+  function pickAvoidRecentGroup(g, data, opts) {
+    var N = (opts && opts.nRecent) || 10;
+    var draws = data.draws || [];
+    var forbidden, allowed, end;
+    while (N > 0) {
+      forbidden = {};
+      end = Math.min(N, draws.length);
+      for (var k = draws.length - 1; k >= draws.length - end; k--) {
+        var arr = (g.key === 'b') ? draws[k].b : draws[k].r;
+        arr.forEach(function (n) { forbidden[n] = 1; });
+      }
+      allowed = [];
+      for (var n2 = g.lo; n2 <= g.hi; n2++) if (!forbidden[n2]) allowed.push(n2);
+      if (allowed.length >= g.cnt) break;
+      N = Math.floor(N / 2);
+    }
+    var pick = [];
+    for (var c = 0; c < g.cnt && allowed.length; c++) {
+      var j = rng(allowed.length);
+      pick.push(allowed[j]); allowed.splice(j, 1);
+    }
+    return pick.sort(function (x, y) { return x - y; });
+  }
+
+  // 综合智能参谋：以均衡为基，偶尔把一颗换成大数（反人流），并产出参谋说明
+  function pickSmartGroup(g, data, opts) {
+    var nums = pickBalancedGroup(g);
+    if (g.hi > 31 && rng(2) === 0) {
+      var largeAvail = [];
+      for (var n = 32; n <= g.hi; n++) if (nums.indexOf(n) < 0) largeAvail.push(n);
+      if (largeAvail.length) {
+        nums[rng(nums.length)] = largeAvail[rng(largeAvail.length)];
+        nums.sort(function (x, y) { return x - y; });
+      }
+    }
+    return nums;
+  }
+
+  // 智能策略主入口：返回 {r,b,rationale}
+  function pickSmart(data, mode, opts) {
+    var groups = groupsOf(data);
+    var res = { r: [], b: [], rationale: '' };
+    groups.forEach(function (g) {
+      var nums;
+      if (g.sample) {
+        if (mode === 'bal') nums = pickBalancedGroup(g);
+        else if (mode === 'anti') nums = pickAntiCrowdGroup(g);
+        else if (mode === 'avoid') nums = pickAvoidRecentGroup(g, data, opts);
+        else nums = pickSmartGroup(g, data, opts); // ai
+        if (g.key === 'b') res.b = nums; else res.r = nums.concat(res.r);
+      } else {
+        // 位置型（3D/排列3）：智能策略退化为每位随机，仍配性格签
+        var pos = [];
+        for (var p = 0; p < g.cnt; p++) pos.push(g.lo + rng(g.hi - g.lo + 1));
+        res.r = pos;
+      }
+    });
+    if (mode === 'ai') res.rationale = buildRationale(data, res);
+    return res;
+  }
+
+  // 智能参谋说明：奇偶 / 大小 / 和值 / 反人流（仅前区）
+  function buildRationale(data, res) {
+    var groups = groupsOf(data);
+    var rg = null;
+    groups.forEach(function (g) { if (g.key !== 'b' && g.sample) rg = g; });
+    var r = res.r;
+    if (!r.length) return '';
+    var odd = 0, even = 0, big = 0, small = 0;
+    var mid = rg ? Math.floor((rg.lo + rg.hi) / 2) : 17;
+    r.forEach(function (n) {
+      if (n % 2 === 0) even++; else odd++;
+      if (n > mid) big++; else small++;
+    });
+    var sum = r.reduce(function (a, b) { return a + b; }, 0);
+    var large = r.some(function (n) { return n > 31; });
+    var parts = ['奇偶 ' + odd + ':' + even, '大小 ' + big + ':' + small, '和值 ' + sum];
+    if (large) parts.push('含大数避人流');
+    return '参谋：' + parts.join(' · ') + '（均衡打底，纯启发式，不提高中奖率）';
+  }
+
+  // ---------- 灵魂解读（混搭随缘：按号码特征自动选调性） ----------
+  function interpret(data, t) {
+    var groups = groupsOf(data);
+    var rg = null;
+    groups.forEach(function (g) { if (g.key !== 'b') rg = g; });
+    var nums = t.r.concat(t.b);
+    if (!nums.length) return { name: '随缘型', text: '命里有时终须有，随缘便是自在。' };
+    var even = 0, odd = 0, big = 0, small = 0;
+    var mid = rg ? Math.floor((rg.lo + rg.hi) / 2) : 17;
+    nums.forEach(function (n) {
+      if (n % 2 === 0) even++; else odd++;
+      if (n > mid) big++; else small++;
+    });
+    var sum = nums.reduce(function (a, b) { return a + b; }, 0);
+    var expected = nums.length * (rg ? (rg.lo + rg.hi) / 2 : 17);
+    var rs = t.r.slice().sort(function (a, b) { return a - b; });
+    var consec = false;
+    for (var i = 1; i < rs.length; i++) if (rs[i] - rs[i - 1] === 1) { consec = true; break; }
+    var pair = false;
+    for (var x = 1; x < t.r.length; x++) if (t.r.indexOf(t.r[x]) !== x) { pair = true; break; }
+    var large = nums.some(function (n) { return n > 31; });
+
+    if (odd === nums.length && nums.length > 1)
+      return { name: '孤勇型', text: '宁为玉碎，不走寻常路。' };
+    if (even === nums.length && nums.length > 1)
+      return { name: '稳重型', text: '四平八稳，步步为营。' };
+    if (consec)
+      return { name: '血脉相连型', text: '同气连枝，携手并进。' };
+    if (pair)
+      return { name: '情深型', text: '数理相缠，缘分使然。' };
+    if (large && big >= small)
+      return { name: '凌云型', text: '会当凌绝顶，一览众山小。' };
+    if (even === odd || Math.abs(big - small) <= 1)
+      return { name: '中庸型', text: '执两用中，不偏不倚。' };
+    if (sum > expected * 1.25)
+      return { name: '炽盛型', text: '大鹏一日同风起，扶摇直上九万里。' };
+    if (sum < expected * 0.75)
+      return { name: '潜龙型', text: '潜龙在渊，待时而动。' };
+    return { name: '随缘型', text: '命里有时终须有，随缘便是自在。' };
+  }
+
   // ---------- 统计 ----------
   function computeStats(data) {
     if (statCache[data.type]) return statCache[data.type];
@@ -253,6 +412,18 @@
       }
       box.appendChild(wrap);
     });
+    if (t.soul) {
+      var s = document.createElement('div');
+      s.className = 'lx-soul';
+      s.innerHTML = '<span class="lx-soul-name">' + t.soul.name + '</span><span class="lx-soul-text">' + t.soul.text + '</span>';
+      box.appendChild(s);
+    }
+    if (t.rationale) {
+      var ra = document.createElement('div');
+      ra.className = 'lx-rationale';
+      ra.textContent = t.rationale;
+      box.appendChild(ra);
+    }
     return box;
   }
 
@@ -498,7 +669,13 @@
     if (mode === 'hot' && !statCache[data.type]) computeStats(data);
 
     var tickets = [];
-    for (var k = 0; k < cnt; k++) tickets.push(pickOne(data, mode, { bias: state.bias, date: fieldVal(P, 'date') }));
+    for (var k = 0; k < cnt; k++) {
+      var t = SMART[mode]
+        ? pickSmart(data, mode, { nRecent: 10 })
+        : pickOne(data, mode, { bias: state.bias, date: fieldVal(P, 'date') });
+      t.soul = interpret(data, t);
+      tickets.push(t);
+    }
 
     var anim = (mode === 'dice') ? 'dice' : (mode === 'slip' ? 'slip' : (mode === 'drum' ? 'drum' : (mode === 'shake' ? 'shake' : null)));
     renderTickets(data, tickets, anim);
@@ -581,7 +758,11 @@
       state.mode = v;
       // 玩法相关控件显隐
       $$('[data-modectl]', P).forEach(function (el) { el.hidden = (el.getAttribute('data-modectl') !== v); });
-      if (v === 'hot') loadData(state.type, function () { computeStats(cache[state.type]); });
+      if (v === 'hot') {
+        loadData(state.type, function () { computeStats(cache[state.type]); if (state.tab === 'pick') generate(); });
+      } else if (state.tab === 'pick' && cache[state.type]) {
+        generate();
+      }
     });
     wireSeg('bias', function (v) { state.bias = v; });
 

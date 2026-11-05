@@ -577,6 +577,14 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
       background:rgba(201,168,76,.09);color:var(--gold-light);font-size:.86rem;line-height:1.6;position:relative;z-index:1}
     .lx-coincide b{color:var(--gold)}
 
+    /* 灵魂解读：每组号性格签 + 智能参谋说明 */
+    .lx-soul{display:flex;align-items:center;gap:6px;margin-top:7px;font-size:.8rem;line-height:1.4}
+    .lx-soul-name{font-weight:700;color:var(--gold);letter-spacing:.5px;flex:0 0 auto}
+    .lx-soul-text{color:var(--text-secondary);font-style:italic}
+    .lx-rationale{margin-top:3px;font-size:.75rem;color:var(--gold-light);opacity:.92;line-height:1.5}
+    .lx-modehint{margin:7px 0 0;font-size:.76rem;color:var(--text-secondary);opacity:.9;line-height:1.5}
+    .lx-modehint b{color:var(--gold)}
+
     @media(max-width:560px){
       .lx-stat-grid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
       .lx-ball{width:30px;height:30px;font-size:.84rem}
@@ -1608,7 +1616,12 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
                 <button type="button" class="lx-seg-btn" data-val="slip"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l-1 16H9z"/><path d="M11 4v-1M13 4v-1"/><path d="M9.5 9l5 1M9.5 13l5 1"/></svg>抽签锦囊</button>
                 <button type="button" class="lx-seg-btn" data-val="date"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/><path d="M8 13h3M8 16.5h6"/></svg>生日选号</button>
                 <button type="button" class="lx-seg-btn" data-val="hot"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2.5 3 4 5 4 8a4 4 0 11-8 0c0-1.5.8-2.8 1.5-3.8C10 9 11 7 12 3z"/></svg>冷热遗漏</button>
+                <button type="button" class="lx-seg-btn" data-val="bal"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v15"/><path d="M5 18h14"/><path d="M4 8h16"/><path d="M4 8l-2.5 5h5z"/><path d="M20 8l-2.5 5h5z"/></svg>均衡型</button>
+                <button type="button" class="lx-seg-btn" data-val="anti"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 19l6-10 4 6 3-4 7 8z"/><path d="M14 9l1.5-2.5L17 9"/></svg>反人流大数</button>
+                <button type="button" class="lx-seg-btn" data-val="avoid"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10M7 21h10"/><path d="M7 3c0 6 10 6 10 12M17 3c0 6-10 6-10 12"/></svg>避近期</button>
+                <button type="button" class="lx-seg-btn" data-val="ai"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 12l4-5-1.5 5.5L9 17l1.5-5.5z" fill="currentColor" stroke="none"/></svg>智能参谋</button>
               </div>
+              <p class="lx-modehint">💡 策略玩法（均衡 / 反人流 / 避近期 / 智能参谋）均为<b>娱乐向启发式</b>——历史开奖不影响未来，<b>不提高中奖概率</b>；反人流仅降低潜在奖池平分，请理性看待。</p>
             </div>
             <div class="tl-opt" data-modectl="date" hidden>
               <label for="lt-date">生日 / 纪念日</label>

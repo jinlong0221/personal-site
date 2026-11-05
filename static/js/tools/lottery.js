@@ -722,6 +722,33 @@
     }
   }
 
+  // 最新开奖卡片：取历史数据最后一条，醒目展示该彩种最近一期开奖（每日自动刷新，非实时联网）
+  function renderLatest(data) {
+    var P = panelOf('lottery');
+    var host = $('[data-latest]', P);
+    if (!host || !data) return;
+    var draws = data.draws || [];
+    if (!draws.length) { host.innerHTML = ''; return; }
+    var last = draws[draws.length - 1];
+    host.innerHTML = '';
+    var card = document.createElement('div');
+    card.className = 'lx-latest';
+    var head = document.createElement('div');
+    head.className = 'lx-latest-h';
+    head.innerHTML = '<span class="lx-latest-name">' + data.name + '</span>最新开奖 · 第 <b>' + last.i + '</b> 期（' + last.d + '）';
+    card.appendChild(head);
+    var nums = document.createElement('div');
+    nums.className = 'lx-latest-nums';
+    last.r.forEach(function (n) { nums.appendChild(ball(n, 'r')); });
+    (last.b || []).forEach(function (n) { nums.appendChild(ball(n, 'b')); });
+    card.appendChild(nums);
+    var note = document.createElement('div');
+    note.className = 'lx-latest-note';
+    note.textContent = '数据更新于 ' + (data.updated || last.d) + ' · 每日自动更新（非实时联网，以官方公告为准）';
+    card.appendChild(note);
+    host.appendChild(card);
+  }
+
   function setupLottery() {
     var P = panelOf('lottery');
     if (!P) return;
@@ -744,9 +771,9 @@
       // 切彩种：统计/往期缓存按 type 隔离；若已开统计或往期，自动重算。
       // 选号 tab 也必须先确保该彩种数据已加载（首次切换时还没缓存），再生成，
       // 否则会命中「数据还没准备好」并残留上一彩种的号码。
-      if (state.tab === 'stat') loadData(v, renderStats);
-      else if (state.tab === 'history') loadData(v, renderHistory);
-      else loadData(v, function () { if (state.tab === 'pick') generate(); });
+      if (state.tab === 'stat') loadData(v, function (d) { renderLatest(d); renderStats(d); });
+      else if (state.tab === 'history') loadData(v, function (d) { renderLatest(d); renderHistory(d); });
+      else loadData(v, function (d) { renderLatest(d); if (state.tab === 'pick') generate(); });
     });
     wireSeg('tab', function (v) {
       state.tab = v;
@@ -780,6 +807,7 @@
 
     // 默认先备好当前彩种数据（不阻塞），首屏出一组示例
     loadData(state.type, function (data) {
+      renderLatest(data);
       if (state.tab === 'pick') generate();
     });
   }

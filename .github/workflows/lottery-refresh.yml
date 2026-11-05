@@ -1,0 +1,97 @@
+name: 刷新彩票开奖数据并部署
+
+# 高频后台抓取：每天北京时间 09:00 与 22:00（UTC+8 → UTC 01:00 / 14:00）自动拉取最新开奖，
+# 覆盖各彩种开奖时段（双色球/大乐透/福彩3D/排列3 多为晚间 21:15 前后开奖，22:00 跑能抓到）。
+# 也可手动在 Actions 页面点 Run workflow 立即触发。
+#
+# 为什么这个 workflow 自己构建+部署，而不是只 push 数据等 deploy.yml 链式触发？
+#   因为 GitHub 默认 GITHUB_TOKEN 的 push 不会触发另一个 on: push 的工作流（防死循环）。
+#   若只 push 数据，站点要等 deploy.yml 的定时 cron（最迟次日 08:00）才重建，延迟太久。
+#   所以这里直接：更新数据 → commit/push main → hugo 构建 → 部署 gh-pages + 同步腾讯云 COS。
+#
+# 仅改 static/data/lottery/*.json（纯静态数据，不涉及 changelog 三副本 / CSP 等守卫关注的文件），
+# 故不跑全站守卫脚本，安全。
+
+on:
+  schedule:
+    - cron: '0 1,14 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 与 deploy.yml 共用同一部署队列，避免并发 push gh-pages / COS 互相踩踏
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 拉取最新开奖并打包
+        run: python3 scripts/fetch_lottery_history.py
+
+      - name: 仅在有变化时提交数据
+        id: commit
+        run: |
+          if git diff --quiet static/data/lottery/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "无新开奖，跳过部署"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add static/data/lottery/
+          git commit -m "🔄 自动刷新彩票开奖数据（$(date +%F)）"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Hugo
+        if: steps.commit.outputs.changed == 'true'
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78
+        with:
+          hugo-version: '0.163.3'
+
+      - name: 构建 Hugo
+        if: steps.commit.outputs.changed == 'true'
+        run: hugo --gc
+
+      - name: 部署到 GitHub Pages
+        if: steps.commit.outputs.changed == 'true'
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          force_orphan: true
+          cname: longxiong.vip
+          user_name: github-actions
+          user_email: actions@github.com
+
+      - name: 同步到腾讯云 COS（国内访问走它）
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          TENCENTCLOUD_SECRET_ID: ${{ secrets.TENCENTCLOUD_SECRET_ID }}
+          TENCENTCLOUD_SECRET_KEY: ${{ secrets.TENCENTCLOUD_SECRET_KEY }}
+          COS_BUCKET: ${{ secrets.COS_BUCKET }}
+          COS_REGION: ${{ secrets.COS_REGION }}
+        run: |
+          if [ -z "${TENCENTCLOUD_SECRET_ID}" ] && [ -z "${COS_BUCKET}" ]; then
+            echo "未配置腾讯云 COS 密钥，跳过（GitHub Pages 流程不受影响）"
+            exit 0
+          fi
+          python3 -m pip install --quiet cos-python-sdk-v5 \
+            || python3 -m pip install --quiet --break-system-packages cos-python-sdk-v5
+          python3 scripts/deploy_cos.py public --delete --workers 16

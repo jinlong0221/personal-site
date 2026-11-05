@@ -585,6 +585,16 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .lx-modehint{margin:7px 0 0;font-size:.76rem;color:var(--text-secondary);opacity:.9;line-height:1.5}
     .lx-modehint b{color:var(--gold)}
 
+    /* 最新开奖卡片 */
+    .lx-latest-card{margin:0 0 14px;padding:12px 14px;border:1px solid rgba(201,168,76,.35);border-radius:10px;
+      background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(201,168,76,.03));position:relative;z-index:1}
+    .lx-latest-h{font-size:.9rem;color:var(--text-secondary);margin-bottom:8px}
+    .lx-latest-h .lx-latest-name{font-weight:700;color:var(--gold);margin-right:2px}
+    .lx-latest-h b{color:var(--gold)}
+    .lx-latest-nums{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+    .lx-latest-nums .lx-ball{width:28px;height:28px;font-size:.82rem}
+    .lx-latest-note{margin-top:8px;font-size:.72rem;color:var(--text-secondary);opacity:.82;line-height:1.4}
+
     @media(max-width:560px){
       .lx-stat-grid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
       .lx-ball{width:30px;height:30px;font-size:.84rem}
@@ -1596,6 +1606,10 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
               <button type="button" class="lx-seg-btn" data-val="pls">排列3</button>
             </div>
           </div>
+        </div>
+
+        <div class="lx-latest-card">
+          <div class="lx-latest" data-latest></div>
         </div>
 
         <div class="lx-seg lx-seg-sub" data-seg="tab" role="tablist">

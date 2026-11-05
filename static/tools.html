@@ -480,6 +480,59 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     @media(max-width:400px){.tl-grid{grid-template-columns:1fr}}
     @media print{.tl-drop,.tl-actions,.tl-close{display:none!important}
       .tl-panel{display:block!important;page-break-inside:avoid}}
+    /* ===== 彩票选号器 lottery ===== */
+    .lx-seg{display:flex;flex-wrap:wrap;gap:6px}
+    .lx-seg-btn{flex:0 0 auto;padding:7px 14px;border:1px solid var(--border);background:var(--card);color:var(--text-secondary);border-radius:20px;font-size:.86rem;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .lx-seg-btn:hover{border-color:var(--gold);color:var(--text)}
+    .lx-seg-btn.is-on{background:linear-gradient(135deg,var(--gold),#b8932f);color:#1a1a1a;border-color:var(--gold);font-weight:700}
+    .lx-seg-sub{margin:14px 0 4px}
+    .lx-seg-sub .lx-seg-btn{padding:8px 20px;font-size:.95rem}
+    .lx-seg-wrap{margin-top:2px}
+    .lx-ticket{display:flex;flex-direction:column;gap:8px;padding:12px 14px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;margin-bottom:12px}
+    .lx-tk-group{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+    .lx-tk-label{font-size:.8rem;color:var(--text-muted);margin-right:4px;min-width:64px}
+    .lx-ball{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#c65b54,#9c3b35);color:#fff;font-weight:700;font-size:.92rem;box-shadow:inset 0 0 0 2px rgba(255,255,255,.18),0 2px 5px rgba(0,0,0,.35);position:relative;margin:2px}
+    .lx-ball--b{background:radial-gradient(circle at 32% 28%,#5fb0e8,#2f7fb8)}
+    .lx-pos{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:.6rem;color:var(--gold);font-weight:700}
+    .lx-drum{margin:10px 0;padding:14px;border:1px dashed var(--border);border-radius:10px;background:var(--bg-secondary);min-height:20px}
+    .lx-drum[hidden]{display:none}
+    .lx-slip{display:flex;align-items:center;gap:10px}
+    .lx-slip-stick{display:inline-flex;align-items:center;justify-content:center;width:30px;height:46px;background:linear-gradient(180deg,var(--gold),#9c7c28);color:#1a1a1a;font-weight:800;border-radius:4px;writing-mode:vertical-rl;font-size:.8rem}
+    .lx-slip-text{font-size:.92rem;color:var(--gold-light);line-height:1.5}
+    .lx-rolling{animation:lxdice .12s linear infinite}
+    @keyframes lxdice{0%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}100%{transform:rotate(-12deg)}}
+    .lx-pop{animation:lxpop .4s ease}
+    @keyframes lxpop{0%{transform:scale(.3);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+    .lx-shake{animation:lxshake .5s ease}
+    @keyframes lxshake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px) rotate(-2deg)}40%{transform:translateX(6px) rotate(2deg)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+    .lx-hidden{visibility:hidden;opacity:0}
+    .lx-stat-block{margin:16px 0}
+    .lx-stat-h{font-size:1rem;color:var(--gold);margin-bottom:10px;border-left:3px solid var(--gold);padding-left:8px}
+    .lx-stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+    .lx-stat-cell{background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center}
+    .lx-num{display:inline-block;font-size:1.1rem;font-weight:800;color:var(--text)}
+    .lx-num.lx-hot{color:var(--gold)}
+    .lx-num.lx-cold{color:var(--blue-light)}
+    .lx-bar{display:block;height:5px;background:var(--border);border-radius:3px;margin:6px 0 4px;overflow:hidden}
+    .lx-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#9c7c28)}
+    .lx-cnt{display:block;font-size:.74rem;color:var(--text-muted)}
+    .lx-miss{display:block;font-size:.74rem;color:var(--text-secondary)}
+    .lx-stat-sub{margin:10px 0}
+    .lx-stat-sub h5{font-size:.86rem;color:var(--text-secondary);margin-bottom:6px}
+    .lx-statnote{font-size:.8rem;color:var(--text-muted);margin-top:10px;line-height:1.7}
+    .lx-hist-sum{font-size:.84rem;color:var(--text-secondary);margin:8px 0}
+    .lx-hist-table{display:flex;flex-direction:column;gap:6px;max-height:520px;overflow-y:auto;padding-right:4px}
+    .lx-hist-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 8px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:6px}
+    .lx-hist-iss{font-weight:700;color:var(--gold);min-width:62px}
+    .lx-hist-date{color:var(--text-secondary);min-width:92px;font-size:.82rem}
+    .lx-hist-nums{display:flex;flex-wrap:wrap;gap:4px;flex:1}
+    .lx-pager{display:flex;align-items:center;gap:12px;margin-top:12px;justify-content:center}
+    .lx-pager-info{font-size:.84rem;color:var(--text-secondary)}
+    @media(max-width:560px){
+      .lx-stat-grid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
+      .lx-ball{width:30px;height:30px;font-size:.84rem}
+      .lx-hist-row{gap:6px}
+    }
   </style>
 
 
@@ -627,7 +680,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="index.html">首页</a><span class="sep">›</span><span class="crumb-cat">生活工具</span><span class="sep">›</span><span class="current">工具箱</span></div>
     <div class="container">
     <h1>工具箱</h1>
-    <p class="tl-lede">二十个纯浏览器小工具：图片压缩、格式转换、图片转 PDF、加水印、长图拼接、EXIF 清除、取色、二维码、音频转 WAV、日期天数、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳、BMI、密码生成。<br> 全部在<b>你自己的设备里</b>处理，<b>不上传、不联网、不留存</b>，断网也能用。</p>
+    <p class="tl-lede">二十一个纯浏览器小工具：图片压缩、格式转换、图片转 PDF、加水印、长图拼接、EXIF 清除、取色、二维码、音频转 WAV、日期天数、文本对比、九宫格切图、长图切段、图片打码、单位换算、时区转换、时间戳、BMI、密码生成、彩票选号器。<br> 全部在<b>你自己的设备里</b>处理，<b>不上传、不联网、不留存</b>，断网也能用。</p>
 
     <div class="tl-notice" role="note">
       <div class="tl-notice-h">
@@ -789,6 +842,12 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         <span class="tl-tile-t"><span class="tl-tile-num">20</span>密码生成</span>
         <span class="tl-tile-d">加密级随机密码，可选字符类，显示理论强度。</span>
         <span class="tl-tile-tag">本地处理 · 不上传</span>
+      </button>
+      <button class="tl-tile" type="button" data-tool="lottery" aria-controls="tp-lottery">
+        <span class="tl-tile-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.3"/><circle cx="15" cy="9" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="9" cy="15" r="1.3"/><circle cx="15" cy="15" r="1.3"/></svg></span>
+        <span class="tl-tile-t"><span class="tl-tile-num">21</span>彩票选号器</span>
+        <span class="tl-tile-d">双色球 / 大乐透 / 福彩3D / 排列3，七种趣味选法，历史统计与往期查询。</span>
+        <span class="tl-tile-tag">本地生成 · 不联网</span>
       </button>
     </div>
 
@@ -1466,13 +1525,94 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         <div class="tl-stat" data-stat></div>
       </section>
 
+      <section class="tl-panel" id="tp-lottery" data-panel="lottery" aria-labelledby="tph-lottery">
+        <div class="tl-ph"><h3 id="tph-lottery"><span class="tl-idx">21</span>彩票选号器</h3><button class="tl-close" type="button" data-close>收起</button></div>
+        <p class="tl-desc">双色球 / 大乐透 / 福彩3D / 排列3 四种彩。① 七种趣味随机选法，同注内号码绝不重复；② 历年统计（热号 / 冷号 / 遗漏）；③ 往期开奖随时查。数据来自聚合接口，<b>仅供参考，以官方公告为准</b>。</p>
+
+        <div class="tl-opts">
+          <div class="tl-opt tl-full">
+            <label>彩种</label>
+            <div class="lx-seg" data-seg="type" role="tablist">
+              <button type="button" class="lx-seg-btn is-on" data-val="ssq">双色球</button>
+              <button type="button" class="lx-seg-btn" data-val="dlt">大乐透</button>
+              <button type="button" class="lx-seg-btn" data-val="fc3d">福彩3D</button>
+              <button type="button" class="lx-seg-btn" data-val="pls">排列3</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lx-seg lx-seg-sub" data-seg="tab" role="tablist">
+          <button type="button" class="lx-seg-btn is-on" data-val="pick">选号</button>
+          <button type="button" class="lx-seg-btn" data-val="stat">统计</button>
+          <button type="button" class="lx-seg-btn" data-val="history">往期</button>
+        </div>
+
+        <div data-tabpane="pick">
+          <div class="tl-opts">
+            <div class="tl-opt tl-full">
+              <label>玩法</label>
+              <div class="lx-seg lx-seg-wrap" data-seg="mode">
+                <button type="button" class="lx-seg-btn is-on" data-val="rand">纯随机</button>
+                <button type="button" class="lx-seg-btn" data-val="drum">摇奖机</button>
+                <button type="button" class="lx-seg-btn" data-val="shake">摇一摇</button>
+                <button type="button" class="lx-seg-btn" data-val="dice">骰子</button>
+                <button type="button" class="lx-seg-btn" data-val="slip">抽签锦囊</button>
+                <button type="button" class="lx-seg-btn" data-val="date">生日选号</button>
+                <button type="button" class="lx-seg-btn" data-val="hot">冷热遗漏</button>
+              </div>
+            </div>
+            <div class="tl-opt" data-modectl="date" hidden>
+              <label for="lt-date">生日 / 纪念日</label>
+              <input type="date" id="lt-date" data-in="date">
+            </div>
+            <div class="tl-opt tl-full" data-modectl="hot" hidden>
+              <label>策略</label>
+              <div class="lx-seg" data-seg="bias">
+                <button type="button" class="lx-seg-btn is-on" data-val="hot">追热号</button>
+                <button type="button" class="lx-seg-btn" data-val="cold">守冷号</button>
+                <button type="button" class="lx-seg-btn" data-val="due">等遗漏</button>
+              </div>
+            </div>
+            <div class="tl-opt">
+              <label for="lt-cnt">注数（1–10）</label>
+              <input type="number" id="lt-cnt" data-in="cnt" value="5" min="1" max="10" step="1" inputmode="numeric">
+            </div>
+          </div>
+
+          <div class="lx-drum" data-drum hidden></div>
+
+          <div class="tl-actions">
+            <button class="tl-btn" type="button" data-act="gen">生成</button>
+            <button class="tl-btn ghost" type="button" data-act="again">换一批</button>
+          </div>
+          <div class="lx-tickets" data-tickets></div>
+          <p class="tl-note">所有选号都在你自己的浏览器里用加密级随机数生成，<b>绝不联网、绝不上传</b>；历史数据仅是打包好的快照，开奖结果以官方公告为准。彩票本质是随机游戏，本工具仅供娱乐参考，请勿沉迷。</p>
+        </div>
+
+        <div data-tabpane="stat" hidden>
+          <div class="lx-statnote" data-statload>点开「统计」即加载该彩种历史并在本地计算（数据不联网，仅本机读取）。</div>
+          <div class="lx-stats" data-stats></div>
+        </div>
+
+        <div data-tabpane="history" hidden>
+          <div class="tl-opts">
+            <div class="tl-opt"><label for="lt-from">起始日期</label><input type="date" id="lt-from" data-in="from"></div>
+            <div class="tl-opt"><label for="lt-to">结束日期</label><input type="date" id="lt-to" data-in="to"></div>
+            <div class="tl-opt"><button class="tl-btn" type="button" data-act="qry">查询</button></div>
+          </div>
+          <div class="lx-hist" data-hist></div>
+        </div>
+
+        <div class="tl-msg" data-msg></div>
+      </section>
+
     </div>
 
     <h2 class="tl-grouphd"><span class="tl-gn">关于这些工具</span></h2>
     <div class="tl-notice" style="margin-bottom:0">
       <div class="tl-notice-h">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6h.01"/></svg>
-        这二十个是怎么挑出来的
+        这二十一个是怎么挑出来的
       </div>
       <ul>
         <li>后加的<b>九宫格切图 / 长图切段 / 图片打码</b>三个，是照着「发群里、发朋友圈」这件天天要干的事做的：一张图切成九块正好铺满格子、超长截图切成几段才不发糊、发截图前把手机号和头像先盖住。三个都在你自己的设备上完成，切出来的顺序就是微信里从左上到右下的顺序，末尾还带一次打包下载。</li>
@@ -1542,7 +1682,7 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
   <script defer src="https://events.vercount.one/js"></script>
 
 <script src="js/bookmark.js?v=20260816" defer></script>
-<script src="js/tools.js?v=20260920" defer></script>
+<script src="js/tools.js?v=20261106" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

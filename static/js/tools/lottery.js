@@ -265,10 +265,10 @@
     if (animate === 'dice') playDice(host);
     else if (animate === 'slip') playSlip(host);
     else if (animate === 'drum') playDrum(host);
-    else if (animate === 'shake') { host.classList.add('lx-shake'); setTimeout(function () { host.classList.remove('lx-shake'); }, 600); }
+    else if (animate === 'shake') playShake(host);
   }
 
-  // 骰子翻滚动画（保留 3D 小球的 百/十/个 角标）
+  // 骰子翻滚动画：数字球 3D 翻滚 + 数字快速闪变，保留 百/十/个 角标
   function playDice(host) {
     var balls = $$('.lx-ball', host);
     balls.forEach(function (b, i) {
@@ -276,7 +276,7 @@
       var finalText = hasSup
         ? (b.firstChild && b.firstChild.nodeType === 3 ? b.firstChild.textContent : b.textContent)
         : b.textContent;
-      b.classList.add('lx-rolling');
+      b.classList.add('lx-3d', 'lx-rolling');
       var steps = 0, max = 10 + i;
       var iv = setInterval(function () {
         if (!hasSup) b.textContent = String(rng(10));
@@ -290,28 +290,77 @@
           } else {
             b.textContent = finalText;
           }
+          b.classList.remove('lx-3d');
           b.classList.add('lx-pop');
           setTimeout(function () { b.classList.remove('lx-pop'); }, 400);
         }
       }, 60);
     });
   }
-  // 摇奖机：小球先抖动，再依次「弹出」
+  // 摇奖机：先画一台摇奖机转球，再让号码球逐颗从上方掉落
   function playDrum(host) {
+    var stage = document.createElement('div');
+    stage.className = 'lx-machine';
+    stage.innerHTML = '<svg viewBox="0 0 128 112" fill="none" stroke="#C9A84C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<circle cx="64" cy="44" r="36" opacity=".55"/>' +
+      '<g class="lxb">' +
+      '<circle cx="50" cy="38" r="5.5" fill="#c65b54" stroke="none"/>' +
+      '<circle cx="78" cy="34" r="5.5" fill="#5fb0e8" stroke="none"/>' +
+      '<circle cx="64" cy="54" r="5.5" fill="#c65b54" stroke="none"/>' +
+      '<circle cx="52" cy="58" r="5.5" fill="#5fb0e8" stroke="none"/>' +
+      '<circle cx="80" cy="56" r="5.5" fill="#c65b54" stroke="none"/>' +
+      '</g>' +
+      '<path d="M34 80h60l-9 28H43z" fill="rgba(201,168,76,.12)"/>' +
+      '<path d="M58 108v4M70 108v4"/>' +
+      '</svg>';
+    host.insertBefore(stage, host.firstChild);
     var balls = $$('.lx-ball', host);
-    host.classList.add('lx-shake');
-    setTimeout(function () { host.classList.remove('lx-shake'); }, 600);
-    balls.forEach(function (b, i) {
-      b.classList.add('lx-hidden');
-      setTimeout(function () { b.classList.remove('lx-hidden'); b.classList.add('lx-pop'); setTimeout(function () { b.classList.remove('lx-pop'); }, 400); }, 650 + i * 80);
-    });
+    balls.forEach(function (b) { b.classList.add('lx-hidden'); });
+    setTimeout(function () {
+      if (stage.parentNode) stage.parentNode.removeChild(stage);
+      balls.forEach(function (b, i) {
+        setTimeout(function () {
+          b.classList.remove('lx-hidden');
+          b.classList.add('lx-drop');
+          setTimeout(function () { b.classList.remove('lx-drop'); }, 520);
+        }, i * 70);
+      });
+    }, 1000);
   }
-  // 抽签锦囊：签筒 + 一支签滑出（在 tickets 前插一个签筒提示）
+  // 抽签锦囊：先展开一支卷轴（签文由 generate 写入 [data-drum] 并自带滑入动画）
   function playSlip(host) {
-    var P = panelOf('lottery');
-    var drum = $('[data-drum]', P);
-    host.classList.add('lx-shake');
-    setTimeout(function () { host.classList.remove('lx-shake'); }, 500);
+    var stage = document.createElement('div');
+    stage.className = 'lx-scroll';
+    stage.innerHTML = '<svg viewBox="0 0 76 64" fill="none" stroke="#C9A84C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<rect x="24" y="8" width="28" height="48" rx="3" fill="rgba(201,168,76,.1)"/>' +
+      '<path d="M24 16h28M24 48h28"/>' +
+      '<path d="M52 32l18-7v22l-18-7z" fill="rgba(201,168,76,.18)"/>' +
+      '<circle cx="38" cy="32" r="3" fill="#C9A84C" stroke="none"/>' +
+      '</svg>';
+    host.insertBefore(stage, host.firstChild);
+    setTimeout(function () { if (stage.parentNode) stage.parentNode.removeChild(stage); }, 850);
+  }
+  // 摇一摇：手机晃动 + 号码球乱跳归位
+  function playShake(host) {
+    var stage = document.createElement('div');
+    stage.className = 'lx-phone';
+    stage.innerHTML = '<svg viewBox="0 0 52 52" fill="none" stroke="#C9A84C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<rect x="16" y="5" width="20" height="42" rx="4" fill="rgba(201,168,76,.12)"/>' +
+      '<path d="M23 43h6"/>' +
+      '</svg>';
+    host.insertBefore(stage, host.firstChild);
+    var balls = $$('.lx-ball', host);
+    balls.forEach(function (b) { b.classList.add('lx-hidden'); });
+    setTimeout(function () {
+      if (stage.parentNode) stage.parentNode.removeChild(stage);
+      balls.forEach(function (b, i) {
+        setTimeout(function () {
+          b.classList.remove('lx-hidden');
+          b.classList.add('lx-drop');
+          setTimeout(function () { b.classList.remove('lx-drop'); }, 520);
+        }, i * 45);
+      });
+    }, 620);
   }
 
   // ---------- 统计渲染 ----------
@@ -453,16 +502,46 @@
 
     var anim = (mode === 'dice') ? 'dice' : (mode === 'slip' ? 'slip' : (mode === 'drum' ? 'drum' : (mode === 'shake' ? 'shake' : null)));
     renderTickets(data, tickets, anim);
+    compareHistory(data, tickets);
 
     if (mode === 'slip') {
       var dr = $('[data-drum]', P);
       if (dr) {
         dr.hidden = false;
         var f = FORTUNES[rng(FORTUNES.length)];
-        dr.innerHTML = '<div class="lx-slip"><span class="lx-slip-stick">签</span><span class="lx-slip-text">' + f + '</span></div>';
+        dr.innerHTML = '<div class="lx-slip lx-slipin"><span class="lx-slip-stick">签</span><span class="lx-slip-text">' + f + '</span></div>';
       }
     } else {
       var dr2 = $('[data-drum]', P); if (dr2) dr2.hidden = true;
+    }
+  }
+
+  // 命中历史相似号：找出与你这组红球（前区）相同数最多的往期；命中 ≥ 六成红球则提示「历史神巧合」
+  function compareHistory(data, tickets) {
+    var P = panelOf('lottery');
+    var host = $('[data-tickets]', P);
+    if (!host || !tickets.length) return;
+    var old = host.querySelector('.lx-coincide'); if (old) old.remove();
+    var draws = data.draws || [];
+    if (!draws.length) return;
+    var best = null;
+    tickets.forEach(function (t) {
+      var tr = t.r || [];
+      for (var k = 0; k < draws.length; k++) {
+        var d = draws[k], dr = d.r || [], db = d.b || [];
+        var same = 0; for (var i = 0; i < tr.length; i++) if (dr.indexOf(tr[i]) >= 0) same++;
+        var sb = 0; var tb = t.b || []; for (var j = 0; j < tb.length; j++) if (db.indexOf(tb[j]) >= 0) sb++;
+        var score = same * 10 + sb;
+        if (!best || score > best.score) best = { score: score, iss: d.i, date: d.d, same: same, sb: sb };
+      }
+    });
+    var need = Math.ceil((tickets[0] ? tickets[0].r.length : 0) * 0.6);
+    if (best && best.same >= need) {
+      var note = document.createElement('div');
+      note.className = 'lx-coincide';
+      note.innerHTML = '✦ 历史神巧合 · 第 <b>' + best.iss + '</b> 期（' + best.date + '）与你这组有 <b>' + best.same + '</b> 个红球相同' +
+        (best.sb ? ('、<b>' + best.sb + '</b> 个蓝球相同') : '') + '。纯属概率，仅供一乐。';
+      host.appendChild(note);
     }
   }
 

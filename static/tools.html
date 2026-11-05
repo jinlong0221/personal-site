@@ -528,6 +528,55 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
     .lx-hist-nums{display:flex;flex-wrap:wrap;gap:4px;flex:1}
     .lx-pager{display:flex;align-items:center;gap:12px;margin-top:12px;justify-content:center}
     .lx-pager-info{font-size:.84rem;color:var(--text-secondary)}
+
+    /* ===== 生动化扩展：图标 / 舞台 / 3D / 卷轴 / 微光 / 相似号 ===== */
+    /* 玩法按钮图标（currentColor 自适应底色） */
+    .lx-seg-btn{display:inline-flex;align-items:center}
+    .lx-ic{width:16px;height:16px;flex:0 0 auto;margin-right:5px}
+    @media(max-width:560px){.lx-seg-wrap .lx-seg-btn{font-size:.78rem;padding:6px 10px}.lx-ic{width:14px;height:14px;margin-right:4px}}
+
+    /* 选号区开奖微光（呼吸光晕，不挡交互） */
+    .lx-tickets{position:relative}
+    .lx-tickets::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+      background:radial-gradient(85% 60% at 50% 0%,rgba(201,168,76,.30),transparent 70%),radial-gradient(70% 55% at 50% 100%,rgba(201,168,76,.14),transparent 72%);
+      opacity:.7;animation:lxglow 3.4s ease-in-out infinite}
+    .lx-tickets::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+      background:linear-gradient(115deg,transparent 32%,rgba(201,168,76,.12) 50%,transparent 68%);
+      background-size:220% 100%;animation:lxsheen 4.5s linear infinite}
+    @keyframes lxsheen{0%{background-position:140% 0}100%{background-position:-40% 0}}
+    .lx-tickets>.lx-ticket{position:relative;z-index:1}
+    @keyframes lxglow{0%,100%{opacity:.3}50%{opacity:.8}}
+
+    /* 摇奖机舞台 */
+    .lx-machine{display:flex;justify-content:center;align-items:center;padding:4px 0 12px;position:relative;z-index:1}
+    .lx-machine svg{width:128px;height:112px;overflow:visible}
+    .lx-machine .lxb{transform-box:fill-box;transform-origin:center;animation:lxdrumspin 1.1s linear infinite}
+    @keyframes lxdrumspin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+    .lx-ball.lx-drop{animation:lxdrop .5s cubic-bezier(.2,1.3,.4,1) both}
+    @keyframes lxdrop{0%{transform:translateY(-24px) scale(.6);opacity:0}60%{opacity:1}100%{transform:none;opacity:1}}
+
+    /* 骰子 3D 翻滚 */
+    .lx-ball.lx-3d{animation:lxflip .9s cubic-bezier(.3,.1,.2,1) both}
+    @keyframes lxflip{0%{transform:rotateY(0) rotateX(0)}100%{transform:rotateY(720deg) rotateX(360deg)}}
+
+    /* 锦囊卷轴 */
+    .lx-scroll{display:flex;justify-content:center;padding:6px 0 10px;position:relative;z-index:1}
+    .lx-scroll svg{width:76px;height:64px;animation:lxunroll .7s ease both;transform-origin:top center}
+    @keyframes lxunroll{0%{transform:scaleY(.2);opacity:0}100%{transform:scaleY(1);opacity:1}}
+    .lx-slip{animation:lxslipin .5s ease both}
+    @keyframes lxslipin{0%{transform:translateY(-14px);opacity:0}100%{transform:none;opacity:1}}
+    .lx-slip-text{background:linear-gradient(90deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+    /* 摇一摇：手机晃动 */
+    .lx-phone{display:flex;justify-content:center;padding:2px 0 10px;position:relative;z-index:1}
+    .lx-phone svg{width:52px;height:52px;animation:lxphoneshake .55s ease}
+    @keyframes lxphoneshake{0%,100%{transform:rotate(0)}20%{transform:rotate(-18deg)}40%{transform:rotate(16deg)}60%{transform:rotate(-12deg)}80%{transform:rotate(8deg)}}
+
+    /* 命中历史相似号 */
+    .lx-coincide{margin:8px 0 2px;padding:9px 12px;border:1px dashed var(--gold);border-radius:8px;
+      background:rgba(201,168,76,.09);color:var(--gold-light);font-size:.86rem;line-height:1.6;position:relative;z-index:1}
+    .lx-coincide b{color:var(--gold)}
+
     @media(max-width:560px){
       .lx-stat-grid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
       .lx-ball{width:30px;height:30px;font-size:.84rem}
@@ -1552,13 +1601,13 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
             <div class="tl-opt tl-full">
               <label>玩法</label>
               <div class="lx-seg lx-seg-wrap" data-seg="mode">
-                <button type="button" class="lx-seg-btn is-on" data-val="rand">纯随机</button>
-                <button type="button" class="lx-seg-btn" data-val="drum">摇奖机</button>
-                <button type="button" class="lx-seg-btn" data-val="shake">摇一摇</button>
-                <button type="button" class="lx-seg-btn" data-val="dice">骰子</button>
-                <button type="button" class="lx-seg-btn" data-val="slip">抽签锦囊</button>
-                <button type="button" class="lx-seg-btn" data-val="date">生日选号</button>
-                <button type="button" class="lx-seg-btn" data-val="hot">冷热遗漏</button>
+                <button type="button" class="lx-seg-btn is-on" data-val="rand"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.5 6 .8-4.4 4.2 1.1 6L12 17l-5.3 2.5 1.1-6L3.4 9.3l6-.8z"/></svg>纯随机</button>
+                <button type="button" class="lx-seg-btn" data-val="drum"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="6.5"/><path d="M5.5 16.5h13l-2 4.5H7.5z"/><circle cx="10" cy="9" r="1" fill="currentColor"/><circle cx="14" cy="11.5" r="1" fill="currentColor"/></svg>摇奖机</button>
+                <button type="button" class="lx-seg-btn" data-val="shake"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.2"/><path d="M10.5 18h3"/></svg>摇一摇</button>
+                <button type="button" class="lx-seg-btn" data-val="dice"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/><circle cx="9.5" cy="9.5" r="1.1" fill="currentColor"/><circle cx="14.5" cy="14.5" r="1.1" fill="currentColor"/><circle cx="14.5" cy="9.5" r="1.1" fill="currentColor"/><circle cx="9.5" cy="14.5" r="1.1" fill="currentColor"/></svg>骰子</button>
+                <button type="button" class="lx-seg-btn" data-val="slip"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l-1 16H9z"/><path d="M11 4v-1M13 4v-1"/><path d="M9.5 9l5 1M9.5 13l5 1"/></svg>抽签锦囊</button>
+                <button type="button" class="lx-seg-btn" data-val="date"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/><path d="M8 13h3M8 16.5h6"/></svg>生日选号</button>
+                <button type="button" class="lx-seg-btn" data-val="hot"><svg class="lx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2.5 3 4 5 4 8a4 4 0 11-8 0c0-1.5.8-2.8 1.5-3.8C10 9 11 7 12 3z"/></svg>冷热遗漏</button>
               </div>
             </div>
             <div class="tl-opt" data-modectl="date" hidden>

@@ -19,8 +19,6 @@
 
   var $ = _.$, $$ = _.$$;
   var panelOf = _.panelOf, toast = _.toast, clearToast = _.clearToast;
-  // 实时开奖云函数地址（部署在 CloudBase，自定义域名 api.longxiong.vip）。未部署/不可达时前端自动回退内置数据。
-  var LIVE_API = 'https://api.longxiong.vip/lottery/latest';
 
   // 彩种（与 JSON 的 groups 对应）。positions 给 3D/排列3 三位贴上百/十/个标签。
   var TYPES = [
@@ -724,7 +722,7 @@
     }
   }
 
-  // 最新开奖卡片：先用内置历史数据最后一条展示；随后静默拉取云函数实时数据覆盖（失败则保留内置）
+  // 最新开奖卡片：展示内置历史数据的最新一期；数据由 GitHub Actions 每日定时任务自动更新
   function renderLatest(data) {
     var P = panelOf('lottery');
     var host = $('[data-latest]', P);
@@ -746,68 +744,11 @@
     card.appendChild(nums);
     var note = document.createElement('div');
     note.className = 'lx-latest-note';
-    note.textContent = '数据更新于 ' + (data.updated || last.d) + ' · 可点「实时刷新」拉取云函数最新开奖';
+    note.textContent = '数据由每日定时任务自动更新 · 最近更新 ' + (data.updated || last.d);
     card.appendChild(note);
-    // 实时标识 + 刷新按钮
-    var bar = document.createElement('div');
-    bar.className = 'lx-latest-bar';
-    var badge = document.createElement('span');
-    badge.className = 'lx-latest-badge';
-    badge.hidden = true;
-    badge.textContent = '实时';
-    var refresh = document.createElement('button');
-    refresh.type = 'button';
-    refresh.className = 'lx-latest-refresh';
-    refresh.textContent = '↻ 实时刷新';
-    refresh.addEventListener('click', function () { renderLatestLive(data.type, true); });
-    bar.appendChild(badge);
-    bar.appendChild(refresh);
-    card.appendChild(bar);
     host.appendChild(card);
-    // 静默尝试实时拉取（不阻断内置展示）
-    renderLatestLive(data.type, false);
   }
 
-  // 实时拉取云函数最新开奖：成功则覆盖卡片并显示「实时」徽标；失败/超时(5s)静默回退内置数据，绝不空白
-  function renderLatestLive(type, manual) {
-    var P = panelOf('lottery');
-    var host = $('[data-latest]', P);
-    if (!host || !type) return;
-    var card = host.querySelector('.lx-latest');
-    if (!card) return;
-    var badge = host.querySelector('.lx-latest-badge');
-    var btn = host.querySelector('.lx-latest-refresh');
-    var nameEl = host.querySelector('.lx-latest-name');
-    var name = nameEl ? nameEl.textContent : '';
-    if (btn) { btn.disabled = true; btn.textContent = '↻ 刷新中…'; }
-    var done = false;
-    var timer = setTimeout(function () {
-      if (done) return; done = true;
-      if (btn) { btn.disabled = false; btn.textContent = '↻ 实时刷新'; }
-    }, 5000);
-    fetch(LIVE_API + '?type=' + encodeURIComponent(type), { mode: 'cors', cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function (j) {
-        if (done) return; done = true; clearTimeout(timer);
-        if (!j || !j.i || !Array.isArray(j.r)) throw new Error('bad payload');
-        var head = host.querySelector('.lx-latest-h');
-        var nums = host.querySelector('.lx-latest-nums');
-        var note = host.querySelector('.lx-latest-note');
-        if (head) head.innerHTML = (name ? '<span class="lx-latest-name">' + name + '</span>' : '') + '最新开奖 · 第 <b>' + j.i + '</b> 期（' + j.d + '）';
-        if (nums) {
-          nums.innerHTML = '';
-          j.r.forEach(function (n) { nums.appendChild(ball(n, 'r')); });
-          (j.b || []).forEach(function (n) { nums.appendChild(ball(n, 'b')); });
-        }
-        if (note) note.textContent = '实时开奖 · 云函数代理 · ' + (j.d || '') + (j.cached ? '（缓存）' : '');
-        if (badge) { badge.hidden = false; badge.textContent = j.cached ? '实时·缓存' : '实时'; }
-        if (btn) { btn.disabled = false; btn.textContent = '↻ 实时刷新'; }
-      })
-      .catch(function () {
-        if (done) return; done = true; clearTimeout(timer);
-        if (btn) { btn.disabled = false; btn.textContent = '↻ 实时刷新'; }
-      });
-  }
 
   function setupLottery() {
     var P = panelOf('lottery');

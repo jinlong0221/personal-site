@@ -52,7 +52,7 @@
     { id: 'due', name: '等遗漏' }
   ];
 
-  // 国风签文（抽签锦囊用），纯娱乐
+  // 国风签文（抽签锦囊用），纯娱乐；扩池至 24 句 + 滑动窗口去重，连点不撞同一句
   var FORTUNES = [
     '上上签 · 时来天地皆同力，运去英雄不自由。',
     '上签 · 长风破浪会有时，直挂云帆济沧海。',
@@ -65,7 +65,19 @@
     '平签 · 行到水穷处，坐看云起时。',
     '中签 · 宝剑锋从磨砺出，梅花香自苦寒来。',
     '上上签 · 海阔凭鱼跃，天高任鸟飞。',
-    '平签 · 莫愁前路无知己，天下谁人不识君。'
+    '平签 · 莫愁前路无知己，天下谁人不识君。',
+    '上上签 · 大鹏一日同风起，扶摇直上九万里。',
+    '上签 · 天生我材必有用，千金散尽还复来。',
+    '上签 · 海内存知己，天涯若比邻。',
+    '中签 · 千磨万击还坚劲，任尔东西南北风。',
+    '中签 · 采得百花成蜜后，为谁辛苦为谁甜。',
+    '中签 · 纸上得来终觉浅，绝知此事要躬行。',
+    '平签 · 事了拂衣去，深藏身与名。',
+    '平签 · 古今多少事，都付笑谈中。',
+    '平签 · 醉卧沙场君莫笑，古来征战几人回。',
+    '上签 · 落霞与孤鹜齐飞，秋水共长天一色。',
+    '中签 · 欲买桂花同载酒，终不似少年游。',
+    '上上签 · 福祸相依，转机在侧，静观其变。'
   ];
 
   var cache = {};      // id -> 已加载的 JSON
@@ -79,6 +91,31 @@
     return a[0] % n;
   }
   function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+  // 滑动窗口去重：从 pool 随机抽 1 条，避开最近 win 条用过的；窗口=池大小时即完美轮换（轮完一圈才允许重复）
+  function pickDistinct(pool, recent, win) {
+    win = win || pool.length;
+    while (recent.length >= win) recent.shift(); // 先腾出窗口位：保证 avail 非空、窗口内永不重复
+    var avail = pool.filter(function (x) { return recent.indexOf(x) < 0; });
+    var pick = avail[rng(avail.length)];
+    recent.push(pick);
+    return pick;
+  }
+
+  // 灵魂签文案库：按调性分类、每类多条；interpret 按号码特征定型性后随机抽 + 去重，保留“按特征定调性”的灵魂
+  var SOUL_LINES = {
+    '孤勇型': ['宁为玉碎，不走寻常路。', '一身肝胆，独行其是。', '猛志逸四海，骞翮思远翥。', '虽千万人，吾往矣。'],
+    '稳重型': ['四平八稳，步步为营。', '静水流深，稳者自安。', '安步当车，行稳致远。', '厚德载物，履道坦坦。'],
+    '血脉相连型': ['同气连枝，携手并进。', '如竹有节，相倚而生。', '比目连枝，福祸相依。', '星月交辉，彼此成全。'],
+    '情深型': ['数理相缠，缘分使然。', '不解之缘，妙手偶得。', '因缘际会，一往而深。', '心有灵犀，数亦相通。'],
+    '凌云型': ['欲穷千里目，更上一层楼。', '长风破浪，云帆沧海。', '海到无边天作岸。', '九万里风鹏正举。'],
+    '中庸型': ['执两用中，不偏不倚。', '过犹不及，中道而立。', '允执厥中，和而不同。', '不偏之谓中，不易之谓庸。'],
+    '炽盛型': ['大鹏一日同风起，扶摇直上九万里。', '气吞万里如虎。', '烈火烹油，鲜花着锦。', '鸿鹄高翔，一举千里。'],
+    '潜龙型': ['潜龙在渊，待时而动。', '藏器于身，待时而发。', '韬光养晦，静水流深。', '积厚流光，后发制人。'],
+    '随缘型': ['命里有时终须有，随缘便是自在。', '云在青天水在瓶。', '竹杖芒鞋轻胜马，一蓑烟雨任平生。', '得之我幸，失之我命。']
+  };
+  var recentSoul = {};        // 调性名 -> 最近用过的文案（按类隔离的滑动窗口）
+  var recentFortune = [];     // 锦囊最近用过的签文（滑动窗口）
 
   // 无放回抽样：从 [lo, lo+size-1] 取 count 个互不相同的数
   function sampleNoReplace(size, count, lo) {
@@ -271,7 +308,7 @@
     return res;
   }
 
-  // 智能参谋说明：奇偶 / 大小 / 和值 / 反人流（仅前区）
+  // 智能参谋说明：随机挑 2-3 个点评维度 + 随机结尾金句（每次表述不同），保留固定免责
   function buildRationale(data, res) {
     var groups = groupsOf(data);
     var rg = null;
@@ -286,18 +323,38 @@
     });
     var sum = r.reduce(function (a, b) { return a + b; }, 0);
     var large = r.some(function (n) { return n > 31; });
-    var parts = ['奇偶 ' + odd + ':' + even, '大小 ' + big + ':' + small, '和值 ' + sum];
+    var prime = r.filter(function (n) {
+      if (n < 2) return false;
+      for (var d = 2; d * d <= n; d++) if (n % d === 0) return false;
+      return true;
+    }).length;
+    var span = Math.max.apply(null, r) - Math.min.apply(null, r);
+    var tails = {}; r.forEach(function (n) { tails[n % 10] = 1; });
+    var tailKinds = Object.keys(tails).length;
+
+    var dims = [
+      '奇偶 ' + odd + ':' + even,
+      '大小 ' + big + ':' + small,
+      '和值 ' + sum,
+      '质合 ' + prime + ':' + (r.length - prime),
+      '跨度 ' + span,
+      '尾数 ' + tailKinds + '种'
+    ];
+    for (var i = dims.length - 1; i > 0; i--) { var j = rng(i + 1); var tmp = dims[i]; dims[i] = dims[j]; dims[j] = tmp; }
+    var k = 2 + rng(2); // 随机 2 或 3 个维度
+    var parts = dims.slice(0, k);
     if (large) parts.push('含大数避人流');
-    return '参谋：' + parts.join(' · ') + '（均衡打底，纯启发式，不提高中奖率）';
+    var flavor = ['数字无心，取舍在你', '冷热皆概率，理性为上', '仅供参考，莫要上头', '一盘棋局，落子无悔', '天机不可尽泄，留三分余地'];
+    var fl = flavor[rng(flavor.length)];
+    return '参谋：' + parts.join(' · ') + '。' + fl + '（纯启发式，不提高中奖率）';
   }
 
-  // ---------- 灵魂解读（混搭随缘：按号码特征自动选调性） ----------
+  // ---------- 灵魂解读（混搭随缘：按号码特征自动选调性，每类调性下多条文案随机抽 + 去重） ----------
   function interpret(data, t) {
     var groups = groupsOf(data);
     var rg = null;
     groups.forEach(function (g) { if (g.key !== 'b') rg = g; });
     var nums = t.r.concat(t.b);
-    if (!nums.length) return { name: '随缘型', text: '命里有时终须有，随缘便是自在。' };
     var even = 0, odd = 0, big = 0, small = 0;
     var mid = rg ? Math.floor((rg.lo + rg.hi) / 2) : 17;
     nums.forEach(function (n) {
@@ -313,23 +370,20 @@
     for (var x = 1; x < t.r.length; x++) if (t.r.indexOf(t.r[x]) !== x) { pair = true; break; }
     var large = nums.some(function (n) { return n > 31; });
 
-    if (odd === nums.length && nums.length > 1)
-      return { name: '孤勇型', text: '宁为玉碎，不走寻常路。' };
-    if (even === nums.length && nums.length > 1)
-      return { name: '稳重型', text: '四平八稳，步步为营。' };
-    if (consec)
-      return { name: '血脉相连型', text: '同气连枝，携手并进。' };
-    if (pair)
-      return { name: '情深型', text: '数理相缠，缘分使然。' };
-    if (large && big >= small)
-      return { name: '凌云型', text: '会当凌绝顶，一览众山小。' };
-    if (even === odd || Math.abs(big - small) <= 1)
-      return { name: '中庸型', text: '执两用中，不偏不倚。' };
-    if (sum > expected * 1.25)
-      return { name: '炽盛型', text: '大鹏一日同风起，扶摇直上九万里。' };
-    if (sum < expected * 0.75)
-      return { name: '潜龙型', text: '潜龙在渊，待时而动。' };
-    return { name: '随缘型', text: '命里有时终须有，随缘便是自在。' };
+    var name;
+    if (odd === nums.length && nums.length > 1) name = '孤勇型';
+    else if (even === nums.length && nums.length > 1) name = '稳重型';
+    else if (consec) name = '血脉相连型';
+    else if (pair) name = '情深型';
+    else if (large && big >= small) name = '凌云型';
+    else if (even === odd || Math.abs(big - small) <= 1) name = '中庸型';
+    else if (sum > expected * 1.25) name = '炽盛型';
+    else if (sum < expected * 0.75) name = '潜龙型';
+    else name = '随缘型';
+
+    var lines = SOUL_LINES[name] || SOUL_LINES['随缘型'];
+    var rec = recentSoul[name] || (recentSoul[name] = []);
+    return { name: name, text: pickDistinct(lines, rec, lines.length) };
   }
 
   // ---------- 统计 ----------
@@ -685,7 +739,7 @@
       var dr = $('[data-drum]', P);
       if (dr) {
         dr.hidden = false;
-        var f = FORTUNES[rng(FORTUNES.length)];
+        var f = pickDistinct(FORTUNES, recentFortune, FORTUNES.length);
         dr.innerHTML = '<div class="lx-slip lx-slipin"><span class="lx-slip-stick">签</span><span class="lx-slip-text">' + f + '</span></div>';
       }
     } else {

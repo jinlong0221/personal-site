@@ -1147,8 +1147,8 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
 
     // ========== 8.6 新增：法定节假日 / 调休（逐年数据；缺数据年份不标注） ==========
     // 来源：国务院办公厅每年放假安排通知。
-    //   2024 → 国办发明电〔2023〕7号；2025 → 国办发明电〔2024〕11号；2026 → 国办发明电〔2025〕7号。
-    //   2027 及以后尚未由国务院办公厅公布，暂缺（保持"实测溯源"，不硬编码未发布数据）。
+    //   2024 → 国办发明电〔2023〕7号；2025 → 国办发明电〔2024〕11号；2026 → 国办发明电〔2025〕7号；2027 → 国办发明电〔2026〕10号（2026-11-05 发布）。
+    //   2028 及以后尚未由国务院办公厅公布，暂缺（保持"实测溯源"，不硬编码未发布数据）。
     // type: 'holiday' 放假 / 'work' 调休补班
     var LEGAL_HOLIDAYS = {
       2024: [
@@ -1199,6 +1199,20 @@ footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-siz
         {date:'10-01',type:'holiday',name:'国庆'},{date:'10-02',type:'holiday',name:'国庆'},{date:'10-03',type:'holiday',name:'国庆'},
         {date:'10-04',type:'holiday',name:'国庆'},{date:'10-05',type:'holiday',name:'国庆'},{date:'10-06',type:'holiday',name:'国庆'},{date:'10-07',type:'holiday',name:'国庆'},
         {date:'10-10',type:'work',name:'补班'}
+      ],
+      2027: [
+        {date:'01-01',type:'holiday',name:'元旦'},{date:'01-02',type:'holiday',name:'元旦'},{date:'01-03',type:'holiday',name:'元旦'},
+        {date:'01-31',type:'work',name:'补班'},
+        {date:'02-05',type:'holiday',name:'春节'},{date:'02-06',type:'holiday',name:'春节'},{date:'02-07',type:'holiday',name:'春节'},{date:'02-08',type:'holiday',name:'春节'},{date:'02-09',type:'holiday',name:'春节'},{date:'02-10',type:'holiday',name:'春节'},{date:'02-11',type:'holiday',name:'春节'},{date:'02-12',type:'holiday',name:'春节'},{date:'02-13',type:'holiday',name:'春节'},
+        {date:'02-14',type:'work',name:'补班'},
+        {date:'04-03',type:'holiday',name:'清明'},{date:'04-04',type:'holiday',name:'清明'},{date:'04-05',type:'holiday',name:'清明'},
+        {date:'05-01',type:'holiday',name:'劳动节'},{date:'05-02',type:'holiday',name:'劳动节'},{date:'05-03',type:'holiday',name:'劳动节'},{date:'05-04',type:'holiday',name:'劳动节'},{date:'05-05',type:'holiday',name:'劳动节'},
+        {date:'05-08',type:'work',name:'补班'},
+        {date:'06-09',type:'holiday',name:'端午'},
+        {date:'09-15',type:'holiday',name:'中秋'},
+        {date:'09-26',type:'work',name:'补班'},
+        {date:'10-01',type:'holiday',name:'国庆'},{date:'10-02',type:'holiday',name:'国庆'},{date:'10-03',type:'holiday',name:'国庆'},{date:'10-04',type:'holiday',name:'国庆'},{date:'10-05',type:'holiday',name:'国庆'},{date:'10-06',type:'holiday',name:'国庆'},{date:'10-07',type:'holiday',name:'国庆'},
+        {date:'10-09',type:'work',name:'补班'}
       ]
     };
     function legalFor(y, m, d) {

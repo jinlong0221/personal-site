@@ -3,11 +3,11 @@
  * 读取 marvel-boxoffice.json 并渲染最新上映漫威电影的实时票房卡。
  * 由每日自动化（automation-1783388608608）刷新 JSON，页面每日自动呈现最新数据。
  *
- * 渲染约定（避免「好乱」）：
- *  - 四宫格只显示每条票房的「头条数字」（干净数值），不再把多源长段落塞进卡片；
- *  - 当日口径用 movie.status 这一句已校对摘要（解析 **粗体**）；
- *  - 历史口径 / 里程碑（40+ 条研究笔记）收到可折叠 <details> 里，默认收起、最新在前；
- *  - 数据里偶发的 \n 换行按 <br> 处理，** 粗体按 <b> 处理，杜绝裸星号。
+ * 渲染约定（避免「一大段文字」）：
+ *  - 四宫格只显示每条票房的「头条数字」（干净数值）；
+ *  - 当日口径用 movie.status 首条已校对摘要（解析 **粗体**）直接展示；
+ *  - 历史复核记录 / 里程碑（机器人内部对账流水）不再渲染到公开页面，仅在 JSON 留底；
+ *  - ** 粗体按 <b> 处理，杜绝裸星号。
  */
 (function () {
   function esc(s) {
@@ -32,11 +32,6 @@
     if (bm) return bm[1].replace(/\s+/g, ' ').trim();
     var cut = t.split(/[（(。；;]/)[0].trim();
     return cut || t;
-  }
-
-  // 含 \n 的长文本拆成多行（\n → <br>），并解析粗体
-  function multiline(s) {
-    return String(s).split('\n').map(md).join('<br>');
   }
 
   // 从一段票房文本里抽取「主金额」：优先匹配关键词 kw 之后的首个 $(美元) 或 ¥…亿(人民币)。
@@ -127,7 +122,6 @@
     if (m.status) {
       var entries = String(m.status).split('｜').map(function (s) { return s.trim(); }).filter(Boolean);
       var latest = entries[0] || '';
-      var older = entries.slice(1);
 
       if (latest) {
         var bullets = latest.split(/；|;/).map(function (s) { return s.trim(); }).filter(Boolean);
@@ -139,36 +133,11 @@
           statusHtml += '<p class="mv-bo-status">' + md(latest) + '</p>';
         }
       }
-
-      if (older.length) {
-        statusHtml +=
-          '<details class="mv-bo-detail mv-bo-history">' +
-          '<summary class="mv-bo-detail-sum">历史复核记录（' + older.length +
-          ' 条 · 点击展开）</summary>' +
-          '<ul class="mv-bo-miles">' + older.map(function (o) {
-            return '<li class="mv-bo-mile">' + multiline(o) + '</li>';
-          }).join('') + '</ul></details>';
-      }
-    }
-
-    // 历史口径 / 里程碑：折叠，最新在前，避免一屏刷 40+ 条研究笔记
-    var miles = (m.milestones || []).slice();
-    var milesHtml = '';
-    if (miles.length) {
-      var items = miles.map(function (x) {
-        return '<li class="mv-bo-mile">' + multiline(x) + '</li>';
-      }).join('');
-      milesHtml =
-        '<details class="mv-bo-detail" id="boDetail">' +
-        '<summary class="mv-bo-detail-sum">票房口径与里程碑记录（共 ' + miles.length +
-        ' 条 · 点击展开）</summary>' +
-        '<ul class="mv-bo-miles">' + items + '</ul>' +
-        '</details>';
     }
 
     var note = m.note ? '<p class="mv-bo-note">' + md(m.note) + '</p>' : '';
 
-    wrap.innerHTML = titleHtml + grid + chartHtml + statusHtml + milesHtml + note;
+    wrap.innerHTML = titleHtml + grid + chartHtml + statusHtml + note;
 
     var up = document.getElementById('boUpdated');
     if (up && data.updated) up.textContent = data.updated;

@@ -228,9 +228,6 @@ html{scroll-behavior:smooth}
 .mv-bo-card .mv-bo-label{font-size:.82rem;color:var(--text-muted);margin-top:4px}
 .mv-bo-meta{margin:8px 0 2px;font-size:.92rem;color:var(--text-secondary);line-height:1.7}
 .mv-bo-meta b{color:var(--text)}
-.mv-bo-miles{list-style:none;padding:0;margin:10px 0 2px;display:grid;gap:8px}
-.mv-bo-miles li{position:relative;padding-left:20px;font-size:.9rem;line-height:1.7;color:var(--text-secondary)}
-.mv-bo-miles li::before{content:'★';position:absolute;left:0;top:1px;color:#e23636;font-size:.8rem}
 .mv-bo-note{font-size:.8rem;color:var(--text-muted);margin-top:10px;line-height:1.75;border-top:1px dashed var(--border);padding-top:8px}
 .mv-bo-updated{font-size:.8rem;color:var(--text-muted);margin-top:10px}
 /* 票房构成走势条（纯代码，从 JSON 美元数值计算比例） */
@@ -242,7 +239,7 @@ html{scroll-behavior:smooth}
 .mv-bo-bar-f{display:block;height:100%;background:linear-gradient(90deg,var(--mv-gold),var(--mv));border-radius:999px;transition:width .6s ease}
 .mv-bo-bar-v{flex:0 0 70px;font-size:.82rem;font-weight:700;color:var(--mv-gold);text-align:left;font-variant-numeric:tabular-nums}
 .mv-bo-chart-note{margin-top:10px;font-size:.76rem;color:var(--text-muted);line-height:1.6}
-/* 票房卡新增样式：标题行 / 当日口径 / 折叠历史记录 */
+/* 票房卡样式：标题行 / 当日口径（对账流水不再渲染，相关样式已移除） */
 .mv-bo-title{margin:6px 0 2px;font-size:1rem;color:var(--text);line-height:1.5}
 .mv-bo-title .mv-bo-en{color:var(--text-muted);font-size:.85rem;font-weight:400;margin-left:4px}
 .mv-bo-title .mv-bo-date{color:var(--text-muted);font-size:.82rem;margin-left:6px}
@@ -251,15 +248,6 @@ html{scroll-behavior:smooth}
 .mv-bo-status-list{list-style:none;padding:0;margin:10px 0 4px;display:grid;gap:8px}
 .mv-bo-status-item{position:relative;padding-left:18px;font-size:.92rem;line-height:1.7;color:var(--text-secondary)}
 .mv-bo-status-item::before{content:'';position:absolute;left:4px;top:10px;width:6px;height:6px;border-radius:50%;background:#e23636}
-.mv-bo-history{margin-top:10px}
-.mv-bo-detail{margin:14px 0 4px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.mv-bo-detail-sum{display:block;padding:11px 14px;font-size:.9rem;color:var(--text-secondary);cursor:pointer;user-select:none;background:var(--ink-3)}
-.mv-bo-detail-sum:hover{color:var(--text)}
-.mv-bo-detail[open] .mv-bo-detail-sum{border-bottom:1px solid var(--border)}
-.mv-bo-detail .mv-bo-miles{margin:0;padding:12px 16px 8px}
-.mv-bo-mile{border-top:1px dashed var(--border);padding-top:10px;line-height:1.75}
-.mv-bo-mile:first-child{border-top:0;padding-top:0}
-.mv-bo-mile br{display:block;margin-bottom:2px}
 @media(max-width:576px){.mv-hero{padding:32px 18px 28px}.mv-phase-grid{grid-template-columns:1fr}.mv-order{grid-template-columns:1fr}.mv-bo-grid{grid-template-columns:1fr}.mv-timeline{padding-left:22px}.mv-timeline .mv-phase-group>summary::after{left:-18px;width:11px;height:11px}}</style>
 <script>
 var _hmt = _hmt || [];

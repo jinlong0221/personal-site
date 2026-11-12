@@ -124,3 +124,17 @@
 
 /* ===== 首页「今日更新」未读徽标 ===== */
 .lx-new-badge{display:inline-block;margin-left:8px;padding:1px 9px;border-radius:999px;background:var(--cinnabar);color:#fff;font-size:.7rem;font-weight:600;letter-spacing:1px;vertical-align:middle;line-height:1.6}
+
+/* ===== 漫威宇宙板块 · 黑金留白高级化（仅作用于 marvel.html，body.marvel-board，不碰其他板块） ===== */
+.marvel-board #hc-auto-news{background:linear-gradient(180deg,var(--card) 0%,rgba(25,21,16,.55) 100%);border-color:var(--border-subtle);box-shadow:var(--shadow-md)}
+.marvel-board #hc-auto-news .home-collapsible-header{color:var(--gold);letter-spacing:.04em}
+.marvel-board .news-item{position:relative;padding:22px 6px;border-bottom:1px solid var(--rule-soft);transition:background .2s ease,border-radius .2s ease}
+.marvel-board .news-item:last-child{border-bottom:none}
+.marvel-board .news-item:hover{background:linear-gradient(90deg,rgba(201,168,76,.07),rgba(201,168,76,0) 60%);border-radius:10px}
+.marvel-board .news-date{flex-shrink:0;width:66px;font-size:.72rem;line-height:1.35;color:var(--gold);font-weight:600;text-align:center;padding-top:2px;padding-right:14px;margin-right:6px;border-right:1px solid var(--rule-soft);white-space:normal}
+.marvel-board .news-content{flex:1;min-width:0}
+.marvel-board .news-sum{font-size:1.05rem;line-height:1.78;color:var(--text-color);letter-spacing:.01em}
+.marvel-board .news-tag{font-size:.7rem;padding:2px 10px;border-radius:999px}
+.marvel-board .news-more{margin-top:2px;padding:3px 12px;font-size:.74rem;border-color:rgba(201,168,76,.5)}
+.marvel-board .news-more:hover{background:var(--gold-soft)}
+.marvel-board .news-detail{margin-top:4px;background:rgba(201,168,76,.06);border-left:2px solid var(--gold);border-radius:0 6px 6px 0}

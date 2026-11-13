@@ -5,7 +5,7 @@
  *
  * 渲染约定（避免「一大段文字」）：
  *  - 四宫格只显示每条票房的「头条数字」（干净数值）；
- *  - 当日口径用 movie.status 首条已校对摘要（解析 **粗体**）直接展示；
+ *  - 当日口径用 movie.status（已约定为「单条一句话摘要」）直接作为单段展示，绝不展开历史流水；
  *  - 历史复核记录 / 里程碑（机器人内部对账流水）不再渲染到公开页面，仅在 JSON 留底；
  *  - ** 粗体按 <b> 处理，杜绝裸星号。
  */
@@ -115,24 +115,11 @@
       (m.releaseDateCn ? ' <span class="mv-bo-date">内地 ' + esc(m.releaseDateCn) + '</span>' : '') +
       '</p>';
 
-    // 当日口径：movie.status 可能包含多条复核（用 ｜ 分隔），
-    // 只把最新一条展开显示，并按 ；拆成要点列表，避免一屏大段文字；
-    // 历史复核折叠到 <details> 里，和里程碑保持一致。
+    // 当日口径：movie.status 已约定为「单条一句话摘要」，直接作为单段展示，
+    // 绝不再按 ｜ / ； 展开历史流水，保证页面干净。
     var statusHtml = '';
     if (m.status) {
-      var entries = String(m.status).split('｜').map(function (s) { return s.trim(); }).filter(Boolean);
-      var latest = entries[0] || '';
-
-      if (latest) {
-        var bullets = latest.split(/；|;/).map(function (s) { return s.trim(); }).filter(Boolean);
-        if (bullets.length > 1) {
-          statusHtml += '<ul class="mv-bo-status-list">' + bullets.map(function (b) {
-            return '<li class="mv-bo-status-item">' + md(b) + '</li>';
-          }).join('') + '</ul>';
-        } else {
-          statusHtml += '<p class="mv-bo-status">' + md(latest) + '</p>';
-        }
-      }
+      statusHtml = '<p class="mv-bo-status">' + md(String(m.status).trim()) + '</p>';
     }
 
     var note = m.note ? '<p class="mv-bo-note">' + md(m.note) + '</p>' : '';

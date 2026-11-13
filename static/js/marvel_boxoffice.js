@@ -6,7 +6,7 @@
  * 渲染约定（避免「一大段文字」）：
  *  - 四宫格只显示每条票房的「头条数字」（干净数值）；
  *  - 当日口径用 movie.status（已约定为「单条一句话摘要」）直接作为单段展示，绝不展开历史流水；
- *  - 历史复核记录 / 里程碑（机器人内部对账流水）不再渲染到公开页面，仅在 JSON 留底；
+ *  - 历史复核记录 / 里程碑 / note（机器人内部对账流水）不再渲染到公开页面，仅在 JSON 留底；
  *  - ** 粗体按 <b> 处理，杜绝裸星号。
  */
 (function () {
@@ -122,9 +122,7 @@
       statusHtml = '<p class="mv-bo-status">' + md(String(m.status).trim()) + '</p>';
     }
 
-    var note = m.note ? '<p class="mv-bo-note">' + md(m.note) + '</p>' : '';
-
-    wrap.innerHTML = titleHtml + grid + chartHtml + statusHtml + note;
+    wrap.innerHTML = titleHtml + grid + chartHtml + statusHtml;
 
     var up = document.getElementById('boUpdated');
     if (up && data.updated) up.textContent = data.updated;

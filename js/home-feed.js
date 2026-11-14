@@ -1,0 +1,124 @@
+/**
+ * home-feed.js — 首页「今日更新」+「热门精选」渲染
+ *
+ * 今日更新：聚合各板块最新新闻（/home-feed.json，由 scripts/build_home_feed.py 在部署前生成，
+ *           CI 每次构建都会基于最新新闻重算，确保随自动化每天三班刷新而自动保鲜）。
+ * 热门精选：编辑精选招牌专题（/hot-picks.json，均为仓库内真实封面图，严禁 AI 生成图）。
+ *
+ * 设计约束：
+ *  - 首页直接读取静态 JSON，不并发拉 12 个 news 文件，降低请求数。
+ *  - 10 分钟缓存窗口（?t=），避免 CDN/浏览器长期陈旧，又不过度频繁请求。
+ *  - 任何加载失败均给出温和降级文案，不白屏。
+ */
+(function () {
+  var CACHE = '?t=' + Math.floor(Date.now() / 600000); // 10 分钟窗口
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  // 行内 Markdown：先转义再替换，不引入 XSS 面（与 changelog.js / auto_news_loader.js 同一套约定）。
+  // 聚合进来的新闻正文带 **加粗** 标记，旧版只转义不解析 → 首页「今日更新」卡上会露出星号。
+  function md(s) {
+    return esc(s)
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  }
+
+  // 板块中文名 -> 本站板块页（点卡片跳转到这里；显示名与 scripts/build_home_feed.py 的 BOARD_FILES 一致）
+  // 数据里没有自带板块页链接，故在此集中维护一份映射；板块稳定，新增板块时补一行即可。
+  var BOARD_LINK = {
+    '特斯拉': 'tesla.html',
+    '特斯拉 FSD': 'tesla.html',
+    '苹果新品': 'apple.html',
+    '漫威宇宙': 'marvel.html',
+    '养生茶': 'health-tea.html',
+    '紫砂艺术': 'zisha.html',
+    '文玩手串': 'bracelet.html',
+    '射阳动态': 'sheyang.html',
+    'ChinaJoy': 'chinajoy.html',
+    '主机图鉴': 'console.html'
+  };
+
+  function renderToday(d) {
+    var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
+    var grid = document.getElementById('updGrid');
+    if (!grid) return;
+    if (!items || !items.length) {
+      grid.innerHTML = '<div class="upd-card" style="grid-column:1/-1"><div class="upd-sum">各板块今日暂未抓取到新动态，自动化会在每天 08:00 / 14:00 / 21:00 自动补新。</div></div>';
+      return;
+    }
+    grid.innerHTML = items.map(function (it) {
+      // 整卡可点击跳转板块页：复用 app.js 全站通用的 [data-nav] 委托（点击最近带 data-nav 的祖先即跳转）
+      var href = BOARD_LINK[it.board];
+      var navAttr = href ? ' data-nav="' + esc(href) + '"' : '';
+      // 「阅读原文」仍指向外部新闻源（新标签页打开）
+      var link = it.url
+        ? '<a class="upd-link" href="' + esc(it.url) + '" target="_blank" rel="noopener">阅读原文 →</a>'
+        : '';
+      return '<div class="upd-card" tabindex="0"' + navAttr + '>' +
+        '<div class="upd-meta"><span class="upd-board">' + esc(it.board) + '</span>' +
+        '<span class="upd-date">' + esc(it.date) + '</span></div>' +
+        '<div class="upd-sum">' + md(it.content) + '</div>' + link +
+        '</div>';
+    }).join('');
+
+    // 「阅读原文」外链：阻止冒泡，避免触发整卡 [data-nav] 跳转到板块页（否则点外链会先跳板块）
+    Array.prototype.forEach.call(grid.querySelectorAll('.upd-link'), function (a) {
+      a.addEventListener('click', function (e) { e.stopPropagation(); });
+    });
+    // 键盘可达：卡片本身获焦后回车 / 空格跳转到板块页；焦点在内链时不触发（上面已 stopPropagation 隔离）
+    grid.addEventListener('keydown', function (e) {
+      var card = e.target;
+      if (!card || !card.classList || !card.classList.contains('upd-card') || !card.hasAttribute('data-nav')) return;
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        location.href = card.getAttribute('data-nav');
+      }
+    });
+  }
+
+  function renderPicks(d) {
+    var items = d && d.items ? d.items : (Array.isArray(d) ? d : []);
+    var grid = document.getElementById('hotGrid');
+    if (!grid) return;
+    if (!items || !items.length) {
+      grid.innerHTML = '<article class="hot-card" style="grid-column:1/-1"><div class="hot-body"><div class="hot-title">精选筹备中</div><div class="hot-desc">编辑精选招牌专题即将上线。</div></div></article>';
+      return;
+    }
+    grid.innerHTML = items.map(function (it) {
+      var img = it.img
+        ? '<img src="' + esc(it.img) + '" alt="' + esc(it.title) + '" loading="lazy" width="320" height="180">'
+        : '';
+      var tag = it.board
+        ? '<span class="hot-pick-tag">编辑推荐 · ' + esc(it.board) + '</span>'
+        : '<span class="hot-pick-tag">编辑推荐</span>';
+      return '<article class="hot-card">' +
+        '<a class="hot-thumb" href="' + esc(it.url) + '" aria-label="' + esc(it.title) + '">' + img + '</a>' +
+        '<div class="hot-body">' +
+        '<div class="hot-title"><a href="' + esc(it.url) + '">' + esc(it.title) + '</a></div>' +
+        '<div class="hot-desc">' + esc(it.desc) + '</div>' + tag +
+        '</div></article>';
+    }).join('');
+  }
+
+  function loadJSON(url, ok) {
+    fetch(url + CACHE)
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (d) { ok(d); })
+      .catch(function (e) { console.log('[home-feed] 加载失败:', url, e); });
+  }
+
+  function init() {
+    loadJSON('/home-feed.json', renderToday);
+    loadJSON('/hot-picks.json', renderPicks);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

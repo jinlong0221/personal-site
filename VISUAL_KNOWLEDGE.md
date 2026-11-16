@@ -41,6 +41,9 @@
 - Web 排版系统：模块化比例、留白尺度、栅格基线。
 - 可访问性（a11y）美学：对比度 AA 阈值、焦点可见性、语义结构。
 - 当代国风 / 暗色 UI 设计趋势：低饱和金、墨黑底、留白呼吸感。
+- **暗色模式三层表面高度法（elevation-by-lightness，2026-11-17 学）**：暗底上 `box-shadow` 几乎不可见（深影投深底无视觉差），层级靠**表面亮度递进**表达而非阴影——基础画布最深（本站 `--bg:#12100C`）→ 卡片略亮（`--card`）→ 浮层/弹窗更亮（`--card-hover`）。本站 `--ink`/`--ink-2`/`--ink-3`/`--ink-4` 阶梯与之一致。**教训**：暗色下卡片若与底难分辨，优先拉亮度差或补 `--rule-soft` 边界，别堆阴影。
+- **暗底强调色去饱和原则（2026-11-17 学）**：高饱和品牌色（亮蓝/亮红）在深底上会产生「光学振动」（边缘溢色、长时间阅读疲劳）。规范做法是把强调色饱和度降 20–30%、明度提到 HSL 60–75% 区间；本站金 `#C9A84C`（HSL ~44°/55%/54%）恰在舒适区，是国风黑金主调先天适配暗色的原因。**与「暖色刺眼红线」互证**：金只作强调、去饱和使用即不刺眼，堆高饱和暖色渐变才会翻车。
+- **WCAG 2.2 焦点外观 2.4.13（Focus Appearance，2026-11-17 学）**：新 Success Criterion 规定键盘焦点环须满足「≥2 CSS px 周长实线轮廓 + 焦点前后同像素 ≥3:1 对比 + 建议 2px offset 避免与同色按钮融合」；2.4.11（Focus Not Obscured）要求焦点元素滚动后不得被 sticky 导航完全遮挡——可给根元素设 `scroll-padding-top:var(--nav-height)`。本站 `:focus-visible{outline:2px solid var(--gold);outline-offset:2px}` 已满足尺寸/offset，⚠️ **待核项**：金焦点环落在金色按钮上时前后对比可能不足 3:1（同色融合），后续巡检若发现金底按钮应改用 `--cinnabar` 或加双层描边。此条无需本轮改动，仅作知识储备与未来判定依据。
 
 ## 六、本站踩过的视觉坑（复盘池）
 
@@ -341,3 +344,21 @@
 - **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接（WCAG 2.5.8 豁免）；② `input` label 关联 checkbox；③ `button.lx-hero-dot` 的 `::after` 透明命中区；④ `/join.html` `nav.join-mobile-nav` 离屏抽屉（`translateX(100%)` 默认隐藏）；⑤ `a#navClockLink`/`input#convLeap` 小控件（命中区由相邻标签/布局保证）。只看四类硬指标 + 导航遮挡为 0。
 - 探针脚本用 **`lx-probe2.mjs`**；6 视口 **2592** 组合基线沿用（与 11-03 持平）。
 - `style.css?v=` 活引用全站统一 `20260925`，下次仅在该值变更时跟进；根 `css/` 不再重建（09-24 起作废）。
+
+## 二十三、本周（2026-11-17）巡检结论速记
+
+- **规模**：`hugo --gc --cleanDestinationDir` 重建（fooocus v0.163.3 extended，未回退），`public/` 共 **216 个 HTML**（与 11-10 持平，本周无新增页面）；探针 **6 视口 × 2 主题 = 2592 组合**（实测 combos=2592 / pages=216，约 17.5 分钟），puppeteer-core + chrome-headless-shell mac-149。本地沿用「cp public→/tmp/lx-test + 去 CSP meta + URL 重写 + http.server 8399」。
+- **四类硬指标 + 导航遮挡（首轮即达标，零返修 P0/P1）**：docOverflow=0、祖先感知 over=0、大面积暖色 warm=0、JS 报错=0、goto 错误=0、fixed-nav 遮挡=0 → **P0=P1=0** ✅。
+- **2580 findings = 既定 tinyTap 假阳性基线**：`a`(31426 内联文本链接)+`a.obf-email`(2681)+`input`(180 label 关联)+`button.lx-hero-dot`(含 is-active 共 60，::after 命中区)+`a#navClockLink`(12)+`input#convLeap`(12)+`a.lx-private-link`(12，本周细分新列)。前 7 类全属 WCAG 2.5.8 豁免/探针结构性误报，无新增真实小命中区；判定铁律不变：只看四类硬指标 + 导航遮挡。
+- **隐藏彩虹色深扫（fill/stroke 全属性）**：`static/*.html`(206) 内联 355 个唯一 hex；偏离已知清单者均来自 head 内联 critical-css 的**全站统一模板色**（`#1a1a1a`/`#3d2e1e`/`#ff8c00`/`#d4af37` 等在 169–175 页同现，非新增漂移）；高频暖色 `#c9a84c`/`#e0c97a`/`#a68a3c`/`#ff8c00`/`#ffb380` 全属既定金主调与 console scoped 金/已知接受语义色。大面积暖色扫描 0 佐证非刺眼 → 自 09-01 起连续 12 周无新增全局漂移色。
+- **配色/卡片/机制复验全绿**：`--accent-color` 等 7 个核心 token 均 :root + light 双定义；`.lx-*` 唯一类名 115 个（无漂移）；`.js .reveal`(5)/safe-area(19)/小按钮 `min-width:0`(25) `min-height:0`(3)/`html{accent-color}`(1) 全定义。
+- **实修缺陷**：无（零返修，纯巩固 + 知识沉淀）。CSS 未改动。
+- **版本戳更正**：历史记忆中的 `style.css?v=20260925` 已过时——本周实测全站活引用统一 **`20261026`**（206 处/197 文件，期间由其他自动化 bump），无旧戳残留；本轮未改 CSS 故维持 20261026。
+- **知识储备增量**：第五节新增三条外部规范（暗色 elevation-by-lightness / 强调色去饱和 20-30% / WCAG 2.2 Focus Appearance 2.4.13，含本站 `:focus-visible` 金环同色融合待核项）；本节记录 2592 组合基线与 tinyTap 新细分 `a.lx-private-link`。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 **13** 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / 09-15 / 09-29 / 10-06 / 10-13 / 10-27 / 11-03 / 11-10 / **11-17**）。
+
+### 下次巡检可省步骤
+- 已知接受项沿用 11-10 清单（板内语义/功能性色：主机品牌色 / 游戏平台色 / 天气芯片 / sheyang metro / chinajoy --hall+芯片 / console 白底+scoped 金 #a68a3c+灰字 / travel .tl-season / xintan #e65100 / health-tea / bracelet / herbs / ask-checkin 冷灰）。
+- **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接；② `input` label 关联 checkbox；③ `button.lx-hero-dot`(含 is-active) `::after` 透明命中区；④ `/join.html` `nav.join-mobile-nav` 离屏抽屉；⑤ `a#navClockLink`/`input#convLeap` 小控件；⑥ `a.lx-private-link`（本周新增细分，属内联链接同源）。只看四类硬指标 + 导航遮挡。
+- 探针用 **`lx-probe2.mjs`**；6 视口 **2592** 组合基线沿用。
+- `style.css?v=` 全站统一 **`20261026`**（本周更正），下次仅在该值变更时跟进；根 `css/` 不再重建。

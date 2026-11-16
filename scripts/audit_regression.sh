@@ -73,6 +73,7 @@ run "A19 台风数据字段契约"             "$PY3" scripts/guard_typhoon_fiel
 run "A20 板块更新日期真实性"           "$PY3" scripts/guard_date_honesty.py -q
 run "A22 全站导航一致性 (partial 单一源)" "$PY3" scripts/guard_nav_sync.py
 run "A23 文案精华化 (重复/口水话/元叙述/超长段)" "$PY3" scripts/guard_concise_copy.py
+run "A24 漫威票房展示字段清爽度"       "$PY3" scripts/guard_marvel_status.py
 run "A11 标题四字段一致"             "$PY3" scripts/sync_titles.py --check
 
 # A12 只做「提示」不计入成败：新闻 JSON 的引号残留由 CI 的 unify_quotes --ci 自动清洗，

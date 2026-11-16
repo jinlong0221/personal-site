@@ -197,6 +197,15 @@ jobs:
       - name: Guard images (missing / ratio / transparent-as-black)
         run: python3 scripts/guard_images.py
 
+      # 漫威票房「展示字段」清爽守卫（2026-11-16 落地）：
+      # 上轮 11-13 把 movie.status 压成单行、boxOffice.china 删掉内部对账说明，
+      # 但 11-15 自动更新又写回 119 字并把「猫眼分账口径差异、不采用」混进展示字段——
+      # 提示词规则靠 LLM 自觉遵守挡不住回潮，这里做成硬闸。
+      # 判据：status ≤80 字 / 无分号拼接 / 无附加从句词 / 句号结尾；boxOffice 四字段
+      # 无内部对账话术、单行。milestones/note/sources 不在其列（页面已隐藏，JSON 留底）。
+      - name: Guard marvel boxoffice display fields
+        run: python3 scripts/guard_marvel_status.py
+
       # 板块新闻主题守卫（2026-09-22 补上调用点）：
       #  ⚠️ 脚本 2026-09-21 就写好了，却从未接进 CI / pre-commit —— 复查时
       #     `grep -rn guard_news_topic scripts/ .github/ .githooks/` 只命中它自己的

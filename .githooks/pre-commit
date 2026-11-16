@@ -159,4 +159,14 @@ echo "[pre-commit] 检查板块更新日期真实性..."
   exit 1
 }
 
+echo "[pre-commit] 检查漫威票房展示字段清爽度..."
+# 2026-11-16 全站审计发现（上轮 11-13 修复回潮）：自动更新又把 movie.status
+# 从 67 字写成 119 字（塞进冲奥/重映从句），boxOffice.china 混进「猫眼分账口径差异、
+# 不采用」这类内部对数话术。提示词规则靠 LLM 自觉挡不住，这里做成硬闸。
+"$PY3" scripts/guard_marvel_status.py -q >/dev/null 2>&1 || {
+  echo "❌ 漫威票房展示字段守卫未通过："
+  "$PY3" scripts/guard_marvel_status.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

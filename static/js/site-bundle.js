@@ -400,11 +400,21 @@ if(document.readyState==='loading'){
     return 'cloud';
   }
   function apply(t,c){ el.innerHTML = svg(keyFor(c)) + '<span style="margin-left:3px">'+Math.round(t)+'°</span>'; }
+  // [2026-11-18] 快照打底：先读服务端预生成的静态快照，永不显示 --°
+  // 1) 先读快照显示（同源静态JSON，极快）；2) 再试实时接口，成功覆盖、失败保留快照。
+  var gotLive=false;
+  function loadSnapshot(){
+    fetch('/data/weather-snapshot.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(s){
+      if(gotLive||!s||typeof s.temp!=='number') return;
+      apply(s.temp, s.code);
+    }).catch(function(){});
+  }
+  loadSnapshot();
   fetch(URL).then(function(r){return r.json();}).then(function(d){
-    if(d&&d.current) apply(d.current.temperature_2m,d.current.weather_code);
-    else el.innerHTML = svg('cloud')+'<span style="margin-left:3px">--°</span>';
+    if(d&&d.current){ gotLive=true; apply(d.current.temperature_2m,d.current.weather_code); }
+    // 实时数据异常：保留快照，不动 DOM
   }).catch(function(){
-    el.innerHTML = svg('cloud')+'<span style="margin-left:3px">--°</span>';
+    // 实时失败：保留快照，不再写 --°
   });
 })();
 
@@ -903,51 +913,18 @@ if(document.readyState==='loading'){
 // 捕获阶段处理图片 onerror（隐藏 / 重试一次）
 // ============================================================
 (function(){
-  // ── iOS 触摸兜底（2026-10-25，龙兄反馈「每日自动更新卡片箭头按了没反应」）──
-  // 根因背景：桌面与本地全视口模拟均正常，但 iOS Safari 在 tap 伴随微小位移或
-  // 页面滚动时会取消「合成的 click」，导致 document 上的 click 委托静默失效。
-  // touch 事件本身 100% 派发，且触摸序列内 target 固定（比 click 要求
-  // down/up 必须落在同一元素更可靠），故增加 touchend 兜底通道。
-  // 防双触发：touchend 执行后 700ms 内赶到的合成 click 直接忽略
-  //（iOS 合成 click 约在 touchend 后 300ms 内；鼠标/桌面路径不受影响）。
-  // 防误触：touchstart→touchend 之间发生过 touchmove（滚动意图）则不执行。
-  var lastTouchActTs = 0;
-  var touchPt = null;
-
-  // data-act 执行体：click / touchend / keydown 三通道共用，逻辑单一出处
-  function runAct(act){
-    var fn = act.getAttribute('data-act');
-    if(fn === 'xwCopy'){ if(window.xwCopy) window.xwCopy(); return; }
-    if(fn === 'doSearch'){ if(window.doSearch) window.doSearch(act.getAttribute('data-q') || ''); return; }
-    if(window[fn]){ window[fn](act); return; } // toggleHomeSection/toggleCollapse/togglePitfall/openLightbox 收元素本身
-  }
-
-  document.addEventListener('touchstart', function(e){
-    if(e.touches.length === 1){
-      var t = e.touches[0];
-      touchPt = { x: t.clientX, y: t.clientY, moved: false };
-    }
-  }, { passive: true });
-  document.addEventListener('touchmove', function(){
-    if(touchPt) touchPt.moved = true;
-  }, { passive: true });
-  document.addEventListener('touchend', function(e){
-    var p = touchPt; touchPt = null;
-    if(!p || p.moved) return;                       // 滚动意图，交还浏览器
-    var act = e.target.closest && e.target.closest('[data-act]');
-    if(!act) return;
-    lastTouchActTs = Date.now();
-    runAct(act);
-  }, { passive: true });
-
   // 点击委托：导航 / 行为 / 滚动 / 搜索触发
   document.addEventListener('click', function(e){
-    if(Date.now() - lastTouchActTs < 700) return;   // touchend 已执行过，忽略这次合成 click
     var nav = e.target.closest('[data-nav]');
     if(nav){ location.href = nav.getAttribute('data-nav'); return; }
 
     var act = e.target.closest('[data-act]');
-    if(act){ runAct(act); return; }
+    if(act){
+      var fn = act.getAttribute('data-act');
+      if(fn === 'xwCopy'){ if(window.xwCopy) window.xwCopy(); return; }
+      if(fn === 'doSearch'){ if(window.doSearch) window.doSearch(act.getAttribute('data-q') || ''); return; }
+      if(window[fn]){ window[fn](act); return; } // toggleHomeSection/toggleCollapse/togglePitfall/openLightbox 收元素本身
+    }
 
     var sc = e.target.closest('[data-scroll]');
     if(sc){ var t = document.getElementById(sc.getAttribute('data-scroll')); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); return; }
@@ -955,32 +932,6 @@ if(document.readyState==='loading'){
     var st = e.target.closest('[data-search-trigger]');
     if(st){ var b = document.getElementById('searchBtn'); if(b) b.click(); return; }
   });
-
-  // 键盘可达：Enter / 空格触发 [data-act]（配合下方 init 补的 tabindex/role）
-  document.addEventListener('keydown', function(e){
-    if(e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
-    var act = e.target.closest && e.target.closest('[data-act]');
-    if(!act) return;
-    e.preventDefault();
-    runAct(act);
-  });
-
-  // 折叠卡片语义化：给静态 HTML 里的 .home-collapsible-header 补 role=button /
-  // tabindex=0 / aria-expanded——零 HTML 改动，全站折叠卡一次性获得读屏与键盘支持。
-  // loader 动态加 .open 后的 aria 同步由 toggleHomeSection 负责（见 auto_news_loader.js）。
-  function syncCollapsibleA11y(){
-    document.querySelectorAll('.home-collapsible-header').forEach(function(h){
-      if(!h.hasAttribute('role')) h.setAttribute('role', 'button');
-      if(!h.hasAttribute('tabindex')) h.setAttribute('tabindex', '0');
-      var wrap = h.closest('.home-collapsible');
-      h.setAttribute('aria-expanded', wrap && wrap.classList.contains('open') ? 'true' : 'false');
-    });
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', syncCollapsibleA11y);
-  } else {
-    syncCollapsibleA11y();
-  }
 
   // 一键复制：覆盖 .r-copy 与任意非 .copy-btn 的 [data-copy-text]（.copy-btn 由上方既有委托处理）
   document.addEventListener('click', function(e){
@@ -1364,12 +1315,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.toggleHomeSection = function (el) {
     var wrap = el && el.closest ? el.closest('.home-collapsible') : null;
     if (!wrap) return;
-    var willOpen = !wrap.classList.contains('open');
     wrap.classList.toggle('open');
-    // aria-expanded 同步（读屏/键盘用户的状态播报）；header 的 role/tabindex
-    // 由 app.js 的 syncCollapsibleA11y 在页面初始化时补齐。
-    var hdr = wrap.querySelector('.home-collapsible-header');
-    if (hdr) hdr.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
   };
 
   // 全局 API：新闻条目「展开详情 / 收起详情」
@@ -1541,8 +1487,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (wrapper) {
           wrapper.style.display = 'grid';
           wrapper.classList.add('open');
-          var hdr = wrapper.querySelector('.home-collapsible-header');
-          if (hdr) hdr.setAttribute('aria-expanded', 'true');
         }
       })
       .catch(function (e) {
@@ -2282,7 +2226,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 同时更新杂志布局中的状态显示
     var magStatus = document.getElementById('magStatus');
     if (magStatus) {
-      var base = (data.status || ''); if (data.emoji && base.indexOf(data.emoji) === -1) base = base + ' ' + data.emoji;
+      // 状态文案里通常已自带 emoji，避免与独立 emoji 字段叠加成双表情
+      var base = (data.status || '');
+      if (data.emoji && base.indexOf(data.emoji) === -1) {
+        base = base + ' ' + data.emoji;
+      }
       if (data.dnd) {
         magStatus.innerHTML = base + ' <span class="lx-dnd-badge" style="display:inline-flex;align-items:center;gap:3px;margin-left:6px;padding:1px 7px;border-radius:999px;font-size:.66rem;font-weight:700;background:rgba(229,57,53,.14);color:#e53935;border:1px solid rgba(229,57,53,.4);letter-spacing:.02em;vertical-align:middle;">🔕 勿扰</span>';
         magStatus.classList.add('lx-dnd');

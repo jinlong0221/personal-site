@@ -169,4 +169,13 @@ echo "[pre-commit] 检查漫威票房展示字段清爽度..."
   exit 1
 }
 
+echo "[pre-commit] 检查天气快照 + 主题统一..."
+# 2026-11-18：天气原 100% 靠境外 API，约 1/6 概率超时显示 --°；已改为
+# 服务端快照打底 + 前端快照优先。此守卫防快照非法/前端逻辑丢失/主题脚本回退。
+"$PY3" scripts/guard_weather_theme.py -q >/dev/null 2>&1 || {
+  echo "❌ 天气快照/主题统一守卫未通过："
+  "$PY3" scripts/guard_weather_theme.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

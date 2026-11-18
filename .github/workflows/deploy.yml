@@ -206,6 +206,9 @@ jobs:
       - name: Guard marvel boxoffice display fields
         run: python3 scripts/guard_marvel_status.py
 
+      - name: Guard weather snapshot & theme unity
+        run: python3 scripts/guard_weather_theme.py
+
       # 板块新闻主题守卫（2026-09-22 补上调用点）：
       #  ⚠️ 脚本 2026-09-21 就写好了，却从未接进 CI / pre-commit —— 复查时
       #     `grep -rn guard_news_topic scripts/ .github/ .githooks/` 只命中它自己的

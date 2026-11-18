@@ -400,11 +400,21 @@ if(document.readyState==='loading'){
     return 'cloud';
   }
   function apply(t,c){ el.innerHTML = svg(keyFor(c)) + '<span style="margin-left:3px">'+Math.round(t)+'°</span>'; }
+  // [2026-11-18] 快照打底：先读服务端预生成的静态快照，永不显示 --°
+  // 1) 先读快照显示（同源静态JSON，极快）；2) 再试实时接口，成功覆盖、失败保留快照。
+  var gotLive=false;
+  function loadSnapshot(){
+    fetch('/data/weather-snapshot.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(s){
+      if(gotLive||!s||typeof s.temp!=='number') return;
+      apply(s.temp, s.code);
+    }).catch(function(){});
+  }
+  loadSnapshot();
   fetch(URL).then(function(r){return r.json();}).then(function(d){
-    if(d&&d.current) apply(d.current.temperature_2m,d.current.weather_code);
-    else el.innerHTML = svg('cloud')+'<span style="margin-left:3px">--°</span>';
+    if(d&&d.current){ gotLive=true; apply(d.current.temperature_2m,d.current.weather_code); }
+    // 实时数据异常：保留快照，不动 DOM
   }).catch(function(){
-    el.innerHTML = svg('cloud')+'<span style="margin-left:3px">--°</span>';
+    // 实时失败：保留快照，不再写 --°
   });
 })();
 

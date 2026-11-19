@@ -343,7 +343,7 @@ var _hmt = _hmt || [];
       台风监测、新闻巡检这类自动化留痕按天折叠，不占版面。</p>
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
-        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-19">2026 年 11 月 19 日 · 周四</time></h4><details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×1</span><span class="cl-chip">台风 ×1</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 早班08:00巡检13板块：有更新并前置当日(11-19)稿7板——游戏主机(GTA6今日正式发售·PS5/Xbox Series·Metacritic约99·销量为第三方估算)、特斯拉(Cybercab专属自动驾驶保险+奥斯汀售后Robotaxi代步)、中药材(康美11-19指数1444.06+药通网产地快讯黄精/徐长卿/桑螵蛸)、漫威(蜘蛛侠崭新之日加长版11-19开票·12-4北美重映·待官方确认)、ChinaJoy(央视影之…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测早班刷新：中央气象台11-19 06时解除寒潮蓝色预警（较强冷空气影响趋于结束）、同日06时继续发布大风蓝色预警并出新海洋天气公报（黄海大部19日6-8级阵风9级、20日减弱至5-6级）；本地射阳县海区大风黄警今日（19日）时效末日、江苏省台海区大风黄警至19日夜间；西太/南海无活跃台风。射阳综合风险维持〔低〕转收尾监测，typhoon.json 续报/预警/timeline/feed 全量前置07:55。</p></div></div></details>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-19">2026 年 11 月 19 日 · 周四</time></h4><details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×2</span><span class="cl-chip">台风 ×1</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 补漏巡检 11:20：补FSD板当日新稿（欧洲收紧FSD驾驶员监控），其余11板已是当天或无合格新稿。</p><p class="cl-ops-more">另有 1 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风实时监测早班刷新：中央气象台11-19 06时解除寒潮蓝色预警（较强冷空气影响趋于结束）、同日06时继续发布大风蓝色预警并出新海洋天气公报（黄海大部19日6-8级阵风9级、20日减弱至5-6级）；本地射阳县海区大风黄警今日（19日）时效末日、江苏省台海区大风黄警至19日夜间；西太/南海无活跃台风。射阳综合风险维持〔低〕转收尾监测，typhoon.json 续报/预警/timeline/feed 全量前置07:55。</p></div></div></details>
           </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-18">2026 年 11 月 18 日 · 周三</time><span class="cl-day-n">2 项改动</span></h4><div class="cl-item"><span class="cl-time">21:45</span><div class="cl-main"><p class="cl-head">🌤️ 天气与主题修复：天气原 100% 靠境外接口、约1/6概率显示--°，改为服务端快照打底（fetch_weather_snapshot.py 生成 weather-snapshot.json，</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">预留高德）+前端快照优先、失败保留快照，彻底消除--°；白天黑夜切换原防闪白脚本按小时、app.js按系统偏好两套打架致首次闪变，已统一182个页面为系统优先并重算CSP哈希。 新增守卫接CI/pre-commit/审计A25；三条自动更新加每班刷新天气快照。</div></details></div></div>
             <div class="cl-item"><div class="cl-main"><p class="cl-head">🌍 海外动态追更 1 条（英伟达Q3财报落地单季营收破千亿、黄仁勋首度发声愿回归但董事会拒绝并首披离任原因）+ updated 回写 2026-11-18</p></div></div>
@@ -434,14 +434,14 @@ var _hmt = _hmt || [];
         <!--CL:RECENT:END-->
     </div>
     <p class="cl-feed-foot">以上是最近一批改动。全部记录（含自动化运维明细）存档在站点的
-      <code>data/changelog.json</code>，共 <strong id="update-count">1644</strong> 条。</p>
+      <code>data/changelog.json</code>，共 <strong id="update-count">1645</strong> 条。</p>
   </section>
 
   <!-- 信息来源 -->
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-11-19</span><span id="clLastStamp" class="cl-upd-stamp"> 08:00</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-11-19</span><span id="clLastStamp" class="cl-upd-stamp"> 11:20</span></div>
   </div>
 </main>
 

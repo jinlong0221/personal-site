@@ -178,4 +178,13 @@ echo "[pre-commit] 检查天气快照 + 主题统一..."
   exit 1
 }
 
+echo "[pre-commit] 检查科技动态原话字段..."
+# 2026-11-22：科技页升级为「英文原话+中文翻译」引用块。守卫防 quote 字段结构被破坏、
+# 渲染器标记丢失、声明口径回退；原话必须真实可溯源，查不到的条目应保留摘要而非硬编。
+"$PY3" scripts/guard_global_quotes.py -q >/dev/null 2>&1 || {
+  echo "❌ 科技动态原话守卫未通过："
+  "$PY3" scripts/guard_global_quotes.py
+  exit 1
+}
+
 echo "[pre-commit] 护栏通过"

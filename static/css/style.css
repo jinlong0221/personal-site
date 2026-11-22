@@ -27,8 +27,8 @@
 .gl-chip .gl-dotc--huang{background:var(--cinnabar)}
 .gl-chip .gl-cnt{opacity:.7;font-size:.84em;font-variant-numeric:tabular-nums}
 .gl-upd{margin-left:auto;flex:0 0 auto;font-size:.78rem;color:var(--text-muted);padding-left:12px;white-space:nowrap}
-.gl-feed{display:grid;gap:0;margin-top:8px}
-.gl-item{display:grid;grid-template-columns:30px 1fr;gap:16px;padding:0 0 20px}
+.gl-feed{display:grid;gap:0;margin-top:12px}
+.gl-item{display:grid;grid-template-columns:30px 1fr;gap:16px;padding:0 0 30px}
 .gl-rail{position:relative;display:flex;justify-content:center}
 .gl-rail::before{content:'';position:absolute;top:15px;bottom:0;width:2px;background:var(--border)}
 .gl-item:last-child .gl-rail::before{display:none}
@@ -36,7 +36,13 @@
   box-shadow:0 0 0 4px var(--bg);z-index:1}
 .gl-item--huang .gl-dot{background:var(--cinnabar)}
 .gl-body{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:14px;
-  padding:15px 20px;box-shadow:var(--shadow-sm);transition:transform .2s,border-color .2s,background .2s}
+  padding:16px 20px;box-shadow:var(--shadow-sm);transition:transform .2s,border-color .2s,background .2s}
+/* 英文原话引用块：当事人原句 + 中文翻译 + 出处（短句引用，龙兄 2026-11-22） */
+.gl-quote{margin:2px 0 12px;padding:12px 16px;background:var(--card-hover);border-left:2px solid var(--gold);border-radius:0 8px 8px 0}
+.gl-item--huang .gl-quote{border-left-color:var(--cinnabar)}
+.gl-quote-en{margin:0 0 8px;font-size:.96rem;line-height:1.75;color:var(--text);font-style:italic;overflow-wrap:anywhere}
+.gl-quote-zh{margin:0 0 6px;font-size:.9rem;line-height:1.75;color:var(--text-secondary)}
+.gl-quote-src{margin:0;font-size:.76rem;line-height:1.6;color:var(--text-muted);overflow-wrap:anywhere}
 .gl-item--huang .gl-body{border-left-color:var(--cinnabar)}
 .gl-body:hover{transform:translateY(-2px);background:var(--card-hover);border-color:var(--gold)}
 .gl-item--huang .gl-body:hover{border-color:var(--cinnabar)}
@@ -45,7 +51,10 @@
 .gl-who{font-size:.76rem;color:var(--text-secondary);border:1px solid var(--gold);border-radius:999px;padding:1px 10px}
 .gl-item--huang .gl-who{border-color:var(--cinnabar)}
 .gl-title{margin:0 0 8px;font-size:1.05rem;line-height:1.55;color:var(--text);font-weight:700}
-.gl-sum{margin:0 0 10px;font-size:.94rem;line-height:1.9;color:var(--text-secondary);max-width:68ch}
+/* 长摘要压到两三行，避免整屏铺满；有原话的条目压得更短，突出原句 */
+.gl-sum{margin:0 0 10px;font-size:.94rem;line-height:1.9;color:var(--text-secondary);max-width:68ch;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.gl-sum--with-quote{-webkit-line-clamp:2}
 .gl-src{margin:0;font-size:.8rem;color:var(--text-muted);line-height:1.7}
 .gl-src a{color:var(--blue-light);text-decoration:none;border-bottom:1px solid transparent}
 .gl-src a:hover{color:var(--gold);border-bottom-color:var(--gold)}
@@ -58,9 +67,13 @@
   .gl-filter{top:calc(var(--nav-height) + 2px);gap:8px}
   .gl-chip{padding:6px 14px;font-size:.84rem}
   .gl-upd{display:none}
-  .gl-item{grid-template-columns:22px 1fr;gap:12px;padding:0 0 16px}
-  .gl-body{padding:13px 15px}
+  .gl-item{grid-template-columns:22px 1fr;gap:12px;padding:0 0 22px}
+  .gl-body{padding:14px 15px}
   .gl-title{font-size:1rem}
+  .gl-quote{margin:2px 0 10px;padding:10px 12px}
+  .gl-quote-en{font-size:.92rem;line-height:1.7}
+  .gl-quote-zh{font-size:.86rem;line-height:1.7}
+  .gl-quote-src{font-size:.72rem}
   .gl-sum{font-size:.92rem;line-height:1.85}
 }
 

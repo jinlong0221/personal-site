@@ -209,6 +209,10 @@ jobs:
       - name: Guard weather snapshot & theme unity
         run: python3 scripts/guard_weather_theme.py
 
+      # 科技动态原话守卫（2026-11-22）：原话字段结构合法、渲染器与「短句引用」声明口径正确。
+      - name: Guard global quote fields
+        run: python3 scripts/guard_global_quotes.py
+
       # 板块新闻主题守卫（2026-09-22 补上调用点）：
       #  ⚠️ 脚本 2026-09-21 就写好了，却从未接进 CI / pre-commit —— 复查时
       #     `grep -rn guard_news_topic scripts/ .github/ .githooks/` 只命中它自己的

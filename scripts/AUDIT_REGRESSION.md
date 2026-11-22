@@ -322,6 +322,15 @@ python3 scripts/audit_visual.py --dir public --url <页面>   # 它会同时跑 
   · **查法（改分类规则必做）**：写临时脚本对**全量条目**跑新旧 `classify()` diff，逐条核对三类变动（运维→主线 / 主线→运维 / 组间挪动），确认无误伤再落地；本次 58/21/137 全部人工过目。
   · **教训**：**分类规则里不许出现裸名词匹配**（「台风」「巡检」这种词正文随时会提），要么锚定行首 emoji/固定抬头，要么先过「开头动词 = 主线」这道闸；摘要数字属运行时 JS 渲染（源码 grep 不到），排查时直接看 `static/data/changelog-feed.json` 的 stats。
 
+- 2026-11-22：**科技动态页升级「英文原话 + 中文翻译」+ 排版治"铺满屏"**（龙兄：「两个人的说话我想看他们的原话」「排版铺满屏幕看了难受」；三轮确认后执行）。
+  · **需求边界**：科技页（global.html）跟踪马斯克/黄仁勋两人，原 105 条全是中文摘要、零原话字段。确认口径＝**能查到的才加、查不到如实保留中文摘要、绝不编造**；声明从"不全文引用"改"短句引用并注明出处"。
+  · **落地**：逐条联网核对，5 条经英文权威媒体（CNBC/ABC/CBS/IBTimes 等）一致引用的当事人原话入库——FSD V15（"It will be something special."）、Neuralink Blindsight、DealBook 乔丹比喻（"kick Michael Jordan off your team"）、黄仁勋回归声明（"would be honored to return"）、"I will be in China, so it will be digital me"。`scripts/add_global_quotes.py` 按 日期+人物+标题片段 精确定位、幂等、同步改 note 文案。
+  · **事实核查穿插**：核对时发现 11/8–11/10 权威报道是"黄仁勋继续履职、启动调查"，11/12 才辞任、11/18 DealBook 辩护——时间线是真实演进、非虚构，才敢加原话；官方账号发言（如 Cybercab "Howdy Dallas"）不算当事人本人原话，不加。
+  · **排版**：条目间距 20→30px（手机 16→22px）、长摘要 `-webkit-line-clamp:3`（有原话的 2 行）、新增 `.gl-quote` 引用块（英文斜体/中文译/出处三段）。两端实测：390/1280 视口 docW=vw 无横向溢出、5 个引用块全渲染、摘要压缩生效。
+  · **守卫（→ A26）**：`guard_global_quotes.py`（带 `--selftest`）验证 quote 字段结构完整、英文原句无中文字符、渲染器标记与"短句引用"口径在；接入 pre-commit + CI + A26。回归 18→19 项全 PASS。
+  · **CSP 坑（复犯预演）**：改内联渲染脚本 → 哈希从 com4RrS... 变 gcRLU...，不重算会导致浏览器拦截脚本、整页内容加载失败。修法：`hugo --gc` → `compute_csp_hashes.py --inject`（重写 head.html + 202 页 CSP meta）→ 重新 build → `bump_v_hash.py public`。**教训：凡改 static/*.html 的内联 <script>，必须走 CSP 哈希重算链**。
+  · **本地验证坑**：playwright 默认内核缺失（用系统 Chrome `executablePath`）；后台 http.server 用 `(cmd &)` 会随 shell 退出被杀（用 run_in_background）；本地 `hugo --minify` 审计构建无 pagefind 索引，`/pagefind/pagefind.js` 404 属测试环境局限、线上正式构建有，不算回归。
+
 ## 五、给审计者的开工顺序（照做即可，别跳步）
 
 1. `bash scripts/audit_regression.sh` —— 自动项一把梭（A + B 全跑）。

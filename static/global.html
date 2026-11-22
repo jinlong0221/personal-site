@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>科技动态｜龙兄知识库</title>
-<meta name="description" content="海外科技人物动态中文摘要：跟踪马斯克（特斯拉/SpaceX）与黄仁勋（英伟达）的公开发言与公司动向，每条注明日期与出处链接，便于回原文核对，不转载原图。">
+<meta name="description" content="马斯克与黄仁勋的公开动态：能查到原话的给出当事人英文原句与中文翻译，其余为中文摘要，每条注明日期与出处链接，便于回原文核对，不转载原图。">
 <meta name="keywords" content="科技动态,马斯克,黄仁勋,英伟达,特斯拉,SpaceX,科技动态">
 <link rel="canonical" href="https://longxiong.vip/global.html">
 <meta property="og:title" content="科技动态｜龙兄知识库">
@@ -168,7 +168,7 @@
 
   <header class="page-header">
     <h1>科技动态</h1>
-    <p>国外社交平台的内容整理成中文摘要，<strong>每条都注明出处</strong>，想看原话可以点链接回去自己读。</p>
+    <p>跟踪马斯克与黄仁勋的公开动态。能查到<strong>英文原话</strong>的条目，直接给出原句和中文翻译；其余保留中文摘要。<strong>每条都注明出处</strong>。</p>
   </header>
 
   <section class="gl-people" id="glPeople" aria-label="跟踪对象"></section>
@@ -187,8 +187,8 @@
   <p class="gl-note" id="glNote"></p>
 
   <div class="page-meta">
-    <p class="ref-note">本页为中文摘要整理，不转载原图、不全文引用；每条均附出处链接，观点与表述归原作者所有。</p>
-    <div class="update-time">最后更新：2026-10-11</div>
+    <p class="ref-note">本页仅为短句引用并注明出处：有原话的条目给出当事人英文原句与中文翻译，其余为中文摘要；不转载原图、不全文引用，观点与表述归原作者所有。</p>
+    <div class="update-time">最后更新：2026-11-21</div>
   </div>
 <!-- related:begin -->
 <section class="lx-related" aria-label="相关阅读">
@@ -311,13 +311,22 @@
     if(!list.length){ feed.innerHTML='<p class="gl-loading">这个筛选下暂时没有内容。</p>'; return; }
     feed.innerHTML = list.map(function(i){
       var p = people[i.who]||{name:i.who};
+      var quoteHtml = '';
+      if(i.quoteEn){
+        quoteHtml = '<blockquote class="gl-quote">'
+          + '<p class="gl-quote-en">“'+esc(i.quoteEn)+'”</p>'
+          + (i.quoteZh ? '<p class="gl-quote-zh">'+esc(i.quoteZh)+'</p>' : '')
+          + (i.quoteSrc ? '<p class="gl-quote-src">— '+esc(i.quoteSrc)+'</p>' : '')
+          + '</blockquote>';
+      }
       return '<article class="gl-item gl-item--'+i.who+'">'
         + '<div class="gl-rail"><span class="gl-dot"></span></div>'
         + '<div class="gl-body">'
         + '<div class="gl-meta"><time class="gl-date">'+esc(i.date)+'</time>'
         + '<span class="gl-who">'+esc(p.name)+'</span></div>'
         + '<h3 class="gl-title">'+esc(i.title)+'</h3>'
-        + '<p class="gl-sum">'+esc(i.summary)+'</p>'
+        + quoteHtml
+        + '<p class="gl-sum'+(i.quoteEn ? ' gl-sum--with-quote' : '')+'">'+esc(i.summary)+'</p>'
         + '<p class="gl-src">出处：'+ (i.sources||[]).map(function(s){
             return '<a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer nofollow">'+esc(s.name)+'</a>';
           }).join(' · ') + '</p>'

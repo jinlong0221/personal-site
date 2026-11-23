@@ -156,6 +156,28 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 .cons-box h4{color:#e74c3c}
 .pros-box ul,.cons-box ul{margin:0;padding-left:18px;line-height:1.9;font-size:0.98rem}
 @media(max-width:600px){.pro-cons{grid-template-columns:1fr}.detail-hero{grid-template-columns:minmax(0,1fr)}.detail-hero>*{min-width:0}.game-title-wrap .info-table{min-width:0}.table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}.info-table{min-width:480px;font-size:.92rem}.info-table th,.info-table td{padding:8px 12px}}
+/* ===== GTA6 详细攻略区（玩家整理，2026-11-23）===== */
+.gg-note{background:var(--gcard);border:1px solid var(--gb);border-left:3px solid var(--gold);border-radius:10px;padding:14px 18px;font-size:.96rem;line-height:1.85;color:var(--gt);margin-bottom:18px}
+.gg-block{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:18px 22px;margin-bottom:16px}
+.gg-h3{display:flex;align-items:center;gap:12px;font-size:1.08rem;margin:0 0 12px;color:var(--gt);font-weight:700;line-height:1.5}
+.gg-num{flex:0 0 auto;font-size:.82rem;font-weight:800;color:#1a1a1a;background:var(--gold);border-radius:6px;padding:3px 8px;letter-spacing:.5px}
+.gg-block p{margin:0 0 10px;font-size:1rem;line-height:1.9;color:var(--gt)}
+.gg-block p:last-child{margin-bottom:0}
+.gg-block ul{margin:0 0 4px;padding-left:20px;color:var(--gt);line-height:1.95;font-size:1rem}
+.gg-block li{margin-bottom:7px}
+.gg-block li:last-child{margin-bottom:0}
+.gg-block strong{color:var(--gold)}
+.gg-tip{background:var(--gc);border:1px dashed var(--gb);border-radius:8px;padding:10px 14px;font-size:.94rem!important;color:var(--gt)!important}
+.gg-block kbd{font-family:inherit;font-size:.84em;background:var(--gc);border:1px solid var(--gb);border-bottom-width:2px;border-radius:4px;padding:1px 6px;color:var(--gt);white-space:nowrap}
+.gg-shots{margin-top:22px}
+.gg-credit{font-size:.82rem;color:var(--text-muted);margin:10px 0 0;line-height:1.7}
+@media(max-width:600px){
+  .gg-note{padding:12px 14px;font-size:.92rem}
+  .gg-block{padding:15px 16px}
+  .gg-h3{font-size:1rem;gap:9px}
+  .gg-block p,.gg-block ul{font-size:.95rem;line-height:1.85}
+  .gg-tip{font-size:.9rem!important;padding:9px 11px}
+}
 </style>
 <script defer src="https://events.vercount.one/js"></script>
 
@@ -321,7 +343,7 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 </div>
 <div class="table-wrapper">
 <table class="info-table">
-<tr><th>开发商</th><td>Rockstar Games（Rockstar North）</td></tr><tr><th>发行商</th><td>Rockstar Games</td></tr><tr><th>发售日期</th><td>2026-11-19（主机首发）</td></tr><tr><th>平台</th><td>PS5 / Xbox Series X|S（主机首发）；PC 版尚未公布</td></tr><tr><th>类型</th><td>开放世界 / 动作冒险</td></tr><tr><th>首发定价</th><td>待官方公布（预计标准版约 $69.99，以官方商店为准）</td></tr>
+<tr><th>开发商</th><td>Rockstar Games（Rockstar North）</td></tr><tr><th>发行商</th><td>Rockstar Games</td></tr><tr><th>发售日期</th><td>2026-11-19（主机首发，PS5 / PS5 Pro）</td></tr><tr><th>平台</th><td>PS5 / Xbox Series X|S（主机首发）；PS5 Pro 支持 PSSR 与光追；PC 版尚未公布，PS4 不可玩</td></tr><tr><th>类型</th><td>开放世界 / 动作冒险（纯单人剧情）</td></tr><tr><th>售价</th><td>PS Store 美区：标准版 $79.99 / 终极版 $99.99（实际售价以所在区商店为准）</td></tr>
 </table>
 </div>
 <div class="rating"><span>资料状态：</span><span style="color:var(--gm)">公开资料整理 · 非本人实玩评测</span></div>
@@ -376,6 +398,88 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <img width="1600" height="900" src="../img/games/gta6-shot-mountain.webp" alt="卡拉加大山 国家公园（PS5 实机）" loading="lazy" decoding="async" data-rsp="1">
 </picture></div>
 </div>
+
+<div class="section-label">📖 PS5 详细攻略</div>
+<div class="gg-note">下面是面向 PS5 新手的<strong>玩家整理攻略</strong>，依据发售初期多家攻略站一致的机制要点归纳，<strong>非 Rockstar 官方内容</strong>；按键以 PS5 手柄为准，具体数值、任务名称与系统细节会随版本更新变动，<strong>以游戏内实际表现和官方说明为准</strong>。</div>
+
+<div class="gg-block">
+<h3 class="gg-h3"><span class="gg-num">01</span>开局节奏：先推主线，别乱逛</h3>
+<p>Leonida 地图比前作大得多，一上来就满地图乱跑容易被随机事件带跑几十小时。前两章的主线一定要优先推——它有两条关键解锁：</p>
+<ul>
+<li><strong>解锁双主角自由切换</strong>：第一章主要操控 Jason，推进到第二章完成主线「Coffee Break（咖啡小憩）」后，长按方向键<kbd>→</kbd> + <kbd>R1</kbd> 即可在 Jason 与 Lucia 间自由切换；按<kbd>△</kbd>可呼叫搭档会合、一起做任务提升好感。</li>
+<li><strong>解锁银行与载具服务</strong>：第一章「Buck Me」后开放银行，能 ATM 存钱；完成第二章「摩西」后手机解锁 Scooter Bros 应用，可付费呼叫/取回自己的载具。</li>
+</ul>
+<p class="gg-tip">💡 本作主要玩法是单人剧情；主线共约 5 章、九十余个任务，支线与收集另算。分区推进——先摸当前任务所在区域，再往外扩，比满地图乱跑效率高得多。</p>
+</div>
+
+<div class="gg-block">
+<h3 class="gg-h3"><span class="gg-num">02</span>存钱第一：现金会被抢走</h3>
+<p>这是和 GTA5 最大的不同之一：<strong>身上带的现金，死亡或被抓时会掉落一大笔</strong>。养成习惯：</p>
+<ul>
+<li>前期把多余现金藏到 Jason 卧室的地板下（Floor Stash），银行解锁后立刻转存，别揣着巨款到处跑。</li>
+<li>销赃得到的赃物先放随身背包或车后备箱，再开去地图上的<strong>绿色黑市图标</strong>投进指定容器变现。</li>
+<li>不同黑市商人对药品、珠宝、带标记钞票的收购价不同，悬停地图图标先看价再卖。</li>
+</ul>
+</div>
+
+<div class="gg-block">
+<h3 class="gg-h3"><span class="gg-num">03</span>三大属性：力量 / 有氧 / 专注</h3>
+<p>Jason 与 Lucia 都有三条核心属性，尽早练：</p>
+<ul>
+<li><strong>力量（生命上限）</strong>：Jason 家露台有免费举重器材，在家就能练。</li>
+<li><strong>有氧（耐力）</strong>：跑步、骑车、游泳、划艇或健身房跑步机。力量和有氧<strong>不练会慢慢退化</strong>，要隔几天练一次。</li>
+<li><strong>专注（Focus）</strong>：用手柄同时按下 <kbd>L3</kbd>+<kbd>R3</kbd> 开专注模式，枪战/潜入时能高亮敌人与物资、瞄准时放慢时间。钓鱼、打台球也能提升，专注<strong>练满后永久保留</strong>。</li>
+</ul>
+<p class="gg-tip">💡 锻炼一定要做完当前一组再退出，否则收益清零；练完喝蛋白昔/吃蛋白棒加速恢复。</p>
+</div>
+
+<div class="gg-block">
+<h3 class="gg-h3"><span class="gg-num">04</span>新版通缉：换衣服、换车才甩得掉</h3>
+<p>GTA6 回归 6 星通缉，但警察机制大改——<strong>不再是开出了通缉圈就安全</strong>。警方会记录你的外貌、穿搭、座驾与武器，并通过目击者和街边监控追踪：</p>
+<ul>
+<li>被追时先断开视线、躲开监控；抢劫前换衣服、事后立刻换装，比硬逃有效。</li>
+<li>换掉被认出的车，或把赃车重新喷漆；偷来的车可能带 GPS 追踪器，别长时间开。</li>
+<li>频繁作恶会累积「犯罪档案」，NPC 与警方警戒度变高；高星通缉别硬刚，优先跑路换装。</li>
+</ul>
+</div>
+
+<div class="gg-block">
+<h3 class="gg-h3"><span class="gg-num">05</span>载具与跑图</h3>
+<ul>
+<li>Leonida 极大，尽早搞一辆可靠的车；车辆受损会影响操控与引擎，长途前先看车况、留意油量。</li>
+<li>路边偷的车要等认识摩西、解锁车辆注册后才能存进车库变私人载具，没注册的车离开会刷新消失。</li>
+<li>不想开车可用手机里的叫车应用（RydeMe）快速到达；地图初始有雾，开车/走路/飞行穿过新区域才会逐步点亮。</li>
+<li>地图上的深色建筑可进入，浅蓝色只有外观；开专注模式可查看建筑安保（白门可进、红门带警报）。</li>
+</ul>
+</div>
+
+<div class="gg-block">
+<h3 class="gg-h3"><span class="gg-num">06</span>存档与避坑（新手最易翻车）</h3>
+<ul>
+<li><strong>没有任务回放</strong>：本作不像 GTA5 能重玩任务，只有 15 个手动存档位。每章开头、大型抢劫前手动存一次，别浪费存档位。</li>
+<li>别一拿到钱就买豪车、改外观，优先护甲、弹药、武器、安全屋等保命投资。</li>
+<li>前期别乱闯沼泽、帮邦地盘，装备差容易被围攻；尽量避免当众开枪，目击者会立刻报警。</li>
+<li>手机功能很多（银行、任务通知、载具服务、电台），多留意短信，很多解锁靠手机应用。</li>
+</ul>
+</div>
+
+<div class="gg-shots">
+<div class="section-label" style="margin-top:8px">🖼️ 攻略配图 · Rockstar 官方 PS5 实机截图</div>
+<div class="screenshot-grid">
+  <div class="screenshot-item" data-lightbox data-caption="罪恶都市 街景（PS5 实机）" data-src="../img/games/gta6-shot-vicecity-1.webp"><picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-vicecity-1@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-vicecity-1@768w.webp">
+<img width="1600" height="900" src="../img/games/gta6-shot-vicecity-1.webp" alt="罪恶都市 街景（PS5 实机）" loading="lazy" decoding="async" data-rsp="1">
+</picture></div>
+  <div class="screenshot-item" data-lightbox data-caption="盖尔霍恩港 工业区（PS5 实机）" data-src="../img/games/gta6-shot-port.webp"><picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-port@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-port@768w.webp">
+<img width="1600" height="900" src="../img/games/gta6-shot-port.webp" alt="盖尔霍恩港 工业区（PS5 实机）" loading="lazy" decoding="async" data-rsp="1">
+</picture></div>
+</div>
+<p class="gg-credit">以上截图来自 Rockstar Games 官方公开素材，版权归原权利方所有。</p>
+</div>
+
 <div class="section-label">📌 资料说明</div>
 <div class="desc-box">
 <p>本页为<strong>公开资料整理</strong>，<strong>非本人实玩评测</strong>。信息来自各游戏官网与权威商店页面，数据截至 <strong>2026-09</strong> 核验，已交叉核对；游戏更新、价格调整或平台变动后可能与官方最新公告存在差异，<strong>以官方为准</strong>。图片为各游戏官方公开美术图与实机截图，版权归原权利方所有。</p>

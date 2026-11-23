@@ -89,79 +89,79 @@ MAKER_COLS = ['批发', '零售']
 #   例：2026年8月 比亚迪 快讯 433,384 辆 vs 终稿 432,684 辆；长安 快讯 57,092（预估）
 #   vs 终稿 75,788 辆 —— 差 1.9 万辆，混用即错误。
 #
-# 交叉验证记录（2026-10-19 核对，2026年9月终稿；终稿发布日 2026-10-12）：
-#   比亚迪 9月批发 455,113 辆 = 45.5113 万辆
+# 交叉验证记录（2026-11-23 核对，2026年10月终稿；终稿发布日 2026-11-09）：
+#   比亚迪 10月批发 482,610 辆 = 48.2610 万辆
 #       -> 与接口 charttype=2 组1 比亚迪 [0] 完全一致 ✓（偏差 0%）
-#   比亚迪 9月零售 246,816 辆 = 24.6816 万辆 -> 与接口组1 比亚迪 [1] 一致 ✓
-#   零跑   9月批发  96,167 辆 =  9.6167 万辆 -> 与接口零跑   [0] 一致 ✓
-#   零跑   9月零售  78,202 辆 =  7.8202 万辆 -> 与接口零跑   [1] 一致 ✓
-#   特斯拉 9月批发  95,366 辆 =  9.5366 万辆 -> 与接口特斯拉 [0] 一致 ✓
-#   特斯拉 9月零售  64,837 辆 =  6.4837 万辆 -> 与接口特斯拉 [1] 一致 ✓
+#   零跑   10月批发 103,025 辆 = 10.3025 万辆 -> 与接口零跑    [0] 一致 ✓
+#   特斯拉 10月批发  67,829 辆 =  6.7829 万辆 -> 与接口特斯拉中国 [0] 一致 ✓
 #   （比亚迪/零跑/特斯拉为纯新能源车企，故批发口径下两榜必然相等，可作锚点）
-#   批发榜十家经中国汽车流通协会（cada.cn 全文转载终稿）与 LongPort 两家
+#   批发榜十家经中国汽车流通协会（cada.cn 全文转载终稿）与新浪新闻两家
 #   独立来源逐位比对，全部一致 ✓
-#   零售榜十家经中国汽车流通协会与凤凰网汽车（网通社）两家独立来源逐位比对，全部一致 ✓
-#   ⚠️ 已排除 2026-10-09 的《9月新能源乘用车厂商批发销量快讯》（初稿含预估）：
-#      比亚迪 快讯 456,713 vs 终稿 455,113；零跑 快讯 105,656 vs 终稿 96,167；
-#      长安 快讯 102,968 vs 终稿 94,147 —— 差幅远超 0.5% 容差，混用即错。
-#   接口自洽性旁证：1-8月累计 + 9月 = 接口 1-9月累计，三家均精确相等
-#       比亚迪 2,620,671 + 455,113 = 3,075,784 ✓
-#       零跑     560,883 +  96,167 =   657,050 ✓
-#       特斯拉   647,694 +  95,366 =   743,060 ✓
+#   零售榜十家经中国汽车流通协会与腾讯新闻（爱济南）两家独立来源逐位比对，全部一致 ✓
+#   ⚠️ 已排除 2026-11-04 的初步统计快报（官网标注初稿含预估，不可与终稿对比）：
+#      快报 新能源批发 180.7 万辆 / 零售 114.8 万辆 / 批发渗透率 68.6%；
+#      终稿 新能源批发 177.2 万辆 / 零售 110.9 万辆 / 批发渗透率 67.3% —— 混用即错。
+#   接口自洽性旁证：1-9月累计 + 10月 = 接口 1-10月累计，三家均精确相等
+#       比亚迪 3,075,784 + 482,610 = 3,558,394 ✓
+#       零跑     657,050 + 103,025 =   760,075 ✓
+#       特斯拉   743,060 +  67,829 =   810,889 ✓
 # ---------------------------------------------------------------------------
 NEV_MAKER_SNAPSHOT = {
-    'period': '2026年9月',
-    'verifiedOn': '2026-10-19',
+    'period': '2026年10月',
+    'verifiedOn': '2026-11-23',
     'unit': '辆',
     'autoFetched': False,
     'wholesale': {
         'title': '新能源乘用车厂商批发销量 TOP10',
         'caliber': '狭义乘用车批发销量（含出口，非终端交付）',
-        'sourceName': '中国汽车流通协会（转载乘联分会《2026年9月份全国乘用车市场分析》终稿）',
-        'sourceUrl': 'https://cada.cn/Trends/info_91_10580.html',
-        'extraSourceName': 'LongPort',
-        'extraSourceUrl': 'https://longportapp.cn/zh-CN/news/301543370',
+        'sourceName': '中国汽车流通协会（转载乘联分会《2026年10月份全国乘用车市场分析》终稿）',
+        'sourceUrl': 'https://www.cada.cn/Trends/info_91_10597.html',
+        'extraSourceName': '新浪新闻',
+        'extraSourceUrl': 'http://www.sina.cn/news/detail/5363372455364848.html',
         'rows': [
-            {'rank': 1, 'name': '比亚迪汽车', 'units': 455113, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 2, 'name': '吉利汽车', 'units': 188800, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 3, 'name': '奇瑞汽车', 'units': 126703, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 4, 'name': '零跑汽车', 'units': 96167, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 5, 'name': '特斯拉汽车', 'units': 95366, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 6, 'name': '长安汽车', 'units': 94147, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 7, 'name': '上汽通用五菱', 'units': 77670, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 8, 'name': '上汽乘用车', 'units': 61818, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 9, 'name': '长城汽车', 'units': 41981, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 10, 'name': '小鹏汽车', 'units': 40654, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 1, 'name': '比亚迪汽车', 'units': 482610, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 2, 'name': '吉利汽车', 'units': 211240, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 3, 'name': '奇瑞汽车', 'units': 133890, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 4, 'name': '零跑汽车', 'units': 103025, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 5, 'name': '长安汽车', 'units': 99494, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 6, 'name': '上汽通用五菱', 'units': 97241, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 7, 'name': '上汽乘用车', 'units': 76479, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 8, 'name': '特斯拉汽车', 'units': 67829, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 9, 'name': '小鹏汽车', 'units': 50237, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 10, 'name': '小米汽车', 'units': 50168, 'cumulative': None, 'yoy': None, 'mom': None},
         ],
     },
     'retail': {
         'title': '新能源乘用车厂商零售销量 TOP10',
         'caliber': '国内零售口径（上牌/开票，不含出口）',
-        'sourceName': '中国汽车流通协会（转载乘联分会《2026年9月份全国乘用车市场分析》终稿）',
-        'sourceUrl': 'https://cada.cn/Trends/info_91_10580.html',
-        'extraSourceName': '凤凰网汽车（网通社）',
-        'extraSourceUrl': 'https://auto.ifeng.com/c/8xA78buz1WI',
+        'sourceName': '中国汽车流通协会（转载乘联分会《2026年10月份全国乘用车市场分析》终稿）',
+        'sourceUrl': 'https://www.cada.cn/Trends/info_91_10597.html',
+        'extraSourceName': '腾讯新闻（爱济南）',
+        'extraSourceUrl': 'https://new.qq.com/rain/a/20261109V0ETHC00',
         'rows': [
-            {'rank': 1, 'name': '比亚迪汽车', 'units': 246816, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 2, 'name': '吉利汽车', 'units': 119682, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 3, 'name': '零跑汽车', 'units': 78202, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 4, 'name': '特斯拉汽车', 'units': 64837, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 5, 'name': '长安汽车', 'units': 61732, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 6, 'name': '上汽通用五菱', 'units': 54810, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 7, 'name': '奇瑞汽车', 'units': 46860, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 8, 'name': '上汽乘用车', 'units': 40280, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 9, 'name': '小米汽车', 'units': 40015, 'cumulative': None, 'yoy': None, 'mom': None},
-            {'rank': 10, 'name': '鸿蒙智行', 'units': 37490, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 1, 'name': '比亚迪汽车', 'units': 250301, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 2, 'name': '吉利汽车', 'units': 131708, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 3, 'name': '零跑汽车', 'units': 83573, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 4, 'name': '长安汽车', 'units': 68925, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 5, 'name': '上汽通用五菱', 'units': 67696, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 6, 'name': '小米汽车', 'units': 50123, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 7, 'name': '奇瑞汽车', 'units': 44747, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 8, 'name': '上汽乘用车', 'units': 38881, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 9, 'name': '长城汽车', 'units': 37469, 'cumulative': None, 'yoy': None, 'mom': None},
+            {'rank': 10, 'name': '小鹏汽车', 'units': 36911, 'cumulative': None, 'yoy': None, 'mom': None},
         ],
     },
     'notes': [
         '批发榜与零售榜成员差异很大，这是正常的：批发含出口，零售只算国内上牌。',
-        '本期数字全部取自乘联分会 2026-10-12 发布的《2026年9月份全国乘用车市场分析》终稿。'
-        '10月9日的《9月新能源乘用车厂商批发销量快讯》是初步预估（官网标注「初稿数据含预估」），'
-        '与终稿有出入（比亚迪 快讯 456,713 辆 / 终稿 455,113 辆；零跑 快讯 105,656 / 终稿 96,167），'
-        '本站只用终稿。',
-        '9月新能源批发 166.6 万辆、零售 108.4 万辆，批发渗透率 65.4%、零售渗透率 67.0%，双双创历史新高。',
-        '厂家排名变化：零跑批发 96,167 辆守住第四；长安升至第六；小米汽车零售 40,015 辆首次进入前十（第九）。',
+        '本期数字全部取自乘联分会 2026-11-09 发布的《2026年10月份全国乘用车市场分析》终稿。'
+        '11月4日的初步统计快报（新能源批发 180.7 万辆、零售 114.8 万辆）为初稿预估口径，'
+        '官网明示不宜与终稿直接对比，与终稿也有明显出入（批发 180.7 vs 177.2 万辆），本站只用终稿。',
+        '10月新能源乘用车批发 177.2 万辆（同比 +9.8%、环比 +6.2%）、零售 110.9 万辆'
+        '（同比 -13.7%、环比 +2.3%），批发渗透率 67.3%、零售渗透率 67.5%，双创历史新高。'
+        '本页图表渗透率按接口明细算得 67.4% / 67.6%，与终稿差 0.1 个百分点属口径微调。',
+        '厂家排名变化：批发榜小鹏 50,237 辆、小米 50,168 辆仅差 69 辆，分列第九、第十，'
+        '长城（49,498 辆）落到第 11 位；零售榜小米 50,123 辆升至第六，长城 37,469 辆进榜第九，'
+        '鸿蒙智行（33,538 辆）退出前十。零跑是比亚迪之外唯一批发破 10 万辆的车企。',
         '厂商「本年累计 / 同比 / 环比」未在该终稿中按厂商逐家披露，故一律留空显示为「—」，'
         '不做推算、也不用车企自报口径的数字顶替（两者统计口径不同，混用会失真）。',
     ],

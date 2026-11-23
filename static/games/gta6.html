@@ -169,6 +169,29 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 .gg-block strong{color:var(--gold)}
 .gg-tip{background:var(--gc);border:1px dashed var(--gb);border-radius:8px;padding:10px 14px;font-size:.94rem!important;color:var(--gt)!important}
 .gg-block kbd{font-family:inherit;font-size:.84em;background:var(--gc);border:1px solid var(--gb);border-bottom-width:2px;border-radius:4px;padding:1px 6px;color:var(--gt);white-space:nowrap}
+/* 全结局解析：折叠剧透块 */
+.gg-spoiler{margin-top:4px;border:1px solid var(--gb);border-radius:10px;background:var(--gbg2);overflow:hidden}
+.gg-spoiler>summary{cursor:pointer;list-style:none;user-select:none;padding:14px 18px;font-weight:700;font-size:1.02rem;color:var(--gold);line-height:1.6;display:flex;align-items:center;gap:9px}
+.gg-spoiler>summary::-webkit-details-marker{display:none}
+.gg-spoiler>summary::before{content:"\25B8";font-size:1rem;flex:0 0 auto;transition:transform .2s}
+.gg-spoiler[open]>summary::before{transform:rotate(90deg)}
+.gg-spoiler>summary:hover{background:var(--gc)}
+.gg-spoiler-body{padding:2px 18px 18px;border-top:1px solid var(--gb)}
+.gg-sub{margin:18px 0 10px;font-size:1rem;font-weight:700;color:var(--gt);display:flex;align-items:center;gap:9px;line-height:1.5}
+.gg-sub::before{content:"";width:4px;height:16px;border-radius:2px;background:var(--gold);flex:0 0 auto}
+.gg-end{border:1px solid var(--gb);border-radius:9px;padding:13px 16px;margin-bottom:10px;background:var(--gcard)}
+.gg-end:last-child{margin-bottom:0}
+.gg-end h4{margin:0 0 7px;font-size:1rem;color:var(--gt);font-weight:700;line-height:1.55}
+.gg-end-id{display:inline-block;font-size:.76rem;font-weight:800;color:#1a1a1a;background:var(--gold);border-radius:5px;padding:2px 7px;margin-right:8px;letter-spacing:.5px;vertical-align:1px}
+.gg-end p{margin:0;font-size:.95rem;line-height:1.85;color:var(--gt)}
+.gg-end p+p{margin-top:7px}
+.gg-end p strong,.gg-spoiler-body li strong{color:var(--gold)}
+.gg-spoiler-body>ul{margin:0 0 4px;padding-left:20px;color:var(--gt);line-height:1.9;font-size:.96rem}
+.gg-spoiler-body>ul li{margin-bottom:6px}
+.gg-spoiler-body>ul li:last-child{margin-bottom:0}
+.gg-dispute{background:#e74c3c12;border:1px solid #e74c3c40;border-left:3px solid #e74c3c;border-radius:9px;padding:13px 16px;margin-top:16px}
+.gg-dispute p,.gg-dispute li{font-size:.92rem!important;color:var(--gt)!important;line-height:1.8!important}
+.gg-src{font-size:.82rem;color:var(--gm);margin:16px 0 0;line-height:1.75}
 .gg-shots{margin-top:22px}
 .gg-credit{font-size:.82rem;color:var(--text-muted);margin:10px 0 0;line-height:1.7}
 @media(max-width:600px){
@@ -177,6 +200,13 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
   .gg-h3{font-size:1rem;gap:9px}
   .gg-block p,.gg-block ul{font-size:.95rem;line-height:1.85}
   .gg-tip{font-size:.9rem!important;padding:9px 11px}
+  .gg-spoiler>summary{padding:12px 14px;font-size:.94rem}
+  .gg-spoiler-body{padding:2px 14px 14px}
+  .gg-sub{font-size:.95rem;margin:16px 0 9px}
+  .gg-end{padding:11px 13px}
+  .gg-end h4{font-size:.94rem}
+  .gg-end p{font-size:.91rem;line-height:1.8}
+  .gg-spoiler-body>ul{font-size:.92rem}
 }
 </style>
 <script defer src="https://events.vercount.one/js"></script>
@@ -459,8 +489,69 @@ body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, B
 <li><strong>没有任务回放</strong>：本作不像 GTA5 能重玩任务，只有 15 个手动存档位。每章开头、大型抢劫前手动存一次，别浪费存档位。</li>
 <li>别一拿到钱就买豪车、改外观，优先护甲、弹药、武器、安全屋等保命投资。</li>
 <li>前期别乱闯沼泽、帮邦地盘，装备差容易被围攻；尽量避免当众开枪，目击者会立刻报警。</li>
-<li>手机功能很多（银行、任务通知、载具服务、电台），多留意短信，很多解锁靠手机应用。</li>
+  <li>手机功能很多（银行、任务通知、载具服务、电台），多留意短信，很多解锁靠手机应用。</li>
 </ul>
+</div>
+
+<div class="gg-block">
+<h3 class="gg-h3"><span class="gg-num">07</span>全结局解析（含重大剧透）</h3>
+<p>GTA6 确有多结局：GameSpot 已完整通关并获 Rockstar 官方确认。但<strong>官方从未公布结局总数</strong>，目前所有清单都来自玩家与攻略站的整理，彼此说法不一。下面是综合多方资料的全结局归档，<strong>非官方定论，以游戏内实际表现为准</strong>。</p>
+<details class="gg-spoiler">
+<summary>⚠️ 剧透警告：点击展开全部结局与触发条件</summary>
+<div class="gg-spoiler-body">
+
+<p class="gg-sub">先看懂：什么在影响结局</p>
+<p>结局不只取决于最后一刻的选项，而是整段游戏的积累。四大影响因素：</p>
+<ul>
+<li><strong>剧情选择</strong>：一路上做的决定会改变人物档案与关系。</li>
+<li><strong>两人关系</strong>：Jason 与 Lucia 的好感度，共 4 个等级。</li>
+<li><strong>各自的犯罪档案</strong>：两人分开计算，干净作案压低、暴力乱来抬高。</li>
+<li><strong>共同的家庭存款</strong>：能否走到某些结局（如保释）的硬门槛。</li>
+</ul>
+<p>结局分叉主要在三处：<strong>门德斯交易</strong>（突袭塔楼前，接受就直接离开常规结局线）→ <strong>屋顶对峙</strong>（塔楼战后、大桥前，若出现屋顶选择，本周目基本到不了大桥）→ <strong>大桥路障</strong>（终章任务「The End of the Road」，给出「Swim for It / No Surrender」选项，前面的数据会改变结果）。</p>
+
+<p class="gg-sub">六大结局（Digit.in 整理口径）</p>
+
+<div class="gg-end"><h4><span class="gg-end-id">01</span>Lucia 为 Jason 交保释金</h4>
+<p><strong>触发</strong>：终章前把两人犯罪档案都刷到 Professional 或 Hardened、好感度拉满、家庭存款存够 300 万美元，大桥选「<strong>Swim for It</strong>」。</p>
+<p><strong>结果</strong>：Lucia 从水路逃脱、Jason 被捕；之后 Lucia 花 250 万美元保释他出狱，两人与 Tomas 团圆，开始新生活。</p></div>
+
+<div class="gg-end"><h4><span class="gg-end-id">02</span>Jason 入狱</h4>
+<p><strong>触发</strong>：同样选「<strong>Swim for It</strong>」，但两人犯罪档案保持在 Psycho 与 Irredeemable 以下，警方接受 Jason 投降；只是没凑齐让 Lucia 后续保释的关系与存款条件。</p>
+<p><strong>结果</strong>：Lucia 逃脱并独自抚养 Tomas，Jason 活着但留在监狱。与结局 01 的差别就在关系与存款够不够。</p></div>
+
+<div class="gg-end"><h4><span class="gg-end-id">03</span>Lucia 沉沦（Stay Down）</h4>
+<p><strong>触发</strong>：逃脱 Giorgio 势力后走屋顶路线，警察向 Jason 开枪、提示出现时选「<strong>Stay Down</strong>」。</p>
+<p><strong>结果</strong>：Jason 把 Lucia 推开掩护她、自己被击杀；Lucia 被捕后接受协议获释，本想去找 Tomas，却因钱不够又回去抢商店。</p></div>
+
+<div class="gg-end"><h4><span class="gg-end-id">04</span>大桥投降出错</h4>
+<p><strong>触发</strong>：整段流程记录太差（Jason 或 Lucia 被评 Psycho / Irredeemable）时，「<strong>Swim for It</strong>」会变成失败的投降。Jason 把硬盘交给 Lucia、下车自首。</p>
+<p><strong>结果</strong>：警方开枪，视玩法而定其中一人或两人当场死亡。</p></div>
+
+<div class="gg-end"><h4><span class="gg-end-id">05</span>双双殒命 · 雌雄大盗</h4>
+<p><strong>触发</strong>：大桥选「<strong>No Surrender</strong>」，或屋顶选「<strong>Defend Jason</strong>」。</p>
+<p><strong>结果</strong>：两人一起冲向路障 / Lucia 在屋顶掩护 Jason，最终双双被击毙，典型的「Bonnie and Clyde」式结局。</p></div>
+
+<div class="gg-end"><h4><span class="gg-end-id">06</span>门德斯的沼泽背叛</h4>
+<p><strong>触发</strong>：对峙时打伤门德斯但<strong>别打死</strong>，等「<strong>Take the Deal</strong>」提示出现后接受交易。</p>
+<p><strong>结果</strong>：门德斯谎称会送两人安全离开，实则带到 Grassrivers 灭口；片尾字幕里两人头骨旁趴着一条鳄鱼。接受交易会跳过屋顶和大桥两条结局线。</p></div>
+
+<p class="gg-sub">说法有分歧，别当成官方定论</p>
+<div class="gg-dispute">
+<ul>
+<li><strong>结局总数</strong>：各家口径从 4、5、6 到 9、12 种都有；SixStarsWanted 明确指出 Rockstar 从未公布结局清单，资料都来自发售首周攻略，彼此并不完全一致。</li>
+<li><strong>保释存款门槛</strong>：Digit.in / Gurugamer 说 300 万美元，HitCrit 说 200 万美元，尚未统一。</li>
+<li><strong>其他流传结局</strong>：有玩家描述「男女主都活着但无法相认」的新结局；也有文章称 9 个已知结局 + 3 个隐藏结局、按大校线 / 塔楼线分支——这些均无官方证实，仅作参考。</li>
+</ul>
+</div>
+
+<p class="gg-sub">通关之后</p>
+<p>片尾后游戏会把你带回终章任务「The End of the Road」之前，Jason 与 Lucia 在自由模式下可用，终章任务留在地图上，可反复尝试其他结局。想改犯罪档案或好感度，得读取更早的存档重玩。通关还会解锁作弊菜单与 100% 完成清单。</p>
+
+<p class="gg-src">资料来源：Digit.in（2026-11-23）、GameSpot（经 Rockstar 确认多结局）、游民星空、SixStarsWanted、HitCrit、Gurugamer；整理于 2026-11-23。结局细节可能随版本更新变化，以游戏内实际表现为准。</p>
+
+</div>
+</details>
 </div>
 
 <div class="gg-shots">

@@ -170,6 +170,15 @@ echo "[pre-commit] 检查板块更新日期真实性..."
   exit 1
 }
 
+echo "[pre-commit] 检查核验日期/最后更新是否过期..."
+# 2026-11-23 龙兄抓到 GTA6 页「数据截至 2026-09 核验」陈旧戳。严格页
+# （GTA6 两页）过期即阻断；其它页只提示，避免历史批量戳一次性阻断全站。
+"$PY3" scripts/guard_stale_dates.py -q >/dev/null 2>&1 || {
+  echo "❌ 核验日期过期守卫未通过："
+  "$PY3" scripts/guard_stale_dates.py
+  exit 1
+}
+
 echo "[pre-commit] 检查漫威票房展示字段清爽度..."
 # 2026-11-16 全站审计发现（上轮 11-13 修复回潮）：自动更新又把 movie.status
 # 从 67 字写成 119 字（塞进冲奥/重映从句），boxOffice.china 混进「猫眼分账口径差异、

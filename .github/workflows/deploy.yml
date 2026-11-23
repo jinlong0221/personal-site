@@ -202,6 +202,12 @@ jobs:
       - name: Guard images (missing / ratio / transparent-as-black)
         run: python3 scripts/guard_images.py
 
+      # 核验日期过期守卫（2026-11-23 落地）：GTA6 页曾写「数据截至 2026-09」，
+      # 但游戏 11 月才发售、页面刚更新，日期自相矛盾。严格页（GTA6 两页）
+      # 时间戳超过 45 天即阻断；其它页超过 90 天只提示（历史批量戳逐页真实清理）。
+      - name: Guard stale verification dates
+        run: python3 scripts/guard_stale_dates.py
+
       # 漫威票房「展示字段」清爽守卫（2026-11-16 落地）：
       # 上轮 11-13 把 movie.status 压成单行、boxOffice.china 删掉内部对账说明，
       # 但 11-15 自动更新又写回 119 字并把「猫眼分账口径差异、不采用」混进展示字段——

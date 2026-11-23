@@ -361,4 +361,22 @@
 - 已知接受项沿用 11-10 清单（板内语义/功能性色：主机品牌色 / 游戏平台色 / 天气芯片 / sheyang metro / chinajoy --hall+芯片 / console 白底+scoped 金 #a68a3c+灰字 / travel .tl-season / xintan #e65100 / health-tea / bracelet / herbs / ask-checkin 冷灰）。
 - **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接；② `input` label 关联 checkbox；③ `button.lx-hero-dot`(含 is-active) `::after` 透明命中区；④ `/join.html` `nav.join-mobile-nav` 离屏抽屉；⑤ `a#navClockLink`/`input#convLeap` 小控件；⑥ `a.lx-private-link`（本周新增细分，属内联链接同源）。只看四类硬指标 + 导航遮挡。
 - 探针用 **`lx-probe2.mjs`**；6 视口 **2592** 组合基线沿用。
+
+## 二十四、本周（2026-11-24）巡检结论速记
+
+- **规模**：`hugo --gc --cleanDestinationDir` 重建（fooocus v0.163.3 extended，可用未回退），`public/` 共 **217 个 HTML**（较 11-17 的 216 新增 1 页）；探针 **6 视口 × 2 主题 = 2604 组合**（实测 combos=2604 / pages=217，约 17.7 分钟），puppeteer-core + chrome-headless-shell mac-149。本地沿用「cp public→/tmp/lx-test + 通用正则去 CSP meta + URL 重写 + http.server 8399」。
+- **四类硬指标 + 导航遮挡（首轮即达标，零返修 P0/P1）**：docOverflow>1=0、祖先感知元素 over=0、大面积高饱和暖色 warm=0、JS 报错=0、goto 错误=0、fixed-nav 遮挡=0 → **P0=P1=0** ✅。
+- **2592 findings = 既定 tinyTap 假阳性基线**：`a`(32290 内联文本链接)+`a.obf-email`(2682)+`input`(180 label 关联 checkbox)+`button.lx-hero-dot`(48)+`a#navClockLink`(12)+`input#convLeap`(12)+`button.lx-hero-dot.is-active`(12)+`a.lx-private-link`(12)。无新增真实小命中区；判定铁律不变：只看四类硬指标 + 导航遮挡。
+- **隐藏彩虹色静态深扫（fill/stroke 全属性）**：`static/*.html`(112) 内联 hex 盘点，偏离清单者均为 head 内联 critical-css **全站统一模板色**（`#e0e0e0`/`#f8f9fa`/`#1a1a2e`/`#16213e` 等 72–82 页同现，非新增漂移）+ 主机板品牌色（`#ff4757`/`#003791`/`#003087`/`#d43434` 等 scoped）+ 天气板类目色 + 紫砂/茶饮/苹果板内语义色。大面积暖色扫描 0 佐证非刺眼 → **连续 13 周无新增全局漂移色**。
+- **配色/卡片/机制复验全绿**：`--gold:#C9A84C`、`--accent-color`（暗色正文金 `#957425` 保对比度）等 7 核心 token 双主题齐备（`:root`+`[data-theme=light/dark]`）；`.lx-card`(39)/`.lx-epick`(13)/`.artist-card`(2) 跨页一致；`.js .reveal`(5)/safe-area(19)/小按钮 `min-width:0`(25) `min-height:0`(3)/`html{accent-color}`(1)/`focus-visible`(1) 全定义。
+- **本轮唯一实修（1 处，源码层戳一致性，非 P0/P1）**：`layouts/partials/head.html` + `static/rss.xsl` 的 `style.css?v=20261026` 滞后全站（其余 static 已由其他自动化 bump 至 `20261122`）→ 对齐为 `20261122`（**对齐现值而非 bump 到当日**，因 CSS 本体未改）。复验：源码戳 207 处全 `20261122`、`guard_v_param.py` PASS、hugo 重建后 public 同步。**关键认知**：CI `deploy.yml:405` 在 hugo 后跑 `bump_v_hash.py public` 把日期戳统一替换为内容哈希 `?v=h...`，故线上首页/子页无缓存分歧——源码层对齐仅为消除本地预览/源码漂移，非视觉 bug。
+- **实修缺陷**：无视觉 P0/P1（零返修，纯巩固 + 知识沉淀 + 1 处戳对齐）。CSS 本体未改动。
+- **知识储备增量**：本节记录 2604 组合新基线、戳对齐「对齐现值 vs bump 当日」判定边界、CI bump 消除线上戳分歧的机制认知。
+- 交付门槛：视觉层面 **P0=P1=0** ✅（连续 **14** 周达标：08-25 / 08-28 / 08-30 / 09-01 / 09-08 / 09-15 / 09-29 / 10-06 / 10-13 / 10-27 / 11-03 / 11-10 / 11-17 / **11-24**）。
+
+### 下次巡检可省步骤
+- 已知接受项沿用 11-17 清单（板内语义/功能性色：主机品牌色 / 游戏平台色 / 天气芯片 / sheyang metro / chinajoy --hall+芯片 / console 白底+scoped 金 #a68a3c+灰字 / travel .tl-season / xintan #e65100 / health-tea / bracelet / herbs / ask-checkin 冷灰 / head 内联 critical-css 全站模板色）。
+- **已知误报（探针结构性，不计 P0/P1）**：① `a` 内联文本链接；② `input` label 关联 checkbox；③ `button.lx-hero-dot`(含 is-active) `::after` 透明命中区；④ `/join.html` `nav.join-mobile-nav` 离屏抽屉；⑤ `a#navClockLink`/`input#convLeap` 小控件；⑥ `a.obf-email`/`a.lx-private-link` 内联链接同源。只看四类硬指标 + 导航遮挡。
+- 探针用 **`lx-probe2.mjs`**；6 视口 **2604** 组合基线沿用（本轮新值，覆盖 2592）。
+- `style.css?v=` 活引用全站统一 **`20261122`**（本轮 head.html/rss.xsl 对齐后），下次仅在该值变更时跟进；根 `css/` 不再重建（09-24 起作废）。
 - `style.css?v=` 全站统一 **`20261026`**（本周更正），下次仅在该值变更时跟进；根 `css/` 不再重建。

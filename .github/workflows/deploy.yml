@@ -140,6 +140,11 @@ jobs:
         run: python3 scripts/guard_theme_scope.py
       - name: Guard CSP hygiene
         run: python3 scripts/guard_csp_hygiene.py
+      # 2026-11-23：多个自动任务并发 push，各自 bump ?v 改一半 → 同资源出现两个版本号，
+      # 曾导致部署失败（c0dfb91）。构建前先统一版本号（幂等；一致时零改动），再跑守卫。
+      # CI 里改的是检出副本、不回写仓库；根治并发仍需各任务提交前跑 sync_v_param.py。
+      - name: Auto-sync ?v cache-bust versions
+        run: python3 scripts/sync_v_param.py --write
       - name: Guard ?v cache-bust consistency
         run: python3 scripts/guard_v_param.py
 

@@ -331,6 +331,14 @@ python3 scripts/audit_visual.py --dir public --url <页面>   # 它会同时跑 
   · **CSP 坑（复犯预演）**：改内联渲染脚本 → 哈希从 com4RrS... 变 gcRLU...，不重算会导致浏览器拦截脚本、整页内容加载失败。修法：`hugo --gc` → `compute_csp_hashes.py --inject`（重写 head.html + 202 页 CSP meta）→ 重新 build → `bump_v_hash.py public`。**教训：凡改 static/*.html 的内联 <script>，必须走 CSP 哈希重算链**。
   · **本地验证坑**：playwright 默认内核缺失（用系统 Chrome `executablePath`）；后台 http.server 用 `(cmd &)` 会随 shell 退出被杀（用 run_in_background）；本地 `hugo --minify` 审计构建无 pagefind 索引，`/pagefind/pagefind.js` 404 属测试环境局限、线上正式构建有，不算回归。
 
+- 2026-11-23：**CI 部署失败（缓存版本号并发撞击 → guard_v_param 拦截）**。
+  · **症状**：龙兄截图 GitHub Actions「Run failed: Deploy Hugo Site to GitHub Pages」，`build-and-deploy` 的 step 26 `Guard ?v cache-bust consistency` failure（commit `c0dfb91` 台风刷新任务）。
+  · **根因**：早班自动更新批量 bump `?v=YYYYMMDD`（style.css→20261122、app.js→20261118）只改了一部分页面，台风刷新任务基于旧状态提交，同一资源在全站出现两个版本号（style.css 同时 20261026/20261122）。隔离检出 `git worktree add --detach /tmp/ci-repro c0dfb91` 复现得到确切报错，排除是内容/数据错误。诱因：11-22 改科技页 CSS 时没同步 bump 源码 ?v。
+  · **自愈**：紧随的 `303487ea0`（销量榜刷新）用 `sync_v_param.py --write` 统一了版本，其 CI success，线上未受影响（科技页引用块、CSS 均正常）。
+  · **加固（本次）**：① pre-commit 新增 `guard_v_param.py` 检查（此前只有 CI 有，本地改 css/js 忘 bump 拦不住）；② CI 在 `Guard ?v` 前加 `Auto-sync ?v cache-bust versions`（`sync_v_param.py --write`，幂等，正常态 0 改动，撞击时自愈）；③ 验证：隔离检出坏状态跑 sync 后 guard 由 FAIL→PASS。
+  · **残留风险**：多自动任务并发 push 的根本协调问题未变（sync 在 CI 改检出副本不回写仓库）；若频繁复发，需让各 automation 的 push 前统一调用 sync_v_param.py 或改为串行队列。
+  · **诊断坑**：无 `gh` CLI；`actions/jobs/<id>/logs` 需管理员权限（403），改用 `actions/runs/<id>/jobs` 拿失败 step 名 + `commits/<sha>/check-runs` 拿结论，足以定位。
+
 ## 五、给审计者的开工顺序（照做即可，别跳步）
 
 1. `bash scripts/audit_regression.sh` —— 自动项一把梭（A + B 全跑）。

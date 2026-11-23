@@ -77,6 +77,7 @@ run "A24 漫威票房展示字段清爽度"       "$PY3" scripts/guard_marvel_st
 run "A25 天气快照+主题统一"            "$PY3" scripts/guard_weather_theme.py
 run "A26 科技动态原话字段结构"         "$PY3" scripts/guard_global_quotes.py
 run "A27 核验日期/最后更新过期"        "$PY3" scripts/guard_stale_dates.py -q
+run "A28 来源核验日防覆盖标记"        "$PY3" scripts/guard_source_date.py -q
 run "A11 标题四字段一致"             "$PY3" scripts/sync_titles.py --check
 
 # A12 只做「提示」不计入成败：新闻 JSON 的引号残留由 CI 的 unify_quotes --ci 自动清洗，

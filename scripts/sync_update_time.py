@@ -21,6 +21,12 @@ sync_update_time.py — 用 git 真实提交日期自动同步页面的「最后
   1. 页面里的 <div class="update-time">最后更新时间：YYYY-MM-DD</div>
   2. static/data/updates.json 各板块的 lastUpdate（驱动首页"最新板块"展示）
 
+## 来源核验日保护（2026-11-23）
+有一批页面的日期戳是「内容来源核验日」（真实、有据可查），不是 git 提交日。
+批量提交会把这些页的 git 日期刷成提交当天，若按 git 回填就成了装饰性假日期。
+这类页的日期元素显式打上 data-source-verified 标记，回填时**跳过**，保留真实来源日。
+标记由 scripts/guard_source_date.py 统一维护与校验。
+
 ## 用法
     python3 scripts/sync_update_time.py            # 写入
     python3 scripts/sync_update_time.py --check    # 只打印会改什么，不写文件
@@ -46,10 +52,25 @@ CURATED_JSON = [
 # JS 模板占位（如 sheyang.html 的「更新于 ${ts}」）运行时填充，跳过
 JS_PLACEHOLDER = re.compile(r"\$\{|\{\{")
 
+# 打了这个标记的日期元素是「内容来源核验日」，不是 git 提交日：
+# CI 回填必须跳过，否则真实来源日会被批量提交日覆盖成装饰性假日期。
+SOURCE_VERIFIED_ATTR = "data-source-verified"
+
 UPDATE_TIME_RE = re.compile(
     r'(<[a-z]+[^>]*\bclass="[^"]*\bupdate-time\b[^"]*"[^>]*>[^<]*?)'
     r'(\d{4}-\d{2}-\d{2})'
 )
+
+
+def has_source_verified(open_tag_with_prefix):
+    """判断匹配到的日期元素是否打了来源核验日标记。
+
+    传入的是正则 group(1)：从开标签起始到日期之前的整段，含开标签的所有属性。
+    用带词界的正则匹配属性名，避免误伤 data-source-verified-extra 之类的其他属性。
+    """
+    # 边界排除 [A-Za-z0-9_-]：\b 会把连字符当词界，误命中 data-source-verified-extra
+    return re.search(r'(?<![A-Za-z0-9_-])' + re.escape(SOURCE_VERIFIED_ATTR)
+                     + r'(?![A-Za-z0-9_-])', open_tag_with_prefix) is not None
 
 
 def git_date(rel_path):
@@ -81,6 +102,8 @@ def sync_pages(check_only):
             continue
         if JS_PLACEHOLDER.search(m.group(0)):
             continue  # JS 动态填充，不要动
+        if has_source_verified(m.group(1)):
+            continue  # 来源核验日：真实日期，禁止按 git 提交日覆盖
         real = git_date(rel)
         if not real or real == m.group(2):
             continue
@@ -184,6 +207,8 @@ def sync_dynamic_spans(check_only):
         m = SPAN_RE.search(html)
         if not m or JS_PLACEHOLDER.search(m.group(0)):
             continue
+        if has_source_verified(m.group(1)):
+            continue  # 来源核验日页面，span 兜底值同样不许按 git 覆盖
         if "changelogUpdated" in m.group(1):
             real = changelog_latest()
         else:

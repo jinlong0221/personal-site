@@ -214,6 +214,12 @@ jobs:
       # 提示词规则靠 LLM 自觉遵守挡不住回潮，这里做成硬闸。
       # 判据：status ≤80 字 / 无分号拼接 / 无附加从句词 / 句号结尾；boxOffice 四字段
       # 无内部对账话术、单行。milestones/note/sources 不在其列（页面已隐藏，JSON 留底）。
+      # 彩票数据新鲜度守卫（2026-11-24）：第三方源停更期间，刷新任务天天把
+      # updated 刷成运行日、开奖号却停在 10 天前。守卫要求 updated=meta.last=
+      # 真实开奖日，距今不超 7 天，且全量历史排序/号码范围合法。
+      - name: Guard lottery data freshness
+        run: python3 scripts/guard_lottery_freshness.py
+
       - name: Guard marvel boxoffice display fields
         run: python3 scripts/guard_marvel_status.py
 

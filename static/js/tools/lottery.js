@@ -798,7 +798,7 @@
     card.appendChild(nums);
     var note = document.createElement('div');
     note.className = 'lx-latest-note';
-    note.textContent = '数据由每日定时任务自动更新 · 最近更新 ' + (data.updated || last.d);
+    note.textContent = '开奖后自动同步官方数据 · 数据截至 ' + (data.updated || last.d);
     card.appendChild(note);
     host.appendChild(card);
   }

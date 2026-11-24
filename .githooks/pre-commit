@@ -188,6 +188,16 @@ echo "[pre-commit] 检查来源核验日防覆盖标记..."
   exit 1
 }
 
+echo "[pre-commit] 检查彩票开奖数据新鲜度..."
+# 2026-11-24 事故：第三方源停更 10+ 天，但刷新任务每天把 updated 写成当天，
+# 页面显示「最近更新 今天」而开奖号是旧的——装饰性时间戳。守卫校验
+# updated=meta.last=真实开奖日、全量历史格式合法、距今天数不超阈值。
+"$PY3" scripts/guard_lottery_freshness.py -q >/dev/null 2>&1 || {
+  echo "❌ 彩票数据新鲜度守卫未通过："
+  "$PY3" scripts/guard_lottery_freshness.py
+  exit 1
+}
+
 echo "[pre-commit] 检查漫威票房展示字段清爽度..."
 # 2026-11-16 全站审计发现（上轮 11-13 修复回潮）：自动更新又把 movie.status
 # 从 67 字写成 119 字（塞进冲奥/重映从句），boxOffice.china 混进「猫眼分账口径差异、

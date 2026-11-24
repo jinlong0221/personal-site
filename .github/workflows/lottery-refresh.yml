@@ -13,7 +13,7 @@ name: 刷新彩票开奖数据并部署
 #   所以这里直接：更新数据 → commit/push main → hugo 构建 → 部署 gh-pages + 同步腾讯云 COS。
 #
 # 仅改 static/data/lottery/*.json（纯静态数据，不涉及 changelog 三副本 / CSP 等守卫关注的文件），
-# 故不跑全站守卫脚本，安全。
+# 故不跑全站守卫；但必须跑彩票专属的新鲜度守卫，防止官方源延迟公布时把假时间戳提交上线。
 
 on:
   schedule:
@@ -47,6 +47,12 @@ jobs:
 
       - name: 拉取最新开奖并打包
         run: python3 scripts/fetch_lottery_history.py
+
+      # 官方源也可能延迟公布。抓取脚本已自带「最新一期距今 >7 天拒绝写入」，
+      # 这里再对落盘结果复核一遍：updated / meta.last / draws[-1].d 必须等于
+      # 真实开奖日，防止把「今天」刷成假时间戳。
+      - name: 复核数据新鲜度（拒收假时间戳）
+        run: python3 scripts/guard_lottery_freshness.py
 
       - name: 仅在有变化时提交数据
         id: commit

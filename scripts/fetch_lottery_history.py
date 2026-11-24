@@ -1,29 +1,37 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-fetch_lottery_history.py — 抓取四种彩票全量历史开奖，打包成静态 JSON。
+fetch_lottery_history.py — 从官方源抓取四种彩票开奖，增量合并进静态 JSON。
 
-数据来源：api.huiniao.top 聚合接口（按福彩/体彩官网口径交叉校验的第三方源）。
-仅在本机运行，产物放进 static/data/lottery/，网站运行时不再联网。
+## 数据源（2026-11-24 重写）
+旧源 api.huiniao.top 是第三方聚合，2026-11 中旬起停更（双色球卡在 2026130
+期 / 11-12），导致网站数据陈旧 10+ 天、但 updated 却天天刷成当天——假时间戳。
+改用两家**官方**接口，且带数据新鲜度自检：
 
-彩种映射：
-  ssq  双色球   6 红(1-33) + 1 蓝(1-16)
-  dlt  大乐透   5 前区(1-35) + 2 后区(1-12)
-  fc3d 福彩3D   百位/十位/个位（各 0-9，独立）
-  pls  排列3    百位/十位/个位（各 0-9，独立）
+  - 福彩（双色球 ssq / 福彩3D 3d）：
+      https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice
+      参数 name=<ssq|3d>&issueCount=<N>
+  - 体彩（大乐透 gameNo=85 / 排列3 gameNo=35）：
+      https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry
+      参数 gameNo=<85|35>&pageSize=<N>&pageNo=1&isVerify=1
 
-输出结构（每个文件）：
-  {
-    "type": "ssq", "name": "双色球",
-    "updated": "YYYY-MM-DD",
-    "meta": {"draws": N, "first": "YYYY-MM-DD", "last": "YYYY-MM-DD"},
-    "groups": [ {"key":"r","label":"红球","lo":1,"hi":33,"cnt":6,"sample":true},
-                {"key":"b","label":"蓝球","lo":1,"hi":16,"cnt":1,"sample":true} ],
-    "draws": [ {"i":"2026126","d":"2026-11-03","r":[9,10,13,22,29,32],"b":[12]}, ... ]
-  }
-  福彩3D / 排列3 只有 r（三位），b 为空 []，groups 仅一组、sample=false、带 positions。
+## 合并策略
+保留本地已有全量历史（不推倒重建，避免历史数据差异），只拉官方最近 N 期：
+  - 官方有新期号 → 追加；
+  - 官方与本地同一期号号码不一致 → 以官方为准覆盖并打印警告（官方是一手源）；
+  - 号码越界/缺失 → 剔除该条，绝不写入脏数据或伪造。
+排序：按日期升序、同日按期号升序（与既有结构一致）。
+updated = meta.last = 真实最新开奖日（**不是运行当天**）——旧脚本无论有没有新开奖
+都把 updated 写成当天，导致访客看到「最近更新 今天」而实际数据停在两周前。
+数据源自身超过 7 天没出新期 → 报错退出，不写文件、不造时间戳。
+若无新增/修正 → 文件字节不变，工作流不会触发无意义部署。
+
+## 用法
+  python3 scripts/fetch_lottery_history.py            # 抓取并写回
+  python3 scripts/fetch_lottery_history.py ssq        # 只更新双色球
+  python3 scripts/fetch_lottery_history.py --check    # 只检查最新期，不写文件
 """
-
+import datetime
 import json
 import os
 import sys
@@ -31,49 +39,55 @@ import time
 import urllib.request
 import urllib.error
 
-API = "https://api.huiniao.top/interface/home/lotteryHistory"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 
-# 每种彩：api 类型 + 取数字段 + 范围配置
+# 官方接口
+CWL_API = "https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice"
+CWL_REF = "https://www.cwl.gov.cn/"
+SPORT_API = "https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry"
+SPORT_REF = "https://www.sporttery.cn/"
+
+# 每次拉最近多少期（覆盖日常 1-3 天漏抓 + 数据源延迟公布）
+RECENT = 40
+
+# 官方源超过这个天数没出新期，视为数据源异常：宁可不更新，也不写假时间戳
+MAX_LAG_DAYS = 7
+
 CONFIG = {
     "ssq": {
-        "api": "ssq", "name": "双色球",
+        "name": "双色球", "src": "cwl", "name_param": "ssq",
         "groups": [
             {"key": "r", "label": "红球", "lo": 1, "hi": 33, "cnt": 6, "sample": True},
             {"key": "b", "label": "蓝球", "lo": 1, "hi": 16, "cnt": 1, "sample": True},
         ],
-        "fields": {"r": ["one", "two", "three", "four", "five", "six"], "b": ["seven"]},
     },
     "dlt": {
-        "api": "dlt", "name": "大乐透",
+        "name": "大乐透", "src": "sport", "game_no": "85",
         "groups": [
             {"key": "r", "label": "前区", "lo": 1, "hi": 35, "cnt": 5, "sample": True},
             {"key": "b", "label": "后区", "lo": 1, "hi": 12, "cnt": 2, "sample": True},
         ],
-        "fields": {"r": ["one", "two", "three", "four", "five"], "b": ["six", "seven"]},
     },
     "fc3d": {
-        "api": "fcsd", "name": "福彩3D",
+        "name": "福彩3D", "src": "cwl", "name_param": "3d",
         "groups": [
             {"key": "r", "label": "开奖号", "lo": 0, "hi": 9, "cnt": 3, "sample": False,
              "positions": ["百", "十", "个"]},
         ],
-        "fields": {"r": ["one", "two", "three"], "b": []},
     },
     "pls": {
-        "api": "pls", "name": "排列3",
+        "name": "排列3", "src": "sport", "game_no": "35",
         "groups": [
             {"key": "r", "label": "开奖号", "lo": 0, "hi": 9, "cnt": 3, "sample": False,
              "positions": ["百", "十", "个"]},
         ],
-        "fields": {"r": ["one", "two", "three"], "b": []},
     },
 }
 
 
-def fetch_json(tid, page, limit=500):
-    url = "%s?type=%s&page=%d&limit=%d" % (API, tid, page, limit)
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
+def fetch_json(url, ref):
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Referer": ref,
+                                               "Accept": "application/json"})
     for attempt in range(3):
         try:
             with urllib.request.urlopen(req, timeout=30) as resp:
@@ -92,96 +106,156 @@ def to_int(v):
         return None
 
 
-def collect(tid):
-    # 用 limit=500 取首页，这样 totalPage 才是按 500/页 算出来的正确值
-    first = fetch_json(tid, 1, 500)
-    inner = first["data"]["data"]
-    total = int(inner.get("totalCount", 0) or 0)
-    total_page = int(inner.get("totalPage", 1) or 1)
-    print("  total=%d  pages=%d" % (total, total_page))
-
-    rows = []
-    for p in range(1, total_page + 1):
-        d = fetch_json(tid, p, 500)
-        if not d:
-            print("  ! 第 %d 页拉取失败，跳过" % p)
-            continue
-        lst = (d.get("data", {}).get("data", {}) or {}).get("list") or []
-        rows.extend(lst)
-        if p % 10 == 0 or p == total_page:
-            print("  已抓 %d/%d 页" % (p, total_page))
-        time.sleep(0.25)
-    return rows
-
-
-def build(tid):
-    cfg = CONFIG[tid]
-    raw = collect(cfg["api"])
-    draws = []
-    bad = 0
-    for row in raw:
+def fetch_cwl(name_param, recent):
+    """福彩官方：返回 [{i,d,r,b}, ...]（已归一）。"""
+    url = "%s?name=%s&issueCount=%d" % (CWL_API, name_param, recent)
+    d = fetch_json(url, CWL_REF)
+    if not d or d.get("state") != 0:
+        raise RuntimeError("福彩官方接口返回异常: %s" % str(d)[:200])
+    out = []
+    for row in (d.get("result") or []):
         issue = str(row.get("code", "")).strip()
-        day = str(row.get("day", "")).strip()
-        if not issue or not day:
-            bad += 1
+        day = str(row.get("date", ""))[:10].strip()
+        red = row.get("red") or ""
+        blue = row.get("blue") or ""
+        r = [to_int(x) for x in str(red).split(",") if x.strip()]
+        b = [to_int(x) for x in str(blue).split(",") if x.strip()] if blue else []
+        if not issue or not day or any(x is None for x in r):
             continue
-        g = {}
-        ok = True
-        for key, flds in cfg["fields"].items():
-            nums = []
-            for f in flds:
-                v = to_int(row.get(f))
-                if v is None:
-                    v = 0
-                nums.append(v)
-            g[key] = nums
-        g.setdefault("b", [])
-        # 范围校验：任一号码越界（如上游脏数据把单数字写成 71）则整条剔除，绝不伪造
-        for grp in cfg["groups"]:
-            arr = g.get(grp["key"]) or []
-            for n in arr:
-                if not (grp["lo"] <= n <= grp["hi"]):
-                    ok = False
-        if not ok:
-            bad += 1
+        if b and any(x is None for x in b):
             continue
-        draws.append({"i": issue, "d": day, "r": g["r"], "b": g["b"]})
-
-    # 按日期升序；同日按 issue 升序
-    draws.sort(key=lambda x: (x["d"], x["i"]))
-
-    out = {
-        "type": tid,
-        "name": cfg["name"],
-        "updated": time.strftime("%Y-%m-%d"),
-        "meta": {
-            "draws": len(draws),
-            "first": draws[0]["d"] if draws else "",
-            "last": draws[-1]["d"] if draws else "",
-            "skipped": bad,
-        },
-        "groups": cfg["groups"],
-        "draws": draws,
-    }
+        # 双色球红球按升序展示；福彩3D 的 red 是百/十/个位置，必须保序不能排序
+        reds = sorted(x for x in r if x is not None) if name_param == "ssq" \
+            else [x for x in r if x is not None]
+        blues = sorted(x for x in b if x is not None)
+        out.append({"i": issue, "d": day, "r": reds, "b": blues})
     return out
 
 
+def fetch_sport(game_no, recent):
+    """体彩官方：返回 [{i,d,r,b}, ...]（已归一）。"""
+    url = ("%s?gameNo=%s&provinceId=0&pageSize=%d&isVerify=1&pageNo=1"
+           % (SPORT_API, game_no, recent))
+    d = fetch_json(url, SPORT_REF)
+    if not d or not d.get("success"):
+        raise RuntimeError("体彩官方接口返回异常: %s" % str(d)[:200])
+    rows = ((d.get("value") or {}).get("list") or [])
+    out = []
+    for row in rows:
+        issue = str(row.get("lotteryDrawNum", "")).strip()
+        day = str(row.get("lotteryDrawTime", "")).strip()
+        nums = [to_int(x) for x in str(row.get("lotteryDrawResult", "")).split()]
+        if not issue or not day or any(x is None for x in nums):
+            continue
+        nums = [x for x in nums if x is not None]
+        # 排列3(game_no=35)：3 位顺序（百十个），不排序；大乐透：前 5 后 2
+        if game_no == "35":
+            r, b = nums[:3], []
+        else:
+            r, b = sorted(nums[:5]), sorted(nums[5:7])
+        out.append({"i": issue, "d": day, "r": r, "b": b})
+    return out
+
+
+def valid(draw, groups):
+    """范围校验：任一号码越界或数量不符即判脏。"""
+    for grp in groups:
+        arr = draw.get(grp["key"]) or []
+        if len(arr) != grp["cnt"]:
+            return False
+        for n in arr:
+            if not (grp["lo"] <= n <= grp["hi"]):
+                return False
+    return True
+
+
+def build(tid, check_only=False):
+    cfg = CONFIG[tid]
+    src = fetch_cwl(cfg["name_param"], RECENT) if cfg["src"] == "cwl" \
+        else fetch_sport(cfg["game_no"], RECENT)
+    src = [x for x in src if valid(x, cfg["groups"])]
+    if not src:
+        raise RuntimeError("%s 官方源没有拿到有效数据" % tid)
+
+    out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           "..", "static", "data", "lottery")
+    path = os.path.join(out_dir, tid + ".json")
+    local = json.load(open(path, encoding="utf-8"))
+    draws = local.get("draws", [])
+    by_issue = {x["i"]: x for x in draws}
+
+    added, corrected = 0, 0
+    for row in src:  # 官方按新→旧
+        if row["i"] in by_issue:
+            old = by_issue[row["i"]]
+            if old["r"] != row["r"] or old["b"] != row["b"] or old["d"] != row["d"]:
+                print("  ⚠️ 第 %s 期与官方不一致，以官方为准: %s -> %s"
+                      % (row["i"], old, row))
+                old.update(row)
+                corrected += 1
+        else:
+            by_issue[row["i"]] = row
+            added += 1
+
+    merged = sorted(by_issue.values(), key=lambda x: (x["d"], x["i"]))
+    latest = merged[-1]  # 按日期排序后的真实最新一期，不依赖接口返回顺序
+    lag = (datetime.date.today() - datetime.date.fromisoformat(latest["d"])).days
+    if lag > MAX_LAG_DAYS:
+        raise RuntimeError("官方最新一期 %s(%s) 距今 %d 天，超过 %d 天阈值；"
+                           "疑似数据源停更，拒绝写入假时间戳"
+                           % (latest["i"], latest["d"], lag, MAX_LAG_DAYS))
+    print("  %s: 官方最新 %s(%s) | 新增 %d 期 / 修正 %d 期 | 本地共 %d 期"
+          % (cfg["name"], latest["i"], latest["d"], added, corrected, len(merged)))
+
+    if check_only:
+        return {"tid": tid, "latest": latest, "added": added, "corrected": corrected,
+                "total": len(merged)}
+
+    result = {
+        "type": tid,
+        "name": cfg["name"],
+        "updated": latest["d"],  # 真实开奖日，绝不写运行当天
+        "meta": {
+            "draws": len(merged),
+            "first": merged[0]["d"] if merged else "",
+            "last": latest["d"],
+            "skipped": local.get("meta", {}).get("skipped", 0),
+        },
+        "groups": cfg["groups"],
+        "draws": merged,
+    }
+    payload = json.dumps(result, ensure_ascii=False, separators=(",", ":"))
+    old_text = open(path, encoding="utf-8").read().strip()
+    if old_text == payload:
+        print("  无新增/修正，文件保持不变（不刷假时间戳、不触发部署）")
+    else:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(payload)
+    return {"tid": tid, "latest": latest, "added": added, "corrected": corrected,
+            "total": len(merged)}
+
+
 def main():
-    out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "static", "data", "lottery")
-    os.makedirs(out_dir, exist_ok=True)
-    only = sys.argv[1:] or list(CONFIG.keys())
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    check_only = "--check" in sys.argv
+    only = args or list(CONFIG.keys())
+    bad = 0
     for tid in only:
         if tid not in CONFIG:
             print("未知彩种: %s" % tid)
+            bad += 1
             continue
         print("[%s] %s" % (tid, CONFIG[tid]["name"]))
-        data = build(tid)
-        path = os.path.join(out_dir, tid + ".json")
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
-        size = os.path.getsize(path)
-        print("  -> %s  (%d 期, %.1f KB)\n" % (path, data["meta"]["draws"], size / 1024))
+        try:
+            build(tid, check_only=check_only)
+        except Exception as e:
+            print("  ❌ 抓取失败: %s" % e)
+            bad += 1
+    if bad:
+        print("\n%d 个彩种抓取失败——保留原数据，不写入半成品。" % bad)
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

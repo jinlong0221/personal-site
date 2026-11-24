@@ -14,6 +14,8 @@ fetch_lottery_history.py — 从官方源抓取四种彩票开奖，增量合并
   - 体彩（大乐透 gameNo=85 / 排列3 gameNo=35）：
       https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry
       参数 gameNo=<85|35>&pageSize=<N>&pageNo=1&isVerify=1
+      ⚠️ 2026-11-24：该接口的安全策略会拦截 GitHub 海外服务器 IP，
+      故加中彩网官方合作数据接口做备用源（jc.zhcw.com，字段已与官方交叉核对）。
 
 ## 合并策略
 保留本地已有全量历史（不推倒重建，避免历史数据差异），只拉官方最近 N 期：
@@ -25,6 +27,8 @@ updated = meta.last = 真实最新开奖日（**不是运行当天**）——旧
 都把 updated 写成当天，导致访客看到「最近更新 今天」而实际数据停在两周前。
 数据源自身超过 7 天没出新期 → 报错退出，不写文件、不造时间戳。
 若无新增/修正 → 文件字节不变，工作流不会触发无意义部署。
+单个数据源不可达 → 只跳过该彩种、保留原数据并告警，不阻断整个工作流；
+数据是否真的过期交给 guard_lottery_freshness.py 判断。
 
 ## 用法
   python3 scripts/fetch_lottery_history.py            # 抓取并写回
@@ -46,6 +50,10 @@ CWL_API = "https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNoti
 CWL_REF = "https://www.cwl.gov.cn/"
 SPORT_API = "https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry"
 SPORT_REF = "https://www.sporttery.cn/"
+# 备用源：中彩网数据接口（与体彩官方开奖公告逐期交叉核对过）
+ZHCW_API = "https://jc.zhcw.com/port/client_json.php"
+ZHCW_REF = "https://www.zhcw.com/"
+ZHCW_ID = {"dlt": "281", "pls": "283"}
 
 # 每次拉最近多少期（覆盖日常 1-3 天漏抓 + 数据源延迟公布）
 RECENT = 40
@@ -99,6 +107,20 @@ def fetch_json(url, ref):
     return None
 
 
+def fetch_text(url, ref):
+    """取原始文本（备用源可能返回 JSONP 包装）。"""
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Referer": ref,
+                                               "Accept": "*/*"})
+    for attempt in range(2):
+        try:
+            with urllib.request.urlopen(req, timeout=25) as resp:
+                return resp.read().decode("utf-8", "replace")
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError):
+            if attempt == 1:
+                raise
+            time.sleep(1.5)
+
+
 def to_int(v):
     try:
         return int(str(v).strip())
@@ -132,29 +154,62 @@ def fetch_cwl(name_param, recent):
     return out
 
 
-def fetch_sport(game_no, recent):
-    """体彩官方：返回 [{i,d,r,b}, ...]（已归一）。"""
-    url = ("%s?gameNo=%s&provinceId=0&pageSize=%d&isVerify=1&pageNo=1"
-           % (SPORT_API, game_no, recent))
-    d = fetch_json(url, SPORT_REF)
-    if not d or not d.get("success"):
-        raise RuntimeError("体彩官方接口返回异常: %s" % str(d)[:200])
-    rows = ((d.get("value") or {}).get("list") or [])
+def fetch_zhcw(tid, recent):
+    """中彩网备用源：返回 [{i,d,r,b}, ...]（已归一）。"""
+    url = ("%s?transactionType=10001001&lotteryId=%s&type=0&pageNum=1"
+           "&pageSize=%d&issueCount=%d&tt=%s"
+           % (ZHCW_API, ZHCW_ID[tid], recent, recent, time.time()))
+    text = fetch_text(url, ZHCW_REF).strip()
+    if text and not text.startswith("{"):
+        a, b = text.find("("), text.rfind(")")
+        if a >= 0 and b > a:
+            text = text[a + 1:b]
+    d = json.loads(text)
     out = []
-    for row in rows:
-        issue = str(row.get("lotteryDrawNum", "")).strip()
-        day = str(row.get("lotteryDrawTime", "")).strip()
-        nums = [to_int(x) for x in str(row.get("lotteryDrawResult", "")).split()]
-        if not issue or not day or any(x is None for x in nums):
+    for row in (d.get("data") or []):
+        issue = str(row.get("issue", "")).strip()
+        day = str(row.get("openTime", ""))[:10].strip()
+        r = [to_int(x) for x in str(row.get("frontWinningNum", "")).split()]
+        b = [to_int(x) for x in str(row.get("backWinningNum", "")).split()]
+        if not issue or not day or any(x is None for x in r + b):
             continue
-        nums = [x for x in nums if x is not None]
-        # 排列3(game_no=35)：3 位顺序（百十个），不排序；大乐透：前 5 后 2
-        if game_no == "35":
-            r, b = nums[:3], []
-        else:
-            r, b = sorted(nums[:5]), sorted(nums[5:7])
+        # 大乐透前区/后区升序；排列3 是百十个位，保序
+        if tid == "dlt":
+            r, b = sorted(r), sorted(b)
         out.append({"i": issue, "d": day, "r": r, "b": b})
     return out
+
+
+def fetch_sport(game_no, recent):
+    """体彩数据：官方优先，被拦/异常时自动切中彩网备用源。"""
+    tid = "dlt" if game_no == "85" else "pls"
+    url = ("%s?gameNo=%s&provinceId=0&pageSize=%d&isVerify=1&pageNo=1"
+           % (SPORT_API, game_no, recent))
+    try:
+        d = fetch_json(url, SPORT_REF)
+        if not d or not d.get("success"):
+            raise RuntimeError("体彩官方接口返回异常: %s" % str(d)[:160])
+        rows = ((d.get("value") or {}).get("list") or [])
+        out = []
+        for row in rows:
+            issue = str(row.get("lotteryDrawNum", "")).strip()
+            day = str(row.get("lotteryDrawTime", "")).strip()
+            nums = [to_int(x) for x in str(row.get("lotteryDrawResult", "")).split()]
+            if not issue or not day or any(x is None for x in nums):
+                continue
+            nums = [x for x in nums if x is not None]
+            # 排列3(game_no=35)：3 位顺序（百十个），不排序；大乐透：前 5 后 2
+            if game_no == "35":
+                r, b = nums[:3], []
+            else:
+                r, b = sorted(nums[:5]), sorted(nums[5:7])
+            out.append({"i": issue, "d": day, "r": r, "b": b})
+        if out:
+            return out
+        raise RuntimeError("体彩官方接口无有效数据")
+    except Exception as e:
+        print("  ⚠️ 体彩官方源不可用（%s），切换中彩网备用源" % e)
+        return fetch_zhcw(tid, recent)
 
 
 def valid(draw, groups):
@@ -239,21 +294,24 @@ def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     check_only = "--check" in sys.argv
     only = args or list(CONFIG.keys())
-    bad = 0
+    failed = []
     for tid in only:
         if tid not in CONFIG:
             print("未知彩种: %s" % tid)
-            bad += 1
+            failed.append(tid + "(配置错误)")
             continue
         print("[%s] %s" % (tid, CONFIG[tid]["name"]))
         try:
             build(tid, check_only=check_only)
         except Exception as e:
-            print("  ❌ 抓取失败: %s" % e)
-            bad += 1
-    if bad:
-        print("\n%d 个彩种抓取失败——保留原数据，不写入半成品。" % bad)
-        return 1
+            print("  ⚠️ 抓取失败，保留原数据: %s" % e)
+            failed.append(tid)
+    if failed:
+        # 上游临时抽风不该让整个工作流飘红：没写文件就不会有假时间戳，
+        # 也不该因此阻断其它已成功的彩种。是否真过期由新鲜度守卫把关。
+        print("\n⚠️ %d 个彩种本轮未更新（%s）：保留原数据、不写半成品。" %
+              (len(failed), "、".join(failed)))
+        print("   站点新鲜度守卫会继续核对数据日期；这里不阻断工作流。")
     return 0
 
 

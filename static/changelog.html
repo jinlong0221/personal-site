@@ -343,6 +343,8 @@ var _hmt = _hmt || [];
       台风监测、新闻巡检这类自动化留痕按天折叠，不占版面。</p>
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-25">2026 年 11 月 25 日 · 周三</time></h4><details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×1</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 补漏巡检 01:55：补中药材板当日新稿（康美总指数11-25报1442.88点），其余11板无合格新稿或已是当天。</p></div></div></details>
+          </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-24">2026 年 11 月 24 日 · 周二</time><span class="cl-day-n">3 项改动</span></h4><div class="cl-item"><div class="cl-main"><p class="cl-head">🌍 海外动态追更 3 条（马斯克 2 + 黄仁勋 1）：黄仁勋获英伟达全票复职、股价涨31.48%；特斯拉与SpaceX五董事推进3.5万亿美元合并谈判；纽约时报曝马斯克承认SpaceX的AI研发落后、靠出租算力撑起逾半营收。updated 回写 2026-11-24。</p></div></div>
             <div class="cl-item"><div class="cl-main"><p class="cl-head">🎲 彩票刷新工作流防误报修复：体彩官方接口的安全策略会拦 GitHub 海外服务器，导致今晚定时任务在抓取步骤失败飘红（本地国内网络正常）。现给大乐透、排列3 加中彩网备用源，官方源被拦自动切换；两个源都不可用时只跳过该彩种、保留原数据并告警，不再让整个工作流失败，也不写假时间戳。数据是否真过期仍由新鲜度守卫判定。</p></div></div>
             <div class="cl-item"><div class="cl-main"><p class="cl-head">🎲 彩票板块换官方数据源并去掉假时间戳：旧第三方源 11 月中旬停更（双色球停在 2026130 期 / 11-12，另三种停在 11-14），刷新任务却每天把更新时间写成当天。</p><details class="cl-detail"><summary>展开全文</summary><div class="cl-body">现改用中国福彩网与体彩网官方接口，补齐双色球 4 期、大乐透 4 期、福彩3D 9 期、排列3 9 期；最新为双色球 2026134（11-22）、大乐透 26134（11-23）、福彩3D 2026313（11-23）、排列3 26313（11-23），开奖号已多源交叉核对。更新时间改为真实开奖日，官方源超 7 天不出号就拒写、无新开奖不刷日期；新增数据新鲜度守卫，接入提交前检查、部署检查、定时刷新和回归审计。</div></details></div></div>
@@ -426,14 +428,14 @@ var _hmt = _hmt || [];
         <!--CL:RECENT:END-->
     </div>
     <p class="cl-feed-foot">以上是最近一批改动。全部记录（含自动化运维明细）存档在站点的
-      <code>data/changelog.json</code>，共 <strong id="update-count">1696</strong> 条。</p>
+      <code>data/changelog.json</code>，共 <strong id="update-count">1697</strong> 条。</p>
   </section>
 
   <!-- 信息来源 -->
   <div class="page-meta">
     <div class="source"><a id="sources" class="src-anchor"></a>信息来源：本站 Git 提交记录与各板块数据文件</div>
     <p class="ref-note">本页内容为站点自身的改动台账，逐条来自实际提交，不是对外部事件的转述；记录中若提到外部数据（价格、销量、天气），均以当时提交里标注的原始来源为准。</p>
-    <div class="update-time">最后更新：<span id="changelogUpdated">2026-11-24</span><span id="clLastStamp" class="cl-upd-stamp"> 16:20</span></div>
+    <div class="update-time">最后更新：<span id="changelogUpdated">2026-11-25</span><span id="clLastStamp" class="cl-upd-stamp"></span></div>
   </div>
 </main>
 
@@ -478,7 +480,7 @@ var _hmt = _hmt || [];
     {
       "@type": "Article",
       "author": { "@type": "Person", "name": "龙兄" },
-      "dateModified": "2026-11-24",
+      "dateModified": "2026-11-25",
       "headline": "更新日志｜龙兄知识库",
       "url": "https://longxiong.vip/changelog.html",
       "description": "龙兄知识库更新日志，记录每次迭代与进化"

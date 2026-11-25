@@ -343,7 +343,7 @@ var _hmt = _hmt || [];
       台风监测、新闻巡检这类自动化留痕按天折叠，不占版面。</p>
     <div id="weeklyChangelog" class="cl-feed">
         <!--CL:RECENT:START-->
-        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-25">2026 年 11 月 25 日 · 周三</time></h4><details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×4</span><span class="cl-chip">台风 ×2</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 午班巡检（13板全覆盖）：实更6板（特斯拉·德州Cybercab 822辆、中药材·药通网黑胡椒回落快讯、漫威·X教授遗作致敬、特斯拉FSD·Counterpoint硬件代际报告、射阳·大兆瓦风电叶片中试平台入选工信部、ChinaJoy·日经全球游戏展横评）；刷新2板（台风14:00午班续报·寒潮末日综合中低、漫威票房14:00复核数值稳定）；…</p><p class="cl-ops-more">另有 3 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风高频巡检 16:44：多源复核无改变风险判断的新信息——全球航运气象速递11-25 00UTC「当前无活跃台风」(西北太平洋及南海、东北太平洋、北大西洋、北印度洋及南半球各海域均无活跃热带气旋)、中央气象台11-25 06时海洋天气公报(射阳外海黄海南部5-6级阵7西南风持续减弱、25日08时-26日08时，27日黄海中部6-7级阵8属forecast)、交通运输部11-25 14时近海预报(黄海南部西南风5-6级转4-5级)、…</p><p class="cl-ops-more">…（该条完整记录见数据文件）</p><p class="cl-ops-more">另有 1 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
+        <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-25">2026 年 11 月 25 日 · 周三</time></h4><details class="cl-ops"><summary><span class="cl-ops-t">自动化运维</span><span class="cl-chip">巡检 ×4</span><span class="cl-chip">台风 ×3</span><span class="cl-ops-hint">展开明细</span></summary><div class="cl-ops-body"><div class="cl-ops-grp"><div class="cl-ops-name">巡检</div><p class="cl-ops-row">🤖 午班巡检（13板全覆盖）：实更6板（特斯拉·德州Cybercab 822辆、中药材·药通网黑胡椒回落快讯、漫威·X教授遗作致敬、特斯拉FSD·Counterpoint硬件代际报告、射阳·大兆瓦风电叶片中试平台入选工信部、ChinaJoy·日经全球游戏展横评）；刷新2板（台风14:00午班续报·寒潮末日综合中低、漫威票房14:00复核数值稳定）；…</p><p class="cl-ops-more">另有 3 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div><div class="cl-ops-grp"><div class="cl-ops-name">台风</div><p class="cl-ops-row">🌀 台风高频巡检 19:50：上板两条经官方确认的预警状态新变化——① 盐城市气象台11-25 09:20正式解除寒潮蓝色预警信号(新浪财经/盐城发布/江苏射阳经济开发区公众号三源一致)，本轮寒潮对射阳影响基本结束，中国天气网盐城站11:30江苏预警0个、射阳13℃/5℃晴到多云、26日起回温18-20℃(forecast)，板载此前仍写「寒潮末日」未反映解除；…</p><p class="cl-ops-more">另有 2 条同类记录，完整明细见站点数据文件 data/changelog.json。</p></div></div></details>
           </section>
         <section class="cl-day"><h4 class="cl-day-hd"><time datetime="2026-11-24">2026 年 11 月 24 日 · 周二</time><span class="cl-day-n">3 项改动</span></h4><div class="cl-item"><div class="cl-main"><p class="cl-head">🌍 海外动态追更 3 条（马斯克 2 + 黄仁勋 1）：黄仁勋获英伟达全票复职、股价涨31.48%；特斯拉与SpaceX五董事推进3.5万亿美元合并谈判；纽约时报曝马斯克承认SpaceX的AI研发落后、靠出租算力撑起逾半营收。updated 回写 2026-11-24。</p></div></div>
             <div class="cl-item"><div class="cl-main"><p class="cl-head">🎲 彩票刷新工作流防误报修复：体彩官方接口的安全策略会拦 GitHub 海外服务器，导致今晚定时任务在抓取步骤失败飘红（本地国内网络正常）。现给大乐透、排列3 加中彩网备用源，官方源被拦自动切换；两个源都不可用时只跳过该彩种、保留原数据并告警，不再让整个工作流失败，也不写假时间戳。数据是否真过期仍由新鲜度守卫判定。</p></div></div>
@@ -428,7 +428,7 @@ var _hmt = _hmt || [];
         <!--CL:RECENT:END-->
     </div>
     <p class="cl-feed-foot">以上是最近一批改动。全部记录（含自动化运维明细）存档在站点的
-      <code>data/changelog.json</code>，共 <strong id="update-count">1702</strong> 条。</p>
+      <code>data/changelog.json</code>，共 <strong id="update-count">1703</strong> 条。</p>
   </section>
 
   <!-- 信息来源 -->

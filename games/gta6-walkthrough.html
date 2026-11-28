@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0, viewport-fit=cover">
+<!-- 安全加固①：内容安全策略（meta CSP；GitHub Pages 自定义域名无法下发响应头时的等效方案） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://hm.baidu.com https://events.vercount.one 'sha256-/DikL6yz7FYGu2kXzg4aHWw3/kO9X1AcIj6Vwsgu5tQ=' 'sha256-3UQrjKUfCrANKdrvbVG6EaLjhKBYxYcqJQ2uChGU8k0=' 'sha256-8xc/UWnSexMfznWXgJyxFw/O0lDey6VVfsGLOL6RDXw=' 'sha256-9LDlDfthM1sI6CfLSl5sHrc1GaqzlaCKQgcajmkm7+8=' 'sha256-BWj6map7R7qhKs1IZICDDBVcWrSaRQdsWHqvm+41iI4=' 'sha256-I0anH5XKl3QXbZPpmxobNWTOpEF2SfQrX7DzxkPvMxY=' 'sha256-JGZ5CCLsk51gDkaMyiqOS67+pFsamh9K8bscYd5vFG0=' 'sha256-KfDcq+rc62govxXDCXKSiBzY84b6t8UDc8ZgUgYcGNU=' 'sha256-M27vlAoqPtHj30x/q+xQvfBsC1e/oz7+zMMFL650hBo=' 'sha256-MZnUWpJEOEC2FMnFvypDIRpkQf5coyt+QMt9ufwViGw=' 'sha256-OtAU+26S7kxRO0LZNbXLolX8p/oWqcBT2fDGJIBP1bM=' 'sha256-P5Bo3Txg5t+xJHGXw9jOWsicxfpKfk/O4zShSXxhb6Q=' 'sha256-Ppa9I5drkgH0c2DerQ4yRwMKky/x+vARXUdpihljofQ=' 'sha256-R44Ze4fIJguAAxsHxCBN9fqHPuqnFPwAt6xRdOoLy3M=' 'sha256-ULxiW7hUsC9AZab5HMOvt70dIS+NkOdnNVkXGf6drdE=' 'sha256-WbyrH5iIs65CDEpk0WowLCIrJ5r3zLBkdiwx6JS2FwE=' 'sha256-WkU3nPWBtzer2N6WhvIIOUIS89AIYmd+bOyOT/tupQs=' 'sha256-WnSnLe/ypbLnKkJ2s+5ZbfAL4ucNmACLg3bVvdARmdA=' 'sha256-aykidqSFLbyOrkQWlaZGykHZ4jL9FjoAOcNEAkjV3Rk=' 'sha256-bH7/KuSy+oVYK0rf9ytDcHKWZmLCDC+KIA6Asbi13wQ=' 'sha256-cz9oMr2xvCPbpLBhnADgUiZuGXwZPwEs9IfJk4olNFA=' 'sha256-dhPB9UhOXpiaXomT3i7W+OCXnklCEXB1jQvAO7si8BU=' 'sha256-eLd9YE/1mD5364cMssZznFn/blGXyLNr9NunVD0zJ8g=' 'sha256-eQQzZqRkKiVvsb4TiE23ydtNwdD5w6HRK5xLVKFvKqo=' 'sha256-es95DyF9p7tgWfUGHU9dihlXMpricT9x6lriy7z7XpA=' 'sha256-fgbxeMXNwTIwmyU4rwm0ICp0F3wZNiqQTjnDtjUYjdU=' 'sha256-gcRLUPLnj2tX2XTx/Jf06k8eD4R+mISRLcQqsYs7zAk=' 'sha256-iXMLOGmGHQSkGaT73snBiefUokitqqZtWGoe9TZwyuA=' 'sha256-jolQ6nJtUHJfxtaOE9J7497X1UqnDXh/3DMTvyDBoVQ=' 'sha256-kUmXjSNBiOTjJm+P3jKwiyxvq36DbYDPDszHDltH5DM=' 'sha256-l1amj+P4qPBj8F11XnFvvmpZ8RTuQhnmxP5W6mSg6Io=' 'sha256-p+Zj+zsbhNmLYrM5AJyqRx+ROtr8hQmtLIhQ8eD45+4=' 'sha256-pg++50rO/0h3D/5bio4+1wda/QpYNUhsKFqmTHZyJEQ=' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U=' 'sha256-ydyMH0q10qHX5RxEQ/Ln0U7p7PAq5Ke4r/qgz5/CrHE=' 'sha256-yuBKcxGLFLC6v3AYilzgGXs8dVCyZ2DiGm9SeT/ynQ4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com https://avatars.githubusercontent.com https://*.githubusercontent.com https://hm.baidu.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.github.com https://events.vercount.one; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<!-- 安全加固②：Referrer 策略（同源泄露完整路径，跨域仅泄露源） -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 安全加固③：防 iframe 点击劫持。meta CSP 无 frame-ancestors，用脚本兜底 -->
+<script>
+(function(){
+  if(window.self !== window.top){
+    try{ window.top.location.href = window.self.location.href; }
+    catch(e){
+      document.documentElement.style.visibility='hidden';
+      document.addEventListener('DOMContentLoaded',function(){ document.documentElement.style.display='none'; });
+    }
+  }
+})();
+</script>
+
+<title>GTA6 全流程攻略 | 93个主线任务逐章通关指引｜龙兄知识库</title>
+<meta name="keywords" content="GTA6全流程攻略,侠盗猎车手6主线任务,93个任务,逐章通关,PS5,龙兄知识库">
+
+<meta name="description" content="GTA6全流程图文攻略：93个主线任务分5章逐章指引，开局必做、五大系统速成、关键任务手把手、存档避坑。Rockstar官方真实截图，玩家整理非官方，以游戏内为准。">
+
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}else{var m=window.matchMedia;if(m&&m('(prefers-color-scheme: light)').matches){document.documentElement.setAttribute('data-theme','light')}else if(m&&m('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark')}else{var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark')}}}catch(e){}})();</script>
+<!-- 预加载关键资源 -->
+<link rel="preload" href="../js/app.js" as="script">
+<link rel="preconnect" href="https://hm.baidu.com">
+<link rel="dns-prefetch" href="https://hm.baidu.com"><style id="critical-css">/* CRITICAL CSS - Above the fold */
+:root{--bg:#0f0f0f;--bg-secondary:#1a1a1a;--card:#1a1a1a;--card-hover:#222;--border:#2a2a2a;--border-light:#333;--text:#e0e0e0;--text-secondary:#a0a0a0;--text-muted:#707070;--gold:#c9a84c;--gold-light:#e0c97a;--blue-light:#4da6e8;--orange:#ff8c00;--nav-bg:rgba(10,10,10,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);--radius:8px;--radius-sm:4px;--max-width:1200px;--nav-height:56px;--transition:.25s ease;--bubble-bg:#3d2e1e;--bubble-text:#eee;--border-light-new:#333;--text-muted-new:#888;--bg-section:#1a1a2e}
+[data-theme="light"]{--bg:#f5f5f0;--bg-secondary:#eeeeea;--card:#fff;--card-hover:#f9f9f7;--border:#e0ddd5;--border-light:#d5d2ca;--text:#1a1a1a;--text-secondary:#444;--text-muted:#707070;--gold:#a68a3c;--gold-light:#c9a84c;--nav-bg:rgba(255,255,255,.96);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--bubble-bg:#FFF8F0;--bubble-text:#222;--border-light-new:#d5d2ca;--text-muted-new:#999;--bg-section:#f8f9fa}
+[data-theme="dark"]{--orange:#FFB380;--card:#1e1e1e;--card-hover:#2a2a2a;--border:#3a3a3a;--text:#e0e0e0;--text-secondary:#c0c0c0;--gold:#d4af37;--gold-light:#e0c97a;--nav-bg:rgba(10,10,10,.96);--bubble-bg:#3d2e1e;--bubble-text:#eee;--bg-section:#1a1a2e}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+html{font-size:16px;overflow-x:clip;scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:var(--nav-height);overflow-x:clip;transition:background var(--transition),color var(--transition);text-rendering:optimizeLegibility}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1}
+[data-theme="light"] body::before{background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);opacity:.3}
+a{color:var(--blue-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--gold)}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.28;color:var(--text);letter-spacing:.02em}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-height);transition:background var(--transition),border-color var(--transition)}
+.navbar-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.navbar .logo{font-weight:900;font-size:1.4rem;color:var(--gold);text-decoration:none;white-space:nowrap;letter-spacing:1px}
+.nav-weather{font-size:.9rem;font-weight:600;color:var(--text);white-space:nowrap;margin-left:8px;padding:2px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);transition:background var(--transition);user-select:none}
+.nav-links{display:flex;gap:12px;list-style:none;flex-wrap:nowrap}
+.nav-links a{color:var(--text-secondary);font-size:.88rem;padding:6px 2px;white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-more-wrap{position:relative}
+.nav-more-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:130px;background:var(--nav-bg);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:300;padding:6px 0}
+.nav-more-wrap.open .nav-more-dropdown{display:block}
+.nav-more-dropdown a{display:block;padding:8px 14px;color:var(--text-secondary);font-size:.82rem;white-space:nowrap;border-bottom:none!important}
+.nav-actions{display:flex;align-items:center;gap:4px}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:var(--radius-sm);transition:background var(--transition)}
+.icon-btn:hover{background:var(--card)}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:inline}
+[data-theme="dark"] .icon-sun{display:inline}
+[data-theme="dark"] .icon-moon{display:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;min-width:44px;min-height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:199;padding:12px 20px;flex-direction:column;gap:4px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;color:var(--text-secondary);font-size:1rem;padding:12px 16px;border-radius:var(--radius-sm);min-height:44px;white-space:nowrap}
+.news-ticker{background:var(--card);border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;height:44px;overflow:hidden;flex-shrink:0}
+.news-ticker .ticker-label{flex:0 0 auto;padding:0 16px;font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;background:rgba(201,168,76,.08)}
+.news-ticker .ticker-window{flex:1;overflow:hidden;height:100%;position:relative}
+.news-ticker .ticker-inner{display:flex;align-items:center;white-space:nowrap;will-change:transform;animation:tickerScroll 15s linear infinite}
+.news-ticker .ticker-item{flex:0 0 auto;padding:0 28px 0 0;font-size:.82rem;color:var(--text-secondary);text-decoration:none;white-space:nowrap;height:44px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;margin:16px 0 40px;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);background-size:200% 200%;animation:gradientMove 8s ease infinite;z-index:0}
+.hero-bg{position:absolute;inset:0;z-index:1}
+.hero-content{position:relative;z-index:1;color:#fff}
+
+.hero-subtitle{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-btn{display:inline-block;padding:12px 32px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:30px;color:#fff;text-decoration:none;font-size:1rem;backdrop-filter:blur(4px);transition:background .3s}
+.hero-btn:hover{background:rgba(255,255,255,.3)}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.fusion{padding:32px 0;margin:0 -20px;background:var(--bg-section)}
+.fusion-long{display:flex;justify-content:center;margin-bottom:24px}
+.fusion-long .long-bubble{background:var(--bubble-bg);border:1px solid var(--border-light-new);border-radius:16px;padding:16px 20px;max-width:480px;width:100%;color:var(--bubble-text)}
+.fusion-long .bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fusion-long .bubble-name{font-weight:700;font-size:.95rem;color:var(--orange)}
+.fusion-long .bubble-time{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-body{font-size:1rem;line-height:1.6;margin-bottom:8px;color:var(--bubble-text)}
+.fusion-long .bubble-footer{text-align:right}
+.fusion-long .bubble-date{font-size:.8rem;color:var(--text-muted-new)}
+.fusion-long .bubble-sep{margin:0 6px;color:var(--text-muted-new);opacity:.5}
+.fusion-long .contact-link{font-size:.8rem;color:var(--gold);text-decoration:none}
+footer{text-align:center;padding:48px 20px 32px;color:var(--text-muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:48px;background:linear-gradient(to bottom,var(--bg-secondary),var(--bg))}
+.footer-brand-row{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-info-row{font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:2}
+.footer-stats-row{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-links-row{margin-bottom:12px}
+.footer-links-row a{color:var(--text-muted);font-size:.78rem}
+.footer-legal{font-size:.72rem;color:var(--text-muted);opacity:.7;line-height:1.8}
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#000;padding:8px 16px;z-index:9999;border-radius:0 0 4px 0;font-size:.85rem;font-weight:700}
+.skip-link:focus{top:0}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-weather{font-size:.7rem;padding:1px 4px;margin:0}.navbar .logo{font-size:1.05rem}.icon-btn{min-width:36px;min-height:36px;padding:4px}.container{padding:0 16px}footer{padding:24px 16px}.hero{height:50vh}}
+@media(max-width:480px){html{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<link rel="stylesheet" href="../css/style.css?v=h5fac004e90fc" integrity="sha384-f+TFDG+GC4EBV6n+P/H3wzYAEnKyXkufl+rGrzogm6CEE1T8nc+st5+Z97IONMwN" crossorigin="anonymous">
+<style>
+:root{--gc:var(--card-hover);--ga:var(--card);--ge:var(--gold);--gn:var(--gold);--gs:#3FAE6A;--gbg:#12100C;--gcard:#191510;--gt:#EDE6D6;--gm:#948A76;--gb:#2E281E;--gbg2:#191510}
+[data-theme="light"]{--gbg:#F1EBDD;--gcard:#FBF7EE;--gt:#1E1A13;--gm:#69624F;--gb:#D8CDB4;--gbg2:#E9E1CE;}
+[data-theme="dark"]{--gbg:#12100C;--gcard:#191510;--gt:#EDE6D6;--gm:#948A76;--gb:#2E281E;--gbg2:#191510;}
+body{margin:0;background:var(--gbg);color:var(--gt);font-family:-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;min-height:100vh}
+.breadcrumb{max-width:1100px;margin:20px auto 0;padding:0 24px;font-size:0.85rem;color:var(--gm)}
+.breadcrumb a{color:var(--gm);text-decoration:none}
+.breadcrumb a:hover{color:var(--gt)}
+.breadcrumb span{color:var(--gm);margin:0 8px}
+.detail-hero{max-width:1100px;margin:20px auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:700px){.detail-hero{grid-template-columns:1fr;}}
+.detail-cover{border-radius:14px;overflow:hidden;box-shadow:0 8px 40px var(--card-shadow);cursor:zoom-in}
+.detail-cover img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.game-title-wrap h1{margin:0 0 14px;color:var(--text)}
+.game-title-wrap .en-title{font-size:1rem;color:var(--gm);font-weight:400;margin-bottom:16px;display:block}
+.game-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.badge{background:var(--gcard);border:1px solid var(--gb);color:var(--gm);padding:5px 14px;border-radius:8px;font-size:0.95rem}
+.badge.platform{background:var(--gold-soft);color:var(--gold);border:1px solid rgba(201,168,76,.35)}
+.badge.status-playing{background:#2ecc71;color:#fff;border:none}
+.badge.status-completed{background:#3498db;color:#fff;border:none}
+.badge.status-paused{background:#f39c12;color:#fff;border:none}
+.badge.status-dropped{background:#e74c3c;color:#fff;border:none}
+.info-table{width:100%;border-collapse:collapse;background:var(--gcard);border:1px solid var(--gb);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.info-table th,.info-table td{padding:11px 16px;text-align:left;border-bottom:1px solid var(--gb);font-size:0.98rem;word-break:break-word}
+.info-table th{background:var(--gc);color:var(--text);width:100px}
+.info-table tr:last-child td{border-bottom:none}
+.rating{display:flex;align-items:center;gap:8px;font-size:1.1rem}
+.stars{color:#f39c12;letter-spacing:2px}
+.detail-section{max-width:1100px;margin:0 auto;padding:0 24px 40px}
+.section-label{font-size:1.15rem;color:var(--gold);letter-spacing:2px;margin:28px 0 14px;font-weight:600;border-left:3px solid var(--gold);padding-left:12px}
+.desc-box{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:20px 24px;font-size:1.05rem;line-height:1.85;color:var(--gt)}
+.desc-box p{margin:0 0 12px;text-indent:2em}
+.desc-box p:last-child{margin-bottom:0}
+.screenshot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:8px}
+.screenshot-item{border-radius:10px;overflow:hidden;border:1px solid var(--gb);cursor:zoom-in}
+.screenshot-item img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;transition:transform 0.2s}
+.screenshot-item:hover img{transform:scale(1.03)}
+.gameplay-notes{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:20px 24px}
+.gameplay-notes h3{font-size:1.1rem;margin:0 0 14px;color:var(--gt)}
+.gameplay-notes ul{margin:0;padding-left:20px;color:var(--gt);line-height:2}
+.gameplay-notes li{margin-bottom:6px}
+.gameplay-notes li:last-child{margin-bottom:0}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+@media(max-width:600px){.pro-cons{grid-template-columns:1fr}.screenshot-grid{grid-template-columns:1fr}.detail-hero{grid-template-columns:minmax(0,1fr)}.detail-hero>*{min-width:0}.game-title-wrap .info-table{min-width:0}.table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}.info-table{min-width:480px;font-size:.92rem}.info-table th,.info-table td{padding:8px 12px}}
+.pros-box{background:#1db95415;border:1px solid #1db95440;border-radius:10px;padding:16px 20px}
+.cons-box{background:#e74c3c15;border:1px solid #e74c3c40;border-radius:10px;padding:16px 20px}
+.pros-box h4,.cons-box h4{font-size:1rem;margin:0 0 10px;font-weight:700}
+.pros-box h4{color:#1db954}
+.cons-box h4{color:#e74c3c}
+.pros-box ul,.cons-box ul{margin:0;padding-left:18px;line-height:1.9;font-size:0.98rem}
+@media(max-width:600px){.pro-cons{grid-template-columns:1fr}.detail-hero{grid-template-columns:minmax(0,1fr)}.detail-hero>*{min-width:0}.game-title-wrap .info-table{min-width:0}.table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}.info-table{min-width:480px;font-size:.92rem}.info-table th,.info-table td{padding:8px 12px}}
+/* ===== GTA6 详细攻略区（玩家整理，2026-11-23）===== */
+.gg-note{background:var(--gcard);border:1px solid var(--gb);border-left:3px solid var(--gold);border-radius:10px;padding:14px 18px;font-size:.96rem;line-height:1.85;color:var(--gt);margin-bottom:18px}
+.gg-block{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:18px 22px;margin-bottom:16px}
+.gg-h3{display:flex;align-items:center;gap:12px;font-size:1.08rem;margin:0 0 12px;color:var(--gt);font-weight:700;line-height:1.5}
+.gg-num{flex:0 0 auto;font-size:.82rem;font-weight:800;color:#1a1a1a;background:var(--gold);border-radius:6px;padding:3px 8px;letter-spacing:.5px}
+.gg-block p{margin:0 0 10px;font-size:1rem;line-height:1.9;color:var(--gt)}
+.gg-block p:last-child{margin-bottom:0}
+.gg-block ul{margin:0 0 4px;padding-left:20px;color:var(--gt);line-height:1.95;font-size:1rem}
+.gg-block li{margin-bottom:7px}
+.gg-block li:last-child{margin-bottom:0}
+.gg-block strong{color:var(--gold)}
+.gg-tip{background:var(--gc);border:1px dashed var(--gb);border-radius:8px;padding:10px 14px;font-size:.94rem!important;color:var(--gt)!important}
+.gg-block kbd{font-family:inherit;font-size:.84em;background:var(--gc);border:1px solid var(--gb);border-bottom-width:2px;border-radius:4px;padding:1px 6px;color:var(--gt);white-space:nowrap}
+/* 全结局解析：折叠剧透块 */
+.gg-spoiler{margin-top:4px;border:1px solid var(--gb);border-radius:10px;background:var(--gbg2);overflow:hidden}
+.gg-spoiler>summary{cursor:pointer;list-style:none;user-select:none;padding:14px 18px;font-weight:700;font-size:1.02rem;color:var(--gold);line-height:1.6;display:flex;align-items:center;gap:9px}
+.gg-spoiler>summary::-webkit-details-marker{display:none}
+.gg-spoiler>summary::before{content:"\25B8";font-size:1rem;flex:0 0 auto;transition:transform .2s}
+.gg-spoiler[open]>summary::before{transform:rotate(90deg)}
+.gg-spoiler>summary:hover{background:var(--gc)}
+.gg-spoiler-body{padding:2px 18px 18px;border-top:1px solid var(--gb)}
+.gg-sub{margin:18px 0 10px;font-size:1rem;font-weight:700;color:var(--gt);display:flex;align-items:center;gap:9px;line-height:1.5}
+.gg-sub::before{content:"";width:4px;height:16px;border-radius:2px;background:var(--gold);flex:0 0 auto}
+.gg-end{border:1px solid var(--gb);border-radius:9px;padding:13px 16px;margin-bottom:10px;background:var(--gcard)}
+.gg-end:last-child{margin-bottom:0}
+.gg-end h4{margin:0 0 7px;font-size:1rem;color:var(--gt);font-weight:700;line-height:1.55}
+.gg-end-id{display:inline-block;font-size:.76rem;font-weight:800;color:#1a1a1a;background:var(--gold);border-radius:5px;padding:2px 7px;margin-right:8px;letter-spacing:.5px;vertical-align:1px}
+.gg-end p{margin:0;font-size:.95rem;line-height:1.85;color:var(--gt)}
+.gg-end p+p{margin-top:7px}
+.gg-end p strong,.gg-spoiler-body li strong{color:var(--gold)}
+.gg-spoiler-body>ul{margin:0 0 4px;padding-left:20px;color:var(--gt);line-height:1.9;font-size:.96rem}
+.gg-spoiler-body>ul li{margin-bottom:6px}
+.gg-spoiler-body>ul li:last-child{margin-bottom:0}
+.gg-dispute{background:#e74c3c12;border:1px solid #e74c3c40;border-left:3px solid #e74c3c;border-radius:9px;padding:13px 16px;margin-top:16px}
+.gg-dispute p,.gg-dispute li{font-size:.92rem!important;color:var(--gt)!important;line-height:1.8!important}
+.gg-src{font-size:.82rem;color:var(--gm);margin:16px 0 0;line-height:1.75}
+.gg-shots{margin-top:22px}
+.gg-credit{font-size:.82rem;color:var(--text-muted);margin:10px 0 0;line-height:1.7}
+@media(max-width:600px){
+  .gg-note{padding:12px 14px;font-size:.92rem}
+  .gg-block{padding:15px 16px}
+  .gg-h3{font-size:1rem;gap:9px}
+  .gg-block p,.gg-block ul{font-size:.95rem;line-height:1.85}
+  .gg-tip{font-size:.9rem!important;padding:9px 11px}
+  .gg-spoiler>summary{padding:12px 14px;font-size:.94rem}
+  .gg-spoiler-body{padding:2px 14px 14px}
+  .gg-sub{font-size:.95rem;margin:16px 0 9px}
+  .gg-end{padding:11px 13px}
+  .gg-end h4{font-size:.94rem}
+  .gg-end p{font-size:.91rem;line-height:1.8}
+  .gg-spoiler-body>ul{font-size:.92rem}
+}
+
+/* ===== GTA6 全流程攻略专页（玩家整理，2026-11-23）===== */
+.wt-wrap{max-width:1100px;margin:0 auto;padding:0 24px 48px}
+.wt-hero{position:relative;border-radius:16px;overflow:hidden;margin:20px 0 8px;background:var(--gcard);border:1px solid var(--gb)}
+.wt-hero-img{width:100%;display:block;aspect-ratio:21/9;object-fit:cover}
+.wt-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.25) 45%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.wt-hero-kicker{font-size:.82rem;letter-spacing:3px;color:#F5DF9A;font-weight:800;margin-bottom:8px;text-shadow:0 1px 6px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.8)}
+.wt-hero-title{font-size:2rem;font-weight:900;color:#fff;margin:0 0 8px;line-height:1.3}
+.wt-hero-sub{font-size:1rem;color:rgba(255,255,255,.85);margin:0}
+.wt-meta{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.wt-meta span{background:var(--gcard);border:1px solid var(--gb);color:var(--gm);padding:5px 12px;border-radius:8px;font-size:.86rem}
+.wt-back{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:.92rem;text-decoration:none;margin:18px 0 0;padding:8px 0}
+.wt-back:hover{text-decoration:underline}
+.wt-toc{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:18px 22px;margin:20px 0}
+.wt-toc h2{font-size:1.05rem;color:var(--gold);margin:0 0 12px;letter-spacing:1px}
+.wt-toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+.wt-toc a{display:block;background:var(--gbg2);border:1px solid var(--gb);border-radius:8px;padding:10px 12px;color:var(--gt);font-size:.92rem;text-decoration:none;transition:border-color .2s}
+.wt-toc a:hover{border-color:var(--gold);color:var(--gold)}
+.wt-toc a b{color:var(--gold);margin-right:6px}
+.wt-notice{background:#e74c3c12;border:1px solid #e74c3c40;border-left:3px solid #e74c3c;border-radius:10px;padding:14px 18px;margin:18px 0;font-size:.95rem;line-height:1.85;color:var(--gt)}
+.wt-notice strong{color:#e74c3c}
+.wt-note{background:var(--gcard);border:1px solid var(--gb);border-left:3px solid var(--gold);border-radius:10px;padding:14px 18px;margin:16px 0;font-size:.95rem;line-height:1.85;color:var(--gt)}
+.wt-note strong{color:var(--gold)}
+.wt-h2{font-size:1.4rem;color:var(--gt);margin:38px 0 16px;padding:0 0 10px;border-bottom:2px solid var(--gb);font-weight:800;display:flex;align-items:center;gap:10px}
+.wt-h2 .wt-h2num{font-size:.9rem;color:#1a1a1a;background:var(--gold);border-radius:6px;padding:3px 9px;letter-spacing:.5px}
+.wt-h3{font-size:1.12rem;color:var(--gold);margin:24px 0 12px;font-weight:700}
+.wt-p{font-size:1rem;line-height:1.9;color:var(--gt);margin:0 0 12px}
+.wt-card{background:var(--gcard);border:1px solid var(--gb);border-radius:12px;padding:18px 22px;margin-bottom:16px}
+.wt-card h4{margin:0 0 10px;color:var(--gold);font-size:1.05rem;font-weight:700}
+.wt-steps{margin:0;padding-left:4px;list-style:none;counter-reset:wtstep}
+.wt-steps li{position:relative;padding:0 0 14px 44px;font-size:.98rem;line-height:1.85;color:var(--gt)}
+.wt-steps li:last-child{padding-bottom:0}
+.wt-steps li::before{counter-increment:wtstep;content:counter(wtstep);position:absolute;left:0;top:1px;width:28px;height:28px;background:var(--gold);color:#1a1a1a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800}
+.wt-steps strong{color:var(--gold)}
+.wt-key{background:var(--gc);border:1px solid var(--gb);border-bottom-width:2px;border-radius:4px;padding:1px 6px;font-size:.84em;color:var(--gt);white-space:nowrap}
+.wt-figure{margin:18px 0;border-radius:12px;overflow:hidden;border:1px solid var(--gb);background:var(--gcard)}
+.wt-figure .wt-figure-media{display:block;cursor:zoom-in}
+.wt-figure img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.wt-figure figcaption{font-size:.82rem;color:var(--gm);padding:10px 14px;line-height:1.7}
+.wt-figrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:18px 0}
+.wt-figrid .wt-figure{margin:0}
+.wt-chapter{background:var(--gcard);border:1px solid var(--gb);border-radius:14px;margin:22px 0;overflow:hidden}
+.wt-chapter-head{display:flex;align-items:flex-start;gap:16px;padding:20px 22px;background:linear-gradient(135deg,rgba(201,168,76,.12),transparent);border-bottom:1px solid var(--gb)}
+.wt-chapter-badge{flex:0 0 auto;width:52px;height:52px;border-radius:12px;background:var(--gold);color:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;line-height:1}
+.wt-chapter-badge small{font-size:.6rem;letter-spacing:1px;margin-bottom:2px}
+.wt-chapter-badge b{font-size:1.5rem}
+.wt-chapter-info h3{margin:0 0 6px;font-size:1.25rem;color:var(--gt);font-weight:800}
+.wt-chapter-info .wt-ch-en{font-size:.86rem;color:var(--gm);font-style:italic;margin-bottom:8px}
+.wt-chapter-info .wt-ch-meta{font-size:.85rem;color:var(--gm);display:flex;flex-wrap:wrap;gap:12px}
+.wt-chapter-info .wt-ch-meta b{color:var(--gold)}
+.wt-chapter-body{padding:20px 22px}
+.wt-missions{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:.92rem}
+.wt-missions th,.wt-missions td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--gb);vertical-align:top;line-height:1.6}
+.wt-missions th{color:var(--gold);font-size:.82rem;letter-spacing:.5px;border-bottom:2px solid var(--gb)}
+.wt-missions td{color:var(--gt)}
+.wt-missions td.wt-mno{color:var(--gm);width:34px;font-variant-numeric:tabular-nums}
+.wt-missions td.wt-men{color:var(--gm);font-size:.82rem;width:34%}
+.wt-missions tr:last-child td{border-bottom:none}
+.wt-missions strong{color:var(--gold)}
+.wt-det{background:var(--gbg2);border:1px solid var(--gb);border-radius:10px;margin:12px 0;overflow:hidden}
+.wt-det>summary{cursor:pointer;list-style:none;user-select:none;padding:12px 16px;font-weight:700;color:var(--gold);font-size:.98rem;display:flex;align-items:center;gap:9px;line-height:1.6}
+.wt-det>summary::-webkit-details-marker{display:none}
+.wt-det>summary::before{content:"\25B8";font-size:.9rem;flex:0 0 auto;transition:transform .2s}
+.wt-det[open]>summary::before{transform:rotate(90deg)}
+.wt-det>summary:hover{background:var(--gc)}
+.wt-det-inner{padding:2px 16px 16px;border-top:1px solid var(--gb)}
+.wt-tip{background:var(--gc);border:1px dashed var(--gb);border-radius:8px;padding:10px 14px;font-size:.92rem!important;color:var(--gt)!important;line-height:1.8!important;margin-top:12px}
+.wt-warn{background:#f39c1215;border:1px solid #f39c1240;border-left:3px solid #f39c12;border-radius:8px;padding:10px 14px;font-size:.92rem;line-height:1.8;color:var(--gt);margin:12px 0}
+.wt-warn strong{color:#f39c12}
+.wt-quote{display:block;color:var(--gold);text-decoration:none;font-size:.82rem}
+.wt-quote:hover{text-decoration:underline}
+.wt-src{font-size:.82rem;color:var(--gm);margin:16px 0 0;line-height:1.8}
+.wt-src a{color:var(--gm);text-decoration:underline}
+.wt-src a:hover{color:var(--gold)}
+.wt-divider{border:none;border-top:1px solid var(--gb);margin:32px 0}
+@media(max-width:700px){
+  .wt-wrap{padding:0 14px 40px}
+  .wt-hero-img{aspect-ratio:16/10}
+  .wt-hero-overlay{padding:18px}
+  .wt-hero-title{font-size:1.45rem}
+  .wt-hero-sub{font-size:.88rem}
+  .wt-toc{padding:14px}
+  .wt-h2{font-size:1.2rem}
+  .wt-card,.wt-chapter-head,.wt-chapter-body{padding:15px 16px}
+  .wt-chapter-badge{width:44px;height:44px}
+  .wt-chapter-badge b{font-size:1.2rem}
+  .wt-chapter-info h3{font-size:1.1rem}
+  .wt-steps li{padding-left:38px;font-size:.93rem}
+  .wt-missions{font-size:.84rem}
+  .wt-missions th,.wt-missions td{padding:8px 6px}
+  .wt-missions td.wt-men{width:auto;display:block;font-size:.76rem;color:var(--gm)}
+  .wt-figrid{grid-template-columns:1fr}
+}
+
+</style>
+<script defer src="https://events.vercount.one/js"></script>
+
+<link rel="canonical" href="https://longxiong.vip/games/gta6.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="GTA6 全流程攻略 | 93个主线任务逐章通关指引｜龙兄知识库">
+<meta property="og:description" content="侠盗猎车手 VI | 玩过的游戏2026实测避坑：实测溯源、实操图文、避坑指南。适合侠盗猎车手 VI | 玩过的游戏爱好者与从业者参考，掌握核心要点、规避常见误区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://longxiong.vip/games/gta6.html">
+<meta property="og:image" content="https://longxiong.vip/img/og-image.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GTA6 全流程攻略 | 93个主线任务逐章通关指引｜龙兄知识库">
+<meta name="twitter:description" content="侠盗猎车手 VI（Grand Theft Auto VI）公开资料整理：发售信息、平台、类型与官方美术图。">
+<meta name="twitter:image" content="https://longxiong.vip/img/og-image.png">
+
+<!-- PWA: 注册 Service Worker（离线阅读） -->
+<script src="/js/pwa-register.js?v=h84e8a4191694" defer integrity="sha384-Z/Y6YkaaUL5ZJeaMekuDqJsbk+VswOw2U4wk82I3lS0z0rPOzlQ4iXZdi+9zmjFP" crossorigin="anonymous"></script>
+</head>
+<body class="fab-safe">
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-inner">
+    <a href="../index.html" class="logo" aria-label="龙兄知识库首页">
+      <svg class="lx-seal lx-seal-sm" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+      <span>龙兄</span>
+    </a>
+    <a href="../calendar.html" class="nav-clock-link" id="navClockLink" title="点击查看万年历" aria-label="点击查看万年历"><span id="navClock" class="nav-clock" title="当前时间"></span></a>
+    <a href="../weather.html" class="nav-weather" id="navWeather" title="您所在城市的实时天气，点击查看" aria-label="实时天气">⛅ --°</a>
+    <ul class="nav-links">
+      <li><a href="../zisha.html">风物志</a></li>
+      <li><a href="../tesla.html">车与数码</a></li>
+      <li><a href="../console.html">游戏影游</a></li>
+      <li><a href="../tools.html">生活工具</a></li>
+      <li><a href="../about.html">关于我</a></li>
+      <li><a href="../ask.html">问龙兄</a></li>
+      <li class="nav-more-wrap">
+        <button type="button" class="nav-more-btn">更多 ▾</button>
+        <div class="nav-more-dropdown">
+          <span class="nav-more-hd">风物志</span>
+          <a href="../bracelet.html">文玩手串</a>
+          <a href="../zisha.html">紫砂艺术</a>
+          <span class="nav-more-hd">车与数码</span>
+          <a href="../tesla.html">特斯拉</a>
+          <a href="../apple.html">苹果</a>
+          <a href="../ev-sales.html">新能源销量榜</a>
+          <a href="../ev-charge.html">充电桩查询</a>
+          <a href="../digital-compare.html">数码参数对比</a>
+          <span class="nav-more-hd">科技动态</span>
+          <a href="../global.html">科技动态</a>
+          <span class="nav-more-hd">游戏影游</span>
+          <a href="../console.html">主机图鉴</a>
+          <a href="../games.html">玩过的游戏</a>
+          <a href="../chinajoy.html">ChinaJoy 成长史</a>
+          <a href="../marvel.html">漫威宇宙</a>
+          <span class="nav-more-hd">生活工具</span>
+          <a href="../tools.html">工具箱</a>
+          <a href="../calendar.html">万年历</a>
+          <a href="../tags.html">标签聚合</a>
+          <a href="../bookmarks.html">我的收藏</a>
+          <span class="nav-more-hd">关于我</span>
+          <a href="../notes.html">站长手记</a>
+          <a href="../reading.html">读书笔记</a>
+          <a href="../methodology.html">知识管理</a>
+          <a href="../about.html">关于本站</a>
+          <a href="../ask.html">问龙兄</a>
+          <span class="nav-more-hd">站务</span>
+          <a href="../changelog.html">更新日志</a>
+          <a href="../status-history.html">站点状态</a>
+          <a href="../pitfalls.html">踩坑记</a>
+          <a href="../rss.xml">RSS 订阅</a>
+          <span class="nav-more-hd">生活</span>
+          <a href="../guanghui.html">光辉电力</a>
+          <a href="../herbs.html">中药材</a>
+          <a href="../health-tea.html">养生茶</a>
+          <a href="../weather.html">天气</a>
+          <a href="../sheyang-weather.html">射阳气象</a>
+          <a href="../gaokao.html">高考</a>
+          <span class="nav-more-div"></span>
+          <a href="../travel.html">家庭旅行</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索" title="搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" x2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y2="4.9"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" aria-label="分享" title="分享到微信">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">首页</a>
+  <span class="nav-hd">风物志</span>
+  <a href="../bracelet.html">文玩手串</a>
+  <a href="../zisha.html">紫砂艺术</a>
+  <span class="nav-hd">车与数码</span>
+  <a href="../tesla.html">特斯拉</a>
+  <a href="../apple.html">苹果</a>
+  <a href="../ev-sales.html">新能源销量榜</a>
+  <a href="../ev-charge.html">充电桩查询</a>
+  <a href="../digital-compare.html">数码参数对比</a>
+  <span class="nav-hd">科技动态</span>
+  <a href="../global.html">科技动态</a>
+  <span class="nav-hd">游戏影游</span>
+  <a href="../console.html">主机图鉴</a>
+  <a href="../games.html">玩过的游戏</a>
+  <a href="../chinajoy.html">ChinaJoy 成长史</a>
+  <a href="../marvel.html">漫威宇宙</a>
+  <span class="nav-hd">生活工具</span>
+  <a href="../tools.html">工具箱</a>
+  <a href="../calendar.html">万年历</a>
+  <a href="../tags.html">标签聚合</a>
+  <a href="../bookmarks.html">我的收藏</a>
+  <span class="nav-hd">关于我</span>
+  <a href="../notes.html">站长手记</a>
+  <a href="../reading.html">读书笔记</a>
+  <a href="../methodology.html">知识管理</a>
+  <a href="../about.html">关于本站</a>
+  <a href="../ask.html">问龙兄</a>
+  <span class="nav-hd">站务</span>
+  <a href="../changelog.html">更新日志</a>
+  <a href="../status-history.html">站点状态</a>
+  <a href="../pitfalls.html">踩坑记</a>
+  <a href="../rss.xml">RSS 订阅</a>
+  <span class="nav-hd">生活</span>
+  <a href="../guanghui.html">光辉电力</a>
+  <a href="../herbs.html">中药材</a>
+  <a href="../health-tea.html">养生茶</a>
+  <a href="../weather.html">天气</a>
+  <a href="../sheyang-weather.html">射阳气象</a>
+  <a href="../gaokao.html">高考</a>
+  <span class="nav-hd-div"></span>
+  <a href="../travel.html">家庭旅行</a>
+  </div>
+</nav>
+
+  <div class="breadcrumb" id="breadcrumb" role="navigation" aria-label="面包屑导航"><a href="../index.html">首页</a><span class="sep">›</span><span class="crumb-cat">游戏影游</span><span class="sep">›</span><a href="../games.html">玩过的游戏</a><span class="sep">›</span><a href="gta6.html">侠盗猎车手 VI</a><span class="sep">›</span><span class="current">全流程攻略</span></div>
+
+<div class="wt-wrap">
+
+  <div class="wt-hero">
+    <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-keys@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-keys@768w.webp">
+<img class="wt-hero-img" src="../img/games/gta6-shot-keys.webp" alt="GTA6  Leonida 群岛海岸与水上飞机（PS5 官方实机截图）" data-rsp="1">
+</picture>
+    <div class="wt-hero-overlay">
+      <div class="wt-hero-kicker">GTA VI · 全流程攻略</div>
+      <h1 class="wt-hero-title">从序章到通关，一章一章带你走</h1>
+<div class="bm-bar"><button class="bm-btn" type="button" data-bm-btn aria-pressed="false" title="收藏这篇文章（本地保存，无需登录）"><svg class="bm-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="bm-label">收藏</span></button></div>
+      <p class="wt-hero-sub">93 个主线任务 · 5 大章节 · 关键任务逐步手把手</p>
+    </div>
+  </div>
+
+  <div class="wt-meta">
+    <span>🎮 PS5 / PS5 Pro</span>
+    <span>⏱️ 主线约 50-65 小时</span>
+    <span>📖 93 个主线任务</span>
+    <span>🗓️ 整理于 2026-11-23</span>
+  </div>
+
+  <a class="wt-back" href="gta6.html">← 返回 GTA6 游戏介绍与全结局解析</a>
+
+  <div class="wt-notice">
+    <strong>⚠️ 先看这条：</strong>本攻略是<strong>玩家整理的通关指引</strong>，依据发售初期 Polygon、GameSpot、GamesRadar、GTA6DATA 等多家攻略站交叉核对整理，<strong>非 Rockstar 官方内容</strong>。任务顺序可能因玩法略有不同，具体数值、提示与画面<strong>以游戏内实际表现为准</strong>。下文含<strong>剧情与结局剧透</strong>，想体验原汁原味剧情的，建议边玩边查对应章节。
+  </div>
+
+  <nav class="wt-toc" aria-label="攻略目录">
+    <h2>📑 目录（点击跳转）</h2>
+    <div class="wt-toc-grid">
+      <a href="#start"><b>01</b>开局必做 8 件事</a>
+      <a href="#systems"><b>02</b>五大系统速成</a>
+      <a href="#ch1"><b>03</b>第一章 · 天堂般的地方</a>
+      <a href="#ch2"><b>04</b>第二章 · 失落的天堂</a>
+      <a href="#ch3"><b>05</b>第三章 · 罪恶都市</a>
+      <a href="#ch4"><b>06</b>第四章 · 罪恶都市宝贝</a>
+      <a href="#ch5"><b>07</b>第五章 · 世界之巅</a>
+      <a href="#saves"><b>08</b>存档避坑与通关后</a>
+    </div>
+  </nav>
+
+  <figure class="wt-figure" data-lightbox data-caption="Leonida 群岛海岸（PS5 官方实机截图）">
+    <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-keys@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-keys@768w.webp">
+<img src="../img/games/gta6-shot-keys.webp" alt="GTA6 Leonida 群岛海岸与水上飞机" loading="lazy" decoding="async" data-rsp="1">
+</picture>
+    <figcaption>▲ Leonida 群岛（Leonida Keys）——第一章大部分流程发生的地方。画面为 Rockstar 官方 PS5 实机截图，版权归原权利方所有。</figcaption>
+  </figure>
+
+  <h2 class="wt-h2" id="start"><span class="wt-h2num">01</span>开局必做 8 件事</h2>
+  <p class="wt-p">刚进游戏别急着满地图乱跑。把这 8 件事养成习惯，后面能少吃很多亏——尤其是<strong>藏钱</strong>和<strong>存档</strong>两条，很多人前期不知道，吃了大亏。</p>
+  <div class="wt-card">
+    <ol class="wt-steps">
+      <li><strong>序章后立刻手动存档</strong>：序章剧情长且不能跳过。第一次到 Jason 家就手动存一份，以后想重开有落脚点。</li>
+      <li><strong>现金藏 Jason 卧室地板下</strong>：银行要等主线「Buck Me」才解锁。在此之前，被抓或死亡会掉身上的钱，地板下的藏匿点最安全。</li>
+      <li><strong>修好 Jason 的房子再去接 Lucia</strong>：补墙、修楼梯、修屋顶、修阳台栏杆。这些是可选的，但会影响两人关系——去监狱接她之前做完。</li>
+      <li><strong>记得去门口邮箱取钱</strong>：前期任务报酬发现金，会送到 Jason 家门口的邮箱，做完任务顺手去拿，再存进地板下。</li>
+      <li><strong>车后备箱放一套备用衣服</strong>：警察会记住你的外貌和穿搭。被追时用后备箱换整套衣服，比帽子墨镜管用得多，能更快甩掉通缉。</li>
+      <li><strong>早点摸熟手机</strong>：按方向键上打开。WAiNK 能扫描车辆有没有追踪器；BuckMe 是银行；通讯录里有修车师傅。睡觉跳过夜晚也靠家里的床。</li>
+      <li><strong>三大属性尽早练</strong>：力量（生命上限）、有氧（耐力）、专注（子弹时间）。本章有免费器械，具体见下一节。</li>
+      <li><strong>别乱花起始资金</strong>：主线有些任务要你凑几千美元（比如存钱、买花），把钱花光会卡进度。奢侈品往后放。</li>
+    </ol>
+  </div>
+  <p class="wt-note">💡 <strong>补充</strong>：开车先在普通路线练加速、刹车、转弯、停车，别一上来拿路沿当跳台。燃油车要去加油站、电动车要充电，长途前先补能。</p>
+
+  <h2 class="wt-h2" id="systems"><span class="wt-h2num">02</span>五大系统速成</h2>
+
+  <div class="wt-figrid">
+    <figure class="wt-figure" data-lightbox data-caption="山地越野（PS5 官方实机截图）">
+      <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-mountain@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-mountain@768w.webp">
+<img src="../img/games/gta6-shot-mountain.webp" alt="GTA6 山地越野骑行" loading="lazy" decoding="async" data-rsp="1">
+</picture>
+      <figcaption>▲ 载具与属性：尽早搞一辆可靠的车。</figcaption>
+    </figure>
+    <figure class="wt-figure" data-lightbox data-caption="Grassrivers 沼泽（PS5 官方实机截图）">
+      <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-grassrivers@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-grassrivers@768w.webp">
+<img src="../img/games/gta6-shot-grassrivers.webp" alt="GTA6 Grassrivers 沼泽区" loading="lazy" decoding="async" data-rsp="1">
+</picture>
+      <figcaption>▲ 沼泽区：装备差时别乱闯，容易被围攻。</figcaption>
+    </figure>
+  </div>
+
+  <div class="wt-card">
+    <h4>① 双主角切换</h4>
+    <p class="wt-p">第一章主要操控 Jason。<strong>推进到第二章、完成任务「Coffee Break（咖啡时间）」后</strong>，开放世界按住 <span class="wt-key">方向键右</span>+<span class="wt-key">R1/RB</span> 即可在 Jason 与 Lucia 间自由切换；按 <span class="wt-key">△/Y</span> 可呼叫搭档会合、一起做任务提升好感。</p>
+  </div>
+  <div class="wt-card">
+    <h4>② 三大属性</h4>
+    <ul class="wt-steps" style="list-style:none">
+      <li><strong>力量（生命上限）</strong>：Jason 家露台有免费举重器材，在家就能练。</li>
+      <li><strong>有氧（耐力）</strong>：跑步、骑车、游泳、健身房跑步机。力量和有氧<strong>不练会慢慢退化</strong>，要隔几天练一次。</li>
+      <li><strong>专注（Focus）</strong>：手柄同时按 <span class="wt-key">L3</span>+<span class="wt-key">R3</span> 开专注模式，枪战/潜入时高亮敌人与物资、瞄准时放慢时间。钓鱼、打台球也能提升，<strong>练满后永久保留</strong>。</li>
+    </ul>
+    <p class="wt-note">💡 锻炼要<strong>做完当前一组再退出</strong>，否则收益清零；练完喝蛋白昔/吃蛋白棒加速恢复。想快速刷专注：盖尔霍恩港东北角罗杰斯牧场射击场，花 $5 买通行证，反复刷市场靶场初级挑战，每次约 5 秒。</p>
+  </div>
+  <div class="wt-card">
+    <h4>③ 通缉与犯罪档案</h4>
+    <p class="wt-p">GTA6 回归 6 星通缉，但机制大改——<strong>不是开出通缉圈就安全</strong>。警察会记录你的外貌、穿搭、座驾与武器，通过目击者和街边监控追踪。换衣服、换车、把赃车重新喷漆，比硬逃有效；偷来的车可能带 GPS，别长时间开。</p>
+    <p class="wt-p"><strong>犯罪档案（Criminal Profile）</strong>：两人分开计算，记录你作案是专业还是过度暴力。干净、低伤亡的任务压低它，乱开枪会抬高。它会影响 NPC 与警察的反应强度、剧情事件，<strong>甚至结局</strong>（见游戏介绍页的全结局解析）。</p>
+  </div>
+  <div class="wt-card">
+    <h4>④ 销赃赚钱</h4>
+    <p class="wt-p">搜刮到的赃物装进随身背包或车后备箱，开车到地图上的<strong>绿色黑市图标</strong>，投进指定容器变现。不同黑市商人对药品、珠宝、带标记钞票的收购价不同，悬停图标先看价再卖。第二章做「Moses」后，用手机 WAiNK 扫描车辆确认无追踪器，再开去给摩西交货。三人同行时还能让搭档自动开车去销赃。</p>
+  </div>
+  <div class="wt-card">
+    <h4>⑤ 存档</h4>
+    <p class="wt-p">本作<strong>没有任务回放</strong>，只有 <strong>15 个手动存档位</strong>+1 个自动存档位。自动存档一般在主线任务、大型支线、大额消费、死亡/被捕后触发，<strong>不是定时、也不会在任务中途</strong>。养成习惯：每章开头、大型抢劫前、关键抉择前，各手动存一份。想体验不同结局，就靠这些存档分流。</p>
+  </div>
+
+  <hr class="wt-divider">
+
+  <!-- ============ 第一章 ============ -->
+  <section class="wt-chapter" id="ch1">
+    <div class="wt-chapter-head">
+      <div class="wt-chapter-badge"><small>CH</small><b>1</b></div>
+      <div class="wt-chapter-info">
+        <h3>第一章 · 天堂般的地方</h3>
+        <div class="wt-ch-en">Just Like Paradise</div>
+        <div class="wt-ch-meta"><span>📍 Leonida Keys / 盖尔霍恩港</span><span>🎯 <b>22</b> 个任务</span><span>⏱️ 约 8-10 小时</span></div>
+      </div>
+    </div>
+    <div class="wt-chapter-body">
+      <p class="wt-p">开篇铺人物和地图：Jason、Cal、Brian 一伙在群岛讨生活，中间去监狱接 Lucia。这章的重点是<strong>熟悉驾驶、射击、通缉和存钱</strong>，同时把 Jason 的家修好。</p>
+
+      <figure class="wt-figure" data-lightbox data-caption="草河沼泽区（PS5 官方实机截图）">
+        <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-grassrivers@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-grassrivers@768w.webp">
+<img src="../img/games/gta6-shot-grassrivers.webp" alt="GTA6 草河沼泽区的两人" loading="lazy" decoding="async" data-rsp="1">
+</picture>
+        <figcaption>▲ 草河（Grassrivers）沼泽区——本章「Swamped」等任务的活动范围。Rockstar 官方 PS5 实机截图。</figcaption>
+      </figure>
+
+      <h3 class="wt-h3">全章任务清单（22 个）</h3>
+      <table class="wt-missions">
+        <thead><tr><th>#</th><th>任务（中文 / 英文）</th><th>要点</th></tr></thead>
+        <tbody>
+          <tr><td class="wt-mno">序</td><td class="wt-men">序章 / Prologue</td><td>开场剧情，跟随守卫、露西亚闪回。看完立刻存档。</td></tr>
+          <tr><td class="wt-mno">01</td><td class="wt-men">钓鱼去 / Gone Fishing</td><td>跟飞机找包裹，去营地救 Donnie。（下方有手把手）</td></tr>
+          <tr><td class="wt-mno">02</td><td class="wt-men">整备 / Gear Up</td><td>准备装备，熟悉武器与物品轮盘。</td></tr>
+          <tr><td class="wt-mno">03</td><td class="wt-men">只是擦伤 / Just a Scratch</td><td>处理伤口，学习治疗操作。</td></tr>
+          <tr><td class="wt-mno">04</td><td class="wt-men">实验室费用 / Lab Fees</td><td>穿过精品店，把包送到 Brian 的储物柜。</td></tr>
+          <tr><td class="wt-mno">05</td><td class="wt-men">多余的关注 / Unwanted Attention</td><td>追回凤凰跑车并甩掉通缉。</td></tr>
+          <tr><td class="wt-mno">06</td><td class="wt-men">管道工程 / Pipework</td><td>找 Mandy、修水槽（找皮搋子和扳手）。</td></tr>
+          <tr><td class="wt-mno">07</td><td class="wt-men">嘿，阿诺德！/ Hey Arnold!</td><td>雷达站、大桥追逐，注意<code>“放过”</code>选项。</td></tr>
+          <tr><td class="wt-mno">08</td><td class="wt-men">岛屿之梦 / Island Dreams</td><td>找金币，把 Dobbs 送回船上。</td></tr>
+          <tr><td class="wt-mno">09</td><td class="wt-men">风水 / Feng Shui</td><td>和 Cal 搬家具（双扳机抬电视/沙发）。</td></tr>
+          <tr><td class="wt-mno">10</td><td class="wt-men">回家 / Coming Home</td><td>去监狱接 Lucia，回 Rusty Anchor。（关键节点）</td></tr>
+          <tr><td class="wt-mno">11</td><td class="wt-men">撞我 / Buck Me</td><td>两人去银行，<strong>解锁家庭储蓄账户</strong>——从此钱更安全。</td></tr>
+          <tr><td class="wt-mno">12</td><td class="wt-men">替唐尼善后 / Clean Up After Donnie</td><td>去草河取包裹、清理拖车。</td></tr>
+          <tr><td class="wt-mno">13</td><td class="wt-men">脚踏实地 / Down to Earth</td><td>开水上飞机空投、藏包。</td></tr>
+          <tr><td class="wt-mno">14</td><td class="wt-men">晴空 / Clear Skies</td><td>护送 Pilot Pete，第二个机场找 Donnie。</td></tr>
+          <tr><td class="wt-mno">15</td><td class="wt-men">白天出狱 / Day Release</td><td>找乘客名单，跟车队到 NINE1NINE。</td></tr>
+          <tr><td class="wt-mno">16</td><td class="wt-men">沼泽困局 / Swamped</td><td>沼泽追击，救 Lori。</td></tr>
+          <tr><td class="wt-mno">17</td><td class="wt-men">唐走了 / Don Gone</td><td>找包，完成拖车清理。</td></tr>
+          <tr><td class="wt-mno">18</td><td class="wt-men">重新校准 / Recalibration</td><td>和 Cal 钓鱼、烤鱼、回家。</td></tr>
+          <tr><td class="wt-mno">19</td><td class="wt-men">游客陷阱 / Tourist Trap</td><td>找 17 号储物柜，到 Cal 的码头。⚠️ 见下方存档警告</td></tr>
+          <tr><td class="wt-mno">20</td><td class="wt-men">甜蜜的家 / Home Sweet Home</td><td>见 Andy，前往罪恶都市医院。</td></tr>
+          <tr><td class="wt-mno">21</td><td class="wt-men">放电时间 / Discharge Time</td><td>203 房间、救护车逃脱，本章结束。</td></tr>
+        </tbody>
+      </table>
+
+      <div class="wt-warn">
+        <strong>⚠️ 第一章最大坑：终点前三连任务锁死。</strong>「Tourist Trap（游客陷阱）」一旦开始，会连续接「Home Sweet Home」和「Discharge Time」，中途<strong>不能自由探索</strong>，直到第二章才开始。<strong>开始前务必手动存档</strong>，并且把想做的支线、想练的属性都做完。
+      </div>
+
+      <details class="wt-det">
+        <summary>🎯 手把手：01 钓鱼去（Gone Fishing）· 第一章首个任务</summary>
+        <div class="wt-det-inner">
+          <ol class="wt-steps">
+            <li><strong>跟飞机找包裹</strong>：开船跟着粉色标记。看不清掉落物时按 <span class="wt-key">L3+R3</span> 开专注。靠近时 Cal 会喊减速，慢下来让他用钩子捞包裹。</li>
+            <li><strong>观察码头、驶向 Sunrise 房车公园</strong>：粉色路线带你进狭窄水道，右手是石岸、左手水里有个白牌子。用望远镜找码头上方<code>“Welcome to Paradise”</code>的牌子。</li>
+            <li><strong>搜营地找小屋</strong>：沿粉色区域穿过铁丝网和大白罐。<strong>目标会变成<code>“想办法进入小屋”</code></strong>——绕到侧面那扇钉着木板、旁边有藤蔓的浅色门进。</li>
+            <li><strong>解开 Donnie、拿 Zombix</strong>：Donnie 在屋内右后方架子旁的地上，靠近按 <span class="wt-key">△</span> 解开；再按提示捡起发光玻璃缸旁的 Zombix。<strong>出门前先按住 L1 + □ 治疗</strong>。路上红白拖车旁还能捡到 W-22 步枪。</li>
+            <li><strong>上水上飞机逃离</strong>：找堆着绿色渔网的木箱旁的栈桥，登上蓝白水上飞机，<strong>等 Donnie 上机</strong>再起飞。R2 加速，起飞提示出现时把左摇杆往下压。</li>
+            <li><strong>降落、转场、送 Cal 回家</strong>：先在码头附近水面降落，再沿水面开到 Brian 的码头。过场后开 Jason 的皮卡送 Cal 回家，再回自己家。</li>
+            <li><strong>回家后去邮箱取钱</strong>：门口银色信箱按 Collect 领取任务报酬（记录里 Donnie 和 Brian 分别汇了钱）。</li>
+          </ol>
+          <p class="wt-note">💡 如果 Donnie 在码头死了，重试后会回到木栈桥入口、Donnie 复活，前面的救人和拿 Zombix 进度保留。</p>
+        </div>
+      </details>
+
+      <details class="wt-det">
+        <summary>🎯 手把手：10 回家（Coming Home）· 接 Lucia 出狱</summary>
+        <div class="wt-det-inner">
+          <p class="wt-p">主线剧情节点，去 Hamlet 监狱接 Lucia，然后一起到 Rusty Anchor。去之前建议：①已修好房子（影响关系）；②身上留够现金；③手动存档。跟随粉色标记走即可，注意过场后的驾驶路段别把车撞坏。</p>
+        </div>
+      </details>
+
+      <p class="wt-src">本章任务清单来源：<a href="https://www.polygon.com/gta-6-mission-chapter-list-how-many/" target="_blank" rel="noopener">Polygon</a>、<a href="https://www.gamespot.com/articles/how-long-to-beat-gta-6/" target="_blank" rel="noopener">GameSpot</a>；打法来源：<a href="https://gta6data.com/gta-6-story-walkthrough" target="_blank" rel="noopener">GTA6DATA</a>。核对日期 2026-11-23。</p>
+    </div>
+  </section>
+
+  <!-- ============ 第二章 ============ -->
+  <section class="wt-chapter" id="ch2">
+    <div class="wt-chapter-head">
+      <div class="wt-chapter-badge"><small>CH</small><b>2</b></div>
+      <div class="wt-chapter-info">
+        <h3>第二章 · 失落的天堂</h3>
+        <div class="wt-ch-en">Paradise Lost</div>
+        <div class="wt-ch-meta"><span>📍 Starlet 汽车旅馆 / 城郊</span><span>🎯 <b>13</b> 个任务</span><span>⏱️ 约 6-8 小时</span></div>
+      </div>
+    </div>
+    <div class="wt-chapter-body">
+      <p class="wt-p">这章节奏放缓：两人搬进汽车旅馆，建立自己的小生意和销赃渠道。<strong>关键收获是「Moses」任务后的第一辆私人载具注册，以及「Coffee Break」后解锁双主角自由切换。</strong>去罪恶都市前有个资金门槛，注意攒钱。</p>
+
+      <figure class="wt-figure" data-lightbox data-caption="Starlet 汽车旅馆夜景（PS5 官方实机截图）">
+        <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-port@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-port@768w.webp">
+<img src="../img/games/gta6-shot-port.webp" alt="GTA6 Starlet 汽车旅馆夜景" loading="lazy" decoding="async" data-rsp="1">
+</picture>
+        <figcaption>▲ Starlet 汽车旅馆——第二章两人的落脚点。Rockstar 官方 PS5 实机截图。</figcaption>
+      </figure>
+
+      <h3 class="wt-h3">全章任务清单（13 个）</h3>
+      <table class="wt-missions">
+        <thead><tr><th>#</th><th>任务（中文 / 英文）</th><th>要点</th></tr></thead>
+        <tbody>
+          <tr><td class="wt-mno">01</td><td class="wt-men">包里是什么？/ What's in the Bag?</td><td>读纸条、收集物资、问止痛药。</td></tr>
+          <tr><td class="wt-mno">02</td><td class="wt-men">救护车追逐 / Ambulance Chaser</td><td>开 Street Blazer 追救护车。</td></tr>
+          <tr><td class="wt-mno">03</td><td class="wt-men">刚搬进来 / Just Moved In</td><td>安顿住处。</td></tr>
+          <tr><td class="wt-mno">04</td><td class="wt-men">闺蜜之旅 / Girls' Trip</td><td>10 号房找 Vicki，跟 Delights 和 Dunk 走。</td></tr>
+          <tr><td class="wt-mno">05</td><td class="wt-men">摩西 / Moses</td><td><strong>把车带给摩西，注册第一辆私人载具</strong>（下方手把手）</td></tr>
+          <tr><td class="wt-mno">06</td><td class="wt-men">日常代步 / Daily Driver</td><td>为摩西偷 Crawler 等车。</td></tr>
+          <tr><td class="wt-mno">07</td><td class="wt-men">灌篮 / Slam Dunk</td><td>找止痛药。</td></tr>
+          <tr><td class="wt-mno">08</td><td class="wt-men">早餐跑腿 / Breakfast Run</td><td>查看 Jason 状况。</td></tr>
+          <tr><td class="wt-mno">09</td><td class="wt-men">咖啡时间 / Coffee Break</td><td><strong>完成后解锁双主角自由切换</strong>。</td></tr>
+          <tr><td class="wt-mno">10</td><td class="wt-men">午后欢愉 / Afternoon Delight</td><td>抢 Vicki 老板。</td></tr>
+          <tr><td class="wt-mno">11</td><td class="wt-men">刺激乡巴佬 / Thrillbillies</td><td>比利任务线（部分清单算支线）。</td></tr>
+          <tr><td class="wt-mno">12</td><td class="wt-men">扭腕砸抢 / Twist Wrist, Smash, Grab</td><td>和比利干活（部分清单算支线）。</td></tr>
+          <tr><td class="wt-mno">13</td><td class="wt-men">退房 / Checking Out</td><td>搬去罪恶都市，本章结束。</td></tr>
+        </tbody>
+      </table>
+      <p class="wt-note">📌 各攻略对任务总数口径略有差异：Polygon 记 13 个，GTA6DATA 记 11 个（把比利两条算作支线），GamesRadar 把部分任务标为可选。<strong>按游戏内「剧情回顾」显示为准</strong>。</p>
+
+      <details class="wt-det">
+        <summary>🎯 手把手：05 摩西（Moses）· 注册第一辆私人载具</summary>
+        <div class="wt-det-inner">
+          <ol class="wt-steps">
+            <li><strong>接任务、认识摩西</strong>：他是修车师傅，会发短信给你车辆线索。</li>
+            <li><strong>按线索找车</strong>：如 Canis '82 Crawler（Gellhorn Avenue 车场，记录报酬约 $945）、Declasse Yosemite 1500（Bastion Street，约 $1,850）。</li>
+            <li><strong>偷车前先扫描</strong>：用手机 WAiNK 应用确认<strong>没有追踪器</strong>的车——带追踪器的车难注册也难卖。</li>
+            <li><strong>开去交给摩西</strong>：第一辆注册<strong>免费</strong>，挑一辆你真想长期保留的，别随便交第一辆捡来的车。</li>
+            <li><strong>解锁 Scooter Bros</strong>：之后手机可用该应用叫车/取回被扣车辆，升级高级会员每天有免费次数。</li>
+          </ol>
+        </div>
+      </details>
+
+      <p class="wt-src">来源：<a href="https://www.18183.com/gonglue/202611/9195496.html" target="_blank" rel="noopener">18183 中文全任务流程</a>、<a href="https://gta6data.com/gta-6-story-walkthrough" target="_blank" rel="noopener">GTA6DATA</a>、<a href="https://gl.ali213.net/html/2026-11/1827869.html" target="_blank" rel="noopener">游侠网新手指南</a>。核对日期 2026-11-23。</p>
+    </div>
+  </section>
+
+  <!-- ============ 第三章 ============ -->
+  <section class="wt-chapter" id="ch3">
+    <div class="wt-chapter-head">
+      <div class="wt-chapter-badge"><small>CH</small><b>3</b></div>
+      <div class="wt-chapter-info">
+        <h3>第三章 · 罪恶都市</h3>
+        <div class="wt-ch-en">Tits Ass Drug Money</div>
+        <div class="wt-ch-meta"><span>📍 罪恶都市市中心 / 金融区</span><span>🎯 <b>26</b> 个任务（系列最长章）</span><span>⏱️ 约 14-16 小时</span></div>
+      </div>
+    </div>
+    <div class="wt-chapter-body">
+      <p class="wt-p">正式进入 Vice City，结识 Dre'Quan、Boobie Ike、Raul 等新势力，接触珠宝、车辆、银行等大生意。<strong>这是全游戏最长的一章，核心是「卡特尔劫案（The Cartel Heist）」这条大抢劫线</strong>——前面一堆准备任务都指向它。</p>
+
+      <figure class="wt-figure" data-lightbox data-caption="罪恶都市 VICE 标志（PS5 官方实机截图）">
+        <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-vicecity-1@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-vicecity-1@768w.webp">
+<img src="../img/games/gta6-shot-vicecity-1.webp" alt="GTA6 罪恶都市 VICE 标志与飞机" loading="lazy" decoding="async" data-rsp="1">
+</picture>
+        <figcaption>▲ 进入罪恶都市——第三章的主舞台。Rockstar 官方 PS5 实机截图。</figcaption>
+      </figure>
+
+      <h3 class="wt-h3">全章任务清单（26 个）</h3>
+      <table class="wt-missions">
+        <thead><tr><th>#</th><th>任务（中文 / 英文）</th><th>要点</th></tr></thead>
+        <tbody>
+          <tr><td class="wt-mno">01</td><td class="wt-men">欢迎来到罪恶都市 / Welcome to Vice City</td><td>抵达大城市。</td></tr>
+          <tr><td class="wt-mno">02</td><td class="wt-men">庄家的选择 / Dealer's Choice</td><td>去见 Dre'Quan（仅 Jason）。</td></tr>
+          <tr><td class="wt-mno">03</td><td class="wt-men">可疑来源 / Dubious Provenance</td><td>参观古董店。</td></tr>
+          <tr><td class="wt-mno">04</td><td class="wt-men">妈咪最懂 / Mami Knows Best</td><td>和 Mia 叙旧（仅 Lucia）。</td></tr>
+          <tr><td class="wt-mno">05</td><td class="wt-men">南莱昂尼达房地产 / South Leonida Real Estate</td><td>买房/地产相关（仅 Lucia）。</td></tr>
+          <tr><td class="wt-mno">06</td><td class="wt-men">泰隆 / Tyrone</td><td>和 Tyrone 交谈（仅 Jason）。</td></tr>
+          <tr><td class="wt-mno">07</td><td class="wt-men">来呀小猫咪 / Here, Kitty Kitty</td><td>Tyrone 相关。</td></tr>
+          <tr><td class="wt-mno">08</td><td class="wt-men">猫砂实验室 / Kitty Litter Labs</td><td>（部分清单算支线）</td></tr>
+          <tr><td class="wt-mno">09</td><td class="wt-men">租车服务 / Car Service</td><td>为 Raul 偷车（仅 Lucia）。</td></tr>
+          <tr><td class="wt-mno">10</td><td class="wt-men">头牌 / Top Billing</td><td>看真正的 Dimez。</td></tr>
+          <tr><td class="wt-mno">11</td><td class="wt-men">波比时间 / Boobie Time</td><td>和 Boobie 交谈（仅 Jason）。</td></tr>
+          <tr><td class="wt-mno">12</td><td class="wt-men">第一印象 / First Impressions</td><td>和 Raul 会面。</td></tr>
+          <tr><td class="wt-mno">13</td><td class="wt-men">跨城车流 / Crosstown Traffic</td><td>见 Raul（Lucia）/ 见 Karim（Jason）。</td></tr>
+          <tr><td class="wt-mno">14</td><td class="wt-men">信用审查 / Credit Check</td><td>见 Raul 的团队。</td></tr>
+          <tr><td class="wt-mno">15</td><td class="wt-men">替兰迪偷佐鲁索 / Steal the Zorrusso for Randy</td><td>克隆钥匙、偷跑车。</td></tr>
+          <tr><td class="wt-mno">16</td><td class="wt-men">辛弗龙特拉国家银行 / Sinfrontera National Bank</td><td>勘察银行（劫案准备）。</td></tr>
+          <tr><td class="wt-mno">17</td><td class="wt-men">安保专家 / Security Expert</td><td>劫案准备。</td></tr>
+          <tr><td class="wt-mno">18</td><td class="wt-men">生死与共 / Ride or Die</td><td>见 Dre'Quan（仅 Jason）。</td></tr>
+          <tr><td class="wt-mno">19</td><td class="wt-men">公司财产 / Company Property</td><td>见 Brian。</td></tr>
+          <tr><td class="wt-mno">20</td><td class="wt-men">缺失的一环 / The Missing Link</td><td>见 Andrea（仅 Lucia）。</td></tr>
+          <tr><td class="wt-mno">21</td><td class="wt-men">安全词 / Safe Word</td><td>偷练习用保险箱。</td></tr>
+          <tr><td class="wt-mno">22</td><td class="wt-men">虱子 / Cooties</td><td>拍摄音乐视频。</td></tr>
+          <tr><td class="wt-mno">23</td><td class="wt-men">砖墙 / Bricked Up</td><td>返回公寓。</td></tr>
+          <tr><td class="wt-mno">24</td><td class="wt-men">隐藏费用 / Hidden Charges</td><td>策划室会面、准备炸药。</td></tr>
+          <tr><td class="wt-mno">25</td><td class="wt-men">卡特尔劫案 / The Cartel Heist</td><td><strong>本章高潮大抢劫</strong>（下方手把手）</td></tr>
+        </tbody>
+      </table>
+      <p class="wt-note">📌 部分清单还含「Caught Slipping（被抓现行）」「被抓现行/抢劫策划」等准备步骤，不同网站对是否单列有分歧；GTA6DATA 列 26 个，GamesRadar 列 27 个。<strong>以游戏内显示为准</strong>。</p>
+
+      <details class="wt-det">
+        <summary>🎯 手把手：卡特尔劫案（The Cartel Heist）· 第三章高潮</summary>
+        <div class="wt-det-inner">
+          <ol class="wt-steps">
+            <li><strong>规划室启动</strong>：在 Raul 的策划室看完简报、确认队员分工，跟着基站提示前往银行。<strong>等 Karim 发信号再进</strong>，别提前冲。</li>
+            <li><strong>开下层通道去金库</strong>：先和队友控制大厅，再跟金库小队下楼，完成警报与闸门的操作提示，解决守卫后上到金库门。</li>
+            <li><strong>装炸药、躲掩体</strong>：在标记的金库门安放炸药，然后<strong>退到指定掩体后</strong>再等爆炸（强行站原地会失败）。金库开了记得搜刮存款箱。</li>
+            <li><strong>用 SWAT 卡车+烟雾撤离</strong>：按标记的防暴车和烟雾提示冲出去，到入口处上车。</li>
+            <li><strong>救 Nicole 回车上</strong>：到 Jason 一侧找 Nicole，按提示开 Brigade，跟 Lucia 的掩护目标走，通路打开后把 Jason 和 Nicole 都送上大巴。</li>
+            <li><strong>混入游客脱身</strong>：按治疗和逃离提示行动，下车后<strong>混进旅游团</strong>——前面动静闹得再大，最后也得装成普通游客才走得掉。</li>
+          </ol>
+          <p class="wt-note">💡 这个劫案前置任务多（勘察银行、安保专家、保险箱、准备炸药），建议每完成一个准备就手动存一次档，失败时不用从头再来。</p>
+        </div>
+      </details>
+
+      <p class="wt-src">来源：<a href="https://www.18183.com/gonglue/202611/9195496.html" target="_blank" rel="noopener">18183 中文全任务流程</a>、<a href="https://gta6data.com/gta-6-the-cartel-heist-walkthrough/" target="_blank" rel="noopener">GTA6DATA 卡特尔劫案打法</a>、<a href="https://www.polygon.com/gta-6-mission-chapter-list-how-many/" target="_blank" rel="noopener">Polygon 任务清单</a>。</p>
+    </div>
+  </section>
+
+  <!-- ============ 第四章 ============ -->
+  <section class="wt-chapter" id="ch4">
+    <div class="wt-chapter-head">
+      <div class="wt-chapter-badge"><small>CH</small><b>4</b></div>
+      <div class="wt-chapter-info">
+        <h3>第四章 · 罪恶都市，宝贝</h3>
+        <div class="wt-ch-en">Vice City, Baby</div>
+        <div class="wt-ch-meta"><span>📍 海洋海滩 / 海滨豪宅 / 国际机场</span><span>🎯 <b>25</b> 个任务</span><span>⏱️ 约 15-18 小时</span></div>
+      </div>
+    </div>
+    <div class="wt-chapter-body">
+      <p class="wt-p">势力做大后的高端局：企业间谍、联邦监视、海运截击，直至 <strong>VCIA 突袭</strong>。这章和第三章几乎一样长，任务间的准备链更长，<strong>存档尤其重要</strong>。</p>
+
+      <figure class="wt-figure" data-lightbox data-caption="罪恶都市城市俯瞰（PS5 官方实机截图）">
+        <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-vicecity-2@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-vicecity-2@768w.webp">
+<img src="../img/games/gta6-shot-vicecity-2.webp" alt="GTA6 罪恶都市城市俯瞰" loading="lazy" decoding="async" data-rsp="1">
+</picture>
+        <figcaption>▲ 罪恶都市全景——第四章的主要活动范围。Rockstar 官方 PS5 实机截图。</figcaption>
+      </figure>
+
+      <h3 class="wt-h3">全章任务清单（25 个）</h3>
+      <table class="wt-missions">
+        <thead><tr><th>#</th><th>任务（中文 / 英文）</th><th>要点</th></tr></thead>
+        <tbody>
+          <tr><td class="wt-mno">01</td><td class="wt-men">海洋海滩 / Ocean Beach</td><td>新阶段开场。</td></tr>
+          <tr><td class="wt-mno">02</td><td class="wt-men">另一种生活 / Another Life</td><td>生活/关系推进。</td></tr>
+          <tr><td class="wt-mno">03</td><td class="wt-men">泳池日 / Pool Day</td><td>剧情推进任务。</td></tr>
+          <tr><td class="wt-mno">04</td><td class="wt-men">公司用车 / Company Cars</td><td>和礼宾员交谈。</td></tr>
+          <tr><td class="wt-mno">05</td><td class="wt-men">请律师 / Lawyer Up</td><td>见 Abe Gonzalez。</td></tr>
+          <tr><td class="wt-mno">06</td><td class="wt-men">派对狂欢 / Party Hard</td><td>做私人安保。</td></tr>
+          <tr><td class="wt-mno">07</td><td class="wt-men">重物搬运 / Heavy Lifting</td><td>体力活任务。</td></tr>
+          <tr><td class="wt-mno">08</td><td class="wt-men">拍照/射击 / Photo/Shoot</td><td>拍宣传照。</td></tr>
+          <tr><td class="wt-mno">09</td><td class="wt-men">增肌 / Making Gainz</td><td>见 Raul / 训练计划。</td></tr>
+          <tr><td class="wt-mno">10</td><td class="wt-men">小心点 / Watch It</td><td>监视相关。</td></tr>
+          <tr><td class="wt-mno">11</td><td class="wt-men">现金注入 / Cash Injections</td><td>资金运作。</td></tr>
+          <tr><td class="wt-mno">12</td><td class="wt-men">业余时间 / Amateur Hour</td><td>剧情推进。</td></tr>
+          <tr><td class="wt-mno">13</td><td class="wt-men">脏活 / Dirty Work</td><td>清理类任务。</td></tr>
+          <tr><td class="wt-mno">14</td><td class="wt-men">行李太多 / Too Much Baggage</td><td>机场相关（有专门攻略）。</td></tr>
+          <tr><td class="wt-mno">15</td><td class="wt-men">保姆历险记 / Adventures in Babysitting</td><td>护送类任务。</td></tr>
+          <tr><td class="wt-mno">16</td><td class="wt-men">新证据 / Fresh Evidence</td><td>情报收集。</td></tr>
+          <tr><td class="wt-mno">17</td><td class="wt-men">权力游戏 / Power Play</td><td>势力博弈。</td></tr>
+          <tr><td class="wt-mno">18</td><td class="wt-men">儿戏 / Child's Play</td><td>剧情推进。</td></tr>
+          <tr><td class="wt-mno">19</td><td class="wt-men">头条人物 / Headliners</td><td>媒体相关。</td></tr>
+          <tr><td class="wt-mno">20</td><td class="wt-men">近距离监视 / Close Surveillance</td><td>跟踪监视。</td></tr>
+          <tr><td class="wt-mno">21</td><td class="wt-men">交付方式 / Delivery Method</td><td>TSS 渗透。</td></tr>
+          <tr><td class="wt-mno">22</td><td class="wt-men">团队建设 / Team Building</td><td>队友相关。</td></tr>
+          <tr><td class="wt-mno">23</td><td class="wt-men">全包餐饮 / Fully Catered</td><td>准备任务。</td></tr>
+          <tr><td class="wt-mno">24</td><td class="wt-men">VCIA 突袭 / VCIA Takedown</td><td><strong>本章高潮</strong>。</td></tr>
+          <tr><td class="wt-mno">25</td><td class="wt-men">日落 / Sunset</td><td>收尾。</td></tr>
+          <tr><td class="wt-mno">26</td><td class="wt-men">从零开始 / Starting From Zero</td><td>通向第五章。</td></tr>
+        </tbody>
+      </table>
+      <p class="wt-note">📌 部分清单把 VCIA 线前后的短任务（如 Rafa 绑架、联系 Nate、结账等）单列，任务数会有出入。<strong>「Starting From Zero」结束后进入最终章，务必提前存档</strong>。</p>
+
+      <p class="wt-src">来源：<a href="https://www.18183.com/gonglue/202611/9195496.html" target="_blank" rel="noopener">18183 中文全任务流程</a>、<a href="https://gta6data.com/gta-6-story-walkthrough" target="_blank" rel="noopener">GTA6DATA</a>。核对日期 2026-11-23。</p>
+    </div>
+  </section>
+
+  <!-- ============ 第五章 ============ -->
+  <section class="wt-chapter" id="ch5">
+    <div class="wt-chapter-head">
+      <div class="wt-chapter-badge"><small>CH</small><b>5</b></div>
+      <div class="wt-chapter-info">
+        <h3>第五章 · 世界之巅，妈</h3>
+        <div class="wt-ch-en">Top of the World, Ma</div>
+        <div class="wt-ch-meta"><span>📍 全州 / 近海</span><span>🎯 <b>7</b> 个任务（最短章）</span><span>⏱️ 约 5-7 小时</span></div>
+      </div>
+    </div>
+    <div class="wt-chapter-body">
+      <p class="wt-p">最终章：所有恩怨收束，背叛、全州追捕、高潮结局。<strong>任务数最少但分量最重</strong>。最后的抉择决定 Jason 和 Lucia 的命运——多种结局的触发条件见游戏介绍页的「全结局解析」。</p>
+
+      <h3 class="wt-h3">全章任务清单（7 个）</h3>
+      <table class="wt-missions">
+        <thead><tr><th>#</th><th>任务（中文 / 英文）</th><th>要点</th></tr></thead>
+        <tbody>
+          <tr><td class="wt-mno">01</td><td class="wt-men">手中之鸟 / Bird in the Hand</td><td>终章开场。</td></tr>
+          <tr><td class="wt-mno">02</td><td class="wt-men">夺回自由 / Taking Liberties</td><td>剧情推进。</td></tr>
+          <tr><td class="wt-mno">03</td><td class="wt-men">罪恶宝贝 / VC Baby</td><td>剧情推进。</td></tr>
+          <tr><td class="wt-mno">04</td><td class="wt-men">打包带走 / Doggie Bag</td><td>剧情推进。</td></tr>
+          <tr><td class="wt-mno">05</td><td class="wt-men">野蛮荣耀行动 / Operation Savage Glory</td><td>大型行动。</td></tr>
+          <tr><td class="wt-mno">06</td><td class="wt-men">保护性监禁 / Protective Custody</td><td>终章前的收尾任务。</td></tr>
+          <tr><td class="wt-mno">07</td><td class="wt-men">路的尽头 / The End of the Road</td><td><strong>最终任务·多结局分歧</strong>（下方手把手）</td></tr>
+        </tbody>
+      </table>
+
+      <details class="wt-det">
+        <summary>🎯 手把手：路的尽头（The End of the Road）· 最终任务</summary>
+        <div class="wt-det-inner">
+          <ol class="wt-steps">
+            <li><strong>码头准备</strong>：在 Brian's Marina 打开装备提示，离开区域，坐标记的直升机前往大楼。</li>
+            <li><strong>攻顶层公寓、下载文件</strong>：走屋顶和室内路线，<strong>等<code>“Download Complete”</code>再换目标</strong>，别中途离开终端。</li>
+            <li><strong>取回原始硬盘</strong>：回到标记的 Giorgio 办公室。<code>“复制文件”</code>和<code>“拿原始硬盘”</code>是<strong>两个独立目标</strong>，别漏。</li>
+            <li><strong>找到并解救 Lucia</strong>：跟救援标记走、解除束缚。失败重试时会从车库上层、目标<code>“Get to Lucia”</code>处继续。</li>
+            <li><strong>一起找出口、甩掉直升机</strong>：跟标记撤离，按开车路线穿过直升机追击，再走电梯和海岸公路段。</li>
+            <li><strong>前往机场、进入大桥段落</strong>：跟标记到机场，然后是大桥封锁路段。<strong>这里是结局分歧点</strong>——门德斯交易、屋顶选择、大桥上「Swim for It / No Surrender」的不同选项，导向不同结局。</li>
+          </ol>
+          <p class="wt-warn"><strong>💡 想集齐多结局？</strong>进最终任务前一定手动存档。通关后游戏会把你带回终章任务之前，Jason 和 Lucia 在自由模式可用，终章任务留在地图上可反复尝试。想改犯罪档案或好感度，得读更早的存档重玩。各结局的完整触发条件见 <a class="wt-quote" href="gta6.html">GTA6 游戏介绍页 · 全结局解析 →</a></p>
+        </div>
+      </details>
+
+      <p class="wt-src">来源：<a href="https://gta6data.com/gta-6-the-end-of-the-road-walkthrough/" target="_blank" rel="noopener">GTA6DATA 终章打法</a>、<a href="https://www.polygon.com/gta-6-mission-chapter-list-how-many/" target="_blank" rel="noopener">Polygon 任务清单</a>。核对日期 2026-11-23。</p>
+    </div>
+  </section>
+
+  <hr class="wt-divider">
+
+  <h2 class="wt-h2" id="saves"><span class="wt-h2num">08</span>存档避坑与通关后</h2>
+
+  <div class="wt-card">
+    <h4>🗂️ 必须手动存档的 5 个节点</h4>
+    <ul class="wt-steps" style="list-style:none">
+      <li><strong>序章结束后</strong>：第一次到 Jason 家，存一份基础档。</li>
+      <li><strong>第一章「Tourist Trap」开始前</strong>：三连任务锁死，存了才能回头补支线。</li>
+      <li><strong>每章开头</strong>：15 个手动位，够你每章留一份。</li>
+      <li><strong>大型抢劫/终章任务前</strong>：卡特尔劫案、VCIA 突袭、路的尽头——失败重来很费时。</li>
+      <li><strong>关键抉择前</strong>：想体验多结局，就在分歧点前分开存。</li>
+    </ul>
+  </div>
+
+  <div class="wt-card">
+    <h4>🏁 通关之后</h4>
+    <p class="wt-p">打完主线不会强制结束：游戏把你带回终章之前，两人留在自由模式，终章任务仍在地图上可重玩以尝试其他结局。通关还会<strong>解锁作弊菜单和 100% 完成清单</strong>。想补齐支线、抢劫机会、陌生人怪咖任务，这之后有的是时间——100% 通关整体要 200 小时以上。</p>
+  </div>
+
+  <div class="wt-figure" style="margin-top:18px">
+    <picture>
+<source media="(max-width:600px)" srcset="../img/games/gta6-shot-vicecity-1@480w.webp">
+<source media="(max-width:1000px)" srcset="../img/games/gta6-shot-vicecity-1@768w.webp">
+<img src="../img/games/gta6-shot-vicecity-1.webp" alt="GTA6 罪恶都市 VICE 标志" loading="lazy" decoding="async" data-rsp="1">
+</picture>
+    <figcaption>▲ Rockstar 官方 PS5 实机截图，版权归原权利方所有。本攻略图片均为官方公开素材，无 AI 生成图。</figcaption>
+  </div>
+
+  <div class="wt-src" style="border-top:1px solid var(--gb);padding-top:18px">
+    <strong>资料来源与说明</strong>：本攻略任务清单与打法综合自 <a href="https://www.polygon.com/gta-6-mission-chapter-list-how-many/" target="_blank" rel="noopener">Polygon</a>、<a href="https://www.gamespot.com/articles/how-long-to-beat-gta-6/" target="_blank" rel="noopener">GameSpot</a>、<a href="https://www.gamesradar.com/games/grand-theft-auto/gta-6-mission-list/" target="_blank" rel="noopener">GamesRadar</a>、<a href="https://gta6data.com/gta-6-story-walkthrough" target="_blank" rel="noopener">GTA6DATA</a>、<a href="https://www.18183.com/gonglue/202611/9195496.html" target="_blank" rel="noopener">18183</a>、<a href="https://gl.ali213.net/html/2026-11/1827869.html" target="_blank" rel="noopener">游侠网</a> 等公开攻略，多源交叉核对，整理于 2026-11-23。<br>
+    各站对任务总数、部分任务是否算主线存在口径差异（总数 91-95 不等），本站采用主流的 <strong>93 个 / 5 章</strong>口径。<strong>本攻略为玩家整理、非 Rockstar 官方内容</strong>，游戏版本更新后细节可能变化，<strong>以游戏内实际表现为准</strong>。图片为 Rockstar 官方公开实机截图，版权归原权利方所有。
+  </div>
+
+  <a class="wt-back" href="gta6.html" style="margin-top:24px">← 返回 GTA6 游戏介绍与全结局解析</a>
+
+</div><!-- wt-wrap:end -->
+
+<!-- game:end -->
+  <div class="page-meta">
+    <p class="ref-note">本站内容为个人整理与实测记录，仅供参考；涉及外部数据以正文标注的来源为准。</p>
+    <div class="update-time">最后更新：2026-11-23</div>
+  </div>
+<!-- related:begin -->
+<section class="lx-related" aria-label="相关阅读">
+  <div class="lx-related-head">
+    <span class="lx-related-kicker">继续读</span>
+    <h2 class="lx-related-title">相关阅读</h2>
+    <span class="lx-rule1"></span>
+  </div>
+  <ul class="lx-related-list">
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../games/silent-hill-townfall.html">
+        <span class="lx-related-board">玩过的游戏</span>
+        <span class="lx-related-name">寂静岭：Townfall</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../games/phantom-blade-zero.html">
+        <span class="lx-related-board">玩过的游戏</span>
+        <span class="lx-related-name">影之刃：零</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../games/monster-hunter-wilds.html">
+        <span class="lx-related-board">玩过的游戏</span>
+        <span class="lx-related-name">怪物猎人荒野</span>
+      </a>
+    </li>
+    <li class="lx-related-item">
+      <a class="lx-related-link" href="../games/god-of-war-laufey.html">
+        <span class="lx-related-board">玩过的游戏</span>
+        <span class="lx-related-name">战神：劳菲</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- related:end -->
+<footer role="contentinfo">
+  <div class="footer-brand-row">
+    <svg class="lx-seal lx-seal-xs" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="7" fill="none" stroke="currentColor" stroke-width="8"/><text class="lx-brush" x="50" y="53" font-size="50" fill="currentColor" text-anchor="middle" dominant-baseline="middle">龙</text></svg>
+    龙兄知识库 <span class="evolved">· 这个网站是活的</span>
+  </div>
+  <div class="footer-info-row">
+    © 2026 龙兄知识库 <span class="sep">·</span> 专注实用科普与生活百科
+  </div>
+  <div class="footer-license-row">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 许可
+    <span class="sep">·</span> 代码版权所有
+  </div>
+  <div class="footer-stats-row">
+    <span class="footer-stat">访问 <strong id="busuanzi_value_site_pv">-</strong> 次</span>
+    <span class="footer-stat">访客 <strong id="busuanzi_value_site_uv">-</strong> 人</span>
+  </div>
+  <div class="footer-links-row">
+    <a href="../about.html">关于本站 / 免责声明</a> <span class="sep">·</span> <a href="../categories/">全部栏目</a> <span class="sep">·</span> <a href="../notes.html">站长手记</a> <span class="sep">·</span> <a href="../tags.html">标签聚合</a> <span class="sep">·</span> <a href="../rss.xml">RSS 订阅</a> <span class="sep">·</span> <a href="../privacy.html">隐私政策</a>
+  </div>
+  <div class="footer-legal">
+    如发现内容涉及侵权，请联系 <a class="obf-email" data-obf-user="799958000" data-obf-domain="qq.com">[email protected]</a>，我们会在核实后尽快处理。
+  </div>
+</footer>
+
+<script>
+(function(){var e=document.getElementById('navClock');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});setInterval(function(){var e=document.getElementById('navClock');if(e)e.textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})},1000)})();;
+</script>
+<script defer src="../js/search.js?v=h8e3c278c6a14" integrity="sha384-9nFuQ4ypOvQu/p2F05VqsadrsNK33Ucl4gyDJEiLPMLrYMWvLEmuFuZ02oiFkZGH" crossorigin="anonymous"></script>
+<script defer src="../js/share.js?v=h3396eb1dab42" integrity="sha384-XBEU8suxDx9r+wVHYjSd0v/ZMd07Q6hRj+e6RnwQV5GI9xOxiOHmkVF+ZyhnyFjD" crossorigin="anonymous"></script>
+<script src="/js/lightbox.js" defer integrity="sha384-DlGyYHKQuEPZEUy959jeAoF7T7rckIC+NSzT9Kwwa/jRHWKsSGDELVR/et8A5wjS" crossorigin="anonymous"></script>
+<script defer src="../js/app.js?v=h82ca3f57d65f" integrity="sha384-hBQUlS8xR0ZelK6nI45N0t0I2qXzjy3SH/72msRZeLgtrn439QR3h/DTtEFb3FWO" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "龙兄知识库",
+      "url": "https://longxiong.vip",
+      "description": "AI · 文玩 · 游戏 · 养生 · 新能源 — 做一个有温度的知识站点"
+    },
+    {
+      "@type": "Article",
+      "author": { "@type": "Person", "name": "龙兄" },
+      "headline": "GTA6 全流程攻略 | 93个主线任务逐章通关指引｜龙兄知识库",
+      "url": "https://longxiong.vip/games/gta6-walkthrough.html",
+      "description": "GTA6全流程图文攻略：93主线任务逐章指引，官方真实截图，玩家整理非官方。"
+    }
+  ]
+}
+</script>
+<script src="../js/bookmark.js?v=h3bd5ed989b95" defer integrity="sha384-QQxQIBkjPZCWeJzw3AwFeVaHgSY7rY/bMhc6zHZ9vwk1ngeE8eID4m6ncTS56luu" crossorigin="anonymous"></script>
+<script defer src="/js/obfuscate-email.js?v=h29dca9713d8d" integrity="sha384-dGFwDRdmrYrbe+bkuSLRzxiEq+YaMLvWCmLhnL+2Te+MgGB4VJJSIUJetnzQ0lOG" crossorigin="anonymous"></script>
+
+<!-- 滚动出场 + 站点更新时刻（纯前端，无后端；脚本失效时内容默认全部可见） -->
+<script src="../js/page-reveal.js?v=hec6f9ce23a19" defer integrity="sha384-vV14SV5RCiYQ4FW6Jze6Ezeg1eml6n2CgxQIiXoiFteKLBL190J6vtPYHw+KNJQP" crossorigin="anonymous"></script>
+<script src="../js/site-live.js?v=h4e5156bbd8e2" defer integrity="sha384-L3WkNXnh9On65r6guRZwn87kxMTjTqJZH6sodviAkjtMC/FkPbofiE5eabTcgAGF" crossorigin="anonymous"></script>
+</body>
+</html>

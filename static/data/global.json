@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "note": "有原话的条目为英文原句 + 中文翻译的短句引用，其余为中文摘要；均注明出处，观点归原作者。",
   "people": [
     {
@@ -16,6 +16,46 @@
     }
   ],
   "items": [
+    {
+      "date": "2026-11-28",
+      "who": "musk",
+      "title": "彭博：SpaceX有意收购Anterix的900MHz频谱，为星链手机直连补齐低频资源；尚未成单",
+      "summary": "据彭博社当地时间11月27日报道，马斯克旗下SpaceX为扩张卫星直连终端（D2D）业务、搭建可与AT&T、Verizon、T-Mobile竞争的地面移动通信网络，正关注美国900兆赫频段最大持牌方Anterix的频谱资产。Anterix正考虑把剩余牌照打包出售给单一买家：目前仅约15%频谱租给公用事业客户，约85%仍可供交易；企业发展负责人Chris Guttman-McCabe未点名买家，只称「该谈的各方都在谈」，并称若找到合适买家剩余频谱价值有望达目前三倍（企业高管说法）。CEO Scott Lang称自2025年8月以来买家为频谱及相关资产承诺投入近700亿美元，涉及SpaceX、亚马逊、AT&T。900MHz传播距离远、穿透建筑物能力强，适合卫星直连；SpaceX曾于8月致函FCC建议允许该频段持牌方以D2D满足覆盖要求，Anterix公开支持，FCC于10月29日提出把900MHz纳入卫星补充覆盖（SCS）规则的提案，仍在审议。SpaceX同时关注另一持牌方NextNav的频谱，并已请求FCC将其纳入D2D规则讨论；FCC是否放行、是否成交均无定论。Anterix股价27日盘中涨近10%、年内涨超280%，属市场反应不另计。",
+      "sources": [
+        {
+          "name": "彭博社",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-27/anterix-could-be-spacex-s-next-deal-for-mobile-network-access"
+        },
+        {
+          "name": "财联社/腾讯新闻",
+          "url": "https://news.qq.com/rain/a/20261128A01XRJ00"
+        },
+        {
+          "name": "IT之家/腾讯新闻",
+          "url": "https://news.qq.com/rain/a/20261128A04PRC00"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-28",
+      "who": "musk",
+      "title": "德国反垄断清单披露特斯拉申报收购EMAG资产，指向Optimus精密零件量产；仍在审查",
+      "summary": "德国联邦卡特尔局11月27日公开的并购审查清单显示，特斯拉已于11月23日申报收购德国机床制造商EMAG集团部分资产，案号B5-132/26，按资产收购处理，范围为精密金属零件制造系统（含电化学加工与激光加工设备）。路透社当日报道，EMAG总部位于斯图加特附近萨拉赫，其设备可用于加工人形机器人关节、手指所需的精密齿轮与驱动部件；交易金额与资产范围均未披露，特斯拉拒绝置评，EMAG未即时回复。德国媒体此前发现一家名为「Tesla Machining Technologies Management SE」的公司登记营业地址与EMAG总部相同，地方媒体称约220名员工可能转入特斯拉，但均未获双方证实。特斯拉第三季度资料显示弗里蒙特厂已下线首批量产级Optimus、得州更大工厂在建；马斯克称未来数周可能展示升级版Optimus，但未确定日期。该案仍处第一阶段审查、尚未获批也未交割，EMAG设备是否用于Optimus无官方确认。",
+      "sources": [
+        {
+          "name": "路透社",
+          "url": "https://www.reuters.com/world/tesla-plans-acquire-german-manufacturing-systems-group-emag-2026-11-27"
+        },
+        {
+          "name": "腾讯新闻/鞭牛士",
+          "url": "https://news.qq.com/rain/a/20261127A0HTL600"
+        },
+        {
+          "name": "优分析UAnalyze",
+          "url": "https://uanalyze.com.tw/articles/1041261640"
+        }
+      ]
+    },
     {
       "date": "2026-11-27",
       "who": "musk",
@@ -292,6 +332,26 @@
         {
           "name": "Starlink News",
           "url": "https://starlink-news.com/2026/11/23/musk-eyes-built-in-starlink-for-more-teslas-by-late-2027"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-23",
+      "who": "huang",
+      "title": "英伟达与脑机接口公司Paradromics达成技术合作，将Holoscan与边缘算力接入言语重建",
+      "summary": "当地时间11月23日，美国脑机接口公司Paradromics宣布与英伟达达成技术合作协议，将英伟达Holoscan平台与边缘计算（Jetson）整合进其BCI开发体系，研发下一代脑机接口所需的高性能AI算力基础设施。合作先聚焦沟通与言语重建，技术路线含「神经信号直接转语音」及「脑信号→文本→语音」多阶段方案（结合神经解码、大语言模型与语音合成）；官方稿给出的目标时延为直接脑到语音低于10毫秒、多阶段链路低于100毫秒，并支持解码模型在线微调。年内先把语音解码与合成管线移植到Holoscan、开展功耗优化并部署给APEX研究伙伴，2027年扩展至高自由度运动控制与视觉-语言-动作模型。Paradromics说明其Connexus植入体仍在FDA批准的Connect-One早期可行性研究中，属研究用设备、未获上市批准；英伟达医疗与生命科学全球业务发展高级总监David Niewolny称双方用Holoscan与Jetson把神经解码和语音生成实时结合，推动BCI走向日常使用（官方表态）。本条为7天窗口内漏检补录，事件日11月23日。",
+      "sources": [
+        {
+          "name": "Paradromics官方新闻稿",
+          "url": "https://paradromics.com/news/paradromics-advances-high-performance-ai-computing-for-brain-computer-interfaces-with-nvidia"
+        },
+        {
+          "name": "央视财经/腾讯新闻",
+          "url": "https://news.qq.com/rain/a/20261124A0A9AU00"
+        },
+        {
+          "name": "新浪财经/央视财经",
+          "url": "https://k.sina.cn/article_1893892941_70e2834d0200259py.html"
         }
       ]
     },
